@@ -1,30 +1,5 @@
-## Java
-
-*.class
-*.war
-*.ear
-hs_err_pid*
-
-## Robovm
-/ios/robovm-build/
-
-## GWT
-/html/war/
-/html/gwt-unitCache/
-.apt_generated/
-.gwt/
-gwt-unitCache/
-www-test/
-.gwt-tmp/
-
-## Android Studio and Intellij and Android in general
-/android/libs/armeabi/
-/android/libs/armeabi-v7a/
-/android/libs/arm64-v8a/
-/android/libs/x86/
-/android/libs/x86_64/
-/android/gen/
 .idea/
+libgdx_sokoban/.idea/
 *.ipr
 *.iws
 *.iml
