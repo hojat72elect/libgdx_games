@@ -21,199 +21,187 @@ import com.nopalsoft.sokoban.screens.MainMenuScreen;
 import com.nopalsoft.sokoban.screens.Screens;
 
 public class GameScreen extends Screens {
-	static final int STATE_RUNNING = 0;
-	static final int STATE_PAUSED = 1;
-	static final int STATE_GAME_OVER = 2;
-	public int state;
+    static final int STATE_RUNNING = 0;
+    static final int STATE_PAUSED = 1;
+    static final int STATE_GAME_OVER = 2;
+    public int state;
+    public int level;
+    TableroRenderer renderer;
+    Tablero oTablero;
+    ControlesNoPad oControl;
+    Button btUndo;
+    Button btPausa;
+    ContadorBar barTime;
+    ContadorBar barMoves;
+    VentanaPause vtPause;
+    private final Stage stageGame;
 
-	TableroRenderer renderer;
-	Tablero oTablero;
+    public GameScreen(final MainSokoban game, int level) {
+        super(game);
+        this.level = level;
 
-	ControlesNoPad oControl;
-	Button btUndo;
-	Button btPausa;
+        stageGame = new Stage(new StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT));
+        oTablero = new Tablero();
 
-	ContadorBar barTime;
-	ContadorBar barMoves;
+        renderer = new TableroRenderer(batcher);
 
-	private Stage stageGame;
+        oControl = new ControlesNoPad(this);
 
-	VentanaPause vtPause;
+        barTime = new ContadorBar(Assets.backgroundTime, 5, 430);
+        barMoves = new ContadorBar(Assets.backgroundMoves, 5, 380);
 
-	public int level;
+        vtPause = new VentanaPause(this);
 
-	public GameScreen(final MainSokoban game, int level) {
-		super(game);
-		this.level = level;
+        Label lbNivel = new Label("Level " + (level + 1), new LabelStyle(Assets.fontRed, Color.WHITE));
+        lbNivel.setWidth(barTime.getWidth());
+        lbNivel.setPosition(5, 330);
+        lbNivel.setAlignment(Align.center);
 
-		stageGame = new Stage(new StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT));
-		oTablero = new Tablero();
+        btUndo = new Button(Assets.btRefresh, Assets.btRefreshPress);
+        btUndo.setSize(80, 80);
+        btUndo.setPosition(700, 20);
+        btUndo.getColor().a = oControl.getColor().a;// Que tengan el mismo color de alpha
+        btUndo.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                oTablero.undo = true;
+            }
+        });
 
-		renderer = new TableroRenderer(batcher);
+        btPausa = new Button(Assets.btPausa, Assets.btPausaPress);
+        btPausa.setSize(60, 60);
+        btPausa.setPosition(730, 410);
+        // btPausa.getColor().a = oControl.getColor().a;// Que tengan el mismo color de alpha
+        btPausa.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                setPause();
+            }
 
-		oControl = new ControlesNoPad(this);
+        });
 
-		barTime = new ContadorBar(Assets.backgroundTime, 5, 430);
-		barMoves = new ContadorBar(Assets.backgroundMoves, 5, 380);
+        stageGame.addActor(oTablero);
+        stageGame.addActor(barTime);
+        stageGame.addActor(barMoves);
+        stage.addActor(lbNivel);
+        stage.addActor(oControl);
+        stage.addActor(btUndo);
+        stage.addActor(btPausa);
 
-		vtPause = new VentanaPause(this);
+        setRunning();
+    }
 
-		Label lbNivel = new Label("Level " + (level + 1), new LabelStyle(Assets.fontRed, Color.WHITE));
-		lbNivel.setWidth(barTime.getWidth());
-		lbNivel.setPosition(5, 330);
-		lbNivel.setAlignment(Align.center);
+    @Override
+    public void draw(float delta) {
+        Assets.background.render(delta);
 
-		btUndo = new Button(Assets.btRefresh, Assets.btRefreshPress);
-		btUndo.setSize(80, 80);
-		btUndo.setPosition(700, 20);
-		btUndo.getColor().a = oControl.getColor().a;// Que tengan el mismo color de alpha
-		btUndo.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				oTablero.undo = true;
-			}
-		});
+        // Render el tileMap
+        renderer.render(delta);
 
-		btPausa = new Button(Assets.btPausa, Assets.btPausaPress);
-		btPausa.setSize(60, 60);
-		btPausa.setPosition(730, 410);
-		// btPausa.getColor().a = oControl.getColor().a;// Que tengan el mismo color de alpha
-		btPausa.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				setPause();
-			}
+        // Render el tablero
+        stageGame.draw();
 
-		});
+    }
 
-		stageGame.addActor(oTablero);
-		stageGame.addActor(barTime);
-		stageGame.addActor(barMoves);
-		stage.addActor(lbNivel);
-		stage.addActor(oControl);
-		stage.addActor(btUndo);
-		stage.addActor(btPausa);
+    @Override
+    public void update(float delta) {
 
-		setRunning();
-	}
+        if (state != STATE_PAUSED) {
+            stageGame.act(delta);
+            barMoves.updateActualNum(oTablero.moves);
+            barTime.updateActualNum((int) oTablero.time);
 
-	@Override
-	public void draw(float delta) {
-		Assets.background.render(delta);
+            if (state == STATE_RUNNING && oTablero.state == Tablero.STATE_GAMEOVER) {
+                setGameover();
+            }
+        }
 
-		// Render el tileMap
-		renderer.render(delta);
+    }
 
-		// Render el tablero
-		stageGame.draw();
+    private void setGameover() {
+        state = STATE_GAME_OVER;
+        Settings.levelCompeted(level, oTablero.moves, (int) oTablero.time);
+        stage.addAction(Actions.sequence(Actions.delay(.35f), Actions.run(new Runnable() {
+            @Override
+            public void run() {
+                level += 1;
+                if (level >= Settings.NUM_MAPS)
+                    changeScreenWithFadeOut(MainMenuScreen.class, game);
+                else
+                    changeScreenWithFadeOut(GameScreen.class, level, game);
 
-	}
+            }
+        })));
+    }
 
-	@Override
-	public void update(float delta) {
+    public void setRunning() {
+        if (state != STATE_GAME_OVER) {
+            state = STATE_RUNNING;
+        }
+    }
 
-		if (state != STATE_PAUSED) {
-			stageGame.act(delta);
-			barMoves.updateActualNum(oTablero.moves);
-			barTime.updateActualNum((int) oTablero.time);
+    private void setPause() {
+        if (state == STATE_RUNNING) {
+            state = STATE_PAUSED;
+            vtPause.show(stage);
+        }
+    }
 
-			if (state == STATE_RUNNING && oTablero.state == Tablero.STATE_GAMEOVER) {
-				setGameover();
-			}
-		}
+    @Override
+    public void up() {
+        oTablero.moveUp = true;
+        super.up();
+    }
 
-	}
+    @Override
+    public void down() {
+        oTablero.moveDown = true;
+        super.down();
+    }
 
-	private void setGameover() {
-		state = STATE_GAME_OVER;
-		Settings.levelCompeted(level, oTablero.moves, (int) oTablero.time);
-		stage.addAction(Actions.sequence(Actions.delay(.35f), Actions.run(new Runnable() {
-			@Override
-			public void run() {
-				level += 1;
-				if (level >= Settings.NUM_MAPS)
-					changeScreenWithFadeOut(MainMenuScreen.class, game);
-				else
-					changeScreenWithFadeOut(GameScreen.class, level, game);
+    @Override
+    public void right() {
+        oTablero.moveRight = true;
+        super.right();
+    }
 
-			}
-		})));
-	}
+    @Override
+    public void left() {
+        oTablero.moveLeft = true;
+        super.left();
+    }
 
-	public void setRunning() {
-		if (state != STATE_GAME_OVER) {
-			state = STATE_RUNNING;
-		}
-	}
+    @Override
+    public boolean keyDown(int keycode) {
+        if (state == STATE_RUNNING) {
+            if (keycode == Keys.LEFT || keycode == Keys.A) {
+                oTablero.moveLeft = true;
 
-	private void setPause() {
-		if (state == STATE_RUNNING) {
-			state = STATE_PAUSED;
-			vtPause.show(stage);
-		}
-	}
+            } else if (keycode == Keys.RIGHT || keycode == Keys.D) {
+                oTablero.moveRight = true;
 
-	@Override
-	public void up() {
-		oTablero.moveUp = true;
-		super.up();
-	}
+            } else if (keycode == Keys.UP || keycode == Keys.W) {
+                oTablero.moveUp = true;
 
-	@Override
-	public void down() {
-		oTablero.moveDown = true;
-		super.down();
-	}
+            } else if (keycode == Keys.DOWN || keycode == Keys.S) {
+                oTablero.moveDown = true;
 
-	@Override
-	public void right() {
-		oTablero.moveRight = true;
-		super.right();
-	}
+            } else if (keycode == Keys.Z) {
+                oTablero.undo = true;
 
-	@Override
-	public void left() {
-		oTablero.moveLeft = true;
-		super.left();
-	}
+            } else if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
+                setPause();
+            }
+        } else if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
+            if (vtPause.isShown())
+                vtPause.hide();
+        }
 
-	@Override
-	public boolean keyDown(int keycode) {
-		if (state == STATE_RUNNING) {
-			if (keycode == Keys.LEFT || keycode == Keys.A) {
-				oTablero.moveLeft = true;
+        return true;
+    }
 
-			}
-			else if (keycode == Keys.RIGHT || keycode == Keys.D) {
-				oTablero.moveRight = true;
+    @Override
+    public void pinchStop() {
 
-			}
-			else if (keycode == Keys.UP || keycode == Keys.W) {
-				oTablero.moveUp = true;
-
-			}
-			else if (keycode == Keys.DOWN || keycode == Keys.S) {
-				oTablero.moveDown = true;
-
-			}
-			else if (keycode == Keys.Z) {
-				oTablero.undo = true;
-
-			}
-			else if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
-				setPause();
-			}
-		}
-		else if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
-			if (vtPause.isShown())
-				vtPause.hide();
-		}
-
-		return true;
-	}
-
-	@Override
-	public void pinchStop() {
-
-	}
+    }
 }

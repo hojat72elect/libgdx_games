@@ -1,7 +1,5 @@
 package com.nopalsoft.sokoban.screens;
 
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
@@ -22,6 +20,7 @@ import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.MainSokoban;
 import com.nopalsoft.sokoban.Settings;
 import com.nopalsoft.sokoban.game.GameScreen;
+import java.util.Random;
 
 public abstract class Screens extends InputAdapter implements Screen, GestureListener {
     public static final int SCREEN_WIDTH = 800;
@@ -34,6 +33,7 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
     public Stage stage;
 
     Random oRan;
+    Image blackFadeOut;
 
     public Screens(final MainSokoban game) {
         this.stage = game.stage;
@@ -66,8 +66,6 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
         stage.draw();
 
     }
-
-    Image blackFadeOut;
 
     public void changeScreenWithFadeOut(final Class<?> newScreen, final int level, final MainSokoban game) {
         blackFadeOut = new Image(Assets.pixelNegro);

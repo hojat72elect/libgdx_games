@@ -1,8 +1,12 @@
 package com.nopalsoft.sokoban;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -93,13 +97,10 @@ public class Assets {
     public static Animation<TextureRegion> personajeLeft;
     public static Animation<TextureRegion> personajeRight;
     public static AtlasRegion personajeStand;
-
-    static TextureAtlas atlas;
-
     public static TextureRegionDrawable backgroundVentana;
-
     public static TextButtonStyle styleTextButtonLevel;
     public static TextButtonStyle styleTextButtonLevelLocked;
+    static TextureAtlas atlas;
 
     public static void load() {
         atlas = new TextureAtlas(Gdx.files.internal("data/atlasMap.txt"));

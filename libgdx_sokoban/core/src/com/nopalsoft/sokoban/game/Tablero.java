@@ -1,7 +1,5 @@
 package com.nopalsoft.sokoban.game;
 
-import java.util.Iterator;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -16,286 +14,271 @@ import com.nopalsoft.sokoban.objetos.EndPoint;
 import com.nopalsoft.sokoban.objetos.Pared;
 import com.nopalsoft.sokoban.objetos.Personaje;
 import com.nopalsoft.sokoban.objetos.Tiles;
+import java.util.Iterator;
 
 public class Tablero extends Group {
-	public static final float UNIT_SCALE = 1f;
+    public static final float UNIT_SCALE = 1f;
 
-	static public final int STATE_RUNNING = 1;
-	static public final int STATE_GAMEOVER = 2;
-	public int state;
+    static public final int STATE_RUNNING = 1;
+    static public final int STATE_GAMEOVER = 2;
+    public int state;
+    public boolean moveUp, moveDown, moveLeft, moveRight;
+    public boolean undo;
+    /**
+     * X posicion anterior, Y posicion actual
+     */
+    Array<Vector2> arrMovesPersonaje;
+    /**
+     * X posicion anterior, Y posicion actual
+     */
+    Array<Vector2> arrMovesCaja;
+    Array<Tiles> arrTiles;
+    int moves;
+    float time;
+    private Personaje personaje;
 
-	/**
-	 * 
-	 * X posicion anterior, Y posicion actual
-	 */
-	Array<Vector2> arrMovesPersonaje;
+    public Tablero() {
+        setSize(800, 480);
 
-	/**
-	 * 
-	 * X posicion anterior, Y posicion actual
-	 */
-	Array<Vector2> arrMovesCaja;
+        arrTiles = new Array<Tiles>(25 * 15);
+        arrMovesPersonaje = new Array<Vector2>();
+        arrMovesCaja = new Array<Vector2>();
 
-	Array<Tiles> arrTiles;
-	private Personaje personaje;
+        initializeMap("StaticMap");
+        initializeMap("Objetos");
 
-	public boolean moveUp, moveDown, moveLeft, moveRight;
-	public boolean undo;
+        // DESPUES de inicializar los objetos los agrego al Tablero en orden para que se dibujen unos primero que otros
+        agregarAlTablero(Pared.class);
+        agregarAlTablero(EndPoint.class);
+        agregarAlTablero(Box.class);
+        agregarAlTablero(Personaje.class);
 
-	int moves;
-	float time;
+        state = STATE_RUNNING;
 
-	public Tablero() {
-		setSize(800, 480);
+        time = moves = 0;
+    }
 
-		arrTiles = new Array<Tiles>(25 * 15);
-		arrMovesPersonaje = new Array<Vector2>();
-		arrMovesCaja = new Array<Vector2>();
+    private void agregarAlTablero(Class<?> tipo) {
+        Iterator<Tiles> i = arrTiles.iterator();
+        while (i.hasNext()) {
+            Tiles obj = i.next();
+            if (obj.getClass() == tipo) {
+                addActor(obj);
+            }
 
-		initializeMap("StaticMap");
-		initializeMap("Objetos");
+        }
+    }
 
-		// DESPUES de inicializar los objetos los agrego al Tablero en orden para que se dibujen unos primero que otros
-		agregarAlTablero(Pared.class);
-		agregarAlTablero(EndPoint.class);
-		agregarAlTablero(Box.class);
-		agregarAlTablero(Personaje.class);
+    private void initializeMap(String layerName) {
+        TiledMapTileLayer layer = (TiledMapTileLayer) Assets.map.getLayers().get(layerName);
+        if (layer != null) {
 
-		state = STATE_RUNNING;
+            int posTile = 0;
+            for (int y = 0; y < 15; y++) {
+                for (int x = 0; x < 25; x++) {
+                    Cell cell = layer.getCell(x, y);
+                    if (cell != null) {
+                        TiledMapTile tile = cell.getTile();
+                        if (tile.getProperties() != null) {
+                            if (tile.getProperties().containsKey("tipo")) {
+                                String tipo = tile.getProperties().get("tipo").toString();
 
-		time = moves = 0;
-	}
+                                if (tipo.equals("startPoint")) {
+                                    crearPersonaje(posTile);
+                                } else if (tipo.equals("pared")) {
+                                    crearPared(posTile);
+                                } else if (tipo.equals("caja")) {
+                                    crearCaja(posTile, tile.getProperties().get("color").toString());
+                                } else if (tipo.equals("endPoint")) {
+                                    crearEndPoint(posTile, tile.getProperties().get("color").toString());
+                                }
 
-	private void agregarAlTablero(Class<?> tipo) {
-		Iterator<Tiles> i = arrTiles.iterator();
-		while (i.hasNext()) {
-			Tiles obj = i.next();
-			if (obj.getClass() == tipo) {
-				addActor(obj);
-			}
+                            }
+                        }
+                    }
+                    posTile++;
+                }
+            }
+        }
+    }
 
-		}
-	}
+    private void crearPersonaje(int posTile) {
+        Personaje obj = new Personaje(posTile);
+        arrTiles.add(obj);
+        personaje = obj;
 
-	private void initializeMap(String layerName) {
-		TiledMapTileLayer layer = (TiledMapTileLayer) Assets.map.getLayers().get(layerName);
-		if (layer != null) {
+    }
 
-			int posTile = 0;
-			for (int y = 0; y < 15; y++) {
-				for (int x = 0; x < 25; x++) {
-					Cell cell = layer.getCell(x, y);
-					if (cell != null) {
-						TiledMapTile tile = cell.getTile();
-						if (tile.getProperties() != null) {
-							if (tile.getProperties().containsKey("tipo")) {
-								String tipo = tile.getProperties().get("tipo").toString();
+    private void crearPared(int posTile) {
+        Pared obj = new Pared(posTile);
+        arrTiles.add(obj);
 
-								if (tipo.equals("startPoint")) {
-									crearPersonaje(posTile);
-								}
-								else if (tipo.equals("pared")) {
-									crearPared(posTile);
-								}
-								else if (tipo.equals("caja")) {
-									crearCaja(posTile, tile.getProperties().get("color").toString());
-								}
-								else if (tipo.equals("endPoint")) {
-									crearEndPoint(posTile, tile.getProperties().get("color").toString());
-								}
+    }
 
-							}
-						}
-					}
-					posTile++;
-				}
-			}
-		}
-	}
+    private void crearCaja(int posTile, String color) {
+        Box obj = new Box(posTile, color);
+        arrTiles.add(obj);
+    }
 
-	private void crearPersonaje(int posTile) {
-		Personaje obj = new Personaje(posTile);
-		arrTiles.add(obj);
-		personaje = obj;
+    private void crearEndPoint(int posTile, String color) {
+        EndPoint obj = new EndPoint(posTile, color);
+        arrTiles.add(obj);
+    }
 
-	}
+    @Override
+    public void act(float delta) {
+        super.act(delta);
 
-	private void crearPared(int posTile) {
-		Pared obj = new Pared(posTile);
-		arrTiles.add(obj);
+        if (state == STATE_RUNNING) {
 
-	}
+            if (moves <= 0)
+                undo = false;
 
-	private void crearCaja(int posTile, String color) {
-		Box obj = new Box(posTile, color);
-		arrTiles.add(obj);
-	}
+            if (undo) {
+                undo();
+            } else {
+                int auxMoves = 0;
+                if (moveUp) {
+                    auxMoves = 25;
+                } else if (moveDown) {
+                    auxMoves = -25;
+                } else if (moveLeft) {
+                    auxMoves = -1;
+                } else if (moveRight) {
+                    auxMoves = 1;
+                }
 
-	private void crearEndPoint(int posTile, String color) {
-		EndPoint obj = new EndPoint(posTile, color);
-		arrTiles.add(obj);
-	}
+                if (personaje.canMove() && (moveDown || moveLeft || moveRight || moveUp)) {
+                    int nextPos = personaje.posicion + auxMoves;
 
-	@Override
-	public void act(float delta) {
-		super.act(delta);
+                    if (checarEspacioVacio(nextPos) || (!checarIsBoxInPosition(nextPos) && checarIsEndInPosition(nextPos))) {
+                        arrMovesPersonaje.add(new Vector2(personaje.posicion, nextPos));
+                        arrMovesCaja.add(null);
+                        personaje.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
+                        moves++;
+                    } else {
+                        if (checarIsBoxInPosition(nextPos)) {
+                            int boxNextPos = nextPos + auxMoves;
+                            if (checarEspacioVacio(boxNextPos) || (!checarIsBoxInPosition(boxNextPos) && checarIsEndInPosition(boxNextPos))) {
+                                Box oBox = getBoxInPosition(nextPos);
 
-		if (state == STATE_RUNNING) {
+                                arrMovesPersonaje.add(new Vector2(personaje.posicion, nextPos));
+                                arrMovesCaja.add(new Vector2(oBox.posicion, boxNextPos));
+                                moves++;
 
-			if (moves <= 0)
-				undo = false;
+                                oBox.moveToPosition(boxNextPos, false);
+                                personaje.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
+                                oBox.setIsInEndPoint(getEndPointInPosition(boxNextPos));
 
-			if (undo) {
-				undo();
-			}
-			else {
-				int auxMoves = 0;
-				if (moveUp) {
-					auxMoves = 25;
-				}
-				else if (moveDown) {
-					auxMoves = -25;
-				}
-				else if (moveLeft) {
-					auxMoves = -1;
-				}
-				else if (moveRight) {
-					auxMoves = 1;
-				}
+                            }
+                        }
+                    }
+                }
 
-				if (personaje.canMove() && (moveDown || moveLeft || moveRight || moveUp)) {
-					int nextPos = personaje.posicion + auxMoves;
+                moveDown = moveLeft = moveRight = moveUp = false;
 
-					if (checarEspacioVacio(nextPos) || (!checarIsBoxInPosition(nextPos) && checarIsEndInPosition(nextPos))) {
-						arrMovesPersonaje.add(new Vector2(personaje.posicion, nextPos));
-						arrMovesCaja.add(null);
-						personaje.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
-						moves++;
-					}
-					else {
-						if (checarIsBoxInPosition(nextPos)) {
-							int boxNextPos = nextPos + auxMoves;
-							if (checarEspacioVacio(boxNextPos) || (!checarIsBoxInPosition(boxNextPos) && checarIsEndInPosition(boxNextPos))) {
-								Box oBox = getBoxInPosition(nextPos);
+                if (checkBoxesMissingTheRightEndPoint() == 0)
+                    state = STATE_GAMEOVER;
 
-								arrMovesPersonaje.add(new Vector2(personaje.posicion, nextPos));
-								arrMovesCaja.add(new Vector2(oBox.posicion, boxNextPos));
-								moves++;
+            }
 
-								oBox.moveToPosition(boxNextPos, false);
-								personaje.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
-								oBox.setIsInEndPoint(getEndPointInPosition(boxNextPos));
+            if (state == STATE_RUNNING)
+                time += Gdx.graphics.getRawDeltaTime();
+        }
+    }
 
-							}
-						}
-					}
-				}
+    private void undo() {
+        if (arrMovesPersonaje.size >= moves) {
+            Vector2 posAntPersonaje = arrMovesPersonaje.removeIndex(moves - 1);
+            personaje.moveToPosition((int) posAntPersonaje.x, true);
+        }
+        if (arrMovesCaja.size >= moves) {
+            Vector2 posAntBox = arrMovesCaja.removeIndex(moves - 1);
+            if (posAntBox != null) {
+                Box oBox = getBoxInPosition((int) posAntBox.y);
+                oBox.moveToPosition((int) posAntBox.x, true);
+                oBox.setIsInEndPoint(getEndPointInPosition(oBox.posicion));
+            }
+        }
+        moves--;
+        undo = false;
+    }
 
-				moveDown = moveLeft = moveRight = moveUp = false;
+    private boolean checarEspacioVacio(int pos) {
+        ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+        while (ite.hasNext()) {
+            if (ite.next().posicion == pos)
+                return false;
+        }
+        return true;
+    }
 
-				if (checkBoxesMissingTheRightEndPoint() == 0)
-					state = STATE_GAMEOVER;
+    /**
+     * Indica si el objeto en la posicion es una caja
+     *
+     * @param pos
+     */
+    private boolean checarIsBoxInPosition(int pos) {
+        boolean isBoxInPosition = false;
+        ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+        while (ite.hasNext()) {
+            Tiles obj = ite.next();
+            if (obj.posicion == pos && obj instanceof Box)
+                isBoxInPosition = true;
+        }
+        return isBoxInPosition;
 
-			}
+    }
 
-			if (state == STATE_RUNNING)
-				time += Gdx.graphics.getRawDeltaTime();
-		}
-	}
+    /**
+     * Indica si el objeto en la posicion es endPoint
+     *
+     * @param pos
+     */
+    private boolean checarIsEndInPosition(int pos) {
+        boolean isEndPointInPosition = false;
+        ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+        while (ite.hasNext()) {
+            Tiles obj = ite.next();
+            if (obj.posicion == pos && obj instanceof EndPoint)
+                isEndPointInPosition = true;
+        }
+        return isEndPointInPosition;
 
-	private void undo() {
-		if (arrMovesPersonaje.size >= moves) {
-			Vector2 posAntPersonaje = arrMovesPersonaje.removeIndex(moves - 1);
-			personaje.moveToPosition((int) posAntPersonaje.x, true);
-		}
-		if (arrMovesCaja.size >= moves) {
-			Vector2 posAntBox = arrMovesCaja.removeIndex(moves - 1);
-			if (posAntBox != null) {
-				Box oBox = getBoxInPosition((int) posAntBox.y);
-				oBox.moveToPosition((int) posAntBox.x, true);
-				oBox.setIsInEndPoint(getEndPointInPosition(oBox.posicion));
-			}
-		}
-		moves--;
-		undo = false;
-	}
+    }
 
-	private boolean checarEspacioVacio(int pos) {
-		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
-		while (ite.hasNext()) {
-			if (ite.next().posicion == pos)
-				return false;
-		}
-		return true;
-	}
+    private Box getBoxInPosition(int pos) {
+        ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+        while (ite.hasNext()) {
+            Tiles obj = ite.next();
+            if (obj.posicion == pos && obj instanceof Box)
+                return (Box) obj;
+        }
+        return null;
+    }
 
-	/**
-	 * Indica si el objeto en la posicion es una caja
-	 * 
-	 * @param pos
-	 */
-	private boolean checarIsBoxInPosition(int pos) {
-		boolean isBoxInPosition = false;
-		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
-		while (ite.hasNext()) {
-			Tiles obj = ite.next();
-			if (obj.posicion == pos && obj instanceof Box)
-				isBoxInPosition = true;
-		}
-		return isBoxInPosition;
+    private EndPoint getEndPointInPosition(int pos) {
+        ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+        while (ite.hasNext()) {
+            Tiles obj = ite.next();
+            if (obj.posicion == pos && obj instanceof EndPoint)
+                return (EndPoint) obj;
+        }
+        return null;
+    }
 
-	}
+    private int checkBoxesMissingTheRightEndPoint() {
+        int numBox = 0;
+        ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+        while (ite.hasNext()) {
+            Tiles obj = ite.next();
+            if (obj instanceof com.nopalsoft.sokoban.objetos.Box oBox) {
+                if (!oBox.isInRightEndPoint)
+                    numBox++;
+            }
 
-	/**
-	 * Indica si el objeto en la posicion es endPoint
-	 * 
-	 * @param pos
-	 */
-	private boolean checarIsEndInPosition(int pos) {
-		boolean isEndPointInPosition = false;
-		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
-		while (ite.hasNext()) {
-			Tiles obj = ite.next();
-			if (obj.posicion == pos && obj instanceof EndPoint)
-				isEndPointInPosition = true;
-		}
-		return isEndPointInPosition;
-
-	}
-
-	private Box getBoxInPosition(int pos) {
-		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
-		while (ite.hasNext()) {
-			Tiles obj = ite.next();
-			if (obj.posicion == pos && obj instanceof Box)
-				return (Box) obj;
-		}
-		return null;
-	}
-
-	private EndPoint getEndPointInPosition(int pos) {
-		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
-		while (ite.hasNext()) {
-			Tiles obj = ite.next();
-			if (obj.posicion == pos && obj instanceof EndPoint)
-				return (EndPoint) obj;
-		}
-		return null;
-	}
-
-	private int checkBoxesMissingTheRightEndPoint() {
-		int numBox = 0;
-		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
-		while (ite.hasNext()) {
-			Tiles obj = ite.next();
-			if (obj instanceof Box) {
-				Box oBox = (Box) obj;
-				if (!oBox.isInRightEndPoint)
-					numBox++;
-			}
-
-		}
-		return numBox;
-	}
+        }
+        return numBox;
+    }
 
 }

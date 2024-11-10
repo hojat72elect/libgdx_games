@@ -1,7 +1,5 @@
 # LibGDX Sokoban
 
-[Try the game in your Browser](https://yayo-arellano.github.io/libgdx_games_compilation/libgdx_sokoban)
-
 Download assets:
 
 - [Game assets](https://opengameart.org/content/sokoban-pack)
