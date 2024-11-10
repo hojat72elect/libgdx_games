@@ -12,78 +12,77 @@ import com.nopalsoft.sokoban.scene2d.LevelSelector;
 
 public class MainMenuScreen extends Screens {
 
-    LevelSelector lvlSelector;
+    LevelSelector levelSelector;
 
-    Table tbMenu;
-    Button btLeaderboard, btAchievements, btFacebook, btSettings, btMore;
-    Button btNextPage, btPreviousPage;
+    Table tableMenu;
+    Button buttonLeaderboard, buttonAchievements, buttonFacebook, buttonSettings, buttonMore;
+    Button buttonNextPage, buttonPreviousPage;
 
     public MainMenuScreen(final MainSokoban game) {
         super(game);
 
-        lvlSelector = new LevelSelector(this);
+        levelSelector = new LevelSelector(this);
 
-        btPreviousPage = new Button(Assets.btIzq, Assets.btIzqPress);
-        btPreviousPage.setSize(75, 75);
-        btPreviousPage.setPosition(65, 220);
-        btPreviousPage.addListener(new ClickListener() {
+        buttonPreviousPage = new Button(Assets.btIzq, Assets.btIzqPress);
+        buttonPreviousPage.setSize(75, 75);
+        buttonPreviousPage.setPosition(65, 220);
+        buttonPreviousPage.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 right();
             }
 
         });
-        btNextPage = new Button(Assets.btDer, Assets.btDerPress);
-        btNextPage.setSize(75, 75);
-        btNextPage.setPosition(660, 220);
-        btNextPage.addListener(new ClickListener() {
+        buttonNextPage = new Button(Assets.btDer, Assets.btDerPress);
+        buttonNextPage.setSize(75, 75);
+        buttonNextPage.setPosition(660, 220);
+        buttonNextPage.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 left();
             }
         });
 
-        btLeaderboard = new Button(Assets.btLeaderboard, Assets.btLeaderboardPress);
-        btLeaderboard.addListener(new ClickListener() {
+        buttonLeaderboard = new Button(Assets.btLeaderboard, Assets.btLeaderboardPress);
+        buttonLeaderboard.addListener(new ClickListener() {
 
         });
 
-        btAchievements = new Button(Assets.btAchievement, Assets.btAchievementPress);
-        btAchievements.addListener(new ClickListener() {
+        buttonAchievements = new Button(Assets.btAchievement, Assets.btAchievementPress);
+        buttonAchievements.addListener(new ClickListener() {
 
         });
 
-        btFacebook = new Button(Assets.btFacebook, Assets.btFacebookPress);
-        btFacebook.addListener(new ClickListener() {
+        buttonFacebook = new Button(Assets.btFacebook, Assets.btFacebookPress);
+        buttonFacebook.addListener(new ClickListener() {
 
         });
 
-        btSettings = new Button(Assets.btSettings, Assets.btSettingsPress);
-        btSettings.addListener(new ClickListener() {
+        buttonSettings = new Button(Assets.btSettings, Assets.btSettingsPress);
+        buttonSettings.addListener(new ClickListener() {
 
         });
 
-        btMore = new Button(Assets.btMas, Assets.btMasPress);
-        btMore.addListener(new ClickListener() {
+        buttonMore = new Button(Assets.btMas, Assets.btMasPress);
+        buttonMore.addListener(new ClickListener() {
 
         });
 
-        tbMenu = new Table();
-        tbMenu.defaults().size(80).pad(7.5f);
+        tableMenu = new Table();
+        tableMenu.defaults().size(80).pad(7.5f);
+        
+        tableMenu.add(buttonAchievements);
+        tableMenu.add(buttonFacebook);
+        tableMenu.add(buttonSettings);
+        tableMenu.add(buttonMore);
 
-        // tbMenu.add(btLeaderboard);
-        tbMenu.add(btAchievements);
-        tbMenu.add(btFacebook);
-        tbMenu.add(btSettings);
-        tbMenu.add(btMore);
+        tableMenu.pack();
+        tableMenu.setPosition(SCREEN_WIDTH / 2f - tableMenu.getWidth() / 2f, 20);
 
-        tbMenu.pack();
-        tbMenu.setPosition(SCREEN_WIDTH / 2f - tbMenu.getWidth() / 2f, 20);
-
-        stage.addActor(lvlSelector);
-        stage.addActor(tbMenu);
-        stage.addActor(btPreviousPage);
-        stage.addActor(btNextPage);
+        stage.addActor(levelSelector);
+        stage.addActor(tableMenu);
+        stage.addActor(buttonPreviousPage);
+        stage.addActor(buttonNextPage);
     }
 
     @Override
@@ -98,12 +97,12 @@ public class MainMenuScreen extends Screens {
 
     @Override
     public void right() {
-        lvlSelector.previousPage();
+        levelSelector.previousPage();
     }
 
     @Override
     public void left() {
-        lvlSelector.nextPage();
+        levelSelector.nextPage();
 
     }
 

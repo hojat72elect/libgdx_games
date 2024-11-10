@@ -20,7 +20,6 @@ import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.MainSokoban;
 import com.nopalsoft.sokoban.Settings;
 import com.nopalsoft.sokoban.game.GameScreen;
-import java.util.Random;
 
 public abstract class Screens extends InputAdapter implements Screen, GestureListener {
     public static final int SCREEN_WIDTH = 800;
@@ -32,7 +31,6 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
     public SpriteBatch batcher;
     public Stage stage;
 
-    Random oRan;
     Image blackFadeOut;
 
     public Screens(final MainSokoban game) {
@@ -68,7 +66,7 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
     }
 
     public void changeScreenWithFadeOut(final Class<?> newScreen, final int level, final MainSokoban game) {
-        blackFadeOut = new Image(Assets.pixelNegro);
+        blackFadeOut = new Image(Assets.pixelBlack);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         blackFadeOut.getColor().a = 0;
         blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run(new Runnable() {
@@ -79,11 +77,6 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
                     game.setScreen(new GameScreen(game, level));
                 } else if (newScreen == MainMenuScreen.class)
                     game.setScreen(new MainMenuScreen(game));
-                // else if (newScreen == HelpScreen.class)
-                // game.setScreen(new HelpScreen(game));
-
-                // El blackFadeOut se remueve del stage cuando se le da new Screens(game) "Revisar el constructor de la clase Screens" por lo que no hay necesidad de hacer
-                // blackFadeout.remove();
             }
         })));
         stage.addActor(blackFadeOut);
@@ -129,14 +122,10 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
 
     @Override
     public void pause() {
-        // Assets.pauseMusic();
-
     }
 
     @Override
     public void resume() {
-        // Assets.playMusic();
-
     }
 
     @Override
@@ -147,19 +136,16 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean longPress(float x, float y) {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -183,25 +169,21 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean panStop(float x, float y, int pointer, int button) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean zoom(float initialDistance, float distance) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-        // TODO Auto-generated method stub
         return false;
     }
 

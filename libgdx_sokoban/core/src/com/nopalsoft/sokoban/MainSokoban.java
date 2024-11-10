@@ -12,7 +12,7 @@ public class MainSokoban extends Game {
 
     public Stage stage;
     public SpriteBatch batcher;
-    public I18NBundle idiomas;
+    public I18NBundle languages;
 
     @Override
     public void create() {

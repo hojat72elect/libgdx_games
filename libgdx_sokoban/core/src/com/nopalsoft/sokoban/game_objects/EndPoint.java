@@ -1,4 +1,4 @@
-package com.nopalsoft.sokoban.objetos;
+package com.nopalsoft.sokoban.game_objects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;

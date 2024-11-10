@@ -19,11 +19,11 @@ import com.nopalsoft.sokoban.parallax.ParallaxLayer;
 
 public class Assets {
 
-    public static BitmapFont font;
+    public static BitmapFont fontDefault;
     public static BitmapFont fontRed;
 
     public static ParallaxBackground background;
-    public static NinePatchDrawable pixelNegro;
+    public static NinePatchDrawable pixelBlack;
 
     public static TiledMap map;
 
@@ -66,22 +66,22 @@ public class Assets {
 
     public static TextureRegionDrawable clock;
 
-    public static AtlasRegion cajaBeige;
-    public static AtlasRegion cajaDarkBeige;
-    public static AtlasRegion cajaBlack;
-    public static AtlasRegion cajaDarkBlack;
-    public static AtlasRegion cajaBlue;
-    public static AtlasRegion cajaDarkBlue;
-    public static AtlasRegion cajaBrown;
-    public static AtlasRegion cajaDarkBrown;
-    public static AtlasRegion cajaGray;
-    public static AtlasRegion cajaDarkGray;
-    public static AtlasRegion cajaPurple;
-    public static AtlasRegion cajaDarkPurple;
-    public static AtlasRegion cajaRed;
-    public static AtlasRegion cajaDarkRed;
-    public static AtlasRegion cajaYellow;
-    public static AtlasRegion cajaDarkYellow;
+    public static AtlasRegion boxBeige;
+    public static AtlasRegion boxDarkBeige;
+    public static AtlasRegion boxBlack;
+    public static AtlasRegion boxDarkBlack;
+    public static AtlasRegion boxBlue;
+    public static AtlasRegion boxDarkBlue;
+    public static AtlasRegion boxBrown;
+    public static AtlasRegion boxDarkBrown;
+    public static AtlasRegion boxGray;
+    public static AtlasRegion boxDarkGray;
+    public static AtlasRegion boxPurple;
+    public static AtlasRegion boxDarkPurple;
+    public static AtlasRegion boxRed;
+    public static AtlasRegion boxDarkRed;
+    public static AtlasRegion boxYellow;
+    public static AtlasRegion boxDarkYellow;
 
     public static AtlasRegion endPointBeige;
     public static AtlasRegion endPointBlack;
@@ -92,12 +92,12 @@ public class Assets {
     public static AtlasRegion endPointRed;
     public static AtlasRegion endPointYellow;
 
-    public static Animation<TextureRegion> personajeUp;
-    public static Animation<TextureRegion> personajeDown;
-    public static Animation<TextureRegion> personajeLeft;
-    public static Animation<TextureRegion> personajeRight;
-    public static AtlasRegion personajeStand;
-    public static TextureRegionDrawable backgroundVentana;
+    public static Animation<TextureRegion> animationMoveUp;
+    public static Animation<TextureRegion> animationMoveDown;
+    public static Animation<TextureRegion> animationMoveLeft;
+    public static Animation<TextureRegion> animationMoveRight;
+    public static AtlasRegion playerStand;
+    public static TextureRegionDrawable windowBackground;
     public static TextButtonStyle styleTextButtonLevel;
     public static TextButtonStyle styleTextButtonLevelLocked;
     static TextureAtlas atlas;
@@ -105,31 +105,31 @@ public class Assets {
     public static void load() {
         atlas = new TextureAtlas(Gdx.files.internal("data/atlasMap.txt"));
 
-        font = new BitmapFont(Gdx.files.internal("data/font32.fnt"), atlas.findRegion("UI/font32"));
+        fontDefault = new BitmapFont(Gdx.files.internal("data/font32.fnt"), atlas.findRegion("UI/font32"));
         fontRed = new BitmapFont(Gdx.files.internal("data/font32Red.fnt"), atlas.findRegion("UI/font32Red"));
 
         loadUI();
 
-        pixelNegro = new NinePatchDrawable(new NinePatch(atlas.findRegion("pixelNegro"), 1, 1, 0, 0));
+        pixelBlack = new NinePatchDrawable(new NinePatch(atlas.findRegion("pixelNegro"), 1, 1, 0, 0));
 
-        backgroundVentana = new TextureRegionDrawable(atlas.findRegion("UI/backgroundVentana"));
+        windowBackground = new TextureRegionDrawable(atlas.findRegion("UI/backgroundVentana"));
 
-        cajaBeige = atlas.findRegion("cajaBeige");
-        cajaDarkBeige = atlas.findRegion("cajaDarkBeige");
-        cajaBlack = atlas.findRegion("cajaBlack");
-        cajaDarkBlack = atlas.findRegion("cajaDarkBlack");
-        cajaBlue = atlas.findRegion("cajaBlue");
-        cajaDarkBlue = atlas.findRegion("cajaDarkBlue");
-        cajaBrown = atlas.findRegion("cajaBrown");
-        cajaDarkBrown = atlas.findRegion("cajaDarkBrown");
-        cajaGray = atlas.findRegion("cajaGray");
-        cajaDarkGray = atlas.findRegion("cajaDarkGray");
-        cajaPurple = atlas.findRegion("cajaPurple");
-        cajaDarkPurple = atlas.findRegion("cajaDarkPurple");
-        cajaRed = atlas.findRegion("cajaRed");
-        cajaDarkRed = atlas.findRegion("cajaDarkRed");
-        cajaYellow = atlas.findRegion("cajaYellow");
-        cajaDarkYellow = atlas.findRegion("cajaDarkYellow");
+        boxBeige = atlas.findRegion("cajaBeige");
+        boxDarkBeige = atlas.findRegion("cajaDarkBeige");
+        boxBlack = atlas.findRegion("cajaBlack");
+        boxDarkBlack = atlas.findRegion("cajaDarkBlack");
+        boxBlue = atlas.findRegion("cajaBlue");
+        boxDarkBlue = atlas.findRegion("cajaDarkBlue");
+        boxBrown = atlas.findRegion("cajaBrown");
+        boxDarkBrown = atlas.findRegion("cajaDarkBrown");
+        boxGray = atlas.findRegion("cajaGray");
+        boxDarkGray = atlas.findRegion("cajaDarkGray");
+        boxPurple = atlas.findRegion("cajaPurple");
+        boxDarkPurple = atlas.findRegion("cajaDarkPurple");
+        boxRed = atlas.findRegion("cajaRed");
+        boxDarkRed = atlas.findRegion("cajaDarkRed");
+        boxYellow = atlas.findRegion("cajaYellow");
+        boxDarkYellow = atlas.findRegion("cajaDarkYellow");
 
         endPointBeige = atlas.findRegion("endPointBeige");
         endPointBlack = atlas.findRegion("endPointBlack");
@@ -140,31 +140,31 @@ public class Assets {
         endPointRed = atlas.findRegion("endPointRed");
         endPointYellow = atlas.findRegion("endPointYellow");
 
-        personajeStand = atlas.findRegion("Character4");
+        playerStand = atlas.findRegion("Character4");
 
         AtlasRegion up1 = atlas.findRegion("Character7");
         AtlasRegion up2 = atlas.findRegion("Character8");
         AtlasRegion up3 = atlas.findRegion("Character9");
-        personajeUp = new Animation<TextureRegion>(.09f, up2, up3, up1);
+        animationMoveUp = new Animation<>(.09f, up2, up3, up1);
 
         AtlasRegion down1 = atlas.findRegion("Character4");
         AtlasRegion down2 = atlas.findRegion("Character5");
         AtlasRegion down3 = atlas.findRegion("Character6");
-        personajeDown = new Animation<TextureRegion>(.09f, down2, down3, down1);
+        animationMoveDown = new Animation<>(.09f, down2, down3, down1);
 
         AtlasRegion right1 = atlas.findRegion("Character2");
         AtlasRegion right2 = atlas.findRegion("Character3");
-        personajeRight = new Animation<TextureRegion>(.09f, right1, right2, right1);
+        animationMoveRight = new Animation<>(.09f, right1, right2, right1);
 
         AtlasRegion left1 = atlas.findRegion("Character1");
         AtlasRegion left2 = atlas.findRegion("Character10");
-        personajeLeft = new Animation<TextureRegion>(.09f, left1, left2, left1);
+        animationMoveLeft = new Animation<>(.09f, left1, left2, left1);
 
         AtlasRegion regioFondoFlip = atlas.findRegion("backgroundFlip");
         regioFondoFlip.flip(true, false);
-        ParallaxLayer fondo = new ParallaxLayer(atlas.findRegion("background"), new Vector2(1, 0), new Vector2(0, 0), new Vector2(798, 480), 800, 480);
-        ParallaxLayer fondoFlip = new ParallaxLayer(regioFondoFlip, new Vector2(1, 0), new Vector2(799, 0), new Vector2(798, 480), 800, 480);
-        background = new ParallaxBackground(new ParallaxLayer[]{fondo, fondoFlip}, 800, 480, new Vector2(20, 0));
+        ParallaxLayer backgroundParallaxLayer = new ParallaxLayer(atlas.findRegion("background"), new Vector2(1, 0), new Vector2(0, 0), new Vector2(798, 480), 800, 480);
+        ParallaxLayer flipBackgroundParallaxLayer = new ParallaxLayer(regioFondoFlip, new Vector2(1, 0), new Vector2(799, 0), new Vector2(798, 480), 800, 480);
+        background = new ParallaxBackground(new ParallaxLayer[]{backgroundParallaxLayer, flipBackgroundParallaxLayer}, 800, 480, new Vector2(20, 0));
 
     }
 
@@ -207,11 +207,11 @@ public class Assets {
 
         /* Button level */
         TextureRegionDrawable btLevel = new TextureRegionDrawable(atlas.findRegion("UI/btLevel"));
-        styleTextButtonLevel = new TextButtonStyle(btLevel, null, null, font);
+        styleTextButtonLevel = new TextButtonStyle(btLevel, null, null, fontDefault);
 
         /* Button level */
         TextureRegionDrawable btLevelLocked = new TextureRegionDrawable(atlas.findRegion("UI/btLevelLocked"));
-        styleTextButtonLevelLocked = new TextButtonStyle(btLevelLocked, null, null, font);
+        styleTextButtonLevelLocked = new TextButtonStyle(btLevelLocked, null, null, fontDefault);
 
         backgroundMoves = new TextureRegionDrawable(atlas.findRegion("UI/backgroundMoves"));
         backgroundTime = new TextureRegionDrawable(atlas.findRegion("UI/backgroundTime"));

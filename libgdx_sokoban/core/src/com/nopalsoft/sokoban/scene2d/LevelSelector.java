@@ -43,9 +43,9 @@ public class LevelSelector extends Group {
         setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 70);
         menuScreen = (MainMenuScreen) currentScreen;
         game = currentScreen.game;
-        idiomas = game.idiomas;
+        idiomas = game.languages;
 
-        setBackGround(Assets.backgroundVentana);
+        setBackGround(Assets.windowBackground);
 
         vtLevel = new VentanaLevel(currentScreen);
 
@@ -55,7 +55,7 @@ public class LevelSelector extends Group {
         tbTitulo.setSize(300, 50);
         tbTitulo.setPosition(getWidth() / 2f - tbTitulo.getWidth() / 2f, 324);
 
-        lbTitulo = new Label("Niveles", new LabelStyle(Assets.font, Color.WHITE));
+        lbTitulo = new Label("Niveles", new LabelStyle(Assets.fontDefault, Color.WHITE));
         tbTitulo.add(lbTitulo);
 
         contenedor = new Table();

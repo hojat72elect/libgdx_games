@@ -1,7 +1,5 @@
 package com.nopalsoft.sokoban.game;
 
-import java.util.Iterator;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -11,13 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.nopalsoft.sokoban.Assets;
-import com.nopalsoft.sokoban.objetos.Box;
-import com.nopalsoft.sokoban.objetos.EndPoint;
-import com.nopalsoft.sokoban.objetos.Pared;
-import com.nopalsoft.sokoban.objetos.Personaje;
-import com.nopalsoft.sokoban.objetos.Tiles;
+import com.nopalsoft.sokoban.game_objects.Box;
+import com.nopalsoft.sokoban.game_objects.EndPoint;
+import com.nopalsoft.sokoban.game_objects.Pared;
+import com.nopalsoft.sokoban.game_objects.Personaje;
+import com.nopalsoft.sokoban.game_objects.Tiles;
 
-public class Tablero extends Group {
+public class Board extends Group {
 	public static final float UNIT_SCALE = 1f;
 
 	static public final int STATE_RUNNING = 1;
@@ -25,14 +23,12 @@ public class Tablero extends Group {
 	public int state;
 
 	/**
-	 *
-	 * X posicion anterior, Y posicion actual
+	 * X previous position, Y current position.
 	 */
 	Array<Vector2> arrMovesPersonaje;
 
 	/**
-	 *
-	 * X posicion anterior, Y posicion actual
+	 * X previous position, Y current position
 	 */
 	Array<Vector2> arrMovesCaja;
 
@@ -45,17 +41,17 @@ public class Tablero extends Group {
 	int moves;
 	float time;
 
-	public Tablero() {
+	public Board() {
 		setSize(800, 480);
 
-		arrTiles = new Array<Tiles>(25 * 15);
-		arrMovesPersonaje = new Array<Vector2>();
-		arrMovesCaja = new Array<Vector2>();
+		arrTiles = new Array<>(25 * 15);
+		arrMovesPersonaje = new Array<>();
+		arrMovesCaja = new Array<>();
 
 		initializeMap("StaticMap");
 		initializeMap("Objetos");
 
-		// DESPUES de inicializar los objetos los agrego al Tablero en orden para que se dibujen unos primero que otros
+		// AFTER initializing the objects I add them to the Board in order so that some are drawn before others.
 		agregarAlTablero(Pared.class);
 		agregarAlTablero(EndPoint.class);
 		agregarAlTablero(Box.class);
@@ -67,14 +63,12 @@ public class Tablero extends Group {
 	}
 
 	private void agregarAlTablero(Class<?> tipo) {
-		Iterator<Tiles> i = arrTiles.iterator();
-		while (i.hasNext()) {
-			Tiles obj = i.next();
-			if (obj.getClass() == tipo) {
-				addActor(obj);
-			}
+        for (Tiles obj : arrTiles) {
+            if (obj.getClass() == tipo) {
+                addActor(obj);
+            }
 
-		}
+        }
 	}
 
 	private void initializeMap(String layerName) {
@@ -164,10 +158,10 @@ public class Tablero extends Group {
 				}
 
 				if (personaje.canMove() && (moveDown || moveLeft || moveRight || moveUp)) {
-					int nextPos = personaje.posicion + auxMoves;
+					int nextPos = personaje.position + auxMoves;
 
 					if (checarEspacioVacio(nextPos) || (!checarIsBoxInPosition(nextPos) && checarIsEndInPosition(nextPos))) {
-						arrMovesPersonaje.add(new Vector2(personaje.posicion, nextPos));
+						arrMovesPersonaje.add(new Vector2(personaje.position, nextPos));
 						arrMovesCaja.add(null);
 						personaje.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
 						moves++;
@@ -178,8 +172,8 @@ public class Tablero extends Group {
 							if (checarEspacioVacio(boxNextPos) || (!checarIsBoxInPosition(boxNextPos) && checarIsEndInPosition(boxNextPos))) {
 								Box oBox = getBoxInPosition(nextPos);
 
-								arrMovesPersonaje.add(new Vector2(personaje.posicion, nextPos));
-								arrMovesCaja.add(new Vector2(oBox.posicion, boxNextPos));
+								arrMovesPersonaje.add(new Vector2(personaje.position, nextPos));
+								arrMovesCaja.add(new Vector2(oBox.position, boxNextPos));
 								moves++;
 
 								oBox.moveToPosition(boxNextPos, false);
@@ -213,7 +207,7 @@ public class Tablero extends Group {
 			if (posAntBox != null) {
 				Box oBox = getBoxInPosition((int) posAntBox.y);
 				oBox.moveToPosition((int) posAntBox.x, true);
-				oBox.setIsInEndPoint(getEndPointInPosition(oBox.posicion));
+				oBox.setIsInEndPoint(getEndPointInPosition(oBox.position));
 			}
 		}
 		moves--;
@@ -223,7 +217,7 @@ public class Tablero extends Group {
 	private boolean checarEspacioVacio(int pos) {
 		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
 		while (ite.hasNext()) {
-			if (ite.next().posicion == pos)
+			if (ite.next().position == pos)
 				return false;
 		}
 		return true;
@@ -239,7 +233,7 @@ public class Tablero extends Group {
 		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
 		while (ite.hasNext()) {
 			Tiles obj = ite.next();
-			if (obj.posicion == pos && obj instanceof Box)
+			if (obj.position == pos && obj instanceof Box)
 				isBoxInPosition = true;
 		}
 		return isBoxInPosition;
@@ -256,7 +250,7 @@ public class Tablero extends Group {
 		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
 		while (ite.hasNext()) {
 			Tiles obj = ite.next();
-			if (obj.posicion == pos && obj instanceof EndPoint)
+			if (obj.position == pos && obj instanceof EndPoint)
 				isEndPointInPosition = true;
 		}
 		return isEndPointInPosition;
@@ -267,7 +261,7 @@ public class Tablero extends Group {
 		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
 		while (ite.hasNext()) {
 			Tiles obj = ite.next();
-			if (obj.posicion == pos && obj instanceof Box)
+			if (obj.position == pos && obj instanceof Box)
 				return (Box) obj;
 		}
 		return null;
@@ -277,7 +271,7 @@ public class Tablero extends Group {
 		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
 		while (ite.hasNext()) {
 			Tiles obj = ite.next();
-			if (obj.posicion == pos && obj instanceof EndPoint)
+			if (obj.position == pos && obj instanceof EndPoint)
 				return (EndPoint) obj;
 		}
 		return null;

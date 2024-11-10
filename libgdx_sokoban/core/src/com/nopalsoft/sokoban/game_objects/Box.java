@@ -1,4 +1,4 @@
-package com.nopalsoft.sokoban.objetos;
+package com.nopalsoft.sokoban.game_objects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -54,52 +54,52 @@ public class Box extends Tiles {
     private void setTextureColor(int numColor) {
         switch (numColor) {
             case COLOR_BEIGE:
-                keyFrame = Assets.cajaBeige;
+                keyFrame = Assets.boxBeige;
                 break;
             case COLOR_DARK_BEIGE:
-                keyFrame = Assets.cajaDarkBeige;
+                keyFrame = Assets.boxDarkBeige;
                 break;
             case COLOR_BLACK:
-                keyFrame = Assets.cajaBlack;
+                keyFrame = Assets.boxBlack;
                 break;
             case COLOR_DARK_BLACK:
-                keyFrame = Assets.cajaDarkBlack;
+                keyFrame = Assets.boxDarkBlack;
                 break;
             case COLOR_BLUE:
-                keyFrame = Assets.cajaBlue;
+                keyFrame = Assets.boxBlue;
                 break;
             case COLOR_DARK_BLUE:
-                keyFrame = Assets.cajaDarkBlue;
+                keyFrame = Assets.boxDarkBlue;
                 break;
             case COLOR_BROWN:
-                keyFrame = Assets.cajaBrown;
+                keyFrame = Assets.boxBrown;
                 break;
             case COLOR_DARK_BROWN:
-                keyFrame = Assets.cajaDarkBrown;
+                keyFrame = Assets.boxDarkBrown;
                 break;
             case COLOR_GRAY:
-                keyFrame = Assets.cajaGray;
+                keyFrame = Assets.boxGray;
                 break;
             case COLOR_DARK_GRAY:
-                keyFrame = Assets.cajaDarkGray;
+                keyFrame = Assets.boxDarkGray;
                 break;
             case COLOR_RED:
-                keyFrame = Assets.cajaRed;
+                keyFrame = Assets.boxRed;
                 break;
             case COLOR_DARK_RED:
-                keyFrame = Assets.cajaDarkRed;
+                keyFrame = Assets.boxDarkRed;
                 break;
             case COLOR_YELLOW:
-                keyFrame = Assets.cajaYellow;
+                keyFrame = Assets.boxYellow;
                 break;
             case COLOR_DARK_YELLOW:
-                keyFrame = Assets.cajaDarkYellow;
+                keyFrame = Assets.boxDarkYellow;
                 break;
             case COLOR_PURPLE:
-                keyFrame = Assets.cajaPurple;
+                keyFrame = Assets.boxPurple;
                 break;
             case COLOR_DARK_PURPLE:
-                keyFrame = Assets.cajaDarkPurple;
+                keyFrame = Assets.boxDarkPurple;
                 break;
         }
     }

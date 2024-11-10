@@ -25,14 +25,14 @@ public class Ventana extends Group {
 
     public Ventana(Screens currentScreen, float width, float height, float positionY) {
         screen = currentScreen;
-        idiomas = currentScreen.game.idiomas;
+        idiomas = currentScreen.game.languages;
         setSize(width, height);
         setY(positionY);
 
-        dim = new Image(Assets.pixelNegro);
+        dim = new Image(Assets.pixelBlack);
         dim.setSize(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
 
-        setBackGround(Assets.backgroundVentana);
+        setBackGround(Assets.windowBackground);
 
     }
 
@@ -57,7 +57,7 @@ public class Ventana extends Group {
         tbTitulo.setSize(width, height);
         tbTitulo.setPosition(getWidth() / 2f - tbTitulo.getWidth() / 2f, getHeight() - tbTitulo.getHeight());
 
-        Label lbTitulo = new Label(text, new LabelStyle(Assets.font, Color.WHITE));
+        Label lbTitulo = new Label(text, new LabelStyle(Assets.fontDefault, Color.WHITE));
         lbTitulo.setFontScale(fontScale);
         tbTitulo.add(lbTitulo);
         addActor(tbTitulo);

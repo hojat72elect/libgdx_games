@@ -30,7 +30,7 @@ public class VentanaLevel extends Ventana {
         btPlay = new Button(Assets.btPlay, Assets.btPlayPress);
 
         Image imgClock = new Image(Assets.clock);
-        Image imgMoves = new Image(Assets.personajeStand);
+        Image imgMoves = new Image(Assets.playerStand);
 
         lbBestMoves = new Label("0", new LabelStyle(Assets.fontRed, Color.WHITE));
         lbBestTime = new Label("0", new LabelStyle(Assets.fontRed, Color.WHITE));

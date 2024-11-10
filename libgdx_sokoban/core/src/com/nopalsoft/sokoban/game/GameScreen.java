@@ -27,7 +27,7 @@ public class GameScreen extends Screens {
     public int state;
     public int level;
     TableroRenderer renderer;
-    Tablero oTablero;
+    Board oBoard;
     ControlesNoPad oControl;
     Button btUndo;
     Button btPausa;
@@ -41,7 +41,7 @@ public class GameScreen extends Screens {
         this.level = level;
 
         stageGame = new Stage(new StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT));
-        oTablero = new Tablero();
+        oBoard = new Board();
 
         renderer = new TableroRenderer(batcher);
 
@@ -64,7 +64,7 @@ public class GameScreen extends Screens {
         btUndo.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                oTablero.undo = true;
+                oBoard.undo = true;
             }
         });
 
@@ -80,7 +80,7 @@ public class GameScreen extends Screens {
 
         });
 
-        stageGame.addActor(oTablero);
+        stageGame.addActor(oBoard);
         stageGame.addActor(barTime);
         stageGame.addActor(barMoves);
         stage.addActor(lbNivel);
@@ -108,10 +108,10 @@ public class GameScreen extends Screens {
 
         if (state != STATE_PAUSED) {
             stageGame.act(delta);
-            barMoves.updateActualNum(oTablero.moves);
-            barTime.updateActualNum((int) oTablero.time);
+            barMoves.updateActualNum(oBoard.moves);
+            barTime.updateActualNum((int) oBoard.time);
 
-            if (state == STATE_RUNNING && oTablero.state == Tablero.STATE_GAMEOVER) {
+            if (state == STATE_RUNNING && oBoard.state == Board.STATE_GAMEOVER) {
                 setGameover();
             }
         }
@@ -120,7 +120,7 @@ public class GameScreen extends Screens {
 
     private void setGameover() {
         state = STATE_GAME_OVER;
-        Settings.levelCompeted(level, oTablero.moves, (int) oTablero.time);
+        Settings.levelCompeted(level, oBoard.moves, (int) oBoard.time);
         stage.addAction(Actions.sequence(Actions.delay(.35f), Actions.run(new Runnable() {
             @Override
             public void run() {
@@ -149,25 +149,25 @@ public class GameScreen extends Screens {
 
     @Override
     public void up() {
-        oTablero.moveUp = true;
+        oBoard.moveUp = true;
         super.up();
     }
 
     @Override
     public void down() {
-        oTablero.moveDown = true;
+        oBoard.moveDown = true;
         super.down();
     }
 
     @Override
     public void right() {
-        oTablero.moveRight = true;
+        oBoard.moveRight = true;
         super.right();
     }
 
     @Override
     public void left() {
-        oTablero.moveLeft = true;
+        oBoard.moveLeft = true;
         super.left();
     }
 
@@ -175,19 +175,19 @@ public class GameScreen extends Screens {
     public boolean keyDown(int keycode) {
         if (state == STATE_RUNNING) {
             if (keycode == Keys.LEFT || keycode == Keys.A) {
-                oTablero.moveLeft = true;
+                oBoard.moveLeft = true;
 
             } else if (keycode == Keys.RIGHT || keycode == Keys.D) {
-                oTablero.moveRight = true;
+                oBoard.moveRight = true;
 
             } else if (keycode == Keys.UP || keycode == Keys.W) {
-                oTablero.moveUp = true;
+                oBoard.moveUp = true;
 
             } else if (keycode == Keys.DOWN || keycode == Keys.S) {
-                oTablero.moveDown = true;
+                oBoard.moveDown = true;
 
             } else if (keycode == Keys.Z) {
-                oTablero.undo = true;
+                oBoard.undo = true;
 
             } else if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
                 setPause();

@@ -1,4 +1,4 @@
-package com.nopalsoft.sokoban.objetos;
+package com.nopalsoft.sokoban.game_objects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -49,18 +49,18 @@ public class Personaje extends Tiles {
         TextureRegion keyFrame;
         if (Settings.animationWalkIsON) {
             if (state == STATE_DOWN) {
-                keyFrame = Assets.personajeDown.getKeyFrame(stateTime, true);
+                keyFrame = Assets.animationMoveDown.getKeyFrame(stateTime, true);
             } else if (state == STATE_UP) {
-                keyFrame = Assets.personajeUp.getKeyFrame(stateTime, true);
+                keyFrame = Assets.animationMoveUp.getKeyFrame(stateTime, true);
             } else if (state == STATE_LEFT) {
-                keyFrame = Assets.personajeLeft.getKeyFrame(stateTime, true);
+                keyFrame = Assets.animationMoveLeft.getKeyFrame(stateTime, true);
             } else if (state == STATE_RIGHT) {
-                keyFrame = Assets.personajeRight.getKeyFrame(stateTime, true);
+                keyFrame = Assets.animationMoveRight.getKeyFrame(stateTime, true);
             } else {
-                keyFrame = Assets.personajeStand;
+                keyFrame = Assets.playerStand;
             }
         } else {
-            keyFrame = Assets.personajeStand;
+            keyFrame = Assets.playerStand;
         }
 
         batch.draw(keyFrame, getX(), getY(), SIZE, SIZE);
