@@ -48,7 +48,7 @@ public class ControlesNoPad extends Table {
             }
         });
 
-        btLeft = new Button(Assets.btIzq, Assets.btIzqPress);
+        btLeft = new Button(Assets.buttonIzq, Assets.btIzqPress);
         btLeft.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -56,7 +56,7 @@ public class ControlesNoPad extends Table {
             }
         });
 
-        btRight = new Button(Assets.btDer, Assets.btDerPress);
+        btRight = new Button(Assets.buttonDer, Assets.buttonDerPress);
         btRight.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

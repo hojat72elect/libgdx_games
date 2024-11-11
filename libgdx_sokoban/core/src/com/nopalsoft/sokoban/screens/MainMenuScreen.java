@@ -23,7 +23,7 @@ public class MainMenuScreen extends Screens {
 
         levelSelector = new LevelSelector(this);
 
-        buttonPreviousPage = new Button(Assets.btIzq, Assets.btIzqPress);
+        buttonPreviousPage = new Button(Assets.buttonIzq, Assets.btIzqPress);
         buttonPreviousPage.setSize(75, 75);
         buttonPreviousPage.setPosition(65, 220);
         buttonPreviousPage.addListener(new ClickListener() {
@@ -33,7 +33,7 @@ public class MainMenuScreen extends Screens {
             }
 
         });
-        buttonNextPage = new Button(Assets.btDer, Assets.btDerPress);
+        buttonNextPage = new Button(Assets.buttonDer, Assets.buttonDerPress);
         buttonNextPage.setSize(75, 75);
         buttonNextPage.setPosition(660, 220);
         buttonNextPage.addListener(new ClickListener() {

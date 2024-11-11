@@ -37,7 +37,7 @@ public class Dialog extends Group {
     }
 
     protected void setCloseButton() {
-        Button btClose = new Button(Assets.btClose, Assets.btClosePress);
+        Button btClose = new Button(Assets.btClose, Assets.buttonClosePress);
         btClose.setSize(60F, 60F);
         btClose.setPosition(290F, 250F);
         btClose.addListener(new ClickListener() {
@@ -50,17 +50,17 @@ public class Dialog extends Group {
 
     }
 
-    protected void setTitle(float width, float height, String text, float fontScale) {
-        Table tbTitulo;
-        tbTitulo = new Table();
+    protected void setTitle(String text, float fontScale) {
+        Table tableTitle;
+        tableTitle = new Table();
 
-        tbTitulo.setSize(width, height);
-        tbTitulo.setPosition(getWidth() / 2f - tbTitulo.getWidth() / 2f, getHeight() - tbTitulo.getHeight());
+        tableTitle.setSize((float) 180, (float) 50);
+        tableTitle.setPosition(getWidth() / 2f - tableTitle.getWidth() / 2f, getHeight() - tableTitle.getHeight());
 
-        Label lbTitulo = new Label(text, new LabelStyle(Assets.fontDefault, Color.WHITE));
-        lbTitulo.setFontScale(fontScale);
-        tbTitulo.add(lbTitulo);
-        addActor(tbTitulo);
+        Label labelTitle = new Label(text, new LabelStyle(Assets.fontDefault, Color.WHITE));
+        labelTitle.setFontScale(fontScale);
+        tableTitle.add(labelTitle);
+        addActor(tableTitle);
 
     }
 
@@ -95,20 +95,13 @@ public class Dialog extends Group {
     public void hide() {
         isShown = false;
 
-        Runnable run = new Runnable() {
-
-            @Override
-            public void run() {
-                hideCompleted();
-            }
-        };
         addAction(Actions
-                .sequence(Actions.scaleTo(.35f, .35f, ANIMATION_DURATION), Actions.run(run), Actions.removeActor(dim), Actions.removeActor()));
+                .sequence(Actions.scaleTo(.35f, .35f, ANIMATION_DURATION), Actions.run(this::hideCompleted), Actions.removeActor(dim), Actions.removeActor()));
         dim.addAction(Actions.alpha(0, ANIMATION_DURATION));
     }
 
     /**
-     * Se llama cuando se termina de ocultar
+     * It is called when it finishes hiding.
      */
     public void hideCompleted() {
 

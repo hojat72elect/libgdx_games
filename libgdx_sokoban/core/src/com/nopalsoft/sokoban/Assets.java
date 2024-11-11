@@ -30,9 +30,9 @@ public class Assets {
     public static TextureRegionDrawable backgroundMoves;
     public static TextureRegionDrawable backgroundTime;
 
-    public static TextureRegionDrawable btDer;
-    public static TextureRegionDrawable btDerPress;
-    public static TextureRegionDrawable btIzq;
+    public static TextureRegionDrawable buttonDer;
+    public static TextureRegionDrawable buttonDerPress;
+    public static TextureRegionDrawable buttonIzq;
     public static TextureRegionDrawable btIzqPress;
     public static TextureRegionDrawable btUp;
     public static TextureRegionDrawable btUpPress;
@@ -53,7 +53,7 @@ public class Assets {
     public static TextureRegionDrawable btMas;
     public static TextureRegionDrawable btMasPress;
     public static TextureRegionDrawable btClose;
-    public static TextureRegionDrawable btClosePress;
+    public static TextureRegionDrawable buttonClosePress;
     public static TextureRegionDrawable btHome;
     public static TextureRegionDrawable btHomePress;
     public static TextureRegionDrawable btOff;
@@ -169,9 +169,9 @@ public class Assets {
     }
 
     private static void loadUI() {
-        btDer = new TextureRegionDrawable(atlas.findRegion("UI/btDer"));
-        btDerPress = new TextureRegionDrawable(atlas.findRegion("UI/btDerPress"));
-        btIzq = new TextureRegionDrawable(atlas.findRegion("UI/btIzq"));
+        buttonDer = new TextureRegionDrawable(atlas.findRegion("UI/btDer"));
+        buttonDerPress = new TextureRegionDrawable(atlas.findRegion("UI/btDerPress"));
+        buttonIzq = new TextureRegionDrawable(atlas.findRegion("UI/btIzq"));
         btIzqPress = new TextureRegionDrawable(atlas.findRegion("UI/btIzqPress"));
         btUp = new TextureRegionDrawable(atlas.findRegion("UI/btUp"));
         btUpPress = new TextureRegionDrawable(atlas.findRegion("UI/btUpPress"));
@@ -192,7 +192,7 @@ public class Assets {
         btMas = new TextureRegionDrawable(atlas.findRegion("UI/btMas"));
         btMasPress = new TextureRegionDrawable(atlas.findRegion("UI/btMasPress"));
         btClose = new TextureRegionDrawable(atlas.findRegion("UI/btClose"));
-        btClosePress = new TextureRegionDrawable(atlas.findRegion("UI/btClosePress"));
+        buttonClosePress = new TextureRegionDrawable(atlas.findRegion("UI/btClosePress"));
         btHome = new TextureRegionDrawable(atlas.findRegion("UI/btHome"));
         btHomePress = new TextureRegionDrawable(atlas.findRegion("UI/btHomePress"));
         btOff = new TextureRegionDrawable(atlas.findRegion("UI/btOff"));

@@ -22,7 +22,7 @@ public class DialogLevel extends Dialog {
         super(currentScreen, 350, 300, 100);
 
         setCloseButton();
-        setTitle(180, 50, "Puntuaciones", .75f);
+        setTitle("Puntuaciones", .75f);
 
         Table tbMenu = new Table();
         tbMenu.setFillParent(true);

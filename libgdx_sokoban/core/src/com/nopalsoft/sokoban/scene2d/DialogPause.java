@@ -22,7 +22,7 @@ public class DialogPause extends Dialog {
         super(currentScreen, 350, 300, 100);
 
         setCloseButton();
-        setTitle(180, 50, "Paused", 1);
+        setTitle("Paused", 1);
 
         Table tbMenu = new Table();
         tbMenu.setFillParent(true);
