@@ -7,31 +7,18 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.game.GameScreen;
 
-public class ControlesNoPad extends Table {
+public class OnScreenGamePad extends Table {
 
     GameScreen gameScreen;
 
     Button btUp, btDown, btLeft, btRight;
 
-    public ControlesNoPad(GameScreen oScreen) {
+    public OnScreenGamePad(GameScreen oScreen) {
         gameScreen = oScreen;
 
         getColor().a = .4f;
-        init();
 
-        int buttonSize = 75;
-        defaults().size(buttonSize);
 
-        add(btUp).colspan(2).center();
-        row();
-        add(btLeft).left();
-        add(btRight).right().padLeft(buttonSize / 1.15f);
-        row();
-        add(btDown).colspan(2).center();
-        pack();
-    }
-
-    private void init() {
         btUp = new Button(Assets.btUp, Assets.btUpPress);
         btUp.addListener(new ClickListener() {
             @Override
@@ -64,6 +51,18 @@ public class ControlesNoPad extends Table {
             }
         });
 
+
+        int buttonSize = 75;
+        defaults().size(buttonSize);
+
+        add(btUp).colspan(2).center();
+        row();
+        add(btLeft).left();
+        add(btRight).right().padLeft(buttonSize / 1.15f);
+        row();
+        add(btDown).colspan(2).center();
+        pack();
     }
+
 
 }
