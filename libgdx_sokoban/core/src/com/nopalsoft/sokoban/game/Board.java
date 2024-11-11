@@ -11,8 +11,9 @@ import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.game_objects.Box;
 import com.nopalsoft.sokoban.game_objects.EndPoint;
-import com.nopalsoft.sokoban.game_objects.Pared;
 import com.nopalsoft.sokoban.game_objects.Tiles;
+import com.nopalsoft.sokoban.game_objects.Wall;
+import com.nopalsoft.sokoban.game_objects.Player;
 
 public class Board extends Group {
 	public static final float UNIT_SCALE = 1f;
@@ -32,7 +33,7 @@ public class Board extends Group {
 	Array<Vector2> arrMovesCaja;
 
 	Array<Tiles> arrTiles;
-	private com.nopalsoft.sokoban.game_objects.Player player;
+	private Player player;
 
 	public boolean moveUp, moveDown, moveLeft, moveRight;
 	public boolean undo;
@@ -51,10 +52,10 @@ public class Board extends Group {
 		initializeMap("Objetos");
 
 		// AFTER initializing the objects I add them to the Board in order so that some are drawn before others.
-		agregarAlTablero(Pared.class);
+		agregarAlTablero(Wall.class);
 		agregarAlTablero(EndPoint.class);
 		agregarAlTablero(Box.class);
-		agregarAlTablero(com.nopalsoft.sokoban.game_objects.Player.class);
+		agregarAlTablero(Player.class);
 
 		state = STATE_RUNNING;
 
@@ -107,14 +108,14 @@ public class Board extends Group {
 	}
 
 	private void crearPersonaje(int posTile) {
-		com.nopalsoft.sokoban.game_objects.Player obj = new com.nopalsoft.sokoban.game_objects.Player(posTile);
+		Player obj = new Player(posTile);
 		arrTiles.add(obj);
 		player = obj;
 
 	}
 
 	private void crearPared(int posTile) {
-		Pared obj = new Pared(posTile);
+		Wall obj = new Wall(posTile);
 		arrTiles.add(obj);
 
 	}
