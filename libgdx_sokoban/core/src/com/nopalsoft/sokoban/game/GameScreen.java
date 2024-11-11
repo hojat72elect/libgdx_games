@@ -57,7 +57,7 @@ public class GameScreen extends Screens {
         buttonUndo = new Button(Assets.btRefresh, Assets.btRefreshPress);
         buttonUndo.setSize(80, 80);
         buttonUndo.setPosition(700, 20);
-        buttonUndo.getColor().a = oControl.getColor().a;// Que tengan el mismo color de alpha
+        buttonUndo.getColor().a = oControl.getColor().a;// That they have the same color of alpha
         buttonUndo.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -117,16 +117,13 @@ public class GameScreen extends Screens {
     private void setGameover() {
         state = STATE_GAME_OVER;
         Settings.levelCompeted(level, board.moves, (int) board.time);
-        stage.addAction(Actions.sequence(Actions.delay(.35f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                level += 1;
-                if (level >= Settings.NUM_MAPS)
-                    changeScreenWithFadeOut(MainMenuScreen.class, game);
-                else
-                    changeScreenWithFadeOut(GameScreen.class, level, game);
+        stage.addAction(Actions.sequence(Actions.delay(.35f), Actions.run(() -> {
+            level += 1;
+            if (level >= com.nopalsoft.sokoban.Settings.NUM_MAPS)
+                changeScreenWithFadeOut(MainMenuScreen.class, game);
+            else
+                changeScreenWithFadeOut(GameScreen.class, level, game);
 
-            }
         })));
     }
 
