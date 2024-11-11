@@ -10,16 +10,16 @@ import com.nopalsoft.sokoban.game.Board;
 /**
  * All objects are useful (the floor, the character, the boxes)
  */
-public class Tiles extends Actor {
+public class Tile extends Actor {
 
-    final static LinkedHashMap<Integer, Vector2> mapPosiciones = new LinkedHashMap<>();
+    final static LinkedHashMap<Integer, Vector2> mapPositions = new LinkedHashMap<>();
 
     static {
         // Positions start from left to right from bottom to top.
         int posicionTile = 0;
         for (int y = 0; y < 15; y++) {
             for (int x = 0; x < 25; x++) {
-                mapPosiciones.put(posicionTile, new Vector2(x * 32 * Board.UNIT_SCALE, y * 32 * Board.UNIT_SCALE));
+                mapPositions.put(posicionTile, new Vector2(x * 32 * Board.UNIT_SCALE, y * 32 * Board.UNIT_SCALE));
                 posicionTile++;
             }
         }
@@ -30,10 +30,10 @@ public class Tiles extends Actor {
 
     public int position;
 
-    public Tiles(int position) {
+    public Tile(int position) {
         this.position = position;
         setSize(SIZE, SIZE);
-        setPosition(mapPosiciones.get(position).x, mapPosiciones.get(position).y);
+        setPosition(mapPositions.get(position).x, mapPositions.get(position).y);
 
     }
 
@@ -45,18 +45,11 @@ public class Tiles extends Actor {
         if (Settings.animationWalkIsON && !undo)
             time = .45f;
         this.position = pos;
-        addAction(Actions.sequence(Actions.moveTo(mapPosiciones.get(position).x, mapPosiciones.get(position).y, time), Actions.run(new Runnable() {
-
-            @Override
-            public void run() {
-                endMovingToPosition();
-            }
-
-        })));
+        addAction(Actions.sequence(Actions.moveTo(mapPositions.get(position).x, mapPositions.get(position).y, time), Actions.run(this::endMovingToPosition)));
     }
 
     /**
-     * Se llama automaticamente cuando ya se a movido a la posicion
+     * It is called automatically when it has already moved to the position.
      */
     protected void endMovingToPosition() {
 

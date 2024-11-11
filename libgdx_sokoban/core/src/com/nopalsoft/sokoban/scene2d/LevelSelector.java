@@ -36,7 +36,7 @@ public class LevelSelector extends Group {
     int actualPage;
     int totalStars;
 
-    VentanaLevel vtLevel;
+    DialogLevel vtLevel;
 
     public LevelSelector(Screens currentScreen) {
         setSize(600, 385);
@@ -47,7 +47,7 @@ public class LevelSelector extends Group {
 
         setBackGround(Assets.windowBackground);
 
-        vtLevel = new VentanaLevel(currentScreen);
+        vtLevel = new DialogLevel(currentScreen);
 
         Table tbTitulo;
         tbTitulo = new Table();

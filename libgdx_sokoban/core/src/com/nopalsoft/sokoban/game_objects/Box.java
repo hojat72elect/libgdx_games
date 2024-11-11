@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.nopalsoft.sokoban.Assets;
 
-public class Box extends Tiles {
+public class Box extends Tile {
     public static final int COLOR_BEIGE = 1;
     public static final int COLOR_DARK_BEIGE = -1;
     public static final int COLOR_BLACK = 2;

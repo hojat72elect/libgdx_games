@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.game_objects.Box;
 import com.nopalsoft.sokoban.game_objects.EndPoint;
-import com.nopalsoft.sokoban.game_objects.Tiles;
 import com.nopalsoft.sokoban.game_objects.Wall;
 import com.nopalsoft.sokoban.game_objects.Player;
 
@@ -25,14 +24,14 @@ public class Board extends Group {
 	/**
 	 * X previous position, Y current position.
 	 */
-	Array<Vector2> arrMovesPersonaje;
+	Array<Vector2> arrayPlayerMoves;
 
 	/**
 	 * X previous position, Y current position
 	 */
-	Array<Vector2> arrMovesCaja;
+	Array<Vector2> arrayBoxMoves;
 
-	Array<Tiles> arrTiles;
+	Array<com.nopalsoft.sokoban.game_objects.Tile> arrayTiles;
 	private Player player;
 
 	public boolean moveUp, moveDown, moveLeft, moveRight;
@@ -44,9 +43,9 @@ public class Board extends Group {
 	public Board() {
 		setSize(800, 480);
 
-		arrTiles = new Array<>(25 * 15);
-		arrMovesPersonaje = new Array<>();
-		arrMovesCaja = new Array<>();
+		arrayTiles = new Array<>(25 * 15);
+		arrayPlayerMoves = new Array<>();
+		arrayBoxMoves = new Array<>();
 
 		initializeMap("StaticMap");
 		initializeMap("Objetos");
@@ -63,7 +62,7 @@ public class Board extends Group {
 	}
 
 	private void agregarAlTablero(Class<?> tipo) {
-        for (Tiles obj : arrTiles) {
+        for (com.nopalsoft.sokoban.game_objects.Tile obj : arrayTiles) {
             if (obj.getClass() == tipo) {
                 addActor(obj);
             }
@@ -109,25 +108,25 @@ public class Board extends Group {
 
 	private void crearPersonaje(int posTile) {
 		Player obj = new Player(posTile);
-		arrTiles.add(obj);
+		arrayTiles.add(obj);
 		player = obj;
 
 	}
 
 	private void crearPared(int posTile) {
 		Wall obj = new Wall(posTile);
-		arrTiles.add(obj);
+		arrayTiles.add(obj);
 
 	}
 
 	private void crearCaja(int posTile, String color) {
 		Box obj = new Box(posTile, color);
-		arrTiles.add(obj);
+		arrayTiles.add(obj);
 	}
 
 	private void crearEndPoint(int posTile, String color) {
 		EndPoint obj = new EndPoint(posTile, color);
-		arrTiles.add(obj);
+		arrayTiles.add(obj);
 	}
 
 	@Override
@@ -161,8 +160,8 @@ public class Board extends Group {
 					int nextPos = player.position + auxMoves;
 
 					if (checarEspacioVacio(nextPos) || (!checarIsBoxInPosition(nextPos) && checarIsEndInPosition(nextPos))) {
-						arrMovesPersonaje.add(new Vector2(player.position, nextPos));
-						arrMovesCaja.add(null);
+						arrayPlayerMoves.add(new Vector2(player.position, nextPos));
+						arrayBoxMoves.add(null);
 						player.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
 						moves++;
 					}
@@ -172,8 +171,8 @@ public class Board extends Group {
 							if (checarEspacioVacio(boxNextPos) || (!checarIsBoxInPosition(boxNextPos) && checarIsEndInPosition(boxNextPos))) {
 								Box oBox = getBoxInPosition(nextPos);
 
-								arrMovesPersonaje.add(new Vector2(player.position, nextPos));
-								arrMovesCaja.add(new Vector2(oBox.position, boxNextPos));
+								arrayPlayerMoves.add(new Vector2(player.position, nextPos));
+								arrayBoxMoves.add(new Vector2(oBox.position, boxNextPos));
 								moves++;
 
 								oBox.moveToPosition(boxNextPos, false);
@@ -198,12 +197,12 @@ public class Board extends Group {
 	}
 
 	private void undo() {
-		if (arrMovesPersonaje.size >= moves) {
-			Vector2 posAntPersonaje = arrMovesPersonaje.removeIndex(moves - 1);
+		if (arrayPlayerMoves.size >= moves) {
+			Vector2 posAntPersonaje = arrayPlayerMoves.removeIndex(moves - 1);
 			player.moveToPosition((int) posAntPersonaje.x, true);
 		}
-		if (arrMovesCaja.size >= moves) {
-			Vector2 posAntBox = arrMovesCaja.removeIndex(moves - 1);
+		if (arrayBoxMoves.size >= moves) {
+			Vector2 posAntBox = arrayBoxMoves.removeIndex(moves - 1);
 			if (posAntBox != null) {
 				Box oBox = getBoxInPosition((int) posAntBox.y);
 				oBox.moveToPosition((int) posAntBox.x, true);
@@ -215,7 +214,7 @@ public class Board extends Group {
 	}
 
 	private boolean checarEspacioVacio(int pos) {
-		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+		ArrayIterator<com.nopalsoft.sokoban.game_objects.Tile> ite = new ArrayIterator<com.nopalsoft.sokoban.game_objects.Tile>(arrayTiles);
 		while (ite.hasNext()) {
 			if (ite.next().position == pos)
 				return false;
@@ -230,9 +229,9 @@ public class Board extends Group {
 	 */
 	private boolean checarIsBoxInPosition(int pos) {
 		boolean isBoxInPosition = false;
-		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+		ArrayIterator<com.nopalsoft.sokoban.game_objects.Tile> ite = new ArrayIterator<com.nopalsoft.sokoban.game_objects.Tile>(arrayTiles);
 		while (ite.hasNext()) {
-			Tiles obj = ite.next();
+			com.nopalsoft.sokoban.game_objects.Tile obj = ite.next();
 			if (obj.position == pos && obj instanceof Box)
 				isBoxInPosition = true;
 		}
@@ -247,9 +246,9 @@ public class Board extends Group {
 	 */
 	private boolean checarIsEndInPosition(int pos) {
 		boolean isEndPointInPosition = false;
-		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+		ArrayIterator<com.nopalsoft.sokoban.game_objects.Tile> ite = new ArrayIterator<com.nopalsoft.sokoban.game_objects.Tile>(arrayTiles);
 		while (ite.hasNext()) {
-			Tiles obj = ite.next();
+			com.nopalsoft.sokoban.game_objects.Tile obj = ite.next();
 			if (obj.position == pos && obj instanceof EndPoint)
 				isEndPointInPosition = true;
 		}
@@ -258,9 +257,9 @@ public class Board extends Group {
 	}
 
 	private Box getBoxInPosition(int pos) {
-		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+		ArrayIterator<com.nopalsoft.sokoban.game_objects.Tile> ite = new ArrayIterator<com.nopalsoft.sokoban.game_objects.Tile>(arrayTiles);
 		while (ite.hasNext()) {
-			Tiles obj = ite.next();
+			com.nopalsoft.sokoban.game_objects.Tile obj = ite.next();
 			if (obj.position == pos && obj instanceof Box)
 				return (Box) obj;
 		}
@@ -268,9 +267,9 @@ public class Board extends Group {
 	}
 
 	private EndPoint getEndPointInPosition(int pos) {
-		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+		ArrayIterator<com.nopalsoft.sokoban.game_objects.Tile> ite = new ArrayIterator<com.nopalsoft.sokoban.game_objects.Tile>(arrayTiles);
 		while (ite.hasNext()) {
-			Tiles obj = ite.next();
+			com.nopalsoft.sokoban.game_objects.Tile obj = ite.next();
 			if (obj.position == pos && obj instanceof EndPoint)
 				return (EndPoint) obj;
 		}
@@ -279,9 +278,9 @@ public class Board extends Group {
 
 	private int checkBoxesMissingTheRightEndPoint() {
 		int numBox = 0;
-		ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+		ArrayIterator<com.nopalsoft.sokoban.game_objects.Tile> ite = new ArrayIterator<com.nopalsoft.sokoban.game_objects.Tile>(arrayTiles);
 		while (ite.hasNext()) {
-			Tiles obj = ite.next();
+			com.nopalsoft.sokoban.game_objects.Tile obj = ite.next();
 			if (obj instanceof Box) {
 				Box oBox = (Box) obj;
 				if (!oBox.isInRightEndPoint)

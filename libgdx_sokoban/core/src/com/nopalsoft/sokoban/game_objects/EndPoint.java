@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.nopalsoft.sokoban.Assets;
 
-public class EndPoint extends Tiles {
+public class EndPoint extends Tile {
     int numColor;
 
     AtlasRegion keyFrame;

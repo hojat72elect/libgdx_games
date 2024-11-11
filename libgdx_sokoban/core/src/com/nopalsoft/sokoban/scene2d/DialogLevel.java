@@ -13,15 +13,15 @@ import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.game.GameScreen;
 import com.nopalsoft.sokoban.screens.Screens;
 
-public class VentanaLevel extends Ventana {
+public class DialogLevel extends Dialog {
 
     Button btPlay;
     Label lbBestMoves, lbBestTime;
 
-    public VentanaLevel(Screens currentScreen) {
+    public DialogLevel(Screens currentScreen) {
         super(currentScreen, 350, 300, 100);
 
-        setCloseButton(290, 250, 60);
+        setCloseButton();
         setTitle(180, 50, "Puntuaciones", .75f);
 
         Table tbMenu = new Table();

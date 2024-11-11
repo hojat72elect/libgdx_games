@@ -16,7 +16,6 @@ import com.nopalsoft.sokoban.MainSokoban;
 import com.nopalsoft.sokoban.Settings;
 import com.nopalsoft.sokoban.scene2d.ContadorBar;
 import com.nopalsoft.sokoban.scene2d.ControlesNoPad;
-import com.nopalsoft.sokoban.scene2d.VentanaPause;
 import com.nopalsoft.sokoban.screens.MainMenuScreen;
 import com.nopalsoft.sokoban.screens.Screens;
 
@@ -33,7 +32,7 @@ public class GameScreen extends Screens {
     Button btPausa;
     ContadorBar barTime;
     ContadorBar barMoves;
-    VentanaPause vtPause;
+    com.nopalsoft.sokoban.scene2d.DialogPause vtPause;
     private final Stage stageGame;
 
     public GameScreen(final MainSokoban game, int level) {
@@ -50,7 +49,7 @@ public class GameScreen extends Screens {
         barTime = new ContadorBar(Assets.backgroundTime, 5, 430);
         barMoves = new ContadorBar(Assets.backgroundMoves, 5, 380);
 
-        vtPause = new VentanaPause(this);
+        vtPause = new com.nopalsoft.sokoban.scene2d.DialogPause(this);
 
         Label lbNivel = new Label("Level " + (level + 1), new LabelStyle(Assets.fontRed, Color.WHITE));
         lbNivel.setWidth(barTime.getWidth());

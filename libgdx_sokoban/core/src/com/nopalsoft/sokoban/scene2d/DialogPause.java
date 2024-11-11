@@ -13,15 +13,15 @@ import com.nopalsoft.sokoban.game.GameScreen;
 import com.nopalsoft.sokoban.screens.MainMenuScreen;
 import com.nopalsoft.sokoban.screens.Screens;
 
-public class VentanaPause extends Ventana {
+public class DialogPause extends Dialog {
 
     Button btHome, btRefresh;
     Table tbAnimations;
 
-    public VentanaPause(Screens currentScreen) {
+    public DialogPause(Screens currentScreen) {
         super(currentScreen, 350, 300, 100);
 
-        setCloseButton(290, 250, 60);
+        setCloseButton();
         setTitle(180, 50, "Paused", 1);
 
         Table tbMenu = new Table();

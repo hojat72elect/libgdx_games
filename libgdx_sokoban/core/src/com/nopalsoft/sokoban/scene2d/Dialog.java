@@ -16,16 +16,16 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.screens.Screens;
 
-public class Ventana extends Group {
-    public static final float DURACION_ANIMATION = .3f;
+public class Dialog extends Group {
+    public static final float ANIMATION_DURATION = .3f;
     protected Screens screen;
-    protected I18NBundle idiomas;
+    protected I18NBundle languages;
     private final Image dim;
     private boolean isShown = false;
 
-    public Ventana(Screens currentScreen, float width, float height, float positionY) {
+    public Dialog(Screens currentScreen, float width, float height, float positionY) {
         screen = currentScreen;
-        idiomas = currentScreen.game.languages;
+        languages = currentScreen.game.languages;
         setSize(width, height);
         setY(positionY);
 
@@ -36,10 +36,10 @@ public class Ventana extends Group {
 
     }
 
-    protected void setCloseButton(float positionX, float positionY, float size) {
+    protected void setCloseButton() {
         Button btClose = new Button(Assets.btClose, Assets.btClosePress);
-        btClose.setSize(size, size);
-        btClose.setPosition(positionX, positionY);
+        btClose.setSize(60F, 60F);
+        btClose.setPosition(290F, 250F);
         btClose.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -77,10 +77,10 @@ public class Ventana extends Group {
         setX(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f);
 
         setScale(.35f);
-        addAction(Actions.scaleTo(1, 1, DURACION_ANIMATION));
+        addAction(Actions.scaleTo(1, 1, ANIMATION_DURATION));
 
         dim.getColor().a = 0;
-        dim.addAction(Actions.alpha(.7f, DURACION_ANIMATION));
+        dim.addAction(Actions.alpha(.7f, ANIMATION_DURATION));
 
         isShown = true;
         stage.addActor(dim);
@@ -103,8 +103,8 @@ public class Ventana extends Group {
             }
         };
         addAction(Actions
-                .sequence(Actions.scaleTo(.35f, .35f, DURACION_ANIMATION), Actions.run(run), Actions.removeActor(dim), Actions.removeActor()));
-        dim.addAction(Actions.alpha(0, DURACION_ANIMATION));
+                .sequence(Actions.scaleTo(.35f, .35f, ANIMATION_DURATION), Actions.run(run), Actions.removeActor(dim), Actions.removeActor()));
+        dim.addAction(Actions.alpha(0, ANIMATION_DURATION));
     }
 
     /**
