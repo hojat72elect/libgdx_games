@@ -12,7 +12,6 @@ import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.game_objects.Box;
 import com.nopalsoft.sokoban.game_objects.EndPoint;
 import com.nopalsoft.sokoban.game_objects.Pared;
-import com.nopalsoft.sokoban.game_objects.Personaje;
 import com.nopalsoft.sokoban.game_objects.Tiles;
 
 public class Board extends Group {
@@ -33,7 +32,7 @@ public class Board extends Group {
 	Array<Vector2> arrMovesCaja;
 
 	Array<Tiles> arrTiles;
-	private Personaje personaje;
+	private com.nopalsoft.sokoban.game_objects.Player player;
 
 	public boolean moveUp, moveDown, moveLeft, moveRight;
 	public boolean undo;
@@ -55,7 +54,7 @@ public class Board extends Group {
 		agregarAlTablero(Pared.class);
 		agregarAlTablero(EndPoint.class);
 		agregarAlTablero(Box.class);
-		agregarAlTablero(Personaje.class);
+		agregarAlTablero(com.nopalsoft.sokoban.game_objects.Player.class);
 
 		state = STATE_RUNNING;
 
@@ -108,9 +107,9 @@ public class Board extends Group {
 	}
 
 	private void crearPersonaje(int posTile) {
-		Personaje obj = new Personaje(posTile);
+		com.nopalsoft.sokoban.game_objects.Player obj = new com.nopalsoft.sokoban.game_objects.Player(posTile);
 		arrTiles.add(obj);
-		personaje = obj;
+		player = obj;
 
 	}
 
@@ -157,13 +156,13 @@ public class Board extends Group {
 					auxMoves = 1;
 				}
 
-				if (personaje.canMove() && (moveDown || moveLeft || moveRight || moveUp)) {
-					int nextPos = personaje.position + auxMoves;
+				if (player.canMove() && (moveDown || moveLeft || moveRight || moveUp)) {
+					int nextPos = player.position + auxMoves;
 
 					if (checarEspacioVacio(nextPos) || (!checarIsBoxInPosition(nextPos) && checarIsEndInPosition(nextPos))) {
-						arrMovesPersonaje.add(new Vector2(personaje.position, nextPos));
+						arrMovesPersonaje.add(new Vector2(player.position, nextPos));
 						arrMovesCaja.add(null);
-						personaje.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
+						player.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
 						moves++;
 					}
 					else {
@@ -172,12 +171,12 @@ public class Board extends Group {
 							if (checarEspacioVacio(boxNextPos) || (!checarIsBoxInPosition(boxNextPos) && checarIsEndInPosition(boxNextPos))) {
 								Box oBox = getBoxInPosition(nextPos);
 
-								arrMovesPersonaje.add(new Vector2(personaje.position, nextPos));
+								arrMovesPersonaje.add(new Vector2(player.position, nextPos));
 								arrMovesCaja.add(new Vector2(oBox.position, boxNextPos));
 								moves++;
 
 								oBox.moveToPosition(boxNextPos, false);
-								personaje.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
+								player.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
 								oBox.setIsInEndPoint(getEndPointInPosition(boxNextPos));
 
 							}
@@ -200,7 +199,7 @@ public class Board extends Group {
 	private void undo() {
 		if (arrMovesPersonaje.size >= moves) {
 			Vector2 posAntPersonaje = arrMovesPersonaje.removeIndex(moves - 1);
-			personaje.moveToPosition((int) posAntPersonaje.x, true);
+			player.moveToPosition((int) posAntPersonaje.x, true);
 		}
 		if (arrMovesCaja.size >= moves) {
 			Vector2 posAntBox = arrMovesCaja.removeIndex(moves - 1);
