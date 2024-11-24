@@ -11,7 +11,7 @@ public class Settings {
     public static boolean animationWalkIsON;
 
     public static int NUM_MAPS = 62;
-    public static Level[] arrLevel;// Cada posicion es un nivel
+    public static Level[] arrLevel;// Each position is a level
 
     private final static Preferences pref = Gdx.app.getPreferences("com.nopalsoft.sokoban");
 
