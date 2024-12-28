@@ -1,27 +1,19 @@
-package com.nopalsoft.sokoban.parallax;
+package com.nopalsoft.sokoban.parallax
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.math.Vector2
 
-public class ParallaxLayer {
-    public TextureRegion region;
-    public Vector2 parallaxRatio;
-    public Vector2 startPosition;
-    public Vector2 padding;
-    public float width, height;
-
-    /**
-     * @param region        the TextureRegion to draw , this can be any width/height
-     * @param parallaxRatio the relative speed of x,y {@link ParallaxBackground#ParallaxBackground(ParallaxLayer[], float, float, Vector2)}
-     * @param startPosition the init position of x,y
-     * @param padding       the padding of the region at x,y
-     */
-    public ParallaxLayer(TextureRegion region, Vector2 parallaxRatio, Vector2 startPosition, Vector2 padding, float width, float height) {
-        this.region = region;
-        this.parallaxRatio = parallaxRatio;
-        this.startPosition = startPosition;
-        this.padding = padding;
-        this.width = width;
-        this.height = height;
-    }
-}
+data class ParallaxLayer(
+    @JvmField
+    val region: TextureRegion,
+    @JvmField
+    val parallaxRatio: Vector2,
+    @JvmField
+    val startPosition: Vector2,
+    @JvmField
+    val padding: Vector2,
+    @JvmField
+    val width: Float,
+    @JvmField
+    val height: Float,
+)
