@@ -8,7 +8,7 @@ public class ParallaxLayer {
     public Vector2 parallaxRatio;
     public Vector2 startPosition;
     public Vector2 padding;
-    public float width, heigth;
+    public float width, height;
 
     /**
      * @param region        the TextureRegion to draw , this can be any width/height
@@ -22,6 +22,6 @@ public class ParallaxLayer {
         this.startPosition = startPosition;
         this.padding = padding;
         this.width = width;
-        this.heigth = height;
+        this.height = height;
     }
 }
