@@ -1,26 +1,30 @@
-package com.nopalsoft.sokoban;
+package com.nopalsoft.sokoban
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.I18NBundle;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.nopalsoft.sokoban.screens.MainMenuScreen;
-import com.nopalsoft.sokoban.screens.Screens;
+import com.badlogic.gdx.Game
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.utils.I18NBundle
+import com.badlogic.gdx.utils.viewport.StretchViewport
+import com.nopalsoft.sokoban.screens.MainMenuScreen
+import com.nopalsoft.sokoban.screens.Screens
 
-public class MainSokoban extends Game {
+class MainSokoban : Game() {
 
-    public Stage stage;
-    public SpriteBatch batcher;
-    public I18NBundle languages;
+    @JvmField
+    var stage: Stage? = null
 
-    @Override
-    public void create() {
-        stage = new Stage(new StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT));
-        batcher = new SpriteBatch();
+    @JvmField
+    var batcher: SpriteBatch? = null
 
-        Assets.load();
-        Settings.load();
-        setScreen(new MainMenuScreen(this));
+    @JvmField
+    var languages: I18NBundle? = null
+
+    override fun create() {
+        stage = Stage(StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT))
+        batcher = SpriteBatch()
+
+        Assets.load()
+        Settings.load()
+        setScreen(MainMenuScreen(this))
     }
 }

@@ -22,8 +22,8 @@ import com.nopalsoft.sokoban.Settings;
 import com.nopalsoft.sokoban.game.GameScreen;
 
 public abstract class Screens extends InputAdapter implements Screen, GestureListener {
-    public static final int SCREEN_WIDTH = 800;
-    public static final int SCREEN_HEIGHT = 480;
+    public static final float SCREEN_WIDTH = 800;
+    public static final float SCREEN_HEIGHT = 480;
 
     public MainSokoban game;
 
