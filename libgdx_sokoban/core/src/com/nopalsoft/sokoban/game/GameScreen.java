@@ -117,7 +117,7 @@ public class GameScreen extends Screens {
 
     private void setGameover() {
         state = STATE_GAME_OVER;
-        Settings.levelCompeted(level, board.moves, (int) board.time);
+        Settings.levelCompleted(level, board.moves, (int) board.time);
         stage.addAction(Actions.sequence(Actions.delay(.35f), Actions.run(() -> {
             level += 1;
             if (level >= com.nopalsoft.sokoban.Settings.NUM_MAPS)
