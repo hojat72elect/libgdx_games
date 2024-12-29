@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.MainSokoban;
 import com.nopalsoft.sokoban.Settings;
+import com.nopalsoft.sokoban.scene2d.CounterTable;
 import com.nopalsoft.sokoban.screens.MainMenuScreen;
 import com.nopalsoft.sokoban.screens.Screens;
 
@@ -28,8 +29,8 @@ public class GameScreen extends Screens {
     com.nopalsoft.sokoban.scene2d.OnScreenGamePad oControl;
     Button buttonUndo;
     Button buttonPause;
-    com.nopalsoft.sokoban.scene2d.Counter barTime;
-    com.nopalsoft.sokoban.scene2d.Counter barMoves;
+    CounterTable barTime;
+    CounterTable barMoves;
     com.nopalsoft.sokoban.scene2d.DialogPause vtPause;
     private final Stage stageGame;
 
@@ -44,8 +45,8 @@ public class GameScreen extends Screens {
 
         oControl = new com.nopalsoft.sokoban.scene2d.OnScreenGamePad(this);
 
-        barTime = new com.nopalsoft.sokoban.scene2d.Counter(Assets.backgroundTime, 5, 430);
-        barMoves = new com.nopalsoft.sokoban.scene2d.Counter(Assets.backgroundMoves, 5, 380);
+        barTime = new CounterTable(Assets.backgroundTime, 5, 430);
+        barMoves = new CounterTable(Assets.backgroundMoves, 5, 380);
 
         vtPause = new com.nopalsoft.sokoban.scene2d.DialogPause(this);
 
