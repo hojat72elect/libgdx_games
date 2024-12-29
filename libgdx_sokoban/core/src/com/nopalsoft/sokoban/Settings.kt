@@ -6,9 +6,6 @@ import com.nopalsoft.sokoban.game_objects.Level
 object Settings {
 
     @JvmField
-    val isTest = true
-
-    @JvmField
     var animationWalkIsON = false
     const val NUM_MAPS = 62
 

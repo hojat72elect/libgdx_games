@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
@@ -223,11 +222,8 @@ public class Assets {
             map.dispose();
             map = null;
         }
-        if (Settings.isTest) {
-            map = new TmxMapLoader().load("data/mapsTest/map" + numMap + ".tmx");
-        } else {
-            map = new AtlasTmxMapLoader().load("data/maps/map" + numMap + ".tmx");
-        }
+
+        map = new TmxMapLoader().load("data/mapsTest/map" + numMap + ".tmx");
     }
 
 }
