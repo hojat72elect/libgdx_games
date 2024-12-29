@@ -15,7 +15,7 @@ import com.nopalsoft.sokoban.screens.Screens;
 
 public class DialogLevel extends Dialog {
 
-    Button btPlay;
+    Button buttonPlay;
     Label labelBestMoves, labelBestTime;
 
     public DialogLevel(Screens currentScreen) {
@@ -24,31 +24,31 @@ public class DialogLevel extends Dialog {
         setCloseButton();
         setTitle("Puntuaciones", .75f);
 
-        Table tbMenu = new Table();
-        tbMenu.setFillParent(true);
+        Table tableMenu = new Table();
+        tableMenu.setFillParent(true);
 
-        btPlay = new Button(Assets.btPlay, Assets.btPlayPress);
+        buttonPlay = new Button(Assets.btPlay, Assets.btPlayPress);
 
-        Image imgClock = new Image(Assets.clock);
-        Image imgMoves = new Image(Assets.playerStand);
+        Image imageClock = new Image(Assets.clock);
+        Image imageMoves = new Image(Assets.playerStand);
 
         labelBestMoves = new Label("0", new LabelStyle(Assets.fontRed, Color.WHITE));
         labelBestTime = new Label("0", new LabelStyle(Assets.fontRed, Color.WHITE));
 
-        tbMenu.defaults().expandX();
+        tableMenu.defaults().expandX();
 
-        tbMenu.padLeft(30).padRight(30).padBottom(20).padTop(50);
-        tbMenu.add(imgMoves).size(45);
-        tbMenu.add(labelBestMoves);
+        tableMenu.padLeft(30).padRight(30).padBottom(20).padTop(50);
+        tableMenu.add(imageMoves).size(45);
+        tableMenu.add(labelBestMoves);
 
-        tbMenu.row().padTop(10);
-        tbMenu.add(imgClock).size(45);
-        tbMenu.add(labelBestTime);
+        tableMenu.row().padTop(10);
+        tableMenu.add(imageClock).size(45);
+        tableMenu.add(labelBestTime);
 
-        tbMenu.row().padTop(10);
-        tbMenu.add(btPlay).colspan(2).size(60);
+        tableMenu.row().padTop(10);
+        tableMenu.add(buttonPlay).colspan(2).size(60);
 
-        addActor(tbMenu);
+        addActor(tableMenu);
 
     }
 
@@ -56,8 +56,8 @@ public class DialogLevel extends Dialog {
         labelBestMoves.setText(bestMoves + "");
         labelBestTime.setText(bestTime + "");
 
-        btPlay.clear();
-        btPlay.addListener(new ClickListener() {
+        buttonPlay.clear();
+        buttonPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 screen.changeScreenWithFadeOut(GameScreen.class, level, screen.game);
