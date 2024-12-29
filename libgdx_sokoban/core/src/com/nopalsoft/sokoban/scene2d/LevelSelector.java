@@ -158,7 +158,7 @@ public class LevelSelector extends Group {
 
             button = new TextButton("" + (level + 1), Assets.styleTextButtonLevel);
 
-            // Estoy agregando mundos que no existen para poder llenar la tabla por eso pongo este fix
+            // I'm adding worlds that don't exist to fill the table, that's why I'm putting this fix.
             boolean completed = false;
             if (level < Settings.arrLevel.length) {
                 if (Settings.arrLevel[level].numStars == 1)

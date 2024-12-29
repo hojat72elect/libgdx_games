@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.nopalsoft.sokoban.Assets;
 
 public class EndPoint extends Tile {
-    int numColor;
+    int numColors;
 
     AtlasRegion keyFrame;
 
@@ -14,32 +14,32 @@ public class EndPoint extends Tile {
 
         switch (color) {
             case "brown":
-                numColor = Box.COLOR_BROWN;
+                numColors = Box.COLOR_BROWN;
                 break;
             case "gray":
-                numColor = Box.COLOR_GRAY;
+                numColors = Box.COLOR_GRAY;
                 break;
             case "purple":
-                numColor = Box.COLOR_PURPLE;
+                numColors = Box.COLOR_PURPLE;
                 break;
             case "blue":
-                numColor = Box.COLOR_BLUE;
+                numColors = Box.COLOR_BLUE;
                 break;
             case "black":
-                numColor = Box.COLOR_BLACK;
+                numColors = Box.COLOR_BLACK;
                 break;
             case "beige":
-                numColor = Box.COLOR_BEIGE;
+                numColors = Box.COLOR_BEIGE;
                 break;
             case "yellow":
-                numColor = Box.COLOR_YELLOW;
+                numColors = Box.COLOR_YELLOW;
                 break;
             case "red":
-                numColor = Box.COLOR_RED;
+                numColors = Box.COLOR_RED;
                 break;
         }
 
-        setTextureColor(numColor);
+        setTextureColor(numColors);
     }
 
     private void setTextureColor(int numColor) {

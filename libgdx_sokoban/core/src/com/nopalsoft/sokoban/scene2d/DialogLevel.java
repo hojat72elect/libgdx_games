@@ -16,7 +16,7 @@ import com.nopalsoft.sokoban.screens.Screens;
 public class DialogLevel extends Dialog {
 
     Button btPlay;
-    Label lbBestMoves, lbBestTime;
+    Label labelBestMoves, labelBestTime;
 
     public DialogLevel(Screens currentScreen) {
         super(currentScreen, 350, 300, 100);
@@ -32,18 +32,18 @@ public class DialogLevel extends Dialog {
         Image imgClock = new Image(Assets.clock);
         Image imgMoves = new Image(Assets.playerStand);
 
-        lbBestMoves = new Label("0", new LabelStyle(Assets.fontRed, Color.WHITE));
-        lbBestTime = new Label("0", new LabelStyle(Assets.fontRed, Color.WHITE));
+        labelBestMoves = new Label("0", new LabelStyle(Assets.fontRed, Color.WHITE));
+        labelBestTime = new Label("0", new LabelStyle(Assets.fontRed, Color.WHITE));
 
         tbMenu.defaults().expandX();
 
         tbMenu.padLeft(30).padRight(30).padBottom(20).padTop(50);
         tbMenu.add(imgMoves).size(45);
-        tbMenu.add(lbBestMoves);
+        tbMenu.add(labelBestMoves);
 
         tbMenu.row().padTop(10);
         tbMenu.add(imgClock).size(45);
-        tbMenu.add(lbBestTime);
+        tbMenu.add(labelBestTime);
 
         tbMenu.row().padTop(10);
         tbMenu.add(btPlay).colspan(2).size(60);
@@ -53,8 +53,8 @@ public class DialogLevel extends Dialog {
     }
 
     public void show(Stage stage, final int level, int bestMoves, int bestTime) {
-        lbBestMoves.setText(bestMoves + "");
-        lbBestTime.setText(bestTime + "");
+        labelBestMoves.setText(bestMoves + "");
+        labelBestTime.setText(bestTime + "");
 
         btPlay.clear();
         btPlay.addListener(new ClickListener() {

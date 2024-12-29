@@ -25,8 +25,8 @@ public class Box extends Tile {
     int numColor;
     AtlasRegion keyFrame;
 
-    public Box(int posicion, String color) {
-        super(posicion);
+    public Box(int position, String color) {
+        super(position);
 
         isInRightEndPoint = false;
 
@@ -121,7 +121,7 @@ public class Box extends Tile {
     public void setIsInEndPoint(EndPoint endPoint) {
         numColor = Math.abs(numColor);
         isInRightEndPoint = false;
-        if (endPoint != null && endPoint.numColor == numColor) {
+        if (endPoint != null && endPoint.numColors == numColor) {
             numColor = -numColor;
             isInRightEndPoint = true;
         }
