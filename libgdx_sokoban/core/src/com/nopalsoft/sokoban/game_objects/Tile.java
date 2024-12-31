@@ -16,11 +16,11 @@ public class Tile extends Actor {
 
     static {
         // Positions start from left to right from bottom to top.
-        int posicionTile = 0;
+        int tilePosition = 0;
         for (int y = 0; y < 15; y++) {
             for (int x = 0; x < 25; x++) {
-                mapPositions.put(posicionTile, new Vector2(x * 32 * Board.UNIT_SCALE, y * 32 * Board.UNIT_SCALE));
-                posicionTile++;
+                mapPositions.put(tilePosition, new Vector2(x * 32 * Board.UNIT_SCALE, y * 32 * Board.UNIT_SCALE));
+                tilePosition++;
             }
         }
     }

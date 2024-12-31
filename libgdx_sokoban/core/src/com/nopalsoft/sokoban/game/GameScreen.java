@@ -108,7 +108,7 @@ public class GameScreen extends Screens {
             barMoves.updateActualNum(board.moves);
             barTime.updateActualNum((int) board.time);
 
-            if (state == STATE_RUNNING && board.state == Board.STATE_GAMEOVER) {
+            if (state == STATE_RUNNING && board.state == Board.STATE_GAME_OVER) {
                 setGameover();
             }
         }
