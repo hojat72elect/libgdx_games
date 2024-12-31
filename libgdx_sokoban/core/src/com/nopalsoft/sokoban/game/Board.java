@@ -86,16 +86,16 @@ public class Board extends Group {
 								String type = tile.getProperties().get("tipo").toString();
 
 								if (type.equals("startPoint")) {
-									crearPersonaje(tilePosition);
+									createPlayer(tilePosition);
 								}
 								else if (type.equals("pared")) {
-									crearPared(tilePosition);
+									createWall(tilePosition);
 								}
 								else if (type.equals("caja")) {
-									crearCaja(tilePosition, tile.getProperties().get("color").toString());
+									createBox(tilePosition, tile.getProperties().get("color").toString());
 								}
 								else if (type.equals("endPoint")) {
-									crearEndPoint(tilePosition, tile.getProperties().get("color").toString());
+									createEndPoint(tilePosition, tile.getProperties().get("color").toString());
 								}
 
 							}
@@ -107,25 +107,25 @@ public class Board extends Group {
 		}
 	}
 
-	private void crearPersonaje(int posTile) {
-		Player obj = new Player(posTile);
+	private void createPlayer(int tilePosition) {
+		Player obj = new Player(tilePosition);
 		arrayTiles.add(obj);
 		player = obj;
 
 	}
 
-	private void crearPared(int posTile) {
-		Wall obj = new Wall(posTile);
+	private void createWall(int tilePosition) {
+		Wall obj = new Wall(tilePosition);
 		arrayTiles.add(obj);
 
 	}
 
-	private void crearCaja(int posTile, String color) {
+	private void createBox(int posTile, String color) {
 		Box obj = new Box(posTile, color);
 		arrayTiles.add(obj);
 	}
 
-	private void crearEndPoint(int posTile, String color) {
+	private void createEndPoint(int posTile, String color) {
 		EndPoint obj = new EndPoint(posTile, color);
 		arrayTiles.add(obj);
 	}
