@@ -16,6 +16,10 @@ import com.badlogic.gdx.utils.I18NBundle;
 import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.screens.Screens;
 
+/**
+ * The base class for all dialogs we create in this game. It has a background, a title and a close button.
+ * It also has an animation effect when appearing and disappearing.
+ */
 public class Dialog extends Group {
     public static final float ANIMATION_DURATION = .3f;
     protected Screens screen;
