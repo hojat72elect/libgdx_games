@@ -22,18 +22,18 @@ import com.nopalsoft.sokoban.screens.Screens;
 public class LevelSelector extends Group {
 
     protected MainMenuScreen menuScreen;
-    protected I18NBundle idiomas;
+    protected I18NBundle languages;
     protected MainSokoban game;
 
-    Label lbTitulo;
+    Label labelTitle;
 
     ScrollPane scrollPane;
-    Table contenedor;
+    Table tableContainer;
 
     /**
-     * Pagina actual (cada pagina tiene 15 niveles)
+     * Current page (each page has 15 levels)
      */
-    int actualPage;
+    int currentPage;
     int totalStars;
 
     DialogLevel vtLevel;
@@ -43,46 +43,46 @@ public class LevelSelector extends Group {
         setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 70);
         menuScreen = (MainMenuScreen) currentScreen;
         game = currentScreen.game;
-        idiomas = game.languages;
+        languages = game.languages;
 
         setBackGround(Assets.windowBackground);
 
         vtLevel = new DialogLevel(currentScreen);
 
-        Table tbTitulo;
-        tbTitulo = new Table();
+        Table tableTitle;
+        tableTitle = new Table();
 
-        tbTitulo.setSize(300, 50);
-        tbTitulo.setPosition(getWidth() / 2f - tbTitulo.getWidth() / 2f, 324);
+        tableTitle.setSize(300, 50);
+        tableTitle.setPosition(getWidth() / 2f - tableTitle.getWidth() / 2f, 324);
 
-        lbTitulo = new Label("Niveles", new LabelStyle(Assets.fontDefault, Color.WHITE));
-        tbTitulo.add(lbTitulo);
+        labelTitle = new Label("Levels", new LabelStyle(Assets.fontDefault, Color.WHITE));
+        tableTitle.add(labelTitle);
 
-        contenedor = new Table();
-        scrollPane = new ScrollPane(contenedor);
+        tableContainer = new Table();
+        scrollPane = new ScrollPane(tableContainer);
         scrollPane.setSize(getWidth() - 100, getHeight() - 100);
         scrollPane.setPosition(getWidth() / 2f - scrollPane.getWidth() / 2f, 30);
         scrollPane.setScrollingDisabled(false, true);
-        //
 
-        contenedor.defaults().padLeft(5).padRight(5);
+        tableContainer.defaults().padLeft(5).padRight(5);
 
         for (int i = 0; i < Settings.arrLevel.length; i++) {
             totalStars += Settings.arrLevel[i].numStars;
         }
-        totalStars += 2;// Por defecto ya tengo 3 esterllasd
+        totalStars += 2;// By default, I already have 3 stars
 
-        int numeroPages = (int) (Settings.NUM_MAPS / 15f);
+        // total number of pages
+        int numPages = (int) (Settings.NUM_MAPS / 15f);
         if (Settings.NUM_MAPS % 15f != 0)
-            numeroPages++;
+            numPages++;
 
-        for (int col = 0; col < numeroPages; col++) {
-            contenedor.add(getListLevel(col));
+        for (int col = 0; col < numPages; col++) {
+            tableContainer.add(getListLevel(col));
         }
 
-        actualPage = 0;
+        currentPage = 0;
 
-        addActor(tbTitulo);
+        addActor(tableTitle);
         addActor(scrollPane);
 
         scrollToPage(0);
@@ -97,10 +97,7 @@ public class LevelSelector extends Group {
     }
 
     /**
-     * Cada lista tiene 15 items
-     *
-     * @param list
-     * @return
+     * Each list has 15 items.
      */
     public Table getListLevel(int list) {
         Table content = new Table();
@@ -115,7 +112,7 @@ public class LevelSelector extends Group {
             if (level % 5 == 0)
                 content.row();
 
-            // para esconder mundos que no existen
+            // to hide worlds that do not exist
             if (level > Settings.NUM_MAPS)
                 oButton.setVisible(false);
 
@@ -126,30 +123,30 @@ public class LevelSelector extends Group {
 
     private void scrollToPage(int page) {
 
-        Table tabToScrollTo = (Table) contenedor.getChildren().get(page);
+        Table tabToScrollTo = (Table) tableContainer.getChildren().get(page);
         scrollPane.scrollTo(tabToScrollTo.getX(), tabToScrollTo.getY(), tabToScrollTo.getWidth(), tabToScrollTo.getHeight());
 
     }
 
     public void nextPage() {
-        actualPage++;
-        if (actualPage >= contenedor.getChildren().size)
-            actualPage = contenedor.getChildren().size - 1;
-        scrollToPage(actualPage);
+        currentPage++;
+        if (currentPage >= tableContainer.getChildren().size)
+            currentPage = tableContainer.getChildren().size - 1;
+        scrollToPage(currentPage);
     }
 
     public void previousPage() {
-        actualPage--;
-        if (actualPage < 0)
-            actualPage = 0;
-        scrollToPage(actualPage);
+        currentPage--;
+        if (currentPage < 0)
+            currentPage = 0;
+        scrollToPage(currentPage);
 
     }
 
     public Button getLevelButton(final int level) {
         final TextButton button;
 
-        final int skullsToNextLevel = (int) (level * 1f);// Solo necesito 1 estrella para desbloquear el siguiente nivel
+        final int skullsToNextLevel = (int) (level * 1f);// I only need 1 star to unlock the next level
 
         if (!(totalStars >= skullsToNextLevel)) {
             button = new TextButton("", Assets.styleTextButtonLevelLocked);
