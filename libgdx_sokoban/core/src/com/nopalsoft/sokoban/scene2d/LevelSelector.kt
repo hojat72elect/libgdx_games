@@ -149,7 +149,7 @@ class LevelSelector(currentScreen: Screens) : Group() {
             }
         })
 
-        menuScreen.addEfectoPress(button)
+        menuScreen.addPressEffect(button)
 
         return button
     }

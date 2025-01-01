@@ -69,15 +69,12 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
         blackFadeOut = new Image(Assets.pixelBlack);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         blackFadeOut.getColor().a = 0;
-        blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                if (newScreen == GameScreen.class) {
-                    Assets.loadTiledMap(level);
-                    game.setScreen(new GameScreen(game, level));
-                } else if (newScreen == MainMenuScreen.class)
-                    game.setScreen(new MainMenuScreen(game));
-            }
+        blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run(() -> {
+            if (newScreen == GameScreen.class) {
+                Assets.loadTiledMap(level);
+                game.setScreen(new GameScreen(game, level));
+            } else if (newScreen == MainMenuScreen.class)
+                game.setScreen(new MainMenuScreen(game));
         })));
         stage.addActor(blackFadeOut);
     }
@@ -86,7 +83,7 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
         changeScreenWithFadeOut(newScreen, -1, game);
     }
 
-    public void addEfectoPress(final Actor actor) {
+    public void addPressEffect(final Actor actor) {
         actor.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
