@@ -17,6 +17,8 @@ import com.nopalsoft.sokoban.Settings;
 import com.nopalsoft.sokoban.scene2d.CounterTable;
 import com.nopalsoft.sokoban.screens.MainMenuScreen;
 import com.nopalsoft.sokoban.screens.Screens;
+import com.nopalsoft.sokoban.scene2d.OnScreenGamePad;
+import com.nopalsoft.sokoban.scene2d.DialogPause;
 
 public class GameScreen extends Screens {
     static final int STATE_RUNNING = 0;
@@ -26,12 +28,12 @@ public class GameScreen extends Screens {
     public int level;
     BoardRenderer boardRenderer;
     Board board;
-    com.nopalsoft.sokoban.scene2d.OnScreenGamePad oControl;
+    OnScreenGamePad oControl;
     Button buttonUndo;
     Button buttonPause;
     CounterTable barTime;
     CounterTable barMoves;
-    com.nopalsoft.sokoban.scene2d.DialogPause vtPause;
+    DialogPause vtPause;
     private final Stage stageGame;
 
     public GameScreen(final MainSokoban game, int level) {
@@ -109,13 +111,13 @@ public class GameScreen extends Screens {
             barTime.updateActualNum((int) board.time);
 
             if (state == STATE_RUNNING && board.state == Board.STATE_GAME_OVER) {
-                setGameover();
+                setGameOver();
             }
         }
 
     }
 
-    private void setGameover() {
+    private void setGameOver() {
         state = STATE_GAME_OVER;
         Settings.levelCompleted(level, board.moves, (int) board.time);
         stage.addAction(Actions.sequence(Actions.delay(.35f), Actions.run(() -> {
