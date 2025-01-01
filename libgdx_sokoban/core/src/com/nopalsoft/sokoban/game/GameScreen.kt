@@ -162,7 +162,7 @@ class GameScreen(game: MainSokoban, var level: Int) : Screens(game) {
                 }
             }
         } else if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
-            if (dialogPause.isShown) dialogPause.hide()
+            if (dialogPause.isShown()) dialogPause.hide()
         }
 
         return true

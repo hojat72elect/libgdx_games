@@ -60,6 +60,6 @@ class DialogLevel(currentScreen: Screens) : Dialog(currentScreen, 350F, 300F, 10
             }
         })
 
-        super.show(stage)
+        super.show(stage!!)
     }
 }
