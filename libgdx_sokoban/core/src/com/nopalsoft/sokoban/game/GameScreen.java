@@ -33,7 +33,7 @@ public class GameScreen extends Screens {
     Button buttonPause;
     CounterTable barTime;
     CounterTable barMoves;
-    DialogPause vtPause;
+    DialogPause dialogPause;
     private final Stage stageGame;
 
     public GameScreen(final MainSokoban game, int level) {
@@ -45,12 +45,12 @@ public class GameScreen extends Screens {
 
         boardRenderer = new BoardRenderer(batcher);
 
-        oControl = new com.nopalsoft.sokoban.scene2d.OnScreenGamePad(this);
+        oControl = new OnScreenGamePad(this);
 
         barTime = new CounterTable(Assets.backgroundTime, 5, 430);
         barMoves = new CounterTable(Assets.backgroundMoves, 5, 380);
 
-        vtPause = new com.nopalsoft.sokoban.scene2d.DialogPause(this);
+        dialogPause = new DialogPause(this);
 
         Label labelLevel = new Label("Level " + (level + 1), new LabelStyle(Assets.fontRed, Color.WHITE));
         labelLevel.setWidth(barTime.getWidth());
@@ -139,7 +139,7 @@ public class GameScreen extends Screens {
     private void setPause() {
         if (state == STATE_RUNNING) {
             state = STATE_PAUSED;
-            vtPause.show(stage);
+            dialogPause.show(stage);
         }
     }
 
@@ -189,8 +189,8 @@ public class GameScreen extends Screens {
                 setPause();
             }
         } else if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
-            if (vtPause.isShown())
-                vtPause.hide();
+            if (dialogPause.isShown())
+                dialogPause.hide();
         }
 
         return true;
