@@ -13,6 +13,11 @@ import com.nopalsoft.sokoban.game.GameScreen;
 import com.nopalsoft.sokoban.screens.MainMenuScreen;
 import com.nopalsoft.sokoban.screens.Screens;
 
+/**
+ * The pause dialog that can be shown during the game.
+ * It shows 3 buttons : 1- Home, 2- Refresh, 3- Toggle Animation.
+ * After toggling the animation, this setting will be saved.
+ */
 public class DialogPause extends Dialog {
 
     Button buttonHome, buttonRefresh;

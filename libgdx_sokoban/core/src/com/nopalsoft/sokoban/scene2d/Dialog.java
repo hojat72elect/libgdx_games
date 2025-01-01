@@ -101,7 +101,7 @@ public class Dialog extends Group {
     }
 
     /**
-     * It is called when it finishes hiding.
+     * the callback that will be called when the dialog is closed.
      */
     public void hideCompleted() {
 
