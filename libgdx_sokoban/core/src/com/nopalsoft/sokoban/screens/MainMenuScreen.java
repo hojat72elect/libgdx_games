@@ -10,6 +10,11 @@ import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.MainSokoban;
 import com.nopalsoft.sokoban.scene2d.LevelSelector;
 
+/**
+ * This is the main menu screen of the game. It includes the {@link LevelSelector} and buttons
+ * for going to the next and previous pages holding levels of the game. It also contains buttons for
+ * accessing "leaderboard", "achievements", "facebook", "settings" and "more".
+ */
 public class MainMenuScreen extends Screens {
 
     LevelSelector levelSelector;
