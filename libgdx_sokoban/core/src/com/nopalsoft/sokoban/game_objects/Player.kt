@@ -49,7 +49,7 @@ class Player(position: Int) : Tile(position) {
             Assets.playerStand
         }
 
-        batch?.draw(keyFrame, x, y, SIZE, SIZE)
+        batch?.draw(keyFrame, x, y, size, size)
 
     }
 
