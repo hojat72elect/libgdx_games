@@ -13,6 +13,11 @@ import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.game.GameScreen;
 import com.nopalsoft.sokoban.screens.Screens;
 
+/**
+ * The dialog that will be shown whenever you choose a game from the main screen.
+ * This dialog shows the best number of  moves and the best time that the player
+ * has had in that specific level.
+ */
 public class DialogLevel extends Dialog {
 
     Button buttonPlay;
