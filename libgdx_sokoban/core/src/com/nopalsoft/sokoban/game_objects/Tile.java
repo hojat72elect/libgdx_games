@@ -50,6 +50,7 @@ public class Tile extends Actor {
 
     /**
      * It is called automatically when it has already moved to the position.
+     * This function is going to be used by the children of Tile class.
      */
     protected void endMovingToPosition() {
 
