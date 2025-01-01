@@ -7,7 +7,7 @@ libgdx_sokoban/.idea/
 com_crashlytics_export_strings.xml
 android/libs
 ## Eclipse
-
+*.java~
 .classpath
 .project
 .metadata/
