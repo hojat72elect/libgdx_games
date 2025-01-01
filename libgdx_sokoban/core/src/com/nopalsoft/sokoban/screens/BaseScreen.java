@@ -21,26 +21,31 @@ import com.nopalsoft.sokoban.MainSokoban;
 import com.nopalsoft.sokoban.Settings;
 import com.nopalsoft.sokoban.game.GameScreen;
 
-public abstract class Screens extends InputAdapter implements Screen, GestureListener {
+/**
+ * The basic screen of the game. All the other screen have to extend this.
+ *  Provides a base structure for different screens in a game and handles common functionality
+ *  like rendering, input handling, and lifecycle events.
+ */
+public abstract class BaseScreen extends InputAdapter implements Screen, GestureListener {
     public static final float SCREEN_WIDTH = 800;
     public static final float SCREEN_HEIGHT = 480;
 
     public MainSokoban game;
 
-    public OrthographicCamera oCam;
+    public OrthographicCamera camera;
     public SpriteBatch batcher;
     public Stage stage;
 
     Image blackFadeOut;
 
-    public Screens(final MainSokoban game) {
+    public BaseScreen(final MainSokoban game) {
         this.stage = game.stage;
         this.stage.clear();
         this.batcher = game.batcher;
         this.game = game;
 
-        oCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
-        oCam.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
+        camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
+        camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
 
         GestureDetector detector = new GestureDetector(20, .5f, 2, .15f, this);
 
@@ -56,8 +61,8 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        camera.update();
+        batcher.setProjectionMatrix(camera.combined);
         draw(delta);
 
         stage.act(delta);
@@ -65,6 +70,10 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
 
     }
 
+    /**
+     *  Is used for  changing the screen with a fade-out effect. First creates a black image,
+     *  then creates a fade-in and fade-out action to it; and finally adds it to the stage.
+     */
     public void changeScreenWithFadeOut(final Class<?> newScreen, final int level, final MainSokoban game) {
         blackFadeOut = new Image(Assets.pixelBlack);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);

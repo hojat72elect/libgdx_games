@@ -15,13 +15,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.nopalsoft.sokoban.Assets
 import com.nopalsoft.sokoban.Settings
 import com.nopalsoft.sokoban.screens.MainMenuScreen
-import com.nopalsoft.sokoban.screens.Screens
+import com.nopalsoft.sokoban.screens.BaseScreen
 
 /**
  * This is the first page of the game; which shows pages of levels to the user, and they can
  * pick any of those levels to play.
  */
-class LevelSelector(currentScreen: Screens) : Group() {
+class LevelSelector(currentScreen: BaseScreen) : Group() {
 
     private val menuScreen = currentScreen as MainMenuScreen
 
@@ -36,7 +36,7 @@ class LevelSelector(currentScreen: Screens) : Group() {
 
     init {
         setSize(600f, 385f)
-        setPosition(Screens.SCREEN_WIDTH / 2f - width / 2f, 70f)
+        setPosition(BaseScreen.SCREEN_WIDTH / 2f - width / 2f, 70f)
 
         setBackGround(Assets.windowBackground)
 

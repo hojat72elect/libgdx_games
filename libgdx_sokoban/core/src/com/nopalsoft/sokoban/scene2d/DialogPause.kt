@@ -11,14 +11,14 @@ import com.nopalsoft.sokoban.Assets
 import com.nopalsoft.sokoban.Settings
 import com.nopalsoft.sokoban.game.GameScreen
 import com.nopalsoft.sokoban.screens.MainMenuScreen
-import com.nopalsoft.sokoban.screens.Screens
+import com.nopalsoft.sokoban.screens.BaseScreen
 
 /**
  * The pause dialog that can be shown during the game.
  * It shows 3 buttons : 1- Home, 2- Refresh, 3- Toggle Animation.
  * After toggling the animation, this setting will be saved.
  */
-class DialogPause(currentScreen: Screens):Dialog(currentScreen, 350F, 300F, 100F) {
+class DialogPause(currentScreen: BaseScreen):Dialog(currentScreen, 350F, 300F, 100F) {
 
    private val buttonHome = Button(Assets.btHome, Assets.btHomePress)
    private val buttonRefresh =  Button(Assets.btRefresh, Assets.btRefreshPress)

@@ -15,7 +15,7 @@ import com.nopalsoft.sokoban.scene2d.LevelSelector
  * for going to the next and previous pages holding levels of the game. It also contains buttons for
  * accessing "leaderboard", "achievements", "facebook", "settings" and "more".
  */
-class MainMenuScreen(game: MainSokoban) : Screens(game) {
+class MainMenuScreen(game: MainSokoban) : BaseScreen(game) {
 
     private val levelSelector = LevelSelector(this)
 

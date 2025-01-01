@@ -13,13 +13,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.nopalsoft.sokoban.Assets
-import com.nopalsoft.sokoban.screens.Screens
+import com.nopalsoft.sokoban.screens.BaseScreen
 
 /**
  * The base class for all dialogs we create in this game. It has a background, a title and a close button.
  * It also has an animation effect when appearing and disappearing.
  */
-open class Dialog(currentScreen: Screens, width: Float, height: Float, positionY: Float) : Group() {
+open class Dialog(currentScreen: BaseScreen, width: Float, height: Float, positionY: Float) : Group() {
 
     protected val screen = currentScreen
     private val dim = Image(Assets.pixelBlack)
@@ -29,7 +29,7 @@ open class Dialog(currentScreen: Screens, width: Float, height: Float, positionY
         setSize(width, height)
         y = positionY
 
-        dim.setSize(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT)
+        dim.setSize(BaseScreen.SCREEN_WIDTH, BaseScreen.SCREEN_HEIGHT)
         setBackGround(Assets.windowBackground)
     }
 
@@ -65,7 +65,7 @@ open class Dialog(currentScreen: Screens, width: Float, height: Float, positionY
 
     fun show(stage: Stage) {
         setOrigin(width / 2f, height / 2f)
-        x = Screens.SCREEN_WIDTH / 2f - width / 2f
+        x = BaseScreen.SCREEN_WIDTH / 2f - width / 2f
 
         setScale(.35f)
         addAction(Actions.scaleTo(1f, 1f, ANIMATION_DURATION))

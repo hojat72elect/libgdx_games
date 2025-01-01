@@ -18,9 +18,9 @@ import com.nopalsoft.sokoban.scene2d.CounterTable
 import com.nopalsoft.sokoban.scene2d.DialogPause
 import com.nopalsoft.sokoban.scene2d.OnScreenGamePad
 import com.nopalsoft.sokoban.screens.MainMenuScreen
-import com.nopalsoft.sokoban.screens.Screens
+import com.nopalsoft.sokoban.screens.BaseScreen
 
-class GameScreen(game: MainSokoban, var level: Int) : Screens(game) {
+class GameScreen(game: MainSokoban, var level: Int) : BaseScreen(game) {
 
     private var state = 0
 

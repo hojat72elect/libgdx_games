@@ -10,14 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.nopalsoft.sokoban.Assets
 import com.nopalsoft.sokoban.game.GameScreen
-import com.nopalsoft.sokoban.screens.Screens
+import com.nopalsoft.sokoban.screens.BaseScreen
 
 /**
  * The dialog that will be shown whenever you choose a game from the main screen.
  * This dialog shows the best number of  moves and the best time that the player
  * has had in that specific level.
  */
-class DialogLevel(currentScreen: Screens) : Dialog(currentScreen, 350F, 300F, 100F) {
+class DialogLevel(currentScreen: BaseScreen) : Dialog(currentScreen, 350F, 300F, 100F) {
 
     private val buttonPlay = Button(Assets.btPlay, Assets.btPlayPress);
     private val labelBestMoves = Label("0", Label.LabelStyle(Assets.fontRed, Color.WHITE))
