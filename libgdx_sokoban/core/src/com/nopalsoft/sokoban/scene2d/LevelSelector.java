@@ -19,6 +19,10 @@ import com.nopalsoft.sokoban.Settings;
 import com.nopalsoft.sokoban.screens.MainMenuScreen;
 import com.nopalsoft.sokoban.screens.Screens;
 
+/**
+ * This is the first page of the game; which shows pages of levels to the user and they can
+ * pick any of those levels to play.
+ */
 public class LevelSelector extends Group {
 
     protected MainMenuScreen menuScreen;
@@ -30,9 +34,7 @@ public class LevelSelector extends Group {
     ScrollPane scrollPane;
     Table tableContainer;
 
-    /**
-     * Current page (each page has 15 levels)
-     */
+    // Current page (each page has 15 levels)
     int currentPage;
     int totalStars;
 
@@ -96,9 +98,7 @@ public class LevelSelector extends Group {
 
     }
 
-    /**
-     * Each list has 15 items.
-     */
+    // Each list has 15 items.
     public Table getListLevel(int list) {
         Table content = new Table();
 
