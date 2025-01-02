@@ -64,7 +64,7 @@ public class WorldGameRender {
 	}
 
 	private void renderFondo() {
-		batcher.draw(Assets.fondo, 0, 0, WIDTH, HEIGHT + 3);
+		batcher.draw(Assets.atlasRegionBackground, 0, 0, WIDTH, HEIGHT + 3);
 	}
 
 	private void renderPlataformas() {
@@ -72,7 +72,7 @@ public class WorldGameRender {
 
 		while (i.hasNext()) {
 			Plataforma obj = i.next();
-			TextureRegion keyFrame = Assets.plataforma;
+			TextureRegion keyFrame = Assets.atlasRegionPlatform;
 
 			if (obj.state == Plataforma.STATE_BROKEN) {
 				if (obj.stateTime < Assets.plataformBreakable.getAnimationDuration())
@@ -186,17 +186,17 @@ public class WorldGameRender {
 		TextureRegion keyFrame;
 
 		if (obj.slam && obj.state == Robot.STATE_FALLING) {
-			keyFrame = Assets.animPersonajeSlam.getKeyFrame(obj.stateTime);
-			batcher.draw(Assets.slam.getKeyFrame(obj.stateTime, true),
+			keyFrame = Assets.animationPlayerSlam.getKeyFrame(obj.stateTime);
+			batcher.draw(Assets.animationSlam.getKeyFrame(obj.stateTime, true),
 					obj.position.x - .4f, obj.position.y - .55f, .8f, .5f);
 		}
 		else if (obj.state == Robot.STATE_FALLING
 				|| obj.state == Robot.STATE_JUMPING) {
-			keyFrame = Assets.animPersonajeJump
+			keyFrame = Assets.animationPlayerJump
 					.getKeyFrame(obj.stateTime, true);
 		}
 		else
-			keyFrame = Assets.animPersonajeHit.getKeyFrame(obj.stateTime, true);
+			keyFrame = Assets.animationPlayerHit.getKeyFrame(obj.stateTime, true);
 
 		// c
 
@@ -207,7 +207,7 @@ public class WorldGameRender {
 			batcher.draw(keyFrame, obj.position.x + .3f, obj.position.y - .3f,
 					-.3f, .3f, -.6f, .6f, 1, 1, obj.angleGrad);
 		else
-			batcher.draw(Assets.personaje, obj.position.x - .3f,
+			batcher.draw(Assets.atlasRegionPlayer, obj.position.x - .3f,
 					obj.position.y - .3f, .3f, .3f, .6f, .6f, 1, 1,
 					obj.angleGrad);
 

@@ -41,8 +41,8 @@ public class Robot {
 		velocidad = new Vector2();
 		jump = true;// para que haga el primer salto
 
-		DURATION_SUPER_JUMP += Settings.NIVEL_BOOST_SUPER_JUMP;
-		DURATION_INVENCIBLE += Settings.NIVEL_BOOST_INVENCIBLE;
+		DURATION_SUPER_JUMP += Settings.BOOST_SUPER_JUMP;
+		DURATION_INVENCIBLE += Settings.BOOST_INVINCIBLE;
 
 	}
 

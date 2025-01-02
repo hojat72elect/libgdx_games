@@ -71,7 +71,7 @@ public class GameScreen extends Screens {
                     return false;
 
                 setRunning();
-                Settings.numeroVecesJugadas++;
+                Settings.numTimesPlayed++;
                 return true;
             }
         });
@@ -81,7 +81,7 @@ public class GameScreen extends Screens {
 
         Image tapToPlay, bestScore;
 
-        bestScore = new Image(Assets.bestScore);
+        bestScore = new Image(Assets.atlasRegionBestScore);
         bestScore.setSize(170, 25);
         bestScore
                 .setPosition(SCREEN_WIDTH / 2F - bestScore.getWidth() / 2f, 770);
@@ -185,7 +185,7 @@ public class GameScreen extends Screens {
             }
         });
 
-        tapToPlay = new Image(Assets.tapToPlay);
+        tapToPlay = new Image(Assets.atlasRegionTapToPlay);
         tapToPlay.setSize(333, 40);
         tapToPlay
                 .setPosition(SCREEN_WIDTH / 2F - tapToPlay.getWidth() / 2f, 140);
@@ -211,7 +211,7 @@ public class GameScreen extends Screens {
     }
 
     private void setUpGameover() {
-        fondoGameover = new Image(Assets.fondoGameover);
+        fondoGameover = new Image(Assets.atlasRegionBackgroundGameOver);
         fondoGameover.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         fondoGameover.setOrigin(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f);
         fondoGameover.setScale(2);
@@ -350,7 +350,7 @@ public class GameScreen extends Screens {
     }
 
     private void setReady() {
-        tituloApp = new Image(Assets.titulo);
+        tituloApp = new Image(Assets.atlasRegionTitle);
         tituloApp.setSize(400, 290);
         tituloApp.setPosition(SCREEN_WIDTH / 2f - tituloApp.getWidth() / 2f,
                 415);
@@ -392,7 +392,7 @@ public class GameScreen extends Screens {
                     botones.addAction(Actions.fadeIn(.5f));
                     stage.addActor(botones);
 
-                    if (Settings.numeroVecesJugadas % 7 == 0
+                    if (Settings.numTimesPlayed % 7 == 0
                             && !Settings.seCalifico) {
                         ventanaRate.show(stage);
                     }
@@ -406,11 +406,11 @@ public class GameScreen extends Screens {
          * Aqui voy a agregar lo de mas del try agai
          */
 
-        Image score = new Image(Assets.score);
+        Image score = new Image(Assets.atlasRegionScore);
         score.setSize(225, 70);
         score.setPosition(420 / 2f - score.getWidth() / 2f, 200);
 
-        Image coinsEarned = new Image(Assets.coinsEarned);
+        Image coinsEarned = new Image(Assets.atlasRegionCoinsEarned);
         coinsEarned.setSize(243, 25);
         coinsEarned.setPosition(25, 47);
 

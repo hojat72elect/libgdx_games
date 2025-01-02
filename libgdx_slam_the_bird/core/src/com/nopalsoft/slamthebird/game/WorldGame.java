@@ -114,7 +114,7 @@ public class WorldGame {
 				1.8f * 2f + posPiso);// Derecha Arribadd
 
 		// Boost stuff
-		TIME_TO_SPAWN_BOOST -= Settings.NIVEL_BOOST_BOOST_TIME;
+		TIME_TO_SPAWN_BOOST -= Settings.BOOST_TIME;
 	}
 
 	private void crearParedes(float posPisoY) {
@@ -540,7 +540,7 @@ public class WorldGame {
 				if (obj.state == Moneda.STATE_NORMAL) {
 					obj.state = Moneda.STATE_TAKEN;
 					monedasTomadas++;
-					Settings.monedasActuales++;
+					Settings.currentCoins++;
 					Assets.playSound(Assets.soundCoin);
 				}
 
@@ -568,7 +568,7 @@ public class WorldGame {
 					}
 					if (combo >= COMBO_TO_START_GETTING_COINS) {
 						monedasTomadas += combo;
-						Settings.monedasActuales += combo;
+						Settings.currentCoins += combo;
 					}
 
 					Achievements.unlockCombos();

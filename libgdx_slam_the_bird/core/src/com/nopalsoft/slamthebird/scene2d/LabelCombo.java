@@ -17,7 +17,7 @@ public class LabelCombo extends Actor {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 
-		batch.draw(Assets.combo, getX(), getY(), 65, 27);
+		batch.draw(Assets.atlasRegionCombo, getX(), getY(), 65, 27);
 		if (comboActual >= WorldGame.COMBO_TO_START_GETTING_COINS) {
 			batch.draw(Assets.moneda, getX() + 20, getY() + 35, 23, 26);
 		}

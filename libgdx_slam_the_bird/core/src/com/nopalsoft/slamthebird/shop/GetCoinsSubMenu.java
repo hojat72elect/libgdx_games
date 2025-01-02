@@ -3,16 +3,13 @@ package com.nopalsoft.slamthebird.shop;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.slamthebird.Assets;
 import com.nopalsoft.slamthebird.MainSlamBird;
-import com.nopalsoft.slamthebird.Settings;
 
 public class GetCoinsSubMenu {
 
@@ -34,26 +31,8 @@ public class GetCoinsSubMenu {
         contenedor.clear();
 
         btLikeFacebook = new TextButton("Like us", Assets.styleTextButtonBuy);
-        if (Settings.didLikeFacebook)
-            btLikeFacebook = new TextButton("Visit Us",
-                    Assets.styleTextButtonSelected);
+        btLikeFacebook = new TextButton("Visit Us", Assets.styleTextButtonSelected);
         addEfectoPress(btLikeFacebook);
-        btLikeFacebook.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (!Settings.didLikeFacebook) {
-
-                    Settings.didLikeFacebook = true;
-                    game.stage.addAction(Actions.sequence(Actions.delay(1),
-                            Actions.run(() -> {
-                                Settings.monedasActuales += monedasLikeFacebook;
-                                btLikeFacebook.setText("Visit us");
-                                btLikeFacebook
-                                        .setStyle(Assets.styleTextButtonSelected);
-                            })));
-                }
-            }
-        });
 
         btBuy5milCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
         addEfectoPress(btBuy5milCoins);
@@ -68,7 +47,7 @@ public class GetCoinsSubMenu {
         addEfectoPress(btBuy50MilCoins);
 
         // Facebook Like
-        contenedor.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+        contenedor.add(new Image(Assets.drawableHorizontalSeparator)).expandX().fill()
                 .height(5);
         contenedor.row();
         contenedor
@@ -144,7 +123,7 @@ public class GetCoinsSubMenu {
         tbContent.add(boton).right().padRight(10).size(120, 45);
 
         tbContent.row().colspan(2);
-        tbContent.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+        tbContent.add(new Image(Assets.drawableHorizontalSeparator)).expandX().fill()
                 .height(5).padTop(15);
 
         return tbContent;

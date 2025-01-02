@@ -53,7 +53,7 @@ public class Enemigo {
 		velocidad = new Vector2();
 		isFrozen = false;
 		durationFrozen = 0;
-		DURARTION_FROZEN += Settings.NIVEL_BOOST_ICE;
+		DURARTION_FROZEN += Settings.BOOST_ICE;
 
 	}
 

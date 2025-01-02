@@ -23,16 +23,16 @@ public class ShopScreen extends Screens {
 
     public ShopScreen(final MainSlamBird game) {
         super(game);
-        Image shop = new Image(Assets.shop);
+        Image shop = new Image(Assets.atlasRegionShop);
         shop.setSize(135, 50);
         shop.setPosition(3, 747);
 
-        Image separadorH = new Image(Assets.separadorHorizontal);
+        Image separadorH = new Image(Assets.drawableHorizontalSeparator);
         separadorH.setSize(SCREEN_WIDTH, 5);
         separadorH.setColor(Color.LIGHT_GRAY);
         separadorH.setPosition(0, 740);
 
-        Image separadorV = new Image(Assets.separadorVertical);
+        Image separadorV = new Image(Assets.drawableVerticalSeparator);
         separadorV.setSize(5, 745);
         separadorV.setColor(Color.LIGHT_GRAY);
         separadorV.setPosition(90, 0);
@@ -62,7 +62,7 @@ public class ShopScreen extends Screens {
 
     private void initButtons() {
         btPersonajes = new Button(new TextureRegionDrawable(
-                Assets.personajeShopDefault));
+                Assets.atlasRegionShopDefaultPlayer));
         btPersonajes.setSize(55, 55);
         btPersonajes.setPosition(17, 660);
         addEfectoPress(btPersonajes);
@@ -139,7 +139,7 @@ public class ShopScreen extends Screens {
 
         batcher.begin();
         batcher.draw(Assets.moneda, 449, 764, 30, 34);
-        drawPuntuacionChicoOrigenDerecha(445, 764, Settings.monedasActuales);
+        drawPuntuacionChicoOrigenDerecha(445, 764, Settings.currentCoins);
         batcher.end();
     }
 

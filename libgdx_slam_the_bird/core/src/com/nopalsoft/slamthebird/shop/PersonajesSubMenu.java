@@ -55,14 +55,14 @@ public class PersonajesSubMenu {
 
 		inicializarBotones();
 
-		contenedor.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+		contenedor.add(new Image(Assets.drawableHorizontalSeparator)).expandX().fill()
 				.height(5);
 		contenedor.row();
 
 		// Usar Default
 		contenedor
 				.add(agregarPersonajeTabla("Green robot", null,
-						Assets.personajeShopDefault,
+						Assets.atlasRegionShopDefaultPlayer,
 						"Just a simple robot for slaming birds", btBuyDefault))
 				.expandX().fill();
 		contenedor.row();
@@ -72,7 +72,7 @@ public class PersonajesSubMenu {
 				.add(agregarPersonajeTabla(
 						"Red robot",
 						lblPrecioRojo,
-						Assets.personajeShopRojo,
+						Assets.atlasRegionShopRedPlayer,
 						"Do you like red color. Play with this amazing red robot and slam those birds",
 						btBuyAndroidRojo)).expandX().fill();
 		contenedor.row();
@@ -82,7 +82,7 @@ public class PersonajesSubMenu {
 				.add(agregarPersonajeTabla(
 						"Blue robot",
 						lblPrecioBlue,
-						Assets.personajeShopAzul,
+						Assets.atlasRegionShopBluePlayer,
 						"Do you like blue color. Play with this amazing blue robot and slam those birds",
 						btBuyAndroidAzul)).expandX().fill();
 		contenedor.row();
@@ -122,7 +122,7 @@ public class PersonajesSubMenu {
 		tbContent.row().colspan(2);
 		tbContent.add(boton).expandX().right().padRight(10).size(120, 45);
 		tbContent.row().colspan(2);
-		tbContent.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+		tbContent.add(new Image(Assets.drawableHorizontalSeparator)).expandX().fill()
 				.height(5).padTop(15);
 
 		return tbContent;
@@ -134,14 +134,14 @@ public class PersonajesSubMenu {
 
 		// SKIN_DEFAULT
 		btBuyDefault = new TextButton("Select", Assets.styleTextButtonPurchased);
-		if (Settings.skinSeleccionada == SKIN_DEFAULT)
+		if (Settings.selectedSkin == SKIN_DEFAULT)
 			btBuyDefault.setVisible(false);
 
 		addEfectoPress(btBuyDefault);
 		btBuyDefault.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Settings.skinSeleccionada = SKIN_DEFAULT;
+				Settings.selectedSkin = SKIN_DEFAULT;
 				setSelected(btBuyDefault);
 				Assets.cargarPersonaje();
 
@@ -155,7 +155,7 @@ public class PersonajesSubMenu {
 		else
 			btBuyAndroidRojo = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-		if (Settings.skinSeleccionada == SKIN_ANDROID_ROJO)
+		if (Settings.selectedSkin == SKIN_ANDROID_ROJO)
 			btBuyAndroidRojo.setVisible(false);
 
 		addEfectoPress(btBuyAndroidRojo);
@@ -163,12 +163,12 @@ public class PersonajesSubMenu {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if (didBuyRojo) {
-					Settings.skinSeleccionada = SKIN_ANDROID_ROJO;
+					Settings.selectedSkin = SKIN_ANDROID_ROJO;
 					setSelected(btBuyAndroidRojo);
 					Assets.cargarPersonaje();
 				}
-				else if (Settings.monedasActuales >= PRECIO_ANDROID_ROJO) {
-					Settings.monedasActuales -= PRECIO_ANDROID_ROJO;
+				else if (Settings.currentCoins >= PRECIO_ANDROID_ROJO) {
+					Settings.currentCoins -= PRECIO_ANDROID_ROJO;
 					setButtonStylePurchased(btBuyAndroidRojo);
 					didBuyRojo = true;
 					lblPrecioRojo.remove();
@@ -184,7 +184,7 @@ public class PersonajesSubMenu {
 		else
 			btBuyAndroidAzul = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-		if (Settings.skinSeleccionada == SKIN_ANDROID_AZUL)
+		if (Settings.selectedSkin == SKIN_ANDROID_AZUL)
 			btBuyAndroidAzul.setVisible(false);
 
 		addEfectoPress(btBuyAndroidAzul);
@@ -192,12 +192,12 @@ public class PersonajesSubMenu {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if (didBuyAzul) {
-					Settings.skinSeleccionada = SKIN_ANDROID_AZUL;
+					Settings.selectedSkin = SKIN_ANDROID_AZUL;
 					setSelected(btBuyAndroidAzul);
 					Assets.cargarPersonaje();
 				}
-				else if (Settings.monedasActuales >= PRECIO_ANDROID_AZUL) {
-					Settings.monedasActuales -= PRECIO_ANDROID_AZUL;
+				else if (Settings.currentCoins >= PRECIO_ANDROID_AZUL) {
+					Settings.currentCoins -= PRECIO_ANDROID_AZUL;
 					setButtonStylePurchased(btBuyAndroidAzul);
 					didBuyAzul = true;
 					lblPrecioBlue.remove();

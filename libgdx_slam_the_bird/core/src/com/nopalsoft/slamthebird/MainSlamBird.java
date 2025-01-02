@@ -23,5 +23,4 @@ public class MainSlamBird extends Game {
         Achievements.init();
         setScreen(new GameScreen(this));
     }
-
 }

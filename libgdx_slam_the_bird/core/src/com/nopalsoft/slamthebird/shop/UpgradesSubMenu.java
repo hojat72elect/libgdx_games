@@ -49,33 +49,33 @@ public class UpgradesSubMenu {
 		arrBoostSuperJump = new Image[MAX_LEVEL];
 		arrBoostInvencible = new Image[MAX_LEVEL];
 
-		if (Settings.NIVEL_BOOST_BOOST_TIME < MAX_LEVEL)
+		if (Settings.BOOST_TIME < MAX_LEVEL)
 			lblPrecioBoostTime = new Label(
-					calcularPrecio(Settings.NIVEL_BOOST_BOOST_TIME) + "",
+					calcularPrecio(Settings.BOOST_TIME) + "",
 					Assets.styleLabelChico);
 
-		if (Settings.NIVEL_BOOST_ICE < MAX_LEVEL)
-			lblPrecioIce = new Label(calcularPrecio(Settings.NIVEL_BOOST_ICE)
+		if (Settings.BOOST_ICE < MAX_LEVEL)
+			lblPrecioIce = new Label(calcularPrecio(Settings.BOOST_ICE)
 					+ "", Assets.styleLabelChico);
 
-		if (Settings.NIVEL_BOOST_MONEDAS < MAX_LEVEL)
+		if (Settings.BOOST_COINS < MAX_LEVEL)
 			lblPrecioMonedas = new Label(
-					calcularPrecio(Settings.NIVEL_BOOST_MONEDAS) + "",
+					calcularPrecio(Settings.BOOST_COINS) + "",
 					Assets.styleLabelChico);
 
-		if (Settings.NIVEL_BOOST_SUPER_JUMP < MAX_LEVEL)
+		if (Settings.BOOST_SUPER_JUMP < MAX_LEVEL)
 			lblPrecioSuperSalto = new Label(
-					calcularPrecio(Settings.NIVEL_BOOST_SUPER_JUMP) + "",
+					calcularPrecio(Settings.BOOST_SUPER_JUMP) + "",
 					Assets.styleLabelChico);
 
-		if (Settings.NIVEL_BOOST_INVENCIBLE < MAX_LEVEL)
+		if (Settings.BOOST_INVINCIBLE < MAX_LEVEL)
 			lblPrecioInvencible = new Label(
-					calcularPrecio(Settings.NIVEL_BOOST_INVENCIBLE) + "",
+					calcularPrecio(Settings.BOOST_INVINCIBLE) + "",
 					Assets.styleLabelChico);
 
 		inicializarBotones();
 
-		contenedor.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+		contenedor.add(new Image(Assets.drawableHorizontalSeparator)).expandX().fill()
 				.height(5);
 		contenedor.row();
 
@@ -174,7 +174,7 @@ public class UpgradesSubMenu {
 		tbContent.add(boton).right().padRight(10).size(120, 45);
 
 		tbContent.row().colspan(2);
-		tbContent.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+		tbContent.add(new Image(Assets.drawableHorizontalSeparator)).expandX().fill()
 				.height(5).padTop(15);
 
 		return tbContent;
@@ -184,16 +184,16 @@ public class UpgradesSubMenu {
 	private void inicializarBotones() {
 		btUpgradeBoostTime = new TextButton("Upgrade",
 				Assets.styleTextButtonSelected);
-		if (Settings.NIVEL_BOOST_BOOST_TIME == MAX_LEVEL)
+		if (Settings.BOOST_TIME == MAX_LEVEL)
 			btUpgradeBoostTime.setVisible(false);
 		addEfectoPress(btUpgradeBoostTime);
 		btUpgradeBoostTime.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (Settings.monedasActuales >= calcularPrecio(Settings.NIVEL_BOOST_BOOST_TIME)) {
-					Settings.monedasActuales -= calcularPrecio(Settings.NIVEL_BOOST_BOOST_TIME);
-					Settings.NIVEL_BOOST_BOOST_TIME++;
-					updateLabelPriceAndButton(Settings.NIVEL_BOOST_BOOST_TIME,
+				if (Settings.currentCoins >= calcularPrecio(Settings.BOOST_TIME)) {
+					Settings.currentCoins -= calcularPrecio(Settings.BOOST_TIME);
+					Settings.BOOST_TIME++;
+					updateLabelPriceAndButton(Settings.BOOST_TIME,
 							lblPrecioBoostTime, btUpgradeBoostTime);
 					setArrays();
 				}
@@ -202,16 +202,16 @@ public class UpgradesSubMenu {
 
 		btUpgradeSuperSalto = new TextButton("Upgrade",
 				Assets.styleTextButtonSelected);
-		if (Settings.NIVEL_BOOST_SUPER_JUMP == MAX_LEVEL)
+		if (Settings.BOOST_SUPER_JUMP == MAX_LEVEL)
 			btUpgradeSuperSalto.setVisible(false);
 		addEfectoPress(btUpgradeSuperSalto);
 		btUpgradeSuperSalto.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (Settings.monedasActuales >= calcularPrecio(Settings.NIVEL_BOOST_SUPER_JUMP)) {
-					Settings.monedasActuales -= calcularPrecio(Settings.NIVEL_BOOST_SUPER_JUMP);
-					Settings.NIVEL_BOOST_SUPER_JUMP++;
-					updateLabelPriceAndButton(Settings.NIVEL_BOOST_SUPER_JUMP,
+				if (Settings.currentCoins >= calcularPrecio(Settings.BOOST_SUPER_JUMP)) {
+					Settings.currentCoins -= calcularPrecio(Settings.BOOST_SUPER_JUMP);
+					Settings.BOOST_SUPER_JUMP++;
+					updateLabelPriceAndButton(Settings.BOOST_SUPER_JUMP,
 							lblPrecioSuperSalto, btUpgradeSuperSalto);
 					setArrays();
 				}
@@ -219,17 +219,17 @@ public class UpgradesSubMenu {
 		});
 
 		btUpgradeIce = new TextButton("Upgrade", Assets.styleTextButtonSelected);
-		if (Settings.NIVEL_BOOST_ICE == MAX_LEVEL)
+		if (Settings.BOOST_ICE == MAX_LEVEL)
 			btUpgradeIce.setVisible(false);
 
 		addEfectoPress(btUpgradeIce);
 		btUpgradeIce.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (Settings.monedasActuales >= calcularPrecio(Settings.NIVEL_BOOST_ICE)) {
-					Settings.monedasActuales -= calcularPrecio(Settings.NIVEL_BOOST_ICE);
-					Settings.NIVEL_BOOST_ICE++;
-					updateLabelPriceAndButton(Settings.NIVEL_BOOST_ICE,
+				if (Settings.currentCoins >= calcularPrecio(Settings.BOOST_ICE)) {
+					Settings.currentCoins -= calcularPrecio(Settings.BOOST_ICE);
+					Settings.BOOST_ICE++;
+					updateLabelPriceAndButton(Settings.BOOST_ICE,
 							lblPrecioIce, btUpgradeIce);
 					setArrays();
 				}
@@ -238,17 +238,17 @@ public class UpgradesSubMenu {
 
 		btUpgradeInvencible = new TextButton("Upgrade",
 				Assets.styleTextButtonSelected);
-		if (Settings.NIVEL_BOOST_INVENCIBLE == MAX_LEVEL)
+		if (Settings.BOOST_INVINCIBLE == MAX_LEVEL)
 			btUpgradeInvencible.setVisible(false);
 
 		addEfectoPress(btUpgradeInvencible);
 		btUpgradeInvencible.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (Settings.monedasActuales >= calcularPrecio(Settings.NIVEL_BOOST_INVENCIBLE)) {
-					Settings.monedasActuales -= calcularPrecio(Settings.NIVEL_BOOST_INVENCIBLE);
-					Settings.NIVEL_BOOST_INVENCIBLE++;
-					updateLabelPriceAndButton(Settings.NIVEL_BOOST_INVENCIBLE,
+				if (Settings.currentCoins >= calcularPrecio(Settings.BOOST_INVINCIBLE)) {
+					Settings.currentCoins -= calcularPrecio(Settings.BOOST_INVINCIBLE);
+					Settings.BOOST_INVINCIBLE++;
+					updateLabelPriceAndButton(Settings.BOOST_INVINCIBLE,
 							lblPrecioInvencible, btUpgradeInvencible);
 					setArrays();
 				}
@@ -257,17 +257,17 @@ public class UpgradesSubMenu {
 
 		btUpgradeMonedas = new TextButton("Upgrade",
 				Assets.styleTextButtonSelected);
-		if (Settings.NIVEL_BOOST_MONEDAS == MAX_LEVEL)
+		if (Settings.BOOST_COINS == MAX_LEVEL)
 			btUpgradeMonedas.setVisible(false);
 
 		addEfectoPress(btUpgradeMonedas);
 		btUpgradeMonedas.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				if (Settings.monedasActuales >= calcularPrecio(Settings.NIVEL_BOOST_MONEDAS)) {
-					Settings.monedasActuales -= calcularPrecio(Settings.NIVEL_BOOST_MONEDAS);
-					Settings.NIVEL_BOOST_MONEDAS++;
-					updateLabelPriceAndButton(Settings.NIVEL_BOOST_MONEDAS,
+				if (Settings.currentCoins >= calcularPrecio(Settings.BOOST_COINS)) {
+					Settings.currentCoins -= calcularPrecio(Settings.BOOST_COINS);
+					Settings.BOOST_COINS++;
+					updateLabelPriceAndButton(Settings.BOOST_COINS,
 							lblPrecioMonedas, btUpgradeMonedas);
 					setArrays();
 				}
@@ -277,27 +277,27 @@ public class UpgradesSubMenu {
 	}
 
 	private void setArrays() {
-		for (int i = 0; i < Settings.NIVEL_BOOST_BOOST_TIME; i++) {
+		for (int i = 0; i < Settings.BOOST_TIME; i++) {
 			arrBoostTime[i].setDrawable(new TextureRegionDrawable(
 					Assets.upgradeOn));
 		}
 
-		for (int i = 0; i < Settings.NIVEL_BOOST_ICE; i++) {
+		for (int i = 0; i < Settings.BOOST_ICE; i++) {
 			arrBoostIce[i].setDrawable(new TextureRegionDrawable(
 					Assets.upgradeOn));
 		}
 
-		for (int i = 0; i < Settings.NIVEL_BOOST_INVENCIBLE; i++) {
+		for (int i = 0; i < Settings.BOOST_INVINCIBLE; i++) {
 			arrBoostInvencible[i].setDrawable(new TextureRegionDrawable(
 					Assets.upgradeOn));
 		}
 
-		for (int i = 0; i < Settings.NIVEL_BOOST_SUPER_JUMP; i++) {
+		for (int i = 0; i < Settings.BOOST_SUPER_JUMP; i++) {
 			arrBoostSuperJump[i].setDrawable(new TextureRegionDrawable(
 					Assets.upgradeOn));
 		}
 
-		for (int i = 0; i < Settings.NIVEL_BOOST_MONEDAS; i++) {
+		for (int i = 0; i < Settings.BOOST_COINS; i++) {
 			arrBoostMonedas[i].setDrawable(new TextureRegionDrawable(
 					Assets.upgradeOn));
 		}
