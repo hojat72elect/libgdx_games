@@ -14,7 +14,6 @@ import com.badlogic.gdx.utils.Array as GdxArray
 
 class Board : Group() {
 
-    @JvmField
     var state = STATE_RUNNING
 
     /**
@@ -29,26 +28,12 @@ class Board : Group() {
 
     private val arrayTiles = GdxArray<Tile>(25 * 15)
     private var player: Player? = null
-
-    @JvmField
     var moveUp = false
-
-    @JvmField
     var moveDown = false
-
-    @JvmField
     var moveLeft = false
-
-    @JvmField
     var moveRight = false
-
-    @JvmField
     var undo = false
-
-    @JvmField
     var moves = 0
-
-    @JvmField
     var time = 0F
 
     init {
@@ -144,9 +129,9 @@ class Board : Group() {
                 if (arrayBoxMoves.size >= moves) {
                     val posAntBox = arrayBoxMoves.removeIndex(moves - 1)
                     if (posAntBox != null) {
-                        val oBox = getBoxInPosition(posAntBox.y.toInt())
-                        oBox!!.moveToPosition(posAntBox.x.toInt(), true)
-                        oBox.setIsInEndPoint(getEndPointInPosition(oBox.position))
+                        val box = getBoxInPosition(posAntBox.y.toInt())
+                        box!!.moveToPosition(posAntBox.x.toInt(), true)
+                        box.setIsInEndPoint(getEndPointInPosition(box.position))
                     }
                 }
                 moves--

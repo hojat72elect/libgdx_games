@@ -1,15 +1,14 @@
 package com.nopalsoft.sokoban.game
 
 import com.badlogic.gdx.graphics.OrthographicCamera
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.nopalsoft.sokoban.Assets
 import com.nopalsoft.sokoban.screens.BaseScreen
 
-class BoardRenderer(batcher : SpriteBatch) {
+class BoardRenderer {
 
-    private val camera = OrthographicCamera(BaseScreen.SCREEN_WIDTH.toFloat(), BaseScreen.SCREEN_HEIGHT.toFloat())
+    private val camera = OrthographicCamera(BaseScreen.SCREEN_WIDTH, BaseScreen.SCREEN_HEIGHT)
     private val tiledRenderer = OrthogonalTiledMapRenderer(Assets.map, Board.UNIT_SCALE)
     private val mapStaticLayer = tiledRenderer.map.layers["StaticMap"] as TiledMapTileLayer
 

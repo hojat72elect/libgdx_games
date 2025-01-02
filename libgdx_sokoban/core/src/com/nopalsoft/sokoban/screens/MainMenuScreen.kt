@@ -22,7 +22,6 @@ class MainMenuScreen(game: MainSokoban) : BaseScreen(game) {
     private val buttonPreviousPage = Button(Assets.buttonIzq, Assets.btIzqPress)
     private val buttonNextPage = Button(Assets.buttonDer, Assets.buttonDerPress)
 
-    private val buttonLeaderboard = Button(Assets.btLeaderboard, Assets.btLeaderboardPress)
     private val buttonAchievements = Button(Assets.btAchievement, Assets.btAchievementPress)
     private val buttonFacebook = Button(Assets.btFacebook, Assets.btFacebookPress)
     private val buttonSettings = Button(Assets.btSettings, Assets.btSettingsPress)

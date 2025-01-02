@@ -7,10 +7,7 @@ package com.nopalsoft.sokoban.game_objects
  * the best time achieved, and the best number of moves made.
  */
 data class Level(
-    @JvmField
     var numStars: Int = 0,
-    @JvmField
     var bestTime: Int = 0,
-    @JvmField
     var bestMoves: Int = 0
 )

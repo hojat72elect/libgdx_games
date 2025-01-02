@@ -19,7 +19,7 @@ import com.nopalsoft.sokoban.screens.BaseScreen
  */
 class DialogLevel(currentScreen: BaseScreen) : Dialog(currentScreen, 350F, 300F, 100F) {
 
-    private val buttonPlay = Button(Assets.btPlay, Assets.btPlayPress);
+    private val buttonPlay = Button(Assets.btPlay, Assets.btPlayPress)
     private val labelBestMoves = Label("0", Label.LabelStyle(Assets.fontRed, Color.WHITE))
     private val labelBestTime = Label("0", Label.LabelStyle(Assets.fontRed, Color.WHITE))
 

@@ -39,8 +39,8 @@ public class Assets {
     public static TextureRegionDrawable btDownPress;
     public static TextureRegionDrawable btRefresh;
     public static TextureRegionDrawable btRefreshPress;
-    public static TextureRegionDrawable btPausa;
-    public static TextureRegionDrawable btPausaPress;
+    public static TextureRegionDrawable buttonPause;
+    public static TextureRegionDrawable buttonPausePress;
     public static TextureRegionDrawable btLeaderboard;
     public static TextureRegionDrawable btLeaderboardPress;
     public static TextureRegionDrawable btAchievement;
@@ -178,8 +178,8 @@ public class Assets {
         btDownPress = new TextureRegionDrawable(atlas.findRegion("UI/btDownPress"));
         btRefresh = new TextureRegionDrawable(atlas.findRegion("UI/btRefresh"));
         btRefreshPress = new TextureRegionDrawable(atlas.findRegion("UI/btRefreshPress"));
-        btPausa = new TextureRegionDrawable(atlas.findRegion("UI/btPausa"));
-        btPausaPress = new TextureRegionDrawable(atlas.findRegion("UI/btPausaPress"));
+        buttonPause = new TextureRegionDrawable(atlas.findRegion("UI/btPausa"));
+        buttonPausePress = new TextureRegionDrawable(atlas.findRegion("UI/btPausaPress"));
         btLeaderboard = new TextureRegionDrawable(atlas.findRegion("UI/btLeaderboard"));
         btLeaderboardPress = new TextureRegionDrawable(atlas.findRegion("UI/btLeaderboardPress"));
         btAchievement = new TextureRegionDrawable(atlas.findRegion("UI/btAchievement"));

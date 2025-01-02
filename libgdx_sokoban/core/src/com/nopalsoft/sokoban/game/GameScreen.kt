@@ -24,11 +24,11 @@ class GameScreen(game: MainSokoban, var level: Int) : BaseScreen(game) {
 
     private var state = 0
 
-    private val boardRenderer = BoardRenderer(batcher!!)
+    private val boardRenderer = BoardRenderer()
     private val board = Board()
     private val oControl = OnScreenGamePad(this)
     private val buttonUndo = Button(Assets.btRefresh, Assets.btRefreshPress)
-    private val buttonPause = Button(Assets.btPausa, Assets.btPausaPress)
+    private val buttonPause = Button(Assets.buttonPause, Assets.buttonPausePress)
     private val barTime = CounterTable(Assets.backgroundTime, 5F, 430F)
     private val barMoves = CounterTable(Assets.backgroundMoves, 5F, 380F)
     private val dialogPause = DialogPause(this)

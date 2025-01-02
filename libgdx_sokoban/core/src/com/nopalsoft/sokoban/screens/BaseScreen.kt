@@ -28,7 +28,7 @@ import kotlin.math.abs
 abstract class BaseScreen(val game: MainSokoban) : InputAdapter(), Screen, GestureListener {
 
     private val camera = OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
-    protected val batcher = game.batcher
+    private val batcher = game.batcher
     protected val stage = game.stage
 
     init {

@@ -34,16 +34,26 @@ class Player(position: Int) : Tile(position) {
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
         val keyFrame = if (Settings.animationWalkIsON) {
-            if (state == STATE_DOWN) {
-                Assets.animationMoveDown.getKeyFrame(stateTime, true)
-            } else if (state == STATE_UP) {
-                Assets.animationMoveUp.getKeyFrame(stateTime, true)
-            } else if (state == STATE_LEFT) {
-                Assets.animationMoveLeft.getKeyFrame(stateTime, true)
-            } else if (state == STATE_RIGHT) {
-                Assets.animationMoveRight.getKeyFrame(stateTime, true)
-            } else {
-                Assets.playerStand
+            when (state) {
+                STATE_DOWN -> {
+                    Assets.animationMoveDown.getKeyFrame(stateTime, true)
+                }
+
+                STATE_UP -> {
+                    Assets.animationMoveUp.getKeyFrame(stateTime, true)
+                }
+
+                STATE_LEFT -> {
+                    Assets.animationMoveLeft.getKeyFrame(stateTime, true)
+                }
+
+                STATE_RIGHT -> {
+                    Assets.animationMoveRight.getKeyFrame(stateTime, true)
+                }
+
+                else -> {
+                    Assets.playerStand
+                }
             }
         } else {
             Assets.playerStand
