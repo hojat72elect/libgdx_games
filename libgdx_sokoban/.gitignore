@@ -4,3 +4,6 @@ core/build
 .gradle
 desktop/build
 *.kt~
+local.properties
+android/build
+android/libs
