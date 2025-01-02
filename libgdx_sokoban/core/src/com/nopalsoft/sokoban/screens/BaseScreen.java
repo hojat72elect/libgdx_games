@@ -36,8 +36,6 @@ public abstract class BaseScreen extends InputAdapter implements Screen, Gesture
     public SpriteBatch batcher;
     public Stage stage;
 
-    Image blackFadeOut;
-
     public BaseScreen(final MainSokoban game) {
         this.stage = game.stage;
         this.stage.clear();
@@ -75,7 +73,7 @@ public abstract class BaseScreen extends InputAdapter implements Screen, Gesture
      *  then creates a fade-in and fade-out action to it; and finally adds it to the stage.
      */
     public void changeScreenWithFadeOut(final Class<?> newScreen, final int level, final MainSokoban game) {
-        blackFadeOut = new Image(Assets.pixelBlack);
+        Image blackFadeOut = new Image(Assets.pixelBlack);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         blackFadeOut.getColor().a = 0;
         blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run(() -> {
