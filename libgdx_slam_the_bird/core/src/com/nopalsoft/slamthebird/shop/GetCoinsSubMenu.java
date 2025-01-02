@@ -45,56 +45,27 @@ public class GetCoinsSubMenu {
 
                     Settings.didLikeFacebook = true;
                     game.stage.addAction(Actions.sequence(Actions.delay(1),
-                            Actions.run(new Runnable() {
-
-                                @Override
-                                public void run() {
-                                    Settings.monedasActuales += monedasLikeFacebook;
-                                    btLikeFacebook.setText("Visit us");
-                                    btLikeFacebook
-                                            .setStyle(Assets.styleTextButtonSelected);
-                                }
+                            Actions.run(() -> {
+                                Settings.monedasActuales += monedasLikeFacebook;
+                                btLikeFacebook.setText("Visit us");
+                                btLikeFacebook
+                                        .setStyle(Assets.styleTextButtonSelected);
                             })));
                 }
-                game.reqHandler.showFacebook();
             }
         });
 
         btBuy5milCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
         addEfectoPress(btBuy5milCoins);
-        btBuy5milCoins.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.buy5milCoins();
-            }
-        });
 
         btBuy15MilCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
         addEfectoPress(btBuy15MilCoins);
-        btBuy15MilCoins.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.buy15milCoins();
-            }
-        });
 
         btBuy30MilCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
         addEfectoPress(btBuy30MilCoins);
-        btBuy30MilCoins.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.buy30milCoins();
-            }
-        });
 
         btBuy50MilCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
         addEfectoPress(btBuy50MilCoins);
-        btBuy50MilCoins.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.buy50milCoins();
-            }
-        });
 
         // Facebook Like
         contenedor.add(new Image(Assets.separadorHorizontal)).expandX().fill()
@@ -144,8 +115,6 @@ public class GetCoinsSubMenu {
                         "Coin super mega pack. Get this pack and you will be slamming in cash",
                         btBuy50MilCoins)).expandX().fill();
         contenedor.row();
-
-
     }
 
     private Table agregarPersonajeTabla(int numMonedasToGet,
@@ -179,7 +148,6 @@ public class GetCoinsSubMenu {
                 .height(5).padTop(15);
 
         return tbContent;
-
     }
 
     protected void addEfectoPress(final Actor actor) {

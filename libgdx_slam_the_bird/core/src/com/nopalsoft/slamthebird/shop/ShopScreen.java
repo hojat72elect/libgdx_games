@@ -56,9 +56,6 @@ public class ShopScreen extends Screens {
         stage.addActor(scroll);
 
         new PersonajesSubMenu(game, contenedor);
-
-        game.reqHandler.hideAdBanner();
-
         btMonedas.remove();
 
     }
@@ -103,8 +100,6 @@ public class ShopScreen extends Screens {
                     float y) {
                 new GetCoinsSubMenu(game, contenedor);
             }
-
-            ;
         });
 
         btNoAds = new Button(new TextureRegionDrawable(Assets.btNoAds));

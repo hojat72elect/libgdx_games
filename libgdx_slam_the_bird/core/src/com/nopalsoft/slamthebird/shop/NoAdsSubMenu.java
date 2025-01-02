@@ -43,7 +43,6 @@ public class NoAdsSubMenu {
 					Settings.didBuyNoAds = true;
 					lblNoAds.setVisible(false);
 					btNoAds.setVisible(false);
-					game.reqHandler.removeAds();
 				}
 			}
 		});
@@ -58,15 +57,7 @@ public class NoAdsSubMenu {
 
 	}
 
-	/**
-	 * 
-	 * @param titulo
-	 * @param lblPrecio
-	 * @param imagen
-	 * @param descripcion
-	 * @param boton
-	 * @return
-	 */
+
 	private Table agregarPersonajeTabla(String titulo, Label lblPrecio, TextureRegionDrawable imagen,
 			String descripcion, TextButton boton) {
 

@@ -35,8 +35,6 @@ public class VentanaRate extends Ventana {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				hide();
-				game.reqHandler.showRater();
-
 			}
 		});
 
@@ -63,11 +61,6 @@ public class VentanaRate extends Ventana {
 		addActor(lbContenido);
 		addActor(tbBotones);
 		addActor(lbTitle);
-
-	}
-
-	@Override
-	protected void endResize() {
 
 	}
 }

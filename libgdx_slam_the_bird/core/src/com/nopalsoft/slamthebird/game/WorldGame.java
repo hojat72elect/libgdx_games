@@ -571,7 +571,7 @@ public class WorldGame {
 						Settings.monedasActuales += combo;
 					}
 
-					Achievements.unlockCombos(combo, oRobo.isInvencible);
+					Achievements.unlockCombos();
 				}
 			}
 		}
