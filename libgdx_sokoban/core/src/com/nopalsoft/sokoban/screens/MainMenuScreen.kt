@@ -56,10 +56,10 @@ class MainMenuScreen(game: MainSokoban) : BaseScreen(game) {
         tableMenu.pack()
         tableMenu.setPosition(SCREEN_WIDTH / 2f - tableMenu.width / 2f, 20f)
 
-        stage.addActor(levelSelector)
-        stage.addActor(tableMenu)
-        stage.addActor(buttonPreviousPage)
-        stage.addActor(buttonNextPage)
+        stage?.addActor(levelSelector)
+        stage?.addActor(tableMenu)
+        stage?.addActor(buttonPreviousPage)
+        stage?.addActor(buttonNextPage)
     }
 
 

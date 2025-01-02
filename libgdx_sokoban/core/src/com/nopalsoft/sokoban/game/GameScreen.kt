@@ -24,7 +24,7 @@ class GameScreen(game: MainSokoban, var level: Int) : BaseScreen(game) {
 
     private var state = 0
 
-    private val boardRenderer = BoardRenderer(batcher)
+    private val boardRenderer = BoardRenderer(batcher!!)
     private val board = Board()
     private val oControl = OnScreenGamePad(this)
     private val buttonUndo = Button(Assets.btRefresh, Assets.btRefreshPress)
@@ -60,10 +60,10 @@ class GameScreen(game: MainSokoban, var level: Int) : BaseScreen(game) {
         stageGame.addActor(board)
         stageGame.addActor(barTime)
         stageGame.addActor(barMoves)
-        stage.addActor(labelLevel)
-        stage.addActor(oControl)
-        stage.addActor(buttonUndo)
-        stage.addActor(buttonPause)
+        stage?.addActor(labelLevel)
+        stage?.addActor(oControl)
+        stage?.addActor(buttonUndo)
+        stage?.addActor(buttonPause)
 
         setRunning()
     }
@@ -94,7 +94,7 @@ class GameScreen(game: MainSokoban, var level: Int) : BaseScreen(game) {
     private fun setGameOver() {
         state = STATE_GAME_OVER
         Settings.levelCompleted(level, board.moves, board.time.toInt())
-        stage.addAction(Actions.sequence(Actions.delay(.35f), Actions.run {
+        stage?.addAction(Actions.sequence(Actions.delay(.35f), Actions.run {
             level += 1
             if (level >= Settings.NUM_MAPS) changeScreenWithFadeOut(MainMenuScreen::class.java, game)
             else changeScreenWithFadeOut(GameScreen::class.java, level, game)
@@ -110,7 +110,7 @@ class GameScreen(game: MainSokoban, var level: Int) : BaseScreen(game) {
     private fun setPause() {
         if (state == STATE_RUNNING) {
             state = STATE_PAUSED
-            dialogPause.show(stage)
+            dialogPause.show(stage!!)
         }
     }
 
