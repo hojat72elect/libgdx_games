@@ -1,0 +1,7 @@
+.gradle
+.idea
+.kotlin
+gradle
+android/build
+core/build
+desktop/build

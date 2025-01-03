@@ -10,4 +10,5 @@ The games that we have here:
     <li>libgdx_zombie_wars</li>
     <li>libgdx_drag_race</li>
     <li>libgdx_2048_8bit</li>
+    <li>libgdx_the_true_color</li>
 </ol>

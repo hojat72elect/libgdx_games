@@ -1,0 +1,270 @@
+atlasMap.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+barTimer
+  rotate: false
+  xy: 1232, 2
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+btAchievement
+  rotate: false
+  xy: 930, 164
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btAmazon
+  rotate: false
+  xy: 1189, 88
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+btBack
+  rotate: false
+  xy: 1001, 164
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btDisabled
+  rotate: false
+  xy: 826, 216
+  size: 20, 16
+  orig: 20, 16
+  offset: 0, 0
+  index: -1
+btEnabled
+  rotate: false
+  xy: 826, 234
+  size: 20, 16
+  orig: 20, 16
+  offset: 0, 0
+  index: -1
+btFacebook
+  rotate: false
+  xy: 989, 306
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+btFacebookText
+  rotate: false
+  xy: 1077, 135
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+btFalse
+  rotate: false
+  xy: 1072, 187
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btGoogle
+  rotate: false
+  xy: 826, 319
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+btGoogleText
+  rotate: false
+  xy: 750, 164
+  size: 100, 50
+  orig: 100, 50
+  offset: 0, 0
+  index: -1
+btHelp
+  rotate: false
+  xy: 1143, 254
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btJugar
+  rotate: false
+  xy: 919, 306
+  size: 68, 56
+  orig: 68, 56
+  offset: 0, 0
+  index: -1
+btLeaderboard
+  rotate: false
+  xy: 930, 235
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btRate
+  rotate: false
+  xy: 1001, 235
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btShare
+  rotate: false
+  xy: 1072, 258
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btTrue
+  rotate: false
+  xy: 848, 248
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btTryAgain
+  rotate: false
+  xy: 1143, 325
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+dialogRanking
+  rotate: false
+  xy: 1077, 24
+  size: 110, 109
+  orig: 110, 109
+  offset: 0, 0
+  index: -1
+dialogVentana
+  rotate: false
+  xy: 852, 164
+  size: 76, 82
+  orig: 76, 82
+  offset: 0, 0
+  index: -1
+flags/flag_esp
+  rotate: false
+  xy: 750, 330
+  size: 48, 36
+  orig: 48, 36
+  offset: 0, 0
+  index: -1
+flags/flag_frf
+  rotate: false
+  xy: 750, 368
+  size: 48, 36
+  orig: 48, 36
+  offset: 0, 0
+  index: -1
+flags/flag_gbp
+  rotate: false
+  xy: 1041, 329
+  size: 48, 36
+  orig: 48, 36
+  offset: 0, 0
+  index: -1
+flags/flag_jpy
+  rotate: false
+  xy: 989, 358
+  size: 48, 36
+  orig: 48, 36
+  offset: 0, 0
+  index: -1
+flags/flag_more
+  rotate: false
+  xy: 1091, 329
+  size: 48, 36
+  orig: 48, 36
+  offset: 0, 0
+  index: -1
+flags/flag_pte
+  rotate: false
+  xy: 1039, 367
+  size: 48, 36
+  orig: 48, 36
+  offset: 0, 0
+  index: -1
+flags/flag_rub
+  rotate: false
+  xy: 1089, 367
+  size: 48, 36
+  orig: 48, 36
+  offset: 0, 0
+  index: -1
+flags/flag_twd
+  rotate: false
+  xy: 878, 364
+  size: 48, 36
+  orig: 48, 36
+  offset: 0, 0
+  index: -1
+font100
+  rotate: false
+  xy: 2, 2
+  size: 746, 694
+  orig: 746, 694
+  offset: 0, 0
+  index: -1
+font32
+  rotate: false
+  xy: 2, 698
+  size: 538, 553
+  orig: 538, 553
+  offset: 0, 0
+  index: -1
+header
+  rotate: false
+  xy: 750, 2
+  size: 480, 20
+  orig: 480, 20
+  offset: 0, 0
+  index: -1
+one
+  rotate: false
+  xy: 977, 396
+  size: 40, 110
+  orig: 40, 110
+  offset: 0, 0
+  index: -1
+photoFrame
+  rotate: false
+  xy: 1189, 24
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+pixelNegro
+  rotate: false
+  xy: 1244, 2
+  size: 5, 5
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
+play
+  rotate: false
+  xy: 928, 364
+  size: 47, 54
+  orig: 47, 54
+  offset: 0, 0
+  index: -1
+three
+  rotate: false
+  xy: 750, 216
+  size: 74, 112
+  orig: 74, 112
+  offset: 0, 0
+  index: -1
+titulo
+  rotate: false
+  xy: 750, 24
+  size: 325, 138
+  orig: 325, 138
+  offset: 0, 0
+  index: -1
+two
+  rotate: false
+  xy: 1179, 140
+  size: 71, 112
+  orig: 71, 112
+  offset: 0, 0
+  index: -1
