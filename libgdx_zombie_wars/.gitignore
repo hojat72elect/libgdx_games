@@ -1,0 +1,7 @@
+.gradle
+.idea
+.kotlin
+.git
+core/build
+desktop/build
+gradle

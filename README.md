@@ -7,4 +7,5 @@ The games that we have here:
     <li>libgdx_ninja_runner</li>
     <li>libgdx_new_super_jumper</li>
     <li>libgdx_galaxy_invaders</li>
+    <li>libgdx_zombie_wars</li>
 </ol>
