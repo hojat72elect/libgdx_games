@@ -16,4 +16,5 @@ The games that we have here:
     <li>libgdx_do_not_tap</li>
     <li>libgdx_lander</li>
     <li>libgdx_zombie_killer</li>
+    <li>libgdx_pony_racing</li>
 </ol>
