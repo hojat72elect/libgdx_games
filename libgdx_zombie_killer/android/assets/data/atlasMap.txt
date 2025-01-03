@@ -1,0 +1,2657 @@
+atlasMap.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+HeroForce/walk7
+  rotate: false
+  xy: 1554, 1619
+  size: 73, 101
+  orig: 115, 115
+  offset: 19, 2
+  index: -1
+Bullet/muzzle1
+  rotate: false
+  xy: 1202, 1701
+  size: 17, 16
+  orig: 35, 34
+  offset: 0, 10
+  index: -1
+Bullet/bullet14
+  rotate: false
+  xy: 566, 1275
+  size: 31, 12
+  orig: 35, 34
+  offset: 2, 12
+  index: -1
+UI/btAchievement
+  rotate: false
+  xy: 1835, 1148
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+ZombieFrank/walk10
+  rotate: false
+  xy: 484, 754
+  size: 90, 134
+  orig: 150, 150
+  offset: 13, 4
+  index: -1
+ZombieKid/idle4
+  rotate: false
+  xy: 854, 1505
+  size: 74, 116
+  orig: 150, 150
+  offset: 26, 0
+  index: -1
+ZombieCuasy/idle5
+  rotate: false
+  xy: 924, 476
+  size: 104, 114
+  orig: 150, 150
+  offset: 17, 5
+  index: -1
+ZombieCuasy/rise5
+  rotate: false
+  xy: 1606, 227
+  size: 98, 100
+  orig: 150, 150
+  offset: 19, 6
+  index: -1
+ZombieCuasy/walk10
+  rotate: false
+  xy: 1493, 565
+  size: 88, 110
+  orig: 150, 150
+  offset: 29, 6
+  index: -1
+ZombiePan/die3
+  rotate: false
+  xy: 150, 1632
+  size: 116, 90
+  orig: 150, 150
+  offset: 8, 7
+  index: -1
+ZombieKid/walk13
+  rotate: false
+  xy: 362, 1804
+  size: 68, 116
+  orig: 150, 150
+  offset: 30, 0
+  index: -1
+ZombiePan/walk12
+  rotate: false
+  xy: 858, 1031
+  size: 86, 116
+  orig: 150, 150
+  offset: 16, 7
+  index: -1
+HeroSwat/walk5
+  rotate: false
+  xy: 1332, 992
+  size: 78, 107
+  orig: 114, 115
+  offset: 23, 0
+  index: -1
+UI/btSoundOff
+  rotate: false
+  xy: 1767, 1014
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+HeroSoldier/die1
+  rotate: false
+  xy: 1097, 1378
+  size: 80, 103
+  orig: 114, 115
+  offset: 18, 0
+  index: -1
+ZombieCuasy/walk3
+  rotate: false
+  xy: 594, 916
+  size: 92, 114
+  orig: 150, 150
+  offset: 29, 6
+  index: -1
+ZombieMummy/idle2
+  rotate: false
+  xy: 726, 1626
+  size: 68, 118
+  orig: 150, 150
+  offset: 29, 6
+  index: -1
+redBar
+  rotate: false
+  xy: 1300, 462
+  size: 150, 21
+  orig: 150, 21
+  offset: 0, 0
+  index: -1
+ZombiePan/idle1
+  rotate: false
+  xy: 692, 1032
+  size: 82, 118
+  orig: 150, 150
+  offset: 14, 7
+  index: -1
+UI/btShop
+  rotate: false
+  xy: 1701, 1148
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+ZombieKid/rise5
+  rotate: false
+  xy: 358, 1409
+  size: 78, 84
+  orig: 150, 150
+  offset: 19, 0
+  index: -1
+ZombieCuasy/idle2
+  rotate: false
+  xy: 820, 476
+  size: 102, 116
+  orig: 150, 150
+  offset: 18, 5
+  index: -1
+ZombieFrank/rise8
+  rotate: false
+  xy: 254, 1310
+  size: 82, 134
+  orig: 150, 150
+  offset: 17, 4
+  index: -1
+ZombieCuasy/rise2
+  rotate: false
+  xy: 1238, 667
+  size: 98, 42
+  orig: 150, 150
+  offset: 19, 6
+  index: -1
+HeroSoldier/shoot5
+  rotate: false
+  xy: 1330, 1809
+  size: 76, 107
+  orig: 114, 115
+  offset: 22, 0
+  index: -1
+Bullet/bullet41
+  rotate: false
+  xy: 1051, 1885
+  size: 21, 10
+  orig: 35, 34
+  offset: 6, 13
+  index: -1
+UI/btUpPress
+  rotate: false
+  xy: 1262, 782
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+HeroSwat/walk8
+  rotate: false
+  xy: 1174, 1483
+  size: 78, 107
+  orig: 114, 115
+  offset: 23, 0
+  index: -1
+ZombieFrank/walk7
+  rotate: false
+  xy: 512, 916
+  size: 80, 134
+  orig: 150, 150
+  offset: 19, 4
+  index: -1
+ZombieMummy/walk5
+  rotate: false
+  xy: 614, 1032
+  size: 76, 118
+  orig: 150, 150
+  offset: 22, 7
+  index: -1
+HeroSoldier/climb1
+  rotate: false
+  xy: 1179, 1376
+  size: 72, 105
+  orig: 114, 115
+  offset: 21, 0
+  index: -1
+ZombieCuasy/walk8
+  rotate: false
+  xy: 1382, 485
+  size: 88, 114
+  orig: 150, 150
+  offset: 29, 6
+  index: -1
+ZombieKid/walk9
+  rotate: false
+  xy: 362, 1804
+  size: 68, 116
+  orig: 150, 150
+  offset: 30, 0
+  index: -1
+UI/helpDialog
+  rotate: false
+  xy: 1262, 711
+  size: 74, 69
+  orig: 74, 69
+  offset: 0, 0
+  index: -1
+ZombieFrank/die3
+  rotate: false
+  xy: 576, 836
+  size: 134, 78
+  orig: 150, 150
+  offset: 11, 3
+  index: -1
+ZombiePan/idle4
+  rotate: false
+  xy: 1020, 1601
+  size: 78, 116
+  orig: 150, 150
+  offset: 17, 7
+  index: -1
+HeroVader/shoot1
+  rotate: false
+  xy: 1395, 1348
+  size: 68, 107
+  orig: 114, 115
+  offset: 28, 0
+  index: -1
+HeroSwat/die3
+  rotate: false
+  xy: 1506, 151
+  size: 98, 81
+  orig: 114, 115
+  offset: 8, 0
+  index: -1
+UI/btDown
+  rotate: false
+  xy: 1834, 1014
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+HeroSwat/hurt
+  rotate: false
+  xy: 1015, 1378
+  size: 80, 103
+  orig: 114, 115
+  offset: 17, 0
+  index: -1
+ZombieFrank/walk5
+  rotate: false
+  xy: 238, 1496
+  size: 80, 134
+  orig: 150, 150
+  offset: 24, 4
+  index: -1
+Bullet/bullet44
+  rotate: false
+  xy: 1828, 928
+  size: 25, 8
+  orig: 35, 34
+  offset: 3, 14
+  index: -1
+HeroForce/die4
+  rotate: false
+  xy: 1020, 1305
+  size: 92, 71
+  orig: 114, 115
+  offset: 9, 1
+  index: -1
+ZombiePan/walk2
+  rotate: false
+  xy: 1014, 1483
+  size: 78, 116
+  orig: 150, 150
+  offset: 15, 7
+  index: -1
+crate
+  rotate: false
+  xy: 1835, 1215
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+ZombieMummy/idle1
+  rotate: false
+  xy: 712, 1506
+  size: 70, 118
+  orig: 150, 150
+  offset: 27, 6
+  index: -1
+ZombieMummy/walk2
+  rotate: false
+  xy: 908, 594
+  size: 68, 118
+  orig: 150, 150
+  offset: 29, 7
+  index: -1
+UI/btSound
+  rotate: false
+  xy: 1701, 1081
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+ZombieMummy/rise4
+  rotate: false
+  xy: 1806, 318
+  size: 102, 76
+  orig: 150, 150
+  offset: 6, 6
+  index: -1
+HeroSwat/shoot2
+  rotate: false
+  xy: 1182, 1592
+  size: 76, 107
+  orig: 114, 115
+  offset: 24, 0
+  index: -1
+HeroForce/walk3
+  rotate: false
+  xy: 1418, 807
+  size: 73, 103
+  orig: 115, 115
+  offset: 19, 0
+  index: -1
+Bullet/muzzle5
+  rotate: false
+  xy: 1182, 1701
+  size: 18, 16
+  orig: 34, 34
+  offset: 0, 10
+  index: -1
+UI/helpDialogInverted
+  rotate: false
+  xy: 1018, 813
+  size: 74, 69
+  orig: 74, 69
+  offset: 0, 0
+  index: -1
+ZombieKid/walk4
+  rotate: false
+  xy: 270, 1804
+  size: 90, 116
+  orig: 150, 150
+  offset: 11, 0
+  index: -1
+ZombieFrank/idle3
+  rotate: false
+  xy: 396, 1155
+  size: 86, 134
+  orig: 150, 150
+  offset: 17, 4
+  index: -1
+ZombieCuasy/idle1
+  rotate: false
+  xy: 1706, 26
+  size: 100, 118
+  orig: 150, 150
+  offset: 18, 5
+  index: -1
+HeroVader/climb2
+  rotate: false
+  xy: 1685, 1303
+  size: 68, 103
+  orig: 114, 115
+  offset: 22, 0
+  index: -1
+HeroVader/shoot4
+  rotate: false
+  xy: 1630, 996
+  size: 68, 107
+  orig: 114, 115
+  offset: 28, 0
+  index: -1
+ZombieCuasy/rise1
+  rotate: false
+  xy: 1197, 1183
+  size: 54, 10
+  orig: 150, 150
+  offset: 33, 6
+  index: -1
+HeroSwat/die4
+  rotate: false
+  xy: 1213, 1304
+  size: 94, 69
+  orig: 114, 115
+  offset: 12, 0
+  index: -1
+Bullet/bullet32
+  rotate: false
+  xy: 1289, 1170
+  size: 24, 8
+  orig: 34, 34
+  offset: 4, 14
+  index: -1
+HeroSwat/walk1
+  rotate: false
+  xy: 1332, 992
+  size: 78, 107
+  orig: 114, 115
+  offset: 23, 0
+  index: -1
+ZombieFrank/walk2
+  rotate: false
+  xy: 484, 1155
+  size: 80, 134
+  orig: 150, 150
+  offset: 21, 4
+  index: -1
+HeroRambo/climb3
+  rotate: false
+  xy: 1418, 601
+  size: 73, 99
+  orig: 115, 115
+  offset: 24, 0
+  index: -1
+HeroRambo/die2
+  rotate: false
+  xy: 1703, 462
+  size: 91, 95
+  orig: 115, 115
+  offset: 15, 0
+  index: -1
+HeroSoldier/die5
+  rotate: false
+  xy: 1706, 146
+  size: 100, 67
+  orig: 114, 115
+  offset: 7, 0
+  index: -1
+background
+  rotate: false
+  xy: 2, 2
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+UI/btGems
+  rotate: false
+  xy: 1839, 1669
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+ZombieKid/die5
+  rotate: false
+  xy: 1808, 178
+  size: 116, 64
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+HeroRambo/walk3
+  rotate: false
+  xy: 1768, 1816
+  size: 71, 97
+  orig: 115, 115
+  offset: 25, 0
+  index: -1
+UI/btUp
+  rotate: false
+  xy: 1094, 811
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+UI/containerButtons
+  rotate: false
+  xy: 804, 29
+  size: 700, 124
+  orig: 700, 124
+  offset: 0, 0
+  index: -1
+HeroSoldier/walk3
+  rotate: false
+  xy: 1170, 884
+  size: 76, 107
+  orig: 114, 115
+  offset: 19, 0
+  index: -1
+HeroForce/walk6
+  rotate: false
+  xy: 1418, 702
+  size: 73, 103
+  orig: 115, 115
+  offset: 19, 0
+  index: -1
+Bullet/muzzle2
+  rotate: false
+  xy: 930, 1601
+  size: 20, 20
+  orig: 34, 34
+  offset: 0, 8
+  index: -1
+Bullet/bullet13
+  rotate: false
+  xy: 402, 1495
+  size: 34, 12
+  orig: 34, 34
+  offset: 0, 12
+  index: -1
+UI/ventanaGrande
+  rotate: false
+  xy: 2, 484
+  size: 480, 423
+  orig: 480, 423
+  offset: 0, 0
+  index: -1
+ZombieKid/idle3
+  rotate: false
+  xy: 634, 1395
+  size: 72, 116
+  orig: 150, 150
+  offset: 26, 0
+  index: -1
+fontGrande
+  rotate: false
+  xy: 2, 909
+  size: 508, 178
+  orig: 512, 256
+  offset: 1, 78
+  index: -1
+ZombiePan/die2
+  rotate: false
+  xy: 1747, 567
+  size: 92, 100
+  orig: 150, 150
+  offset: 30, 7
+  index: -1
+ZombieKid/walk12
+  rotate: false
+  xy: 432, 1804
+  size: 72, 116
+  orig: 150, 150
+  offset: 28, 0
+  index: -1
+HeroSwat/walk4
+  rotate: false
+  xy: 1338, 667
+  size: 78, 107
+  orig: 114, 115
+  offset: 23, 0
+  index: -1
+ZombieMummy/walk1
+  rotate: false
+  xy: 708, 1152
+  size: 70, 118
+  orig: 150, 150
+  offset: 27, 7
+  index: -1
+ZombieCuasy/walk4
+  rotate: false
+  xy: 1502, 234
+  size: 92, 110
+  orig: 150, 150
+  offset: 29, 6
+  index: -1
+ZombiePan/rise5
+  rotate: false
+  xy: 1018, 1102
+  size: 92, 92
+  orig: 150, 150
+  offset: 14, 7
+  index: -1
+HeroVader/die3
+  rotate: false
+  xy: 1706, 314
+  size: 98, 79
+  orig: 114, 115
+  offset: 8, 0
+  index: -1
+UI/btFacebook
+  rotate: false
+  xy: 1839, 1736
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+ZombieKid/rise4
+  rotate: false
+  xy: 1751, 846
+  size: 102, 70
+  orig: 150, 150
+  offset: 8, 0
+  index: -1
+ZombieMummy/die3
+  rotate: false
+  xy: 1808, 26
+  size: 118, 76
+  orig: 150, 150
+  offset: 11, 7
+  index: -1
+HeroRambo/shoot3
+  rotate: false
+  xy: 1119, 706
+  size: 71, 97
+  orig: 115, 115
+  offset: 26, 0
+  index: -1
+ZombieCuasy/rise7
+  rotate: false
+  xy: 2, 1808
+  size: 96, 118
+  orig: 150, 150
+  offset: 17, 6
+  index: -1
+HeroRambo/idle
+  rotate: false
+  xy: 1630, 1105
+  size: 69, 97
+  orig: 115, 115
+  offset: 27, 0
+  index: -1
+UI/titulo
+  rotate: false
+  xy: 804, 155
+  size: 494, 319
+  orig: 494, 319
+  offset: 0, 0
+  index: -1
+HeroSoldier/shoot4
+  rotate: false
+  xy: 1254, 1482
+  size: 76, 107
+  orig: 114, 115
+  offset: 22, 0
+  index: -1
+HeroForce/climb5
+  rotate: false
+  xy: 1599, 677
+  size: 66, 101
+  orig: 114, 115
+  offset: 28, 0
+  index: -1
+HeroSwat/walk7
+  rotate: false
+  xy: 1020, 1196
+  size: 78, 107
+  orig: 114, 115
+  offset: 23, 1
+  index: -1
+HeroSwat/climb3
+  rotate: false
+  xy: 1558, 1197
+  size: 68, 105
+  orig: 114, 115
+  offset: 22, 0
+  index: -1
+ZombieFrank/walk8
+  rotate: false
+  xy: 736, 620
+  size: 84, 134
+  orig: 150, 150
+  offset: 17, 4
+  index: -1
+HeroVader/walk5
+  rotate: false
+  xy: 1484, 916
+  size: 70, 107
+  orig: 114, 115
+  offset: 21, 0
+  index: -1
+ZombieKid/walk8
+  rotate: false
+  xy: 952, 1601
+  size: 66, 116
+  orig: 150, 150
+  offset: 31, 0
+  index: -1
+ZombiePan/rise8
+  rotate: false
+  xy: 100, 1808
+  size: 84, 118
+  orig: 150, 150
+  offset: 14, 7
+  index: -1
+ZombieFrank/die2
+  rotate: false
+  xy: 26, 1622
+  size: 122, 100
+  orig: 150, 150
+  offset: 25, 4
+  index: -1
+ZombiePan/idle3
+  rotate: false
+  xy: 1074, 1719
+  size: 78, 116
+  orig: 150, 150
+  offset: 16, 7
+  index: -1
+ZombieFrank/rise3
+  rotate: false
+  xy: 842, 837
+  size: 102, 74
+  orig: 150, 150
+  offset: 10, 4
+  index: -1
+HeroForce/shoot3
+  rotate: false
+  xy: 1540, 1304
+  size: 73, 103
+  orig: 115, 115
+  offset: 24, 0
+  index: -1
+Bullet/bullet21
+  rotate: false
+  xy: 1051, 1909
+  size: 21, 10
+  orig: 35, 34
+  offset: 6, 13
+  index: -1
+ZombieCuasy/die3
+  rotate: false
+  xy: 26, 1724
+  size: 124, 82
+  orig: 150, 150
+  offset: 10, 6
+  index: -1
+ZombieFrank/idle6
+  rotate: false
+  xy: 822, 594
+  size: 84, 134
+  orig: 150, 150
+  offset: 17, 4
+  index: -1
+HeroRambo/shoot4
+  rotate: false
+  xy: 1542, 466
+  size: 73, 97
+  orig: 115, 115
+  offset: 24, 0
+  index: -1
+moon
+  rotate: false
+  xy: 2, 1089
+  size: 300, 219
+  orig: 300, 219
+  offset: 0, 0
+  index: -1
+Bullet/bullet43
+  rotate: false
+  xy: 1388, 895
+  size: 28, 8
+  orig: 34, 34
+  offset: 2, 14
+  index: -1
+ZombieKid/die1
+  rotate: false
+  xy: 1583, 565
+  size: 78, 110
+  orig: 150, 150
+  offset: 30, 0
+  index: -1
+HeroSwat/climb6
+  rotate: false
+  xy: 1253, 1375
+  size: 68, 105
+  orig: 114, 115
+  offset: 27, 0
+  index: -1
+HeroRambo/climb6
+  rotate: false
+  xy: 1698, 1618
+  size: 65, 99
+  orig: 115, 115
+  offset: 34, 0
+  index: -1
+HeroForce/die3
+  rotate: false
+  xy: 1448, 357
+  size: 92, 79
+  orig: 114, 115
+  offset: 9, 0
+  index: -1
+ZombiePan/walk9
+  rotate: false
+  xy: 860, 1149
+  size: 84, 116
+  orig: 150, 150
+  offset: 16, 7
+  index: -1
+ZombieMummy/walk7
+  rotate: false
+  xy: 566, 1155
+  size: 70, 118
+  orig: 150, 150
+  offset: 27, 7
+  index: -1
+HeroSoldier/climb3
+  rotate: false
+  xy: 825, 730
+  size: 72, 105
+  orig: 114, 115
+  offset: 21, 0
+  index: -1
+UI/btLevelLocked
+  rotate: false
+  xy: 1506, 29
+  size: 98, 120
+  orig: 98, 120
+  offset: 0, 0
+  index: -1
+shield
+  rotate: false
+  xy: 1694, 884
+  size: 50, 59
+  orig: 50, 59
+  offset: 0, 0
+  index: -1
+HeroVader/walk6
+  rotate: false
+  xy: 1412, 981
+  size: 70, 107
+  orig: 114, 115
+  offset: 21, 0
+  index: -1
+HeroSwat/shoot1
+  rotate: false
+  xy: 1334, 1170
+  size: 78, 107
+  orig: 114, 115
+  offset: 23, 0
+  index: -1
+HeroSoldier/walk7
+  rotate: false
+  xy: 1178, 1195
+  size: 76, 107
+  orig: 114, 115
+  offset: 19, 0
+  index: -1
+HeroForce/walk2
+  rotate: false
+  xy: 1465, 1304
+  size: 73, 103
+  orig: 115, 115
+  offset: 19, 0
+  index: -1
+UI/separadorVertical
+  rotate: false
+  xy: 2, 1496
+  size: 22, 300
+  orig: 22, 300
+  offset: 0, 0
+  index: -1
+HeroRambo/walk6
+  rotate: false
+  xy: 1628, 1204
+  size: 71, 97
+  orig: 115, 115
+  offset: 26, 0
+  index: -1
+ZombieKid/walk3
+  rotate: false
+  xy: 870, 1623
+  size: 80, 116
+  orig: 150, 150
+  offset: 19, 0
+  index: -1
+ZombieFrank/die1
+  rotate: false
+  xy: 26, 1496
+  size: 122, 124
+  orig: 150, 150
+  offset: 11, 4
+  index: -1
+ZombieFrank/idle4
+  rotate: false
+  xy: 304, 1155
+  size: 90, 134
+  orig: 150, 150
+  offset: 16, 4
+  index: -1
+ZombiePan/idle6
+  rotate: false
+  xy: 1094, 1483
+  size: 78, 116
+  orig: 150, 150
+  offset: 15, 7
+  index: -1
+HeroVader/climb1
+  rotate: false
+  xy: 1696, 1513
+  size: 68, 103
+  orig: 114, 115
+  offset: 22, 0
+  index: -1
+UI/separadorHorizontal
+  rotate: false
+  xy: 1606, 2
+  size: 300, 22
+  orig: 300, 22
+  offset: 0, 0
+  index: -1
+Bullet/bullet24
+  rotate: false
+  xy: 1221, 1701
+  size: 15, 16
+  orig: 35, 34
+  offset: 9, 10
+  index: -1
+HeroSwat/die1
+  rotate: false
+  xy: 870, 1741
+  size: 80, 103
+  orig: 114, 115
+  offset: 17, 0
+  index: -1
+ZombieCuasy/walk11
+  rotate: false
+  xy: 1048, 590
+  size: 86, 112
+  orig: 150, 150
+  offset: 29, 5
+  index: -1
+HeroForce/climb6
+  rotate: false
+  xy: 1629, 1619
+  size: 67, 101
+  orig: 115, 115
+  offset: 28, 0
+  index: -1
+ZombiePan/walk11
+  rotate: false
+  xy: 550, 1513
+  size: 84, 116
+  orig: 150, 150
+  offset: 19, 6
+  index: -1
+HeroRambo/climb4
+  rotate: false
+  xy: 1699, 1719
+  size: 65, 99
+  orig: 115, 115
+  offset: 35, 0
+  index: -1
+HeroRambo/die1
+  rotate: false
+  xy: 918, 1378
+  size: 95, 103
+  orig: 115, 115
+  offset: 13, 0
+  index: -1
+HeroSoldier/die4
+  rotate: false
+  xy: 1388, 912
+  size: 94, 67
+  orig: 114, 115
+  offset: 10, 0
+  index: -1
+UI/btDownPress
+  rotate: false
+  xy: 1841, 1803
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+HeroVader/idle
+  rotate: false
+  xy: 1556, 916
+  size: 66, 107
+  orig: 114, 115
+  offset: 28, 0
+  index: -1
+ZombieKid/die4
+  rotate: false
+  xy: 1808, 244
+  size: 114, 72
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+UI/itemCollection
+  rotate: false
+  xy: 1197, 1102
+  size: 90, 79
+  orig: 90, 79
+  offset: 0, 0
+  index: -1
+HeroRambo/walk4
+  rotate: false
+  xy: 1766, 1717
+  size: 71, 97
+  orig: 115, 115
+  offset: 26, 0
+  index: -1
+ZombieMummy/idle3
+  rotate: false
+  xy: 946, 1077
+  size: 70, 118
+  orig: 150, 150
+  offset: 28, 6
+  index: -1
+ZombiePan/rise1
+  rotate: false
+  xy: 1330, 1918
+  size: 44, 8
+  orig: 150, 150
+  offset: 34, 7
+  index: -1
+ZombieMummy/rise6
+  rotate: false
+  xy: 772, 1272
+  size: 72, 112
+  orig: 150, 150
+  offset: 16, 6
+  index: -1
+HeroSoldier/walk4
+  rotate: false
+  xy: 1174, 993
+  size: 76, 107
+  orig: 114, 115
+  offset: 19, 0
+  index: -1
+Bullet/bullet12
+  rotate: false
+  xy: 304, 1291
+  size: 32, 12
+  orig: 34, 34
+  offset: 1, 12
+  index: -1
+ZombieKid/rise8
+  rotate: false
+  xy: 482, 1516
+  size: 66, 114
+  orig: 150, 150
+  offset: 23, 0
+  index: -1
+UI/btLeaderboard
+  rotate: false
+  xy: 1833, 1535
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+ZombieKid/idle2
+  rotate: false
+  xy: 796, 1624
+  size: 72, 116
+  orig: 150, 150
+  offset: 26, 0
+  index: -1
+ZombieCuasy/idle3
+  rotate: false
+  xy: 924, 476
+  size: 104, 114
+  orig: 150, 150
+  offset: 17, 5
+  index: -1
+Bullet/bullet51
+  rotate: false
+  xy: 929, 1846
+  size: 21, 10
+  orig: 35, 34
+  offset: 6, 13
+  index: -1
+ZombieCuasy/rise3
+  rotate: false
+  xy: 1288, 601
+  size: 128, 64
+  orig: 150, 150
+  offset: 5, 6
+  index: -1
+backBackground
+  rotate: false
+  xy: 804, 2
+  size: 800, 25
+  orig: 800, 25
+  offset: 0, 0
+  index: -1
+ZombiePan/die1
+  rotate: false
+  xy: 1663, 559
+  size: 82, 108
+  orig: 150, 150
+  offset: 31, 7
+  index: -1
+HeroForce/climb1
+  rotate: false
+  xy: 946, 1197
+  size: 72, 99
+  orig: 114, 115
+  offset: 20, 0
+  index: -1
+ZombiePan/walk14
+  rotate: false
+  xy: 1154, 1719
+  size: 82, 116
+  orig: 150, 150
+  offset: 15, 7
+  index: -1
+HeroSwat/walk3
+  rotate: false
+  xy: 1338, 776
+  size: 78, 107
+  orig: 114, 115
+  offset: 23, 0
+  index: -1
+HeroSoldier/climb6
+  rotate: false
+  xy: 1408, 1780
+  size: 68, 105
+  orig: 114, 115
+  offset: 25, 0
+  index: -1
+HeroVader/walk1
+  rotate: false
+  xy: 1414, 1090
+  size: 68, 107
+  orig: 114, 115
+  offset: 23, 0
+  index: -1
+ZombieCuasy/walk9
+  rotate: false
+  xy: 1048, 590
+  size: 86, 112
+  orig: 150, 150
+  offset: 29, 5
+  index: -1
+UI/btTryAgain
+  rotate: false
+  xy: 1700, 1014
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+ZombiePan/rise4
+  rotate: false
+  xy: 916, 1298
+  size: 102, 78
+  orig: 150, 150
+  offset: 13, 7
+  index: -1
+HeroVader/die2
+  rotate: false
+  xy: 1074, 1837
+  size: 88, 89
+  orig: 114, 115
+  offset: 13, 0
+  index: -1
+ZombieKid/rise3
+  rotate: false
+  xy: 254, 1446
+  size: 102, 48
+  orig: 150, 150
+  offset: 8, 0
+  index: -1
+saw
+  rotate: false
+  xy: 512, 1052
+  size: 100, 101
+  orig: 100, 101
+  offset: 0, 0
+  index: -1
+ZombieMummy/walk11
+  rotate: false
+  xy: 662, 1801
+  size: 76, 116
+  orig: 150, 150
+  offset: 23, 7
+  index: -1
+ZombieMummy/die2
+  rotate: false
+  xy: 386, 1708
+  size: 94, 94
+  orig: 150, 150
+  offset: 29, 6
+  index: -1
+ZombieFrank/rise6
+  rotate: false
+  xy: 186, 1802
+  size: 82, 124
+  orig: 150, 150
+  offset: 17, 4
+  index: -1
+Bullet/bullet54
+  rotate: false
+  xy: 1828, 918
+  size: 25, 8
+  orig: 35, 34
+  offset: 3, 14
+  index: -1
+ZombieCuasy/rise8
+  rotate: false
+  xy: 338, 1291
+  size: 100, 116
+  orig: 150, 150
+  offset: 18, 5
+  index: -1
+btPause
+  rotate: false
+  xy: 1484, 1130
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+UI/storeTableBackground
+  rotate: false
+  xy: 1706, 215
+  size: 100, 97
+  orig: 100, 97
+  offset: 0, 0
+  index: -1
+HeroForce/climb4
+  rotate: false
+  xy: 1841, 567
+  size: 66, 101
+  orig: 114, 115
+  offset: 29, 0
+  index: -1
+HeroSwat/walk6
+  rotate: false
+  xy: 1174, 1483
+  size: 78, 107
+  orig: 114, 115
+  offset: 23, 0
+  index: -1
+UI/btLeft
+  rotate: false
+  xy: 1833, 1468
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+HeroSwat/climb2
+  rotate: false
+  xy: 1408, 1566
+  size: 68, 105
+  orig: 114, 115
+  offset: 22, 0
+  index: -1
+UI/ventanaChica
+  rotate: false
+  xy: 484, 484
+  size: 250, 219
+  orig: 250, 219
+  offset: 0, 0
+  index: -1
+ZombiePan/walk5
+  rotate: false
+  xy: 402, 1516
+  size: 78, 114
+  orig: 150, 150
+  offset: 16, 7
+  index: -1
+ZombieMummy/walk3
+  rotate: false
+  xy: 614, 1032
+  size: 76, 118
+  orig: 150, 150
+  offset: 22, 7
+  index: -1
+HeroVader/walk2
+  rotate: false
+  xy: 1402, 1457
+  size: 70, 107
+  orig: 114, 115
+  offset: 21, 0
+  index: -1
+ZombieCuasy/walk6
+  rotate: false
+  xy: 688, 916
+  size: 92, 114
+  orig: 150, 150
+  offset: 29, 6
+  index: -1
+ZombieMummy/rise5
+  rotate: false
+  xy: 482, 1708
+  size: 82, 92
+  orig: 150, 150
+  offset: 13, 6
+  index: -1
+HeroSwat/shoot5
+  rotate: false
+  xy: 1334, 1170
+  size: 78, 107
+  orig: 114, 115
+  offset: 23, 0
+  index: -1
+UI/btTwitter
+  rotate: false
+  xy: 1161, 809
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+ZombieKid/walk7
+  rotate: false
+  xy: 784, 1506
+  size: 68, 116
+  orig: 150, 150
+  offset: 27, 0
+  index: -1
+ZombiePan/rise7
+  rotate: false
+  xy: 680, 1272
+  size: 90, 112
+  orig: 150, 150
+  offset: 15, 7
+  index: -1
+ZombieFrank/die5
+  rotate: false
+  xy: 576, 754
+  size: 142, 80
+  orig: 150, 150
+  offset: 5, 5
+  index: -1
+ZombiePan/idle2
+  rotate: false
+  xy: 1094, 1483
+  size: 78, 116
+  orig: 150, 150
+  offset: 15, 7
+  index: -1
+ZombieFrank/rise4
+  rotate: false
+  xy: 282, 1708
+  size: 102, 94
+  orig: 150, 150
+  offset: 10, 4
+  index: -1
+HeroVader/climb5
+  rotate: false
+  xy: 1693, 1408
+  size: 64, 103
+  orig: 114, 115
+  offset: 28, 0
+  index: -1
+HeroVader/die1
+  rotate: false
+  xy: 1478, 1722
+  size: 74, 101
+  orig: 114, 115
+  offset: 23, 0
+  index: -1
+HeroVader/shoot3
+  rotate: false
+  xy: 1332, 1457
+  size: 68, 107
+  orig: 114, 115
+  offset: 28, 0
+  index: -1
+HeroForce/shoot2
+  rotate: false
+  xy: 1474, 1409
+  size: 73, 103
+  orig: 115, 115
+  offset: 24, 0
+  index: -1
+HeroSwat/die5
+  rotate: false
+  xy: 1751, 775
+  size: 102, 69
+  orig: 114, 115
+  offset: 8, 0
+  index: -1
+HeroSoldier/idle
+  rotate: false
+  xy: 1018, 884
+  size: 72, 107
+  orig: 114, 115
+  offset: 21, 0
+  index: -1
+ZombieCuasy/die2
+  rotate: false
+  xy: 526, 1427
+  size: 106, 84
+  orig: 150, 150
+  offset: 30, 6
+  index: -1
+ZombieMummy/walk14
+  rotate: false
+  xy: 978, 592
+  size: 68, 118
+  orig: 150, 150
+  offset: 29, 7
+  index: -1
+ZombieMummy/die1
+  rotate: false
+  xy: 1667, 669
+  size: 82, 108
+  orig: 150, 150
+  offset: 29, 6
+  index: -1
+HeroRambo/hurt
+  rotate: false
+  xy: 918, 1378
+  size: 95, 103
+  orig: 115, 115
+  offset: 13, 0
+  index: -1
+knob
+  rotate: false
+  xy: 610, 1395
+  size: 22, 22
+  orig: 22, 22
+  offset: 0, 0
+  index: -1
+UI/btBuy
+  rotate: false
+  xy: 1136, 542
+  size: 150, 64
+  orig: 150, 64
+  offset: 0, 0
+  index: -1
+ZombieFrank/walk3
+  rotate: false
+  xy: 320, 1496
+  size: 80, 134
+  orig: 150, 150
+  offset: 24, 4
+  index: -1
+HeroRambo/die5
+  rotate: false
+  xy: 820, 1846
+  size: 107, 69
+  orig: 115, 115
+  offset: 7, 0
+  index: -1
+Bullet/bullet42
+  rotate: false
+  xy: 1502, 346
+  size: 24, 8
+  orig: 34, 34
+  offset: 4, 14
+  index: -1
+HeroForce/die2
+  rotate: false
+  xy: 1112, 1102
+  size: 83, 91
+  orig: 115, 115
+  offset: 15, 0
+  index: -1
+ZombiePan/walk8
+  rotate: false
+  xy: 930, 1483
+  size: 82, 116
+  orig: 150, 150
+  offset: 15, 7
+  index: -1
+ZombieMummy/walk8
+  rotate: false
+  xy: 638, 1152
+  size: 68, 118
+  orig: 150, 150
+  offset: 29, 7
+  index: -1
+HeroSoldier/climb4
+  rotate: false
+  xy: 1629, 1722
+  size: 68, 105
+  orig: 114, 115
+  offset: 25, 0
+  index: -1
+ZombieMummy/rise2
+  rotate: false
+  xy: 1746, 918
+  size: 80, 32
+  orig: 150, 150
+  offset: 15, 6
+  index: -1
+HeroSoldier/walk8
+  rotate: false
+  xy: 1096, 993
+  size: 76, 107
+  orig: 114, 115
+  offset: 19, 0
+  index: -1
+Bullet/muzzle3
+  rotate: false
+  xy: 1238, 608
+  size: 30, 26
+  orig: 34, 34
+  offset: 0, 5
+  index: -1
+ZombieKid/walk2
+  rotate: false
+  xy: 636, 1513
+  size: 74, 116
+  orig: 150, 150
+  offset: 23, 0
+  index: -1
+skull
+  rotate: false
+  xy: 670, 1745
+  size: 54, 54
+  orig: 54, 54
+  offset: 0, 0
+  index: -1
+ZombieFrank/idle1
+  rotate: false
+  xy: 526, 1291
+  size: 82, 134
+  orig: 150, 150
+  offset: 17, 4
+  index: -1
+ZombieKid/idle6
+  rotate: false
+  xy: 796, 1624
+  size: 72, 116
+  orig: 150, 150
+  offset: 26, 0
+  index: -1
+HeroForce/shoot1
+  rotate: false
+  xy: 1552, 1514
+  size: 72, 103
+  orig: 114, 115
+  offset: 24, 0
+  index: -1
+Bullet/bullet23
+  rotate: false
+  xy: 1596, 234
+  size: 8, 20
+  orig: 34, 34
+  offset: 12, 8
+  index: -1
+UI/btPurchased
+  rotate: false
+  xy: 1136, 476
+  size: 150, 64
+  orig: 150, 64
+  offset: 0, 0
+  index: -1
+ZombiePan/die5
+  rotate: false
+  xy: 952, 1793
+  size: 120, 68
+  orig: 150, 150
+  offset: 17, 6
+  index: -1
+heart
+  rotate: false
+  xy: 726, 1746
+  size: 62, 53
+  orig: 62, 53
+  offset: 0, 0
+  index: -1
+UI/weapon
+  rotate: false
+  xy: 1309, 1305
+  size: 90, 41
+  orig: 90, 79
+  offset: 0, 19
+  index: -1
+ZombieKid/walk11
+  rotate: false
+  xy: 1100, 1601
+  size: 80, 116
+  orig: 150, 150
+  offset: 21, 0
+  index: -1
+ZombiePan/walk10
+  rotate: false
+  xy: 858, 1031
+  size: 86, 116
+  orig: 150, 150
+  offset: 16, 7
+  index: -1
+HeroRambo/climb1
+  rotate: false
+  xy: 1418, 601
+  size: 73, 99
+  orig: 115, 115
+  offset: 24, 0
+  index: -1
+ZombieCuasy/walk5
+  rotate: false
+  xy: 1288, 485
+  size: 92, 114
+  orig: 150, 150
+  offset: 29, 6
+  index: -1
+HeroRambo/walk1
+  rotate: false
+  xy: 1046, 712
+  size: 71, 97
+  orig: 115, 115
+  offset: 26, 0
+  index: -1
+ZombieMummy/idle4
+  rotate: false
+  xy: 946, 957
+  size: 70, 118
+  orig: 150, 150
+  offset: 28, 6
+  index: -1
+HeroSoldier/walk1
+  rotate: false
+  xy: 1256, 1183
+  size: 76, 107
+  orig: 114, 115
+  offset: 19, 0
+  index: -1
+ZombieKid/rise7
+  rotate: false
+  xy: 658, 1631
+  size: 66, 112
+  orig: 150, 150
+  offset: 27, 0
+  index: -1
+UI/btMenu
+  rotate: false
+  xy: 1822, 1282
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+ZombieKid/idle1
+  rotate: false
+  xy: 846, 1271
+  size: 68, 116
+  orig: 150, 150
+  offset: 27, 0
+  index: -1
+ZombieCuasy/idle4
+  rotate: false
+  xy: 1030, 476
+  size: 104, 112
+  orig: 150, 150
+  offset: 17, 5
+  index: -1
+pad
+  rotate: false
+  xy: 1300, 155
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+ZombieCuasy/rise4
+  rotate: false
+  xy: 152, 1724
+  size: 128, 76
+  orig: 150, 150
+  offset: 5, 6
+  index: -1
+HeroForce/idle
+  rotate: false
+  xy: 1484, 1025
+  size: 70, 103
+  orig: 114, 115
+  offset: 21, 0
+  index: -1
+HeroSoldier/shoot3
+  rotate: false
+  xy: 1260, 1591
+  size: 76, 107
+  orig: 114, 115
+  offset: 22, 0
+  index: -1
+UI/btHelp
+  rotate: false
+  xy: 1838, 1602
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+UI/btPlayer
+  rotate: false
+  xy: 1768, 1215
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+HeroSwat/walk2
+  rotate: false
+  xy: 1252, 992
+  size: 78, 107
+  orig: 114, 115
+  offset: 23, 0
+  index: -1
+ZombieFrank/walk9
+  rotate: false
+  xy: 150, 1496
+  size: 86, 134
+  orig: 150, 150
+  offset: 15, 4
+  index: -1
+ZombiePan/walk1
+  rotate: false
+  xy: 780, 1151
+  size: 78, 118
+  orig: 150, 150
+  offset: 15, 7
+  index: -1
+ZombieCuasy/walk2
+  rotate: false
+  xy: 688, 916
+  size: 92, 114
+  orig: 150, 150
+  offset: 29, 6
+  index: -1
+ZombieMummy/rise1
+  rotate: false
+  xy: 1376, 1918
+  size: 44, 8
+  orig: 150, 150
+  offset: 28, 6
+  index: -1
+star
+  rotate: false
+  xy: 985, 1863
+  size: 64, 60
+  orig: 64, 60
+  offset: 0, 0
+  index: -1
+ZombiePan/rise3
+  rotate: false
+  xy: 566, 1745
+  size: 102, 54
+  orig: 150, 150
+  offset: 13, 7
+  index: -1
+HeroVader/die5
+  rotate: false
+  xy: 1704, 395
+  size: 98, 65
+  orig: 114, 115
+  offset: 9, 0
+  index: -1
+HeroSoldier/hurt
+  rotate: false
+  xy: 1667, 779
+  size: 82, 103
+  orig: 114, 115
+  offset: 16, 0
+  index: -1
+ZombieKid/rise2
+  rotate: false
+  xy: 1755, 992
+  size: 78, 20
+  orig: 150, 150
+  offset: 19, 0
+  index: -1
+ZombieMummy/walk10
+  rotate: false
+  xy: 610, 1275
+  size: 68, 118
+  orig: 150, 150
+  offset: 31, 6
+  index: -1
+UI/pixelNegro
+  rotate: false
+  xy: 1610, 441
+  size: 5, 5
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
+ZombieMummy/die5
+  rotate: false
+  xy: 1808, 104
+  size: 118, 72
+  orig: 150, 150
+  offset: 21, 7
+  index: -1
+HeroVader/climb6
+  rotate: false
+  xy: 1615, 1304
+  size: 68, 103
+  orig: 114, 115
+  offset: 25, 0
+  index: -1
+HeroRambo/shoot5
+  rotate: false
+  xy: 1545, 1829
+  size: 73, 97
+  orig: 115, 115
+  offset: 25, 0
+  index: -1
+Bullet/bullet53
+  rotate: false
+  xy: 1388, 885
+  size: 28, 8
+  orig: 34, 34
+  offset: 2, 14
+  index: -1
+Bullet/bullet31
+  rotate: false
+  xy: 1051, 1897
+  size: 21, 10
+  orig: 35, 34
+  offset: 6, 13
+  index: -1
+UI/btRightPress
+  rotate: false
+  xy: 1768, 1081
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+fontChico
+  rotate: false
+  xy: 2, 1310
+  size: 250, 184
+  orig: 256, 256
+  offset: 1, 71
+  index: -1
+HeroForce/climb3
+  rotate: false
+  xy: 1554, 1722
+  size: 73, 99
+  orig: 115, 115
+  offset: 19, 0
+  index: -1
+ZombieFrank/walk6
+  rotate: false
+  xy: 484, 1155
+  size: 80, 134
+  orig: 150, 150
+  offset: 21, 4
+  index: -1
+HeroSwat/climb5
+  rotate: false
+  xy: 1597, 780
+  size: 68, 105
+  orig: 114, 115
+  offset: 26, 0
+  index: -1
+ZombiePan/walk4
+  rotate: false
+  xy: 776, 1033
+  size: 80, 116
+  orig: 150, 150
+  offset: 16, 6
+  index: -1
+UI/btLevel
+  rotate: false
+  xy: 1606, 26
+  size: 98, 120
+  orig: 98, 120
+  offset: 0, 0
+  index: -1
+ZombieMummy/walk4
+  rotate: false
+  xy: 576, 1801
+  size: 84, 116
+  orig: 150, 150
+  offset: 15, 7
+  index: -1
+HeroVader/walk7
+  rotate: false
+  xy: 1316, 885
+  size: 70, 105
+  orig: 114, 115
+  offset: 21, 1
+  index: -1
+HeroSwat/shoot4
+  rotate: false
+  xy: 1018, 993
+  size: 76, 107
+  orig: 114, 115
+  offset: 24, 0
+  index: -1
+HeroForce/walk5
+  rotate: false
+  xy: 1556, 1025
+  size: 72, 103
+  orig: 114, 115
+  offset: 19, 0
+  index: -1
+HeroRambo/walk7
+  rotate: false
+  xy: 1695, 1829
+  size: 71, 97
+  orig: 115, 115
+  offset: 25, 1
+  index: -1
+ZombieKid/walk6
+  rotate: false
+  xy: 636, 1513
+  size: 74, 116
+  orig: 150, 150
+  offset: 23, 0
+  index: -1
+ZombiePan/rise6
+  rotate: false
+  xy: 1796, 465
+  size: 92, 100
+  orig: 150, 150
+  offset: 14, 7
+  index: -1
+HeroSwat/idle
+  rotate: false
+  xy: 1092, 884
+  size: 76, 107
+  orig: 114, 115
+  offset: 24, 0
+  index: -1
+ZombieFrank/die4
+  rotate: false
+  xy: 1300, 357
+  size: 146, 80
+  orig: 150, 150
+  offset: 2, 4
+  index: -1
+ZombieFrank/idle5
+  rotate: false
+  xy: 396, 1155
+  size: 86, 134
+  orig: 150, 150
+  offset: 17, 4
+  index: -1
+ZombieFrank/walk12
+  rotate: false
+  xy: 736, 620
+  size: 84, 134
+  orig: 150, 150
+  offset: 17, 4
+  index: -1
+ZombieFrank/rise1
+  rotate: false
+  xy: 1256, 1292
+  size: 50, 10
+  orig: 150, 150
+  offset: 21, 4
+  index: -1
+HeroVader/climb4
+  rotate: false
+  xy: 1623, 1409
+  size: 68, 103
+  orig: 114, 115
+  offset: 25, 0
+  index: -1
+HeroVader/shoot2
+  rotate: false
+  xy: 1338, 1566
+  size: 68, 107
+  orig: 114, 115
+  offset: 28, 0
+  index: -1
+HeroForce/shoot5
+  rotate: false
+  xy: 1549, 1409
+  size: 72, 103
+  orig: 114, 115
+  offset: 24, 0
+  index: -1
+HeroSwat/die2
+  rotate: false
+  xy: 438, 1425
+  size: 86, 89
+  orig: 114, 115
+  offset: 14, 0
+  index: -1
+ZombieCuasy/walk12
+  rotate: false
+  xy: 1382, 485
+  size: 88, 114
+  orig: 150, 150
+  offset: 29, 6
+  index: -1
+ZombieCuasy/die5
+  rotate: false
+  xy: 952, 1719
+  size: 120, 72
+  orig: 150, 150
+  offset: 9, 0
+  index: -1
+ZombieMummy/walk13
+  rotate: false
+  xy: 778, 1386
+  size: 66, 118
+  orig: 150, 150
+  offset: 32, 7
+  index: -1
+backgroundProgressBar
+  rotate: false
+  xy: 484, 705
+  size: 250, 47
+  orig: 250, 47
+  offset: 0, 0
+  index: -1
+meat
+  rotate: false
+  xy: 929, 1863
+  size: 54, 63
+  orig: 54, 63
+  offset: 0, 0
+  index: -1
+Bullet/bullet34
+  rotate: false
+  xy: 1828, 938
+  size: 25, 8
+  orig: 35, 34
+  offset: 3, 14
+  index: -1
+ZombieFrank/walk4
+  rotate: false
+  xy: 736, 484
+  size: 82, 134
+  orig: 150, 150
+  offset: 24, 4
+  index: -1
+HeroRambo/climb5
+  rotate: false
+  xy: 1478, 1825
+  size: 65, 101
+  orig: 115, 115
+  offset: 34, 0
+  index: -1
+HeroRambo/die4
+  rotate: false
+  xy: 1804, 396
+  size: 103, 67
+  orig: 115, 115
+  offset: 9, 1
+  index: -1
+HeroSoldier/die3
+  rotate: false
+  xy: 1606, 148
+  size: 98, 77
+  orig: 114, 115
+  offset: 8, 0
+  index: -1
+ZombieCuasy/walk1
+  rotate: false
+  xy: 854, 913
+  size: 90, 116
+  orig: 150, 150
+  offset: 28, 6
+  index: -1
+ZombieKid/die3
+  rotate: false
+  xy: 1493, 677
+  size: 104, 72
+  orig: 150, 150
+  offset: 7, 0
+  index: -1
+HeroForce/die1
+  rotate: false
+  xy: 1493, 811
+  size: 80, 103
+  orig: 114, 115
+  offset: 16, 0
+  index: -1
+ZombiePan/walk7
+  rotate: false
+  xy: 780, 1151
+  size: 78, 118
+  orig: 150, 150
+  offset: 15, 7
+  index: -1
+HeroRambo/walk5
+  rotate: false
+  xy: 1765, 1618
+  size: 71, 97
+  orig: 115, 115
+  offset: 26, 0
+  index: -1
+HeroVader/walk8
+  rotate: false
+  xy: 1412, 981
+  size: 70, 107
+  orig: 114, 115
+  offset: 21, 0
+  index: -1
+ZombieMummy/rise7
+  rotate: false
+  xy: 846, 1389
+  size: 70, 114
+  orig: 150, 150
+  offset: 19, 6
+  index: -1
+HeroSoldier/walk5
+  rotate: false
+  xy: 1252, 1810
+  size: 76, 107
+  orig: 114, 115
+  offset: 19, 0
+  index: -1
+HeroForce/walk8
+  rotate: false
+  xy: 1835, 670
+  size: 72, 103
+  orig: 114, 115
+  offset: 19, 0
+  index: -1
+Bullet/muzzle4
+  rotate: false
+  xy: 1051, 1863
+  size: 21, 20
+  orig: 35, 34
+  offset: 0, 8
+  index: -1
+ZombieKid/walk1
+  rotate: false
+  xy: 784, 1506
+  size: 68, 116
+  orig: 150, 150
+  offset: 27, 0
+  index: -1
+btFire
+  rotate: false
+  xy: 1551, 1130
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+UI/btMore
+  rotate: false
+  xy: 1766, 1540
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+ZombieFrank/idle2
+  rotate: false
+  xy: 822, 594
+  size: 84, 134
+  orig: 150, 150
+  offset: 17, 4
+  index: -1
+ZombieFrank/walk11
+  rotate: false
+  xy: 150, 1496
+  size: 86, 134
+  orig: 150, 150
+  offset: 15, 4
+  index: -1
+ZombieKid/idle5
+  rotate: false
+  xy: 634, 1395
+  size: 72, 116
+  orig: 150, 150
+  offset: 26, 0
+  index: -1
+Bullet/bullet22
+  rotate: false
+  xy: 1270, 608
+  size: 16, 16
+  orig: 34, 34
+  offset: 8, 10
+  index: -1
+UI/btRight
+  rotate: false
+  xy: 1768, 1148
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+UI/btMusicOff
+  rotate: false
+  xy: 1759, 1406
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+ZombiePan/die4
+  rotate: false
+  xy: 268, 1632
+  size: 130, 74
+  orig: 150, 150
+  offset: 7, 6
+  index: -1
+ZombieKid/walk10
+  rotate: false
+  xy: 432, 1804
+  size: 72, 116
+  orig: 150, 150
+  offset: 28, 0
+  index: -1
+ZombiePan/walk13
+  rotate: false
+  xy: 1617, 441
+  size: 84, 116
+  orig: 150, 150
+  offset: 16, 7
+  index: -1
+HeroRambo/climb2
+  rotate: false
+  xy: 1855, 775
+  size: 71, 101
+  orig: 115, 115
+  offset: 26, 0
+  index: -1
+gem
+  rotate: false
+  xy: 1755, 1349
+  size: 58, 55
+  orig: 58, 55
+  offset: 0, 0
+  index: -1
+whiteBar
+  rotate: false
+  xy: 1300, 439
+  size: 150, 21
+  orig: 150, 21
+  offset: 0, 0
+  index: -1
+UI/btPlay
+  rotate: false
+  xy: 1755, 1282
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+HeroRambo/walk2
+  rotate: false
+  xy: 973, 714
+  size: 71, 97
+  orig: 115, 115
+  offset: 26, 0
+  index: -1
+HeroSoldier/walk2
+  rotate: false
+  xy: 1174, 993
+  size: 76, 107
+  orig: 114, 115
+  offset: 19, 0
+  index: -1
+ZombieKid/rise6
+  rotate: false
+  xy: 1192, 711
+  size: 68, 96
+  orig: 150, 150
+  offset: 30, 0
+  index: -1
+HeroVader/hurt
+  rotate: false
+  xy: 1478, 1619
+  size: 74, 101
+  orig: 114, 115
+  offset: 23, 0
+  index: -1
+ZombieFrank/rise7
+  rotate: false
+  xy: 440, 1291
+  size: 84, 132
+  orig: 150, 150
+  offset: 15, 5
+  index: -1
+HeroRambo/shoot1
+  rotate: false
+  xy: 1545, 1829
+  size: 73, 97
+  orig: 115, 115
+  offset: 25, 0
+  index: -1
+UI/upgradeOff
+  rotate: false
+  xy: 1815, 1349
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+HeroSoldier/shoot2
+  rotate: false
+  xy: 1316, 1700
+  size: 76, 107
+  orig: 114, 115
+  offset: 22, 0
+  index: -1
+HeroSwat/climb1
+  rotate: false
+  xy: 1408, 1673
+  size: 68, 105
+  orig: 114, 115
+  offset: 22, 0
+  index: -1
+UI/btSettings
+  rotate: false
+  xy: 1701, 1215
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+HeroVader/walk3
+  rotate: false
+  xy: 1323, 1348
+  size: 70, 107
+  orig: 114, 115
+  offset: 21, 0
+  index: -1
+ZombieCuasy/walk7
+  rotate: false
+  xy: 854, 913
+  size: 90, 116
+  orig: 150, 150
+  offset: 28, 6
+  index: -1
+HeroForce/walk1
+  rotate: false
+  xy: 1556, 1025
+  size: 72, 103
+  orig: 114, 115
+  offset: 19, 0
+  index: -1
+ZombieMummy/idle6
+  rotate: false
+  xy: 708, 1386
+  size: 68, 118
+  orig: 150, 150
+  offset: 29, 6
+  index: -1
+ZombiePan/rise2
+  rotate: false
+  xy: 1334, 1279
+  size: 78, 24
+  orig: 150, 150
+  offset: 24, 7
+  index: -1
+ZombiePan/idle5
+  rotate: false
+  xy: 1074, 1719
+  size: 78, 116
+  orig: 150, 150
+  offset: 16, 7
+  index: -1
+UI/btClose
+  rotate: false
+  xy: 1835, 1081
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+HeroForce/hurt
+  rotate: false
+  xy: 1493, 811
+  size: 80, 103
+  orig: 114, 115
+  offset: 16, 0
+  index: -1
+ZombieFrank/rise5
+  rotate: false
+  xy: 566, 1631
+  size: 90, 112
+  orig: 150, 150
+  offset: 9, 4
+  index: -1
+HeroVader/die4
+  rotate: false
+  xy: 1289, 1101
+  size: 94, 67
+  orig: 114, 115
+  offset: 11, 0
+  index: -1
+ZombieKid/rise1
+  rotate: false
+  xy: 484, 890
+  size: 44, 8
+  orig: 150, 150
+  offset: 30, 0
+  index: -1
+UI/btLeftPress
+  rotate: false
+  xy: 1826, 1401
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+ZombieCuasy/die1
+  rotate: false
+  xy: 1136, 608
+  size: 100, 96
+  orig: 150, 150
+  offset: 30, 6
+  index: -1
+ZombieMummy/die4
+  rotate: false
+  xy: 400, 1632
+  size: 124, 74
+  orig: 150, 150
+  offset: 18, 4
+  index: -1
+ZombieCuasy/idle6
+  rotate: false
+  xy: 820, 476
+  size: 102, 116
+  orig: 150, 150
+  offset: 18, 5
+  index: -1
+HeroRambo/shoot2
+  rotate: false
+  xy: 1542, 466
+  size: 73, 97
+  orig: 115, 115
+  offset: 24, 0
+  index: -1
+Bullet/bullet52
+  rotate: false
+  xy: 1308, 1292
+  size: 24, 8
+  orig: 34, 34
+  offset: 4, 14
+  index: -1
+ZombieCuasy/rise6
+  rotate: false
+  xy: 1610, 329
+  size: 92, 110
+  orig: 150, 150
+  offset: 21, 6
+  index: -1
+HeroSoldier/shoot1
+  rotate: false
+  xy: 1330, 1809
+  size: 76, 107
+  orig: 114, 115
+  offset: 22, 0
+  index: -1
+HeroForce/climb2
+  rotate: false
+  xy: 1620, 1829
+  size: 73, 97
+  orig: 115, 115
+  offset: 19, 0
+  index: -1
+HeroSwat/climb4
+  rotate: false
+  xy: 1488, 1197
+  size: 68, 105
+  orig: 114, 115
+  offset: 27, 0
+  index: -1
+HeroForce/die5
+  rotate: false
+  xy: 1114, 1305
+  size: 97, 69
+  orig: 115, 115
+  offset: 8, 0
+  index: -1
+ZombiePan/walk3
+  rotate: false
+  xy: 740, 1801
+  size: 78, 116
+  orig: 150, 150
+  offset: 16, 7
+  index: -1
+ZombieMummy/walk9
+  rotate: false
+  xy: 1542, 346
+  size: 66, 118
+  orig: 150, 150
+  offset: 32, 7
+  index: -1
+HeroSoldier/climb5
+  rotate: false
+  xy: 1248, 885
+  size: 66, 105
+  orig: 114, 115
+  offset: 27, 0
+  index: -1
+HeroVader/walk4
+  rotate: false
+  xy: 1402, 1457
+  size: 70, 107
+  orig: 114, 115
+  offset: 21, 0
+  index: -1
+ZombieMummy/rise3
+  rotate: false
+  xy: 1493, 751
+  size: 102, 58
+  orig: 150, 150
+  offset: 6, 6
+  index: -1
+HeroSwat/shoot3
+  rotate: false
+  xy: 1100, 1196
+  size: 76, 107
+  orig: 114, 115
+  offset: 24, 0
+  index: -1
+HeroForce/walk4
+  rotate: false
+  xy: 1414, 1199
+  size: 72, 103
+  orig: 114, 115
+  offset: 19, 0
+  index: -1
+skullBar
+  rotate: false
+  xy: 304, 1089
+  size: 200, 64
+  orig: 200, 64
+  offset: 0, 0
+  index: -1
+HeroRambo/walk8
+  rotate: false
+  xy: 1855, 878
+  size: 71, 97
+  orig: 115, 115
+  offset: 26, 0
+  index: -1
+Bullet/bullet11
+  rotate: false
+  xy: 1338, 1675
+  size: 29, 12
+  orig: 35, 34
+  offset: 3, 12
+  index: -1
+ZombieKid/walk5
+  rotate: false
+  xy: 870, 1623
+  size: 80, 116
+  orig: 150, 150
+  offset: 19, 0
+  index: -1
+ZombieFrank/rise2
+  rotate: false
+  xy: 1755, 952
+  size: 76, 38
+  orig: 150, 150
+  offset: 22, 4
+  index: -1
+HeroVader/climb3
+  rotate: false
+  xy: 1626, 1514
+  size: 68, 103
+  orig: 114, 115
+  offset: 22, 0
+  index: -1
+HeroVader/shoot5
+  rotate: false
+  xy: 1624, 887
+  size: 68, 107
+  orig: 114, 115
+  offset: 28, 0
+  index: -1
+HeroForce/shoot4
+  rotate: false
+  xy: 1478, 1514
+  size: 72, 103
+  orig: 114, 115
+  offset: 24, 0
+  index: -1
+UI/btMusic
+  rotate: false
+  xy: 1766, 1473
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+ZombieCuasy/die4
+  rotate: false
+  xy: 712, 837
+  size: 128, 74
+  orig: 150, 150
+  offset: 10, 5
+  index: -1
+ZombieMummy/walk12
+  rotate: false
+  xy: 1472, 438
+  size: 68, 118
+  orig: 150, 150
+  offset: 31, 6
+  index: -1
+Bullet/bullet33
+  rotate: false
+  xy: 916, 1267
+  size: 28, 8
+  orig: 34, 34
+  offset: 2, 14
+  index: -1
+ZombieFrank/walk1
+  rotate: false
+  xy: 512, 916
+  size: 80, 134
+  orig: 150, 150
+  offset: 19, 4
+  index: -1
+HeroRambo/die3
+  rotate: false
+  xy: 720, 756
+  size: 103, 79
+  orig: 115, 115
+  offset: 9, 0
+  index: -1
+HeroSoldier/die2
+  rotate: false
+  xy: 1164, 1837
+  size: 86, 89
+  orig: 114, 115
+  offset: 14, 0
+  index: -1
+ZombieKid/die2
+  rotate: false
+  xy: 1751, 669
+  size: 82, 104
+  orig: 150, 150
+  offset: 29, 0
+  index: -1
+ZombiePan/walk6
+  rotate: false
+  xy: 1014, 1483
+  size: 78, 116
+  orig: 150, 150
+  offset: 15, 7
+  index: -1
+ZombieMummy/idle5
+  rotate: false
+  xy: 946, 837
+  size: 70, 118
+  orig: 150, 150
+  offset: 28, 6
+  index: -1
+ZombieMummy/walk6
+  rotate: false
+  xy: 506, 1802
+  size: 68, 118
+  orig: 150, 150
+  offset: 29, 7
+  index: -1
+HeroSoldier/climb2
+  rotate: false
+  xy: 899, 730
+  size: 72, 105
+  orig: 114, 115
+  offset: 21, 0
+  index: -1
+ZombieMummy/rise8
+  rotate: false
+  xy: 782, 913
+  size: 70, 118
+  orig: 150, 150
+  offset: 27, 6
+  index: -1
+HeroSoldier/walk6
+  rotate: false
+  xy: 1238, 1701
+  size: 76, 107
+  orig: 114, 115
+  offset: 19, 0
+  index: -1

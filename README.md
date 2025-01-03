@@ -15,4 +15,5 @@ The games that we have here:
     <li>flappy_bird_game</li>
     <li>libgdx_do_not_tap</li>
     <li>libgdx_lander</li>
+    <li>libgdx_zombie_killer</li>
 </ol>
