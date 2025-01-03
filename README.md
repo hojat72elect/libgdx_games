@@ -12,4 +12,5 @@ The games that we have here:
     <li>libgdx_2048_8bit</li>
     <li>libgdx_the_true_color</li>
     <li>libgx_shark_adventure</li>
+    <li>flappy_bird_game</li>
 </ol>
