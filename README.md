@@ -13,4 +13,5 @@ The games that we have here:
     <li>libgdx_the_true_color</li>
     <li>libgx_shark_adventure</li>
     <li>flappy_bird_game</li>
+    <li>libgdx_do_not_tap</li>
 </ol>
