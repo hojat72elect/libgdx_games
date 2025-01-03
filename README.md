@@ -8,4 +8,5 @@ The games that we have here:
     <li>libgdx_new_super_jumper</li>
     <li>libgdx_galaxy_invaders</li>
     <li>libgdx_zombie_wars</li>
+    <li>libgdx_drag_race</li>
 </ol>
