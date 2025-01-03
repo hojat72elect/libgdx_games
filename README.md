@@ -14,4 +14,5 @@ The games that we have here:
     <li>libgx_shark_adventure</li>
     <li>flappy_bird_game</li>
     <li>libgdx_do_not_tap</li>
+    <li>libgdx_lander</li>
 </ol>

@@ -1,0 +1,396 @@
+
+atlasMap.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+barraMarcadorRojo
+  rotate: false
+  xy: 2, 29
+  size: 101, 17
+  orig: 101, 17
+  offset: 0, 0
+  index: -1
+barraMarcadorVerde
+  rotate: false
+  xy: 484, 224
+  size: 101, 17
+  orig: 101, 17
+  offset: 0, 0
+  index: -1
+bomba
+  rotate: false
+  xy: 484, 501
+  size: 300, 292
+  orig: 300, 292
+  offset: 0, 0
+  index: -1
+btLevelsDown
+  rotate: false
+  xy: 256, 54
+  size: 24, 78
+  split: 12, 11, 39, 38
+  orig: 24, 78
+  offset: 0, 0
+  index: -1
+btMenu
+  rotate: false
+  xy: 2, 134
+  size: 280, 84
+  orig: 280, 84
+  offset: 0, 0
+  index: -1
+btMenuDown
+  rotate: false
+  xy: 484, 415
+  size: 280, 84
+  orig: 280, 84
+  offset: 0, 0
+  index: -1
+btPause
+  rotate: false
+  xy: 766, 429
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+btPauseDown
+  rotate: false
+  xy: 818, 429
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+btUpgrade
+  rotate: false
+  xy: 759, 74
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+btUpgradeDown
+  rotate: false
+  xy: 716, 16
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+btnLevels
+  rotate: false
+  xy: 572, 144
+  size: 24, 78
+  split: 11, 9, 37, 39
+  pad: 9, 9, 9, 9
+  orig: 24, 78
+  offset: 0, 0
+  index: -1
+candado
+  rotate: false
+  xy: 870, 445
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1
+dim
+  rotate: false
+  xy: 933, 810
+  size: 5, 5
+  split: 0, 0, 0, 0
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
+fondo
+  rotate: false
+  xy: 2, 220
+  size: 480, 800
+  orig: 480, 800
+  offset: 0, 0
+  index: -1
+gas
+  rotate: false
+  xy: 716, 54
+  size: 41, 45
+  orig: 41, 45
+  offset: 0, 0
+  index: -1
+marcador
+  rotate: false
+  xy: 2, 48
+  size: 180, 84
+  orig: 180, 84
+  offset: 0, 0
+  index: -1
+nave
+  rotate: false
+  xy: 689, 254
+  size: 70, 159
+  orig: 70, 159
+  offset: 0, 0
+  index: -1
+nave1
+  rotate: false
+  xy: 872, 634
+  size: 70, 159
+  orig: 70, 159
+  offset: 0, 0
+  index: -1
+nave2
+  rotate: false
+  xy: 944, 656
+  size: 70, 159
+  orig: 70, 159
+  offset: 0, 0
+  index: -1
+nave3
+  rotate: false
+  xy: 761, 254
+  size: 70, 159
+  orig: 70, 159
+  offset: 0, 0
+  index: -1
+nave4
+  rotate: false
+  xy: 284, 59
+  size: 70, 159
+  orig: 70, 159
+  offset: 0, 0
+  index: -1
+nave5
+  rotate: false
+  xy: 356, 59
+  size: 70, 159
+  orig: 70, 159
+  offset: 0, 0
+  index: -1
+newExplosion1
+  rotate: false
+  xy: 184, 63
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion10
+  rotate: false
+  xy: 428, 149
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion11
+  rotate: false
+  xy: 428, 78
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion12
+  rotate: false
+  xy: 500, 153
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion13
+  rotate: false
+  xy: 500, 82
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion14
+  rotate: false
+  xy: 872, 563
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion15
+  rotate: false
+  xy: 944, 585
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion16
+  rotate: false
+  xy: 862, 492
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion17
+  rotate: false
+  xy: 598, 172
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion18
+  rotate: false
+  xy: 598, 101
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion19
+  rotate: false
+  xy: 944, 514
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion2
+  rotate: false
+  xy: 428, 7
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion3
+  rotate: false
+  xy: 500, 11
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion4
+  rotate: false
+  xy: 572, 30
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion5
+  rotate: false
+  xy: 644, 30
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion6
+  rotate: false
+  xy: 670, 172
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion7
+  rotate: false
+  xy: 670, 101
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion8
+  rotate: false
+  xy: 742, 183
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+newExplosion9
+  rotate: false
+  xy: 742, 112
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+rayo0
+  rotate: false
+  xy: 484, 372
+  size: 203, 41
+  orig: 203, 41
+  offset: 0, 0
+  index: -1
+rayo0Vertical
+  rotate: false
+  xy: 933, 817
+  size: 41, 203
+  orig: 41, 203
+  offset: 0, 0
+  index: -1
+rayo1
+  rotate: false
+  xy: 484, 329
+  size: 203, 41
+  orig: 203, 41
+  offset: 0, 0
+  index: -1
+rayo1Vertical
+  rotate: false
+  xy: 786, 590
+  size: 41, 203
+  orig: 41, 203
+  offset: 0, 0
+  index: -1
+rayo2
+  rotate: false
+  xy: 484, 286
+  size: 203, 41
+  orig: 203, 41
+  offset: 0, 0
+  index: -1
+rayo2Vertical
+  rotate: false
+  xy: 976, 817
+  size: 41, 203
+  orig: 41, 203
+  offset: 0, 0
+  index: -1
+rayo3
+  rotate: false
+  xy: 484, 243
+  size: 203, 41
+  orig: 203, 41
+  offset: 0, 0
+  index: -1
+rayo3Vertical
+  rotate: false
+  xy: 829, 590
+  size: 41, 203
+  orig: 41, 203
+  offset: 0, 0
+  index: -1
+recuadroGameOver
+  rotate: false
+  xy: 786, 481
+  size: 74, 107
+  split: 35, 38, 52, 54
+  pad: 2, 2, 41, 43
+  orig: 74, 107
+  offset: 0, 0
+  index: -1
+star
+  rotate: false
+  xy: 2, 2
+  size: 27, 25
+  orig: 27, 25
+  offset: 0, 0
+  index: -1
+starOff
+  rotate: false
+  xy: 759, 42
+  size: 33, 30
+  orig: 33, 30
+  offset: 0, 0
+  index: -1
+titulo
+  rotate: false
+  xy: 484, 795
+  size: 447, 225
+  orig: 447, 225
+  offset: 0, 0
+  index: -1
+upgradeOff
+  rotate: false
+  xy: 766, 481
+  size: 14, 18
+  orig: 14, 18
+  offset: 0, 0
+  index: -1
+upgradeOn
+  rotate: false
+  xy: 572, 124
+  size: 14, 18
+  orig: 14, 18
+  offset: 0, 0
+  index: -1
