@@ -21,4 +21,5 @@ The games that we have here:
     <li>libgdx_impossible_dial</li>
     <li>libgdx_clumsy_ufo</li>
     <li>libgdx_zombie_dash</li>
+    <li>Klooni1010</li>
 </ol>
