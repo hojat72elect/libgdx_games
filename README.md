@@ -17,4 +17,5 @@ The games that we have here:
     <li>libgdx_lander</li>
     <li>libgdx_zombie_killer</li>
     <li>libgdx_pony_racing</li>
+    <li>libgdx_fifteen_puzzle</li>
 </ol>

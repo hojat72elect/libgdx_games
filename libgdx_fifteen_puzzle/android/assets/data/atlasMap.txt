@@ -1,0 +1,235 @@
+atlasMap.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+btFacebook
+  rotate: false
+  xy: 1035, 726
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+pieza8
+  rotate: false
+  xy: 1738, 206
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+pieza11
+  rotate: false
+  xy: 1510, 614
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btMusica
+  rotate: false
+  xy: 1684, 716
+  size: 67, 67
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
+pieza15
+  rotate: false
+  xy: 1102, 643
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btSonido
+  rotate: false
+  xy: 966, 726
+  size: 67, 67
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
+pieza1
+  rotate: false
+  xy: 1714, 614
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+pieza5
+  rotate: false
+  xy: 1387, 516
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+puzzleSolved
+  rotate: false
+  xy: 1480, 260
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+fontGrande
+  rotate: false
+  xy: 966, 2
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+pieza9
+  rotate: false
+  xy: 1738, 104
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+pixelNegro
+  rotate: false
+  xy: 966, 795
+  size: 5, 5
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
+pieza10
+  rotate: false
+  xy: 1612, 614
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+fontChico
+  rotate: false
+  xy: 1480, 2
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+pieza14
+  rotate: false
+  xy: 1204, 643
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+piezaVacia
+  rotate: false
+  xy: 1738, 2
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+fondo2
+  rotate: false
+  xy: 2, 2
+  size: 480, 800
+  orig: 480, 800
+  offset: 0, 0
+  index: -1
+btSinMusica
+  rotate: false
+  xy: 1477, 720
+  size: 67, 67
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
+pieza2
+  rotate: false
+  xy: 1693, 512
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+pieza6
+  rotate: false
+  xy: 1732, 410
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btAtras2
+  rotate: false
+  xy: 1387, 618
+  size: 17, 19
+  orig: 17, 19
+  offset: 0, 0
+  index: -1
+btPause
+  rotate: false
+  xy: 1615, 716
+  size: 67, 67
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
+pieza13
+  rotate: false
+  xy: 1306, 643
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btPauseDown
+  rotate: false
+  xy: 1546, 716
+  size: 67, 67
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
+fondo
+  rotate: false
+  xy: 484, 2
+  size: 480, 800
+  orig: 480, 800
+  offset: 0, 0
+  index: -1
+btTwitter
+  rotate: false
+  xy: 1795, 512
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+pieza3
+  rotate: false
+  xy: 1591, 512
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+pieza7
+  rotate: false
+  xy: 1732, 308
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+titulo
+  rotate: false
+  xy: 966, 516
+  size: 419, 125
+  orig: 419, 125
+  offset: 0, 0
+  index: -1
+pieza12
+  rotate: false
+  xy: 1408, 618
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btSinSonido
+  rotate: false
+  xy: 1408, 720
+  size: 67, 67
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
+fondoPuntuaciones
+  rotate: false
+  xy: 966, 643
+  size: 134, 81
+  orig: 134, 81
+  offset: 0, 0
+  index: -1
+pieza4
+  rotate: false
+  xy: 1489, 512
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
