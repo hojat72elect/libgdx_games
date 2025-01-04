@@ -19,4 +19,5 @@ The games that we have here:
     <li>libgdx_pony_racing</li>
     <li>libgdx_fifteen_puzzle</li>
     <li>libgdx_impossible_dial</li>
+    <li>libgdx_clumsy_ufo</li>
 </ol>

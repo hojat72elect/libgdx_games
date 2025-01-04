@@ -1,0 +1,396 @@
+atlasMap.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+btClassic
+  rotate: false
+  xy: 292, 421
+  size: 101, 70
+  orig: 101, 70
+  offset: 0, 0
+  index: -1
+btLeaderboard
+  rotate: false
+  xy: 247, 788
+  size: 144, 81
+  orig: 144, 81
+  offset: 0, 0
+  index: -1
+num4
+  rotate: false
+  xy: 388, 631
+  size: 24, 36
+  orig: 24, 36
+  offset: 0, 0
+  index: -1
+0
+  rotate: false
+  xy: 421, 448
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
+btAchievements
+  rotate: false
+  xy: 325, 613
+  size: 61, 58
+  orig: 61, 58
+  offset: 0, 0
+  index: -1
+titulo
+  rotate: false
+  xy: 2, 516
+  size: 321, 156
+  orig: 321, 156
+  offset: 0, 0
+  index: -1
+luz
+  rotate: false
+  xy: 400, 106
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+7
+  rotate: false
+  xy: 397, 707
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
+luzA
+  rotate: false
+  xy: 315, 493
+  size: 7, 18
+  orig: 7, 18
+  offset: 0, 0
+  index: -1
+num5
+  rotate: false
+  xy: 408, 356
+  size: 24, 36
+  orig: 24, 36
+  offset: 0, 0
+  index: -1
+oscuridad
+  rotate: false
+  xy: 395, 486
+  size: 5, 5
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
+1
+  rotate: false
+  xy: 423, 669
+  size: 6, 14
+  orig: 6, 14
+  offset: 0, 0
+  index: -1
+nave1
+  rotate: false
+  xy: 400, 80
+  size: 34, 24
+  orig: 34, 24
+  offset: 0, 0
+  index: -1
+gameover
+  rotate: false
+  xy: 206, 943
+  size: 204, 54
+  orig: 204, 54
+  offset: 0, 0
+  index: -1
+meteoro5
+  rotate: false
+  xy: 340, 728
+  size: 48, 42
+  orig: 48, 42
+  offset: 0, 0
+  index: -1
+8
+  rotate: false
+  xy: 206, 921
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
+btNoAds
+  rotate: false
+  xy: 325, 553
+  size: 61, 58
+  orig: 61, 58
+  offset: 0, 0
+  index: -1
+num6
+  rotate: false
+  xy: 408, 318
+  size: 24, 36
+  orig: 24, 36
+  offset: 0, 0
+  index: -1
+monedaOro
+  rotate: false
+  xy: 388, 493
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+2
+  rotate: false
+  xy: 421, 432
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
+nave2
+  rotate: false
+  xy: 400, 54
+  size: 34, 24
+  orig: 34, 24
+  offset: 0, 0
+  index: -1
+tubosEspacioArriba
+  rotate: false
+  xy: 292, 2
+  size: 52, 320
+  orig: 52, 320
+  offset: 0, 0
+  index: -1
+9
+  rotate: false
+  xy: 374, 772
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
+monedaAluminio
+  rotate: false
+  xy: 388, 585
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+num0
+  rotate: false
+  xy: 395, 432
+  size: 24, 36
+  orig: 24, 36
+  offset: 0, 0
+  index: -1
+btFacebook
+  rotate: false
+  xy: 393, 774
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+num7
+  rotate: false
+  xy: 400, 249
+  size: 24, 36
+  orig: 24, 36
+  offset: 0, 0
+  index: -1
+meteoro2
+  rotate: false
+  xy: 292, 493
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+3
+  rotate: false
+  xy: 393, 849
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
+nave3
+  rotate: false
+  xy: 400, 28
+  size: 34, 24
+  orig: 34, 24
+  offset: 0, 0
+  index: -1
+tap
+  rotate: false
+  xy: 292, 324
+  size: 114, 95
+  orig: 114, 95
+  offset: 0, 0
+  index: -1
+getready
+  rotate: false
+  xy: 2, 921
+  size: 202, 62
+  orig: 202, 62
+  offset: 0, 0
+  index: -1
+num1
+  rotate: false
+  xy: 414, 631
+  size: 16, 36
+  orig: 16, 36
+  offset: 0, 0
+  index: -1
+fondo1
+  rotate: false
+  xy: 2, 2
+  size: 288, 512
+  orig: 288, 512
+  offset: 0, 0
+  index: -1
+btRate
+  rotate: false
+  xy: 325, 493
+  size: 61, 58
+  orig: 61, 58
+  offset: 0, 0
+  index: -1
+floor
+  rotate: false
+  xy: 2, 674
+  size: 336, 112
+  orig: 336, 112
+  offset: 0, 0
+  index: -1
+num8
+  rotate: false
+  xy: 400, 211
+  size: 24, 36
+  orig: 24, 36
+  offset: 0, 0
+  index: -1
+meteoro1
+  rotate: false
+  xy: 2, 985
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+4
+  rotate: false
+  xy: 220, 921
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
+nave4
+  rotate: false
+  xy: 400, 2
+  size: 34, 24
+  orig: 34, 24
+  offset: 0, 0
+  index: -1
+monedaPlata
+  rotate: false
+  xy: 390, 728
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+meteoro6
+  rotate: false
+  xy: 340, 673
+  size: 55, 53
+  orig: 55, 53
+  offset: 0, 0
+  index: -1
+tubosEspacio
+  rotate: false
+  xy: 346, 2
+  size: 52, 320
+  orig: 52, 320
+  offset: 0, 0
+  index: -1
+btRestore
+  rotate: false
+  xy: 350, 871
+  size: 61, 58
+  orig: 61, 58
+  offset: 0, 0
+  index: -1
+num2
+  rotate: false
+  xy: 408, 394
+  size: 24, 36
+  orig: 24, 36
+  offset: 0, 0
+  index: -1
+num9
+  rotate: false
+  xy: 400, 173
+  size: 24, 36
+  orig: 24, 36
+  offset: 0, 0
+  index: -1
+meteoro4
+  rotate: false
+  xy: 400, 140
+  size: 30, 31
+  orig: 30, 31
+  offset: 0, 0
+  index: -1
+5
+  rotate: false
+  xy: 393, 833
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
+medallsFondo
+  rotate: false
+  xy: 2, 788
+  size: 243, 131
+  orig: 243, 131
+  offset: 0, 0
+  index: -1
+monedaBronce
+  rotate: false
+  xy: 388, 539
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+new
+  rotate: false
+  xy: 340, 772
+  size: 32, 14
+  orig: 32, 14
+  offset: 0, 0
+  index: -1
+num3
+  rotate: false
+  xy: 397, 669
+  size: 24, 36
+  orig: 24, 36
+  offset: 0, 0
+  index: -1
+btArcade
+  rotate: false
+  xy: 247, 871
+  size: 101, 70
+  orig: 101, 70
+  offset: 0, 0
+  index: -1
+meteoro3
+  rotate: false
+  xy: 393, 805
+  size: 18, 26
+  orig: 18, 26
+  offset: 0, 0
+  index: -1
+btTwitter
+  rotate: false
+  xy: 400, 287
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+6
+  rotate: false
+  xy: 395, 470
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
