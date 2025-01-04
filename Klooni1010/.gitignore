@@ -1,0 +1,9 @@
+.gradle
+.idea
+gradle
+
+core/build
+desktop/build
+android/build
+build
+android/libs
