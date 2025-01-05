@@ -1,0 +1,9 @@
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+eclipse.project.name = appName + '-core'
+
+dependencies {
+	api "com.badlogicgames.gdx:gdx:$gdxVersion"
+	implementation 'com.github.raeleus.TenPatch:tenpatch:5.2.2'
+	implementation "space.earlygrey:shapedrawer:2.5.0"
+	api "com.badlogicgames.gdx-video:gdx-video:1.3.2-SNAPSHOT"
+}

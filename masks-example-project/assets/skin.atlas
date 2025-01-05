@@ -1,0 +1,174 @@
+
+skin.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+white-pixel
+  rotate: false
+  xy: 897, 1607
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+bite
+  rotate: false
+  xy: 603, 1040
+  size: 161, 185
+  orig: 161, 185
+  offset: 0, 0
+  index: -1
+bite-black
+  rotate: false
+  xy: 1839, 1862
+  size: 161, 185
+  orig: 161, 185
+  offset: 0, 0
+  index: -1
+button-reload
+  rotate: false
+  xy: 766, 1160
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+circle-mask
+  rotate: false
+  xy: 1, 40
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1
+dirt
+  rotate: false
+  xy: 1, 998
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+donut
+  rotate: false
+  xy: 1, 561
+  size: 475, 435
+  orig: 475, 435
+  offset: 0, 0
+  index: -1
+donut-chewed
+  rotate: false
+  xy: 1, 124
+  size: 475, 435
+  orig: 475, 435
+  offset: 0, 0
+  index: -1
+font
+  rotate: false
+  xy: 897, 1983
+  size: 506, 64
+  orig: 506, 64
+  offset: 0, 0
+  index: -1
+head-stationary
+  rotate: false
+  xy: 1525, 1676
+  size: 312, 371
+  orig: 312, 371
+  offset: 0, 0
+  index: -1
+head_0
+  rotate: false
+  xy: 897, 1610
+  size: 312, 371
+  orig: 312, 371
+  offset: 0, 0
+  index: -1
+head_1
+  rotate: false
+  xy: 603, 1227
+  size: 312, 371
+  orig: 312, 371
+  offset: 0, 0
+  index: -1
+head_7
+  rotate: false
+  xy: 603, 1227
+  size: 312, 371
+  orig: 312, 371
+  offset: 0, 0
+  index: -1
+head_2
+  rotate: false
+  xy: 917, 1237
+  size: 312, 371
+  orig: 312, 371
+  offset: 0, 0
+  index: -1
+head_6
+  rotate: false
+  xy: 917, 1237
+  size: 312, 371
+  orig: 312, 371
+  offset: 0, 0
+  index: -1
+head_3
+  rotate: false
+  xy: 1211, 1610
+  size: 312, 371
+  orig: 312, 371
+  offset: 0, 0
+  index: -1
+head_5
+  rotate: false
+  xy: 1211, 1610
+  size: 312, 371
+  orig: 312, 371
+  offset: 0, 0
+  index: -1
+head_4
+  rotate: false
+  xy: 1231, 1237
+  size: 312, 371
+  orig: 312, 371
+  offset: 0, 0
+  index: -1
+list-body
+  rotate: false
+  xy: 1, 1
+  size: 37, 37
+  orig: 37, 37
+  offset: 0, 0
+  index: -1
+list-header
+  rotate: false
+  xy: 478, 940
+  size: 89, 56
+  orig: 89, 56
+  offset: 0, 0
+  index: -1
+list-selection
+  rotate: false
+  xy: 1525, 1648
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+tile-repeatable
+  rotate: false
+  xy: 1, 1600
+  size: 894, 447
+  orig: 894, 447
+  offset: 0, 0
+  index: -1
+worm_0
+  rotate: false
+  xy: 1405, 1983
+  size: 47, 31
+  orig: 47, 31
+  offset: 0, 0
+  index: -1
+worm_1
+  rotate: false
+  xy: 1405, 2016
+  size: 47, 31
+  orig: 47, 31
+  offset: 0, 0
+  index: -1
