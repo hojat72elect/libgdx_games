@@ -28,4 +28,5 @@ The games that we have here:
     <li>Mystic Woods</li>
     <li>masks_example_project</li>
     <li>snake-libgdx</li>
+    <li>rectball</li>
 </ol>
