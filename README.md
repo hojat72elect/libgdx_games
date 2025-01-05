@@ -29,4 +29,5 @@ The games that we have here:
     <li>masks_example_project</li>
     <li>snake-libgdx</li>
     <li>rectball</li>
+    <li>beat-the-high-score</li>
 </ol>
