@@ -1,0 +1,358 @@
+
+rectball.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+gem_blue
+  rotate: false
+  xy: 515, 1029
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+gem_blue_alt
+  rotate: false
+  xy: 1, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+gem_gray
+  rotate: false
+  xy: 515, 515
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+gem_green
+  rotate: false
+  xy: 1029, 1029
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+gem_green_alt
+  rotate: false
+  xy: 515, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+gem_red
+  rotate: false
+  xy: 1029, 515
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+gem_red_alt
+  rotate: false
+  xy: 1029, 1
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+logo
+  rotate: false
+  xy: 1, 1543
+  size: 2000, 478
+  orig: 2000, 478
+  offset: 0, 0
+  index: -1
+mono_0
+  rotate: false
+  xy: 1, 1029
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+mono_1
+  rotate: false
+  xy: 1, 515
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+
+rectball2.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+white-pixel
+  rotate: false
+  xy: 509, 924
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+back_arrow
+  rotate: false
+  xy: 1539, 1599
+  size: 56, 96
+  orig: 56, 96
+  offset: 0, 0
+  index: -1
+button_blue
+  rotate: false
+  xy: 1023, 1460
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+button_blue_disabled
+  rotate: false
+  xy: 1797, 1905
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+button_blue_down
+  rotate: false
+  xy: 1, 51
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+button_blue_over
+  rotate: false
+  xy: 259, 254
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+button_default
+  rotate: false
+  xy: 773, 1141
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+button_default_disabled
+  rotate: false
+  xy: 1597, 1647
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+button_default_down
+  rotate: false
+  xy: 1073, 1460
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+button_default_over
+  rotate: false
+  xy: 1797, 1855
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+button_green
+  rotate: false
+  xy: 1847, 1905
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+button_green_disabled
+  rotate: false
+  xy: 1, 1
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+button_green_down
+  rotate: false
+  xy: 51, 51
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+button_green_over
+  rotate: false
+  xy: 259, 204
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+button_lime
+  rotate: false
+  xy: 309, 254
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+button_lime_disabled
+  rotate: false
+  xy: 773, 1091
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+button_lime_down
+  rotate: false
+  xy: 823, 1141
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+button_lime_over
+  rotate: false
+  xy: 1647, 1647
+  size: 48, 48
+  split: 22, 22, 24, 23
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+gem_yellow
+  rotate: false
+  xy: 1, 1441
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+gem_yellow_alt
+  rotate: false
+  xy: 1, 927
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+icon_chart
+  rotate: false
+  xy: 1023, 1697
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+icon_close
+  rotate: false
+  xy: 1, 562
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+icon_cog
+  rotate: false
+  xy: 515, 1223
+  size: 256, 224
+  orig: 256, 224
+  offset: 0, 0
+  index: -1
+icon_crown
+  rotate: false
+  xy: 1023, 1510
+  size: 256, 185
+  orig: 256, 185
+  offset: 0, 0
+  index: -1
+icon_help
+  rotate: false
+  xy: 1281, 1697
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+icon_house
+  rotate: false
+  xy: 1, 359
+  size: 256, 201
+  orig: 256, 201
+  offset: 0, 0
+  index: -1
+icon_info
+  rotate: false
+  xy: 515, 965
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+icon_play
+  rotate: false
+  xy: 773, 1191
+  size: 219, 256
+  orig: 219, 256
+  offset: 0, 0
+  index: -1
+icon_podium
+  rotate: false
+  xy: 1281, 1558
+  size: 256, 137
+  orig: 256, 137
+  offset: 0, 0
+  index: -1
+icon_replay
+  rotate: false
+  xy: 1539, 1697
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+icon_share
+  rotate: false
+  xy: 1, 101
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+icon_star
+  rotate: false
+  xy: 259, 562
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+icon_time
+  rotate: false
+  xy: 259, 304
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+large
+  rotate: false
+  xy: 515, 1449
+  size: 506, 355
+  orig: 506, 355
+  offset: 0, 0
+  index: -1
+light_window
+  rotate: false
+  xy: 1281, 1514
+  size: 42, 42
+  split: 18, 18, 18, 18
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+sans
+  rotate: false
+  xy: 515, 1806
+  size: 506, 147
+  orig: 506, 147
+  offset: 0, 0
+  index: -1
+small
+  rotate: false
+  xy: 1, 820
+  size: 506, 105
+  orig: 506, 105
+  offset: 0, 0
+  index: -1

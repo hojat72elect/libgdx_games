@@ -1,0 +1,6 @@
+.gradle
+.idea
+
+core/build
+lwjgl3/build
+teavm/build
