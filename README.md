@@ -24,4 +24,5 @@ The games that we have here:
     <li>Klooni1010</li>
     <li>Pacman_libGdx</li>
     <li>Pepper and Carrot Running Game</li>
+    <li>LightBlocks</li>
 </ol>
