@@ -1,0 +1,124 @@
+android {
+    buildToolsVersion "29.0.3"
+    compileSdkVersion 29
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
+        }
+        amazon {
+            java.srcDirs = ['src-amazon']
+            manifest.srcFile 'AndroidManifest-amazon.xml'
+        }
+        google {
+            java.srcDirs = ['src-google']
+            manifest.srcFile 'AndroidManifest-google.xml'
+        }
+        generic {
+            java.srcDirs = ['src-generic']
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/robovm/ios/robovm.xml'
+    }
+    defaultConfig {
+        applicationId "org.opensource.lightblocks"
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 2112
+        versionName "1.5.2112"
+    }
+
+    flavorDimensions "type"
+    productFlavors {
+        amazon { dimension "type" }
+        google { dimension "type" }
+        generic { dimension "type" }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile "androidx.appcompat:appcompat:1.1.0"
+    googleCompile "de.golfgl.gdxgamesvcs:gdx-gamesvcs-android-gpgs:$gamsvcsVersion"
+    googleCompile "de.golfgl.gdxpushmessages:gdx-pushmessages-android-fcm:$pushMsgsVersion"
+    amazonCompile "de.golfgl.gdxgamesvcs:gdx-gamesvcs-android-amazongc:$gamsvcsVersion"
+    amazonCompile "com.badlogicgames.gdxpay:gdx-pay-android-amazon:$gdxPayVersion"
+}
+
+// called every time gradle gets executed, takes the native dependencies of
+// the natives configuration, and extracts them to the proper libs/ folders
+// so they get packed with the APK.
+task copyAndroidNatives {
+    doFirst {
+        file("libs/armeabi-v7a/").mkdirs()
+        file("libs/arm64-v8a/").mkdirs()
+        file("libs/x86_64/").mkdirs()
+        file("libs/x86/").mkdirs()
+
+        configurations.natives.copy().files.each { jar ->
+            def outputDir = null
+            if (jar.name.endsWith("natives-arm64-v8a.jar")) outputDir = file("libs/arm64-v8a")
+            if (jar.name.endsWith("natives-armeabi-v7a.jar")) outputDir = file("libs/armeabi-v7a")
+            if (jar.name.endsWith("natives-x86_64.jar")) outputDir = file("libs/x86_64")
+            if (jar.name.endsWith("natives-x86.jar")) outputDir = file("libs/x86")
+            if (outputDir != null) {
+                copy {
+                    from zipTree(jar)
+                    into outputDir
+                    include "*.so"
+                }
+            }
+        }
+    }
+}
+
+tasks.whenTaskAdded { packageTask ->
+    if (packageTask.name.contains("package")) {
+        packageTask.dependsOn 'copyAndroidNatives'
+    }
+}
+
+task run(type: Exec) {
+    def path
+    def localProperties = project.file("../local.properties")
+    if (localProperties.exists()) {
+        Properties properties = new Properties()
+        localProperties.withInputStream { instr ->
+            properties.load(instr)
+        }
+        def sdkDir = properties.getProperty('sdk.dir')
+        if (sdkDir) {
+            path = sdkDir
+        } else {
+            path = "$System.env.ANDROID_HOME"
+        }
+    } else {
+        path = "$System.env.ANDROID_HOME"
+    }
+
+    def adb = path + "/platform-tools/adb"
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'de.golfgl.lightblocks/de.golfgl.lightblocks.AndroidLauncher'
+}
+
+apply plugin: 'com.google.gms.google-services'
+
+// Deaktivieren für alle außer google
+android.applicationVariants.all { variant ->
+    if (!variant.name.startsWith('google')) {
+        project.logger.warn('Google services not applied for ' + variant.name)
+        project.tasks.getByName('process' + variant.name.capitalize() + 'GoogleServices').enabled = false
+    }
+}

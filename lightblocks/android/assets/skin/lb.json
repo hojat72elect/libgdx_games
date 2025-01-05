@@ -1,0 +1,312 @@
+{
+BitmapFont: {
+	fa45: {
+		file: fa-45.fnt
+	}
+	qs-25-bold: {
+		file: qs-25-bold.fnt
+	}
+	qs-25-reg: {
+		file: qs-25-reg.fnt
+	}
+	qs-40-bold: {
+		file: qs-40-bold.fnt
+	}
+	qs-40-boldglow: {
+		file: qs-40-boldglow.fnt
+	}
+	qs-60-bold: {
+		file: qs-60-bold.fnt
+	}
+	qs-60-boldglow: {
+		file: qs-60-boldglow.fnt
+	}
+}
+Color: {
+	black: {
+		r: 0
+		g: 0
+		b: 0
+		a: 1
+	}
+	disabled: {
+		r: 0.19607843
+		g: 0.19607843
+		b: 0.19607843
+		a: 1
+	}
+	emphasize: {
+		r: 1
+		g: 0.3137255
+		b: 0.3137255
+		a: 1
+	}
+	lightselection: {
+		r: 0.25666666
+		g: 0.6800357
+		b: 1
+		a: 1
+	}
+	unselected: {
+		r: 0.47843137
+		g: 0.47843137
+		b: 0.47843137
+		a: 1
+	}
+	white: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+}
+TintedDrawable: {
+	slider-knob-disabled: {
+		name: slider-knob
+		color: disabled
+	}
+	selection: {
+		name: white
+		color: lightselection
+	}
+	smoke: {
+		name: white
+		color: {
+			r: 0
+			g: 0
+			b: 0
+			a: 0.8627451
+		}
+	}
+	black: {
+		name: white
+		color: black
+	}
+	transparent: {
+		name: white
+		color: {
+			r: 1
+			g: 1
+			b: 1
+			a: 0
+		}
+	}
+	button_small_font_disabled: {
+		name: button_small_font
+		color: disabled
+	}
+	button_rotateright_pressed: {
+		name: button_rotateright
+		color: disabled
+	}
+	button_rotateleft_pressed: {
+		name: button_rotateleft
+		color: disabled
+	}
+	button_harddrop_pressed: {
+		name: button_harddrop
+		color: disabled
+	}
+	whitesmoke: {
+		name: white
+		color: {
+			r: 1
+			g: 1
+			b: 1
+			a: 0.19607843
+		}
+	}
+	focused-window-bl: {
+		name: window-bl
+		color: lightselection
+	}
+	button_onscreen_pressed: {
+		name: button_onscreen
+		color: disabled
+	}
+}
+ButtonStyle: {
+	round: {
+		up: button_small_font
+		down: button_small_font_filled
+		over: button_small_font_glow
+	}
+	smoke: {
+		down: whitesmoke
+	}
+	rotateright: {
+		up: button_rotateright
+		down: button_rotateright_pressed
+	}
+	harddrop: {
+		up: button_harddrop
+		down: button_harddrop_pressed
+	}
+	rotateleft: {
+		up: button_rotateleft
+		down: button_rotateleft_pressed
+	}
+}
+LabelStyle: {
+	default: {
+		font: qs-25-reg
+	}
+	big: {
+		font: qs-25-bold
+	}
+	bigbigoutline: {
+		font: qs-40-bold
+	}
+	fontawesome: {
+		font: fa45
+	}
+	qs60: {
+		font: qs-60-bold
+	}
+	qs60glow: {
+		font: qs-60-boldglow
+	}
+	qs40glow: {
+		font: qs-40-boldglow
+	}
+	qs25: {
+		font: qs-25-reg
+	}
+	editbig: {
+		font: qs-40-bold
+		background: window-bl
+	}
+}
+ListStyle: {
+	default: {
+		font: qs-40-bold
+		fontColorSelected: white
+		fontColorUnselected: unselected
+		selection: transparent
+	}
+}
+ProgressBarStyle: {
+	default-horizontal: {
+		background: slider
+		knobBefore: slider-before
+	}
+}
+ScrollPaneStyle: {
+	default: {
+		hScrollKnob: scroll-horizontal
+		vScrollKnob: scroll-vertical
+	}
+	pager: {
+		hScroll: radio
+		hScrollKnob: radio-over
+	}
+	list: {
+		background: list
+		hScrollKnob: scroll-horizontal
+		vScrollKnob: scroll-vertical
+	}
+}
+SliderStyle: {
+	default-horizontal: {
+		knobOver: slider-knob-pressed
+		background: slider
+		knob: slider-knob
+		disabledKnob: slider-knob-disabled
+		knobBefore: slider-before
+	}
+}
+TextButtonStyle: {
+	default: {
+		font: qs-40-bold
+		fontColor: white
+		downFontColor: emphasize
+		disabledFontColor: disabled
+	}
+	round: {
+		font: qs-40-bold
+		fontColor: white
+		downFontColor: black
+		disabledFontColor: disabled
+		up: button_small_font
+		down: button_small_font_filled
+		over: button_small_font_glow
+		disabled: button_small_font_disabled
+	}
+	checkbox: {
+		font: qs-40-bold
+		fontColor: white
+		downFontColor: emphasize
+		disabledFontColor: disabled
+	}
+	fontawesome: {
+		font: fa45
+		fontColor: white
+		downFontColor: emphasize
+		disabledFontColor: disabled
+	}
+	welcome: {
+		font: qs-25-reg
+		fontColor: white
+		downFontColor: emphasize
+		disabledFontColor: disabled
+	}
+	big: {
+		font: qs-25-bold
+		fontColor: white
+		downFontColor: emphasize
+		disabledFontColor: disabled
+	}
+	gamepad: {
+		font: qs-40-bold
+		fontColor: white
+		downFontColor: disabled
+		up: button_onscreen
+		down: button_onscreen_pressed
+	}
+}
+TextFieldStyle: {
+	default: {
+		font: qs-40-bold
+		fontColor: white
+		disabledFontColor: unselected
+		background: window
+		focusedBackground: focused-window-bl
+		cursor: white
+		selection: whitesmoke
+		messageFont: qs-40-boldglow
+		messageFontColor: emphasize
+	}
+}
+TextTooltipStyle: {
+	default: {
+		label: default
+	}
+}
+TouchpadStyle: {
+	default: {
+		background: touchpad
+		knob: touchpad_knob
+	}
+	dpad: {
+		background: dpad
+	}
+}
+WindowStyle: {
+	default: {
+		background: window-bl
+		titleFont: qs-25-bold
+		stageBackground: smoke
+	}
+	overlay: {
+		background: window
+		titleFont: qs-25-bold
+	}
+	frameless: {
+		titleFont: qs-25-bold
+	}
+	fullsize: {
+		titleFont: qs-25-bold
+		stageBackground: black
+	}
+}
+}
