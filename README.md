@@ -25,4 +25,5 @@ The games that we have here:
     <li>Pacman_libGdx</li>
     <li>Pepper and Carrot Running Game</li>
     <li>LightBlocks</li>
+    <li>Mystic Woods</li>
 </ol>
