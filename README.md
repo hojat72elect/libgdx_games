@@ -23,4 +23,5 @@ The games that we have here:
     <li>libgdx_zombie_dash</li>
     <li>Klooni1010</li>
     <li>Pacman_libGdx</li>
+    <li>Pepper and Carrot Running Game</li>
 </ol>
