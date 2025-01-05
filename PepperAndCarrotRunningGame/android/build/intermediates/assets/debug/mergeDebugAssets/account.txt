@@ -1,0 +1,12 @@
+Progress -1
+CompleteLevels 0
+HuntEnemies 0
+UsedSkills 0
+Jumps 12
+CollectedPotions 6
+Died 1
+LevelsWithoutKilling 0
+LevelsWithoutHealthLost 0
+Ingredients 0 
+BrewedPotion  0
+Ghost 0

@@ -1,0 +1,55 @@
+{
+	com.badlogic.gdx.graphics.Color: {
+      	white: {hex: "F1E6D5"},
+      	black: {hex: "110410"},
+      	dark-brown: {hex: "432B2B"},
+      	light-brown: {hex: "D0A381"},
+      	brown: {hex: "4C2920"},
+      	grey: {hex: "7D7D7D"},
+      	skill-green: {hex: "A5FF30"},
+      	skill-orange: {hex: "FFAC0E"},
+      	skill-blue: {hex: "26CDFF"},
+    },
+    
+	com.badlogic.gdx.graphics.g2d.BitmapFont: {  
+    	default: { file: Lavi24.fnt },
+    	fondamento: { file: Fondamento60.fnt }
+    },
+
+    com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+      default: { font: default, fontColor: black },
+      default-white: { font: default, fontColor: white },
+      title: { font: fondamento, fontColor: brown },
+    }
+
+    com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {  
+      default: { up: bg_dark_brown, down: bg_light_brown, checked: bg_light_brown, disabled: bg_light_brown },
+      transparent: { }
+     },
+     
+	com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {  
+		default: { up: bg_dark_brown, down: bg_light_brown, checked: bg_light_brown, disabled: bg_dark_brown, font: default, fontColor: white, disabledFontColor: grey, downFontColor: white, checkedFontColor: white },
+		transparent-bg: { font: default, fontColor: grey, checkedFontColor: white },
+		tabs: { up: bg_light_brown, down: bg_dark_brown, checked: bg_dark_brown, disabled: bg_dark_brown, font: default, fontColor: white, disabledFontColor: grey, downFontColor: grey, checkedFontColor: white },
+		lavi: { up: button, down: button, checked: button, disabled: button, font: default, fontColor: white }
+	},
+	
+	com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {  
+		button_jump: { up: button_jump, down: button_jump },
+		button_exit: { up: button_exit, down: button_exit },
+		button_skill0: { up: button_skill0, down: button_skill0 },
+		button_skill1: { up: button_skill1, down: button_skill1 },
+		button_skill2: { up: button_skill2, down: button_skill2 },
+		button_skill3: { up: button_skill3, down: button_skill3 }
+	},
+
+	com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
+      hp: { background: hp_empty, knobBefore: hp },
+      level: { background: none, knobBefore: bar, disabledKnobBefore: none },
+      default: { background: bg_dark_brown, knobBefore: bg_light_brown  }
+     }
+
+    com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+      default: { vScrollKnob: bg_dark_brown, hScrollKnob: bg_dark_brown, vScroll: bg_light_brown, hScroll: bg_light_brown },
+     },
+}

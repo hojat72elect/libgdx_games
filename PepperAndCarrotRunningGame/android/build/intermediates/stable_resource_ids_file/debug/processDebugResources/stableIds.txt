@@ -1,0 +1,3 @@
+com.peppercarrot.runninggame:string/app_name = 0x7f020000
+com.peppercarrot.runninggame:style/GdxTheme = 0x7f030000
+com.peppercarrot.runninggame:drawable/ic_launcher = 0x7f010000

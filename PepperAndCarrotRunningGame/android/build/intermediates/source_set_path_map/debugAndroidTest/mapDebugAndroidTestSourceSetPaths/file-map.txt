@@ -1,0 +1,4 @@
+com.peppercarrot.runninggame.test.android-androidTest-0 D:\Dev\Java\Repositories\PepperAndCarrotRunningGame\android\build\generated\res\resValues\androidTest\debug
+com.peppercarrot.runninggame.test.android-mergeDebugAndroidTestResources-1 D:\Dev\Java\Repositories\PepperAndCarrotRunningGame\android\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.peppercarrot.runninggame.test.android-mergeDebugAndroidTestResources-2 D:\Dev\Java\Repositories\PepperAndCarrotRunningGame\android\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.peppercarrot.runninggame.test.android-debugAndroidTest-3 D:\Dev\Java\Repositories\PepperAndCarrotRunningGame\android\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources

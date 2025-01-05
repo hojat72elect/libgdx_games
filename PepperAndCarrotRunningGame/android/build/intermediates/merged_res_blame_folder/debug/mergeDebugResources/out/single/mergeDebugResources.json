@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "com.peppercarrot.runninggame.android-debug-4:/drawable-xhdpi_ic_launcher.png.flat",
+        "source": "com.peppercarrot.runninggame.android-android-5:/drawable-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.peppercarrot.runninggame.android-debug-4:/drawable-xxhdpi_ic_launcher.png.flat",
+        "source": "com.peppercarrot.runninggame.android-android-5:/drawable-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.peppercarrot.runninggame.android-debug-4:/drawable-mdpi_ic_launcher.png.flat",
+        "source": "com.peppercarrot.runninggame.android-android-5:/drawable-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.peppercarrot.runninggame.android-debug-4:/drawable-hdpi_ic_launcher.png.flat",
+        "source": "com.peppercarrot.runninggame.android-android-5:/drawable-hdpi/ic_launcher.png"
+    }
+]
