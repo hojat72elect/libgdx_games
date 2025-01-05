@@ -30,4 +30,5 @@ The games that we have here:
     <li>snake-libgdx</li>
     <li>rectball</li>
     <li>beat-the-high-score</li>
+    <li>Unlucky</li>
 </ol>
