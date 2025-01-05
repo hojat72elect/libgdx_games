@@ -27,4 +27,5 @@ The games that we have here:
     <li>LightBlocks</li>
     <li>Mystic Woods</li>
     <li>masks_example_project</li>
+    <li>snake-libgdx</li>
 </ol>
