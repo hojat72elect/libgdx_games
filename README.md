@@ -31,4 +31,5 @@ The games that we have here:
     <li>rectball</li>
     <li>beat-the-high-score</li>
     <li>Unlucky</li>
+    <li>asteroids_libgdx</li>
 </ol>
