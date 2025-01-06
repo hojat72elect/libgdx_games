@@ -33,4 +33,5 @@ The games that we have here:
     <li>Unlucky</li>
     <li>asteroids_libgdx</li>
     <li>3D-TETRIS</li>
+    <li>Chemtris</li>
 </ol>
