@@ -10,7 +10,7 @@ import com.nopalsoft.superjumper.handlers.RequestHandler;
 public class DesktopLauncher {
     public static void main(String[] arg) {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-        config.setWindowedMode(480,800);
+        config.setWindowedMode(480, 800);
         new Lwjgl3Application(new MainSuperJumper(handler, gameHandler, faceHandler), config);
     }
 
