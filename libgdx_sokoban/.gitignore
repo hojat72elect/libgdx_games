@@ -7,3 +7,4 @@ desktop/build
 local.properties
 android/build
 android/libs
+build
