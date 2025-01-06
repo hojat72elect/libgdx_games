@@ -1,0 +1,96 @@
+
+button2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+cam1
+  rotate: false
+  xy: 1, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+cam2
+  rotate: false
+  xy: 1, 131
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+descend1
+  rotate: false
+  xy: 131, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+descend2
+  rotate: false
+  xy: 1, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+pause1
+  rotate: false
+  xy: 131, 131
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+pause2
+  rotate: false
+  xy: 261, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+play1
+  rotate: false
+  xy: 131, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+rotatex
+  rotate: false
+  xy: 261, 131
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+rotatexpress
+  rotate: false
+  xy: 391, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+rotatey
+  rotate: false
+  xy: 261, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+rotateypress
+  rotate: false
+  xy: 391, 131
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+rotatez
+  rotate: false
+  xy: 521, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+rotatezpress
+  rotate: false
+  xy: 391, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1

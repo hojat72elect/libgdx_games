@@ -1,0 +1,103 @@
+
+button.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+box
+  rotate: false
+  xy: 1, 261
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
+boxpress
+  rotate: false
+  xy: 1, 131
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
+circle
+  rotate: false
+  xy: 259, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+cp
+  rotate: false
+  xy: 1, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+down
+  rotate: false
+  xy: 259, 131
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+downpress
+  rotate: false
+  xy: 389, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+left
+  rotate: false
+  xy: 131, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+leftpress
+  rotate: false
+  xy: 389, 131
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+nope
+  rotate: false
+  xy: 519, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+nopepress
+  rotate: false
+  xy: 261, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+right
+  rotate: false
+  xy: 519, 131
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+rightpress
+  rotate: false
+  xy: 649, 261
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+up
+  rotate: false
+  xy: 391, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+upppress
+  rotate: false
+  xy: 649, 131
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
