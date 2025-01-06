@@ -32,4 +32,5 @@ The games that we have here:
     <li>beat-the-high-score</li>
     <li>Unlucky</li>
     <li>asteroids_libgdx</li>
+    <li>3D-TETRIS</li>
 </ol>
