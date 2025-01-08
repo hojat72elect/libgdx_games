@@ -20,7 +20,7 @@ class AndroidShareChallenge extends ShareChallenge {
     }
 
     @Override
-    File getShareImageFilePath() {
+    public File getShareImageFilePath() {
         return new File(context.getExternalCacheDir(), "share_challenge.png");
     }
 
