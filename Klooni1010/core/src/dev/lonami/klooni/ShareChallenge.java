@@ -14,18 +14,33 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.BufferUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
+
 import java.io.File;
 
+/**
+ * An abstract class designed to handle the sharing of a "challenge" image.
+ * The only implemented function of this class is saveChallengeImage() which creates a shareable image, saves it into a directory, and then cleans up.
+ * <p>
+ * This class is meant to be implemented for each platform.
+ */
 public abstract class ShareChallenge {
 
-    // Meant to return the file path to which the image will be saved
-    // On some platforms it might be as simple as Gdx.files.local().file()
+    /**
+     * Meant to return the file path to which the image will be saved
+     * On some platforms it might be as simple as Gdx.files.local().file()
+     */
     abstract File getShareImageFilePath();
 
-    // Meant to share the saved screenshot at getShareImageFilePath()
+
+    /**
+     * Meant to share the saved screenshot at getShareImageFilePath()
+     */
     public abstract void shareScreenshot(final boolean saveResult);
 
-    // Saves the "Challenge me" shareable image to getShareImageFilePath()
+
+    /**
+     * Saves the "Challenge me" shareable image to getShareImageFilePath()
+     */
     public boolean saveChallengeImage(final int score, final boolean timeMode) {
         final File saveAt = getShareImageFilePath();
         if (!saveAt.getParentFile().isDirectory())

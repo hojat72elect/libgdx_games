@@ -9,6 +9,10 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import dev.lonami.klooni.effects.EvaporateEffectFactory;
 import dev.lonami.klooni.effects.ExplodeEffectFactory;
 import dev.lonami.klooni.effects.SpinEffectFactory;
@@ -17,8 +21,6 @@ import dev.lonami.klooni.effects.WaterdropEffectFactory;
 import dev.lonami.klooni.interfaces.IEffectFactory;
 import dev.lonami.klooni.screens.MainMenuScreen;
 import dev.lonami.klooni.screens.TransitionScreen;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Klooni extends Game {
 
