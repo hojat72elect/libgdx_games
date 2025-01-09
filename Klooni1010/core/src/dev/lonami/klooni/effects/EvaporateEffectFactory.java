@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+
+import org.jetbrains.annotations.NotNull;
+
 import dev.lonami.klooni.game.Cell;
 import dev.lonami.klooni.interfaces.IEffect;
 import dev.lonami.klooni.interfaces.IEffectFactory;
@@ -27,12 +30,14 @@ public class EvaporateEffectFactory implements IEffectFactory {
         return 200;
     }
 
+    @NotNull
     @Override
-    public IEffect create(Cell deadCell, Vector2 culprit) {
+    public IEffect create(@NotNull Cell deadCell, @NotNull Vector2 culprit) {
         IEffect effect = new dev.lonami.klooni.effects.EvaporateEffectFactory.EvaporateEffect();
         effect.setInfo(deadCell, culprit);
         return effect;
     }
+
 
     private static class EvaporateEffect implements IEffect {
         private static final float UP_SPEED = 100.0f;
@@ -55,9 +60,9 @@ public class EvaporateEffectFactory implements IEffectFactory {
         public void setInfo(Cell deadCell, Vector2 culprit) {
             pos = deadCell.position.cpy();
             originalX = pos.x;
-            size = deadCell.size;
+            size = deadCell.cellSize;
 
-            vanishSize = deadCell.size;
+            vanishSize = deadCell.cellSize;
             vanishColor = deadCell.getColorCopy();
             driftMagnitude = Gdx.graphics.getWidth() * 0.05f;
             vanishElapsed = 0;
@@ -91,5 +96,4 @@ public class EvaporateEffectFactory implements IEffectFactory {
             return vanishElapsed > LIFETIME;
         }
     }
-
 }

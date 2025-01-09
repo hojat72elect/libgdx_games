@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+
+import org.jetbrains.annotations.NotNull;
+
 import dev.lonami.klooni.SkinLoader;
 import dev.lonami.klooni.game.Cell;
 import dev.lonami.klooni.interfaces.IEffect;
@@ -22,11 +25,13 @@ public class WaterdropEffectFactory implements IEffectFactory {
             dropTexture = SkinLoader.loadPng("cells/drop.png");
     }
 
+    @NotNull
     @Override
     public String getName() {
         return "waterdrop";
     }
 
+    @NotNull
     @Override
     public String getDisplay() {
         return "Waterdrop";
@@ -37,8 +42,9 @@ public class WaterdropEffectFactory implements IEffectFactory {
         return 200;
     }
 
+    @NotNull
     @Override
-    public IEffect create(Cell deadCell, Vector2 culprit) {
+    public IEffect create(@NotNull Cell deadCell, @NotNull Vector2 culprit) {
         init();
         IEffect effect = new WaterdropEffect();
         effect.setInfo(deadCell, culprit);
@@ -63,9 +69,9 @@ public class WaterdropEffectFactory implements IEffectFactory {
         }
 
         @Override
-        public void setInfo(Cell deadCell, Vector2 culprit) {
+        public void setInfo(Cell deadCell, @NotNull Vector2 culprit) {
             pos = deadCell.position.cpy();
-            cellSize = deadCell.size;
+            cellSize = deadCell.cellSize;
             cellColor = deadCell.getColorCopy();
             dropColor = new Color(cellColor.r, cellColor.g, cellColor.b, 0.0f);
         }

@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+
+import org.jetbrains.annotations.NotNull;
+
 import dev.lonami.klooni.game.Cell;
 import dev.lonami.klooni.interfaces.IEffect;
 import dev.lonami.klooni.interfaces.IEffectFactory;
@@ -27,8 +30,9 @@ public class ExplodeEffectFactory implements IEffectFactory {
         return 200;
     }
 
+    @NotNull
     @Override
-    public IEffect create(Cell deadCell, Vector2 culprit) {
+    public IEffect create(@NotNull Cell deadCell, @NotNull Vector2 culprit) {
         IEffect effect = new dev.lonami.klooni.effects.ExplodeEffectFactory.ExplodeEffect();
         effect.setInfo(deadCell, culprit);
         return effect;
@@ -49,7 +53,7 @@ public class ExplodeEffectFactory implements IEffectFactory {
 
             shards = new Shard[MathUtils.random(4, 6)];
             for (int i = 0; i != shards.length; ++i)
-                shards[i] = new Shard(deadCell.position, deadCell.size);
+                shards[i] = new Shard(deadCell.position, deadCell.cellSize);
         }
 
         @Override

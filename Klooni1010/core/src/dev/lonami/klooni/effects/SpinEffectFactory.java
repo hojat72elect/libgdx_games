@@ -6,17 +6,22 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+
+import org.jetbrains.annotations.NotNull;
+
 import dev.lonami.klooni.game.Cell;
 import dev.lonami.klooni.interfaces.IEffect;
 import dev.lonami.klooni.interfaces.IEffectFactory;
 
 
 public class SpinEffectFactory implements IEffectFactory {
+    @NotNull
     @Override
     public String getName() {
         return "spin";
     }
 
+    @NotNull
     @Override
     public String getDisplay() {
         return "Spin";
@@ -27,8 +32,9 @@ public class SpinEffectFactory implements IEffectFactory {
         return 200;
     }
 
+    @NotNull
     @Override
-    public IEffect create(Cell deadCell, Vector2 culprit) {
+    public IEffect create(@NotNull Cell deadCell, @NotNull Vector2 culprit) {
         IEffect effect = new SpinEffect();
         effect.setInfo(deadCell, culprit);
         return effect;
@@ -48,7 +54,7 @@ public class SpinEffectFactory implements IEffectFactory {
         public void setInfo(Cell deadCell, Vector2 culprit) {
             age = 0;
             pos = deadCell.position.cpy();
-            size = deadCell.size;
+            size = deadCell.cellSize;
             color = deadCell.getColorCopy();
         }
 
