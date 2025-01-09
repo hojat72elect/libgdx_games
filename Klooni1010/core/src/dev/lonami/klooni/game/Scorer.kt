@@ -13,7 +13,7 @@ import java.io.DataOutputStream
  */
 class Scorer(game: Klooni, layout: GameLayout) : BaseScorer(game, layout, Klooni.getMaxScore()), BinSerializable {
 
-    private var highScore = Klooni.getMaxScore();
+    private var highScore = Klooni.getMaxScore()
 
     override fun saveScore() {
         if (isNewRecord()) {

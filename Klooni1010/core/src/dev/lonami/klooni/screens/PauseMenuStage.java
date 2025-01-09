@@ -19,8 +19,10 @@ import dev.lonami.klooni.actors.SoftButton;
 import dev.lonami.klooni.game.BaseScorer;
 import dev.lonami.klooni.game.GameLayout;
 
-// The pause stage is not a whole screen but rather a menu
-// which can be overlaid on top of another screen
+/**
+ * The pause stage is not a whole screen but rather a menu
+ * which can be overlaid on top of another screen.
+ */
 class PauseMenuStage extends Stage {
 
 

@@ -23,7 +23,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import dev.lonami.klooni.serializer.BinSerializable;
 
-// Main game screen. Here the board, piece holder and score are shown
+/**
+ * Main game screen. Here the board, piece holder and score are shown
+ */
 class GameScreen implements Screen, InputProcessor, BinSerializable {
 
 
@@ -41,7 +43,7 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
 
     private final Sound gameOverSound;
     private final PauseMenuStage pauseMenu;
-    // TODO Perhaps make an abstract base class for the game screen and game modes
+    // Perhaps make an abstract base class for the game screen and game modes
     // by implementing different "isGameOver" etc. logic instead using an integer?
     private final int gameMode;
     private boolean gameOverDone;
@@ -155,7 +157,7 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if (scorer.isGameOver() && !pauseMenu.isShown()) {
-            // TODO A bit hardcoded (timeOver = scorer instanceof TimeScorer)
+            // A bit hardcoded (timeOver = scorer instanceof TimeScorer)
             // Perhaps have a better mode to pass the required texture to overlay
             doGameOver(scorer.gameOverReason());
         }

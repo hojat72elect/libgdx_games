@@ -8,14 +8,18 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import dev.lonami.klooni.Klooni;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+
+import dev.lonami.klooni.Klooni;
 import dev.lonami.klooni.serializer.BinSerializable;
 
-// A holder of pieces that can be drawn on screen.
-// Pieces can be picked up from it and dropped on a board.
+/**
+ * A holder of pieces that can be drawn on screen.
+ * Pieces can be picked up from it and dropped on a board.
+ */
 public class PieceHolder implements BinSerializable {
 
 
@@ -90,17 +94,14 @@ public class PieceHolder implements BinSerializable {
             if (piece == null)
                 continue;
 
-            // Set the absolute position on screen and the cells' cellSize
-            // Also clamp the cell size to be the picked size as maximum, or
-            // it would be too big in some cases.
+            // Set the absolute position on screen and the cells' cellSize Also clamp the cell size to be the picked size as maximum, or it would be too big in some cases.
             piece.pos.set(area.x + i * perPieceWidth, area.y);
             piece.cellSize = Math.min(Math.min(
                     perPieceWidth / piece.cellCols,
                     area.height / piece.cellRows
             ), pickedCellSize);
 
-            // Center the piece on the X and Y axes. For this we see how
-            // much up we can go, this is, (area.height - piece.height) / 2
+            // Center the piece on the X and Y axes. For this we see how much up we can go, this is, (area.height - piece.height) / 2
             Rectangle rectangle = piece.getRectangle();
             piece.pos.y += (area.height - rectangle.height) * 0.5f;
             piece.pos.x += (perPieceWidth - rectangle.width) * 0.5f;
@@ -296,6 +297,4 @@ public class PieceHolder implements BinSerializable {
             this.pieceCenter = pieceCenter;
         }
     }
-
-    
 }

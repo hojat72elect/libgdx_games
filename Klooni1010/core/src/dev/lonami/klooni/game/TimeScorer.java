@@ -21,8 +21,7 @@ public class TimeScorer extends BaseScorer implements BinSerializable {
     private long startTime;
     private int highScore;
 
-    // Indicates where we would die in time. Score adds to this, so we take
-    // longer to die. To get the "score" we simply calculate `deadTime - startTime`
+    // Indicates where we would die in time. Score adds to this, so we take longer to die. To get the "score" we simply calculate `deadTime - startTime`
     private long deadTime;
     // We need to know when the game was paused to "stop" counting
     private long pauseTime;
@@ -126,8 +125,7 @@ public class TimeScorer extends BaseScorer implements BinSerializable {
 
     @Override
     public void read(DataInputStream inputStream) throws IOException {
-        // We need to use the offset, since the start time
-        // is different and we couldn't save absolute values
+        // We need to use the offset, since the start time is different and we couldn't save absolute values
         long deadOffset = inputStream.readLong();
         deadTime = startTime + deadOffset;
         highScore = inputStream.readInt();

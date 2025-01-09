@@ -1,16 +1,18 @@
 package dev.lonami.klooni.game;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+
 import dev.lonami.klooni.actors.Band;
 import dev.lonami.klooni.actors.ShopCard;
 
-// Helper class to calculate the size of each element
-//
-// TODO In a future, perhaps this could handle landscape mode differently
-// For example, the boardHeight on the left and the piece holder on the right
+/**
+ * Helper class to calculate the size of each element.
+ * <p>
+ * In the future, perhaps this could handle landscape mode differently.
+ * For example, the boardHeight on the left and the piece holder on the right.
+ */
 public class GameLayout {
 
 
@@ -38,11 +40,13 @@ public class GameLayout {
         shopCardHeight = screenHeight * 0.15f;
     }
 
-    // These methods take any of the custom objects used in the game
-    // and positions them accordingly on the screen, by using relative
-    // coordinates. Since these objects are not actors and we cannot
-    // add them to a table (and would probably be harder), this approach
-    // was used. Note that all these are using Y-up coordinates.
+    /**
+     * These methods take any of the custom objects used in the game
+     * and positions them accordingly on the screen, by using relative
+     * coordinates. Since these objects are not actors and we cannot
+     * add them to a table (and that would probably be harder), this approach
+     * was used. Note that all these are using Y-up coordinates.
+     */
     void update(BaseScorer scorer) {
         float cupSize = Math.min(scoreHeight, scorer.cupTexture.getHeight());
         final Rectangle area = new Rectangle(
@@ -66,14 +70,16 @@ public class GameLayout {
         );
     }
 
-    // Special case, we want to position the label on top of the cup
+
+    /**
+     * This is a special case, because we want to position the label on top of the cup.
+     */
     void updateTimeLeftLabel(Label timeLeftLabel) {
         timeLeftLabel.setBounds(0, screenHeight - logoHeight, screenWidth, logoHeight);
     }
 
     void update(Board board) {
-        // We can't leave our area, so pick the minimum between available
-        // height and width to determine an appropriated cell size
+        // We can't leave our area, so pick the minimum between available height and width to determine an appropriated cell size.
         float boardSize = Math.min(availableWidth, boardHeight);
         board.cellSize = boardSize / board.cellCount;
 
@@ -122,6 +128,4 @@ public class GameLayout {
                 availableWidth - shopCardHeight, shopCardHeight
         );
     }
-
-    
 }

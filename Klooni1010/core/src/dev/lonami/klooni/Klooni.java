@@ -35,7 +35,7 @@ public class Klooni extends Game {
     public static final int GAME_HEIGHT = 680;
     public static final int GAME_WIDTH = 408;
     private final static float SCORE_TO_MONEY = 1f / 100f;
-    // FIXME theme should NOT be static as it might load textures which will expose it to the race condition iff GDX got initialized before or not
+    // theme should NOT be static as it might load textures which will expose it to the race condition iff GDX got initialized before or not
     public static Theme theme;
     public static boolean onDesktop;
     private static Preferences prefs;
@@ -45,8 +45,7 @@ public class Klooni extends Game {
 
     private Map<String, Sound> effectSounds;
 
-    // TODO Possibly implement a 'ShareChallenge'
-    //      for other platforms instead passing null
+    // Possibly implement a 'ShareChallenge' for other platforms instead passing null
     public Klooni(final ShareChallenge shareChallenge) {
         this.shareChallenge = shareChallenge;
     }

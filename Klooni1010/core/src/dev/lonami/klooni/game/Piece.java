@@ -10,11 +10,12 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-// Represents a piece with an arbitrary shape, which
-// can be either rectangles (squares too) or L shaped
-// with any rotation.
+/**
+ * Represents a piece with an arbitrary shape, which
+ * can be either rectangles (squares too) or L shaped
+ * with any rotation.
+ */
 public class Piece {
-
 
     public final int colorIndex;
     public final int cellCols, cellRows;
@@ -25,11 +26,13 @@ public class Piece {
     // Default arbitrary value
     float cellSize = 10f;
 
-    // Rectangle-shaped constructor
-    //
-    // If swapSize is true, the rows and columns will be swapped.
-    // colorIndex represents a random index that will be used
-    // to determine the color of this piece when drawn on the screen.
+    /**
+     * Rectangle-shaped constructor
+     * <p>
+     * If swapSize is true, the rows and columns will be swapped.
+     * colorIndex represents a random index that will be used
+     * to determine the color of this piece when drawn on the screen.
+     */
     private Piece(int cols, int rows, int rotateSizeBy, int colorIndex) {
         this.colorIndex = colorIndex;
 

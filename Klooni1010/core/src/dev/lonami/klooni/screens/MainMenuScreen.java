@@ -12,7 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import dev.lonami.klooni.Klooni;
 import dev.lonami.klooni.actors.SoftButton;
 
-// Main menu screen, presenting some options (play, customize…)
+/**
+ * Main menu screen, presenting some options (play, customize…)
+ */
 public class MainMenuScreen extends InputListener implements Screen {
 
     private static final float minDelta = 1 / 30f;
