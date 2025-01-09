@@ -16,12 +16,10 @@ public class GameLayout {
 
     private float screenWidth, marginWidth, availableWidth;
     private float screenHeight, logoHeight, scoreHeight, boardHeight, pieceHolderHeight, shopCardHeight;
-    //region Constructor
 
     public GameLayout() {
         calculate();
     }
-    //region Private methods
 
     private void calculate() {
         screenWidth = Gdx.graphics.getWidth();
@@ -39,7 +37,6 @@ public class GameLayout {
 
         shopCardHeight = screenHeight * 0.15f;
     }
-    //region Update layout methods
 
     // These methods take any of the custom objects used in the game
     // and positions them accordingly on the screen, by using relative

@@ -150,7 +150,6 @@ class CustomizeScreen implements Screen {
         table.row();
         table.add(buyBand).expandX().fillX();
     }
-    //region Private methods
 
     private void goBack() {
         CustomizeScreen.this.game.transitionTo(lastScreen);

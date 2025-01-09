@@ -26,9 +26,8 @@ public class TransitionScreen implements Screen {
     private TextureRegion bufferTexture;
     private float fadedElapsed;
     private boolean fadingOut;
-    //region Static variables
+
     private int width, height;
-    //region Constructor
 
     public TransitionScreen(Klooni game, Screen from, Screen to, boolean disposeAfter) {
         this.disposeAfter = disposeAfter;
@@ -38,7 +37,6 @@ public class TransitionScreen implements Screen {
 
         spriteBatch = new SpriteBatch();
     }
-    //region Rendering
 
     @Override
     public void show() {
@@ -97,7 +95,6 @@ public class TransitionScreen implements Screen {
         bufferTexture = new TextureRegion(frameBuffer.getColorBufferTexture());
         bufferTexture.flip(false, true);
     }
-    //region Disposing
 
     @Override
     public void dispose() {
@@ -105,7 +102,6 @@ public class TransitionScreen implements Screen {
         if (disposeAfter)
             fromScreen.dispose();
     }
-    //region Unused methods
 
     @Override
     public void pause() {

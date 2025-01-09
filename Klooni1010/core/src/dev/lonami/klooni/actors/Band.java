@@ -12,7 +12,9 @@ import dev.lonami.klooni.Theme;
 import dev.lonami.klooni.game.BaseScorer;
 import dev.lonami.klooni.game.GameLayout;
 
-// Horizontal band, used to show the score on the pause menu
+/**
+ * Horizontal band, used to show the score on the pause menu.
+ */
 public class Band extends Actor {
 
     public final Rectangle scoreBounds;
@@ -41,11 +43,11 @@ public class Band extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // TODO This is not the best way to apply the transformation, but, oh well
+        // ?? This is not the best way to apply the transformation, but, oh well
         float x = getParent().getX();
         float y = getParent().getY();
 
-        // TODO For some strange reason, the texture coordinates and label coordinates are different
+        // ?? For some strange reason, the texture coordinates and label coordinates are different
         Vector2 pos = localToStageCoordinates(new Vector2(x, y));
         batch.setColor(Klooni.theme.bandColor);
         batch.draw(bandTexture, pos.x, pos.y, getWidth(), getHeight());
@@ -62,7 +64,7 @@ public class Band extends Actor {
 
     // Once game over is set on the menu, it cannot be reverted
     public void setMessage(final String message) {
-        if (!message.equals(""))
+        if (!message.isEmpty())
             infoLabel.setText(message);
     }
 

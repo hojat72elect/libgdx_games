@@ -24,7 +24,6 @@ public class Piece {
 
     // Default arbitrary value
     float cellSize = 10f;
-    //region Constructors
 
     // Rectangle-shaped constructor
     //
@@ -83,7 +82,6 @@ public class Piece {
                 break;
         }
     }
-    //region Static methods
 
     // Generates a random piece with always the same color for the generated shape
     public static Piece random() {
@@ -119,7 +117,6 @@ public class Piece {
         }
         throw new RuntimeException("Random function is broken.");
     }
-    //region Package local methods
 
     static Piece read(DataInputStream in) throws IOException {
         return fromIndex(in.readInt(), in.readInt());
@@ -155,7 +152,6 @@ public class Piece {
         }
         return area;
     }
-    //region Serialization
 
     // Calculates the gravity center of the piece shape
     Vector2 calculateGravityCenter() {

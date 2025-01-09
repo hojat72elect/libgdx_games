@@ -42,7 +42,7 @@ public class VanishEffectFactory implements IEffectFactory {
     }
 
 
-    private class VanishEffect implements IEffect {
+    private static class VanishEffect implements IEffect {
         private final static float MINIMUM_SIZE = 0.3f;
         private Cell cell;
         private Color vanishColor;
@@ -55,7 +55,7 @@ public class VanishEffectFactory implements IEffectFactory {
         }
 
         @Override
-        public void setInfo(Cell deadCell, Vector2 culprit) {
+        public void setInfo(@NotNull Cell deadCell, Vector2 culprit) {
             cell = deadCell;
 
             vanishSize = cell.cellSize;

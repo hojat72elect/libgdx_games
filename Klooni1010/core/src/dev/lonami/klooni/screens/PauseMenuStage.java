@@ -39,9 +39,8 @@ class PauseMenuStage extends Stage {
     };
     private InputProcessor lastInputProcessor;
     private boolean shown;
-    //region Constructor
     private boolean hiding;
-    //region Private methods
+
     private final ChangeListener playChangeListener = new ChangeListener() {
         @Override
         public void changed(ChangeEvent event, Actor actor) {
@@ -117,7 +116,6 @@ class PauseMenuStage extends Stage {
         ));
         scorer.resume();
     }
-    //region Package local methods
 
     // Shows the pause menu, indicating whether it's game over or not
     void show() {
@@ -168,7 +166,6 @@ class PauseMenuStage extends Stage {
     boolean isHiding() {
         return hiding;
     }
-    //region Public methods
 
     @Override
     public void draw() {

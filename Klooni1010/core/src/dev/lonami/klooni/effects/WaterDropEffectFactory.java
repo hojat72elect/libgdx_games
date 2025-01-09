@@ -16,7 +16,7 @@ import dev.lonami.klooni.interfaces.IEffect;
 import dev.lonami.klooni.interfaces.IEffectFactory;
 
 
-public class WaterdropEffectFactory implements IEffectFactory {
+public class WaterDropEffectFactory implements IEffectFactory {
     private Texture dropTexture;
 
 

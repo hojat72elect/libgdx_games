@@ -20,14 +20,13 @@ public class TimeScorer extends BaseScorer implements BinSerializable {
     private final Label timeLeftLabel;
     private long startTime;
     private int highScore;
-    //region Static variables
+
     // Indicates where we would die in time. Score adds to this, so we take
     // longer to die. To get the "score" we simply calculate `deadTime - startTime`
     private long deadTime;
     // We need to know when the game was paused to "stop" counting
     private long pauseTime;
     private int pausedTimeLeft;
-    //region Constructor
 
     // The board size is required when calculating the score
     public TimeScorer(final Klooni game, GameLayout layout) {

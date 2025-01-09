@@ -41,7 +41,7 @@ public class SpinEffectFactory implements IEffectFactory {
     }
 
 
-    private class SpinEffect implements IEffect {
+    private static class SpinEffect implements IEffect {
         private static final float LIFETIME = 2.0f;
         private static final float INV_LIFETIME = 1.0f / LIFETIME;
         private static final float TOTAL_ROTATION = 600;
@@ -51,7 +51,7 @@ public class SpinEffectFactory implements IEffectFactory {
         private Color color;
 
         @Override
-        public void setInfo(Cell deadCell, Vector2 culprit) {
+        public void setInfo(Cell deadCell, @NotNull Vector2 culprit) {
             age = 0;
             pos = deadCell.position.cpy();
             size = deadCell.cellSize;
@@ -70,7 +70,7 @@ public class SpinEffectFactory implements IEffectFactory {
             final Matrix4 rotated = batch.getTransformMatrix();
 
             final float disp =
-                    +0.5f * (size - currentSize) // the smaller, the more we need to "push" to center
+                    0.5f * (size - currentSize) // the smaller, the more we need to "push" to center
                             + currentSize * 0.5f; // center the cell for rotation
 
             rotated.translate(pos.x + disp, pos.y + disp, 0);

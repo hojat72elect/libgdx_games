@@ -14,7 +14,7 @@ import dev.lonami.klooni.Theme;
 
 public class MoneyBuyBand extends Table {
 
-    // Milliseconds
+    // these times are in Milliseconds
     private final static long SHOW_ONE_CHARACTER_EVERY = 30;
     private final static long TEMP_TEXT_DELAY = 2 * 1000;
     private final Label infoLabel;

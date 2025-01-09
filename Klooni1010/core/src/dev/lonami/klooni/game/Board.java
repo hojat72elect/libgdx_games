@@ -19,12 +19,11 @@ public class Board implements BinSerializable {
 
     public final int cellCount;
     public final Vector2 pos = new Vector2();
-    private final Array<IEffect> effects = new Array<IEffect>(); // Particle effects once they vanish
+    private final Array<IEffect> effects = new Array<>(); // Particle effects once they vanish
     // Used to animate cleared cells vanishing
     private final Vector2 lastPutPiecePos = new Vector2();
     public float cellSize;
     private Cell[][] cells;
-    //region Constructor
 
     public Board(final GameLayout layout, int cellCount) {
         this.cellCount = cellCount;
@@ -51,7 +50,6 @@ public class Board implements BinSerializable {
             }
         }
     }
-    //region Private methods
 
     // True if the given cell coordinates are inside the bounds of the board
     private boolean inBounds(int x, int y) {
@@ -219,7 +217,6 @@ public class Board implements BinSerializable {
     public boolean effectsDone() {
         return effects.size == 0;
     }
-    //region Serialization
 
     @Override
     public void write(DataOutputStream outputStream) throws IOException {

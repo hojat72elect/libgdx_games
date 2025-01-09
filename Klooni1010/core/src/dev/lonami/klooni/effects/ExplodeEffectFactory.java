@@ -15,11 +15,13 @@ import dev.lonami.klooni.interfaces.IEffectFactory;
 
 
 public class ExplodeEffectFactory implements IEffectFactory {
+    @NotNull
     @Override
     public String getName() {
         return "explode";
     }
 
+    @NotNull
     @Override
     public String getDisplay() {
         return "Explode";
@@ -48,7 +50,7 @@ public class ExplodeEffectFactory implements IEffectFactory {
         private Shard[] shards;
 
         @Override
-        public void setInfo(Cell deadCell, Vector2 culprit) {
+        public void setInfo(Cell deadCell, @NotNull Vector2 culprit) {
             color = deadCell.getColorCopy();
 
             shards = new Shard[MathUtils.random(4, 6)];

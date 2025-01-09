@@ -18,7 +18,6 @@ public class ThemeCard extends ShopCard {
     };
     private final Theme theme;
     private final Texture background;
-    //region Constructor
 
     public ThemeCard(final Klooni game, final GameLayout layout, final Theme theme) {
         super(game, layout, theme.getDisplay(), theme.background);
@@ -27,7 +26,6 @@ public class ThemeCard extends ShopCard {
         this.theme = theme;
         usedItemUpdated();
     }
-    //region Public methods
 
     @Override
     public void draw(Batch batch, float parentAlpha) {

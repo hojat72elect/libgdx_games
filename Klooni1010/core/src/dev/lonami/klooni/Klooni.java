@@ -17,7 +17,7 @@ import dev.lonami.klooni.effects.EvaporateEffectFactory;
 import dev.lonami.klooni.effects.ExplodeEffectFactory;
 import dev.lonami.klooni.effects.SpinEffectFactory;
 import dev.lonami.klooni.effects.VanishEffectFactory;
-import dev.lonami.klooni.effects.WaterdropEffectFactory;
+import dev.lonami.klooni.effects.WaterDropEffectFactory;
 import dev.lonami.klooni.interfaces.IEffectFactory;
 import dev.lonami.klooni.screens.MainMenuScreen;
 import dev.lonami.klooni.screens.TransitionScreen;
@@ -27,7 +27,7 @@ public class Klooni extends Game {
     // ordered list of effects. index 0 will get default if VanishEffectFactory is removed from list
     public final static IEffectFactory[] EFFECTS = {
             new VanishEffectFactory(),
-            new WaterdropEffectFactory(),
+            new WaterDropEffectFactory(),
             new EvaporateEffectFactory(),
             new SpinEffectFactory(),
             new ExplodeEffectFactory(),
@@ -109,7 +109,7 @@ public class Klooni extends Game {
         setMoney(money - theme.getPrice());
 
         String bought = prefs.getString("boughtThemes", "");
-        if (bought.equals(""))
+        if (bought.isEmpty())
             bought = theme.getName();
         else
             bought += ":" + theme.getName();
@@ -144,7 +144,7 @@ public class Klooni extends Game {
         setMoney(money - effect.getPrice());
 
         String bought = prefs.getString("boughtEffects", "");
-        if (bought.equals(""))
+        if (bought.isEmpty())
             bought = effect.getName();
         else
             bought += ":" + effect.getName();
@@ -190,7 +190,7 @@ public class Klooni extends Game {
         Gdx.input.setCatchBackKey(true); // To show the pause menu
         setScreen(new MainMenuScreen(this));
         String effectName = prefs.getString("effectName", "vanish");
-        effectSounds = new HashMap<String, Sound>(EFFECTS.length);
+        effectSounds = new HashMap<>(EFFECTS.length);
         effect = EFFECTS[0];
         for (IEffectFactory e : EFFECTS) {
             loadEffectSound(e.getName());

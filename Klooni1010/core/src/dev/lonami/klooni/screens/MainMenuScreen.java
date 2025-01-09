@@ -99,7 +99,6 @@ public class MainMenuScreen extends InputListener implements Screen {
     public void dispose() {
         stage.dispose();
     }
-    //region Unused methods
 
     @Override
     public void pause() {

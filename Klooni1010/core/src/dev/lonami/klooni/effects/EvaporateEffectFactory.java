@@ -15,11 +15,13 @@ import dev.lonami.klooni.interfaces.IEffectFactory;
 
 
 public class EvaporateEffectFactory implements IEffectFactory {
+    @NotNull
     @Override
     public String getName() {
         return "evaporate";
     }
 
+    @NotNull
     @Override
     public String getDisplay() {
         return "Evaporate";
@@ -57,7 +59,7 @@ public class EvaporateEffectFactory implements IEffectFactory {
         }
 
         @Override
-        public void setInfo(Cell deadCell, Vector2 culprit) {
+        public void setInfo(Cell deadCell, @NotNull Vector2 culprit) {
             pos = deadCell.position.cpy();
             originalX = pos.x;
             size = deadCell.cellSize;

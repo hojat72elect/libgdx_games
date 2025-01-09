@@ -38,7 +38,7 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
     private final Board board;
     private final PieceHolder holder;
     private final SpriteBatch batch;
-    //region Static members
+
     private final Sound gameOverSound;
     private final PauseMenuStage pauseMenu;
     // TODO Perhaps make an abstract base class for the game screen and game modes
@@ -50,7 +50,6 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
     // but rather subtract it from the current score and then update it
     // with the current score to get the "increase" of money score.
     private int savedMoneyScore;
-    //region Constructor
 
     // Load any previously saved file by default
     GameScreen(final Klooni game, final int gameMode) {
@@ -93,7 +92,6 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
             }
         }
     }
-    //region Private methods
 
     private static void deleteSave() {
         final FileHandle handle = Gdx.files.local(SAVE_DAT_FILENAME);
@@ -150,7 +148,6 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
     public void pause() {
         save();
     }
-    //region Input
 
     @Override
     public void render(float delta) {
@@ -191,7 +188,6 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
 
         return false;
     }
-    //region Unused methods
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -247,7 +243,6 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         return false;
     }
-    //region Saving and loading
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {

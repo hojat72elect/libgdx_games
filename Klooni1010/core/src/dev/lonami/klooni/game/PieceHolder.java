@@ -34,10 +34,9 @@ public class PieceHolder implements BinSerializable {
     // Every piece holder belongs to a specific board
     private final Board board;
     public boolean enabled;
-    //region Static members
+
     // Currently held piece index (picked by the user)
     private int heldPiece;
-    //region Constructor
 
     public PieceHolder(final GameLayout layout, final Board board,
                        final int pieceCount, final float pickedCellSize
@@ -58,11 +57,9 @@ public class PieceHolder implements BinSerializable {
         area = new Rectangle();
         layout.update(this);
 
-        // takeMore depends on the layout to be ready
-        // TODO So, how would pieces handle a layout update?
+        // takeMore depends on the layout to be ready to do so, how would pieces handle a layout update?
         takeMore();
     }
-    //region Private methods
 
     // Determines whether all the pieces have been put (and the "hand" is finished)
     private boolean handFinished() {
@@ -117,7 +114,6 @@ public class PieceHolder implements BinSerializable {
             piece.cellSize = 0f;
         }
     }
-    //region Public methods
 
     // Picks the piece below the finger/mouse, returning true if any was picked
     public boolean pickPiece() {
@@ -144,7 +140,7 @@ public class PieceHolder implements BinSerializable {
     }
 
     public Array<Piece> getAvailablePieces() {
-        Array<Piece> result = new Array<Piece>(count);
+        Array<Piece> result = new Array<>(count);
         for (int i = 0; i < count; ++i)
             if (pieces[i] != null)
                 result.add(pieces[i]);
@@ -201,20 +197,7 @@ public class PieceHolder implements BinSerializable {
         if (heldPiece > -1) {
             piece = pieces[heldPiece];
 
-            Vector2 mouse = new Vector2(
-                    Gdx.input.getX(),
-                    Gdx.graphics.getHeight() - Gdx.input.getY()
-            ); // Y axis is inverted
-
-            if (Klooni.onDesktop) { //FIXME(oliver): This is a bad assumption to make. There are desktops with touch input and non-desktops with mouse input.
-                // Center the piece to the mouse
-                mouse.sub(piece.getRectangle().width * 0.5f, piece.getRectangle().height * 0.5f);
-            } else {
-                // Center the new piece position horizontally
-                // and push it up by it's a cell (arbitrary) vertically, thus
-                // avoiding to cover it with the finger (issue on Android devices)
-                mouse.sub(piece.getRectangle().width * 0.5f, -pickedCellSize);
-            }
+            Vector2 mouse = getVector2(piece);
             if (Klooni.shouldSnapToGrid())
                 mouse.set(board.snapToGrid(piece, mouse));
 
@@ -223,7 +206,7 @@ public class PieceHolder implements BinSerializable {
         }
 
         // Return the pieces to their original position
-        // TODO This seems somewhat expensive, can't it be done any better?
+        // ?? This seems somewhat expensive, can't it be done any better?
         Rectangle original;
         for (int i = 0; i < count; ++i) {
             if (i == heldPiece)
@@ -239,6 +222,24 @@ public class PieceHolder implements BinSerializable {
         }
     }
 
+    private Vector2 getVector2(Piece piece) {
+        Vector2 mouse = new Vector2(
+                Gdx.input.getX(),
+                Gdx.graphics.getHeight() - Gdx.input.getY()
+        ); // Y axis is inverted
+
+        if (Klooni.onDesktop) { // This is a bad assumption to make. There are desktops with touch input and non-desktops with mouse input.
+            // Center the piece to the mouse
+            mouse.sub(piece.getRectangle().width * 0.5f, piece.getRectangle().height * 0.5f);
+        } else {
+            // Center the new piece position horizontally
+            // and push it up by it's a cell (arbitrary) vertically, thus
+            // avoiding to cover it with the finger (issue on Android devices)
+            mouse.sub(piece.getRectangle().width * 0.5f, -pickedCellSize);
+        }
+        return mouse;
+    }
+
     public void draw(SpriteBatch batch) {
         for (int i = 0; i < count; ++i) {
             if (pieces[i] != null) {
@@ -246,7 +247,6 @@ public class PieceHolder implements BinSerializable {
             }
         }
     }
-    //region Serialization
 
     @Override
     public void write(DataOutputStream outputStream) throws IOException {
@@ -274,9 +274,8 @@ public class PieceHolder implements BinSerializable {
             pieces[i] = inputStream.readBoolean() ? Piece.read(inputStream) : null;
         updatePiecesStartLocation();
     }
-    //region Sub-classes
 
-    public class DropResult {
+    public static class DropResult {
 
         public final boolean dropped;
         public final boolean onBoard;
