@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto">
 
     <application
@@ -9,12 +10,14 @@
         android:icon="@mipmap/ic_launcher"
         android:isGame="true"
         android:label="@string/app_name"
-        android:theme="@style/GdxTheme">
+        android:theme="@style/GdxTheme"
+        tools:targetApi="o">
         <activity
             android:name="dev.lonami.klooni.AndroidLauncher"
             android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
