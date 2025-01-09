@@ -7,3 +7,4 @@ desktop/build
 android/build
 build
 android/libs
+*.sav
