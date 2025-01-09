@@ -64,7 +64,7 @@ public class WaterdropEffectFactory implements IEffectFactory {
 
         @Override
         public void setInfo(Cell deadCell, Vector2 culprit) {
-            pos = deadCell.pos.cpy();
+            pos = deadCell.position.cpy();
             cellSize = deadCell.size;
             cellColor = deadCell.getColorCopy();
             dropColor = new Color(cellColor.r, cellColor.g, cellColor.b, 0.0f);

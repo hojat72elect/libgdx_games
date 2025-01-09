@@ -59,7 +59,7 @@ public class VanishEffectFactory implements IEffectFactory {
             // because it seems good enough. The more the distance, the more the
             // delay, but we decrease the delay depending on the cell size too or
             // it would be way too high
-            Vector2 center = new Vector2(cell.pos.x + cell.size * 0.5f, cell.pos.y + 0.5f);
+            Vector2 center = new Vector2(cell.position.x + cell.size * 0.5f, cell.position.y + 0.5f);
             float vanishDist = Vector2.dst2(
                     culprit.x, culprit.y, center.x, center.y) / ((float) Math.pow(cell.size, 4.0f) * 0.2f);
 
@@ -87,7 +87,7 @@ public class VanishEffectFactory implements IEffectFactory {
             );
 
             float centerOffset = cell.size * 0.5f - vanishSize * 0.5f;
-            Cell.draw(vanishColor, batch, cell.pos.x + centerOffset, cell.pos.y + centerOffset, vanishSize);
+            Cell.draw(vanishColor, batch, cell.position.x + centerOffset, cell.position.y + centerOffset, vanishSize);
         }
 
         @Override

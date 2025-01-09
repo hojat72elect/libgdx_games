@@ -49,7 +49,7 @@ public class ExplodeEffectFactory implements IEffectFactory {
 
             shards = new Shard[MathUtils.random(4, 6)];
             for (int i = 0; i != shards.length; ++i)
-                shards[i] = new Shard(deadCell.pos, deadCell.size);
+                shards[i] = new Shard(deadCell.position, deadCell.size);
         }
 
         @Override

@@ -53,7 +53,7 @@ public class EvaporateEffectFactory implements IEffectFactory {
 
         @Override
         public void setInfo(Cell deadCell, Vector2 culprit) {
-            pos = deadCell.pos.cpy();
+            pos = deadCell.position.cpy();
             originalX = pos.x;
             size = deadCell.size;
 

@@ -47,7 +47,7 @@ public class SpinEffectFactory implements IEffectFactory {
         @Override
         public void setInfo(Cell deadCell, Vector2 culprit) {
             age = 0;
-            pos = deadCell.pos.cpy();
+            pos = deadCell.position.cpy();
             size = deadCell.size;
             color = deadCell.getColorCopy();
         }
