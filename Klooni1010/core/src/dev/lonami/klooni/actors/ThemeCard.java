@@ -7,7 +7,10 @@ import dev.lonami.klooni.Theme;
 import dev.lonami.klooni.game.Cell;
 import dev.lonami.klooni.game.GameLayout;
 
-// Card-like actor used to display information about a given theme
+/**
+ * Card-like actor used to display information about a given theme.
+ * It allows the player to preview, select, and purchase different themes.
+ */
 public class ThemeCard extends ShopCard {
 
 
@@ -84,5 +87,4 @@ public class ThemeCard extends ShopCard {
         }
     }
 
-    
 }
