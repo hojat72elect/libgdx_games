@@ -9,6 +9,9 @@ import dev.lonami.klooni.Klooni;
 import dev.lonami.klooni.Theme;
 import dev.lonami.klooni.game.GameLayout;
 
+/**
+ * The base  for all item cards in the shop inside our game.
+ */
 public abstract class ShopCard extends Actor {
 
     public final Rectangle nameBounds;
@@ -50,9 +53,11 @@ public abstract class ShopCard extends Actor {
         priceLabel.draw(batch, parentAlpha);
     }
 
-    // Showcases the current effect (the shop will be showcasing them, one by one)
-    // This method should be called on the same card as long as it returns true.
-    // It should return false once it's done so that the next card can be showcased.
+    /**
+     * Showcases the current effect (the shop will be showcasing them, one by one)
+     * This method should be called on the same card as long as it returns true.
+     * It should return false once it's done so that the next card can be showcased.
+     */
     public boolean showcase(Batch batch, float yDisplacement) {
         return false;
     }
