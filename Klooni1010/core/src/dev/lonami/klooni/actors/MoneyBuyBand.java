@@ -12,23 +12,35 @@ import com.badlogic.gdx.utils.TimeUtils;
 import dev.lonami.klooni.Klooni;
 import dev.lonami.klooni.Theme;
 
+/**
+ * The UI for displaying and managing the in-game currency and purchases; particularly for themes.
+ */
 public class MoneyBuyBand extends Table {
 
     // these times are in Milliseconds
     private final static long SHOW_ONE_CHARACTER_EVERY = 30;
+
     private final static long TEMP_TEXT_DELAY = 2 * 1000;
     private final Label infoLabel;
     private final SoftButton confirmButton, cancelButton;
+
     // Used to interpolate between strings
     private final StringBuilder shownText;
+
     private String infoText;
     private boolean showingTemp;
-    // The theme card that is going to be bought next. We can't
-    // only save the Theme because we need to tell the ThemeCard
-    // that it was bought so it can reflect the new theme status.
+
+
+    /**
+    * The theme card that is going to be bought next. We can't
+    * only save the Theme because we need to tell the ThemeCard
+    * that it was bought so it can reflect the new theme status.
+    */
     private ShopCard toBuy;
+
     // When the next text update will take place
     private long nextTextUpdate;
+
     // When the temporary text should be reverted next
     private long nextTempRevertUpdate;
 
@@ -81,37 +93,41 @@ public class MoneyBuyBand extends Table {
         toBuy = null;
     }
 
-    // Set the text to which the shown text will interpolate.
-    // This will remove any temporary shown text or otherwise
-    // it would mess up this new text.
+    /**
+     * Set the text to which the shown text will interpolate.
+     * This will remove any temporary shown text or otherwise
+     * it would mess up this new text.
+     */
     private void setText(String text) {
         infoText = text;
         showingTemp = false;
         nextTextUpdate = TimeUtils.millis() + SHOW_ONE_CHARACTER_EVERY;
     }
 
-    // Temporary text will always reset to the shown money
-    // because it would make no sense to go back to the buy "confirm?"
-    //
-    // Can also be used to show a temporary notification text.
+    /**
+     * Temporary text will always reset to the shown money
+     * because it would make no sense to go back to the buy "confirm?"
+     * <p>
+     * Can also be used to show a temporary notification text.
+     */
     public void setTempText(String text) {
         setText(text);
         showingTemp = true;
         nextTempRevertUpdate = TimeUtils.millis() + TEMP_TEXT_DELAY;
     }
 
-    // Funky method to interpolate between the information
-    // text and the currently being shown text
+    /**
+     * Funky method to interpolate between the information
+     * text and the currently being shown text.
+     */
     private void interpolateText() {
-        // If the currently shown text does not match the information text,
-        // then that means that we need to interpolate between them.
+        // If the currently shown text does not match the information text, then that means that we need to interpolate between them.
         if (!shownText.toString().equals(infoText)) {
-            // We need the pick the minimum text length limit
-            // or charAt() will throw an IndexOutOfBoundsException
+
+            // We need the pick the minimum text length limit or charAt() will throw an IndexOutOfBoundsException
             int limit = Math.min(shownText.length(), infoText.length());
             for (int i = 0; i < limit; ++i) {
-                // As soon as we found a character which differs, we can interpolate
-                // to the new string by updating that single character
+                // As soon as we found a character which differs, we can interpolate to the new string by updating that single character
                 if (shownText.charAt(i) != infoText.charAt(i)) {
                     shownText.setCharAt(i, infoText.charAt(i));
                     infoLabel.setText(shownText);
@@ -119,23 +135,22 @@ public class MoneyBuyBand extends Table {
                 }
             }
 
-            // All the preceding characters matched, so now
-            // what's left is to check for the string length
+            // All the preceding characters matched, so now what's left is to check for the string length
             if (shownText.length() > infoText.length()) {
                 // The old text was longer than the new one, so shorten it
                 shownText.setLength(shownText.length() - 1);
             } else {
-                // It can't be equal length or we wouldn't be here,
-                // so avoid checking shown.length() < info.length().
-                // We need to append the next character that we want to show
+                // It can't be equal length or we wouldn't be here, so avoid checking shown.length() < info.length().
+                // We need to append the next character that we want to show.
                 shownText.append(infoText.charAt(shownText.length()));
             }
             infoLabel.setText(shownText);
         }
     }
 
-    // Asks the user to buy the given theme or effect,
-    // or shows that they don't have enough money to buy it
+    /**
+     * Asks the user to buy the given theme or effect, or shows that they don't have enough money to buy it.
+     */
     public void askBuy(final ShopCard toBuy) {
         if (toBuy.getPrice() > Klooni.getMoney()) {
             setTempText("cannot buy!");
