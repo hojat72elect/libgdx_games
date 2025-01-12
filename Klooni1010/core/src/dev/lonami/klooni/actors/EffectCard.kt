@@ -7,7 +7,7 @@ import dev.lonami.klooni.Theme
 import dev.lonami.klooni.game.Board
 import dev.lonami.klooni.game.GameLayout
 import dev.lonami.klooni.game.Piece
-import dev.lonami.klooni.interfaces.IEffectFactory
+import dev.lonami.klooni.interfaces.EffectFactory
 
 /**
  * Card-like actor used to display information about a given theme.
@@ -15,7 +15,7 @@ import dev.lonami.klooni.interfaces.IEffectFactory
 class EffectCard(
     game: Klooni,
     layout: GameLayout,
-    val effect: IEffectFactory
+    val effect: EffectFactory
 ) : ShopCard(
     game,
     layout,

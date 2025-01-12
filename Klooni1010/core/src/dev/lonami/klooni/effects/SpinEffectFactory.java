@@ -10,11 +10,11 @@ import com.badlogic.gdx.math.Vector2;
 import org.jetbrains.annotations.NotNull;
 
 import dev.lonami.klooni.game.Cell;
-import dev.lonami.klooni.interfaces.IEffect;
-import dev.lonami.klooni.interfaces.IEffectFactory;
+import dev.lonami.klooni.interfaces.Effect;
+import dev.lonami.klooni.interfaces.EffectFactory;
 
 
-public class SpinEffectFactory implements IEffectFactory {
+public class SpinEffectFactory implements EffectFactory {
     @NotNull
     @Override
     public String getName() {
@@ -34,14 +34,14 @@ public class SpinEffectFactory implements IEffectFactory {
 
     @NotNull
     @Override
-    public IEffect create(@NotNull Cell deadCell, @NotNull Vector2 culprit) {
-        IEffect effect = new SpinEffect();
+    public Effect create(@NotNull Cell deadCell, @NotNull Vector2 culprit) {
+        Effect effect = new SpinEffect();
         effect.setInfo(deadCell, culprit);
         return effect;
     }
 
 
-    private static class SpinEffect implements IEffect {
+    private static class SpinEffect implements Effect {
         private static final float LIFETIME = 2.0f;
         private static final float INV_LIFETIME = 1.0f / LIFETIME;
         private static final float TOTAL_ROTATION = 600;

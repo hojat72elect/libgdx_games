@@ -24,7 +24,7 @@ import dev.lonami.klooni.actors.ShopCard;
 import dev.lonami.klooni.actors.SoftButton;
 import dev.lonami.klooni.actors.ThemeCard;
 import dev.lonami.klooni.game.GameLayout;
-import dev.lonami.klooni.interfaces.IEffectFactory;
+import dev.lonami.klooni.interfaces.EffectFactory;
 
 // Screen where the user can customize the look and feel of the game
 class CustomizeScreen implements Screen {
@@ -162,7 +162,7 @@ class CustomizeScreen implements Screen {
         shopGroup.clear();
 
         if (showingEffectsShop)
-            for (IEffectFactory effect : Klooni.EFFECTS)
+            for (EffectFactory effect : Klooni.EFFECTS)
                 addCard(new EffectCard(game, layout, effect));
 
         else // showingThemesShop

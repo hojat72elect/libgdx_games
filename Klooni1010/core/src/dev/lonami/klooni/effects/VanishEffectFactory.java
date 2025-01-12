@@ -10,11 +10,11 @@ import com.badlogic.gdx.math.Vector2;
 import org.jetbrains.annotations.NotNull;
 
 import dev.lonami.klooni.game.Cell;
-import dev.lonami.klooni.interfaces.IEffect;
-import dev.lonami.klooni.interfaces.IEffectFactory;
+import dev.lonami.klooni.interfaces.Effect;
+import dev.lonami.klooni.interfaces.EffectFactory;
 
 
-public class VanishEffectFactory implements IEffectFactory {
+public class VanishEffectFactory implements EffectFactory {
 
     @NotNull
     @Override
@@ -35,14 +35,14 @@ public class VanishEffectFactory implements IEffectFactory {
 
     @NotNull
     @Override
-    public IEffect create(@NotNull Cell deadCell, @NotNull Vector2 culprit) {
-        IEffect effect = new VanishEffect();
+    public Effect create(@NotNull Cell deadCell, @NotNull Vector2 culprit) {
+        Effect effect = new VanishEffect();
         effect.setInfo(deadCell, culprit);
         return effect;
     }
 
 
-    private static class VanishEffect implements IEffect {
+    private static class VanishEffect implements Effect {
         private final static float MINIMUM_SIZE = 0.3f;
         private Cell cell;
         private Color vanishColor;

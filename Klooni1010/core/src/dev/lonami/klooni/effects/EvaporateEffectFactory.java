@@ -10,11 +10,11 @@ import com.badlogic.gdx.math.Vector2;
 import org.jetbrains.annotations.NotNull;
 
 import dev.lonami.klooni.game.Cell;
-import dev.lonami.klooni.interfaces.IEffect;
-import dev.lonami.klooni.interfaces.IEffectFactory;
+import dev.lonami.klooni.interfaces.Effect;
+import dev.lonami.klooni.interfaces.EffectFactory;
 
 
-public class EvaporateEffectFactory implements IEffectFactory {
+public class EvaporateEffectFactory implements EffectFactory {
     @NotNull
     @Override
     public String getName() {
@@ -34,14 +34,14 @@ public class EvaporateEffectFactory implements IEffectFactory {
 
     @NotNull
     @Override
-    public IEffect create(@NotNull Cell deadCell, @NotNull Vector2 culprit) {
-        IEffect effect = new dev.lonami.klooni.effects.EvaporateEffectFactory.EvaporateEffect();
+    public Effect create(@NotNull Cell deadCell, @NotNull Vector2 culprit) {
+        Effect effect = new dev.lonami.klooni.effects.EvaporateEffectFactory.EvaporateEffect();
         effect.setInfo(deadCell, culprit);
         return effect;
     }
 
 
-    private static class EvaporateEffect implements IEffect {
+    private static class EvaporateEffect implements Effect {
         private static final float UP_SPEED = 100.0f;
         private static final float LIFETIME = 3.0f;
         private static final float INV_LIFETIME = 1.0f / 3.0f;

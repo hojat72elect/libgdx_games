@@ -10,11 +10,11 @@ import com.badlogic.gdx.math.Vector3;
 import org.jetbrains.annotations.NotNull;
 
 import dev.lonami.klooni.game.Cell;
-import dev.lonami.klooni.interfaces.IEffect;
-import dev.lonami.klooni.interfaces.IEffectFactory;
+import dev.lonami.klooni.interfaces.Effect;
+import dev.lonami.klooni.interfaces.EffectFactory;
 
 
-public class ExplodeEffectFactory implements IEffectFactory {
+public class ExplodeEffectFactory implements EffectFactory {
     @NotNull
     @Override
     public String getName() {
@@ -34,14 +34,14 @@ public class ExplodeEffectFactory implements IEffectFactory {
 
     @NotNull
     @Override
-    public IEffect create(@NotNull Cell deadCell, @NotNull Vector2 culprit) {
-        IEffect effect = new dev.lonami.klooni.effects.ExplodeEffectFactory.ExplodeEffect();
+    public Effect create(@NotNull Cell deadCell, @NotNull Vector2 culprit) {
+        Effect effect = new dev.lonami.klooni.effects.ExplodeEffectFactory.ExplodeEffect();
         effect.setInfo(deadCell, culprit);
         return effect;
     }
 
 
-    private static class ExplodeEffect implements IEffect {
+    private static class ExplodeEffect implements Effect {
         private final static float EXPLOSION_X_RANGE = 0.25f;
         private final static float EXPLOSION_Y_RANGE = 0.30f;
         private final static float GRAVITY_PERCENTAGE = -0.60f;
