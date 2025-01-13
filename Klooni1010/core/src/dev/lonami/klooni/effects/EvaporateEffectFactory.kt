@@ -45,7 +45,7 @@ class EvaporateEffectFactory : EffectFactory {
             randomOffset = MathUtils.random(MathUtils.PI2)
         }
 
-        override fun draw(batch: Batch?) {
+        override fun draw(batch: Batch) {
             vanishElapsed += Gdx.graphics.deltaTime
 
             // Update the size as we fade away
@@ -63,7 +63,7 @@ class EvaporateEffectFactory : EffectFactory {
             )
             pos!!.y += UP_SPEED * Gdx.graphics.deltaTime
 
-            draw(vanishColor!!, batch!!, pos!!.x, pos!!.y, vanishSize)
+            draw(vanishColor!!, batch, pos!!.x, pos!!.y, vanishSize)
         }
 
         override val isDone: Boolean

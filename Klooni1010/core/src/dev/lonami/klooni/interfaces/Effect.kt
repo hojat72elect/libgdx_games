@@ -11,7 +11,7 @@ import dev.lonami.klooni.game.Cell
 interface Effect {
     fun setInfo(deadCell: Cell, culprit: Vector2)
 
-    fun draw(batch: Batch?)
+    fun draw(batch: Batch)
 
     val isDone: Boolean
 }
