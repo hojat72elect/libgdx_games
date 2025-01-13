@@ -8,10 +8,15 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
+
 import dev.lonami.klooni.Klooni;
 import dev.lonami.klooni.SkinLoader;
 import dev.lonami.klooni.serializer.BinSerializable;
 
+/**
+ * this abstract class is teh basic foundation for calculating, displaying, and saving player's score.
+ * But the logic of game-over condition and record tracking is left to be implemented by subclasses.
+ */
 public abstract class BaseScorer implements BinSerializable {
 
     final Label currentScoreLabel;
@@ -40,10 +45,12 @@ public abstract class BaseScorer implements BinSerializable {
         layout.update(this);
     }
 
-    // The original game seems to work as follows:
-    // If < 1 were cleared, score = 0
-    // If = 1  was cleared, score = cells cleared
-    // If > 1 were cleared, score = cells cleared + score(cleared - 1)
+    /**
+     * The score of the player throughout the game is calculated like this:
+     * If < 1 were cleared, score = 0
+     * If = 1  was cleared, score = cells cleared
+     * If > 1 were cleared, score = cells cleared + score(cleared - 1)
+     */
     final int calculateClearScore(int stripsCleared, int boardSize) {
         if (stripsCleared < 1) return 0;
         if (stripsCleared == 1) return boardSize;
