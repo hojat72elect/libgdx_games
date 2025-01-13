@@ -5,6 +5,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.TimeUtils;
+
+import org.jetbrains.annotations.NotNull;
+
 import dev.lonami.klooni.Klooni;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -71,6 +74,7 @@ public class TimeScorer extends BaseScorer implements BinSerializable {
         return TimeUtils.nanoTime() > deadTime;
     }
 
+    @NotNull
     @Override
     public String gameOverReason() {
         return "time is up";
@@ -107,7 +111,7 @@ public class TimeScorer extends BaseScorer implements BinSerializable {
     }
 
     @Override
-    public void draw(SpriteBatch batch) {
+    public void draw(@NotNull SpriteBatch batch) {
         super.draw(batch);
 
         int timeLeft = pausedTimeLeft < 0 ? getTimeLeft() : pausedTimeLeft;
