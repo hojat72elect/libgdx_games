@@ -5,15 +5,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import dev.lonami.klooni.Klooni;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import dev.lonami.klooni.Klooni;
+
 /**
- * Represents a piece with an arbitrary shape, which
- * can be either rectangles (squares too) or L shaped
- * with any rotation.
+ * Represents a piece with an arbitrary shape, which can be either rectangles (including squares) or L shaped, with any rotation.
  */
 public class Piece {
 
@@ -179,6 +179,4 @@ public class Piece {
         out.writeInt(colorIndex);
         out.writeInt(rotation);
     }
-
-    
 }
