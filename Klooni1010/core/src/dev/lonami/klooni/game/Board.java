@@ -12,8 +12,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import dev.lonami.klooni.serializer.BinSerializable;
 
-// Represents the on screen board, with all the put cells
-// and functions to determine when it is game over given a PieceHolder
+
+/**
+ *
+ * TODO : warning -> This class is a bit hard to convert to KT. I have left it to be migrated at last.
+ * Represents the on screen board, with all the put cells and functions to determine when it is game over, given a PieceHolder.
+ */
 public class Board implements BinSerializable {
 
 
@@ -137,18 +141,21 @@ public class Board implements BinSerializable {
             return position;
     }
 
-    // This will clear both complete rows and columns, all at once.
-    // The reason why we can't check first rows and then columns
-    // (or vice versa) is because the following case (* filled, _ empty):
-    //
-    // 4x4 boardHeight    piece
-    // _ _ * *      * *
-    // _ * * *      *
-    // * * _ _
-    // * * _ _
-    //
-    // If the piece is put on the top left corner, all the cells will be cleared.
-    // If we first cleared the columns, then the rows wouldn't have been cleared.
+
+    /**
+     * This will clear both completed rows and completed columns, all at once.
+     * The reason why we can't first check rows and then columns
+     * (or vice versa) is because the following case (* filled, _ empty):
+     * <p>
+     * 4x4 boardHeight    piece
+     * _ _ * *      * *
+     * _ * * *      *
+     * * * _ _
+     * * * _ _
+     * <p>
+     * If the piece is put on the top left corner, all the cells will be cleared.
+     * If we first cleared the columns, then the rows wouldn't have been cleared.
+     */
     public int clearComplete(final EffectFactory effect) {
         int clearCount = 0;
         boolean[] clearedRows = new boolean[cellCount];

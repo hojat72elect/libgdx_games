@@ -75,8 +75,10 @@ class EffectCard(
                 board.clearAll(1, 1, effect)
                 needCreateEffect = false
             } else {
-                // Otherwise, the previous effect finished, so return false because we're done
-                // We also want to draw the next time so set the flag to true
+                /*
+                * Otherwise, the previous effect finished, so return false because we're done. We also want
+                *  to draw the next time so set the flag to true.
+                */
                 setRandomPiece()
                 needCreateEffect = true
                 return false
