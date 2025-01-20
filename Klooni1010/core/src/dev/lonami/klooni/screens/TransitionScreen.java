@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import dev.lonami.klooni.Klooni;
 
+/**
+ * This class handles the transitions between different screens of the game, with a fade-out and fade-in effect.
+ */
 public class TransitionScreen implements Screen {
 
 
