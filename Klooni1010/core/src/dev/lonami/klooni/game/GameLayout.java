@@ -15,29 +15,17 @@ import dev.lonami.klooni.actors.ShopCard;
  */
 public class GameLayout {
 
-
-    private float screenWidth, marginWidth, availableWidth;
-    private float screenHeight, logoHeight, scoreHeight, boardHeight, pieceHolderHeight, shopCardHeight;
+    private final float screenWidth = Gdx.graphics.getWidth();
+    private final float marginWidth = screenWidth * 0.05f;
+    private final float availableWidth = screenWidth - marginWidth * 2f;
+    private final float screenHeight = Gdx.graphics.getHeight();
+    private final float logoHeight = screenHeight * 0.10f;
+    private final float scoreHeight = screenHeight * 0.15f;
+    private final float boardHeight = screenHeight * 0.50f;
+    private final float pieceHolderHeight = screenHeight * 0.25f;
+    private final float shopCardHeight = screenHeight * 0.15f;
 
     public GameLayout() {
-        calculate();
-    }
-
-    private void calculate() {
-        screenWidth = Gdx.graphics.getWidth();
-        screenHeight = Gdx.graphics.getHeight();
-
-        // Widths
-        marginWidth = screenWidth * 0.05f;
-        availableWidth = screenWidth - marginWidth * 2f;
-
-        // Heights
-        logoHeight = screenHeight * 0.10f;
-        scoreHeight = screenHeight * 0.15f;
-        boardHeight = screenHeight * 0.50f;
-        pieceHolderHeight = screenHeight * 0.25f;
-
-        shopCardHeight = screenHeight * 0.15f;
     }
 
     /**
@@ -49,25 +37,11 @@ public class GameLayout {
      */
     void update(BaseScorer scorer) {
         float cupSize = Math.min(scoreHeight, scorer.cupTexture.getHeight());
-        final Rectangle area = new Rectangle(
-                marginWidth, pieceHolderHeight + boardHeight,
-                availableWidth, scoreHeight
-        );
+        final Rectangle area = new Rectangle(marginWidth, pieceHolderHeight + boardHeight, availableWidth, scoreHeight);
 
-        scorer.cupArea.set(
-                area.x + area.width * 0.5f - cupSize * 0.5f, area.y,
-                cupSize, cupSize
-        );
-
-        scorer.currentScoreLabel.setBounds(
-                area.x, area.y,
-                area.width * 0.5f - cupSize * 0.5f, area.height
-        );
-
-        scorer.highScoreLabel.setBounds(
-                area.x + area.width * 0.5f + cupSize * 0.5f, area.y,
-                area.width * 0.5f - cupSize * 0.5f, area.height
-        );
+        scorer.cupArea.set(area.x + area.width * 0.5f - cupSize * 0.5f, area.y, cupSize, cupSize);
+        scorer.currentScoreLabel.setBounds(area.x, area.y, area.width * 0.5f - cupSize * 0.5f, area.height);
+        scorer.highScoreLabel.setBounds(area.x + area.width * 0.5f + cupSize * 0.5f, area.y, area.width * 0.5f - cupSize * 0.5f, area.height);
     }
 
 
@@ -84,30 +58,26 @@ public class GameLayout {
         board.cellSize = boardSize / board.cellCount;
 
         // Now that we know the board size, we can center the board on the screen
-        board.pos.set(
-                screenWidth * 0.5f - boardSize * 0.5f, pieceHolderHeight);
+        board.pos.set(screenWidth * 0.5f - boardSize * 0.5f, pieceHolderHeight);
     }
 
     void update(PieceHolder holder) {
-        holder.area.set(
-                marginWidth, 0f,
-                availableWidth, pieceHolderHeight
-        );
+        holder.area.set(marginWidth, 0f, availableWidth, pieceHolderHeight);
     }
 
     public void update(Band band) {
-        final Rectangle area = new Rectangle(
-                0, pieceHolderHeight + boardHeight,
-                screenWidth, scoreHeight
-        );
+        final Rectangle area = new Rectangle(0, pieceHolderHeight + boardHeight, screenWidth, scoreHeight);
 
         band.setBounds(area.x, area.y, area.width, area.height);
-        // Let the band have the following shape:
-        // 10% (100) padding
-        // 35% (90%) score label
-        // 10% (55%) padding
-        // 35% (45%) info label
-        // 10% (10%) padding
+
+        /*
+         * Let the band have the following shape:
+         * 10% (100) padding
+         * 35% (90%) score label
+         * 10% (55%) padding
+         * 35% (45%) info label
+         * 10% (10%) padding
+         */
         band.scoreBounds.set(area.x, area.y + area.height * 0.55f, area.width, area.height * 0.35f);
         band.infoBounds.set(area.x, area.y + area.height * 0.10f, area.width, area.height * 0.35f);
     }
@@ -118,14 +88,7 @@ public class GameLayout {
         card.cellSize = shopCardHeight * 0.2f;
 
         // X offset from the cells (5 cells = shopCardHeight)
-        card.nameBounds.set(
-                shopCardHeight, card.cellSize,
-                availableWidth - shopCardHeight, shopCardHeight
-        );
-
-        card.priceBounds.set(
-                shopCardHeight, -card.cellSize,
-                availableWidth - shopCardHeight, shopCardHeight
-        );
+        card.nameBounds.set(shopCardHeight, card.cellSize, availableWidth - shopCardHeight, shopCardHeight);
+        card.priceBounds.set(shopCardHeight, -card.cellSize, availableWidth - shopCardHeight, shopCardHeight);
     }
 }
