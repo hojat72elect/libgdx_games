@@ -13,20 +13,18 @@ import java.io.IOException
 /**
  * Represents a piece with an arbitrary shape, which can be either rectangles (including squares) or L shaped, with any rotation.
  */
-class Piece {
-    @JvmField
-    val colorIndex: Int
+class Piece(@JvmField val colorIndex: Int) {
 
     @JvmField
-    val cellCols: Int
+    var cellCols = 0
 
     @JvmField
-    val cellRows: Int
+    var cellRows = 0
 
     @JvmField
-    val pos: Vector2
-    private val rotation: Int
-    private val shape: Array<BooleanArray>
+    val pos = Vector2()
+    private var rotation = 0
+    private lateinit var shape: Array<BooleanArray>
 
     // Default arbitrary value
     @JvmField
@@ -40,10 +38,8 @@ class Piece {
      * colorIndex represents a random index that will be used
      * to determine the color of this piece when drawn on the screen.
      */
-    private constructor(cols: Int, rows: Int, rotateSizeBy: Int, colorIndex: Int) {
-        this.colorIndex = colorIndex
+    private constructor(cols: Int, rows: Int, rotateSizeBy: Int, colorIndex: Int) : this(colorIndex) {
 
-        pos = Vector2()
         rotation = rotateSizeBy % 2
         cellCols = if (rotation == 1) rows else cols
         cellRows = if (rotation == 1) cols else rows
@@ -57,10 +53,8 @@ class Piece {
     }
 
     // L-shaped constructor
-    private constructor(lSize: Int, rotateCount: Int, colorIndex: Int) {
-        this.colorIndex = colorIndex
+    private constructor(lSize: Int, rotateCount: Int, colorIndex: Int) : this(colorIndex) {
 
-        pos = Vector2()
         cellRows = lSize
         cellCols = cellRows
         shape = Array(lSize) { BooleanArray(lSize) }
