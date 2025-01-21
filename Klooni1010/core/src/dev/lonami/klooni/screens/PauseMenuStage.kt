@@ -24,7 +24,7 @@ import dev.lonami.klooni.game.GameLayout
  *
  * We need the score to save the maximum score if a new record was beaten.
  */
-class NewPauseMenuStage(layout: GameLayout, val game: Klooni, val scorer: BaseScorer, gameMode: Int) : Stage() {
+class PauseMenuStage(layout: GameLayout, val game: Klooni, val scorer: BaseScorer, gameMode: Int) : Stage() {
 
     private val shapeRenderer = ShapeRenderer(20) // 20 vertices seems to be enough for a rectangle
 
@@ -51,10 +51,10 @@ class NewPauseMenuStage(layout: GameLayout, val game: Klooni, val scorer: BaseSc
 
     private var lastInputProcessor: InputProcessor? = null
 
-    var shown = false
-        private set
-    var hiding = false
-        private set
+
+    private var shown = false
+    private var hiding = false
+
 
     init {
         val table = Table()
@@ -180,4 +180,7 @@ class NewPauseMenuStage(layout: GameLayout, val game: Klooni, val scorer: BaseSc
 
         return super.keyUp(keyCode)
     }
+
+    fun isShown() = shown
+    fun isHiding() = hiding
 }
