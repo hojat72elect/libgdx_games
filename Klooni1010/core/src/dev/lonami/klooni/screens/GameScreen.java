@@ -8,6 +8,11 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 import dev.lonami.klooni.Klooni;
 import dev.lonami.klooni.game.BaseScorer;
 import dev.lonami.klooni.game.Board;
@@ -17,14 +22,11 @@ import dev.lonami.klooni.game.Piece;
 import dev.lonami.klooni.game.PieceHolder;
 import dev.lonami.klooni.game.Scorer;
 import dev.lonami.klooni.game.TimeScorer;
-import dev.lonami.klooni.serializer.BinSerializer;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import dev.lonami.klooni.serializer.BinSerializable;
+import dev.lonami.klooni.serializer.BinSerializer;
 
 /**
- * Main game screen. Here the board, piece holder and score are shown
+ * Main game screen. In this screen the board, piece holder, and score are shown.
  */
 class GameScreen implements Screen, InputProcessor, BinSerializable {
 
@@ -43,14 +45,16 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
 
     private final Sound gameOverSound;
     private final PauseMenuStage pauseMenu;
-    // Perhaps make an abstract base class for the game screen and game modes
-    // by implementing different "isGameOver" etc. logic instead using an integer?
+    // Perhaps make an abstract base class for the game screen and game modes by implementing different "isGameOver" etc. logic instead of using an integer?
     private final int gameMode;
     private boolean gameOverDone;
-    // The last score that was saved when adding the money.
-    // We use this so we don't add the same old score to the money twice,
-    // but rather subtract it from the current score and then update it
-    // with the current score to get the "increase" of money score.
+
+    /**
+     * The last score that was saved when adding the money.
+     * We use this so we don't add the same old score to the money twice,
+     * but rather subtract it from the current score and then update it
+     * with the current score to get the "increase" of money score.
+     */
     private int savedMoneyScore;
 
     // Load any previously saved file by default
@@ -104,9 +108,10 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
     static boolean hasSavedData() {
         return Gdx.files.local(SAVE_DAT_FILENAME).exists();
     }
-    
 
-    // If no piece can be put, then it is considered to be game over
+    /**
+     *  If no piece can be put, then it is considered to be game over.
+     */
     private boolean isGameOver() {
         for (Piece piece : holder.getAvailablePieces())
             if (board.canPutPiece(piece))
@@ -139,7 +144,9 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
             Gdx.input.setInputProcessor(this);
     }
 
-    // Save the state, the user might leave the game in any of the following 2 methods
+    /**
+     * Save the state, the user might leave the game in any of the following 2 methods.
+     */
     private void showPauseMenu() {
         saveMoney();
         pauseMenu.show();
@@ -229,7 +236,7 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
     }
 
     @Override
-    public void hide() { /* Hide can only be called if the menu was shown. Place logic there. */ }
+    public void hide() { /* Hide can only be called if the menu was shown. Place your logic there. */ }
 
     @Override
     public boolean keyDown(int keycode) {
@@ -264,10 +271,13 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
         Klooni.addMoneyFromScore(newMoneyScore);
     }
 
+    /**
+     * Only save if the game is not over and the game mode is not the time mode. It
+     * makes no sense to save the time game mode since it's supposed to be something quick.
+     * Don't save either if the score is 0, which means the player did nothing.
+     */
     private void save() {
-        // Only save if the game is not over and the game mode is not the time mode. It
-        // makes no sense to save the time game mode since it's supposed to be something quick.
-        // Don't save either if the score is 0, which means the player did nothing.
+
         if (gameOverDone || gameMode != GAME_MODE_SCORE || scorer.getCurrentScore() == 0)
             return;
 
@@ -275,7 +285,7 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
         try {
             BinSerializer.serialize(this, handle.write(false));
         } catch (IOException e) {
-            // Should never happen but what else could be done if the game wasn't saved?
+            // This should never happen but what else could be done if the game wasn't saved?
             e.printStackTrace();
         }
     }
@@ -285,8 +295,8 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
         if (handle.exists()) {
             try {
                 BinSerializer.deserialize(this, handle.read());
-                // No cheating! We need to load the previous money
-                // or it would seem like we earned it on this game
+
+                // No cheating! We need to load the previous money or it would seem like we earned it on this game.
                 savedMoneyScore = scorer.getCurrentScore();
 
                 // After it's been loaded, delete the save file
@@ -317,6 +327,4 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
         holder.read(inputStream);
         scorer.read(inputStream);
     }
-
-    
 }
