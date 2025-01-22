@@ -20,7 +20,17 @@ import java.io.DataInputStream
 import java.io.DataOutputStream
 import java.io.IOException
 
-class NewGameScreen(val game: Klooni, val gameMode: Int, loadSave: Boolean = true) : Screen, InputProcessor, BinSerializable {
+/**
+ * Main game screen. In this screen the board, piece holder, and score are shown.
+ *
+ * @param gameMode - Perhaps make an abstract base class for the game screen and game modes by implementing different "isGameOver" etc. logic instead of using an integer?
+ * @param loadSave - By default, any previously saved file will be loaded.
+ */
+class GameScreen(
+    val game: Klooni,
+    private val gameMode: Int,
+    loadSave: Boolean = true
+) : Screen, InputProcessor, BinSerializable {
 
     private lateinit var scorer: BaseScorer
     private val bonusParticleHandler = BonusParticleHandler(game)
@@ -29,7 +39,7 @@ class NewGameScreen(val game: Klooni, val gameMode: Int, loadSave: Boolean = tru
     private val holder = PieceHolder(layout, board, HOLDER_PIECE_COUNT, board.cellSize)
     private val batch = SpriteBatch()
     private val gameOverSound = Gdx.audio.newSound(Gdx.files.internal("sound/game_over.mp3"))
-    private val pauseMenu = PauseMenuStage(layout, game, scorer, gameMode)
+    private var pauseMenu:PauseMenuStage
     private var gameOverDone = false
 
     /**
@@ -58,6 +68,8 @@ class NewGameScreen(val game: Klooni, val gameMode: Int, loadSave: Boolean = tru
                 deleteSave()
             }
         }
+
+        pauseMenu = PauseMenuStage(layout, game, scorer, gameMode)
     }
 
     /**
@@ -71,7 +83,7 @@ class NewGameScreen(val game: Klooni, val gameMode: Int, loadSave: Boolean = tru
     }
 
     private fun doGameOver(gameOverReason: String) {
-        if (!gameOverDone) {
+        if (gameOverDone.not()) {
             gameOverDone = true
 
             saveMoney()
@@ -147,7 +159,7 @@ class NewGameScreen(val game: Klooni, val gameMode: Int, loadSave: Boolean = tru
         Klooni.theme.glClearBackground()
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-        if (scorer.isGameOver() && !pauseMenu.isShown()) {
+        if (scorer.isGameOver() && pauseMenu.isShown().not()) {
             // A bit hardcoded (timeOver = scorer instanceof TimeScorer). Perhaps have a better mode to pass the required texture to overlay
             doGameOver(scorer.gameOverReason())
         }
@@ -179,7 +191,7 @@ class NewGameScreen(val game: Klooni, val gameMode: Int, loadSave: Boolean = tru
     override fun resume() {}
 
     override fun hide() {
-        /* Hide can only be called if the menu was shown. Place your logic there. */
+        // Hide can only be called if the menu was shown. Place your logic there.
     }
 
     override fun dispose() {
@@ -199,11 +211,10 @@ class NewGameScreen(val game: Klooni, val gameMode: Int, loadSave: Boolean = tru
 
     override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int) = holder.pickPiece()
 
-
     override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
 
         val result = holder.dropPiece()
-        if (!result.dropped) return false
+        if (result.dropped.not()) return false
 
         if (result.onBoard) {
             scorer.addPieceScore(result.area)
