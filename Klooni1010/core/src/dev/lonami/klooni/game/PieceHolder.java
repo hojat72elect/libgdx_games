@@ -19,22 +19,28 @@ import dev.lonami.klooni.serializer.BinSerializable;
 /**
  * A holder of pieces that can be drawn on screen.
  * Pieces can be picked up from it and dropped on a board.
+ * Throughout the game, this PieceHolder will be drawn below the game board and user chooses pieces from it.
  */
 public class PieceHolder implements BinSerializable {
 
+    // Interpolation value ((pos -> new) / frame)
+    private static final float DRAG_SPEED = 0.5f;
 
-    private static final float DRAG_SPEED = 0.5f; // Interpolation value ((pos -> new) / frame)
     final Rectangle area;
     private final Piece[] pieces;
     private final Sound pieceDropSound;
     private final Sound invalidPieceDropSound;
     private final Sound takePiecesSound;
+
     // Count of pieces to be shown
     private final int count;
+
     // Needed after a piece is dropped, so it can go back
     private final Rectangle[] originalPositions;
+
     // The size the cells will adopt once picked
     private final float pickedCellSize;
+
     // Every piece holder belongs to a specific board
     private final Board board;
     public boolean enabled;
@@ -65,7 +71,9 @@ public class PieceHolder implements BinSerializable {
         takeMore();
     }
 
-    // Determines whether all the pieces have been put (and the "hand" is finished)
+    /**
+     * Determines whether all the pieces have been put (and the "hand" is finished).
+     */
     private boolean handFinished() {
         for (int i = 0; i < count; ++i)
             if (pieces[i] != null)
@@ -74,7 +82,9 @@ public class PieceHolder implements BinSerializable {
         return true;
     }
 
-    // Takes a new set of pieces. Should be called when there are no more piece left
+    /**
+     * Takes a new set of pieces. Should be called when there are no more piece left.
+     */
     private void takeMore() {
         for (int i = 0; i < count; ++i)
             pieces[i] = Piece.random();
@@ -116,7 +126,9 @@ public class PieceHolder implements BinSerializable {
         }
     }
 
-    // Picks the piece below the finger/mouse, returning true if any was picked
+    /**
+     * Picks the piece below the finger/mouse, returning true if any was picked.
+     */
     public boolean pickPiece() {
         Vector2 mouse = new Vector2(
                 Gdx.input.getX(),
@@ -149,7 +161,9 @@ public class PieceHolder implements BinSerializable {
         return result;
     }
 
-    // If no piece is currently being held, the area will be 0
+    /**
+     * If no piece is currently being held, the area will be 0.
+     */
     private int calculateHeldPieceArea() {
         return heldPiece > -1 ? pieces[heldPiece].calculateArea() : 0;
     }
@@ -158,8 +172,10 @@ public class PieceHolder implements BinSerializable {
         return heldPiece > -1 ? pieces[heldPiece].calculateGravityCenter() : null;
     }
 
-    // Tries to drop the piece on the given board. As a result, it
-    // returns one of the following: NO_DROP, NORMAL_DROP, ON_BOARD_DROP
+    /**
+     * Tries to drop the piece on the given board. As a result, it
+     * returns one of the following: NO_DROP, NORMAL_DROP, ON_BOARD_DROP.
+     */
     public DropResult dropPiece() {
         DropResult result;
 
@@ -192,7 +208,9 @@ public class PieceHolder implements BinSerializable {
         return result;
     }
 
-    // Updates the state of the piece holder (and the held piece)
+    /**
+     * Updates the state of the piece holder (and the held piece)
+     */
     public void update() {
         Piece piece;
         if (heldPiece > -1) {
@@ -206,8 +224,7 @@ public class PieceHolder implements BinSerializable {
             piece.cellSize = Interpolation.linear.apply(piece.cellSize, pickedCellSize, DRAG_SPEED);
         }
 
-        // Return the pieces to their original position
-        // ?? This seems somewhat expensive, can't it be done any better?
+        // Return the pieces to their original position (This seems somewhat expensive, can't it be done any better?)
         Rectangle original;
         for (int i = 0; i < count; ++i) {
             if (i == heldPiece)
@@ -233,9 +250,11 @@ public class PieceHolder implements BinSerializable {
             // Center the piece to the mouse
             mouse.sub(piece.getRectangle().width * 0.5f, piece.getRectangle().height * 0.5f);
         } else {
-            // Center the new piece position horizontally
-            // and push it up by it's a cell (arbitrary) vertically, thus
-            // avoiding to cover it with the finger (issue on Android devices)
+
+           /*
+            * Center the new piece position horizontally and push it up by it's a cell (arbitrary) vertically,
+            * thus avoiding to cover it with the finger (issue on Android devices).
+            */
             mouse.sub(piece.getRectangle().width * 0.5f, -pickedCellSize);
         }
         return mouse;
@@ -265,8 +284,7 @@ public class PieceHolder implements BinSerializable {
 
     @Override
     public void read(DataInputStream inputStream) throws IOException {
-        // If the saved piece count does not match the current piece count,
-        // then an IOException is thrown since the data saved was invalid
+        // If the saved piece count does not match the current piece count, then an IOException is thrown since the data saved was invalid
         final int savedPieceCount = inputStream.readInt();
         if (savedPieceCount != count)
             throw new IOException("Invalid piece count saved.");
