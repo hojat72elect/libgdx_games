@@ -1,6 +1,5 @@
 package dev.lonami.klooni.screens;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -26,7 +25,9 @@ import dev.lonami.klooni.actors.ThemeCard;
 import dev.lonami.klooni.game.GameLayout;
 import dev.lonami.klooni.interfaces.EffectFactory;
 
-// Screen where the user can customize the look and feel of the game
+/**
+ * Screen where the user can customize the look and feel of the game.
+ */
 class CustomizeScreen implements Screen {
 
     private static final float MIN_DELTA = 1 / 30f;
@@ -193,11 +194,6 @@ class CustomizeScreen implements Screen {
                 return true;
             }
 
-            // We could actually rely on touchDragged not being called,
-            // but perhaps it would be hard for some people not to move
-            // their fingers even the slightest bit, so we use a custom
-            // drag limit
-
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 x -= shopDragStartX;
@@ -239,11 +235,6 @@ class CustomizeScreen implements Screen {
 
             final Batch batch = stage.getBatch();
             batch.begin();
-            // For some really strange reason, we need to displace the particle effect
-            // by "buyBand.height", or it will render exactly that height below where
-            // it should.
-            // TODO Fix this - maybe use the same project matrix as stage.draw()?
-            // batch.setProjectionMatrix(stage.getViewport().getCamera().combined)
             if (!card.showcase(batch, buyBand.getHeight())) {
                 showcaseIndex = (showcaseIndex + 1) % children.size;
             }
