@@ -32,7 +32,7 @@ class GameScreen(
     loadSave: Boolean = true
 ) : Screen, InputProcessor, BinSerializable {
 
-    private lateinit var scorer: BaseScorer
+    private var scorer: BaseScorer
     private val bonusParticleHandler = BonusParticleHandler(game)
     private val layout = GameLayout()
     private val board = Board(layout, BOARD_SIZE)
@@ -220,7 +220,7 @@ class GameScreen(
             scorer.addPieceScore(result.area)
             val bonus = scorer.addBoardScore(board.clearComplete(game.effect), board.cellCount)
             if (bonus > 0) {
-                bonusParticleHandler.addBonus(result.pieceCenter, bonus)
+                bonusParticleHandler.addBonus(result.pieceCenter!!, bonus)
                 if (Klooni.soundsEnabled()) {
                     game.playEffectSound()
                 }
