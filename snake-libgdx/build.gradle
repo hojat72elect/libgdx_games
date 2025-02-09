@@ -1,5 +1,6 @@
 buildscript {
-    
+    ext.kotlin_version = '1.9.24'
+
 
     ext {
         agp_version = '7.4.1'
@@ -15,10 +16,12 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$agp_version1"
-        
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
 
     }
 }
+apply plugin: 'kotlin'
 
 allprojects {
     apply plugin: "eclipse"
@@ -94,4 +97,20 @@ project(":core") {
 
 tasks.eclipse.doLast {
     delete ".project"
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
