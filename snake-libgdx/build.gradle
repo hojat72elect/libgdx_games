@@ -1,6 +1,10 @@
 buildscript {
     
 
+    ext {
+        agp_version = '7.4.1'
+        agp_version1 = '7.0.0'
+    }
     repositories {
         mavenLocal()
         mavenCentral()
@@ -10,7 +14,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath "com.android.tools.build:gradle:$agp_version1"
         
 
     }
@@ -81,9 +85,9 @@ project(":core") {
 
 
     dependencies {
-        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-        compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        implementation "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         
     }
 }
