@@ -14,11 +14,6 @@ import dev.ian.snakeboi.game.GameInfo;
 
 import static dev.ian.snakeboi.game.GameInfo.SCALE;
 
-/**
- * Created by: Ian Parcon
- * Date created: Aug 29, 2018
- * Time created: 9:39 AM
- */
 public class Snake {
 
     private static final int INITIAL_BODY_COUNT = 3;
