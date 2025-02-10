@@ -6,11 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import dev.ian.snakeboi.game.GameInfo;
 
-/**
- * Created by: Ian Parcon
- * Date created: Aug 23, 2018
- * Time created: 3:05 PM
- */
 public class GameObject {
 
     protected Sprite sprite;
@@ -43,10 +38,11 @@ public class GameObject {
     public void setPosition(float x, float y) {
         this.x = x;
         this.y = y;
-        sprite.setPosition(x,y);
+        sprite.setPosition(x, y);
     }
-    public void setColor(Color color){
-        sprite.setColor(color.r ,color.g ,color.b ,255);
+
+    public void setColor(Color color) {
+        sprite.setColor(color.r, color.g, color.b, 255);
     }
 
     public void draw(SpriteBatch batch) {

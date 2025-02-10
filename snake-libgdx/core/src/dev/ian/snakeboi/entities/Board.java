@@ -1,23 +1,18 @@
 package dev.ian.snakeboi.entities;
 
+import static dev.ian.snakeboi.game.GameInfo.SCALE;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 
-import dev.ian.snakeboi.game.GameInfo;
 import dev.ian.snakeboi.asset.Asset;
+import dev.ian.snakeboi.game.GameInfo;
 
-import static dev.ian.snakeboi.game.GameInfo.SCALE;
-
-/**
- * Created by: Ian Parcon
- * Date created: Aug 29, 2018
- * Time created: 10:09 AM
- */
 public class Board {
 
     private Cell[][] cells;
-    private Snake snake;
-    private String[] foodTypes = {
+    private final Snake snake;
+    private final String[] foodTypes = {
             "green_icing_green_sprinkles", "blue_icing", "chocolate_icing", "chocolate_icing_chocolate_drizzle", "dark_red_icing",
             "orange_icing_chocolate_shaving", "pink_icing_sprinkles", "orange_icing_chocolate_shaving", "pink_icing_sprinkles",
             "pink_icing_white_drizzle", "red_icing_white_sprinkles",
@@ -79,9 +74,5 @@ public class Board {
 
     private float foodRandY() {
         return MathUtils.random(1, GameInfo.BOARD_HEIGHT - 1) * SCALE;
-    }
-
-    public void reset() {
-        generateFood();
     }
 }

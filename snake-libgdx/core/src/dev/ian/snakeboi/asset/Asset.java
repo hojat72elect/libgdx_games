@@ -13,15 +13,10 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 
-/**
- * Created by: Ian Parcon
- * Date created: Aug 23, 2018
- * Time created: 2:57 PM
- */
 public class Asset {
 
-    private static Asset instance = new Asset();
-    private AssetManager assetManager = new AssetManager();
+    private static final Asset instance = new Asset();
+    private final AssetManager assetManager = new AssetManager();
 
     public static final String SNAKE_PACK = "images/snake.pack";
     public static final String PIXEL_FONT = "fonts/pixel.ttf";
@@ -65,7 +60,6 @@ public class Asset {
         assetManager.load(GAME_OVER_SOUND, Music.class);
         assetManager.load(EAT_FOOD_SOUND, Sound.class);
         assetManager.load(CRASH_SOUND, Sound.class);
-
     }
 
     public <T> T get(String filename) {
@@ -80,5 +74,4 @@ public class Asset {
     public void dispose() {
         assetManager.dispose();
     }
-
 }

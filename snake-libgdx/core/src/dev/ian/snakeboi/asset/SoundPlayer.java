@@ -5,15 +5,10 @@ import com.badlogic.gdx.audio.Sound;
 
 import java.util.HashMap;
 
-/**
- * Created by: Ian Parcon
- * Date created: Aug 27, 2018
- * Time created: 9:32 PM
- */
 public class SoundPlayer {
 
-    private static HashMap<String, Music> musics = new HashMap<String, Music>();
-    private static HashMap<String, Sound> sounds = new HashMap<String, Sound>();
+    private static final HashMap<String, Music> musics = new HashMap<String, Music>();
+    private static final HashMap<String, Sound> sounds = new HashMap<String, Sound>();
 
     private SoundPlayer() {
     }

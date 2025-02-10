@@ -1,5 +1,7 @@
 package dev.ian.snakeboi.entities;
 
+import static dev.ian.snakeboi.game.GameInfo.SCALE;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,15 +14,13 @@ import dev.ian.snakeboi.Direction;
 import dev.ian.snakeboi.asset.Asset;
 import dev.ian.snakeboi.game.GameInfo;
 
-import static dev.ian.snakeboi.game.GameInfo.SCALE;
-
 public class Snake {
 
     private static final int INITIAL_BODY_COUNT = 3;
 
-    private LinkedList<Cell> snakeBody;
-    private Stack<GameObject> lives;
-    private TextureAtlas atlas;
+    private final LinkedList<Cell> snakeBody;
+    private final Stack<GameObject> lives;
+    private final TextureAtlas atlas;
     private Direction dir;
     private Cell head;
     private Cell tail;
@@ -39,7 +39,7 @@ public class Snake {
         for (int i = 0; i < 5; i++) {
             GameObject life = new GameObject(Asset.instance().getSprite("heart"));
             life.setSize(25, 25);
-            life.setPosition((GameInfo.SCREEN_WIDTH - 25) - life.getWidth() * (i * 1.2f) , GameInfo.SCREEN_HEIGHT - life.getHeight() - 10);
+            life.setPosition((GameInfo.SCREEN_WIDTH - 25) - life.getWidth() * (i * 1.2f), GameInfo.SCREEN_HEIGHT - life.getHeight() - 10);
             lives.add(life);
         }
     }

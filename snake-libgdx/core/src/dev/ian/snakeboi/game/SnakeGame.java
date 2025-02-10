@@ -14,20 +14,15 @@ import dev.ian.snakeboi.entities.Board;
 import dev.ian.snakeboi.entities.GameObject;
 import dev.ian.snakeboi.entities.Snake;
 
-/**
- * Created by: Ian Parcon
- * Date created: Aug 29, 2018
- * Time created: 10:24 AM
- */
 public class SnakeGame {
 
     private static final int WIDTH = Gdx.graphics.getWidth();
     private static final int HEIGHT = Gdx.graphics.getHeight();
 
-    private Board board;
-    private Snake snake;
+    private final Board board;
+    private final Snake snake;
     private float timeState;
-    private BitmapFont font;
+    private final BitmapFont font;
 
     private GameObject food;
     private boolean isGameOver;
@@ -102,5 +97,4 @@ public class SnakeGame {
         font.draw(batch, "Score: " + Scorer.getScore(), GameInfo.SCALE / 2, GameInfo.SCREEN_HEIGHT - 10);
         font.draw(batch, "Size: " + snake.getBody().size(), GameInfo.SCALE / 2, GameInfo.SCREEN_HEIGHT - 40);
     }
-
 }
