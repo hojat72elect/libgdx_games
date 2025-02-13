@@ -1,7 +1,0 @@
-com.peppercarrot.runninggame.android-pngs-0 D:\Dev\Java\Repositories\PepperAndCarrotRunningGame\android\build\generated\res\pngs\debug
-com.peppercarrot.runninggame.android-resValues-1 D:\Dev\Java\Repositories\PepperAndCarrotRunningGame\android\build\generated\res\resValues\debug
-com.peppercarrot.runninggame.android-packageDebugResources-2 D:\Dev\Java\Repositories\PepperAndCarrotRunningGame\android\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.peppercarrot.runninggame.android-packageDebugResources-3 D:\Dev\Java\Repositories\PepperAndCarrotRunningGame\android\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.peppercarrot.runninggame.android-debug-4 D:\Dev\Java\Repositories\PepperAndCarrotRunningGame\android\build\intermediates\merged_res\debug\mergeDebugResources
-com.peppercarrot.runninggame.android-android-5 D:\Dev\Java\Repositories\PepperAndCarrotRunningGame\android\res
-com.peppercarrot.runninggame.android-debug-6 D:\Dev\Java\Repositories\PepperAndCarrotRunningGame\android\src\debug\res

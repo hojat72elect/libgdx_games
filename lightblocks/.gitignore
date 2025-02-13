@@ -1,9 +1,0 @@
-.gradle
-.idea
-gradle
-
-core/build
-desktop/build
-android/build
-multiplayer/build
-server/build

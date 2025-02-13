@@ -1,4 +1,0 @@
-#Sat Jan 04 19:15:56 EST 2025
-base.0=D\:\\Dev\\Java\\Repositories\\PepperAndCarrotRunningGame\\android\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-renamed.0=classes.dex
-path.0=classes.dex
