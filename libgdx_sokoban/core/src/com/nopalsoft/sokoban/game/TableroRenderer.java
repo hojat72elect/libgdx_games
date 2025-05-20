@@ -18,7 +18,7 @@ public class TableroRenderer {
         batcher = batch;
         oCam = new OrthographicCamera(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
         oCam.position.set(Screens.SCREEN_WIDTH / 2f, Screens.SCREEN_HEIGHT / 2f, 0);
-        tiledRender = new OrthogonalTiledMapRenderer(Assets.map, Tablero.UNIT_SCALE);
+        tiledRender = new OrthogonalTiledMapRenderer(Assets.map, GameBoard.UNIT_SCALE);
         mapStaticLayer = (TiledMapTileLayer) tiledRender.getMap().getLayers().get("StaticMap");
     }
 

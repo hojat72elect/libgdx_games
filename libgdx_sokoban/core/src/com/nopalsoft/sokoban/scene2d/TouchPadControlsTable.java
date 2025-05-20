@@ -7,13 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.game.GameScreen;
 
-public class ControlesNoPad extends Table {
+public class TouchPadControlsTable extends Table {
 
     GameScreen gameScreen;
 
     Button btUp, btDown, btLeft, btRight;
 
-    public ControlesNoPad(GameScreen oScreen) {
+    public TouchPadControlsTable(GameScreen oScreen) {
         gameScreen = oScreen;
 
         getColor().a = .4f;

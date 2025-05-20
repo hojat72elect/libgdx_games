@@ -13,16 +13,16 @@ import com.nopalsoft.sokoban.game.GameScreen;
 import com.nopalsoft.sokoban.screens.MainMenuScreen;
 import com.nopalsoft.sokoban.screens.Screens;
 
-public class VentanaPause extends Ventana {
+public class WindowGroupPause extends WindowGroup {
 
     Button btHome, btRefresh;
     Table tbAnimations;
 
-    public VentanaPause(Screens currentScreen) {
+    public WindowGroupPause(Screens currentScreen) {
         super(currentScreen, 350, 300, 100);
 
-        setCloseButton(290, 250, 60);
-        setTitle(180, 50, "Paused", 1);
+        setCloseButton();
+        setTitle("Paused", 1);
 
         Table tbMenu = new Table();
         tbMenu.setFillParent(true);

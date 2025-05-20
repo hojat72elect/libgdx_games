@@ -4,65 +4,54 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.nopalsoft.sokoban.Settings;
-import com.nopalsoft.sokoban.game.Tablero;
+import com.nopalsoft.sokoban.game.GameBoard;
 
 import java.util.LinkedHashMap;
 
 /**
- * Todos los objetos son tiles (el piso, el personaje,la cajas)
- *
- * @author Yayo
+ * All objects are useful (the floor, the character, the boxes).
  */
 public class Tiles extends Actor {
 
-    final static LinkedHashMap<Integer, Vector2> mapPosiciones = new LinkedHashMap<Integer, Vector2>();
+    final static LinkedHashMap<Integer, Vector2> mapPosiciones = new LinkedHashMap<>();
 
     static {
-        // Las posiciones empiezan de izq a derecha de abajo hacia arriba
+        // The positions start from left to right from bottom to top.
         int posicionTile = 0;
         for (int y = 0; y < 15; y++) {
             for (int x = 0; x < 25; x++) {
-                mapPosiciones.put(posicionTile, new Vector2(x * 32 * Tablero.UNIT_SCALE, y * 32 * Tablero.UNIT_SCALE));
+                mapPosiciones.put(posicionTile, new Vector2(x * 32 * GameBoard.UNIT_SCALE, y * 32 * GameBoard.UNIT_SCALE));
                 posicionTile++;
             }
         }
     }
 
-    // TODOS LOS MAPAS SON DE 25x15 Tiles de 32px lo que da una resolucion de 800x480
-    final float SIZE = 32 * Tablero.UNIT_SCALE;// Tamano de la ficha
+    // ALL MAPS ARE 25x15 Tiles of 32px which gives a resolution of 800x480
+    final float SIZE = 32 * GameBoard.UNIT_SCALE;// Token size
 
     public int posicion;
 
-    public Tiles(int posicion) {
-        this.posicion = posicion;
+    public Tiles(int position) {
+        this.posicion = position;
         setSize(SIZE, SIZE);
-        setPosition(mapPosiciones.get(posicion).x, mapPosiciones.get(posicion).y);
+        setPosition(mapPosiciones.get(position).x, mapPosiciones.get(position).y);
     }
 
     /**
-     * Si es UNDO se mueve sin animacion (quickFix)
-     *
-     * @param pos
-     * @param undo
+     * If it is UNDO it moves without animation (quickFix).
      */
     public void moveToPosition(int pos, boolean undo) {
         float time = .05f;
         if (Settings.animationWalkIsON && !undo)
             time = .45f;
         this.posicion = pos;
-        addAction(Actions.sequence(Actions.moveTo(mapPosiciones.get(posicion).x, mapPosiciones.get(posicion).y, time), Actions.run(new Runnable() {
-
-            @Override
-            public void run() {
-                endMovingToPosition();
-            }
-        })));
+        addAction(Actions.sequence(Actions.moveTo(mapPosiciones.get(posicion).x, mapPosiciones.get(posicion).y, time), Actions.run(this::onMovementToPositionCompleted)));
     }
 
     /**
-     * Se llama automaticamente cuando ya se a movido a la posicion
+     * It is called automatically when it has already moved to the position.
      */
-    protected void endMovingToPosition() {
+    protected void onMovementToPositionCompleted() {
 
     }
 }

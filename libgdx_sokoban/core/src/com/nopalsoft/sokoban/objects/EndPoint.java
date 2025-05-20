@@ -9,25 +9,34 @@ public class EndPoint extends Tiles {
 
     AtlasRegion keyFrame;
 
-    public EndPoint(int posicion, String color) {
-        super(posicion);
+    public EndPoint(int position, String color) {
+        super(position);
 
-        if (color.equals("brown")) {
-            numColor = Box.COLOR_BROWN;
-        } else if (color.equals("gray")) {
-            numColor = Box.COLOR_GRAY;
-        } else if (color.equals("purple")) {
-            numColor = Box.COLOR_PURPLE;
-        } else if (color.equals("blue")) {
-            numColor = Box.COLOR_BLUE;
-        } else if (color.equals("black")) {
-            numColor = Box.COLOR_BLACK;
-        } else if (color.equals("beige")) {
-            numColor = Box.COLOR_BEIGE;
-        } else if (color.equals("yellow")) {
-            numColor = Box.COLOR_YELLOW;
-        } else if (color.equals("red")) {
-            numColor = Box.COLOR_RED;
+        switch (color) {
+            case "brown":
+                numColor = Box.COLOR_BROWN;
+                break;
+            case "gray":
+                numColor = Box.COLOR_GRAY;
+                break;
+            case "purple":
+                numColor = Box.COLOR_PURPLE;
+                break;
+            case "blue":
+                numColor = Box.COLOR_BLUE;
+                break;
+            case "black":
+                numColor = Box.COLOR_BLACK;
+                break;
+            case "beige":
+                numColor = Box.COLOR_BEIGE;
+                break;
+            case "yellow":
+                numColor = Box.COLOR_YELLOW;
+                break;
+            case "red":
+                numColor = Box.COLOR_RED;
+                break;
         }
 
         setTextureColor(numColor);

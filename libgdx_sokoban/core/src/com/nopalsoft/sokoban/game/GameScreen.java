@@ -14,9 +14,9 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.MainSokoban;
 import com.nopalsoft.sokoban.Settings;
-import com.nopalsoft.sokoban.scene2d.ContadorBar;
-import com.nopalsoft.sokoban.scene2d.ControlesNoPad;
-import com.nopalsoft.sokoban.scene2d.VentanaPause;
+import com.nopalsoft.sokoban.scene2d.TouchPadControlsTable;
+import com.nopalsoft.sokoban.scene2d.CounterTable;
+import com.nopalsoft.sokoban.scene2d.WindowGroupPause;
 import com.nopalsoft.sokoban.screens.MainMenuScreen;
 import com.nopalsoft.sokoban.screens.Screens;
 
@@ -27,18 +27,18 @@ public class GameScreen extends Screens {
     public int state;
 
     TableroRenderer renderer;
-    Tablero oTablero;
+    GameBoard oGameBoard;
 
-    ControlesNoPad oControl;
+    TouchPadControlsTable oControl;
     Button btUndo;
     Button btPausa;
 
-    ContadorBar barTime;
-    ContadorBar barMoves;
+    CounterTable barTime;
+    CounterTable barMoves;
 
     private final Stage stageGame;
 
-    VentanaPause vtPause;
+    WindowGroupPause vtPause;
 
     public int level;
 
@@ -47,16 +47,16 @@ public class GameScreen extends Screens {
         this.level = level;
 
         stageGame = new Stage(new StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT));
-        oTablero = new Tablero();
+        oGameBoard = new GameBoard();
 
         renderer = new TableroRenderer(batcher);
 
-        oControl = new ControlesNoPad(this);
+        oControl = new TouchPadControlsTable(this);
 
-        barTime = new ContadorBar(Assets.backgroundTime, 5, 430);
-        barMoves = new ContadorBar(Assets.backgroundMoves, 5, 380);
+        barTime = new CounterTable(Assets.backgroundTime, 5, 430);
+        barMoves = new CounterTable(Assets.backgroundMoves, 5, 380);
 
-        vtPause = new VentanaPause(this);
+        vtPause = new WindowGroupPause(this);
 
         Label lbNivel = new Label("Level " + (level + 1), new LabelStyle(Assets.fontRed, Color.WHITE));
         lbNivel.setWidth(barTime.getWidth());
@@ -70,7 +70,7 @@ public class GameScreen extends Screens {
         btUndo.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                oTablero.undo = true;
+                oGameBoard.undo = true;
             }
         });
 
@@ -85,7 +85,7 @@ public class GameScreen extends Screens {
             }
         });
 
-        stageGame.addActor(oTablero);
+        stageGame.addActor(oGameBoard);
         stageGame.addActor(barTime);
         stageGame.addActor(barMoves);
         stage.addActor(lbNivel);
@@ -112,27 +112,24 @@ public class GameScreen extends Screens {
 
         if (state != STATE_PAUSED) {
             stageGame.act(delta);
-            barMoves.updateActualNum(oTablero.moves);
-            barTime.updateActualNum((int) oTablero.time);
+            barMoves.updateDisplayedNumber(oGameBoard.moves);
+            barTime.updateDisplayedNumber((int) oGameBoard.time);
 
-            if (state == STATE_RUNNING && oTablero.state == Tablero.STATE_GAMEOVER) {
-                setGameover();
+            if (state == STATE_RUNNING && oGameBoard.state == GameBoard.STATE_GAME_OVER) {
+                setGameOver();
             }
         }
     }
 
-    private void setGameover() {
+    private void setGameOver() {
         state = STATE_GAME_OVER;
-        Settings.levelCompeted(level, oTablero.moves, (int) oTablero.time);
-        stage.addAction(Actions.sequence(Actions.delay(.35f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                level += 1;
-                if (level >= Settings.NUM_MAPS)
-                    changeScreenWithFadeOut(MainMenuScreen.class, game);
-                else
-                    changeScreenWithFadeOut(GameScreen.class, level, game);
-            }
+        Settings.levelCompeted(level, oGameBoard.moves, (int) oGameBoard.time);
+        stage.addAction(Actions.sequence(Actions.delay(.35f), Actions.run(() -> {
+            level += 1;
+            if (level >= Settings.NUM_MAPS)
+                changeScreenWithFadeOut(MainMenuScreen.class, game);
+            else
+                changeScreenWithFadeOut(GameScreen.class, level, game);
         })));
     }
 
@@ -151,25 +148,25 @@ public class GameScreen extends Screens {
 
     @Override
     public void up() {
-        oTablero.moveUp = true;
+        oGameBoard.moveUp = true;
         super.up();
     }
 
     @Override
     public void down() {
-        oTablero.moveDown = true;
+        oGameBoard.moveDown = true;
         super.down();
     }
 
     @Override
     public void right() {
-        oTablero.moveRight = true;
+        oGameBoard.moveRight = true;
         super.right();
     }
 
     @Override
     public void left() {
-        oTablero.moveLeft = true;
+        oGameBoard.moveLeft = true;
         super.left();
     }
 
@@ -177,15 +174,15 @@ public class GameScreen extends Screens {
     public boolean keyDown(int keycode) {
         if (state == STATE_RUNNING) {
             if (keycode == Keys.LEFT || keycode == Keys.A) {
-                oTablero.moveLeft = true;
+                oGameBoard.moveLeft = true;
             } else if (keycode == Keys.RIGHT || keycode == Keys.D) {
-                oTablero.moveRight = true;
+                oGameBoard.moveRight = true;
             } else if (keycode == Keys.UP || keycode == Keys.W) {
-                oTablero.moveUp = true;
+                oGameBoard.moveUp = true;
             } else if (keycode == Keys.DOWN || keycode == Keys.S) {
-                oTablero.moveDown = true;
+                oGameBoard.moveDown = true;
             } else if (keycode == Keys.Z) {
-                oTablero.undo = true;
+                oGameBoard.undo = true;
             } else if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
                 setPause();
             }
@@ -195,10 +192,5 @@ public class GameScreen extends Screens {
         }
 
         return true;
-    }
-
-    @Override
-    public void pinchStop() {
-
     }
 }

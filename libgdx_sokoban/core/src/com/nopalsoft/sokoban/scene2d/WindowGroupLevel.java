@@ -13,16 +13,16 @@ import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.game.GameScreen;
 import com.nopalsoft.sokoban.screens.Screens;
 
-public class VentanaLevel extends Ventana {
+public class WindowGroupLevel extends WindowGroup {
 
     Button btPlay;
     Label lbBestMoves, lbBestTime;
 
-    public VentanaLevel(Screens currentScreen) {
+    public WindowGroupLevel(Screens currentScreen) {
         super(currentScreen, 350, 300, 100);
 
-        setCloseButton(290, 250, 60);
-        setTitle(180, 50, "Puntuaciones", .75f);
+        setCloseButton();
+        setTitle("Puntuaciones", .75f);
 
         Table tbMenu = new Table();
         tbMenu.setFillParent(true);

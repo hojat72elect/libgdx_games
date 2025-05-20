@@ -32,22 +32,31 @@ public class Box extends Tiles {
 
         isInRightEndPoint = false;
 
-        if (color.equals("brown")) {
-            numColor = COLOR_BROWN;
-        } else if (color.equals("gray")) {
-            numColor = COLOR_GRAY;
-        } else if (color.equals("purple")) {
-            numColor = COLOR_PURPLE;
-        } else if (color.equals("blue")) {
-            numColor = COLOR_BLUE;
-        } else if (color.equals("black")) {
-            numColor = COLOR_BLACK;
-        } else if (color.equals("beige")) {
-            numColor = COLOR_BEIGE;
-        } else if (color.equals("yellow")) {
-            numColor = COLOR_YELLOW;
-        } else if (color.equals("red")) {
-            numColor = COLOR_RED;
+        switch (color) {
+            case "brown":
+                numColor = COLOR_BROWN;
+                break;
+            case "gray":
+                numColor = COLOR_GRAY;
+                break;
+            case "purple":
+                numColor = COLOR_PURPLE;
+                break;
+            case "blue":
+                numColor = COLOR_BLUE;
+                break;
+            case "black":
+                numColor = COLOR_BLACK;
+                break;
+            case "beige":
+                numColor = COLOR_BEIGE;
+                break;
+            case "yellow":
+                numColor = COLOR_YELLOW;
+                break;
+            case "red":
+                numColor = COLOR_RED;
+                break;
         }
 
         setTextureColor(numColor);

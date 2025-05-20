@@ -11,31 +11,31 @@ import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.objects.Box;
 import com.nopalsoft.sokoban.objects.EndPoint;
-import com.nopalsoft.sokoban.objects.Pared;
-import com.nopalsoft.sokoban.objects.Personaje;
+import com.nopalsoft.sokoban.objects.Player;
 import com.nopalsoft.sokoban.objects.Tiles;
+import com.nopalsoft.sokoban.objects.Wall;
 
 import java.util.Iterator;
 
-public class Tablero extends Group {
+public class GameBoard extends Group {
     public static final float UNIT_SCALE = 1f;
 
     static public final int STATE_RUNNING = 1;
-    static public final int STATE_GAMEOVER = 2;
+    static public final int STATE_GAME_OVER = 2;
     public int state;
 
     /**
-     * X posicion anterior, Y posicion actual
+     * X previous position, Y current position.
      */
-    Array<Vector2> arrMovesPersonaje;
+    Array<Vector2> playerMoves;
 
     /**
-     * X posicion anterior, Y posicion actual
+     * X previous position, Y current position.
      */
-    Array<Vector2> arrMovesCaja;
+    Array<Vector2> boxMoves;
 
     Array<Tiles> arrTiles;
-    private Personaje personaje;
+    private Player player;
 
     public boolean moveUp, moveDown, moveLeft, moveRight;
     public boolean undo;
@@ -43,21 +43,21 @@ public class Tablero extends Group {
     int moves;
     float time;
 
-    public Tablero() {
+    public GameBoard() {
         setSize(800, 480);
 
         arrTiles = new Array<Tiles>(25 * 15);
-        arrMovesPersonaje = new Array<Vector2>();
-        arrMovesCaja = new Array<Vector2>();
+        playerMoves = new Array<Vector2>();
+        boxMoves = new Array<Vector2>();
 
         initializeMap("StaticMap");
         initializeMap("Objetos");
 
         // DESPUES de inicializar los objetos los agrego al Tablero en orden para que se dibujen unos primero que otros
-        agregarAlTablero(Pared.class);
+        agregarAlTablero(Wall.class);
         agregarAlTablero(EndPoint.class);
         agregarAlTablero(Box.class);
-        agregarAlTablero(Personaje.class);
+        agregarAlTablero(Player.class);
 
         state = STATE_RUNNING;
 
@@ -107,13 +107,13 @@ public class Tablero extends Group {
     }
 
     private void crearPersonaje(int posTile) {
-        Personaje obj = new Personaje(posTile);
+        Player obj = new Player(posTile);
         arrTiles.add(obj);
-        personaje = obj;
+        player = obj;
     }
 
     private void crearPared(int posTile) {
-        Pared obj = new Pared(posTile);
+        Wall obj = new Wall(posTile);
         arrTiles.add(obj);
     }
 
@@ -150,13 +150,13 @@ public class Tablero extends Group {
                     auxMoves = 1;
                 }
 
-                if (personaje.canMove() && (moveDown || moveLeft || moveRight || moveUp)) {
-                    int nextPos = personaje.posicion + auxMoves;
+                if (player.canMove() && (moveDown || moveLeft || moveRight || moveUp)) {
+                    int nextPos = player.posicion + auxMoves;
 
                     if (checarEspacioVacio(nextPos) || (!checarIsBoxInPosition(nextPos) && checarIsEndInPosition(nextPos))) {
-                        arrMovesPersonaje.add(new Vector2(personaje.posicion, nextPos));
-                        arrMovesCaja.add(null);
-                        personaje.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
+                        playerMoves.add(new Vector2(player.posicion, nextPos));
+                        boxMoves.add(null);
+                        player.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
                         moves++;
                     } else {
                         if (checarIsBoxInPosition(nextPos)) {
@@ -164,12 +164,12 @@ public class Tablero extends Group {
                             if (checarEspacioVacio(boxNextPos) || (!checarIsBoxInPosition(boxNextPos) && checarIsEndInPosition(boxNextPos))) {
                                 Box oBox = getBoxInPosition(nextPos);
 
-                                arrMovesPersonaje.add(new Vector2(personaje.posicion, nextPos));
-                                arrMovesCaja.add(new Vector2(oBox.posicion, boxNextPos));
+                                playerMoves.add(new Vector2(player.posicion, nextPos));
+                                boxMoves.add(new Vector2(oBox.posicion, boxNextPos));
                                 moves++;
 
                                 oBox.moveToPosition(boxNextPos, false);
-                                personaje.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
+                                player.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
                                 oBox.setIsInEndPoint(getEndPointInPosition(boxNextPos));
                             }
                         }
@@ -179,7 +179,7 @@ public class Tablero extends Group {
                 moveDown = moveLeft = moveRight = moveUp = false;
 
                 if (checkBoxesMissingTheRightEndPoint() == 0)
-                    state = STATE_GAMEOVER;
+                    state = STATE_GAME_OVER;
             }
 
             if (state == STATE_RUNNING)
@@ -188,12 +188,12 @@ public class Tablero extends Group {
     }
 
     private void undo() {
-        if (arrMovesPersonaje.size >= moves) {
-            Vector2 posAntPersonaje = arrMovesPersonaje.removeIndex(moves - 1);
-            personaje.moveToPosition((int) posAntPersonaje.x, true);
+        if (playerMoves.size >= moves) {
+            Vector2 posAntPersonaje = playerMoves.removeIndex(moves - 1);
+            player.moveToPosition((int) posAntPersonaje.x, true);
         }
-        if (arrMovesCaja.size >= moves) {
-            Vector2 posAntBox = arrMovesCaja.removeIndex(moves - 1);
+        if (boxMoves.size >= moves) {
+            Vector2 posAntBox = boxMoves.removeIndex(moves - 1);
             if (posAntBox != null) {
                 Box oBox = getBoxInPosition((int) posAntBox.y);
                 oBox.moveToPosition((int) posAntBox.x, true);
