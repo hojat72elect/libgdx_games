@@ -1,0 +1,417 @@
+atlasMap.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+LandPiece_DarkGreen
+  rotate: false
+  xy: 514, 645
+  size: 106, 52
+  orig: 106, 52
+  offset: 0, 0
+  index: -1
+Bubble_Big
+  rotate: false
+  xy: 376, 804
+  size: 83, 80
+  orig: 83, 80
+  offset: 0, 0
+  index: -1
+LandPiece_DarkMulticolored
+  rotate: false
+  xy: 753, 627
+  size: 106, 49
+  orig: 106, 49
+  offset: 0, 0
+  index: -1
+Background
+  rotate: false
+  xy: 2, 2
+  size: 480, 800
+  orig: 480, 800
+  offset: 0, 0
+  index: -1
+BrokenLandPiece_Multicolored
+  rotate: false
+  xy: 767, 524
+  size: 113, 47
+  orig: 113, 47
+  offset: 0, 0
+  index: -1
+HalfLandPiece_Right_Gray
+  rotate: false
+  xy: 678, 777
+  size: 63, 48
+  orig: 63, 48
+  offset: 0, 0
+  index: -1
+HearthEnemy2
+  rotate: false
+  xy: 753, 678
+  size: 104, 62
+  orig: 104, 62
+  offset: 0, 0
+  index: -1
+BrokenLandPiece_Blue
+  rotate: false
+  xy: 652, 521
+  size: 113, 48
+  orig: 113, 48
+  offset: 0, 0
+  index: -1
+LandPiece_DarkBeige
+  rotate: false
+  xy: 645, 625
+  size: 106, 52
+  orig: 106, 52
+  offset: 0, 0
+  index: -1
+Jetpack_Big
+  rotate: false
+  xy: 484, 257
+  size: 42, 67
+  orig: 42, 67
+  offset: 0, 0
+  index: -1
+Lightning2
+  rotate: false
+  xy: 484, 446
+  size: 31, 114
+  orig: 31, 114
+  offset: 0, 0
+  index: -1
+JetFire1
+  rotate: false
+  xy: 484, 326
+  size: 36, 58
+  orig: 36, 58
+  offset: 0, 0
+  index: -1
+CloudWind
+  rotate: false
+  xy: 159, 804
+  size: 58, 84
+  orig: 58, 84
+  offset: 0, 0
+  index: -1
+LandPiece_LightMulticolored
+  rotate: false
+  xy: 795, 415
+  size: 98, 48
+  orig: 98, 48
+  offset: 0, 0
+  index: -1
+titulo
+  rotate: false
+  xy: 484, 2
+  size: 412, 159
+  orig: 412, 159
+  offset: 0, 0
+  index: -1
+HalfLandPiece_Left_Multicolored
+  rotate: false
+  xy: 808, 838
+  size: 68, 44
+  orig: 68, 44
+  offset: 0, 0
+  index: -1
+LandPiece_DarkPink
+  rotate: false
+  xy: 795, 365
+  size: 99, 48
+  orig: 99, 48
+  offset: 0, 0
+  index: -1
+LandPiece_LightBeige
+  rotate: false
+  xy: 795, 214
+  size: 99, 49
+  orig: 99, 49
+  offset: 0, 0
+  index: -1
+btBack
+  rotate: false
+  xy: 484, 210
+  size: 47, 45
+  orig: 47, 45
+  offset: 0, 0
+  index: -1
+HalfLandPiece_Left_Beige
+  rotate: false
+  xy: 808, 790
+  size: 68, 46
+  orig: 68, 46
+  offset: 0, 0
+  index: -1
+button
+  rotate: false
+  xy: 795, 465
+  size: 94, 45
+  orig: 94, 45
+  offset: 0, 0
+  index: -1
+btPause
+  rotate: false
+  xy: 484, 163
+  size: 47, 45
+  orig: 47, 45
+  offset: 0, 0
+  index: -1
+HalfLandPiece_Right_Multicolored
+  rotate: false
+  xy: 743, 840
+  size: 63, 47
+  orig: 63, 47
+  offset: 0, 0
+  index: -1
+HalfLandPiece_Left_Green
+  rotate: false
+  xy: 743, 742
+  size: 68, 46
+  orig: 68, 46
+  offset: 0, 0
+  index: -1
+HalfLandPiece_Left_Pink
+  rotate: false
+  xy: 636, 679
+  size: 68, 47
+  orig: 68, 47
+  offset: 0, 0
+  index: -1
+personajeJump
+  rotate: false
+  xy: 560, 699
+  size: 74, 79
+  orig: 74, 79
+  offset: 0, 0
+  index: -1
+personajeWalk1
+  rotate: false
+  xy: 484, 702
+  size: 74, 79
+  orig: 74, 79
+  offset: 0, 0
+  index: -1
+LandPiece_DarkBlue
+  rotate: false
+  xy: 652, 571
+  size: 107, 52
+  orig: 107, 52
+  offset: 0, 0
+  index: -1
+HappyCloud
+  rotate: false
+  xy: 219, 804
+  size: 155, 83
+  orig: 155, 83
+  offset: 0, 0
+  index: -1
+HalfLandPiece_Right_Blue
+  rotate: false
+  xy: 678, 827
+  size: 63, 48
+  orig: 63, 48
+  offset: 0, 0
+  index: -1
+HalfLandPiece_Right_Beige
+  rotate: false
+  xy: 743, 790
+  size: 63, 48
+  orig: 63, 48
+  offset: 0, 0
+  index: -1
+BrokenLandPiece_Gray
+  rotate: false
+  xy: 537, 491
+  size: 113, 48
+  orig: 113, 48
+  offset: 0, 0
+  index: -1
+AngryCloud
+  rotate: false
+  xy: 2, 804
+  size: 155, 84
+  orig: 155, 84
+  offset: 0, 0
+  index: -1
+Mushroom
+  rotate: false
+  xy: 484, 562
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+fontGrande
+  rotate: false
+  xy: 537, 163
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+Pistol
+  rotate: false
+  xy: 869, 611
+  size: 25, 36
+  orig: 25, 36
+  offset: 0, 0
+  index: -1
+Spring
+  rotate: false
+  xy: 767, 494
+  size: 26, 28
+  orig: 26, 28
+  offset: 0, 0
+  index: -1
+BrokenLandPiece_Green
+  rotate: false
+  xy: 652, 471
+  size: 113, 48
+  orig: 113, 48
+  offset: 0, 0
+  index: -1
+LandPiece_DarkGray
+  rotate: false
+  xy: 761, 573
+  size: 106, 52
+  orig: 106, 52
+  offset: 0, 0
+  index: -1
+LandPiece_LightGreen
+  rotate: false
+  xy: 795, 265
+  size: 99, 48
+  orig: 99, 48
+  offset: 0, 0
+  index: -1
+HearthEnemy1
+  rotate: false
+  xy: 537, 421
+  size: 113, 68
+  orig: 113, 68
+  offset: 0, 0
+  index: -1
+BrokenLandPiece_Beige
+  rotate: false
+  xy: 537, 541
+  size: 113, 48
+  orig: 113, 48
+  offset: 0, 0
+  index: -1
+BrokenLandPiece_Pink
+  rotate: false
+  xy: 652, 421
+  size: 113, 48
+  orig: 113, 48
+  offset: 0, 0
+  index: -1
+HalfLandPiece_Right_Pink
+  rotate: false
+  xy: 613, 780
+  size: 63, 48
+  orig: 63, 48
+  offset: 0, 0
+  index: -1
+HalfLandPiece_Left_Gray
+  rotate: false
+  xy: 813, 742
+  size: 68, 46
+  orig: 68, 46
+  offset: 0, 0
+  index: -1
+Coin
+  rotate: false
+  xy: 767, 459
+  size: 26, 33
+  orig: 26, 33
+  offset: 0, 0
+  index: -1
+Jetpack_Small
+  rotate: false
+  xy: 767, 421
+  size: 26, 36
+  orig: 26, 36
+  offset: 0, 0
+  index: -1
+LandPiece_LightGray
+  rotate: false
+  xy: 795, 163
+  size: 99, 49
+  orig: 99, 49
+  offset: 0, 0
+  index: -1
+personajeStand
+  rotate: false
+  xy: 537, 783
+  size: 74, 79
+  orig: 74, 79
+  offset: 0, 0
+  index: -1
+HalfLandPiece_Left_Blue
+  rotate: false
+  xy: 636, 728
+  size: 68, 47
+  orig: 68, 47
+  offset: 0, 0
+  index: -1
+HalfLandPiece_Right_Green
+  rotate: false
+  xy: 613, 830
+  size: 63, 48
+  orig: 63, 48
+  offset: 0, 0
+  index: -1
+personajeWalk2
+  rotate: false
+  xy: 461, 804
+  size: 74, 79
+  orig: 74, 79
+  offset: 0, 0
+  index: -1
+Lightning1
+  rotate: false
+  xy: 484, 598
+  size: 28, 102
+  orig: 28, 102
+  offset: 0, 0
+  index: -1
+Bullet
+  rotate: false
+  xy: 376, 886
+  size: 9, 9
+  orig: 9, 9
+  offset: 0, 0
+  index: -1
+LandPiece_LightPink
+  rotate: false
+  xy: 537, 591
+  size: 106, 52
+  orig: 106, 52
+  offset: 0, 0
+  index: -1
+pixelNegro
+  rotate: false
+  xy: 2, 890
+  size: 5, 5
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
+Bubble_Small
+  rotate: false
+  xy: 869, 573
+  size: 27, 36
+  orig: 27, 36
+  offset: 0, 0
+  index: -1
+JetFire2
+  rotate: false
+  xy: 484, 386
+  size: 35, 58
+  orig: 35, 58
+  offset: 0, 0
+  index: -1
+LandPiece_LightBlue
+  rotate: false
+  xy: 795, 315
+  size: 99, 48
+  orig: 99, 48
+  offset: 0, 0
+  index: -1

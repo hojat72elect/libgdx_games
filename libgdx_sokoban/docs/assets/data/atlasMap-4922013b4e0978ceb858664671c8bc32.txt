@@ -1,0 +1,543 @@
+atlasMap.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+backgroundFlip
+  rotate: false
+  xy: 2, 2
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+cajaBeige
+  rotate: false
+  xy: 1041, 1044
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+Character2
+  rotate: false
+  xy: 1062, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+endPointGray
+  rotate: false
+  xy: 909, 972
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btSettingsPress
+  rotate: false
+  xy: 755, 978
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+UI/btPlay
+  rotate: false
+  xy: 80, 993
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+cajaDarkPurple
+  rotate: false
+  xy: 975, 1044
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btRefreshPress
+  rotate: false
+  xy: 311, 1027
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+Character6
+  rotate: false
+  xy: 1041, 714
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btOn
+  rotate: false
+  xy: 755, 484
+  size: 25, 21
+  orig: 25, 21
+  offset: 0, 0
+  index: -1
+UI/btHomePress
+  rotate: false
+  xy: 755, 516
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+endPointBlue
+  rotate: false
+  xy: 909, 1038
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+endPointBeige
+  rotate: false
+  xy: 909, 582
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cajaGray
+  rotate: false
+  xy: 920, 846
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btFacebookPress
+  rotate: false
+  xy: 80, 915
+  size: 75, 76
+  orig: 75, 76
+  offset: 0, 0
+  index: -1
+UI/btClosePress
+  rotate: false
+  xy: 832, 668
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 2, 2
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+UI/backgroundTime
+  rotate: false
+  xy: 2, 873
+  size: 121, 40
+  orig: 121, 40
+  offset: 0, 0
+  index: -1
+Character3
+  rotate: false
+  xy: 1062, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cajaRed
+  rotate: false
+  xy: 909, 714
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cajaYellow
+  rotate: false
+  xy: 909, 648
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/levelStar
+  rotate: false
+  xy: 480, 873
+  size: 15, 14
+  orig: 15, 14
+  offset: 0, 0
+  index: -1
+cajaPurple
+  rotate: false
+  xy: 920, 780
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btMas
+  rotate: false
+  xy: 157, 993
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+UI/font32Red
+  rotate: false
+  xy: 804, 2
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+UI/btPausa
+  rotate: false
+  xy: 634, 998
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+UI/font32
+  rotate: false
+  xy: 497, 484
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+UI/btLevel
+  rotate: false
+  xy: 2, 915
+  size: 76, 83
+  orig: 76, 83
+  offset: 0, 0
+  index: -1
+Character7
+  rotate: false
+  xy: 1041, 648
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cajaDarkBrown
+  rotate: false
+  xy: 975, 582
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/clock
+  rotate: false
+  xy: 234, 1035
+  size: 72, 75
+  orig: 72, 75
+  offset: 0, 0
+  index: -1
+UI/btIzqPress
+  rotate: false
+  xy: 403, 873
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+UI/btHome
+  rotate: false
+  xy: 755, 593
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+UI/btMasPress
+  rotate: false
+  xy: 2, 1000
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+UI/btAchievement
+  rotate: false
+  xy: 843, 896
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+UI/levelOff
+  rotate: false
+  xy: 234, 915
+  size: 9, 9
+  orig: 9, 9
+  offset: 0, 0
+  index: -1
+UI/btPausaPress
+  rotate: false
+  xy: 557, 998
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+UI/btDownPress
+  rotate: false
+  xy: 755, 670
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+UI/btOff
+  rotate: false
+  xy: 711, 998
+  size: 25, 21
+  orig: 25, 21
+  offset: 0, 0
+  index: -1
+UI/backgroundMoves
+  rotate: false
+  xy: 125, 873
+  size: 121, 40
+  orig: 121, 40
+  offset: 0, 0
+  index: -1
+UI/btLevelLocked
+  rotate: false
+  xy: 248, 873
+  size: 76, 83
+  orig: 76, 83
+  offset: 0, 0
+  index: -1
+UI/btLeaderboard
+  rotate: false
+  xy: 832, 592
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+Character4
+  rotate: false
+  xy: 1052, 846
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cajaBrown
+  rotate: false
+  xy: 986, 846
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+endPointBrown
+  rotate: false
+  xy: 843, 1038
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btUp
+  rotate: false
+  xy: 326, 950
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+cajaBlack
+  rotate: false
+  xy: 1041, 978
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+Character10
+  rotate: false
+  xy: 1062, 134
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btSettings
+  rotate: false
+  xy: 480, 998
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+endPointBlack
+  rotate: false
+  xy: 909, 516
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btDerPress
+  rotate: false
+  xy: 755, 824
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+Character8
+  rotate: false
+  xy: 1041, 582
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cajaDarkBlack
+  rotate: false
+  xy: 975, 714
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btDown
+  rotate: false
+  xy: 755, 747
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+endPointPurple
+  rotate: false
+  xy: 843, 972
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+endPointRed
+  rotate: false
+  xy: 777, 1054
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btUpPress
+  rotate: false
+  xy: 326, 873
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+Character1
+  rotate: false
+  xy: 1062, 200
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btFacebook
+  rotate: false
+  xy: 157, 915
+  size: 75, 76
+  orig: 75, 76
+  offset: 0, 0
+  index: -1
+cajaDarkRed
+  rotate: false
+  xy: 975, 978
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/backgroundVentana
+  rotate: false
+  xy: 2, 484
+  size: 493, 387
+  orig: 493, 387
+  offset: 0, 0
+  index: -1
+cajaDarkYellow
+  rotate: false
+  xy: 975, 912
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+pixelNegro
+  rotate: false
+  xy: 234, 926
+  size: 5, 5
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
+cajaDarkBlue
+  rotate: false
+  xy: 975, 648
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cajaDarkGray
+  rotate: false
+  xy: 975, 516
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cajaBlue
+  rotate: false
+  xy: 1041, 912
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btAchievementPress
+  rotate: false
+  xy: 832, 820
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+Character5
+  rotate: false
+  xy: 1052, 780
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btPlayPress
+  rotate: false
+  xy: 234, 958
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+UI/btClose
+  rotate: false
+  xy: 832, 744
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+UI/btLeaderboardPress
+  rotate: false
+  xy: 832, 516
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+endPointYellow
+  rotate: false
+  xy: 711, 1054
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btIzq
+  rotate: false
+  xy: 403, 950
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+cajaDarkBeige
+  rotate: false
+  xy: 986, 780
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+Character9
+  rotate: false
+  xy: 1041, 516
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btRefresh
+  rotate: false
+  xy: 388, 1027
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+UI/btDer
+  rotate: false
+  xy: 755, 901
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
