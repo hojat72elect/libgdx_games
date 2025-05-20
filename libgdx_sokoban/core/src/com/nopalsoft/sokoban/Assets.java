@@ -1,8 +1,12 @@
 package com.nopalsoft.sokoban;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -164,7 +168,6 @@ public class Assets {
         ParallaxLayer fondo = new ParallaxLayer(atlas.findRegion("background"), new Vector2(1, 0), new Vector2(0, 0), new Vector2(798, 480), 800, 480);
         ParallaxLayer fondoFlip = new ParallaxLayer(regioFondoFlip, new Vector2(1, 0), new Vector2(799, 0), new Vector2(798, 480), 800, 480);
         background = new ParallaxBackground(new ParallaxLayer[]{fondo, fondoFlip}, 800, 480, new Vector2(20, 0));
-
     }
 
     private static void loadUI() {
@@ -204,17 +207,16 @@ public class Assets {
         levelOff = new TextureRegionDrawable(atlas.findRegion("UI/levelOff"));
         levelStar = new TextureRegionDrawable(atlas.findRegion("UI/levelStar"));
 
-        /* Button level */
+        // Button level
         TextureRegionDrawable btLevel = new TextureRegionDrawable(atlas.findRegion("UI/btLevel"));
         styleTextButtonLevel = new TextButtonStyle(btLevel, null, null, font);
 
-        /* Button level */
+        // Button level
         TextureRegionDrawable btLevelLocked = new TextureRegionDrawable(atlas.findRegion("UI/btLevelLocked"));
         styleTextButtonLevelLocked = new TextButtonStyle(btLevelLocked, null, null, font);
 
         backgroundMoves = new TextureRegionDrawable(atlas.findRegion("UI/backgroundMoves"));
         backgroundTime = new TextureRegionDrawable(atlas.findRegion("UI/backgroundTime"));
-
     }
 
     public static void loadTiledMap(int numMap) {
@@ -228,5 +230,4 @@ public class Assets {
             map = new AtlasTmxMapLoader().load("data/maps/map" + numMap + ".tmx");
         }
     }
-
 }

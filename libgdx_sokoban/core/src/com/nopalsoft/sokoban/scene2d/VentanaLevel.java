@@ -15,56 +15,54 @@ import com.nopalsoft.sokoban.screens.Screens;
 
 public class VentanaLevel extends Ventana {
 
-	Button btPlay;
-	Label lbBestMoves, lbBestTime;
+    Button btPlay;
+    Label lbBestMoves, lbBestTime;
 
-	public VentanaLevel(Screens currentScreen) {
-		super(currentScreen, 350, 300, 100);
+    public VentanaLevel(Screens currentScreen) {
+        super(currentScreen, 350, 300, 100);
 
-		setCloseButton(290, 250, 60);
-		setTitle(180, 50, "Puntuaciones", .75f);
+        setCloseButton(290, 250, 60);
+        setTitle(180, 50, "Puntuaciones", .75f);
 
-		Table tbMenu = new Table();
-		tbMenu.setFillParent(true);
+        Table tbMenu = new Table();
+        tbMenu.setFillParent(true);
 
-		btPlay = new Button(Assets.btPlay, Assets.btPlayPress);
+        btPlay = new Button(Assets.btPlay, Assets.btPlayPress);
 
-		Image imgClock = new Image(Assets.clock);
-		Image imgMoves = new Image(Assets.personajeStand);
+        Image imgClock = new Image(Assets.clock);
+        Image imgMoves = new Image(Assets.personajeStand);
 
-		lbBestMoves = new Label("0", new LabelStyle(Assets.fontRed, Color.WHITE));
-		lbBestTime = new Label("0", new LabelStyle(Assets.fontRed, Color.WHITE));
+        lbBestMoves = new Label("0", new LabelStyle(Assets.fontRed, Color.WHITE));
+        lbBestTime = new Label("0", new LabelStyle(Assets.fontRed, Color.WHITE));
 
-		tbMenu.defaults().expandX();
+        tbMenu.defaults().expandX();
 
-		tbMenu.padLeft(30).padRight(30).padBottom(20).padTop(50);
-		tbMenu.add(imgMoves).size(45);
-		tbMenu.add(lbBestMoves);
+        tbMenu.padLeft(30).padRight(30).padBottom(20).padTop(50);
+        tbMenu.add(imgMoves).size(45);
+        tbMenu.add(lbBestMoves);
 
-		tbMenu.row().padTop(10);
-		tbMenu.add(imgClock).size(45);
-		tbMenu.add(lbBestTime);
+        tbMenu.row().padTop(10);
+        tbMenu.add(imgClock).size(45);
+        tbMenu.add(lbBestTime);
 
-		tbMenu.row().padTop(10);
-		tbMenu.add(btPlay).colspan(2).size(60);
+        tbMenu.row().padTop(10);
+        tbMenu.add(btPlay).colspan(2).size(60);
 
-		addActor(tbMenu);
+        addActor(tbMenu);
+    }
 
-	}
+    public void show(Stage stage, final int level, int bestMoves, int bestTime) {
+        lbBestMoves.setText(bestMoves + "");
+        lbBestTime.setText(bestTime + "");
 
-	public void show(Stage stage, final int level, int bestMoves, int bestTime) {
-		lbBestMoves.setText(bestMoves + "");
-		lbBestTime.setText(bestTime + "");
+        btPlay.clear();
+        btPlay.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                screen.changeScreenWithFadeOut(GameScreen.class, level, screen.game);
+            }
+        });
 
-		btPlay.clear();
-		btPlay.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				screen.changeScreenWithFadeOut(GameScreen.class, level, screen.game);
-			}
-		});
-
-		super.show(stage);
-	}
-
+        super.show(stage);
+    }
 }

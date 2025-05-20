@@ -41,7 +41,7 @@ public class LevelSelector extends Group {
 		setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 70);
 		menuScreen = (MainMenuScreen) currentScreen;
 		game = currentScreen.game;
-		idiomas = game.idiomas;
+		idiomas = game.languages;
 
 		setBackGround(Assets.backgroundVentana);
 
@@ -65,8 +65,8 @@ public class LevelSelector extends Group {
 
 		contenedor.defaults().padLeft(5).padRight(5);
 
-		for (int i = 0; i < Settings.arrLevel.length; i++) {
-			totalStars += Settings.arrLevel[i].numStars;
+		for (int i = 0; i < Settings.levels.length; i++) {
+			totalStars += Settings.levels[i].numStars;
 		}
 		totalStars += 2;// Por defecto ya tengo 3 esterllasd
 
@@ -159,8 +159,8 @@ public class LevelSelector extends Group {
 
 			// Estoy agregando mundos que no existen para poder llenar la tabla por eso pongo este fix
 			boolean completed = false;
-			if (level < Settings.arrLevel.length) {
-				if (Settings.arrLevel[level].numStars == 1)
+			if (level < Settings.levels.length) {
+				if (Settings.levels[level].numStars == 1)
 					completed = true;
 			}
 
@@ -179,7 +179,7 @@ public class LevelSelector extends Group {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if (!button.isDisabled()) {
-					vtLevel.show(getStage(), level, Settings.arrLevel[level].bestMoves, Settings.arrLevel[level].bestTime);
+					vtLevel.show(getStage(), level, Settings.levels[level].bestMoves, Settings.levels[level].bestTime);
 
 				}
 			}
