@@ -2,7 +2,7 @@ package com.nopalsoft.sokoban;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.nopalsoft.sokoban.objetos.Level;
+import com.nopalsoft.sokoban.objects.Level;
 
 public class Settings {
 

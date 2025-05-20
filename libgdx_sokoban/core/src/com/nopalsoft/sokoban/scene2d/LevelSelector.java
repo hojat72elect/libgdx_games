@@ -21,173 +21,166 @@ import com.nopalsoft.sokoban.screens.Screens;
 
 public class LevelSelector extends Group {
 
-	protected MainMenuScreen menuScreen;
-	protected I18NBundle idiomas;
-	protected MainSokoban game;
+    protected MainMenuScreen menuScreen;
+    protected I18NBundle idiomas;
+    protected MainSokoban game;
 
-	Label lbTitulo;
+    Label lbTitulo;
 
-	ScrollPane scrollPane;
-	Table contenedor;
+    ScrollPane scrollPane;
+    Table contenedor;
 
-	/** Pagina actual (cada pagina tiene 15 niveles) */
-	int actualPage;
-	int totalStars;
+    /**
+     * Pagina actual (cada pagina tiene 15 niveles)
+     */
+    int actualPage;
+    int totalStars;
 
-	VentanaLevel vtLevel;
+    VentanaLevel vtLevel;
 
-	public LevelSelector(Screens currentScreen) {
-		setSize(600, 385);
-		setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 70);
-		menuScreen = (MainMenuScreen) currentScreen;
-		game = currentScreen.game;
-		idiomas = game.languages;
+    public LevelSelector(Screens currentScreen) {
+        setSize(600, 385);
+        setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 70);
+        menuScreen = (MainMenuScreen) currentScreen;
+        game = currentScreen.game;
+        idiomas = game.languages;
 
-		setBackGround(Assets.backgroundVentana);
+        setBackGround(Assets.backgroundVentana);
 
-		vtLevel = new VentanaLevel(currentScreen);
+        vtLevel = new VentanaLevel(currentScreen);
 
-		Table tbTitulo;
-		tbTitulo = new Table();
+        Table tbTitulo;
+        tbTitulo = new Table();
 
-		tbTitulo.setSize(300, 50);
-		tbTitulo.setPosition(getWidth() / 2f - tbTitulo.getWidth() / 2f, 324);
+        tbTitulo.setSize(300, 50);
+        tbTitulo.setPosition(getWidth() / 2f - tbTitulo.getWidth() / 2f, 324);
 
-		lbTitulo = new Label("Niveles", new LabelStyle(Assets.font, Color.WHITE));
-		tbTitulo.add(lbTitulo);
+        lbTitulo = new Label("Niveles", new LabelStyle(Assets.font, Color.WHITE));
+        tbTitulo.add(lbTitulo);
 
-		contenedor = new Table();
-		scrollPane = new ScrollPane(contenedor);
-		scrollPane.setSize(getWidth() - 100, getHeight() - 100);
-		scrollPane.setPosition(getWidth() / 2f - scrollPane.getWidth() / 2f, 30);
-		scrollPane.setScrollingDisabled(false, true);
-		//
+        contenedor = new Table();
+        scrollPane = new ScrollPane(contenedor);
+        scrollPane.setSize(getWidth() - 100, getHeight() - 100);
+        scrollPane.setPosition(getWidth() / 2f - scrollPane.getWidth() / 2f, 30);
+        scrollPane.setScrollingDisabled(false, true);
+        //
 
-		contenedor.defaults().padLeft(5).padRight(5);
+        contenedor.defaults().padLeft(5).padRight(5);
 
-		for (int i = 0; i < Settings.levels.length; i++) {
-			totalStars += Settings.levels[i].numStars;
-		}
-		totalStars += 2;// Por defecto ya tengo 3 esterllasd
+        for (int i = 0; i < Settings.levels.length; i++) {
+            totalStars += Settings.levels[i].numStars;
+        }
+        totalStars += 2;// Por defecto ya tengo 3 esterllasd
 
-		int numeroPages = (int) (Settings.NUM_MAPS / 15f);
-		if (Settings.NUM_MAPS % 15f != 0)
-			numeroPages++;
+        int numeroPages = (int) (Settings.NUM_MAPS / 15f);
+        if (Settings.NUM_MAPS % 15f != 0)
+            numeroPages++;
 
-		for (int col = 0; col < numeroPages; col++) {
-			contenedor.add(getListLevel(col));
-		}
+        for (int col = 0; col < numeroPages; col++) {
+            contenedor.add(getListLevel(col));
+        }
 
-		actualPage = 0;
+        actualPage = 0;
 
-		addActor(tbTitulo);
-		addActor(scrollPane);
+        addActor(tbTitulo);
+        addActor(scrollPane);
 
-		scrollToPage(0);
+        scrollToPage(0);
+    }
 
-	}
+    private void setBackGround(TextureRegionDrawable imageBackground) {
+        Image img = new Image(imageBackground);
+        img.setSize(getWidth(), getHeight());
+        addActor(img);
+    }
 
-	private void setBackGround(TextureRegionDrawable imageBackground) {
-		Image img = new Image(imageBackground);
-		img.setSize(getWidth(), getHeight());
-		addActor(img);
+    /**
+     * Cada lista tiene 15 items
+     *
+     * @param list
+     * @return
+     */
+    public Table getListLevel(int list) {
+        Table content = new Table();
 
-	}
+        int level = list * 15;
+        content.defaults().pad(7, 12, 7, 12);
+        for (int col = 0; col < 15; col++) {
+            Button oButton = getLevelButton(level);
+            content.add(oButton).size(76, 83);
+            level++;
 
-	/**
-	 * Cada lista tiene 15 items
-	 * 
-	 * @param list
-	 * @return
-	 */
-	public Table getListLevel(int list) {
-		Table content = new Table();
+            if (level % 5 == 0)
+                content.row();
 
-		int level = list * 15;
-		content.defaults().pad(7, 12, 7, 12);
-		for (int col = 0; col < 15; col++) {
-			Button oButton = getLevelButton(level);
-			content.add(oButton).size(76, 83);
-			level++;
+            // para esconder mundos que no existen
+            if (level > Settings.NUM_MAPS)
+                oButton.setVisible(false);
+        }
+        return content;
+    }
 
-			if (level % 5 == 0)
-				content.row();
+    private void scrollToPage(int page) {
 
-			// para esconder mundos que no existen
-			if (level > Settings.NUM_MAPS)
-				oButton.setVisible(false);
+        Table tabToScrollTo = (Table) contenedor.getChildren().get(page);
+        scrollPane.scrollTo(tabToScrollTo.getX(), tabToScrollTo.getY(), tabToScrollTo.getWidth(), tabToScrollTo.getHeight());
+    }
 
-		}
-		return content;
+    public void nextPage() {
+        actualPage++;
+        if (actualPage >= contenedor.getChildren().size)
+            actualPage = contenedor.getChildren().size - 1;
+        scrollToPage(actualPage);
+    }
 
-	}
+    public void previousPage() {
+        actualPage--;
+        if (actualPage < 0)
+            actualPage = 0;
+        scrollToPage(actualPage);
+    }
 
-	private void scrollToPage(int page) {
+    public Button getLevelButton(final int level) {
+        final TextButton button;
 
-		Table tabToScrollTo = (Table) contenedor.getChildren().get(page);
-		scrollPane.scrollTo(tabToScrollTo.getX(), tabToScrollTo.getY(), tabToScrollTo.getWidth(), tabToScrollTo.getHeight());
+        final int skullsToNextLevel = (int) (level * 1f);// Solo necesito 1 estrella para desbloquear el siguiente nivel
 
-	}
+        if (!(totalStars >= skullsToNextLevel)) {
+            button = new TextButton("", Assets.styleTextButtonLevelLocked);
+            button.setDisabled(true);
+        } else {
 
-	public void nextPage() {
-		actualPage++;
-		if (actualPage >= contenedor.getChildren().size)
-			actualPage = contenedor.getChildren().size - 1;
-		scrollToPage(actualPage);
-	}
+            button = new TextButton("" + (level + 1), Assets.styleTextButtonLevel);
 
-	public void previousPage() {
-		actualPage--;
-		if (actualPage < 0)
-			actualPage = 0;
-		scrollToPage(actualPage);
+            // Estoy agregando mundos que no existen para poder llenar la tabla por eso pongo este fix
+            boolean completed = false;
+            if (level < Settings.levels.length) {
+                if (Settings.levels[level].numStars == 1)
+                    completed = true;
+            }
 
-	}
+            Image imgLevel;
 
-	public Button getLevelButton(final int level) {
-		final TextButton button;
+            if (completed)
+                imgLevel = new Image(Assets.levelStar);
+            else
+                imgLevel = new Image(Assets.levelOff);
 
-		final int skullsToNextLevel = (int) (level * 1f);// Solo necesito 1 estrella para desbloquear el siguiente nivel
+            button.row();
+            button.add(imgLevel).size(10).padBottom(2);
+        }
 
-		if (!(totalStars >= skullsToNextLevel)) {
-			button = new TextButton("", Assets.styleTextButtonLevelLocked);
-			button.setDisabled(true);
-		}
-		else {
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (!button.isDisabled()) {
+                    vtLevel.show(getStage(), level, Settings.levels[level].bestMoves, Settings.levels[level].bestTime);
+                }
+            }
+        });
 
-			button = new TextButton("" + (level + 1), Assets.styleTextButtonLevel);
+        menuScreen.addEfectoPress(button);
 
-			// Estoy agregando mundos que no existen para poder llenar la tabla por eso pongo este fix
-			boolean completed = false;
-			if (level < Settings.levels.length) {
-				if (Settings.levels[level].numStars == 1)
-					completed = true;
-			}
-
-			Image imgLevel;
-
-			if (completed)
-				imgLevel = new Image(Assets.levelStar);
-			else
-				imgLevel = new Image(Assets.levelOff);
-
-			button.row();
-			button.add(imgLevel).size(10).padBottom(2);
-		}
-
-		button.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				if (!button.isDisabled()) {
-					vtLevel.show(getStage(), level, Settings.levels[level].bestMoves, Settings.levels[level].bestTime);
-
-				}
-			}
-		});
-
-		menuScreen.addEfectoPress(button);
-
-		return button;
-
-	}
+        return button;
+    }
 }

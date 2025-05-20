@@ -19,7 +19,7 @@ import com.nopalsoft.sokoban.screens.Screens;
 public class Ventana extends Group {
     public static final float DURACION_ANIMATION = .3f;
 
-    private Image dim;
+    private final Image dim;
     protected Screens screen;
     protected I18NBundle idiomas;
 
