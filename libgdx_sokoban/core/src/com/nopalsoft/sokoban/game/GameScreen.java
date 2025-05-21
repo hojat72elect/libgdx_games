@@ -66,7 +66,7 @@ public class GameScreen extends Screens {
         btUndo = new Button(Assets.btRefresh, Assets.btRefreshPress);
         btUndo.setSize(80, 80);
         btUndo.setPosition(700, 20);
-        btUndo.getColor().a = oControl.getColor().a;// Que tengan el mismo color de alpha
+        btUndo.getColor().a = oControl.getColor().a;// which means that they will have the same alpha color.
         btUndo.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -99,10 +99,10 @@ public class GameScreen extends Screens {
     public void draw(float delta) {
         Assets.background.render(delta);
 
-        // Render el tileMap
+        // Render the tileMap
         renderer.render();
 
-        // Render el tablero
+        // Render the board
         stageGame.draw();
     }
 

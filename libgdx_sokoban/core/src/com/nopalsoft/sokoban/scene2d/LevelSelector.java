@@ -31,7 +31,7 @@ public class LevelSelector extends Group {
     Table contenedor;
 
     /**
-     * Pagina actual (cada pagina tiene 15 niveles)
+     * Current page (each page has 15 levels).
      */
     int actualPage;
     int totalStars;
@@ -63,14 +63,13 @@ public class LevelSelector extends Group {
         scrollPane.setSize(getWidth() - 100, getHeight() - 100);
         scrollPane.setPosition(getWidth() / 2f - scrollPane.getWidth() / 2f, 30);
         scrollPane.setScrollingDisabled(false, true);
-        //
 
         contenedor.defaults().padLeft(5).padRight(5);
 
         for (int i = 0; i < Settings.levels.length; i++) {
             totalStars += Settings.levels[i].numStars;
         }
-        totalStars += 2;// Por defecto ya tengo 3 esterllasd
+        totalStars += 2;// By default I already have 3 stars.
 
         int numeroPages = (int) (Settings.NUM_MAPS / 15f);
         if (Settings.NUM_MAPS % 15f != 0)
@@ -95,7 +94,7 @@ public class LevelSelector extends Group {
     }
 
     /**
-     * Cada lista tiene 15 items
+     * Each list has 15 items.
      */
     public Table getListLevel(int list) {
         Table content = new Table();
@@ -110,7 +109,7 @@ public class LevelSelector extends Group {
             if (level % 5 == 0)
                 content.row();
 
-            // para esconder mundos que no existen
+            // to hide worlds that do not exist.
             if (level > Settings.NUM_MAPS)
                 oButton.setVisible(false);
         }
@@ -140,7 +139,7 @@ public class LevelSelector extends Group {
     public Button getLevelButton(final int level) {
         final TextButton button;
 
-        final int skullsToNextLevel = (int) (level * 1f);// Solo necesito 1 estrella para desbloquear el siguiente nivel
+        final int skullsToNextLevel = (int) (level * 1f); // I only need 1 star to unlock the next level
 
         if (!(totalStars >= skullsToNextLevel)) {
             button = new TextButton("", Assets.styleTextButtonLevelLocked);
@@ -149,7 +148,7 @@ public class LevelSelector extends Group {
 
             button = new TextButton("" + (level + 1), Assets.styleTextButtonLevel);
 
-            // Estoy agregando mundos que no existen para poder llenar la tabla por eso pongo este fix
+            // I'm adding worlds that don't exist so I can fill the table, that's why I'm putting this fix.
             boolean completed = false;
             if (level < Settings.levels.length) {
                 if (Settings.levels[level].numStars == 1)

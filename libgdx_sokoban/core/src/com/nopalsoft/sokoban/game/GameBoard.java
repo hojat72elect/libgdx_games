@@ -51,7 +51,7 @@ public class GameBoard extends Group {
         initializeMap("StaticMap");
         initializeMap("Objetos");
 
-        // DESPUES de inicializar los objetos los agrego al Tablero en orden para que se dibujen unos primero que otros
+        // AFTER initializing the objects I add them to the Board in order so that some are drawn before others
         agregarAlTablero(Wall.class);
         agregarAlTablero(EndPoint.class);
         agregarAlTablero(Box.class);
@@ -210,7 +210,7 @@ public class GameBoard extends Group {
     }
 
     /**
-     * Indica si el objeto en la posicion es una caja.
+     * Indicates whether the object at position is a box.
      */
     private boolean checarIsBoxInPosition(int pos) {
         boolean isBoxInPosition = false;
@@ -224,7 +224,7 @@ public class GameBoard extends Group {
     }
 
     /**
-     * Indica si el objeto en la posicion es endPoint
+     * Indicates whether the object at position is endPoint.
      */
     private boolean checarIsEndInPosition(int pos) {
         boolean isEndPointInPosition = false;

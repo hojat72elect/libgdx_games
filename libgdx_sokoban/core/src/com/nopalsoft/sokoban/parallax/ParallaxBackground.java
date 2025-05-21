@@ -13,10 +13,10 @@ public class ParallaxBackground {
     private final Vector2 speed = new Vector2();
 
     /**
-     * @param layers The  background layers
-     * @param width  The screenWith
-     * @param height The screenHeight
-     * @param speed  A Vector2 attribute to point out the x and y speed
+     * @param layers The  background layers.
+     * @param width  The screenWith.
+     * @param height The screenHeight.
+     * @param speed  A Vector2 attribute to point out the x and y speed.
      */
     public ParallaxBackground(ParallaxLayer[] layers, float width, float height, Vector2 speed) {
         this.layers = layers;
