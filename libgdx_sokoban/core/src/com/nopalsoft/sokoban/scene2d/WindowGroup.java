@@ -92,16 +92,9 @@ public class WindowGroup extends Group {
     public void hide() {
         isShown = false;
 
-        Runnable run = this::hideCompleted;
         addAction(Actions
-                .sequence(Actions.scaleTo(.35f, .35f, ANIMATION_DURATION), Actions.run(run), Actions.removeActor(dim), Actions.removeActor()));
+                .sequence(Actions.scaleTo(.35f, .35f, ANIMATION_DURATION), Actions.removeActor(dim), Actions.removeActor()));
         dim.addAction(Actions.alpha(0, ANIMATION_DURATION));
     }
 
-    /**
-     * Se llama cuando se termina de ocultar
-     */
-    public void hideCompleted() {
-
-    }
 }

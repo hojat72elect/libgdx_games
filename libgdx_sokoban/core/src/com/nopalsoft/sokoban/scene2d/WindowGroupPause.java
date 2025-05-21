@@ -72,8 +72,4 @@ public class WindowGroupPause extends WindowGroup {
         addActor(tbMenu);
     }
 
-    @Override
-    public void hideCompleted() {
-        ((GameScreen) screen).setRunning();
-    }
 }
