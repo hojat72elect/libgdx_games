@@ -77,7 +77,6 @@ public class GameScreen extends Screens {
         btPausa = new Button(Assets.btPausa, Assets.btPausaPress);
         btPausa.setSize(60, 60);
         btPausa.setPosition(730, 410);
-        // btPausa.getColor().a = oControl.getColor().a;// Que tengan el mismo color de alpha
         btPausa.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -101,7 +100,7 @@ public class GameScreen extends Screens {
         Assets.background.render(delta);
 
         // Render el tileMap
-        renderer.render(delta);
+        renderer.render();
 
         // Render el tablero
         stageGame.draw();

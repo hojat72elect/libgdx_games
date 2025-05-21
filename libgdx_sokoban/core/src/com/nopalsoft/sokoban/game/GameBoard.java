@@ -15,8 +15,6 @@ import com.nopalsoft.sokoban.objects.Player;
 import com.nopalsoft.sokoban.objects.Tiles;
 import com.nopalsoft.sokoban.objects.Wall;
 
-import java.util.Iterator;
-
 public class GameBoard extends Group {
     public static final float UNIT_SCALE = 1f;
 
@@ -46,9 +44,9 @@ public class GameBoard extends Group {
     public GameBoard() {
         setSize(800, 480);
 
-        arrTiles = new Array<Tiles>(25 * 15);
-        playerMoves = new Array<Vector2>();
-        boxMoves = new Array<Vector2>();
+        arrTiles = new Array<>(25 * 15);
+        playerMoves = new Array<>();
+        boxMoves = new Array<>();
 
         initializeMap("StaticMap");
         initializeMap("Objetos");
@@ -65,9 +63,7 @@ public class GameBoard extends Group {
     }
 
     private void agregarAlTablero(Class<?> tipo) {
-        Iterator<Tiles> i = arrTiles.iterator();
-        while (i.hasNext()) {
-            Tiles obj = i.next();
+        for (Tiles obj : arrTiles) {
             if (obj.getClass() == tipo) {
                 addActor(obj);
             }
@@ -205,7 +201,7 @@ public class GameBoard extends Group {
     }
 
     private boolean checarEspacioVacio(int pos) {
-        ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+        ArrayIterator<Tiles> ite = new ArrayIterator<>(arrTiles);
         while (ite.hasNext()) {
             if (ite.next().posicion == pos)
                 return false;
@@ -214,13 +210,11 @@ public class GameBoard extends Group {
     }
 
     /**
-     * Indica si el objeto en la posicion es una caja
-     *
-     * @param pos
+     * Indica si el objeto en la posicion es una caja.
      */
     private boolean checarIsBoxInPosition(int pos) {
         boolean isBoxInPosition = false;
-        ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+        ArrayIterator<Tiles> ite = new ArrayIterator<>(arrTiles);
         while (ite.hasNext()) {
             Tiles obj = ite.next();
             if (obj.posicion == pos && obj instanceof Box)
@@ -231,12 +225,10 @@ public class GameBoard extends Group {
 
     /**
      * Indica si el objeto en la posicion es endPoint
-     *
-     * @param pos
      */
     private boolean checarIsEndInPosition(int pos) {
         boolean isEndPointInPosition = false;
-        ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+        ArrayIterator<Tiles> ite = new ArrayIterator<>(arrTiles);
         while (ite.hasNext()) {
             Tiles obj = ite.next();
             if (obj.posicion == pos && obj instanceof EndPoint)
@@ -246,7 +238,7 @@ public class GameBoard extends Group {
     }
 
     private Box getBoxInPosition(int pos) {
-        ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+        ArrayIterator<Tiles> ite = new ArrayIterator<>(arrTiles);
         while (ite.hasNext()) {
             Tiles obj = ite.next();
             if (obj.posicion == pos && obj instanceof Box)
@@ -256,7 +248,7 @@ public class GameBoard extends Group {
     }
 
     private EndPoint getEndPointInPosition(int pos) {
-        ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+        ArrayIterator<Tiles> ite = new ArrayIterator<>(arrTiles);
         while (ite.hasNext()) {
             Tiles obj = ite.next();
             if (obj.posicion == pos && obj instanceof EndPoint)
@@ -267,7 +259,7 @@ public class GameBoard extends Group {
 
     private int checkBoxesMissingTheRightEndPoint() {
         int numBox = 0;
-        ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+        ArrayIterator<Tiles> ite = new ArrayIterator<>(arrTiles);
         while (ite.hasNext()) {
             Tiles obj = ite.next();
             if (obj instanceof Box) {

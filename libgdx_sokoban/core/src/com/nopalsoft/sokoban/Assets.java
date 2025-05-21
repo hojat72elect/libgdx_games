@@ -148,20 +148,20 @@ public class Assets {
         AtlasRegion up1 = atlas.findRegion("Character7");
         AtlasRegion up2 = atlas.findRegion("Character8");
         AtlasRegion up3 = atlas.findRegion("Character9");
-        personajeUp = new Animation<TextureRegion>(.09f, up2, up3, up1);
+        personajeUp = new Animation<>(.09f, up2, up3, up1);
 
         AtlasRegion down1 = atlas.findRegion("Character4");
         AtlasRegion down2 = atlas.findRegion("Character5");
         AtlasRegion down3 = atlas.findRegion("Character6");
-        personajeDown = new Animation<TextureRegion>(.09f, down2, down3, down1);
+        personajeDown = new Animation<>(.09f, down2, down3, down1);
 
         AtlasRegion right1 = atlas.findRegion("Character2");
         AtlasRegion right2 = atlas.findRegion("Character3");
-        personajeRight = new Animation<TextureRegion>(.09f, right1, right2, right1);
+        personajeRight = new Animation<>(.09f, right1, right2, right1);
 
         AtlasRegion left1 = atlas.findRegion("Character1");
         AtlasRegion left2 = atlas.findRegion("Character10");
-        personajeLeft = new Animation<TextureRegion>(.09f, left1, left2, left1);
+        personajeLeft = new Animation<>(.09f, left1, left2, left1);
 
         AtlasRegion regioFondoFlip = atlas.findRegion("backgroundFlip");
         regioFondoFlip.flip(true, false);

@@ -22,9 +22,7 @@ public class TableroRenderer {
         mapStaticLayer = (TiledMapTileLayer) tiledRender.getMap().getLayers().get("StaticMap");
     }
 
-    public void render(float delta) {
-
-
+    public void render() {
         oCam.update();
         tiledRender.setView(oCam);
         tiledRender.getBatch().begin();

@@ -96,9 +96,6 @@ public class LevelSelector extends Group {
 
     /**
      * Cada lista tiene 15 items
-     *
-     * @param list
-     * @return
      */
     public Table getListLevel(int list) {
         Table content = new Table();
