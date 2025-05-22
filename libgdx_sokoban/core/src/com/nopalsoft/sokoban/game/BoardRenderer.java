@@ -9,24 +9,24 @@ import com.nopalsoft.sokoban.screens.Screens;
 
 public class BoardRenderer {
 
-    SpriteBatch batcher;
+    SpriteBatch batch;
     OrthogonalTiledMapRenderer renderer;
-    TiledMapTileLayer mapStaticLayer;
+    TiledMapTileLayer tileLayer;
     OrthographicCamera camera;
 
     public BoardRenderer(SpriteBatch batch) {
-        batcher = batch;
+        this.batch = batch;
         camera = new OrthographicCamera(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
         camera.position.set(Screens.SCREEN_WIDTH / 2f, Screens.SCREEN_HEIGHT / 2f, 0);
         renderer = new OrthogonalTiledMapRenderer(Assets.map, GameBoard.UNIT_SCALE);
-        mapStaticLayer = (TiledMapTileLayer) renderer.getMap().getLayers().get("StaticMap");
+        tileLayer = (TiledMapTileLayer) renderer.getMap().getLayers().get("StaticMap");
     }
 
     public void render() {
         camera.update();
         renderer.setView(camera);
         renderer.getBatch().begin();
-        renderer.renderTileLayer(mapStaticLayer);
+        renderer.renderTileLayer(tileLayer);
         renderer.getBatch().end();
     }
 }

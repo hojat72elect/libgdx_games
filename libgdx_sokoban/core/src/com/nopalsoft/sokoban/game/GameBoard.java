@@ -74,7 +74,7 @@ public class GameBoard extends Group {
         TiledMapTileLayer layer = (TiledMapTileLayer) Assets.map.getLayers().get(layerName);
         if (layer != null) {
 
-            int posTile = 0;
+            int tilePosition = 0;
             for (int y = 0; y < 15; y++) {
                 for (int x = 0; x < 25; x++) {
                     Cell cell = layer.getCell(x, y);
@@ -82,21 +82,26 @@ public class GameBoard extends Group {
                         TiledMapTile tile = cell.getTile();
                         if (tile.getProperties() != null) {
                             if (tile.getProperties().containsKey("tipo")) {
-                                String tipo = tile.getProperties().get("tipo").toString();
+                                String tileType = tile.getProperties().get("tipo").toString();
 
-                                if (tipo.equals("startPoint")) {
-                                    createPlayer(posTile);
-                                } else if (tipo.equals("pared")) {
-                                    createWall(posTile);
-                                } else if (tipo.equals("caja")) {
-                                    createBox(posTile, tile.getProperties().get("color").toString());
-                                } else if (tipo.equals("endPoint")) {
-                                    createTargetPlatform(posTile, tile.getProperties().get("color").toString());
+                                switch (tileType) {
+                                    case "startPoint":
+                                        createPlayer(tilePosition);
+                                        break;
+                                    case "pared":
+                                        createWall(tilePosition);
+                                        break;
+                                    case "caja":
+                                        createBox(tilePosition, tile.getProperties().get("color").toString());
+                                        break;
+                                    case "endPoint":
+                                        createTargetPlatform(tilePosition, tile.getProperties().get("color").toString());
+                                        break;
                                 }
                             }
                         }
                     }
-                    posTile++;
+                    tilePosition++;
                 }
             }
         }
@@ -149,7 +154,7 @@ public class GameBoard extends Group {
                 if (player.canMove() && (moveDown || moveLeft || moveRight || moveUp)) {
                     int nextPos = player.posicion + auxMoves;
 
-                    if (checarEspacioVacio(nextPos) || (!isBoxAtPosition(nextPos) && checarIsEndInPosition(nextPos))) {
+                    if (isPositionEmpty(nextPos) || (!isBoxAtPosition(nextPos) && isTargetPlatformAtPosition(nextPos))) {
                         playerMoves.add(new Vector2(player.posicion, nextPos));
                         boxMoves.add(null);
                         player.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
@@ -157,16 +162,16 @@ public class GameBoard extends Group {
                     } else {
                         if (isBoxAtPosition(nextPos)) {
                             int boxNextPosition = nextPos + auxMoves;
-                            if (checarEspacioVacio(boxNextPosition) || (!isBoxAtPosition(boxNextPosition) && checarIsEndInPosition(boxNextPosition))) {
-                                Box oBox = getBoxInPosition(nextPos);
+                            if (isPositionEmpty(boxNextPosition) || (!isBoxAtPosition(boxNextPosition) && isTargetPlatformAtPosition(boxNextPosition))) {
+                                Box box = getBoxInPosition(nextPos);
 
                                 playerMoves.add(new Vector2(player.posicion, nextPos));
-                                boxMoves.add(new Vector2(oBox.posicion, boxNextPosition));
+                                boxMoves.add(new Vector2(box.posicion, boxNextPosition));
                                 moves++;
 
-                                oBox.moveToPosition(boxNextPosition, false);
+                                box.moveToPosition(boxNextPosition, false);
                                 player.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
-                                oBox.setIsInEndPoint(getEndPointInPosition(boxNextPosition));
+                                box.setIsInEndPoint(getEndPointInPosition(boxNextPosition));
                             }
                         }
                     }
@@ -185,25 +190,25 @@ public class GameBoard extends Group {
 
     private void undo() {
         if (playerMoves.size >= moves) {
-            Vector2 posAntPersonaje = playerMoves.removeIndex(moves - 1);
-            player.moveToPosition((int) posAntPersonaje.x, true);
+            Vector2 playerLastPosition = playerMoves.removeIndex(moves - 1);
+            player.moveToPosition((int) playerLastPosition.x, true);
         }
         if (boxMoves.size >= moves) {
-            Vector2 posAntBox = boxMoves.removeIndex(moves - 1);
-            if (posAntBox != null) {
-                Box oBox = getBoxInPosition((int) posAntBox.y);
-                oBox.moveToPosition((int) posAntBox.x, true);
-                oBox.setIsInEndPoint(getEndPointInPosition(oBox.posicion));
+            Vector2 boxLastPosition = boxMoves.removeIndex(moves - 1);
+            if (boxLastPosition != null) {
+                Box box = getBoxInPosition((int) boxLastPosition.y);
+                box.moveToPosition((int) boxLastPosition.x, true);
+                box.setIsInEndPoint(getEndPointInPosition(box.posicion));
             }
         }
         moves--;
         undo = false;
     }
 
-    private boolean checarEspacioVacio(int pos) {
-        ArrayIterator<Tiles> ite = new ArrayIterator<>(tiles);
-        while (ite.hasNext()) {
-            if (ite.next().posicion == pos)
+    private boolean isPositionEmpty(int position) {
+        ArrayIterator<Tiles> iterator = new ArrayIterator<>(tiles);
+        while (iterator.hasNext()) {
+            if (iterator.next().posicion == position)
                 return false;
         }
         return true;
@@ -226,32 +231,32 @@ public class GameBoard extends Group {
     /**
      * Indicates whether the object at position is endPoint.
      */
-    private boolean checarIsEndInPosition(int pos) {
+    private boolean isTargetPlatformAtPosition(int position) {
         boolean isEndPointInPosition = false;
-        ArrayIterator<Tiles> ite = new ArrayIterator<>(tiles);
-        while (ite.hasNext()) {
-            Tiles obj = ite.next();
-            if (obj.posicion == pos && obj instanceof TargetPlatform)
+        ArrayIterator<Tiles> iterator = new ArrayIterator<>(tiles);
+        while (iterator.hasNext()) {
+            Tiles obj = iterator.next();
+            if (obj.posicion == position && obj instanceof TargetPlatform)
                 isEndPointInPosition = true;
         }
         return isEndPointInPosition;
     }
 
-    private Box getBoxInPosition(int pos) {
+    private Box getBoxInPosition(int position) {
         ArrayIterator<Tiles> ite = new ArrayIterator<>(tiles);
         while (ite.hasNext()) {
             Tiles obj = ite.next();
-            if (obj.posicion == pos && obj instanceof Box)
+            if (obj.posicion == position && obj instanceof Box)
                 return (Box) obj;
         }
         return null;
     }
 
-    private TargetPlatform getEndPointInPosition(int pos) {
-        ArrayIterator<Tiles> ite = new ArrayIterator<>(tiles);
-        while (ite.hasNext()) {
-            Tiles obj = ite.next();
-            if (obj.posicion == pos && obj instanceof TargetPlatform)
+    private TargetPlatform getEndPointInPosition(int position) {
+        ArrayIterator<Tiles> iterator = new ArrayIterator<>(tiles);
+        while (iterator.hasNext()) {
+            Tiles obj = iterator.next();
+            if (obj.posicion == position && obj instanceof TargetPlatform)
                 return (TargetPlatform) obj;
         }
         return null;
@@ -259,12 +264,12 @@ public class GameBoard extends Group {
 
     private int checkBoxesMissingTheRightEndPoint() {
         int numBox = 0;
-        ArrayIterator<Tiles> ite = new ArrayIterator<>(tiles);
-        while (ite.hasNext()) {
-            Tiles obj = ite.next();
+        ArrayIterator<Tiles> iterator = new ArrayIterator<>(tiles);
+        while (iterator.hasNext()) {
+            Tiles obj = iterator.next();
             if (obj instanceof Box) {
-                Box oBox = (Box) obj;
-                if (!oBox.isInRightEndPoint)
+                Box box = (Box) obj;
+                if (!box.isInRightEndPoint)
                     numBox++;
             }
         }
