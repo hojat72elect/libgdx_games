@@ -26,7 +26,7 @@ public class GameScreen extends Screens {
     static final int STATE_GAME_OVER = 2;
     public int state;
 
-    TableroRenderer renderer;
+    BoardRenderer renderer;
     GameBoard oGameBoard;
 
     TouchPadControlsTable oControl;
@@ -49,7 +49,7 @@ public class GameScreen extends Screens {
         stageGame = new Stage(new StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT));
         oGameBoard = new GameBoard();
 
-        renderer = new TableroRenderer(batcher);
+        renderer = new BoardRenderer(batcher);
 
         oControl = new TouchPadControlsTable(this);
 

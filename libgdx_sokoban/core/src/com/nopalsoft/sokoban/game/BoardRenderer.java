@@ -7,14 +7,14 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.screens.Screens;
 
-public class TableroRenderer {
+public class BoardRenderer {
 
     SpriteBatch batcher;
     OrthogonalTiledMapRenderer tiledRender;
     TiledMapTileLayer mapStaticLayer;
     OrthographicCamera oCam;
 
-    public TableroRenderer(SpriteBatch batch) {
+    public BoardRenderer(SpriteBatch batch) {
         batcher = batch;
         oCam = new OrthographicCamera(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
         oCam.position.set(Screens.SCREEN_WIDTH / 2f, Screens.SCREEN_HEIGHT / 2f, 0);
