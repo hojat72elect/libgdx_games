@@ -13,25 +13,25 @@ public class Settings {
     public static int NUM_MAPS = 62;
     public static Level[] levels;// Each position is a level
 
-    private final static Preferences pref = Gdx.app.getPreferences("com.nopalsoft.sokoban");
+    private final static Preferences preferences = Gdx.app.getPreferences("com.nopalsoft.sokoban");
 
     public static void load() {
         levels = new Level[NUM_MAPS];
 
-        animationWalkIsON = pref.getBoolean("animationWalkIsON", false);
+        animationWalkIsON = preferences.getBoolean("animationWalkIsON", false);
 
         for (int i = 0; i < NUM_MAPS; i++) {
             levels[i] = new Level();
-            levels[i].numStars = pref.getInteger("numStars" + i, 0);
-            levels[i].bestMoves = pref.getInteger("bestMoves" + i, 0);
-            levels[i].bestTime = pref.getInteger("bestTime" + i, 0);
+            levels[i].numStars = preferences.getInteger("numStars" + i, 0);
+            levels[i].bestMoves = preferences.getInteger("bestMoves" + i, 0);
+            levels[i].bestTime = preferences.getInteger("bestTime" + i, 0);
         }
     }
 
     public static void save() {
 
-        pref.putBoolean("animationWalkIsON", animationWalkIsON);
-        pref.flush();
+        preferences.putBoolean("animationWalkIsON", animationWalkIsON);
+        preferences.flush();
     }
 
     public static void levelCompeted(int level, int moves, int time) {
@@ -40,10 +40,10 @@ public class Settings {
         levels[level].bestMoves = moves;
         levels[level].bestTime = time;
 
-        pref.putInteger("numStars" + level, levels[level].numStars);
-        pref.putInteger("bestMoves" + level, levels[level].bestMoves);
-        pref.putInteger("bestTime" + level, levels[level].bestTime);
+        preferences.putInteger("numStars" + level, levels[level].numStars);
+        preferences.putInteger("bestMoves" + level, levels[level].bestMoves);
+        preferences.putInteger("bestTime" + level, levels[level].bestTime);
 
-        pref.flush();
+        preferences.flush();
     }
 }

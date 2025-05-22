@@ -120,7 +120,7 @@ public class Box extends Tiles {
         batch.draw(keyFrame, getX(), getY(), SIZE, SIZE);
     }
 
-    public void setIsInEndPoint(EndPoint endPoint) {
+    public void setIsInEndPoint(TargetPlatform endPoint) {
         numColor = Math.abs(numColor);
         isInRightEndPoint = false;
         if (endPoint != null && endPoint.numColor == numColor) {

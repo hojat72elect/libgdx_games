@@ -4,12 +4,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.nopalsoft.sokoban.Assets;
 
-public class EndPoint extends Tiles {
+public class TargetPlatform extends Tiles {
     int numColor;
 
     AtlasRegion keyFrame;
 
-    public EndPoint(int position, String color) {
+    public TargetPlatform(int position, String color) {
         super(position);
 
         switch (color) {
