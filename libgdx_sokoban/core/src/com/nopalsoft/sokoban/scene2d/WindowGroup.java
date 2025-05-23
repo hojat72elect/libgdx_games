@@ -31,14 +31,14 @@ public class WindowGroup extends Group {
         setSize(width, height);
         setY(positionY);
 
-        dim = new Image(Assets.pixelNegro);
+        dim = new Image(Assets.blackPixelDrawable);
         dim.setSize(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
 
-        setBackGround(Assets.backgroundVentana);
+        setBackGround(Assets.windowBackground);
     }
 
     protected void setCloseButton() {
-        Button btClose = new Button(Assets.btClose, Assets.btClosePress);
+        Button btClose = new Button(Assets.buttonCloseDrawable, Assets.buttonClosePressedDrawable);
         btClose.setSize((float) 60, (float) 60);
         btClose.setPosition((float) 290, (float) 250);
         btClose.addListener(new ClickListener() {

@@ -11,13 +11,13 @@ import com.nopalsoft.sokoban.screens.Screens;
 public class MainSokoban extends Game {
 
     public Stage stage;
-    public SpriteBatch batcher;
+    public SpriteBatch batch;
     public I18NBundle languages;
 
     @Override
     public void create() {
         stage = new Stage(new StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT));
-        batcher = new SpriteBatch();
+        batch = new SpriteBatch();
 
         Assets.load();
         Settings.load();

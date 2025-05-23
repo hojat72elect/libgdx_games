@@ -27,18 +27,18 @@ public class GameScreen extends Screens {
     public int state;
 
     BoardRenderer renderer;
-    GameBoard oGameBoard;
+    GameBoard gameBoard;
 
-    TouchPadControlsTable oControl;
-    Button btUndo;
-    Button btPausa;
+    TouchPadControlsTable touchpadControls;
+    Button buttonUndo;
+    Button buttonPause;
 
-    CounterTable barTime;
-    CounterTable barMoves;
+    CounterTable counterTableTime;
+    CounterTable counterTableMoves;
 
-    private final Stage stageGame;
+    private final Stage gameStage;
 
-    WindowGroupPause vtPause;
+    WindowGroupPause windowPause;
 
     public int level;
 
@@ -46,51 +46,51 @@ public class GameScreen extends Screens {
         super(game);
         this.level = level;
 
-        stageGame = new Stage(new StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT));
-        oGameBoard = new GameBoard();
+        gameStage = new Stage(new StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT));
+        gameBoard = new GameBoard();
 
-        renderer = new BoardRenderer(batcher);
+        renderer = new BoardRenderer(batch);
 
-        oControl = new TouchPadControlsTable(this);
+        touchpadControls = new TouchPadControlsTable(this);
 
-        barTime = new CounterTable(Assets.backgroundTime, 5, 430);
-        barMoves = new CounterTable(Assets.backgroundMoves, 5, 380);
+        counterTableTime = new CounterTable(Assets.backgroundTime, 5, 430);
+        counterTableMoves = new CounterTable(Assets.backgroundMoves, 5, 380);
 
-        vtPause = new WindowGroupPause(this);
+        windowPause = new WindowGroupPause(this);
 
         Label lbNivel = new Label("Level " + (level + 1), new LabelStyle(Assets.fontRed, Color.WHITE));
-        lbNivel.setWidth(barTime.getWidth());
+        lbNivel.setWidth(counterTableTime.getWidth());
         lbNivel.setPosition(5, 330);
         lbNivel.setAlignment(Align.center);
 
-        btUndo = new Button(Assets.btRefresh, Assets.btRefreshPress);
-        btUndo.setSize(80, 80);
-        btUndo.setPosition(700, 20);
-        btUndo.getColor().a = oControl.getColor().a;// which means that they will have the same alpha color.
-        btUndo.addListener(new ClickListener() {
+        buttonUndo = new Button(Assets.buttonRefreshDrawable, Assets.buttonRefreshPressedDrawable);
+        buttonUndo.setSize(80, 80);
+        buttonUndo.setPosition(700, 20);
+        buttonUndo.getColor().a = touchpadControls.getColor().a;// which means that they will have the same alpha color.
+        buttonUndo.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                oGameBoard.undo = true;
+                gameBoard.undo = true;
             }
         });
 
-        btPausa = new Button(Assets.btPausa, Assets.btPausaPress);
-        btPausa.setSize(60, 60);
-        btPausa.setPosition(730, 410);
-        btPausa.addListener(new ClickListener() {
+        buttonPause = new Button(Assets.buttonPauseDrawable, Assets.buttonPausePressedDrawable);
+        buttonPause.setSize(60, 60);
+        buttonPause.setPosition(730, 410);
+        buttonPause.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 setPause();
             }
         });
 
-        stageGame.addActor(oGameBoard);
-        stageGame.addActor(barTime);
-        stageGame.addActor(barMoves);
+        gameStage.addActor(gameBoard);
+        gameStage.addActor(counterTableTime);
+        gameStage.addActor(counterTableMoves);
         stage.addActor(lbNivel);
-        stage.addActor(oControl);
-        stage.addActor(btUndo);
-        stage.addActor(btPausa);
+        stage.addActor(touchpadControls);
+        stage.addActor(buttonUndo);
+        stage.addActor(buttonPause);
 
         setRunning();
     }
@@ -103,18 +103,18 @@ public class GameScreen extends Screens {
         renderer.render();
 
         // Render the board
-        stageGame.draw();
+        gameStage.draw();
     }
 
     @Override
     public void update(float delta) {
 
         if (state != STATE_PAUSED) {
-            stageGame.act(delta);
-            barMoves.updateDisplayedNumber(oGameBoard.moves);
-            barTime.updateDisplayedNumber((int) oGameBoard.time);
+            gameStage.act(delta);
+            counterTableMoves.updateDisplayedNumber(gameBoard.moves);
+            counterTableTime.updateDisplayedNumber((int) gameBoard.time);
 
-            if (state == STATE_RUNNING && oGameBoard.state == GameBoard.STATE_GAME_OVER) {
+            if (state == STATE_RUNNING && gameBoard.state == GameBoard.STATE_GAME_OVER) {
                 setGameOver();
             }
         }
@@ -122,7 +122,7 @@ public class GameScreen extends Screens {
 
     private void setGameOver() {
         state = STATE_GAME_OVER;
-        Settings.levelCompeted(level, oGameBoard.moves, (int) oGameBoard.time);
+        Settings.levelCompeted(level, gameBoard.moves, (int) gameBoard.time);
         stage.addAction(Actions.sequence(Actions.delay(.35f), Actions.run(() -> {
             level += 1;
             if (level >= Settings.NUM_MAPS)
@@ -141,31 +141,31 @@ public class GameScreen extends Screens {
     private void setPause() {
         if (state == STATE_RUNNING) {
             state = STATE_PAUSED;
-            vtPause.show(stage);
+            windowPause.show(stage);
         }
     }
 
     @Override
     public void up() {
-        oGameBoard.moveUp = true;
+        gameBoard.moveUp = true;
         super.up();
     }
 
     @Override
     public void down() {
-        oGameBoard.moveDown = true;
+        gameBoard.moveDown = true;
         super.down();
     }
 
     @Override
     public void right() {
-        oGameBoard.moveRight = true;
+        gameBoard.moveRight = true;
         super.right();
     }
 
     @Override
     public void left() {
-        oGameBoard.moveLeft = true;
+        gameBoard.moveLeft = true;
         super.left();
     }
 
@@ -173,21 +173,21 @@ public class GameScreen extends Screens {
     public boolean keyDown(int keycode) {
         if (state == STATE_RUNNING) {
             if (keycode == Keys.LEFT || keycode == Keys.A) {
-                oGameBoard.moveLeft = true;
+                gameBoard.moveLeft = true;
             } else if (keycode == Keys.RIGHT || keycode == Keys.D) {
-                oGameBoard.moveRight = true;
+                gameBoard.moveRight = true;
             } else if (keycode == Keys.UP || keycode == Keys.W) {
-                oGameBoard.moveUp = true;
+                gameBoard.moveUp = true;
             } else if (keycode == Keys.DOWN || keycode == Keys.S) {
-                oGameBoard.moveDown = true;
+                gameBoard.moveDown = true;
             } else if (keycode == Keys.Z) {
-                oGameBoard.undo = true;
+                gameBoard.undo = true;
             } else if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
                 setPause();
             }
         } else if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
-            if (vtPause.isShown())
-                vtPause.hide();
+            if (windowPause.isShown())
+                windowPause.hide();
         }
 
         return true;

@@ -28,13 +28,13 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
     public MainSokoban game;
 
     public OrthographicCamera camera;
-    public SpriteBatch batcher;
+    public SpriteBatch batch;
     public Stage stage;
 
     public Screens(final MainSokoban game) {
         this.stage = game.stage;
         this.stage.clear();
-        this.batcher = game.batcher;
+        this.batch = game.batch;
         this.game = game;
 
         camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -54,7 +54,7 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
-        batcher.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
         draw(delta);
 
         stage.act(delta);
@@ -64,7 +64,7 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
     Image blackFadeOut;
 
     public void changeScreenWithFadeOut(final Class<?> newScreen, final int level, final MainSokoban game) {
-        blackFadeOut = new Image(Assets.pixelNegro);
+        blackFadeOut = new Image(Assets.blackPixelDrawable);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         blackFadeOut.getColor().a = 0;
         blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run(() -> {
@@ -126,7 +126,7 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
     @Override
     public void dispose() {
         stage.dispose();
-        batcher.dispose();
+        batch.dispose();
     }
 
     @Override

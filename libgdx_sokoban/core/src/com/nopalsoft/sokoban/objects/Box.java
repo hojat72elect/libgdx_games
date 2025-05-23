@@ -65,52 +65,52 @@ public class Box extends Tiles {
     private void setTextureColor(int numColor) {
         switch (numColor) {
             case COLOR_BEIGE:
-                keyFrame = Assets.cajaBeige;
+                keyFrame = Assets.beigeBox;
                 break;
             case COLOR_DARK_BEIGE:
-                keyFrame = Assets.cajaDarkBeige;
+                keyFrame = Assets.darkBeigeBox;
                 break;
             case COLOR_BLACK:
-                keyFrame = Assets.cajaBlack;
+                keyFrame = Assets.blackBox;
                 break;
             case COLOR_DARK_BLACK:
-                keyFrame = Assets.cajaDarkBlack;
+                keyFrame = Assets.darkBlackBox;
                 break;
             case COLOR_BLUE:
-                keyFrame = Assets.cajaBlue;
+                keyFrame = Assets.blueBox;
                 break;
             case COLOR_DARK_BLUE:
-                keyFrame = Assets.cajaDarkBlue;
+                keyFrame = Assets.darkBlueBox;
                 break;
             case COLOR_BROWN:
-                keyFrame = Assets.cajaBrown;
+                keyFrame = Assets.brownBox;
                 break;
             case COLOR_DARK_BROWN:
-                keyFrame = Assets.cajaDarkBrown;
+                keyFrame = Assets.darkBrownBox;
                 break;
             case COLOR_GRAY:
-                keyFrame = Assets.cajaGray;
+                keyFrame = Assets.grayBox;
                 break;
             case COLOR_DARK_GRAY:
-                keyFrame = Assets.cajaDarkGray;
+                keyFrame = Assets.darkGrayBox;
                 break;
             case COLOR_RED:
-                keyFrame = Assets.cajaRed;
+                keyFrame = Assets.redBox;
                 break;
             case COLOR_DARK_RED:
-                keyFrame = Assets.cajaDarkRed;
+                keyFrame = Assets.darkRedBox;
                 break;
             case COLOR_YELLOW:
-                keyFrame = Assets.cajaYellow;
+                keyFrame = Assets.yellowBox;
                 break;
             case COLOR_DARK_YELLOW:
-                keyFrame = Assets.cajaDarkYellow;
+                keyFrame = Assets.darkYellowBox;
                 break;
             case COLOR_PURPLE:
-                keyFrame = Assets.cajaPurple;
+                keyFrame = Assets.purpleBox;
                 break;
             case COLOR_DARK_PURPLE:
-                keyFrame = Assets.cajaDarkPurple;
+                keyFrame = Assets.darkPurpleBox;
                 break;
         }
     }

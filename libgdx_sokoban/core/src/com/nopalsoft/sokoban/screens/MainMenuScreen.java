@@ -23,7 +23,7 @@ public class MainMenuScreen extends Screens {
 
         lvlSelector = new LevelSelector(this);
 
-        btPreviousPage = new Button(Assets.btIzq, Assets.btIzqPress);
+        btPreviousPage = new Button(Assets.buttonLeftDrawable, Assets.buttonLeftPressedDrawable);
         btPreviousPage.setSize(75, 75);
         btPreviousPage.setPosition(65, 220);
         btPreviousPage.addListener(new ClickListener() {
@@ -32,7 +32,7 @@ public class MainMenuScreen extends Screens {
                 right();
             }
         });
-        btNextPage = new Button(Assets.btDer, Assets.btDerPress);
+        btNextPage = new Button(Assets.buttonRightDrawable, Assets.buttonRightPressedDrawable);
         btNextPage.setSize(75, 75);
         btNextPage.setPosition(660, 220);
         btNextPage.addListener(new ClickListener() {
@@ -42,27 +42,27 @@ public class MainMenuScreen extends Screens {
             }
         });
 
-        btLeaderboard = new Button(Assets.btLeaderboard, Assets.btLeaderboardPress);
+        btLeaderboard = new Button(Assets.buttonLeaderboardDrawable, Assets.buttonLeaderboardPressedDrawable);
         btLeaderboard.addListener(new ClickListener() {
 
         });
 
-        btAchievements = new Button(Assets.btAchievement, Assets.btAchievementPress);
+        btAchievements = new Button(Assets.buttonAchievementDrawable, Assets.buttonAchievementPressedDrawable);
         btAchievements.addListener(new ClickListener() {
 
         });
 
-        btFacebook = new Button(Assets.btFacebook, Assets.btFacebookPress);
+        btFacebook = new Button(Assets.buttonFacebookDrawable, Assets.buttonFacebookPressedDrawable);
         btFacebook.addListener(new ClickListener() {
 
         });
 
-        btSettings = new Button(Assets.btSettings, Assets.btSettingsPress);
+        btSettings = new Button(Assets.buttonSettingsDrawable, Assets.buttonSettingsPressedDrawable);
         btSettings.addListener(new ClickListener() {
 
         });
 
-        btMore = new Button(Assets.btMas, Assets.btMasPress);
+        btMore = new Button(Assets.buttonMoreDrawable, Assets.buttonMorePressedDrawable);
         btMore.addListener(new ClickListener() {
 
         });

@@ -45,35 +45,35 @@ public class TargetPlatform extends Tiles {
     private void setTextureColor(int numColor) {
         switch (numColor) {
             case Box.COLOR_BEIGE:
-                keyFrame = Assets.endPointBeige;
+                keyFrame = Assets.beigeTargetPlatform;
                 break;
 
             case Box.COLOR_BLACK:
-                keyFrame = Assets.endPointBlack;
+                keyFrame = Assets.blackTargetPlatform;
                 break;
 
             case Box.COLOR_BLUE:
-                keyFrame = Assets.endPointBlue;
+                keyFrame = Assets.blueTargetPlatform;
                 break;
 
             case Box.COLOR_BROWN:
-                keyFrame = Assets.endPointBrown;
+                keyFrame = Assets.brownTargetPlatform;
                 break;
 
             case Box.COLOR_GRAY:
-                keyFrame = Assets.endPointGray;
+                keyFrame = Assets.grayTargetPlatform;
                 break;
 
             case Box.COLOR_RED:
-                keyFrame = Assets.endPointRed;
+                keyFrame = Assets.redTargetPlatform;
                 break;
 
             case Box.COLOR_YELLOW:
-                keyFrame = Assets.endPointYellow;
+                keyFrame = Assets.yellowTargetPlatform;
                 break;
 
             case Box.COLOR_PURPLE:
-                keyFrame = Assets.endPointPurple;
+                keyFrame = Assets.purpleTargetPlatform;
                 break;
         }
     }

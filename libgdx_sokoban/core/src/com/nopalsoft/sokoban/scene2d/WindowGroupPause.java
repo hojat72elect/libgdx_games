@@ -15,8 +15,8 @@ import com.nopalsoft.sokoban.screens.Screens;
 
 public class WindowGroupPause extends WindowGroup {
 
-    Button btHome, btRefresh;
-    Table tbAnimations;
+    Button buttonHome, buttonRefresh;
+    Table tableAnimations;
 
     public WindowGroupPause(Screens currentScreen) {
         super(currentScreen, 350, 300, 100);
@@ -24,52 +24,52 @@ public class WindowGroupPause extends WindowGroup {
         setCloseButton();
         setTitle("Paused", 1);
 
-        Table tbMenu = new Table();
-        tbMenu.setFillParent(true);
+        Table tableMenu = new Table();
+        tableMenu.setFillParent(true);
 
-        btHome = new Button(Assets.btHome, Assets.btHomePress);
-        btHome.addListener(new ClickListener() {
+        buttonHome = new Button(Assets.homeButtonDrawable, Assets.homeButtonPressedDrawable);
+        buttonHome.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 screen.changeScreenWithFadeOut(MainMenuScreen.class, screen.game);
             }
         });
 
-        btRefresh = new Button(Assets.btRefresh, Assets.btRefreshPress);
-        btRefresh.addListener(new ClickListener() {
+        buttonRefresh = new Button(Assets.buttonRefreshDrawable, Assets.buttonRefreshPressedDrawable);
+        buttonRefresh.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 screen.changeScreenWithFadeOut(GameScreen.class, ((GameScreen) screen).level, screen.game);
             }
         });
 
-        final Button btAnimations = new Button(Assets.btOff, Assets.btOn, Assets.btOn);
-        btAnimations.setChecked(Settings.animationWalkIsON);
+        final Button buttonAnimation = new Button(Assets.buttonOffDrawable, Assets.buttonOnDrawable, Assets.buttonOnDrawable);
+        buttonAnimation.setChecked(Settings.animationWalkIsON);
 
-        tbAnimations = new Table();
-        tbAnimations.addListener(new ClickListener() {
+        tableAnimations = new Table();
+        tableAnimations.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Settings.animationWalkIsON = !Settings.animationWalkIsON;
-                btAnimations.setChecked(Settings.animationWalkIsON);
+                buttonAnimation.setChecked(Settings.animationWalkIsON);
                 Settings.save();
             }
         });
 
-        tbMenu.defaults().expandX();
+        tableMenu.defaults().expandX();
 
-        tbMenu.pad(30).padTop(55);
-        tbMenu.add(btHome);
-        tbMenu.add(btRefresh);
-        tbMenu.row();
+        tableMenu.pad(30).padTop(55);
+        tableMenu.add(buttonHome);
+        tableMenu.add(buttonRefresh);
+        tableMenu.row();
 
-        Label lbAnimatons = new Label("Animations", new LabelStyle(Assets.fontRed, Color.WHITE));
-        tbAnimations.add(lbAnimatons);
-        tbAnimations.add(btAnimations).padLeft(15);
+        Label labelAnimations = new Label("Animations", new LabelStyle(Assets.fontRed, Color.WHITE));
+        tableAnimations.add(labelAnimations);
+        tableAnimations.add(buttonAnimation).padLeft(15);
 
-        tbMenu.add(tbAnimations).colspan(2).padTop(10);
+        tableMenu.add(tableAnimations).colspan(2).padTop(10);
 
-        addActor(tbMenu);
+        addActor(tableMenu);
     }
 
 }

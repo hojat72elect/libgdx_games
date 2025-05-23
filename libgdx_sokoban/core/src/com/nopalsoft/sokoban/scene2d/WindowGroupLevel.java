@@ -27,10 +27,10 @@ public class WindowGroupLevel extends WindowGroup {
         Table tbMenu = new Table();
         tbMenu.setFillParent(true);
 
-        btPlay = new Button(Assets.btPlay, Assets.btPlayPress);
+        btPlay = new Button(Assets.buttonPlayDrawable, Assets.buttonPlayPressedDrawable);
 
-        Image imgClock = new Image(Assets.clock);
-        Image imgMoves = new Image(Assets.personajeStand);
+        Image imgClock = new Image(Assets.clockDrawable);
+        Image imgMoves = new Image(Assets.playerStand);
 
         lbBestMoves = new Label("0", new LabelStyle(Assets.fontRed, Color.WHITE));
         lbBestTime = new Label("0", new LabelStyle(Assets.fontRed, Color.WHITE));

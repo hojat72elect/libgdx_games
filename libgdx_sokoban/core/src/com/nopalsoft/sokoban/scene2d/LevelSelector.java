@@ -45,7 +45,7 @@ public class LevelSelector extends Group {
         game = currentScreen.game;
         idiomas = game.languages;
 
-        setBackGround(Assets.backgroundVentana);
+        setBackGround(Assets.windowBackground);
 
         vtLevel = new WindowGroupLevel(currentScreen);
 
@@ -158,9 +158,9 @@ public class LevelSelector extends Group {
             Image imgLevel;
 
             if (completed)
-                imgLevel = new Image(Assets.levelStar);
+                imgLevel = new Image(Assets.levelStarDrawable);
             else
-                imgLevel = new Image(Assets.levelOff);
+                imgLevel = new Image(Assets.levelOffDrawable);
 
             button.row();
             button.add(imgLevel).size(10).padBottom(2);
