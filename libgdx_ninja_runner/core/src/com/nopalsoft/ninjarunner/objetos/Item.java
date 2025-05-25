@@ -36,7 +36,7 @@ public class Item implements Poolable {
 
 	}
 
-	public void update(float delta, Body body, Mascota oMascota, Player oPlayer) {
+    public void update(float delta, Body body, Mascot oMascot, Player oPlayer) {
 
 		if (state == STATE_NORMAL) {
 			position.x = body.getPosition().x;
@@ -46,8 +46,7 @@ public class Item implements Poolable {
 			if (oPlayer.isMagnetEnabled && position.dst(oPlayer.position) <= 5f) {
 				moveCoinsMagenet(body, oPlayer.position);
 
-			}
-			else if (oMascota != null && position.dst(oMascota.position) <= 2f) {
+			} else if (oMascot != null && position.dst(oMascot.position) <= 2f) {
 				// moveCoinsMagenet(body, oMascota.position);
 			}
 			else

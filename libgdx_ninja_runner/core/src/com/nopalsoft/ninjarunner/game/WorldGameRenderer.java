@@ -14,7 +14,7 @@ import com.nopalsoft.ninjarunner.objetos.ItemEnergy;
 import com.nopalsoft.ninjarunner.objetos.ItemHearth;
 import com.nopalsoft.ninjarunner.objetos.ItemMagnet;
 import com.nopalsoft.ninjarunner.objetos.ItemMoneda;
-import com.nopalsoft.ninjarunner.objetos.Mascota;
+import com.nopalsoft.ninjarunner.objetos.Mascot;
 import com.nopalsoft.ninjarunner.objetos.Missil;
 import com.nopalsoft.ninjarunner.objetos.Obstaculo;
 import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas4;
@@ -30,38 +30,37 @@ public class WorldGameRenderer {
     final float WIDTH = Screens.WORLD_WIDTH;
     final float HEIGHT = Screens.WORLD_HEIGHT;
 
-    SpriteBatch batcher;
-    WorldGame oWorld;
-    OrthographicCamera oCam;
+    SpriteBatch batch;
+    GameWorld gameWorld;
+    OrthographicCamera camera;
 
     Box2DDebugRenderer renderBox;
 
-    public WorldGameRenderer(SpriteBatch batcher, WorldGame oWorld) {
+    public WorldGameRenderer(SpriteBatch batch, GameWorld gameWorld) {
 
-        this.oCam = new OrthographicCamera(WIDTH, HEIGHT);
-        this.oCam.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
-        this.batcher = batcher;
-        this.oWorld = oWorld;
+        this.camera = new OrthographicCamera(WIDTH, HEIGHT);
+        this.camera.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
+        this.batch = batch;
+        this.gameWorld = gameWorld;
         this.renderBox = new Box2DDebugRenderer();
     }
 
     public void render(float delta) {
-        // oCam.zoom = 10;
 
-        oCam.position.set(oWorld.oPlayer.position.x + 1.5f, oWorld.oPlayer.position.y, 0);
+        camera.position.set(gameWorld.player.position.x + 1.5f, gameWorld.player.position.y, 0);
 
-        if (oCam.position.y < HEIGHT / 2f)
-            oCam.position.y = HEIGHT / 2f;
-        else if (oCam.position.y > HEIGHT / 2f)
-            oCam.position.y = HEIGHT / 2f;
+        if (camera.position.y < HEIGHT / 2f)
+            camera.position.y = HEIGHT / 2f;
+        else if (camera.position.y > HEIGHT / 2f)
+            camera.position.y = HEIGHT / 2f;
 
-        if (oCam.position.x < WIDTH / 2f)
-            oCam.position.x = WIDTH / 2f;
+        if (camera.position.x < WIDTH / 2f)
+            camera.position.x = WIDTH / 2f;
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
-        batcher.begin();
-        batcher.enableBlending();
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.enableBlending();
 
         renderPlataformas();
         renderPared();
@@ -74,14 +73,14 @@ public class WorldGameRenderer {
         renderObstaculos(delta);
         renderMissil(delta);
 
-        batcher.end();
+        batch.end();
 
         // renderBox.render(oWorld.oWorldBox, oCam.combined);
     }
 
     private void renderItems() {
 
-        Iterator<Item> i = oWorld.arrItems.iterator();
+        Iterator<Item> i = gameWorld.arrItems.iterator();
         while (i.hasNext()) {
             Item obj = i.next();
 
@@ -116,14 +115,14 @@ public class WorldGameRenderer {
             if (spriteFrame != null) {
                 spriteFrame.setPosition(obj.position.x - obj.WIDTH / 2f, obj.position.y - obj.HEIGHT / 2f);
                 spriteFrame.setSize(obj.WIDTH, obj.HEIGHT);
-                spriteFrame.draw(batcher);
+                spriteFrame.draw(batch);
             }
         }
     }
 
     private void renderPlataformas() {
 
-        Iterator<Plataforma> i = oWorld.arrPlataformas.iterator();
+        Iterator<Plataforma> i = gameWorld.arrPlataformas.iterator();
         while (i.hasNext()) {
             Plataforma obj = i.next();
 
@@ -133,22 +132,22 @@ public class WorldGameRenderer {
 
             spriteFrame.setPosition(obj.position.x - Plataforma.WIDTH / 2f, obj.position.y - Plataforma.HEIGHT / 2f);
             spriteFrame.setSize(Plataforma.WIDTH, Plataforma.HEIGHT);
-            spriteFrame.draw(batcher);
+            spriteFrame.draw(batch);
         }
     }
 
     private void renderMascota(float delta) {
-        Mascota oMas = oWorld.oMascota;
+        Mascot oMas = gameWorld.oMascot;
 
         Sprite spriteFrame;
 
         float width = oMas.drawWidth;
         float height = oMas.drawHeight;
 
-        if (oMas.tipo == Mascota.Tipo.BOMBA) {
+        if (oMas.mascotType == Mascot.MascotType.BOMB) {
             spriteFrame = Assets.MascotaBombFly.getKeyFrame(oMas.stateTime, true);
         } else {
-            if (oWorld.oPlayer.isDash) {
+            if (gameWorld.player.isDash) {
                 spriteFrame = Assets.Mascota1Dash.getKeyFrame(oMas.stateTime, true);
                 width = oMas.dashDrawWidth;
                 height = oMas.dashDrawHeight;
@@ -156,26 +155,26 @@ public class WorldGameRenderer {
                 spriteFrame = Assets.Mascota1Fly.getKeyFrame(oMas.stateTime, true);
         }
 
-        spriteFrame.setPosition(oMas.position.x - width + Mascota.RADIUS, oWorld.oMascota.position.y - height / 2f);
+        spriteFrame.setPosition(oMas.position.x - width + Mascot.RADIUS, gameWorld.oMascot.position.y - height / 2f);
         spriteFrame.setSize(width, height);
-        spriteFrame.draw(batcher);
+        spriteFrame.draw(batch);
     }
 
     private void renderPared() {
 
-        Iterator<Pared> i = oWorld.arrPared.iterator();
+        Iterator<Pared> i = gameWorld.arrPared.iterator();
         while (i.hasNext()) {
             Pared obj = i.next();
 
             Sprite spriteFrame = Assets.pared;
             spriteFrame.setPosition(obj.position.x - Pared.WIDTH / 2f, obj.position.y - Pared.HEIGHT / 2f);
             spriteFrame.setSize(Pared.WIDTH, Pared.HEIGHT);
-            spriteFrame.draw(batcher);
+            spriteFrame.draw(batch);
         }
     }
 
     private void renderObstaculos(float delta) {
-        Iterator<Obstaculo> i = oWorld.arrObstaculos.iterator();
+        Iterator<Obstaculo> i = gameWorld.arrObstaculos.iterator();
         while (i.hasNext()) {
             Obstaculo obj = i.next();
 
@@ -195,16 +194,16 @@ public class WorldGameRenderer {
                 }
                 spriteFrame.setPosition(obj.position.x - width / 2f, obj.position.y - height / 2f);
                 spriteFrame.setSize(width, height);
-                spriteFrame.draw(batcher);
+                spriteFrame.draw(batch);
             } else {
 
-                obj.effect.draw(batcher, delta);
+                obj.effect.draw(batch, delta);
             }
         }
     }
 
     private void renderMissil(float delta) {
-        Iterator<Missil> i = oWorld.arrMissiles.iterator();
+        Iterator<Missil> i = gameWorld.arrMissiles.iterator();
         while (i.hasNext()) {
             Missil obj = i.next();
 
@@ -224,12 +223,12 @@ public class WorldGameRenderer {
 
             spriteFrame.setPosition(obj.position.x - width / 2f, obj.position.y - height / 2f);
             spriteFrame.setSize(width, height);
-            spriteFrame.draw(batcher);
+            spriteFrame.draw(batch);
         }
     }
 
     private void renderPersonaje(float delta) {
-        Player oPer = oWorld.oPlayer;
+        Player oPer = gameWorld.player;
 
         Sprite spriteFrame = null;
         float offsetY = 0;
@@ -302,8 +301,8 @@ public class WorldGameRenderer {
             offsetY = .1f;
         }
 
-        spriteFrame.setPosition(oWorld.oPlayer.position.x - .75f, oWorld.oPlayer.position.y - .52f - offsetY);
+        spriteFrame.setPosition(gameWorld.player.position.x - .75f, gameWorld.player.position.y - .52f - offsetY);
         spriteFrame.setSize(Player.DRAW_WIDTH, Player.DRAW_HEIGHT);
-        spriteFrame.draw(batcher);
+        spriteFrame.draw(batch);
     }
 }

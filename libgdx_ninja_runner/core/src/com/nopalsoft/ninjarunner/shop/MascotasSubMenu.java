@@ -3,7 +3,11 @@ package com.nopalsoft.ninjarunner.shop;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
@@ -12,7 +16,7 @@ import com.nopalsoft.ninjarunner.AnimationSprite;
 import com.nopalsoft.ninjarunner.Assets;
 import com.nopalsoft.ninjarunner.MainGame;
 import com.nopalsoft.ninjarunner.Settings;
-import com.nopalsoft.ninjarunner.objetos.Mascota;
+import com.nopalsoft.ninjarunner.objetos.Mascot;
 import com.nopalsoft.ninjarunner.scene2d.AnimatedSpriteActor;
 
 import java.util.Iterator;
@@ -138,12 +142,12 @@ public class MascotasSubMenu {
         {// DEFAULT
             {// BUY
                 btBuySelectBird = new TextButton(textSelect, Assets.styleTextButtonPurchased);
-                if (Settings.skinMascotaSeleccionada == Mascota.Tipo.GALLINA_ROSA)
+                if (Settings.skinMascotaSeleccionada == Mascot.MascotType.PINK_BIRD)
                     btBuySelectBird.setVisible(false);
                 btBuySelectBird.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        Settings.skinMascotaSeleccionada = Mascota.Tipo.GALLINA_ROSA;
+                        Settings.skinMascotaSeleccionada = Mascot.MascotType.PINK_BIRD;
                         setSelected(btBuySelectBird);
                     }
                 });
@@ -173,14 +177,14 @@ public class MascotasSubMenu {
                 else
                     btBuyBomb = new TextButton(textBuy, Assets.styleTextButtonBuy);
 
-                if (Settings.skinMascotaSeleccionada == Mascota.Tipo.BOMBA)
+                if (Settings.skinMascotaSeleccionada == Mascot.MascotType.BOMB)
                     btBuyBomb.setVisible(false);
 
                 btBuyBomb.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         if (didBuyBomb) {
-                            Settings.skinMascotaSeleccionada = Mascota.Tipo.BOMBA;
+                            Settings.skinMascotaSeleccionada = Mascot.MascotType.BOMB;
                             setSelected(btBuyBomb);
                         } else if (Settings.monedasTotal >= PRECIO_BOMB) {
                             Settings.monedasTotal -= PRECIO_BOMB;

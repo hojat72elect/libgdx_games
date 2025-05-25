@@ -30,47 +30,7 @@ public class DesktopLauncher {
         }
 
         @Override
-        public void showInterstitial() {
-
-        }
-
-        @Override
-        public void showAdBanner() {
-
-        }
-
-        @Override
         public void shareApp() {
-
-        }
-
-        @Override
-        public void removeAds() {
-
-        }
-
-        @Override
-        public void hideAdBanner() {
-
-        }
-
-        @Override
-        public void buy5milCoins() {
-
-        }
-
-        @Override
-        public void buy50milCoins() {
-
-        }
-
-        @Override
-        public void buy30milCoins() {
-
-        }
-
-        @Override
-        public void buy15milCoins() {
 
         }
 

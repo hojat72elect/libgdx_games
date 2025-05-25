@@ -16,7 +16,7 @@ public class GameScreen extends Screens {
     static final int STATE_MENU = 0;
     static final int STATE_RUNNING = 1;
     static final int STATE_GAME_OVER = 2;
-    public WorldGame gameWorld;
+    public GameWorld gameWorld;
     int state;
     GameUI gameUI;
     MenuUI menuUI;
@@ -26,7 +26,7 @@ public class GameScreen extends Screens {
 
     public GameScreen(Game _game, boolean showMainMenu) {
         super(_game);
-        gameWorld = new WorldGame();
+        gameWorld = new GameWorld();
         renderer = new WorldGameRenderer(batcher, gameWorld);
         gameUI = new GameUI(this, gameWorld);
         menuUI = new MenuUI(this, gameWorld);
@@ -69,8 +69,8 @@ public class GameScreen extends Screens {
     public void update(float delta) {
 
         if (state == STATE_MENU) {
-            gameWorld.oPlayer.updateStateTime(delta);
-            gameWorld.oMascota.updateStateTime(delta);
+            gameWorld.player.updateStateTime(delta);
+            gameWorld.oMascot.updateStateTime(delta);
         } else if (state == STATE_RUNNING) {
             boolean isJumpPressed = false;
 
@@ -79,7 +79,7 @@ public class GameScreen extends Screens {
             gameUI.didJump = false;
             gameUI.didDash = false;
 
-            if (gameWorld.state == WorldGame.STATE_GAMEOVER) {
+            if (gameWorld.state == GameWorld.STATE_GAMEOVER) {
                 setGameover();
             }
 
@@ -166,10 +166,10 @@ public class GameScreen extends Screens {
         batcher.begin();
         Assets.fontChico.draw(batcher, "FPS GERA" + Gdx.graphics.getFramesPerSecond(), 5, 20);
         Assets.fontChico.draw(batcher, "Bodies " + gameWorld.world.getBodyCount(), 5, 40);
-        Assets.fontChico.draw(batcher, "Lives " + gameWorld.oPlayer.vidas, 5, 60);
+        Assets.fontChico.draw(batcher, "Lives " + gameWorld.player.vidas, 5, 60);
         Assets.fontChico.draw(batcher, "Coins " + gameWorld.monedasTomadas, 5, 80);
         Assets.fontChico.draw(batcher, "Scores " + gameWorld.puntuacion, 5, 100);
-        Assets.fontChico.draw(batcher, "Distance " + gameWorld.oPlayer.position.x, 5, 120);
+        Assets.fontChico.draw(batcher, "Distance " + gameWorld.player.position.x, 5, 120);
         Assets.fontChico.draw(batcher, "Platforms " + gameWorld.arrPlataformas.size, 5, 140);
 
         batcher.end();

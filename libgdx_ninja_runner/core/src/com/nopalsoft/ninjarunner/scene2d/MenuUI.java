@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.ninjarunner.Assets;
 import com.nopalsoft.ninjarunner.game.GameScreen;
-import com.nopalsoft.ninjarunner.game.WorldGame;
+import com.nopalsoft.ninjarunner.game.GameWorld;
 import com.nopalsoft.ninjarunner.leaderboard.LeaderboardScreen;
 import com.nopalsoft.ninjarunner.screens.Screens;
 import com.nopalsoft.ninjarunner.screens.SettingsScreen;
@@ -22,7 +22,7 @@ public class MenuUI extends Group {
     public static final float ANIMATION_TIME = .35f;
 
     GameScreen gameScreen;
-    WorldGame oWorld;
+    GameWorld oWorld;
     Image titulo;
 
     Table tbMenu;
@@ -32,7 +32,7 @@ public class MenuUI extends Group {
 
     boolean showMainMenu;
 
-    public MenuUI(final GameScreen gameScreen, WorldGame oWorld) {
+    public MenuUI(final GameScreen gameScreen, GameWorld oWorld) {
         setBounds(0, 0, Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
         this.gameScreen = gameScreen;
         this.oWorld = oWorld;

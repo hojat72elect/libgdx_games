@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.ninjarunner.Assets;
 import com.nopalsoft.ninjarunner.game.GameScreen;
-import com.nopalsoft.ninjarunner.game.WorldGame;
+import com.nopalsoft.ninjarunner.game.GameWorld;
 import com.nopalsoft.ninjarunner.screens.Screens;
 
 import javax.swing.plaf.ProgressBarUI;
@@ -20,7 +20,7 @@ public class GameUI extends Group {
 	public static final float ANIMATION_TIME = .35f;
 
 	GameScreen gameScreen;
-	WorldGame oWorld;
+    GameWorld oWorld;
 
 	public int accelX;
 	public boolean didSwimUp;
@@ -35,7 +35,7 @@ public class GameUI extends Group {
 	Button btJump, btSlide;
 	public boolean didJump, didSlide, didDash;
 
-	public GameUI(final GameScreen gameScreen, WorldGame oWorld) {
+    public GameUI(final GameScreen gameScreen, GameWorld oWorld) {
 		setBounds(0, 0, Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
 		this.gameScreen = gameScreen;
 		this.oWorld = oWorld;

@@ -21,7 +21,7 @@ import com.nopalsoft.ninjarunner.objetos.ItemEnergy;
 import com.nopalsoft.ninjarunner.objetos.ItemHearth;
 import com.nopalsoft.ninjarunner.objetos.ItemMagnet;
 import com.nopalsoft.ninjarunner.objetos.ItemMoneda;
-import com.nopalsoft.ninjarunner.objetos.Mascota;
+import com.nopalsoft.ninjarunner.objetos.Mascot;
 import com.nopalsoft.ninjarunner.objetos.Missil;
 import com.nopalsoft.ninjarunner.objetos.Obstaculo;
 import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas4;
@@ -32,18 +32,17 @@ import com.nopalsoft.ninjarunner.objetos.Player;
 
 import java.util.Iterator;
 
-public class WorldGame {
+public class GameWorld {
     static final int STATE_GAMEOVER = 1;
     public int state;
 
-    private final float TIME_TO_SPAWN_MISSIL = 15;
     float timeToSpawnMissile;
 
     ObjectManagerBox2d physicsManager;
     public World world;
 
-    public Player oPlayer;
-    public Mascota oMascota;
+    public Player player;
+    public Mascot oMascot;
 
     Array<Body> arrBodies;
     Array<Plataforma> arrPlataformas;
@@ -60,7 +59,7 @@ public class WorldGame {
     int monedasTomadas;
     long puntuacion;
 
-    public WorldGame() {
+    public GameWorld() {
         world = new World(new Vector2(0, -9.8f), true);
         world.setContactListener(new Colisiones());
 
@@ -75,8 +74,8 @@ public class WorldGame {
 
         timeToSpawnMissile = 0;
 
-        physicsManager.crearHeroStand(2f, 1f, Settings.skinSeleccionada);
-        physicsManager.crearMascota(oPlayer.position.x - 1, oPlayer.position.y + .75f);
+        physicsManager.createStandingHero(2f, 1f, Settings.skinSeleccionada);
+        physicsManager.crearMascota(player.position.x - 1, player.position.y + .75f);
 
         mundoCreadoHastaX = physicsManager.crearPlataforma(0, 0, 3);
 
@@ -197,7 +196,7 @@ public class WorldGame {
 
             if (body.getUserData() instanceof Player) {
                 updatePersonaje(delta, body, didJump, isJumpPressed, dash, didSlide);
-            } else if (body.getUserData() instanceof Mascota) {
+            } else if (body.getUserData() instanceof Mascot) {
                 updateMascota(delta, body);
             } else if (body.getUserData() instanceof Plataforma) {
                 updatePlataforma(delta, body);
@@ -212,17 +211,18 @@ public class WorldGame {
             }
         }
 
-        if (oPlayer.position.x > mundoCreadoHastaX - 5)
+        if (player.position.x > mundoCreadoHastaX - 5)
             crearSiguienteParte();
 
-        if (oPlayer.state == Player.STATE_DEAD && oPlayer.stateTime >= Player.DURATION_DEAD)
+        if (player.state == Player.STATE_DEAD && player.stateTime >= Player.DURATION_DEAD)
             state = STATE_GAMEOVER;
 
         timeToSpawnMissile += delta;
+        float TIME_TO_SPAWN_MISSIL = 15;
         if (timeToSpawnMissile >= TIME_TO_SPAWN_MISSIL) {
             timeToSpawnMissile -= TIME_TO_SPAWN_MISSIL;
 
-            physicsManager.crearMissil(oPlayer.position.x + 10, oPlayer.position.y);
+            physicsManager.crearMissil(player.position.x + 10, player.position.y);
 
         }
 
@@ -281,15 +281,15 @@ public class WorldGame {
     boolean recreateFixture = false;
 
     private void updatePersonaje(float delta, Body body, boolean didJump, boolean isJumpPressed, boolean dash, boolean didSlide) {
-        oPlayer.update(delta, body, didJump, false, dash, didSlide);
+        player.update(delta, body, didJump, false, dash, didSlide);
 
-        if (oPlayer.position.y < -1) {
-            oPlayer.die();
-        } else if (oPlayer.isSlide && !bodyIsSLide) {
+        if (player.position.y < -1) {
+            player.die();
+        } else if (player.isSlide && !bodyIsSLide) {
             recreateFixture = true;
             bodyIsSLide = true;
             physicsManager.recreateFixturePersonajeSlide(body);
-        } else if (!oPlayer.isSlide && bodyIsSLide) {
+        } else if (!player.isSlide && bodyIsSLide) {
             recreateFixture = true;
             bodyIsSLide = false;
             physicsManager.recreateFixturePersonajeStand(body);
@@ -299,29 +299,29 @@ public class WorldGame {
 
     private void updateMascota(float delta, Body body) {
 
-        float targetPositionX = oPlayer.position.x - .75f;
-        float targetPositionY = oPlayer.position.y + .25f;
+        float targetPositionX = player.position.x - .75f;
+        float targetPositionY = player.position.y + .25f;
 
-        if (oMascota.tipo == Mascota.Tipo.BOMBA) {
+        if (oMascot.mascotType == Mascot.MascotType.BOMB) {
             Missil oMissil = getNextClosesMissil();
             if (oMissil != null && oMissil.distanceFromPersonaje < 5f && oMissil.state == Missil.STATE_NORMAL) {
                 targetPositionX = oMissil.position.x;
                 targetPositionY = oMissil.position.y;
             }
         } else {
-            if (oPlayer.isDash) {
-                targetPositionX = oPlayer.position.x + 4.25f;
-                targetPositionY = oPlayer.position.y;
+            if (player.isDash) {
+                targetPositionX = player.position.x + 4.25f;
+                targetPositionY = player.position.y;
             }
         }
 
-        oMascota.update(body, delta, targetPositionX, targetPositionY);
+        oMascot.update(body, delta, targetPositionX, targetPositionY);
     }
 
     private void updatePlataforma(float delta, Body body) {
         Plataforma obj = (Plataforma) body.getUserData();
 
-        if (obj.position.x < oPlayer.position.x - 3)
+        if (obj.position.x < player.position.x - 3)
             obj.setDestroy();
 
     }
@@ -329,16 +329,16 @@ public class WorldGame {
     private void updatePared(float delta, Body body) {
         Pared obj = (Pared) body.getUserData();
 
-        if (obj.position.x < oPlayer.position.x - 3)
+        if (obj.position.x < player.position.x - 3)
             obj.setDestroy();
 
     }
 
     private void updateItem(float delta, Body body) {
         Item obj = (Item) body.getUserData();
-        obj.update(delta, body, oMascota, oPlayer);
+        obj.update(delta, body, oMascot, player);
 
-        if (obj.position.x < oPlayer.position.x - 3)
+        if (obj.position.x < player.position.x - 3)
             obj.setPicked();
 
     }
@@ -347,16 +347,16 @@ public class WorldGame {
         Obstaculo obj = (Obstaculo) body.getUserData();
         obj.update(delta);
 
-        if (obj.position.x < oPlayer.position.x - 3)
+        if (obj.position.x < player.position.x - 3)
             obj.setDestroy();
 
     }
 
     private void updateMissil(float delta, Body body) {
         Missil obj = (Missil) body.getUserData();
-        obj.update(delta, body, oPlayer);
+        obj.update(delta, body, player);
 
-        if (obj.position.x < oPlayer.position.x - 3)
+        if (obj.position.x < player.position.x - 3)
             obj.setDestroy();
 
         arrMissiles.sort();
@@ -390,9 +390,9 @@ public class WorldGame {
             else if (b.getBody().getUserData() instanceof Player)
                 beginContactHeroOtraCosa(b, a);
 
-            if (a.getBody().getUserData() instanceof Mascota)
+            if (a.getBody().getUserData() instanceof Mascot)
                 beginContactMascotaOtraCosa(a, b);
-            else if (b.getBody().getUserData() instanceof Mascota)
+            else if (b.getBody().getUserData() instanceof Mascot)
                 beginContactMascotaOtraCosa(b, a);
 
         }
@@ -405,7 +405,7 @@ public class WorldGame {
                     if (recreateFixture)
                         recreateFixture = false;
                     else
-                        oPlayer.touchFloor();
+                        player.touchFloor();
 
                 }
             } else if (oOtraCosa instanceof Item obj) {
@@ -415,11 +415,11 @@ public class WorldGame {
                         puntuacion++;
                         Assets.playSound(Assets.coin, 1);
                     } else if (obj instanceof ItemMagnet) {
-                        oPlayer.setPickUpMagnet();
+                        player.setPickUpMagnet();
                     } else if (obj instanceof ItemEnergy) {
                         // oPersonaje.shield++;
                     } else if (obj instanceof ItemHearth) {
-                        oPlayer.vidas++;
+                        player.vidas++;
                     } else if (obj instanceof ItemCandyJelly) {
                         Assets.playSound(Assets.popCandy, 1);
                         puntuacion += 2;
@@ -435,17 +435,17 @@ public class WorldGame {
                 }
             } else if (oOtraCosa instanceof Pared obj) {
                 if (obj.state == Pared.STATE_NORMAL) {
-                    oPlayer.getDizzy();
+                    player.getDizzy();
                 }
             } else if (oOtraCosa instanceof Obstaculo obj) {
                 if (obj.state == Obstaculo.STATE_NORMAL) {
                     obj.setDestroy();
-                    oPlayer.getHurt();
+                    player.getHurt();
                 }
             } else if (oOtraCosa instanceof Missil obj) {
                 if (obj.state == Obstaculo.STATE_NORMAL) {
                     obj.setHitTarget();
-                    oPlayer.getDizzy();
+                    player.getDizzy();
                 }
             }
 
@@ -454,9 +454,9 @@ public class WorldGame {
         public void beginContactMascotaOtraCosa(Fixture fixMascota, Fixture otraCosa) {
             Object oOtraCosa = otraCosa.getBody().getUserData();
 
-            if (oOtraCosa instanceof Pared obj && oPlayer.isDash) {
+            if (oOtraCosa instanceof Pared obj && player.isDash) {
                 obj.setDestroy();
-            } else if (oOtraCosa instanceof Obstaculo obj && oPlayer.isDash) {
+            } else if (oOtraCosa instanceof Obstaculo obj && player.isDash) {
                 obj.setDestroy();
             } else if (oOtraCosa instanceof ItemMoneda obj) {
                 if (obj.state == ItemMoneda.STATE_NORMAL) {
@@ -492,7 +492,7 @@ public class WorldGame {
 
             if (oOtraCosa instanceof Plataforma) {
                 if (fixHero.getUserData().equals("pies"))
-                    oPlayer.endTouchFloor();
+                    player.endTouchFloor();
 
             }
         }

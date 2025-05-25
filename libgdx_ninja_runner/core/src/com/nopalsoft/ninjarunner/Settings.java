@@ -2,7 +2,7 @@ package com.nopalsoft.ninjarunner;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.nopalsoft.ninjarunner.objetos.Mascota;
+import com.nopalsoft.ninjarunner.objetos.Mascot;
 import com.nopalsoft.ninjarunner.objetos.Player;
 
 /**
@@ -16,7 +16,7 @@ public class Settings {
     public static int skinSeleccionada = Player.TIPO_NINJA;
     protected static boolean seCalificoApp;
     public static int monedasTotal = 1500000;
-    public static Mascota.Tipo skinMascotaSeleccionada = Mascota.Tipo.GALLINA_ROSA;
+    public static Mascot.MascotType skinMascotaSeleccionada = Mascot.MascotType.PINK_BIRD;
 
     public static int LEVEL_MASCOTA_BIRD;
     public static int LEVEL_MASCOTA_BOMB;

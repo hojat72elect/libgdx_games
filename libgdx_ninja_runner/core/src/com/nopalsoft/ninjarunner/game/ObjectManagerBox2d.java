@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Pools;
 import com.nopalsoft.ninjarunner.Settings;
 import com.nopalsoft.ninjarunner.objetos.Item;
-import com.nopalsoft.ninjarunner.objetos.Mascota;
+import com.nopalsoft.ninjarunner.objetos.Mascot;
 import com.nopalsoft.ninjarunner.objetos.Missil;
 import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas4;
 import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas7;
@@ -23,28 +23,28 @@ import com.nopalsoft.ninjarunner.objetos.Player;
 
 public class ObjectManagerBox2d {
 
-    WorldGame oWorld;
-    World oWorldBox;
+    GameWorld gameWorld;
+    World worldBox;
 
-    public ObjectManagerBox2d(WorldGame oWorld) {
-        this.oWorld = oWorld;
-        oWorldBox = oWorld.world;
+    public ObjectManagerBox2d(GameWorld gameWorld) {
+        this.gameWorld = gameWorld;
+        worldBox = gameWorld.world;
     }
 
-    public void crearHeroStand(float x, float y, int tipo) {
-        oWorld.oPlayer = new Player(x, y, tipo);
+    public void createStandingHero(float x, float y, int heroType) {
+        gameWorld.player = new Player(x, y, heroType);
 
         BodyDef bd = new BodyDef();
         bd.position.x = x;
         bd.position.y = y;
         bd.type = BodyType.DynamicBody;
 
-        Body oBody = oWorldBox.createBody(bd);
+        Body oBody = worldBox.createBody(bd);
 
         recreateFixturePersonajeStand(oBody);
 
         oBody.setFixedRotation(true);
-        oBody.setUserData(oWorld.oPlayer);
+        oBody.setUserData(gameWorld.player);
         oBody.setBullet(true);
         oBody.setLinearVelocity(Player.VELOCIDAD_RUN, 0);
     }
@@ -112,23 +112,23 @@ public class ObjectManagerBox2d {
     }
 
     public void crearMascota(float x, float y) {
-        oWorld.oMascota = new Mascota(x, y, Settings.skinMascotaSeleccionada);
+        gameWorld.oMascot = new Mascot(x, y, Settings.skinMascotaSeleccionada);
 
         BodyDef bd = new BodyDef();
         bd.position.set(x, y);
         bd.type = BodyType.DynamicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldBox.createBody(bd);
 
         CircleShape shape = new CircleShape();
-        shape.setRadius(Mascota.RADIUS);
+        shape.setRadius(Mascot.RADIUS);
 
         FixtureDef fixutre = new FixtureDef();
         fixutre.shape = shape;
         fixutre.isSensor = true;
 
         body.createFixture(fixutre);
-        body.setUserData(oWorld.oMascota);
+        body.setUserData(gameWorld.oMascot);
 
         shape.dispose();
     }
@@ -143,7 +143,7 @@ public class ObjectManagerBox2d {
         bd.position.set(obj.position.x, obj.position.y);
         bd.type = BodyType.KinematicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldBox.createBody(bd);
 
         CircleShape shape = new CircleShape();
         shape.setRadius(obj.WIDTH / 2f);
@@ -154,7 +154,7 @@ public class ObjectManagerBox2d {
 
         body.createFixture(fixutre);
         body.setUserData(obj);
-        oWorld.arrItems.add(obj);
+        gameWorld.arrItems.add(obj);
 
         shape.dispose();
 
@@ -175,7 +175,7 @@ public class ObjectManagerBox2d {
         bd.position.set(x, y);
         bd.type = BodyType.StaticBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldBox.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(.35f, .19f, new Vector2(0, -.19f), 0);
@@ -192,7 +192,7 @@ public class ObjectManagerBox2d {
         body.createFixture(fixutre);
 
         body.setUserData(obj);
-        oWorld.arrObstaculos.add(obj);
+        gameWorld.arrObstaculos.add(obj);
 
         shape.dispose();
 
@@ -210,7 +210,7 @@ public class ObjectManagerBox2d {
         bd.position.set(x, y);
         bd.type = BodyType.StaticBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldBox.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(.35f, .38f, new Vector2(0, -.19f), 0);
@@ -227,7 +227,7 @@ public class ObjectManagerBox2d {
         body.createFixture(fixutre);
 
         body.setUserData(obj);
-        oWorld.arrObstaculos.add(obj);
+        gameWorld.arrObstaculos.add(obj);
 
         shape.dispose();
 
@@ -250,7 +250,7 @@ public class ObjectManagerBox2d {
             oPlat = Pools.obtain(Plataforma.class);
             x += Plataforma.WIDTH / 2f;
             oPlat.init(x, yCenter);
-            oWorld.arrPlataformas.add(oPlat);
+            gameWorld.arrPlataformas.add(oPlat);
             // Le resto el -.01 para que quede un pixel a la izquiera y no aparesca la linea cuando dos plataformas estan pegadas
             x += Plataforma.WIDTH / 2f - .01f;
         }
@@ -263,7 +263,7 @@ public class ObjectManagerBox2d {
         bd.position.set(xInicio, yCenter);
         bd.type = BodyType.StaticBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldBox.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Plataforma.WIDTH / 2f * numPlats - (.005f * numPlats), Plataforma.HEIGHT / 2f);
@@ -290,7 +290,7 @@ public class ObjectManagerBox2d {
         bd.position.set(oPard.position.x, oPard.position.y);
         bd.type = BodyType.StaticBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldBox.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Pared.WIDTH / 2f, Pared.HEIGHT / 2f);
@@ -301,7 +301,7 @@ public class ObjectManagerBox2d {
 
         body.createFixture(fixutre);
         body.setUserData(oPard);
-        oWorld.arrPared.add(oPard);
+        gameWorld.arrPared.add(oPard);
 
         shape.dispose();
 
@@ -316,7 +316,7 @@ public class ObjectManagerBox2d {
         bd.position.set(obj.position.x, obj.position.y);
         bd.type = BodyType.KinematicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldBox.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Missil.WIDTH / 2f, Missil.HEIGHT / 2f);
@@ -328,7 +328,7 @@ public class ObjectManagerBox2d {
         body.createFixture(fixutre);
         body.setUserData(obj);
         body.setLinearVelocity(Missil.VELOCIDAD_X, 0);
-        oWorld.arrMissiles.add(obj);
+        gameWorld.arrMissiles.add(obj);
 
         shape.dispose();
     }
