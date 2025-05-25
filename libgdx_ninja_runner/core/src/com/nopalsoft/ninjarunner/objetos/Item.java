@@ -36,15 +36,15 @@ public class Item implements Poolable {
 
 	}
 
-	public void update(float delta, Body body, Mascota oMascota, Personaje oPersonaje) {
+	public void update(float delta, Body body, Mascota oMascota, Player oPlayer) {
 
 		if (state == STATE_NORMAL) {
 			position.x = body.getPosition().x;
 			position.y = body.getPosition().y;
 
 			/** Primero checo si se atraen al personaje */
-			if (oPersonaje.isMagnetEnabled && position.dst(oPersonaje.position) <= 5f) {
-				moveCoinsMagenet(body, oPersonaje.position);
+			if (oPlayer.isMagnetEnabled && position.dst(oPlayer.position) <= 5f) {
+				moveCoinsMagenet(body, oPlayer.position);
 
 			}
 			else if (oMascota != null && position.dst(oMascota.position) <= 2f) {
@@ -59,7 +59,7 @@ public class Item implements Poolable {
 
 	private void moveCoinsMagenet(Body body, Vector2 targetPosition) {
 		velocity = body.getLinearVelocity();
-		velocity.set(targetPosition).sub(position).scl(Personaje.VELOCIDAD_DASH + 3);
+		velocity.set(targetPosition).sub(position).scl(Player.VELOCIDAD_DASH + 3);
 		body.setLinearVelocity(velocity);
 	}
 

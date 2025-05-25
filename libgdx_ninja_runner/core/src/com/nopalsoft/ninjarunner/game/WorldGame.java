@@ -2,27 +2,47 @@ package com.nopalsoft.ninjarunner.game;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pools;
 import com.nopalsoft.ninjarunner.Assets;
 import com.nopalsoft.ninjarunner.Settings;
-import com.nopalsoft.ninjarunner.objetos.*;
+import com.nopalsoft.ninjarunner.objetos.Item;
+import com.nopalsoft.ninjarunner.objetos.ItemCandyBean;
+import com.nopalsoft.ninjarunner.objetos.ItemCandyCorn;
+import com.nopalsoft.ninjarunner.objetos.ItemCandyJelly;
+import com.nopalsoft.ninjarunner.objetos.ItemEnergy;
+import com.nopalsoft.ninjarunner.objetos.ItemHearth;
+import com.nopalsoft.ninjarunner.objetos.ItemMagnet;
+import com.nopalsoft.ninjarunner.objetos.ItemMoneda;
+import com.nopalsoft.ninjarunner.objetos.Mascota;
+import com.nopalsoft.ninjarunner.objetos.Missil;
+import com.nopalsoft.ninjarunner.objetos.Obstaculo;
+import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas4;
+import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas7;
+import com.nopalsoft.ninjarunner.objetos.Pared;
+import com.nopalsoft.ninjarunner.objetos.Plataforma;
+import com.nopalsoft.ninjarunner.objetos.Player;
 
 import java.util.Iterator;
 
 public class WorldGame {
-    static final int STATE_RUNNING = 0;
     static final int STATE_GAMEOVER = 1;
     public int state;
 
     private final float TIME_TO_SPAWN_MISSIL = 15;
-    float timeToSpwanMissil;
+    float timeToSpawnMissile;
 
-    ObjectManagerBox2d oManager;
-    public World oWorldBox;
+    ObjectManagerBox2d physicsManager;
+    public World world;
 
-    public Personaje oPersonaje;
+    public Player oPlayer;
     public Mascota oMascota;
 
     Array<Body> arrBodies;
@@ -41,10 +61,10 @@ public class WorldGame {
     long puntuacion;
 
     public WorldGame() {
-        oWorldBox = new World(new Vector2(0, -9.8f), true);
-        oWorldBox.setContactListener(new Colisiones());
+        world = new World(new Vector2(0, -9.8f), true);
+        world.setContactListener(new Colisiones());
 
-        oManager = new ObjectManagerBox2d(this);
+        physicsManager = new ObjectManagerBox2d(this);
 
         arrBodies = new Array<Body>();
         arrPlataformas = new Array<Plataforma>();
@@ -53,12 +73,12 @@ public class WorldGame {
         arrObstaculos = new Array<Obstaculo>();
         arrMissiles = new Array<Missil>();
 
-        timeToSpwanMissil = 0;
+        timeToSpawnMissile = 0;
 
-        oManager.crearHeroStand(2f, 1f, Settings.skinSeleccionada);
-        oManager.crearMascota(oPersonaje.position.x - 1, oPersonaje.position.y + .75f);
+        physicsManager.crearHeroStand(2f, 1f, Settings.skinSeleccionada);
+        physicsManager.crearMascota(oPlayer.position.x - 1, oPlayer.position.y + .75f);
 
-        mundoCreadoHastaX = oManager.crearPlataforma(0, 0, 3);
+        mundoCreadoHastaX = physicsManager.crearPlataforma(0, 0, 3);
 
         crearSiguienteParte();
 
@@ -80,7 +100,7 @@ public class WorldGame {
             // y = 0;
             plataformasPegadas = 25;
 
-            mundoCreadoHastaX = oManager.crearPlataforma(mundoCreadoHastaX + separacion, y, plataformasPegadas);
+            mundoCreadoHastaX = physicsManager.crearPlataforma(mundoCreadoHastaX + separacion, y, plataformasPegadas);
 
             // Despues agrego cosas arriba de la plataforma
 
@@ -91,14 +111,14 @@ public class WorldGame {
                     xAux = addRandomItems(xAux, y);
 
                 if (MathUtils.randomBoolean(.1f)) {
-                    xAux = oManager.crearCaja4(xAux, y + .8f);
+                    xAux = physicsManager.crearCaja4(xAux, y + .8f);
                     xAux = addRandomItems(xAux, y);
 
                 } else if (MathUtils.randomBoolean(.1f)) {
-                    xAux = oManager.crearCaja7(xAux, y + 1f);
+                    xAux = physicsManager.crearCaja7(xAux, y + 1f);
                     xAux = addRandomItems(xAux, y);
                 } else if (MathUtils.randomBoolean(.1f)) {
-                    xAux = oManager.crearPared(xAux, y + 3.17f);
+                    xAux = physicsManager.crearPared(xAux, y + 3.17f);
                     xAux = addRandomItems(xAux, y);
                 } else {
                     xAux = addRandomItems(xAux, y);
@@ -132,32 +152,32 @@ public class WorldGame {
 
         if (MathUtils.randomBoolean(.3f)) {
             for (int i = 0; i < 5; i++) {
-                oManager.crearItem(ItemMoneda.class, xAux, y + 1.5f);
-                xAux = oManager.crearItem(ItemMoneda.class, xAux, y + 1f);
+                physicsManager.crearItem(ItemMoneda.class, xAux, y + 1.5f);
+                xAux = physicsManager.crearItem(ItemMoneda.class, xAux, y + 1f);
             }
         } else if (MathUtils.randomBoolean(.5f)) {
 
             for (int i = 0; i < 5; i++) {
-                oManager.crearItem(ItemCandyBean.class, xAux, y + .8f);
-                oManager.crearItem(ItemCandyBean.class, xAux, y + 1.1f);
-                xAux = oManager.crearItem(ItemCandyJelly.class, xAux, y + 1.5f);
+                physicsManager.crearItem(ItemCandyBean.class, xAux, y + .8f);
+                physicsManager.crearItem(ItemCandyBean.class, xAux, y + 1.1f);
+                xAux = physicsManager.crearItem(ItemCandyJelly.class, xAux, y + 1.5f);
             }
         } else if (MathUtils.randomBoolean(.5f)) {
 
             for (int i = 0; i < 5; i++) {
-                oManager.crearItem(ItemCandyCorn.class, xAux, y + .8f);
-                oManager.crearItem(ItemCandyCorn.class, xAux, y + 1.1f);
-                xAux = oManager.crearItem(ItemCandyCorn.class, xAux, y + 1.5f);
+                physicsManager.crearItem(ItemCandyCorn.class, xAux, y + .8f);
+                physicsManager.crearItem(ItemCandyCorn.class, xAux, y + 1.1f);
+                xAux = physicsManager.crearItem(ItemCandyCorn.class, xAux, y + 1.5f);
             }
         }
 
         if (MathUtils.randomBoolean(.025f)) {
 
-            xAux = oManager.crearItem(ItemHearth.class, xAux, y + 1.5f);
-            xAux = oManager.crearItem(ItemEnergy.class, xAux, y + 1.5f);
+            xAux = physicsManager.crearItem(ItemHearth.class, xAux, y + 1.5f);
+            xAux = physicsManager.crearItem(ItemEnergy.class, xAux, y + 1.5f);
         } else if (MathUtils.randomBoolean(.025f)) {
 
-            xAux = oManager.crearItem(ItemMagnet.class, xAux, y + 1.5f);
+            xAux = physicsManager.crearItem(ItemMagnet.class, xAux, y + 1.5f);
 
         }
 
@@ -165,17 +185,17 @@ public class WorldGame {
     }
 
     public void update(float delta, boolean didJump, boolean isJumpPressed, boolean dash, boolean didSlide) {
-        oWorldBox.step(delta, 8, 4);
+        world.step(delta, 8, 4);
 
-        oWorldBox.getBodies(arrBodies);
+        world.getBodies(arrBodies);
         eliminarObjetos();
-        oWorldBox.getBodies(arrBodies);
+        world.getBodies(arrBodies);
 
         Iterator<Body> i = arrBodies.iterator();
         while (i.hasNext()) {
             Body body = i.next();
 
-            if (body.getUserData() instanceof Personaje) {
+            if (body.getUserData() instanceof Player) {
                 updatePersonaje(delta, body, didJump, isJumpPressed, dash, didSlide);
             } else if (body.getUserData() instanceof Mascota) {
                 updateMascota(delta, body);
@@ -192,17 +212,17 @@ public class WorldGame {
             }
         }
 
-        if (oPersonaje.position.x > mundoCreadoHastaX - 5)
+        if (oPlayer.position.x > mundoCreadoHastaX - 5)
             crearSiguienteParte();
 
-        if (oPersonaje.state == Personaje.STATE_DEAD && oPersonaje.stateTime >= Personaje.DURATION_DEAD)
+        if (oPlayer.state == Player.STATE_DEAD && oPlayer.stateTime >= Player.DURATION_DEAD)
             state = STATE_GAMEOVER;
 
-        timeToSpwanMissil += delta;
-        if (timeToSpwanMissil >= TIME_TO_SPAWN_MISSIL) {
-            timeToSpwanMissil -= TIME_TO_SPAWN_MISSIL;
+        timeToSpawnMissile += delta;
+        if (timeToSpawnMissile >= TIME_TO_SPAWN_MISSIL) {
+            timeToSpawnMissile -= TIME_TO_SPAWN_MISSIL;
 
-            oManager.crearMissil(oPersonaje.position.x + 10, oPersonaje.position.y);
+            physicsManager.crearMissil(oPlayer.position.x + 10, oPlayer.position.y);
 
         }
 
@@ -213,51 +233,45 @@ public class WorldGame {
         while (i.hasNext()) {
             Body body = i.next();
 
-            if (body.getUserData() instanceof Plataforma) {
-                Plataforma obj = (Plataforma) body.getUserData();
+            if (body.getUserData() instanceof Plataforma obj) {
                 if (obj.state == Plataforma.STATE_DESTROY) {
                     arrPlataformas.removeValue(obj, true);
                     Pools.free(obj);
-                    oWorldBox.destroyBody(body);
+                    world.destroyBody(body);
                 }
-            } else if (body.getUserData() instanceof Pared) {
-                Pared obj = (Pared) body.getUserData();
+            } else if (body.getUserData() instanceof Pared obj) {
                 if (obj.state == Pared.STATE_DESTROY) {
                     arrPared.removeValue(obj, true);
                     Pools.free(obj);
-                    oWorldBox.destroyBody(body);
+                    world.destroyBody(body);
                 }
-            } else if (body.getUserData() instanceof Item) {
-                Item obj = (Item) body.getUserData();
+            } else if (body.getUserData() instanceof Item obj) {
                 if (obj.state == Item.STATE_DESTROY && obj.stateTime >= Item.DURATION_PICK) {
                     arrItems.removeValue(obj, true);
                     Pools.free(obj);
-                    oWorldBox.destroyBody(body);
+                    world.destroyBody(body);
                 }
-            } else if (body.getUserData() instanceof ObstaculoCajas4) {
-                ObstaculoCajas4 obj = (ObstaculoCajas4) body.getUserData();
+            } else if (body.getUserData() instanceof ObstaculoCajas4 obj) {
 
                 if (obj.state == ObstaculoCajas4.STATE_DESTROY && obj.effect.isComplete()) {
                     obj.effect.free();
                     arrObstaculos.removeValue(obj, true);
                     Pools.free(obj);
-                    oWorldBox.destroyBody(body);
+                    world.destroyBody(body);
                 }
-            } else if (body.getUserData() instanceof ObstaculoCajas7) {
-                ObstaculoCajas7 obj = (ObstaculoCajas7) body.getUserData();
+            } else if (body.getUserData() instanceof ObstaculoCajas7 obj) {
 
                 if (obj.state == ObstaculoCajas7.STATE_DESTROY && obj.effect.isComplete()) {
                     obj.effect.free();
                     arrObstaculos.removeValue(obj, true);
                     Pools.free(obj);
-                    oWorldBox.destroyBody(body);
+                    world.destroyBody(body);
                 }
-            } else if (body.getUserData() instanceof Missil) {
-                Missil obj = (Missil) body.getUserData();
+            } else if (body.getUserData() instanceof Missil obj) {
                 if (obj.state == Missil.STATE_DESTROY) {
                     arrMissiles.removeValue(obj, true);
                     Pools.free(obj);
-                    oWorldBox.destroyBody(body);
+                    world.destroyBody(body);
                 }
             }
         }
@@ -267,26 +281,26 @@ public class WorldGame {
     boolean recreateFixture = false;
 
     private void updatePersonaje(float delta, Body body, boolean didJump, boolean isJumpPressed, boolean dash, boolean didSlide) {
-        oPersonaje.update(delta, body, didJump, false, dash, didSlide);
+        oPlayer.update(delta, body, didJump, false, dash, didSlide);
 
-        if (oPersonaje.position.y < -1) {
-            oPersonaje.die();
-        } else if (oPersonaje.isSlide && !bodyIsSLide) {
+        if (oPlayer.position.y < -1) {
+            oPlayer.die();
+        } else if (oPlayer.isSlide && !bodyIsSLide) {
             recreateFixture = true;
             bodyIsSLide = true;
-            oManager.recreateFixturePersonajeSlide(body);
-        } else if (!oPersonaje.isSlide && bodyIsSLide) {
+            physicsManager.recreateFixturePersonajeSlide(body);
+        } else if (!oPlayer.isSlide && bodyIsSLide) {
             recreateFixture = true;
             bodyIsSLide = false;
-            oManager.recreateFixturePersonajeStand(body);
+            physicsManager.recreateFixturePersonajeStand(body);
         }
 
     }
 
     private void updateMascota(float delta, Body body) {
 
-        float targetPositionX = oPersonaje.position.x - .75f;
-        float targetPositionY = oPersonaje.position.y + .25f;
+        float targetPositionX = oPlayer.position.x - .75f;
+        float targetPositionY = oPlayer.position.y + .25f;
 
         if (oMascota.tipo == Mascota.Tipo.BOMBA) {
             Missil oMissil = getNextClosesMissil();
@@ -295,9 +309,9 @@ public class WorldGame {
                 targetPositionY = oMissil.position.y;
             }
         } else {
-            if (oPersonaje.isDash) {
-                targetPositionX = oPersonaje.position.x + 4.25f;
-                targetPositionY = oPersonaje.position.y;
+            if (oPlayer.isDash) {
+                targetPositionX = oPlayer.position.x + 4.25f;
+                targetPositionY = oPlayer.position.y;
             }
         }
 
@@ -307,7 +321,7 @@ public class WorldGame {
     private void updatePlataforma(float delta, Body body) {
         Plataforma obj = (Plataforma) body.getUserData();
 
-        if (obj.position.x < oPersonaje.position.x - 3)
+        if (obj.position.x < oPlayer.position.x - 3)
             obj.setDestroy();
 
     }
@@ -315,16 +329,16 @@ public class WorldGame {
     private void updatePared(float delta, Body body) {
         Pared obj = (Pared) body.getUserData();
 
-        if (obj.position.x < oPersonaje.position.x - 3)
+        if (obj.position.x < oPlayer.position.x - 3)
             obj.setDestroy();
 
     }
 
     private void updateItem(float delta, Body body) {
         Item obj = (Item) body.getUserData();
-        obj.update(delta, body, oMascota, oPersonaje);
+        obj.update(delta, body, oMascota, oPlayer);
 
-        if (obj.position.x < oPersonaje.position.x - 3)
+        if (obj.position.x < oPlayer.position.x - 3)
             obj.setPicked();
 
     }
@@ -333,16 +347,16 @@ public class WorldGame {
         Obstaculo obj = (Obstaculo) body.getUserData();
         obj.update(delta);
 
-        if (obj.position.x < oPersonaje.position.x - 3)
+        if (obj.position.x < oPlayer.position.x - 3)
             obj.setDestroy();
 
     }
 
     private void updateMissil(float delta, Body body) {
         Missil obj = (Missil) body.getUserData();
-        obj.update(delta, body, oPersonaje);
+        obj.update(delta, body, oPlayer);
 
-        if (obj.position.x < oPersonaje.position.x - 3)
+        if (obj.position.x < oPlayer.position.x - 3)
             obj.setDestroy();
 
         arrMissiles.sort();
@@ -371,9 +385,9 @@ public class WorldGame {
             Fixture a = contact.getFixtureA();
             Fixture b = contact.getFixtureB();
 
-            if (a.getBody().getUserData() instanceof Personaje)
+            if (a.getBody().getUserData() instanceof Player)
                 beginContactHeroOtraCosa(a, b);
-            else if (b.getBody().getUserData() instanceof Personaje)
+            else if (b.getBody().getUserData() instanceof Player)
                 beginContactHeroOtraCosa(b, a);
 
             if (a.getBody().getUserData() instanceof Mascota)
@@ -391,22 +405,21 @@ public class WorldGame {
                     if (recreateFixture)
                         recreateFixture = false;
                     else
-                        oPersonaje.touchFloor();
+                        oPlayer.touchFloor();
 
                 }
-            } else if (oOtraCosa instanceof Item) {
-                Item obj = (Item) oOtraCosa;
+            } else if (oOtraCosa instanceof Item obj) {
                 if (obj.state == Item.STATE_NORMAL) {
                     if (obj instanceof ItemMoneda) {
                         monedasTomadas++;
                         puntuacion++;
                         Assets.playSound(Assets.coin, 1);
                     } else if (obj instanceof ItemMagnet) {
-                        oPersonaje.setPickUpMagnet();
+                        oPlayer.setPickUpMagnet();
                     } else if (obj instanceof ItemEnergy) {
                         // oPersonaje.shield++;
                     } else if (obj instanceof ItemHearth) {
-                        oPersonaje.vidas++;
+                        oPlayer.vidas++;
                     } else if (obj instanceof ItemCandyJelly) {
                         Assets.playSound(Assets.popCandy, 1);
                         puntuacion += 2;
@@ -420,22 +433,19 @@ public class WorldGame {
 
                     obj.setPicked();
                 }
-            } else if (oOtraCosa instanceof Pared) {
-                Pared obj = (Pared) oOtraCosa;
+            } else if (oOtraCosa instanceof Pared obj) {
                 if (obj.state == Pared.STATE_NORMAL) {
-                    oPersonaje.getDizzy();
+                    oPlayer.getDizzy();
                 }
-            } else if (oOtraCosa instanceof Obstaculo) {
-                Obstaculo obj = (Obstaculo) oOtraCosa;
+            } else if (oOtraCosa instanceof Obstaculo obj) {
                 if (obj.state == Obstaculo.STATE_NORMAL) {
                     obj.setDestroy();
-                    oPersonaje.getHurt();
+                    oPlayer.getHurt();
                 }
-            } else if (oOtraCosa instanceof Missil) {
-                Missil obj = (Missil) oOtraCosa;
+            } else if (oOtraCosa instanceof Missil obj) {
                 if (obj.state == Obstaculo.STATE_NORMAL) {
                     obj.setHitTarget();
-                    oPersonaje.getDizzy();
+                    oPlayer.getDizzy();
                 }
             }
 
@@ -444,21 +454,17 @@ public class WorldGame {
         public void beginContactMascotaOtraCosa(Fixture fixMascota, Fixture otraCosa) {
             Object oOtraCosa = otraCosa.getBody().getUserData();
 
-            if (oOtraCosa instanceof Pared && oPersonaje.isDash) {
-                Pared obj = (Pared) oOtraCosa;
+            if (oOtraCosa instanceof Pared obj && oPlayer.isDash) {
                 obj.setDestroy();
-            } else if (oOtraCosa instanceof Obstaculo && oPersonaje.isDash) {
-                Obstaculo obj = (Obstaculo) oOtraCosa;
+            } else if (oOtraCosa instanceof Obstaculo obj && oPlayer.isDash) {
                 obj.setDestroy();
-            } else if (oOtraCosa instanceof ItemMoneda) {
-                ItemMoneda obj = (ItemMoneda) oOtraCosa;
+            } else if (oOtraCosa instanceof ItemMoneda obj) {
                 if (obj.state == ItemMoneda.STATE_NORMAL) {
                     obj.setPicked();
                     monedasTomadas++;
                     Assets.playSound(Assets.coin, 1);
                 }
-            } else if (oOtraCosa instanceof Missil) {
-                Missil obj = (Missil) oOtraCosa;
+            } else if (oOtraCosa instanceof Missil obj) {
                 if (obj.state == Obstaculo.STATE_NORMAL) {
                     obj.setHitTarget();
                 }
@@ -474,9 +480,9 @@ public class WorldGame {
             if (a == null || b == null)
                 return;
 
-            if (a.getBody().getUserData() instanceof Personaje)
+            if (a.getBody().getUserData() instanceof Player)
                 endContactHeroOtraCosa(a, b);
-            else if (b.getBody().getUserData() instanceof Personaje)
+            else if (b.getBody().getUserData() instanceof Player)
                 endContactHeroOtraCosa(b, a);
 
         }
@@ -486,7 +492,7 @@ public class WorldGame {
 
             if (oOtraCosa instanceof Plataforma) {
                 if (fixHero.getUserData().equals("pies"))
-                    oPersonaje.endTouchFloor();
+                    oPlayer.endTouchFloor();
 
             }
         }
@@ -496,9 +502,9 @@ public class WorldGame {
             Fixture a = contact.getFixtureA();
             Fixture b = contact.getFixtureB();
 
-            if (a.getBody().getUserData() instanceof Personaje)
+            if (a.getBody().getUserData() instanceof Player)
                 preSolveHero(a, b, contact);
-            else if (b.getBody().getUserData() instanceof Personaje)
+            else if (b.getBody().getUserData() instanceof Player)
                 preSolveHero(b, a, contact);
 
         }
@@ -506,8 +512,7 @@ public class WorldGame {
         private void preSolveHero(Fixture fixHero, Fixture otraCosa, Contact contact) {
             Object oOtraCosa = otraCosa.getBody().getUserData();
 
-            if (oOtraCosa instanceof Plataforma) {
-                Plataforma obj = (Plataforma) oOtraCosa;
+            if (oOtraCosa instanceof Plataforma obj) {
 
                 float ponyY = fixHero.getBody().getPosition().y - .30f;
                 float pisY = obj.position.y + Plataforma.HEIGHT / 2f;

@@ -69,7 +69,7 @@ public class GameScreen extends Screens {
     public void update(float delta) {
 
         if (state == STATE_MENU) {
-            gameWorld.oPersonaje.updateStateTime(delta);
+            gameWorld.oPlayer.updateStateTime(delta);
             gameWorld.oMascota.updateStateTime(delta);
         } else if (state == STATE_RUNNING) {
             boolean isJumpPressed = false;
@@ -165,11 +165,11 @@ public class GameScreen extends Screens {
 
         batcher.begin();
         Assets.fontChico.draw(batcher, "FPS GERA" + Gdx.graphics.getFramesPerSecond(), 5, 20);
-        Assets.fontChico.draw(batcher, "Bodies " + gameWorld.oWorldBox.getBodyCount(), 5, 40);
-        Assets.fontChico.draw(batcher, "Lives " + gameWorld.oPersonaje.vidas, 5, 60);
+        Assets.fontChico.draw(batcher, "Bodies " + gameWorld.world.getBodyCount(), 5, 40);
+        Assets.fontChico.draw(batcher, "Lives " + gameWorld.oPlayer.vidas, 5, 60);
         Assets.fontChico.draw(batcher, "Coins " + gameWorld.monedasTomadas, 5, 80);
         Assets.fontChico.draw(batcher, "Scores " + gameWorld.puntuacion, 5, 100);
-        Assets.fontChico.draw(batcher, "Distance " + gameWorld.oPersonaje.position.x, 5, 120);
+        Assets.fontChico.draw(batcher, "Distance " + gameWorld.oPlayer.position.x, 5, 120);
         Assets.fontChico.draw(batcher, "Platforms " + gameWorld.arrPlataformas.size, 5, 140);
 
         batcher.end();

@@ -34,7 +34,7 @@ public class Missil implements Poolable, Comparable<Missil> {
 
 	}
 
-	public void update(float delta, Body body, Personaje oPersonaje) {
+	public void update(float delta, Body body, Player oPlayer) {
 		if (state == STATE_NORMAL) {
 			position.x = body.getPosition().x;
 			position.y = body.getPosition().y;
@@ -49,7 +49,7 @@ public class Missil implements Poolable, Comparable<Missil> {
 			}
 		}
 
-		distanceFromPersonaje = oPersonaje.position.dst(position);
+		distanceFromPersonaje = oPlayer.position.dst(position);
 		stateTime += delta;
 	}
 

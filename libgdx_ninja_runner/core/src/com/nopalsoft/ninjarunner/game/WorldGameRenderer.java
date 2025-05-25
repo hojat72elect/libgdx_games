@@ -20,8 +20,8 @@ import com.nopalsoft.ninjarunner.objetos.Obstaculo;
 import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas4;
 import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas7;
 import com.nopalsoft.ninjarunner.objetos.Pared;
-import com.nopalsoft.ninjarunner.objetos.Personaje;
 import com.nopalsoft.ninjarunner.objetos.Plataforma;
+import com.nopalsoft.ninjarunner.objetos.Player;
 import com.nopalsoft.ninjarunner.screens.Screens;
 
 import java.util.Iterator;
@@ -48,7 +48,7 @@ public class WorldGameRenderer {
     public void render(float delta) {
         // oCam.zoom = 10;
 
-        oCam.position.set(oWorld.oPersonaje.position.x + 1.5f, oWorld.oPersonaje.position.y, 0);
+        oCam.position.set(oWorld.oPlayer.position.x + 1.5f, oWorld.oPlayer.position.y, 0);
 
         if (oCam.position.y < HEIGHT / 2f)
             oCam.position.y = HEIGHT / 2f;
@@ -148,7 +148,7 @@ public class WorldGameRenderer {
         if (oMas.tipo == Mascota.Tipo.BOMBA) {
             spriteFrame = Assets.MascotaBombFly.getKeyFrame(oMas.stateTime, true);
         } else {
-            if (oWorld.oPersonaje.isDash) {
+            if (oWorld.oPlayer.isDash) {
                 spriteFrame = Assets.Mascota1Dash.getKeyFrame(oMas.stateTime, true);
                 width = oMas.dashDrawWidth;
                 height = oMas.dashDrawHeight;
@@ -229,7 +229,7 @@ public class WorldGameRenderer {
     }
 
     private void renderPersonaje(float delta) {
-        Personaje oPer = oWorld.oPersonaje;
+        Player oPer = oWorld.oPlayer;
 
         Sprite spriteFrame = null;
         float offsetY = 0;
@@ -244,7 +244,7 @@ public class WorldGameRenderer {
         AnimationSprite animDead;
 
         switch (oPer.tipo) {
-            case Personaje.TIPO_GIRL:
+            case Player.TIPO_GIRL:
                 animIdle = Assets.personajeIdle;
                 animJump = Assets.personajeJump;
                 animRun = Assets.personajeRun;
@@ -254,7 +254,7 @@ public class WorldGameRenderer {
                 animDizzy = Assets.personajeDizzy;
                 animDead = Assets.personajeDead;
                 break;
-            case Personaje.TIPO_BOY:
+            case Player.TIPO_BOY:
                 animIdle = Assets.personajeIdle;
                 animJump = Assets.personajeJump;
                 animRun = Assets.personajeRun;
@@ -264,7 +264,7 @@ public class WorldGameRenderer {
                 animDizzy = Assets.personajeDizzy;
                 animDead = Assets.personajeDead;
                 break;
-            case Personaje.TIPO_NINJA:
+            case Player.TIPO_NINJA:
             default:
                 animIdle = Assets.ninjaIdle;
                 animJump = Assets.ninjaJump;
@@ -277,7 +277,7 @@ public class WorldGameRenderer {
                 break;
         }
 
-        if (oPer.state == Personaje.STATE_NORMAL) {
+        if (oPer.state == Player.STATE_NORMAL) {
 
             if (oPer.isIdle) {
                 spriteFrame = animIdle.getKeyFrame(oPer.stateTime, true);
@@ -291,10 +291,10 @@ public class WorldGameRenderer {
                 spriteFrame = animRun.getKeyFrame(oPer.stateTime, true);
             }
             offsetY = .1f;
-        } else if (oPer.state == Personaje.STATE_HURT) {
+        } else if (oPer.state == Player.STATE_HURT) {
             spriteFrame = animHurt.getKeyFrame(oPer.stateTime, false);
             offsetY = .1f;
-        } else if (oPer.state == Personaje.STATE_DIZZY) {
+        } else if (oPer.state == Player.STATE_DIZZY) {
             spriteFrame = animDizzy.getKeyFrame(oPer.stateTime, true);
             offsetY = .1f;
         } else {
@@ -302,8 +302,8 @@ public class WorldGameRenderer {
             offsetY = .1f;
         }
 
-        spriteFrame.setPosition(oWorld.oPersonaje.position.x - .75f, oWorld.oPersonaje.position.y - .52f - offsetY);
-        spriteFrame.setSize(Personaje.DRAW_WIDTH, Personaje.DRAW_HEIGHT);
+        spriteFrame.setPosition(oWorld.oPlayer.position.x - .75f, oWorld.oPlayer.position.y - .52f - offsetY);
+        spriteFrame.setSize(Player.DRAW_WIDTH, Player.DRAW_HEIGHT);
         spriteFrame.draw(batcher);
     }
 }

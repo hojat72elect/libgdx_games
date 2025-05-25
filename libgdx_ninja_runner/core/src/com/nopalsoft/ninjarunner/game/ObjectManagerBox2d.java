@@ -17,8 +17,8 @@ import com.nopalsoft.ninjarunner.objetos.Missil;
 import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas4;
 import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas7;
 import com.nopalsoft.ninjarunner.objetos.Pared;
-import com.nopalsoft.ninjarunner.objetos.Personaje;
 import com.nopalsoft.ninjarunner.objetos.Plataforma;
+import com.nopalsoft.ninjarunner.objetos.Player;
 
 
 public class ObjectManagerBox2d {
@@ -28,11 +28,11 @@ public class ObjectManagerBox2d {
 
     public ObjectManagerBox2d(WorldGame oWorld) {
         this.oWorld = oWorld;
-        oWorldBox = oWorld.oWorldBox;
+        oWorldBox = oWorld.world;
     }
 
     public void crearHeroStand(float x, float y, int tipo) {
-        oWorld.oPersonaje = new Personaje(x, y, tipo);
+        oWorld.oPlayer = new Player(x, y, tipo);
 
         BodyDef bd = new BodyDef();
         bd.position.x = x;
@@ -44,9 +44,9 @@ public class ObjectManagerBox2d {
         recreateFixturePersonajeStand(oBody);
 
         oBody.setFixedRotation(true);
-        oBody.setUserData(oWorld.oPersonaje);
+        oBody.setUserData(oWorld.oPlayer);
         oBody.setBullet(true);
-        oBody.setLinearVelocity(Personaje.VELOCIDAD_RUN, 0);
+        oBody.setLinearVelocity(Player.VELOCIDAD_RUN, 0);
     }
 
     private void destroyAllFixturesFromBody(Body oBody) {
@@ -60,7 +60,7 @@ public class ObjectManagerBox2d {
         destroyAllFixturesFromBody(oBody);// Primero le quito todas las que tenga
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(Personaje.WIDTH / 2f, Personaje.HEIGHT / 2f);
+        shape.setAsBox(Player.WIDTH / 2f, Player.HEIGHT / 2f);
 
         FixtureDef fixture = new FixtureDef();
         fixture.shape = shape;
@@ -70,7 +70,7 @@ public class ObjectManagerBox2d {
         cuerpo.setUserData("cuerpo");
 
         PolygonShape sensorPiesShape = new PolygonShape();
-        sensorPiesShape.setAsBox(Personaje.WIDTH / 2.2f, .025f, new Vector2(0, -.51f), 0);
+        sensorPiesShape.setAsBox(Player.WIDTH / 2.2f, .025f, new Vector2(0, -.51f), 0);
         fixture.shape = sensorPiesShape;
         fixture.density = 0;
         fixture.restitution = 0f;
@@ -88,7 +88,7 @@ public class ObjectManagerBox2d {
 
         PolygonShape shape = new PolygonShape();
         // Para cuando se crea el cubo como es mas chico que quede en la posicion correcta
-        shape.setAsBox(Personaje.WIDTH / 2f, Personaje.HEIGHT_SLIDE / 2f, new Vector2(0, -.25f), 0);
+        shape.setAsBox(Player.WIDTH / 2f, Player.HEIGHT_SLIDE / 2f, new Vector2(0, -.25f), 0);
 
         FixtureDef fixture = new FixtureDef();
         fixture.shape = shape;
@@ -98,7 +98,7 @@ public class ObjectManagerBox2d {
         cuerpo.setUserData("cuerpo");
 
         PolygonShape sensorPiesShape = new PolygonShape();
-        sensorPiesShape.setAsBox(Personaje.WIDTH / 2.2f, .025f, new Vector2(0, -.51f), 0);
+        sensorPiesShape.setAsBox(Player.WIDTH / 2.2f, .025f, new Vector2(0, -.51f), 0);
         fixture.shape = sensorPiesShape;
         fixture.density = 0;
         fixture.restitution = 0f;
