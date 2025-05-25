@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.ninjarunner.game.GameScreen;
 import com.nopalsoft.ninjarunner.handlers.GameServicesHandler;
 import com.nopalsoft.ninjarunner.handlers.RequestHandler;
-import com.nopalsoft.ninjarunner.leaderboard.LeaderboardScreen;
 import com.nopalsoft.ninjarunner.leaderboard.Person;
 import com.nopalsoft.ninjarunner.screens.Screens;
 
@@ -64,10 +63,6 @@ public class MainGame extends Game {
 
         arrPerson.sort();// Acomoda de mayor a menor
 
-        //Si estoy en la tabla pues actalizo la tabla
-        if (getScreen() instanceof LeaderboardScreen oScreen) {
-            oScreen.updateLeaderboard();
-        }
     }
 
 }

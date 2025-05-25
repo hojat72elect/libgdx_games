@@ -101,7 +101,7 @@ public class NextGoalFrame extends Group {
         addActor(imagenPersona);
     }
 
-    public void updatePuntuacion(long puntuacion) {
+    public void updatePuntuacion() {
 
     }
 }

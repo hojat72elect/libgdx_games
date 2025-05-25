@@ -34,14 +34,13 @@ public class GameScreen extends Screens {
 
         if (showMainMenu) {
             state = STATE_MENU;
-            menuUI.show(stage, showMainMenu);
+            menuUI.show(stage, true);
         } else {
             setRunning(false);
         }
 
         // Siempre intento cargar in interstitial al inicio del juego
         game.reqHandler.loadInterstitial();
-
     }
 
     public void setRunning(boolean removeMenu) {
@@ -65,7 +64,6 @@ public class GameScreen extends Screens {
         } else {
             stage.addAction(Actions.run(runAfterHideMenu));
         }
-
     }
 
     @Override
@@ -74,7 +72,6 @@ public class GameScreen extends Screens {
         if (state == STATE_MENU) {
             oWorld.oPersonaje.updateStateTime(delta);
             oWorld.oMascota.updateStateTime(delta);
-
         } else if (state == STATE_RUNNING) {
             boolean isJumpPressed = false;
 
@@ -88,15 +85,11 @@ public class GameScreen extends Screens {
             }
 
             setNextGoalFrame(oWorld.puntuacion);
-            nextGoalFrame.updatePuntuacion(oWorld.puntuacion);
-
         } else if (state == STATE_GAME_OVER) {
             if (Gdx.input.justTouched()) {
                 game.setScreen(new GameScreen(game, true));
             }
         }
-
-
     }
 
 
@@ -133,13 +126,9 @@ public class GameScreen extends Screens {
             return;
 
 
-        Runnable run = new Runnable() {
-            @Override
-            public void run() {
-                nextGoalFrame.updatePersona(oPersona);
-                nextGoalFrame.addAction(Actions.sequence(Actions.moveTo(SCREEN_WIDTH - NextGoalFrame.WIDTH, nextGoalFrame.getY(), 1)));
-
-            }
+        Runnable run = () -> {
+            nextGoalFrame.updatePersona(oPersona);
+            nextGoalFrame.addAction(Actions.sequence(Actions.moveTo(SCREEN_WIDTH - NextGoalFrame.WIDTH, nextGoalFrame.getY(), 1)));
         };
 
         if (!nextGoalFrame.hasParent()) {
@@ -155,7 +144,6 @@ public class GameScreen extends Screens {
         Settings.setNewScore(oWorld.puntuacion);
         state = STATE_GAME_OVER;
         Assets.musica1.stop();
-
     }
 
     @Override
@@ -188,7 +176,6 @@ public class GameScreen extends Screens {
         Assets.fontChico.draw(batcher, "Plataformas " + oWorld.arrPlataformas.size, 5, 140);
 
         batcher.end();
-
     }
 
     @Override
@@ -212,7 +199,6 @@ public class GameScreen extends Screens {
             return true;
         }
         return super.keyDown(keycode);
-
     }
 
     @Override
