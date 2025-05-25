@@ -102,6 +102,6 @@ public class NextGoalFrame extends Group {
     }
 
     public void updatePuntuacion(long puntuacion) {
-        lbPuntosRestantesParaSuperar.setText("Pa Ganar" + (oPersona.score - puntuacion));
+
     }
 }

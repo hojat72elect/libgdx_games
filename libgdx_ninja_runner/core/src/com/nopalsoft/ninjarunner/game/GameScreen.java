@@ -12,15 +12,10 @@ import com.nopalsoft.ninjarunner.scene2d.GameUI;
 import com.nopalsoft.ninjarunner.scene2d.MenuUI;
 import com.nopalsoft.ninjarunner.screens.Screens;
 
-/**
- * Created by Yayo on 1/21/15.
- */
 public class GameScreen extends Screens {
     static final int STATE_MENU = 0;
     static final int STATE_RUNNING = 1;
     static final int STATE_GAME_OVER = 2;
-    static final int STATE_CHECK_REVIVE = 3;
-    static final int STATE_PAUSED = 4;
     public WorldGame oWorld;
     int state;
     GameUI gameUI;
@@ -47,37 +42,21 @@ public class GameScreen extends Screens {
         // Siempre intento cargar in interstitial al inicio del juego
         game.reqHandler.loadInterstitial();
 
-
-        if (game.facebookHandler.facebookIsSignedIn())
-            game.facebookHandler.facebookGetScores();
-
-        if (game.gameServiceHandler.isSignedIn())
-            game.gameServiceHandler.getScores();
-
-
     }
 
     public void setRunning(boolean removeMenu) {
-        Runnable runAfterHideMenu = new Runnable() {
-            @Override
-            public void run() {
-                Runnable run = new Runnable() {
-                    @Override
-                    public void run() {
-                        state = STATE_RUNNING;
-                        if (Settings.isMusicEnabled) {
-                            Assets.musica1.play();
-                        }
+        Runnable runAfterHideMenu = () -> {
+            Runnable run = () -> {
+                state = STATE_RUNNING;
+                if (Settings.isMusicEnabled) {
+                    Assets.musica1.play();
+                }
 
-                        nextGoalFrame = new NextGoalFrame(SCREEN_WIDTH, 400);
-                        setNextGoalFrame(0);
-
-
-                    }
-                };
-                gameUI.addAction(Actions.sequence(Actions.delay(GameUI.ANIMATION_TIME), Actions.run(run)));
-                gameUI.show(stage);
-            }
+                nextGoalFrame = new NextGoalFrame(SCREEN_WIDTH, 400);
+                setNextGoalFrame(0);
+            };
+            gameUI.addAction(Actions.sequence(Actions.delay(GameUI.ANIMATION_TIME), Actions.run(run)));
+            gameUI.show(stage);
         };
 
         if (removeMenu) {
@@ -166,16 +145,13 @@ public class GameScreen extends Screens {
         if (!nextGoalFrame.hasParent()) {
             stage.addActor(nextGoalFrame);
             Gdx.app.postRunnable(run);
-            return;
         } else if (!nextGoalFrame.hasActions()) {
             nextGoalFrame.addAction(Actions.sequence(Actions.moveTo(SCREEN_WIDTH, nextGoalFrame.getY(), 1), Actions.run(run)));
-            return;
         }
     }
 
     private void setGameover() {
         game.gameServiceHandler.submitScore(oWorld.puntuacion);
-        game.facebookHandler.facebookSubmitScore(oWorld.puntuacion);
         Settings.setNewScore(oWorld.puntuacion);
         state = STATE_GAME_OVER;
         Assets.musica1.stop();
@@ -203,7 +179,7 @@ public class GameScreen extends Screens {
         batcher.setProjectionMatrix(oCam.combined);
 
         batcher.begin();
-        Assets.fontChico.draw(batcher, "FPS GERA" + Gdx.graphics.getFramesPerSecond() + "", 5, 20);
+        Assets.fontChico.draw(batcher, "FPS GERA" + Gdx.graphics.getFramesPerSecond(), 5, 20);
         Assets.fontChico.draw(batcher, "Bodies " + oWorld.oWorldBox.getBodyCount(), 5, 40);
         Assets.fontChico.draw(batcher, "Vidas " + oWorld.oPersonaje.vidas, 5, 60);
         Assets.fontChico.draw(batcher, "Monedas " + oWorld.monedasTomadas, 5, 80);

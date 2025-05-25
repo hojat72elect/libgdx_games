@@ -8,14 +8,11 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.ninjarunner.game.GameScreen;
-import com.nopalsoft.ninjarunner.handlers.FacebookHandler;
 import com.nopalsoft.ninjarunner.handlers.GameServicesHandler;
 import com.nopalsoft.ninjarunner.handlers.RequestHandler;
 import com.nopalsoft.ninjarunner.leaderboard.LeaderboardScreen;
 import com.nopalsoft.ninjarunner.leaderboard.Person;
 import com.nopalsoft.ninjarunner.screens.Screens;
-
-import java.util.Iterator;
 
 public class MainGame extends Game {
 
@@ -23,17 +20,14 @@ public class MainGame extends Game {
 
     public final GameServicesHandler gameServiceHandler;
     public final RequestHandler reqHandler;
-    public final FacebookHandler facebookHandler;
-
 
     public Stage stage;
     public SpriteBatch batcher;
     public I18NBundle idiomas;
 
-    public MainGame(RequestHandler reqHandler, GameServicesHandler gameServiceHandler, FacebookHandler facebookHandler) {
+    public MainGame(RequestHandler reqHandler, GameServicesHandler gameServiceHandler) {
         this.reqHandler = reqHandler;
         this.gameServiceHandler = gameServiceHandler;
-        this.facebookHandler = facebookHandler;
     }
 
     @Override
@@ -46,7 +40,6 @@ public class MainGame extends Game {
         Assets.load();
         // Achievements.init(this);
         setScreen(new GameScreen(this, true));
-
     }
 
     public void setArrayPerson(Array<Person> _arrPerson) {
@@ -72,33 +65,9 @@ public class MainGame extends Game {
         arrPerson.sort();// Acomoda de mayor a menor
 
         //Si estoy en la tabla pues actalizo la tabla
-        if (getScreen() instanceof LeaderboardScreen) {
-            LeaderboardScreen oScreen = (LeaderboardScreen) getScreen();
+        if (getScreen() instanceof LeaderboardScreen oScreen) {
             oScreen.updateLeaderboard();
         }
     }
 
-    /**
-     * p
-     * Se manda llamar cuando se cierra la sesion en facebook, quita de la tabla todos los usuario de facebook
-     */
-    public void removeFromArray(Person.TipoCuenta cuenta) {
-        if (arrPerson == null)
-            return;
-
-        Iterator<Person> i = arrPerson.iterator();
-        while (i.hasNext()) {
-            Person obj = i.next();
-            if (obj.tipoCuenta == cuenta)
-                i.remove();
-        }
-
-        arrPerson.sort();// Acomoda de mayor a menor
-
-        //Si estoy en la tabla pues actalizo la tabla
-        if (getScreen() instanceof LeaderboardScreen) {
-            LeaderboardScreen oScreen = (LeaderboardScreen) getScreen();
-            oScreen.updateLeaderboard();
-        }
-    }
 }
