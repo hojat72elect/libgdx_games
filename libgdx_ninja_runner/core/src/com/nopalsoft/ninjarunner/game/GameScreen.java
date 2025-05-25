@@ -16,7 +16,7 @@ public class GameScreen extends Screens {
     static final int STATE_MENU = 0;
     static final int STATE_RUNNING = 1;
     static final int STATE_GAME_OVER = 2;
-    public WorldGame oWorld;
+    public WorldGame gameWorld;
     int state;
     GameUI gameUI;
     MenuUI menuUI;
@@ -26,11 +26,10 @@ public class GameScreen extends Screens {
 
     public GameScreen(Game _game, boolean showMainMenu) {
         super(_game);
-        oWorld = new WorldGame();
-        renderer = new WorldGameRenderer(batcher, oWorld);
-        gameUI = new GameUI(this, oWorld);
-        menuUI = new MenuUI(this, oWorld);
-        // vtPause = new VentanaPause(this);
+        gameWorld = new WorldGame();
+        renderer = new WorldGameRenderer(batcher, gameWorld);
+        gameUI = new GameUI(this, gameWorld);
+        menuUI = new MenuUI(this, gameWorld);
 
         if (showMainMenu) {
             state = STATE_MENU;
@@ -39,7 +38,7 @@ public class GameScreen extends Screens {
             setRunning(false);
         }
 
-        // Siempre intento cargar in interstitial al inicio del juego
+        // I always try to load in interstitial at the start of the game
         game.reqHandler.loadInterstitial();
     }
 
@@ -70,21 +69,21 @@ public class GameScreen extends Screens {
     public void update(float delta) {
 
         if (state == STATE_MENU) {
-            oWorld.oPersonaje.updateStateTime(delta);
-            oWorld.oMascota.updateStateTime(delta);
+            gameWorld.oPersonaje.updateStateTime(delta);
+            gameWorld.oMascota.updateStateTime(delta);
         } else if (state == STATE_RUNNING) {
             boolean isJumpPressed = false;
 
-            oWorld.update(delta, gameUI.didJump, isJumpPressed, gameUI.didDash, gameUI.didSlide);
+            gameWorld.update(delta, gameUI.didJump, isJumpPressed, gameUI.didDash, gameUI.didSlide);
 
             gameUI.didJump = false;
             gameUI.didDash = false;
 
-            if (oWorld.state == WorldGame.STATE_GAMEOVER) {
+            if (gameWorld.state == WorldGame.STATE_GAMEOVER) {
                 setGameover();
             }
 
-            setNextGoalFrame(oWorld.puntuacion);
+            setNextGoalFrame(gameWorld.puntuacion);
         } else if (state == STATE_GAME_OVER) {
             if (Gdx.input.justTouched()) {
                 game.setScreen(new GameScreen(game, true));
@@ -94,18 +93,17 @@ public class GameScreen extends Screens {
 
 
     public void setNextGoalFrame(long puntos) {
-        //Para que solo se muestren las personas que no haya superado aun
+        // So that only people you haven't passed yet are shown
         if (puntos < Settings.bestScore)
             puntos = Settings.bestScore;
 
-        game.arrPerson.sort(); // Acomoda de mayor puntuacion a menor puntuacion
+        game.arrPerson.sort(); // Arrange from highest score to lowest score
 
 
         Person oPersonAux = null;
-        //Calculo la posicion del jugador que tenga mas puntos que yo. Por ejemplo si yo voy en quinto lugar
-        //esta debe ser la pocion del cuarto lugar.
+        // I calculate the position of the player with the most points. For example, if I'm in fifth place, this should be the position for fourth place.
         int posicionArribaDeMi = game.arrPerson.size - 1;
-        //El arreglo esta ordenado de mayor a menor
+        // The arrangement is ordered from largest to smallest.
         for (; posicionArribaDeMi >= 0; posicionArribaDeMi--) {
             Person obj = game.arrPerson.get(posicionArribaDeMi);
             if (obj.isMe)
@@ -140,7 +138,7 @@ public class GameScreen extends Screens {
     }
 
     private void setGameover() {
-        Settings.setNewScore(oWorld.puntuacion);
+        Settings.setNewScore(gameWorld.puntuacion);
         state = STATE_GAME_OVER;
         Assets.musica1.stop();
     }
@@ -167,12 +165,12 @@ public class GameScreen extends Screens {
 
         batcher.begin();
         Assets.fontChico.draw(batcher, "FPS GERA" + Gdx.graphics.getFramesPerSecond(), 5, 20);
-        Assets.fontChico.draw(batcher, "Bodies " + oWorld.oWorldBox.getBodyCount(), 5, 40);
-        Assets.fontChico.draw(batcher, "Vidas " + oWorld.oPersonaje.vidas, 5, 60);
-        Assets.fontChico.draw(batcher, "Monedas " + oWorld.monedasTomadas, 5, 80);
-        Assets.fontChico.draw(batcher, "Puntos " + oWorld.puntuacion, 5, 100);
-        Assets.fontChico.draw(batcher, "Distancia " + oWorld.oPersonaje.position.x, 5, 120);
-        Assets.fontChico.draw(batcher, "Plataformas " + oWorld.arrPlataformas.size, 5, 140);
+        Assets.fontChico.draw(batcher, "Bodies " + gameWorld.oWorldBox.getBodyCount(), 5, 40);
+        Assets.fontChico.draw(batcher, "Lives " + gameWorld.oPersonaje.vidas, 5, 60);
+        Assets.fontChico.draw(batcher, "Coins " + gameWorld.monedasTomadas, 5, 80);
+        Assets.fontChico.draw(batcher, "Scores " + gameWorld.puntuacion, 5, 100);
+        Assets.fontChico.draw(batcher, "Distance " + gameWorld.oPersonaje.position.x, 5, 120);
+        Assets.fontChico.draw(batcher, "Platforms " + gameWorld.arrPlataformas.size, 5, 140);
 
         batcher.end();
     }
