@@ -2,7 +2,6 @@ package com.nopalsoft.ninjarunner.leaderboard;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.ninjarunner.Assets;
 import com.nopalsoft.ninjarunner.game.GameScreen;
 import com.nopalsoft.ninjarunner.screens.Screens;
@@ -99,38 +97,6 @@ public class LeaderboardScreen extends Screens {
         btFacebook = new Button(Assets.btFacebook, Assets.btFacebookPress, Assets.btFacebookPress);
         btGoogle = new Button(Assets.btAchievement, Assets.btAchievementPress, Assets.btLeaderboardPress);
         btInviteFriend = new Button(Assets.btSettings, Assets.btSettingsPress, Assets.btLeaderboardPress);
-
-        btLeaderboard.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-            }
-
-        });
-
-        btFacebook.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-
-            }
-        });
-
-        btGoogle.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn()) {
-                    game.gameServiceHandler.getLeaderboard();
-                } else {
-                    game.gameServiceHandler.signIn();
-                }
-            }
-        });
-
-        btInviteFriend.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-
-            }
-        });
 
         ButtonGroup<Button> radioGroup = new ButtonGroup<>();
         radioGroup.add(btLeaderboard, btFacebook, btGoogle, btInviteFriend);

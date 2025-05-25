@@ -8,7 +8,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.ninjarunner.game.GameScreen;
-import com.nopalsoft.ninjarunner.handlers.GameServicesHandler;
 import com.nopalsoft.ninjarunner.handlers.RequestHandler;
 import com.nopalsoft.ninjarunner.leaderboard.Person;
 import com.nopalsoft.ninjarunner.screens.Screens;
@@ -17,16 +16,14 @@ public class MainGame extends Game {
 
     public Array<Person> arrPerson = new Array<>();
 
-    public final GameServicesHandler gameServiceHandler;
     public final RequestHandler reqHandler;
 
     public Stage stage;
     public SpriteBatch batcher;
     public I18NBundle idiomas;
 
-    public MainGame(RequestHandler reqHandler, GameServicesHandler gameServiceHandler) {
+    public MainGame(RequestHandler reqHandler) {
         this.reqHandler = reqHandler;
-        this.gameServiceHandler = gameServiceHandler;
     }
 
     @Override

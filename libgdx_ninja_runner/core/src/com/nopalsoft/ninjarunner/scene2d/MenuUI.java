@@ -94,7 +94,7 @@ public class MenuUI extends Group {
         btPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // gameScreen.game.reqHandler.hideAdBanner();FIXME
+
                 if (showMainMenu)
                     gameScreen.setRunning(true);
                 else {
@@ -132,17 +132,6 @@ public class MenuUI extends Group {
 
                 gameScreen.game.setScreen(new LeaderboardScreen(gameScreen.game));
 
-            }
-        });
-
-        btAchievements.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (gameScreen.game.gameServiceHandler.isSignedIn()) {
-                    gameScreen.game.gameServiceHandler.getAchievements();
-                } else {
-                    gameScreen.game.gameServiceHandler.signIn();
-                }
             }
         });
 

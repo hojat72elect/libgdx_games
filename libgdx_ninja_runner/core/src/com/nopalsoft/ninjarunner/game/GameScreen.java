@@ -140,7 +140,6 @@ public class GameScreen extends Screens {
     }
 
     private void setGameover() {
-        game.gameServiceHandler.submitScore(oWorld.puntuacion);
         Settings.setNewScore(oWorld.puntuacion);
         state = STATE_GAME_OVER;
         Assets.musica1.stop();
