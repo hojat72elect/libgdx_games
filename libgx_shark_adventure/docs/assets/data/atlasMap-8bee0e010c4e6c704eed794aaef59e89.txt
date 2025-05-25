@@ -1,0 +1,641 @@
+atlasMap.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tiburon8
+  rotate: false
+  xy: 547, 664
+  size: 120, 78
+  orig: 120, 78
+  offset: 0, 0
+  index: -1
+minaOxido
+  rotate: false
+  xy: 1022, 865
+  size: 56, 63
+  orig: 56, 63
+  offset: 0, 0
+  index: -1
+tiburon1
+  rotate: false
+  xy: 588, 824
+  size: 120, 78
+  orig: 120, 78
+  offset: 0, 0
+  index: -1
+chain
+  rotate: false
+  xy: 364, 571
+  size: 16, 24
+  orig: 16, 24
+  offset: 0, 0
+  index: -1
+UI/energyBar
+  rotate: false
+  xy: 630, 624
+  size: 150, 19
+  orig: 150, 19
+  offset: 0, 0
+  index: -1
+UI/btSonidoOff
+  rotate: false
+  xy: 317, 922
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+tiburon4
+  rotate: false
+  xy: 547, 664
+  size: 120, 78
+  orig: 120, 78
+  offset: 0, 0
+  index: -1
+explosion7
+  rotate: false
+  xy: 869, 686
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+suelo2
+  rotate: false
+  xy: 2, 246
+  size: 1024, 120
+  orig: 1024, 120
+  offset: 0, 0
+  index: -1
+turbo
+  rotate: false
+  xy: 1028, 103
+  size: 96, 48
+  orig: 96, 48
+  offset: 0, 0
+  index: -1
+UI/btRefreshPress
+  rotate: false
+  xy: 692, 981
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+blastHit3
+  rotate: false
+  xy: 1000, 997
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+UI/btFirePress
+  rotate: false
+  xy: 791, 664
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+UI/btHomePress
+  rotate: false
+  xy: 846, 975
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+SmallFishGreen
+  rotate: false
+  xy: 472, 624
+  size: 40, 24
+  orig: 40, 24
+  offset: 0, 0
+  index: -1
+tiburonFire3
+  rotate: false
+  xy: 394, 911
+  size: 120, 78
+  orig: 120, 78
+  offset: 0, 0
+  index: -1
+minaGris
+  rotate: false
+  xy: 1000, 931
+  size: 56, 64
+  orig: 56, 64
+  offset: 0, 0
+  index: -1
+explosion5
+  rotate: false
+  xy: 1058, 741
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+UI/btFacebookPress
+  rotate: false
+  xy: 1012, 664
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+explosion8
+  rotate: false
+  xy: 869, 624
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+MediumFishBrown
+  rotate: false
+  xy: 648, 1071
+  size: 65, 52
+  orig: 65, 52
+  offset: 0, 0
+  index: -1
+UI/backgroundMenu
+  rotate: false
+  xy: 344, 664
+  size: 201, 85
+  orig: 201, 85
+  offset: 0, 0
+  index: -1
+barrilRojo
+  rotate: false
+  xy: 131, 552
+  size: 43, 68
+  orig: 43, 68
+  offset: 0, 0
+  index: -1
+blastHit2
+  rotate: false
+  xy: 288, 624
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+explosion1
+  rotate: false
+  xy: 1012, 1054
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+UI/titulo
+  rotate: false
+  xy: 448, 490
+  size: 565, 132
+  orig: 565, 132
+  offset: 0, 0
+  index: -1
+UI/btPausa
+  rotate: false
+  xy: 710, 821
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+tiburon7
+  rotate: false
+  xy: 516, 911
+  size: 120, 78
+  orig: 120, 78
+  offset: 0, 0
+  index: -1
+UI/btAchievements
+  rotate: false
+  xy: 935, 1041
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+UI/redBar
+  rotate: false
+  xy: 266, 602
+  size: 150, 20
+  orig: 150, 20
+  offset: 0, 0
+  index: -1
+tiburonFire4
+  rotate: false
+  xy: 344, 831
+  size: 120, 78
+  orig: 120, 78
+  offset: 0, 0
+  index: -1
+barrilAmarillo
+  rotate: false
+  xy: 221, 552
+  size: 43, 68
+  orig: 43, 68
+  offset: 0, 0
+  index: -1
+blastHit6
+  rotate: false
+  xy: 316, 552
+  size: 46, 46
+  orig: 46, 46
+  offset: 0, 0
+  index: -1
+carne
+  rotate: false
+  xy: 394, 552
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+UI/btIzqPress
+  rotate: false
+  xy: 787, 821
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+UI/btHome
+  rotate: false
+  xy: 858, 1052
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+UI/btTwitter
+  rotate: false
+  xy: 240, 922
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+UI/btPausaPress
+  rotate: false
+  xy: 710, 744
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+tiburon3
+  rotate: false
+  xy: 588, 744
+  size: 120, 78
+  orig: 120, 78
+  offset: 0, 0
+  index: -1
+UI/btFire
+  rotate: false
+  xy: 935, 624
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+SmallFishYellow
+  rotate: false
+  xy: 388, 624
+  size: 40, 24
+  orig: 40, 24
+  offset: 0, 0
+  index: -1
+explosion2
+  rotate: false
+  xy: 1058, 992
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+UI/backgroundTitulo
+  rotate: false
+  xy: 514, 624
+  size: 80, 21
+  orig: 80, 21
+  offset: 0, 0
+  index: -1
+MediumFishPurple
+  rotate: false
+  xy: 514, 1071
+  size: 65, 52
+  orig: 65, 52
+  offset: 0, 0
+  index: -1
+tiburon6
+  rotate: false
+  xy: 547, 664
+  size: 120, 78
+  orig: 120, 78
+  offset: 0, 0
+  index: -1
+tiburonFire1
+  rotate: false
+  xy: 466, 751
+  size: 120, 78
+  orig: 120, 78
+  offset: 0, 0
+  index: -1
+UI/btLeaderboard
+  rotate: false
+  xy: 787, 744
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+torpedo
+  rotate: false
+  xy: 322, 624
+  size: 64, 24
+  orig: 64, 24
+  offset: 0, 0
+  index: -1
+blastHit1
+  rotate: false
+  xy: 596, 624
+  size: 32, 20
+  orig: 32, 20
+  offset: 0, 0
+  index: -1
+UI/btUp
+  rotate: false
+  xy: 163, 922
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+tiburon2
+  rotate: false
+  xy: 669, 664
+  size: 120, 78
+  orig: 120, 78
+  offset: 0, 0
+  index: -1
+UI/gameOver2
+  rotate: false
+  xy: 86, 490
+  size: 359, 60
+  orig: 359, 60
+  offset: 0, 0
+  index: -1
+blast
+  rotate: false
+  xy: 715, 1058
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+tiburonFire5
+  rotate: false
+  xy: 344, 751
+  size: 120, 78
+  orig: 120, 78
+  offset: 0, 0
+  index: -1
+UI/btMusicOff
+  rotate: false
+  xy: 715, 898
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+UI/btDerPress
+  rotate: false
+  xy: 864, 810
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+blastHit5
+  rotate: false
+  xy: 266, 552
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+barrilNegro
+  rotate: false
+  xy: 176, 552
+  size: 43, 68
+  orig: 43, 68
+  offset: 0, 0
+  index: -1
+corazon
+  rotate: false
+  xy: 448, 1071
+  size: 64, 55
+  orig: 64, 55
+  offset: 0, 0
+  index: -1
+UI/btSonido
+  rotate: false
+  xy: 638, 904
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+UI/btUpPress
+  rotate: false
+  xy: 86, 922
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+Bubble
+  rotate: false
+  xy: 364, 552
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+UI/btFacebook
+  rotate: false
+  xy: 935, 701
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+UI/backgroundVentana
+  rotate: false
+  xy: 1028, 2
+  size: 96, 99
+  orig: 96, 99
+  offset: 0, 0
+  index: -1
+UI/btTwitterPress
+  rotate: false
+  xy: 946, 855
+  size: 74, 74
+  orig: 74, 74
+  offset: 0, 0
+  index: -1
+submarinoRojo
+  rotate: false
+  xy: 188, 999
+  size: 128, 112
+  orig: 128, 112
+  offset: 0, 0
+  index: -1
+MediumFishGreen
+  rotate: false
+  xy: 581, 1071
+  size: 65, 52
+  orig: 65, 52
+  offset: 0, 0
+  index: -1
+SmallFishRed
+  rotate: false
+  xy: 430, 624
+  size: 40, 24
+  orig: 40, 24
+  offset: 0, 0
+  index: -1
+explosion3
+  rotate: false
+  xy: 1058, 930
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+tiburonDead
+  rotate: false
+  xy: 466, 831
+  size: 120, 78
+  orig: 120, 78
+  offset: 0, 0
+  index: -1
+UI/backgroundProgressBar
+  rotate: false
+  xy: 86, 624
+  size: 200, 35
+  orig: 200, 35
+  offset: 0, 0
+  index: -1
+suelo
+  rotate: false
+  xy: 2, 368
+  size: 1024, 120
+  orig: 1024, 120
+  offset: 0, 0
+  index: -1
+sueloAtras
+  rotate: false
+  xy: 2, 2
+  size: 1024, 120
+  orig: 1024, 120
+  offset: 0, 0
+  index: -1
+explosion6
+  rotate: false
+  xy: 869, 748
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+fondo2
+  rotate: false
+  xy: 2, 490
+  size: 82, 507
+  orig: 82, 507
+  offset: 0, 0
+  index: -1
+blastHit4
+  rotate: false
+  xy: 1017, 803
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+UI/gameOver
+  rotate: false
+  xy: 2, 999
+  size: 184, 124
+  orig: 184, 124
+  offset: 0, 0
+  index: -1
+UI/btAchievementsPress
+  rotate: false
+  xy: 923, 964
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+fondo
+  rotate: false
+  xy: 1028, 153
+  size: 83, 509
+  orig: 83, 509
+  offset: 0, 0
+  index: -1
+submarinoAmarillo
+  rotate: false
+  xy: 318, 999
+  size: 128, 112
+  orig: 128, 112
+  offset: 0, 0
+  index: -1
+UI/btMusic
+  rotate: false
+  xy: 769, 975
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+tiburon5
+  rotate: false
+  xy: 570, 991
+  size: 120, 78
+  orig: 120, 78
+  offset: 0, 0
+  index: -1
+UI/btLeaderboardPress
+  rotate: false
+  xy: 781, 1052
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+barrilVerde
+  rotate: false
+  xy: 86, 552
+  size: 43, 68
+  orig: 43, 68
+  offset: 0, 0
+  index: -1
+FontGrande
+  rotate: false
+  xy: 86, 664
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+tiburonFire2
+  rotate: false
+  xy: 448, 991
+  size: 120, 78
+  orig: 120, 78
+  offset: 0, 0
+  index: -1
+UI/btIzq
+  rotate: false
+  xy: 792, 898
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+suelo2Atras
+  rotate: false
+  xy: 2, 124
+  size: 1024, 120
+  orig: 1024, 120
+  offset: 0, 0
+  index: -1
+UI/btRefresh
+  rotate: false
+  xy: 941, 778
+  size: 74, 75
+  orig: 74, 75
+  offset: 0, 0
+  index: -1
+UI/btDer
+  rotate: false
+  xy: 869, 887
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+explosion4
+  rotate: false
+  xy: 1063, 803
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
