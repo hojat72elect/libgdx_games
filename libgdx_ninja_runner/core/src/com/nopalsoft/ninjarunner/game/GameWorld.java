@@ -80,7 +80,6 @@ public class GameWorld {
         mundoCreadoHastaX = physicsManager.crearPlataforma(0, 0, 3);
 
         crearSiguienteParte();
-
     }
 
     private void crearSiguienteParte() {
@@ -112,7 +111,6 @@ public class GameWorld {
                 if (MathUtils.randomBoolean(.1f)) {
                     xAux = physicsManager.crearCaja4(xAux, y + .8f);
                     xAux = addRandomItems(xAux, y);
-
                 } else if (MathUtils.randomBoolean(.1f)) {
                     xAux = physicsManager.crearCaja7(xAux, y + 1f);
                     xAux = addRandomItems(xAux, y);
@@ -177,7 +175,6 @@ public class GameWorld {
         } else if (MathUtils.randomBoolean(.025f)) {
 
             xAux = physicsManager.crearItem(ItemMagnet.class, xAux, y + 1.5f);
-
         }
 
         return xAux;
@@ -223,9 +220,7 @@ public class GameWorld {
             timeToSpawnMissile -= TIME_TO_SPAWN_MISSIL;
 
             physicsManager.crearMissil(player.position.x + 10, player.position.y);
-
         }
-
     }
 
     private void eliminarObjetos() {
@@ -294,7 +289,6 @@ public class GameWorld {
             bodyIsSLide = false;
             physicsManager.recreateFixturePersonajeStand(body);
         }
-
     }
 
     private void updateMascota(float delta, Body body) {
@@ -323,7 +317,6 @@ public class GameWorld {
 
         if (obj.position.x < player.position.x - 3)
             obj.setDestroy();
-
     }
 
     private void updatePared(float delta, Body body) {
@@ -331,7 +324,6 @@ public class GameWorld {
 
         if (obj.position.x < player.position.x - 3)
             obj.setDestroy();
-
     }
 
     private void updateItem(float delta, Body body) {
@@ -340,7 +332,6 @@ public class GameWorld {
 
         if (obj.position.x < player.position.x - 3)
             obj.setPicked();
-
     }
 
     private void updateObstaculos(float delta, Body body) {
@@ -349,7 +340,6 @@ public class GameWorld {
 
         if (obj.position.x < player.position.x - 3)
             obj.setDestroy();
-
     }
 
     private void updateMissil(float delta, Body body) {
@@ -360,7 +350,6 @@ public class GameWorld {
             obj.setDestroy();
 
         arrMissiles.sort();
-
     }
 
     /**
@@ -394,7 +383,6 @@ public class GameWorld {
                 beginContactMascotaOtraCosa(a, b);
             else if (b.getBody().getUserData() instanceof Mascot)
                 beginContactMascotaOtraCosa(b, a);
-
         }
 
         private void beginContactHeroOtraCosa(Fixture fixHero, Fixture otraCosa) {
@@ -406,7 +394,6 @@ public class GameWorld {
                         recreateFixture = false;
                     else
                         player.touchFloor();
-
                 }
             } else if (oOtraCosa instanceof Item obj) {
                 if (obj.state == Item.STATE_NORMAL) {
@@ -448,7 +435,6 @@ public class GameWorld {
                     player.getDizzy();
                 }
             }
-
         }
 
         public void beginContactMascotaOtraCosa(Fixture fixMascota, Fixture otraCosa) {
@@ -469,7 +455,6 @@ public class GameWorld {
                     obj.setHitTarget();
                 }
             }
-
         }
 
         @Override
@@ -484,7 +469,6 @@ public class GameWorld {
                 endContactHeroOtraCosa(a, b);
             else if (b.getBody().getUserData() instanceof Player)
                 endContactHeroOtraCosa(b, a);
-
         }
 
         private void endContactHeroOtraCosa(Fixture fixHero, Fixture otraCosa) {
@@ -493,7 +477,6 @@ public class GameWorld {
             if (oOtraCosa instanceof Plataforma) {
                 if (fixHero.getUserData().equals("pies"))
                     player.endTouchFloor();
-
             }
         }
 
@@ -506,7 +489,6 @@ public class GameWorld {
                 preSolveHero(a, b, contact);
             else if (b.getBody().getUserData() instanceof Player)
                 preSolveHero(b, a, contact);
-
         }
 
         private void preSolveHero(Fixture fixHero, Fixture otraCosa, Contact contact) {
@@ -519,9 +501,7 @@ public class GameWorld {
 
                 if (ponyY < pisY)
                     contact.setEnabled(false);
-
             }
-
         }
 
         @Override
@@ -530,5 +510,4 @@ public class GameWorld {
 
         }
     }
-
 }

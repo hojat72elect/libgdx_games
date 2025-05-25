@@ -79,7 +79,7 @@ public class UpgradesSubMenu {
                 agregarPersonajeTabla(idiomas.get("upgradeMagnet"), lbPrecioMagnet, Assets.magnet, 35, 35, idiomas.get("magnetDescription"),
                         arrMagnet, btUpgradeMagnet)).row();
         contenedor.add(
-                agregarPersonajeTabla("Upgrade Life", lbPrecioLife, Assets.hearth, 38, 29, idiomas.get("bombDescription"), arrLife, btUpgradeLife))
+                        agregarPersonajeTabla("Upgrade Life", lbPrecioLife, Assets.hearth, 38, 29, idiomas.get("bombDescription"), arrLife, btUpgradeLife))
                 .row();
         contenedor.add(
                 agregarPersonajeTabla("Upgrade Eneergy", lbPrecioEnergy, Assets.energy, 25, 35, idiomas.get("bombDescription"), arrEnergy,
@@ -92,7 +92,6 @@ public class UpgradesSubMenu {
                         idiomas.get("treasureChestDescription"), arrTreasureChest, btUpgradeTreasureChest)).row();
 
         setArrays();
-
     }
 
     private Table agregarPersonajeTabla(String titulo, Label lblPrecio, Sprite imagen, float imagenWidth, float imagenHeight, String descripcion,
@@ -135,7 +134,6 @@ public class UpgradesSubMenu {
         tbContent.add(btUpgrade).left().size(40);
 
         return tbContent;
-
     }
 
     private void inicializarBotones() {
@@ -158,7 +156,6 @@ public class UpgradesSubMenu {
         btUpgradeTreasureChest = new Button(Assets.styleButtonUpgrade);
         btUpgradeTreasureChest.setUserObject(Settings.LEVEL_TREASURE_CHEST);
         initButton(btUpgradeTreasureChest, lbPrecioTreasureChest);
-
     }
 
     private void initButton(final Button btn, final Label lblPrecio) {
@@ -211,15 +208,12 @@ public class UpgradesSubMenu {
             default:
             case 4:
                 return PRECIO_NIVEL_5;
-
         }
-
     }
 
     private void updateLabelPriceAndButton(int nivel, Label label, Button boton) {
         if (nivel < MAX_LEVEL) {
             label.setText(calcularPrecio(nivel) + "");
-
         } else {
             label.setVisible(false);
             boton.setVisible(false);
@@ -246,7 +240,5 @@ public class UpgradesSubMenu {
         for (int i = 0; i < Settings.LEVEL_TREASURE_CHEST; i++) {
             arrTreasureChest[i].setDrawable(new TextureRegionDrawable(Assets.btShare));
         }
-
     }
-
 }

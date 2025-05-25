@@ -60,7 +60,6 @@ public class GameUI extends Group {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				didJump = true;
 				return false;
-
 			}
 		});
 
@@ -72,7 +71,6 @@ public class GameUI extends Group {
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				didSlide = true;
 				return true;
-
 			}
 
 			@Override
@@ -133,5 +131,4 @@ public class GameUI extends Group {
 		addOutActions();
 		addAction(Actions.sequence(Actions.delay(ANIMATION_TIME), Actions.removeActor()));
 	}
-
 }

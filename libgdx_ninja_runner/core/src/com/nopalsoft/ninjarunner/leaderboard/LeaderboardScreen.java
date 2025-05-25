@@ -88,8 +88,6 @@ public class LeaderboardScreen extends Screens {
 
 
         btLeaderboard.setChecked(true);
-
-
     }
 
     void initButtons() {
@@ -100,13 +98,11 @@ public class LeaderboardScreen extends Screens {
 
         ButtonGroup<Button> radioGroup = new ButtonGroup<>();
         radioGroup.add(btLeaderboard, btFacebook, btGoogle, btInviteFriend);
-
     }
 
     @Override
     public void draw(float delta) {
         Assets.backgroundNubes.render(0);
-
     }
 
     @Override
@@ -131,5 +127,4 @@ public class LeaderboardScreen extends Screens {
             contenedor.row();
         }
     }
-
 }

@@ -59,7 +59,5 @@ public class MainGame extends Game {
         }
 
         arrPerson.sort();// Acomoda de mayor a menor
-
     }
-
 }

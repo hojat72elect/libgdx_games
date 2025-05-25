@@ -12,7 +12,6 @@ public class Mascot {
 
 	public enum MascotType {
 		PINK_BIRD, BOMB
-
 	}
 
 	public final MascotType mascotType;
@@ -42,19 +41,17 @@ public class Mascot {
 
 		switch (mascotType) {
 			case PINK_BIRD:
-			drawWidth = .73f;
-			drawHeight = .66f;
-			dashDrawWidth = 2.36f;
-			dashDrawHeight = 1.25f;
-			break;
-		default:
+				drawWidth = .73f;
+				drawHeight = .66f;
+				dashDrawWidth = 2.36f;
+				dashDrawHeight = 1.25f;
+				break;
+			default:
 			case BOMB:
-			drawWidth = dashDrawWidth = .52f;
-			drawHeight = dashDrawHeight = .64f;
-			break;
-
+				drawWidth = dashDrawWidth = .52f;
+				drawHeight = dashDrawHeight = .64f;
+				break;
 		}
-
 	}
 
 	public void update(Body body, float delta, float targetX, float targetY) {
@@ -71,7 +68,5 @@ public class Mascot {
 
 	public void updateStateTime(float delta) {
 		stateTime += delta;
-
 	}
-
 }

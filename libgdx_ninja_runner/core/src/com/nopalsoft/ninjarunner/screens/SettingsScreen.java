@@ -32,6 +32,4 @@ public class SettingsScreen extends Screens {
         }
         return super.keyUp(keycode);
     }
-
-
 }

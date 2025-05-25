@@ -90,7 +90,6 @@ public class NextGoalFrame extends Group {
                 }
             });
         }
-
     }
 
     private void setPicture(TextureRegionDrawable drawable) {

@@ -94,7 +94,6 @@ public class PersonajesSubMenu {
 
         tbContent.debugAll();
         return tbContent;
-
     }
 
     private void inicializarBotones() {
@@ -140,7 +139,6 @@ public class PersonajesSubMenu {
 
         arrBotones.add(btSelectShanti);
         arrBotones.add(btBuyNinja);
-
     }
 
     private void loadPurchases() {
@@ -151,13 +149,11 @@ public class PersonajesSubMenu {
         pref.putBoolean("didBuyNinja", didBuyNinja);
         pref.flush();
         Settings.save();
-
     }
 
     private void setButtonStylePurchased(TextButton boton) {
         boton.setStyle(Assets.styleTextButtonPurchased);
         boton.setText(textSelect);
-
     }
 
     private void setSelected(TextButton boton) {

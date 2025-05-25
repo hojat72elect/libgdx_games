@@ -4,7 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -240,7 +245,6 @@ public class Assets {
 
         musica1 = Gdx.audio.newMusic(Gdx.files.internal("data/Sonidos/Happy.mp3"));
         musica1.setLooping(true);
-
     }
 
     private static void loadShanti(TextureAtlas atlas) {
@@ -291,7 +295,6 @@ public class Assets {
         Sprite slide2 = atlas.createSprite("slide2");
         Sprite slide3 = atlas.createSprite("slide3");
         personajeSlide = new com.nopalsoft.ninjarunner.AnimationSprite(.1f, slide1, slide2, slide3);
-
     }
 
     private static void loadNinja(TextureAtlas atlas) {
@@ -341,7 +344,6 @@ public class Assets {
         Sprite dizzy2 = atlas.createSprite("Ninja/dizzy2");
         Sprite dizzy3 = atlas.createSprite("Ninja/dizzy3");
         ninjaDizzy = new com.nopalsoft.ninjarunner.AnimationSprite(.18f, dizzy1, dizzy2, dizzy3);
-
     }
 
     private static void loadUI(TextureAtlas atlas) {
@@ -392,7 +394,6 @@ public class Assets {
 //		styleTextButtonBuy.fontColor = Color.WHITE;
 
         styleButtonUpgrade = new ButtonStyle(btUpgrade, btUpgradePress, null);
-
     }
 
 //    private static BitmapFont createFont(int size) {
@@ -400,7 +401,8 @@ public class Assets {
 //
 //        FreeTypeFontGenerator generator;
 //        generator = new FreeTypeFontGenerator(Gdx.files.internal("data/DroidSansFallback.ttf"));
-////        generator = new FreeTypeFontGenerator(Gdx.files.internal("data/arial.ttf"));
+
+    /// /        generator = new FreeTypeFontGenerator(Gdx.files.internal("data/arial.ttf"));
 //        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 //        parameter.minFilter = Texture.TextureFilter.Linear;
 //        parameter.magFilter = Texture.TextureFilter.Linear;
@@ -415,11 +417,9 @@ public class Assets {
 //
 //        return font;
 //    }
-
     public static void playSound(Sound sound, int volume) {
         if (com.nopalsoft.ninjarunner.Settings.isSoundEnabled) {
             sound.play(volume);
         }
     }
-
 }

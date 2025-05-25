@@ -86,8 +86,5 @@ public class LeaderBoardFrame extends Table {
         }
 
         add(tbAux).padLeft(20).expandX().fill();
-
-
     }
-
 }

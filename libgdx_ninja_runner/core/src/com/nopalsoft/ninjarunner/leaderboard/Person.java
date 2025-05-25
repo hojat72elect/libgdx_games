@@ -14,13 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Person implements Comparable<Person> {
     public enum TipoCuenta {
-        GOOGLE_PLAY, AMAZON, FACEBOOK;
+        GOOGLE_PLAY, AMAZON, FACEBOOK
     }
 
     public interface DownloadImageCompleteListener {
-        public void imageDownloaded();
+        void imageDownloaded();
 
-        public void imageDownloadFail();
+        void imageDownloadFail();
     }
 
     DownloadImageCompleteListener listener;
@@ -39,7 +39,6 @@ public class Person implements Comparable<Person> {
         this.name = name;
         this.score = oScore;
         this.urlImagen = imagenURL;
-
     }
 
     public void downloadImage(final DownloadImageCompleteListener listener) {
@@ -85,20 +84,15 @@ public class Person implements Comparable<Person> {
         int nGroups = (str.length() - floatPos - 1 - (str.indexOf("-") > -1 ? 1 : 0)) / 3;
         for (int i = 0; i < nGroups; i++) {
             int commaPos = str.length() - i * 4 - 3 - floatPos;
-            str = str.substring(0, commaPos) + "," + str.substring(commaPos, str.length());
+            str = str.substring(0, commaPos) + "," + str.substring(commaPos);
         }
         return str;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Person) {
-            Person objPerson = (Person) obj;
-            if (id.equals(objPerson.id) && tipoCuenta == objPerson.tipoCuenta)
-                return true;
-            else
-                return false;
-
+        if (obj instanceof Person objPerson) {
+            return id.equals(objPerson.id) && tipoCuenta == objPerson.tipoCuenta;
         } else
             return false;
     }
@@ -116,7 +110,6 @@ public class Person implements Comparable<Person> {
     public void updateDatos(String _name, long _score) {
         name = _name;
         score = _score;
-
     }
 
     /**
@@ -135,5 +128,4 @@ public class Person implements Comparable<Person> {
         }
         return contiene;
     }
-
 }

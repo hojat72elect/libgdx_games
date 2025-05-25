@@ -37,7 +37,6 @@ public class Settings {
         LEVEL_ENERGY = pref.getInteger("LEVEL_ENERGY", 0);
         LEVEL_COINS = pref.getInteger("LEVEL_COINS", 0);
         LEVEL_TREASURE_CHEST = pref.getInteger("LEVEL_TREASURE_CHEST", 0);
-
     }
 
     public static void save() {
@@ -49,5 +48,4 @@ public class Settings {
             bestScore = score;
         }
     }
-
 }

@@ -38,7 +38,6 @@ public class MenuUI extends Group {
         this.oWorld = oWorld;
 
         init();
-
     }
 
     private void init() {
@@ -76,7 +75,6 @@ public class MenuUI extends Group {
 
         addActor(tbMenu);
         addActor(btPlay);
-
     }
 
     void initButtons() {
@@ -121,7 +119,6 @@ public class MenuUI extends Group {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 gameScreen.game.reqHandler.shareApp();
-
             }
         });
 
@@ -131,7 +128,6 @@ public class MenuUI extends Group {
 
 
                 gameScreen.game.setScreen(new LeaderboardScreen(gameScreen.game));
-
             }
         });
 
@@ -141,13 +137,11 @@ public class MenuUI extends Group {
                 gameScreen.changeScreenWithFadeOut(SettingsScreen.class, gameScreen.game);
             }
         });
-
     }
 
     private void addInActions() {
         titulo.addAction(Actions.moveTo(getWidth() / 2f - titulo.getWidth() * titulo.getScaleX() / 2f, 300, ANIMATION_TIME));
         tbMenu.addAction(Actions.moveTo(Screens.SCREEN_WIDTH - tbMenu.getWidth(), 0, ANIMATION_TIME));
-
     }
 
     private void addOutActions() {
@@ -155,7 +149,6 @@ public class MenuUI extends Group {
                 ANIMATION_TIME));
 
         tbMenu.addAction(Actions.moveTo(Screens.SCREEN_WIDTH + tbMenu.getWidth(), 0, ANIMATION_TIME));
-
     }
 
     public void show(Stage stage, final boolean showMainMenu) {
@@ -165,12 +158,10 @@ public class MenuUI extends Group {
         titulo.remove();
         addActor(titulo);
         this.showMainMenu = showMainMenu;
-
     }
 
     public void removeWithAnimations() {
         addOutActions();
         addAction(Actions.sequence(Actions.delay(ANIMATION_TIME), Actions.removeActor()));
     }
-
 }

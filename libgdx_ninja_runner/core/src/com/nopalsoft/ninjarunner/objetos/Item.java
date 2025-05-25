@@ -25,7 +25,6 @@ public class Item implements Poolable {
 		velocity = new Vector2();
 		this.WIDTH = width;
 		this.HEIGHT = height;
-
 	}
 
 	public void init(float x, float y) {
@@ -33,7 +32,6 @@ public class Item implements Poolable {
 		velocity.set(0, 0);
 		state = STATE_NORMAL;
 		stateTime = 0;
-
 	}
 
     public void update(float delta, Body body, Mascot oMascot, Player oPlayer) {
@@ -45,11 +43,9 @@ public class Item implements Poolable {
 			/** Primero checo si se atraen al personaje */
 			if (oPlayer.isMagnetEnabled && position.dst(oPlayer.position) <= 5f) {
 				moveCoinsMagenet(body, oPlayer.position);
-
 			} else if (oMascot != null && position.dst(oMascot.position) <= 2f) {
 				// moveCoinsMagenet(body, oMascota.position);
-			}
-			else
+			} else
 				body.setLinearVelocity(0, 0);
 		}
 

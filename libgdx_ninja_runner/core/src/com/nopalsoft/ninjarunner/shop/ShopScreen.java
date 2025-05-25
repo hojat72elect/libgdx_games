@@ -2,8 +2,13 @@ package com.nopalsoft.ninjarunner.shop;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.ninjarunner.Assets;
 import com.nopalsoft.ninjarunner.MainGame;
@@ -87,7 +92,6 @@ public class ShopScreen extends Screens {
 
         new PersonajesSubMenu(contenedor, game);
         btPersonajes.setChecked(true);
-
     }
 
     void initButtons() {
@@ -102,7 +106,6 @@ public class ShopScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 new PersonajesSubMenu(contenedor, game);
             }
-
         });
 
         btMascota.addListener(new ClickListener() {
@@ -135,13 +138,11 @@ public class ShopScreen extends Screens {
 
         ButtonGroup<Button> radioGroup = new ButtonGroup<Button>();
         radioGroup.add(btPersonajes, btMascota, btUpgrades, btNoAds);
-
     }
 
     @Override
     public void draw(float delta) {
         Assets.backgroundNubes.render(0);
-
     }
 
     @Override
@@ -157,5 +158,4 @@ public class ShopScreen extends Screens {
         }
         return super.keyUp(keycode);
     }
-
 }

@@ -84,7 +84,7 @@ public class MascotasSubMenu {
                 agregarMascota("Chicken", lblPrecioBird, Assets.Mascota1Fly, 60, 54, idiomas.get("pinkChikenDescription"), btBuySelectBird, arrBird,
                         btUpgradeBird)).row();
         contenedor.add(
-                agregarMascota("Bomb", lblPrecioBomb, Assets.MascotaBombFly, 53, 64, idiomas.get("bombDescription"), btBuyBomb, arrBomb, btUpgradeBomb))
+                        agregarMascota("Bomb", lblPrecioBomb, Assets.MascotaBombFly, 53, 64, idiomas.get("bombDescription"), btBuyBomb, arrBomb, btUpgradeBomb))
                 .row();
 
         setArrays();
@@ -133,7 +133,6 @@ public class MascotasSubMenu {
         tbContent.row().colspan(2);
 
         return tbContent;
-
     }
 
     private void inicializarBotones() {
@@ -217,7 +216,6 @@ public class MascotasSubMenu {
 
         arrBotones.add(btBuySelectBird);
         arrBotones.add(btBuyBomb);
-
     }
 
     private void loadPurchases() {
@@ -228,13 +226,11 @@ public class MascotasSubMenu {
         pref.putBoolean("didBuyBomb", didBuyBomb);
         pref.flush();
         Settings.save();
-
     }
 
     private void setButtonStylePurchased(TextButton boton) {
         boton.setStyle(Assets.styleTextButtonPurchased);
         boton.setText(textSelect);
-
     }
 
     private void setSelected(TextButton boton) {
@@ -265,15 +261,12 @@ public class MascotasSubMenu {
             default:
             case 5:
                 return PRECIO_NIVEL_6;
-
         }
-
     }
 
     private void updateLabelPriceAndButton(int nivel, Label label, Button boton) {
         if (nivel < MAX_LEVEL) {
             label.setText(calcularPrecio(nivel) + "");
-
         } else {
             label.setVisible(false);
             boton.setVisible(false);
@@ -288,7 +281,5 @@ public class MascotasSubMenu {
         for (int i = 0; i < Settings.LEVEL_MASCOTA_BOMB; i++) {
             arrBomb[i].setDrawable(new TextureRegionDrawable(Assets.btShare));
         }
-
     }
-
 }
