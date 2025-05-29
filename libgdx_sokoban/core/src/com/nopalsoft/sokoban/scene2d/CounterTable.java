@@ -13,10 +13,10 @@ public class CounterTable extends Table {
 
     Label displayLabel;
 
-    public CounterTable(TextureRegionDrawable fondo, float x, float y) {
+    public CounterTable(TextureRegionDrawable backgroundDrawable, float x, float y) {
 
         this.setBounds(x, y, WIDTH, HEIGHT);
-        setBackground(fondo);
+        setBackground(backgroundDrawable);
 
         displayLabel = new Label("", new LabelStyle(Assets.fontRed, Color.WHITE));
         displayLabel.setFontScale(.8f);
