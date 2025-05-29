@@ -722,7 +722,7 @@ public class WorldGame {
 
                     if (obj.state == Submarino.STATE_EXPLODE) {
                         submarinosDestruidos++;
-                        Achievements.unlockKilledSubmarines(submarinosDestruidos);
+                        Achievements.unlockKilledSubmarines();
                     }
                 }
             }

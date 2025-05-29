@@ -29,7 +29,6 @@ public class GameScreen extends Screens {
     public long puntuacion;
 
     /**
-     * @param game
      * @param showMainMenu Muestra el menu principal de lo contrario inicia el juego inmediatamente
      */
     public GameScreen(MainShark game, boolean showMainMenu) {
@@ -44,7 +43,7 @@ public class GameScreen extends Screens {
 
         if (showMainMenu) {
             state = STATE_MENU;
-            menuUI.show(stage, showMainMenu);
+            menuUI.show(stage, true);
         } else {
             setRunning(false);
         }
@@ -97,18 +96,10 @@ public class GameScreen extends Screens {
     }
 
     public void setRunning(boolean removeMenu) {
-        Runnable runAfterHideMenu = new Runnable() {
-            @Override
-            public void run() {
-                Runnable run = new Runnable() {
-                    @Override
-                    public void run() {
-                        state = STATE_RUNNING;
-                    }
-                };
-                gameUI.addAction(Actions.sequence(Actions.delay(GameUI.ANIMATION_TIME), Actions.run(run)));
-                gameUI.show(stage);
-            }
+        Runnable runAfterHideMenu = () -> {
+            Runnable run = () -> state = STATE_RUNNING;
+            gameUI.addAction(Actions.sequence(Actions.delay(GameUI.ANIMATION_TIME), Actions.run(run)));
+            gameUI.show(stage);
         };
 
         if (removeMenu) {
@@ -122,18 +113,12 @@ public class GameScreen extends Screens {
     private void setGameOver() {
         if (state != STATE_GAME_OVER) {
             state = STATE_GAME_OVER;
-            Runnable runAfterHideGameUI = new Runnable() {
-                @Override
-                public void run() {
-                    menuUI.show(stage, false);
-                }
-            };
+            Runnable runAfterHideGameUI = () -> menuUI.show(stage, false);
 
             Settings.setBestScore(puntuacion);
 
             gameUI.addAction(Actions.sequence(Actions.delay(MenuUI.ANIMATION_TIME), Actions.run(runAfterHideGameUI)));
             gameUI.removeWithAnimations();
-            game.gameServiceHandler.submitScore((long) oWorld.puntuacion);
 
             Settings.numVecesJugadas++;
             if (Settings.numVecesJugadas % 4f == 0) {
@@ -187,10 +172,7 @@ public class GameScreen extends Screens {
             }
             return true;
         }
-        if (keycode == Keys.L) {
-            game.facebookHandler.facebookSignIn();
-            return true;
-        }
+
 
         if (keycode == Keys.P) {
             game.setScreen(new GameScreen(game, false));
