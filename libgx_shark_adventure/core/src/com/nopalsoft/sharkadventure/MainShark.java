@@ -5,18 +5,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.sharkadventure.game.GameScreen;
-import com.nopalsoft.sharkadventure.handlers.RequestHandler;
 import com.nopalsoft.sharkadventure.screens.Screens;
 
 public class MainShark extends Game {
 
-    public final RequestHandler reqHandler;
-
     public Stage stage;
     public SpriteBatch batcher;
 
-    public MainShark(RequestHandler reqHandler) {
-        this.reqHandler = reqHandler;
+    public MainShark() {
     }
 
     @Override

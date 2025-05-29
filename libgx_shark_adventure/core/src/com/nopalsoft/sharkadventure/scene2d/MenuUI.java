@@ -109,17 +109,11 @@ public class MenuUI extends Group {
         }
         tbMenu.setPosition(Screens.SCREEN_WIDTH / 2f - tbMenu.getWidth() / 2f, -tbMenu.getHeight());
 
-        btTwitter.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                gameScreen.game.reqHandler.shareOnTwitter("");
-            }
-        });
 
         btPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameScreen.game.reqHandler.hideAdBanner();
+
                 if (showMainMenu)
                     gameScreen.setRunning(true);
                 else {

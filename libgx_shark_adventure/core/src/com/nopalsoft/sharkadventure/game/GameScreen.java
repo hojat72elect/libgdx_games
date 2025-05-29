@@ -121,10 +121,6 @@ public class GameScreen extends Screens {
             gameUI.removeWithAnimations();
 
             Settings.numVecesJugadas++;
-            if (Settings.numVecesJugadas % 4f == 0) {
-                game.reqHandler.showInterstitial();
-            }
-            game.reqHandler.showAdBanner();
         }
     }
 

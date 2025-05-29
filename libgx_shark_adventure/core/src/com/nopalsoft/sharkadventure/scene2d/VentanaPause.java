@@ -96,7 +96,6 @@ public class VentanaPause extends Group {
         isVisible = true;
         stage.addActor(this);
 
-        game.reqHandler.showAdBanner();
     }
 
     public boolean isVisible() {
@@ -105,7 +104,6 @@ public class VentanaPause extends Group {
 
     public void hide() {
         isVisible = false;
-        game.reqHandler.hideAdBanner();
         remove();
     }
 }
