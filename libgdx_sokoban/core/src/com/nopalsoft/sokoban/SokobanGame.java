@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.sokoban.screens.MainMenuScreen;
 import com.nopalsoft.sokoban.screens.Screens;
 
-public class MainSokoban extends Game {
+public class SokobanGame extends Game {
 
     public Stage stage;
     public SpriteBatch batch;

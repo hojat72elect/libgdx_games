@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.sokoban.Assets;
-import com.nopalsoft.sokoban.MainSokoban;
+import com.nopalsoft.sokoban.SokobanGame;
 import com.nopalsoft.sokoban.scene2d.LevelSelector;
 
 public class MainMenuScreen extends Screens {
@@ -18,7 +18,7 @@ public class MainMenuScreen extends Screens {
     Button btLeaderboard, btAchievements, btFacebook, btSettings, btMore;
     Button btNextPage, btPreviousPage;
 
-    public MainMenuScreen(final MainSokoban game) {
+    public MainMenuScreen(final SokobanGame game) {
         super(game);
 
         lvlSelector = new LevelSelector(this);

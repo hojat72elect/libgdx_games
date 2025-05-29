@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.nopalsoft.sokoban.Assets;
-import com.nopalsoft.sokoban.MainSokoban;
+import com.nopalsoft.sokoban.SokobanGame;
 import com.nopalsoft.sokoban.Settings;
 import com.nopalsoft.sokoban.screens.MainMenuScreen;
 import com.nopalsoft.sokoban.screens.Screens;
@@ -23,7 +23,7 @@ public class LevelSelector extends Group {
 
     protected MainMenuScreen menuScreen;
     protected I18NBundle idiomas;
-    protected MainSokoban game;
+    protected SokobanGame game;
 
     Label lbTitulo;
 

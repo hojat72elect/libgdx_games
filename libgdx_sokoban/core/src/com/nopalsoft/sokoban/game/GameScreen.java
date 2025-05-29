@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.sokoban.Assets;
-import com.nopalsoft.sokoban.MainSokoban;
+import com.nopalsoft.sokoban.SokobanGame;
 import com.nopalsoft.sokoban.Settings;
 import com.nopalsoft.sokoban.scene2d.TouchPadControlsTable;
 import com.nopalsoft.sokoban.scene2d.CounterTable;
@@ -42,7 +42,7 @@ public class GameScreen extends Screens {
 
     public int level;
 
-    public GameScreen(final MainSokoban game, int level) {
+    public GameScreen(final SokobanGame game, int level) {
         super(game);
         this.level = level;
 
