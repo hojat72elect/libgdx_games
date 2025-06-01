@@ -22,7 +22,7 @@ import com.badlogic.gdx.utils.Pools;
 import com.nopalsoft.sharkadventure.Achievements;
 import com.nopalsoft.sharkadventure.Assets;
 import com.nopalsoft.sharkadventure.Settings;
-import com.nopalsoft.sharkadventure.objects.Barril;
+import com.nopalsoft.sharkadventure.objects.Barrel;
 import com.nopalsoft.sharkadventure.objects.Blast;
 import com.nopalsoft.sharkadventure.objects.Chain;
 import com.nopalsoft.sharkadventure.objects.Items;
@@ -34,7 +34,7 @@ import com.nopalsoft.sharkadventure.screens.Screens;
 
 import java.util.Iterator;
 
-public class WorldGame {
+public class GameWorld {
     static final int STATE_RUNNING = 0;
     static final int STATE_GAMEOVER = 1;
     public int state;
@@ -60,7 +60,7 @@ public class WorldGame {
     World oWorldBox;
     Tiburon oTiburon;
 
-    Array<Barril> arrBarriles;
+    Array<Barrel> arrBarriles;
     Array<Body> arrBodies;
     Array<Mina> arrMinas;
     Array<Chain> arrChains;
@@ -73,7 +73,7 @@ public class WorldGame {
 
     int submarinosDestruidos;
 
-    public WorldGame() {
+    public GameWorld() {
         oWorldBox = new World(new Vector2(0, -4f), true);
         oWorldBox.setContactListener(new Colisiones());
 
@@ -189,7 +189,7 @@ public class WorldGame {
     }
 
     private void crearBarril(float x, float y) {
-        Barril obj = Pools.obtain(Barril.class);
+        Barrel obj = Pools.obtain(Barrel.class);
         obj.init(x, y);
 
         BodyDef bd = new BodyDef();
@@ -199,7 +199,7 @@ public class WorldGame {
         Body body = oWorldBox.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(Barril.WIDTH / 2f, Barril.HEIGHT / 2f);
+        shape.setAsBox(Barrel.WIDTH / 2f, Barrel.HEIGHT / 2f);
 
         FixtureDef fixutre = new FixtureDef();
         fixutre.shape = shape;
@@ -520,7 +520,7 @@ public class WorldGame {
 
             if (body.getUserData() instanceof Tiburon) {
                 updatePersonaje(body, delta, accelX, didSwimUp, didFire);
-            } else if (body.getUserData() instanceof Barril) {
+            } else if (body.getUserData() instanceof Barrel) {
                 updateBarriles(body, delta);
             } else if (body.getUserData() instanceof Mina) {
                 updateMina(body, delta);
@@ -555,9 +555,9 @@ public class WorldGame {
             Body body = i.next();
 
             if (!oWorldBox.isLocked()) {
-                if (body.getUserData() instanceof Barril) {
-                    Barril obj = (Barril) body.getUserData();
-                    if (obj.state == Barril.STATE_REMOVE) {
+                if (body.getUserData() instanceof Barrel) {
+                    Barrel obj = (Barrel) body.getUserData();
+                    if (obj.state == Barrel.STATE_REMOVE) {
                         arrBarriles.removeValue(obj, true);
                         Pools.free(obj);
                         oWorldBox.destroyBody(body);
@@ -631,7 +631,7 @@ public class WorldGame {
     }
 
     private void updateBarriles(Body body, float delta) {
-        Barril obj = (Barril) body.getUserData();
+        Barrel obj = (Barrel) body.getUserData();
         obj.update(body, delta);
     }
 
@@ -695,9 +695,9 @@ public class WorldGame {
             Object otraCosa = fixOtraCosa.getBody().getUserData();
             Blast oBlast = (Blast) fixBlast.getBody().getUserData();
 
-            if (otraCosa instanceof Barril) {
-                Barril obj = (Barril) otraCosa;
-                if (obj.state == Barril.STATE_NORMAL) {
+            if (otraCosa instanceof Barrel) {
+                Barrel obj = (Barrel) otraCosa;
+                if (obj.state == Barrel.STATE_NORMAL) {
                     obj.hit();
                     oBlast.hit();
                 }
@@ -730,9 +730,9 @@ public class WorldGame {
         private void beginContactTiburon(Fixture fixOtraCosa) {
             Object otraCosa = fixOtraCosa.getBody().getUserData();
 
-            if (otraCosa instanceof Barril) {
-                Barril obj = (Barril) otraCosa;
-                if (obj.state == Barril.STATE_NORMAL) {
+            if (otraCosa instanceof Barrel) {
+                Barrel obj = (Barrel) otraCosa;
+                if (obj.state == Barrel.STATE_NORMAL) {
                     obj.hit();
                     oTiburon.hit();
                 }
@@ -767,11 +767,11 @@ public class WorldGame {
             Object objA = fixA.getBody().getUserData();
             Object objB = fixB.getBody().getUserData();
 
-            if (objA instanceof Barril && objB instanceof Mina) {
-                ((Barril) objA).hit();
+            if (objA instanceof Barrel && objB instanceof Mina) {
+                ((Barrel) objA).hit();
                 ((Mina) objB).hit();
-            } else if (objA instanceof Mina && objB instanceof Barril) {
-                ((Barril) objB).hit();
+            } else if (objA instanceof Mina && objB instanceof Barrel) {
+                ((Barrel) objB).hit();
                 ((Mina) objA).hit();
             }
         }

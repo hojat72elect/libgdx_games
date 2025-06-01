@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.nopalsoft.sharkadventure.Assets;
-import com.nopalsoft.sharkadventure.objects.Barril;
+import com.nopalsoft.sharkadventure.objects.Barrel;
 import com.nopalsoft.sharkadventure.objects.Blast;
 import com.nopalsoft.sharkadventure.objects.Chain;
 import com.nopalsoft.sharkadventure.objects.Items;
@@ -23,11 +23,11 @@ public class WorldRenderer {
     SpriteBatch batcher;
     OrthographicCamera oCam;
 
-    WorldGame oWorld;
+    GameWorld oWorld;
 
     Box2DDebugRenderer renderBox;
 
-    public WorldRenderer(SpriteBatch batcher, WorldGame oWorld) {
+    public WorldRenderer(SpriteBatch batcher, GameWorld oWorld) {
         this.batcher = batcher;
         this.oWorld = oWorld;
         renderBox = new Box2DDebugRenderer();
@@ -185,34 +185,34 @@ public class WorldRenderer {
 
         Assets.burbujaEffect.update(delta);
 
-        Iterator<Barril> i = oWorld.arrBarriles.iterator();
+        Iterator<Barrel> i = oWorld.arrBarriles.iterator();
         while (i.hasNext()) {
-            Barril obj = i.next();
+            Barrel obj = i.next();
             TextureRegion keyframe = null;
 
-            if (obj.state == Barril.STATE_EXPLODE) {
+            if (obj.state == Barrel.STATE_EXPLODE) {
                 keyframe = Assets.explosion.getKeyFrame(obj.stateTime);
                 batcher.draw(keyframe, obj.position.x - .4f, obj.position.y - .4f, .8f, .8f);
-            } else if (obj.state == Barril.STATE_NORMAL) {
+            } else if (obj.state == Barrel.STATE_NORMAL) {
 
-                switch (obj.tipo) {
-                    case Barril.TIPO_AMARILLO:
+                switch (obj.type) {
+                    case Barrel.TYPE_YELLOW:
                         keyframe = Assets.barrilAmarillo;
                         break;
-                    case Barril.TIPO_NEGRO:
+                    case Barrel.TYPE_BLACK:
                         keyframe = Assets.barrilNegro;
                         break;
-                    case Barril.TIPO_ROJO:
+                    case Barrel.TYPE_RED:
                         keyframe = Assets.barrilRojo;
                         break;
                     default:
-                    case Barril.TIPO_VERDE:
+                    case Barrel.TYPE_GREEN:
                         keyframe = Assets.barrilVerde;
                         break;
                 }
 
-                batcher.draw(keyframe, obj.position.x - Barril.DRAW_WIDTH / 2f, obj.position.y - Barril.DRAW_HEIGHT / 2f, Barril.DRAW_WIDTH / 2f,
-                        Barril.DRAW_HEIGHT / 2f, Barril.DRAW_WIDTH, Barril.DRAW_HEIGHT, 1, 1, obj.angleDeg);
+                batcher.draw(keyframe, obj.position.x - Barrel.DRAW_WIDTH / 2f, obj.position.y - Barrel.DRAW_HEIGHT / 2f, Barrel.DRAW_WIDTH / 2f,
+                        Barrel.DRAW_HEIGHT / 2f, Barrel.DRAW_WIDTH, Barrel.DRAW_HEIGHT, 1, 1, obj.angleDegree);
 
                 Assets.burbujaEffect.setPosition(obj.position.x, obj.position.y);
                 Assets.burbujaEffect.draw(batcher);

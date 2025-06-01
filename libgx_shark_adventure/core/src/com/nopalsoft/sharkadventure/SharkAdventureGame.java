@@ -7,18 +7,18 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.sharkadventure.game.GameScreen;
 import com.nopalsoft.sharkadventure.screens.Screens;
 
-public class MainShark extends Game {
+public class SharkAdventureGame extends Game {
 
     public Stage stage;
-    public SpriteBatch batcher;
+    public SpriteBatch batch;
 
-    public MainShark() {
+    public SharkAdventureGame() {
     }
 
     @Override
     public void create() {
 
-        batcher = new SpriteBatch();
+        batch = new SpriteBatch();
         stage = new Stage(new StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT));
 
         Settings.load();

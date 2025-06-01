@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.nopalsoft.sharkadventure.MainShark;
 import com.nopalsoft.sharkadventure.Settings;
+import com.nopalsoft.sharkadventure.SharkAdventureGame;
 
 public abstract class Screens extends InputAdapter implements Screen {
     public static final int SCREEN_WIDTH = 800;
@@ -18,20 +18,20 @@ public abstract class Screens extends InputAdapter implements Screen {
     public static final float WORLD_WIDTH = 8f;
     public static final float WORLD_HEIGHT = 4.8f;
 
-    public MainShark game;
-    public OrthographicCamera oCam;
-    public SpriteBatch batcher;
+    public SharkAdventureGame game;
+    public OrthographicCamera camera;
+    public SpriteBatch batch;
 
     public Stage stage;
 
-    public Screens(MainShark game) {
+    public Screens(SharkAdventureGame game) {
         this.game = game;
         stage = game.stage;
         stage.clear();
-        batcher = game.batcher;
+        batch = game.batch;
 
-        oCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
-        oCam.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
+        camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
+        camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
 
         InputMultiplexer input = new InputMultiplexer(stage, this);
         Gdx.input.setInputProcessor(input);
@@ -43,8 +43,8 @@ public abstract class Screens extends InputAdapter implements Screen {
         update(delta);
         stage.act(delta);
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         draw(delta);
@@ -62,7 +62,6 @@ public abstract class Screens extends InputAdapter implements Screen {
 
     @Override
     public void show() {
-
     }
 
     @Override
@@ -77,11 +76,9 @@ public abstract class Screens extends InputAdapter implements Screen {
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void dispose() {
-
     }
 }

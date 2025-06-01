@@ -14,14 +14,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.sharkadventure.Assets;
 import com.nopalsoft.sharkadventure.Settings;
 import com.nopalsoft.sharkadventure.game.GameScreen;
-import com.nopalsoft.sharkadventure.game.WorldGame;
+import com.nopalsoft.sharkadventure.game.GameWorld;
 import com.nopalsoft.sharkadventure.screens.Screens;
 
 public class MenuUI extends Group {
     public static final float ANIMATION_TIME = .35f;
 
     GameScreen gameScreen;
-    WorldGame oWorld;
+    GameWorld oWorld;
     Image titulo;
     Image gameOver;
 
@@ -36,7 +36,7 @@ public class MenuUI extends Group {
 
     boolean showMainMenu;
 
-    public MenuUI(final GameScreen gameScreen, WorldGame oWorld) {
+    public MenuUI(final GameScreen gameScreen, GameWorld oWorld) {
         setBounds(0, 0, Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
         this.gameScreen = gameScreen;
         this.oWorld = oWorld;

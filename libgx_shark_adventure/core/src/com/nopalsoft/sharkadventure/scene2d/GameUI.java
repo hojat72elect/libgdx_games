@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.sharkadventure.Assets;
 import com.nopalsoft.sharkadventure.game.GameScreen;
-import com.nopalsoft.sharkadventure.game.WorldGame;
+import com.nopalsoft.sharkadventure.game.GameWorld;
 import com.nopalsoft.sharkadventure.objects.Tiburon;
 import com.nopalsoft.sharkadventure.screens.Screens;
 
@@ -21,7 +21,7 @@ public class GameUI extends Group {
     public static final float ANIMATION_TIME = .35f;
 
     GameScreen gameScreen;
-    WorldGame oWorld;
+    GameWorld oWorld;
 
     public int accelX;
     public boolean didSwimUp;
@@ -34,7 +34,7 @@ public class GameUI extends Group {
     Label lbPuntuacion;
     Button btIzq, btDer, btSwimUp, btFire, btPause;
 
-    public GameUI(final GameScreen gameScreen, WorldGame oWorld) {
+    public GameUI(final GameScreen gameScreen, GameWorld oWorld) {
         setBounds(0, 0, Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
         this.gameScreen = gameScreen;
         this.oWorld = oWorld;

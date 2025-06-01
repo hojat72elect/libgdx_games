@@ -7,13 +7,13 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 import com.nopalsoft.sharkadventure.Assets;
 import com.nopalsoft.sharkadventure.Settings;
 
-public class Barril implements Poolable {
+public class Barrel implements Poolable {
     public final static int STATE_NORMAL = 0;
     public final static int STATE_EXPLODE = 1;
     public final static int STATE_REMOVE = 2;
     public int state;
 
-    public final static float DURATION_EXPLOTION = .1f * 8f;
+    public final static float EXPLOSION_DURATION = .1f * 8f;
 
     public final static float DRAW_WIDTH = .43f;
     public final static float DRAW_HEIGHT = .68f;
@@ -21,18 +21,18 @@ public class Barril implements Poolable {
     public final static float WIDTH = .40f;
     public final static float HEIGHT = .65f;
 
-    public final static int TIPO_AMARILLO = 0;
-    public final static int TIPO_NEGRO = 1;
-    public final static int TIPO_ROJO = 2;
-    public final static int TIPO_VERDE = 3;
-    public int tipo;
+    public final static int TYPE_YELLOW = 0;
+    public final static int TYPE_BLACK = 1;
+    public final static int TYPE_RED = 2;
+    public final static int TYPE_GREEN = 3;
+    public int type;
 
     final public Vector2 position;
-    public float angleDeg;
+    public float angleDegree;
 
     public float stateTime;
 
-    public Barril() {
+    public Barrel() {
         position = new Vector2();
     }
 
@@ -40,18 +40,18 @@ public class Barril implements Poolable {
         position.set(x, y);
         stateTime = 0;
         state = STATE_NORMAL;
-        tipo = MathUtils.random(3);
+        type = MathUtils.random(3);
     }
 
     public void update(Body body, float delta) {
         if (state == STATE_NORMAL) {
             position.x = body.getPosition().x;
             position.y = body.getPosition().y;
-            angleDeg = MathUtils.radDeg * body.getAngle();
+            angleDegree = MathUtils.radDeg * body.getAngle();
 
             if (position.y < -3)
                 remove();
-        } else if (state == STATE_EXPLODE && stateTime >= DURATION_EXPLOTION) {
+        } else if (state == STATE_EXPLODE && stateTime >= EXPLOSION_DURATION) {
             state = STATE_REMOVE;
             stateTime = 0;
         }

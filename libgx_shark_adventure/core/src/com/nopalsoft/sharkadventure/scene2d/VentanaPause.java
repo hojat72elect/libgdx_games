@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.sharkadventure.Assets;
-import com.nopalsoft.sharkadventure.MainShark;
+import com.nopalsoft.sharkadventure.SharkAdventureGame;
 import com.nopalsoft.sharkadventure.game.GameScreen;
 import com.nopalsoft.sharkadventure.screens.Screens;
 
@@ -18,7 +18,7 @@ public class VentanaPause extends Group {
     public static final float DURACION_ANIMATION = .3f;
 
     protected GameScreen screen;
-    protected MainShark game;
+    protected SharkAdventureGame game;
 
     private boolean isVisible = false;
 

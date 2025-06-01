@@ -5,8 +5,8 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.nopalsoft.sharkadventure.Achievements;
 import com.nopalsoft.sharkadventure.Assets;
-import com.nopalsoft.sharkadventure.MainShark;
 import com.nopalsoft.sharkadventure.Settings;
+import com.nopalsoft.sharkadventure.SharkAdventureGame;
 import com.nopalsoft.sharkadventure.scene2d.GameUI;
 import com.nopalsoft.sharkadventure.scene2d.MenuUI;
 import com.nopalsoft.sharkadventure.scene2d.VentanaPause;
@@ -19,7 +19,7 @@ public class GameScreen extends Screens {
     final int STATE_GAME_OVER = 3;// Same as the main menu but without the title.
     int state;
 
-    WorldGame oWorld;
+    GameWorld oWorld;
     WorldRenderer renderer;
 
     GameUI gameUI;
@@ -31,10 +31,10 @@ public class GameScreen extends Screens {
     /**
      * @param showMainMenu Shows the main menu otherwise starts the game immediately
      */
-    public GameScreen(MainShark game, boolean showMainMenu) {
+    public GameScreen(SharkAdventureGame game, boolean showMainMenu) {
         super(game);
-        oWorld = new WorldGame();
-        renderer = new WorldRenderer(batcher, oWorld);
+        oWorld = new GameWorld();
+        renderer = new WorldRenderer(batch, oWorld);
         gameUI = new GameUI(this, oWorld);
         menuUI = new MenuUI(this, oWorld);
         vtPause = new VentanaPause(this);
@@ -86,7 +86,7 @@ public class GameScreen extends Screens {
         gameUI.didSwimUp = false;
         gameUI.didFire = false;
 
-        if (oWorld.state == WorldGame.STATE_GAMEOVER) {
+        if (oWorld.state == GameWorld.STATE_GAMEOVER) {
             setGameOver();
         }
     }
@@ -120,7 +120,7 @@ public class GameScreen extends Screens {
             gameUI.addAction(Actions.sequence(Actions.delay(MenuUI.ANIMATION_TIME), Actions.run(runAfterHideGameUI)));
             gameUI.removeWithAnimations();
 
-            Settings.numVecesJugadas++;
+            Settings.numberOfTimesPlayed++;
         }
     }
 
@@ -147,12 +147,12 @@ public class GameScreen extends Screens {
 
         renderer.render(delta);
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
-        batcher.enableBlending();
-        batcher.begin();
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+        batch.enableBlending();
+        batch.begin();
 
-        batcher.end();
+        batch.end();
     }
 
     @Override
