@@ -4,46 +4,15 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.nopalsoft.superjumper.handlers.FacebookHandler;
 import com.nopalsoft.superjumper.handlers.GameServicesHandler;
 import com.nopalsoft.superjumper.handlers.RequestHandler;
 
-public class AndroidLauncher extends AndroidApplication implements FacebookHandler, RequestHandler, GameServicesHandler {
+public class AndroidLauncher extends AndroidApplication implements RequestHandler, GameServicesHandler {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-        initialize(new MainSuperJumper(this, this, this), config);
-    }
-
-    @Override
-    public void facebookSignIn() {
-
-    }
-
-    @Override
-    public void facebookSignOut() {
-
-    }
-
-    @Override
-    public boolean facebookIsSignedIn() {
-        return false;
-    }
-
-    @Override
-    public void showFacebook() {
-
-    }
-
-    @Override
-    public void facebookInviteFriends(String message) {
-
-    }
-
-    @Override
-    public void facebookShareFeed(String message) {
-
+        initialize(new MainSuperJumper(this, this), config);
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.nopalsoft.superjumper.desktop;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.nopalsoft.superjumper.MainSuperJumper;
-import com.nopalsoft.superjumper.handlers.FacebookHandler;
 import com.nopalsoft.superjumper.handlers.GameServicesHandler;
 import com.nopalsoft.superjumper.handlers.RequestHandler;
 
@@ -11,7 +10,7 @@ public class DesktopLauncher {
     public static void main(String[] arg) {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setWindowedMode(480, 800);
-        new Lwjgl3Application(new MainSuperJumper(handler, gameHandler, faceHandler), config);
+        new Lwjgl3Application(new MainSuperJumper(handler, gameHandler), config);
     }
 
     static RequestHandler handler = new RequestHandler() {
@@ -72,38 +71,6 @@ public class DesktopLauncher {
         }
     };
 
-    static FacebookHandler faceHandler = new FacebookHandler() {
-
-        @Override
-        public void showFacebook() {
-
-        }
-
-        @Override
-        public void facebookSignOut() {
-
-        }
-
-        @Override
-        public void facebookSignIn() {
-
-        }
-
-        @Override
-        public void facebookShareFeed(String message) {
-
-        }
-
-        @Override
-        public boolean facebookIsSignedIn() {
-            return false;
-        }
-
-        @Override
-        public void facebookInviteFriends(String message) {
-
-        }
-    };
 
     static GameServicesHandler gameHandler = new GameServicesHandler() {
 
