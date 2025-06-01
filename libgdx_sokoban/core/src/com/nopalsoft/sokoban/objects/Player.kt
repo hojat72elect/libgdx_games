@@ -5,7 +5,7 @@ import com.nopalsoft.sokoban.Assets
 import com.nopalsoft.sokoban.Settings
 
 
-class Player(position: Int) : Tiles(position) {
+class Player(position: Int) : Tile(position) {
 
     private var state = STATE_STAND
     private var stateTime = 0F

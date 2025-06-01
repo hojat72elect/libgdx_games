@@ -9,9 +9,9 @@ import com.nopalsoft.sokoban.game.GameBoard;
 import java.util.LinkedHashMap;
 
 /**
- * All objects are useful (the floor, the character, the boxes).
+ * Every tile that we draw on the screen is a child of this class.
  */
-public class Tiles extends Actor {
+public class Tile extends Actor {
 
     final static LinkedHashMap<Integer, Vector2> mapPosiciones = new LinkedHashMap<>();
 
@@ -31,7 +31,7 @@ public class Tiles extends Actor {
 
     public int position;
 
-    public Tiles(int position) {
+    public Tile(int position) {
         this.position = position;
         setSize(SIZE, SIZE);
         setPosition(mapPosiciones.get(position).x, mapPosiciones.get(position).y);

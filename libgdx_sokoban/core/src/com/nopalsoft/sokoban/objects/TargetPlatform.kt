@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
 import com.nopalsoft.sokoban.Assets
 
-class TargetPlatform(position: Int, color: String) : Tiles(position) {
+class TargetPlatform(position: Int, color: String) : Tile(position) {
     var numColor: Int = when (color) {
         "brown" -> Box.COLOR_BROWN
         "gray" -> Box.COLOR_GRAY

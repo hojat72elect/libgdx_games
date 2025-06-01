@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
 import com.nopalsoft.sokoban.Assets
 import kotlin.math.abs
 
-class Box(position: Int, color: String) : Tiles(position) {
+class Box(position: Int, color: String) : Tile(position) {
 
     private var numColor = 0
 
