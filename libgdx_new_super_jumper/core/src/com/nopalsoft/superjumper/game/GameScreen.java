@@ -147,7 +147,6 @@ public class GameScreen extends Screens {
     private void setGameover() {
         state = STATE_GAME_OVER;
         Settings.setBestScore(oWorld.distanciaMax);
-        game.gameServiceHandler.submitScore(oWorld.distanciaMax);
         new VentanaGameover(this).show(stage);
     }
 
