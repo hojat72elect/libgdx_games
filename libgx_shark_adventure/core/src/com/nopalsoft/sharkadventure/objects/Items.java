@@ -10,7 +10,6 @@ public class Items implements Poolable {
     public final static int STATE_REMOVE = 1;
     public int state;
 
-    public final static int TIPO_CORAZON = 0;
     public final static int TIPO_CARNE = 1;
     public int tipo;
 

@@ -42,7 +42,7 @@ public class Tiburon implements Poolable {
     public boolean didGetHurtOnce;
 
     /**
-     * Indica si se acaba de hacer un flip en X para recrear el cuerpo
+     * Indicates whether an X flip was just performed to recreate the body.
      */
     public boolean didFlipX;
 
@@ -155,7 +155,6 @@ public class Tiburon implements Poolable {
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
 
     }
 }

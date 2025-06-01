@@ -19,9 +19,6 @@ public class Torpedo implements Poolable {
     public final static float DRAW_WIDTH = .8f;
     public final static float DRAW_HEIGHT = .3f;
 
-    public final static float WIDTH = .77f;
-    public final static float HEIGHT = .27f;
-
     final public Vector2 position;
     public float stateTime;
     public boolean isGoingLeft;
