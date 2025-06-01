@@ -2,16 +2,15 @@ package com.nopalsoft.superjumper.handlers;
 
 public interface FacebookHandler {
 
-	public void facebookSignIn();
+    void facebookSignIn();
 
-	public void facebookSignOut();
+    void facebookSignOut();
 
-	public boolean facebookIsSignedIn();
+    boolean facebookIsSignedIn();
 
-	public void facebookShareFeed(final String message);
+    void facebookShareFeed(final String message);
 
-	public void showFacebook();
+    void showFacebook();
 
-	public void facebookInviteFriends(final String message);
-
+    void facebookInviteFriends(final String message);
 }

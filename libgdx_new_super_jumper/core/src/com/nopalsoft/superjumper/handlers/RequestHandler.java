@@ -1,27 +1,26 @@
 package com.nopalsoft.superjumper.handlers;
 
 public interface RequestHandler {
-	public void showRater();
+    void showRater();
 
-	public void showInterstitial();
+    void showInterstitial();
 
-	public void showMoreGames();
+    void showMoreGames();
 
-	
-	public void shareOnTwitter(final String mensaje);
 
-	public void removeAds();
+    void shareOnTwitter(final String mensaje);
 
-	public void showAdBanner();
+    void removeAds();
 
-	public void hideAdBanner();
+    void showAdBanner();
 
-	public void buy5milCoins();
+    void hideAdBanner();
 
-	public void buy15milCoins();
+    void buy5milCoins();
 
-	public void buy30milCoins();
+    void buy15milCoins();
 
-	public void buy50milCoins();
+    void buy30milCoins();
 
+    void buy50milCoins();
 }

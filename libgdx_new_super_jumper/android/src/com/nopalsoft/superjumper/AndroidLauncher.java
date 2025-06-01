@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.nopalsoft.superjumper.MainSuperJumper;
 import com.nopalsoft.superjumper.handlers.FacebookHandler;
 import com.nopalsoft.superjumper.handlers.GameServicesHandler;
 import com.nopalsoft.superjumper.handlers.RequestHandler;
