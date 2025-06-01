@@ -56,45 +56,20 @@ public class GetCoinsSubMenu {
                                 }
                             })));
                 }
-                game.reqHandler.showFacebook();
             }
         });
 
         btBuy5milCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
         addEfectoPress(btBuy5milCoins);
-        btBuy5milCoins.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.buy5milCoins();
-            }
-        });
 
         btBuy15MilCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
         addEfectoPress(btBuy15MilCoins);
-        btBuy15MilCoins.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.buy15milCoins();
-            }
-        });
 
         btBuy30MilCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
         addEfectoPress(btBuy30MilCoins);
-        btBuy30MilCoins.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.buy30milCoins();
-            }
-        });
 
         btBuy50MilCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
         addEfectoPress(btBuy50MilCoins);
-        btBuy50MilCoins.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.buy50milCoins();
-            }
-        });
 
         // Facebook Like
         contenedor.add(new Image(Assets.separadorHorizontal)).expandX().fill()

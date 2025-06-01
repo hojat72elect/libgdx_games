@@ -105,79 +105,34 @@ public class GameScreen extends Screens {
         btMore.setSize(90, 70);
         btMore.setPosition(390, 730);
         addEfectoPress(btMore);
-        btMore.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.showMoreGames();
-            }
-        });
 
         btLeaderboard = new Button(Assets.btLeaderboard);
         btLeaderboard.setSize(110, 75);
         btLeaderboard.setPosition(230 - 110, 310);
         addEfectoPress(btLeaderboard);
-        btLeaderboard.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn())
-                    game.gameServiceHandler.getLeaderboard();
-                else
-                    game.gameServiceHandler.signIn();
-            }
-        });
 
         btAchievements = new Button(Assets.btAchievements);
         btAchievements.setSize(110, 75);
         btAchievements.setPosition(250, 310);
         addEfectoPress(btAchievements);
-        btAchievements.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn())
-                    game.gameServiceHandler.getAchievements();
-                else
-                    game.gameServiceHandler.signIn();
-            }
-        });
 
         btRate = new Button(Assets.btRate);
         btRate.setSize(110, 75);
 
         btRate.setPosition(SCREEN_WIDTH / 2f - btRate.getWidth() / 2f - 25, 220);// Con el boton face y twitter cambia la pos
         addEfectoPress(btRate);
-        btRate.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.showRater();
-            }
-        });
 
         btShareFacebook = new Button(new TextureRegionDrawable(
                 Assets.btFacebook));
         btShareFacebook.setSize(40, 40);
         btShareFacebook.setPosition(280, 257);
         addEfectoPress(btShareFacebook);
-        btShareFacebook.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler
-                        .shareOnFacebook("My best score playing Slam the bird is "
-                                + Settings.bestScore + ", can you beat me?");
-            }
-        });
+
 
         btShareTwitter = new Button(new TextureRegionDrawable(Assets.btTwitter));
         btShareTwitter.setSize(40, 40);
         btShareTwitter.setPosition(280, 212);
         addEfectoPress(btShareTwitter);
-        btShareTwitter.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler
-                        .shareOnTwitter("My best score playing Slam the bird is "
-                                + Settings.bestScore + ", can you beat me?");
-            }
-        });
 
         final Button btMusica, btSonido;
 
@@ -420,7 +375,7 @@ public class GameScreen extends Screens {
                         botones.remove();
                         groupTryAgain.remove();// POr el bug
                         state = STATE_RUNNING;
-                        game.reqHandler.hideAdBanner();
+
                     }
                 })));
     }
@@ -428,11 +383,9 @@ public class GameScreen extends Screens {
     private void setGameover() {
 
         Settings.setBestScores(oWorld.scoreSlamed);
-        game.gameServiceHandler.submitScore(oWorld.scoreSlamed);
 
         state = STATE_GAME_OVER;
         stage.addActor(fondoGameover);
-        game.reqHandler.showAdBanner();
     }
 
     private void setTryAgain() {
@@ -441,7 +394,7 @@ public class GameScreen extends Screens {
 
         groupTryAgain = new Group();
         groupTryAgain.setSize(420, 300);
-        groupTryAgain.setPosition(SCREEN_WIDTH / 2 - groupTryAgain.getWidth()
+        groupTryAgain.setPosition(SCREEN_WIDTH / 2F - groupTryAgain.getWidth()
                 / 2, 800);
         groupTryAgain.addAction(Actions.sequence(Actions.moveTo(
                 groupTryAgain.getX(), 410, 1, Interpolation.bounceOut), Actions
@@ -479,7 +432,7 @@ public class GameScreen extends Screens {
         LabelMonedas lblMonedas = new LabelMonedas(385, 45,
                 oWorld.monedasTomadas);
 
-        Achievements.unlockCoins(oWorld.monedasTomadas);
+        Achievements.unlockCoins();
 
         groupTryAgain.addActor(score);
         groupTryAgain.addActor(lblScore);
@@ -491,8 +444,6 @@ public class GameScreen extends Screens {
 
         stage.addActor(groupTryAgain);
 
-        if (Settings.numeroVecesJugadas % 10 == 0)
-            game.reqHandler.showInterstitial();
     }
 
     @Override

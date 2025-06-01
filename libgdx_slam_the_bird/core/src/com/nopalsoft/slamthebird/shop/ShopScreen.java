@@ -57,8 +57,6 @@ public class ShopScreen extends Screens {
 
         new PersonajesSubMenu(game, contenedor);
 
-        game.reqHandler.hideAdBanner();
-
         btMonedas.remove();
     }
 

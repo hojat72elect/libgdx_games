@@ -42,7 +42,6 @@ public class Ventana extends Group {
                 })));
 
         isVisible = true;
-        game.reqHandler.showAdBanner();
         stage.addActor(this);
     }
 
@@ -52,7 +51,6 @@ public class Ventana extends Group {
 
     public void hide() {
         isVisible = false;
-        game.reqHandler.hideAdBanner();
         remove();
     }
 
