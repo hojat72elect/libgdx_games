@@ -125,14 +125,6 @@ public class UpgradesSubMenu {
         setArrays();
     }
 
-    /**
-     * @param titulo
-     * @param lblPrecio
-     * @param imagen
-     * @param descripcion
-     * @param boton
-     * @return
-     */
     private Table agregarPersonajeTabla(String titulo, Label lblPrecio,
                                         AtlasRegion imagen, String descripcion, Image[] arrLevel,
                                         TextButton boton) {
@@ -300,25 +292,14 @@ public class UpgradesSubMenu {
     }
 
     private int calcularPrecio(int nivel) {
-        switch (nivel) {
-            case 0:
-                return precioNivel1;
-
-            case 1:
-                return precioNivel2;
-
-            case 2:
-                return precioNivel3;
-
-            case 3:
-                return precioNivel4;
-
-            case 4:
-                return precioNivel5;
-            default:
-            case 5:
-                return precioNivel6;
-        }
+        return switch (nivel) {
+            case 0 -> precioNivel1;
+            case 1 -> precioNivel2;
+            case 2 -> precioNivel3;
+            case 3 -> precioNivel4;
+            case 4 -> precioNivel5;
+            default -> precioNivel6;
+        };
     }
 
     private void updateLabelPriceAndButton(int nivel, Label label,

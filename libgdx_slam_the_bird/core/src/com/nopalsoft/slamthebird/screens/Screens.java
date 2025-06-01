@@ -20,8 +20,6 @@ import com.nopalsoft.slamthebird.Settings;
 import com.nopalsoft.slamthebird.game.GameScreen;
 import com.nopalsoft.slamthebird.shop.ShopScreen;
 
-import java.util.Random;
-
 public abstract class Screens extends InputAdapter implements Screen {
     public static final int SCREEN_WIDTH = 480;
     public static final int SCREEN_HEIGHT = 800;
@@ -34,8 +32,6 @@ public abstract class Screens extends InputAdapter implements Screen {
     public OrthographicCamera oCam;
     public SpriteBatch batcher;
     public Stage stage;
-
-    Random oRan;
 
     public Screens(MainSlamBird game) {
         this.stage = game.stage;
@@ -112,7 +108,7 @@ public abstract class Screens extends InputAdapter implements Screen {
         String score = String.valueOf(puntuacion);
 
         int len = score.length();
-        float charWidth = 22;
+        float charWidth;
         float textWidth = 0;
         for (int i = len - 1; i >= 0; i--) {
             AtlasRegion keyFrame;
@@ -193,17 +189,12 @@ public abstract class Screens extends InputAdapter implements Screen {
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         blackFadeOut.getColor().a = 0;
         blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f),
-                Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (newScreen == GameScreen.class)
-                            game.setScreen(new GameScreen(game));
-                        else if (newScreen == ShopScreen.class)
-                            game.setScreen(new ShopScreen(game));
+                Actions.run(() -> {
+                    if (newScreen == GameScreen.class)
+                        game.setScreen(new GameScreen(game));
+                    else if (newScreen == ShopScreen.class)
+                        game.setScreen(new ShopScreen(game));
 
-                        // El blackFadeOut se remueve del stage cuando se le da new Screens(game) "Revisar el constructor de la clase Screens" por lo que no hay necesidad de hacer
-                        // blackFadeout.remove();
-                    }
                 })));
         stage.addActor(blackFadeOut);
     }

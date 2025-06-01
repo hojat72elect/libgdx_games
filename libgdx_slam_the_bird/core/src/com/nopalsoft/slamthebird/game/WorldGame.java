@@ -28,12 +28,10 @@ import com.nopalsoft.slamthebird.objetos.Plataforma;
 import com.nopalsoft.slamthebird.objetos.Robot;
 import com.nopalsoft.slamthebird.screens.Screens;
 
-import java.util.Iterator;
 import java.util.Random;
 
 public class WorldGame {
     final float WIDTH = Screens.WORLD_SCREEN_WIDTH;
-    final float HEIGHT = Screens.WORLD_SCREEN_HEIGHT;
 
     public static final float COMBO_TO_START_GETTING_COINS = 3;
 
@@ -70,14 +68,14 @@ public class WorldGame {
     int combo;
     boolean isCoinRain;
 
-    private final Pool<Boost> boostPool = new Pool<Boost>() {
+    private final Pool<Boost> boostPool = new Pool<>() {
         @Override
         protected Boost newObject() {
             return new Boost();
         }
     };
 
-    private final Pool<Moneda> monedaPool = new Pool<Moneda>() {
+    private final Pool<Moneda> monedaPool = new Pool<>() {
         @Override
         protected Moneda newObject() {
             return new Moneda();
@@ -89,11 +87,11 @@ public class WorldGame {
         oWorldBox.setContactListener(new Colisiones());
 
         state = STATE_RUNNING;
-        arrBodies = new Array<Body>();
-        arrEnemigos = new Array<Enemigo>();
-        arrPlataformas = new Array<Plataforma>();
-        arrBoost = new Array<Boost>();
-        arrMonedas = new Array<Moneda>();
+        arrBodies = new Array<>();
+        arrEnemigos = new Array<>();
+        arrPlataformas = new Array<>();
+        arrBoost = new Array<>();
+        arrMonedas = new Array<>();
 
         oRan = new Random();
 
@@ -104,7 +102,7 @@ public class WorldGame {
 
         float posPiso = .6f;
         crearParedes(posPiso);// .05
-        crearRobot(WIDTH / 2f, posPiso + .251f);
+        crearRobot(posPiso + .251f);
 
         crearPlataformas(0 + Plataforma.WIDTH / 2f, 1.8f + posPiso);// Izq Abajo
         crearPlataformas(WIDTH - Plataforma.WIDTH / 2f + .1f, 1.8f + posPiso);// Derecha abajo
@@ -154,10 +152,10 @@ public class WorldGame {
         shapePiso.dispose();
     }
 
-    private void crearRobot(float x, float y) {
-        oRobo = new Robot(x, y);
+    private void crearRobot(float y) {
+        oRobo = new Robot((float) 2.4, y);
         BodyDef bd = new BodyDef();
-        bd.position.x = x;
+        bd.position.x = (float) 2.4;
         bd.position.y = y;
         bd.type = BodyType.DynamicBody;
 
@@ -269,12 +267,9 @@ public class WorldGame {
     public void updateReady(float delta, float acelX) {
         oWorldBox.step(delta, 8, 4);
         oWorldBox.getBodies(arrBodies);
-        Iterator<Body> i = arrBodies.iterator();
-        while (i.hasNext()) {
-            Body body = i.next();
-
+        for (Body body : arrBodies) {
             if (body.getUserData() instanceof Robot) {
-                oRobo.updateReady(delta, body, acelX);
+                oRobo.updateReady(body, acelX);
                 break;
             }
         }
@@ -326,18 +321,15 @@ public class WorldGame {
                 Plataforma obj = arrPlataformas.get(plat);
                 if (state == 0) {
                     obj.setBreakable();
-                } else if (state == 1) {
+                } else {
                     obj.setFire();
                 }
             }
         }
 
         oWorldBox.getBodies(arrBodies);
-        Iterator<Body> i = arrBodies.iterator();
 
-        while (i.hasNext()) {
-            Body body = i.next();
-
+        for (Body body : arrBodies) {
             if (body.getUserData() instanceof Robot) {
                 updateRobot(delta, body, acelX, slam);
             } else if (body.getUserData() instanceof Enemigo) {
@@ -356,18 +348,14 @@ public class WorldGame {
 
     private void eliminarObjetos() {
         oWorldBox.getBodies(arrBodies);
-        Iterator<Body> i = arrBodies.iterator();
 
-        while (i.hasNext()) {
-            Body body = i.next();
-
+        for (Body body : arrBodies) {
             if (!oWorldBox.isLocked()) {
                 if (body.getUserData() instanceof Robot obj) {
                     if (obj.state == Robot.STATE_DEAD
                             && obj.stateTime >= Robot.DURATION_DEAD_ANIMATION) {
                         oWorldBox.destroyBody(body);
                         state = STATE_GAME_OVER;
-                        continue;
                     }
                 } else if (body.getUserData() instanceof Enemigo obj) {
                     if (obj.state == Enemigo.STATE_DEAD) {
@@ -380,21 +368,18 @@ public class WorldGame {
                          */
                         if (arrEnemigos.size == 0)
                             crearEnemigos();
-                        continue;
                     }
                 } else if (body.getUserData() instanceof Boost obj) {
                     if (obj.state == Boost.STATE_TAKEN) {
                         oWorldBox.destroyBody(body);
                         arrBoost.removeValue(obj, true);
                         boostPool.free(obj);
-                        continue;
                     }
                 } else if (body.getUserData() instanceof Moneda obj) {
                     if (obj.state == Moneda.STATE_TAKEN) {
                         oWorldBox.destroyBody(body);
                         arrMonedas.removeValue(obj, true);
                         monedaPool.free(obj);
-                        continue;
                     }
                 }
             }
@@ -460,9 +445,6 @@ public class WorldGame {
 
         /**
          * Begin contacto ROBOT con OTRA-COSA
-         *
-         * @param robot
-         * @param otraCosa
          */
         private void beginContactRobotOtraCosa(Fixture robot, Fixture otraCosa) {
             Robot oRobo = (Robot) robot.getBody().getUserData();
@@ -496,9 +478,8 @@ public class WorldGame {
                 } else if (obj.tipo == Boost.TIPO_COIN_RAIN) {
                     isCoinRain = true;
                 } else if (obj.tipo == Boost.TIPO_ICE) {
-                    Iterator<Enemigo> i = arrEnemigos.iterator();
-                    while (i.hasNext()) {
-                        i.next().setFrozen();
+                    for (Enemigo arrEnemigo : arrEnemigos) {
+                        arrEnemigo.setFrozen();
                     }
                 }
             } else if (oOtraCosa instanceof Moneda obj) {
@@ -576,9 +557,9 @@ public class WorldGame {
                 preSolveEnemigo(b, a, contact);
 
             if (a.getBody().getUserData() instanceof Moneda)
-                preSolveMoneda(a, b, contact);
+                preSolveMoneda(b, contact);
             else if (b.getBody().getUserData() instanceof Moneda)
-                preSolveMoneda(b, a, contact);
+                preSolveMoneda(a, contact);
         }
 
         private void preSolveRobot(Fixture robot, Fixture otraCosa,
@@ -616,10 +597,9 @@ public class WorldGame {
             }
         }
 
-        private void preSolveMoneda(Fixture obj, Fixture otraCosa,
+        private void preSolveMoneda(Fixture otraCosa,
                                     Contact contact) {
             Object oOtraCosa = otraCosa.getBody().getUserData();
-            // Moneda oMoneda = (Moneda) obj.getBody().getUserData();//lo comente porque no se usa "No me gustan los warnings"
 
             if (oOtraCosa.equals("pared")) {
                 contact.setEnabled(false);

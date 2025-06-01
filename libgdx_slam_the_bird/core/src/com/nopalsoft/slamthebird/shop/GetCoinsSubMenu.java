@@ -45,15 +45,11 @@ public class GetCoinsSubMenu {
 
                     Settings.didLikeFacebook = true;
                     game.stage.addAction(Actions.sequence(Actions.delay(1),
-                            Actions.run(new Runnable() {
-
-                                @Override
-                                public void run() {
-                                    Settings.monedasActuales += monedasLikeFacebook;
-                                    btLikeFacebook.setText("Visit us");
-                                    btLikeFacebook
-                                            .setStyle(Assets.styleTextButtonSelected);
-                                }
+                            Actions.run(() -> {
+                                Settings.monedasActuales += monedasLikeFacebook;
+                                btLikeFacebook.setText("Visit us");
+                                btLikeFacebook
+                                        .setStyle(Assets.styleTextButtonSelected);
                             })));
                 }
             }

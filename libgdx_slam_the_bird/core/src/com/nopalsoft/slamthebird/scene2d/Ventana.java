@@ -33,13 +33,7 @@ public class Ventana extends Group {
 
         setScale(.5f);
         addAction(Actions.sequence(Actions.scaleTo(1, 1, DURACION_ANIMATION),
-                Actions.run(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        endResize();
-                    }
-                })));
+                Actions.run(this::endResize)));
 
         isVisible = true;
         stage.addActor(this);

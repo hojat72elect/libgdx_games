@@ -51,13 +51,13 @@ public class NoAdsSubMenu {
         contenedor.add(new Image(Assets.separadorHorizontal)).expandX().fill().height(5);
         contenedor.row();
         contenedor
-                .add(agregarPersonajeTabla("No more ads", lblNoAds, Assets.btNoAds,
-                        "Buy it and no more ads will apper in the app", btNoAds)).expandX().fill();
+                .add(agregarPersonajeTabla(lblNoAds, Assets.btNoAds,
+                        btNoAds)).expandX().fill();
         contenedor.row();
     }
 
-    private Table agregarPersonajeTabla(String titulo, Label lblPrecio, TextureRegionDrawable imagen,
-                                        String descripcion, TextButton boton) {
+    private Table agregarPersonajeTabla(Label lblPrecio, TextureRegionDrawable imagen,
+                                        TextButton boton) {
 
         Image moneda = new Image(Assets.moneda);
         Image imgPersonaje = new Image(imagen);
@@ -66,13 +66,13 @@ public class NoAdsSubMenu {
             moneda.setVisible(false);
 
         Table tbBarraTitulo = new Table();
-        tbBarraTitulo.add(new Label(titulo, Assets.styleLabelChico)).expandX().left().padLeft(5);
+        tbBarraTitulo.add(new Label("No more ads", Assets.styleLabelChico)).expandX().left().padLeft(5);
         tbBarraTitulo.add(moneda).right();
         tbBarraTitulo.add(lblPrecio).right().padRight(10);
 
         Table tbDescrip = new Table();
         tbDescrip.add(imgPersonaje).left().pad(10).size(55, 45);
-        Label lblDescripcion = new Label(descripcion, Assets.styleLabelChico);
+        Label lblDescripcion = new Label("Buy it and no more ads will apper in the app", Assets.styleLabelChico);
         lblDescripcion.setWrap(true);
         tbDescrip.add(lblDescripcion).expand().fill().padLeft(5);
 

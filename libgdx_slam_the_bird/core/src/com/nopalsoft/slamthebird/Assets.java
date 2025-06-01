@@ -40,7 +40,6 @@ public class Assets {
     public static AtlasRegion personajeShopRojo;
     public static AtlasRegion personajeShopAzul;
 
-    public static Animation<TextureRegion> animPersonajeFall;
     public static Animation<TextureRegion> animPersonajeJump;
     public static Animation<TextureRegion> animPersonajeSlam;
     public static Animation<TextureRegion> animPersonajeHit;
@@ -191,7 +190,7 @@ public class Assets {
                 + "/personajeSlam3");
         AtlasRegion per4 = atlas.findRegion("Personajes/" + perSeleccionado
                 + "/personajeSlam4");
-        animPersonajeSlam = new Animation<TextureRegion>(.05f, per1, per2, per3, per4);
+        animPersonajeSlam = new Animation<>(.05f, per1, per2, per3, per4);
 
         per1 = atlas.findRegion("Personajes/" + perSeleccionado
                 + "/personajeJump1");
@@ -199,7 +198,7 @@ public class Assets {
                 + "/personajeJump1");
         per3 = atlas.findRegion("Personajes/" + perSeleccionado
                 + "/personajeJump1");
-        animPersonajeJump = new Animation<TextureRegion>(.1f, per1, per2, per3);
+        animPersonajeJump = new Animation<>(.1f, per1, per2, per3);
 
         per1 = atlas.findRegion("Personajes/" + perSeleccionado
                 + "/personajeHit");
@@ -207,7 +206,7 @@ public class Assets {
                 + "/personajeHit");
         per3 = atlas.findRegion("Personajes/" + perSeleccionado
                 + "/personajeHit");
-        animPersonajeHit = new Animation<TextureRegion>(.1f, per1, per2, per3);
+        animPersonajeHit = new Animation<>(.1f, per1, per2, per3);
 
         // Estos son los que aparecen en la tienda;
         personajeShopDefault = atlas
@@ -255,7 +254,7 @@ public class Assets {
         AtlasRegion per2 = atlas.findRegion("moneda2");
         AtlasRegion per3 = atlas.findRegion("moneda3");
         moneda = per1;
-        animMoneda = new Animation<TextureRegion>(.15f, per1, per2, per3, per2);
+        animMoneda = new Animation<>(.15f, per1, per2, per3, per2);
 
         flapAzul = atlas.findRegion("InGame/flapAzul");
         flapSpawn = atlas.findRegion("InGame/flapSpawn");
@@ -263,30 +262,30 @@ public class Assets {
         AtlasRegion flap1 = atlas.findRegion("InGame/flapAzulAlas1");
         AtlasRegion flap2 = atlas.findRegion("InGame/flapAzulAlas2");
         AtlasRegion flap3 = atlas.findRegion("InGame/flapAzulAlas3");
-        animflapAlasAzul = new Animation<TextureRegion>(.15f, flap1, flap2, flap3, flap2);
+        animflapAlasAzul = new Animation<>(.15f, flap1, flap2, flap3, flap2);
 
         flap1 = atlas.findRegion("InGame/flapRojoAlas1");
         flap2 = atlas.findRegion("InGame/flapRojoAlas2");
         flap3 = atlas.findRegion("InGame/flapRojoAlas3");
-        animflapAlasRojo = new Animation<TextureRegion>(.15f, flap1, flap2, flap3, flap2);
-        animEvolving = new Animation<TextureRegion>(.075f, flapAzul, flap1, flapAzul, flap2,
+        animflapAlasRojo = new Animation<>(.15f, flap1, flap2, flap3, flap2);
+        animEvolving = new Animation<>(.075f, flapAzul, flap1, flapAzul, flap2,
                 flapAzul, flap3);
 
         flap1 = atlas.findRegion("InGame/plataformFire1");
         flap2 = atlas.findRegion("InGame/plataformFire2");
         flap3 = atlas.findRegion("InGame/plataformFire3");
-        animPlataformFire = new Animation<TextureRegion>(.15f, flap1, flap2, flap3, flap2);
+        animPlataformFire = new Animation<>(.15f, flap1, flap2, flap3, flap2);
 
         flap1 = atlas.findRegion("InGame/plataforma2");
         flap2 = atlas.findRegion("InGame/plataforma3");
         flap3 = atlas.findRegion("InGame/plataforma4");
-        plataformBreakable = new Animation<TextureRegion>(.1f, flap1, flap2, flap3);
+        plataformBreakable = new Animation<>(.1f, flap1, flap2, flap3);
         plataforma = atlas.findRegion("InGame/plataforma1");
 
         flap1 = atlas.findRegion("InGame/slam1");
         flap2 = atlas.findRegion("InGame/slam2");
         flap3 = atlas.findRegion("InGame/slam3");
-        slam = new Animation<TextureRegion>(.1f, flap1, flap2, flap3);
+        slam = new Animation<>(.1f, flap1, flap2, flap3);
 
         boostInvencible = atlas.findRegion("InGame/boostInvencible");
         boostCoinRain = atlas.findRegion("InGame/boostCoinRain");
@@ -294,9 +293,9 @@ public class Assets {
         boostSuperSalto = atlas.findRegion("InGame/boostSuperSalto");
         boosts = atlas.findRegion("InGame/boosts");
 
-        animBoostEndInvencible = new Animation<TextureRegion>(.15f, boostInvencible,
+        animBoostEndInvencible = new Animation<>(.15f, boostInvencible,
                 pixelTransparente);
-        animBoostEndSuperSalto = new Animation<TextureRegion>(.15f, boostSuperSalto,
+        animBoostEndSuperSalto = new Animation<>(.15f, boostSuperSalto,
                 pixelTransparente);
 
         btAchievements = new TextureRegionDrawable(

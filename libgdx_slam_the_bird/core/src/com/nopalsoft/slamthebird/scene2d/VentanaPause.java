@@ -55,9 +55,4 @@ public class VentanaPause extends Ventana {
         addActor(btMainMenu);
         addActor(lbTitle);
     }
-
-    @Override
-    protected void endResize() {
-
-    }
 }

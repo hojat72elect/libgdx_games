@@ -61,9 +61,4 @@ public class VentanaRate extends Ventana {
         addActor(tbBotones);
         addActor(lbTitle);
     }
-
-    @Override
-    protected void endResize() {
-
-    }
 }

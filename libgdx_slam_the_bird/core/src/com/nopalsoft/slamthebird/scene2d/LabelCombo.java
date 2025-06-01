@@ -30,7 +30,7 @@ public class LabelCombo extends Actor {
         String score = String.valueOf(comboActual);
 
         int len = score.length();
-        float charWidth = 22;
+        float charWidth;
         float textWidth = 0;
         for (int i = 0; i < len; i++) {
             AtlasRegion keyFrame;

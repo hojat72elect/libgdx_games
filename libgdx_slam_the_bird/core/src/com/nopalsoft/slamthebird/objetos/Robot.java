@@ -104,7 +104,7 @@ public class Robot {
         stateTime += delta;
     }
 
-    public void updateReady(float delta, Body body, float acelX) {
+    public void updateReady(Body body, float acelX) {
         position.x = body.getPosition().x;
         position.y = body.getPosition().y;
 

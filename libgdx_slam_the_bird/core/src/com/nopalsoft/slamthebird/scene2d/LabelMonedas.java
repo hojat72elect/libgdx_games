@@ -22,7 +22,7 @@ public class LabelMonedas extends Actor {
         String score = String.valueOf(numMonedas);
 
         int len = score.length();
-        float charWidth = 22;
+        float charWidth;
         float textWidth = 0;
         for (int i = len - 1; i >= 0; i--) {
             AtlasRegion keyFrame;

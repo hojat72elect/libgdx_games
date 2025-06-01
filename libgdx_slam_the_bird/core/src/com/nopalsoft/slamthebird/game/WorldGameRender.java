@@ -12,8 +12,6 @@ import com.nopalsoft.slamthebird.objetos.Plataforma;
 import com.nopalsoft.slamthebird.objetos.Robot;
 import com.nopalsoft.slamthebird.screens.Screens;
 
-import java.util.Iterator;
-
 public class WorldGameRender {
 
     final float WIDTH = Screens.WORLD_SCREEN_WIDTH;
@@ -36,7 +34,7 @@ public class WorldGameRender {
         this.renderBox = new Box2DDebugRenderer();
     }
 
-    public void render(float delta) {
+    public void render() {
 
         oCam.position.y = oWorld.oRobo.position.y;
 
@@ -68,10 +66,8 @@ public class WorldGameRender {
     }
 
     private void renderPlataformas() {
-        Iterator<Plataforma> i = oWorld.arrPlataformas.iterator();
 
-        while (i.hasNext()) {
-            Plataforma obj = i.next();
+        for (Plataforma obj : oWorld.arrPlataformas) {
             TextureRegion keyFrame = Assets.plataforma;
 
             if (obj.state == Plataforma.STATE_BROKEN) {
@@ -101,28 +97,14 @@ public class WorldGameRender {
     }
 
     private void renderBoost() {
-        Iterator<Boost> i = oWorld.arrBoost.iterator();
 
-        while (i.hasNext()) {
-            Boost obj = i.next();
-            TextureRegion keyFrame;
-            switch (obj.tipo) {
-                case Boost.TIPO_COIN_RAIN:
-                    keyFrame = Assets.boostCoinRain;
-                    break;
-                case Boost.TIPO_ICE:
-                    keyFrame = Assets.boostIce;
-                    break;
-
-                case Boost.TIPO_SUPERJUMP:
-                    keyFrame = Assets.boostSuperSalto;
-                    break;
-                case Boost.TIPO_INVENCIBLE:
-
-                default:
-                    keyFrame = Assets.boostInvencible;
-                    break;
-            }
+        for (Boost obj : oWorld.arrBoost) {
+            TextureRegion keyFrame = switch (obj.tipo) {
+                case Boost.TIPO_COIN_RAIN -> Assets.boostCoinRain;
+                case Boost.TIPO_ICE -> Assets.boostIce;
+                case Boost.TIPO_SUPERJUMP -> Assets.boostSuperSalto;
+                default -> Assets.boostInvencible;
+            };
 
             batcher.draw(keyFrame, obj.position.x - .175f,
                     obj.position.y - .15f, .35f, .3f);
@@ -130,20 +112,15 @@ public class WorldGameRender {
     }
 
     private void renderMonedas() {
-        Iterator<Moneda> i = oWorld.arrMonedas.iterator();
 
-        while (i.hasNext()) {
-            Moneda obj = i.next();
+        for (Moneda obj : oWorld.arrMonedas) {
             batcher.draw(Assets.animMoneda.getKeyFrame(obj.stateTime, true),
                     obj.position.x - .15f, obj.position.y - .15f, .3f, .34f);
         }
     }
 
     public void renderEnemigos() {
-        Iterator<Enemigo> i = oWorld.arrEnemigos.iterator();
-        while (i.hasNext()) {
-            Enemigo obj = i.next();
-
+        for (Enemigo obj : oWorld.arrEnemigos) {
             if (obj.state == Enemigo.STATE_JUST_APPEAR) {
                 batcher.draw(Assets.flapSpawn, obj.position.x - .25f,
                         obj.position.y - .25f, .25f, .25f, .5f, .5f,

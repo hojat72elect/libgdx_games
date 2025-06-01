@@ -158,10 +158,6 @@ public class Enemigo {
 
     /**
      * Si esta tocando el piso hago que la velocidad en Y siempre se genere positiva
-     *
-     * @param body
-     * @param oRan
-     * @param isTouchingFLoor
      */
     private void setNewVelocity(Body body, Random oRan, boolean isTouchingFLoor) {
         float vel = MAX_VELOCIDAD_AZUL;
