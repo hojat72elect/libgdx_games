@@ -15,8 +15,8 @@ public class Player extends Tiles {
 
     float stateTime;
 
-    public Player(int posicion) {
-        super(posicion);
+    public Player(int position) {
+        super(position);
         state = STATE_STAND;
         stateTime = 0;
     }
