@@ -1,4 +1,4 @@
-package com.nopalsoft.sharkadventure.objetos;
+package com.nopalsoft.sharkadventure.objects;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;

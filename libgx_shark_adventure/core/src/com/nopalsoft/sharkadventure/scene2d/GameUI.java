@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.sharkadventure.Assets;
 import com.nopalsoft.sharkadventure.game.GameScreen;
 import com.nopalsoft.sharkadventure.game.WorldGame;
-import com.nopalsoft.sharkadventure.objetos.Tiburon;
+import com.nopalsoft.sharkadventure.objects.Tiburon;
 import com.nopalsoft.sharkadventure.screens.Screens;
 
 public class GameUI extends Group {

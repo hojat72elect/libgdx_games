@@ -14,9 +14,9 @@ import com.nopalsoft.sharkadventure.screens.Screens;
 
 public class GameScreen extends Screens {
     final int STATE_MENU = 0;// Menu principal
-    final int STATE_RUNNING = 1;// Empieza el juego
+    final int STATE_RUNNING = 1;// The game begins
     final int STATE_PAUSED = 2;// Pause
-    final int STATE_GAME_OVER = 3;// Igual que el menu principal pero sin el titulo.
+    final int STATE_GAME_OVER = 3;// Same as the main menu but without the title.
     int state;
 
     WorldGame oWorld;
@@ -29,7 +29,7 @@ public class GameScreen extends Screens {
     public long puntuacion;
 
     /**
-     * @param showMainMenu Muestra el menu principal de lo contrario inicia el juego inmediatamente
+     * @param showMainMenu Shows the main menu otherwise starts the game immediately
      */
     public GameScreen(MainShark game, boolean showMainMenu) {
         super(game);

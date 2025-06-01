@@ -95,7 +95,6 @@ public class VentanaPause extends Group {
 
         isVisible = true;
         stage.addActor(this);
-
     }
 
     public boolean isVisible() {

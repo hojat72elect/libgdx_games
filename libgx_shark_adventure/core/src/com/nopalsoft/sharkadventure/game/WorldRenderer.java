@@ -6,14 +6,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.nopalsoft.sharkadventure.Assets;
-import com.nopalsoft.sharkadventure.objetos.Barril;
-import com.nopalsoft.sharkadventure.objetos.Blast;
-import com.nopalsoft.sharkadventure.objetos.Chain;
-import com.nopalsoft.sharkadventure.objetos.Items;
-import com.nopalsoft.sharkadventure.objetos.Mina;
-import com.nopalsoft.sharkadventure.objetos.Submarino;
-import com.nopalsoft.sharkadventure.objetos.Tiburon;
-import com.nopalsoft.sharkadventure.objetos.Torpedo;
+import com.nopalsoft.sharkadventure.objects.Barril;
+import com.nopalsoft.sharkadventure.objects.Blast;
+import com.nopalsoft.sharkadventure.objects.Chain;
+import com.nopalsoft.sharkadventure.objects.Items;
+import com.nopalsoft.sharkadventure.objects.Mina;
+import com.nopalsoft.sharkadventure.objects.Submarino;
+import com.nopalsoft.sharkadventure.objects.Tiburon;
+import com.nopalsoft.sharkadventure.objects.Torpedo;
 import com.nopalsoft.sharkadventure.screens.Screens;
 
 import java.util.Iterator;
@@ -34,8 +34,6 @@ public class WorldRenderer {
 
         oCam = new OrthographicCamera(Screens.WORLD_WIDTH, Screens.WORLD_HEIGHT);
         oCam.position.set(Screens.WORLD_WIDTH / 2f, Screens.WORLD_HEIGHT / 2f, 0);
-        // Assets.burbujaEffect.start();
-        // Assets.burbujaTorpedo.setFlip(true, false);
 
     }
 
@@ -56,23 +54,20 @@ public class WorldRenderer {
         drawParticulasFondo(delta);
         drawTiburon(delta);
         drawBarriles(delta);
-        drawSubmarinos(delta);
+        drawSubmarinos();
         drawTorpedos(delta);
         drawMinas(delta);
         drawChains(delta);
-        drawItems(delta);
+        drawItems();
         drawBlast(delta);
 
         batcher.end();
         drawSueloFrente(delta);
-        // renderBox.render(oWorld.oWorldBox, oCam.combined);
 
     }
 
-    private void drawItems(float delta) {
-        Iterator<Items> i = oWorld.arrItems.iterator();
-        while (i.hasNext()) {
-            Items obj = i.next();
+    private void drawItems() {
+        for (Items obj : oWorld.arrItems) {
             AtlasRegion keyFrame;
             if (obj.tipo == Items.TIPO_CARNE)
                 keyFrame = Assets.carne;
@@ -84,11 +79,8 @@ public class WorldRenderer {
         }
     }
 
-    private void drawSubmarinos(float delta) {
-        Iterator<Submarino> i = oWorld.arrSubmarinos.iterator();
-        while (i.hasNext()) {
-            Submarino obj = i.next();
-
+    private void drawSubmarinos() {
+        for (Submarino obj : oWorld.arrSubmarinos) {
             AtlasRegion keyFrame;
             switch (obj.tipo) {
                 case Submarino.TIPO_AMARILLO:

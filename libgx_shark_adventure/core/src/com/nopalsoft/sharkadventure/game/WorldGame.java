@@ -22,14 +22,14 @@ import com.badlogic.gdx.utils.Pools;
 import com.nopalsoft.sharkadventure.Achievements;
 import com.nopalsoft.sharkadventure.Assets;
 import com.nopalsoft.sharkadventure.Settings;
-import com.nopalsoft.sharkadventure.objetos.Barril;
-import com.nopalsoft.sharkadventure.objetos.Blast;
-import com.nopalsoft.sharkadventure.objetos.Chain;
-import com.nopalsoft.sharkadventure.objetos.Items;
-import com.nopalsoft.sharkadventure.objetos.Mina;
-import com.nopalsoft.sharkadventure.objetos.Submarino;
-import com.nopalsoft.sharkadventure.objetos.Tiburon;
-import com.nopalsoft.sharkadventure.objetos.Torpedo;
+import com.nopalsoft.sharkadventure.objects.Barril;
+import com.nopalsoft.sharkadventure.objects.Blast;
+import com.nopalsoft.sharkadventure.objects.Chain;
+import com.nopalsoft.sharkadventure.objects.Items;
+import com.nopalsoft.sharkadventure.objects.Mina;
+import com.nopalsoft.sharkadventure.objects.Submarino;
+import com.nopalsoft.sharkadventure.objects.Tiburon;
+import com.nopalsoft.sharkadventure.objects.Torpedo;
 import com.nopalsoft.sharkadventure.screens.Screens;
 
 import java.util.Iterator;
@@ -82,14 +82,14 @@ public class WorldGame {
         puntuacion = 0;
         submarinosDestruidos = 0;
 
-        arrBodies = new Array<Body>();
-        arrBarriles = new Array<Barril>();
-        arrMinas = new Array<Mina>();
-        arrChains = new Array<Chain>();
-        arrBlasts = new Array<Blast>();
-        arrTorpedos = new Array<Torpedo>();
-        arrSubmarinos = new Array<Submarino>();
-        arrItems = new Array<Items>();
+        arrBodies = new Array<>();
+        arrBarriles = new Array<>();
+        arrMinas = new Array<>();
+        arrChains = new Array<>();
+        arrBlasts = new Array<>();
+        arrTorpedos = new Array<>();
+        arrSubmarinos = new Array<>();
+        arrItems = new Array<>();
         oTiburon = new Tiburon(3.5f, 2f);
 
         timeToSwanBarril = 0;
@@ -106,19 +106,19 @@ public class WorldGame {
 
         EdgeShape shape = new EdgeShape();
 
-        // Abajo
+        // Down
         shape.set(0, 0, Screens.WORLD_WIDTH, 0);
         body.createFixture(shape, 0);
 
-        // Derecha
+        // Right
         shape.set(Screens.WORLD_WIDTH + .5f, 0, Screens.WORLD_WIDTH + .5f, Screens.WORLD_HEIGHT);
         body.createFixture(shape, 0);
 
-        // Arriba
+        // Up
         shape.set(0, Screens.WORLD_HEIGHT + .5f, Screens.WORLD_WIDTH, Screens.WORLD_HEIGHT + .5f);
         body.createFixture(shape, 0);
 
-        // Izq
+        // Left
         shape.set(-.5f, 0, -.5f, Screens.WORLD_HEIGHT);
         body.createFixture(shape, 0);
 
@@ -412,7 +412,6 @@ public class WorldGame {
         body.setUserData(obj);
         body.setFixedRotation(true);
         body.setGravityScale(-3.5f);
-        // body.setLinearVelocity(Mina.VELOCIDAD_X, 0);
 
         arrMinas.add(obj);
         shape.dispose();
@@ -431,7 +430,7 @@ public class WorldGame {
             objChain.init(x, Chain.HEIGHT * i);
             bd.position.set(objChain.position.x, objChain.position.y);
             if (i == 0) {
-                objChain.init(x, -.12f);// Hace que el cuerpo kinematico aparezca un poco mas abajo para no estar chocando con el
+                objChain.init(x, -.12f);// Makes the kinematic body appear a little lower so as not to collide with it.
                 bd.position.set(objChain.position.x, objChain.position.y);
                 bd.type = BodyType.KinematicBody;
                 link = oWorldBox.createBody(bd);
@@ -441,20 +440,20 @@ public class WorldGame {
                 bd.type = BodyType.DynamicBody;
                 Body newLink = oWorldBox.createBody(bd);
                 newLink.createFixture(fixutre);
-                crearRevoltureJoint(link, newLink, 0, Chain.HEIGHT / 2f, 0, -Chain.HEIGHT / 2f);
+                crearRevoltureJoint(link, newLink, -Chain.HEIGHT / 2f);
                 link = newLink;
             }
             arrChains.add(objChain);
             link.setUserData(objChain);
         }
 
-        crearRevoltureJoint(link, body, 0, Chain.HEIGHT / 2f, 0, -Mina.HEIGHT / 2f);
+        crearRevoltureJoint(link, body, -Mina.HEIGHT / 2f);
     }
 
-    private void crearRevoltureJoint(Body bodyA, Body bodyB, float anchorAX, float anchorAY, float anchorBX, float anchorBY) {
+    private void crearRevoltureJoint(Body bodyA, Body bodyB, float anchorBY) {
         RevoluteJointDef jointDef = new RevoluteJointDef();
-        jointDef.localAnchorA.set(anchorAX, anchorAY);
-        jointDef.localAnchorB.set(anchorBX, anchorBY);
+        jointDef.localAnchorA.set((float) 0, (float) 0.105);
+        jointDef.localAnchorB.set((float) 0, anchorBY);
         jointDef.bodyA = bodyA;
         jointDef.bodyB = bodyB;
         oWorldBox.createJoint(jointDef);
@@ -680,9 +679,9 @@ public class WorldGame {
             Fixture b = contact.getFixtureB();
 
             if (a.getBody().getUserData() instanceof Tiburon) {
-                beginContactTiburon(a, b);
+                beginContactTiburon(b);
             } else if (b.getBody().getUserData() instanceof Tiburon) {
-                beginContactTiburon(b, a);
+                beginContactTiburon(a);
             } else if (a.getBody().getUserData() instanceof Blast) {
                 beginContactBlast(a, b);
             } else if (b.getBody().getUserData() instanceof Blast) {
@@ -728,7 +727,7 @@ public class WorldGame {
             }
         }
 
-        private void beginContactTiburon(Fixture fixTiburon, Fixture fixOtraCosa) {
+        private void beginContactTiburon(Fixture fixOtraCosa) {
             Object otraCosa = fixOtraCosa.getBody().getUserData();
 
             if (otraCosa instanceof Barril) {
