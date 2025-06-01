@@ -58,7 +58,6 @@ public class GameScreen extends Screens {
         setUpGameover();
 
         setReady();
-
     }
 
     private void setUpBotones() {
@@ -228,7 +227,6 @@ public class GameScreen extends Screens {
 
                 Settings.isSoundOn = !Settings.isSoundOn;
                 btSonido.setChecked(!Settings.isSoundOn);
-
             }
         });
 
@@ -272,7 +270,6 @@ public class GameScreen extends Screens {
                         setTryAgain();
                     }
                 })));
-
     }
 
     @Override
@@ -289,7 +286,6 @@ public class GameScreen extends Screens {
             default:
                 break;
         }
-
     }
 
     private void updateReady(float delta) {
@@ -301,7 +297,6 @@ public class GameScreen extends Screens {
             acelX = 1;
 
         oWorld.updateReady(delta, acelX);
-
     }
 
     int combo;
@@ -351,9 +346,7 @@ public class GameScreen extends Screens {
             lblCombo.addAction(Actions.sequence(Actions.moveTo(sideToMove, 400,
                     2.5f, Interpolation.exp10Out), Actions.removeActor()));
             stage.addActor(lblCombo);
-
         }
-
     }
 
     @Override
@@ -377,7 +370,6 @@ public class GameScreen extends Screens {
                 break;
         }
         batcher.end();
-
     }
 
     private void drawRunning(float delta) {
@@ -385,13 +377,11 @@ public class GameScreen extends Screens {
 
         batcher.draw(Assets.moneda, 449, 764, 30, 34);
         drawPuntuacionChicoOrigenDerecha(445, 764, oWorld.monedasTomadas);
-
     }
 
     private void drawReady(float delta) {
 
         drawNumChicoCentradoX(SCREEN_WIDTH / 2f, 730, Settings.bestScore);
-
     }
 
     private void setPaused() {
@@ -399,14 +389,12 @@ public class GameScreen extends Screens {
             state = STATE_PAUSED;
             ventanaPause.show(stage);
         }
-
     }
 
     public void setRunningFromPaused() {
         if (state == STATE_PAUSED) {
             state = STATE_RUNNING;
         }
-
     }
 
     private void setReady() {
@@ -417,7 +405,6 @@ public class GameScreen extends Screens {
         state = STATE_READY;
         stage.addActor(botones);
         stage.addActor(tituloApp);
-
     }
 
     private void setRunning() {
@@ -436,7 +423,6 @@ public class GameScreen extends Screens {
                         game.reqHandler.hideAdBanner();
                     }
                 })));
-
     }
 
     private void setGameover() {
@@ -447,7 +433,6 @@ public class GameScreen extends Screens {
         state = STATE_GAME_OVER;
         stage.addActor(fondoGameover);
         game.reqHandler.showAdBanner();
-
     }
 
     private void setTryAgain() {
@@ -508,7 +493,6 @@ public class GameScreen extends Screens {
 
         if (Settings.numeroVecesJugadas % 10 == 0)
             game.reqHandler.showInterstitial();
-
     }
 
     @Override
@@ -522,6 +506,5 @@ public class GameScreen extends Screens {
             return true;
         }
         return false;
-
     }
 }

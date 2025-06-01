@@ -1,7 +1,5 @@
 package com.nopalsoft.slamthebird.screens;
 
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
@@ -16,12 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.nopalsoft.slamthebird.Assets;
 import com.nopalsoft.slamthebird.MainSlamBird;
 import com.nopalsoft.slamthebird.Settings;
 import com.nopalsoft.slamthebird.game.GameScreen;
 import com.nopalsoft.slamthebird.shop.ShopScreen;
+
+import java.util.Random;
 
 public abstract class Screens extends InputAdapter implements Screen {
     public static final int SCREEN_WIDTH = 480;
@@ -49,7 +48,6 @@ public abstract class Screens extends InputAdapter implements Screen {
 
         InputMultiplexer input = new InputMultiplexer(this, stage);
         Gdx.input.setInputProcessor(input);
-
     }
 
     @Override
@@ -262,5 +260,4 @@ public abstract class Screens extends InputAdapter implements Screen {
         batcher.dispose();
         Settings.save();
     }
-
 }

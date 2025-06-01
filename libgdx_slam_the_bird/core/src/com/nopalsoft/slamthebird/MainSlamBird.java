@@ -34,5 +34,4 @@ public class MainSlamBird extends Game {
 
         setScreen(new GameScreen(this));
     }
-
 }

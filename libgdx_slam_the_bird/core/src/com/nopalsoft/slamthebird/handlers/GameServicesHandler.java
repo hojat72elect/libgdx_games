@@ -2,38 +2,37 @@ package com.nopalsoft.slamthebird.handlers;
 
 public interface GameServicesHandler {
 
-	/**
-	 * Este metodo abstrae a GPGS o a AGC
-	 * 
-	 * @param tiempoLap
-	 */
-	public void submitScore(long score);
+    /**
+     * Este metodo abstrae a GPGS o a AGC
+     *
+     * @param tiempoLap
+     */
+    void submitScore(long score);
 
-	/**
-	 * Este metodo abstrae a GPGS o a AGC
-	 * 
-	 * @param score
-	 */
-	public void unlockAchievement(String achievementId);
+    /**
+     * Este metodo abstrae a GPGS o a AGC
+     *
+     * @param score
+     */
+    void unlockAchievement(String achievementId);
 
-	/**
-	 * Este metodo abstrae a GPGS o a AGC
-	 * 
-	 * @param score
-	 */
-	public void getLeaderboard();
+    /**
+     * Este metodo abstrae a GPGS o a AGC
+     *
+     * @param score
+     */
+    void getLeaderboard();
 
-	/**
-	 * Este metodo abstrae a GPGS o a AGC
-	 * 
-	 * @param score
-	 */
-	public void getAchievements();
+    /**
+     * Este metodo abstrae a GPGS o a AGC
+     *
+     * @param score
+     */
+    void getAchievements();
 
-	public boolean isSignedIn();
+    boolean isSignedIn();
 
-	public void signIn();
+    void signIn();
 
-	public void signOut();
-
+    void signOut();
 }

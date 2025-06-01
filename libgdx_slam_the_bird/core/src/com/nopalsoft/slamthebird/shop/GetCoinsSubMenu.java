@@ -144,8 +144,6 @@ public class GetCoinsSubMenu {
                         "Coin super mega pack. Get this pack and you will be slamming in cash",
                         btBuy50MilCoins)).expandX().fill();
         contenedor.row();
-
-
     }
 
     private Table agregarPersonajeTabla(int numMonedasToGet,
@@ -179,7 +177,6 @@ public class GetCoinsSubMenu {
                 .height(5).padTop(15);
 
         return tbContent;
-
     }
 
     protected void addEfectoPress(final Actor actor) {

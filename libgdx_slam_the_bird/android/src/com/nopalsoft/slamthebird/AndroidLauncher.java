@@ -2,10 +2,8 @@ package com.nopalsoft.slamthebird;
 
 import android.os.Bundle;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.nopalsoft.slamthebird.MainSlamBird;
 import com.nopalsoft.slamthebird.handlers.GameServicesHandler;
 import com.nopalsoft.slamthebird.handlers.RequestHandler;
 
