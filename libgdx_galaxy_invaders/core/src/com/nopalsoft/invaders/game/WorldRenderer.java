@@ -9,7 +9,11 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.nopalsoft.invaders.Assets;
 import com.nopalsoft.invaders.Settings;
-import com.nopalsoft.invaders.frame.*;
+import com.nopalsoft.invaders.frame.AlienShip;
+import com.nopalsoft.invaders.frame.Boost;
+import com.nopalsoft.invaders.frame.Bullet;
+import com.nopalsoft.invaders.frame.Missile;
+import com.nopalsoft.invaders.frame.Nave;
 import com.nopalsoft.invaders.screens.Screens;
 
 
@@ -46,7 +50,6 @@ public class WorldRenderer {
         } else {// GAMEOVER, PAUSA, READY, ETC
             Assets.parallaxFondo.render(0);
         }
-
     }
 
     private void renderObjects() {
@@ -84,7 +87,6 @@ public class WorldRenderer {
             batch.draw(Assets.shield.getKeyFrame(oWorld.oNave.stateTime, true), oWorld.oNave.position.x - 5.5f,
                     oWorld.oNave.position.y - 5.5f, 11, 11);
         }
-
     }
 
     private void renderAliens() {
@@ -108,7 +110,6 @@ public class WorldRenderer {
             batch.draw(keyFrame, oAlienShip.position.x - AlienShip.DRAW_WIDTH / 2f, oAlienShip.position.y
                     - AlienShip.DRAW_HEIGHT / 2f, AlienShip.DRAW_WIDTH, AlienShip.DRAW_HEIGHT);
         }
-
     }
 
     private void renderShipBullet() {
@@ -126,7 +127,6 @@ public class WorldRenderer {
             } else {
                 batch.draw(Assets.balaNivel4, bullet.position.x - 1.05f, bullet.position.y - 0.75f, 2.1f, 1.5f);
             }
-
         }
     }
 
@@ -157,13 +157,11 @@ public class WorldRenderer {
                     keyFrame = Assets.explosionFuego.getKeyFrame(oMissile.stateTime, false);
                     widht = heigth = 15.0f;
                     break;
-
             }
 
             // Pa cuando era perseguidor
             // batch.draw(keyFrame, oMissil.position.x-widht/2f, oMissil.position.y-heigth/2f,.5f,.5f,widht,heigth,1,1,oMissil.getVelocity().rotate(-90).angle());
             batch.draw(keyFrame, oMissile.position.x - widht / 2f, oMissile.position.y - heigth / 2f, widht, heigth);
-
         }
     }
 
@@ -186,7 +184,6 @@ public class WorldRenderer {
                     break;
                 default:// Boost.SHIELD
                     keyFrame = Assets.boost3;
-
             }
 
             batch.draw(keyFrame, oBoost.position.x - Boost.DRAW_SIZE / 2f, oBoost.position.y - Boost.DRAW_SIZE / 2f,
@@ -213,7 +210,5 @@ public class WorldRenderer {
         }
 
         render.end();
-
     }
-
 }

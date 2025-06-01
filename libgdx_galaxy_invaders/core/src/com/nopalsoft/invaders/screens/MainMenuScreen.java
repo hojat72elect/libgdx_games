@@ -5,8 +5,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.invaders.Assets;
@@ -48,7 +52,6 @@ public class MainMenuScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(Assets.clickSound);
                 game.setScreen(new GameScreen(game));
-
             }
         });
 
@@ -93,7 +96,6 @@ public class MainMenuScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(Assets.clickSound);
                 Gdx.net.openURI("https://www.facebook.com/yayo28");
-
             }
         });
 
@@ -154,7 +156,6 @@ public class MainMenuScreen extends Screens {
 
         if (Settings.numeroDeVecesQueSeHaJugado == 0) {
             game.dialogs.showDialogSignIn();
-
         }
     }
 

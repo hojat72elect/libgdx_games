@@ -9,8 +9,13 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -90,7 +95,6 @@ public class GameScreen extends Screens {
                 accel = 0;
                 super.exit(event, x, y, pointer, toActor);
             }
-
         });
         btRight = new ImageButton(Assets.btRight);
         btRight.setSize(65, 50);
@@ -99,7 +103,6 @@ public class GameScreen extends Screens {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 accel = -5;
-
             }
 
             @Override
@@ -107,7 +110,6 @@ public class GameScreen extends Screens {
                 accel = 0;
                 super.exit(event, x, y, pointer, toActor);
             }
-
         });
 
         btMissil = new TextButton(oWorld.missileCount + "", new TextButtonStyle(Assets.btMissil, Assets.btMissilDown, null, Assets.font10));
@@ -145,7 +147,6 @@ public class GameScreen extends Screens {
                 state = GAME_RUNNING;
                 oWorld.state = World.STATE_RUNNING;
                 dialogPause.hide();
-
             }
         });
 
@@ -155,7 +156,6 @@ public class GameScreen extends Screens {
                 Assets.playSound(Assets.clickSound);
                 game.setScreen(new MainMenuScreen(game));
                 dialogPause.hide();
-
             }
         });
 
@@ -178,7 +178,6 @@ public class GameScreen extends Screens {
                 Assets.playSound(Assets.clickSound);
                 game.setScreen(new GameScreen(game));
                 dialogGameOver.hide();
-
             }
         });
 
@@ -188,7 +187,6 @@ public class GameScreen extends Screens {
                 Assets.playSound(Assets.clickSound);
                 game.setScreen(new MainMenuScreen(game));
                 dialogGameOver.hide();
-
             }
         });
         btShare.addListener(new ClickListener() {
@@ -248,7 +246,6 @@ public class GameScreen extends Screens {
         // scoresBar.debug();
 
         stage.addActor(scoresBar);
-
     }
 
     private void setUpTutorial() {
@@ -307,7 +304,6 @@ public class GameScreen extends Screens {
 
         gpTutorial.addActor(touchRight);
         gpTutorial.addActor(touchLeft);
-
     }
 
     @Override
@@ -323,9 +319,7 @@ public class GameScreen extends Screens {
             case GAME_RUNNING:
                 updateRunning(deltaTime);
                 break;
-
         }
-
     }
 
     private void updateTutorial() {
@@ -338,7 +332,6 @@ public class GameScreen extends Screens {
                 state = GAME_READY;
                 gpTutorial.remove();
             }
-
         }
     }
 
@@ -352,7 +345,6 @@ public class GameScreen extends Screens {
                 stage.addActor(btMissil);
                 stage.addActor(btFire);
             }
-
         }
     }
 
@@ -432,8 +424,6 @@ public class GameScreen extends Screens {
                 break;
         }
         batcher.end();
-
-
     }
 
     float rotacion = 0;
@@ -447,9 +437,7 @@ public class GameScreen extends Screens {
             batcher.draw(Assets.help1, SCREEN_WIDTH / 2f - 51, 190, 51, 0, 102, 200, 1, 1, rotacion);
         } else {
             batcher.draw(Assets.clickAyuda, 155, 0, 10, 125);
-
         }
-
     }
 
     private void presentReady() {
@@ -501,5 +489,4 @@ public class GameScreen extends Screens {
         }
         return false;
     }
-
 }

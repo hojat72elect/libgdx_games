@@ -5,8 +5,13 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -15,7 +20,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-
 import com.badlogic.gdx.utils.I18NBundle;
 import com.nopalsoft.invaders.parallax.ParallaxBackground;
 import com.nopalsoft.invaders.parallax.ParallaxLayer;
@@ -285,7 +289,7 @@ public class Assets {
         explosionFuego = new Animation(0.05f, newExpl1, newExpl2, newExpl3, newExpl4, newExpl5, newExpl6, newExpl7, newExpl8, newExpl9, newExpl10, newExpl11, newExpl12, newExpl13, newExpl14, newExpl15, newExpl16, newExpl17, newExpl18, newExpl19);
 
         ParallaxLayer para1 = new ParallaxLayer(fondo, new Vector2(0, 50), new Vector2(0, 0));
-        ParallaxLayer arr[] = new ParallaxLayer[]{para1};
+        ParallaxLayer[] arr = new ParallaxLayer[]{para1};
         parallaxFondo = new ParallaxBackground(arr, 320, 480, new Vector2(0, 1));
 
         music = Gdx.audio.newMusic(Gdx.files.internal("data/sonidos/musica.mp3"));
@@ -299,7 +303,6 @@ public class Assets {
         Settings.load();
         if (Settings.musicEnabled)
             music.play();
-
     }
 
     public static void playSound(Sound sound, float volumen) {

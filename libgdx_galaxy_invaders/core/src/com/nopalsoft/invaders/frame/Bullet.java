@@ -58,5 +58,4 @@ public class Bullet extends DynamicGameObject {
         stateTime = 0;
         state = STATE_EXPLOTANDO;
     }
-
 }

@@ -72,7 +72,6 @@ public class LeaderboardScreen extends Screens {
         stage.addActor(btLeaderBoard);
         stage.addActor(btBack);
         stage.addActor(elipseIzq);
-
     }
 
     @Override

@@ -1,10 +1,7 @@
 package com.nopalsoft.invaders.frame;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 
 public class Missile extends DynamicGameObject {
 
@@ -55,5 +52,4 @@ public class Missile extends DynamicGameObject {
         Vector2 vel = new Vector2(velocity.x, velocity.y);
         return vel;
     }
-
 }

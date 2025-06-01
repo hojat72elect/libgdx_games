@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-
 import com.nopalsoft.invaders.Assets;
 import com.nopalsoft.invaders.MainInvaders;
 import com.nopalsoft.invaders.Settings;
@@ -60,7 +59,6 @@ public abstract class Screens extends InputAdapter implements Screen {
             Assets.font45.getData().setScale(.65f);
             Assets.font60.getData().setScale(1);
         }
-
     }
 
     @Override
@@ -111,5 +109,4 @@ public abstract class Screens extends InputAdapter implements Screen {
         stage.dispose();
         batcher.dispose();
     }
-
 }

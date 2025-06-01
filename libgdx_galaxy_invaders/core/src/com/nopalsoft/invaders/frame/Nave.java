@@ -1,7 +1,6 @@
 package com.nopalsoft.invaders.frame;
 
 import com.badlogic.gdx.Gdx;
-
 import com.nopalsoft.invaders.game.World;
 
 public class Nave extends DynamicGameObject {
@@ -78,5 +77,4 @@ public class Nave extends DynamicGameObject {
         stateTime = 0;
         vidasEscudo = 3;
     }
-
 }

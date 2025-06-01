@@ -5,7 +5,11 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.Array;
 import com.nopalsoft.invaders.Assets;
 import com.nopalsoft.invaders.Settings;
-import com.nopalsoft.invaders.frame.*;
+import com.nopalsoft.invaders.frame.AlienShip;
+import com.nopalsoft.invaders.frame.Boost;
+import com.nopalsoft.invaders.frame.Bullet;
+import com.nopalsoft.invaders.frame.Missile;
+import com.nopalsoft.invaders.frame.Nave;
 import com.nopalsoft.invaders.screens.Screens;
 
 import java.util.Iterator;
@@ -86,7 +90,6 @@ public class World {
                 x += 4.5f;
             }
         }
-
     }
 
     public void update(float deltaTime, float accelX, boolean seDisparo, boolean seDisparoMissil) {
@@ -136,9 +139,7 @@ public class World {
             if (oAlienShip.position.y < 9.5f) {
                 state = STATE_GAME_OVER;
             }
-
         }
-
     }
 
     private void updateBalaAlien(float deltaTime) {
@@ -153,9 +154,7 @@ public class World {
             if (oAlienBullet.state == Bullet.STATE_EXPLOTANDO) {
                 it.remove();
             }
-
         }
-
     }
 
     private void updateBalaNormalYConNivel(float deltaTime, boolean seDisparo) {
@@ -198,9 +197,7 @@ public class World {
             oMissile.update(deltaTime);
             if (oMissile.state == Missile.STATE_EXPLOTANDO && oMissile.stateTime > Missile.TIEMPO_EXPLODE) {
                 it.remove();
-
             }
-
         }
     }
 
@@ -212,7 +209,6 @@ public class World {
             if (oBoost.position.y < -2) {
                 it.remove();
             }
-
         }
     }
 
@@ -247,7 +243,6 @@ public class World {
                         Assets.playSound(Assets.explosionSound, 0.6f);
                     }
                 }
-
             }
         }
     }
@@ -301,9 +296,7 @@ public class World {
                 it.remove();
                 Assets.playSound(Assets.coinSound);
             }
-
         }
-
     }
 
     /**
@@ -344,7 +337,5 @@ public class World {
             alienBullets.clear();
             agregarAliens();
         }
-
     }
-
 }

@@ -92,6 +92,5 @@ public class DialogSingInGGS {
 
         if (stage.getActors().contains(dialogSignIn, true))
             dialogSignIn.hide();
-
     }
 }

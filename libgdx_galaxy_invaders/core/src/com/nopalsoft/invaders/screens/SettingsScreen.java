@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
 import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.invaders.Assets;
 import com.nopalsoft.invaders.MainInvaders;
@@ -48,7 +47,6 @@ public class SettingsScreen extends Screens {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Settings.aceletometerSensitive = 21 - (int) ((Slider) actor).getValue();
-
             }
         });
 
@@ -65,7 +63,6 @@ public class SettingsScreen extends Screens {
                 onScreenControl.setChecked(true);
                 tiltControl.setChecked(false);
                 setOptions();
-
             }
         });
 
@@ -98,7 +95,6 @@ public class SettingsScreen extends Screens {
                 accel = 0;
                 super.exit(event, x, y, pointer, toActor);
             }
-
         });
         btRight = new ImageButton(Assets.btRight);
         btRight.setSize(65, 50);
@@ -107,7 +103,6 @@ public class SettingsScreen extends Screens {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 accel = -5;
-
             }
 
             @Override
@@ -115,7 +110,6 @@ public class SettingsScreen extends Screens {
                 accel = 0;
                 super.exit(event, x, y, pointer, toActor);
             }
-
         });
 
         btMissil = new ImageButton(Assets.btMissil, Assets.btMissilDown);
@@ -175,7 +169,6 @@ public class SettingsScreen extends Screens {
             setTiltControls();
         else
             setOnScreenControl();
-
     }
 
     private void setTiltControls() {
@@ -195,7 +188,6 @@ public class SettingsScreen extends Screens {
 
         if (Settings.isTiltControl) {
             accel = Gdx.input.getAccelerometerX();
-
         } else {
             if (Gdx.app.getType() == ApplicationType.Applet || Gdx.app.getType() == ApplicationType.Desktop || Gdx.app.getType() == ApplicationType.WebGL) {
                 accel = 0;
@@ -235,7 +227,6 @@ public class SettingsScreen extends Screens {
             String speed = Assets.idiomas.get("speed");
             float textWidth = Assets.getTextWidth(Assets.font15, speed);
             Assets.font15.draw(batcher, speed, SCREEN_WIDTH / 2f - textWidth / 2f, 335);
-
         }
         Assets.font15.draw(batcher, (int) aceletometerSlider.getValue() + "", 215, 313);
         batcher.end();
@@ -245,7 +236,6 @@ public class SettingsScreen extends Screens {
         batcher.begin();
         renderNave(delta);
         batcher.end();
-
     }
 
     private void renderNave(float delta) {
