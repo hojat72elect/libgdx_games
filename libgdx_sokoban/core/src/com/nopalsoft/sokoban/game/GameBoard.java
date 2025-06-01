@@ -10,8 +10,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.nopalsoft.sokoban.Assets;
 import com.nopalsoft.sokoban.objects.Box;
-import com.nopalsoft.sokoban.objects.TargetPlatform;
 import com.nopalsoft.sokoban.objects.Player;
+import com.nopalsoft.sokoban.objects.TargetPlatform;
 import com.nopalsoft.sokoban.objects.Tiles;
 import com.nopalsoft.sokoban.objects.Wall;
 
@@ -152,10 +152,10 @@ public class GameBoard extends Group {
                 }
 
                 if (player.canMove() && (moveDown || moveLeft || moveRight || moveUp)) {
-                    int nextPos = player.posicion + auxMoves;
+                    int nextPos = player.position + auxMoves;
 
                     if (isPositionEmpty(nextPos) || (!isBoxAtPosition(nextPos) && isTargetPlatformAtPosition(nextPos))) {
-                        playerMoves.add(new Vector2(player.posicion, nextPos));
+                        playerMoves.add(new Vector2(player.position, nextPos));
                         boxMoves.add(null);
                         player.moveToPosition(nextPos, moveUp, moveDown, moveRight, moveLeft);
                         moves++;
@@ -165,8 +165,8 @@ public class GameBoard extends Group {
                             if (isPositionEmpty(boxNextPosition) || (!isBoxAtPosition(boxNextPosition) && isTargetPlatformAtPosition(boxNextPosition))) {
                                 Box box = getBoxInPosition(nextPos);
 
-                                playerMoves.add(new Vector2(player.posicion, nextPos));
-                                boxMoves.add(new Vector2(box.posicion, boxNextPosition));
+                                playerMoves.add(new Vector2(player.position, nextPos));
+                                boxMoves.add(new Vector2(box.position, boxNextPosition));
                                 moves++;
 
                                 box.moveToPosition(boxNextPosition, false);
@@ -198,7 +198,7 @@ public class GameBoard extends Group {
             if (boxLastPosition != null) {
                 Box box = getBoxInPosition((int) boxLastPosition.y);
                 box.moveToPosition((int) boxLastPosition.x, true);
-                box.setIsInEndPoint(getEndPointInPosition(box.posicion));
+                box.setIsInEndPoint(getEndPointInPosition(box.position));
             }
         }
         moves--;
@@ -208,7 +208,7 @@ public class GameBoard extends Group {
     private boolean isPositionEmpty(int position) {
         ArrayIterator<Tiles> iterator = new ArrayIterator<>(tiles);
         while (iterator.hasNext()) {
-            if (iterator.next().posicion == position)
+            if (iterator.next().position == position)
                 return false;
         }
         return true;
@@ -222,7 +222,7 @@ public class GameBoard extends Group {
         ArrayIterator<Tiles> iterator = new ArrayIterator<>(tiles);
         while (iterator.hasNext()) {
             Tiles obj = iterator.next();
-            if (obj.posicion == position && obj instanceof Box)
+            if (obj.position == position && obj instanceof Box)
                 isBoxInPosition = true;
         }
         return isBoxInPosition;
@@ -236,7 +236,7 @@ public class GameBoard extends Group {
         ArrayIterator<Tiles> iterator = new ArrayIterator<>(tiles);
         while (iterator.hasNext()) {
             Tiles obj = iterator.next();
-            if (obj.posicion == position && obj instanceof TargetPlatform)
+            if (obj.position == position && obj instanceof TargetPlatform)
                 isEndPointInPosition = true;
         }
         return isEndPointInPosition;
@@ -246,7 +246,7 @@ public class GameBoard extends Group {
         ArrayIterator<Tiles> ite = new ArrayIterator<>(tiles);
         while (ite.hasNext()) {
             Tiles obj = ite.next();
-            if (obj.posicion == position && obj instanceof Box)
+            if (obj.position == position && obj instanceof Box)
                 return (Box) obj;
         }
         return null;
@@ -256,7 +256,7 @@ public class GameBoard extends Group {
         ArrayIterator<Tiles> iterator = new ArrayIterator<>(tiles);
         while (iterator.hasNext()) {
             Tiles obj = iterator.next();
-            if (obj.posicion == position && obj instanceof TargetPlatform)
+            if (obj.position == position && obj instanceof TargetPlatform)
                 return (TargetPlatform) obj;
         }
         return null;

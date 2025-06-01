@@ -29,10 +29,10 @@ public class Tiles extends Actor {
     // ALL MAPS ARE 25x15 Tiles of 32px which gives a resolution of 800x480
     final float SIZE = 32 * GameBoard.UNIT_SCALE;// Token size
 
-    public int posicion;
+    public int position;
 
     public Tiles(int position) {
-        this.posicion = position;
+        this.position = position;
         setSize(SIZE, SIZE);
         setPosition(mapPosiciones.get(position).x, mapPosiciones.get(position).y);
     }
@@ -44,8 +44,8 @@ public class Tiles extends Actor {
         float time = .05f;
         if (Settings.animationWalkIsON && !undo)
             time = .45f;
-        this.posicion = pos;
-        addAction(Actions.sequence(Actions.moveTo(mapPosiciones.get(posicion).x, mapPosiciones.get(posicion).y, time), Actions.run(this::onMovementToPositionCompleted)));
+        this.position = pos;
+        addAction(Actions.sequence(Actions.moveTo(mapPosiciones.get(position).x, mapPosiciones.get(position).y, time), Actions.run(this::onMovementToPositionCompleted)));
     }
 
     /**
