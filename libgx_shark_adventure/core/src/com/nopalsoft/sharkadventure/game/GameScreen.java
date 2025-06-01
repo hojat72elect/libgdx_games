@@ -65,10 +65,10 @@ public class GameScreen extends Screens {
 
     private void updateRunning(float delta) {
         if (Gdx.input.isKeyPressed(Keys.A))
-            gameUI.accelX = -1;
+            gameUI.accelerationX = -1;
 
         else if (Gdx.input.isKeyPressed(Keys.D))
-            gameUI.accelX = 1;
+            gameUI.accelerationX = 1;
 
         if (Gdx.input.isKeyJustPressed(Keys.W) || Gdx.input.isKeyJustPressed(Keys.SPACE))
             gameUI.didSwimUp = true;
@@ -76,7 +76,7 @@ public class GameScreen extends Screens {
         if (Gdx.input.isKeyJustPressed(Keys.CONTROL_RIGHT) || Gdx.input.isKeyJustPressed(Keys.CONTROL_RIGHT) || Gdx.input.isKeyJustPressed(Keys.F))
             gameUI.didFire = true;
 
-        oWorld.update(delta, gameUI.accelX, gameUI.didSwimUp, gameUI.didFire);
+        oWorld.update(delta, gameUI.accelerationX, gameUI.didSwimUp, gameUI.didFire);
 
         puntuacion = (long) oWorld.puntuacion;
 
@@ -135,7 +135,7 @@ public class GameScreen extends Screens {
     @Override
     public boolean keyUp(int keycode) {
         if (keycode == Keys.A || keycode == Keys.D)
-            gameUI.accelX = 0;
+            gameUI.accelerationX = 0;
         return super.keyUp(keycode);
     }
 

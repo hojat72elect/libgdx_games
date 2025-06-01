@@ -23,16 +23,16 @@ public class GameUI extends Group {
     GameScreen gameScreen;
     GameWorld oWorld;
 
-    public int accelX;
+    public int accelerationX;
     public boolean didSwimUp;
     public boolean didFire;
 
     public ProgressBarUI lifeBar;
     public ProgressBarUI energyBar;
 
-    Table tbHeader;
-    Label lbPuntuacion;
-    Button btIzq, btDer, btSwimUp, btFire, btPause;
+    Table tableHeader;
+    Label labelScore;
+    Button buttonLeft, buttonRight, buttonSwimUp, buttonFire, buttonPause;
 
     public GameUI(final GameScreen gameScreen, GameWorld oWorld) {
         setBounds(0, 0, Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
@@ -50,76 +50,76 @@ public class GameUI extends Group {
 
     private void init() {
 
-        btSwimUp = new Button(Assets.btUp, Assets.btUpPress);
-        btSwimUp.setSize(105, 105);
-        btSwimUp.setPosition(692, -105);
-        btSwimUp.getColor().a = .35f;
+        buttonSwimUp = new Button(Assets.btUp, Assets.btUpPress);
+        buttonSwimUp.setSize(105, 105);
+        buttonSwimUp.setPosition(692, -105);
+        buttonSwimUp.getColor().a = .35f;
 
-        btFire = new Button(Assets.btFire, Assets.btFirePress);
-        btFire.setSize(105, 105);
-        btFire.setPosition(579, -105);
-        btFire.getColor().a = .35f;
+        buttonFire = new Button(Assets.btFire, Assets.btFirePress);
+        buttonFire.setSize(105, 105);
+        buttonFire.setPosition(579, -105);
+        buttonFire.getColor().a = .35f;
 
-        btDer = new Button(Assets.btDer, Assets.btDerPress, Assets.btDerPress);
-        btDer.setSize(120, 120);
-        btDer.setPosition(130, -120);
-        btDer.getColor().a = .35f;
+        buttonRight = new Button(Assets.btDer, Assets.btDerPress, Assets.btDerPress);
+        buttonRight.setSize(120, 120);
+        buttonRight.setPosition(130, -120);
+        buttonRight.getColor().a = .35f;
 
-        btIzq = new Button(Assets.btIzq, Assets.btIzqPress, Assets.btIzqPress);
-        btIzq.setSize(120, 120);
-        btIzq.setPosition(5, -120);
-        btIzq.getColor().a = .35f;
+        buttonLeft = new Button(Assets.btIzq, Assets.btIzqPress, Assets.btIzqPress);
+        buttonLeft.setSize(120, 120);
+        buttonLeft.setPosition(5, -120);
+        buttonLeft.getColor().a = .35f;
 
-        btPause = new Button(Assets.btPausa, Assets.btPausaPress);
-        btPause.setSize(45, 45);
-        btPause.setPosition(845, 430);
-        btPause.getColor().a = .5f;
+        buttonPause = new Button(Assets.btPausa, Assets.btPausaPress);
+        buttonPause.setSize(45, 45);
+        buttonPause.setPosition(845, 430);
+        buttonPause.getColor().a = .5f;
 
-        tbHeader = new Table();
-        tbHeader.setSize(Screens.SCREEN_WIDTH, 50);
-        tbHeader.setPosition(0, Screens.SCREEN_HEIGHT - tbHeader.getHeight());
+        tableHeader = new Table();
+        tableHeader.setSize(Screens.SCREEN_WIDTH, 50);
+        tableHeader.setPosition(0, Screens.SCREEN_HEIGHT - tableHeader.getHeight());
 
-        lbPuntuacion = new Label("0", Assets.lblStyle);
-        tbHeader.add(lbPuntuacion).fill();
+        labelScore = new Label("0", Assets.lblStyle);
+        tableHeader.add(labelScore).fill();
 
-        addActor(tbHeader);
-        btDer.addListener(new ClickListener() {
+        addActor(tableHeader);
+        buttonRight.addListener(new ClickListener() {
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                accelX = 1;
-                btDer.setChecked(true);
+                accelerationX = 1;
+                buttonRight.setChecked(true);
             }
 
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                accelX = 0;
-                btDer.setChecked(false);
+                accelerationX = 0;
+                buttonRight.setChecked(false);
             }
         });
-        btIzq.addListener(new ClickListener() {
+        buttonLeft.addListener(new ClickListener() {
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                accelX = -1;
-                btIzq.setChecked(true);
+                accelerationX = -1;
+                buttonLeft.setChecked(true);
             }
 
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                accelX = 0;
-                btIzq.setChecked(false);
+                accelerationX = 0;
+                buttonLeft.setChecked(false);
             }
         });
 
-        btSwimUp.addListener(new ClickListener() {
+        buttonSwimUp.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 didSwimUp = true;
             }
         });
 
-        btFire.addListener(new ClickListener() {
+        buttonFire.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 didFire = true;
             }
         });
-        btPause.addListener(new ClickListener() {
+        buttonPause.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 gameScreen.setPaused();
@@ -127,38 +127,38 @@ public class GameUI extends Group {
         });
 
         if (Gdx.app.getType() == ApplicationType.Android || Gdx.app.getType() == ApplicationType.iOS) {
-            addActor(btDer);
-            addActor(btIzq);
-            addActor(btSwimUp);
-            addActor(btFire);
+            addActor(buttonRight);
+            addActor(buttonLeft);
+            addActor(buttonSwimUp);
+            addActor(buttonFire);
         }
 
-        addActor(btPause);
+        addActor(buttonPause);
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
 
-        lbPuntuacion.setText(gameScreen.puntuacion + " m");
+        labelScore.setText(gameScreen.puntuacion + " m");
     }
 
     private void addInActions() {
-        btSwimUp.addAction(Actions.moveTo(692, 10, ANIMATION_TIME));
-        btFire.addAction(Actions.moveTo(579, 10, ANIMATION_TIME));
-        btDer.addAction(Actions.moveTo(130, 5, ANIMATION_TIME));
-        btIzq.addAction(Actions.moveTo(5, 5, ANIMATION_TIME));
-        btPause.addAction(Actions.moveTo(750, 430, ANIMATION_TIME));
+        buttonSwimUp.addAction(Actions.moveTo(692, 10, ANIMATION_TIME));
+        buttonFire.addAction(Actions.moveTo(579, 10, ANIMATION_TIME));
+        buttonRight.addAction(Actions.moveTo(130, 5, ANIMATION_TIME));
+        buttonLeft.addAction(Actions.moveTo(5, 5, ANIMATION_TIME));
+        buttonPause.addAction(Actions.moveTo(750, 430, ANIMATION_TIME));
         lifeBar.addAction(Actions.moveTo(20, 440, ANIMATION_TIME));
         energyBar.addAction(Actions.moveTo(20, 395, ANIMATION_TIME));
     }
 
     private void addOutActions() {
-        btSwimUp.addAction(Actions.moveTo(692, -105, ANIMATION_TIME));
-        btFire.addAction(Actions.moveTo(579, -105, ANIMATION_TIME));
-        btDer.addAction(Actions.moveTo(130, -120, ANIMATION_TIME));
-        btIzq.addAction(Actions.moveTo(5, -120, ANIMATION_TIME));
-        btPause.addAction(Actions.moveTo(845, 430, ANIMATION_TIME));
+        buttonSwimUp.addAction(Actions.moveTo(692, -105, ANIMATION_TIME));
+        buttonFire.addAction(Actions.moveTo(579, -105, ANIMATION_TIME));
+        buttonRight.addAction(Actions.moveTo(130, -120, ANIMATION_TIME));
+        buttonLeft.addAction(Actions.moveTo(5, -120, ANIMATION_TIME));
+        buttonPause.addAction(Actions.moveTo(845, 430, ANIMATION_TIME));
         lifeBar.addAction(Actions.moveTo(-ProgressBarUI.WIDTH, 440, ANIMATION_TIME));
         energyBar.addAction(Actions.moveTo(-ProgressBarUI.WIDTH, 395, ANIMATION_TIME));
     }
