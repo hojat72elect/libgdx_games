@@ -95,7 +95,7 @@ public class GameScreen extends Screens {
 
     private void updateRunning(float delta) {
 
-        float acelX = 0;
+        float acelX;
 
         acelX = -(Gdx.input.getAccelerometerX() / 3f);
 
@@ -153,8 +153,6 @@ public class GameScreen extends Screens {
 
     @Override
     public void hide() {
-        if (Settings.numeroVecesJugadas % 7 == 0)
-            game.reqHandler.showInterstitial();
         super.hide();
     }
 

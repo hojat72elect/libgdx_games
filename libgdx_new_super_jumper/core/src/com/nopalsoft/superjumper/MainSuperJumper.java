@@ -6,18 +6,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.superjumper.handlers.GameServicesHandler;
-import com.nopalsoft.superjumper.handlers.RequestHandler;
 import com.nopalsoft.superjumper.screens.MainMenuScreen;
 import com.nopalsoft.superjumper.screens.Screens;
 
 public class MainSuperJumper extends Game {
     public final GameServicesHandler gameServiceHandler;
-    public final RequestHandler reqHandler;
 
     public I18NBundle idiomas;
 
-    public MainSuperJumper(RequestHandler reqHandler, GameServicesHandler gameServiceHandler) {
-        this.reqHandler = reqHandler;
+    public MainSuperJumper(GameServicesHandler gameServiceHandler) {
         this.gameServiceHandler = gameServiceHandler;
     }
 

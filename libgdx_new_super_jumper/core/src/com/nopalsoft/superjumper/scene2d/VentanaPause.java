@@ -70,7 +70,6 @@ public class VentanaPause extends Ventana {
     @Override
     public void show(Stage stage) {
         super.show(stage);
-        game.reqHandler.showAdBanner();
     }
 
     @Override

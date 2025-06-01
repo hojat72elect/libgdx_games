@@ -5,14 +5,14 @@ import android.os.Bundle;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.nopalsoft.superjumper.handlers.GameServicesHandler;
-import com.nopalsoft.superjumper.handlers.RequestHandler;
 
-public class AndroidLauncher extends AndroidApplication implements RequestHandler, GameServicesHandler {
+
+public class AndroidLauncher extends AndroidApplication implements GameServicesHandler {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-        initialize(new MainSuperJumper(this, this), config);
+        initialize(new MainSuperJumper(this), config);
     }
 
     @Override
@@ -50,58 +50,4 @@ public class AndroidLauncher extends AndroidApplication implements RequestHandle
 
     }
 
-    @Override
-    public void showRater() {
-
-    }
-
-    @Override
-    public void showInterstitial() {
-
-    }
-
-    @Override
-    public void showMoreGames() {
-
-    }
-
-    @Override
-    public void removeAds() {
-
-    }
-
-    @Override
-    public void showAdBanner() {
-
-    }
-
-    @Override
-    public void hideAdBanner() {
-
-    }
-
-    @Override
-    public void buy5milCoins() {
-
-    }
-
-    @Override
-    public void buy15milCoins() {
-
-    }
-
-    @Override
-    public void buy30milCoins() {
-
-    }
-
-    @Override
-    public void buy50milCoins() {
-
-    }
-
-    @Override
-    public void shareOnTwitter(String mensaje) {
-
-    }
 }

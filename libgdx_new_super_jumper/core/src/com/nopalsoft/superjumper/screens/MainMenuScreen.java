@@ -74,7 +74,7 @@ public class MainMenuScreen extends Screens {
         btRate.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.showRater();
+
             }
         });
 
