@@ -27,8 +27,8 @@ public class LeaderBoardFrame extends Table {
         this.oPersona = persona;
 
 
-        lbNombre = new Label(oPersona.name, Assets.labelStyleChico);
-        lbScore = new Label(oPersona.getScoreWithFormat(), new Label.LabelStyle(Assets.fontChico, Color.RED));
+        lbNombre = new Label(oPersona.name, Assets.labelStyleSmall);
+        lbScore = new Label(oPersona.getScoreWithFormat(), new Label.LabelStyle(Assets.smallFont, Color.RED));
 
         tbAux = new Table();
         tbAux.left();
@@ -40,13 +40,13 @@ public class LeaderBoardFrame extends Table {
         Image imRedSocial = null;
         switch (oPersona.tipoCuenta) {
             case GOOGLE_PLAY:
-                imRedSocial = new Image(Assets.imGoogle);
+                imRedSocial = new Image(Assets.imageGoogle);
                 break;
             case AMAZON:
-                imRedSocial = new Image(Assets.imAmazon);
+                imRedSocial = new Image(Assets.imageAmazon);
                 break;
             case FACEBOOK:
-                imRedSocial = new Image(Assets.imFacebook);
+                imRedSocial = new Image(Assets.imageFacebook);
                 break;
         }
         tbAux.add(imRedSocial).size(25).row();

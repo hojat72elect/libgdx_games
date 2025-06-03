@@ -12,7 +12,7 @@ public class Missil implements Poolable, Comparable<Missil> {
     public final static int STATE_DESTROY = 2;
     public int state;
 
-    private final static float DURATION_EXPLOSION = Assets.explosion.animationDuration + .1f;
+    private final static float DURATION_EXPLOSION = Assets.explosionAnimation.animationDuration + .1f;
 
     public static final float WIDTH = 1.27f;
     public static final float HEIGHT = .44f;

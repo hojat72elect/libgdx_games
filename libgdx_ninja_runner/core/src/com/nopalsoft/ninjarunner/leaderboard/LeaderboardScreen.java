@@ -26,7 +26,7 @@ public class LeaderboardScreen extends Screens {
     public LeaderboardScreen(Game _game) {
         super(_game);
 
-        Label lbShop = new Label("Leaderboards", Assets.labelStyleGrande);
+        Label lbShop = new Label("Leaderboards", Assets.labelStyleLarge);
 
         Table tbTitle = new Table();
         tbTitle.setSize(400, 100);
@@ -39,7 +39,7 @@ public class LeaderboardScreen extends Screens {
         tbTitle.add(lbShop).expand();
         tbTitle.row();
 
-        Image imgGem = new Image(Assets.moneda.getKeyFrame(0));
+        Image imgGem = new Image(Assets.coinAnimation.getKeyFrame(0));
         imgGem.setSize(20, 20);
 
 
@@ -91,10 +91,10 @@ public class LeaderboardScreen extends Screens {
     }
 
     void initButtons() {
-        btLeaderboard = new Button(Assets.btShop, Assets.btShopPress, Assets.btShopPress);
-        btFacebook = new Button(Assets.btFacebook, Assets.btFacebookPress, Assets.btFacebookPress);
-        btGoogle = new Button(Assets.btAchievement, Assets.btAchievementPress, Assets.btLeaderboardPress);
-        btInviteFriend = new Button(Assets.btSettings, Assets.btSettingsPress, Assets.btLeaderboardPress);
+        btLeaderboard = new Button(Assets.buttonShop, Assets.buttonShopPress, Assets.buttonShopPress);
+        btFacebook = new Button(Assets.buttonFacebook, Assets.buttonFacebookPress, Assets.buttonFacebookPress);
+        btGoogle = new Button(Assets.buttonAchievement, Assets.buttonAchievementPress, Assets.buttonLeaderBoardPress);
+        btInviteFriend = new Button(Assets.buttonSettings, Assets.buttonSettingsPress, Assets.buttonLeaderBoardPress);
 
         ButtonGroup<Button> radioGroup = new ButtonGroup<>();
         radioGroup.add(btLeaderboard, btFacebook, btGoogle, btInviteFriend);
@@ -102,7 +102,7 @@ public class LeaderboardScreen extends Screens {
 
     @Override
     public void draw(float delta) {
-        Assets.backgroundNubes.render(0);
+        Assets.cloudsParallaxBackground.render(0);
     }
 
     @Override

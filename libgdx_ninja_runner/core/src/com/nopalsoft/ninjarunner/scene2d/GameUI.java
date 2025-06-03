@@ -83,7 +83,7 @@ public class GameUI extends Group {
 		tbHeader.setSize(Screens.SCREEN_WIDTH, 50);
 		tbHeader.setPosition(0, Screens.SCREEN_HEIGHT - tbHeader.getHeight());
 
-		lbPuntuacion = new Label("0", Assets.labelStyleChico);
+        lbPuntuacion = new Label("0", Assets.labelStyleSmall);
 		tbHeader.add(lbPuntuacion).fill();
 
 		addActor(tbHeader);

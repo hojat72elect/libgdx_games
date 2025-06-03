@@ -41,7 +41,7 @@ public class MenuUI extends Group {
     }
 
     private void init() {
-        titulo = new Image(Assets.titulo);
+        titulo = new Image(Assets.titleDrawable);
         titulo.setScale(1f);
         titulo.setPosition(getWidth() / 2f - titulo.getWidth() * titulo.getScaleX() / 2f, Screens.SCREEN_HEIGHT + titulo.getHeight());
 
@@ -79,12 +79,12 @@ public class MenuUI extends Group {
 
     void initButtons() {
 
-        btShop = new Button(Assets.btShop, Assets.btShopPress);
-        btLeaderboard = new Button(Assets.btLeaderboard, Assets.btLeaderboardPress);
-        btAchievements = new Button(Assets.btAchievement, Assets.btAchievementPress);
-        btSettings = new Button(Assets.btSettings, Assets.btSettingsPress);
-        btRate = new Button(Assets.btRate, Assets.btRatePress);
-        btShare = new Button(Assets.btShare, Assets.btSharePress);
+        btShop = new Button(Assets.buttonShop, Assets.buttonShopPress);
+        btLeaderboard = new Button(Assets.buttonLeaderboard, Assets.buttonLeaderBoardPress);
+        btAchievements = new Button(Assets.buttonAchievement, Assets.buttonAchievementPress);
+        btSettings = new Button(Assets.buttonSettings, Assets.buttonSettingsPress);
+        btRate = new Button(Assets.buttonRate, Assets.buttonRatePress);
+        btShare = new Button(Assets.buttonShare, Assets.buttonSharePress);
 
         btPlay = new Button(new ButtonStyle(null, null, null));
         btPlay.setSize(getWidth() - tbMenu.getWidth(), getHeight());

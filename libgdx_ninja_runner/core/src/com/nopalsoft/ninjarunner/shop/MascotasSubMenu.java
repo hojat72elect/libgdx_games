@@ -67,13 +67,13 @@ public class MascotasSubMenu {
         arrBomb = new Image[MAX_LEVEL];
 
         if (Settings.LEVEL_MASCOTA_BIRD < MAX_LEVEL) {
-            lblPrecioBird = new Label(calcularPrecio(Settings.LEVEL_MASCOTA_BIRD) + "", Assets.labelStyleChico);
+            lblPrecioBird = new Label(calcularPrecio(Settings.LEVEL_MASCOTA_BIRD) + "", Assets.labelStyleSmall);
         }
 
         if (!didBuyBomb) {
-            lblPrecioBomb = new Label(PRECIO_BOMB + "", Assets.labelStyleChico);
+            lblPrecioBomb = new Label(PRECIO_BOMB + "", Assets.labelStyleSmall);
         } else if (Settings.LEVEL_MASCOTA_BOMB < MAX_LEVEL) {
-            lblPrecioBomb = new Label(calcularPrecio(Settings.LEVEL_MASCOTA_BOMB) + "", Assets.labelStyleChico);
+            lblPrecioBomb = new Label(calcularPrecio(Settings.LEVEL_MASCOTA_BOMB) + "", Assets.labelStyleSmall);
         }
 
         inicializarBotones();
@@ -81,10 +81,10 @@ public class MascotasSubMenu {
         contenedor.defaults().expand().fill().padLeft(10).padRight(20).padBottom(10);
 
         contenedor.add(
-                agregarMascota("Chicken", lblPrecioBird, Assets.Mascota1Fly, 60, 54, idiomas.get("pinkChikenDescription"), btBuySelectBird, arrBird,
+                agregarMascota("Chicken", lblPrecioBird, Assets.mascotBirdFlyAnimation, 60, 54, idiomas.get("pinkChikenDescription"), btBuySelectBird, arrBird,
                         btUpgradeBird)).row();
         contenedor.add(
-                        agregarMascota("Bomb", lblPrecioBomb, Assets.MascotaBombFly, 53, 64, idiomas.get("bombDescription"), btBuyBomb, arrBomb, btUpgradeBomb))
+                        agregarMascota("Bomb", lblPrecioBomb, Assets.mascotBombFlyAnimation, 53, 64, idiomas.get("bombDescription"), btBuyBomb, arrBomb, btUpgradeBomb))
                 .row();
 
         setArrays();
@@ -92,14 +92,14 @@ public class MascotasSubMenu {
 
     public Table agregarMascota(String titulo, Label lblPrecio, AnimationSprite imagen, float imagenWidth, float imagenHeight, String descripcion,
                                 TextButton btBuy, Image[] arrLevel, Button btUpgrade) {
-        Image moneda = new Image(Assets.moneda.getKeyFrame(0));
+        Image moneda = new Image(Assets.coinAnimation.getKeyFrame(0));
         AnimatedSpriteActor imgPersonaje = new AnimatedSpriteActor(imagen);
 
         if (lblPrecio == null)
             moneda.setVisible(false);
 
         Table tbBarraTitulo = new Table();
-        tbBarraTitulo.add(new Label(titulo, Assets.labelStyleChico)).expandX().left();
+        tbBarraTitulo.add(new Label(titulo, Assets.labelStyleSmall)).expandX().left();
         tbBarraTitulo.add(moneda).right().size(20);
         tbBarraTitulo.add(lblPrecio).right().padRight(10);
 
@@ -111,7 +111,7 @@ public class MascotasSubMenu {
         tbContent.row();
 
         tbContent.add(imgPersonaje).size(imagenWidth, imagenHeight);
-        Label lblDescripcion = new Label(descripcion, Assets.labelStyleChico);
+        Label lblDescripcion = new Label(descripcion, Assets.labelStyleSmall);
         lblDescripcion.setWrap(true);
         tbContent.add(lblDescripcion).expand().fill();
 
@@ -275,11 +275,11 @@ public class MascotasSubMenu {
 
     private void setArrays() {
         for (int i = 0; i < Settings.LEVEL_MASCOTA_BIRD; i++) {
-            arrBird[i].setDrawable(new TextureRegionDrawable(Assets.btShare));
+            arrBird[i].setDrawable(new TextureRegionDrawable(Assets.buttonShare));
         }
 
         for (int i = 0; i < Settings.LEVEL_MASCOTA_BOMB; i++) {
-            arrBomb[i].setDrawable(new TextureRegionDrawable(Assets.btShare));
+            arrBomb[i].setDrawable(new TextureRegionDrawable(Assets.buttonShare));
         }
     }
 }

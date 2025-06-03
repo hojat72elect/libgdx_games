@@ -47,7 +47,7 @@ public class GameScreen extends Screens {
             Runnable run = () -> {
                 state = STATE_RUNNING;
                 if (Settings.isMusicEnabled) {
-                    Assets.musica1.play();
+                    Assets.music1.play();
                 }
 
                 nextGoalFrame = new NextGoalFrame(SCREEN_WIDTH, 400);
@@ -140,7 +140,7 @@ public class GameScreen extends Screens {
     private void setGameover() {
         Settings.setNewScore(gameWorld.puntuacion);
         state = STATE_GAME_OVER;
-        Assets.musica1.stop();
+        Assets.music1.stop();
     }
 
     @Override
@@ -153,9 +153,9 @@ public class GameScreen extends Screens {
     public void draw(float delta) {
 
         if (state == STATE_MENU) {
-            Assets.backgroundNubes.render(0);
+            Assets.cloudsParallaxBackground.render(0);
         } else {
-            Assets.backgroundNubes.render(delta);
+            Assets.cloudsParallaxBackground.render(delta);
         }
 
         renderer.render(delta);
@@ -164,13 +164,13 @@ public class GameScreen extends Screens {
         batcher.setProjectionMatrix(oCam.combined);
 
         batcher.begin();
-        Assets.fontChico.draw(batcher, "FPS GERA" + Gdx.graphics.getFramesPerSecond(), 5, 20);
-        Assets.fontChico.draw(batcher, "Bodies " + gameWorld.world.getBodyCount(), 5, 40);
-        Assets.fontChico.draw(batcher, "Lives " + gameWorld.player.vidas, 5, 60);
-        Assets.fontChico.draw(batcher, "Coins " + gameWorld.monedasTomadas, 5, 80);
-        Assets.fontChico.draw(batcher, "Scores " + gameWorld.puntuacion, 5, 100);
-        Assets.fontChico.draw(batcher, "Distance " + gameWorld.player.position.x, 5, 120);
-        Assets.fontChico.draw(batcher, "Platforms " + gameWorld.arrPlataformas.size, 5, 140);
+        Assets.smallFont.draw(batcher, "FPS GERA" + Gdx.graphics.getFramesPerSecond(), 5, 20);
+        Assets.smallFont.draw(batcher, "Bodies " + gameWorld.world.getBodyCount(), 5, 40);
+        Assets.smallFont.draw(batcher, "Lives " + gameWorld.player.vidas, 5, 60);
+        Assets.smallFont.draw(batcher, "Coins " + gameWorld.monedasTomadas, 5, 80);
+        Assets.smallFont.draw(batcher, "Scores " + gameWorld.puntuacion, 5, 100);
+        Assets.smallFont.draw(batcher, "Distance " + gameWorld.player.position.x, 5, 120);
+        Assets.smallFont.draw(batcher, "Platforms " + gameWorld.arrPlataformas.size, 5, 140);
 
         batcher.end();
     }

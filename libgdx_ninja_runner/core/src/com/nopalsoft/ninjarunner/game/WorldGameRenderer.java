@@ -88,7 +88,7 @@ public class WorldGameRenderer {
 
             if (obj.state == ItemMoneda.STATE_NORMAL) {
                 if (obj instanceof ItemMoneda) {
-                    spriteFrame = Assets.moneda.getKeyFrame(obj.stateTime, true);
+                    spriteFrame = Assets.coinAnimation.getKeyFrame(obj.stateTime, true);
                 } else if (obj instanceof ItemMagnet) {
                     spriteFrame = Assets.magnet;
                 } else if (obj instanceof ItemEnergy) {
@@ -108,7 +108,7 @@ public class WorldGameRenderer {
                 } else if (obj instanceof ItemCandyBean) {
                     spriteFrame = Assets.candyExplosionRed.getKeyFrame(obj.stateTime, false);
                 } else {
-                    spriteFrame = Assets.pick.getKeyFrame(obj.stateTime, false);
+                    spriteFrame = Assets.pickUpAnimation.getKeyFrame(obj.stateTime, false);
                 }
             }
 
@@ -128,7 +128,7 @@ public class WorldGameRenderer {
 
             Sprite spriteFrame;
 
-            spriteFrame = Assets.plataforma;
+            spriteFrame = Assets.platform;
 
             spriteFrame.setPosition(obj.position.x - Plataforma.WIDTH / 2f, obj.position.y - Plataforma.HEIGHT / 2f);
             spriteFrame.setSize(Plataforma.WIDTH, Plataforma.HEIGHT);
@@ -145,14 +145,14 @@ public class WorldGameRenderer {
         float height = oMas.drawHeight;
 
         if (oMas.mascotType == Mascot.MascotType.BOMB) {
-            spriteFrame = Assets.MascotaBombFly.getKeyFrame(oMas.stateTime, true);
+            spriteFrame = Assets.mascotBombFlyAnimation.getKeyFrame(oMas.stateTime, true);
         } else {
             if (gameWorld.player.isDash) {
-                spriteFrame = Assets.Mascota1Dash.getKeyFrame(oMas.stateTime, true);
+                spriteFrame = Assets.mascotBirdDashAnimation.getKeyFrame(oMas.stateTime, true);
                 width = oMas.dashDrawWidth;
                 height = oMas.dashDrawHeight;
             } else
-                spriteFrame = Assets.Mascota1Fly.getKeyFrame(oMas.stateTime, true);
+                spriteFrame = Assets.mascotBirdFlyAnimation.getKeyFrame(oMas.stateTime, true);
         }
 
         spriteFrame.setPosition(oMas.position.x - width + Mascot.RADIUS, gameWorld.oMascot.position.y - height / 2f);
@@ -166,7 +166,7 @@ public class WorldGameRenderer {
         while (i.hasNext()) {
             Pared obj = i.next();
 
-            Sprite spriteFrame = Assets.pared;
+            Sprite spriteFrame = Assets.wall;
             spriteFrame.setPosition(obj.position.x - Pared.WIDTH / 2f, obj.position.y - Pared.HEIGHT / 2f);
             spriteFrame.setSize(Pared.WIDTH, Pared.HEIGHT);
             spriteFrame.draw(batch);
@@ -186,11 +186,11 @@ public class WorldGameRenderer {
                 if (obj instanceof ObstaculoCajas4) {
                     width = ObstaculoCajas4.DRAW_WIDTH;
                     height = ObstaculoCajas4.DRAW_HEIGHT;
-                    spriteFrame = Assets.cajas4;
+                    spriteFrame = Assets.boxes4Sprite;
                 } else {
                     width = ObstaculoCajas7.DRAW_WIDTH;
                     height = ObstaculoCajas7.DRAW_HEIGHT;
-                    spriteFrame = Assets.cajas7;
+                    spriteFrame = Assets.boxes7Sprite;
                 }
                 spriteFrame.setPosition(obj.position.x - width / 2f, obj.position.y - height / 2f);
                 spriteFrame.setSize(width, height);
@@ -213,11 +213,11 @@ public class WorldGameRenderer {
             if (obj.state == Missil.STATE_NORMAL) {
                 width = Missil.WIDTH;
                 height = Missil.HEIGHT;
-                spriteFrame = Assets.missil.getKeyFrame(obj.stateTime, true);
+                spriteFrame = Assets.missileAnimation.getKeyFrame(obj.stateTime, true);
             } else if (obj.state == Missil.STATE_EXPLODE) {
                 width = 1f;
                 height = .84f;
-                spriteFrame = Assets.explosion.getKeyFrame(obj.stateTime, false);
+                spriteFrame = Assets.explosionAnimation.getKeyFrame(obj.stateTime, false);
             } else
                 continue;
 
@@ -244,35 +244,35 @@ public class WorldGameRenderer {
 
         switch (oPer.tipo) {
             case Player.TIPO_GIRL:
-                animIdle = Assets.personajeIdle;
-                animJump = Assets.personajeJump;
-                animRun = Assets.personajeRun;
-                animSlide = Assets.personajeSlide;
-                animDash = Assets.personajeDash;
-                animHurt = Assets.personajeHurt;
-                animDizzy = Assets.personajeDizzy;
-                animDead = Assets.personajeDead;
+                animIdle = Assets.girlIdleAnimation;
+                animJump = Assets.girlJumpAnimation;
+                animRun = Assets.girlRunAnimation;
+                animSlide = Assets.girlSlideAnimation;
+                animDash = Assets.girlDashAnimation;
+                animHurt = Assets.girlHurtAnimation;
+                animDizzy = Assets.girlDizzyAnimation;
+                animDead = Assets.girlDeathAnimation;
                 break;
             case Player.TIPO_BOY:
-                animIdle = Assets.personajeIdle;
-                animJump = Assets.personajeJump;
-                animRun = Assets.personajeRun;
-                animSlide = Assets.personajeSlide;
-                animDash = Assets.personajeDash;
-                animHurt = Assets.personajeHurt;
-                animDizzy = Assets.personajeDizzy;
-                animDead = Assets.personajeDead;
+                animIdle = Assets.girlIdleAnimation;
+                animJump = Assets.girlJumpAnimation;
+                animRun = Assets.girlRunAnimation;
+                animSlide = Assets.girlSlideAnimation;
+                animDash = Assets.girlDashAnimation;
+                animHurt = Assets.girlHurtAnimation;
+                animDizzy = Assets.girlDizzyAnimation;
+                animDead = Assets.girlDeathAnimation;
                 break;
             case Player.TIPO_NINJA:
             default:
-                animIdle = Assets.ninjaIdle;
-                animJump = Assets.ninjaJump;
-                animRun = Assets.ninjaRun;
-                animSlide = Assets.ninjaSlide;
-                animDash = Assets.ninjaDash;
-                animHurt = Assets.ninjaHurt;
-                animDizzy = Assets.ninjaDizzy;
-                animDead = Assets.ninjaDead;
+                animIdle = Assets.ninjaIdleAnimation;
+                animJump = Assets.ninjaJumpAnimation;
+                animRun = Assets.ninjaRunAnimation;
+                animSlide = Assets.ninjaSlideAnimation;
+                animDash = Assets.ninjaDashAnimation;
+                animHurt = Assets.ninjaHurtAnimation;
+                animDizzy = Assets.ninjaDizzyAnimation;
+                animDead = Assets.ninjaDeathAnimation;
                 break;
         }
 

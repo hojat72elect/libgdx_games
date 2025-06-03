@@ -52,26 +52,26 @@ public class PersonajesSubMenu {
         textSelect = idiomas.get("select");
 
         if (!didBuyNinja)
-            lbPrecioNinja = new Label(PRECIO_NINJA + "", Assets.labelStyleChico);
+            lbPrecioNinja = new Label(PRECIO_NINJA + "", Assets.labelStyleSmall);
 
         inicializarBotones();
 
         contenedor.defaults().expand().fill().padLeft(10).padRight(20).padBottom(10);
 
-        contenedor.add(agregarPersonaje("Runner girl", null, Assets.personajeRun, idiomas.get("bombDescription"), btSelectShanti)).row();
-        contenedor.add(agregarPersonaje("Runner Ninja", lbPrecioNinja, Assets.ninjaRun, idiomas.get("bombDescription"), btBuyNinja)).row();
+        contenedor.add(agregarPersonaje("Runner girl", null, Assets.girlRunAnimation, idiomas.get("bombDescription"), btSelectShanti)).row();
+        contenedor.add(agregarPersonaje("Runner Ninja", lbPrecioNinja, Assets.ninjaRunAnimation, idiomas.get("bombDescription"), btBuyNinja)).row();
     }
 
     public Table agregarPersonaje(String titulo, Label lblPrecio, AnimationSprite imagen, String descripcion, TextButton boton) {
 
-        Image moneda = new Image(Assets.moneda.getKeyFrame(0));
+        Image moneda = new Image(Assets.coinAnimation.getKeyFrame(0));
         AnimatedSpriteActor imgPersonaje = new AnimatedSpriteActor(imagen);
 
         if (lblPrecio == null)
             moneda.setVisible(false);
 
         Table tbBarraTitulo = new Table();
-        tbBarraTitulo.add(new Label(titulo, Assets.labelStyleChico)).expandX().left();
+        tbBarraTitulo.add(new Label(titulo, Assets.labelStyleSmall)).expandX().left();
         tbBarraTitulo.add(moneda).right().size(20);
         tbBarraTitulo.add(lblPrecio).right().padRight(10);
 
@@ -84,7 +84,7 @@ public class PersonajesSubMenu {
         tbContent.row();
 
         tbContent.add(imgPersonaje).size(120, 99);
-        Label lblDescripcion = new Label(descripcion, Assets.labelStyleChico);
+        Label lblDescripcion = new Label(descripcion, Assets.labelStyleSmall);
         lblDescripcion.setWrap(true);
         tbContent.add(lblDescripcion).expand().fill();
 

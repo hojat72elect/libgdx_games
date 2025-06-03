@@ -11,7 +11,7 @@ public class Item implements Poolable {
 	public final static int STATE_DESTROY = 1;
 	public int state;
 
-	public final static float DURATION_PICK = Assets.pick.animationDuration + .1f;
+    public final static float DURATION_PICK = Assets.pickUpAnimation.animationDuration + .1f;
 
 	public final float WIDTH;
 	public final float HEIGHT;

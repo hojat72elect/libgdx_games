@@ -400,7 +400,7 @@ public class GameWorld {
                     if (obj instanceof ItemMoneda) {
                         monedasTomadas++;
                         puntuacion++;
-                        Assets.playSound(Assets.coin, 1);
+                        Assets.playSound(Assets.coinSound, 1);
                     } else if (obj instanceof ItemMagnet) {
                         player.setPickUpMagnet();
                     } else if (obj instanceof ItemEnergy) {
@@ -408,13 +408,13 @@ public class GameWorld {
                     } else if (obj instanceof ItemHearth) {
                         player.vidas++;
                     } else if (obj instanceof ItemCandyJelly) {
-                        Assets.playSound(Assets.popCandy, 1);
+                        Assets.playSound(Assets.candySound, 1);
                         puntuacion += 2;
                     } else if (obj instanceof ItemCandyBean) {
-                        Assets.playSound(Assets.popCandy, 1);
+                        Assets.playSound(Assets.candySound, 1);
                         puntuacion += 5;
                     } else if (obj instanceof ItemCandyCorn) {
-                        Assets.playSound(Assets.popCandy, 1);
+                        Assets.playSound(Assets.candySound, 1);
                         puntuacion += 15;
                     }
 
@@ -448,7 +448,7 @@ public class GameWorld {
                 if (obj.state == ItemMoneda.STATE_NORMAL) {
                     obj.setPicked();
                     monedasTomadas++;
-                    Assets.playSound(Assets.coin, 1);
+                    Assets.playSound(Assets.coinSound, 1);
                 }
             } else if (oOtraCosa instanceof Missil obj) {
                 if (obj.state == Obstaculo.STATE_NORMAL) {

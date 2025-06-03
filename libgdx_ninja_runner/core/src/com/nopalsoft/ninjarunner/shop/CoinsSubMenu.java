@@ -16,21 +16,21 @@ public class CoinsSubMenu {
         this.contenedor = contenedor;
         contenedor.clear();
 
-        contenedor.add(new Label("Coins", Assets.labelStyleGrande)).expand().row();
-        contenedor.add(new Label("Coins1", Assets.labelStyleGrande)).row();
-        contenedor.add(new Label("Coins2", Assets.labelStyleGrande)).row();
-        contenedor.add(new Label("Coins3", Assets.labelStyleGrande)).row();
-        contenedor.add(new Label("Coins4", Assets.labelStyleGrande)).row();
-        contenedor.add(new Label("Coins5", Assets.labelStyleGrande)).row();
-        contenedor.add(new Label("Coins6", Assets.labelStyleGrande)).row();
-        contenedor.add(new Label("Coins7", Assets.labelStyleGrande)).row();
-        contenedor.add(new Label("Coins8", Assets.labelStyleGrande)).row();
-        contenedor.add(new Label("Coins9", Assets.labelStyleGrande)).row();
-        contenedor.add(new Label("Coins10", Assets.labelStyleGrande)).row();
-        contenedor.add(new Label("Coins11", Assets.labelStyleGrande)).row();
-        contenedor.add(new Label("Coins12", Assets.labelStyleGrande)).row();
-        contenedor.add(new Label("Coins13", Assets.labelStyleGrande)).row();
-        contenedor.add(new Label("Coins14", Assets.labelStyleGrande)).row();
-        contenedor.add(new Label("Coins15", Assets.labelStyleGrande)).row();
+        contenedor.add(new Label("Coins", Assets.labelStyleLarge)).expand().row();
+        contenedor.add(new Label("Coins1", Assets.labelStyleLarge)).row();
+        contenedor.add(new Label("Coins2", Assets.labelStyleLarge)).row();
+        contenedor.add(new Label("Coins3", Assets.labelStyleLarge)).row();
+        contenedor.add(new Label("Coins4", Assets.labelStyleLarge)).row();
+        contenedor.add(new Label("Coins5", Assets.labelStyleLarge)).row();
+        contenedor.add(new Label("Coins6", Assets.labelStyleLarge)).row();
+        contenedor.add(new Label("Coins7", Assets.labelStyleLarge)).row();
+        contenedor.add(new Label("Coins8", Assets.labelStyleLarge)).row();
+        contenedor.add(new Label("Coins9", Assets.labelStyleLarge)).row();
+        contenedor.add(new Label("Coins10", Assets.labelStyleLarge)).row();
+        contenedor.add(new Label("Coins11", Assets.labelStyleLarge)).row();
+        contenedor.add(new Label("Coins12", Assets.labelStyleLarge)).row();
+        contenedor.add(new Label("Coins13", Assets.labelStyleLarge)).row();
+        contenedor.add(new Label("Coins14", Assets.labelStyleLarge)).row();
+        contenedor.add(new Label("Coins15", Assets.labelStyleLarge)).row();
     }
 }

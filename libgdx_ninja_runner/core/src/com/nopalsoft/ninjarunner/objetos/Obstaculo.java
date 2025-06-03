@@ -33,7 +33,7 @@ public class Obstaculo implements Poolable {
         if (state == STATE_NORMAL) {
             state = STATE_DESTROY;
             stateTime = 0;
-            effect = Assets.cajasEffectPool.obtain();
+            effect = Assets.boxesEffectPool.obtain();
             effect.setPosition(position.x, position.y);
         }
     }

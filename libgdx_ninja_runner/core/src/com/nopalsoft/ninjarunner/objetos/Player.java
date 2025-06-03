@@ -32,8 +32,8 @@ public class Player {
     public static float VELOCIDAD_JUMP = 5;
     public final float VELOCIDAD_SECOND_JUMP = 4;
 
-    public final static float DURATION_DEAD = Assets.personajeDead.animationDuration + .5f;
-    public final static float DURATION_HURT = Assets.personajeHurt.animationDuration + .1f;
+    public final static float DURATION_DEAD = Assets.girlDeathAnimation.animationDuration + .5f;
+    public final static float DURATION_HURT = Assets.girlHurtAnimation.animationDuration + .1f;
     public final static float DURATION_DIZZY = 1.25f;
 
     final float DURATION_MAGNET;
@@ -150,7 +150,7 @@ public class Player {
             isSlide = false;
 
             body.setGravityScale(.9f);
-            Assets.playSound(Assets.jump, 1);
+            Assets.playSound(Assets.jumpSound, 1);
         }
         if (!isJumpPressed)
             body.setGravityScale(1);

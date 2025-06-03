@@ -56,19 +56,19 @@ public class UpgradesSubMenu {
         arrTreasureChest = new Image[MAX_LEVEL];
 
         if (Settings.LEVEL_MAGNET < MAX_LEVEL)
-            lbPrecioMagnet = new Label(calcularPrecio(Settings.LEVEL_MAGNET) + "", Assets.labelStyleChico);
+            lbPrecioMagnet = new Label(calcularPrecio(Settings.LEVEL_MAGNET) + "", Assets.labelStyleSmall);
 
         if (Settings.LEVEL_LIFE < MAX_LEVEL)
-            lbPrecioLife = new Label(calcularPrecio(Settings.LEVEL_LIFE) + "", Assets.labelStyleChico);
+            lbPrecioLife = new Label(calcularPrecio(Settings.LEVEL_LIFE) + "", Assets.labelStyleSmall);
 
         if (Settings.LEVEL_ENERGY < MAX_LEVEL)
-            lbPrecioEnergy = new Label(calcularPrecio(Settings.LEVEL_ENERGY) + "", Assets.labelStyleChico);
+            lbPrecioEnergy = new Label(calcularPrecio(Settings.LEVEL_ENERGY) + "", Assets.labelStyleSmall);
 
         if (Settings.LEVEL_COINS < MAX_LEVEL)
-            lbPrecioCoins = new Label(calcularPrecio(Settings.LEVEL_COINS) + "", Assets.labelStyleChico);
+            lbPrecioCoins = new Label(calcularPrecio(Settings.LEVEL_COINS) + "", Assets.labelStyleSmall);
 
         if (Settings.LEVEL_TREASURE_CHEST < MAX_LEVEL)
-            lbPrecioTreasureChest = new Label(calcularPrecio(Settings.LEVEL_TREASURE_CHEST) + "", Assets.labelStyleChico);
+            lbPrecioTreasureChest = new Label(calcularPrecio(Settings.LEVEL_TREASURE_CHEST) + "", Assets.labelStyleSmall);
 
         inicializarBotones();
 
@@ -85,7 +85,7 @@ public class UpgradesSubMenu {
                 agregarPersonajeTabla("Upgrade Eneergy", lbPrecioEnergy, Assets.energy, 25, 35, idiomas.get("bombDescription"), arrEnergy,
                         btUpgradeEnergy)).row();
         contenedor.add(
-                agregarPersonajeTabla("Upgrade coins", lbPrecioCoins, Assets.moneda.getKeyFrame(0), 35, 35, idiomas.get("bombDescription"), arrCoins,
+                agregarPersonajeTabla("Upgrade coins", lbPrecioCoins, Assets.coinAnimation.getKeyFrame(0), 35, 35, idiomas.get("bombDescription"), arrCoins,
                         btUpgradeCoins)).row();
         contenedor.add(
                 agregarPersonajeTabla(idiomas.get("upgradeTreasureChest"), lbPrecioTreasureChest, Assets.magnet, 35, 35,
@@ -97,14 +97,14 @@ public class UpgradesSubMenu {
     private Table agregarPersonajeTabla(String titulo, Label lblPrecio, Sprite imagen, float imagenWidth, float imagenHeight, String descripcion,
                                         Image[] arrLevel, Button btUpgrade) {
 
-        Image moneda = new Image(Assets.moneda.getKeyFrame(0));
+        Image moneda = new Image(Assets.coinAnimation.getKeyFrame(0));
         Image imgPersonaje = new Image(imagen);
 
         if (lblPrecio == null)
             moneda.setVisible(false);
 
         Table tbBarraTitulo = new Table();
-        tbBarraTitulo.add(new Label(titulo, Assets.labelStyleChico)).expandX().left();
+        tbBarraTitulo.add(new Label(titulo, Assets.labelStyleSmall)).expandX().left();
         tbBarraTitulo.add(moneda).right().size(20);
         tbBarraTitulo.add(lblPrecio).right().padRight(10);
 
@@ -116,7 +116,7 @@ public class UpgradesSubMenu {
         tbContent.row();
 
         tbContent.add(imgPersonaje).size(imagenWidth, imagenHeight);
-        Label lblDescripcion = new Label(descripcion, Assets.labelStyleChico);
+        Label lblDescripcion = new Label(descripcion, Assets.labelStyleSmall);
         lblDescripcion.setWrap(true);
         tbContent.add(lblDescripcion).expand().fill();
 
@@ -222,23 +222,23 @@ public class UpgradesSubMenu {
 
     private void setArrays() {
         for (int i = 0; i < Settings.LEVEL_MAGNET; i++) {
-            arrMagnet[i].setDrawable(new TextureRegionDrawable(Assets.btShare));
+            arrMagnet[i].setDrawable(new TextureRegionDrawable(Assets.buttonShare));
         }
 
         for (int i = 0; i < Settings.LEVEL_LIFE; i++) {
-            arrLife[i].setDrawable(new TextureRegionDrawable(Assets.btShare));
+            arrLife[i].setDrawable(new TextureRegionDrawable(Assets.buttonShare));
         }
 
         for (int i = 0; i < Settings.LEVEL_ENERGY; i++) {
-            arrEnergy[i].setDrawable(new TextureRegionDrawable(Assets.btShare));
+            arrEnergy[i].setDrawable(new TextureRegionDrawable(Assets.buttonShare));
         }
 
         for (int i = 0; i < Settings.LEVEL_COINS; i++) {
-            arrCoins[i].setDrawable(new TextureRegionDrawable(Assets.btShare));
+            arrCoins[i].setDrawable(new TextureRegionDrawable(Assets.buttonShare));
         }
 
         for (int i = 0; i < Settings.LEVEL_TREASURE_CHEST; i++) {
-            arrTreasureChest[i].setDrawable(new TextureRegionDrawable(Assets.btShare));
+            arrTreasureChest[i].setDrawable(new TextureRegionDrawable(Assets.buttonShare));
         }
     }
 }

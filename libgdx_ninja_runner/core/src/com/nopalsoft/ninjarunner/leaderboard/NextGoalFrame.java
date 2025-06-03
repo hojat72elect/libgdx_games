@@ -28,15 +28,15 @@ public class NextGoalFrame extends Group {
     public NextGoalFrame(float x, float y) {
         setBounds(x, y, WIDTH, HEIGHT);
 
-        lbNombre = new Label("", Assets.labelStyleChico);
+        lbNombre = new Label("", Assets.labelStyleSmall);
         lbNombre.setFontScale(.5f);
         lbNombre.setPosition(60, 60);
 
-        lbScorePersona = new Label("", Assets.labelStyleChico);
+        lbScorePersona = new Label("", Assets.labelStyleSmall);
         lbScorePersona.setFontScale(.5f);
         lbScorePersona.setPosition(60, 40);
 
-        lbPuntosRestantesParaSuperar = new Label("", Assets.labelStyleChico);
+        lbPuntosRestantesParaSuperar = new Label("", Assets.labelStyleSmall);
         lbPuntosRestantesParaSuperar.setFontScale(.5f);
         lbPuntosRestantesParaSuperar.setPosition(60, 20);
 
