@@ -1,0 +1,117 @@
+{
+  // Template file for Falling Lightblocks theme - see https://www.golfgl.de/lightblocks/themes.html
+  // To use this file in Lightblocks, it must be archived with all needed assets in a zip file and
+  // must be named "theme.json". Add the needed sound files as they are and reference them by their
+  // file name.
+  // Pictures have to be added to a texture atlas named theme.atlas/theme.png. They are referenced
+  // by their name in the atlas. You can create an atlas file with GDX Texture Packer GUI:
+  // https://github.com/crashinvaders/gdx-texture-packer-gui/ - or use an existing atlas file from
+  // another theme and insert your pics to the correct positions. :)
+
+  "name": "fulltemplate",
+  "author": "bsc",
+  "version": 1,
+  "minBuildNumber": 1926,
+  "targetBuildNumber": 1926,
+
+  // music - optional (defaults to normal music)
+  // You can use mp3 or ogg files. mp3 is supported on all platforms, ogg will not work on iOS
+  "music": {
+    "slow": "slowmusic.mp3",
+    "fast": "fastmusic.mp3"
+  },
+
+  // sounds - optional (defaults to normal game sound, leave blank for no sound)
+  // You can use mp3 or ogg files. mp3 is supported on all platforms, ogg will not work on iOS
+  "sounds": {
+    "rotate": "rotate.mp3",
+    "horizontalmove": "move.mp3",
+    "drop": "drop.mp3",
+    "normalclear": "clear.mp3",
+    "achievement": "achieve.mp3",
+    "garbage": "garbage.mp3",
+    "specialclear": "specialclear.mp3",
+    "freezedclear": "freezedclear.mp3",
+    "freezestart": "freezedstart.mp3",
+    "gameover": "gbgameover.ogg"
+  },
+  // background, all entries optional
+  // Ninepatch pictures are supported here
+  "screen": {
+    // back color of main play screen and pause dialog
+    "bgcolor": "94b13a",
+    "bgpic": "",
+    "bgpic_landscape": "",
+    // Background picture for Gameboard, since v1934
+    "gameboardpic": "gb",
+    // for score labels and mission description text
+    "scorecolor": "ffffff",
+    // Garbage indicator, time while freezed
+    "emphasizecolor": "ff0000",
+    // Combo indicator, time when freeze charged completely or it's your turn in turn-based
+    "focussedcolor": "0000ff",
+    // the incoming label showing "Double", "Level x" and so on
+    "achievementcolor": "ffffff",
+    // set the achievement shadow color to the achievement color to deactivate the shadow
+    "achievementshadowcolor": "000000",
+    "titlecolor": "ffffff",
+    "wallcolor": "ffffff",
+    // on screen buttoncolor, since v2003
+    "buttoncolor": "ffffff"
+  },
+  "blocks": {
+    // Here come the normal block pics - optional
+    // block pictures must be of size 72x72px with the actual block being centered. The grid size
+    // is 34x34. The default blocks have a size of 32x32px, therefore 2px padding
+    "normal_pics": {
+      "l": "blockl",
+      "i": "blocki",
+      "j": "blockj",
+      "z": "blockz",
+      "s": "blocks",
+      "o": "blocko",
+      "t": "blockt",
+      "garbage": "blocko",
+      "grid": "blockgrid",
+      "ghost": "blockghost"
+    },
+    // block colors rgb(a) - optional (default white)
+    "tint": {
+      "l": "ffffff",
+      "i": "ffffff",
+      "j": "ffffff",
+      "z": "ffffff",
+      "s": "ffffff",
+      "o": "ffffff",
+      "t": "ffffff",
+      "garbage": "888888",
+      "grid": "888888",
+      "ghost": "ffffff"
+    },
+    // activated block pics, overlayed with different alpha. Applies only if normal_pics set. Optional (default: no overlay)
+    "activated_pics": {
+      "l": "",
+      "i": "",
+      "j": "",
+      "z": "",
+      "s": "",
+      "o": "",
+      "t": "",
+      "garbage": ""
+      // shortly activated when garbage is dropped in
+    },
+    // activated overlay block colors rgb(a) - optional (default is same as "tint")
+    "activated_tint": {
+      "l": "ffffff",
+      "i": "ffffff",
+      "j": "ffffff",
+      "z": "ffffff",
+      "s": "ffffff",
+      "o": "ffffff",
+      "t": "ffffff",
+      "garbage": "888888"
+    },
+    // Alpha value (0-255) with which the activated pics are overlayed when the block is deactivated. Default 0 if block pics are set
+    "activated_overlay_alpha": 0
+  }
+}
