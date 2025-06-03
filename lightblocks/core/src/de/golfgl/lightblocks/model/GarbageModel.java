@@ -45,7 +45,7 @@ public class GarbageModel extends MissionModel {
     public void read(Json json, JsonValue jsonData) {
         super.read(json, jsonData);
         this.garbageChance = jsonData.getFloat("garbageChance", 0.5f);
-        
+
         setReplayValidOnFirstStart();
     }
 
@@ -54,5 +54,4 @@ public class GarbageModel extends MissionModel {
         super.write(json);
         json.writeValue("garbageChance", garbageChance);
     }
-
 }

@@ -21,8 +21,8 @@ public class MusicButtonListener extends ChangeListener {
     private final static int SOUND_MUSIC = 2;
 
     private int state;
-    private LightBlocksGame app;
-    private boolean useLabel;
+    private final LightBlocksGame app;
+    private final boolean useLabel;
     private Action changeAction;
 
     public MusicButtonListener(LightBlocksGame app, boolean useLabel, IMusicButton actor) {

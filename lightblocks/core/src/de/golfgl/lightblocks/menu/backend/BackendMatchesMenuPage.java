@@ -29,7 +29,7 @@ public class BackendMatchesMenuPage extends Table implements MultiplayerMenuScre
     private final LightBlocksGame app;
     private final MultiplayerMenuScreen parent;
     private Button createProfile;
-    private Button leaderboardButton;
+    private final Button leaderboardButton;
     private Cell progressOrRefreshCell;
     private Cell errorLabelCell;
     private boolean showsUnregistered;

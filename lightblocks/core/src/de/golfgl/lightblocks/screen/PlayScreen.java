@@ -1,6 +1,5 @@
 package de.golfgl.lightblocks.screen;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
@@ -65,14 +64,14 @@ public class PlayScreen extends AbstractScreen implements OnScreenGamepad.IOnScr
     public GameModel gameModel;
     PlayScreenInput inputAdapter;
     private PlayerArea secondPlayer;
-    private PauseDialog pauseDialog;
+    private final PauseDialog pauseDialog;
     private Dialog pauseMsgDialog;
     private boolean isPaused = true;
-    private HashSet<GameBlocker> gameBlockers = new HashSet<>();
+    private final HashSet<GameBlocker> gameBlockers = new HashSet<>();
     private OverlayMessage overlayWindow;
     private boolean showScoresWhenGameOver = true;
     private float timeSinceGameOver = 0;
-    private GameBlocker.UsePortraitGameBlocker usePortraitGameBlocker = new GameBlocker.UsePortraitGameBlocker();
+    private final GameBlocker.UsePortraitGameBlocker usePortraitGameBlocker = new GameBlocker.UsePortraitGameBlocker();
     private boolean isGameOver = false;
 
     public PlayScreen(LightBlocksGame app, InitGameParameters initGameParametersParams) throws
@@ -140,8 +139,6 @@ public class PlayScreen extends AbstractScreen implements OnScreenGamepad.IOnScr
                 }
             });
         }
-
-
     }
 
     /**
@@ -190,7 +187,6 @@ public class PlayScreen extends AbstractScreen implements OnScreenGamepad.IOnScr
             }
 
             return currentGame;
-
         } catch (InputNotAvailableException inp) {
             throw new VetoException(app.TEXTS.format("errorInputNotAvail",
                     app.TEXTS.get(PlayScreenInput.getInputTypeName(inp.getInputKey()))));
@@ -296,7 +292,6 @@ public class PlayScreen extends AbstractScreen implements OnScreenGamepad.IOnScr
         playerArea.updateTimeLabel();
 
         super.render(delta);
-
     }
 
     @Override
@@ -696,9 +691,9 @@ public class PlayScreen extends AbstractScreen implements OnScreenGamepad.IOnScr
     public static class PlayScoreTable extends Table {
         final public float firstColWidth;
         private final LightBlocksGame app;
-        private ScoreLabel scoreNum;
-        private ScoreLabel levelNum;
-        private ScoreLabel linesNum;
+        private final ScoreLabel scoreNum;
+        private final ScoreLabel levelNum;
+        private final ScoreLabel linesNum;
 
         public PlayScoreTable(LightBlocksGame app) {
             this.app = app;

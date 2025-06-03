@@ -146,7 +146,6 @@ public class ServerConfiguration {
             prefs.putBoolean(KEY_XML_PRIVATE_ROOMS, serverInfo.privateRooms);
             prefs.flush();
         }
-
     }
 
     public ServerInfo getServerInfo() {

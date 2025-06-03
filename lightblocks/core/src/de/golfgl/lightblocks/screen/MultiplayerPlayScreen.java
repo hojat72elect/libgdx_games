@@ -34,9 +34,9 @@ public class MultiplayerPlayScreen extends PlayScreen implements IRoomListener {
 
     private HashMap<String, ScoreLabel> playerLabels;
     private HashMap<String, OtherPlayerGameboard> playerGameboard;
-    private HashMap<String, GameBlocker.OtherPlayerPausedGameBlocker> playerBlockers = new HashMap<String,
+    private final HashMap<String, GameBlocker.OtherPlayerPausedGameBlocker> playerBlockers = new HashMap<String,
             GameBlocker.OtherPlayerPausedGameBlocker>();
-    private GameBlocker initializeBlocker = new GameBlocker.WaitForOthersInitializedBlocker();
+    private final GameBlocker initializeBlocker = new GameBlocker.WaitForOthersInitializedBlocker();
     private boolean isHandlingBlockerSet = false;
 
     public MultiplayerPlayScreen(LightBlocksGame app, InitGameParameters initGameParametersParams) throws
@@ -122,7 +122,6 @@ public class MultiplayerPlayScreen extends PlayScreen implements IRoomListener {
                             }
                         }
                     });
-
         } else {
             // ist eventuell doppelt, aber der unten im dispose kommt u.U. zu spät
             app.multiRoom.removeListener(this);
@@ -148,7 +147,7 @@ public class MultiplayerPlayScreen extends PlayScreen implements IRoomListener {
 
         if (lblPlayerFill != null) {
             boolean notInitialized = (lblPlayerFill.getScore() == 100);
-            lblPlayerFill.setScore(pig.filledBlocks * 100 / (Gameboard.GAMEBOARD_COLUMNS * Gameboard
+            lblPlayerFill.setScore(pig.filledBlocks * 100L / (Gameboard.GAMEBOARD_COLUMNS * Gameboard
                     .GAMEBOARD_NORMALROWS));
 
             if (notInitialized) {
@@ -256,7 +255,7 @@ public class MultiplayerPlayScreen extends PlayScreen implements IRoomListener {
                     MultiPlayerObjects.SwitchedPause sp = new MultiPlayerObjects.SwitchedPause();
                     sp.nowPaused = false;
                     sp.playerId = mpo.changedPlayer.name;
-                    handleOtherPlayerSwitchedPause((MultiPlayerObjects.SwitchedPause) sp);
+                    handleOtherPlayerSwitchedPause(sp);
                 }
             });
 

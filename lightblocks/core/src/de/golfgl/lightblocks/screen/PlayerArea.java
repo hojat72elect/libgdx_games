@@ -1,5 +1,7 @@
 package de.golfgl.lightblocks.screen;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -40,8 +42,6 @@ import de.golfgl.lightblocks.scene2d.ScaledLabel;
 import de.golfgl.lightblocks.scene2d.ScoreLabel;
 import de.golfgl.lightblocks.state.Theme;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
-
 /**
  * Player's area on the PlayScreen, including score labels
  * <p>
@@ -69,7 +69,7 @@ public class PlayerArea extends Group implements IGameModelListener {
     GameModel gameModel;
     private ScaledLabel timeLabel;
     private boolean noLineClearAnimation;
-    private ScoreLabel blocksLeft;
+    private final ScoreLabel blocksLeft;
     private Label timeLabelDesc;
     private int currentShownTime;
     private int shownGarbageAmount;
@@ -193,7 +193,6 @@ public class PlayerArea extends Group implements IGameModelListener {
 
         motivatorLabel = new MotivationLabel(app.skin, labelGroup,
                 app.theme.achievementColor, app.theme.achievementShadowColor);
-
     }
 
     void gameModelInitialized() {
@@ -237,7 +236,6 @@ public class PlayerArea extends Group implements IGameModelListener {
 
         // now add the very last Actors
         addActor(scoreTable);
-
     }
 
     public void dispose() {
@@ -319,7 +317,7 @@ public class PlayerArea extends Group implements IGameModelListener {
 
         for (Integer[] xy : v) {
             if (blockMatrix[xy[0]][xy[1]] == null)
-                Gdx.app.error("BLOCKS", "Block null at " + xy[0].toString() + " " + xy[1].toString());
+                Gdx.app.error("BLOCKS", "Block null at " + xy[0] + " " + xy[1]);
 
             blocks.add(blockMatrix[xy[0]][xy[1]]);
             blockMatrix[xy[0]][xy[1]] = null;
@@ -345,8 +343,6 @@ public class PlayerArea extends Group implements IGameModelListener {
             blockMatrix[newx][newy] = block;
             blockGroup.setGhostPiecePosition(i, newx, newy - ghostPieceDistance, ghostPieceDistance);
         }
-
-
     }
 
     @Override
@@ -480,13 +476,10 @@ public class PlayerArea extends Group implements IGameModelListener {
                                     timedBlock.setMoveAction(moveSequence);
                                 }
                             }, delay);
-
                         } else
                             block.setMoveAction(moveSequence);
                     }
-
                 }
-
             }
         }
 
@@ -519,7 +512,6 @@ public class PlayerArea extends Group implements IGameModelListener {
                     }
                 }
             }
-
         }
     }
 
@@ -538,7 +530,6 @@ public class PlayerArea extends Group implements IGameModelListener {
                 BlockActor block = blockMatrix[x][y];
                 block.setEnlightened(true);
             }
-
         }
         // move rows to be moved
         BlockActor[] lineBlocks = new BlockActor[Gameboard.GAMEBOARD_COLUMNS];
@@ -585,7 +576,6 @@ public class PlayerArea extends Group implements IGameModelListener {
                     }
                 }
             }
-
     }
 
     @Override
@@ -1027,7 +1017,6 @@ public class PlayerArea extends Group implements IGameModelListener {
                     lblPlayerFill.setMaxCountingTime(.3f);
                 }
             }
-
         }
     }
 }

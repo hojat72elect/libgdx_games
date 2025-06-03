@@ -16,7 +16,7 @@ import de.golfgl.lightblocks.menu.ITouchActionButton;
 
 public class TouchableList<T> extends ControllerList<T> implements ITouchActionButton {
     private Action colorAction;
-    private Color fontColorSelected = new Color();
+    private final Color fontColorSelected = new Color();
 
     public TouchableList(Skin skin) {
         super(skin);

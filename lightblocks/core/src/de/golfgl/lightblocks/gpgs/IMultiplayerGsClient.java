@@ -10,7 +10,7 @@ import de.golfgl.lightblocks.multiplayer.AbstractMultiplayerRoom;
 
 public interface IMultiplayerGsClient extends de.golfgl.gdxgamesvcs.IGameServiceClient {
 
-    public static final String NAME_SAVE_GAMESTATE = "gamestate.sav";
+    String NAME_SAVE_GAMESTATE = "gamestate.sav";
 
     AbstractMultiplayerRoom createMultiPlayerRoom();
 

@@ -101,7 +101,6 @@ public class BackendNewMatchDialog extends ControllerMenuDialog {
             protected void onNewTextSet(String newText) {
                 searchForFriendNick(newText);
             }
-
         };
         contentTable.add(nicknameEditable).pad(0, 20, 0, 20);
         addFocusableActor(nicknameEditable);

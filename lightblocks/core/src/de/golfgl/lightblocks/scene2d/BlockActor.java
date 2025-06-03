@@ -37,9 +37,9 @@ public class BlockActor extends Actor {
     private final AlphaAction glowAction;
     private final int blockType;
     private float dislighentedAlpha = .4f;
-    private Image imBlock;
+    private final Image imBlock;
 
-    private Image imBlockEnlightened;
+    private final Image imBlockEnlightened;
     /**
      * wenn der Stein gerade bewegt wird, ist dies hier die Action die ihn bewegt.
      * Das dient dazu, sie ggf. wieder zu entfernen wenn eine andere Bewegung nötig wird.
@@ -184,7 +184,6 @@ public class BlockActor extends Actor {
 
         this.addAction(newMoveAction);
         moveAction = newMoveAction;
-
     }
 
     @Override

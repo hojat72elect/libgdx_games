@@ -119,5 +119,4 @@ public class ParticleEffectActor extends Actor implements Disposable {
             particleEffect.dispose();
         }
     }
-
 }

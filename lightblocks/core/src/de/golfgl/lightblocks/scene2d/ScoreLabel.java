@@ -120,7 +120,6 @@ public class ScoreLabel extends Label {
             countingSpeedNow = countingSpeed;
 
         deltaSinceLastChange = 0;
-
     }
 
     public void emphasizeLabel() {

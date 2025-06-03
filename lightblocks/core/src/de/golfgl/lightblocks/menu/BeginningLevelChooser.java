@@ -34,8 +34,8 @@ public class BeginningLevelChooser extends Table {
         final ChangeListener changeListener = new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                beginningLevelLabel.setText(app.TEXTS.get("labelLevel") + " " + Integer.toString((int)
-                        beginningLevelSlider.getValue()));
+                beginningLevelLabel.setText(app.TEXTS.get("labelLevel") + " " + (int)
+                        beginningLevelSlider.getValue());
             }
         };
         beginningLevelSlider.addListener(changeListener);

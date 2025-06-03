@@ -72,12 +72,10 @@ public class MotivationLabel extends GlowLabel {
                             showNextText();
                         }
                     })));
-
         } else {
             motivationTexts.add(text);
             motivationDuration.add(duration);
         }
-
     }
 
     private void showNextText() {
@@ -96,10 +94,7 @@ public class MotivationLabel extends GlowLabel {
                             showNextText();
                         }
                     })));
-
         } else
             isActive = false;
-
     }
-
 }

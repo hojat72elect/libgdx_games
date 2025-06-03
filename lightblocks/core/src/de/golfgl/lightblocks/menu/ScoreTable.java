@@ -34,7 +34,7 @@ public class ScoreTable extends Table {
         while (seconds.length() < 2)
             seconds = "0" + seconds;
 
-        String formattedString = String.valueOf(minutes) + ":" + seconds;
+        String formattedString = minutes + ":" + seconds;
         if (numOfMsDigits > 0) {
             while (ms.length() < 3)
                 ms = "0" + ms;
@@ -99,6 +99,4 @@ public class ScoreTable extends Table {
     protected boolean isBestScore(int i) {
         return false;
     }
-
-
 }

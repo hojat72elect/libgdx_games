@@ -132,7 +132,6 @@ public class ArtificialPlayer {
                             bestScore = score;
                         }
                     }
-
                 }
             }
         }
@@ -362,7 +361,6 @@ public class ArtificialPlayer {
                                 fullSquares[y2][x] = fullSquares[y2 + 1][x];
                             } else {
                                 fullSquares[y2][x] = false;
-
                             }
                         }
                     }

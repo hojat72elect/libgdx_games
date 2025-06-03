@@ -35,7 +35,7 @@ public class PlayGravityInput extends PlayScreenInput {
     private float deltaSinceLastMove;
     private boolean lastMoveWasToRight;
     private float deltaSum;
-    private GameBlocker.CallibrationGameBlocker gravityInputBlocker = new GameBlocker.CallibrationGameBlocker();
+    private final GameBlocker.CallibrationGameBlocker gravityInputBlocker = new GameBlocker.CallibrationGameBlocker();
 
     public PlayGravityInput() {
         inputId = new InputIdentifier.TouchscreenInput();
@@ -91,7 +91,6 @@ public class PlayGravityInput extends PlayScreenInput {
             // Kallibrieren
             if (!hasCalibration || currentInputVector.len() > 2)
                 doCalibrate(deltaSum);
-
         } else {
             // Wert nur nehmen wenn nicht zu sehr am Handy gewackelt wird
             final double acceleration = Math.abs(currentInputVector.len() - 9.8);
@@ -165,7 +164,6 @@ public class PlayGravityInput extends PlayScreenInput {
             hasCalibration = false;
             playScreen.addGameBlocker(gravityInputBlocker);
         }
-
     }
 
     @Override

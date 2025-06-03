@@ -31,7 +31,7 @@ public class ServerMultiplayerModel extends GameModel {
     private String nickName;
     private Integer[][] activePiecePos;
     private boolean gameOver;
-    private boolean isFirst;
+    private final boolean isFirst;
     private boolean isModern;
     private boolean isClosed;
     private Gameboard gameboard;
@@ -169,7 +169,6 @@ public class ServerMultiplayerModel extends GameModel {
                 ServerMultiplayerModel.this.activePiecePos[i][1] += dy;
             }
         }
-
     }
 
     /**
@@ -346,7 +345,6 @@ public class ServerMultiplayerModel extends GameModel {
         if (!gameOver) {
             uiGameboard.showNextTetro(boardBlockPositions, blockType);
         }
-
     }
 
     private void handleActivateNextTetro(final String payload) {
@@ -420,7 +418,6 @@ public class ServerMultiplayerModel extends GameModel {
                     submitEvent(GpgsHelper.EVENT_BLOCK_DROP, 10);
             }
         }
-
     }
 
     private void handleScore(final String payload) {
@@ -563,11 +560,11 @@ public class ServerMultiplayerModel extends GameModel {
         return false;
     }
 
-     private void handleMessage(String payload) {
-         playScreen.showFreeTextMessage(payload.isEmpty() ? null : payload);
-     }
+    private void handleMessage(String payload) {
+        playScreen.showFreeTextMessage(payload.isEmpty() ? null : payload);
+    }
 
-     @Override
+    @Override
     public boolean hasSecondGameboard() {
         return secondModel != null;
     }

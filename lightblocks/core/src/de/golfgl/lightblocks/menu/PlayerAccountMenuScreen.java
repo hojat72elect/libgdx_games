@@ -105,7 +105,7 @@ public class PlayerAccountMenuScreen extends AbstractMenuDialog {
     }
 
     protected void fillMenuTable(Table menuTable) {
-        Label signInState = new ScaledLabel(app.TEXTS.get("menuGameService"), app.skin, app.SKIN_FONT_TITLE);
+        Label signInState = new ScaledLabel(app.TEXTS.get("menuGameService"), app.skin, LightBlocksGame.SKIN_FONT_TITLE);
         signInState.setAlignment(Align.center);
         signInState.setWrap(true);
         leaderboardButton = new FaButton(FontAwesome.GPGS_LEADERBOARD, app.skin);

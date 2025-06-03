@@ -103,7 +103,6 @@ public class PlayGesturesInput extends PlayScreenInput {
         } else {
             initGamepadOnScreenControls();
         }
-
     }
 
     @Override
@@ -390,7 +389,6 @@ public class PlayGesturesInput extends PlayScreenInput {
                 giveHapticFeedback();
             } else
                 playScreen.gameModel.inputDoOneHorizontalMove(inputId, screenX <= Gdx.graphics.getWidth() / 2);
-
         } else
             playScreen.gameModel.inputSetSoftDropFactor(inputId, GameModel.FACTOR_NO_DROP);
 
@@ -443,7 +441,6 @@ public class PlayGesturesInput extends PlayScreenInput {
             setX(screen.getStage().getWidth() / 2 + gameboardWidth / 2 + 15);
             setY(screen.getGameboardTop() - getWidth() - padding);
             setHeight(screen.getStage().getWidth() - padding - getX());
-
         }
     }
 
@@ -472,9 +469,7 @@ public class PlayGesturesInput extends PlayScreenInput {
             setY(screen.getGameboardTop());
             setHeight(screen.getStage().getWidth() - padding - getX());
             setWidth(BlockActor.blockWidth * Tetromino.TETROMINO_BLOCKCOUNT);
-
         }
-
     }
 
     private class TouchpadChangeListener extends ChangeListener {
@@ -510,7 +505,6 @@ public class PlayGesturesInput extends PlayScreenInput {
                     upNowPressed = false;
                     downNowPressed = false;
                 }
-
             }
 
             if (upPressed != upNowPressed) {
@@ -524,7 +518,6 @@ public class PlayGesturesInput extends PlayScreenInput {
                     } else
                         playScreen.gameModel.inputSetSoftDropFactor(inputId, GameModel.FACTOR_NO_DROP);
                 }
-
             }
 
             if (downPressed != downNowPressed) {
@@ -553,7 +546,6 @@ public class PlayGesturesInput extends PlayScreenInput {
                 } else
                     playScreen.gameModel.inputEndMoveHorizontal(inputId, true);
             }
-
         }
     }
 
@@ -774,7 +766,6 @@ public class PlayGesturesInput extends PlayScreenInput {
             if (freezeButton != null)
                 freezeButton.resize(playScreen, PADDING);
         }
-
     }
 
     private class FreezeButtonInputListener extends InputListener {
@@ -800,5 +791,4 @@ public class PlayGesturesInput extends PlayScreenInput {
             return false;
         }
     }
-
 }

@@ -14,25 +14,25 @@ public interface IRoomListener {
     /**
      * called when a room was joined or left
      */
-    public void multiPlayerRoomStateChanged(MultiPlayerObjects.RoomState roomState);
+    void multiPlayerRoomStateChanged(MultiPlayerObjects.RoomState roomState);
 
     /**
      * called when inhabitants of the room changed.
      *
      * @param mpo PlayerChanged object with further information
      */
-    public void multiPlayerRoomInhabitantsChanged(MultiPlayerObjects.PlayerChanged mpo);
+    void multiPlayerRoomInhabitantsChanged(MultiPlayerObjects.PlayerChanged mpo);
 
-    public void multiPlayerGotErrorMessage(Object o);
+    void multiPlayerGotErrorMessage(Object o);
 
     /**
      * called for every message that is not managed by the room. Probably it is a message for the game model
      *
      * @param o the message
      */
-    public void multiPlayerGotModelMessage(Object o);
+    void multiPlayerGotModelMessage(Object o);
 
-    public void multiPlayerGotRoomMessage(Object o);
+    void multiPlayerGotRoomMessage(Object o);
 
-    public void multiPlayerRoomEstablishingConnection();
+    void multiPlayerRoomEstablishingConnection();
 }

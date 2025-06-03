@@ -192,5 +192,4 @@ public class DeviceMultiplayerModel extends AbstractMultiplayerModel<DeviceMulti
             secondGameModel.inputEndMoveHorizontal(inputId, isLeft);
         }
     }
-
 }

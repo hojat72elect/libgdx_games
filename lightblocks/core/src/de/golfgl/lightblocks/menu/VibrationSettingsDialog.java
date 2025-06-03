@@ -96,5 +96,4 @@ class VibrationSettingsDialog extends ControllerMenuDialog {
     protected Actor getConfiguredEscapeActor() {
         return closeButton;
     }
-
 }

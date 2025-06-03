@@ -145,7 +145,6 @@ public abstract class AbstractMultiplayerRoom {
             throw new VetoException("No game active.");
 
         setRoomState(MultiPlayerObjects.RoomState.join);
-
     }
 
     /**
@@ -242,7 +241,6 @@ public abstract class AbstractMultiplayerRoom {
                 queuedMessages.add(o);
             }
         }
-
     }
 
     /**

@@ -128,7 +128,7 @@ public class TextInputDialog extends ControllerMenuDialog {
         private static final String BKSP_LABEL = "BKSP";
         private static final String SHIFT_LABEL = "SHFT";
         private static final char BACKSPACE = (char) 8;
-        private Array<TextButton> charButtons = new Array<TextButton>();
+        private final Array<TextButton> charButtons = new Array<TextButton>();
         private boolean hasCapitals;
 
         public VirtualKeyboard() {
@@ -176,7 +176,7 @@ public class TextInputDialog extends ControllerMenuDialog {
                     else
                         addToList = true;
 
-                    TextButton button = new FaTextButton(String.valueOf(thisChar), skin, LightBlocksGame.SKIN_FONT_BIG);
+                    TextButton button = new FaTextButton(thisChar, skin, LightBlocksGame.SKIN_FONT_BIG);
                     if (addToList)
                         button.getLabel().setFontScale(.9f);
                     add(button).expandX().minSize(30, 45).bottom().fill();

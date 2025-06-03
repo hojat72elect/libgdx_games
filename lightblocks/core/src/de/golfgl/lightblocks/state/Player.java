@@ -36,5 +36,4 @@ public class Player {
 
         return kp;
     }
-
 }

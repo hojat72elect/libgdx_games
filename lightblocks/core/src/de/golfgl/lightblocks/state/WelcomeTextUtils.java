@@ -9,12 +9,12 @@ import com.badlogic.gdx.utils.Array;
 import de.golfgl.lightblocks.LightBlocksGame;
 import de.golfgl.lightblocks.backend.BackendMessage;
 import de.golfgl.lightblocks.backend.BackendWelcomeResponse;
+import de.golfgl.lightblocks.input.PlayScreenInput;
 import de.golfgl.lightblocks.menu.MultiplayerMenuScreen;
 import de.golfgl.lightblocks.menu.SinglePlayerScreen;
 import de.golfgl.lightblocks.menu.WelcomeButton;
 import de.golfgl.lightblocks.model.Mission;
 import de.golfgl.lightblocks.model.TutorialModel;
-import de.golfgl.lightblocks.input.PlayScreenInput;
 
 /**
  * Created by Benjamin Schulte on 01.05.2018.
@@ -217,10 +217,9 @@ public class WelcomeTextUtils {
         if (listChangesSince < 1825) {
             welcomes.add(new WelcomeButton.WelcomeText("There are new game modes:\nPractice and Sprint 40L. Have fun!",
                     new ShowSinglePlayerPageRunnable(app, SinglePlayerScreen.PAGEIDX_OVERVIEW)));
-            if (app.isOnAndroidTV())
+            if (LightBlocksGame.isOnAndroidTV())
                 welcomes.add(new WelcomeButton.WelcomeText("You can now configure which buttons you " +
                         "want to use on your remote control.", new ShowSettingsRunnable(app)));
-
         }
 
         // Neue Features in 1819: Shades of Grey, Hard Drop

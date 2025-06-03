@@ -48,8 +48,8 @@ public class MultiplayerJoinRoomScreen extends ControllerMenuDialog implements I
     private TouchableList<IRoomLocation> hostList;
     private float timeSinceHostListRefresh;
     private IRoomLocation lastSelectedRoom;
-    private TextButton joinRoomButton;
-    private Button leaveButton;
+    private final TextButton joinRoomButton;
+    private final Button leaveButton;
     private TextButton enterManually;
     private ScrollPane hostListScrollPane;
 
@@ -287,7 +287,6 @@ public class MultiplayerJoinRoomScreen extends ControllerMenuDialog implements I
             } else if (lastSelectedRoom != null && hostList.getItems().contains(lastSelectedRoom, false))
                 hostList.setSelected(lastSelectedRoom);
         }
-
     }
 
     @Override
@@ -298,7 +297,6 @@ public class MultiplayerJoinRoomScreen extends ControllerMenuDialog implements I
                 @Override
                 public void run() {
                     hide();
-
                 }
             });
     }

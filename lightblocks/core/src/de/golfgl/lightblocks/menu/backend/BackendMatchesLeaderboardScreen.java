@@ -81,7 +81,6 @@ public class BackendMatchesLeaderboardScreen extends WaitForBackendFetchDetailsS
                     fillListDetails(retrievedData);
                 }
             });
-
     }
 
     private void fillListDetails(List<? extends PlayerDetails> retrievedData) {
@@ -138,13 +137,12 @@ public class BackendMatchesLeaderboardScreen extends WaitForBackendFetchDetailsS
                 add(userButton).left().fillY();
                 add(new ScaledLabel(BackendUserDetailsScreen.formatBattleStrength(score), app.skin, LightBlocksGame.SKIN_FONT_TITLE,
                         FONT_SCALE));
-                add(new ScaledLabel(String.valueOf(score.multiplayerWinCount * 100 / score.multiplayerMatchesCount) + "%",
+                add(new ScaledLabel(score.multiplayerWinCount * 100 / score.multiplayerMatchesCount + "%",
                         app.skin, LightBlocksGame.SKIN_FONT_TITLE, FONT_SCALE));
                 add(new ScaledLabel(String.valueOf(score.multiplayerMatchesCount), app.skin,
                         LightBlocksGame.SKIN_FONT_TITLE, FONT_SCALE));
 
                 addFocusableActor(userButton);
-
             }
         }
     }

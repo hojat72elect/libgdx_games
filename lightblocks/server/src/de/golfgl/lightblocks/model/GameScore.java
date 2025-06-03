@@ -33,7 +33,7 @@ public class GameScore {
     private int seconds;
     private float secondFraction;
     private boolean lastClearLinesWasSpecial = false;
-    private boolean fraudDetected = false;
+    private final boolean fraudDetected = false;
     private String hashValue;
 
     private int scoringType = TYPE_NORMAL;

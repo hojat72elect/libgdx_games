@@ -291,7 +291,6 @@ public class ThemeSettingsDialog extends ControllerMenuDialog {
                                         app.doInstallTheme(new ByteArrayInputStream(theme));
                                     }
                                 });
-
                             } catch (IOException e) {
                                 failed(e);
                             }
@@ -313,7 +312,6 @@ public class ThemeSettingsDialog extends ControllerMenuDialog {
                             setDownloading(false);
                         }
                     });
-
                 }
             });
 
@@ -331,7 +329,6 @@ public class ThemeSettingsDialog extends ControllerMenuDialog {
             contentTable.add(progressBar).fillX().expandX();
             contentTable.row();
             contentTable.add(downloadButton);
-
         }
 
         protected void setDownloading(boolean downloading) {

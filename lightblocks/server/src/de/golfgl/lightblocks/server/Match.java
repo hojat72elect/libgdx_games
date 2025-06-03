@@ -116,7 +116,7 @@ public class Match {
             }
 
             if (sendMessage) {
-                String msg = "Stand by " + MathUtils.round(waitGameOver) + "";
+                String msg = "Stand by " + MathUtils.round(waitGameOver);
                 sendGeneralMessageToPlayer(msg, player1);
                 sendGeneralMessageToPlayer(msg, player2);
             }
@@ -144,7 +144,7 @@ public class Match {
 
     protected String getWaitTimeMsg(float waitTime, Player opponent) {
         return waitTime > 0 ? "Prepare to play against " +
-                getPlayerNickname(opponent) + "\n" + Math.round(waitTime) + "" : "";
+                getPlayerNickname(opponent) + "\n" + Math.round(waitTime) : "";
     }
 
     /**
@@ -223,7 +223,6 @@ public class Match {
         secondGameModel.setFreezeInterval(WAIT_TIME_START_PLAYNG);
         player1WaitTime = WAIT_TIME_START_PLAYNG;
         player2WaitTime = WAIT_TIME_START_PLAYNG;
-
     }
 
     public boolean checkIfPlayerFitsMatch(Player player) {
@@ -234,10 +233,7 @@ public class Match {
             return false;
 
         // check if we have a room name
-        if (roomName != null && !roomName.equalsIgnoreCase(player.roomName))
-            return false;
-
-        return true;
+        return roomName == null || roomName.equalsIgnoreCase(player.roomName);
     }
 
     public boolean connectPlayer(Player player) {

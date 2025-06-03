@@ -147,7 +147,7 @@ public class DonationDialog extends ControllerMenuDialog {
             forcedMode = true;
             closeButton.setDisabled(true);
             waitTimeseconds = 0;
-            
+
             closeButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
@@ -359,7 +359,6 @@ public class DonationDialog extends ControllerMenuDialog {
                             donateSponsor.setBought(fromRestore);
                         else if (transaction.getIdentifier().equals(LIGHTBLOCKS_PATRON))
                             donatePatron.setBought(fromRestore);
-
                     }
                 }
             });

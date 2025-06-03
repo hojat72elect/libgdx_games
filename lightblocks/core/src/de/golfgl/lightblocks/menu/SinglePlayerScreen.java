@@ -142,7 +142,7 @@ public class SinglePlayerScreen extends AbstractMenuDialog {
     private class IntroGroup extends ControllerScrollPane implements IGameModeGroup {
         private final Button missionsButton;
         private final Button marathonButton;
-        private Table table;
+        private final Table table;
         private Actor lastFocused;
 
         public IntroGroup() {
@@ -169,7 +169,7 @@ public class SinglePlayerScreen extends AbstractMenuDialog {
             table.pad(0, 20, 0, 20);
             table.row();
             Label label1 = new ScaledLabel(app.TEXTS.get("introGameModels"), app.skin,
-                    app.SKIN_FONT_BIG, .85f);
+                    LightBlocksGame.SKIN_FONT_BIG, .85f);
             label1.setWrap(true);
             label1.setAlignment(Align.center);
             table.add(label1).fill().expandX();

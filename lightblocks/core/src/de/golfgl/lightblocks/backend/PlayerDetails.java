@@ -52,7 +52,6 @@ public class PlayerDetails implements IPlayerInfo {
             for (JsonValue score = highscorejson.child; score != null; score = score.next) {
                 highscores.add(new ScoreListEntry(score, null, ScoreListEntry.ScoreType.best));
             }
-
     }
 
     @Override

@@ -22,8 +22,8 @@ public class EditableLabel extends Table implements ITouchActionButton, IControl
     private final Label label;
     private final Button editButton;
     private final Skin skin;
-    private String inputBoxTitle;
-    private Input.OnscreenKeyboardType inputBoxType;
+    private final String inputBoxTitle;
+    private final Input.OnscreenKeyboardType inputBoxType;
 
     public EditableLabel(final Label label, Button editButton, Skin skin, String inputBoxTitle, Input.OnscreenKeyboardType inputBoxType) {
         super();

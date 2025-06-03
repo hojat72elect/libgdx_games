@@ -16,8 +16,8 @@ public class FaRadioButton<T> extends GlowLabelButton {
     final Skin skin;
     private final ChangeListener listener;
     private int valueIndex = -1;
-    private Array<T> valueArray = new Array<T>();
-    private Array<FaText> texts = new Array<FaText>();
+    private final Array<T> valueArray = new Array<T>();
+    private final Array<FaText> texts = new Array<FaText>();
     private Action changeAction;
     private boolean changing;
     private boolean showIndicator = true;

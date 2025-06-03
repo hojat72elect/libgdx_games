@@ -22,7 +22,7 @@ public class TotalScore implements Json.Serializable {
     // Anzahl gezogene Blöcke
     private long drawnTetrominos;
 
-    
+
     private long fourLineCount;
     private long tSpins;
     private long doubles;

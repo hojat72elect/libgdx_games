@@ -54,6 +54,5 @@ public class BetterScrollPane extends ControllerScrollPane {
                 super.touchUp(event, x, y, pointer, button);
             }
         });
-
     }
 }

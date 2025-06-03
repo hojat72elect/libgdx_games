@@ -28,7 +28,7 @@ public class ServerMultiplayerManager {
     private String gameMode;
     private String roomName;
     private String lastErrorMsg;
-    private JsonReader jsonReader = new JsonReader();
+    private final JsonReader jsonReader = new JsonReader();
     private ServerModels.ServerInfo serverInfo;
     private ServerMultiplayerModel gameModel;
     private long lastQueueProcessedMs;

@@ -32,7 +32,6 @@ public class Gameboard implements Json.Serializable {
         }
 
         tempPos = new Vector2();
-
     }
 
     public static char gameboardSquareToChar(int gameboardSquare) {
@@ -168,8 +167,7 @@ public class Gameboard implements Json.Serializable {
 
         // die Zeilen weiter oben hochziehen
         for (int y = GAMEBOARD_ALLROWS - 1; y >= numberOfLines; y--) {
-            for (int x = 0; x < GAMEBOARD_COLUMNS; x++)
-                gameboardSquare[y][x] = gameboardSquare[y - numberOfLines][x];
+            System.arraycopy(gameboardSquare[y - numberOfLines], 0, gameboardSquare[y], 0, GAMEBOARD_COLUMNS);
         }
 
         // und unten nun die neuen rein
@@ -222,7 +220,6 @@ public class Gameboard implements Json.Serializable {
                 gameboardSquare[y][x] = gameboardCharToSquare(jsonString.charAt(y * GAMEBOARD_COLUMNS + x));
             }
         }
-
     }
 
     protected void readFromReplay(byte[] gameboard) {
@@ -236,9 +233,7 @@ public class Gameboard implements Json.Serializable {
     public static Gameboard initFromArray(int[][] gameboardArray) {
         Gameboard gameboard = new Gameboard();
         for (int y = 0; y < GAMEBOARD_ALLROWS; y++) {
-            for (int x = 0; x < GAMEBOARD_COLUMNS; x++) {
-                gameboard.gameboardSquare[y][x] = gameboardArray[y][x];
-            }
+            System.arraycopy(gameboardArray[y], 0, gameboard.gameboardSquare[y], 0, GAMEBOARD_COLUMNS);
         }
         return gameboard;
     }

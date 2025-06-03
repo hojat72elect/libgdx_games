@@ -274,14 +274,12 @@ public class Theme {
                     themePresent = true;
                 }
             }
-
         } catch (Throwable t) {
             // sicherheitshalber eventuelle Änderungen zurücksetzen
             Gdx.app.error(LOG_TAG, t.getMessage());
             initDefaults();
             lastLoadThemeErrorMessage = t.getMessage();
         }
-
     }
 
     protected void loadParticleEffect(TextureAtlas themeAtlas, JsonValue themeConfigJson) {
@@ -323,7 +321,6 @@ public class Theme {
                         particleEffectPosition = EffectSpawnPosition.clear;
                 }
             }
-
         }
     }
 
@@ -361,7 +358,6 @@ public class Theme {
 
         else try {
             return Gdx.audio.newSound(Gdx.files.local(FOLDER_NAME + "/" + parentNode.getString(nodeName)));
-
         } catch (Throwable t) {
             Gdx.app.error(LOG_TAG, t.getMessage());
             return null;
@@ -537,9 +533,7 @@ public class Theme {
             }
 
             activatedOverlayAlpha = (float) blockNode.getInt("activated_overlay_alpha", 0) / 255f;
-
         }
-
     }
 
     private Drawable tintPicsWithColor(Color color, Drawable pic) {

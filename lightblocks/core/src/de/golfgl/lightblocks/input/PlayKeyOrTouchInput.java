@@ -9,7 +9,7 @@ import de.golfgl.lightblocks.screen.PlayScreen;
 /**
  * This input method is used when there is both touch or key/controller input available. Events are
  * dispatched to the underlying gestures input and keyboard input.
- *
+ * <p>
  * Created by Benjamin Schulte on 19.03.2018.
  */
 
@@ -218,7 +218,7 @@ public class PlayKeyOrTouchInput extends PlayScreenInput {
                 hadKeyEvent();
                 return true;
             }
-            
+
             return false;
         }
 

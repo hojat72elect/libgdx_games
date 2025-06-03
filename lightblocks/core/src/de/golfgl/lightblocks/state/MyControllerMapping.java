@@ -93,7 +93,6 @@ public class MyControllerMapping extends ControllerMappings {
     /**
      * this ControllerToInputAdapter registers its controller to keyboard mappings itself,
      * but more important is that it saves
-     *
      */
     private class MyControllerToInputAdapter extends ControllerToInputAdapter {
 

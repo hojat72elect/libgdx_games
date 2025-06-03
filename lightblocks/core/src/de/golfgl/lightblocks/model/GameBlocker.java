@@ -4,7 +4,7 @@ import com.badlogic.gdx.utils.I18NBundle;
 
 /**
  * A gameblocker prevents the game to play.
- *
+ * <p>
  * Created by Benjamin Schulte on 22.03.2017.
  */
 

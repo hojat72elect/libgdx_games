@@ -40,11 +40,11 @@ public class MissionChooseGroup extends Table implements SinglePlayerScreen.IGam
     private final MissionsTable missionsTable;
     private final Label missionTitle;
     boolean needsRefresh;
-    private List<Mission> missions;
-    private SinglePlayerScreen menuScreen;
-    private Button playButton;
-    private ScoresGroup scoresGroup;
-    private LightBlocksGame app;
+    private final List<Mission> missions;
+    private final SinglePlayerScreen menuScreen;
+    private final Button playButton;
+    private final ScoresGroup scoresGroup;
+    private final LightBlocksGame app;
 
     public MissionChooseGroup(SinglePlayerScreen myParentScreen, LightBlocksGame app) {
         this.menuScreen = myParentScreen;
@@ -101,7 +101,6 @@ public class MissionChooseGroup extends Table implements SinglePlayerScreen.IGam
         } catch (VetoException e) {
             new VetoDialog(e.getMessage(), app.skin, menuScreen.getAvailableContentWidth() * .75f).show(getStage());
         }
-
     }
 
     @Override
@@ -132,10 +131,10 @@ public class MissionChooseGroup extends Table implements SinglePlayerScreen.IGam
 
     private class MissionsTable extends ScrollPane implements IControllerScrollable, IControllerActable,
             ITouchActionButton {
-        private GlowLabel[] idxLabel;
-        private String[] titles;
-        private Label[] ratingLabel;
-        private boolean[] selectable;
+        private final GlowLabel[] idxLabel;
+        private final String[] titles;
+        private final Label[] ratingLabel;
+        private final boolean[] selectable;
         private int selectedIndex = -1;
         private int lastPossible;
 

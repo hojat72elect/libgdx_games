@@ -13,13 +13,13 @@ import de.golfgl.lightblocks.LightBlocksGame;
 import de.golfgl.lightblocks.backend.BackendManager;
 import de.golfgl.lightblocks.backend.IPlayerInfo;
 import de.golfgl.lightblocks.backend.ScoreListEntry;
+import de.golfgl.lightblocks.input.PlayGesturesInput;
+import de.golfgl.lightblocks.input.PlayKeyboardInput;
 import de.golfgl.lightblocks.menu.AbstractFullScreenDialog;
 import de.golfgl.lightblocks.menu.ScoreTable;
 import de.golfgl.lightblocks.scene2d.FaTextButton;
 import de.golfgl.lightblocks.scene2d.ScaledLabel;
 import de.golfgl.lightblocks.screen.FontAwesome;
-import de.golfgl.lightblocks.input.PlayGesturesInput;
-import de.golfgl.lightblocks.input.PlayKeyboardInput;
 import de.golfgl.lightblocks.state.Replay;
 
 /**
@@ -165,7 +165,6 @@ public class BackendScoreDetailsScreen extends AbstractFullScreenDialog {
                         addRawLabelLine(getI18NIfExistant(current.name, "labelGameScoreParam_"),
                                 getI18NIfExistant(current.asString(), "labelGameScoreParam_" + score.gameMode + "_" + current.name + "_"),
                                 LightBlocksGame.SKIN_FONT_BIG, 5);
-
                     } catch (Throwable t) {
 
                     }

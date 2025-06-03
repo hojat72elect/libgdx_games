@@ -23,8 +23,8 @@ public class OtherPlayerGameboard extends Group {
     private final Drawable background;
     private final Drawable black;
     private final Drawable white;
-    private int[] shownGameboard;
-    private IntArray fullLines;
+    private final int[] shownGameboard;
+    private final IntArray fullLines;
     private float blinkTime;
 
     public OtherPlayerGameboard(LightBlocksGame app) {

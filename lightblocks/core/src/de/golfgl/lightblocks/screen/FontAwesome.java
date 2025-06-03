@@ -118,5 +118,4 @@ public class FontAwesome {
 
     public static final String COMMENT_THUMB_DOWN = "\uF165";
     public static final String COMMENT_THUMB_UP = "\uF164";
-
 }

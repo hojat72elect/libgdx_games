@@ -88,7 +88,6 @@ public class BackendClient {
                 return json.getString("replay", null);
             }
         });
-
     }
 
     public void fetchPlayerByNicknamePrefixList(String nickname, IBackendResponse<List<PlayerDetails>> callback) {
@@ -173,11 +172,10 @@ public class BackendClient {
                 return scoreList;
             }
         });
-
     }
 
     public void fetchWelcomeMessages(int clientVersion, String logicalPlatform, String operatingSystem, long
-            drawnBlocks, int donatorState, long lastRequestMs, String pushPlatformId, String pushToken,
+                                             drawnBlocks, int donatorState, long lastRequestMs, String pushPlatformId, String pushToken,
                                      IBackendResponse<BackendWelcomeResponse> callback) {
 
         (new HttpResponseHandler<BackendWelcomeResponse>(callback) {
@@ -186,7 +184,6 @@ public class BackendClient {
                 return new BackendWelcomeResponse(json);
             }
         }).cancelled();
-
     }
 
     public void fetchMultiplayerServers(String platform, IBackendResponse<List<ServerAddress>> callback) {
@@ -267,7 +264,6 @@ public class BackendClient {
                 return new MatchEntity(json);
             }
         }).cancelled();
-
     }
 
     public void listPlayerMatches(long sinceTime, IBackendResponse<Array<MatchEntity>> callback) {
@@ -283,7 +279,6 @@ public class BackendClient {
                 return list;
             }
         }).cancelled();
-
     }
 
     public void fetchMatchWithTurns(String matchId, IBackendResponse<MatchEntity> callback) {
@@ -393,7 +388,7 @@ public class BackendClient {
                 if (callback != null) {
                     String errorMsg = result;
                     if (statusCode > 0 && (errorMsg == null || errorMsg.isEmpty()))
-                        errorMsg = "Server returned error " + String.valueOf(statusCode);
+                        errorMsg = "Server returned error " + statusCode;
                     else if (statusCode <= 0 && errorMsg == null) {
                         statusCode = SC_NO_CONNECTION;
                         errorMsg = "Connection problem";

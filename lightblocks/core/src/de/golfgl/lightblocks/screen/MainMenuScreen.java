@@ -47,7 +47,7 @@ public class MainMenuScreen extends AbstractMenuScreen {
     private final WelcomeButton welcomeButton;
     private GlowLabelButton accountButton;
     private final GlowLabelButton resumeGameButton;
-    private Group mainGroup;
+    private final Group mainGroup;
     private PlayerAccountMenuScreen lastAccountScreen;
 
     public MainMenuScreen(LightBlocksGame lightBlocksGame) {
@@ -233,7 +233,6 @@ public class MainMenuScreen extends AbstractMenuScreen {
         // den Platz für die Version in der Tabelle frei halten
         buttonTable.row();
         buttonTable.add().minHeight(gameVersion.getHeight());
-
     }
 
     protected Button proposeFocussedActor() {

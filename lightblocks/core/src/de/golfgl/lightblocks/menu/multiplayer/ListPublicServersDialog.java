@@ -33,7 +33,6 @@ public abstract class ListPublicServersDialog extends ConnectServerDialog {
 
             hostList.setItems(app.backendManager.getMultiplayerServerAddressList().toArray(new ServerAddress[0]));
             roomSelect(hostList.getSelected());
-
         } else
             getContentTable().add(new ProgressDialog.WaitRotationImage(app));
     }
@@ -51,6 +50,4 @@ public abstract class ListPublicServersDialog extends ConnectServerDialog {
             }
         }
     }
-
-
 }

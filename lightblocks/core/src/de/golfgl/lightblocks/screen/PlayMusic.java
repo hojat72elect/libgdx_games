@@ -43,7 +43,6 @@ public class PlayMusic {
                 fastMusic.stop();
             }
         }
-
     }
 
     public void setPlayingMusic(boolean playMusic) {
@@ -75,7 +74,6 @@ public class PlayMusic {
 
                 return;
             }
-
         } else if (!playMusic && isPlayMusic) {
             slowMusic.dispose();
             slowMusic = null;

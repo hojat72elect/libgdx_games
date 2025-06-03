@@ -36,7 +36,7 @@ public class BackendMatchesTable extends WidgetGroup {
     private long firstShownTimestamp;
     private HashMap<String, BackendMatchRow> uuidMatchMap = new HashMap<>(1);
     private float lastLayoutHeight;
-    private Label introLabel;
+    private final Label introLabel;
     private ScrollPane enclosingScrollPane;
 
     public BackendMatchesTable(LightBlocksGame app) {
@@ -78,7 +78,6 @@ public class BackendMatchesTable extends WidgetGroup {
         int daysPassed = hoursPassed / 24;
 
         return app.TEXTS.format("timeXDays", daysPassed);
-
     }
 
     private void fetchMatchesIfNeeded() {

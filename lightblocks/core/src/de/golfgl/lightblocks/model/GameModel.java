@@ -99,6 +99,7 @@ public abstract class GameModel implements Json.Serializable, AiAcessibleGameMod
 
     /**
      * called right after constructor
+     *
      * @throws VetoException if game might not be started
      */
     public void checkPrerequisites(LightBlocksGame app) throws VetoException {
@@ -151,7 +152,6 @@ public abstract class GameModel implements Json.Serializable, AiAcessibleGameMod
                     isInputMovingLeft = 1;
                 else
                     isInputMovingRight = 1;
-
             } else
                 movingCountdown -= delta;
 
@@ -180,6 +180,7 @@ public abstract class GameModel implements Json.Serializable, AiAcessibleGameMod
 
     /**
      * hier kommen wir an, wenn tatsächlich Zeit vergangen ist (nicht durch Touch, ARR angehalten u.ä.)
+     *
      * @param delta vergangene Zeit
      */
     protected void incrementTime(float delta) {
@@ -392,7 +393,6 @@ public abstract class GameModel implements Json.Serializable, AiAcessibleGameMod
         gpgsUpdateAchievement(GpgsHelper.ACH_ADDICTION_LEVEL_1, removedLines, fTotalClearedLines / 500);
         gpgsUpdateAchievement(GpgsHelper.ACH_ADDICTION_LEVEL_2, removedLines, fTotalClearedLines / 5000);
         gpgsUpdateAchievement(GpgsHelper.ACH_HIGH_LEVEL_ADDICTION, removedLines, fTotalClearedLines / 10000);
-
     }
 
     protected void achievementTSpin() {
@@ -462,7 +462,6 @@ public abstract class GameModel implements Json.Serializable, AiAcessibleGameMod
             gameboard.insertLines(garbageLines);
 
         return removeLinesCount;
-
     }
 
     /**
@@ -573,8 +572,8 @@ public abstract class GameModel implements Json.Serializable, AiAcessibleGameMod
     private Integer[][] cloneDoubleIntegerArray(Integer[][] arrayToClone) {
         Integer[][] clonedArray = new Integer[arrayToClone.length][2];
         for (int i = 0; i < arrayToClone.length; i++) {
-            clonedArray[i][0] = new Integer(arrayToClone[i][0]);
-            clonedArray[i][1] = new Integer(arrayToClone[i][1]);
+            clonedArray[i][0] = arrayToClone[i][0];
+            clonedArray[i][1] = arrayToClone[i][1];
         }
         return clonedArray;
     }
@@ -793,7 +792,6 @@ public abstract class GameModel implements Json.Serializable, AiAcessibleGameMod
         initDrawyer();
 
         initializeActiveAndNextTetromino();
-
     }
 
     protected void initDrawyer() {
@@ -860,7 +858,7 @@ public abstract class GameModel implements Json.Serializable, AiAcessibleGameMod
     }
 
     public void setCurrentSpeed() {
-       
+
         switch (score.getCurrentLevel()) {
             case 0:
                 currentSpeed = 1.25f;

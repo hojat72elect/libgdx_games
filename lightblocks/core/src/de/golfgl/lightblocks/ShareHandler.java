@@ -2,8 +2,8 @@ package de.golfgl.lightblocks;
 
 import com.badlogic.gdx.Gdx;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Teilen einer Nachricht. Im Android-Projekt übersteuert
@@ -16,17 +16,12 @@ public class ShareHandler {
     public void shareText(String message, String title) {
 
         String uri = LightBlocksGame.GAME_URL + "share.php?u=";
-        try {
 
-            uri += URLEncoder.encode(message, "UTF-8");
+        uri += URLEncoder.encode(message, StandardCharsets.UTF_8);
 
-            if (title != null)
-                uri += "&subject=" + URLEncoder.encode(title);
-
-        } catch (UnsupportedEncodingException e) {
-        }
+        if (title != null)
+            uri += "&subject=" + URLEncoder.encode(title);
 
         Gdx.net.openURI(uri);
     }
-
 }

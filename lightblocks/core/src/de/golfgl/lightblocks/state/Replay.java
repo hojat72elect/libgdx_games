@@ -21,7 +21,7 @@ public class Replay {
     private static final char SEP_DEFAULT = ':';
     private static final char SEP_MAJOR = '#';
     private static final String KEY_VERSION = "1";
-    private LinkedList<ReplayStep> replaySteps;
+    private final LinkedList<ReplayStep> replaySteps;
     private ArrayList<ReplayStep> arraySteps;
     private ArrayList<AdditionalInformation> arrayAdditional;
     private boolean isValid;
@@ -101,8 +101,10 @@ public class Replay {
                             boolean colIsFul = gameboard[pos] != Gameboard.SQUARE_EMPTY;
                             if (!colIsFul)
                                 for (int i = 0; i < activePiecePos.length; i++) {
-                                    if (activePiecePos[i] == pos)
+                                    if (activePiecePos[i] == pos) {
                                         colIsFul = true;
+                                        break;
+                                    }
                                 }
 
                             rowIsFull = rowIsFull && colIsFul;

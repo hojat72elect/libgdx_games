@@ -19,7 +19,7 @@ public class ScoresGroup extends Group {
     private static final float SCALING = .75f;
     private final LightBlocksGame app;
     private String gameModelId;
-    private boolean showTime;
+    private final boolean showTime;
     private BestScore myBestScores;
     private MyBestScoreTable myScoresTable;
 

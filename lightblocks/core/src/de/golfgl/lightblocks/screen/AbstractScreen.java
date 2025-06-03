@@ -140,10 +140,8 @@ public abstract class AbstractScreen implements Screen {
                 }
                 return super.keyDown(event, keycode);
             }
-
         });
         stage.setKeyboardFocus(backButton);
-
     }
 
     public Dialog showDialog(String errorMsg) {
@@ -209,6 +207,5 @@ public abstract class AbstractScreen implements Screen {
             if (object instanceof Runnable)
                 ((Runnable) object).run();
         }
-
     }
 }

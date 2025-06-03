@@ -1,7 +1,5 @@
 package de.golfgl.lightblocks.screen;
 
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-
 import de.golfgl.lightblocks.LightBlocksGame;
 
 /**
@@ -16,7 +14,7 @@ public abstract class AbstractMenuScreen extends AbstractScreen {
     @Override
     protected void onOrientationChanged() {
         stage.setViewport(getNewViewport(isLandscape() ? LightBlocksGame.nativeGameHeight :
-                LightBlocksGame.nativeGameWidth,
+                        LightBlocksGame.nativeGameWidth,
                 isLandscape() ? LightBlocksGame.menuLandscapeHeight : LightBlocksGame.nativeGameHeight));
     }
 }

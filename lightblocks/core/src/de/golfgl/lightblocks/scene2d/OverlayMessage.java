@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 
@@ -42,7 +41,6 @@ public class OverlayMessage extends Dialog {
         messageImageCell = contentTable.add();
         contentTable.row();
         contentTable.add(messageLabel).width(width);
-
     }
 
     public Label getMessageLabel() {

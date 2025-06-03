@@ -12,7 +12,7 @@ import de.golfgl.lightblocks.state.InitGameParameters;
 
 /**
  * Created by Benjamin Schulte on 23.01.2017.
- *
+ * <p>
  * This is a stripped down version of core's game model. It is a copy and not shared code between
  * server and client for the sake of simplicity.
  */
@@ -35,7 +35,7 @@ public abstract class GameModel implements AiAcessibleGameModel {
     protected IGameModelListener uiGameboard;
     protected TetrominoDrawyer drawyer;
     private GameScore score;
-    private boolean isBestScore = false;
+    private final boolean isBestScore = false;
     private Tetromino activeTetromino;
     private Tetromino nextTetromino;
     private int onHoldTetromino = -1;
@@ -124,7 +124,6 @@ public abstract class GameModel implements AiAcessibleGameModel {
                     isInputMovingLeft = 1;
                 else
                     isInputMovingRight = 1;
-
             } else
                 movingCountdown -= delta;
 
@@ -153,6 +152,7 @@ public abstract class GameModel implements AiAcessibleGameModel {
 
     /**
      * hier kommen wir an, wenn tatsächlich Zeit vergangen ist (nicht durch Touch, ARR angehalten u.ä.)
+     *
      * @param delta vergangene Zeit
      */
     protected void incrementTime(float delta) {
@@ -323,7 +323,6 @@ public abstract class GameModel implements AiAcessibleGameModel {
             if (score.addPerfectClear())
                 uiGameboard.showMotivation(IGameModelListener.MotivationTypes.boardCleared, null);
         }
-
     }
 
     /**
@@ -380,7 +379,6 @@ public abstract class GameModel implements AiAcessibleGameModel {
             gameboard.insertLines(garbageLines);
 
         return removeLinesCount;
-
     }
 
     /**
@@ -393,7 +391,6 @@ public abstract class GameModel implements AiAcessibleGameModel {
         if (doubleSpecial) {
             specialRowChainNum++;
             uiGameboard.showMotivation(IGameModelListener.MotivationTypes.doubleSpecial, null);
-
         } else
             // auf 1 initialisieren, weil bei Double das erste Mal erhöht wird!
             specialRowChainNum = 1;
@@ -484,8 +481,8 @@ public abstract class GameModel implements AiAcessibleGameModel {
     private Integer[][] cloneDoubleIntegerArray(Integer[][] arrayToClone) {
         Integer[][] clonedArray = new Integer[arrayToClone.length][2];
         for (int i = 0; i < arrayToClone.length; i++) {
-            clonedArray[i][0] = new Integer(arrayToClone[i][0]);
-            clonedArray[i][1] = new Integer(arrayToClone[i][1]);
+            clonedArray[i][0] = arrayToClone[i][0];
+            clonedArray[i][1] = arrayToClone[i][1];
         }
         return clonedArray;
     }
@@ -530,7 +527,6 @@ public abstract class GameModel implements AiAcessibleGameModel {
                     activeTetromino.getCurrentBlockPositions(), ghostPieceDistance, onHoldTetromino);
 
             resetMovementsAndCheckActiveTetroPos();
-
         }
 
         noDropSinceHoldMove = true;
@@ -674,7 +670,6 @@ public abstract class GameModel implements AiAcessibleGameModel {
         initDrawyer();
 
         initializeActiveAndNextTetromino();
-
     }
 
     protected void initDrawyer() {
@@ -724,7 +719,7 @@ public abstract class GameModel implements AiAcessibleGameModel {
     }
 
     public void setCurrentSpeed() {
-       
+
         switch (score.getCurrentLevel()) {
             case 0:
                 currentSpeed = 1.25f;

@@ -15,7 +15,7 @@ import de.golfgl.lightblocks.multiplayer.MultiPlayerObjects;
 
 public class MultiplayerMatch {
 
-    private HashMap<String, PlayerStat> players = new HashMap<String, PlayerStat>();
+    private final HashMap<String, PlayerStat> players = new HashMap<String, PlayerStat>();
 
     /**
      * gets multiplayer statistics for a given player. Creates it if not available

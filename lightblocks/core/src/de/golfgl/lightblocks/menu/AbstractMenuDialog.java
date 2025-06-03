@@ -43,7 +43,7 @@ public abstract class AbstractMenuDialog extends ControllerMenuDialog {
     private boolean wasCatchBackKey;
     private Button leaveButton;
     private ControllerScrollPane scrollPane;
-    private Cell mainContentCell;
+    private final Cell mainContentCell;
     private boolean isShown;
 
     public AbstractMenuDialog(LightBlocksGame app, Group actorToHide) {
@@ -138,7 +138,7 @@ public abstract class AbstractMenuDialog extends ControllerMenuDialog {
         setTransform(true);
         setScale(0, 1);
         Action showAction = Actions.sequence(Actions.parallel(Actions.scaleTo(1, 1, TIME_SWOSHIN, INTERPOLATION),
-                Actions.moveTo(actorToHide.getX(), actorToHide.getY(), TIME_SWOSHIN, INTERPOLATION)),
+                        Actions.moveTo(actorToHide.getX(), actorToHide.getY(), TIME_SWOSHIN, INTERPOLATION)),
                 Actions.run
                         (new Runnable() {
                             @Override

@@ -49,7 +49,7 @@ public class BackendManager {
     private BackendWelcomeResponse lastWelcomeResponse;
     private boolean isFetchingWelcomes;
     private boolean isFetchingMultiplayerServers;
-    private long fetchWelcomesSinceTime;
+    private final long fetchWelcomesSinceTime;
     private long multiplayerMatchesLastFetchMs;
     private boolean isFetchingMultiplayerMatches;
     private boolean multiplayerMatchesLastFetchSuccessful;
@@ -414,10 +414,7 @@ public class BackendManager {
             return true;
         if (gameModelId.equalsIgnoreCase(SprintModel.MODEL_SPRINT_ID))
             return true;
-        if (gameModelId.equalsIgnoreCase(ModernFreezeModel.MODEL_ID))
-            return true;
-
-        return false;
+        return gameModelId.equalsIgnoreCase(ModernFreezeModel.MODEL_ID);
     }
 
     /**
@@ -683,7 +680,7 @@ public class BackendManager {
                         .IBackendResponse<List<ScoreListEntry>>() {
                     @Override
                     public void onFail(int statusCode, String errorMsg) {
-                        lastErrorMsg = (errorMsg != null ? errorMsg : "HTTP" + String.valueOf(statusCode));
+                        lastErrorMsg = (errorMsg != null ? errorMsg : "HTTP" + statusCode);
                         lastErrorIsConnectionProblem = statusCode == BackendClient.SC_NO_CONNECTION;
                         isFetching = false;
                         scoreboard = null;
@@ -697,7 +694,6 @@ public class BackendManager {
                         isFetching = false;
                         scoreboard = retrievedData;
                         expirationTimeMs = TimeUtils.millis() + (1000 * EXPIRATION_SECONDS_SUCCESS);
-
                     }
                 };
 

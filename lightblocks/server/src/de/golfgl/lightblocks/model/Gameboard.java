@@ -32,7 +32,6 @@ public class Gameboard implements Json.Serializable {
         }
 
         tempPos = new Vector2();
-
     }
 
     public static char gameboardSquareToChar(int gameboardSquare) {
@@ -137,7 +136,6 @@ public class Gameboard implements Json.Serializable {
             int y = (int) activeTetromino.getPosition().y + (int) coord.y;
             gameboardSquare[y][x] = activeTetromino.getTetrominoType();
         }
-
     }
 
     public void clearLines(IntArray linesToRemove) {
@@ -163,8 +161,7 @@ public class Gameboard implements Json.Serializable {
 
         // die Zeilen weiter oben hochziehen
         for (int y = GAMEBOARD_ALLROWS - 1; y >= numberOfLines; y--) {
-            for (int x = 0; x < GAMEBOARD_COLUMNS; x++)
-                gameboardSquare[y][x] = gameboardSquare[y - numberOfLines][x];
+            System.arraycopy(gameboardSquare[y - numberOfLines], 0, gameboardSquare[y], 0, GAMEBOARD_COLUMNS);
         }
 
         // und unten nun die neuen rein
@@ -217,7 +214,6 @@ public class Gameboard implements Json.Serializable {
                 gameboardSquare[y][x] = gameboardCharToSquare(jsonString.charAt(y * GAMEBOARD_COLUMNS + x));
             }
         }
-
     }
 
     protected void readFromReplay(byte[] gameboard) {

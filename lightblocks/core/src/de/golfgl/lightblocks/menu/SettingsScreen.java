@@ -99,7 +99,6 @@ public class SettingsScreen extends AbstractMenuDialog {
                 if (actor == groupPager)
                     ((MyStage) getStage()).setFocusedActor(((ISettingsGroup) groupPager.getCurrentPage())
                             .getDefaultActor());
-
             }
         });
 
@@ -196,7 +195,7 @@ public class SettingsScreen extends AbstractMenuDialog {
                     app.localPrefs.setShowGhostpiece(showGhostpiece.isChecked());
                 }
             });
-            showGhostpiece.focusToSouth =  colorModeCheck;
+            showGhostpiece.focusToSouth = colorModeCheck;
 
             GlowLabelButton gamePadButton = new GlowLabelButton(FontAwesome.DEVICE_GAMEPAD, app.TEXTS.get
                     ("menuGamepadConfig"), app.skin, GlowLabelButton.FONT_SCALE_SUBMENU, 1f);
@@ -484,7 +483,7 @@ public class SettingsScreen extends AbstractMenuDialog {
             opacitySettingTable.add(labelOpacity).padRight(20);
             final TouchableSlider opacitySlider = new TouchableSlider(10, 100, 10, false, app.skin);
             opacitySlider.setValue(app.localPrefs.getOnScreenGamepadOpacity());
-            labelOpacity.getColor().a =opacitySlider.getValue() / 100f;
+            labelOpacity.getColor().a = opacitySlider.getValue() / 100f;
             opacitySettingTable.add(opacitySlider).expandX().fillX();
             opacitySlider.addListener(new ChangeListener() {
                 @Override
@@ -735,5 +734,4 @@ public class SettingsScreen extends AbstractMenuDialog {
             }
         }
     }
-
 }

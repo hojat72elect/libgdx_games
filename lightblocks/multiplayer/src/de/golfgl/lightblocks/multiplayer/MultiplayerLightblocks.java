@@ -126,7 +126,6 @@ public class MultiplayerLightblocks extends LightBlocksGame {
                         switchToMultiplayerScreen();
                     }
                 }, .5f);
-
         }
     }
 
@@ -181,7 +180,7 @@ public class MultiplayerLightblocks extends LightBlocksGame {
                 }
 
                 int count;
-                byte data[] = new byte[BUFFER];
+                byte[] data = new byte[BUFFER];
                 OutputStream fos = file.write(false);
 
                 dest = new BufferedOutputStream(fos, BUFFER);
@@ -208,7 +207,6 @@ public class MultiplayerLightblocks extends LightBlocksGame {
                     }
                 });
             }
-
         } catch (final Throwable t) {
             Gdx.app.error(Theme.LOG_TAG, t.getMessage(), t);
             Gdx.app.postRunnable(new Runnable() {

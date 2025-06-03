@@ -12,6 +12,8 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 
 import de.golfgl.lightblocks.LightBlocksGame;
+import de.golfgl.lightblocks.input.PlayGesturesInput;
+import de.golfgl.lightblocks.input.PlayScreenInput;
 import de.golfgl.lightblocks.model.MarathonModel;
 import de.golfgl.lightblocks.model.ModernFreezeModel;
 import de.golfgl.lightblocks.model.PracticeModel;
@@ -22,9 +24,7 @@ import de.golfgl.lightblocks.scene2d.FaTextButton;
 import de.golfgl.lightblocks.scene2d.MyStage;
 import de.golfgl.lightblocks.scene2d.ScaledLabel;
 import de.golfgl.lightblocks.scene2d.VetoDialog;
-import de.golfgl.lightblocks.input.PlayGesturesInput;
 import de.golfgl.lightblocks.screen.PlayScreen;
-import de.golfgl.lightblocks.input.PlayScreenInput;
 import de.golfgl.lightblocks.screen.VetoException;
 import de.golfgl.lightblocks.state.InitGameParameters;
 
@@ -206,12 +206,12 @@ public abstract class SimpleGameModeGroup extends Table implements SinglePlayerS
 
             marathonType = new FaRadioButton<Integer>(app.skin, false);
             marathonType.addEntry(MARATHON_NORMAL, "",
-                    app.TEXTS.get("marathonChooseTypeTitle" + String.valueOf(MARATHON_NORMAL)));
+                    app.TEXTS.get("marathonChooseTypeTitle" + MARATHON_NORMAL));
             marathonType.addEntry(MARATHON_RETRO, "",
-                    app.TEXTS.get("marathonChooseTypeTitle" + String.valueOf(MARATHON_RETRO)));
+                    app.TEXTS.get("marathonChooseTypeTitle" + MARATHON_RETRO));
             if (PlayGesturesInput.isInputTypeAvailable(PlayScreenInput.KEY_ACCELEROMETER))
                 marathonType.addEntry(MARATHON_GRAVITY, "",
-                        app.TEXTS.get("marathonChooseTypeTitle" + String.valueOf(MARATHON_GRAVITY)));
+                        app.TEXTS.get("marathonChooseTypeTitle" + MARATHON_GRAVITY));
             marathonType.setValue(app.localPrefs.getMarathonLastUsedType());
             marathonType.addListener(new ChangeListener() {
                                          public void changed(ChangeEvent event, Actor actor) {
@@ -224,7 +224,7 @@ public abstract class SimpleGameModeGroup extends Table implements SinglePlayerS
 
             Table marathonTypeTabel = new Table();
             ScaledLabel marathonTypeLabel = new ScaledLabel(app.TEXTS.get("marathonChooseTypeLabel"),
-                    app.skin, app.SKIN_FONT_BIG);
+                    app.skin, LightBlocksGame.SKIN_FONT_BIG);
             marathonTypeLabel.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -249,7 +249,7 @@ public abstract class SimpleGameModeGroup extends Table implements SinglePlayerS
         }
 
         private void changeDescription() {
-            marathonTypeDescription.setText(app.TEXTS.get("marathonChooseTypeDesc" + String.valueOf(marathonType.getValue())));
+            marathonTypeDescription.setText(app.TEXTS.get("marathonChooseTypeDesc" + marathonType.getValue()));
         }
 
         @Override
@@ -442,11 +442,11 @@ public abstract class SimpleGameModeGroup extends Table implements SinglePlayerS
                     LightBlocksGame.SKIN_FONT_BIG)).expandY().bottom();
             difficultyButton = new FaRadioButton<>(app.skin, false);
             difficultyButton.addEntry(ModernFreezeModel.DIFFICULTY_EASY, "",
-                    app.TEXTS.get("labelDifficulty" + String.valueOf(ModernFreezeModel.DIFFICULTY_EASY)));
+                    app.TEXTS.get("labelDifficulty" + ModernFreezeModel.DIFFICULTY_EASY));
             difficultyButton.addEntry(ModernFreezeModel.DIFFICULTY_NORMAL, "",
-                    app.TEXTS.get("labelDifficulty" + String.valueOf(ModernFreezeModel.DIFFICULTY_NORMAL)));
+                    app.TEXTS.get("labelDifficulty" + ModernFreezeModel.DIFFICULTY_NORMAL));
             difficultyButton.addEntry(ModernFreezeModel.DIFFICULTY_HARD, "",
-                    app.TEXTS.get("labelDifficulty" + String.valueOf(ModernFreezeModel.DIFFICULTY_HARD)));
+                    app.TEXTS.get("labelDifficulty" + ModernFreezeModel.DIFFICULTY_HARD));
             difficultyButton.setValue(app.localPrefs.getFreezeDifficulty());
 
             params.row();

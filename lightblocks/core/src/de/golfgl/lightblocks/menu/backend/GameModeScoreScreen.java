@@ -34,7 +34,7 @@ public class GameModeScoreScreen extends AbstractMenuDialog {
     private final String gameMode;
     private FaButton leaderboardButton;
     private Table menuTable;
-    private Cell<ScoresGroup> widthDefiningCell;
+    private final Cell<ScoresGroup> widthDefiningCell;
 
     public GameModeScoreScreen(final LightBlocksGame app, final String gameMode, Group actorToHide) {
         super(app, actorToHide);
@@ -164,7 +164,6 @@ public class GameModeScoreScreen extends AbstractMenuDialog {
                         new VetoDialog("Error showing leaderboard.", app.skin, getStage().getWidth() * .8f)
                                 .show(getStage());
                     }
-
                 }
             });
             leaderboardButton.addListener(scrollOnKeyDownListener);

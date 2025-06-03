@@ -1,5 +1,8 @@
 package de.golfgl.lightblocks.menu;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,9 +15,6 @@ import de.golfgl.lightblocks.LightBlocksGame;
 import de.golfgl.lightblocks.scene2d.BetterScrollPane;
 import de.golfgl.lightblocks.scene2d.FaButton;
 import de.golfgl.lightblocks.screen.FontAwesome;
-
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 /**
  * Created by Benjamin Schulte on 08.10.2018.
@@ -89,6 +89,5 @@ public class AbstractFullScreenDialog extends ControllerMenuDialog {
                 Actions.fadeOut(AbstractMenuDialog.TIME_SWOSHIN, Interpolation.fade)));
         if (app.localPrefs.isPlaySounds())
             app.swoshSound.play();
-
     }
 }

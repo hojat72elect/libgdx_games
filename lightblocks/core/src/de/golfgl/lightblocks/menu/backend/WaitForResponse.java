@@ -13,7 +13,7 @@ import de.golfgl.lightblocks.scene2d.ProgressDialog;
  */
 
 public class WaitForResponse<T> extends BackendManager.AbstractQueuedBackendResponse<T> {
-    private ProgressDialog progressDialog;
+    private final ProgressDialog progressDialog;
 
     public WaitForResponse(LightBlocksGame app, Stage stage) {
         super(app);

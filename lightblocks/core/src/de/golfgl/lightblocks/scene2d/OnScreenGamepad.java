@@ -16,8 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 
 import de.golfgl.lightblocks.LightBlocksGame;
 import de.golfgl.lightblocks.input.InputIdentifier;
-import de.golfgl.lightblocks.model.GameModel;
 import de.golfgl.lightblocks.input.PlayGesturesInput;
+import de.golfgl.lightblocks.model.GameModel;
 import de.golfgl.lightblocks.screen.PlayScreen;
 import de.golfgl.lightblocks.state.OnScreenGamepadConfig;
 
@@ -140,7 +140,6 @@ public class OnScreenGamepad extends Group {
             hardDropButton.setColor(app.theme.buttonColor);
             holdButton.setColor(app.theme.buttonColor);
             holdButton.getLabel().setColor(app.theme.buttonColor);
-
         } else {
             // Configuration mode
 
@@ -256,7 +255,7 @@ public class OnScreenGamepad extends Group {
             touchpadContainer.setScale(1);
             touchpadContainer.setTransform(false);
         }
-        touchpadContainer.setPosition(0 + config.touchpadX, 0 + config.touchpadY);
+        touchpadContainer.setPosition(config.touchpadX, config.touchpadY);
         float buttonSize = size * .4f;
         rotateRightButton.setSize(buttonSize * config.rrScale, buttonSize * config.rrScale);
         rotateLeftButton.setSize(buttonSize * config.rlScale, buttonSize * config.rlScale);

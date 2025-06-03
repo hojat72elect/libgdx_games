@@ -54,7 +54,7 @@ public class PlayKeyboardInput extends PlayScreenInput {
             String helpText = app.TEXTS.get(hasKeyboard() ? "inputKeyboardHelp" : "inputTvRemoteHelp") + "\n";
 
             helpText += app.TEXTS.get("configTvRemoteRight") + ": "
-                    + Input.Keys.toString((int) tvRemoteKeyConfig.keyCodeRight);
+                    + Input.Keys.toString(tvRemoteKeyConfig.keyCodeRight);
             helpText += "\n" + app.TEXTS.get("configTvRemoteLeft") + ": "
                     + Input.Keys.toString(tvRemoteKeyConfig.keyCodeLeft);
             helpText += "\n" + app.TEXTS.get("configTvRemoteRotateCw") + ": "
@@ -243,7 +243,6 @@ public class PlayKeyboardInput extends PlayScreenInput {
             default:
                 return super.keyDown(keycode);
         }
-
     }
 
     @Override

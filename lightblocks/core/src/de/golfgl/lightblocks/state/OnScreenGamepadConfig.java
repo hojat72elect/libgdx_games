@@ -5,8 +5,6 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 
-import de.golfgl.lightblocks.scene2d.OnScreenGamepad;
-
 public class OnScreenGamepadConfig {
     public static final float CONFIG_MIN_SCALE = .4f;
     public int touchpadX;

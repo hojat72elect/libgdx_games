@@ -27,7 +27,7 @@ public class WelcomeButton extends FaTextButton {
     private final LightBlocksGame app;
     private Array<WelcomeText> texts;
     private int currentPage = -1;
-    private float oneLineHeight;
+    private final float oneLineHeight;
     private float nextChange;
     private BackendWelcomeResponse shownResponse;
     private float lastPrefHeight;
@@ -83,7 +83,6 @@ public class WelcomeButton extends FaTextButton {
                 setPage(newPage);
             }
         }), Actions.fadeIn(.3f, Interpolation.fade)));
-
     }
 
     protected void clicked() {
@@ -163,7 +162,6 @@ public class WelcomeButton extends FaTextButton {
 
             app.backendManager.fetchNewWelcomeResponseIfExpired(expirationSeconds, app.savegame.getTotalScore()
                     .getDrawnTetrominos(), app.localPrefs.getSupportLevel(), pushProviderId, pushToken);
-
         } catch (Throwable t) {
             // alles beim alten lassen
             // es gab Crashreports von Geräten mit Tasten, NPE in fillWelcomes bzw

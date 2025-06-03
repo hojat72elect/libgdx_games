@@ -25,12 +25,12 @@ public class ReplayGameboard extends BlockGroup {
     private Replay.ReplayStep nextStep;
     private float waitTime;
     private int timeMsSinceShownStep;
-    private Group nextPieceBlockGroup;
-    private BlockActor[] currentShownBlocks;
-    private int[] activePiecePos;
-    private Array<BlockActor> actorsToRemove;
+    private final Group nextPieceBlockGroup;
+    private final BlockActor[] currentShownBlocks;
+    private final int[] activePiecePos;
+    private final Array<BlockActor> actorsToRemove;
     private int currentTime;
-    private int maxTime;
+    private final int maxTime;
 
     public ReplayGameboard(LightBlocksGame app, Replay replay) {
         super(app, false);
@@ -197,8 +197,10 @@ public class ReplayGameboard extends BlockGroup {
                 boolean colIsFul = currentShownBlocks[posCorrected] != null;
                 if (!colIsFul)
                     for (int i = 0; i < activePiecePos.length; i++) {
-                        if (activePiecePos[i] == posOriginal)
+                        if (activePiecePos[i] == posOriginal) {
                             colIsFul = true;
+                            break;
+                        }
                     }
 
                 rowIsFull = rowIsFull && colIsFul;
@@ -224,7 +226,6 @@ public class ReplayGameboard extends BlockGroup {
                         else
                             currentShownBlocks[overWritePos] = null;
                     }
-
                 }
                 linesCleared++;
             }

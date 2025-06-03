@@ -17,7 +17,7 @@ public class MyActions {
 
     public static Action getChangeSequence(Runnable runnable) {
         return Actions.sequence(Actions.scaleTo(1, 0, .2f,
-                Interpolation.circle),
+                        Interpolation.circle),
                 Actions.run(runnable), Actions.scaleTo(1, 1, .2f, Interpolation.circle)
         );
     }

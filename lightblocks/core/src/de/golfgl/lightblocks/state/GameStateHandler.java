@@ -31,13 +31,13 @@ public class GameStateHandler {
 
     private final LightBlocksGame app;
     private TotalScore totalScore;
-    private Object gameStateMonitor = new Object();
+    private final Object gameStateMonitor = new Object();
     // wurde bereits ein Cloud-Spielstand geladen?
     private boolean alreadyLoadedFromCloud;
     // store future use String - damit er nicht verloren geht!
     private String futureUseFromCloudSaveGame;
     private BestScore.BestScoreMap bestScores;
-    private Preferences prefs;
+    private final Preferences prefs;
 
     public GameStateHandler(LightBlocksGame app, Preferences prefs) {
         this.app = app;
@@ -89,7 +89,6 @@ public class GameStateHandler {
         } catch (Throwable t) {
             return null;
         }
-
     }
 
     /**
@@ -127,7 +126,6 @@ public class GameStateHandler {
                 prefs.flush();
                 return true;
             }
-
         } catch (Throwable t) {
             return false;
         }
@@ -255,7 +253,6 @@ public class GameStateHandler {
                 totalScore.mergeWithOther(cgs.totalScore);
                 bestScores.mergeWithOther(cgs.bestScores);
                 bestScores.deleteDeprecatedGameModels();
-
             } catch (Throwable t) {
                 Gdx.app.error("GameState", "Error reading saved gamestate. Ignored.", t);
             }
@@ -265,7 +262,6 @@ public class GameStateHandler {
         }
 
         loadInformationFromFutureCloudSave();
-
     }
 
     public void mergeBackendPlayerDetails(PlayerDetails playerDetails) {
@@ -315,7 +311,6 @@ public class GameStateHandler {
             } catch (Throwable t) {
                 Gdx.app.error("GameState", "Error saving backend info to cloud.", t);
             }
-
     }
 
     private void saveStringToFutureUse(JsonValue parent, String jsonKey, String value) {

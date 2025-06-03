@@ -91,7 +91,6 @@ public class BackendScoreTable extends Table {
             return app.TEXTS.get("time1Year");
         else
             return app.TEXTS.format("timeXYears", yearsPassed);
-
     }
 
     private void setDefaults() {
@@ -121,10 +120,8 @@ public class BackendScoreTable extends Table {
                 isFilled = true;
                 wasFilledWithoutUserAndEnqueuedScores = !app.backendManager.hasUserId() &&
                         app.backendManager.hasScoreEnqueued();
-
             } else if (!didFetchAttempt && !cachedScoreboard.isFetching()) {
                 didFetchAttempt = cachedScoreboard.fetchIfExpired();
-
             } else if (!cachedScoreboard.isFetching()) {
                 // Fehler vorhanden
                 clear();

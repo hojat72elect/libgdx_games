@@ -11,7 +11,7 @@ import java.net.InetAddress;
 public class KryonetRoomLocation implements IRoomLocation {
 
     public InetAddress address;
-    private String roomName;
+    private final String roomName;
 
     public KryonetRoomLocation(String roomName, InetAddress address) {
         this.roomName = roomName;

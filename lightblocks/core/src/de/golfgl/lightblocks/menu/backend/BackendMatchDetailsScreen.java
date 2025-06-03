@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Timer;
 import de.golfgl.lightblocks.LightBlocksGame;
 import de.golfgl.lightblocks.backend.BackendManager;
 import de.golfgl.lightblocks.backend.MatchEntity;
+import de.golfgl.lightblocks.input.PlayScreenInput;
 import de.golfgl.lightblocks.menu.AbstractMenuDialog;
 import de.golfgl.lightblocks.menu.DonationDialog;
 import de.golfgl.lightblocks.menu.PlayButton;
@@ -26,7 +27,6 @@ import de.golfgl.lightblocks.scene2d.VetoDialog;
 import de.golfgl.lightblocks.screen.AbstractScreen;
 import de.golfgl.lightblocks.screen.FontAwesome;
 import de.golfgl.lightblocks.screen.PlayScreen;
-import de.golfgl.lightblocks.input.PlayScreenInput;
 import de.golfgl.lightblocks.screen.VetoException;
 import de.golfgl.lightblocks.state.InitGameParameters;
 import de.golfgl.lightblocks.state.Replay;
@@ -286,7 +286,6 @@ public class BackendMatchDetailsScreen extends WaitForBackendFetchDetailsScreen<
                     match.turnBlockCount), app.skin, LightBlocksGame.SKIN_FONT_REG, .75f);
             competitionHelp.setWrap(true);
             matchDetailTable.add(competitionHelp).width(LightBlocksGame.nativeGameWidth - 80).padBottom(15);
-
         } else if (!match.myTurn) {
             matchDetailTable.add(new ScaledLabel(app.TEXTS.get("labelNoTurnsPlayed"), app.skin,
                     LightBlocksGame.SKIN_FONT_BIG)).padBottom(30);

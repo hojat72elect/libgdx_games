@@ -30,7 +30,7 @@ public class RadioButtonTable<T> extends Table {
     private final LightBlocksGame app;
     private final Group indicatorContainer;
     private final HashMap<T, Button> map = new HashMap();
-    private Vector2 tmpPos = new Vector2();
+    private final Vector2 tmpPos = new Vector2();
     private T currentValue = null;
     private boolean layedOut;
 
@@ -86,7 +86,6 @@ public class RadioButtonTable<T> extends Table {
                 indicator.clearActions();
                 indicator.addAction(Actions.moveTo(indicator.getX(), y, .2f, Interpolation.fade));
             }
-
         }
     }
 
@@ -130,5 +129,4 @@ public class RadioButtonTable<T> extends Table {
             return indicator.getPrefWidth();
         }
     }
-
 }

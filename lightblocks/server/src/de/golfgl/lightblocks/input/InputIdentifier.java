@@ -5,6 +5,4 @@ package de.golfgl.lightblocks.input;
  */
 public interface InputIdentifier {
     boolean isSameInput(InputIdentifier inputIdentifier);
-
-
 }

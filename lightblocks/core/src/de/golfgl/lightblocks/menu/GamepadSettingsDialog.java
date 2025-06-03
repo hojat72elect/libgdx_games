@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.Array;
 
 import de.golfgl.gdx.controllers.ControllerMenuDialog;
 import de.golfgl.lightblocks.LightBlocksGame;
+import de.golfgl.lightblocks.input.PlayScreenInput;
 import de.golfgl.lightblocks.scene2d.FaButton;
 import de.golfgl.lightblocks.scene2d.FaCheckbox;
 import de.golfgl.lightblocks.scene2d.GlowLabelButton;
@@ -25,7 +26,6 @@ import de.golfgl.lightblocks.scene2d.MyStage;
 import de.golfgl.lightblocks.scene2d.RoundedTextButton;
 import de.golfgl.lightblocks.scene2d.ScaledLabel;
 import de.golfgl.lightblocks.screen.FontAwesome;
-import de.golfgl.lightblocks.input.PlayScreenInput;
 
 /**
  * Created by Benjamin Schulte on 04.11.2017.

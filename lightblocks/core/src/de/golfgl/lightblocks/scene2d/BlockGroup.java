@@ -113,7 +113,7 @@ public class BlockGroup extends Group {
             // wenn nahe am Teil die Animation schneller durchführen, damit es nicht zu einem
             // Nachschleif-Effekt kommt
             ghostpiece[i].addAction(Actions.moveTo(calcHorizontalPos(x), calcVerticalPos(y),
-                    distance > 4 ? .1f : 1/30f, Interpolation.fade));
+                    distance > 4 ? .1f : 1 / 30f, Interpolation.fade));
         }
     }
 

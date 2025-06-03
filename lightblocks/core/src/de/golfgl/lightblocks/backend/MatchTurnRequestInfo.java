@@ -35,7 +35,6 @@ public class MatchTurnRequestInfo {
             retVal.inputType = response.getString("inputType");
 
             return retVal;
-
         } catch (Throwable t) {
             return null;
         }

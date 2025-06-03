@@ -7,8 +7,8 @@ import javax.annotation.Nullable;
 
 import de.golfgl.gdxgameanalytics.GameAnalytics;
 import de.golfgl.lightblocks.LightBlocksGame;
-import de.golfgl.lightblocks.model.GameModel;
 import de.golfgl.lightblocks.input.PlayScreenInput;
+import de.golfgl.lightblocks.model.GameModel;
 import de.golfgl.lightblocks.state.LocalPrefs;
 
 /**
@@ -24,7 +24,7 @@ public class GaHelper {
             app.gameAnalytics.submitProgressionEvent(GameAnalytics.ProgressionStatus.Start,
                     gameModel.getIdentifier(), "", "");
             String analyticsKey = inputAdapter != null ? inputAdapter.getAnalyticsKey() : null;
-            if (analyticsKey!= null) {
+            if (analyticsKey != null) {
                 app.gameAnalytics.submitDesignEvent("inputType:" + analyticsKey);
             }
             if (PlayScreenInput.isInputTypeAvailable(PlayScreenInput.KEY_TOUCHSCREEN)) {

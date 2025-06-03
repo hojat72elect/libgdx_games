@@ -115,7 +115,7 @@ public class GamepadMappingDialog extends ControllerMenuDialog {
                     //nix zu tun, wir warten ab
                     // außer wir sind im Hard Drop Schritt und es wird auf der vertikalen Achse Up gehalten, dann skip
                     if (inputToRecord == MyControllerMapping.BUTTON_HARDDROP && mappedController != null
-                     && mappedController.getConfiguredAxisValue(MyControllerMapping.AXIS_VERTICAL) == -1)
+                            && mappedController.getConfiguredAxisValue(MyControllerMapping.AXIS_VERTICAL) == -1)
                         switchToNextFullStep();
             }
         }

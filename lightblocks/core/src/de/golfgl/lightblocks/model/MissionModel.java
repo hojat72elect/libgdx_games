@@ -120,7 +120,7 @@ public abstract class MissionModel extends GameModel {
         curMsgIdx++;
 
         if (curMsgIdx <= welcomeMsgNum)
-            playScreen.showOverlayMessage(welcomeMsg + Integer.toString(curMsgIdx));
+            playScreen.showOverlayMessage(welcomeMsg + curMsgIdx);
         else {
             // Eigentliches Spiel beginnen
             playScreen.showOverlayMessage(null);

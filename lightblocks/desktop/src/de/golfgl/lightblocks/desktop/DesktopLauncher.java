@@ -4,14 +4,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.pay.Information;
-import com.badlogic.gdx.pay.PurchaseManager;
-import com.badlogic.gdx.pay.PurchaseManagerConfig;
-import com.badlogic.gdx.pay.PurchaseObserver;
 import com.badlogic.gdx.pay.Transaction;
 import com.badlogic.gdx.utils.Array;
 
 import java.io.File;
-import java.io.InputStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -32,8 +28,8 @@ public class DesktopLauncher {
         config.width = LightBlocksGame.nativeGameWidth;
         config.height = LightBlocksGame.nativeGameHeight;
         LightBlocksGame game = new MultiplayerLightblocks() {
-                @Override
-                protected void chooseZipFile() {
+            @Override
+            protected void chooseZipFile() {
                 // Create Swing JFileChooser
                 JFileChooser fileChooser = new JFileChooser();
 
@@ -61,7 +57,6 @@ public class DesktopLauncher {
                     zipFileChosen(result.read());
                 }
             }
-
         };
         game.gpgsClient = new MyTestClient();
         game.purchaseManager = new MyTestPurchaseManager();

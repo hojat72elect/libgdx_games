@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 
 import de.golfgl.lightblocks.LightBlocksGame;
-import de.golfgl.lightblocks.scene2d.FaButton;
 import de.golfgl.lightblocks.scene2d.InfoButton;
 import de.golfgl.lightblocks.scene2d.RoundedTextButton;
 import de.golfgl.lightblocks.scene2d.ScaledLabel;
@@ -50,7 +49,7 @@ public class AboutScreen extends AbstractMenuDialog {
 
         menuTable.add(new ScaledLabel(app.TEXTS.get("labelCopyright") + " " + app.TEXTS.get("gameAuthor"), app.skin));
         menuTable.row().padTop(20);
-        Label labelAbout1 = new ScaledLabel(app.TEXTS.get("labelAbout1"), app.skin, app.SKIN_FONT_TITLE);
+        Label labelAbout1 = new ScaledLabel(app.TEXTS.get("labelAbout1"), app.skin, LightBlocksGame.SKIN_FONT_TITLE);
         labelAbout1.setWrap(true);
         labelAbout1.setAlignment(Align.center);
         widthDefiningCell = menuTable.add(labelAbout1).fill().minWidth(getAvailableContentWidth());
@@ -139,7 +138,7 @@ public class AboutScreen extends AbstractMenuDialog {
         menuTable.add(openSourceButton);
 
         menuTable.row().padTop(40);
-        menuTable.add(new ScaledLabel(app.TEXTS.get("labelContributors1"), app.skin, app.SKIN_FONT_TITLE));
+        menuTable.add(new ScaledLabel(app.TEXTS.get("labelContributors1"), app.skin, LightBlocksGame.SKIN_FONT_TITLE));
         menuTable.row().padTop(10);
         menuTable.add(getWrapLabel(app.TEXTS.get("labelContributors2"))).fill();
         menuTable.row().padTop(5);
@@ -155,7 +154,6 @@ public class AboutScreen extends AbstractMenuDialog {
         menuTable.add(new ThisInfoButton(app.TEXTS.get("labelTranslations"), app.TEXTS.get("labeli18NContributors")
                 + "\n\n" + app.TEXTS.get("i18NContributors"),
                 LightBlocksGame.SOURCECODE_URL + "/tree/master/android/assets/i18n")).fill();
-
     }
 
     @Override
@@ -178,7 +176,6 @@ public class AboutScreen extends AbstractMenuDialog {
 
         buttons.add(shareAppButton);
         addFocusableActor(shareAppButton);
-
     }
 
     @Override

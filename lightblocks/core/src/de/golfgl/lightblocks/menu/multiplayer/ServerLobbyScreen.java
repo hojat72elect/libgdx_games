@@ -1,5 +1,7 @@
 package de.golfgl.lightblocks.menu.multiplayer;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Interpolation;
@@ -32,8 +34,6 @@ import de.golfgl.lightblocks.screen.FontAwesome;
 import de.golfgl.lightblocks.screen.PlayScreen;
 import de.golfgl.lightblocks.screen.VetoException;
 import de.golfgl.lightblocks.state.InitGameParameters;
-
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 
 /**
  * Shows lobby of a multiplayer server
@@ -133,7 +133,6 @@ public class ServerLobbyScreen extends AbstractFullScreenDialog {
             igp.setServerMultiplayerManager(serverMultiplayerManager);
             serverMultiplayerManager.setGameMode(gameMode);
             PlayScreen.gotoPlayScreen(app, igp);
-
         } catch (VetoException e) {
             new VetoDialog(e.getMessage(), app.skin, LightBlocksGame.nativeGameWidth * .75f).show(getStage());
         }
@@ -237,7 +236,6 @@ public class ServerLobbyScreen extends AbstractFullScreenDialog {
 
                 row().padBottom(30);
                 add(sharePrivateRoom);
-
             }
 
             playButton = new PlayButton(app);
@@ -268,7 +266,6 @@ public class ServerLobbyScreen extends AbstractFullScreenDialog {
 
                 int activePlayers = serverMultiplayerManager.getServerInfo().activePlayers;
                 playersCell.getActor().setText(activePlayers >= 0 ? activePlayers + " players" : "");
-
             }
 
             if (TimeUtils.millis() - lastDoPingTime >= 5000) {

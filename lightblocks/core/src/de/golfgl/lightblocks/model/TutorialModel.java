@@ -37,7 +37,7 @@ public class TutorialModel extends GameModel {
         tutorialStep++;
 
         if (tutorialStep <= 14)
-            playScreen.showOverlayMessage("tutorialStep" + Integer.toString(tutorialStep));
+            playScreen.showOverlayMessage("tutorialStep" + tutorialStep);
         else {
             // Eigentliches Spiel beginnen
             playScreen.showOverlayMessage(null);
@@ -201,5 +201,4 @@ public class TutorialModel extends GameModel {
         // Saving gamestate is not necessary for tutorial
         return null;
     }
-
 }

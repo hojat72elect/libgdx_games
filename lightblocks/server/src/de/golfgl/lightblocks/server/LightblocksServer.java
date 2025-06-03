@@ -190,7 +190,6 @@ public class LightblocksServer extends WebSocketServer implements ApplicationLis
             if (serverInfo.privateRooms && first.roomName != null) {
                 // connect to a private room
                 connected = connectPlayerToPrivateRoom(first);
-
             } else {
                 // try to connect to occupied matches first...
                 connected = connectWaitingPlayer(first, false);

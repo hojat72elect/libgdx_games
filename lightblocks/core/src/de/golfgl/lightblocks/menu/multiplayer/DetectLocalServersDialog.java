@@ -89,6 +89,5 @@ public abstract class DetectLocalServersDialog extends ConnectServerDialog imple
             } else if (lastSelectedRoom != null && hostList.getItems().contains(lastSelectedRoom, false))
                 hostList.setSelected(lastSelectedRoom);
         }
-
     }
 }

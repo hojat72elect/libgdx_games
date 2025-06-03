@@ -1,5 +1,7 @@
 package de.golfgl.lightblocks;
 
+import static com.badlogic.gdx.Gdx.app;
+
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -31,6 +33,7 @@ import de.golfgl.gdxpushmessages.IPushMessageProvider;
 import de.golfgl.lightblocks.backend.BackendManager;
 import de.golfgl.lightblocks.gpgs.GaHelper;
 import de.golfgl.lightblocks.gpgs.IMultiplayerGsClient;
+import de.golfgl.lightblocks.input.PlayScreenInput;
 import de.golfgl.lightblocks.menu.MultiplayerMenuScreen;
 import de.golfgl.lightblocks.model.Mission;
 import de.golfgl.lightblocks.model.TutorialModel;
@@ -39,15 +42,12 @@ import de.golfgl.lightblocks.multiplayer.INsdHelper;
 import de.golfgl.lightblocks.screen.AbstractScreen;
 import de.golfgl.lightblocks.screen.MainMenuScreen;
 import de.golfgl.lightblocks.screen.PlayScreen;
-import de.golfgl.lightblocks.input.PlayScreenInput;
 import de.golfgl.lightblocks.screen.VetoException;
 import de.golfgl.lightblocks.state.GameStateHandler;
 import de.golfgl.lightblocks.state.LocalPrefs;
 import de.golfgl.lightblocks.state.MyControllerMapping;
 import de.golfgl.lightblocks.state.Player;
 import de.golfgl.lightblocks.state.Theme;
-
-import static com.badlogic.gdx.Gdx.app;
 
 public class LightBlocksGame extends Game implements IGameServiceListener, IPushMessageListener {
     public static final int nativeGameWidth = 480;
@@ -217,7 +217,6 @@ public class LightBlocksGame extends Game implements IGameServiceListener, IPush
             } catch (VetoException e) {
                 this.setScreen(mainMenuScreen);
             }
-
         }
     }
 
@@ -312,7 +311,6 @@ public class LightBlocksGame extends Game implements IGameServiceListener, IPush
 
         if (gameAnalytics != null)
             gameAnalytics.closeSession();
-
     }
 
     @Override
@@ -385,7 +383,6 @@ public class LightBlocksGame extends Game implements IGameServiceListener, IPush
                 Screen currentScreen = getScreen();
                 if (currentScreen instanceof AbstractScreen)
                     ((AbstractScreen) currentScreen).showDialog(msg);
-
             }
         });
     }

@@ -161,7 +161,6 @@ public class RoundOverScoreScreen extends AbstractMenuScreen {
                 buttons.add(retryOrNext);
                 retryOrNext.addListener(goDownListener);
             }
-
         } else {
             scoreTableCell.height(scoreTable.getPrefHeight() * 1.25f);
             mainView.row().expandY();
@@ -298,7 +297,6 @@ public class RoundOverScoreScreen extends AbstractMenuScreen {
                 buttons.add(leaderboard);
                 stage.addFocusableActor(leaderboard);
             }
-
         }
 
         if (replay != null) {
@@ -316,7 +314,6 @@ public class RoundOverScoreScreen extends AbstractMenuScreen {
             buttons.add(showReplay);
             stage.addFocusableActor(showReplay);
         }
-
     }
 
     private Button addRetryOrNextButton() {

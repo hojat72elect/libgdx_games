@@ -35,8 +35,8 @@ public class KryonetMultiplayerRoom extends AbstractMultiplayerRoom {
     final private PlayersInRoom players;
 
     // connection id -> playerId - nur für Server
-    private Map<Integer, String> connectionToPlayer;
-    private Map<String, Integer> playerToConnection;
+    private final Map<Integer, String> connectionToPlayer;
+    private final Map<String, Integer> playerToConnection;
 
     private Server server;
     private Client client;
@@ -122,13 +122,11 @@ public class KryonetMultiplayerRoom extends AbstractMultiplayerRoom {
             myPlayerId = kp.name;
             players.put(kp.name, kp);
         }
-
     }
 
     private void vetoIfConnected() throws VetoException {
         if (isConnected())
             throw new VetoException("You are already member of a room.");
-
     }
 
     @Override
@@ -154,7 +152,6 @@ public class KryonetMultiplayerRoom extends AbstractMultiplayerRoom {
             connectionToPlayer.clear();
             playerToConnection.clear();
         }
-
     }
 
     @Override
@@ -274,7 +271,6 @@ public class KryonetMultiplayerRoom extends AbstractMultiplayerRoom {
                 }
             }).start();
         }
-
     }
 
     @Override
@@ -370,7 +366,6 @@ public class KryonetMultiplayerRoom extends AbstractMultiplayerRoom {
                 Log.warn("Multiplayer", handshake.toString());
                 informGotErrorMessage(handshake);
                 setRoomState(MultiPlayerObjects.RoomState.closed);
-
             }
         }
     }
@@ -425,7 +420,6 @@ public class KryonetMultiplayerRoom extends AbstractMultiplayerRoom {
                 }
 
                 setRoomState(MultiPlayerObjects.RoomState.closed);
-
             } else {
                 String playerId = connectionToPlayer.get(connection.getID());
                 Log.info("Multiplayer", playerId + " disconnected");
@@ -460,7 +454,7 @@ public class KryonetMultiplayerRoom extends AbstractMultiplayerRoom {
             }
 
             if (!isOwner() && object instanceof MultiPlayerObjects.RoomStateChanged) {
-                Log.info("Multiplayer", "Received change of " + object.toString());
+                Log.info("Multiplayer", "Received change of " + object);
                 setRoomState(((MultiPlayerObjects.RoomStateChanged) object).roomState);
                 // die anderen Felder referee und deputy sind für Kryonet-Connections egal
                 return;
@@ -519,9 +513,7 @@ public class KryonetMultiplayerRoom extends AbstractMultiplayerRoom {
                 informRoomInhabitantsChanged(pc);
             }
             return removedPlayer;
-
         }
-
     }
 }
 

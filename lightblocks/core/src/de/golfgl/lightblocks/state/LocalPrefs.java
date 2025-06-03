@@ -9,10 +9,10 @@ import javax.annotation.Nonnull;
 
 import de.golfgl.lightblocks.LightBlocksGame;
 import de.golfgl.lightblocks.backend.MatchTurnRequestInfo;
+import de.golfgl.lightblocks.input.PlayGesturesInput;
 import de.golfgl.lightblocks.menu.DonationDialog;
 import de.golfgl.lightblocks.menu.SettingsScreen;
 import de.golfgl.lightblocks.scene2d.BlockActor;
-import de.golfgl.lightblocks.input.PlayGesturesInput;
 
 /**
  * Hält lokal gespeicherte Einstellungen
@@ -383,7 +383,7 @@ public class LocalPrefs {
             prefs.putLong(KEY_LASTSTARTTIME, millis);
             prefs.flush();
 
-            if (lastStartedMs < millis - (1000 * 60 * 60 * 24 * 365))
+            if (lastStartedMs < millis - (1000L * 60 * 60 * 24 * 365))
                 daysSinceLastStart = -1;
             else {
                 daysSinceLastStart = (int) (((millis - lastStartedMs) / 1000) / (60 * 60 * 24));
@@ -445,12 +445,11 @@ public class LocalPrefs {
         prefs.remove(TVREMOTE_HOLD);
         prefs.remove(TVREMOTE_FREEZE);
         prefs.flush();
-
     }
 
     public int getSupportLevel() {
         if (supportLevel == null) {
-            supportLevel = new Integer(0);
+            supportLevel = Integer.valueOf(0);
 
             Array<String> levels = getSupportLevels();
 

@@ -58,7 +58,5 @@ public class BackendWelcomeResponse {
             for (JsonValue msgJson = messagesJson.child; msgJson != null; msgJson = msgJson.next) {
                 messageList.add(new BackendMessage(msgJson));
             }
-
-
     }
 }

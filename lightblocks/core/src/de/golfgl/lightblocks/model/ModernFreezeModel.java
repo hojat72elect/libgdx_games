@@ -398,5 +398,4 @@ public class ModernFreezeModel extends GameModel {
                 return 7;
         }
     }
-
 }

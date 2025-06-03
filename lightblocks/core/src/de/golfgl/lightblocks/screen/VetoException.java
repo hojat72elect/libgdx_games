@@ -2,7 +2,7 @@ package de.golfgl.lightblocks.screen;
 
 /**
  * Exception for showing error dialog
- *
+ * <p>
  * Created by Benjamin Schulte on 21.02.2017.
  */
 

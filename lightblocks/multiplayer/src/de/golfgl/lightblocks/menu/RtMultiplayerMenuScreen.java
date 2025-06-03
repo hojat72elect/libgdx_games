@@ -20,6 +20,7 @@ import de.golfgl.gdxgamesvcs.IGameServiceClient;
 import de.golfgl.lightblocks.LightBlocksGame;
 import de.golfgl.lightblocks.gpgs.GpgsHelper;
 import de.golfgl.lightblocks.gpgs.IMultiplayerGsClient;
+import de.golfgl.lightblocks.input.PlayScreenInput;
 import de.golfgl.lightblocks.model.MultiplayerModel;
 import de.golfgl.lightblocks.multiplayer.IRoomListener;
 import de.golfgl.lightblocks.multiplayer.KryonetMultiplayerRoom;
@@ -35,7 +36,6 @@ import de.golfgl.lightblocks.screen.AbstractScreen;
 import de.golfgl.lightblocks.screen.FontAwesome;
 import de.golfgl.lightblocks.screen.MultiplayerPlayScreen;
 import de.golfgl.lightblocks.screen.PlayScreen;
-import de.golfgl.lightblocks.input.PlayScreenInput;
 import de.golfgl.lightblocks.screen.VetoException;
 import de.golfgl.lightblocks.state.InitGameParameters;
 import de.golfgl.lightblocks.state.MultiplayerMatch;
@@ -52,8 +52,8 @@ public class RtMultiplayerMenuScreen extends MultiplayerMenuScreen implements IR
     private Button startGameButton;
     private BeginningLevelChooser beginningLevelSlider;
     private InputButtonTable inputButtonTable;
-    private MultiplayerMatch matchStats = new MultiplayerMatch();
-    private HashMap<String, boolean[]> availablePlayerInputs = new HashMap<String, boolean[]>();
+    private final MultiplayerMatch matchStats = new MultiplayerMatch();
+    private final HashMap<String, boolean[]> availablePlayerInputs = new HashMap<String, boolean[]>();
     private boolean hasToRefresh = false;
     private ChangeListener gameParameterListener;
     private boolean screenNotActive = false;
@@ -178,7 +178,6 @@ public class RtMultiplayerMenuScreen extends MultiplayerMenuScreen implements IR
 
         if (app.gpgsClient != null && app.gpgsClient instanceof IMultiplayerGsClient)
             modePager.addPage(new GpgsGameTable(app.gpgsClient.getGameServiceId()));
-
     }
 
     protected void buttonOpenLocalRoomPressed() {
@@ -196,7 +195,6 @@ public class RtMultiplayerMenuScreen extends MultiplayerMenuScreen implements IR
                 app.multiRoom.openRoom(app.player);
                 app.gameAnalytics.submitDesignEvent("openroom:local");
             }
-
         } catch (VetoException e) {
             showDialog(e.getMessage());
         }
@@ -294,7 +292,6 @@ public class RtMultiplayerMenuScreen extends MultiplayerMenuScreen implements IR
                 initializeKryonetRoom();
                 new MultiplayerJoinRoomScreen(app).show(getStage());
             }
-
         } catch (VetoException e) {
             showDialog(e.getMessage());
         }
@@ -331,10 +328,8 @@ public class RtMultiplayerMenuScreen extends MultiplayerMenuScreen implements IR
                     }
 
                     refreshPlayerList();
-
                 }
             });
-
     }
 
     private void beginNewMultiplayerGame() {
@@ -365,7 +360,6 @@ public class RtMultiplayerMenuScreen extends MultiplayerMenuScreen implements IR
         } catch (VetoException e) {
             showDialog(e.getMessage());
         }
-
     }
 
     @Override
@@ -416,12 +410,9 @@ public class RtMultiplayerMenuScreen extends MultiplayerMenuScreen implements IR
 
                     // Spielparameter schicken
                     gameParameterListener.changed(null, null);
-
                 }
             }).start();
-
         }
-
     }
 
     @Override
@@ -436,7 +427,6 @@ public class RtMultiplayerMenuScreen extends MultiplayerMenuScreen implements IR
                                 ((MultiPlayerObjects.Handshake) o).message);
                 }
             });
-
     }
 
     @Override
@@ -489,7 +479,6 @@ public class RtMultiplayerMenuScreen extends MultiplayerMenuScreen implements IR
                         inputButtonTable.resetEnabledInputs();
                 }
             });
-
         }
     }
 
@@ -617,7 +606,6 @@ public class RtMultiplayerMenuScreen extends MultiplayerMenuScreen implements IR
                 playerStats.add(playerIdLabel).width(LightBlocksGame.nativeGameWidth * .33f).left().expandX();
                 playerStats.add(playerOutplaysLabel).right();
                 playerStats.add(playerScoreLabel).right();
-
             }
 
             add(playerStats).pad(20);
@@ -674,8 +662,8 @@ public class RtMultiplayerMenuScreen extends MultiplayerMenuScreen implements IR
     }
 
     private class LocalGameTable extends Table implements IMultiplayerModePage {
-        private TextButton openRoomButton;
-        private TextButton joinRoomButton;
+        private final TextButton openRoomButton;
+        private final TextButton joinRoomButton;
 
         public LocalGameTable() {
             Label lanHelp = new ScaledLabel(app.TEXTS.get("multiplayerLanHelp"), app.skin,

@@ -1,9 +1,9 @@
 package de.golfgl.lightblocks.model;
 
-import com.badlogic.gdx.math.Vector2;
-
 import static de.golfgl.lightblocks.model.Gameboard.GAMEBOARD_COLUMNS;
 import static de.golfgl.lightblocks.model.Gameboard.GAMEBOARD_NORMALROWS;
+
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by Benjamin Schulte on 23.01.2017.
@@ -24,7 +24,7 @@ public class Tetromino {
 
     //Die 7 Tetrominos
     // wiki/Nintendo_Rotation_System
-    private static Vector2[][][] nrsTemplates = {
+    private static final Vector2[][][] nrsTemplates = {
             // das I
             {{new Vector2(0, 1), new Vector2(1, 1), new Vector2(2, 1), new Vector2(3, 1)},
                     {new Vector2(2, 0), new Vector2(2, 1), new Vector2(2, 2), new Vector2(2, 3)}
@@ -61,7 +61,7 @@ public class Tetromino {
             {{new Vector2(1, 0), new Vector2(2, 0), new Vector2(1, 1), new Vector2(2, 1)}}};
 
     // wiki/SRS
-    private static Vector2[][][] srsTemplates = {
+    private static final Vector2[][][] srsTemplates = {
             // das I
             {{new Vector2(0, 2), new Vector2(1, 2), new Vector2(2, 2), new Vector2(3, 2)},
                     {new Vector2(2, 0), new Vector2(2, 1), new Vector2(2, 2), new Vector2(2, 3)},
@@ -194,7 +194,6 @@ public class Tetromino {
             i++;
         }
         return blockPosition;
-
     }
 
     public int setRotation(int newRotation) {

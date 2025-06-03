@@ -13,19 +13,19 @@ import de.golfgl.gdx.controllers.ControllerMenuStage;
 import de.golfgl.gdx.controllers.IControllerActable;
 import de.golfgl.gdx.controllers.IControllerScrollable;
 import de.golfgl.lightblocks.LightBlocksGame;
+import de.golfgl.lightblocks.input.PlayScreenInput;
 import de.golfgl.lightblocks.scene2d.GlowLabelButton;
 import de.golfgl.lightblocks.scene2d.ScaledLabel;
-import de.golfgl.lightblocks.input.PlayScreenInput;
 
 /**
  * Created by Benjamin Schulte on 20.03.2017.
  */
 
 public class InputButtonTable extends Table implements IControllerActable, ITouchActionButton, IControllerScrollable {
-    private ScaledLabel currentInputLabel;
+    private final ScaledLabel currentInputLabel;
     private int inputChosen;
-    private ChangeListener controllerChangeListener;
-    private ButtonGroup<InputTypeButton> inputButtonsGroup;
+    private final ChangeListener controllerChangeListener;
+    private final ButtonGroup<InputTypeButton> inputButtonsGroup;
     private ChangeListener externalChangeListener;
     private int lastControllerNum;
     private float waitTime;
@@ -74,11 +74,9 @@ public class InputButtonTable extends Table implements IControllerActable, ITouc
                         defaultValue++;
                     else
                         inputButton.setChecked(true);
-
                 }
 
                 i++;
-
             } catch (Throwable t) {
                 break;
             }
@@ -254,7 +252,7 @@ public class InputButtonTable extends Table implements IControllerActable, ITouc
     }
 
     private class InputTypeButton extends GlowLabelButton {
-        private int inputType;
+        private final int inputType;
 
         public InputTypeButton(int inputType, Skin skin) {
             super(PlayScreenInput.getInputFAIcon(inputType), "", skin, 1f, .65f);

@@ -29,14 +29,14 @@ public class BackendBattleModel extends GameModel {
     private boolean firstTurnFirstPlayer = false;
     private boolean sendingGarbage = false;
     private int garbageReceived;
-    private ByteArray garbagePos = new ByteArray();
+    private final ByteArray garbagePos = new ByteArray();
     private float prepareForGameDelay = PREPARE_TIME_SECONDS;
     private MatchEntity.MatchTurn lastTurnOnServer;
     private int lastTurnSequenceNum;
     private int firstPartOverTimeMs;
     private int everyThingsOverTimeMs;
-    private Queue<WaitingGarbage> waitingGarbage = new Queue<>();
-    private IntArray completeDrawyer = new IntArray();
+    private final Queue<WaitingGarbage> waitingGarbage = new Queue<>();
+    private final IntArray completeDrawyer = new IntArray();
     private String currentTurnString;
     private boolean beginPaused;
 
@@ -315,7 +315,7 @@ public class BackendBattleModel extends GameModel {
 
         StringBuilder drawyerString = new StringBuilder();
         for (int i = 0; i < completeDrawyer.size; i++)
-            drawyerString.append(String.valueOf(completeDrawyer.get(i)));
+            drawyerString.append(completeDrawyer.get(i));
 
         infoForServer.drawyer = drawyerString.toString();
 

@@ -38,7 +38,7 @@ public class ReplayDialog extends AbstractFullScreenDialog {
     private final ScaledLabel currentTimeLabel;
     private final LeftInfoGroup extraInfo;
     private final RightInfoGroup rightInfo;
-    private ReplayGameboard replayGameboard;
+    private final ReplayGameboard replayGameboard;
     private ReplayGameboard replayGameboard2;
     private boolean isPlaying;
     private boolean programmaticChange;

@@ -41,7 +41,7 @@ public class MultiplayerModel extends GameModel {
     private HashSet<String> uninitializedPlayers;
     private int tetrominosSent = 0;
     private int maxTetrosAPlayerDrawn;
-    private Integer waitingGarbageLinesNum = new Integer(0);
+    private Integer waitingGarbageLinesNum = Integer.valueOf(0);
     private String waitingGarbageLinesFrom;
 
     // siehe drawGarbageLines
@@ -323,7 +323,6 @@ public class MultiplayerModel extends GameModel {
 
         if (o instanceof MultiPlayerObjects.GarbageForYou)
             handleGarbageForYou((MultiPlayerObjects.GarbageForYou) o);
-
     }
 
     protected void handleGarbageForYou(MultiPlayerObjects.GarbageForYou o) {
@@ -363,7 +362,6 @@ public class MultiplayerModel extends GameModel {
                     sendPlayerInGameStats();
                 }
             });
-
         }
     }
 
@@ -405,7 +403,6 @@ public class MultiplayerModel extends GameModel {
                     playerRoom.sendToPlayer(playerWithLowestFill, gfu);
             }
         }
-
     }
 
     private void handlePlayerInGameChanged(final MultiPlayerObjects.PlayerInGame pig) {
@@ -455,7 +452,6 @@ public class MultiplayerModel extends GameModel {
                         playerRoom.sendToAllPlayers(nt);
 
                         tetrominosSent += drawnTetros;
-
                     }
                 }
 
@@ -465,7 +461,6 @@ public class MultiplayerModel extends GameModel {
                         playScreen.playersInGameChanged(pig);
                     }
                 });
-
             }
         }
     }
@@ -560,7 +555,6 @@ public class MultiplayerModel extends GameModel {
                 }
             }
         }
-
     }
 
     @Override
@@ -581,7 +575,6 @@ public class MultiplayerModel extends GameModel {
             for (MultiPlayerObjects.PlayerInGame pig : playerInGame.values())
                 this.playScreen.playersInGameChanged(pig);
         }
-
     }
 
     @Override

@@ -34,8 +34,8 @@ public class BackendUserDetailsScreen extends WaitForBackendFetchDetailsScreen<S
     }
 
     protected static String formatBattleStrength(PlayerDetails details) {
-        return String.valueOf(details.multiplayerLinesSent / details.multiplayerTurns)
-                + "." + String.valueOf((details.multiplayerLinesSent * 10 / details.multiplayerTurns) % 10);
+        return details.multiplayerLinesSent / details.multiplayerTurns
+                + "." + (details.multiplayerLinesSent * 10 / details.multiplayerTurns) % 10;
     }
 
     @Override
@@ -164,15 +164,14 @@ public class BackendUserDetailsScreen extends WaitForBackendFetchDetailsScreen<S
 
             if (details.multiplayerMatchesCount > 5)
                 addLine("profileWinRatioLabel",
-                        String.valueOf(details.multiplayerWinCount * 100 / details.multiplayerMatchesCount) + "% (" +
-                                String.valueOf(details.multiplayerMatchesCount) + ")",
+                        details.multiplayerWinCount * 100 / details.multiplayerMatchesCount + "% (" +
+                                details.multiplayerMatchesCount + ")",
                         LightBlocksGame.SKIN_FONT_REG);
 
             if (details.multiplayerMatchesCount > 5 && details.multiplayerTurns > 0) {
                 addLine("profileAvgSentLines",
                         app.TEXTS.format("profileAvgSentLinesLbl", formatBattleStrength(details)),
                         LightBlocksGame.SKIN_FONT_REG);
-
             }
 
             if (details.country != null && !details.country.isEmpty())
@@ -186,7 +185,6 @@ public class BackendUserDetailsScreen extends WaitForBackendFetchDetailsScreen<S
             if (details.lastActivity > 0)
                 addLine("profileLastActivityLabel", BackendScoreTable.formatTimePassedString(app, details
                         .lastActivity), LightBlocksGame.SKIN_FONT_REG);
-
         }
 
         private void addLine(String label, String value, String style) {
@@ -201,7 +199,6 @@ public class BackendUserDetailsScreen extends WaitForBackendFetchDetailsScreen<S
             // dritter war gedacht für Change button oder Infos, kann raus
             add();
         }
-
     }
 
     private class HighscoresTable extends Table {

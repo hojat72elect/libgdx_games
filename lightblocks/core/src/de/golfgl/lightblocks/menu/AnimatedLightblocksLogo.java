@@ -1,5 +1,10 @@
 package de.golfgl.lightblocks.menu;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.forever;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
@@ -12,18 +17,13 @@ import de.golfgl.lightblocks.scene2d.BlockActor;
 import de.golfgl.lightblocks.scene2d.BlockGroup;
 import de.golfgl.lightblocks.scene2d.ParticleEffectActor;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.forever;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
-
 /**
  * Created by Benjamin Schulte on 01.02.2018.
  */
 public class AnimatedLightblocksLogo extends BlockGroup {
     private static final float DURATION_MOVE = .5f;
     private static final float DURATION_WELD = .5f;
-    private LightBlocksGame app;
+    private final LightBlocksGame app;
     private ParticleEffectActor weldEffect;
     private boolean isAnimationDone;
 
@@ -66,8 +66,8 @@ public class AnimatedLightblocksLogo extends BlockGroup {
 
             block.addAction(Actions.fadeIn(DURATION_MOVE, Interpolation.fade));
             block.addAction(Actions.sequence(Actions.moveTo(i != 3 ? -BlockActor.blockWidth : 0, i == 3 ? 0 : i *
-                            BlockActor.blockWidth,
-                    DURATION_MOVE, Interpolation.fade),
+                                    BlockActor.blockWidth,
+                            DURATION_MOVE, Interpolation.fade),
                     run(block.getEnlightenAction())));
         }
 

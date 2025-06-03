@@ -105,7 +105,7 @@ public class GlowLabel extends Label {
     public void setScale(float scaleX, float scaleY) {
         super.setScale(scaleX, scaleY);
         setFontScale(baseScaling * scaleX, baseScaling * scaleY);
-        glowLabel.setFontScale(baseScaling * scaleX, baseScaling * scaleY );
+        glowLabel.setFontScale(baseScaling * scaleX, baseScaling * scaleY);
     }
 
     @Override
