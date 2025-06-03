@@ -38,35 +38,35 @@ public class WindowGroup extends Group {
     }
 
     protected void setCloseButton() {
-        Button btClose = new Button(Assets.buttonCloseDrawable, Assets.buttonClosePressedDrawable);
-        btClose.setSize((float) 60, (float) 60);
-        btClose.setPosition((float) 290, (float) 250);
-        btClose.addListener(new ClickListener() {
+        Button buttonClose = new Button(Assets.buttonCloseDrawable, Assets.buttonClosePressedDrawable);
+        buttonClose.setSize((float) 60, (float) 60);
+        buttonClose.setPosition((float) 290, (float) 250);
+        buttonClose.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 hide();
             }
         });
-        addActor(btClose);
+        addActor(buttonClose);
     }
 
     protected void setTitle(String text, float fontScale) {
-        Table tbTitulo;
-        tbTitulo = new Table();
+        Table tableTitle;
+        tableTitle = new Table();
 
-        tbTitulo.setSize((float) 180, (float) 50);
-        tbTitulo.setPosition(getWidth() / 2f - tbTitulo.getWidth() / 2f, getHeight() - tbTitulo.getHeight());
+        tableTitle.setSize((float) 180, (float) 50);
+        tableTitle.setPosition(getWidth() / 2f - tableTitle.getWidth() / 2f, getHeight() - tableTitle.getHeight());
 
-        Label lbTitulo = new Label(text, new LabelStyle(Assets.font, Color.WHITE));
-        lbTitulo.setFontScale(fontScale);
-        tbTitulo.add(lbTitulo);
-        addActor(tbTitulo);
+        Label labelTitle = new Label(text, new LabelStyle(Assets.font, Color.WHITE));
+        labelTitle.setFontScale(fontScale);
+        tableTitle.add(labelTitle);
+        addActor(tableTitle);
     }
 
     private void setBackGround(TextureRegionDrawable imageBackground) {
-        Image img = new Image(imageBackground);
-        img.setSize(getWidth(), getHeight());
-        addActor(img);
+        Image image = new Image(imageBackground);
+        image.setSize(getWidth(), getHeight());
+        addActor(image);
     }
 
     public void show(Stage stage) {

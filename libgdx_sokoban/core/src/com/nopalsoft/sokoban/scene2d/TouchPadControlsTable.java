@@ -11,7 +11,7 @@ public class TouchPadControlsTable extends Table {
 
     GameScreen gameScreen;
 
-    Button btUp, btDown, btLeft, btRight;
+    Button buttonUp, buttonDown, buttonLeft, buttonRight;
 
     public TouchPadControlsTable(GameScreen oScreen) {
         gameScreen = oScreen;
@@ -22,42 +22,42 @@ public class TouchPadControlsTable extends Table {
         int buttonSize = 75;
         defaults().size(buttonSize);
 
-        add(btUp).colspan(2).center();
+        add(buttonUp).colspan(2).center();
         row();
-        add(btLeft).left();
-        add(btRight).right().padLeft(buttonSize / 1.15f);
+        add(buttonLeft).left();
+        add(buttonRight).right().padLeft(buttonSize / 1.15f);
         row();
-        add(btDown).colspan(2).center();
+        add(buttonDown).colspan(2).center();
         pack();
     }
 
     private void init() {
-        btUp = new Button(Assets.buttonUpDrawable, Assets.buttonUpPressedDrawable);
-        btUp.addListener(new ClickListener() {
+        buttonUp = new Button(Assets.buttonUpDrawable, Assets.buttonUpPressedDrawable);
+        buttonUp.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 gameScreen.up();
             }
         });
 
-        btDown = new Button(Assets.buttonDownDrawable, Assets.buttonDownPressedDrawable);
-        btDown.addListener(new ClickListener() {
+        buttonDown = new Button(Assets.buttonDownDrawable, Assets.buttonDownPressedDrawable);
+        buttonDown.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 gameScreen.down();
             }
         });
 
-        btLeft = new Button(Assets.buttonLeftDrawable, Assets.buttonLeftPressedDrawable);
-        btLeft.addListener(new ClickListener() {
+        buttonLeft = new Button(Assets.buttonLeftDrawable, Assets.buttonLeftPressedDrawable);
+        buttonLeft.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 gameScreen.left();
             }
         });
 
-        btRight = new Button(Assets.buttonRightDrawable, Assets.buttonRightPressedDrawable);
-        btRight.addListener(new ClickListener() {
+        buttonRight = new Button(Assets.buttonRightDrawable, Assets.buttonRightPressedDrawable);
+        buttonRight.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 gameScreen.right();

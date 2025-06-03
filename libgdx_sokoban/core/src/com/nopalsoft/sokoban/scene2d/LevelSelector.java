@@ -22,13 +22,13 @@ import com.nopalsoft.sokoban.screens.Screens;
 public class LevelSelector extends Group {
 
     protected MainMenuScreen menuScreen;
-    protected I18NBundle idiomas;
+    protected I18NBundle languagesBundle;
     protected SokobanGame game;
 
-    Label lbTitulo;
+    Label labelTitle;
 
     ScrollPane scrollPane;
-    Table contenedor;
+    Table tableLevelsContainer;
 
     /**
      * Current page (each page has 15 levels).
@@ -43,7 +43,7 @@ public class LevelSelector extends Group {
         setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 70);
         menuScreen = (MainMenuScreen) currentScreen;
         game = currentScreen.game;
-        idiomas = game.languages;
+        languagesBundle = game.languages;
 
         setBackGround(Assets.windowBackground);
 
@@ -55,16 +55,16 @@ public class LevelSelector extends Group {
         tbTitulo.setSize(300, 50);
         tbTitulo.setPosition(getWidth() / 2f - tbTitulo.getWidth() / 2f, 324);
 
-        lbTitulo = new Label("Levels", new LabelStyle(Assets.font, Color.WHITE));
-        tbTitulo.add(lbTitulo);
+        labelTitle = new Label("Levels", new LabelStyle(Assets.font, Color.WHITE));
+        tbTitulo.add(labelTitle);
 
-        contenedor = new Table();
-        scrollPane = new ScrollPane(contenedor);
+        tableLevelsContainer = new Table();
+        scrollPane = new ScrollPane(tableLevelsContainer);
         scrollPane.setSize(getWidth() - 100, getHeight() - 100);
         scrollPane.setPosition(getWidth() / 2f - scrollPane.getWidth() / 2f, 30);
         scrollPane.setScrollingDisabled(false, true);
 
-        contenedor.defaults().padLeft(5).padRight(5);
+        tableLevelsContainer.defaults().padLeft(5).padRight(5);
 
         for (int i = 0; i < Settings.levels.length; i++) {
             totalStars += Settings.levels[i].numStars;
@@ -76,7 +76,7 @@ public class LevelSelector extends Group {
             numeroPages++;
 
         for (int col = 0; col < numeroPages; col++) {
-            contenedor.add(getListLevel(col));
+            tableLevelsContainer.add(getListLevel(col));
         }
 
         actualPage = 0;
@@ -118,14 +118,14 @@ public class LevelSelector extends Group {
 
     private void scrollToPage(int page) {
 
-        Table tabToScrollTo = (Table) contenedor.getChildren().get(page);
+        Table tabToScrollTo = (Table) tableLevelsContainer.getChildren().get(page);
         scrollPane.scrollTo(tabToScrollTo.getX(), tabToScrollTo.getY(), tabToScrollTo.getWidth(), tabToScrollTo.getHeight());
     }
 
     public void nextPage() {
         actualPage++;
-        if (actualPage >= contenedor.getChildren().size)
-            actualPage = contenedor.getChildren().size - 1;
+        if (actualPage >= tableLevelsContainer.getChildren().size)
+            actualPage = tableLevelsContainer.getChildren().size - 1;
         scrollToPage(actualPage);
     }
 

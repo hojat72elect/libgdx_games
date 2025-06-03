@@ -12,10 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.sokoban.Assets;
-import com.nopalsoft.sokoban.SokobanGame;
 import com.nopalsoft.sokoban.Settings;
-import com.nopalsoft.sokoban.scene2d.TouchPadControlsTable;
+import com.nopalsoft.sokoban.SokobanGame;
 import com.nopalsoft.sokoban.scene2d.CounterTable;
+import com.nopalsoft.sokoban.scene2d.TouchPadControlsTable;
 import com.nopalsoft.sokoban.scene2d.WindowGroupPause;
 import com.nopalsoft.sokoban.screens.MainMenuScreen;
 import com.nopalsoft.sokoban.screens.Screens;
@@ -58,10 +58,10 @@ public class GameScreen extends Screens {
 
         windowPause = new WindowGroupPause(this);
 
-        Label lbNivel = new Label("Level " + (level + 1), new LabelStyle(Assets.fontRed, Color.WHITE));
-        lbNivel.setWidth(counterTableTime.getWidth());
-        lbNivel.setPosition(5, 330);
-        lbNivel.setAlignment(Align.center);
+        Label labelLevelNumber = new Label("Level " + (level + 1), new LabelStyle(Assets.fontRed, Color.WHITE));
+        labelLevelNumber.setWidth(counterTableTime.getWidth());
+        labelLevelNumber.setPosition(5, 330);
+        labelLevelNumber.setAlignment(Align.center);
 
         buttonUndo = new Button(Assets.buttonRefreshDrawable, Assets.buttonRefreshPressedDrawable);
         buttonUndo.setSize(80, 80);
@@ -87,7 +87,7 @@ public class GameScreen extends Screens {
         gameStage.addActor(gameBoard);
         gameStage.addActor(counterTableTime);
         gameStage.addActor(counterTableMoves);
-        stage.addActor(lbNivel);
+        stage.addActor(labelLevelNumber);
         stage.addActor(touchpadControls);
         stage.addActor(buttonUndo);
         stage.addActor(buttonPause);
