@@ -44,7 +44,7 @@ public class ParallaxBackground {
                     currentY -= (layer.region.getRegionHeight() + layer.padding.y);
                 do {
 
-                    batch.draw(layer.region, -this.camera.viewportWidth / 2.0f + currentX + layer.startPosition.x, -this.camera.viewportHeight / 2.0f + currentY + layer.startPosition.y, layer.width, layer.heigth);
+                    batch.draw(layer.region, -this.camera.viewportWidth / 2.0f + currentX + layer.startPosition.x, -this.camera.viewportHeight / 2.0f + currentY + layer.startPosition.y, layer.width, layer.height);
                     currentY += (layer.region.getRegionHeight() + layer.padding.y);
                 } while (currentY < camera.viewportHeight);
 
