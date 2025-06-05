@@ -1,7 +1,6 @@
 package com.nopalsoft.ninjarunner.leaderboard;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -12,76 +11,58 @@ public class NextGoalFrame extends Group {
 
     public static final float WIDTH = 170;
     public static final float HEIGHT = 80;
-    public Person oPersona;
+    public Person person;
 
     /**
-     * uso un image button porque puede tener fondo y una imagen
+     * I use an image button because it can have a background and an image.
      */
-    private ImageButton imagenPersona;
-    private Image imagenCuenta;
+    private ImageButton personImage;
 
-    Label lbNombre;
-    Label lbScorePersona;
-    Label lbPuntosRestantesParaSuperar;
+    Label labelName;
+    Label labelPlayerScore;
+    Label labelRemainingPointsToOvercome;
 
 
     public NextGoalFrame(float x, float y) {
         setBounds(x, y, WIDTH, HEIGHT);
 
-        lbNombre = new Label("", Assets.labelStyleSmall);
-        lbNombre.setFontScale(.5f);
-        lbNombre.setPosition(60, 60);
+        labelName = new Label("", Assets.labelStyleSmall);
+        labelName.setFontScale(.5f);
+        labelName.setPosition(60, 60);
 
-        lbScorePersona = new Label("", Assets.labelStyleSmall);
-        lbScorePersona.setFontScale(.5f);
-        lbScorePersona.setPosition(60, 40);
+        labelPlayerScore = new Label("", Assets.labelStyleSmall);
+        labelPlayerScore.setFontScale(.5f);
+        labelPlayerScore.setPosition(60, 40);
 
-        lbPuntosRestantesParaSuperar = new Label("", Assets.labelStyleSmall);
-        lbPuntosRestantesParaSuperar.setFontScale(.5f);
-        lbPuntosRestantesParaSuperar.setPosition(60, 20);
+        labelRemainingPointsToOvercome = new Label("", Assets.labelStyleSmall);
+        labelRemainingPointsToOvercome.setFontScale(.5f);
+        labelRemainingPointsToOvercome.setPosition(60, 20);
 
-        addActor(lbNombre);
-        addActor(lbScorePersona);
-        addActor(lbPuntosRestantesParaSuperar);
+        addActor(labelName);
+        addActor(labelPlayerScore);
+        addActor(labelRemainingPointsToOvercome);
 
 
         debug();
     }
 
     /**
-     * Pone una persona nueva en el frame
-     *
-     * @param persona
+     * Puts a new person in the frame.
      */
-    public void updatePersona(Person persona) {
-        this.oPersona = persona;
+    public void updatePersona(Person person) {
+        this.person = person;
 
-        lbNombre.setText(oPersona.name);
-        lbScorePersona.setText(oPersona.getScoreWithFormat());
-
-//        if (oPersona.imagen != null)
-//            setPicture(oPersona.imagen);
-//        else {
-//            //A veces la imagen de la persona anterior si existe y de la siguiente no
-//            // asi que la quito para que no salga la imagen del a persona anterior
-//            if (imagenPersona != null)
-//                imagenPersona.remove();
-//            oPersona.setDownloadImageCompleteListener(new Person.DownloadImageCompleteListener() {
-//                @Override
-//                public void downloaded() {
-//                    setPicture(oPersona.imagen);
-//                }
-//            });
-//        }
+        labelName.setText(this.person.name);
+        labelPlayerScore.setText(this.person.getScoreWithFormat());
 
 
-        if (oPersona.imagen != null)
-            setPicture(oPersona.imagen);
+        if (this.person.imagen != null)
+            setPicture(this.person.imagen);
         else {
-            oPersona.downloadImage(new Person.DownloadImageCompleteListener() {
+            this.person.downloadImage(new Person.DownloadImageCompleteListener() {
                 @Override
                 public void imageDownloaded() {
-                    setPicture(oPersona.imagen);
+                    setPicture(NextGoalFrame.this.person.imagen);
                 }
 
                 @Override
@@ -93,14 +74,10 @@ public class NextGoalFrame extends Group {
     }
 
     private void setPicture(TextureRegionDrawable drawable) {
-        imagenPersona = new ImageButton(new ImageButton.ImageButtonStyle(drawable, null, null, Assets.photoFrame, null, null));
-        imagenPersona.setSize(50, 50);
-        imagenPersona.getImageCell().size(50);
-        imagenPersona.setPosition(5, HEIGHT / 2f - imagenPersona.getHeight() / 2f);
-        addActor(imagenPersona);
-    }
-
-    public void updatePuntuacion() {
-
+        personImage = new ImageButton(new ImageButton.ImageButtonStyle(drawable, null, null, Assets.photoFrame, null, null));
+        personImage.setSize(50, 50);
+        personImage.getImageCell().size(50);
+        personImage.setPosition(5, HEIGHT / 2f - personImage.getHeight() / 2f);
+        addActor(personImage);
     }
 }

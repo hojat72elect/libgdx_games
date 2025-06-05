@@ -38,7 +38,7 @@ public class LeaderBoardFrame extends Table {
         tbAux.add(lbScore).row();
 
         Image imRedSocial = null;
-        switch (oPersona.tipoCuenta) {
+        switch (oPersona.accountType) {
             case GOOGLE_PLAY:
                 imRedSocial = new Image(Assets.imageGoogle);
                 break;

@@ -100,7 +100,7 @@ public class GameScreen extends Screens {
         game.arrPerson.sort(); // Arrange from highest score to lowest score
 
 
-        Person oPersonAux = null;
+        Person tempPerson = null;
         // I calculate the position of the player with the most points. For example, if I'm in fifth place, this should be the position for fourth place.
         int posicionArribaDeMi = game.arrPerson.size - 1;
         // The arrangement is ordered from largest to smallest.
@@ -110,22 +110,22 @@ public class GameScreen extends Screens {
                 continue;
 
             if (obj.score > puntos) {
-                oPersonAux = obj;
+                tempPerson = obj;
                 break;
             }
         }
 
-        final Person oPersona = oPersonAux;
+        final Person person = tempPerson;
 
-        if (oPersona == null)
+        if (person == null)
             return;
 
-        if (oPersona.equals(nextGoalFrame.oPersona))
+        if (person.equals(nextGoalFrame.person))
             return;
 
 
         Runnable run = () -> {
-            nextGoalFrame.updatePersona(oPersona);
+            nextGoalFrame.updatePersona(person);
             nextGoalFrame.addAction(Actions.sequence(Actions.moveTo(SCREEN_WIDTH - NextGoalFrame.WIDTH, nextGoalFrame.getY(), 1)));
         };
 
@@ -205,5 +205,10 @@ public class GameScreen extends Screens {
             return true;
         }
         return super.keyUp(keycode);
+    }
+
+    @Override
+    public void hide() {
+        // noting to do here
     }
 }

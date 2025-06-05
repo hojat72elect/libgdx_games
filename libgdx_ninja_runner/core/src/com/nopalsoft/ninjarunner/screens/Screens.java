@@ -19,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.nopalsoft.ninjarunner.Assets;
 import com.nopalsoft.ninjarunner.MainGame;
-import com.nopalsoft.ninjarunner.Settings;
 import com.nopalsoft.ninjarunner.game.GameScreen;
 import com.nopalsoft.ninjarunner.shop.ShopScreen;
 
@@ -121,11 +120,6 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
 
     @Override
     public void show() {
-    }
-
-    @Override
-    public void hide() {
-        Settings.save();
     }
 
     @Override

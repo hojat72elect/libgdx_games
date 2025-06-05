@@ -147,7 +147,7 @@ public class ShopScreen extends Screens {
 
     @Override
     public void update(float delta) {
-        lbCoins.setText("x" + Settings.monedasTotal);
+        lbCoins.setText("x" + Settings.totalCoins);
     }
 
     @Override
@@ -157,5 +157,10 @@ public class ShopScreen extends Screens {
             return true;
         }
         return super.keyUp(keycode);
+    }
+
+    @Override
+    public void hide() {
+
     }
 }

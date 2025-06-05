@@ -17,138 +17,134 @@ import com.nopalsoft.ninjarunner.Settings;
 import com.nopalsoft.ninjarunner.game_objects.Player;
 import com.nopalsoft.ninjarunner.scene2d.AnimatedSpriteActor;
 
-import java.util.Iterator;
-
 public class PersonajesSubMenu {
 
-    final int PRECIO_NINJA = 1000;
+    final int PRICE_NINJA = 1000;
 
     boolean didBuyNinja;
 
-    Label lbPrecioNinja;
+    Label labelNinjaPrice;
 
-    TextButton btSelectShanti, btBuyNinja;
-    Array<TextButton> arrBotones;
+    TextButton buttonSelectShanti, buttonBuyNinja;
+    Array<TextButton> arrayButtons;
 
-    Table contenedor;
-    I18NBundle idiomas;
+    Table container;
+    I18NBundle languages;
 
     String textBuy;
     String textSelect;
 
-    private final static Preferences pref = Gdx.app.getPreferences("com.tiar.shantirunner.shop");
+    private final static Preferences preferences = Gdx.app.getPreferences("com.tiar.shantirunner.shop");
 
-    public PersonajesSubMenu(Table contenedor, MainGame game) {
-        idiomas = game.languages;
-        this.contenedor = contenedor;
-        contenedor.clear();
-        // TODO QUITAR ESTO PARA BORRAR PREF
-        pref.clear();
-        pref.flush();
+    public PersonajesSubMenu(Table container, MainGame game) {
+        languages = game.languages;
+        this.container = container;
+        container.clear();
+        preferences.clear();
+        preferences.flush();
 
         loadPurchases();
 
-        textBuy = idiomas.get("buy");
-        textSelect = idiomas.get("select");
+        textBuy = languages.get("buy");
+        textSelect = languages.get("select");
 
         if (!didBuyNinja)
-            lbPrecioNinja = new Label(PRECIO_NINJA + "", Assets.labelStyleSmall);
+            labelNinjaPrice = new Label(PRICE_NINJA + "", Assets.labelStyleSmall);
 
-        inicializarBotones();
+        initializeButtons();
 
-        contenedor.defaults().expand().fill().padLeft(10).padRight(20).padBottom(10);
+        container.defaults().expand().fill().padLeft(10).padRight(20).padBottom(10);
 
-        contenedor.add(agregarPersonaje("Runner girl", null, Assets.girlRunAnimation, idiomas.get("bombDescription"), btSelectShanti)).row();
-        contenedor.add(agregarPersonaje("Runner Ninja", lbPrecioNinja, Assets.ninjaRunAnimation, idiomas.get("bombDescription"), btBuyNinja)).row();
+        container.add(addPlayer("Runner girl", null, Assets.girlRunAnimation, languages.get("bombDescription"), buttonSelectShanti)).row();
+        container.add(addPlayer("Runner Ninja", labelNinjaPrice, Assets.ninjaRunAnimation, languages.get("bombDescription"), buttonBuyNinja)).row();
     }
 
-    public Table agregarPersonaje(String titulo, Label lblPrecio, AnimationSprite imagen, String descripcion, TextButton boton) {
+    public Table addPlayer(String title, Label labelPrice, AnimationSprite image, String description, TextButton button) {
 
-        Image moneda = new Image(Assets.coinAnimation.getKeyFrame(0));
-        AnimatedSpriteActor imgPersonaje = new AnimatedSpriteActor(imagen);
+        Image coin = new Image(Assets.coinAnimation.getKeyFrame(0));
+        AnimatedSpriteActor imagePlayer = new AnimatedSpriteActor(image);
 
-        if (lblPrecio == null)
-            moneda.setVisible(false);
+        if (labelPrice == null)
+            coin.setVisible(false);
 
-        Table tbBarraTitulo = new Table();
-        tbBarraTitulo.add(new Label(titulo, Assets.labelStyleSmall)).expandX().left();
-        tbBarraTitulo.add(moneda).right().size(20);
-        tbBarraTitulo.add(lblPrecio).right().padRight(10);
+        Table tableTitleBar = new Table();
+        tableTitleBar.add(new Label(title, Assets.labelStyleSmall)).expandX().left();
+        tableTitleBar.add(coin).right().size(20);
+        tableTitleBar.add(labelPrice).right().padRight(10);
 
-        Table tbContent = new Table();
-        tbContent.setBackground(Assets.backgroundItemShop);
-        tbContent.pad(5);//El ninepatch le mete un padding por default
+        Table tableContent = new Table();
+        tableContent.setBackground(Assets.backgroundItemShop);
+        tableContent.pad(5); // Ninepatch adds padding by default.
 
-        tbContent.defaults().padLeft(20).padRight(20);
-        tbContent.add(tbBarraTitulo).expandX().fill().colspan(2);
-        tbContent.row();
+        tableContent.defaults().padLeft(20).padRight(20);
+        tableContent.add(tableTitleBar).expandX().fill().colspan(2);
+        tableContent.row();
 
-        tbContent.add(imgPersonaje).size(120, 99);
-        Label lblDescripcion = new Label(descripcion, Assets.labelStyleSmall);
+        tableContent.add(imagePlayer).size(120, 99);
+        Label lblDescripcion = new Label(description, Assets.labelStyleSmall);
         lblDescripcion.setWrap(true);
-        tbContent.add(lblDescripcion).expand().fill();
+        tableContent.add(lblDescripcion).expand().fill();
 
-        tbContent.row().colspan(2);
-        tbContent.add(boton).expandX().right().size(120, 45);
-        tbContent.row().colspan(2);
+        tableContent.row().colspan(2);
+        tableContent.add(button).expandX().right().size(120, 45);
+        tableContent.row().colspan(2);
 
-        tbContent.debugAll();
-        return tbContent;
+        tableContent.debugAll();
+        return tableContent;
     }
 
-    private void inicializarBotones() {
-        arrBotones = new Array<TextButton>();
+    private void initializeButtons() {
+        arrayButtons = new Array<>();
 
         // DEFAULT
-        btSelectShanti = new TextButton(textSelect, Assets.styleTextButtonPurchased);
-        if (Settings.skinSeleccionada == Player.TIPO_GIRL)
-            btSelectShanti.setVisible(false);
+        buttonSelectShanti = new TextButton(textSelect, Assets.styleTextButtonPurchased);
+        if (Settings.selectedSkin == Player.TIPO_GIRL)
+            buttonSelectShanti.setVisible(false);
 
-        btSelectShanti.addListener(new ClickListener() {
+        buttonSelectShanti.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Settings.skinSeleccionada = Player.TIPO_GIRL;
-                setSelected(btSelectShanti);
+                Settings.selectedSkin = Player.TIPO_GIRL;
+                setSelected(buttonSelectShanti);
             }
         });
 
         // SKIN_NINJA
         if (didBuyNinja)
-            btBuyNinja = new TextButton(textSelect, Assets.styleTextButtonPurchased);
+            buttonBuyNinja = new TextButton(textSelect, Assets.styleTextButtonPurchased);
         else
-            btBuyNinja = new TextButton(textBuy, Assets.styleTextButtonBuy);
+            buttonBuyNinja = new TextButton(textBuy, Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == Player.TIPO_NINJA)
-            btBuyNinja.setVisible(false);
+        if (Settings.selectedSkin == Player.TIPO_NINJA)
+            buttonBuyNinja.setVisible(false);
 
-        btBuyNinja.addListener(new ClickListener() {
+        buttonBuyNinja.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyNinja) {
-                    Settings.skinSeleccionada = Player.TIPO_NINJA;
-                    setSelected(btBuyNinja);
-                } else if (Settings.monedasTotal >= PRECIO_NINJA) {
-                    Settings.monedasTotal -= PRECIO_NINJA;
-                    setButtonStylePurchased(btBuyNinja);
-                    lbPrecioNinja.remove();
+                    Settings.selectedSkin = Player.TIPO_NINJA;
+                    setSelected(buttonBuyNinja);
+                } else if (Settings.totalCoins >= PRICE_NINJA) {
+                    Settings.totalCoins -= PRICE_NINJA;
+                    setButtonStylePurchased(buttonBuyNinja);
+                    labelNinjaPrice.remove();
                     didBuyNinja = true;
                 }
                 savePurchases();
             }
         });
 
-        arrBotones.add(btSelectShanti);
-        arrBotones.add(btBuyNinja);
+        arrayButtons.add(buttonSelectShanti);
+        arrayButtons.add(buttonBuyNinja);
     }
 
     private void loadPurchases() {
-        didBuyNinja = pref.getBoolean("didBuyNinja", false);
+        didBuyNinja = preferences.getBoolean("didBuyNinja", false);
     }
 
     private void savePurchases() {
-        pref.putBoolean("didBuyNinja", didBuyNinja);
-        pref.flush();
-        Settings.save();
+        preferences.putBoolean("didBuyNinja", didBuyNinja);
+        preferences.flush();
     }
 
     private void setButtonStylePurchased(TextButton boton) {
@@ -156,12 +152,11 @@ public class PersonajesSubMenu {
         boton.setText(textSelect);
     }
 
-    private void setSelected(TextButton boton) {
-        // Pongo todos visibles y al final el boton seleccionado en invisible
-        Iterator<TextButton> i = arrBotones.iterator();
-        while (i.hasNext()) {
-            i.next().setVisible(true);
+    private void setSelected(TextButton selectedButton) {
+        // I make all other buttons visible and at the end, the selected button invisible.
+        for (TextButton button : arrayButtons) {
+            button.setVisible(true);
         }
-        boton.setVisible(false);
+        selectedButton.setVisible(false);
     }
 }

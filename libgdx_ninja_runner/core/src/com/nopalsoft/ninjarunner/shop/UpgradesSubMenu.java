@@ -166,8 +166,8 @@ public class UpgradesSubMenu {
             public void clicked(InputEvent event, float x, float y) {
                 int levelActual = (Integer) btn.getUserObject();
 
-                if (Settings.monedasTotal >= calcularPrecio(levelActual)) {
-                    Settings.monedasTotal -= calcularPrecio(levelActual);
+                if (Settings.totalCoins >= calcularPrecio(levelActual)) {
+                    Settings.totalCoins -= calcularPrecio(levelActual);
 
                     if (btn == btUpgradeMagnet) {
                         Settings.LEVEL_MAGNET++;

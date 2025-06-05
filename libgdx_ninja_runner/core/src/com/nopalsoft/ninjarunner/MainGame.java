@@ -46,7 +46,7 @@ public class MainGame extends Game {
                 if (!arrPerson.contains(oPerson, false))// false para que compare por equals que ya sobreescribi
                     arrPerson.add(oPerson);
                 else {
-                    arrPerson.get(arrPerson.indexOf(oPerson, false)).updateDatos(oPerson.name, oPerson.score);
+                    arrPerson.get(arrPerson.indexOf(oPerson, false)).updateData(oPerson.name, oPerson.score);
                 }
             }
         }

@@ -15,71 +15,70 @@ import com.nopalsoft.ninjarunner.screens.Screens;
 
 public class LeaderboardScreen extends Screens {
 
-    Table tbMenu;
-    Button btLeaderboard, btFacebook, btInviteFriend;
-    Button btGoogle;
+    Table tableMenu;
+    Button buttonLeaderboard, buttonFacebook, buttonInviteFriend;
+    Button buttonGoogle;
 
     ScrollPane scroll;
-    Table contenedor;
+    Table tableContainer;
 
 
     public LeaderboardScreen(Game _game) {
         super(_game);
 
-        Label lbShop = new Label("Leaderboards", Assets.labelStyleLarge);
+        Label labelShop = new Label("Leaderboards", Assets.labelStyleLarge);
 
-        Table tbTitle = new Table();
-        tbTitle.setSize(400, 100);
-        tbTitle.setPosition(SCREEN_WIDTH / 2f - tbTitle.getWidth() / 2f, SCREEN_HEIGHT - tbTitle.getHeight());
-        tbTitle.setBackground(Assets.backgroundTitleShop);
-        tbTitle.padTop(20).padBottom(5);
-        // tbTitle.debugAll();
+        Table tableTitle = new Table();
+        tableTitle.setSize(400, 100);
+        tableTitle.setPosition(SCREEN_WIDTH / 2f - tableTitle.getWidth() / 2f, SCREEN_HEIGHT - tableTitle.getHeight());
+        tableTitle.setBackground(Assets.backgroundTitleShop);
+        tableTitle.padTop(20).padBottom(5);
 
-        tbTitle.row().colspan(2);
-        tbTitle.add(lbShop).expand();
-        tbTitle.row();
+        tableTitle.row().colspan(2);
+        tableTitle.add(labelShop).expand();
+        tableTitle.row();
 
-        Image imgGem = new Image(Assets.coinAnimation.getKeyFrame(0));
-        imgGem.setSize(20, 20);
+        Image imageCoin = new Image(Assets.coinAnimation.getKeyFrame(0));
+        imageCoin.setSize(20, 20);
 
 
-        initButtons();
+        initializeButtons();
 
-        tbMenu = new Table();
-        tbMenu.defaults().size(58).padBottom(8);
+        tableMenu = new Table();
+        tableMenu.defaults().size(58).padBottom(8);
 
-        tbMenu.row();
-        tbMenu.add(btLeaderboard);
+        tableMenu.row();
+        tableMenu.add(buttonLeaderboard);
 
-        tbMenu.row();
-        tbMenu.add(btFacebook);
+        tableMenu.row();
+        tableMenu.add(buttonFacebook);
 
-        tbMenu.row();
-        tbMenu.add(btGoogle);
+        tableMenu.row();
+        tableMenu.add(buttonGoogle);
 
-        tbMenu.row();
-        tbMenu.add(btInviteFriend);
+        tableMenu.row();
+        tableMenu.add(buttonInviteFriend);
 
 
         Table tbShop = new Table();
-        tbShop.setSize(SCREEN_WIDTH, SCREEN_HEIGHT - tbTitle.getHeight());
+        tbShop.setSize(SCREEN_WIDTH, SCREEN_HEIGHT - tableTitle.getHeight());
         tbShop.setBackground(Assets.backgroundShop);
         tbShop.pad(25, 5, 15, 5);
 
-        // Contenedor
-        contenedor = new Table();
-        contenedor.defaults().expand().fill().padLeft(10).padRight(20).padBottom(10);
+        // Container for the leaderboard
+        tableContainer = new Table();
+        tableContainer.defaults().expand().fill().padLeft(10).padRight(20).padBottom(10);
 
-        scroll = new ScrollPane(contenedor, new ScrollPaneStyle(null, null, null, null, null));
+        scroll = new ScrollPane(tableContainer, new ScrollPaneStyle(null, null, null, null, null));
         scroll.setFadeScrollBars(false);
-        scroll.setSize(SCREEN_WIDTH - tbMenu.getWidth(), 420);
-        scroll.setPosition(tbMenu.getWidth() + 1, 0);
+        scroll.setSize(SCREEN_WIDTH - tableMenu.getWidth(), 420);
+        scroll.setPosition(tableMenu.getWidth() + 1, 0);
         scroll.setVariableSizeKnobs(false);
 
-        tbShop.add(tbMenu).expandY().width(122);
+        tbShop.add(tableMenu).expandY().width(122);
         tbShop.add(scroll).expand().fill();
 
-        stage.addActor(tbTitle);
+        stage.addActor(tableTitle);
         stage.addActor(tbShop);
 
 
@@ -87,17 +86,17 @@ public class LeaderboardScreen extends Screens {
             updateLeaderboard();
 
 
-        btLeaderboard.setChecked(true);
+        buttonLeaderboard.setChecked(true);
     }
 
-    void initButtons() {
-        btLeaderboard = new Button(Assets.buttonShop, Assets.buttonShopPress, Assets.buttonShopPress);
-        btFacebook = new Button(Assets.buttonFacebook, Assets.buttonFacebookPress, Assets.buttonFacebookPress);
-        btGoogle = new Button(Assets.buttonAchievement, Assets.buttonAchievementPress, Assets.buttonLeaderBoardPress);
-        btInviteFriend = new Button(Assets.buttonSettings, Assets.buttonSettingsPress, Assets.buttonLeaderBoardPress);
+    void initializeButtons() {
+        buttonLeaderboard = new Button(Assets.buttonShop, Assets.buttonShopPress, Assets.buttonShopPress);
+        buttonFacebook = new Button(Assets.buttonFacebook, Assets.buttonFacebookPress, Assets.buttonFacebookPress);
+        buttonGoogle = new Button(Assets.buttonAchievement, Assets.buttonAchievementPress, Assets.buttonLeaderBoardPress);
+        buttonInviteFriend = new Button(Assets.buttonSettings, Assets.buttonSettingsPress, Assets.buttonLeaderBoardPress);
 
         ButtonGroup<Button> radioGroup = new ButtonGroup<>();
-        radioGroup.add(btLeaderboard, btFacebook, btGoogle, btInviteFriend);
+        radioGroup.add(buttonLeaderboard, buttonFacebook, buttonGoogle, buttonInviteFriend);
     }
 
     @Override
@@ -120,11 +119,16 @@ public class LeaderboardScreen extends Screens {
     }
 
     public void updateLeaderboard() {
-        contenedor.clear();
+        tableContainer.clear();
         for (Person persona : game.arrPerson) {
             LeaderBoardFrame frame = new LeaderBoardFrame(persona);
-            contenedor.add(frame).expandX().fill();
-            contenedor.row();
+            tableContainer.add(frame).expandX().fill();
+            tableContainer.row();
         }
+    }
+
+    @Override
+    public void hide() {
+
     }
 }

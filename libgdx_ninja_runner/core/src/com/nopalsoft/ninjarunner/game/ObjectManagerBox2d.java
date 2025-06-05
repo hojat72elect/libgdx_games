@@ -112,7 +112,7 @@ public class ObjectManagerBox2d {
     }
 
     public void crearMascota(float x, float y) {
-        gameWorld.oMascot = new Mascot(x, y, Settings.skinMascotaSeleccionada);
+        gameWorld.oMascot = new Mascot(x, y, Settings.selectedMascot);
 
         BodyDef bd = new BodyDef();
         bd.position.set(x, y);

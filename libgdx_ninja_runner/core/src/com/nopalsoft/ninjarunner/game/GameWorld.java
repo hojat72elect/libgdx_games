@@ -74,7 +74,7 @@ public class GameWorld {
 
         timeToSpawnMissile = 0;
 
-        physicsManager.createStandingHero(2f, 1f, Settings.skinSeleccionada);
+        physicsManager.createStandingHero(2f, 1f, Settings.selectedSkin);
         physicsManager.crearMascota(player.position.x - 1, player.position.y + .75f);
 
         mundoCreadoHastaX = physicsManager.crearPlataforma(0, 0, 3);
