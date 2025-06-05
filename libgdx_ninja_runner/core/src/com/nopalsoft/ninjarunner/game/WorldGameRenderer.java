@@ -6,22 +6,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.nopalsoft.ninjarunner.AnimationSprite;
 import com.nopalsoft.ninjarunner.Assets;
-import com.nopalsoft.ninjarunner.objetos.Item;
-import com.nopalsoft.ninjarunner.objetos.ItemCandyBean;
-import com.nopalsoft.ninjarunner.objetos.ItemCandyCorn;
-import com.nopalsoft.ninjarunner.objetos.ItemCandyJelly;
-import com.nopalsoft.ninjarunner.objetos.ItemEnergy;
-import com.nopalsoft.ninjarunner.objetos.ItemHearth;
-import com.nopalsoft.ninjarunner.objetos.ItemMagnet;
-import com.nopalsoft.ninjarunner.objetos.ItemMoneda;
-import com.nopalsoft.ninjarunner.objetos.Mascot;
-import com.nopalsoft.ninjarunner.objetos.Missil;
-import com.nopalsoft.ninjarunner.objetos.Obstaculo;
-import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas4;
-import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas7;
-import com.nopalsoft.ninjarunner.objetos.Pared;
-import com.nopalsoft.ninjarunner.objetos.Plataforma;
-import com.nopalsoft.ninjarunner.objetos.Player;
+import com.nopalsoft.ninjarunner.game_objects.Item;
+import com.nopalsoft.ninjarunner.game_objects.ItemCandyBean;
+import com.nopalsoft.ninjarunner.game_objects.ItemCandyCorn;
+import com.nopalsoft.ninjarunner.game_objects.ItemCandyJelly;
+import com.nopalsoft.ninjarunner.game_objects.ItemCoin;
+import com.nopalsoft.ninjarunner.game_objects.ItemEnergy;
+import com.nopalsoft.ninjarunner.game_objects.ItemHeart;
+import com.nopalsoft.ninjarunner.game_objects.ItemMagnet;
+import com.nopalsoft.ninjarunner.game_objects.Mascot;
+import com.nopalsoft.ninjarunner.game_objects.Missile;
+import com.nopalsoft.ninjarunner.game_objects.Obstacle;
+import com.nopalsoft.ninjarunner.game_objects.ObstacleCajas4;
+import com.nopalsoft.ninjarunner.game_objects.ObstacleCajas7;
+import com.nopalsoft.ninjarunner.game_objects.Pared;
+import com.nopalsoft.ninjarunner.game_objects.Plataforma;
+import com.nopalsoft.ninjarunner.game_objects.Player;
 import com.nopalsoft.ninjarunner.screens.Screens;
 
 import java.util.Iterator;
@@ -86,14 +86,14 @@ public class WorldGameRenderer {
 
             Sprite spriteFrame = null;
 
-            if (obj.state == ItemMoneda.STATE_NORMAL) {
-                if (obj instanceof ItemMoneda) {
+            if (obj.state == ItemCoin.STATE_NORMAL) {
+                if (obj instanceof ItemCoin) {
                     spriteFrame = Assets.coinAnimation.getKeyFrame(obj.stateTime, true);
                 } else if (obj instanceof ItemMagnet) {
                     spriteFrame = Assets.magnet;
                 } else if (obj instanceof ItemEnergy) {
                     spriteFrame = Assets.energy;
-                } else if (obj instanceof ItemHearth) {
+                } else if (obj instanceof ItemHeart) {
                     spriteFrame = Assets.hearth;
                 } else if (obj instanceof ItemCandyJelly) {
                     spriteFrame = Assets.jellyRed;
@@ -174,22 +174,22 @@ public class WorldGameRenderer {
     }
 
     private void renderObstaculos(float delta) {
-        Iterator<Obstaculo> i = gameWorld.arrObstaculos.iterator();
+        Iterator<Obstacle> i = gameWorld.arrObstaculos.iterator();
         while (i.hasNext()) {
-            Obstaculo obj = i.next();
+            Obstacle obj = i.next();
 
-            if (obj.state == Obstaculo.STATE_NORMAL) {
+            if (obj.state == Obstacle.STATE_NORMAL) {
 
                 float width, height;
                 Sprite spriteFrame;
 
-                if (obj instanceof ObstaculoCajas4) {
-                    width = ObstaculoCajas4.DRAW_WIDTH;
-                    height = ObstaculoCajas4.DRAW_HEIGHT;
+                if (obj instanceof ObstacleCajas4) {
+                    width = ObstacleCajas4.DRAW_WIDTH;
+                    height = ObstacleCajas4.DRAW_HEIGHT;
                     spriteFrame = Assets.boxes4Sprite;
                 } else {
-                    width = ObstaculoCajas7.DRAW_WIDTH;
-                    height = ObstaculoCajas7.DRAW_HEIGHT;
+                    width = ObstacleCajas7.DRAW_WIDTH;
+                    height = ObstacleCajas7.DRAW_HEIGHT;
                     spriteFrame = Assets.boxes7Sprite;
                 }
                 spriteFrame.setPosition(obj.position.x - width / 2f, obj.position.y - height / 2f);
@@ -203,18 +203,18 @@ public class WorldGameRenderer {
     }
 
     private void renderMissil(float delta) {
-        Iterator<Missil> i = gameWorld.arrMissiles.iterator();
+        Iterator<Missile> i = gameWorld.arrMissiles.iterator();
         while (i.hasNext()) {
-            Missil obj = i.next();
+            Missile obj = i.next();
 
             Sprite spriteFrame;
             float width, height;
 
-            if (obj.state == Missil.STATE_NORMAL) {
-                width = Missil.WIDTH;
-                height = Missil.HEIGHT;
+            if (obj.state == Missile.STATE_NORMAL) {
+                width = Missile.WIDTH;
+                height = Missile.HEIGHT;
                 spriteFrame = Assets.missileAnimation.getKeyFrame(obj.stateTime, true);
-            } else if (obj.state == Missil.STATE_EXPLODE) {
+            } else if (obj.state == Missile.STATE_EXPLODE) {
                 width = 1f;
                 height = .84f;
                 spriteFrame = Assets.explosionAnimation.getKeyFrame(obj.stateTime, false);

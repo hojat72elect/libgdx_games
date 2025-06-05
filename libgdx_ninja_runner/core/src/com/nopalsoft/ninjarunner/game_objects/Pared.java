@@ -1,20 +1,20 @@
-package com.nopalsoft.ninjarunner.objetos;
+package com.nopalsoft.ninjarunner.game_objects;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-public class Plataforma implements Poolable {
+public class Pared implements Poolable {
     public final static int STATE_NORMAL = 0;
     public final static int STATE_DESTROY = 1;
     public int state;
 
-    public final static float HEIGHT = .50f;
-    public final static float WIDTH = 1.64f;
+    public static final float WIDTH = .98f;
+    public static final float HEIGHT = 4.30f;
 
     public final Vector2 position;
     public float stateTime;
 
-    public Plataforma() {
+    public Pared() {
         position = new Vector2();
     }
 

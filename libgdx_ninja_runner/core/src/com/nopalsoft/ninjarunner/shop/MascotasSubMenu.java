@@ -16,7 +16,7 @@ import com.nopalsoft.ninjarunner.AnimationSprite;
 import com.nopalsoft.ninjarunner.Assets;
 import com.nopalsoft.ninjarunner.MainGame;
 import com.nopalsoft.ninjarunner.Settings;
-import com.nopalsoft.ninjarunner.objetos.Mascot;
+import com.nopalsoft.ninjarunner.game_objects.Mascot;
 import com.nopalsoft.ninjarunner.scene2d.AnimatedSpriteActor;
 
 import java.util.Iterator;

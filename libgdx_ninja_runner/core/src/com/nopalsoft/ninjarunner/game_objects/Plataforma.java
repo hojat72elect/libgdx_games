@@ -1,21 +1,20 @@
-package com.nopalsoft.ninjarunner.objetos;
+package com.nopalsoft.ninjarunner.game_objects;
 
-import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool.Poolable;
-import com.nopalsoft.ninjarunner.Assets;
 
-public class Obstaculo implements Poolable {
+public class Plataforma implements Poolable {
     public final static int STATE_NORMAL = 0;
     public final static int STATE_DESTROY = 1;
     public int state;
 
+    public final static float HEIGHT = .50f;
+    public final static float WIDTH = 1.64f;
+
     public final Vector2 position;
     public float stateTime;
 
-    public PooledEffect effect;
-
-    public Obstaculo() {
+    public Plataforma() {
         position = new Vector2();
     }
 
@@ -33,8 +32,6 @@ public class Obstaculo implements Poolable {
         if (state == STATE_NORMAL) {
             state = STATE_DESTROY;
             stateTime = 0;
-            effect = Assets.boxesEffectPool.obtain();
-            effect.setPosition(position.x, position.y);
         }
     }
 

@@ -1,4 +1,4 @@
-package com.nopalsoft.ninjarunner.objetos;
+package com.nopalsoft.ninjarunner.game_objects;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 import com.nopalsoft.ninjarunner.Assets;
 
 
-public class Missil implements Poolable, Comparable<Missil> {
+public class Missile implements Poolable, Comparable<Missile> {
     public final static int STATE_NORMAL = 0;
     public final static int STATE_EXPLODE = 1;
     public final static int STATE_DESTROY = 2;
@@ -17,13 +17,13 @@ public class Missil implements Poolable, Comparable<Missil> {
     public static final float WIDTH = 1.27f;
     public static final float HEIGHT = .44f;
 
-    public static final float VELOCIDAD_X = -2.5f;
+    public static final float SPEED_X = -2.5f;
 
     public final Vector2 position;
     public float stateTime;
-    public float distanceFromPersonaje;
+    public float distanceFromPlayer;
 
-    public Missil() {
+    public Missile() {
         position = new Vector2();
     }
 
@@ -46,7 +46,7 @@ public class Missil implements Poolable, Comparable<Missil> {
             }
         }
 
-        distanceFromPersonaje = oPlayer.position.dst(position);
+        distanceFromPlayer = oPlayer.position.dst(position);
         stateTime += delta;
     }
 
@@ -69,10 +69,10 @@ public class Missil implements Poolable, Comparable<Missil> {
     }
 
     @Override
-    public int compareTo(Missil o2) {
-        if (distanceFromPersonaje > o2.distanceFromPersonaje)
+    public int compareTo(Missile o2) {
+        if (distanceFromPlayer > o2.distanceFromPlayer)
             return 1;
-        else if (distanceFromPersonaje < o2.distanceFromPersonaje)
+        else if (distanceFromPlayer < o2.distanceFromPlayer)
             return -1;
         else
             return 0;

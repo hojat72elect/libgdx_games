@@ -11,14 +11,14 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Pools;
 import com.nopalsoft.ninjarunner.Settings;
-import com.nopalsoft.ninjarunner.objetos.Item;
-import com.nopalsoft.ninjarunner.objetos.Mascot;
-import com.nopalsoft.ninjarunner.objetos.Missil;
-import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas4;
-import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas7;
-import com.nopalsoft.ninjarunner.objetos.Pared;
-import com.nopalsoft.ninjarunner.objetos.Plataforma;
-import com.nopalsoft.ninjarunner.objetos.Player;
+import com.nopalsoft.ninjarunner.game_objects.Item;
+import com.nopalsoft.ninjarunner.game_objects.Mascot;
+import com.nopalsoft.ninjarunner.game_objects.Missile;
+import com.nopalsoft.ninjarunner.game_objects.ObstacleCajas4;
+import com.nopalsoft.ninjarunner.game_objects.ObstacleCajas7;
+import com.nopalsoft.ninjarunner.game_objects.Pared;
+import com.nopalsoft.ninjarunner.game_objects.Plataforma;
+import com.nopalsoft.ninjarunner.game_objects.Player;
 
 
 public class ObjectManagerBox2d {
@@ -165,9 +165,9 @@ public class ObjectManagerBox2d {
      * Regresa la posicion de la orilla derecha de la caja en X
      */
     public float crearCaja4(float x, float y) {
-        ObstaculoCajas4 obj = Pools.obtain(ObstaculoCajas4.class);
+        ObstacleCajas4 obj = Pools.obtain(ObstacleCajas4.class);
 
-        x += ObstaculoCajas4.DRAW_WIDTH / 2f;
+        x += ObstacleCajas4.DRAW_WIDTH / 2f;
 
         obj.init(x, y);
 
@@ -196,13 +196,13 @@ public class ObjectManagerBox2d {
 
         shape.dispose();
 
-        return x + ObstaculoCajas4.DRAW_WIDTH / 2f;
+        return x + ObstacleCajas4.DRAW_WIDTH / 2f;
     }
 
     public float crearCaja7(float x, float y) {
-        ObstaculoCajas7 obj = Pools.obtain(ObstaculoCajas7.class);
+        ObstacleCajas7 obj = Pools.obtain(ObstacleCajas7.class);
 
-        x += ObstaculoCajas7.DRAW_WIDTH / 2f;
+        x += ObstacleCajas7.DRAW_WIDTH / 2f;
 
         obj.init(x, y);
 
@@ -231,7 +231,7 @@ public class ObjectManagerBox2d {
 
         shape.dispose();
 
-        return x + ObstaculoCajas7.DRAW_WIDTH / 2f;
+        return x + ObstacleCajas7.DRAW_WIDTH / 2f;
     }
 
     /**
@@ -309,7 +309,7 @@ public class ObjectManagerBox2d {
     }
 
     public void crearMissil(float x, float y) {
-        Missil obj = Pools.obtain(Missil.class);
+        Missile obj = Pools.obtain(Missile.class);
         obj.init(x, y);
 
         BodyDef bd = new BodyDef();
@@ -319,7 +319,7 @@ public class ObjectManagerBox2d {
         Body body = worldBox.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(Missil.WIDTH / 2f, Missil.HEIGHT / 2f);
+        shape.setAsBox(Missile.WIDTH / 2f, Missile.HEIGHT / 2f);
 
         FixtureDef fixutre = new FixtureDef();
         fixutre.shape = shape;
@@ -327,7 +327,7 @@ public class ObjectManagerBox2d {
 
         body.createFixture(fixutre);
         body.setUserData(obj);
-        body.setLinearVelocity(Missil.VELOCIDAD_X, 0);
+        body.setLinearVelocity(Missile.SPEED_X, 0);
         gameWorld.arrMissiles.add(obj);
 
         shape.dispose();

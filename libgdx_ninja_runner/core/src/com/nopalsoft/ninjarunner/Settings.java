@@ -2,8 +2,8 @@ package com.nopalsoft.ninjarunner;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.nopalsoft.ninjarunner.objetos.Mascot;
-import com.nopalsoft.ninjarunner.objetos.Player;
+import com.nopalsoft.ninjarunner.game_objects.Mascot;
+import com.nopalsoft.ninjarunner.game_objects.Player;
 
 /**
  * Created by Yayo on 1/21/15.

@@ -13,22 +13,22 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pools;
 import com.nopalsoft.ninjarunner.Assets;
 import com.nopalsoft.ninjarunner.Settings;
-import com.nopalsoft.ninjarunner.objetos.Item;
-import com.nopalsoft.ninjarunner.objetos.ItemCandyBean;
-import com.nopalsoft.ninjarunner.objetos.ItemCandyCorn;
-import com.nopalsoft.ninjarunner.objetos.ItemCandyJelly;
-import com.nopalsoft.ninjarunner.objetos.ItemEnergy;
-import com.nopalsoft.ninjarunner.objetos.ItemHearth;
-import com.nopalsoft.ninjarunner.objetos.ItemMagnet;
-import com.nopalsoft.ninjarunner.objetos.ItemMoneda;
-import com.nopalsoft.ninjarunner.objetos.Mascot;
-import com.nopalsoft.ninjarunner.objetos.Missil;
-import com.nopalsoft.ninjarunner.objetos.Obstaculo;
-import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas4;
-import com.nopalsoft.ninjarunner.objetos.ObstaculoCajas7;
-import com.nopalsoft.ninjarunner.objetos.Pared;
-import com.nopalsoft.ninjarunner.objetos.Plataforma;
-import com.nopalsoft.ninjarunner.objetos.Player;
+import com.nopalsoft.ninjarunner.game_objects.Item;
+import com.nopalsoft.ninjarunner.game_objects.ItemCandyBean;
+import com.nopalsoft.ninjarunner.game_objects.ItemCandyCorn;
+import com.nopalsoft.ninjarunner.game_objects.ItemCandyJelly;
+import com.nopalsoft.ninjarunner.game_objects.ItemCoin;
+import com.nopalsoft.ninjarunner.game_objects.ItemEnergy;
+import com.nopalsoft.ninjarunner.game_objects.ItemHeart;
+import com.nopalsoft.ninjarunner.game_objects.ItemMagnet;
+import com.nopalsoft.ninjarunner.game_objects.Mascot;
+import com.nopalsoft.ninjarunner.game_objects.Missile;
+import com.nopalsoft.ninjarunner.game_objects.Obstacle;
+import com.nopalsoft.ninjarunner.game_objects.ObstacleCajas4;
+import com.nopalsoft.ninjarunner.game_objects.ObstacleCajas7;
+import com.nopalsoft.ninjarunner.game_objects.Pared;
+import com.nopalsoft.ninjarunner.game_objects.Plataforma;
+import com.nopalsoft.ninjarunner.game_objects.Player;
 
 import java.util.Iterator;
 
@@ -48,8 +48,8 @@ public class GameWorld {
     Array<Plataforma> arrPlataformas;
     Array<Pared> arrPared;
     Array<Item> arrItems;
-    Array<Obstaculo> arrObstaculos;
-    Array<Missil> arrMissiles;
+    Array<Obstacle> arrObstaculos;
+    Array<Missile> arrMissiles;
 
     /**
      * Variable que indica hasta donde se ha ido creando el mundo
@@ -69,8 +69,8 @@ public class GameWorld {
         arrPlataformas = new Array<Plataforma>();
         arrItems = new Array<Item>();
         arrPared = new Array<Pared>();
-        arrObstaculos = new Array<Obstaculo>();
-        arrMissiles = new Array<Missil>();
+        arrObstaculos = new Array<Obstacle>();
+        arrMissiles = new Array<Missile>();
 
         timeToSpawnMissile = 0;
 
@@ -149,8 +149,8 @@ public class GameWorld {
 
         if (MathUtils.randomBoolean(.3f)) {
             for (int i = 0; i < 5; i++) {
-                physicsManager.crearItem(ItemMoneda.class, xAux, y + 1.5f);
-                xAux = physicsManager.crearItem(ItemMoneda.class, xAux, y + 1f);
+                physicsManager.crearItem(ItemCoin.class, xAux, y + 1.5f);
+                xAux = physicsManager.crearItem(ItemCoin.class, xAux, y + 1f);
             }
         } else if (MathUtils.randomBoolean(.5f)) {
 
@@ -170,7 +170,7 @@ public class GameWorld {
 
         if (MathUtils.randomBoolean(.025f)) {
 
-            xAux = physicsManager.crearItem(ItemHearth.class, xAux, y + 1.5f);
+            xAux = physicsManager.crearItem(ItemHeart.class, xAux, y + 1.5f);
             xAux = physicsManager.crearItem(ItemEnergy.class, xAux, y + 1.5f);
         } else if (MathUtils.randomBoolean(.025f)) {
 
@@ -201,9 +201,9 @@ public class GameWorld {
                 updatePared(delta, body);
             } else if (body.getUserData() instanceof Item) {
                 updateItem(delta, body);
-            } else if (body.getUserData() instanceof Obstaculo) {
+            } else if (body.getUserData() instanceof Obstacle) {
                 updateObstaculos(delta, body);
-            } else if (body.getUserData() instanceof Missil) {
+            } else if (body.getUserData() instanceof Missile) {
                 updateMissil(delta, body);
             }
         }
@@ -246,24 +246,24 @@ public class GameWorld {
                     Pools.free(obj);
                     world.destroyBody(body);
                 }
-            } else if (body.getUserData() instanceof ObstaculoCajas4 obj) {
+            } else if (body.getUserData() instanceof ObstacleCajas4 obj) {
 
-                if (obj.state == ObstaculoCajas4.STATE_DESTROY && obj.effect.isComplete()) {
+                if (obj.state == ObstacleCajas4.STATE_DESTROY && obj.effect.isComplete()) {
                     obj.effect.free();
                     arrObstaculos.removeValue(obj, true);
                     Pools.free(obj);
                     world.destroyBody(body);
                 }
-            } else if (body.getUserData() instanceof ObstaculoCajas7 obj) {
+            } else if (body.getUserData() instanceof ObstacleCajas7 obj) {
 
-                if (obj.state == ObstaculoCajas7.STATE_DESTROY && obj.effect.isComplete()) {
+                if (obj.state == ObstacleCajas7.STATE_DESTROY && obj.effect.isComplete()) {
                     obj.effect.free();
                     arrObstaculos.removeValue(obj, true);
                     Pools.free(obj);
                     world.destroyBody(body);
                 }
-            } else if (body.getUserData() instanceof Missil obj) {
-                if (obj.state == Missil.STATE_DESTROY) {
+            } else if (body.getUserData() instanceof Missile obj) {
+                if (obj.state == Missile.STATE_DESTROY) {
                     arrMissiles.removeValue(obj, true);
                     Pools.free(obj);
                     world.destroyBody(body);
@@ -297,10 +297,10 @@ public class GameWorld {
         float targetPositionY = player.position.y + .25f;
 
         if (oMascot.mascotType == Mascot.MascotType.BOMB) {
-            Missil oMissil = getNextClosesMissil();
-            if (oMissil != null && oMissil.distanceFromPersonaje < 5f && oMissil.state == Missil.STATE_NORMAL) {
-                targetPositionX = oMissil.position.x;
-                targetPositionY = oMissil.position.y;
+            Missile oMissile = getNextClosesMissil();
+            if (oMissile != null && oMissile.distanceFromPlayer < 5f && oMissile.state == Missile.STATE_NORMAL) {
+                targetPositionX = oMissile.position.x;
+                targetPositionY = oMissile.position.y;
             }
         } else {
             if (player.isDash) {
@@ -335,7 +335,7 @@ public class GameWorld {
     }
 
     private void updateObstaculos(float delta, Body body) {
-        Obstaculo obj = (Obstaculo) body.getUserData();
+        Obstacle obj = (Obstacle) body.getUserData();
         obj.update(delta);
 
         if (obj.position.x < player.position.x - 3)
@@ -343,7 +343,7 @@ public class GameWorld {
     }
 
     private void updateMissil(float delta, Body body) {
-        Missil obj = (Missil) body.getUserData();
+        Missile obj = (Missile) body.getUserData();
         obj.update(delta, body, player);
 
         if (obj.position.x < player.position.x - 3)
@@ -355,9 +355,9 @@ public class GameWorld {
     /**
      * Regresa el misil mas cercano al personaje que este en estado normal
      */
-    private Missil getNextClosesMissil() {
+    private Missile getNextClosesMissil() {
         for (int i = 0; i < arrMissiles.size; i++) {
-            if (arrMissiles.get(i).state == Missil.STATE_NORMAL)
+            if (arrMissiles.get(i).state == Missile.STATE_NORMAL)
                 return arrMissiles.get(i);
         }
         return null;
@@ -397,7 +397,7 @@ public class GameWorld {
                 }
             } else if (oOtraCosa instanceof Item obj) {
                 if (obj.state == Item.STATE_NORMAL) {
-                    if (obj instanceof ItemMoneda) {
+                    if (obj instanceof ItemCoin) {
                         monedasTomadas++;
                         puntuacion++;
                         Assets.playSound(Assets.coinSound, 1);
@@ -405,7 +405,7 @@ public class GameWorld {
                         player.setPickUpMagnet();
                     } else if (obj instanceof ItemEnergy) {
                         // oPersonaje.shield++;
-                    } else if (obj instanceof ItemHearth) {
+                    } else if (obj instanceof ItemHeart) {
                         player.vidas++;
                     } else if (obj instanceof ItemCandyJelly) {
                         Assets.playSound(Assets.candySound, 1);
@@ -424,13 +424,13 @@ public class GameWorld {
                 if (obj.state == Pared.STATE_NORMAL) {
                     player.getDizzy();
                 }
-            } else if (oOtraCosa instanceof Obstaculo obj) {
-                if (obj.state == Obstaculo.STATE_NORMAL) {
+            } else if (oOtraCosa instanceof Obstacle obj) {
+                if (obj.state == Obstacle.STATE_NORMAL) {
                     obj.setDestroy();
                     player.getHurt();
                 }
-            } else if (oOtraCosa instanceof Missil obj) {
-                if (obj.state == Obstaculo.STATE_NORMAL) {
+            } else if (oOtraCosa instanceof Missile obj) {
+                if (obj.state == Obstacle.STATE_NORMAL) {
                     obj.setHitTarget();
                     player.getDizzy();
                 }
@@ -442,16 +442,16 @@ public class GameWorld {
 
             if (oOtraCosa instanceof Pared obj && player.isDash) {
                 obj.setDestroy();
-            } else if (oOtraCosa instanceof Obstaculo obj && player.isDash) {
+            } else if (oOtraCosa instanceof Obstacle obj && player.isDash) {
                 obj.setDestroy();
-            } else if (oOtraCosa instanceof ItemMoneda obj) {
-                if (obj.state == ItemMoneda.STATE_NORMAL) {
+            } else if (oOtraCosa instanceof ItemCoin obj) {
+                if (obj.state == ItemCoin.STATE_NORMAL) {
                     obj.setPicked();
                     monedasTomadas++;
                     Assets.playSound(Assets.coinSound, 1);
                 }
-            } else if (oOtraCosa instanceof Missil obj) {
-                if (obj.state == Obstaculo.STATE_NORMAL) {
+            } else if (oOtraCosa instanceof Missile obj) {
+                if (obj.state == Obstacle.STATE_NORMAL) {
                     obj.setHitTarget();
                 }
             }

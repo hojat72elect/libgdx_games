@@ -1,11 +1,11 @@
-package com.nopalsoft.ninjarunner.objetos;
+package com.nopalsoft.ninjarunner.game_objects;
 
-public class ItemMoneda extends Item {
+public class ItemCoin extends Item {
 
     private static final float _WIDTH = .35f;
     private static final float _HEIGHT = .45f;
 
-    public ItemMoneda() {
+    public ItemCoin() {
         super(_WIDTH, _HEIGHT);
     }
 }
