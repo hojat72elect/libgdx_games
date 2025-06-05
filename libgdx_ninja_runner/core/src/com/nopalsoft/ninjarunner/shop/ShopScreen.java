@@ -111,7 +111,7 @@ public class ShopScreen extends Screens {
         btMascota.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                new MascotasSubMenu(contenedor, game);
+                new MascotsSubMenu(contenedor, game);
             }
         });
 

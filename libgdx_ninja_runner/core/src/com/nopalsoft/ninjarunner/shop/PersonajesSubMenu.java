@@ -39,7 +39,7 @@ public class PersonajesSubMenu {
     private final static Preferences pref = Gdx.app.getPreferences("com.tiar.shantirunner.shop");
 
     public PersonajesSubMenu(Table contenedor, MainGame game) {
-        idiomas = game.idiomas;
+        idiomas = game.languages;
         this.contenedor = contenedor;
         contenedor.clear();
         // TODO QUITAR ESTO PARA BORRAR PREF

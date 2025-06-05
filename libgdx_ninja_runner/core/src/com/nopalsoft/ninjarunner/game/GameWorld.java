@@ -24,11 +24,11 @@ import com.nopalsoft.ninjarunner.game_objects.ItemMagnet;
 import com.nopalsoft.ninjarunner.game_objects.Mascot;
 import com.nopalsoft.ninjarunner.game_objects.Missile;
 import com.nopalsoft.ninjarunner.game_objects.Obstacle;
-import com.nopalsoft.ninjarunner.game_objects.ObstacleCajas4;
-import com.nopalsoft.ninjarunner.game_objects.ObstacleCajas7;
-import com.nopalsoft.ninjarunner.game_objects.Pared;
-import com.nopalsoft.ninjarunner.game_objects.Plataforma;
+import com.nopalsoft.ninjarunner.game_objects.ObstacleBoxes4;
+import com.nopalsoft.ninjarunner.game_objects.ObstacleBoxes7;
+import com.nopalsoft.ninjarunner.game_objects.Platform;
 import com.nopalsoft.ninjarunner.game_objects.Player;
+import com.nopalsoft.ninjarunner.game_objects.Wall;
 
 import java.util.Iterator;
 
@@ -45,8 +45,8 @@ public class GameWorld {
     public Mascot oMascot;
 
     Array<Body> arrBodies;
-    Array<Plataforma> arrPlataformas;
-    Array<Pared> arrPared;
+    Array<Platform> arrPlataformas;
+    Array<Wall> arrPared;
     Array<Item> arrItems;
     Array<Obstacle> arrObstaculos;
     Array<Missile> arrMissiles;
@@ -66,9 +66,9 @@ public class GameWorld {
         physicsManager = new ObjectManagerBox2d(this);
 
         arrBodies = new Array<Body>();
-        arrPlataformas = new Array<Plataforma>();
+        arrPlataformas = new Array<Platform>();
         arrItems = new Array<Item>();
-        arrPared = new Array<Pared>();
+        arrPared = new Array<Wall>();
         arrObstaculos = new Array<Obstacle>();
         arrMissiles = new Array<Missile>();
 
@@ -195,9 +195,9 @@ public class GameWorld {
                 updatePersonaje(delta, body, didJump, isJumpPressed, dash, didSlide);
             } else if (body.getUserData() instanceof Mascot) {
                 updateMascota(delta, body);
-            } else if (body.getUserData() instanceof Plataforma) {
+            } else if (body.getUserData() instanceof Platform) {
                 updatePlataforma(delta, body);
-            } else if (body.getUserData() instanceof Pared) {
+            } else if (body.getUserData() instanceof Wall) {
                 updatePared(delta, body);
             } else if (body.getUserData() instanceof Item) {
                 updateItem(delta, body);
@@ -228,14 +228,14 @@ public class GameWorld {
         while (i.hasNext()) {
             Body body = i.next();
 
-            if (body.getUserData() instanceof Plataforma obj) {
-                if (obj.state == Plataforma.STATE_DESTROY) {
+            if (body.getUserData() instanceof Platform obj) {
+                if (obj.state == Platform.STATE_DESTROY) {
                     arrPlataformas.removeValue(obj, true);
                     Pools.free(obj);
                     world.destroyBody(body);
                 }
-            } else if (body.getUserData() instanceof Pared obj) {
-                if (obj.state == Pared.STATE_DESTROY) {
+            } else if (body.getUserData() instanceof Wall obj) {
+                if (obj.state == Wall.STATE_DESTROY) {
                     arrPared.removeValue(obj, true);
                     Pools.free(obj);
                     world.destroyBody(body);
@@ -246,17 +246,17 @@ public class GameWorld {
                     Pools.free(obj);
                     world.destroyBody(body);
                 }
-            } else if (body.getUserData() instanceof ObstacleCajas4 obj) {
+            } else if (body.getUserData() instanceof ObstacleBoxes4 obj) {
 
-                if (obj.state == ObstacleCajas4.STATE_DESTROY && obj.effect.isComplete()) {
+                if (obj.state == ObstacleBoxes4.STATE_DESTROY && obj.effect.isComplete()) {
                     obj.effect.free();
                     arrObstaculos.removeValue(obj, true);
                     Pools.free(obj);
                     world.destroyBody(body);
                 }
-            } else if (body.getUserData() instanceof ObstacleCajas7 obj) {
+            } else if (body.getUserData() instanceof ObstacleBoxes7 obj) {
 
-                if (obj.state == ObstacleCajas7.STATE_DESTROY && obj.effect.isComplete()) {
+                if (obj.state == ObstacleBoxes7.STATE_DESTROY && obj.effect.isComplete()) {
                     obj.effect.free();
                     arrObstaculos.removeValue(obj, true);
                     Pools.free(obj);
@@ -313,14 +313,14 @@ public class GameWorld {
     }
 
     private void updatePlataforma(float delta, Body body) {
-        Plataforma obj = (Plataforma) body.getUserData();
+        Platform obj = (Platform) body.getUserData();
 
         if (obj.position.x < player.position.x - 3)
             obj.setDestroy();
     }
 
     private void updatePared(float delta, Body body) {
-        Pared obj = (Pared) body.getUserData();
+        Wall obj = (Wall) body.getUserData();
 
         if (obj.position.x < player.position.x - 3)
             obj.setDestroy();
@@ -388,7 +388,7 @@ public class GameWorld {
         private void beginContactHeroOtraCosa(Fixture fixHero, Fixture otraCosa) {
             Object oOtraCosa = otraCosa.getBody().getUserData();
 
-            if (oOtraCosa instanceof Plataforma) {
+            if (oOtraCosa instanceof Platform) {
                 if (fixHero.getUserData().equals("pies")) {
                     if (recreateFixture)
                         recreateFixture = false;
@@ -420,8 +420,8 @@ public class GameWorld {
 
                     obj.setPicked();
                 }
-            } else if (oOtraCosa instanceof Pared obj) {
-                if (obj.state == Pared.STATE_NORMAL) {
+            } else if (oOtraCosa instanceof Wall obj) {
+                if (obj.state == Wall.STATE_NORMAL) {
                     player.getDizzy();
                 }
             } else if (oOtraCosa instanceof Obstacle obj) {
@@ -440,7 +440,7 @@ public class GameWorld {
         public void beginContactMascotaOtraCosa(Fixture fixMascota, Fixture otraCosa) {
             Object oOtraCosa = otraCosa.getBody().getUserData();
 
-            if (oOtraCosa instanceof Pared obj && player.isDash) {
+            if (oOtraCosa instanceof Wall obj && player.isDash) {
                 obj.setDestroy();
             } else if (oOtraCosa instanceof Obstacle obj && player.isDash) {
                 obj.setDestroy();
@@ -474,7 +474,7 @@ public class GameWorld {
         private void endContactHeroOtraCosa(Fixture fixHero, Fixture otraCosa) {
             Object oOtraCosa = otraCosa.getBody().getUserData();
 
-            if (oOtraCosa instanceof Plataforma) {
+            if (oOtraCosa instanceof Platform) {
                 if (fixHero.getUserData().equals("pies"))
                     player.endTouchFloor();
             }
@@ -494,10 +494,10 @@ public class GameWorld {
         private void preSolveHero(Fixture fixHero, Fixture otraCosa, Contact contact) {
             Object oOtraCosa = otraCosa.getBody().getUserData();
 
-            if (oOtraCosa instanceof Plataforma obj) {
+            if (oOtraCosa instanceof Platform obj) {
 
                 float ponyY = fixHero.getBody().getPosition().y - .30f;
-                float pisY = obj.position.y + Plataforma.HEIGHT / 2f;
+                float pisY = obj.position.y + Platform.HEIGHT / 2f;
 
                 if (ponyY < pisY)
                     contact.setEnabled(false);

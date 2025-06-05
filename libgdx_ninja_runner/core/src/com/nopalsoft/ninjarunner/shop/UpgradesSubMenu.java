@@ -46,7 +46,7 @@ public class UpgradesSubMenu {
 
     public UpgradesSubMenu(Table contenedor, MainGame game) {
         this.contenedor = contenedor;
-        idiomas = game.idiomas;
+        idiomas = game.languages;
         contenedor.clear();
 
         arrMagnet = new Image[MAX_LEVEL];

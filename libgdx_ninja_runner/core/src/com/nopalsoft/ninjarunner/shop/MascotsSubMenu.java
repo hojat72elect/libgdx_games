@@ -21,70 +21,70 @@ import com.nopalsoft.ninjarunner.scene2d.AnimatedSpriteActor;
 
 import java.util.Iterator;
 
-public class MascotasSubMenu {
+public class MascotsSubMenu {
 
-    final int PRECIO_BOMB = 5000;
+    final int BOMB_PRICE = 5000;
 
     boolean didBuyBomb;
 
-    Label lblPrecioBird, lblPrecioBomb;
+    Label labelBirdPrice, labelBombPrice;
 
-    TextButton btBuySelectBird, btBuyBomb;
-    Array<TextButton> arrBotones;
+    TextButton buttonBird, buttonBomb;
+    Array<TextButton> arrayButtons;
 
     public final int MAX_LEVEL = 6;
-    final int PRECIO_NIVEL_1 = 350;
-    final int PRECIO_NIVEL_2 = 1000;
-    final int PRECIO_NIVEL_3 = 3000;
-    final int PRECIO_NIVEL_4 = 4500;
-    final int PRECIO_NIVEL_5 = 5000;
-    final int PRECIO_NIVEL_6 = 7500;
+    final int PRICE_LEVEL_1 = 350;
+    final int PRICE_LEVEL_2 = 1000;
+    final int PRICE_LEVEL_3 = 3000;
+    final int PRICE_LEVEL_4 = 4500;
+    final int PRICE_LEVEL_5 = 5000;
+    final int PRICE_LEVEL_6 = 7500;
 
-    Button btUpgradeBird, btUpgradeBomb;
+    Button buttonUpgradeBird, buttonUpgradeBomb;
 
-    Image[] arrBird;
-    Image[] arrBomb;
+    Image[] arrayBird;
+    Image[] arrayBomb;
 
-    Table contenedor;
-    I18NBundle idiomas;
+    Table container;
+    I18NBundle languages;
 
     String textBuy;
     String textSelect;
 
-    private final static Preferences pref = Gdx.app.getPreferences("com.tiar.shantirunner.shop");
+    private final static Preferences preferences = Gdx.app.getPreferences("com.tiar.shantirunner.shop");
 
-    public MascotasSubMenu(Table contenedor, MainGame game) {
-        idiomas = game.idiomas;
-        this.contenedor = contenedor;
-        contenedor.clear();
+    public MascotsSubMenu(Table container, MainGame game) {
+        languages = game.languages;
+        this.container = container;
+        container.clear();
 
         loadPurchases();
 
-        textBuy = idiomas.get("buy");
-        textSelect = idiomas.get("select");
+        textBuy = languages.get("buy");
+        textSelect = languages.get("select");
 
-        arrBird = new Image[MAX_LEVEL];
-        arrBomb = new Image[MAX_LEVEL];
+        arrayBird = new Image[MAX_LEVEL];
+        arrayBomb = new Image[MAX_LEVEL];
 
         if (Settings.LEVEL_MASCOTA_BIRD < MAX_LEVEL) {
-            lblPrecioBird = new Label(calcularPrecio(Settings.LEVEL_MASCOTA_BIRD) + "", Assets.labelStyleSmall);
+            labelBirdPrice = new Label(calcularPrecio(Settings.LEVEL_MASCOTA_BIRD) + "", Assets.labelStyleSmall);
         }
 
         if (!didBuyBomb) {
-            lblPrecioBomb = new Label(PRECIO_BOMB + "", Assets.labelStyleSmall);
+            labelBombPrice = new Label(BOMB_PRICE + "", Assets.labelStyleSmall);
         } else if (Settings.LEVEL_MASCOTA_BOMB < MAX_LEVEL) {
-            lblPrecioBomb = new Label(calcularPrecio(Settings.LEVEL_MASCOTA_BOMB) + "", Assets.labelStyleSmall);
+            labelBombPrice = new Label(calcularPrecio(Settings.LEVEL_MASCOTA_BOMB) + "", Assets.labelStyleSmall);
         }
 
         inicializarBotones();
 
-        contenedor.defaults().expand().fill().padLeft(10).padRight(20).padBottom(10);
+        container.defaults().expand().fill().padLeft(10).padRight(20).padBottom(10);
 
-        contenedor.add(
-                agregarMascota("Chicken", lblPrecioBird, Assets.mascotBirdFlyAnimation, 60, 54, idiomas.get("pinkChikenDescription"), btBuySelectBird, arrBird,
-                        btUpgradeBird)).row();
-        contenedor.add(
-                        agregarMascota("Bomb", lblPrecioBomb, Assets.mascotBombFlyAnimation, 53, 64, idiomas.get("bombDescription"), btBuyBomb, arrBomb, btUpgradeBomb))
+        container.add(
+                agregarMascota("Chicken", labelBirdPrice, Assets.mascotBirdFlyAnimation, 60, 54, languages.get("pinkChikenDescription"), buttonBird, arrayBird,
+                        buttonUpgradeBird)).row();
+        container.add(
+                        agregarMascota("Bomb", labelBombPrice, Assets.mascotBombFlyAnimation, 53, 64, languages.get("bombDescription"), buttonBomb, arrayBomb, buttonUpgradeBomb))
                 .row();
 
         setArrays();
@@ -136,32 +136,32 @@ public class MascotasSubMenu {
     }
 
     private void inicializarBotones() {
-        arrBotones = new Array<TextButton>();
+        arrayButtons = new Array<TextButton>();
 
         {// DEFAULT
             {// BUY
-                btBuySelectBird = new TextButton(textSelect, Assets.styleTextButtonPurchased);
+                buttonBird = new TextButton(textSelect, Assets.styleTextButtonPurchased);
                 if (Settings.skinMascotaSeleccionada == Mascot.MascotType.PINK_BIRD)
-                    btBuySelectBird.setVisible(false);
-                btBuySelectBird.addListener(new ClickListener() {
+                    buttonBird.setVisible(false);
+                buttonBird.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         Settings.skinMascotaSeleccionada = Mascot.MascotType.PINK_BIRD;
-                        setSelected(btBuySelectBird);
+                        setSelected(buttonBird);
                     }
                 });
             }
             {// UPGRADE
-                btUpgradeBird = new Button(Assets.styleButtonUpgrade);
+                buttonUpgradeBird = new Button(Assets.styleButtonUpgrade);
                 if (Settings.LEVEL_MASCOTA_BIRD == MAX_LEVEL)
-                    btUpgradeBird.setVisible(false);
-                btUpgradeBird.addListener(new ClickListener() {
+                    buttonUpgradeBird.setVisible(false);
+                buttonUpgradeBird.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         if (Settings.monedasTotal >= calcularPrecio(Settings.LEVEL_MASCOTA_BIRD)) {
                             Settings.monedasTotal -= calcularPrecio(Settings.LEVEL_MASCOTA_BIRD);
                             Settings.LEVEL_MASCOTA_BIRD++;
-                            updateLabelPriceAndButton(Settings.LEVEL_MASCOTA_BIRD, lblPrecioBird, btUpgradeBird);
+                            updateLabelPriceAndButton(Settings.LEVEL_MASCOTA_BIRD, labelBirdPrice, buttonUpgradeBird);
                             setArrays();
                         }
                     }
@@ -172,41 +172,41 @@ public class MascotasSubMenu {
         {// MASCOTA BOM{
             {// BUY
                 if (didBuyBomb)
-                    btBuyBomb = new TextButton(textSelect, Assets.styleTextButtonPurchased);
+                    buttonBomb = new TextButton(textSelect, Assets.styleTextButtonPurchased);
                 else
-                    btBuyBomb = new TextButton(textBuy, Assets.styleTextButtonBuy);
+                    buttonBomb = new TextButton(textBuy, Assets.styleTextButtonBuy);
 
                 if (Settings.skinMascotaSeleccionada == Mascot.MascotType.BOMB)
-                    btBuyBomb.setVisible(false);
+                    buttonBomb.setVisible(false);
 
-                btBuyBomb.addListener(new ClickListener() {
+                buttonBomb.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         if (didBuyBomb) {
                             Settings.skinMascotaSeleccionada = Mascot.MascotType.BOMB;
-                            setSelected(btBuyBomb);
-                        } else if (Settings.monedasTotal >= PRECIO_BOMB) {
-                            Settings.monedasTotal -= PRECIO_BOMB;
-                            setButtonStylePurchased(btBuyBomb);
+                            setSelected(buttonBomb);
+                        } else if (Settings.monedasTotal >= BOMB_PRICE) {
+                            Settings.monedasTotal -= BOMB_PRICE;
+                            setButtonStylePurchased(buttonBomb);
                             didBuyBomb = true;
-                            btUpgradeBomb.setVisible(true);
-                            updateLabelPriceAndButton(Settings.LEVEL_MASCOTA_BOMB, lblPrecioBomb, btUpgradeBomb);
+                            buttonUpgradeBomb.setVisible(true);
+                            updateLabelPriceAndButton(Settings.LEVEL_MASCOTA_BOMB, labelBombPrice, buttonUpgradeBomb);
                         }
                         savePurchases();
                     }
                 });
             }
             {// UPGRADE
-                btUpgradeBomb = new Button(Assets.styleButtonUpgrade);
+                buttonUpgradeBomb = new Button(Assets.styleButtonUpgrade);
                 if (Settings.LEVEL_MASCOTA_BOMB == MAX_LEVEL || !didBuyBomb)
-                    btUpgradeBomb.setVisible(false);
-                btUpgradeBomb.addListener(new ClickListener() {
+                    buttonUpgradeBomb.setVisible(false);
+                buttonUpgradeBomb.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         if (Settings.monedasTotal >= calcularPrecio(Settings.LEVEL_MASCOTA_BOMB)) {
                             Settings.monedasTotal -= calcularPrecio(Settings.LEVEL_MASCOTA_BOMB);
                             Settings.LEVEL_MASCOTA_BOMB++;
-                            updateLabelPriceAndButton(Settings.LEVEL_MASCOTA_BOMB, lblPrecioBomb, btUpgradeBomb);
+                            updateLabelPriceAndButton(Settings.LEVEL_MASCOTA_BOMB, labelBombPrice, buttonUpgradeBomb);
                             setArrays();
                         }
                     }
@@ -214,17 +214,17 @@ public class MascotasSubMenu {
             }
         }
 
-        arrBotones.add(btBuySelectBird);
-        arrBotones.add(btBuyBomb);
+        arrayButtons.add(buttonBird);
+        arrayButtons.add(buttonBomb);
     }
 
     private void loadPurchases() {
-        didBuyBomb = pref.getBoolean("didBuyBomb", false);
+        didBuyBomb = preferences.getBoolean("didBuyBomb", false);
     }
 
     private void savePurchases() {
-        pref.putBoolean("didBuyBomb", didBuyBomb);
-        pref.flush();
+        preferences.putBoolean("didBuyBomb", didBuyBomb);
+        preferences.flush();
         Settings.save();
     }
 
@@ -235,7 +235,7 @@ public class MascotasSubMenu {
 
     private void setSelected(TextButton boton) {
         // Pongo todos visibles y al final el boton seleccionado en invisible
-        Iterator<TextButton> i = arrBotones.iterator();
+        Iterator<TextButton> i = arrayButtons.iterator();
         while (i.hasNext()) {
             i.next().setVisible(true);
         }
@@ -245,22 +245,22 @@ public class MascotasSubMenu {
     private int calcularPrecio(int nivel) {
         switch (nivel) {
             case 0:
-                return PRECIO_NIVEL_1;
+                return PRICE_LEVEL_1;
 
             case 1:
-                return PRECIO_NIVEL_2;
+                return PRICE_LEVEL_2;
 
             case 2:
-                return PRECIO_NIVEL_3;
+                return PRICE_LEVEL_3;
 
             case 3:
-                return PRECIO_NIVEL_4;
+                return PRICE_LEVEL_4;
 
             case 4:
-                return PRECIO_NIVEL_5;
+                return PRICE_LEVEL_5;
             default:
             case 5:
-                return PRECIO_NIVEL_6;
+                return PRICE_LEVEL_6;
         }
     }
 
@@ -275,11 +275,11 @@ public class MascotasSubMenu {
 
     private void setArrays() {
         for (int i = 0; i < Settings.LEVEL_MASCOTA_BIRD; i++) {
-            arrBird[i].setDrawable(new TextureRegionDrawable(Assets.buttonShare));
+            arrayBird[i].setDrawable(new TextureRegionDrawable(Assets.buttonShare));
         }
 
         for (int i = 0; i < Settings.LEVEL_MASCOTA_BOMB; i++) {
-            arrBomb[i].setDrawable(new TextureRegionDrawable(Assets.buttonShare));
+            arrayBomb[i].setDrawable(new TextureRegionDrawable(Assets.buttonShare));
         }
     }
 }

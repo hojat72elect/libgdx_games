@@ -14,11 +14,11 @@ import com.nopalsoft.ninjarunner.Settings;
 import com.nopalsoft.ninjarunner.game_objects.Item;
 import com.nopalsoft.ninjarunner.game_objects.Mascot;
 import com.nopalsoft.ninjarunner.game_objects.Missile;
-import com.nopalsoft.ninjarunner.game_objects.ObstacleCajas4;
-import com.nopalsoft.ninjarunner.game_objects.ObstacleCajas7;
-import com.nopalsoft.ninjarunner.game_objects.Pared;
-import com.nopalsoft.ninjarunner.game_objects.Plataforma;
+import com.nopalsoft.ninjarunner.game_objects.ObstacleBoxes4;
+import com.nopalsoft.ninjarunner.game_objects.ObstacleBoxes7;
+import com.nopalsoft.ninjarunner.game_objects.Platform;
 import com.nopalsoft.ninjarunner.game_objects.Player;
+import com.nopalsoft.ninjarunner.game_objects.Wall;
 
 
 public class ObjectManagerBox2d {
@@ -165,9 +165,9 @@ public class ObjectManagerBox2d {
      * Regresa la posicion de la orilla derecha de la caja en X
      */
     public float crearCaja4(float x, float y) {
-        ObstacleCajas4 obj = Pools.obtain(ObstacleCajas4.class);
+        ObstacleBoxes4 obj = Pools.obtain(ObstacleBoxes4.class);
 
-        x += ObstacleCajas4.DRAW_WIDTH / 2f;
+        x += ObstacleBoxes4.DRAW_WIDTH / 2f;
 
         obj.init(x, y);
 
@@ -196,13 +196,13 @@ public class ObjectManagerBox2d {
 
         shape.dispose();
 
-        return x + ObstacleCajas4.DRAW_WIDTH / 2f;
+        return x + ObstacleBoxes4.DRAW_WIDTH / 2f;
     }
 
     public float crearCaja7(float x, float y) {
-        ObstacleCajas7 obj = Pools.obtain(ObstacleCajas7.class);
+        ObstacleBoxes7 obj = Pools.obtain(ObstacleBoxes7.class);
 
-        x += ObstacleCajas7.DRAW_WIDTH / 2f;
+        x += ObstacleBoxes7.DRAW_WIDTH / 2f;
 
         obj.init(x, y);
 
@@ -231,7 +231,7 @@ public class ObjectManagerBox2d {
 
         shape.dispose();
 
-        return x + ObstacleCajas7.DRAW_WIDTH / 2f;
+        return x + ObstacleBoxes7.DRAW_WIDTH / 2f;
     }
 
     /**
@@ -242,20 +242,20 @@ public class ObjectManagerBox2d {
      */
     public float crearPlataforma(float x, float y, int numPlats) {
 
-        float yCenter = Plataforma.HEIGHT / 2f + y;
+        float yCenter = Platform.HEIGHT / 2f + y;
 
         float xInicio = x;
-        Plataforma oPlat = null;
+        Platform oPlat = null;
         for (int i = 0; i < numPlats; i++) {
-            oPlat = Pools.obtain(Plataforma.class);
-            x += Plataforma.WIDTH / 2f;
+            oPlat = Pools.obtain(Platform.class);
+            x += Platform.WIDTH / 2f;
             oPlat.init(x, yCenter);
             gameWorld.arrPlataformas.add(oPlat);
             // Le resto el -.01 para que quede un pixel a la izquiera y no aparesca la linea cuando dos plataformas estan pegadas
-            x += Plataforma.WIDTH / 2f - .01f;
+            x += Platform.WIDTH / 2f - .01f;
         }
 
-        xInicio += Plataforma.WIDTH / 2f * numPlats - (.005f * numPlats);
+        xInicio += Platform.WIDTH / 2f * numPlats - (.005f * numPlats);
 
         // AQUI TENGO QUE AJUSTAR LA POSICION EN X DE LA PLATAFORMA para que no overlapee a las anteriores
 
@@ -266,7 +266,7 @@ public class ObjectManagerBox2d {
         Body body = worldBox.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(Plataforma.WIDTH / 2f * numPlats - (.005f * numPlats), Plataforma.HEIGHT / 2f);
+        shape.setAsBox(Platform.WIDTH / 2f * numPlats - (.005f * numPlats), Platform.HEIGHT / 2f);
 
         FixtureDef fixutre = new FixtureDef();
         fixutre.shape = shape;
@@ -277,13 +277,13 @@ public class ObjectManagerBox2d {
 
         shape.dispose();
 
-        return xInicio + Plataforma.WIDTH * numPlats / 2f;
+        return xInicio + Platform.WIDTH * numPlats / 2f;
     }
 
     public float crearPared(float x, float y) {
-        Pared oPard = Pools.obtain(Pared.class);
+        Wall oPard = Pools.obtain(Wall.class);
 
-        x += Pared.WIDTH / 2f;
+        x += Wall.WIDTH / 2f;
         oPard.init(x, y);
 
         BodyDef bd = new BodyDef();
@@ -293,7 +293,7 @@ public class ObjectManagerBox2d {
         Body body = worldBox.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(Pared.WIDTH / 2f, Pared.HEIGHT / 2f);
+        shape.setAsBox(Wall.WIDTH / 2f, Wall.HEIGHT / 2f);
 
         FixtureDef fixutre = new FixtureDef();
         fixutre.shape = shape;
@@ -305,7 +305,7 @@ public class ObjectManagerBox2d {
 
         shape.dispose();
 
-        return x + Pared.WIDTH / 2f;
+        return x + Wall.WIDTH / 2f;
     }
 
     public void crearMissil(float x, float y) {

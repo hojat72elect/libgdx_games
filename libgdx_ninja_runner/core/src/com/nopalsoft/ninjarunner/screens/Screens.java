@@ -43,7 +43,7 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
         this.game = (MainGame) _game;
         this.stage = game.stage;
         this.stage.clear();
-        this.batcher = game.batcher;
+        this.batcher = game.batch;
 
 
         oCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);

@@ -17,11 +17,11 @@ import com.nopalsoft.ninjarunner.game_objects.ItemMagnet;
 import com.nopalsoft.ninjarunner.game_objects.Mascot;
 import com.nopalsoft.ninjarunner.game_objects.Missile;
 import com.nopalsoft.ninjarunner.game_objects.Obstacle;
-import com.nopalsoft.ninjarunner.game_objects.ObstacleCajas4;
-import com.nopalsoft.ninjarunner.game_objects.ObstacleCajas7;
-import com.nopalsoft.ninjarunner.game_objects.Pared;
-import com.nopalsoft.ninjarunner.game_objects.Plataforma;
+import com.nopalsoft.ninjarunner.game_objects.ObstacleBoxes4;
+import com.nopalsoft.ninjarunner.game_objects.ObstacleBoxes7;
+import com.nopalsoft.ninjarunner.game_objects.Platform;
 import com.nopalsoft.ninjarunner.game_objects.Player;
+import com.nopalsoft.ninjarunner.game_objects.Wall;
 import com.nopalsoft.ninjarunner.screens.Screens;
 
 import java.util.Iterator;
@@ -122,16 +122,16 @@ public class WorldGameRenderer {
 
     private void renderPlataformas() {
 
-        Iterator<Plataforma> i = gameWorld.arrPlataformas.iterator();
+        Iterator<Platform> i = gameWorld.arrPlataformas.iterator();
         while (i.hasNext()) {
-            Plataforma obj = i.next();
+            Platform obj = i.next();
 
             Sprite spriteFrame;
 
             spriteFrame = Assets.platform;
 
-            spriteFrame.setPosition(obj.position.x - Plataforma.WIDTH / 2f, obj.position.y - Plataforma.HEIGHT / 2f);
-            spriteFrame.setSize(Plataforma.WIDTH, Plataforma.HEIGHT);
+            spriteFrame.setPosition(obj.position.x - Platform.WIDTH / 2f, obj.position.y - Platform.HEIGHT / 2f);
+            spriteFrame.setSize(Platform.WIDTH, Platform.HEIGHT);
             spriteFrame.draw(batch);
         }
     }
@@ -162,13 +162,13 @@ public class WorldGameRenderer {
 
     private void renderPared() {
 
-        Iterator<Pared> i = gameWorld.arrPared.iterator();
+        Iterator<Wall> i = gameWorld.arrPared.iterator();
         while (i.hasNext()) {
-            Pared obj = i.next();
+            Wall obj = i.next();
 
             Sprite spriteFrame = Assets.wall;
-            spriteFrame.setPosition(obj.position.x - Pared.WIDTH / 2f, obj.position.y - Pared.HEIGHT / 2f);
-            spriteFrame.setSize(Pared.WIDTH, Pared.HEIGHT);
+            spriteFrame.setPosition(obj.position.x - Wall.WIDTH / 2f, obj.position.y - Wall.HEIGHT / 2f);
+            spriteFrame.setSize(Wall.WIDTH, Wall.HEIGHT);
             spriteFrame.draw(batch);
         }
     }
@@ -183,13 +183,13 @@ public class WorldGameRenderer {
                 float width, height;
                 Sprite spriteFrame;
 
-                if (obj instanceof ObstacleCajas4) {
-                    width = ObstacleCajas4.DRAW_WIDTH;
-                    height = ObstacleCajas4.DRAW_HEIGHT;
+                if (obj instanceof ObstacleBoxes4) {
+                    width = ObstacleBoxes4.DRAW_WIDTH;
+                    height = ObstacleBoxes4.DRAW_HEIGHT;
                     spriteFrame = Assets.boxes4Sprite;
                 } else {
-                    width = ObstacleCajas7.DRAW_WIDTH;
-                    height = ObstacleCajas7.DRAW_HEIGHT;
+                    width = ObstacleBoxes7.DRAW_WIDTH;
+                    height = ObstacleBoxes7.DRAW_HEIGHT;
                     spriteFrame = Assets.boxes7Sprite;
                 }
                 spriteFrame.setPosition(obj.position.x - width / 2f, obj.position.y - height / 2f);

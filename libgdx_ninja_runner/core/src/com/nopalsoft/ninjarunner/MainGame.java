@@ -19,8 +19,8 @@ public class MainGame extends Game {
     public final RequestHandler reqHandler;
 
     public Stage stage;
-    public SpriteBatch batcher;
-    public I18NBundle idiomas;
+    public SpriteBatch batch;
+    public I18NBundle languages;
 
     public MainGame(RequestHandler reqHandler) {
         this.reqHandler = reqHandler;
@@ -28,8 +28,8 @@ public class MainGame extends Game {
 
     @Override
     public void create() {
-        idiomas = I18NBundle.createBundle(Gdx.files.internal("strings/strings"));
-        batcher = new SpriteBatch();
+        languages = I18NBundle.createBundle(Gdx.files.internal("strings/strings"));
+        batch = new SpriteBatch();
         stage = new Stage(new StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT));
 
         Settings.load();
@@ -51,13 +51,16 @@ public class MainGame extends Game {
             }
         }
 
-        for (Person oPerson : arrPerson) {
-            //Antes lo tenia en el constructor de la clase persona pero lo que pasaba era que, Cada vez que se creaba
-            // el objeto persona ya fuera en la clase de Android, iOS o desktop siempre descargaba las imagenes otra vez
-            //Por ejemplo se descargaban todas las imagenes de _arrPerson aunque ya existieran en arrPerson
-            oPerson.downloadImage(null);
+        for (Person person : arrPerson) {
+
+            /*
+             * Previously I had it in the constructor of the person class but what happened was that, every time the person object was created
+             * whether in the Android, iOS or desktop class it always downloaded the images again.
+             * For example all the images from _arrPerson were downloaded even if they already existed in arrPerson.
+             * */
+            person.downloadImage(null);
         }
 
-        arrPerson.sort();// Acomoda de mayor a menor
+        arrPerson.sort(); // Arrange from largest to smallest
     }
 }

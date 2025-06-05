@@ -18,7 +18,7 @@ public class AnimationSprite {
     public final float frameDuration;
     public final float animationDuration;
 
-    private PlayMode playMode = PlayMode.NORMAL;
+    private PlayMode playMode;
 
     /**
      * Constructor, storing the frame duration and key frames.

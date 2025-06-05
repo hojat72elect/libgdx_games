@@ -3,7 +3,7 @@ package com.nopalsoft.ninjarunner.game_objects;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-public class Pared implements Poolable {
+public class Wall implements Poolable {
     public final static int STATE_NORMAL = 0;
     public final static int STATE_DESTROY = 1;
     public int state;
@@ -14,7 +14,7 @@ public class Pared implements Poolable {
     public final Vector2 position;
     public float stateTime;
 
-    public Pared() {
+    public Wall() {
         position = new Vector2();
     }
 
