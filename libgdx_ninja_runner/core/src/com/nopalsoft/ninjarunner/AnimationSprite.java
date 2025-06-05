@@ -3,7 +3,6 @@ package com.nopalsoft.ninjarunner;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Array;
 
 public class AnimationSprite {
 
@@ -19,42 +18,6 @@ public class AnimationSprite {
     public final float animationDuration;
 
     private PlayMode playMode;
-
-    /**
-     * Constructor, storing the frame duration and key frames.
-     *
-     * @param frameDuration the time between frames in seconds.
-     * @param keyFrames     the {@link TextureRegion}s representing the frames.
-     */
-    public AnimationSprite(float frameDuration, Array<? extends Sprite> keyFrames) {
-        this.frameDuration = frameDuration;
-        this.animationDuration = keyFrames.size * frameDuration;
-        this.spriteFrames = new Sprite[keyFrames.size];
-        for (int i = 0, n = keyFrames.size; i < n; i++) {
-            this.spriteFrames[i] = keyFrames.get(i);
-        }
-
-        this.playMode = PlayMode.NORMAL;
-    }
-
-    /**
-     * Constructor, storing the frame duration, key frames and play type.
-     *
-     * @param frameDuration the time between frames in seconds.
-     * @param keyFrames     the {@link TextureRegion}s representing the frames.
-     * @param playMode      the animation playback mode.
-     */
-    public AnimationSprite(float frameDuration, Array<? extends Sprite> keyFrames, PlayMode playMode) {
-
-        this.frameDuration = frameDuration;
-        this.animationDuration = keyFrames.size * frameDuration;
-        this.spriteFrames = new Sprite[keyFrames.size];
-        for (int i = 0, n = keyFrames.size; i < n; i++) {
-            this.spriteFrames[i] = keyFrames.get(i);
-        }
-
-        this.playMode = playMode;
-    }
 
     /**
      * Constructor, storing the frame duration and key frames.
@@ -100,9 +63,8 @@ public class AnimationSprite {
 
     /**
      * Returns a {@link TextureRegion} based on the so called state time. This is the amount of seconds an object has spent in the state this Animation instance
-     * represents, e.g. running, jumping and so on using the mode specified by {@link #setPlayMode(com.tiar.shantirunner.AnimationSprite.PlayMode)} method.
+     * represents, e.g. running, jumping and so on using the mode specified by {setPlayMode(com.tiar.shantirunner.AnimationSprite.PlayMode)} method.
      *
-     * @param stateTime
      * @return the TextureRegion representing the frame of animation for the given state time.
      */
     public Sprite getKeyFrame(float stateTime) {
@@ -113,7 +75,6 @@ public class AnimationSprite {
     /**
      * Returns the current frame number.
      *
-     * @param stateTime
      * @return current frame number
      */
     public int getKeyFrameIndex(float stateTime) {
@@ -146,41 +107,5 @@ public class AnimationSprite {
         }
 
         return frameNumber;
-    }
-
-    /**
-     * Returns the keyFrames[] array where all the TextureRegions of the animation are stored.
-     *
-     * @return keyFrames[] field
-     */
-    public TextureRegion[] getKeyFrames() {
-        return spriteFrames;
-    }
-
-    /**
-     * Returns the animation play mode.
-     */
-    public PlayMode getPlayMode() {
-        return playMode;
-    }
-
-    /**
-     * Sets the animation play mode.
-     *
-     * @param playMode The animation {@link com.tiar.shantirunner.AnimationSprite.PlayMode} to use.
-     */
-    public void setPlayMode(PlayMode playMode) {
-        this.playMode = playMode;
-    }
-
-    /**
-     * Whether the animation would be finished if played without looping (PlayMode#NORMAL), given the state time.
-     *
-     * @param stateTime
-     * @return whether the animation is finished.
-     */
-    public boolean isAnimationFinished(float stateTime) {
-        int frameNumber = (int) (stateTime / frameDuration);
-        return spriteFrames.length - 1 < frameNumber;
     }
 }
