@@ -25,17 +25,17 @@ public class MenuUI extends Group {
     GameWorld oWorld;
     Image titulo;
 
-    Table tbMenu;
+    Table tableMenu;
 
-    Button btPlay;
-    Button btShop, btLeaderboard, btAchievements, btSettings, btRate, btShare;
+    Button buttonPlay;
+    Button buttonShop, buttonLeaderboard, buttonAchievements, buttonSettings, buttonRate, buttonShare;
 
     boolean showMainMenu;
 
-    public MenuUI(final GameScreen gameScreen, GameWorld oWorld) {
+    public MenuUI(final GameScreen gameScreen, GameWorld gameWorld) {
         setBounds(0, 0, Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
         this.gameScreen = gameScreen;
-        this.oWorld = oWorld;
+        this.oWorld = gameWorld;
 
         init();
     }
@@ -45,51 +45,50 @@ public class MenuUI extends Group {
         titulo.setScale(1f);
         titulo.setPosition(getWidth() / 2f - titulo.getWidth() * titulo.getScaleX() / 2f, Screens.SCREEN_HEIGHT + titulo.getHeight());
 
-        tbMenu = new Table();
-        tbMenu.setSize(122, getHeight());
-        tbMenu.setBackground(Assets.backgroundMenu);
+        tableMenu = new Table();
+        tableMenu.setSize(122, getHeight());
+        tableMenu.setBackground(Assets.backgroundMenu);
 
         initButtons();
 
-        tbMenu.pad(25, 20, 10, 0);
-        tbMenu.defaults().size(80).padBottom(15);
-        // tbMenu.debugAll();
+        tableMenu.pad(25, 20, 10, 0);
+        tableMenu.defaults().size(80).padBottom(15);
 
-        tbMenu.row().colspan(2);
-        tbMenu.add(btShop);
+        tableMenu.row().colspan(2);
+        tableMenu.add(buttonShop);
 
-        tbMenu.row().colspan(2);
-        tbMenu.add(btLeaderboard);
+        tableMenu.row().colspan(2);
+        tableMenu.add(buttonLeaderboard);
 
-        tbMenu.row().colspan(2);
-        tbMenu.add(btAchievements);
+        tableMenu.row().colspan(2);
+        tableMenu.add(buttonAchievements);
 
-        tbMenu.row().colspan(2);
-        tbMenu.add(btSettings);
+        tableMenu.row().colspan(2);
+        tableMenu.add(buttonSettings);
 
-        tbMenu.row().size(40).padRight(5).padLeft(5);
-        tbMenu.add(btRate);
-        tbMenu.add(btShare);
+        tableMenu.row().size(40).padRight(5).padLeft(5);
+        tableMenu.add(buttonRate);
+        tableMenu.add(buttonShare);
 
-        tbMenu.setPosition(Screens.SCREEN_WIDTH + tbMenu.getWidth(), 0);
+        tableMenu.setPosition(Screens.SCREEN_WIDTH + tableMenu.getWidth(), 0);
 
-        addActor(tbMenu);
-        addActor(btPlay);
+        addActor(tableMenu);
+        addActor(buttonPlay);
     }
 
     void initButtons() {
 
-        btShop = new Button(Assets.buttonShop, Assets.buttonShopPress);
-        btLeaderboard = new Button(Assets.buttonLeaderboard, Assets.buttonLeaderBoardPress);
-        btAchievements = new Button(Assets.buttonAchievement, Assets.buttonAchievementPress);
-        btSettings = new Button(Assets.buttonSettings, Assets.buttonSettingsPress);
-        btRate = new Button(Assets.buttonRate, Assets.buttonRatePress);
-        btShare = new Button(Assets.buttonShare, Assets.buttonSharePress);
+        buttonShop = new Button(Assets.buttonShop, Assets.buttonShopPress);
+        buttonLeaderboard = new Button(Assets.buttonLeaderboard, Assets.buttonLeaderBoardPress);
+        buttonAchievements = new Button(Assets.buttonAchievement, Assets.buttonAchievementPress);
+        buttonSettings = new Button(Assets.buttonSettings, Assets.buttonSettingsPress);
+        buttonRate = new Button(Assets.buttonRate, Assets.buttonRatePress);
+        buttonShare = new Button(Assets.buttonShare, Assets.buttonSharePress);
 
-        btPlay = new Button(new ButtonStyle(null, null, null));
-        btPlay.setSize(getWidth() - tbMenu.getWidth(), getHeight());
-        btPlay.setPosition(0, 0);
-        btPlay.addListener(new ClickListener() {
+        buttonPlay = new Button(new ButtonStyle(null, null, null));
+        buttonPlay.setSize(getWidth() - tableMenu.getWidth(), getHeight());
+        buttonPlay.setPosition(0, 0);
+        buttonPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
@@ -101,28 +100,28 @@ public class MenuUI extends Group {
             }
         });
 
-        btShop.addListener(new ClickListener() {
+        buttonShop.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 gameScreen.changeScreenWithFadeOut(ShopScreen.class, gameScreen.game);
             }
         });
 
-        btRate.addListener(new ClickListener() {
+        buttonRate.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameScreen.game.reqHandler.showRater();
+                gameScreen.game.requestHandler.showRater();
             }
         });
 
-        btShare.addListener(new ClickListener() {
+        buttonShare.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameScreen.game.reqHandler.shareApp();
+                gameScreen.game.requestHandler.shareApp();
             }
         });
 
-        btLeaderboard.addListener(new ClickListener() {
+        buttonLeaderboard.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
@@ -131,7 +130,7 @@ public class MenuUI extends Group {
             }
         });
 
-        btSettings.addListener(new ClickListener() {
+        buttonSettings.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 gameScreen.changeScreenWithFadeOut(SettingsScreen.class, gameScreen.game);
@@ -141,14 +140,14 @@ public class MenuUI extends Group {
 
     private void addInActions() {
         titulo.addAction(Actions.moveTo(getWidth() / 2f - titulo.getWidth() * titulo.getScaleX() / 2f, 300, ANIMATION_TIME));
-        tbMenu.addAction(Actions.moveTo(Screens.SCREEN_WIDTH - tbMenu.getWidth(), 0, ANIMATION_TIME));
+        tableMenu.addAction(Actions.moveTo(Screens.SCREEN_WIDTH - tableMenu.getWidth(), 0, ANIMATION_TIME));
     }
 
     private void addOutActions() {
         titulo.addAction(Actions.moveTo(getWidth() / 2f - titulo.getWidth() * titulo.getScaleX() / 2f, Screens.SCREEN_HEIGHT + titulo.getHeight(),
                 ANIMATION_TIME));
 
-        tbMenu.addAction(Actions.moveTo(Screens.SCREEN_WIDTH + tbMenu.getWidth(), 0, ANIMATION_TIME));
+        tableMenu.addAction(Actions.moveTo(Screens.SCREEN_WIDTH + tableMenu.getWidth(), 0, ANIMATION_TIME));
     }
 
     public void show(Stage stage, final boolean showMainMenu) {

@@ -8,13 +8,13 @@ import com.nopalsoft.ninjarunner.handlers.RequestHandler;
 
 public class AndroidLauncher extends AndroidApplication implements RequestHandler {
 
-    protected MainGame game;
+    protected NinjaRunnerGame game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-        game = new MainGame(this);
+        game = new NinjaRunnerGame(this);
         initialize(game, config);
     }
 

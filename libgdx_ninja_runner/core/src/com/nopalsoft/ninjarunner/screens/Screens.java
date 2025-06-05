@@ -11,18 +11,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.nopalsoft.ninjarunner.Assets;
-import com.nopalsoft.ninjarunner.MainGame;
+import com.nopalsoft.ninjarunner.NinjaRunnerGame;
 import com.nopalsoft.ninjarunner.game.GameScreen;
 import com.nopalsoft.ninjarunner.shop.ShopScreen;
-
-import java.util.Random;
 
 public abstract class Screens extends InputAdapter implements Screen, GestureListener {
     public static final int SCREEN_WIDTH = 800;
@@ -30,23 +25,21 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
     public static final float WORLD_WIDTH = 8;
     public static final float WORLD_HEIGHT = 4.8f;
 
-    public MainGame game;
+    public NinjaRunnerGame game;
 
-    public OrthographicCamera oCam;
-    public SpriteBatch batcher;
+    public OrthographicCamera camera;
+    public SpriteBatch batch;
     public Stage stage;
 
-    Random oRan;
-
     public Screens(final Game _game) {
-        this.game = (MainGame) _game;
+        this.game = (NinjaRunnerGame) _game;
         this.stage = game.stage;
         this.stage.clear();
-        this.batcher = game.batch;
+        this.batch = game.batch;
 
 
-        oCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
-        oCam.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
+        camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
+        camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
 
         GestureDetector detector = new GestureDetector(20, .5f, 2, .15f, this);
 
@@ -58,12 +51,11 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
     public void render(float delta) {
         update(delta);
 
-        // Gdx.gl.glClearColor(0, 0, 0, 1);//NEgro
         Gdx.gl.glClearColor(.191f, .703f, .996f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
         draw(delta);
 
         stage.act(delta);
@@ -72,41 +64,19 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
 
     Image blackFadeOut;
 
-    public void changeScreenWithFadeOut(final Class<?> newScreen, final MainGame game) {
+    public void changeScreenWithFadeOut(final Class<?> newScreen, final NinjaRunnerGame game) {
         blackFadeOut = new Image(Assets.blackPixelDrawable);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         blackFadeOut.getColor().a = 0;
-        blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                if (newScreen == GameScreen.class) {
-                    game.setScreen(new GameScreen(game, true));
-                } else if (newScreen == SettingsScreen.class)
-                    game.setScreen(new SettingsScreen(game));
-                else if (newScreen == ShopScreen.class)
-                    game.setScreen(new ShopScreen(game));
-
-                // El blackFadeOut se remueve del stage cuando se le da new Screens(game) "Revisar el constructor de la clase Screens" por lo que no hay necesidad de hacer
-                // blackFadeout.remove();
-            }
+        blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run(() -> {
+            if (newScreen == GameScreen.class) {
+                game.setScreen(new GameScreen(game, true));
+            } else if (newScreen == SettingsScreen.class)
+                game.setScreen(new SettingsScreen(game));
+            else if (newScreen == ShopScreen.class)
+                game.setScreen(new ShopScreen(game));
         })));
         stage.addActor(blackFadeOut);
-    }
-
-    public void addEfectoPress(final Actor actor) {
-        actor.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                actor.setPosition(actor.getX(), actor.getY() - 5);
-                event.stop();
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                actor.setPosition(actor.getX(), actor.getY() + 5);
-            }
-        });
     }
 
     public abstract void draw(float delta);
@@ -124,37 +94,30 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
 
     @Override
     public void pause() {
-        // Assets.pauseMusic();
-
     }
 
     @Override
     public void resume() {
-        // Assets.playMusic();
-
     }
 
     @Override
     public void dispose() {
         stage.dispose();
-        batcher.dispose();
+        batch.dispose();
     }
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean longPress(float x, float y) {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -178,25 +141,22 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public boolean panStop(float x, float y, int pointer, int button) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean zoom(float initialDistance, float distance) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-        // TODO Auto-generated method stub
         return false;
     }
 

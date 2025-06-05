@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.ninjarunner.Assets;
-import com.nopalsoft.ninjarunner.MainGame;
+import com.nopalsoft.ninjarunner.NinjaRunnerGame;
 import com.nopalsoft.ninjarunner.Settings;
 import com.nopalsoft.ninjarunner.game.GameScreen;
 import com.nopalsoft.ninjarunner.screens.Screens;
@@ -26,7 +26,7 @@ public class ShopScreen extends Screens {
 
     Label lbCoins;
 
-    public ShopScreen(MainGame game) {
+    public ShopScreen(NinjaRunnerGame game) {
         super(game);
 
         Label lbShop = new Label("Shop", Assets.labelStyleLarge);
@@ -90,7 +90,7 @@ public class ShopScreen extends Screens {
         stage.addActor(tbTitle);
         stage.addActor(tbShop);
 
-        new PersonajesSubMenu(contenedor, game);
+        new PlayersSubMenu(contenedor, game);
         btPersonajes.setChecked(true);
     }
 
@@ -104,7 +104,7 @@ public class ShopScreen extends Screens {
         btPersonajes.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                new PersonajesSubMenu(contenedor, game);
+                new PlayersSubMenu(contenedor, game);
             }
         });
 
@@ -132,7 +132,7 @@ public class ShopScreen extends Screens {
         btMore.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.showMoreGames();
+                game.requestHandler.showMoreGames();
             }
         });
 

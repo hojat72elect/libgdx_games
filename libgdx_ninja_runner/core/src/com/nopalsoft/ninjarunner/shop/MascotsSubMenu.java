@@ -14,12 +14,10 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.nopalsoft.ninjarunner.AnimationSprite;
 import com.nopalsoft.ninjarunner.Assets;
-import com.nopalsoft.ninjarunner.MainGame;
+import com.nopalsoft.ninjarunner.NinjaRunnerGame;
 import com.nopalsoft.ninjarunner.Settings;
 import com.nopalsoft.ninjarunner.game_objects.Mascot;
 import com.nopalsoft.ninjarunner.scene2d.AnimatedSpriteActor;
-
-import java.util.Iterator;
 
 public class MascotsSubMenu {
 
@@ -53,7 +51,7 @@ public class MascotsSubMenu {
 
     private final static Preferences preferences = Gdx.app.getPreferences("com.tiar.shantirunner.shop");
 
-    public MascotsSubMenu(Table container, MainGame game) {
+    public MascotsSubMenu(Table container, NinjaRunnerGame game) {
         languages = game.languages;
         this.container = container;
         container.clear();
@@ -234,33 +232,21 @@ public class MascotsSubMenu {
 
     private void setSelected(TextButton boton) {
         // Pongo todos visibles y al final el boton seleccionado en invisible
-        Iterator<TextButton> i = arrayButtons.iterator();
-        while (i.hasNext()) {
-            i.next().setVisible(true);
+        for (TextButton arrayButton : arrayButtons) {
+            arrayButton.setVisible(true);
         }
         boton.setVisible(false);
     }
 
     private int calcularPrecio(int nivel) {
-        switch (nivel) {
-            case 0:
-                return PRICE_LEVEL_1;
-
-            case 1:
-                return PRICE_LEVEL_2;
-
-            case 2:
-                return PRICE_LEVEL_3;
-
-            case 3:
-                return PRICE_LEVEL_4;
-
-            case 4:
-                return PRICE_LEVEL_5;
-            default:
-            case 5:
-                return PRICE_LEVEL_6;
-        }
+        return switch (nivel) {
+            case 0 -> PRICE_LEVEL_1;
+            case 1 -> PRICE_LEVEL_2;
+            case 2 -> PRICE_LEVEL_3;
+            case 3 -> PRICE_LEVEL_4;
+            case 4 -> PRICE_LEVEL_5;
+            default -> PRICE_LEVEL_6;
+        };
     }
 
     private void updateLabelPriceAndButton(int nivel, Label label, Button boton) {

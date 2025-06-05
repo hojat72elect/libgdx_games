@@ -12,12 +12,12 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.nopalsoft.ninjarunner.AnimationSprite;
 import com.nopalsoft.ninjarunner.Assets;
-import com.nopalsoft.ninjarunner.MainGame;
+import com.nopalsoft.ninjarunner.NinjaRunnerGame;
 import com.nopalsoft.ninjarunner.Settings;
 import com.nopalsoft.ninjarunner.game_objects.Player;
 import com.nopalsoft.ninjarunner.scene2d.AnimatedSpriteActor;
 
-public class PersonajesSubMenu {
+public class PlayersSubMenu {
 
     final int PRICE_NINJA = 1000;
 
@@ -36,7 +36,7 @@ public class PersonajesSubMenu {
 
     private final static Preferences preferences = Gdx.app.getPreferences("com.tiar.shantirunner.shop");
 
-    public PersonajesSubMenu(Table container, MainGame game) {
+    public PlayersSubMenu(Table container, NinjaRunnerGame game) {
         languages = game.languages;
         this.container = container;
         container.clear();
@@ -81,9 +81,9 @@ public class PersonajesSubMenu {
         tableContent.row();
 
         tableContent.add(imagePlayer).size(120, 99);
-        Label lblDescripcion = new Label(description, Assets.labelStyleSmall);
-        lblDescripcion.setWrap(true);
-        tableContent.add(lblDescripcion).expand().fill();
+        Label labelDescription = new Label(description, Assets.labelStyleSmall);
+        labelDescription.setWrap(true);
+        tableContent.add(labelDescription).expand().fill();
 
         tableContent.row().colspan(2);
         tableContent.add(button).expandX().right().size(120, 45);
@@ -147,9 +147,9 @@ public class PersonajesSubMenu {
         preferences.flush();
     }
 
-    private void setButtonStylePurchased(TextButton boton) {
-        boton.setStyle(Assets.styleTextButtonPurchased);
-        boton.setText(textSelect);
+    private void setButtonStylePurchased(TextButton button) {
+        button.setStyle(Assets.styleTextButtonPurchased);
+        button.setText(textSelect);
     }
 
     private void setSelected(TextButton selectedButton) {

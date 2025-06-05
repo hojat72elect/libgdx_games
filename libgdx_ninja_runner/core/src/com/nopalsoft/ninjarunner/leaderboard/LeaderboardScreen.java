@@ -82,7 +82,7 @@ public class LeaderboardScreen extends Screens {
         stage.addActor(tbShop);
 
 
-        if (game.arrPerson != null)
+        if (game.arrayPerson != null)
             updateLeaderboard();
 
 
@@ -120,7 +120,7 @@ public class LeaderboardScreen extends Screens {
 
     public void updateLeaderboard() {
         tableContainer.clear();
-        for (Person persona : game.arrPerson) {
+        for (Person persona : game.arrayPerson) {
             LeaderBoardFrame frame = new LeaderBoardFrame(persona);
             tableContainer.add(frame).expandX().fill();
             tableContainer.row();

@@ -10,8 +10,8 @@ public class AnimatedSpriteActor extends Actor {
     AnimationSprite anim;
     float stateTime;
 
-    public AnimatedSpriteActor(AnimationSprite animacion) {
-        anim = animacion;
+    public AnimatedSpriteActor(AnimationSprite animation) {
+        anim = animation;
         stateTime = 0;
     }
 

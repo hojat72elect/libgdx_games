@@ -3,7 +3,6 @@ package com.nopalsoft.ninjarunner.scene2d;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -14,48 +13,32 @@ import com.nopalsoft.ninjarunner.game.GameScreen;
 import com.nopalsoft.ninjarunner.game.GameWorld;
 import com.nopalsoft.ninjarunner.screens.Screens;
 
-import javax.swing.plaf.ProgressBarUI;
-
 public class GameUI extends Group {
 	public static final float ANIMATION_TIME = .35f;
 
 	GameScreen gameScreen;
-    GameWorld oWorld;
+    GameWorld gameWorld;
 
-	public int accelX;
-	public boolean didSwimUp;
-	public boolean didFire;
+    Table tableHeader;
+    Label labelScore;
 
-	public ProgressBarUI lifeBar;
-	public ProgressBarUI energyBar;
-
-	Table tbHeader;
-	Label lbPuntuacion;
-
-	Button btJump, btSlide;
+    Button buttonJump, buttonSlide;
 	public boolean didJump, didSlide, didDash;
 
-    public GameUI(final GameScreen gameScreen, GameWorld oWorld) {
+    public GameUI(final GameScreen gameScreen, GameWorld gameWorld) {
 		setBounds(0, 0, Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
 		this.gameScreen = gameScreen;
-		this.oWorld = oWorld;
+        this.gameWorld = gameWorld;
 
 		init();
-
-		// lifeBar = new ProgressBarUI(Assets.redBar, Assets.corazon, Tiburon.MAX_LIFE, -ProgressBarUI.WIDTH, 440);
-		// energyBar = new ProgressBarUI(Assets.energyBar, Assets.blast, Tiburon.MAX_ENERGY, -ProgressBarUI.WIDTH, 395);
-		//
-		// addActor(lifeBar);
-		// addActor(energyBar);
-
 	}
 
 	private void init() {
 
-		btJump = new Button(new ButtonStyle(null, null, null));
-		btJump.setSize(getWidth() / 2f, getHeight());
-		btJump.setPosition(0, 0);
-		btJump.addListener(new ClickListener() {
+        buttonJump = new Button(new ButtonStyle(null, null, null));
+        buttonJump.setSize(getWidth() / 2f, getHeight());
+        buttonJump.setPosition(0, 0);
+        buttonJump.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				didJump = true;
@@ -63,10 +46,10 @@ public class GameUI extends Group {
 			}
 		});
 
-		btSlide = new Button(new ButtonStyle(null, null, null));
-		btSlide.setSize(getWidth() / 2f, getHeight());
-		btSlide.setPosition(getWidth() / 2f + 1, 0);
-		btSlide.addListener(new ClickListener() {
+        buttonSlide = new Button(new ButtonStyle(null, null, null));
+        buttonSlide.setSize(getWidth() / 2f, getHeight());
+        buttonSlide.setPosition(getWidth() / 2f + 1, 0);
+        buttonSlide.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				didSlide = true;
@@ -79,56 +62,30 @@ public class GameUI extends Group {
 			}
 		});
 
-		tbHeader = new Table();
-		tbHeader.setSize(Screens.SCREEN_WIDTH, 50);
-		tbHeader.setPosition(0, Screens.SCREEN_HEIGHT - tbHeader.getHeight());
+        tableHeader = new Table();
+        tableHeader.setSize(Screens.SCREEN_WIDTH, 50);
+        tableHeader.setPosition(0, Screens.SCREEN_HEIGHT - tableHeader.getHeight());
 
-        lbPuntuacion = new Label("0", Assets.labelStyleSmall);
-		tbHeader.add(lbPuntuacion).fill();
+        labelScore = new Label("0", Assets.labelStyleSmall);
+        tableHeader.add(labelScore).fill();
 
-		addActor(tbHeader);
+        addActor(tableHeader);
 
-		addActor(btJump);
-		addActor(btSlide);
-
-		// addActor(btPause);
+        addActor(buttonJump);
+        addActor(buttonSlide);
+		
 	}
 
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-
-		// lbPuntuacion.setText(gameScreen.puntuacion + " m");
 	}
 
-	private void addInActions() {
-		// btSwimUp.addAction(Actions.moveTo(692, 10, ANIMATION_TIME));
-		// btFire.addAction(Actions.moveTo(579, 10, ANIMATION_TIME));
-		// btDer.addAction(Actions.moveTo(130, 5, ANIMATION_TIME));
-		// btIzq.addAction(Actions.moveTo(5, 5, ANIMATION_TIME));
-		// btPause.addAction(Actions.moveTo(750, 430, ANIMATION_TIME));
-		// lifeBar.addAction(Actions.moveTo(20, 440, ANIMATION_TIME));
-		// energyBar.addAction(Actions.moveTo(20, 395, ANIMATION_TIME));
-
-	}
-
-	private void addOutActions() {
-		// btSwimUp.addAction(Actions.moveTo(692, -105, ANIMATION_TIME));
-		// btFire.addAction(Actions.moveTo(579, -105, ANIMATION_TIME));
-		// btDer.addAction(Actions.moveTo(130, -120, ANIMATION_TIME));
-		// btIzq.addAction(Actions.moveTo(5, -120, ANIMATION_TIME));
-		// btPause.addAction(Actions.moveTo(845, 430, ANIMATION_TIME));
-		// lifeBar.addAction(Actions.moveTo(-ProgressBarUI.WIDTH, 440, ANIMATION_TIME));
-		// energyBar.addAction(Actions.moveTo(-ProgressBarUI.WIDTH, 395, ANIMATION_TIME));
-	}
+    private void addInActions() {
+    }
 
 	public void show(Stage stage) {
 		addInActions();
 		stage.addActor(this);
-	}
-
-	public void removeWithAnimations() {
-		addOutActions();
-		addAction(Actions.sequence(Actions.delay(ANIMATION_TIME), Actions.removeActor()));
 	}
 }

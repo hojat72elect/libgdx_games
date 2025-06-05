@@ -24,10 +24,10 @@ public class GameScreen extends Screens {
 
     NextGoalFrame nextGoalFrame;
 
-    public GameScreen(Game _game, boolean showMainMenu) {
-        super(_game);
+    public GameScreen(Game game, boolean showMainMenu) {
+        super(game);
         gameWorld = new GameWorld();
-        renderer = new WorldGameRenderer(batcher, gameWorld);
+        renderer = new WorldGameRenderer(batch, gameWorld);
         gameUI = new GameUI(this, gameWorld);
         menuUI = new MenuUI(this, gameWorld);
 
@@ -39,7 +39,7 @@ public class GameScreen extends Screens {
         }
 
         // I always try to load in interstitial at the start of the game
-        game.reqHandler.loadInterstitial();
+        this.game.requestHandler.loadInterstitial();
     }
 
     public void setRunning(boolean removeMenu) {
@@ -97,15 +97,15 @@ public class GameScreen extends Screens {
         if (puntos < Settings.bestScore)
             puntos = Settings.bestScore;
 
-        game.arrPerson.sort(); // Arrange from highest score to lowest score
+        game.arrayPerson.sort(); // Arrange from highest score to lowest score
 
 
         Person tempPerson = null;
         // I calculate the position of the player with the most points. For example, if I'm in fifth place, this should be the position for fourth place.
-        int posicionArribaDeMi = game.arrPerson.size - 1;
+        int posicionArribaDeMi = game.arrayPerson.size - 1;
         // The arrangement is ordered from largest to smallest.
         for (; posicionArribaDeMi >= 0; posicionArribaDeMi--) {
-            Person obj = game.arrPerson.get(posicionArribaDeMi);
+            Person obj = game.arrayPerson.get(posicionArribaDeMi);
             if (obj.isMe)
                 continue;
 
@@ -160,19 +160,19 @@ public class GameScreen extends Screens {
 
         renderer.render(delta);
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
 
-        batcher.begin();
-        Assets.smallFont.draw(batcher, "FPS GERA" + Gdx.graphics.getFramesPerSecond(), 5, 20);
-        Assets.smallFont.draw(batcher, "Bodies " + gameWorld.world.getBodyCount(), 5, 40);
-        Assets.smallFont.draw(batcher, "Lives " + gameWorld.player.vidas, 5, 60);
-        Assets.smallFont.draw(batcher, "Coins " + gameWorld.monedasTomadas, 5, 80);
-        Assets.smallFont.draw(batcher, "Scores " + gameWorld.puntuacion, 5, 100);
-        Assets.smallFont.draw(batcher, "Distance " + gameWorld.player.position.x, 5, 120);
-        Assets.smallFont.draw(batcher, "Platforms " + gameWorld.arrPlataformas.size, 5, 140);
+        batch.begin();
+        Assets.smallFont.draw(batch, "FPS GERA" + Gdx.graphics.getFramesPerSecond(), 5, 20);
+        Assets.smallFont.draw(batch, "Bodies " + gameWorld.world.getBodyCount(), 5, 40);
+        Assets.smallFont.draw(batch, "Lives " + gameWorld.player.vidas, 5, 60);
+        Assets.smallFont.draw(batch, "Coins " + gameWorld.monedasTomadas, 5, 80);
+        Assets.smallFont.draw(batch, "Scores " + gameWorld.puntuacion, 5, 100);
+        Assets.smallFont.draw(batch, "Distance " + gameWorld.player.position.x, 5, 120);
+        Assets.smallFont.draw(batch, "Platforms " + gameWorld.arrPlataformas.size, 5, 140);
 
-        batcher.end();
+        batch.end();
     }
 
     @Override
@@ -190,7 +190,7 @@ public class GameScreen extends Screens {
             Gdx.app.exit();
             return true;
         } else if (keycode == Keys.P) {
-            if (game.arrPerson != null) {
+            if (game.arrayPerson != null) {
                 setNextGoalFrame(0);
             }
             return true;

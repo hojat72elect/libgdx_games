@@ -10,16 +10,15 @@ import com.nopalsoft.ninjarunner.Assets;
 
 public class LeaderBoardFrame extends Table {
     Person oPersona;
-    /**
-     * uso un image button porque puede tener fondo y una imagen
+    /*
+     * I use an image button because it can have a background and an image.
      */
-    private ImageButton imagenPersona;
-    private Image imagenCuenta;
+    private ImageButton personImage;
 
-    Label lbNombre;
-    Label lbScore;
+    Label labelName;
+    Label labelScore;
 
-    Table tbAux;//Es necesaria porque del lado izq va una foto y del lado derecho varios textField en renglones
+    Table tableAuxiliary;//It is necessary because on the left side there is a photo and on the right side there are several textFields in lines.
 
     public LeaderBoardFrame(Person persona) {
         setBackground(Assets.backgroundItemShop);
@@ -27,38 +26,31 @@ public class LeaderBoardFrame extends Table {
         this.oPersona = persona;
 
 
-        lbNombre = new Label(oPersona.name, Assets.labelStyleSmall);
-        lbScore = new Label(oPersona.getScoreWithFormat(), new Label.LabelStyle(Assets.smallFont, Color.RED));
+        labelName = new Label(oPersona.name, Assets.labelStyleSmall);
+        labelScore = new Label(oPersona.getScoreWithFormat(), new Label.LabelStyle(Assets.smallFont, Color.RED));
 
-        tbAux = new Table();
-        tbAux.left();
+        tableAuxiliary = new Table();
+        tableAuxiliary.left();
 
-        tbAux.defaults().left();
-        tbAux.add(lbNombre).row();
-        tbAux.add(lbScore).row();
+        tableAuxiliary.defaults().left();
+        tableAuxiliary.add(labelName).row();
+        tableAuxiliary.add(labelScore).row();
 
-        Image imRedSocial = null;
-        switch (oPersona.accountType) {
-            case GOOGLE_PLAY:
-                imRedSocial = new Image(Assets.imageGoogle);
-                break;
-            case AMAZON:
-                imRedSocial = new Image(Assets.imageAmazon);
-                break;
-            case FACEBOOK:
-                imRedSocial = new Image(Assets.imageFacebook);
-                break;
-        }
-        tbAux.add(imRedSocial).size(25).row();
+        Image imRedSocial = switch (oPersona.accountType) {
+            case GOOGLE_PLAY -> new Image(Assets.imageGoogle);
+            case AMAZON -> new Image(Assets.imageAmazon);
+            case FACEBOOK -> new Image(Assets.imageFacebook);
+        };
+        tableAuxiliary.add(imRedSocial).size(25).row();
 
 
-        if (oPersona.imagen != null)
-            setPicture(oPersona.imagen);
+        if (oPersona.image != null)
+            setPicture(oPersona.image);
         else {
             oPersona.downloadImage(new Person.DownloadImageCompleteListener() {
                 @Override
                 public void imageDownloaded() {
-                    setPicture(oPersona.imagen);
+                    setPicture(oPersona.image);
                 }
 
                 @Override
@@ -67,24 +59,24 @@ public class LeaderBoardFrame extends Table {
                 }
             });
         }
-        refresh();//Para que ponga la info luego luego. si lo borro hasta que se ponga la photo se pone la info
+        refresh();//So that it puts the information right away. If I delete it until the photo is put, the information is put in.
     }
 
     public void setPicture(TextureRegionDrawable drawable) {
-        imagenPersona = new ImageButton(new ImageButton.ImageButtonStyle(drawable, null, null, Assets.photoFrame, null, null));
+        personImage = new ImageButton(new ImageButton.ImageButtonStyle(drawable, null, null, Assets.photoFrame, null, null));
         refresh();
     }
 
     private void refresh() {
         clear();
         float size = 100;
-        if (imagenPersona != null) {
-            imagenPersona.getImageCell().size(size);
-            add(imagenPersona).size(size);
+        if (personImage != null) {
+            personImage.getImageCell().size(size);
+            add(personImage).size(size);
         } else {
             add().size(size);
         }
 
-        add(tbAux).padLeft(20).expandX().fill();
+        add(tableAuxiliary).padLeft(20).expandX().fill();
     }
 }

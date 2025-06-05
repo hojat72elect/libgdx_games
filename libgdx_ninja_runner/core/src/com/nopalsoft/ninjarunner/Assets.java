@@ -206,31 +206,31 @@ public class Assets {
         beanRed = atlas.createSprite("Candy/bean_red");
         candyCorn = atlas.createSprite("Candy/candycorn");
 
-        // Particulas
+        // Particles
         ParticleEffect cajasEffect = new ParticleEffect();
         cajasEffect.load(Gdx.files.internal("data/Particulas/Cajas"), atlas);
         boxesEffectPool = new ParticleEffectPool(cajasEffect, 1, 10);
 
-        /** entre mas chico el numero mas atras */
-        ParallaxLayer sol = new ParallaxLayer(atlas.findRegion("Background/sol"), new Vector2(.5f, 0), new Vector2(600, 300), new Vector2(800, 800),
+        // The smaller the number, the further back
+        ParallaxLayer sun = new ParallaxLayer(atlas.findRegion("Background/sol"), new Vector2(.5f, 0), new Vector2(600, 300), new Vector2(800, 800),
                 170, 170);
 
-        ParallaxLayer nubes1 = new ParallaxLayer(atlas.findRegion("Background/nubesLayer1"), new Vector2(1, 0), new Vector2(0, 50), new Vector2(690,
+        ParallaxLayer clouds1 = new ParallaxLayer(atlas.findRegion("Background/nubesLayer1"), new Vector2(1, 0), new Vector2(0, 50), new Vector2(690,
                 500), 557, 159);
-        ParallaxLayer nubes2 = new ParallaxLayer(atlas.findRegion("Background/nubesLayer2"), new Vector2(3, 0), new Vector2(0, 50), new Vector2(-1,
+        ParallaxLayer clouds2 = new ParallaxLayer(atlas.findRegion("Background/nubesLayer2"), new Vector2(3, 0), new Vector2(0, 50), new Vector2(-1,
                 500), 1250, 198);
-        ParallaxLayer nubes3 = new ParallaxLayer(atlas.findRegion("Background/nubesLayer3"), new Vector2(5, 0), new Vector2(0, 50), new Vector2(-1,
+        ParallaxLayer clouds3 = new ParallaxLayer(atlas.findRegion("Background/nubesLayer3"), new Vector2(5, 0), new Vector2(0, 50), new Vector2(-1,
                 100), 1250, 397);
 
-        ParallaxLayer arboles1 = new ParallaxLayer(atlas.findRegion("Background/arbolesLayer1"), new Vector2(7, 0), new Vector2(0, 50), new Vector2(
+        ParallaxLayer trees1 = new ParallaxLayer(atlas.findRegion("Background/arbolesLayer1"), new Vector2(7, 0), new Vector2(0, 50), new Vector2(
                 -1, 500), 1048, 159);
-        ParallaxLayer arboles2 = new ParallaxLayer(atlas.findRegion("Background/arbolesLayer2"), new Vector2(8, 0), new Vector2(0, 50), new Vector2(
+        ParallaxLayer trees2 = new ParallaxLayer(atlas.findRegion("Background/arbolesLayer2"), new Vector2(8, 0), new Vector2(0, 50), new Vector2(
                 1008, 500), 554, 242);
 
-        ParallaxLayer sueloAzul = new ParallaxLayer(atlas.findRegion("Background/sueloAzul"), new Vector2(0, 0), new Vector2(0, -1), new Vector2(-1,
+        ParallaxLayer blueGround = new ParallaxLayer(atlas.findRegion("Background/sueloAzul"), new Vector2(0, 0), new Vector2(0, -1), new Vector2(-1,
                 500), 800, 50);
 
-        cloudsParallaxBackground = new ParallaxBackground(new ParallaxLayer[]{sol, nubes1, nubes2, nubes3, arboles1, arboles2, sueloAzul}, 800, 480,
+        cloudsParallaxBackground = new ParallaxBackground(new ParallaxLayer[]{sun, clouds1, clouds2, clouds3, trees1, trees2, blueGround}, 800, 480,
                 new Vector2(20, 0));
 
         jumpSound = Gdx.audio.newSound(Gdx.files.internal("data/Sonidos/salto.mp3"));
@@ -382,35 +382,10 @@ public class Assets {
         TextureRegionDrawable txtButtonPress = new TextureRegionDrawable(atlas.findRegion("UI/txtButtonPress"));
 
         styleTextButtonPurchased = new TextButtonStyle(txtButton, txtButtonPress, null, smallFont);
-//		styleTextButtonPurchased.fontColor = Color.WHITE;
-
         styleTextButtonBuy = new TextButtonStyle(txtButtonDisabled, txtButtonPress, null, smallFont);
-//		styleTextButtonBuy.fontColor = Color.WHITE;
-
         styleButtonUpgrade = new ButtonStyle(buttonUpgrade, buttonUpgradePress, null);
     }
 
-//    private static BitmapFont createFont(int size) {
-//        BitmapFont font;
-//
-//        FreeTypeFontGenerator generator;
-//        generator = new FreeTypeFontGenerator(Gdx.files.internal("data/DroidSansFallback.ttf"));
-
-    /// /        generator = new FreeTypeFontGenerator(Gdx.files.internal("data/arial.ttf"));
-//        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-//        parameter.minFilter = Texture.TextureFilter.Linear;
-//        parameter.magFilter = Texture.TextureFilter.Linear;
-//        parameter.size = size;
-//        parameter.incremental = true;
-//        parameter.borderWidth = 1;
-//        parameter.shadowColor = Color.DARK_GRAY;
-//        parameter.shadowOffsetX = 2;
-//
-//
-//        font = generator.generateFont(parameter);
-//
-//        return font;
-//    }
     public static void playSound(Sound sound, int volume) {
         if (com.nopalsoft.ninjarunner.Settings.isSoundEnabled) {
             sound.play(volume);

@@ -27,7 +27,7 @@ public class Person implements Comparable<Person> {
     public String name;
     public long score;
     public String urlImage;
-    public TextureRegionDrawable imagen;
+    public TextureRegionDrawable image;
 
     public boolean isMe; // Indicates that this person is the user
 
@@ -40,7 +40,7 @@ public class Person implements Comparable<Person> {
     }
 
     public void downloadImage(final DownloadImageCompleteListener listener) {
-        if (imagen != null) //Why download it again?
+        if (image != null) //Why download it again?
             return;
         HttpRequest request = new HttpRequest(HttpMethods.GET);
         request.setUrl(urlImage);
@@ -52,7 +52,7 @@ public class Person implements Comparable<Person> {
                     Pixmap pixmap = new Pixmap(bytes, 0, bytes.length);
                     Texture texture = new Texture(new PixmapTextureData(pixmap, pixmap.getFormat(), false, false, true));
                     pixmap.dispose();
-                    imagen = new TextureRegionDrawable(new TextureRegion(texture));
+                    image = new TextureRegionDrawable(new TextureRegion(texture));
                     if (listener != null)
                         listener.imageDownloaded();
                 });

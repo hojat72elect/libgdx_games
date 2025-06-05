@@ -56,13 +56,13 @@ public class NextGoalFrame extends Group {
         labelPlayerScore.setText(this.person.getScoreWithFormat());
 
 
-        if (this.person.imagen != null)
-            setPicture(this.person.imagen);
+        if (this.person.image != null)
+            setPicture(this.person.image);
         else {
             this.person.downloadImage(new Person.DownloadImageCompleteListener() {
                 @Override
                 public void imageDownloaded() {
-                    setPicture(NextGoalFrame.this.person.imagen);
+                    setPicture(NextGoalFrame.this.person.image);
                 }
 
                 @Override
