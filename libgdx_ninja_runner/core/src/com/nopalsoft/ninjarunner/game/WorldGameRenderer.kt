@@ -25,17 +25,15 @@ import com.nopalsoft.ninjarunner.game_objects.Wall
 import com.nopalsoft.ninjarunner.screens.Screens
 
 class WorldGameRenderer(batch: SpriteBatch, gameWorld: GameWorld) {
-    val WIDTH: Float = Screens.WORLD_WIDTH
-    val HEIGHT: Float = Screens.WORLD_HEIGHT
+    val WIDTH = Screens.WORLD_WIDTH
+    val HEIGHT = Screens.WORLD_HEIGHT
 
     var batch: SpriteBatch
     var gameWorld: GameWorld
-    var camera: OrthographicCamera
-
+    var camera: OrthographicCamera = OrthographicCamera(WIDTH, HEIGHT)
     var renderBox: Box2DDebugRenderer?
 
     init {
-        this.camera = OrthographicCamera(WIDTH, HEIGHT)
         this.camera.position.set(WIDTH / 2f, HEIGHT / 2f, 0f)
         this.batch = batch
         this.gameWorld = gameWorld
@@ -43,7 +41,7 @@ class WorldGameRenderer(batch: SpriteBatch, gameWorld: GameWorld) {
     }
 
     fun render(delta: Float) {
-        camera.position.set(gameWorld.player.position.x + 1.5f, gameWorld.player.position.y, 0f)
+        camera.position.set(gameWorld.player!!.position.x + 1.5f, gameWorld.player!!.position.y, 0f)
 
         if (camera.position.y < HEIGHT / 2f) camera.position.y = HEIGHT / 2f
         else if (camera.position.y > HEIGHT / 2f) camera.position.y = HEIGHT / 2f
@@ -90,12 +88,12 @@ class WorldGameRenderer(batch: SpriteBatch, gameWorld: GameWorld) {
                     spriteFrame = Assets.candyCorn
                 }
             } else {
-                if (item is ItemCandyJelly) {
-                    spriteFrame = Assets.candyExplosionRed!!.getKeyFrame(item.stateTime, false)
+                spriteFrame = if (item is ItemCandyJelly) {
+                    Assets.candyExplosionRed!!.getKeyFrame(item.stateTime, false)
                 } else if (item is ItemCandyBean) {
-                    spriteFrame = Assets.candyExplosionRed!!.getKeyFrame(item.stateTime, false)
+                    Assets.candyExplosionRed!!.getKeyFrame(item.stateTime, false)
                 } else {
-                    spriteFrame = Assets.pickUpAnimation!!.getKeyFrame(item.stateTime, false)
+                    Assets.pickUpAnimation!!.getKeyFrame(item.stateTime, false)
                 }
             }
 
@@ -109,9 +107,8 @@ class WorldGameRenderer(batch: SpriteBatch, gameWorld: GameWorld) {
 
     private fun renderPlatforms() {
         for (obj in gameWorld.arrayPlatform) {
-            val spriteFrame: Sprite?
 
-            spriteFrame = Assets.platform
+            val spriteFrame = Assets.platform
 
             spriteFrame!!.setPosition(obj.position.x - Platform.WIDTH / 2f, obj.position.y - Platform.HEIGHT / 2f)
             spriteFrame.setSize(Platform.WIDTH, Platform.HEIGHT)
@@ -124,20 +121,20 @@ class WorldGameRenderer(batch: SpriteBatch, gameWorld: GameWorld) {
 
         val spriteFrame: Sprite?
 
-        var width = oMas.drawWidth
+        var width = oMas!!.drawWidth
         var height = oMas.drawHeight
 
         if (oMas.mascotType == Mascot.MascotType.BOMB) {
             spriteFrame = Assets.mascotBombFlyAnimation!!.getKeyFrame(oMas.stateTime, true)
         } else {
-            if (gameWorld.player.isDash) {
+            if (gameWorld.player!!.isDash) {
                 spriteFrame = Assets.mascotBirdDashAnimation!!.getKeyFrame(oMas.stateTime, true)
                 width = oMas.dashDrawWidth
                 height = oMas.dashDrawHeight
             } else spriteFrame = Assets.mascotBirdFlyAnimation!!.getKeyFrame(oMas.stateTime, true)
         }
 
-        spriteFrame!!.setPosition(oMas.position.x - width + Mascot.RADIUS, gameWorld.mascot.position.y - height / 2f)
+        spriteFrame!!.setPosition(oMas.position.x - width + Mascot.RADIUS, gameWorld.mascot!!.position.y - height / 2f)
         spriteFrame.setSize(width, height)
         spriteFrame.draw(batch)
     }
@@ -213,7 +210,7 @@ class WorldGameRenderer(batch: SpriteBatch, gameWorld: GameWorld) {
         val animDizzy: AnimationSprite?
         val animDead: AnimationSprite?
 
-        when (oPer.type) {
+        when (oPer!!.type) {
             Player.TYPE_GIRL, Player.TYPE_BOY -> {
                 animIdle = Assets.girlIdleAnimation
                 animJump = Assets.girlJumpAnimation
@@ -249,16 +246,16 @@ class WorldGameRenderer(batch: SpriteBatch, gameWorld: GameWorld) {
         }
 
         if (oPer.state == Player.STATE_NORMAL) {
-            if (oPer.isIdle) {
-                spriteFrame = animIdle!!.getKeyFrame(oPer.stateTime, true)
+            spriteFrame = if (oPer.isIdle) {
+                animIdle!!.getKeyFrame(oPer.stateTime, true)
             } else if (oPer.isJumping) {
-                spriteFrame = animJump!!.getKeyFrame(oPer.stateTime, false)
+                animJump!!.getKeyFrame(oPer.stateTime, false)
             } else if (oPer.isSlide) {
-                spriteFrame = animSlide!!.getKeyFrame(oPer.stateTime, true)
+                animSlide!!.getKeyFrame(oPer.stateTime, true)
             } else if (oPer.isDash) {
-                spriteFrame = animDash!!.getKeyFrame(oPer.stateTime, true)
+                animDash!!.getKeyFrame(oPer.stateTime, true)
             } else {
-                spriteFrame = animRun!!.getKeyFrame(oPer.stateTime, true)
+                animRun!!.getKeyFrame(oPer.stateTime, true)
             }
             offsetY = .1f
         } else if (oPer.state == Player.STATE_HURT) {
@@ -272,7 +269,7 @@ class WorldGameRenderer(batch: SpriteBatch, gameWorld: GameWorld) {
             offsetY = .1f
         }
 
-        spriteFrame!!.setPosition(gameWorld.player.position.x - .75f, gameWorld.player.position.y - .52f - offsetY)
+        spriteFrame!!.setPosition(gameWorld.player!!.position.x - .75f, gameWorld.player!!.position.y - .52f - offsetY)
         spriteFrame.setSize(Player.DRAW_WIDTH, Player.DRAW_HEIGHT)
         spriteFrame.draw(batch)
     }

@@ -57,8 +57,8 @@ class GameScreen(game: Game?, showMainMenu: Boolean) : Screens(game) {
 
     override fun update(delta: Float) {
         if (state == STATE_MENU) {
-            gameWorld.player.updateStateTime(delta)
-            gameWorld.mascot.updateStateTime(delta)
+            gameWorld.player?.updateStateTime(delta)
+            gameWorld.mascot?.updateStateTime(delta)
         } else if (state == STATE_RUNNING) {
             gameWorld.update(delta, gameUI.didJump, gameUI.didDash, gameUI.didSlide)
 
@@ -150,10 +150,10 @@ class GameScreen(game: Game?, showMainMenu: Boolean) : Screens(game) {
         batch?.begin()
         Assets.smallFont!!.draw(batch, "FPS GERA" + Gdx.graphics.framesPerSecond, 5f, 20f)
         Assets.smallFont!!.draw(batch, "Bodies " + gameWorld.world.bodyCount, 5f, 40f)
-        Assets.smallFont!!.draw(batch, "Lives " + gameWorld.player.lives, 5f, 60f)
+        Assets.smallFont!!.draw(batch, "Lives " + gameWorld.player!!.lives, 5f, 60f)
         Assets.smallFont!!.draw(batch, "Coins " + gameWorld.coinsTaken, 5f, 80f)
         Assets.smallFont!!.draw(batch, "Scores " + gameWorld.scores, 5f, 100f)
-        Assets.smallFont!!.draw(batch, "Distance " + gameWorld.player.position.x, 5f, 120f)
+        Assets.smallFont!!.draw(batch, "Distance " + gameWorld.player!!.position.x, 5f, 120f)
         Assets.smallFont!!.draw(batch, "Platforms " + gameWorld.arrayPlatform.size, 5f, 140f)
 
         batch?.end()
