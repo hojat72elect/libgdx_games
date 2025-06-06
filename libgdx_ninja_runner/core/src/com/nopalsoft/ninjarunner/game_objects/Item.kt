@@ -67,8 +67,10 @@ open class Item(width: Float, height: Float) : Poolable {
     }
 
     companion object {
-        const val STATE_NORMAL: Int = 0
-        const val STATE_DESTROY: Int = 1
+
+
+        const val STATE_NORMAL = 0
+        const val STATE_DESTROY = 1
 
         @JvmField
         val DURATION_PICK = Assets.pickUpAnimation!!.animationDuration + .1f

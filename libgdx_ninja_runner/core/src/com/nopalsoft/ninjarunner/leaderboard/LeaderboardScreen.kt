@@ -77,8 +77,8 @@ class LeaderboardScreen(_game: Game?) : Screens(_game) {
         tbShop.add<Table?>(tableMenu).expandY().width(122f)
         tbShop.add<ScrollPane?>(scroll).expand().fill()
 
-        stage.addActor(tableTitle)
-        stage.addActor(tbShop)
+        stage?.addActor(tableTitle)
+        stage?.addActor(tbShop)
 
 
         updateLeaderboard()

@@ -14,23 +14,19 @@ import com.nopalsoft.ninjarunner.scene2d.MenuUI
 import com.nopalsoft.ninjarunner.screens.Screens
 
 class GameScreen(game: Game?, showMainMenu: Boolean) : Screens(game) {
-    var gameWorld: GameWorld
+    var gameWorld = GameWorld()
     var state: Int = 0
-    var gameUI: GameUI
-    var menuUI: MenuUI
-    var renderer: WorldGameRenderer
+    var gameUI = GameUI(this, gameWorld)
+    var menuUI = MenuUI(this, gameWorld)
+    var renderer = WorldGameRenderer(batch!!, gameWorld)
 
     var nextGoalFrame: NextGoalFrame? = null
 
     init {
-        gameWorld = GameWorld()
-        renderer = WorldGameRenderer(batch, gameWorld)
-        gameUI = GameUI(this, gameWorld)
-        menuUI = MenuUI(this, gameWorld)
 
         if (showMainMenu) {
             state = STATE_MENU
-            menuUI.show(stage, true)
+            menuUI.show(stage!!, true)
         } else {
             setRunning(false)
         }
@@ -48,14 +44,14 @@ class GameScreen(game: Game?, showMainMenu: Boolean) : Screens(game) {
                 setNextGoalFrame(0)
             }
             gameUI.addAction(Actions.sequence(Actions.delay(GameUI.ANIMATION_TIME), Actions.run(run)))
-            gameUI.show(stage)
+            gameUI.show(stage!!)
         }
 
         if (removeMenu) {
             menuUI.addAction(Actions.sequence(Actions.delay(MenuUI.ANIMATION_TIME), Actions.run(runAfterHideMenu)))
             menuUI.removeWithAnimations()
         } else {
-            stage.addAction(Actions.run(runAfterHideMenu))
+            stage?.addAction(Actions.run(runAfterHideMenu))
         }
     }
 
@@ -121,7 +117,7 @@ class GameScreen(game: Game?, showMainMenu: Boolean) : Screens(game) {
         }
 
         if (!nextGoalFrame!!.hasParent()) {
-            stage.addActor(nextGoalFrame)
+            stage?.addActor(nextGoalFrame)
             Gdx.app.postRunnable(run)
         } else if (!nextGoalFrame!!.hasActions()) {
             nextGoalFrame!!.addAction(Actions.sequence(Actions.moveTo(SCREEN_WIDTH.toFloat(), nextGoalFrame!!.getY(), 1f), Actions.run(run)))
@@ -149,9 +145,9 @@ class GameScreen(game: Game?, showMainMenu: Boolean) : Screens(game) {
         renderer.render(delta)
 
         camera.update()
-        batch.setProjectionMatrix(camera.combined)
+        batch?.setProjectionMatrix(camera.combined)
 
-        batch.begin()
+        batch?.begin()
         Assets.smallFont!!.draw(batch, "FPS GERA" + Gdx.graphics.framesPerSecond, 5f, 20f)
         Assets.smallFont!!.draw(batch, "Bodies " + gameWorld.world.bodyCount, 5f, 40f)
         Assets.smallFont!!.draw(batch, "Lives " + gameWorld.player.lives, 5f, 60f)
@@ -160,7 +156,7 @@ class GameScreen(game: Game?, showMainMenu: Boolean) : Screens(game) {
         Assets.smallFont!!.draw(batch, "Distance " + gameWorld.player.position.x, 5f, 120f)
         Assets.smallFont!!.draw(batch, "Platforms " + gameWorld.arrayPlatform.size, 5f, 140f)
 
-        batch.end()
+        batch?.end()
     }
 
     override fun keyDown(keycode: Int): Boolean {

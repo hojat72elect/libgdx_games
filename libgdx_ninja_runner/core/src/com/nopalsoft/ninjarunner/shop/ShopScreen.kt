@@ -88,8 +88,8 @@ class ShopScreen(game: NinjaRunnerGame) : Screens(game) {
         tbShop.add<Table?>(tbMenu).expandY().width(122f)
         tbShop.add<ScrollPane?>(scroll).expand().fill()
 
-        stage.addActor(tbTitle)
-        stage.addActor(tbShop)
+        stage?.addActor(tbTitle)
+        stage?.addActor(tbShop)
 
         PlayersSubMenu(tableContainer, game)
         buttonPlayer!!.setChecked(true)
