@@ -24,8 +24,6 @@ import com.nopalsoft.ninjarunner.game_objects.Player;
 import com.nopalsoft.ninjarunner.game_objects.Wall;
 import com.nopalsoft.ninjarunner.screens.Screens;
 
-import java.util.Iterator;
-
 public class WorldGameRenderer {
     final float WIDTH = Screens.WORLD_WIDTH;
     final float HEIGHT = Screens.WORLD_HEIGHT;
@@ -62,16 +60,16 @@ public class WorldGameRenderer {
         batch.begin();
         batch.enableBlending();
 
-        renderPlataformas();
+        renderPlatforms();
         renderPared();
 
         renderItems();
 
-        renderPersonaje(delta);
-        renderMascota(delta);
+        renderPlayer();
+        renderMascot();
 
-        renderObstaculos(delta);
-        renderMissil(delta);
+        renderObstacles(delta);
+        renderMissile();
 
         batch.end();
 
@@ -80,52 +78,46 @@ public class WorldGameRenderer {
 
     private void renderItems() {
 
-        Iterator<Item> i = gameWorld.arrayItem.iterator();
-        while (i.hasNext()) {
-            Item obj = i.next();
-
+        for (Item item : gameWorld.arrayItem) {
             Sprite spriteFrame = null;
 
-            if (obj.state == ItemCoin.STATE_NORMAL) {
-                if (obj instanceof ItemCoin) {
-                    spriteFrame = Assets.coinAnimation.getKeyFrame(obj.stateTime, true);
-                } else if (obj instanceof ItemMagnet) {
+            if (item.state == ItemCoin.STATE_NORMAL) {
+                if (item instanceof ItemCoin) {
+                    spriteFrame = Assets.coinAnimation.getKeyFrame(item.stateTime, true);
+                } else if (item instanceof ItemMagnet) {
                     spriteFrame = Assets.magnet;
-                } else if (obj instanceof ItemEnergy) {
+                } else if (item instanceof ItemEnergy) {
                     spriteFrame = Assets.energy;
-                } else if (obj instanceof ItemHeart) {
+                } else if (item instanceof ItemHeart) {
                     spriteFrame = Assets.hearth;
-                } else if (obj instanceof ItemCandyJelly) {
+                } else if (item instanceof ItemCandyJelly) {
                     spriteFrame = Assets.jellyRed;
-                } else if (obj instanceof ItemCandyBean) {
+                } else if (item instanceof ItemCandyBean) {
                     spriteFrame = Assets.beanRed;
-                } else if (obj instanceof ItemCandyCorn) {
+                } else if (item instanceof ItemCandyCorn) {
                     spriteFrame = Assets.candyCorn;
                 }
             } else {
-                if (obj instanceof ItemCandyJelly) {
-                    spriteFrame = Assets.candyExplosionRed.getKeyFrame(obj.stateTime, false);
-                } else if (obj instanceof ItemCandyBean) {
-                    spriteFrame = Assets.candyExplosionRed.getKeyFrame(obj.stateTime, false);
+                if (item instanceof ItemCandyJelly) {
+                    spriteFrame = Assets.candyExplosionRed.getKeyFrame(item.stateTime, false);
+                } else if (item instanceof ItemCandyBean) {
+                    spriteFrame = Assets.candyExplosionRed.getKeyFrame(item.stateTime, false);
                 } else {
-                    spriteFrame = Assets.pickUpAnimation.getKeyFrame(obj.stateTime, false);
+                    spriteFrame = Assets.pickUpAnimation.getKeyFrame(item.stateTime, false);
                 }
             }
 
             if (spriteFrame != null) {
-                spriteFrame.setPosition(obj.position.x - obj.WIDTH / 2f, obj.position.y - obj.HEIGHT / 2f);
-                spriteFrame.setSize(obj.WIDTH, obj.HEIGHT);
+                spriteFrame.setPosition(item.position.x - item.WIDTH / 2f, item.position.y - item.HEIGHT / 2f);
+                spriteFrame.setSize(item.WIDTH, item.HEIGHT);
                 spriteFrame.draw(batch);
             }
         }
     }
 
-    private void renderPlataformas() {
+    private void renderPlatforms() {
 
-        Iterator<Platform> i = gameWorld.arrayPlatform.iterator();
-        while (i.hasNext()) {
-            Platform obj = i.next();
-
+        for (Platform obj : gameWorld.arrayPlatform) {
             Sprite spriteFrame;
 
             spriteFrame = Assets.platform;
@@ -136,7 +128,7 @@ public class WorldGameRenderer {
         }
     }
 
-    private void renderMascota(float delta) {
+    private void renderMascot() {
         Mascot oMas = gameWorld.mascot;
 
         Sprite spriteFrame;
@@ -162,10 +154,7 @@ public class WorldGameRenderer {
 
     private void renderPared() {
 
-        Iterator<Wall> i = gameWorld.arrayWall.iterator();
-        while (i.hasNext()) {
-            Wall obj = i.next();
-
+        for (Wall obj : gameWorld.arrayWall) {
             Sprite spriteFrame = Assets.wall;
             spriteFrame.setPosition(obj.position.x - Wall.WIDTH / 2f, obj.position.y - Wall.HEIGHT / 2f);
             spriteFrame.setSize(Wall.WIDTH, Wall.HEIGHT);
@@ -173,11 +162,8 @@ public class WorldGameRenderer {
         }
     }
 
-    private void renderObstaculos(float delta) {
-        Iterator<Obstacle> i = gameWorld.arrayObstacle.iterator();
-        while (i.hasNext()) {
-            Obstacle obj = i.next();
-
+    private void renderObstacles(float delta) {
+        for (Obstacle obj : gameWorld.arrayObstacle) {
             if (obj.state == Obstacle.STATE_NORMAL) {
 
                 float width, height;
@@ -202,11 +188,8 @@ public class WorldGameRenderer {
         }
     }
 
-    private void renderMissil(float delta) {
-        Iterator<Missile> i = gameWorld.arrayMissile.iterator();
-        while (i.hasNext()) {
-            Missile obj = i.next();
-
+    private void renderMissile() {
+        for (Missile obj : gameWorld.arrayMissile) {
             Sprite spriteFrame;
             float width, height;
 
@@ -227,11 +210,11 @@ public class WorldGameRenderer {
         }
     }
 
-    private void renderPersonaje(float delta) {
+    private void renderPlayer() {
         Player oPer = gameWorld.player;
 
-        Sprite spriteFrame = null;
-        float offsetY = 0;
+        Sprite spriteFrame;
+        float offsetY;
 
         AnimationSprite animIdle;
         AnimationSprite animJump;
@@ -243,17 +226,7 @@ public class WorldGameRenderer {
         AnimationSprite animDead;
 
         switch (oPer.type) {
-            case Player.TYPE_GIRL:
-                animIdle = Assets.girlIdleAnimation;
-                animJump = Assets.girlJumpAnimation;
-                animRun = Assets.girlRunAnimation;
-                animSlide = Assets.girlSlideAnimation;
-                animDash = Assets.girlDashAnimation;
-                animHurt = Assets.girlHurtAnimation;
-                animDizzy = Assets.girlDizzyAnimation;
-                animDead = Assets.girlDeathAnimation;
-                break;
-            case Player.TYPE_BOY:
+            case Player.TYPE_GIRL, Player.TYPE_BOY:
                 animIdle = Assets.girlIdleAnimation;
                 animJump = Assets.girlJumpAnimation;
                 animRun = Assets.girlRunAnimation;

@@ -65,76 +65,76 @@ public class MascotsSubMenu {
         arrayBomb = new Image[MAX_LEVEL];
 
         if (Settings.MASCOT_LEVEL_BIRD < MAX_LEVEL) {
-            labelBirdPrice = new Label(calcularPrecio(Settings.MASCOT_LEVEL_BIRD) + "", Assets.labelStyleSmall);
+            labelBirdPrice = new Label(calculatePrice(Settings.MASCOT_LEVEL_BIRD) + "", Assets.labelStyleSmall);
         }
 
         if (!didBuyBomb) {
             labelBombPrice = new Label(BOMB_PRICE + "", Assets.labelStyleSmall);
         } else if (Settings.MASCOT_LEVEL_BOMB < MAX_LEVEL) {
-            labelBombPrice = new Label(calcularPrecio(Settings.MASCOT_LEVEL_BOMB) + "", Assets.labelStyleSmall);
+            labelBombPrice = new Label(calculatePrice(Settings.MASCOT_LEVEL_BOMB) + "", Assets.labelStyleSmall);
         }
 
-        inicializarBotones();
+        initializeButtons();
 
         container.defaults().expand().fill().padLeft(10).padRight(20).padBottom(10);
 
         container.add(
-                agregarMascota("Chicken", labelBirdPrice, Assets.mascotBirdFlyAnimation, 60, 54, languages.get("pinkChikenDescription"), buttonBird, arrayBird,
+                addMascot("Chicken", labelBirdPrice, Assets.mascotBirdFlyAnimation, 60, 54, languages.get("pinkChikenDescription"), buttonBird, arrayBird,
                         buttonUpgradeBird)).row();
         container.add(
-                        agregarMascota("Bomb", labelBombPrice, Assets.mascotBombFlyAnimation, 53, 64, languages.get("bombDescription"), buttonBomb, arrayBomb, buttonUpgradeBomb))
+                        addMascot("Bomb", labelBombPrice, Assets.mascotBombFlyAnimation, 53, 64, languages.get("bombDescription"), buttonBomb, arrayBomb, buttonUpgradeBomb))
                 .row();
 
         setArrays();
     }
 
-    public Table agregarMascota(String titulo, Label lblPrecio, AnimationSprite imagen, float imagenWidth, float imagenHeight, String descripcion,
-                                TextButton btBuy, Image[] arrLevel, Button btUpgrade) {
-        Image moneda = new Image(Assets.coinAnimation.getKeyFrame(0));
-        AnimatedSpriteActor imgPersonaje = new AnimatedSpriteActor(imagen);
+    public Table addMascot(String title, Label labelPrice, AnimationSprite image, float imageWidth, float imageHeight, String description,
+                           TextButton buttonBuy, Image[] arrayLevel, Button buttonUpgrade) {
+        Image coinImage = new Image(Assets.coinAnimation.getKeyFrame(0));
+        AnimatedSpriteActor imagePlayer = new AnimatedSpriteActor(image);
 
-        if (lblPrecio == null)
-            moneda.setVisible(false);
+        if (labelPrice == null)
+            coinImage.setVisible(false);
 
-        Table tbBarraTitulo = new Table();
-        tbBarraTitulo.add(new Label(titulo, Assets.labelStyleSmall)).expandX().left();
-        tbBarraTitulo.add(moneda).right().size(20);
-        tbBarraTitulo.add(lblPrecio).right().padRight(10);
+        Table tableTitleBar = new Table();
+        tableTitleBar.add(new Label(title, Assets.labelStyleSmall)).expandX().left();
+        tableTitleBar.add(coinImage).right().size(20);
+        tableTitleBar.add(labelPrice).right().padRight(10);
 
         Table tbContent = new Table();
         tbContent.setBackground(Assets.backgroundItemShop);
         tbContent.pad(5);
 
-        tbContent.add(tbBarraTitulo).expandX().fill().colspan(2);
+        tbContent.add(tableTitleBar).expandX().fill().colspan(2);
         tbContent.row();
 
-        tbContent.add(imgPersonaje).size(imagenWidth, imagenHeight);
-        Label lblDescripcion = new Label(descripcion, Assets.labelStyleSmall);
-        lblDescripcion.setWrap(true);
-        tbContent.add(lblDescripcion).expand().fill();
+        tbContent.add(imagePlayer).size(imageWidth, imageHeight);
+        Label labelDescription = new Label(description, Assets.labelStyleSmall);
+        labelDescription.setWrap(true);
+        tbContent.add(labelDescription).expand().fill();
 
         Table auxTab = new Table();
         auxTab.setBackground(Assets.backgroundUpgradeBar);
         auxTab.pad(5);
         auxTab.defaults().padLeft(5);
         for (int i = 0; i < MAX_LEVEL; i++) {
-            arrLevel[i] = new Image();
-            auxTab.add(arrLevel[i]).size(15);
+            arrayLevel[i] = new Image();
+            auxTab.add(arrayLevel[i]).size(15);
         }
 
         tbContent.row();
         tbContent.add(auxTab);
-        tbContent.add(btUpgrade).left().size(40);
+        tbContent.add(buttonUpgrade).left().size(40);
 
         tbContent.row().colspan(2);
-        tbContent.add(btBuy).expandX().right().size(120, 45);
+        tbContent.add(buttonBuy).expandX().right().size(120, 45);
         tbContent.row().colspan(2);
 
         return tbContent;
     }
 
-    private void inicializarBotones() {
-        arrayButtons = new Array<TextButton>();
+    private void initializeButtons() {
+        arrayButtons = new Array<>();
 
         {// DEFAULT
             {// BUY
@@ -156,8 +156,8 @@ public class MascotsSubMenu {
                 buttonUpgradeBird.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        if (Settings.totalCoins >= calcularPrecio(Settings.MASCOT_LEVEL_BIRD)) {
-                            Settings.totalCoins -= calcularPrecio(Settings.MASCOT_LEVEL_BIRD);
+                        if (Settings.totalCoins >= calculatePrice(Settings.MASCOT_LEVEL_BIRD)) {
+                            Settings.totalCoins -= calculatePrice(Settings.MASCOT_LEVEL_BIRD);
                             Settings.MASCOT_LEVEL_BIRD++;
                             updateLabelPriceAndButton(Settings.MASCOT_LEVEL_BIRD, labelBirdPrice, buttonUpgradeBird);
                             setArrays();
@@ -167,7 +167,7 @@ public class MascotsSubMenu {
             }
         }
 
-        {// MASCOTA BOM{
+        {// MASCOT
             {// BUY
                 if (didBuyBomb)
                     buttonBomb = new TextButton(textSelect, Assets.styleTextButtonPurchased);
@@ -201,8 +201,8 @@ public class MascotsSubMenu {
                 buttonUpgradeBomb.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        if (Settings.totalCoins >= calcularPrecio(Settings.MASCOT_LEVEL_BOMB)) {
-                            Settings.totalCoins -= calcularPrecio(Settings.MASCOT_LEVEL_BOMB);
+                        if (Settings.totalCoins >= calculatePrice(Settings.MASCOT_LEVEL_BOMB)) {
+                            Settings.totalCoins -= calculatePrice(Settings.MASCOT_LEVEL_BOMB);
                             Settings.MASCOT_LEVEL_BOMB++;
                             updateLabelPriceAndButton(Settings.MASCOT_LEVEL_BOMB, labelBombPrice, buttonUpgradeBomb);
                             setArrays();
@@ -225,21 +225,21 @@ public class MascotsSubMenu {
         preferences.flush();
     }
 
-    private void setButtonStylePurchased(TextButton boton) {
-        boton.setStyle(Assets.styleTextButtonPurchased);
-        boton.setText(textSelect);
+    private void setButtonStylePurchased(TextButton button) {
+        button.setStyle(Assets.styleTextButtonPurchased);
+        button.setText(textSelect);
     }
 
-    private void setSelected(TextButton boton) {
-        // Pongo todos visibles y al final el boton seleccionado en invisible
+    private void setSelected(TextButton button) {
+        // I make all visible and at the end the selected button invisible
         for (TextButton arrayButton : arrayButtons) {
             arrayButton.setVisible(true);
         }
-        boton.setVisible(false);
+        button.setVisible(false);
     }
 
-    private int calcularPrecio(int nivel) {
-        return switch (nivel) {
+    private int calculatePrice(int level) {
+        return switch (level) {
             case 0 -> PRICE_LEVEL_1;
             case 1 -> PRICE_LEVEL_2;
             case 2 -> PRICE_LEVEL_3;
@@ -249,12 +249,12 @@ public class MascotsSubMenu {
         };
     }
 
-    private void updateLabelPriceAndButton(int nivel, Label label, Button boton) {
-        if (nivel < MAX_LEVEL) {
-            label.setText(calcularPrecio(nivel) + "");
+    private void updateLabelPriceAndButton(int level, Label label, Button button) {
+        if (level < MAX_LEVEL) {
+            label.setText(calculatePrice(level) + "");
         } else {
             label.setVisible(false);
-            boton.setVisible(false);
+            button.setVisible(false);
         }
     }
 

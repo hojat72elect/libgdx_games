@@ -31,12 +31,12 @@ public class Person implements Comparable<Person> {
 
     public boolean isMe; // Indicates that this person is the user
 
-    public Person(AccountType accountType, String id, String name, long oScore, String imagenURL) {
+    public Person(AccountType accountType, String id, String name, long oScore, String imageURL) {
         this.accountType = accountType;
         this.id = id;
         this.name = name;
         this.score = oScore;
-        this.urlImage = imagenURL;
+        this.urlImage = imageURL;
     }
 
     public void downloadImage(final DownloadImageCompleteListener listener) {
@@ -95,10 +95,5 @@ public class Person implements Comparable<Person> {
     @Override
     public int compareTo(Person otherPerson) {
         return Long.compare(otherPerson.score, score);
-    }
-
-    public void updateData(String _name, long _score) {
-        name = _name;
-        score = _score;
     }
 }

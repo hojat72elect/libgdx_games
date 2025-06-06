@@ -48,11 +48,11 @@ public class ObjectManagerBox2d {
         body.setLinearVelocity(Player.RUN_SPEED, 0);
     }
 
-    private void destroyAllFixturesFromBody(Body oBody) {
-        for (Fixture fix : oBody.getFixtureList()) {
-            oBody.destroyFixture(fix);
+    private void destroyAllFixturesFromBody(Body body) {
+        for (Fixture fix : body.getFixtureList()) {
+            body.destroyFixture(fix);
         }
-        oBody.getFixtureList().clear();
+        body.getFixtureList().clear();
     }
 
     public void recreateFixtureStandingPlayer(Body body) {
@@ -61,21 +61,21 @@ public class ObjectManagerBox2d {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Player.WIDTH / 2f, Player.HEIGHT / 2f);
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.density = 10;
-        fixture.friction = 0;
-        Fixture cuerpo = body.createFixture(fixture);
-        cuerpo.setUserData("cuerpo");
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.density = 10;
+        fixtureDefinition.friction = 0;
+        Fixture bodyFixture = body.createFixture(fixtureDefinition);
+        bodyFixture.setUserData("cuerpo");
 
         PolygonShape sensorPiesShape = new PolygonShape();
         sensorPiesShape.setAsBox(Player.WIDTH / 2.2f, .025f, new Vector2(0, -.51f), 0);
-        fixture.shape = sensorPiesShape;
-        fixture.density = 0;
-        fixture.restitution = 0f;
-        fixture.friction = 0;
-        fixture.isSensor = true;
-        Fixture sensorPies = body.createFixture(fixture);
+        fixtureDefinition.shape = sensorPiesShape;
+        fixtureDefinition.density = 0;
+        fixtureDefinition.restitution = 0f;
+        fixtureDefinition.friction = 0;
+        fixtureDefinition.isSensor = true;
+        Fixture sensorPies = body.createFixture(fixtureDefinition);
         sensorPies.setUserData("pies");
 
         shape.dispose();
@@ -93,8 +93,8 @@ public class ObjectManagerBox2d {
         fixture.shape = shape;
         fixture.density = 10;
         fixture.friction = 0;
-        Fixture cuerpo = body.createFixture(fixture);
-        cuerpo.setUserData("cuerpo");
+        Fixture bodyFixture = body.createFixture(fixture);
+        bodyFixture.setUserData("cuerpo");
 
         PolygonShape sensorPiesShape = new PolygonShape();
         sensorPiesShape.setAsBox(Player.WIDTH / 2.2f, .025f, new Vector2(0, -.51f), 0);
@@ -110,29 +110,29 @@ public class ObjectManagerBox2d {
         sensorPiesShape.dispose();
     }
 
-    public void crearMascota(float x, float y) {
+    public void createMascot(float x, float y) {
         gameWorld.mascot = new Mascot(x, y, Settings.selectedMascot);
 
-        BodyDef bd = new BodyDef();
-        bd.position.set(x, y);
-        bd.type = BodyType.DynamicBody;
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.set(x, y);
+        bodyDefinition.type = BodyType.DynamicBody;
 
-        Body body = worldBox.createBody(bd);
+        Body body = worldBox.createBody(bodyDefinition);
 
         CircleShape shape = new CircleShape();
         shape.setRadius(Mascot.RADIUS);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
 
-        body.createFixture(fixutre);
+        body.createFixture(fixtureDefinition);
         body.setUserData(gameWorld.mascot);
 
         shape.dispose();
     }
 
-    public float crearItem(Class<? extends Item> itemClass, float x, float y) {
+    public float createItem(Class<? extends Item> itemClass, float x, float y) {
         Item obj = Pools.obtain(itemClass);
         x += obj.WIDTH / 2f;
 
@@ -147,11 +147,11 @@ public class ObjectManagerBox2d {
         CircleShape shape = new CircleShape();
         shape.setRadius(obj.WIDTH / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
 
-        body.createFixture(fixutre);
+        body.createFixture(fixtureDefinition);
         body.setUserData(obj);
         gameWorld.arrayItem.add(obj);
 
@@ -161,34 +161,34 @@ public class ObjectManagerBox2d {
     }
 
     /**
-     * Regresa la posicion de la orilla derecha de la caja en X
+     * Returns the position of the right edge of the box in X
      */
-    public float crearCaja4(float x, float y) {
+    public float createBox4(float x, float y) {
         ObstacleBoxes4 obj = Pools.obtain(ObstacleBoxes4.class);
 
         x += ObstacleBoxes4.DRAW_WIDTH / 2f;
 
         obj.init(x, y);
 
-        BodyDef bd = new BodyDef();
-        bd.position.set(x, y);
-        bd.type = BodyType.StaticBody;
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.set(x, y);
+        bodyDefinition.type = BodyType.StaticBody;
 
-        Body body = worldBox.createBody(bd);
+        Body body = worldBox.createBody(bodyDefinition);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(.35f, .19f, new Vector2(0, -.19f), 0);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
-        body.createFixture(fixutre);
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
+        body.createFixture(fixtureDefinition);
 
         shape.setAsBox(.18f, .19f, new Vector2(0, .19f), 0);
-        fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
-        body.createFixture(fixutre);
+        fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
+        body.createFixture(fixtureDefinition);
 
         body.setUserData(obj);
         gameWorld.arrayObstacle.add(obj);
@@ -198,32 +198,32 @@ public class ObjectManagerBox2d {
         return x + ObstacleBoxes4.DRAW_WIDTH / 2f;
     }
 
-    public float crearCaja7(float x, float y) {
+    public float createBox7(float x, float y) {
         ObstacleBoxes7 obj = Pools.obtain(ObstacleBoxes7.class);
 
         x += ObstacleBoxes7.DRAW_WIDTH / 2f;
 
         obj.init(x, y);
 
-        BodyDef bd = new BodyDef();
-        bd.position.set(x, y);
-        bd.type = BodyType.StaticBody;
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.set(x, y);
+        bodyDefinition.type = BodyType.StaticBody;
 
-        Body body = worldBox.createBody(bd);
+        Body body = worldBox.createBody(bodyDefinition);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(.35f, .38f, new Vector2(0, -.19f), 0);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
-        body.createFixture(fixutre);
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
+        body.createFixture(fixtureDefinition);
 
         shape.setAsBox(.18f, .19f, new Vector2(0, .38f), 0);
-        fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
-        body.createFixture(fixutre);
+        fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
+        body.createFixture(fixtureDefinition);
 
         body.setUserData(obj);
         gameWorld.arrayObstacle.add(obj);
@@ -234,58 +234,56 @@ public class ObjectManagerBox2d {
     }
 
     /**
-     * @param x        poiscion de la izq inferior
-     * @param y        posicion de la izq inferior
-     * @param numPlats numero de plataformas pegadas
+     * @param x        lower left position
+     * @param y        lower left position
+     * @param numberOfPlatforms number of platforms glued
      */
-    public float crearPlataforma(float x, float y, int numPlats) {
+    public float createPlatforms(float x, float y, int numberOfPlatforms) {
 
         float yCenter = Platform.HEIGHT / 2f + y;
 
         float xInicio = x;
         Platform oPlat = null;
-        for (int i = 0; i < numPlats; i++) {
+        for (int i = 0; i < numberOfPlatforms; i++) {
             oPlat = Pools.obtain(Platform.class);
             x += Platform.WIDTH / 2f;
             oPlat.init(x, yCenter);
             gameWorld.arrayPlatform.add(oPlat);
-            // Le resto el -.01 para que quede un pixel a la izquiera y no aparesca la linea cuando dos plataformas estan pegadas
+            // I subtract the -.01 so that it is one pixel to the left and the line does not appear when two platforms are stuck together
             x += Platform.WIDTH / 2f - .01f;
         }
 
-        xInicio += Platform.WIDTH / 2f * numPlats - (.005f * numPlats);
+        xInicio += Platform.WIDTH / 2f * numberOfPlatforms - (.005f * numberOfPlatforms);
 
-        // AQUI TENGO QUE AJUSTAR LA POSICION EN X DE LA PLATAFORMA para que no overlapee a las anteriores
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.set(xInicio, yCenter);
+        bodyDefinition.type = BodyType.StaticBody;
 
-        BodyDef bd = new BodyDef();
-        bd.position.set(xInicio, yCenter);
-        bd.type = BodyType.StaticBody;
-
-        Body body = worldBox.createBody(bd);
+        Body body = worldBox.createBody(bodyDefinition);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(Platform.WIDTH / 2f * numPlats - (.005f * numPlats), Platform.HEIGHT / 2f);
+        shape.setAsBox(Platform.WIDTH / 2f * numberOfPlatforms - (.005f * numberOfPlatforms), Platform.HEIGHT / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.friction = 0;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.friction = 0;
 
-        body.createFixture(fixutre);
+        body.createFixture(fixtureDefinition);
         body.setUserData(oPlat);
 
         shape.dispose();
 
-        return xInicio + Platform.WIDTH * numPlats / 2f;
+        return xInicio + Platform.WIDTH * numberOfPlatforms / 2f;
     }
 
-    public float crearPared(float x, float y) {
-        Wall oPard = Pools.obtain(Wall.class);
+    public float createWall(float x, float y) {
+        Wall wall = Pools.obtain(Wall.class);
 
         x += Wall.WIDTH / 2f;
-        oPard.init(x, y);
+        wall.init(x, y);
 
         BodyDef bd = new BodyDef();
-        bd.position.set(oPard.position.x, oPard.position.y);
+        bd.position.set(wall.position.x, wall.position.y);
         bd.type = BodyType.StaticBody;
 
         Body body = worldBox.createBody(bd);
@@ -293,20 +291,20 @@ public class ObjectManagerBox2d {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Wall.WIDTH / 2f, Wall.HEIGHT / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
 
-        body.createFixture(fixutre);
-        body.setUserData(oPard);
-        gameWorld.arrayWall.add(oPard);
+        body.createFixture(fixtureDefinition);
+        body.setUserData(wall);
+        gameWorld.arrayWall.add(wall);
 
         shape.dispose();
 
         return x + Wall.WIDTH / 2f;
     }
 
-    public void crearMissil(float x, float y) {
+    public void createMissile(float x, float y) {
         Missile obj = Pools.obtain(Missile.class);
         obj.init(x, y);
 
@@ -319,11 +317,11 @@ public class ObjectManagerBox2d {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Missile.WIDTH / 2f, Missile.HEIGHT / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
 
-        body.createFixture(fixutre);
+        body.createFixture(fixtureDefinition);
         body.setUserData(obj);
         body.setLinearVelocity(Missile.SPEED_X, 0);
         gameWorld.arrayMissile.add(obj);

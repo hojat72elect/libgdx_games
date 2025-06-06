@@ -6,7 +6,7 @@ import com.nopalsoft.ninjarunner.Assets;
 import com.nopalsoft.ninjarunner.Settings;
 
 public class Player {
-    public final static int STATE_NORMAL = 0;// NORMAL APLICA PARA RUN,DASH,SLIDE,JUMP
+    public final static int STATE_NORMAL = 0;// NORMAL APPLIES TO RUN, DASH, SLIDE, JUMP
     public final static int STATE_HURT = 1;
     public final static int STATE_DIZZY = 2;
     public final static int STATE_DEAD = 3;
@@ -225,7 +225,7 @@ public class Player {
         if (numberOfFloorsInContact == 0) {
             canJump = false;
 
-            // Si dejo de tocar el piso porque salto todavia puede saltar otra vez
+            // If I stop touching the floor because I jump, I can still jump again.
             if (!isJumping)
                 canDoubleJump = false;
         }

@@ -10,7 +10,7 @@ public class AnimationSprite {
      * Defines possible playback modes for an {@link com.badlogic.gdx.graphics.g2d.Animation}.
      */
     public enum PlayMode {
-        NORMAL, REVERSED, LOOP, LOOP_REVERSED, LOOP_PINGPONG, LOOP_RANDOM,
+        NORMAL, REVERSED, LOOP, LOOP_REVERSED, LOOP_PING_PONG, LOOP_RANDOM,
     }
 
     final Sprite[] spriteFrames;
@@ -89,7 +89,7 @@ public class AnimationSprite {
             case LOOP:
                 frameNumber = frameNumber % spriteFrames.length;
                 break;
-            case LOOP_PINGPONG:
+            case LOOP_PING_PONG:
                 frameNumber = frameNumber % ((spriteFrames.length * 2) - 2);
                 if (frameNumber >= spriteFrames.length)
                     frameNumber = spriteFrames.length - 2 - (frameNumber - spriteFrames.length);

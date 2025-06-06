@@ -7,65 +7,63 @@ import com.nopalsoft.ninjarunner.Assets;
 
 
 public class Item implements Poolable {
-	public final static int STATE_NORMAL = 0;
-	public final static int STATE_DESTROY = 1;
-	public int state;
+    public final static int STATE_NORMAL = 0;
+    public final static int STATE_DESTROY = 1;
+    public int state;
 
     public final static float DURATION_PICK = Assets.pickUpAnimation.animationDuration + .1f;
 
-	public final float WIDTH;
-	public final float HEIGHT;
+    public final float WIDTH;
+    public final float HEIGHT;
 
-	public Vector2 velocity;
-	public final Vector2 position;
-	public float stateTime;
+    public Vector2 velocity;
+    public final Vector2 position;
+    public float stateTime;
 
-	public Item(float width, float height) {
-		position = new Vector2();
-		velocity = new Vector2();
-		this.WIDTH = width;
-		this.HEIGHT = height;
-	}
+    public Item(float width, float height) {
+        position = new Vector2();
+        velocity = new Vector2();
+        this.WIDTH = width;
+        this.HEIGHT = height;
+    }
 
-	public void init(float x, float y) {
-		position.set(x, y);
-		velocity.set(0, 0);
-		state = STATE_NORMAL;
-		stateTime = 0;
-	}
+    public void init(float x, float y) {
+        position.set(x, y);
+        velocity.set(0, 0);
+        state = STATE_NORMAL;
+        stateTime = 0;
+    }
 
-    public void update(float delta, Body body, Mascot oMascot, Player oPlayer) {
+    public void update(float delta, Body body, Player oPlayer) {
 
-		if (state == STATE_NORMAL) {
-			position.x = body.getPosition().x;
-			position.y = body.getPosition().y;
+        if (state == STATE_NORMAL) {
+            position.x = body.getPosition().x;
+            position.y = body.getPosition().y;
 
-			/** Primero checo si se atraen al personaje */
-			if (oPlayer.isMagnetEnabled && position.dst(oPlayer.position) <= 5f) {
-				moveCoinsMagenet(body, oPlayer.position);
-			} else if (oMascot != null && position.dst(oMascot.position) <= 2f) {
-				// moveCoinsMagenet(body, oMascota.position);
-			} else
-				body.setLinearVelocity(0, 0);
-		}
+            // First I check if they are attached to the character
+            if (oPlayer.isMagnetEnabled && position.dst(oPlayer.position) <= 5f) {
+                moveCoinsToTarget(body, oPlayer.position);
+            } else
+                body.setLinearVelocity(0, 0);
+        }
 
-		stateTime += delta;
-	}
+        stateTime += delta;
+    }
 
-	private void moveCoinsMagenet(Body body, Vector2 targetPosition) {
-		velocity = body.getLinearVelocity();
-		velocity.set(targetPosition).sub(position).scl(Player.DASH_SPEED + 3);
-		body.setLinearVelocity(velocity);
-	}
+    private void moveCoinsToTarget(Body body, Vector2 targetPosition) {
+        velocity = body.getLinearVelocity();
+        velocity.set(targetPosition).sub(position).scl(Player.DASH_SPEED + 3);
+        body.setLinearVelocity(velocity);
+    }
 
-	public void setPicked() {
-		if (state == STATE_NORMAL) {
-			state = STATE_DESTROY;
-			stateTime = 0;
-		}
-	}
+    public void setPicked() {
+        if (state == STATE_NORMAL) {
+            state = STATE_DESTROY;
+            stateTime = 0;
+        }
+    }
 
-	@Override
-	public void reset() {
-	}
+    @Override
+    public void reset() {
+    }
 }

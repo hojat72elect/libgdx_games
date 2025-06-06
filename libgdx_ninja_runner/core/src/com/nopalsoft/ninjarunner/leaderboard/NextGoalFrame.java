@@ -13,11 +13,6 @@ public class NextGoalFrame extends Group {
     public static final float HEIGHT = 80;
     public Person person;
 
-    /**
-     * I use an image button because it can have a background and an image.
-     */
-    private ImageButton personImage;
-
     Label labelName;
     Label labelPlayerScore;
     Label labelRemainingPointsToOvercome;
@@ -74,7 +69,8 @@ public class NextGoalFrame extends Group {
     }
 
     private void setPicture(TextureRegionDrawable drawable) {
-        personImage = new ImageButton(new ImageButton.ImageButtonStyle(drawable, null, null, Assets.photoFrame, null, null));
+        // I use an image button because it can have a background and an image.
+        ImageButton personImage = new ImageButton(new ImageButton.ImageButtonStyle(drawable, null, null, Assets.photoFrame, null, null));
         personImage.setSize(50, 50);
         personImage.getImageCell().size(50);
         personImage.setPosition(5, HEIGHT / 2f - personImage.getHeight() / 2f);

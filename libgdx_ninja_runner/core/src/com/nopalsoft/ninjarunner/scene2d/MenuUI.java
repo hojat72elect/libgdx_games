@@ -23,7 +23,7 @@ public class MenuUI extends Group {
 
     GameScreen gameScreen;
     GameWorld oWorld;
-    Image titulo;
+    Image titleImage;
 
     Table tableMenu;
 
@@ -41,9 +41,9 @@ public class MenuUI extends Group {
     }
 
     private void init() {
-        titulo = new Image(Assets.titleDrawable);
-        titulo.setScale(1f);
-        titulo.setPosition(getWidth() / 2f - titulo.getWidth() * titulo.getScaleX() / 2f, Screens.SCREEN_HEIGHT + titulo.getHeight());
+        titleImage = new Image(Assets.titleDrawable);
+        titleImage.setScale(1f);
+        titleImage.setPosition(getWidth() / 2f - titleImage.getWidth() * titleImage.getScaleX() / 2f, Screens.SCREEN_HEIGHT + titleImage.getHeight());
 
         tableMenu = new Table();
         tableMenu.setSize(122, getHeight());
@@ -139,12 +139,12 @@ public class MenuUI extends Group {
     }
 
     private void addInActions() {
-        titulo.addAction(Actions.moveTo(getWidth() / 2f - titulo.getWidth() * titulo.getScaleX() / 2f, 300, ANIMATION_TIME));
+        titleImage.addAction(Actions.moveTo(getWidth() / 2f - titleImage.getWidth() * titleImage.getScaleX() / 2f, 300, ANIMATION_TIME));
         tableMenu.addAction(Actions.moveTo(Screens.SCREEN_WIDTH - tableMenu.getWidth(), 0, ANIMATION_TIME));
     }
 
     private void addOutActions() {
-        titulo.addAction(Actions.moveTo(getWidth() / 2f - titulo.getWidth() * titulo.getScaleX() / 2f, Screens.SCREEN_HEIGHT + titulo.getHeight(),
+        titleImage.addAction(Actions.moveTo(getWidth() / 2f - titleImage.getWidth() * titleImage.getScaleX() / 2f, Screens.SCREEN_HEIGHT + titleImage.getHeight(),
                 ANIMATION_TIME));
 
         tableMenu.addAction(Actions.moveTo(Screens.SCREEN_WIDTH + tableMenu.getWidth(), 0, ANIMATION_TIME));
@@ -154,8 +154,8 @@ public class MenuUI extends Group {
         addInActions();
         stage.addActor(this);
 
-        titulo.remove();
-        addActor(titulo);
+        titleImage.remove();
+        addActor(titleImage);
         this.showMainMenu = showMainMenu;
     }
 

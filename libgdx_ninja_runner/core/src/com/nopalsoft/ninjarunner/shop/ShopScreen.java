@@ -19,12 +19,12 @@ import com.nopalsoft.ninjarunner.screens.Screens;
 public class ShopScreen extends Screens {
 
     Table tbMenu;
-    Button btPersonajes, btMascota, btUpgrades, btNoAds, btMore;
+    Button buttonPlayer, buttonMascot, buttonUpgrade, buttonNoAds, buttonMore;
 
     ScrollPane scroll;
-    Table contenedor;
+    Table tableContainer;
 
-    Label lbCoins;
+    Label labelCoins;
 
     public ShopScreen(NinjaRunnerGame game) {
         super(game);
@@ -45,10 +45,10 @@ public class ShopScreen extends Screens {
         Image imgGem = new Image(Assets.coinAnimation.getKeyFrame(0));
         imgGem.setSize(20, 20);
 
-        lbCoins = new Label("x0", Assets.labelStyleSmall);
+        labelCoins = new Label("x0", Assets.labelStyleSmall);
 
         tbTitle.add(imgGem).size(20).right();
-        tbTitle.add(lbCoins).padLeft(5).left();
+        tbTitle.add(labelCoins).padLeft(5).left();
 
         initButtons();
 
@@ -56,29 +56,29 @@ public class ShopScreen extends Screens {
         tbMenu.defaults().size(58).padBottom(8);
 
         tbMenu.row();
-        tbMenu.add(btPersonajes);
+        tbMenu.add(buttonPlayer);
 
         tbMenu.row();
-        tbMenu.add(btMascota);
+        tbMenu.add(buttonMascot);
 
         tbMenu.row();
-        tbMenu.add(btUpgrades);
+        tbMenu.add(buttonUpgrade);
 
         tbMenu.row();
-        tbMenu.add(btNoAds);
+        tbMenu.add(buttonNoAds);
 
         tbMenu.row();
-        tbMenu.add(btMore);
+        tbMenu.add(buttonMore);
 
         Table tbShop = new Table();
         tbShop.setSize(SCREEN_WIDTH, SCREEN_HEIGHT - tbTitle.getHeight());
         tbShop.setBackground(Assets.backgroundShop);
         tbShop.pad(25, 5, 15, 5);
 
-        // Contenedor
-        contenedor = new Table();
+        // Container for the shop content
+        tableContainer = new Table();
 
-        scroll = new ScrollPane(contenedor, new ScrollPaneStyle(null, null, null, null, null));
+        scroll = new ScrollPane(tableContainer, new ScrollPaneStyle(null, null, null, null, null));
         scroll.setFadeScrollBars(false);
         scroll.setSize(SCREEN_WIDTH - tbMenu.getWidth(), 420);
         scroll.setPosition(tbMenu.getWidth() + 1, 0);
@@ -90,54 +90,47 @@ public class ShopScreen extends Screens {
         stage.addActor(tbTitle);
         stage.addActor(tbShop);
 
-        new PlayersSubMenu(contenedor, game);
-        btPersonajes.setChecked(true);
+        new PlayersSubMenu(tableContainer, game);
+        buttonPlayer.setChecked(true);
     }
 
     void initButtons() {
-        btPersonajes = new Button(Assets.buttonShop, Assets.buttonShopPress, Assets.buttonShopPress);
-        btMascota = new Button(Assets.buttonLeaderboard, Assets.buttonLeaderBoardPress, Assets.buttonLeaderBoardPress);
-        btUpgrades = new Button(Assets.buttonAchievement, Assets.buttonAchievementPress, Assets.buttonLeaderBoardPress);
-        btNoAds = new Button(Assets.buttonSettings, Assets.buttonSettingsPress, Assets.buttonLeaderBoardPress);
-        btMore = new Button(Assets.buttonRate, Assets.buttonSettingsPress);
+        buttonPlayer = new Button(Assets.buttonShop, Assets.buttonShopPress, Assets.buttonShopPress);
+        buttonMascot = new Button(Assets.buttonLeaderboard, Assets.buttonLeaderBoardPress, Assets.buttonLeaderBoardPress);
+        buttonUpgrade = new Button(Assets.buttonAchievement, Assets.buttonAchievementPress, Assets.buttonLeaderBoardPress);
+        buttonNoAds = new Button(Assets.buttonSettings, Assets.buttonSettingsPress, Assets.buttonLeaderBoardPress);
+        buttonMore = new Button(Assets.buttonRate, Assets.buttonSettingsPress);
 
-        btPersonajes.addListener(new ClickListener() {
+        buttonPlayer.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                new PlayersSubMenu(contenedor, game);
+                new PlayersSubMenu(tableContainer, game);
             }
         });
 
-        btMascota.addListener(new ClickListener() {
+        buttonMascot.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                new MascotsSubMenu(contenedor, game);
+                new MascotsSubMenu(tableContainer, game);
             }
         });
 
-        btUpgrades.addListener(new ClickListener() {
+        buttonUpgrade.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                new UpgradesSubMenu(contenedor, game);
+                new UpgradesSubMenu(tableContainer, game);
             }
         });
 
-        btNoAds.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-
-            }
-        });
-
-        btMore.addListener(new ClickListener() {
+        buttonMore.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.requestHandler.showMoreGames();
             }
         });
 
-        ButtonGroup<Button> radioGroup = new ButtonGroup<Button>();
-        radioGroup.add(btPersonajes, btMascota, btUpgrades, btNoAds);
+        ButtonGroup<Button> radioGroup = new ButtonGroup<>();
+        radioGroup.add(buttonPlayer, buttonMascot, buttonUpgrade, buttonNoAds);
     }
 
     @Override
@@ -147,7 +140,7 @@ public class ShopScreen extends Screens {
 
     @Override
     public void update(float delta) {
-        lbCoins.setText("x" + Settings.totalCoins);
+        labelCoins.setText("x" + Settings.totalCoins);
     }
 
     @Override

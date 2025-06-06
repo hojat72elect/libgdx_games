@@ -73,9 +73,9 @@ public class GameWorld {
         timeToSpawnMissile = 0;
 
         physicsManager.createStandingPlayer(2f, 1f, Settings.selectedSkin);
-        physicsManager.crearMascota(player.position.x - 1, player.position.y + .75f);
+        physicsManager.createMascot(player.position.x - 1, player.position.y + .75f);
 
-        worldCreatedUpToX = physicsManager.crearPlataforma(0, 0, 3);
+        worldCreatedUpToX = physicsManager.createPlatforms(0, 0, 3);
 
         createNextPart();
     }
@@ -90,7 +90,7 @@ public class GameWorld {
             float separation = MathUtils.random(1f, 3f);
             float y = MathUtils.random(0, 1.5f);
 
-            worldCreatedUpToX = physicsManager.crearPlataforma(worldCreatedUpToX + separation, y, platformWidth);
+            worldCreatedUpToX = physicsManager.createPlatforms(worldCreatedUpToX + separation, y, platformWidth);
 
             float xAuxiliary = x + separation;
 
@@ -99,13 +99,13 @@ public class GameWorld {
                     xAuxiliary = addRandomItems(xAuxiliary, y);
 
                 if (MathUtils.randomBoolean(.1f)) {
-                    xAuxiliary = physicsManager.crearCaja4(xAuxiliary, y + .8f);
+                    xAuxiliary = physicsManager.createBox4(xAuxiliary, y + .8f);
                     xAuxiliary = addRandomItems(xAuxiliary, y);
                 } else if (MathUtils.randomBoolean(.1f)) {
-                    xAuxiliary = physicsManager.crearCaja7(xAuxiliary, y + 1f);
+                    xAuxiliary = physicsManager.createBox7(xAuxiliary, y + 1f);
                     xAuxiliary = addRandomItems(xAuxiliary, y);
                 } else if (MathUtils.randomBoolean(.1f)) {
-                    xAuxiliary = physicsManager.crearPared(xAuxiliary, y + 3.17f);
+                    xAuxiliary = physicsManager.createWall(xAuxiliary, y + 3.17f);
                     xAuxiliary = addRandomItems(xAuxiliary, y);
                 } else {
                     xAuxiliary = addRandomItems(xAuxiliary, y);
@@ -118,32 +118,32 @@ public class GameWorld {
 
         if (MathUtils.randomBoolean(.3f)) {
             for (int i = 0; i < 5; i++) {
-                physicsManager.crearItem(ItemCoin.class, xAux, y + 1.5f);
-                xAux = physicsManager.crearItem(ItemCoin.class, xAux, y + 1f);
+                physicsManager.createItem(ItemCoin.class, xAux, y + 1.5f);
+                xAux = physicsManager.createItem(ItemCoin.class, xAux, y + 1f);
             }
         } else if (MathUtils.randomBoolean(.5f)) {
 
             for (int i = 0; i < 5; i++) {
-                physicsManager.crearItem(ItemCandyBean.class, xAux, y + .8f);
-                physicsManager.crearItem(ItemCandyBean.class, xAux, y + 1.1f);
-                xAux = physicsManager.crearItem(ItemCandyJelly.class, xAux, y + 1.5f);
+                physicsManager.createItem(ItemCandyBean.class, xAux, y + .8f);
+                physicsManager.createItem(ItemCandyBean.class, xAux, y + 1.1f);
+                xAux = physicsManager.createItem(ItemCandyJelly.class, xAux, y + 1.5f);
             }
         } else if (MathUtils.randomBoolean(.5f)) {
 
             for (int i = 0; i < 5; i++) {
-                physicsManager.crearItem(ItemCandyCorn.class, xAux, y + .8f);
-                physicsManager.crearItem(ItemCandyCorn.class, xAux, y + 1.1f);
-                xAux = physicsManager.crearItem(ItemCandyCorn.class, xAux, y + 1.5f);
+                physicsManager.createItem(ItemCandyCorn.class, xAux, y + .8f);
+                physicsManager.createItem(ItemCandyCorn.class, xAux, y + 1.1f);
+                xAux = physicsManager.createItem(ItemCandyCorn.class, xAux, y + 1.5f);
             }
         }
 
         if (MathUtils.randomBoolean(.025f)) {
 
-            xAux = physicsManager.crearItem(ItemHeart.class, xAux, y + 1.5f);
-            xAux = physicsManager.crearItem(ItemEnergy.class, xAux, y + 1.5f);
+            xAux = physicsManager.createItem(ItemHeart.class, xAux, y + 1.5f);
+            xAux = physicsManager.createItem(ItemEnergy.class, xAux, y + 1.5f);
         } else if (MathUtils.randomBoolean(.025f)) {
 
-            xAux = physicsManager.crearItem(ItemMagnet.class, xAux, y + 1.5f);
+            xAux = physicsManager.createItem(ItemMagnet.class, xAux, y + 1.5f);
         }
 
         return xAux;
@@ -185,7 +185,7 @@ public class GameWorld {
         if (timeToSpawnMissile >= TIME_TO_SPAWN_MISSILE) {
             timeToSpawnMissile -= TIME_TO_SPAWN_MISSILE;
 
-            physicsManager.crearMissil(player.position.x + 10, player.position.y);
+            physicsManager.createMissile(player.position.x + 10, player.position.y);
         }
     }
 
@@ -291,7 +291,7 @@ public class GameWorld {
 
     private void updateItem(float delta, Body body) {
         Item obj = (Item) body.getUserData();
-        obj.update(delta, body, mascot, player);
+        obj.update(delta, body, player);
 
         if (obj.position.x < player.position.x - 3)
             obj.setPicked();

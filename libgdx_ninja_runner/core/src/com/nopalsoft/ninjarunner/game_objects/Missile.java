@@ -70,11 +70,6 @@ public class Missile implements Poolable, Comparable<Missile> {
 
     @Override
     public int compareTo(Missile o2) {
-        if (distanceFromPlayer > o2.distanceFromPlayer)
-            return 1;
-        else if (distanceFromPlayer < o2.distanceFromPlayer)
-            return -1;
-        else
-            return 0;
+        return Float.compare(distanceFromPlayer, o2.distanceFromPlayer);
     }
 }

@@ -157,26 +157,26 @@ public class Assets {
         Sprite dash4 = atlas.createSprite("Mascota1/dash4");
         mascotBirdDashAnimation = new com.nopalsoft.ninjarunner.AnimationSprite(.04f, dash1, dash2, dash3, dash4);
 
-        Sprite moneda1 = atlas.createSprite("moneda1");
-        Sprite moneda2 = atlas.createSprite("moneda2");
-        Sprite moneda3 = atlas.createSprite("moneda3");
-        Sprite moneda4 = atlas.createSprite("moneda4");
-        Sprite moneda5 = atlas.createSprite("moneda5");
-        Sprite moneda6 = atlas.createSprite("moneda6");
-        Sprite moneda7 = atlas.createSprite("moneda7");
-        Sprite moneda8 = atlas.createSprite("moneda8");
-        coinAnimation = new com.nopalsoft.ninjarunner.AnimationSprite(.075f, moneda1, moneda2, moneda3, moneda4, moneda5, moneda6, moneda7, moneda8);
+        Sprite coin1 = atlas.createSprite("moneda1");
+        Sprite coin2 = atlas.createSprite("moneda2");
+        Sprite coin3 = atlas.createSprite("moneda3");
+        Sprite coin4 = atlas.createSprite("moneda4");
+        Sprite coin5 = atlas.createSprite("moneda5");
+        Sprite coin6 = atlas.createSprite("moneda6");
+        Sprite coin7 = atlas.createSprite("moneda7");
+        Sprite coin8 = atlas.createSprite("moneda8");
+        coinAnimation = new com.nopalsoft.ninjarunner.AnimationSprite(.075f, coin1, coin2, coin3, coin4, coin5, coin6, coin7, coin8);
 
         Sprite pick1 = atlas.createSprite("pick1");
         Sprite pick2 = atlas.createSprite("pick2");
         Sprite pick3 = atlas.createSprite("pick3");
         pickUpAnimation = new com.nopalsoft.ninjarunner.AnimationSprite(.1f, pick1, pick2, pick3);
 
-        Sprite missil1 = atlas.createSprite("misil1");
-        Sprite missil2 = atlas.createSprite("misil2");
-        Sprite missil3 = atlas.createSprite("misil3");
-        Sprite missil4 = atlas.createSprite("misil4");
-        missileAnimation = new com.nopalsoft.ninjarunner.AnimationSprite(.05f, missil1, missil2, missil3, missil4);
+        Sprite missile1 = atlas.createSprite("misil1");
+        Sprite missile2 = atlas.createSprite("misil2");
+        Sprite missile3 = atlas.createSprite("misil3");
+        Sprite missile4 = atlas.createSprite("misil4");
+        missileAnimation = new com.nopalsoft.ninjarunner.AnimationSprite(.05f, missile1, missile2, missile3, missile4);
 
         Sprite explosion1 = atlas.createSprite("explosion1");
         Sprite explosion2 = atlas.createSprite("explosion2");
@@ -194,7 +194,6 @@ public class Assets {
         hearth = atlas.createSprite("hearth");
 
         // Candies
-
         explosion1 = atlas.createSprite("Candy/explosionred01");
         explosion2 = atlas.createSprite("Candy/explosionred02");
         explosion3 = atlas.createSprite("Candy/explosionred03");
@@ -207,9 +206,9 @@ public class Assets {
         candyCorn = atlas.createSprite("Candy/candycorn");
 
         // Particles
-        ParticleEffect cajasEffect = new ParticleEffect();
-        cajasEffect.load(Gdx.files.internal("data/Particulas/Cajas"), atlas);
-        boxesEffectPool = new ParticleEffectPool(cajasEffect, 1, 10);
+        ParticleEffect boxesParticleEffect = new ParticleEffect();
+        boxesParticleEffect.load(Gdx.files.internal("data/Particulas/Cajas"), atlas);
+        boxesEffectPool = new ParticleEffectPool(boxesParticleEffect, 1, 10);
 
         // The smaller the number, the further back
         ParallaxLayer sun = new ParallaxLayer(atlas.findRegion("Background/sol"), new Vector2(.5f, 0), new Vector2(600, 300), new Vector2(800, 800),

@@ -14,53 +14,53 @@ import com.nopalsoft.ninjarunner.game.GameWorld;
 import com.nopalsoft.ninjarunner.screens.Screens;
 
 public class GameUI extends Group {
-	public static final float ANIMATION_TIME = .35f;
+    public static final float ANIMATION_TIME = .35f;
 
-	GameScreen gameScreen;
+    GameScreen gameScreen;
     GameWorld gameWorld;
 
     Table tableHeader;
     Label labelScore;
 
     Button buttonJump, buttonSlide;
-	public boolean didJump, didSlide, didDash;
+    public boolean didJump, didSlide, didDash;
 
     public GameUI(final GameScreen gameScreen, GameWorld gameWorld) {
-		setBounds(0, 0, Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
-		this.gameScreen = gameScreen;
+        setBounds(0, 0, Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
+        this.gameScreen = gameScreen;
         this.gameWorld = gameWorld;
 
-		init();
-	}
+        init();
+    }
 
-	private void init() {
+    private void init() {
 
         buttonJump = new Button(new ButtonStyle(null, null, null));
         buttonJump.setSize(getWidth() / 2f, getHeight());
         buttonJump.setPosition(0, 0);
         buttonJump.addListener(new ClickListener() {
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				didJump = true;
-				return false;
-			}
-		});
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                didJump = true;
+                return false;
+            }
+        });
 
         buttonSlide = new Button(new ButtonStyle(null, null, null));
         buttonSlide.setSize(getWidth() / 2f, getHeight());
         buttonSlide.setPosition(getWidth() / 2f + 1, 0);
         buttonSlide.addListener(new ClickListener() {
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				didSlide = true;
-				return true;
-			}
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                didSlide = true;
+                return true;
+            }
 
-			@Override
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				didSlide = false;
-			}
-		});
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                didSlide = false;
+            }
+        });
 
         tableHeader = new Table();
         tableHeader.setSize(Screens.SCREEN_WIDTH, 50);
@@ -73,19 +73,18 @@ public class GameUI extends Group {
 
         addActor(buttonJump);
         addActor(buttonSlide);
-		
-	}
+    }
 
-	@Override
-	public void act(float delta) {
-		super.act(delta);
-	}
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+    }
 
     private void addInActions() {
     }
 
-	public void show(Stage stage) {
-		addInActions();
-		stage.addActor(this);
-	}
+    public void show(Stage stage) {
+        addInActions();
+        stage.addActor(this);
+    }
 }
