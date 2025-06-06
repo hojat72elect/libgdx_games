@@ -72,8 +72,6 @@ public class WorldGameRenderer {
         renderMissile();
 
         batch.end();
-
-        // renderBox.render(oWorld.oWorldBox, oCam.combined);
     }
 
     private void renderItems() {

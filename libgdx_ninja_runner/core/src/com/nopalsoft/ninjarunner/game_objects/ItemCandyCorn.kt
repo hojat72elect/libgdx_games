@@ -1,11 +1,3 @@
-package com.nopalsoft.ninjarunner.game_objects;
+package com.nopalsoft.ninjarunner.game_objects
 
-public class ItemCandyCorn extends Item {
-
-    private static final float _WIDTH = .32f;
-    private static final float _HEIGHT = .40f;
-
-    public ItemCandyCorn() {
-        super(_WIDTH, _HEIGHT);
-    }
-}
+class ItemCandyCorn() : Item(.32f, .40f)
