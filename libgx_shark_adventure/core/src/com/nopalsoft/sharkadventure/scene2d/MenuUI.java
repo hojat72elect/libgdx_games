@@ -66,11 +66,11 @@ public class MenuUI extends Group {
     }
 
     private void init() {
-        titulo = new Image(Assets.titulo);
+        titulo = new Image(Assets.titleDrawable);
         titulo.setScale(1f);
         titulo.setPosition(getWidth() / 2f - titulo.getWidth() * titulo.getScaleX() / 2f, Screens.SCREEN_HEIGHT + titulo.getHeight());
 
-        gameOver = new Image(Assets.gameOver);
+        gameOver = new Image(Assets.gameOverDrawable);
         gameOver.setScale(1.25f);
         gameOver.setPosition(getWidth() / 2f - gameOver.getWidth() * gameOver.getScaleX() / 2f, Screens.SCREEN_HEIGHT + gameOver.getHeight());
 

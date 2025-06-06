@@ -21,50 +21,50 @@ import com.nopalsoft.sharkadventure.parallax.ParallaxLayer;
 public class Assets {
 
     public static BitmapFont fontGrande;
-    public static TextureRegionDrawable titulo;
-    public static TextureRegionDrawable gameOver;
+    public static TextureRegionDrawable titleDrawable;
+    public static TextureRegionDrawable gameOverDrawable;
 
-    public static Animation<TextureRegion> tiburonSwim;
-    public static Animation<TextureRegion> tiburonFast;
-    public static Animation<TextureRegion> tiburonFire;
-    public static AtlasRegion tiburonDead;
+    public static Animation<TextureRegion> sharkSwimAnimation;
+    public static Animation<TextureRegion> sharkDashAnimation;
+    public static Animation<TextureRegion> sharkFireAnimation;
+    public static AtlasRegion sharkDead;
     public static AtlasRegion turboTail;
 
-    public static AtlasRegion barrilVerde;
-    public static AtlasRegion barrilNegro;
-    public static AtlasRegion barrilRojo;
-    public static AtlasRegion barrilAmarillo;
+    public static AtlasRegion greenBarrel;
+    public static AtlasRegion blackBarrel;
+    public static AtlasRegion redBarrel;
+    public static AtlasRegion yellowBarrel;
 
-    public static Animation<TextureRegion> explosion;
+    public static Animation<TextureRegion> explosionAnimation;
 
-    public static AtlasRegion submarinoRojo;
-    public static AtlasRegion submarinoAmarillo;
+    public static AtlasRegion redSubmarine;
+    public static AtlasRegion yellowSubmarine;
 
-    public static AtlasRegion minaGris;
-    public static AtlasRegion minaOxido;
+    public static AtlasRegion grayMine;
+    public static AtlasRegion rustyMine;
     public static AtlasRegion chain;
     public static AtlasRegion blast;
     public static AtlasRegion torpedo;
-    public static AtlasRegion corazon;
-    public static AtlasRegion carne;
+    public static AtlasRegion heart;
+    public static AtlasRegion meat;
 
     public static Animation<TextureRegion> blastHit;
 
     public static AtlasRegion redBar;
     public static AtlasRegion energyBar;
 
-    public static AtlasRegion fondo;
-    public static ParallaxBackground parallaxAtras;
-    public static ParallaxBackground parallaxFrente;
+    public static AtlasRegion background;
+    public static ParallaxBackground parallaxBackground;
+    public static ParallaxBackground parallaxForeground;
 
     static TextureAtlas atlas;
 
-    public static ParticleEffect burbujaEffect;
-    public static ParticleEffect burbujaTiburon;
-    public static ParticleEffect burbujaTorpedoRightSide;
-    public static ParticleEffect burbujaTorpedoLeftSide;
-    public static ParticleEffect peces;
-    public static ParticleEffect pecesMediano;
+    public static ParticleEffect bubbleParticleEffect;
+    public static ParticleEffect sharkBubbleParticleEffect;
+    public static ParticleEffect torpedoBubbleRightSideParticleEffect;
+    public static ParticleEffect torpedoBubbleLeftSideParticleEffect;
+    public static ParticleEffect fishParticleEffect;
+    public static ParticleEffect mediumFishParticleEffect;
 
     public static TextureRegionDrawable btDer;
     public static TextureRegionDrawable btDerPress;
@@ -116,7 +116,7 @@ public class Assets {
 
         loadUI();
 
-        tiburonDead = atlas.findRegion("tiburonDead");
+        sharkDead = atlas.findRegion("tiburonDead");
 
         AtlasRegion tiburon1 = atlas.findRegion("tiburon1");
         AtlasRegion tiburon2 = atlas.findRegion("tiburon2");
@@ -127,8 +127,8 @@ public class Assets {
         AtlasRegion tiburon7 = atlas.findRegion("tiburon7");
         AtlasRegion tiburon8 = atlas.findRegion("tiburon8");
 
-        tiburonSwim = new Animation(.15f, tiburon1, tiburon2, tiburon3, tiburon4, tiburon5, tiburon6, tiburon7, tiburon8);
-        tiburonFast = new Animation(.04f, tiburon1, tiburon2, tiburon3, tiburon4, tiburon5, tiburon6, tiburon7, tiburon8);
+        sharkSwimAnimation = new Animation(.15f, tiburon1, tiburon2, tiburon3, tiburon4, tiburon5, tiburon6, tiburon7, tiburon8);
+        sharkDashAnimation = new Animation(.04f, tiburon1, tiburon2, tiburon3, tiburon4, tiburon5, tiburon6, tiburon7, tiburon8);
 
         AtlasRegion tiburonFire1 = atlas.findRegion("tiburonFire1");
         AtlasRegion tiburonFire2 = atlas.findRegion("tiburonFire2");
@@ -136,14 +136,14 @@ public class Assets {
         AtlasRegion tiburonFire4 = atlas.findRegion("tiburonFire4");
         AtlasRegion tiburonFire5 = atlas.findRegion("tiburonFire5");
 
-        tiburonFire = new Animation(.075f, tiburonFire1, tiburonFire2, tiburonFire3, tiburonFire4, tiburonFire5);
+        sharkFireAnimation = new Animation(.075f, tiburonFire1, tiburonFire2, tiburonFire3, tiburonFire4, tiburonFire5);
 
         turboTail = atlas.findRegion("turbo");
 
-        barrilVerde = atlas.findRegion("barrilVerde");
-        barrilNegro = atlas.findRegion("barrilNegro");
-        barrilRojo = atlas.findRegion("barrilRojo");
-        barrilAmarillo = atlas.findRegion("barrilAmarillo");
+        greenBarrel = atlas.findRegion("barrilVerde");
+        blackBarrel = atlas.findRegion("barrilNegro");
+        redBarrel = atlas.findRegion("barrilRojo");
+        yellowBarrel = atlas.findRegion("barrilAmarillo");
 
         AtlasRegion explosion1 = atlas.findRegion("explosion1");
         AtlasRegion explosion2 = atlas.findRegion("explosion2");
@@ -154,7 +154,7 @@ public class Assets {
         AtlasRegion explosion7 = atlas.findRegion("explosion7");
         AtlasRegion explosion8 = atlas.findRegion("explosion8");
 
-        explosion = new Animation(.1f, explosion1, explosion2, explosion3, explosion4, explosion5, explosion6, explosion7, explosion8);
+        explosionAnimation = new Animation(.1f, explosion1, explosion2, explosion3, explosion4, explosion5, explosion6, explosion7, explosion8);
 
         AtlasRegion blastHit1 = atlas.findRegion("blastHit1");
         AtlasRegion blastHit2 = atlas.findRegion("blastHit2");
@@ -165,36 +165,36 @@ public class Assets {
 
         blastHit = new Animation(.05f, blastHit1, blastHit2, blastHit3, blastHit4, blastHit5, blastHit6);
 
-        submarinoAmarillo = atlas.findRegion("submarinoAmarillo");
-        submarinoRojo = atlas.findRegion("submarinoRojo");
+        yellowSubmarine = atlas.findRegion("submarinoAmarillo");
+        redSubmarine = atlas.findRegion("submarinoRojo");
 
-        minaGris = atlas.findRegion("minaGris");
-        minaOxido = atlas.findRegion("minaOxido");
+        grayMine = atlas.findRegion("minaGris");
+        rustyMine = atlas.findRegion("minaOxido");
         chain = atlas.findRegion("chain");
         blast = atlas.findRegion("blast");
         torpedo = atlas.findRegion("torpedo");
-        corazon = atlas.findRegion("corazon");
-        carne = atlas.findRegion("carne");
+        heart = atlas.findRegion("corazon");
+        meat = atlas.findRegion("carne");
 
         reloadFondo();
 
-        burbujaEffect = new ParticleEffect();
-        burbujaEffect.load(Gdx.files.internal("particulas/burbujas"), atlas);
+        bubbleParticleEffect = new ParticleEffect();
+        bubbleParticleEffect.load(Gdx.files.internal("particulas/burbujas"), atlas);
 
-        burbujaTiburon = new ParticleEffect();
-        burbujaTiburon.load(Gdx.files.internal("particulas/burbujasTiburon"), atlas);
+        sharkBubbleParticleEffect = new ParticleEffect();
+        sharkBubbleParticleEffect.load(Gdx.files.internal("particulas/burbujasTiburon"), atlas);
 
-        burbujaTorpedoRightSide = new ParticleEffect();
-        burbujaTorpedoRightSide.load(Gdx.files.internal("particulas/burbujasTorpedoRightSide"), atlas);
+        torpedoBubbleRightSideParticleEffect = new ParticleEffect();
+        torpedoBubbleRightSideParticleEffect.load(Gdx.files.internal("particulas/burbujasTorpedoRightSide"), atlas);
 
-        burbujaTorpedoLeftSide = new ParticleEffect();
-        burbujaTorpedoLeftSide.load(Gdx.files.internal("particulas/burbujasTorpedoLeftSide"), atlas);
+        torpedoBubbleLeftSideParticleEffect = new ParticleEffect();
+        torpedoBubbleLeftSideParticleEffect.load(Gdx.files.internal("particulas/burbujasTorpedoLeftSide"), atlas);
 
-        peces = new ParticleEffect();
-        peces.load(Gdx.files.internal("particulas/peces"), atlas);
+        fishParticleEffect = new ParticleEffect();
+        fishParticleEffect.load(Gdx.files.internal("particulas/peces"), atlas);
 
-        pecesMediano = new ParticleEffect();
-        pecesMediano.load(Gdx.files.internal("particulas/pecesMediano"), atlas);
+        mediumFishParticleEffect = new ParticleEffect();
+        mediumFishParticleEffect.load(Gdx.files.internal("particulas/pecesMediano"), atlas);
 
         sSwim = Gdx.audio.newSound(Gdx.files.internal("sound/swim.mp3"));
         sSonar = Gdx.audio.newSound(Gdx.files.internal("sound/sonar.mp3"));
@@ -210,8 +210,8 @@ public class Assets {
     }
 
     private static void loadUI() {
-        titulo = new TextureRegionDrawable(atlas.findRegion("UI/titulo"));
-        gameOver = new TextureRegionDrawable(atlas.findRegion("UI/gameOver2"));
+        titleDrawable = new TextureRegionDrawable(atlas.findRegion("UI/titulo"));
+        gameOverDrawable = new TextureRegionDrawable(atlas.findRegion("UI/gameOver2"));
 
         btDer = new TextureRegionDrawable(atlas.findRegion("UI/btDer"));
         btDerPress = new TextureRegionDrawable(atlas.findRegion("UI/btDerPress"));
@@ -257,16 +257,16 @@ public class Assets {
         ParallaxLayer sueloAtras;
 
         if (MathUtils.randomBoolean()) {
-            fondo = atlas.findRegion("fondo");
+            background = atlas.findRegion("fondo");
             sueloAtras = new ParallaxLayer(atlas.findRegion("sueloAtras"), new Vector2(5, 0), new Vector2(0, -50), new Vector2(-1, 480), 1024, 121);
             sueloFrente = new ParallaxLayer(atlas.findRegion("suelo"), new Vector2(15, 0), new Vector2(0, -50), new Vector2(-1, 480), 1024, 121);
         } else {
-            fondo = atlas.findRegion("fondo2");
+            background = atlas.findRegion("fondo2");
             sueloAtras = new ParallaxLayer(atlas.findRegion("suelo2Atras"), new Vector2(5, 0), new Vector2(0, -50), new Vector2(-1, 480), 1024, 121);
             sueloFrente = new ParallaxLayer(atlas.findRegion("suelo2"), new Vector2(15, 0), new Vector2(0, -50), new Vector2(-1, 480), 1024, 121);
         }
-        parallaxAtras = new ParallaxBackground(new ParallaxLayer[]{sueloAtras}, 800, 480, new Vector2(10, 0));
-        parallaxFrente = new ParallaxBackground(new ParallaxLayer[]{sueloFrente}, 800, 480, new Vector2(10, 0));
+        parallaxBackground = new ParallaxBackground(new ParallaxLayer[]{sueloAtras}, 800, 480, new Vector2(10, 0));
+        parallaxForeground = new ParallaxBackground(new ParallaxLayer[]{sueloFrente}, 800, 480, new Vector2(10, 0));
     }
 
     public static void playExplosionSound() {

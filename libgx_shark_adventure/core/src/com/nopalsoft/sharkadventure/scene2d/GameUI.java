@@ -41,7 +41,7 @@ public class GameUI extends Group {
 
         init();
 
-        lifeBar = new ProgressBarUI(Assets.redBar, Assets.corazon, Tiburon.MAX_LIFE, -ProgressBarUI.WIDTH, 440);
+        lifeBar = new ProgressBarUI(Assets.redBar, Assets.heart, Tiburon.MAX_LIFE, -ProgressBarUI.WIDTH, 440);
         energyBar = new ProgressBarUI(Assets.energyBar, Assets.blast, Tiburon.MAX_ENERGY, -ProgressBarUI.WIDTH, 395);
 
         addActor(lifeBar);
