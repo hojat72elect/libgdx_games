@@ -1,11 +1,3 @@
-package com.nopalsoft.ninjarunner.game_objects;
+package com.nopalsoft.ninjarunner.game_objects
 
-public class ItemEnergy extends Item {
-
-    private static final float _WIDTH = .25f;
-    private static final float _HEIGHT = .35f;
-
-    public ItemEnergy() {
-        super(_WIDTH, _HEIGHT);
-    }
-}
+class ItemEnergy() : Item(.25f, .35f)
