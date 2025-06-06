@@ -32,7 +32,7 @@ open class Obstacle : Poolable {
         if (state == STATE_NORMAL) {
             state = STATE_DESTROY
             stateTime = 0f
-            effect = Assets.boxesEffectPool.obtain()
+            effect = Assets.boxesEffectPool?.obtain()
             effect!!.setPosition(position.x, position.y)
         }
     }

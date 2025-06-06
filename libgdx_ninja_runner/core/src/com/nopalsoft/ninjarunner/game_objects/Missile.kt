@@ -66,7 +66,7 @@ class Missile() : Poolable, Comparable<Missile?> {
         const val STATE_NORMAL: Int = 0
         const val STATE_EXPLODE: Int = 1
         const val STATE_DESTROY: Int = 2
-        private val DURATION_EXPLOSION = Assets.explosionAnimation.animationDuration + .1f
+        private val DURATION_EXPLOSION = Assets.explosionAnimation!!.animationDuration + .1f
 
         const val WIDTH = 1.27f
         const val HEIGHT = .44f
