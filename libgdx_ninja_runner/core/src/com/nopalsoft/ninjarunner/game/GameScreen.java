@@ -70,11 +70,11 @@ public class GameScreen extends Screens {
 
         if (state == STATE_MENU) {
             gameWorld.player.updateStateTime(delta);
-            gameWorld.oMascot.updateStateTime(delta);
+            gameWorld.mascot.updateStateTime(delta);
         } else if (state == STATE_RUNNING) {
             boolean isJumpPressed = false;
 
-            gameWorld.update(delta, gameUI.didJump, isJumpPressed, gameUI.didDash, gameUI.didSlide);
+            gameWorld.update(delta, gameUI.didJump, gameUI.didDash, gameUI.didSlide);
 
             gameUI.didJump = false;
             gameUI.didDash = false;
@@ -83,7 +83,7 @@ public class GameScreen extends Screens {
                 setGameover();
             }
 
-            setNextGoalFrame(gameWorld.puntuacion);
+            setNextGoalFrame(gameWorld.scores);
         } else if (state == STATE_GAME_OVER) {
             if (Gdx.input.justTouched()) {
                 game.setScreen(new GameScreen(game, true));
@@ -92,24 +92,24 @@ public class GameScreen extends Screens {
     }
 
 
-    public void setNextGoalFrame(long puntos) {
+    public void setNextGoalFrame(long score) {
         // So that only people you haven't passed yet are shown
-        if (puntos < Settings.bestScore)
-            puntos = Settings.bestScore;
+        if (score < Settings.bestScore)
+            score = Settings.bestScore;
 
         game.arrayPerson.sort(); // Arrange from highest score to lowest score
 
 
         Person tempPerson = null;
         // I calculate the position of the player with the most points. For example, if I'm in fifth place, this should be the position for fourth place.
-        int posicionArribaDeMi = game.arrayPerson.size - 1;
+        int nextGoalIndex = game.arrayPerson.size - 1;
         // The arrangement is ordered from largest to smallest.
-        for (; posicionArribaDeMi >= 0; posicionArribaDeMi--) {
-            Person obj = game.arrayPerson.get(posicionArribaDeMi);
+        for (; nextGoalIndex >= 0; nextGoalIndex--) {
+            Person obj = game.arrayPerson.get(nextGoalIndex);
             if (obj.isMe)
                 continue;
 
-            if (obj.score > puntos) {
+            if (obj.score > score) {
                 tempPerson = obj;
                 break;
             }
@@ -138,7 +138,7 @@ public class GameScreen extends Screens {
     }
 
     private void setGameover() {
-        Settings.setNewScore(gameWorld.puntuacion);
+        Settings.setNewScore(gameWorld.scores);
         state = STATE_GAME_OVER;
         Assets.music1.stop();
     }
@@ -166,11 +166,11 @@ public class GameScreen extends Screens {
         batch.begin();
         Assets.smallFont.draw(batch, "FPS GERA" + Gdx.graphics.getFramesPerSecond(), 5, 20);
         Assets.smallFont.draw(batch, "Bodies " + gameWorld.world.getBodyCount(), 5, 40);
-        Assets.smallFont.draw(batch, "Lives " + gameWorld.player.vidas, 5, 60);
-        Assets.smallFont.draw(batch, "Coins " + gameWorld.monedasTomadas, 5, 80);
-        Assets.smallFont.draw(batch, "Scores " + gameWorld.puntuacion, 5, 100);
+        Assets.smallFont.draw(batch, "Lives " + gameWorld.player.lives, 5, 60);
+        Assets.smallFont.draw(batch, "Coins " + gameWorld.coinsTaken, 5, 80);
+        Assets.smallFont.draw(batch, "Scores " + gameWorld.scores, 5, 100);
         Assets.smallFont.draw(batch, "Distance " + gameWorld.player.position.x, 5, 120);
-        Assets.smallFont.draw(batch, "Platforms " + gameWorld.arrPlataformas.size, 5, 140);
+        Assets.smallFont.draw(batch, "Platforms " + gameWorld.arrayPlatform.size, 5, 140);
 
         batch.end();
     }

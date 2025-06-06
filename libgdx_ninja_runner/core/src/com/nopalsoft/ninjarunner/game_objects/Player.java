@@ -13,10 +13,10 @@ public class Player {
     public final static int STATE_REVIVE = 4;
     public int state;
 
-    public final static int TIPO_GIRL = 0;
-    public final static int TIPO_BOY = 1;
-    public final static int TIPO_NINJA = 2;
-    public final int tipo;
+    public final static int TYPE_GIRL = 0;
+    public final static int TYPE_BOY = 1;
+    public final static int TYPE_NINJA = 2;
+    public final int type;
 
     public final static float DRAW_WIDTH = 1.27f;
     public final static float DRAW_HEIGHT = 1.05f;
@@ -26,11 +26,11 @@ public class Player {
 
     public final static float HEIGHT_SLIDE = .45f;
 
-    public static final float VELOCIDAD_RUN = 3;
-    public static final float VELOCIDAD_DASH = 7;
+    public static final float RUN_SPEED = 3;
+    public static final float DASH_SPEED = 7;
 
-    public static float VELOCIDAD_JUMP = 5;
-    public final float VELOCIDAD_SECOND_JUMP = 4;
+    public static float JUMP_SPEED = 5;
+    public final float SECOND_JUMP_SPEED = 4;
 
     public final static float DURATION_DEAD = Assets.girlDeathAnimation.animationDuration + .5f;
     public final static float DURATION_HURT = Assets.girlHurtAnimation.animationDuration + .1f;
@@ -46,43 +46,36 @@ public class Player {
     public Vector2 position;
     public float stateTime;
 
-    public boolean isJumping;// To know if i can draw the jumping animation
+    public boolean isJumping;// To know if I can draw the jumping animation
 
-    public int numPisosEnContacto;// Pisos que esta tocando actualmente si es ==0 no puede saltar
+    public int numberOfFloorsInContact; // Floors you are currently touching if ==0 you cannot jump
 
     private boolean canJump;
     private boolean canDoubleJump;
 
     public boolean didGetHurtAtLeastOnce;
 
-    /**
-     * Verdadero si toca las escaleras
-     */
-
-    public int vidas;
-    public final int MAX_VIDAS = Settings.LEVEL_LIFE + 5;
+    public int lives;
+    public final int MAX_LIVES = Settings.LEVEL_LIFE + 5;
 
     public boolean isDash;
     public boolean isSlide;
     public boolean isIdle;
 
-    /**
-     * Power
-     **/
     public boolean isMagnetEnabled = false;
 
-    public Player(float x, float y, int tipo) {
+    public Player(float x, float y, int type) {
         position = new Vector2(x, y);
         initialPosition = new Vector2(x, y);
         state = STATE_NORMAL;
         stateTime = 0;
-        this.tipo = tipo;
+        this.type = type;
         canJump = true;
         canDoubleJump = true;
         didGetHurtAtLeastOnce = false;
         isIdle = true;
 
-        vidas = MAX_VIDAS;
+        lives = MAX_LIVES;
         DURATION_MAGNET = 10;
     }
 
@@ -92,7 +85,7 @@ public class Player {
 
         isIdle = false;
 
-        // No importa si esta vivo/dizzy/ o lo que sea se le quita el tiempo
+        // It doesn't matter if he's alive/dizzy/ or whatever, time is running out.
         if (isMagnetEnabled) {
             durationMagnet += delta;
             if (durationMagnet >= DURATION_MAGNET) {
@@ -107,7 +100,7 @@ public class Player {
             isJumping = false;
             canDoubleJump = true;
             stateTime = 0;
-            vidas = MAX_VIDAS;
+            lives = MAX_LIVES;
             initialPosition.y = 3;
             position.x = initialPosition.x;
             position.y = initialPosition.y;
@@ -136,11 +129,11 @@ public class Player {
         Vector2 velocity = body.getLinearVelocity();
 
         if (didJump && (canJump || canDoubleJump)) {
-            velocity.y = VELOCIDAD_JUMP;
+            velocity.y = JUMP_SPEED;
 
             if (!canJump) {
                 canDoubleJump = false;
-                velocity.y = VELOCIDAD_SECOND_JUMP;
+                velocity.y = SECOND_JUMP_SPEED;
             }
 
             canJump = false;
@@ -166,14 +159,14 @@ public class Player {
 
         if (isDash) {
             durationDash += delta;
-            velocity.x = VELOCIDAD_DASH;
+            velocity.x = DASH_SPEED;
             if (durationDash >= DURATION_DASH) {
                 isDash = false;
                 stateTime = 0;
-                velocity.x = VELOCIDAD_RUN;
+                velocity.x = RUN_SPEED;
             }
         } else {
-            velocity.x = VELOCIDAD_RUN;
+            velocity.x = RUN_SPEED;
         }
         stateTime += delta;
 
@@ -184,8 +177,8 @@ public class Player {
         if (state != STATE_NORMAL)
             return;
 
-        vidas--;
-        if (vidas > 0) {
+        lives--;
+        if (lives > 0) {
             state = STATE_HURT;
         } else {
             state = STATE_DEAD;
@@ -198,8 +191,8 @@ public class Player {
         if (state != STATE_NORMAL)
             return;
 
-        vidas--;
-        if (vidas > 0) {
+        lives--;
+        if (lives > 0) {
             state = STATE_DIZZY;
         } else {
             state = STATE_DEAD;
@@ -210,7 +203,7 @@ public class Player {
 
     public void die() {
         if (state != STATE_DEAD) {
-            vidas = 0;
+            lives = 0;
 
             state = STATE_DEAD;
             stateTime = 0;
@@ -218,7 +211,7 @@ public class Player {
     }
 
     public void touchFloor() {
-        numPisosEnContacto++;
+        numberOfFloorsInContact++;
 
         canJump = true;
         isJumping = false;
@@ -228,8 +221,8 @@ public class Player {
     }
 
     public void endTouchFloor() {
-        numPisosEnContacto--;
-        if (numPisosEnContacto == 0) {
+        numberOfFloorsInContact--;
+        if (numberOfFloorsInContact == 0) {
             canJump = false;
 
             // Si dejo de tocar el piso porque salto todavia puede saltar otra vez

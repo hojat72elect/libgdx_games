@@ -54,7 +54,7 @@ public class Item implements Poolable {
 
 	private void moveCoinsMagenet(Body body, Vector2 targetPosition) {
 		velocity = body.getLinearVelocity();
-		velocity.set(targetPosition).sub(position).scl(Player.VELOCIDAD_DASH + 3);
+		velocity.set(targetPosition).sub(position).scl(Player.DASH_SPEED + 3);
 		body.setLinearVelocity(velocity);
 	}
 

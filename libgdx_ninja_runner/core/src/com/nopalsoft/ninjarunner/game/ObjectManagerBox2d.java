@@ -20,7 +20,6 @@ import com.nopalsoft.ninjarunner.game_objects.Platform;
 import com.nopalsoft.ninjarunner.game_objects.Player;
 import com.nopalsoft.ninjarunner.game_objects.Wall;
 
-
 public class ObjectManagerBox2d {
 
     GameWorld gameWorld;
@@ -31,22 +30,22 @@ public class ObjectManagerBox2d {
         worldBox = gameWorld.world;
     }
 
-    public void createStandingHero(float x, float y, int heroType) {
-        gameWorld.player = new Player(x, y, heroType);
+    public void createStandingPlayer(float x, float y, int playerType) {
+        gameWorld.player = new Player(x, y, playerType);
 
-        BodyDef bd = new BodyDef();
-        bd.position.x = x;
-        bd.position.y = y;
-        bd.type = BodyType.DynamicBody;
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.x = x;
+        bodyDefinition.position.y = y;
+        bodyDefinition.type = BodyType.DynamicBody;
 
-        Body oBody = worldBox.createBody(bd);
+        Body body = worldBox.createBody(bodyDefinition);
 
-        recreateFixturePersonajeStand(oBody);
+        recreateFixtureStandingPlayer(body);
 
-        oBody.setFixedRotation(true);
-        oBody.setUserData(gameWorld.player);
-        oBody.setBullet(true);
-        oBody.setLinearVelocity(Player.VELOCIDAD_RUN, 0);
+        body.setFixedRotation(true);
+        body.setUserData(gameWorld.player);
+        body.setBullet(true);
+        body.setLinearVelocity(Player.RUN_SPEED, 0);
     }
 
     private void destroyAllFixturesFromBody(Body oBody) {
@@ -56,8 +55,8 @@ public class ObjectManagerBox2d {
         oBody.getFixtureList().clear();
     }
 
-    public void recreateFixturePersonajeStand(Body oBody) {
-        destroyAllFixturesFromBody(oBody);// Primero le quito todas las que tenga
+    public void recreateFixtureStandingPlayer(Body body) {
+        destroyAllFixturesFromBody(body);// First I remove all the ones I have
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Player.WIDTH / 2f, Player.HEIGHT / 2f);
@@ -66,7 +65,7 @@ public class ObjectManagerBox2d {
         fixture.shape = shape;
         fixture.density = 10;
         fixture.friction = 0;
-        Fixture cuerpo = oBody.createFixture(fixture);
+        Fixture cuerpo = body.createFixture(fixture);
         cuerpo.setUserData("cuerpo");
 
         PolygonShape sensorPiesShape = new PolygonShape();
@@ -76,25 +75,25 @@ public class ObjectManagerBox2d {
         fixture.restitution = 0f;
         fixture.friction = 0;
         fixture.isSensor = true;
-        Fixture sensorPies = oBody.createFixture(fixture);
+        Fixture sensorPies = body.createFixture(fixture);
         sensorPies.setUserData("pies");
 
         shape.dispose();
         sensorPiesShape.dispose();
     }
 
-    public void recreateFixturePersonajeSlide(Body oBody) {
-        destroyAllFixturesFromBody(oBody);// Primero le quito todas las que tenga
+    public void recreateFixtureSlidingPlayer(Body body) {
+        destroyAllFixturesFromBody(body);// First I remove all the ones I have
 
         PolygonShape shape = new PolygonShape();
-        // Para cuando se crea el cubo como es mas chico que quede en la posicion correcta
+        // By the time the cube is created, the smaller it is, the better, so that it remains in the correct position.
         shape.setAsBox(Player.WIDTH / 2f, Player.HEIGHT_SLIDE / 2f, new Vector2(0, -.25f), 0);
 
         FixtureDef fixture = new FixtureDef();
         fixture.shape = shape;
         fixture.density = 10;
         fixture.friction = 0;
-        Fixture cuerpo = oBody.createFixture(fixture);
+        Fixture cuerpo = body.createFixture(fixture);
         cuerpo.setUserData("cuerpo");
 
         PolygonShape sensorPiesShape = new PolygonShape();
@@ -104,7 +103,7 @@ public class ObjectManagerBox2d {
         fixture.restitution = 0f;
         fixture.friction = 0;
         fixture.isSensor = true;
-        Fixture sensorPies = oBody.createFixture(fixture);
+        Fixture sensorPies = body.createFixture(fixture);
         sensorPies.setUserData("pies");
 
         shape.dispose();
@@ -112,7 +111,7 @@ public class ObjectManagerBox2d {
     }
 
     public void crearMascota(float x, float y) {
-        gameWorld.oMascot = new Mascot(x, y, Settings.selectedMascot);
+        gameWorld.mascot = new Mascot(x, y, Settings.selectedMascot);
 
         BodyDef bd = new BodyDef();
         bd.position.set(x, y);
@@ -128,7 +127,7 @@ public class ObjectManagerBox2d {
         fixutre.isSensor = true;
 
         body.createFixture(fixutre);
-        body.setUserData(gameWorld.oMascot);
+        body.setUserData(gameWorld.mascot);
 
         shape.dispose();
     }
@@ -154,7 +153,7 @@ public class ObjectManagerBox2d {
 
         body.createFixture(fixutre);
         body.setUserData(obj);
-        gameWorld.arrItems.add(obj);
+        gameWorld.arrayItem.add(obj);
 
         shape.dispose();
 
@@ -192,7 +191,7 @@ public class ObjectManagerBox2d {
         body.createFixture(fixutre);
 
         body.setUserData(obj);
-        gameWorld.arrObstaculos.add(obj);
+        gameWorld.arrayObstacle.add(obj);
 
         shape.dispose();
 
@@ -227,7 +226,7 @@ public class ObjectManagerBox2d {
         body.createFixture(fixutre);
 
         body.setUserData(obj);
-        gameWorld.arrObstaculos.add(obj);
+        gameWorld.arrayObstacle.add(obj);
 
         shape.dispose();
 
@@ -238,7 +237,6 @@ public class ObjectManagerBox2d {
      * @param x        poiscion de la izq inferior
      * @param y        posicion de la izq inferior
      * @param numPlats numero de plataformas pegadas
-     * @return
      */
     public float crearPlataforma(float x, float y, int numPlats) {
 
@@ -250,7 +248,7 @@ public class ObjectManagerBox2d {
             oPlat = Pools.obtain(Platform.class);
             x += Platform.WIDTH / 2f;
             oPlat.init(x, yCenter);
-            gameWorld.arrPlataformas.add(oPlat);
+            gameWorld.arrayPlatform.add(oPlat);
             // Le resto el -.01 para que quede un pixel a la izquiera y no aparesca la linea cuando dos plataformas estan pegadas
             x += Platform.WIDTH / 2f - .01f;
         }
@@ -301,7 +299,7 @@ public class ObjectManagerBox2d {
 
         body.createFixture(fixutre);
         body.setUserData(oPard);
-        gameWorld.arrPared.add(oPard);
+        gameWorld.arrayWall.add(oPard);
 
         shape.dispose();
 
@@ -328,7 +326,7 @@ public class ObjectManagerBox2d {
         body.createFixture(fixutre);
         body.setUserData(obj);
         body.setLinearVelocity(Missile.SPEED_X, 0);
-        gameWorld.arrMissiles.add(obj);
+        gameWorld.arrayMissile.add(obj);
 
         shape.dispose();
     }

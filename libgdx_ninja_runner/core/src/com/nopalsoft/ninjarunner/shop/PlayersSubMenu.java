@@ -98,13 +98,13 @@ public class PlayersSubMenu {
 
         // DEFAULT
         buttonSelectShanti = new TextButton(textSelect, Assets.styleTextButtonPurchased);
-        if (Settings.selectedSkin == Player.TIPO_GIRL)
+        if (Settings.selectedSkin == Player.TYPE_GIRL)
             buttonSelectShanti.setVisible(false);
 
         buttonSelectShanti.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Settings.selectedSkin = Player.TIPO_GIRL;
+                Settings.selectedSkin = Player.TYPE_GIRL;
                 setSelected(buttonSelectShanti);
             }
         });
@@ -115,14 +115,14 @@ public class PlayersSubMenu {
         else
             buttonBuyNinja = new TextButton(textBuy, Assets.styleTextButtonBuy);
 
-        if (Settings.selectedSkin == Player.TIPO_NINJA)
+        if (Settings.selectedSkin == Player.TYPE_NINJA)
             buttonBuyNinja.setVisible(false);
 
         buttonBuyNinja.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyNinja) {
-                    Settings.selectedSkin = Player.TIPO_NINJA;
+                    Settings.selectedSkin = Player.TYPE_NINJA;
                     setSelected(buttonBuyNinja);
                 } else if (Settings.totalCoins >= PRICE_NINJA) {
                     Settings.totalCoins -= PRICE_NINJA;

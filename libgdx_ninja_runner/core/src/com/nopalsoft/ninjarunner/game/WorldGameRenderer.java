@@ -80,7 +80,7 @@ public class WorldGameRenderer {
 
     private void renderItems() {
 
-        Iterator<Item> i = gameWorld.arrItems.iterator();
+        Iterator<Item> i = gameWorld.arrayItem.iterator();
         while (i.hasNext()) {
             Item obj = i.next();
 
@@ -122,7 +122,7 @@ public class WorldGameRenderer {
 
     private void renderPlataformas() {
 
-        Iterator<Platform> i = gameWorld.arrPlataformas.iterator();
+        Iterator<Platform> i = gameWorld.arrayPlatform.iterator();
         while (i.hasNext()) {
             Platform obj = i.next();
 
@@ -137,7 +137,7 @@ public class WorldGameRenderer {
     }
 
     private void renderMascota(float delta) {
-        Mascot oMas = gameWorld.oMascot;
+        Mascot oMas = gameWorld.mascot;
 
         Sprite spriteFrame;
 
@@ -155,14 +155,14 @@ public class WorldGameRenderer {
                 spriteFrame = Assets.mascotBirdFlyAnimation.getKeyFrame(oMas.stateTime, true);
         }
 
-        spriteFrame.setPosition(oMas.position.x - width + Mascot.RADIUS, gameWorld.oMascot.position.y - height / 2f);
+        spriteFrame.setPosition(oMas.position.x - width + Mascot.RADIUS, gameWorld.mascot.position.y - height / 2f);
         spriteFrame.setSize(width, height);
         spriteFrame.draw(batch);
     }
 
     private void renderPared() {
 
-        Iterator<Wall> i = gameWorld.arrPared.iterator();
+        Iterator<Wall> i = gameWorld.arrayWall.iterator();
         while (i.hasNext()) {
             Wall obj = i.next();
 
@@ -174,7 +174,7 @@ public class WorldGameRenderer {
     }
 
     private void renderObstaculos(float delta) {
-        Iterator<Obstacle> i = gameWorld.arrObstaculos.iterator();
+        Iterator<Obstacle> i = gameWorld.arrayObstacle.iterator();
         while (i.hasNext()) {
             Obstacle obj = i.next();
 
@@ -203,7 +203,7 @@ public class WorldGameRenderer {
     }
 
     private void renderMissil(float delta) {
-        Iterator<Missile> i = gameWorld.arrMissiles.iterator();
+        Iterator<Missile> i = gameWorld.arrayMissile.iterator();
         while (i.hasNext()) {
             Missile obj = i.next();
 
@@ -242,8 +242,8 @@ public class WorldGameRenderer {
         AnimationSprite animDizzy;
         AnimationSprite animDead;
 
-        switch (oPer.tipo) {
-            case Player.TIPO_GIRL:
+        switch (oPer.type) {
+            case Player.TYPE_GIRL:
                 animIdle = Assets.girlIdleAnimation;
                 animJump = Assets.girlJumpAnimation;
                 animRun = Assets.girlRunAnimation;
@@ -253,7 +253,7 @@ public class WorldGameRenderer {
                 animDizzy = Assets.girlDizzyAnimation;
                 animDead = Assets.girlDeathAnimation;
                 break;
-            case Player.TIPO_BOY:
+            case Player.TYPE_BOY:
                 animIdle = Assets.girlIdleAnimation;
                 animJump = Assets.girlJumpAnimation;
                 animRun = Assets.girlRunAnimation;
@@ -263,7 +263,7 @@ public class WorldGameRenderer {
                 animDizzy = Assets.girlDizzyAnimation;
                 animDead = Assets.girlDeathAnimation;
                 break;
-            case Player.TIPO_NINJA:
+            case Player.TYPE_NINJA:
             default:
                 animIdle = Assets.ninjaIdleAnimation;
                 animJump = Assets.ninjaJumpAnimation;

@@ -10,7 +10,7 @@ public class Settings {
     public static boolean isSoundEnabled = false;
     public static boolean isMusicEnabled = false;
 
-    public static int selectedSkin = Player.TIPO_NINJA;
+    public static int selectedSkin = Player.TYPE_NINJA;
     public static int totalCoins = 1500000;
     public static Mascot.MascotType selectedMascot = Mascot.MascotType.PINK_BIRD;
 
