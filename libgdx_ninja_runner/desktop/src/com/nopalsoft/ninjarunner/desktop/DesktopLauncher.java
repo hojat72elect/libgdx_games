@@ -3,7 +3,6 @@ package com.nopalsoft.ninjarunner.desktop;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.nopalsoft.ninjarunner.NinjaRunnerGame;
-import com.nopalsoft.ninjarunner.handlers.RequestHandler;
 
 public class DesktopLauncher {
 
@@ -13,30 +12,8 @@ public class DesktopLauncher {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setWindowedMode(800, 480);
         config.setTitle("Ninja Runner");
-        game = new NinjaRunnerGame(handler);
+        game = new NinjaRunnerGame();
         new Lwjgl3Application(game, config);
     }
 
-    static RequestHandler handler = new RequestHandler() {
-
-        @Override
-        public void showRater() {
-
-        }
-
-        @Override
-        public void showMoreGames() {
-
-        }
-
-        @Override
-        public void shareApp() {
-
-        }
-
-        @Override
-        public void loadInterstitial() {
-
-        }
-    };
 }

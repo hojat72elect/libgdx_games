@@ -107,20 +107,6 @@ public class MenuUI extends Group {
             }
         });
 
-        buttonRate.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                gameScreen.game.requestHandler.showRater();
-            }
-        });
-
-        buttonShare.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                gameScreen.game.requestHandler.shareApp();
-            }
-        });
-
         buttonLeaderboard.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

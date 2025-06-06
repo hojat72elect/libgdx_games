@@ -37,9 +37,6 @@ public class GameScreen extends Screens {
         } else {
             setRunning(false);
         }
-
-        // I always try to load in interstitial at the start of the game
-        this.game.requestHandler.loadInterstitial();
     }
 
     public void setRunning(boolean removeMenu) {
