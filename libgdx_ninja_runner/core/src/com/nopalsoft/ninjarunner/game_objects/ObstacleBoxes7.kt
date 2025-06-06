@@ -1,6 +1,9 @@
-package com.nopalsoft.ninjarunner.game_objects;
+package com.nopalsoft.ninjarunner.game_objects
 
-public class ObstacleBoxes7 extends Obstacle {
-    public final static float DRAW_HEIGHT = 1.14f;
-    public final static float DRAW_WIDTH = 1.14f;
+class ObstacleBoxes7() : Obstacle() {
+
+    companion object {
+        const val DRAW_HEIGHT = 1.14f
+        const val DRAW_WIDTH = 1.14f
+    }
 }
