@@ -14,8 +14,8 @@ class AnimatedSpriteActor(var anim: AnimationSprite) : Actor() {
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
         val sprite = anim.getKeyFrame(stateTime, true)
-        sprite.setSize(getWidth(), getHeight())
-        sprite.setPosition(getX(), getY())
-        sprite.draw(batch)
+        sprite?.setSize(getWidth(), getHeight())
+        sprite?.setPosition(getX(), getY())
+        sprite?.draw(batch)
     }
 }
