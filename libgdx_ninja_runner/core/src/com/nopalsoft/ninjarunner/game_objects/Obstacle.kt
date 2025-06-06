@@ -1,44 +1,47 @@
-package com.nopalsoft.ninjarunner.game_objects;
+package com.nopalsoft.ninjarunner.game_objects
 
-import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Pool.Poolable;
-import com.nopalsoft.ninjarunner.Assets;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.utils.Pool.Poolable
+import com.nopalsoft.ninjarunner.Assets
 
-public class Obstacle implements Poolable {
-    public final static int STATE_NORMAL = 0;
-    public final static int STATE_DESTROY = 1;
-    public int state;
+open class Obstacle : Poolable {
 
-    public final Vector2 position;
-    public float stateTime;
+    @JvmField
+    var state = 0
 
-    public PooledEffect effect;
+    @JvmField
+    val position = Vector2()
 
-    public Obstacle() {
-        position = new Vector2();
+    var stateTime = 0f
+
+    @JvmField
+    var effect: PooledEffect? = null
+
+    fun initialize(x: Float, y: Float) {
+        position.set(x, y)
+        state = STATE_NORMAL
+        stateTime = 0f
     }
 
-    public void init(float x, float y) {
-        position.set(x, y);
-        state = STATE_NORMAL;
-        stateTime = 0;
+    fun update(delta: Float) {
+        stateTime += delta
     }
 
-    public void update(float delta) {
-        stateTime += delta;
-    }
-
-    public void setDestroy() {
+    fun setDestroy() {
         if (state == STATE_NORMAL) {
-            state = STATE_DESTROY;
-            stateTime = 0;
-            effect = Assets.boxesEffectPool.obtain();
-            effect.setPosition(position.x, position.y);
+            state = STATE_DESTROY
+            stateTime = 0f
+            effect = Assets.boxesEffectPool.obtain()
+            effect!!.setPosition(position.x, position.y)
         }
     }
 
-    @Override
-    public void reset() {
+    override fun reset() {
+    }
+
+    companion object {
+        const val STATE_NORMAL = 0
+        const val STATE_DESTROY = 1
     }
 }

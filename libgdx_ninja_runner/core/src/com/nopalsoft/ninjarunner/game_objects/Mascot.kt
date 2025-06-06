@@ -1,72 +1,84 @@
-package com.nopalsoft.ninjarunner.game_objects;
+package com.nopalsoft.ninjarunner.game_objects
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
 
 /**
  * The creature that follows our player throughout the game.
  */
-public class Mascot {
-	public final static int STATE_NORMAL = 0;
-	public int state;
+class Mascot(x: Float, y: Float, @JvmField var mascotType: MascotType) {
+    var state: Int
 
-	public enum MascotType {
-		PINK_BIRD, BOMB
-	}
+    enum class MascotType {
+        PINK_BIRD, BOMB
+    }
 
-	public final MascotType mascotType;
+    @JvmField
+    var drawWidth = 0f
 
-	public final static float SPEED = 5f;
+    @JvmField
+    var drawHeight = 0f
 
-	public static final float RADIUS = .25f;
+    @JvmField
+    var dashDrawWidth = 0f
 
-	public final float drawWidth;
-	public final float drawHeight;
+    @JvmField
+    var dashDrawHeight = 0f
 
-	public final float dashDrawWidth;
-	public final float dashDrawHeight;
+    @JvmField
+    val position = Vector2(x, y)
+    val targetPosition = Vector2(x, y)
+    var velocity: Vector2
 
-	public final Vector2 position;
-	final public Vector2 targetPosition;
-	public Vector2 velocity;
-	public float stateTime;
+    @JvmField
+    var stateTime: Float
 
-	public Mascot(float x, float y, MascotType mascotType) {
-		this.mascotType = mascotType;
-		position = new Vector2(x, y);
-		targetPosition = new Vector2(x, y);
-		velocity = new Vector2();
-		state = STATE_NORMAL;
-		stateTime = 0;
+    init {
+        velocity = Vector2()
+        state = STATE_NORMAL
+        stateTime = 0f
 
-		switch (mascotType) {
-			case PINK_BIRD:
-				drawWidth = .73f;
-				drawHeight = .66f;
-				dashDrawWidth = 2.36f;
-				dashDrawHeight = 1.25f;
-				break;
-			default:
-			case BOMB:
-				drawWidth = dashDrawWidth = .52f;
-				drawHeight = dashDrawHeight = .64f;
-				break;
-		}
-	}
+        when (mascotType) {
+            MascotType.PINK_BIRD -> {
+                drawWidth = .73f
+                drawHeight = .66f
+                dashDrawWidth = 2.36f
+                dashDrawHeight = 1.25f
+            }
 
-	public void update(Body body, float delta, float targetX, float targetY) {
-		position.x = body.getPosition().x;
-		position.y = body.getPosition().y;
+            MascotType.BOMB -> {
+                run {
+                    dashDrawWidth = .52f
+                    drawWidth = dashDrawWidth
+                }
+                run {
+                    dashDrawHeight = .64f
+                    drawHeight = dashDrawHeight
+                }
+            }
+        }
+    }
 
-		targetPosition.set(targetX, targetY);
+    fun update(body: Body, delta: Float, targetX: Float, targetY: Float) {
+        position.x = body.getPosition().x
+        position.y = body.getPosition().y
 
-		velocity = body.getLinearVelocity();
-		velocity.set(targetPosition).sub(position).scl(SPEED);
-		body.setLinearVelocity(velocity);
-		stateTime += delta;
-	}
+        targetPosition.set(targetX, targetY)
 
-	public void updateStateTime(float delta) {
-		stateTime += delta;
-	}
+        velocity = body.getLinearVelocity()
+        velocity.set(targetPosition).sub(position).scl(SPEED)
+        body.linearVelocity = velocity
+        stateTime += delta
+    }
+
+    fun updateStateTime(delta: Float) {
+        stateTime += delta
+    }
+
+    companion object {
+        const val STATE_NORMAL = 0
+        const val SPEED = 5f
+
+        const val RADIUS = .25f
+    }
 }

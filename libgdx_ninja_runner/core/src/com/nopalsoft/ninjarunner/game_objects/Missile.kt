@@ -1,75 +1,77 @@
-package com.nopalsoft.ninjarunner.game_objects;
+package com.nopalsoft.ninjarunner.game_objects
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.utils.Pool.Poolable;
-import com.nopalsoft.ninjarunner.Assets;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.utils.Pool.Poolable
+import com.nopalsoft.ninjarunner.Assets
 
 
-public class Missile implements Poolable, Comparable<Missile> {
-    public final static int STATE_NORMAL = 0;
-    public final static int STATE_EXPLODE = 1;
-    public final static int STATE_DESTROY = 2;
-    public int state;
+class Missile() : Poolable, Comparable<Missile?> {
+    @JvmField
+    var state: Int = 0
 
-    private final static float DURATION_EXPLOSION = Assets.explosionAnimation.animationDuration + .1f;
+    @JvmField
+    val position: Vector2 = Vector2()
 
-    public static final float WIDTH = 1.27f;
-    public static final float HEIGHT = .44f;
+    @JvmField
+    var stateTime = 0f
 
-    public static final float SPEED_X = -2.5f;
+    @JvmField
+    var distanceFromPlayer = 0f
 
-    public final Vector2 position;
-    public float stateTime;
-    public float distanceFromPlayer;
-
-    public Missile() {
-        position = new Vector2();
+    fun initialize(x: Float, y: Float) {
+        position.set(x, y)
+        state = STATE_NORMAL
+        stateTime = 0f
     }
 
-    public void init(float x, float y) {
-        position.set(x, y);
-        state = STATE_NORMAL;
-        stateTime = 0;
-    }
-
-    public void update(float delta, Body body, Player oPlayer) {
+    fun update(delta: Float, body: Body, oPlayer: Player) {
         if (state == STATE_NORMAL) {
-            position.x = body.getPosition().x;
-            position.y = body.getPosition().y;
+            position.x = body.getPosition().x
+            position.y = body.getPosition().y
         }
         if (state == STATE_EXPLODE) {
-
             if (stateTime >= DURATION_EXPLOSION) {
-                state = STATE_DESTROY;
-                stateTime = 0;
+                state = STATE_DESTROY
+                stateTime = 0f
             }
         }
 
-        distanceFromPlayer = oPlayer.position.dst(position);
-        stateTime += delta;
+        distanceFromPlayer = oPlayer.position.dst(position)
+        stateTime += delta
     }
 
-    public void setHitTarget() {
+    fun setHitTarget() {
         if (state == STATE_NORMAL) {
-            state = STATE_EXPLODE;
-            stateTime = 0;
+            state = STATE_EXPLODE
+            stateTime = 0f
         }
     }
 
-    public void setDestroy() {
+    fun setDestroy() {
         if (state != STATE_DESTROY) {
-            state = STATE_DESTROY;
-            stateTime = 0;
+            state = STATE_DESTROY
+            stateTime = 0f
         }
     }
 
-    @Override
-    public void reset() {
+    override fun reset() {
     }
 
-    @Override
-    public int compareTo(Missile o2) {
-        return Float.compare(distanceFromPlayer, o2.distanceFromPlayer);
+    override fun compareTo(o2: Missile?): Int {
+        return distanceFromPlayer.compareTo(o2!!.distanceFromPlayer)
+    }
+
+    companion object {
+        const val STATE_NORMAL: Int = 0
+        const val STATE_EXPLODE: Int = 1
+        const val STATE_DESTROY: Int = 2
+        private val DURATION_EXPLOSION = Assets.explosionAnimation.animationDuration + .1f
+
+        const val WIDTH = 1.27f
+        const val HEIGHT = .44f
+
+        @JvmField
+        val SPEED_X = -2.5f
     }
 }
