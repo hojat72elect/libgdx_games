@@ -1,41 +1,41 @@
-package com.nopalsoft.ninjarunner.game_objects;
+package com.nopalsoft.ninjarunner.game_objects
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Pool.Poolable;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.utils.Pool.Poolable
 
-public class Wall implements Poolable {
-    public final static int STATE_NORMAL = 0;
-    public final static int STATE_DESTROY = 1;
-    public int state;
+class Wall : Poolable {
+    @JvmField
+    var state = 0
 
-    public static final float WIDTH = .98f;
-    public static final float HEIGHT = 4.30f;
+    @JvmField
+    val position = Vector2()
+    var stateTime = 0f
 
-    public final Vector2 position;
-    public float stateTime;
 
-    public Wall() {
-        position = new Vector2();
+    fun initialize(x: Float, y: Float) {
+        position.set(x, y)
+        state = STATE_NORMAL
+        stateTime = 0f
     }
 
-    public void init(float x, float y) {
-        position.set(x, y);
-        state = STATE_NORMAL;
-        stateTime = 0;
+    fun update(delta: Float) {
+        stateTime += delta
     }
 
-    public void update(float delta) {
-        stateTime += delta;
-    }
-
-    public void setDestroy() {
+    fun setDestroy() {
         if (state == STATE_NORMAL) {
-            state = STATE_DESTROY;
-            stateTime = 0;
+            state = STATE_DESTROY
+            stateTime = 0f
         }
     }
 
-    @Override
-    public void reset() {
+    override fun reset() {
+    }
+
+    companion object {
+        const val STATE_NORMAL = 0
+        const val STATE_DESTROY = 1
+        const val WIDTH = .98f
+        const val HEIGHT = 4.30f
     }
 }

@@ -247,7 +247,7 @@ public class ObjectManagerBox2d {
         for (int i = 0; i < numberOfPlatforms; i++) {
             oPlat = Pools.obtain(Platform.class);
             x += Platform.WIDTH / 2f;
-            oPlat.init(x, yCenter);
+            oPlat.initialize(x, yCenter);
             gameWorld.arrayPlatform.add(oPlat);
             // I subtract the -.01 so that it is one pixel to the left and the line does not appear when two platforms are stuck together
             x += Platform.WIDTH / 2f - .01f;
@@ -280,7 +280,7 @@ public class ObjectManagerBox2d {
         Wall wall = Pools.obtain(Wall.class);
 
         x += Wall.WIDTH / 2f;
-        wall.init(x, y);
+        wall.initialize(x, y);
 
         BodyDef bd = new BodyDef();
         bd.position.set(wall.position.x, wall.position.y);

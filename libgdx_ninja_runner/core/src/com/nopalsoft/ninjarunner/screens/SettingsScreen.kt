@@ -1,33 +1,24 @@
-package com.nopalsoft.ninjarunner.screens;
+package com.nopalsoft.ninjarunner.screens
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Input.Keys;
-import com.nopalsoft.ninjarunner.game.GameScreen;
+import com.badlogic.gdx.Game
+import com.badlogic.gdx.Input
+import com.nopalsoft.ninjarunner.game.GameScreen
 
-public class SettingsScreen extends Screens {
-
-    public SettingsScreen(Game game) {
-        super(game);
+class SettingsScreen(game: Game) : Screens(game) {
+    override fun draw(delta: Float) {
     }
 
-    @Override
-    public void draw(float delta) {
+    override fun update(delta: Float) {
     }
 
-    @Override
-    public void update(float delta) {
-    }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
-            changeScreenWithFadeOut(GameScreen.class, game);
-            return true;
+    override fun keyDown(keycode: Int): Boolean {
+        if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
+            changeScreenWithFadeOut(GameScreen::class.java, game)
+            return true
         }
-        return super.keyUp(keycode);
+        return super.keyUp(keycode)
     }
 
-    @Override
-    public void hide() {
+    override fun hide() {
     }
 }
