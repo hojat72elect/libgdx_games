@@ -22,7 +22,7 @@ public class MenuUI extends Group {
 
     GameScreen gameScreen;
     GameWorld oWorld;
-    Image titulo;
+    Image titleImage;
     Image gameOver;
 
     Table tbMenu;
@@ -31,8 +31,8 @@ public class MenuUI extends Group {
     Label lbBestScore;
     Label lbScore;
 
-    Button btPlay, btLeaderboard, btAchievements, btFacebook, btTwitter;
-    Button btMusica, btSonido;
+    Button buttonPlay, buttonLeaderboard, buttonAchievements, buttonFacebook, buttonTwitter;
+    Button buttonMusic, buttonSoundEffect;
 
     boolean showMainMenu;
 
@@ -66,51 +66,51 @@ public class MenuUI extends Group {
     }
 
     private void init() {
-        titulo = new Image(Assets.titleDrawable);
-        titulo.setScale(1f);
-        titulo.setPosition(getWidth() / 2f - titulo.getWidth() * titulo.getScaleX() / 2f, Screens.SCREEN_HEIGHT + titulo.getHeight());
+        titleImage = new Image(Assets.titleDrawable);
+        titleImage.setScale(1f);
+        titleImage.setPosition(getWidth() / 2f - titleImage.getWidth() * titleImage.getScaleX() / 2f, Screens.SCREEN_HEIGHT + titleImage.getHeight());
 
         gameOver = new Image(Assets.gameOverDrawable);
         gameOver.setScale(1.25f);
         gameOver.setPosition(getWidth() / 2f - gameOver.getWidth() * gameOver.getScaleX() / 2f, Screens.SCREEN_HEIGHT + gameOver.getHeight());
 
-        btFacebook = new Button(Assets.btFacebook, Assets.btFacebookPress);
-        btFacebook.setSize(60, 60);
-        btFacebook.setPosition(Screens.SCREEN_WIDTH + btFacebook.getWidth(), 410);
+        buttonFacebook = new Button(Assets.btFacebook, Assets.btFacebookPress);
+        buttonFacebook.setSize(60, 60);
+        buttonFacebook.setPosition(Screens.SCREEN_WIDTH + buttonFacebook.getWidth(), 410);
 
-        btTwitter = new Button(Assets.btTwitter, Assets.btTwitterPress);
-        btTwitter.setSize(60, 60);
-        btTwitter.setPosition(Screens.SCREEN_WIDTH + btTwitter.getWidth(), 410);
+        buttonTwitter = new Button(Assets.btTwitter, Assets.btTwitterPress);
+        buttonTwitter.setSize(60, 60);
+        buttonTwitter.setPosition(Screens.SCREEN_WIDTH + buttonTwitter.getWidth(), 410);
 
-        btMusica = new Button(Assets.btMusicOff, Assets.btMusicOn, Assets.btMusicOn);
-        btMusica.setSize(60, 60);
-        btMusica.setPosition(-btMusica.getWidth(), 410);
+        buttonMusic = new Button(Assets.btMusicOff, Assets.btMusicOn, Assets.btMusicOn);
+        buttonMusic.setSize(60, 60);
+        buttonMusic.setPosition(-buttonMusic.getWidth(), 410);
 
-        btSonido = new Button(Assets.btSoundOff, Assets.btSoundOn, Assets.btSoundOn);
-        btSonido.setSize(60, 60);
-        btSonido.setPosition(-btSonido.getWidth(), 325);
+        buttonSoundEffect = new Button(Assets.btSoundOff, Assets.btSoundOn, Assets.btSoundOn);
+        buttonSoundEffect.setSize(60, 60);
+        buttonSoundEffect.setPosition(-buttonSoundEffect.getWidth(), 325);
 
         tbMenu = new Table();
         tbMenu.setBackground(Assets.backgroundMenu);
 
-        btPlay = new Button(Assets.btDer, Assets.btDerPress);
-        btLeaderboard = new Button(Assets.btLeaderboard, Assets.btLeaderboardPress);
-        btAchievements = new Button(Assets.btAchievements, Assets.btAchievementsPress);
+        buttonPlay = new Button(Assets.btDer, Assets.btDerPress);
+        buttonLeaderboard = new Button(Assets.btLeaderboard, Assets.btLeaderboardPress);
+        buttonAchievements = new Button(Assets.btAchievements, Assets.btAchievementsPress);
 
         tbMenu.defaults().size(90).padBottom(20).padLeft(10).padRight(10);
         if (Gdx.app.getType() != ApplicationType.WebGL) {
             tbMenu.setSize(385, 85);
-            tbMenu.add(btPlay);
-            tbMenu.add(btLeaderboard);
-            tbMenu.add(btAchievements);
+            tbMenu.add(buttonPlay);
+            tbMenu.add(buttonLeaderboard);
+            tbMenu.add(buttonAchievements);
         } else {
             tbMenu.setSize(120, 85);
-            tbMenu.add(btPlay);
+            tbMenu.add(buttonPlay);
         }
         tbMenu.setPosition(Screens.SCREEN_WIDTH / 2f - tbMenu.getWidth() / 2f, -tbMenu.getHeight());
 
 
-        btPlay.addListener(new ClickListener() {
+        buttonPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
@@ -122,12 +122,12 @@ public class MenuUI extends Group {
             }
         });
 
-        btMusica.setChecked(Settings.isMusicOn);
-        btMusica.addListener(new ClickListener() {
+        buttonMusic.setChecked(Settings.isMusicOn);
+        buttonMusic.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Settings.isMusicOn = !Settings.isMusicOn;
-                btMusica.setChecked(Settings.isMusicOn);
+                buttonMusic.setChecked(Settings.isMusicOn);
                 if (Settings.isMusicOn)
                     Assets.musica.play();
                 else
@@ -135,61 +135,61 @@ public class MenuUI extends Group {
             }
         });
 
-        btSonido.setChecked(Settings.isSoundOn);
-        btSonido.addListener(new ClickListener() {
+        buttonSoundEffect.setChecked(Settings.isSoundOn);
+        buttonSoundEffect.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Settings.isSoundOn = !Settings.isSoundOn;
-                btSonido.setChecked(Settings.isSoundOn);
+                buttonSoundEffect.setChecked(Settings.isSoundOn);
             }
         });
 
         addActor(tbMenu);
-        addActor(btFacebook);
-        addActor(btTwitter);
-        addActor(btMusica);
-        addActor(btSonido);
+        addActor(buttonFacebook);
+        addActor(buttonTwitter);
+        addActor(buttonMusic);
+        addActor(buttonSoundEffect);
     }
 
     private void addInActions() {
-        titulo.addAction(Actions.moveTo(getWidth() / 2f - titulo.getWidth() * titulo.getScaleX() / 2f, 300, ANIMATION_TIME));
+        titleImage.addAction(Actions.moveTo(getWidth() / 2f - titleImage.getWidth() * titleImage.getScaleX() / 2f, 300, ANIMATION_TIME));
         gameOver.addAction(Actions.moveTo(getWidth() / 2f - gameOver.getWidth() * gameOver.getScaleX() / 2f, 320, ANIMATION_TIME));
 
         tbMenu.addAction(Actions.moveTo(Screens.SCREEN_WIDTH / 2f - tbMenu.getWidth() / 2f, 0, ANIMATION_TIME));
 
-        btFacebook.addAction(Actions.moveTo(735, 410, ANIMATION_TIME));
-        btTwitter.addAction(Actions.moveTo(735, 325, ANIMATION_TIME));
-        btMusica.addAction(Actions.moveTo(5, 410, ANIMATION_TIME));
-        btSonido.addAction(Actions.moveTo(5, 325, ANIMATION_TIME));
+        buttonFacebook.addAction(Actions.moveTo(735, 410, ANIMATION_TIME));
+        buttonTwitter.addAction(Actions.moveTo(735, 325, ANIMATION_TIME));
+        buttonMusic.addAction(Actions.moveTo(5, 410, ANIMATION_TIME));
+        buttonSoundEffect.addAction(Actions.moveTo(5, 325, ANIMATION_TIME));
     }
 
     private void addOutActions() {
-        titulo.addAction(Actions.moveTo(getWidth() / 2f - titulo.getWidth() * titulo.getScaleX() / 2f, Screens.SCREEN_HEIGHT + titulo.getHeight(),
+        titleImage.addAction(Actions.moveTo(getWidth() / 2f - titleImage.getWidth() * titleImage.getScaleX() / 2f, Screens.SCREEN_HEIGHT + titleImage.getHeight(),
                 ANIMATION_TIME));
         gameOver.addAction(Actions.moveTo(getWidth() / 2f - gameOver.getWidth() * gameOver.getScaleX() / 2f,
                 Screens.SCREEN_HEIGHT + gameOver.getHeight(), ANIMATION_TIME));
 
         tbMenu.addAction(Actions.moveTo(Screens.SCREEN_WIDTH / 2f - tbMenu.getWidth() / 2f, -tbMenu.getHeight(), ANIMATION_TIME));
 
-        btFacebook.addAction(Actions.moveTo(Screens.SCREEN_WIDTH + btFacebook.getWidth(), 410, ANIMATION_TIME));
-        btTwitter.addAction(Actions.moveTo(Screens.SCREEN_WIDTH + btTwitter.getWidth(), 325, ANIMATION_TIME));
-        btMusica.addAction(Actions.moveTo(-btMusica.getWidth(), 410, ANIMATION_TIME));
-        btSonido.addAction(Actions.moveTo(-btSonido.getWidth(), 325, ANIMATION_TIME));
+        buttonFacebook.addAction(Actions.moveTo(Screens.SCREEN_WIDTH + buttonFacebook.getWidth(), 410, ANIMATION_TIME));
+        buttonTwitter.addAction(Actions.moveTo(Screens.SCREEN_WIDTH + buttonTwitter.getWidth(), 325, ANIMATION_TIME));
+        buttonMusic.addAction(Actions.moveTo(-buttonMusic.getWidth(), 410, ANIMATION_TIME));
+        buttonSoundEffect.addAction(Actions.moveTo(-buttonSoundEffect.getWidth(), 325, ANIMATION_TIME));
     }
 
     public void show(Stage stage, final boolean showMainMenu) {
         addInActions();
         stage.addActor(this);
 
-        titulo.remove();
+        titleImage.remove();
         gameOver.remove();
         tbGameOver.remove();
 
         if (showMainMenu) {
-            addActor(titulo);
+            addActor(titleImage);
         } else {
             lbBestScore.setText(Settings.bestScore + " m");
-            lbScore.setText(gameScreen.puntuacion + " m");
+            lbScore.setText(gameScreen.score + " m");
 
             addActor(gameOver);
             addActor(tbGameOver);

@@ -8,15 +8,15 @@ import com.nopalsoft.sharkadventure.Assets;
 import com.nopalsoft.sharkadventure.Settings;
 import com.nopalsoft.sharkadventure.screens.Screens;
 
-public class Mina implements Poolable {
+public class Mine implements Poolable {
     public final static int STATE_NORMAL = 0;
     public final static int STATE_EXPLODE = 1;
     public final static int STATE_REMOVE = 2;
     public int state;
 
-    public final static int VELOCIDAD_X = -1;
+    public final static int SPEED_X = -1;
 
-    public final static float DURATION_EXPLOTION = .8f;
+    public final static float EXPLOSION_DURATION = .8f;
 
     public final static float DRAW_WIDTH = .56f;
     public final static float DRAW_HEIGHT = .64f;
@@ -24,15 +24,15 @@ public class Mina implements Poolable {
     public final static float WIDTH = .53f;
     public final static float HEIGHT = .61f;
 
-    public final static int TIPO_GRIS = 2;
-    public final static int TIPO_OXIDO = 3;
-    public int tipo;
+    public final static int TYPE_GRAY = 2;
+    public final static int TYPE_RUSTY = 3;
+    public int type;
 
     final public Vector2 position;
 
     public float stateTime;
 
-    public Mina() {
+    public Mine() {
         position = new Vector2();
     }
 
@@ -40,7 +40,7 @@ public class Mina implements Poolable {
         position.set(x, y);
         stateTime = 0;
         state = STATE_NORMAL;
-        tipo = MathUtils.random(3);
+        type = MathUtils.random(3);
     }
 
     public void update(Body body, float delta) {
@@ -50,7 +50,7 @@ public class Mina implements Poolable {
 
             if (position.x < -3 || position.y > Screens.WORLD_HEIGHT + 3)
                 hit();
-        } else if (state == STATE_EXPLODE && stateTime >= DURATION_EXPLOTION) {
+        } else if (state == STATE_EXPLODE && stateTime >= EXPLOSION_DURATION) {
             state = STATE_REMOVE;
             stateTime = 0;
         }

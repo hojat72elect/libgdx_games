@@ -13,7 +13,7 @@ public class Blast implements Poolable {
 
     public final static float DURATION_HIT = .05f * 6f;
 
-    public final static float VELOCIDAD_X = 5.5f;
+    public final static float SPEED_X = 5.5f;
     public final static float DRAW_WIDTH = .32f;
     public final static float DRAW_HEIGHT = .32f;
 

@@ -14,37 +14,37 @@ import com.nopalsoft.sharkadventure.SharkAdventureGame;
 import com.nopalsoft.sharkadventure.game.GameScreen;
 import com.nopalsoft.sharkadventure.screens.Screens;
 
-public class VentanaPause extends Group {
-    public static final float DURACION_ANIMATION = .3f;
+public class PauseWindow extends Group {
+    public static final float ANIMATION_DURATION = .3f;
 
     protected GameScreen screen;
     protected SharkAdventureGame game;
 
     private boolean isVisible = false;
 
-    Button btPlay, btRefresh, btHome;
+    Button buttonPlay, buttonRefresh, buttonHome;
 
-    public VentanaPause(GameScreen currentScreen) {
+    public PauseWindow(GameScreen currentScreen) {
         setSize(300, 300);
         setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 80);
         screen = currentScreen;
         game = currentScreen.game;
         setBackGround();
 
-        Table tbTitulo = new Table();
-        tbTitulo.setSize(getWidth() - 80, 50);
-        tbTitulo.setPosition(getWidth() / 2f - tbTitulo.getWidth() / 2f, getHeight() - 30);
-        tbTitulo.setBackground(Assets.backgroundTitulo);
+        Table titleTable = new Table();
+        titleTable.setSize(getWidth() - 80, 50);
+        titleTable.setPosition(getWidth() / 2f - titleTable.getWidth() / 2f, getHeight() - 30);
+        titleTable.setBackground(Assets.backgroundTitulo);
 
-        Label lbTitulo = new Label("Paused", Assets.lblStyle);
+        Label titleLabel = new Label("Paused", Assets.lblStyle);
 
-        tbTitulo.add(lbTitulo).fill().padBottom(10);
-        addActor(tbTitulo);
+        titleTable.add(titleLabel).fill().padBottom(10);
+        addActor(titleTable);
 
-        btPlay = new Button(Assets.btDer, Assets.btDerPress);
-        btPlay.setSize(70, 70);
-        btPlay.setPosition(getWidth() / 2f - btPlay.getWidth() / 2f, 170);
-        btPlay.addListener(new ClickListener() {
+        buttonPlay = new Button(Assets.btDer, Assets.btDerPress);
+        buttonPlay.setSize(70, 70);
+        buttonPlay.setPosition(getWidth() / 2f - buttonPlay.getWidth() / 2f, 170);
+        buttonPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 hide();
@@ -52,10 +52,10 @@ public class VentanaPause extends Group {
             }
         });
 
-        btRefresh = new Button(Assets.btRefresh, Assets.btRefreshPress);
-        btRefresh.setSize(70, 70);
-        btRefresh.setPosition(getWidth() / 2f + 25, 80);
-        btRefresh.addListener(new ClickListener() {
+        buttonRefresh = new Button(Assets.btRefresh, Assets.btRefreshPress);
+        buttonRefresh.setSize(70, 70);
+        buttonRefresh.setPosition(getWidth() / 2f + 25, 80);
+        buttonRefresh.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 hide();
@@ -63,10 +63,10 @@ public class VentanaPause extends Group {
             }
         });
 
-        btHome = new Button(Assets.btHome, Assets.btHomePress);
-        btHome.setSize(70, 70);
-        btHome.setPosition(getWidth() / 2f - btHome.getWidth() - 25, 80);
-        btHome.addListener(new ClickListener() {
+        buttonHome = new Button(Assets.btHome, Assets.btHomePress);
+        buttonHome.setSize(70, 70);
+        buttonHome.setPosition(getWidth() / 2f - buttonHome.getWidth() - 25, 80);
+        buttonHome.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 hide();
@@ -74,9 +74,9 @@ public class VentanaPause extends Group {
             }
         });
 
-        addActor(btPlay);
-        addActor(btRefresh);
-        addActor(btHome);
+        addActor(buttonPlay);
+        addActor(buttonRefresh);
+        addActor(buttonHome);
     }
 
     private void setBackGround() {
@@ -91,7 +91,7 @@ public class VentanaPause extends Group {
         setX(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f);
 
         setScale(.5f);
-        addAction(Actions.sequence(Actions.scaleTo(1, 1, DURACION_ANIMATION)));
+        addAction(Actions.sequence(Actions.scaleTo(1, 1, ANIMATION_DURATION)));
 
         isVisible = true;
         stage.addActor(this);

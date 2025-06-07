@@ -9,35 +9,35 @@ import com.nopalsoft.sharkadventure.Settings;
 import com.nopalsoft.sharkadventure.SharkAdventureGame;
 import com.nopalsoft.sharkadventure.scene2d.GameUI;
 import com.nopalsoft.sharkadventure.scene2d.MenuUI;
-import com.nopalsoft.sharkadventure.scene2d.VentanaPause;
+import com.nopalsoft.sharkadventure.scene2d.PauseWindow;
 import com.nopalsoft.sharkadventure.screens.Screens;
 
 public class GameScreen extends Screens {
-    final int STATE_MENU = 0;// Menu principal
-    final int STATE_RUNNING = 1;// The game begins
-    final int STATE_PAUSED = 2;// Pause
-    final int STATE_GAME_OVER = 3;// Same as the main menu but without the title.
+    final int STATE_MENU = 0; // Main Menu
+    final int STATE_RUNNING = 1; // The game begins
+    final int STATE_PAUSED = 2; // Pause
+    final int STATE_GAME_OVER = 3; // Same as the main menu but without the title.
     int state;
 
-    GameWorld oWorld;
+    GameWorld gameWorld;
     WorldRenderer renderer;
 
     GameUI gameUI;
     MenuUI menuUI;
-    VentanaPause vtPause;
+    PauseWindow pauseWindow;
 
-    public long puntuacion;
+    public long score;
 
     /**
-     * @param showMainMenu Shows the main menu otherwise starts the game immediately
+     * @param showMainMenu Shows the main menu otherwise starts the game immediately.
      */
     public GameScreen(SharkAdventureGame game, boolean showMainMenu) {
         super(game);
-        oWorld = new GameWorld();
-        renderer = new WorldRenderer(batch, oWorld);
-        gameUI = new GameUI(this, oWorld);
-        menuUI = new MenuUI(this, oWorld);
-        vtPause = new VentanaPause(this);
+        gameWorld = new GameWorld();
+        renderer = new WorldRenderer(batch, gameWorld);
+        gameUI = new GameUI(this, gameWorld);
+        menuUI = new MenuUI(this, gameWorld);
+        pauseWindow = new PauseWindow(this);
 
         Assets.reloadFondo();
 
@@ -76,23 +76,23 @@ public class GameScreen extends Screens {
         if (Gdx.input.isKeyJustPressed(Keys.CONTROL_RIGHT) || Gdx.input.isKeyJustPressed(Keys.CONTROL_RIGHT) || Gdx.input.isKeyJustPressed(Keys.F))
             gameUI.didFire = true;
 
-        oWorld.update(delta, gameUI.accelerationX, gameUI.didSwimUp, gameUI.didFire);
+        gameWorld.update(delta, gameUI.accelerationX, gameUI.didSwimUp, gameUI.didFire);
 
-        puntuacion = (long) oWorld.puntuacion;
+        score = (long) gameWorld.score;
 
-        gameUI.lifeBar.updateActualNum(oWorld.oTiburon.life);
-        gameUI.energyBar.updateActualNum(oWorld.oTiburon.energy);
+        gameUI.lifeBar.updateActualNum(gameWorld.oShark.life);
+        gameUI.energyBar.updateActualNum(gameWorld.oShark.energy);
 
         gameUI.didSwimUp = false;
         gameUI.didFire = false;
 
-        if (oWorld.state == GameWorld.STATE_GAMEOVER) {
+        if (gameWorld.state == GameWorld.STATE_GAME_OVER) {
             setGameOver();
         }
     }
 
     private void updateStateMenu(float delta) {
-        oWorld.oTiburon.updateStateTime(delta);
+        gameWorld.oShark.updateStateTime(delta);
     }
 
     public void setRunning(boolean removeMenu) {
@@ -115,7 +115,7 @@ public class GameScreen extends Screens {
             state = STATE_GAME_OVER;
             Runnable runAfterHideGameUI = () -> menuUI.show(stage, false);
 
-            Settings.setBestScore(puntuacion);
+            Settings.setBestScore(score);
 
             gameUI.addAction(Actions.sequence(Actions.delay(MenuUI.ANIMATION_TIME), Actions.run(runAfterHideGameUI)));
             gameUI.removeWithAnimations();
@@ -128,7 +128,7 @@ public class GameScreen extends Screens {
         if (state == STATE_RUNNING) {
             state = STATE_PAUSED;
             gameUI.removeWithAnimations();
-            vtPause.show(stage);
+            pauseWindow.show(stage);
         }
     }
 
@@ -161,7 +161,7 @@ public class GameScreen extends Screens {
             if (state == STATE_RUNNING) {
                 setPaused();
             } else if (state == STATE_PAUSED) {
-                vtPause.hide();
+                pauseWindow.hide();
                 setRunning(false);
             } else if (state == STATE_MENU) {
                 Gdx.app.exit();

@@ -7,13 +7,13 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 import com.nopalsoft.sharkadventure.Assets;
 import com.nopalsoft.sharkadventure.Settings;
 
-public class Tiburon implements Poolable {
+public class Shark implements Poolable {
     public final static int STATE_NORMAL = 0;
     public final static int STATE_DEAD = 1;
     public int state;
 
-    final float VELOCIDAD_X = 3.5f;
-    final float VELOCIDAD_Y = 1.85f;
+    final float SPEED_X = 3.5f;
+    final float SPEED_Y = 1.85f;
 
     public final static int MAX_LIFE = 5;
     public final static int MAX_ENERGY = 50;
@@ -29,8 +29,8 @@ public class Tiburon implements Poolable {
     float timeToRechargeEnergy;
 
     final public Vector2 position;
-    public Vector2 velocidad;
-    public float angleDeg;
+    public Vector2 speed;
+    public float angleDegree;
     public float stateTime;
 
     public boolean isTurbo;
@@ -46,9 +46,9 @@ public class Tiburon implements Poolable {
      */
     public boolean didFlipX;
 
-    public Tiburon(float x, float y) {
+    public Shark(float x, float y) {
         position = new Vector2(x, y);
-        velocidad = new Vector2();
+        speed = new Vector2();
 
         stateTime = 0;
         state = STATE_NORMAL;
@@ -68,7 +68,7 @@ public class Tiburon implements Poolable {
         position.x = body.getPosition().x;
         position.y = body.getPosition().y;
 
-        velocidad = body.getLinearVelocity();
+        speed = body.getLinearVelocity();
 
         if (state == STATE_NORMAL) {
 
@@ -87,18 +87,18 @@ public class Tiburon implements Poolable {
                 }
             }
 
-            velocidad.x = accelX * VELOCIDAD_X;
+            speed.x = accelX * SPEED_X;
 
-            if (velocidad.x > 0 && isFacingLeft) {
+            if (speed.x > 0 && isFacingLeft) {
                 didFlipX = true;
                 isFacingLeft = false;
-            } else if (velocidad.x < 0 && !isFacingLeft) {
+            } else if (speed.x < 0 && !isFacingLeft) {
                 didFlipX = true;
                 isFacingLeft = true;
             }
 
             if (didSwimUp) {
-                velocidad.y = VELOCIDAD_Y;
+                speed.y = SPEED_Y;
 
                 if (Settings.isSoundOn)
                     Assets.sSwim.play();
@@ -114,21 +114,21 @@ public class Tiburon implements Poolable {
         } else {
 
             if (setSpeedDie) {
-                velocidad.set(0, 0);
+                speed.set(0, 0);
                 setSpeedDie = false;
             }
 
             body.setGravityScale(-.15f);
             body.setAngularVelocity(MathUtils.degreesToRadians * 90);
-            angleDeg = MathUtils.radDeg * body.getAngle();
+            angleDegree = MathUtils.radDeg * body.getAngle();
 
-            if (angleDeg >= 180) {
+            if (angleDegree >= 180) {
                 body.setAngularVelocity(0);
-                angleDeg = 180;
+                angleDegree = 180;
             }
         }
 
-        body.setLinearVelocity(velocidad);
+        body.setLinearVelocity(speed);
         stateTime += delta;
     }
 

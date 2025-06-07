@@ -13,9 +13,9 @@ public class Torpedo implements Poolable {
     public final static int STATE_REMOVE = 2;
     public int state;
 
-    public final static float DURATION_EXPLOTION = .1f * 8f;
+    public final static float EXPLOSION_DURATION = .1f * 8f;
 
-    public final static float VELOCIDAD_X = 1.7f;
+    public final static float SPEED_X = 1.7f;
     public final static float DRAW_WIDTH = .8f;
     public final static float DRAW_HEIGHT = .3f;
 
@@ -41,7 +41,7 @@ public class Torpedo implements Poolable {
 
             if (position.y < -3 || position.x > Screens.WORLD_WIDTH + 3)
                 hit();
-        } else if (state == STATE_EXPLODE && stateTime >= DURATION_EXPLOTION) {
+        } else if (state == STATE_EXPLODE && stateTime >= EXPLOSION_DURATION) {
             state = STATE_REMOVE;
             stateTime = 0;
         }

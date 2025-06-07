@@ -23,7 +23,7 @@ public class SharkAdventureGame extends Game {
 
         Settings.load();
         Assets.load();
-        Achievements.init();
+        Achievements.initialize();
         setScreen(new GameScreen(this, true));
     }
 }

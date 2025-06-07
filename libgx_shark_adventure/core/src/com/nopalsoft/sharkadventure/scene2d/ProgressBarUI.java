@@ -18,7 +18,6 @@ public class ProgressBarUI extends Table {
 
 
     public ProgressBarUI(AtlasRegion bar, AtlasRegion icon, float maxNum, float x, float y) {
-        // this.debug();
         this.setBounds(x, y, WIDTH, HEIGHT);
         this.maxNum = maxNum;
         this.actualNum = maxNum;

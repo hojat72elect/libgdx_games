@@ -30,7 +30,7 @@ public class Chain implements Poolable {
         state = STATE_NORMAL;
     }
 
-    public void update(Body body, float delta) {
+    public void update(Body body) {
         position.x = body.getPosition().x;
         position.y = body.getPosition().y;
         angleDeg = MathUtils.radDeg * body.getAngle();

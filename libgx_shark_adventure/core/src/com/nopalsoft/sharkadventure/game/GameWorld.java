@@ -26,83 +26,81 @@ import com.nopalsoft.sharkadventure.objects.Barrel;
 import com.nopalsoft.sharkadventure.objects.Blast;
 import com.nopalsoft.sharkadventure.objects.Chain;
 import com.nopalsoft.sharkadventure.objects.Items;
-import com.nopalsoft.sharkadventure.objects.Mina;
-import com.nopalsoft.sharkadventure.objects.Submarino;
-import com.nopalsoft.sharkadventure.objects.Tiburon;
+import com.nopalsoft.sharkadventure.objects.Mine;
+import com.nopalsoft.sharkadventure.objects.Shark;
+import com.nopalsoft.sharkadventure.objects.Submarine;
 import com.nopalsoft.sharkadventure.objects.Torpedo;
 import com.nopalsoft.sharkadventure.screens.Screens;
 
-import java.util.Iterator;
-
 public class GameWorld {
     static final int STATE_RUNNING = 0;
-    static final int STATE_GAMEOVER = 1;
+    static final int STATE_GAME_OVER = 1;
     public int state;
 
     float TIME_TO_GAMEOVER = 2f;
     float timeToGameOver;
 
-    static final float TIME_TO_SPWAN_BARRIL = 5;
-    float timeToSwanBarril;
+    static final float TIME_TO_SPAWN_BARREL = 5;
+    float timeToSpawnBarrel;
 
-    static final float TIME_TO_SPWAN_MINA = 5;
-    float timeToSpwanMina;
+    static final float TIME_TO_SPAWN_MINE = 5;
+    float timeToSpawnMine;
 
-    static final float TIME_TO_SPWAN_MINA_CHAIN = 7;
-    float timeToSpwanMinaChain;
+    static final float TIME_TO_SPAWN_CHAIN_MINE = 7;
+    float timeToSpawnChainMine;
 
-    static final float TIME_TO_SPWAN_SUBMARINO = 15;
-    float timeToSpwanSubmarino;
+    static final float TIME_TO_SPAWN_SUBMARINE = 15;
+    float timeToSpawnSubmarine;
 
-    static final float TIME_TO_SPWAN_ITEMS = 10;
+    static final float TIME_TO_SPAWN_ITEMS = 10;
     float timeToSpawnItems;
 
-    World oWorldBox;
-    Tiburon oTiburon;
+    World worldPhysics;
+    Shark oShark;
 
-    Array<Barrel> arrBarriles;
-    Array<Body> arrBodies;
-    Array<Mina> arrMinas;
-    Array<Chain> arrChains;
-    Array<Blast> arrBlasts;
-    Array<Torpedo> arrTorpedos;
-    Array<Submarino> arrSubmarinos;
-    Array<Items> arrItems;
+    Array<Barrel> arrayBarrels;
+    Array<Body> arrayBodies;
+    Array<Mine> arrayMines;
+    Array<Chain> arrayChains;
+    Array<Blast> arrayBlasts;
+    Array<Torpedo> arrayTorpedoes;
+    Array<Submarine> arraySubmarines;
+    Array<Items> arrayItems;
 
-    double puntuacion;
+    double score;
 
-    int submarinosDestruidos;
+    int destroyedSubmarines;
 
     public GameWorld() {
-        oWorldBox = new World(new Vector2(0, -4f), true);
-        oWorldBox.setContactListener(new Colisiones());
+        worldPhysics = new World(new Vector2(0, -4f), true);
+        worldPhysics.setContactListener(new CollisionHandler());
 
         state = STATE_RUNNING;
         timeToGameOver = 0;
-        puntuacion = 0;
-        submarinosDestruidos = 0;
+        score = 0;
+        destroyedSubmarines = 0;
 
-        arrBodies = new Array<>();
-        arrBarriles = new Array<>();
-        arrMinas = new Array<>();
-        arrChains = new Array<>();
-        arrBlasts = new Array<>();
-        arrTorpedos = new Array<>();
-        arrSubmarinos = new Array<>();
-        arrItems = new Array<>();
-        oTiburon = new Tiburon(3.5f, 2f);
+        arrayBodies = new Array<>();
+        arrayBarrels = new Array<>();
+        arrayMines = new Array<>();
+        arrayChains = new Array<>();
+        arrayBlasts = new Array<>();
+        arrayTorpedoes = new Array<>();
+        arraySubmarines = new Array<>();
+        arrayItems = new Array<>();
+        oShark = new Shark(3.5f, 2f);
 
-        timeToSwanBarril = 0;
-        crearMinaChain();
-        crearParedes();
-        crearPersonaje(false);
+        timeToSpawnBarrel = 0;
+        createMineChain();
+        createWalls();
+        createPlayer(false);
     }
 
-    private void crearParedes() {
-        BodyDef bd = new BodyDef();
-        bd.type = BodyType.StaticBody;
+    private void createWalls() {
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.type = BodyType.StaticBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldPhysics.createBody(bodyDefinition);
 
         EdgeShape shape = new EdgeShape();
 
@@ -134,13 +132,13 @@ public class GameWorld {
         shape.dispose();
     }
 
-    private void crearPersonaje(boolean isFacingLeft) {
+    private void createPlayer(boolean isFacingLeft) {
 
         BodyDef bd = new BodyDef();
-        bd.position.set(oTiburon.position.x, oTiburon.position.y);
+        bd.position.set(oShark.position.x, oShark.position.y);
         bd.type = BodyType.DynamicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldPhysics.createBody(bd);
         PolygonShape shape = new PolygonShape();
 
         if (isFacingLeft) {
@@ -181,14 +179,14 @@ public class GameWorld {
             body.createFixture(shape, 0);
         }
 
-        body.setUserData(oTiburon);
+        body.setUserData(oShark);
         body.setFixedRotation(true);
         body.setGravityScale(.45f);
 
         shape.dispose();
     }
 
-    private void crearBarril(float x, float y) {
+    private void createBarrel(float x, float y) {
         Barrel obj = Pools.obtain(Barrel.class);
         obj.init(x, y);
 
@@ -196,26 +194,26 @@ public class GameWorld {
         bd.position.set(obj.position.x, obj.position.y);
         bd.type = BodyType.DynamicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldPhysics.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Barrel.WIDTH / 2f, Barrel.HEIGHT / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
 
-        body.createFixture(fixutre);
+        body.createFixture(fixtureDefinition);
         body.setUserData(obj);
         body.setFixedRotation(true);
         body.setGravityScale(.15f);
         body.setAngularVelocity(MathUtils.degRad * MathUtils.random(-50, 50));
 
-        arrBarriles.add(obj);
+        arrayBarrels.add(obj);
         shape.dispose();
     }
 
-    private void crearItem() {
+    private void createItem() {
         Items obj = Pools.obtain(Items.class);
         obj.init(Screens.WORLD_WIDTH + 1, MathUtils.random(Screens.WORLD_HEIGHT));
 
@@ -223,63 +221,63 @@ public class GameWorld {
         bd.position.set(obj.position.x, obj.position.y);
         bd.type = BodyType.KinematicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldPhysics.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Items.WIDTH / 2f, Items.HEIGHT / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
 
-        body.createFixture(fixutre);
+        body.createFixture(fixtureDefinition);
         body.setUserData(obj);
         body.setFixedRotation(true);
         body.setLinearVelocity(Items.VELOCIDAD_X, 0);
 
-        arrItems.add(obj);
+        arrayItems.add(obj);
         shape.dispose();
     }
 
-    private void crearBlast() {
-        float velX = Blast.VELOCIDAD_X;
-        float x = oTiburon.position.x + .3f;
+    private void createBlast() {
+        float speedX = Blast.SPEED_X;
+        float x = oShark.position.x + .3f;
 
-        if (oTiburon.isFacingLeft) {
-            velX = -Blast.VELOCIDAD_X;
-            x = oTiburon.position.x - .3f;
+        if (oShark.isFacingLeft) {
+            speedX = -Blast.SPEED_X;
+            x = oShark.position.x - .3f;
         }
         Blast obj = Pools.obtain(Blast.class);
 
-        obj.init(x, oTiburon.position.y - .15f);
+        obj.init(x, oShark.position.y - .15f);
 
         BodyDef bd = new BodyDef();
         bd.position.set(obj.position.x, obj.position.y);
         bd.type = BodyType.KinematicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldPhysics.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Blast.WIDTH / 2f, Blast.HEIGHT / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
 
         body.setBullet(true);
-        body.createFixture(fixutre);
+        body.createFixture(fixtureDefinition);
         body.setUserData(obj);
         body.setFixedRotation(true);
-        body.setLinearVelocity(velX, 0);
+        body.setLinearVelocity(speedX, 0);
 
-        arrBlasts.add(obj);
+        arrayBlasts.add(obj);
         shape.dispose();
     }
 
-    private void crearTorpedo(float x, float y, boolean goLeft) {
-        float velX = Torpedo.VELOCIDAD_X;
+    private void createTorpedo(float x, float y, boolean goLeft) {
+        float velX = Torpedo.SPEED_X;
         if (goLeft) {
-            velX = -Torpedo.VELOCIDAD_X;
+            velX = -Torpedo.SPEED_X;
         }
         Torpedo obj = Pools.obtain(Torpedo.class);
         obj.init(x, y, goLeft);
@@ -288,54 +286,54 @@ public class GameWorld {
         bd.position.set(obj.position.x, obj.position.y);
         bd.type = BodyType.DynamicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldPhysics.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Blast.WIDTH / 2f, Blast.HEIGHT / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
 
-        body.createFixture(fixutre);
+        body.createFixture(fixtureDefinition);
         body.setUserData(obj);
         body.setGravityScale(0);
         body.setFixedRotation(true);
         body.setLinearVelocity(velX, 0);
 
-        arrTorpedos.add(obj);
+        arrayTorpedoes.add(obj);
         shape.dispose();
     }
 
-    private void crearMina(float x, float y) {
-        Mina obj = Pools.obtain(Mina.class);
+    private void createMine(float x, float y) {
+        Mine obj = Pools.obtain(Mine.class);
         obj.init(x, y);
 
         BodyDef bd = new BodyDef();
         bd.position.set(obj.position.x, obj.position.y);
         bd.type = BodyType.DynamicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldPhysics.createBody(bd);
 
         CircleShape shape = new CircleShape();
-        shape.setRadius(Mina.WIDTH / 2f);
+        shape.setRadius(Mine.WIDTH / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
 
-        body.createFixture(fixutre);
+        body.createFixture(fixtureDefinition);
         body.setUserData(obj);
         body.setFixedRotation(true);
         body.setGravityScale(0);
-        body.setLinearVelocity(Mina.VELOCIDAD_X, 0);
+        body.setLinearVelocity(Mine.SPEED_X, 0);
 
-        arrMinas.add(obj);
+        arrayMines.add(obj);
         shape.dispose();
     }
 
-    private void crearSubmarino() {
-        Submarino obj = Pools.obtain(Submarino.class);
+    private void createSubmarine() {
+        Submarine obj = Pools.obtain(Submarine.class);
         float x, y, xTarget, yTarget;
         switch (MathUtils.random(1, 4)) {
             case 1:
@@ -371,278 +369,272 @@ public class GameWorld {
         bd.position.set(obj.position.x, obj.position.y);
         bd.type = BodyType.DynamicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldPhysics.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(Submarino.WIDTH / 2f, Submarino.HEIGHT / 2f);
+        shape.setAsBox(Submarine.WIDTH / 2f, Submarine.HEIGHT / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
 
-        body.createFixture(fixutre);
+        body.createFixture(fixtureDefinition);
         body.setUserData(obj);
         body.setFixedRotation(true);
         body.setGravityScale(0);
-        arrSubmarinos.add(obj);
+        arraySubmarines.add(obj);
         shape.dispose();
     }
 
-    private void crearMinaChain() {
+    private void createMineChain() {
         float x = 10;
-        Mina obj = Pools.obtain(Mina.class);
+        Mine obj = Pools.obtain(Mine.class);
         obj.init(x, 1);
-        obj.tipo = Mina.TIPO_GRIS;
+        obj.type = Mine.TYPE_GRAY;
 
-        BodyDef bd = new BodyDef();
-        bd.position.set(obj.position.x, obj.position.y);
-        bd.type = BodyType.DynamicBody;
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.set(obj.position.x, obj.position.y);
+        bodyDefinition.type = BodyType.DynamicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldPhysics.createBody(bodyDefinition);
 
         CircleShape shape = new CircleShape();
-        shape.setRadius(Mina.WIDTH / 2f);
+        shape.setRadius(Mine.WIDTH / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
-        fixutre.density = 1;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
+        fixtureDefinition.density = 1;
 
-        body.createFixture(fixutre);
+        body.createFixture(fixtureDefinition);
         body.setUserData(obj);
         body.setFixedRotation(true);
         body.setGravityScale(-3.5f);
 
-        arrMinas.add(obj);
+        arrayMines.add(obj);
         shape.dispose();
 
         PolygonShape chainShape = new PolygonShape();
         chainShape.setAsBox(Chain.WIDTH / 2f, Chain.HEIGHT / 2f);
 
-        fixutre.isSensor = false;
-        fixutre.shape = chainShape;
-        fixutre.filter.groupIndex = -1;
+        fixtureDefinition.isSensor = false;
+        fixtureDefinition.shape = chainShape;
+        fixtureDefinition.filter.groupIndex = -1;
 
-        int numEslabones = MathUtils.random(5, 15);
+        int numberOfLinks = MathUtils.random(5, 15);
         Body link = null;
-        for (int i = 0; i < numEslabones; i++) {
+        for (int i = 0; i < numberOfLinks; i++) {
             Chain objChain = Pools.obtain(Chain.class);
             objChain.init(x, Chain.HEIGHT * i);
-            bd.position.set(objChain.position.x, objChain.position.y);
+            bodyDefinition.position.set(objChain.position.x, objChain.position.y);
             if (i == 0) {
                 objChain.init(x, -.12f);// Makes the kinematic body appear a little lower so as not to collide with it.
-                bd.position.set(objChain.position.x, objChain.position.y);
-                bd.type = BodyType.KinematicBody;
-                link = oWorldBox.createBody(bd);
-                link.createFixture(fixutre);
+                bodyDefinition.position.set(objChain.position.x, objChain.position.y);
+                bodyDefinition.type = BodyType.KinematicBody;
+                link = worldPhysics.createBody(bodyDefinition);
+                link.createFixture(fixtureDefinition);
                 link.setLinearVelocity(Chain.VELOCIDAD_X, 0);
             } else {
-                bd.type = BodyType.DynamicBody;
-                Body newLink = oWorldBox.createBody(bd);
-                newLink.createFixture(fixutre);
-                crearRevoltureJoint(link, newLink, -Chain.HEIGHT / 2f);
+                bodyDefinition.type = BodyType.DynamicBody;
+                Body newLink = worldPhysics.createBody(bodyDefinition);
+                newLink.createFixture(fixtureDefinition);
+                createRevoluteJoint(link, newLink, -Chain.HEIGHT / 2f);
                 link = newLink;
             }
-            arrChains.add(objChain);
+            arrayChains.add(objChain);
             link.setUserData(objChain);
         }
 
-        crearRevoltureJoint(link, body, -Mina.HEIGHT / 2f);
+        createRevoluteJoint(link, body, -Mine.HEIGHT / 2f);
     }
 
-    private void crearRevoltureJoint(Body bodyA, Body bodyB, float anchorBY) {
+    private void createRevoluteJoint(Body bodyA, Body bodyB, float anchorBY) {
         RevoluteJointDef jointDef = new RevoluteJointDef();
         jointDef.localAnchorA.set((float) 0, (float) 0.105);
         jointDef.localAnchorB.set((float) 0, anchorBY);
         jointDef.bodyA = bodyA;
         jointDef.bodyB = bodyB;
-        oWorldBox.createJoint(jointDef);
+        worldPhysics.createJoint(jointDef);
     }
 
     public void update(float delta, float accelX, boolean didSwimUp, boolean didFire) {
-        oWorldBox.step(delta, 8, 4);
+        worldPhysics.step(delta, 8, 4);
 
-        eliminarObjetos();
+        removeGameObjects();
 
-        timeToSwanBarril += delta;
-        if (timeToSwanBarril >= TIME_TO_SPWAN_BARRIL) {
-            timeToSwanBarril -= TIME_TO_SPWAN_BARRIL;
+        timeToSpawnBarrel += delta;
+        if (timeToSpawnBarrel >= TIME_TO_SPAWN_BARREL) {
+            timeToSpawnBarrel -= TIME_TO_SPAWN_BARREL;
 
             if (MathUtils.randomBoolean()) {
                 for (int i = 0; i < 6; i++) {
-                    crearBarril(MathUtils.random(Screens.WORLD_WIDTH), MathUtils.random(5.5f, 8.5f));
+                    createBarrel(MathUtils.random(Screens.WORLD_WIDTH), MathUtils.random(5.5f, 8.5f));
                 }
             }
         }
 
-        timeToSpwanMina += delta;
-        if (timeToSpwanMina >= TIME_TO_SPWAN_MINA) {
-            timeToSpwanMina -= TIME_TO_SPWAN_MINA;
+        timeToSpawnMine += delta;
+        if (timeToSpawnMine >= TIME_TO_SPAWN_MINE) {
+            timeToSpawnMine -= TIME_TO_SPAWN_MINE;
             for (int i = 0; i < 5; i++) {
                 if (MathUtils.randomBoolean())
-                    crearMina(MathUtils.random(9, 10f), MathUtils.random(Screens.WORLD_HEIGHT));
+                    createMine(MathUtils.random(9, 10f), MathUtils.random(Screens.WORLD_HEIGHT));
             }
         }
 
-        if (arrMinas.size == 0)
-            crearMina(9, MathUtils.random(Screens.WORLD_HEIGHT));
+        if (arrayMines.size == 0)
+            createMine(9, MathUtils.random(Screens.WORLD_HEIGHT));
 
-        timeToSpwanMinaChain += delta;
-        if (timeToSpwanMinaChain >= TIME_TO_SPWAN_MINA_CHAIN) {
-            timeToSpwanMinaChain -= TIME_TO_SPWAN_MINA_CHAIN;
+        timeToSpawnChainMine += delta;
+        if (timeToSpawnChainMine >= TIME_TO_SPAWN_CHAIN_MINE) {
+            timeToSpawnChainMine -= TIME_TO_SPAWN_CHAIN_MINE;
             if (MathUtils.randomBoolean(.75f))
-                crearMinaChain();
+                createMineChain();
         }
 
-        timeToSpwanSubmarino += delta;
-        if (timeToSpwanSubmarino >= TIME_TO_SPWAN_SUBMARINO) {
-            timeToSpwanSubmarino -= TIME_TO_SPWAN_SUBMARINO;
+        timeToSpawnSubmarine += delta;
+        if (timeToSpawnSubmarine >= TIME_TO_SPAWN_SUBMARINE) {
+            timeToSpawnSubmarine -= TIME_TO_SPAWN_SUBMARINE;
             if (MathUtils.randomBoolean(.65f)) {
-                crearSubmarino();
+                createSubmarine();
                 if (Settings.isSoundOn)
                     Assets.sSonar.play();
             }
         }
 
         timeToSpawnItems += delta;
-        if (timeToSpawnItems >= TIME_TO_SPWAN_ITEMS) {
-            timeToSpawnItems -= TIME_TO_SPWAN_ITEMS;
+        if (timeToSpawnItems >= TIME_TO_SPAWN_ITEMS) {
+            timeToSpawnItems -= TIME_TO_SPAWN_ITEMS;
             if (MathUtils.randomBoolean()) {
-                crearItem();
+                createItem();
             }
         }
 
-        oWorldBox.getBodies(arrBodies);
+        worldPhysics.getBodies(arrayBodies);
 
-        Iterator<Body> i = arrBodies.iterator();
-        while (i.hasNext()) {
-            Body body = i.next();
-
-            if (body.getUserData() instanceof Tiburon) {
-                updatePersonaje(body, delta, accelX, didSwimUp, didFire);
+        for (Body body : arrayBodies) {
+            if (body.getUserData() instanceof Shark) {
+                updatePlayer(body, delta, accelX, didSwimUp, didFire);
             } else if (body.getUserData() instanceof Barrel) {
-                updateBarriles(body, delta);
-            } else if (body.getUserData() instanceof Mina) {
-                updateMina(body, delta);
+                updateBarrel(body, delta);
+            } else if (body.getUserData() instanceof Mine) {
+                updateMine(body, delta);
             } else if (body.getUserData() instanceof Chain) {
-                updateChain(body, delta);
+                updateChain(body);
             } else if (body.getUserData() instanceof Blast) {
                 updateBlast(body, delta);
             } else if (body.getUserData() instanceof Torpedo) {
                 updateTorpedo(body, delta);
-            } else if (body.getUserData() instanceof Submarino) {
-                updateSubmarino(body, delta);
+            } else if (body.getUserData() instanceof Submarine) {
+                updateSubmarine(body, delta);
             } else if (body.getUserData() instanceof Items) {
                 updateItems(body, delta);
             }
         }
 
-        if (oTiburon.state == Tiburon.STATE_DEAD) {
+        if (oShark.state == Shark.STATE_DEAD) {
             timeToGameOver += delta;
             if (timeToGameOver >= TIME_TO_GAMEOVER) {
-                state = STATE_GAMEOVER;
+                state = STATE_GAME_OVER;
             }
         } else {
-            puntuacion += delta * 15;
+            score += delta * 15;
         }
 
-        Achievements.distance((long) puntuacion, oTiburon.didGetHurtOnce);
+        Achievements.distance((long) score, oShark.didGetHurtOnce);
     }
 
-    private void eliminarObjetos() {
-        Iterator<Body> i = arrBodies.iterator();
-        while (i.hasNext()) {
-            Body body = i.next();
-
-            if (!oWorldBox.isLocked()) {
+    private void removeGameObjects() {
+        for (Body body : arrayBodies) {
+            if (!worldPhysics.isLocked()) {
                 if (body.getUserData() instanceof Barrel) {
                     Barrel obj = (Barrel) body.getUserData();
                     if (obj.state == Barrel.STATE_REMOVE) {
-                        arrBarriles.removeValue(obj, true);
+                        arrayBarrels.removeValue(obj, true);
                         Pools.free(obj);
-                        oWorldBox.destroyBody(body);
+                        worldPhysics.destroyBody(body);
                     }
-                } else if (body.getUserData() instanceof Mina) {
-                    Mina obj = (Mina) body.getUserData();
-                    if (obj.state == Mina.STATE_REMOVE) {
-                        arrMinas.removeValue(obj, true);
+                } else if (body.getUserData() instanceof Mine) {
+                    Mine obj = (Mine) body.getUserData();
+                    if (obj.state == Mine.STATE_REMOVE) {
+                        arrayMines.removeValue(obj, true);
                         Pools.free(obj);
-                        oWorldBox.destroyBody(body);
+                        worldPhysics.destroyBody(body);
                     }
                 } else if (body.getUserData() instanceof Chain) {
                     Chain obj = (Chain) body.getUserData();
                     if (obj.state == Chain.STATE_REMOVE) {
-                        arrChains.removeValue(obj, true);
+                        arrayChains.removeValue(obj, true);
                         Pools.free(obj);
-                        oWorldBox.destroyBody(body);
+                        worldPhysics.destroyBody(body);
                     }
                 } else if (body.getUserData() instanceof Blast) {
                     Blast obj = (Blast) body.getUserData();
                     if (obj.state == Blast.STATE_REMOVE) {
-                        arrBlasts.removeValue(obj, true);
+                        arrayBlasts.removeValue(obj, true);
                         Pools.free(obj);
-                        oWorldBox.destroyBody(body);
+                        worldPhysics.destroyBody(body);
                     }
                 } else if (body.getUserData() instanceof Torpedo) {
                     Torpedo obj = (Torpedo) body.getUserData();
                     if (obj.state == Torpedo.STATE_REMOVE) {
-                        arrTorpedos.removeValue(obj, true);
+                        arrayTorpedoes.removeValue(obj, true);
                         Pools.free(obj);
-                        oWorldBox.destroyBody(body);
+                        worldPhysics.destroyBody(body);
                     }
-                } else if (body.getUserData() instanceof Submarino) {
-                    Submarino obj = (Submarino) body.getUserData();
-                    if (obj.state == Submarino.STATE_REMOVE) {
-                        arrSubmarinos.removeValue(obj, true);
+                } else if (body.getUserData() instanceof Submarine) {
+                    Submarine obj = (Submarine) body.getUserData();
+                    if (obj.state == Submarine.STATE_REMOVE) {
+                        arraySubmarines.removeValue(obj, true);
                         Pools.free(obj);
-                        oWorldBox.destroyBody(body);
+                        worldPhysics.destroyBody(body);
                     }
                 } else if (body.getUserData() instanceof Items) {
                     Items obj = (Items) body.getUserData();
                     if (obj.state == Items.STATE_REMOVE) {
-                        arrItems.removeValue(obj, true);
+                        arrayItems.removeValue(obj, true);
                         Pools.free(obj);
-                        oWorldBox.destroyBody(body);
+                        worldPhysics.destroyBody(body);
                     }
                 }
             }
         }
     }
 
-    private void updatePersonaje(Body body, float delta, float accelX, boolean didSwimUp, boolean didFire) {
-        // Si cambia de posicion tengo que hacer otra vez el cuerpo
-        if (oTiburon.didFlipX) {
-            oTiburon.didFlipX = false;
-            oWorldBox.destroyBody(body);
-            crearPersonaje(oTiburon.isFacingLeft);
+    private void updatePlayer(Body body, float delta, float accelX, boolean didSwimUp, boolean didFire) {
+        // If you change position I have to do the body again.
+        if (oShark.didFlipX) {
+            oShark.didFlipX = false;
+            worldPhysics.destroyBody(body);
+            createPlayer(oShark.isFacingLeft);
         }
 
-        if (didFire && oTiburon.state == Tiburon.STATE_NORMAL) {
-            if (oTiburon.energy > 0) {
-                crearBlast();
+        if (didFire && oShark.state == Shark.STATE_NORMAL) {
+            if (oShark.energy > 0) {
+                createBlast();
                 if (Settings.isSoundOn) {
                     Assets.sBlast.play();
                 }
             }
-            oTiburon.fire();
+            oShark.fire();
         }
 
-        oTiburon.update(body, delta, accelX, didSwimUp);
+        oShark.update(body, delta, accelX, didSwimUp);
     }
 
-    private void updateBarriles(Body body, float delta) {
+    private void updateBarrel(Body body, float delta) {
         Barrel obj = (Barrel) body.getUserData();
         obj.update(body, delta);
     }
 
-    private void updateMina(Body body, float delta) {
-        Mina obj = (Mina) body.getUserData();
+    private void updateMine(Body body, float delta) {
+        Mine obj = (Mine) body.getUserData();
         obj.update(body, delta);
     }
 
-    private void updateChain(Body body, float delta) {
+    private void updateChain(Body body) {
         Chain obj = (Chain) body.getUserData();
-        obj.update(body, delta);
+        obj.update(body);
     }
 
     private void updateBlast(Body body, float delta) {
@@ -655,14 +647,14 @@ public class GameWorld {
         obj.update(body, delta);
     }
 
-    private void updateSubmarino(Body body, float delta) {
-        Submarino obj = (Submarino) body.getUserData();
+    private void updateSubmarine(Body body, float delta) {
+        Submarine obj = (Submarine) body.getUserData();
         obj.update(body, delta);
 
         if (obj.didFire) {
             obj.didFire = false;
 
-            crearTorpedo(obj.position.x, obj.position.y, !(obj.velocity.x > 0));
+            createTorpedo(obj.position.x, obj.position.y, !(obj.velocity.x > 0));
         }
     }
 
@@ -671,108 +663,108 @@ public class GameWorld {
         obj.update(body, delta);
     }
 
-    class Colisiones implements ContactListener {
+    class CollisionHandler implements ContactListener {
 
         @Override
         public void beginContact(Contact contact) {
             Fixture a = contact.getFixtureA();
             Fixture b = contact.getFixtureB();
 
-            if (a.getBody().getUserData() instanceof Tiburon) {
-                beginContactTiburon(b);
-            } else if (b.getBody().getUserData() instanceof Tiburon) {
-                beginContactTiburon(a);
+            if (a.getBody().getUserData() instanceof Shark) {
+                collisionCheckOnShark(b);
+            } else if (b.getBody().getUserData() instanceof Shark) {
+                collisionCheckOnShark(a);
             } else if (a.getBody().getUserData() instanceof Blast) {
                 beginContactBlast(a, b);
             } else if (b.getBody().getUserData() instanceof Blast) {
                 beginContactBlast(b, a);
             } else {
-                beginContactOtrasCosas(a, b);
+                startCollisionCheck(a, b);
             }
         }
 
-        private void beginContactBlast(Fixture fixBlast, Fixture fixOtraCosa) {
-            Object otraCosa = fixOtraCosa.getBody().getUserData();
-            Blast oBlast = (Blast) fixBlast.getBody().getUserData();
+        private void beginContactBlast(Fixture blastFixture, Fixture otherFixture) {
+            Object otherObject = otherFixture.getBody().getUserData();
+            Blast blast = (Blast) blastFixture.getBody().getUserData();
 
-            if (otraCosa instanceof Barrel) {
-                Barrel obj = (Barrel) otraCosa;
+            if (otherObject instanceof Barrel) {
+                Barrel obj = (Barrel) otherObject;
                 if (obj.state == Barrel.STATE_NORMAL) {
                     obj.hit();
-                    oBlast.hit();
+                    blast.hit();
                 }
-            } else if (otraCosa instanceof Mina) {
-                Mina obj = (Mina) otraCosa;
-                if (obj.state == Mina.STATE_NORMAL) {
+            } else if (otherObject instanceof Mine) {
+                Mine obj = (Mine) otherObject;
+                if (obj.state == Mine.STATE_NORMAL) {
                     obj.hit();
-                    oBlast.hit();
+                    blast.hit();
                 }
-            } else if (otraCosa instanceof Chain) {
-                Chain obj = (Chain) otraCosa;
+            } else if (otherObject instanceof Chain) {
+                Chain obj = (Chain) otherObject;
                 if (obj.state == Chain.STATE_NORMAL) {
                     obj.hit();
-                    oBlast.hit();
+                    blast.hit();
                 }
-            } else if (otraCosa instanceof Submarino) {
-                Submarino obj = (Submarino) otraCosa;
-                if (obj.state == Submarino.STATE_NORMAL) {
+            } else if (otherObject instanceof Submarine) {
+                Submarine obj = (Submarine) otherObject;
+                if (obj.state == Submarine.STATE_NORMAL) {
                     obj.hit();
-                    oBlast.hit();
+                    blast.hit();
 
-                    if (obj.state == Submarino.STATE_EXPLODE) {
-                        submarinosDestruidos++;
+                    if (obj.state == Submarine.STATE_EXPLODE) {
+                        destroyedSubmarines++;
                         Achievements.unlockKilledSubmarines();
                     }
                 }
             }
         }
 
-        private void beginContactTiburon(Fixture fixOtraCosa) {
-            Object otraCosa = fixOtraCosa.getBody().getUserData();
+        private void collisionCheckOnShark(Fixture otherFixture) {
+            Object otherObject = otherFixture.getBody().getUserData();
 
-            if (otraCosa instanceof Barrel) {
-                Barrel obj = (Barrel) otraCosa;
+            if (otherObject instanceof Barrel) {
+                Barrel obj = (Barrel) otherObject;
                 if (obj.state == Barrel.STATE_NORMAL) {
                     obj.hit();
-                    oTiburon.hit();
+                    oShark.hit();
                 }
-            } else if (otraCosa instanceof Mina) {
-                Mina obj = (Mina) otraCosa;
-                if (obj.state == Mina.STATE_NORMAL) {
+            } else if (otherObject instanceof Mine) {
+                Mine obj = (Mine) otherObject;
+                if (obj.state == Mine.STATE_NORMAL) {
                     obj.hit();
-                    oTiburon.hit();
+                    oShark.hit();
                 }
-            } else if (otraCosa instanceof Torpedo) {
-                Torpedo obj = (Torpedo) otraCosa;
+            } else if (otherObject instanceof Torpedo) {
+                Torpedo obj = (Torpedo) otherObject;
                 if (obj.state == Torpedo.STATE_NORMAL) {
                     obj.hit();
-                    oTiburon.hit();
-                    oTiburon.hit();
-                    oTiburon.hit();
+                    oShark.hit();
+                    oShark.hit();
+                    oShark.hit();
                 }
-            } else if (otraCosa instanceof Items) {
-                Items obj = (Items) otraCosa;
+            } else if (otherObject instanceof Items) {
+                Items obj = (Items) otherObject;
                 if (obj.state == Items.STATE_NORMAL) {
                     if (obj.tipo == Items.TIPO_CARNE) {
-                        oTiburon.energy += 15;
+                        oShark.energy += 15;
                     } else {
-                        oTiburon.life += 1;
+                        oShark.life += 1;
                     }
                     obj.hit();
                 }
             }
         }
 
-        public void beginContactOtrasCosas(Fixture fixA, Fixture fixB) {
-            Object objA = fixA.getBody().getUserData();
-            Object objB = fixB.getBody().getUserData();
+        public void startCollisionCheck(Fixture fixtureA, Fixture fixtureB) {
+            Object objA = fixtureA.getBody().getUserData();
+            Object objB = fixtureB.getBody().getUserData();
 
-            if (objA instanceof Barrel && objB instanceof Mina) {
+            if (objA instanceof Barrel && objB instanceof Mine) {
                 ((Barrel) objA).hit();
-                ((Mina) objB).hit();
-            } else if (objA instanceof Mina && objB instanceof Barrel) {
+                ((Mine) objB).hit();
+            } else if (objA instanceof Mine && objB instanceof Barrel) {
                 ((Barrel) objB).hit();
-                ((Mina) objA).hit();
+                ((Mine) objA).hit();
             }
         }
 

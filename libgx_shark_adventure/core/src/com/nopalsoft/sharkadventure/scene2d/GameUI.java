@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.sharkadventure.Assets;
 import com.nopalsoft.sharkadventure.game.GameScreen;
 import com.nopalsoft.sharkadventure.game.GameWorld;
-import com.nopalsoft.sharkadventure.objects.Tiburon;
+import com.nopalsoft.sharkadventure.objects.Shark;
 import com.nopalsoft.sharkadventure.screens.Screens;
 
 public class GameUI extends Group {
@@ -41,8 +41,8 @@ public class GameUI extends Group {
 
         init();
 
-        lifeBar = new ProgressBarUI(Assets.redBar, Assets.heart, Tiburon.MAX_LIFE, -ProgressBarUI.WIDTH, 440);
-        energyBar = new ProgressBarUI(Assets.energyBar, Assets.blast, Tiburon.MAX_ENERGY, -ProgressBarUI.WIDTH, 395);
+        lifeBar = new ProgressBarUI(Assets.redBar, Assets.heart, Shark.MAX_LIFE, -ProgressBarUI.WIDTH, 440);
+        energyBar = new ProgressBarUI(Assets.energyBar, Assets.blast, Shark.MAX_ENERGY, -ProgressBarUI.WIDTH, 395);
 
         addActor(lifeBar);
         addActor(energyBar);
@@ -140,7 +140,7 @@ public class GameUI extends Group {
     public void act(float delta) {
         super.act(delta);
 
-        labelScore.setText(gameScreen.puntuacion + " m");
+        labelScore.setText(gameScreen.score + " m");
     }
 
     private void addInActions() {
