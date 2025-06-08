@@ -45,7 +45,7 @@ public class MenuUI extends Group {
 
         tbGameOver = new Table();
         tbGameOver.setSize(350, 200);
-        tbGameOver.setBackground(Assets.backgroundVentana);
+        tbGameOver.setBackground(Assets.windowBackgroundDrawable);
         tbGameOver.setPosition(getWidth() / 2f - tbGameOver.getWidth() / 2f, 110);
 
         lbBestScore = new Label("0", Assets.lblStyle);
@@ -74,28 +74,28 @@ public class MenuUI extends Group {
         gameOver.setScale(1.25f);
         gameOver.setPosition(getWidth() / 2f - gameOver.getWidth() * gameOver.getScaleX() / 2f, Screens.SCREEN_HEIGHT + gameOver.getHeight());
 
-        buttonFacebook = new Button(Assets.btFacebook, Assets.btFacebookPress);
+        buttonFacebook = new Button(Assets.buttonFacebook, Assets.buttonFacebookPressed);
         buttonFacebook.setSize(60, 60);
         buttonFacebook.setPosition(Screens.SCREEN_WIDTH + buttonFacebook.getWidth(), 410);
 
-        buttonTwitter = new Button(Assets.btTwitter, Assets.btTwitterPress);
+        buttonTwitter = new Button(Assets.buttonTwitter, Assets.buttonTwitterPressed);
         buttonTwitter.setSize(60, 60);
         buttonTwitter.setPosition(Screens.SCREEN_WIDTH + buttonTwitter.getWidth(), 410);
 
-        buttonMusic = new Button(Assets.btMusicOff, Assets.btMusicOn, Assets.btMusicOn);
+        buttonMusic = new Button(Assets.buttonMusicOff, Assets.buttonMusicOn, Assets.buttonMusicOn);
         buttonMusic.setSize(60, 60);
         buttonMusic.setPosition(-buttonMusic.getWidth(), 410);
 
-        buttonSoundEffect = new Button(Assets.btSoundOff, Assets.btSoundOn, Assets.btSoundOn);
+        buttonSoundEffect = new Button(Assets.buttonSoundOff, Assets.buttonSoundOn, Assets.buttonSoundOn);
         buttonSoundEffect.setSize(60, 60);
         buttonSoundEffect.setPosition(-buttonSoundEffect.getWidth(), 325);
 
         tbMenu = new Table();
-        tbMenu.setBackground(Assets.backgroundMenu);
+        tbMenu.setBackground(Assets.menuBackgroundDrawable);
 
-        buttonPlay = new Button(Assets.btDer, Assets.btDerPress);
-        buttonLeaderboard = new Button(Assets.btLeaderboard, Assets.btLeaderboardPress);
-        buttonAchievements = new Button(Assets.btAchievements, Assets.btAchievementsPress);
+        buttonPlay = new Button(Assets.buttonRight, Assets.buttonRightPressed);
+        buttonLeaderboard = new Button(Assets.buttonLeaderboard, Assets.buttonLeaderboardPressed);
+        buttonAchievements = new Button(Assets.buttonAchievements, Assets.buttonAchievementsPressed);
 
         tbMenu.defaults().size(90).padBottom(20).padLeft(10).padRight(10);
         if (Gdx.app.getType() != ApplicationType.WebGL) {
@@ -129,9 +129,9 @@ public class MenuUI extends Group {
                 Settings.isMusicOn = !Settings.isMusicOn;
                 buttonMusic.setChecked(Settings.isMusicOn);
                 if (Settings.isMusicOn)
-                    Assets.musica.play();
+                    Assets.music.play();
                 else
-                    Assets.musica.pause();
+                    Assets.music.pause();
             }
         });
 

@@ -101,7 +101,7 @@ public class Shark implements Poolable {
                 speed.y = SPEED_Y;
 
                 if (Settings.isSoundOn)
-                    Assets.sSwim.play();
+                    Assets.swimSound.play();
             }
 
             timeToRechargeEnergy += delta;

@@ -498,7 +498,7 @@ public class GameWorld {
             if (MathUtils.randomBoolean(.65f)) {
                 createSubmarine();
                 if (Settings.isSoundOn)
-                    Assets.sSonar.play();
+                    Assets.sonarSound.play();
             }
         }
 
@@ -613,7 +613,7 @@ public class GameWorld {
             if (oShark.energy > 0) {
                 createBlast();
                 if (Settings.isSoundOn) {
-                    Assets.sBlast.play();
+                    Assets.blastSound.play();
                 }
             }
             oShark.fire();

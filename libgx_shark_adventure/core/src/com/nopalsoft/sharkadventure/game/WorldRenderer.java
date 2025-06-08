@@ -16,71 +16,69 @@ import com.nopalsoft.sharkadventure.objects.Submarine;
 import com.nopalsoft.sharkadventure.objects.Torpedo;
 import com.nopalsoft.sharkadventure.screens.Screens;
 
-import java.util.Iterator;
-
 public class WorldRenderer {
 
-    SpriteBatch batcher;
-    OrthographicCamera oCam;
+    SpriteBatch batch;
+    OrthographicCamera camera;
 
-    GameWorld oWorld;
+    GameWorld gameWorld;
 
     Box2DDebugRenderer renderBox;
 
-    public WorldRenderer(SpriteBatch batcher, GameWorld oWorld) {
-        this.batcher = batcher;
-        this.oWorld = oWorld;
+    public WorldRenderer(SpriteBatch batch, GameWorld gameWorld) {
+        this.batch = batch;
+        this.gameWorld = gameWorld;
         renderBox = new Box2DDebugRenderer();
 
-        oCam = new OrthographicCamera(Screens.WORLD_WIDTH, Screens.WORLD_HEIGHT);
-        oCam.position.set(Screens.WORLD_WIDTH / 2f, Screens.WORLD_HEIGHT / 2f, 0);
+        camera = new OrthographicCamera(Screens.WORLD_WIDTH, Screens.WORLD_HEIGHT);
+        camera.position.set(Screens.WORLD_WIDTH / 2f, Screens.WORLD_HEIGHT / 2f, 0);
 
     }
 
     public void render(float delta) {
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
 
-        batcher.disableBlending();
-        batcher.begin();
+        batch.disableBlending();
+        batch.begin();
         drawBackground();
-        batcher.end();
+        batch.end();
 
-        drawSueloAtras(delta);
+        drawBackgroundLayer(delta);
 
-        batcher.enableBlending();
-        batcher.begin();
-        drawParticulasFondo(delta);
-        drawTiburon(delta);
-        drawBarriles(delta);
-        drawSubmarinos();
-        drawTorpedos(delta);
-        drawMinas(delta);
-        drawChains(delta);
+        batch.enableBlending();
+        batch.begin();
+        drawBackgroundParticles(delta);
+        drawShark(delta);
+        drawBarrels(delta);
+        drawSubmarines();
+        drawTorpedo(delta);
+        drawMines();
+        drawChains();
         drawItems();
-        drawBlast(delta);
+        drawBlast();
 
-        batcher.end();
-        drawSueloFrente(delta);
+        batch.end();
+        drawFrontLayer(delta);
 
     }
 
     private void drawItems() {
-        for (Items obj : oWorld.arrayItems) {
+        for (Items obj : gameWorld.arrayItems) {
             AtlasRegion keyFrame;
             if (obj.tipo == Items.TIPO_CARNE)
                 keyFrame = Assets.meat;
             else
                 keyFrame = Assets.heart;
 
-            batcher.draw(keyFrame, obj.position.x - Items.DRAW_WIDTH / 2f, obj.position.y - Items.DRAW_HEIGHT / 2f, Items.DRAW_WIDTH,
+            batch.draw(keyFrame, obj.position.x - Items.DRAW_WIDTH / 2f, obj.position.y - Items.DRAW_HEIGHT / 2f, Items.DRAW_WIDTH,
                     Items.DRAW_HEIGHT);
         }
     }
 
-    private void drawSubmarinos() {
-        for (Submarine obj : oWorld.arraySubmarines) {
+    private void drawSubmarines() {
+        for (Submarine obj : gameWorld.arraySubmarines) {
             AtlasRegion keyFrame;
             switch (obj.type) {
                 case Submarine.TYPE_YELLOW:
@@ -94,105 +92,97 @@ public class WorldRenderer {
             }
 
             if (obj.velocity.x > 0)
-                batcher.draw(keyFrame, obj.position.x - Submarine.DRAW_WIDTH / 2f, obj.position.y - Submarine.DRAW_HEIGHT / 2f, Submarine.DRAW_WIDTH,
+                batch.draw(keyFrame, obj.position.x - Submarine.DRAW_WIDTH / 2f, obj.position.y - Submarine.DRAW_HEIGHT / 2f, Submarine.DRAW_WIDTH,
                         Submarine.DRAW_HEIGHT);
             else
-                batcher.draw(keyFrame, obj.position.x + Submarine.DRAW_WIDTH / 2f, obj.position.y - Submarine.DRAW_HEIGHT / 2f,
+                batch.draw(keyFrame, obj.position.x + Submarine.DRAW_WIDTH / 2f, obj.position.y - Submarine.DRAW_HEIGHT / 2f,
                         -Submarine.DRAW_WIDTH, Submarine.DRAW_HEIGHT);
 
             if (obj.state == Submarine.STATE_EXPLODE) {
-                drawExplosionSubmarino(obj.position.x - .4f, obj.position.y, obj.explosionStateTimes[0]);
-                drawExplosionSubmarino(obj.position.x - .4f, obj.position.y - .4f, obj.explosionStateTimes[1]);
-                drawExplosionSubmarino(obj.position.x, obj.position.y, obj.explosionStateTimes[2]);
-                drawExplosionSubmarino(obj.position.x + .4f, obj.position.y, obj.explosionStateTimes[3]);
-                drawExplosionSubmarino(obj.position.x + .4f, obj.position.y - .4f, obj.explosionStateTimes[4]);
+                drawSubmarineExplosion(obj.position.x - .4f, obj.position.y, obj.explosionStateTimes[0]);
+                drawSubmarineExplosion(obj.position.x - .4f, obj.position.y - .4f, obj.explosionStateTimes[1]);
+                drawSubmarineExplosion(obj.position.x, obj.position.y, obj.explosionStateTimes[2]);
+                drawSubmarineExplosion(obj.position.x + .4f, obj.position.y, obj.explosionStateTimes[3]);
+                drawSubmarineExplosion(obj.position.x + .4f, obj.position.y - .4f, obj.explosionStateTimes[4]);
             }
         }
     }
 
-    private void drawExplosionSubmarino(float x, float y, float stateTime) {
+    private void drawSubmarineExplosion(float x, float y, float stateTime) {
         if (stateTime >= 0 && stateTime <= Submarine.EXPLOSION_DURATION) {
-            batcher.draw(Assets.explosionAnimation.getKeyFrame(stateTime), x - .2f, y - .2f, .4f, .4f);
+            batch.draw(Assets.explosionAnimation.getKeyFrame(stateTime), x - .2f, y - .2f, .4f, .4f);
         }
     }
 
-    private void drawTorpedos(float delta) {
-        Iterator<Torpedo> i = oWorld.arrayTorpedoes.iterator();
-        while (i.hasNext()) {
-            Torpedo obj = i.next();
-
+    private void drawTorpedo(float delta) {
+        for (Torpedo obj : gameWorld.arrayTorpedoes) {
             if (obj.state == Torpedo.STATE_EXPLODE) {
-                batcher.draw(Assets.explosionAnimation.getKeyFrame(obj.stateTime), obj.position.x - .4f, obj.position.y - .4f, .8f, .8f);
+                batch.draw(Assets.explosionAnimation.getKeyFrame(obj.stateTime), obj.position.x - .4f, obj.position.y - .4f, .8f, .8f);
             } else if (obj.state == Torpedo.STATE_NORMAL) {
 
                 if (obj.isGoingLeft) {
-                    batcher.draw(Assets.torpedo, obj.position.x + Torpedo.DRAW_WIDTH / 2f, obj.position.y - Torpedo.DRAW_HEIGHT / 2f,
+                    batch.draw(Assets.torpedo, obj.position.x + Torpedo.DRAW_WIDTH / 2f, obj.position.y - Torpedo.DRAW_HEIGHT / 2f,
                             -Torpedo.DRAW_WIDTH, Torpedo.DRAW_HEIGHT);
 
                     Assets.torpedoBubbleRightSideParticleEffect.setPosition(obj.position.x + .34f, obj.position.y - .075f);
-                    Assets.torpedoBubbleRightSideParticleEffect.draw(batcher, delta);
+                    Assets.torpedoBubbleRightSideParticleEffect.draw(batch, delta);
                 } else {
-                    batcher.draw(Assets.torpedo, obj.position.x - Torpedo.DRAW_WIDTH / 2f, obj.position.y - Torpedo.DRAW_HEIGHT / 2f,
+                    batch.draw(Assets.torpedo, obj.position.x - Torpedo.DRAW_WIDTH / 2f, obj.position.y - Torpedo.DRAW_HEIGHT / 2f,
                             Torpedo.DRAW_WIDTH, Torpedo.DRAW_HEIGHT);
 
                     Assets.torpedoBubbleLeftSideParticleEffect.setPosition(obj.position.x - .45f, obj.position.y - .075f);
-                    Assets.torpedoBubbleLeftSideParticleEffect.draw(batcher, delta);
+                    Assets.torpedoBubbleLeftSideParticleEffect.draw(batch, delta);
                 }
             }
         }
     }
 
-    private void drawBlast(float delta) {
-        Iterator<Blast> i = oWorld.arrayBlasts.iterator();
-        while (i.hasNext()) {
-            Blast obj = i.next();
-
+    private void drawBlast() {
+        for (Blast obj : gameWorld.arrayBlasts) {
             if (obj.state == Blast.STATE_HIT) {
-                batcher.draw(Assets.blastHit.getKeyFrame(obj.stateTime), obj.position.x - .25f, obj.position.y - .25f, .5f, .5f);
+                batch.draw(Assets.blastHit.getKeyFrame(obj.stateTime), obj.position.x - .25f, obj.position.y - .25f, .5f, .5f);
             } else {
 
                 if (obj.velocity.x > 0)
-                    batcher.draw(Assets.blast, obj.position.x - Blast.DRAW_WIDTH / 2f, obj.position.y - Blast.DRAW_HEIGHT / 2f, Blast.DRAW_WIDTH,
+                    batch.draw(Assets.blast, obj.position.x - Blast.DRAW_WIDTH / 2f, obj.position.y - Blast.DRAW_HEIGHT / 2f, Blast.DRAW_WIDTH,
                             Blast.DRAW_HEIGHT);
                 else
-                    batcher.draw(Assets.blast, obj.position.x + Blast.DRAW_WIDTH / 2f, obj.position.y - Blast.DRAW_HEIGHT / 2f, -Blast.DRAW_WIDTH,
+                    batch.draw(Assets.blast, obj.position.x + Blast.DRAW_WIDTH / 2f, obj.position.y - Blast.DRAW_HEIGHT / 2f, -Blast.DRAW_WIDTH,
                             Blast.DRAW_HEIGHT);
             }
         }
     }
 
-    private void drawParticulasFondo(float delta) {
+    private void drawBackgroundParticles(float delta) {
         Assets.fishParticleEffect.setPosition(0, 0);
-        Assets.fishParticleEffect.draw(batcher, delta);
+        Assets.fishParticleEffect.draw(batch, delta);
 
         Assets.mediumFishParticleEffect.setPosition(Screens.WORLD_WIDTH, 0);
-        Assets.mediumFishParticleEffect.draw(batcher, delta);
+        Assets.mediumFishParticleEffect.draw(batch, delta);
     }
 
-    private void drawSueloAtras(float delta) {
+    private void drawBackgroundLayer(float delta) {
         Assets.parallaxBackground.render(delta);
     }
 
     private void drawBackground() {
-        batcher.draw(Assets.background, 0, 0, Screens.WORLD_WIDTH, Screens.WORLD_HEIGHT);
+        batch.draw(Assets.background, 0, 0, Screens.WORLD_WIDTH, Screens.WORLD_HEIGHT);
     }
 
-    private void drawSueloFrente(float delta) {
+    private void drawFrontLayer(float delta) {
         Assets.parallaxForeground.render(delta);
     }
 
-    private void drawBarriles(float delta) {
+    private void drawBarrels(float delta) {
 
         Assets.bubbleParticleEffect.update(delta);
 
-        Iterator<Barrel> i = oWorld.arrayBarrels.iterator();
-        while (i.hasNext()) {
-            Barrel obj = i.next();
-            TextureRegion keyframe = null;
+        for (Barrel obj : gameWorld.arrayBarrels) {
+            TextureRegion keyframe;
 
             if (obj.state == Barrel.STATE_EXPLODE) {
                 keyframe = Assets.explosionAnimation.getKeyFrame(obj.stateTime);
-                batcher.draw(keyframe, obj.position.x - .4f, obj.position.y - .4f, .8f, .8f);
+                batch.draw(keyframe, obj.position.x - .4f, obj.position.y - .4f, .8f, .8f);
             } else if (obj.state == Barrel.STATE_NORMAL) {
 
                 switch (obj.type) {
@@ -211,24 +201,22 @@ public class WorldRenderer {
                         break;
                 }
 
-                batcher.draw(keyframe, obj.position.x - Barrel.DRAW_WIDTH / 2f, obj.position.y - Barrel.DRAW_HEIGHT / 2f, Barrel.DRAW_WIDTH / 2f,
+                batch.draw(keyframe, obj.position.x - Barrel.DRAW_WIDTH / 2f, obj.position.y - Barrel.DRAW_HEIGHT / 2f, Barrel.DRAW_WIDTH / 2f,
                         Barrel.DRAW_HEIGHT / 2f, Barrel.DRAW_WIDTH, Barrel.DRAW_HEIGHT, 1, 1, obj.angleDegree);
 
                 Assets.bubbleParticleEffect.setPosition(obj.position.x, obj.position.y);
-                Assets.bubbleParticleEffect.draw(batcher);
+                Assets.bubbleParticleEffect.draw(batch);
             }
         }
     }
 
-    private void drawMinas(float delta) {
-        Iterator<Mine> i = oWorld.arrayMines.iterator();
-        while (i.hasNext()) {
-            Mine obj = i.next();
-            TextureRegion keyframe = null;
+    private void drawMines() {
+        for (Mine obj : gameWorld.arrayMines) {
+            TextureRegion keyframe;
 
             if (obj.state == Mine.STATE_EXPLODE) {
                 keyframe = Assets.explosionAnimation.getKeyFrame(obj.stateTime);
-                batcher.draw(keyframe, obj.position.x - .3f, obj.position.y - .3f, .6f, .6f);
+                batch.draw(keyframe, obj.position.x - .3f, obj.position.y - .3f, .6f, .6f);
             } else if (obj.state == Mine.STATE_NORMAL) {
 
                 switch (obj.type) {
@@ -241,30 +229,27 @@ public class WorldRenderer {
                         break;
                 }
 
-                batcher.draw(keyframe, obj.position.x - Mine.DRAW_WIDTH / 2f, obj.position.y - Mine.DRAW_HEIGHT / 2f, Mine.DRAW_WIDTH / 2f,
+                batch.draw(keyframe, obj.position.x - Mine.DRAW_WIDTH / 2f, obj.position.y - Mine.DRAW_HEIGHT / 2f, Mine.DRAW_WIDTH / 2f,
                         Mine.DRAW_HEIGHT / 2f, Mine.DRAW_WIDTH, Mine.DRAW_HEIGHT, 1, 1, 0);
             }
         }
     }
 
-    private void drawChains(float delta) {
-        Iterator<Chain> i = oWorld.arrayChains.iterator();
-        while (i.hasNext()) {
-            Chain obj = i.next();
-
-            batcher.draw(Assets.chain, obj.position.x - Chain.DRAW_WIDTH / 2f, obj.position.y - Chain.DRAW_HEIGHT / 2f, Chain.DRAW_WIDTH / 2f,
+    private void drawChains() {
+        for (Chain obj : gameWorld.arrayChains) {
+            batch.draw(Assets.chain, obj.position.x - Chain.DRAW_WIDTH / 2f, obj.position.y - Chain.DRAW_HEIGHT / 2f, Chain.DRAW_WIDTH / 2f,
                     Chain.DRAW_HEIGHT / 2f, Chain.DRAW_WIDTH, Chain.DRAW_HEIGHT, 1, 1, obj.angleDeg);
         }
     }
 
-    private void drawTiburon(float delta) {
-        Shark obj = oWorld.oShark;
+    private void drawShark(float delta) {
+        Shark obj = gameWorld.oShark;
 
-        TextureRegion keyframe = null;
+        TextureRegion keyframe;
 
         if (obj.state == Shark.STATE_DEAD) {
             keyframe = Assets.sharkDead;
-        } else if (obj.isFiring) {// Disparar sobreescribe todo lo demas
+        } else if (obj.isFiring) {// Shooting overwrites everything else
             keyframe = Assets.sharkFireAnimation.getKeyFrame(obj.stateTime);
         } else if (obj.isTurbo) {
             keyframe = Assets.sharkDashAnimation.getKeyFrame(obj.stateTime, true);
@@ -272,16 +257,16 @@ public class WorldRenderer {
             keyframe = Assets.sharkSwimAnimation.getKeyFrame(obj.stateTime, true);
 
         if (obj.isTurbo) {
-            batcher.draw(Assets.turboTail, obj.position.x - 1f, obj.position.y - .27f, .96f, .48f);
+            batch.draw(Assets.turboTail, obj.position.x - 1f, obj.position.y - .27f, .96f, .48f);
         }
 
         if (obj.isFacingLeft) {
-            batcher.draw(keyframe, obj.position.x + .6f, obj.position.y - .39f, -.6f, .39f, -1.2f, .78f, 1, 1, obj.angleDegree);
+            batch.draw(keyframe, obj.position.x + .6f, obj.position.y - .39f, -.6f, .39f, -1.2f, .78f, 1, 1, obj.angleDegree);
         } else {
-            batcher.draw(keyframe, obj.position.x - .6f, obj.position.y - .39f, .6f, .39f, 1.2f, .78f, 1, 1, obj.angleDegree);
+            batch.draw(keyframe, obj.position.x - .6f, obj.position.y - .39f, .6f, .39f, 1.2f, .78f, 1, 1, obj.angleDegree);
         }
 
         Assets.sharkBubbleParticleEffect.setPosition(obj.position.x, obj.position.y);
-        Assets.sharkBubbleParticleEffect.draw(batcher, delta);
+        Assets.sharkBubbleParticleEffect.draw(batch, delta);
     }
 }

@@ -34,14 +34,14 @@ public class PauseWindow extends Group {
         Table titleTable = new Table();
         titleTable.setSize(getWidth() - 80, 50);
         titleTable.setPosition(getWidth() / 2f - titleTable.getWidth() / 2f, getHeight() - 30);
-        titleTable.setBackground(Assets.backgroundTitulo);
+        titleTable.setBackground(Assets.titleBackgroundDrawable);
 
         Label titleLabel = new Label("Paused", Assets.lblStyle);
 
         titleTable.add(titleLabel).fill().padBottom(10);
         addActor(titleTable);
 
-        buttonPlay = new Button(Assets.btDer, Assets.btDerPress);
+        buttonPlay = new Button(Assets.buttonRight, Assets.buttonRightPressed);
         buttonPlay.setSize(70, 70);
         buttonPlay.setPosition(getWidth() / 2f - buttonPlay.getWidth() / 2f, 170);
         buttonPlay.addListener(new ClickListener() {
@@ -52,7 +52,7 @@ public class PauseWindow extends Group {
             }
         });
 
-        buttonRefresh = new Button(Assets.btRefresh, Assets.btRefreshPress);
+        buttonRefresh = new Button(Assets.buttonRefresh, Assets.buttonRefreshPressed);
         buttonRefresh.setSize(70, 70);
         buttonRefresh.setPosition(getWidth() / 2f + 25, 80);
         buttonRefresh.addListener(new ClickListener() {
@@ -63,7 +63,7 @@ public class PauseWindow extends Group {
             }
         });
 
-        buttonHome = new Button(Assets.btHome, Assets.btHomePress);
+        buttonHome = new Button(Assets.buttonHome, Assets.buttonHomePressed);
         buttonHome.setSize(70, 70);
         buttonHome.setPosition(getWidth() / 2f - buttonHome.getWidth() - 25, 80);
         buttonHome.addListener(new ClickListener() {
@@ -80,7 +80,7 @@ public class PauseWindow extends Group {
     }
 
     private void setBackGround() {
-        Image img = new Image(Assets.backgroundVentana);
+        Image img = new Image(Assets.windowBackgroundDrawable);
         img.setSize(getWidth(), getHeight());
         addActor(img);
     }

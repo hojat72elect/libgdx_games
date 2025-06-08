@@ -50,27 +50,27 @@ public class GameUI extends Group {
 
     private void init() {
 
-        buttonSwimUp = new Button(Assets.btUp, Assets.btUpPress);
+        buttonSwimUp = new Button(Assets.buttonUp, Assets.buttonUpPressed);
         buttonSwimUp.setSize(105, 105);
         buttonSwimUp.setPosition(692, -105);
         buttonSwimUp.getColor().a = .35f;
 
-        buttonFire = new Button(Assets.btFire, Assets.btFirePress);
+        buttonFire = new Button(Assets.buttonFire, Assets.buttonFirePressed);
         buttonFire.setSize(105, 105);
         buttonFire.setPosition(579, -105);
         buttonFire.getColor().a = .35f;
 
-        buttonRight = new Button(Assets.btDer, Assets.btDerPress, Assets.btDerPress);
+        buttonRight = new Button(Assets.buttonRight, Assets.buttonRightPressed, Assets.buttonRightPressed);
         buttonRight.setSize(120, 120);
         buttonRight.setPosition(130, -120);
         buttonRight.getColor().a = .35f;
 
-        buttonLeft = new Button(Assets.btIzq, Assets.btIzqPress, Assets.btIzqPress);
+        buttonLeft = new Button(Assets.buttonLeft, Assets.buttonLeftPressed, Assets.buttonLeftPressed);
         buttonLeft.setSize(120, 120);
         buttonLeft.setPosition(5, -120);
         buttonLeft.getColor().a = .35f;
 
-        buttonPause = new Button(Assets.btPausa, Assets.btPausaPress);
+        buttonPause = new Button(Assets.buttonPause, Assets.buttonPausePressed);
         buttonPause.setSize(45, 45);
         buttonPause.setPosition(845, 430);
         buttonPause.getColor().a = .5f;

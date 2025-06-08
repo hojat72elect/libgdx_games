@@ -39,7 +39,7 @@ public class GameScreen extends Screens {
         menuUI = new MenuUI(this, gameWorld);
         pauseWindow = new PauseWindow(this);
 
-        Assets.reloadFondo();
+        Assets.reloadBackground();
 
         if (showMainMenu) {
             state = STATE_MENU;
