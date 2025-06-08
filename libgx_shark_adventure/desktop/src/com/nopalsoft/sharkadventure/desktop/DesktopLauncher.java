@@ -11,5 +11,4 @@ public class DesktopLauncher {
         config.height = 480;
         new LwjglApplication(new SharkAdventureGame(), config);
     }
-
 }
