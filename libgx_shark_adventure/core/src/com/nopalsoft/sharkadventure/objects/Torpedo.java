@@ -15,9 +15,9 @@ public class Torpedo implements Poolable {
 
     public final static float EXPLOSION_DURATION = .1f * 8f;
 
-    public final static float SPEED_X = 1.7f;
-    public final static float DRAW_WIDTH = .8f;
-    public final static float DRAW_HEIGHT = .3f;
+    public final static float SPEED_X = 1.7F;
+    public final static float DRAW_WIDTH = .8F;
+    public final static float DRAW_HEIGHT = .3F;
 
     final public Vector2 position;
     public float stateTime;

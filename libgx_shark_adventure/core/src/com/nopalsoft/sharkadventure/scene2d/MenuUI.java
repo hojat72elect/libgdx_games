@@ -21,48 +21,48 @@ public class MenuUI extends Group {
     public static final float ANIMATION_TIME = .35f;
 
     GameScreen gameScreen;
-    GameWorld oWorld;
+    GameWorld gameWorld;
     Image titleImage;
-    Image gameOver;
+    Image gameOverImage;
 
-    Table tbMenu;
-    Table tbGameOver;
+    Table tableMenu;
+    Table tableGameOver;
 
-    Label lbBestScore;
-    Label lbScore;
+    Label labelBestScore;
+    Label labelScore;
 
     Button buttonPlay, buttonLeaderboard, buttonAchievements, buttonFacebook, buttonTwitter;
     Button buttonMusic, buttonSoundEffect;
 
     boolean showMainMenu;
 
-    public MenuUI(final GameScreen gameScreen, GameWorld oWorld) {
+    public MenuUI(final GameScreen gameScreen, GameWorld gameWorld) {
         setBounds(0, 0, Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
         this.gameScreen = gameScreen;
-        this.oWorld = oWorld;
+        this.gameWorld = gameWorld;
 
         init();
 
-        tbGameOver = new Table();
-        tbGameOver.setSize(350, 200);
-        tbGameOver.setBackground(Assets.windowBackgroundDrawable);
-        tbGameOver.setPosition(getWidth() / 2f - tbGameOver.getWidth() / 2f, 110);
+        tableGameOver = new Table();
+        tableGameOver.setSize(350, 200);
+        tableGameOver.setBackground(Assets.windowBackgroundDrawable);
+        tableGameOver.setPosition(getWidth() / 2f - tableGameOver.getWidth() / 2f, 110);
 
-        lbBestScore = new Label("0", Assets.lblStyle);
-        lbScore = new Label("0", Assets.lblStyle);
+        labelBestScore = new Label("0", Assets.lblStyle);
+        labelScore = new Label("0", Assets.lblStyle);
 
-        lbScore.setFontScale(.8f);
-        lbBestScore.setFontScale(.8f);
+        labelScore.setFontScale(.8f);
+        labelBestScore.setFontScale(.8f);
 
-        tbGameOver.pad(15).padTop(30).padBottom(50);
-        tbGameOver.defaults().expand();
+        tableGameOver.pad(15).padTop(30).padBottom(50);
+        tableGameOver.defaults().expand();
 
-        tbGameOver.add(new Label("Score", Assets.lblStyle)).left();
-        tbGameOver.add(lbScore).expandX().right();
+        tableGameOver.add(new Label("Score", Assets.lblStyle)).left();
+        tableGameOver.add(labelScore).expandX().right();
 
-        tbGameOver.row();
-        tbGameOver.add(new Label("Best score", Assets.lblStyle)).left();
-        tbGameOver.add(lbBestScore).expandX().right();
+        tableGameOver.row();
+        tableGameOver.add(new Label("Best score", Assets.lblStyle)).left();
+        tableGameOver.add(labelBestScore).expandX().right();
     }
 
     private void init() {
@@ -70,9 +70,9 @@ public class MenuUI extends Group {
         titleImage.setScale(1f);
         titleImage.setPosition(getWidth() / 2f - titleImage.getWidth() * titleImage.getScaleX() / 2f, Screens.SCREEN_HEIGHT + titleImage.getHeight());
 
-        gameOver = new Image(Assets.gameOverDrawable);
-        gameOver.setScale(1.25f);
-        gameOver.setPosition(getWidth() / 2f - gameOver.getWidth() * gameOver.getScaleX() / 2f, Screens.SCREEN_HEIGHT + gameOver.getHeight());
+        gameOverImage = new Image(Assets.gameOverDrawable);
+        gameOverImage.setScale(1.25f);
+        gameOverImage.setPosition(getWidth() / 2f - gameOverImage.getWidth() * gameOverImage.getScaleX() / 2f, Screens.SCREEN_HEIGHT + gameOverImage.getHeight());
 
         buttonFacebook = new Button(Assets.buttonFacebook, Assets.buttonFacebookPressed);
         buttonFacebook.setSize(60, 60);
@@ -90,24 +90,24 @@ public class MenuUI extends Group {
         buttonSoundEffect.setSize(60, 60);
         buttonSoundEffect.setPosition(-buttonSoundEffect.getWidth(), 325);
 
-        tbMenu = new Table();
-        tbMenu.setBackground(Assets.menuBackgroundDrawable);
+        tableMenu = new Table();
+        tableMenu.setBackground(Assets.menuBackgroundDrawable);
 
         buttonPlay = new Button(Assets.buttonRight, Assets.buttonRightPressed);
         buttonLeaderboard = new Button(Assets.buttonLeaderboard, Assets.buttonLeaderboardPressed);
         buttonAchievements = new Button(Assets.buttonAchievements, Assets.buttonAchievementsPressed);
 
-        tbMenu.defaults().size(90).padBottom(20).padLeft(10).padRight(10);
+        tableMenu.defaults().size(90).padBottom(20).padLeft(10).padRight(10);
         if (Gdx.app.getType() != ApplicationType.WebGL) {
-            tbMenu.setSize(385, 85);
-            tbMenu.add(buttonPlay);
-            tbMenu.add(buttonLeaderboard);
-            tbMenu.add(buttonAchievements);
+            tableMenu.setSize(385, 85);
+            tableMenu.add(buttonPlay);
+            tableMenu.add(buttonLeaderboard);
+            tableMenu.add(buttonAchievements);
         } else {
-            tbMenu.setSize(120, 85);
-            tbMenu.add(buttonPlay);
+            tableMenu.setSize(120, 85);
+            tableMenu.add(buttonPlay);
         }
-        tbMenu.setPosition(Screens.SCREEN_WIDTH / 2f - tbMenu.getWidth() / 2f, -tbMenu.getHeight());
+        tableMenu.setPosition(Screens.SCREEN_WIDTH / 2f - tableMenu.getWidth() / 2f, -tableMenu.getHeight());
 
 
         buttonPlay.addListener(new ClickListener() {
@@ -144,7 +144,7 @@ public class MenuUI extends Group {
             }
         });
 
-        addActor(tbMenu);
+        addActor(tableMenu);
         addActor(buttonFacebook);
         addActor(buttonTwitter);
         addActor(buttonMusic);
@@ -153,9 +153,9 @@ public class MenuUI extends Group {
 
     private void addInActions() {
         titleImage.addAction(Actions.moveTo(getWidth() / 2f - titleImage.getWidth() * titleImage.getScaleX() / 2f, 300, ANIMATION_TIME));
-        gameOver.addAction(Actions.moveTo(getWidth() / 2f - gameOver.getWidth() * gameOver.getScaleX() / 2f, 320, ANIMATION_TIME));
+        gameOverImage.addAction(Actions.moveTo(getWidth() / 2f - gameOverImage.getWidth() * gameOverImage.getScaleX() / 2f, 320, ANIMATION_TIME));
 
-        tbMenu.addAction(Actions.moveTo(Screens.SCREEN_WIDTH / 2f - tbMenu.getWidth() / 2f, 0, ANIMATION_TIME));
+        tableMenu.addAction(Actions.moveTo(Screens.SCREEN_WIDTH / 2f - tableMenu.getWidth() / 2f, 0, ANIMATION_TIME));
 
         buttonFacebook.addAction(Actions.moveTo(735, 410, ANIMATION_TIME));
         buttonTwitter.addAction(Actions.moveTo(735, 325, ANIMATION_TIME));
@@ -166,10 +166,10 @@ public class MenuUI extends Group {
     private void addOutActions() {
         titleImage.addAction(Actions.moveTo(getWidth() / 2f - titleImage.getWidth() * titleImage.getScaleX() / 2f, Screens.SCREEN_HEIGHT + titleImage.getHeight(),
                 ANIMATION_TIME));
-        gameOver.addAction(Actions.moveTo(getWidth() / 2f - gameOver.getWidth() * gameOver.getScaleX() / 2f,
-                Screens.SCREEN_HEIGHT + gameOver.getHeight(), ANIMATION_TIME));
+        gameOverImage.addAction(Actions.moveTo(getWidth() / 2f - gameOverImage.getWidth() * gameOverImage.getScaleX() / 2f,
+                Screens.SCREEN_HEIGHT + gameOverImage.getHeight(), ANIMATION_TIME));
 
-        tbMenu.addAction(Actions.moveTo(Screens.SCREEN_WIDTH / 2f - tbMenu.getWidth() / 2f, -tbMenu.getHeight(), ANIMATION_TIME));
+        tableMenu.addAction(Actions.moveTo(Screens.SCREEN_WIDTH / 2f - tableMenu.getWidth() / 2f, -tableMenu.getHeight(), ANIMATION_TIME));
 
         buttonFacebook.addAction(Actions.moveTo(Screens.SCREEN_WIDTH + buttonFacebook.getWidth(), 410, ANIMATION_TIME));
         buttonTwitter.addAction(Actions.moveTo(Screens.SCREEN_WIDTH + buttonTwitter.getWidth(), 325, ANIMATION_TIME));
@@ -182,17 +182,17 @@ public class MenuUI extends Group {
         stage.addActor(this);
 
         titleImage.remove();
-        gameOver.remove();
-        tbGameOver.remove();
+        gameOverImage.remove();
+        tableGameOver.remove();
 
         if (showMainMenu) {
             addActor(titleImage);
         } else {
-            lbBestScore.setText(Settings.bestScore + " m");
-            lbScore.setText(gameScreen.score + " m");
+            labelBestScore.setText(Settings.bestScore + " m");
+            labelScore.setText(gameScreen.score + " m");
 
-            addActor(gameOver);
-            addActor(tbGameOver);
+            addActor(gameOverImage);
+            addActor(tableGameOver);
         }
 
         this.showMainMenu = showMainMenu;

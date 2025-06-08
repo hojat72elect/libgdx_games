@@ -32,7 +32,7 @@ public class Submarine implements Poolable {
 
     final public Vector2 targetPosition;
     final public Vector2 position;
-    public Vector2 velocity;
+    public Vector2 speed;
 
     public float angleDeg;
 
@@ -40,12 +40,12 @@ public class Submarine implements Poolable {
     public float[] explosionStateTimes;
     public boolean didFire;
 
-    int vida;
+    int lives;
 
     public Submarine() {
         targetPosition = new Vector2();
         position = new Vector2();
-        velocity = new Vector2();
+        speed = new Vector2();
         explosionStateTimes = new float[5];
     }
 
@@ -57,7 +57,7 @@ public class Submarine implements Poolable {
         type = MathUtils.random(1);
         timeToFire = 0;
         TIME_TO_FIRE = MathUtils.random(1.25f, 2.75f);
-        vida = 10;
+        lives = 10;
 
         explosionStateTimes[0] = -1;
         explosionStateTimes[1] = -.5f;
@@ -68,7 +68,7 @@ public class Submarine implements Poolable {
 
     public void update(Body body, float delta) {
 
-        velocity = body.getLinearVelocity();
+        speed = body.getLinearVelocity();
 
         if (state == STATE_NORMAL) {
             position.x = body.getPosition().x;
@@ -78,7 +78,7 @@ public class Submarine implements Poolable {
             if (position.y < -4 || position.y > Screens.WORLD_HEIGHT + 4 || position.x < -4 || position.x > Screens.WORLD_WIDTH + 3)
                 remove();
 
-            velocity.set(targetPosition).sub(position).nor().scl(SPEED);
+            speed.set(targetPosition).sub(position).nor().scl(SPEED);
 
             timeToFire += delta;
             if (timeToFire > TIME_TO_FIRE) {
@@ -100,15 +100,15 @@ public class Submarine implements Poolable {
             }
         }
 
-        body.setLinearVelocity(velocity);
+        body.setLinearVelocity(speed);
 
         stateTime += delta;
     }
 
     public void hit() {
         if (state == STATE_NORMAL) {
-            vida--;
-            if (vida <= 0) {
+            lives--;
+            if (lives <= 0) {
                 state = STATE_EXPLODE;
                 stateTime = 0;
                 if (Settings.isSoundOn) {

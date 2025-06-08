@@ -21,7 +21,7 @@ public class GameUI extends Group {
     public static final float ANIMATION_TIME = .35f;
 
     GameScreen gameScreen;
-    GameWorld oWorld;
+    GameWorld gameWorld;
 
     public int accelerationX;
     public boolean didSwimUp;
@@ -34,10 +34,10 @@ public class GameUI extends Group {
     Label labelScore;
     Button buttonLeft, buttonRight, buttonSwimUp, buttonFire, buttonPause;
 
-    public GameUI(final GameScreen gameScreen, GameWorld oWorld) {
+    public GameUI(final GameScreen gameScreen, GameWorld gameWorld) {
         setBounds(0, 0, Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
         this.gameScreen = gameScreen;
-        this.oWorld = oWorld;
+        this.gameWorld = gameWorld;
 
         init();
 

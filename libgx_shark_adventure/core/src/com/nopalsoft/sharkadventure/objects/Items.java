@@ -10,15 +10,15 @@ public class Items implements Poolable {
     public final static int STATE_REMOVE = 1;
     public int state;
 
-    public final static int TIPO_CARNE = 1;
-    public int tipo;
+    public final static int TYPE_MEAT = 1;
+    public int type;
 
-    public final static float DRAW_WIDTH = .45f;
-    public final static float DRAW_HEIGHT = .45f;
+    public final static float DRAW_WIDTH = .45F;
+    public final static float DRAW_HEIGHT = .45F;
 
-    public final static float WIDTH = .35f;
-    public final static float HEIGHT = .35f;
-    public static final float VELOCIDAD_X = -1f;
+    public final static float WIDTH = .35F;
+    public final static float HEIGHT = .35F;
+    public static final float SPEED_X = -1F;
 
     final public Vector2 position;
 
@@ -29,10 +29,10 @@ public class Items implements Poolable {
     public void init(float x, float y) {
         position.set(x, y);
         state = STATE_NORMAL;
-        tipo = MathUtils.random(1);
+        type = MathUtils.random(1);
     }
 
-    public void update(Body body, float delta) {
+    public void update(Body body) {
         position.x = body.getPosition().x;
         position.y = body.getPosition().y;
 

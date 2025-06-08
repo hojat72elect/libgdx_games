@@ -67,7 +67,7 @@ public class WorldRenderer {
     private void drawItems() {
         for (Items obj : gameWorld.arrayItems) {
             AtlasRegion keyFrame;
-            if (obj.tipo == Items.TIPO_CARNE)
+            if (obj.type == Items.TYPE_MEAT)
                 keyFrame = Assets.meat;
             else
                 keyFrame = Assets.heart;
@@ -91,7 +91,7 @@ public class WorldRenderer {
                     break;
             }
 
-            if (obj.velocity.x > 0)
+            if (obj.speed.x > 0)
                 batch.draw(keyFrame, obj.position.x - Submarine.DRAW_WIDTH / 2f, obj.position.y - Submarine.DRAW_HEIGHT / 2f, Submarine.DRAW_WIDTH,
                         Submarine.DRAW_HEIGHT);
             else
@@ -238,7 +238,7 @@ public class WorldRenderer {
     private void drawChains() {
         for (Chain obj : gameWorld.arrayChains) {
             batch.draw(Assets.chain, obj.position.x - Chain.DRAW_WIDTH / 2f, obj.position.y - Chain.DRAW_HEIGHT / 2f, Chain.DRAW_WIDTH / 2f,
-                    Chain.DRAW_HEIGHT / 2f, Chain.DRAW_WIDTH, Chain.DRAW_HEIGHT, 1, 1, obj.angleDeg);
+                    Chain.DRAW_HEIGHT / 2f, Chain.DRAW_WIDTH, Chain.DRAW_HEIGHT, 1, 1, obj.angleDegree);
         }
     }
 

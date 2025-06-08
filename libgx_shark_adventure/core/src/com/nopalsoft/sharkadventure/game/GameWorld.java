@@ -233,7 +233,7 @@ public class GameWorld {
         body.createFixture(fixtureDefinition);
         body.setUserData(obj);
         body.setFixedRotation(true);
-        body.setLinearVelocity(Items.VELOCIDAD_X, 0);
+        body.setLinearVelocity(Items.SPEED_X, 0);
 
         arrayItems.add(obj);
         shape.dispose();
@@ -433,7 +433,7 @@ public class GameWorld {
                 bodyDefinition.type = BodyType.KinematicBody;
                 link = worldPhysics.createBody(bodyDefinition);
                 link.createFixture(fixtureDefinition);
-                link.setLinearVelocity(Chain.VELOCIDAD_X, 0);
+                link.setLinearVelocity(Chain.SPEED_X, 0);
             } else {
                 bodyDefinition.type = BodyType.DynamicBody;
                 Body newLink = worldPhysics.createBody(bodyDefinition);
@@ -528,7 +528,7 @@ public class GameWorld {
             } else if (body.getUserData() instanceof Submarine) {
                 updateSubmarine(body, delta);
             } else if (body.getUserData() instanceof Items) {
-                updateItems(body, delta);
+                updateItems(body);
             }
         }
 
@@ -654,13 +654,13 @@ public class GameWorld {
         if (obj.didFire) {
             obj.didFire = false;
 
-            createTorpedo(obj.position.x, obj.position.y, !(obj.velocity.x > 0));
+            createTorpedo(obj.position.x, obj.position.y, !(obj.speed.x > 0));
         }
     }
 
-    private void updateItems(Body body, float delta) {
+    private void updateItems(Body body) {
         Items obj = (Items) body.getUserData();
-        obj.update(body, delta);
+        obj.update(body);
     }
 
     class CollisionHandler implements ContactListener {
@@ -745,7 +745,7 @@ public class GameWorld {
             } else if (otherObject instanceof Items) {
                 Items obj = (Items) otherObject;
                 if (obj.state == Items.STATE_NORMAL) {
-                    if (obj.tipo == Items.TIPO_CARNE) {
+                    if (obj.type == Items.TYPE_MEAT) {
                         oShark.energy += 15;
                     } else {
                         oShark.life += 1;

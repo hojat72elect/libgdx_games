@@ -16,10 +16,10 @@ public class Chain implements Poolable {
 
     public final static float WIDTH = .13f;
     public final static float HEIGHT = .21f;
-    public static final float VELOCIDAD_X = -1;
+    public static final float SPEED_X = -1;
 
     final public Vector2 position;
-    public float angleDeg;
+    public float angleDegree;
 
     public Chain() {
         position = new Vector2();
@@ -33,7 +33,7 @@ public class Chain implements Poolable {
     public void update(Body body) {
         position.x = body.getPosition().x;
         position.y = body.getPosition().y;
-        angleDeg = MathUtils.radDeg * body.getAngle();
+        angleDegree = MathUtils.radDeg * body.getAngle();
 
         if (position.x < -3 || position.y > Screens.WORLD_HEIGHT + 3) {
             state = STATE_REMOVE;
