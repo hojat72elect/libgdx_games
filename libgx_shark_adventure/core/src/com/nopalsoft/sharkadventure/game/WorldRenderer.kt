@@ -89,14 +89,14 @@ class WorldRenderer(var batch: SpriteBatch, var gameWorld: GameWorld) {
 
     private fun drawSubmarineExplosion(x: Float, y: Float, stateTime: Float) {
         if (stateTime >= 0 && stateTime <= Submarine.EXPLOSION_DURATION) {
-            batch.draw(Assets.explosionAnimation.getKeyFrame(stateTime), x - .2f, y - .2f, .4f, .4f)
+            batch.draw(Assets.explosionAnimation!!.getKeyFrame(stateTime), x - .2f, y - .2f, .4f, .4f)
         }
     }
 
     private fun drawTorpedo(delta: Float) {
         for (obj in gameWorld.arrayTorpedoes) {
             if (obj!!.state == Torpedo.STATE_EXPLODE) {
-                batch.draw(Assets.explosionAnimation.getKeyFrame(obj.stateTime), obj.position.x - .4f, obj.position.y - .4f, .8f, .8f)
+                batch.draw(Assets.explosionAnimation!!.getKeyFrame(obj.stateTime), obj.position.x - .4f, obj.position.y - .4f, .8f, .8f)
             } else if (obj.state == Torpedo.STATE_NORMAL) {
                 if (obj.isGoingLeft) {
                     batch.draw(
@@ -104,16 +104,16 @@ class WorldRenderer(var batch: SpriteBatch, var gameWorld: GameWorld) {
                         -Torpedo.DRAW_WIDTH, Torpedo.DRAW_HEIGHT
                     )
 
-                    Assets.torpedoBubbleRightSideParticleEffect.setPosition(obj.position.x + .34f, obj.position.y - .075f)
-                    Assets.torpedoBubbleRightSideParticleEffect.draw(batch, delta)
+                    Assets.torpedoBubbleRightSideParticleEffect!!.setPosition(obj.position.x + .34f, obj.position.y - .075f)
+                    Assets.torpedoBubbleRightSideParticleEffect!!.draw(batch, delta)
                 } else {
                     batch.draw(
                         Assets.torpedo, obj.position.x - Torpedo.DRAW_WIDTH / 2f, obj.position.y - Torpedo.DRAW_HEIGHT / 2f,
                         Torpedo.DRAW_WIDTH, Torpedo.DRAW_HEIGHT
                     )
 
-                    Assets.torpedoBubbleLeftSideParticleEffect.setPosition(obj.position.x - .45f, obj.position.y - .075f)
-                    Assets.torpedoBubbleLeftSideParticleEffect.draw(batch, delta)
+                    Assets.torpedoBubbleLeftSideParticleEffect!!.setPosition(obj.position.x - .45f, obj.position.y - .075f)
+                    Assets.torpedoBubbleLeftSideParticleEffect!!.draw(batch, delta)
                 }
             }
         }
@@ -122,7 +122,7 @@ class WorldRenderer(var batch: SpriteBatch, var gameWorld: GameWorld) {
     private fun drawBlast() {
         for (obj in gameWorld.arrayBlasts) {
             if (obj!!.state == Blast.STATE_HIT) {
-                batch.draw(Assets.blastHit.getKeyFrame(obj.stateTime), obj.position.x - .25f, obj.position.y - .25f, .5f, .5f)
+                batch.draw(Assets.blastHit!!.getKeyFrame(obj.stateTime), obj.position.x - .25f, obj.position.y - .25f, .5f, .5f)
             } else {
                 if (obj.velocity.x > 0) batch.draw(
                     Assets.blast, obj.position.x - Blast.DRAW_WIDTH / 2f, obj.position.y - Blast.DRAW_HEIGHT / 2f, Blast.DRAW_WIDTH,
@@ -137,15 +137,15 @@ class WorldRenderer(var batch: SpriteBatch, var gameWorld: GameWorld) {
     }
 
     private fun drawBackgroundParticles(delta: Float) {
-        Assets.fishParticleEffect.setPosition(0f, 0f)
-        Assets.fishParticleEffect.draw(batch, delta)
+        Assets.fishParticleEffect!!.setPosition(0f, 0f)
+        Assets.fishParticleEffect!!.draw(batch, delta)
 
-        Assets.mediumFishParticleEffect.setPosition(Screens.WORLD_WIDTH, 0f)
-        Assets.mediumFishParticleEffect.draw(batch, delta)
+        Assets.mediumFishParticleEffect!!.setPosition(Screens.WORLD_WIDTH, 0f)
+        Assets.mediumFishParticleEffect!!.draw(batch, delta)
     }
 
     private fun drawBackgroundLayer(delta: Float) {
-        Assets.parallaxBackground.render(delta)
+        Assets.parallaxBackground!!.render(delta)
     }
 
     private fun drawBackground() {
@@ -153,17 +153,17 @@ class WorldRenderer(var batch: SpriteBatch, var gameWorld: GameWorld) {
     }
 
     private fun drawFrontLayer(delta: Float) {
-        Assets.parallaxForeground.render(delta)
+        Assets.parallaxForeground!!.render(delta)
     }
 
     private fun drawBarrels(delta: Float) {
-        Assets.bubbleParticleEffect.update(delta)
+        Assets.bubbleParticleEffect!!.update(delta)
 
         for (obj in gameWorld.arrayBarrels) {
             val keyframe: TextureRegion?
 
             if (obj!!.state == Barrel.STATE_EXPLODE) {
-                keyframe = Assets.explosionAnimation.getKeyFrame(obj.stateTime)
+                keyframe = Assets.explosionAnimation!!.getKeyFrame(obj.stateTime)
                 batch.draw(keyframe, obj.position.x - .4f, obj.position.y - .4f, .8f, .8f)
             } else if (obj.state == Barrel.STATE_NORMAL) {
                 keyframe = when (obj.type) {
@@ -179,8 +179,8 @@ class WorldRenderer(var batch: SpriteBatch, var gameWorld: GameWorld) {
                     Barrel.DRAW_HEIGHT / 2f, Barrel.DRAW_WIDTH, Barrel.DRAW_HEIGHT, 1f, 1f, obj.angleDegree
                 )
 
-                Assets.bubbleParticleEffect.setPosition(obj.position.x, obj.position.y)
-                Assets.bubbleParticleEffect.draw(batch)
+                Assets.bubbleParticleEffect!!.setPosition(obj.position.x, obj.position.y)
+                Assets.bubbleParticleEffect!!.draw(batch)
             }
         }
     }
@@ -190,7 +190,7 @@ class WorldRenderer(var batch: SpriteBatch, var gameWorld: GameWorld) {
             val keyframe: TextureRegion?
 
             if (obj!!.state == Mine.STATE_EXPLODE) {
-                keyframe = Assets.explosionAnimation.getKeyFrame(obj.stateTime)
+                keyframe = Assets.explosionAnimation!!.getKeyFrame(obj.stateTime)
                 batch.draw(keyframe, obj.position.x - .3f, obj.position.y - .3f, .6f, .6f)
             } else if (obj.state == Mine.STATE_NORMAL) {
                 keyframe = when (obj.type) {
@@ -222,10 +222,10 @@ class WorldRenderer(var batch: SpriteBatch, var gameWorld: GameWorld) {
         val keyframe = if (obj.state == Shark.STATE_DEAD) {
             Assets.sharkDead
         } else if (obj.isFiring) { // Shooting overwrites everything else
-            Assets.sharkFireAnimation.getKeyFrame(obj.stateTime)
+            Assets.sharkFireAnimation!!.getKeyFrame(obj.stateTime)
         } else if (obj.isTurbo) {
-            Assets.sharkDashAnimation.getKeyFrame(obj.stateTime, true)
-        } else Assets.sharkSwimAnimation.getKeyFrame(obj.stateTime, true)
+            Assets.sharkDashAnimation!!.getKeyFrame(obj.stateTime, true)
+        } else Assets.sharkSwimAnimation!!.getKeyFrame(obj.stateTime, true)
 
         if (obj.isTurbo) {
             batch.draw(Assets.turboTail, obj.position.x - 1f, obj.position.y - .27f, .96f, .48f)
@@ -237,7 +237,7 @@ class WorldRenderer(var batch: SpriteBatch, var gameWorld: GameWorld) {
             batch.draw(keyframe, obj.position.x - .6f, obj.position.y - .39f, .6f, .39f, 1.2f, .78f, 1f, 1f, obj.angleDegree)
         }
 
-        Assets.sharkBubbleParticleEffect.setPosition(obj.position.x, obj.position.y)
-        Assets.sharkBubbleParticleEffect.draw(batch, delta)
+        Assets.sharkBubbleParticleEffect!!.setPosition(obj.position.x, obj.position.y)
+        Assets.sharkBubbleParticleEffect!!.draw(batch, delta)
     }
 }

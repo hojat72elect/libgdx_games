@@ -18,7 +18,7 @@ class GameScreen(game: SharkAdventureGame, showMainMenu: Boolean) : Screens(game
     var state = 0
 
     var gameWorld = GameWorld()
-    var renderer = WorldRenderer(batch, gameWorld)
+    var renderer = WorldRenderer(batch!!, gameWorld)
 
     var gameUI = GameUI(this, gameWorld)
     var menuUI = MenuUI(this, gameWorld)
@@ -35,7 +35,7 @@ class GameScreen(game: SharkAdventureGame, showMainMenu: Boolean) : Screens(game
 
         if (showMainMenu) {
             state = STATE_MENU
-            menuUI.show(stage, true)
+            menuUI.show(stage!!, true)
         } else {
             setRunning(false)
         }
@@ -81,21 +81,21 @@ class GameScreen(game: SharkAdventureGame, showMainMenu: Boolean) : Screens(game
         val runAfterHideMenu = Runnable {
             val run = Runnable { state = STATE_RUNNING }
             gameUI.addAction(Actions.sequence(Actions.delay(GameUI.ANIMATION_TIME), Actions.run(run)))
-            gameUI.show(stage)
+            gameUI.show(stage!!)
         }
 
         if (removeMenu) {
             menuUI.addAction(Actions.sequence(Actions.delay(MenuUI.ANIMATION_TIME), Actions.run(runAfterHideMenu)))
             menuUI.removeWithAnimations()
         } else {
-            stage.addAction(Actions.run(runAfterHideMenu))
+            stage!!.addAction(Actions.run(runAfterHideMenu))
         }
     }
 
     private fun setGameOver() {
         if (state != STATE_GAME_OVER) {
             state = STATE_GAME_OVER
-            val runAfterHideGameUI = Runnable { menuUI.show(stage, false) }
+            val runAfterHideGameUI = Runnable { menuUI.show(stage!!, false) }
 
             setBestScore(score)
 
@@ -110,7 +110,7 @@ class GameScreen(game: SharkAdventureGame, showMainMenu: Boolean) : Screens(game
         if (state == STATE_RUNNING) {
             state = STATE_PAUSED
             gameUI.removeWithAnimations()
-            pauseWindow.show(stage)
+            pauseWindow.show(stage!!)
         }
     }
 
@@ -126,11 +126,11 @@ class GameScreen(game: SharkAdventureGame, showMainMenu: Boolean) : Screens(game
         renderer.render(delta)
 
         camera.update()
-        batch.setProjectionMatrix(camera.combined)
-        batch.enableBlending()
-        batch.begin()
+        batch!!.setProjectionMatrix(camera.combined)
+        batch!!.enableBlending()
+        batch!!.begin()
 
-        batch.end()
+        batch!!.end()
     }
 
     override fun keyDown(keycode: Int): Boolean {

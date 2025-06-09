@@ -127,8 +127,8 @@ class MenuUI(gameScreen: GameScreen, gameWorld: GameWorld?) : Group() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 Settings.isMusicOn = !Settings.isMusicOn
                 buttonMusic!!.setChecked(Settings.isMusicOn)
-                if (Settings.isMusicOn) Assets.music.play()
-                else Assets.music.pause()
+                if (Settings.isMusicOn) Assets.music!!.play()
+                else Assets.music!!.pause()
             }
         })
 

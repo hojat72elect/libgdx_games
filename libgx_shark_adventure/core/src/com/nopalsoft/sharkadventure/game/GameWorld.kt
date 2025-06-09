@@ -512,7 +512,7 @@ class GameWorld {
             timeToSpawnSubmarine -= TIME_TO_SPAWN_SUBMARINE
             if (MathUtils.randomBoolean(.65f)) {
                 createSubmarine()
-                if (Settings.isSoundOn) Assets.sonarSound.play()
+                if (Settings.isSoundOn) Assets.sonarSound!!.play()
             }
         }
 
@@ -627,7 +627,7 @@ class GameWorld {
             if (oShark.energy > 0) {
                 createBlast()
                 if (Settings.isSoundOn) {
-                    Assets.blastSound.play()
+                    Assets.blastSound!!.play()
                 }
             }
             oShark.fire()

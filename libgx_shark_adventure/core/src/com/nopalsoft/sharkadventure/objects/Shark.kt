@@ -104,7 +104,7 @@ class Shark(x: Float, y: Float) : Poolable {
             if (didSwimUp) {
                 speed.y = SPEED_Y
 
-                if (Settings.isSoundOn) Assets.swimSound.play()
+                if (Settings.isSoundOn) Assets.swimSound!!.play()
             }
 
             timeToRechargeEnergy += delta
