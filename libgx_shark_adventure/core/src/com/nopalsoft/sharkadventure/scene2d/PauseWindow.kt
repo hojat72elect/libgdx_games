@@ -57,7 +57,7 @@ class PauseWindow(val currentScreen: GameScreen) : Group() {
         buttonRefresh.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()
-                currentScreen.game.setScreen(GameScreen(game, false))
+                currentScreen.game.setScreen(GameScreen(game!!, false))
             }
         })
 
@@ -67,7 +67,7 @@ class PauseWindow(val currentScreen: GameScreen) : Group() {
         buttonHome.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()
-                currentScreen.game.setScreen(GameScreen(game, true))
+                currentScreen.game.setScreen(GameScreen(game!!, true))
             }
         })
 
