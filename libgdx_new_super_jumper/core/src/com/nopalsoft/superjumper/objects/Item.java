@@ -1,4 +1,4 @@
-package com.nopalsoft.superjumper.objetos;
+package com.nopalsoft.superjumper.objects;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;

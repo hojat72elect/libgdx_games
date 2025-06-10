@@ -1,4 +1,4 @@
-package com.nopalsoft.superjumper.objetos;
+package com.nopalsoft.superjumper.objects;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -7,11 +7,9 @@ import com.badlogic.gdx.utils.Pool.Poolable;
 import com.nopalsoft.superjumper.screens.Screens;
 
 /**
- * LAs nubes son indestructibles Todas empizan happy hasta que les disparas
- *
- * @author Yayo
+ * Clouds are indestructible. They all start out happy until you shoot them.
  */
-public class Nube implements Poolable {
+public class Cloud implements Poolable {
     public final static int STATE_NORMAL = 0;
     public final static int STATE_DEAD = 1;
     public int state;
@@ -22,61 +20,60 @@ public class Nube implements Poolable {
     public final static float WIDTH = .65f;
     public final static float HEIGHT = .4f;
 
-    public final static float VELOCIDAD_X = .5f;
+    public final static float SPEED_X = .5f;
 
-    public final static int TIPO_HAPPY = 0;
-    public final static int TIPO_ANGRY = 1;
-    public int tipo;
+    public final static int TYPE_HAPPY = 0;
+    public final static int TYPE_ANGRY = 1;
+    public final static float TIME_UNTIL_LIGHTNING = 5;
 
     public final static float TIME_TO_BLOW = 2;
     public float timeToBlow;
 
     public final static float DURATION_BLOW = 3;
     public float durationBlow;
-
-    public final static float TIME_FOR_RAYO = 5;
-    public float timeForRayo;
+    public int type;
+    public float timeUntilLightning;
 
     final public Vector2 position;
-    public Vector2 velocidad;
+    public Vector2 speed;
 
     public boolean isBlowing;
-    public boolean isLighthing;
+    public boolean isLightning;
 
     public float stateTime;
 
-    public Nube() {
+    public Cloud() {
         position = new Vector2();
-        velocidad = new Vector2();
+        speed = new Vector2();
     }
 
     public void init(float x, float y) {
         position.set(x, y);
-        velocidad.set(0, 0);// La velocidad se la pongo desde el metodo donde la creo
+        speed.set(0, 0);// I set the speed from the method where I create it.
         stateTime = 0;
         state = STATE_NORMAL;
-        tipo = TIPO_HAPPY;
+        type = TYPE_HAPPY;
 
-        isBlowing = isLighthing = false;
+        isBlowing = isLightning = false;
 
         timeToBlow = durationBlow = 0;
-        timeForRayo = MathUtils.random(TIME_FOR_RAYO);
+        timeUntilLightning = MathUtils.random(TIME_UNTIL_LIGHTNING);
     }
 
     public void update(Body body, float delta) {
         position.x = body.getPosition().x;
         position.y = body.getPosition().y;
 
-        velocidad = body.getLinearVelocity();
+        speed = body.getLinearVelocity();
 
         if (position.x >= Screens.WORLD_WIDTH || position.x <= 0) {
-            velocidad.x = velocidad.x * -1;
+            speed.x = speed.x * -1;
         }
 
-        body.setLinearVelocity(velocidad);
-        velocidad = body.getLinearVelocity();
+        body.setLinearVelocity(speed);
+        speed = body.getLinearVelocity();
 
-        if (tipo == TIPO_ANGRY) {
+        if (type == TYPE_ANGRY) {
             timeToBlow += delta;
             if (!isBlowing && timeToBlow >= TIME_TO_BLOW) {
                 if (MathUtils.randomBoolean())
@@ -91,12 +88,12 @@ public class Nube implements Poolable {
                     isBlowing = false;
                 }
             }
-        } else {// TIPO HAPPY
+        } else {// TYPE HAPPY
 
-            if (!isLighthing) {
-                timeForRayo += delta;
-                if (timeForRayo >= TIME_FOR_RAYO) {
-                    isLighthing = true;
+            if (!isLightning) {
+                timeUntilLightning += delta;
+                if (timeUntilLightning >= TIME_UNTIL_LIGHTNING) {
+                    isLightning = true;
                 }
             }
         }
@@ -105,13 +102,13 @@ public class Nube implements Poolable {
     }
 
     public void fireLighting() {
-        isLighthing = false;
-        timeForRayo = MathUtils.random(TIME_FOR_RAYO);
+        isLightning = false;
+        timeUntilLightning = MathUtils.random(TIME_UNTIL_LIGHTNING);
     }
 
     public void hit() {
-        if (tipo == TIPO_HAPPY) {
-            tipo = TIPO_ANGRY;
+        if (type == TYPE_HAPPY) {
+            type = TYPE_ANGRY;
             stateTime = timeToBlow = durationBlow = 0;
         }
     }

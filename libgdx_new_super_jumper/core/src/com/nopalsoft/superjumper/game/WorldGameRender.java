@@ -7,15 +7,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.nopalsoft.superjumper.Assets;
-import com.nopalsoft.superjumper.objetos.Bullet;
-import com.nopalsoft.superjumper.objetos.Enemigo;
-import com.nopalsoft.superjumper.objetos.Item;
-import com.nopalsoft.superjumper.objetos.Moneda;
-import com.nopalsoft.superjumper.objetos.Nube;
-import com.nopalsoft.superjumper.objetos.Personaje;
-import com.nopalsoft.superjumper.objetos.PiezaPlataformas;
-import com.nopalsoft.superjumper.objetos.Plataformas;
-import com.nopalsoft.superjumper.objetos.Rayo;
+import com.nopalsoft.superjumper.objects.Bullet;
+import com.nopalsoft.superjumper.objects.Cloud;
+import com.nopalsoft.superjumper.objects.Coin;
+import com.nopalsoft.superjumper.objects.Enemy;
+import com.nopalsoft.superjumper.objects.Item;
+import com.nopalsoft.superjumper.objects.LightningBolt;
+import com.nopalsoft.superjumper.objects.Platform;
+import com.nopalsoft.superjumper.objects.PlatformPiece;
+import com.nopalsoft.superjumper.objects.Player;
 import com.nopalsoft.superjumper.screens.Screens;
 
 import java.util.Iterator;
@@ -75,20 +75,20 @@ public class WorldGameRender {
     private void renderPersonaje() {
         AtlasRegion keyframe = null;
 
-        Personaje obj = oWorld.oPer;
+        Player obj = oWorld.oPer;
 
-        if (obj.velocidad.y > 0)
+        if (obj.speed.y > 0)
             keyframe = Assets.personajeJump;
         else
             keyframe = Assets.personajeStand;
 
-        if (obj.velocidad.x > 0)
-            batcher.draw(keyframe, obj.position.x + Personaje.DRAW_WIDTH / 2f, obj.position.y - Personaje.DRAW_HEIGTH / 2f,
-                    -Personaje.DRAW_WIDTH / 2f, Personaje.DRAW_HEIGTH / 2f, -Personaje.DRAW_WIDTH, Personaje.DRAW_HEIGTH, 1, 1, obj.angleDeg);
+        if (obj.speed.x > 0)
+            batcher.draw(keyframe, obj.position.x + Player.DRAW_WIDTH / 2f, obj.position.y - Player.DRAW_HEIGHT / 2f,
+                    -Player.DRAW_WIDTH / 2f, Player.DRAW_HEIGHT / 2f, -Player.DRAW_WIDTH, Player.DRAW_HEIGHT, 1, 1, obj.angleDegree);
 
         else
-            batcher.draw(keyframe, obj.position.x - Personaje.DRAW_WIDTH / 2f, obj.position.y - Personaje.DRAW_HEIGTH / 2f,
-                    Personaje.DRAW_WIDTH / 2f, Personaje.DRAW_HEIGTH / 2f, Personaje.DRAW_WIDTH, Personaje.DRAW_HEIGTH, 1, 1, obj.angleDeg);
+            batcher.draw(keyframe, obj.position.x - Player.DRAW_WIDTH / 2f, obj.position.y - Player.DRAW_HEIGHT / 2f,
+                    Player.DRAW_WIDTH / 2f, Player.DRAW_HEIGHT / 2f, Player.DRAW_WIDTH, Player.DRAW_HEIGHT, 1, 1, obj.angleDegree);
 
         if (obj.isJetPack) {
             batcher.draw(Assets.jetpack, obj.position.x - .45f / 2f, obj.position.y - .7f / 2f, .45f, .7f);
@@ -102,142 +102,142 @@ public class WorldGameRender {
     }
 
     private void renderPlataformas() {
-        Iterator<Plataformas> i = oWorld.arrPlataformas.iterator();
+        Iterator<Platform> i = oWorld.arrPlataformas.iterator();
         while (i.hasNext()) {
-            Plataformas obj = i.next();
+            Platform obj = i.next();
 
             AtlasRegion keyframe = null;
 
-            if (obj.tipo == Plataformas.TIPO_ROMPIBLE) {
+            if (obj.type == Platform.TYPE_BREAKABLE) {
                 switch (obj.color) {
-                    case Plataformas.COLOR_BEIGE:
+                    case Platform.COLOR_BEIGE:
                         keyframe = Assets.plataformaBeigeBroken;
                         break;
-                    case Plataformas.COLOR_BLUE:
+                    case Platform.COLOR_BLUE:
                         keyframe = Assets.plataformaBlueBroken;
                         break;
-                    case Plataformas.COLOR_GRAY:
+                    case Platform.COLOR_GRAY:
                         keyframe = Assets.plataformaGrayBroken;
                         break;
-                    case Plataformas.COLOR_GREEN:
+                    case Platform.COLOR_GREEN:
                         keyframe = Assets.plataformaGreenBroken;
                         break;
-                    case Plataformas.COLOR_MULTICOLOR:
+                    case Platform.COLOR_MULTICOLOR:
                         keyframe = Assets.plataformaMulticolorBroken;
                         break;
-                    case Plataformas.COLOR_PINK:
+                    case Platform.COLOR_PINK:
                         keyframe = Assets.plataformaPinkBroken;
                         break;
                 }
             } else {
                 switch (obj.color) {
-                    case Plataformas.COLOR_BEIGE:
+                    case Platform.COLOR_BEIGE:
                         keyframe = Assets.plataformaBeige;
                         break;
-                    case Plataformas.COLOR_BLUE:
+                    case Platform.COLOR_BLUE:
                         keyframe = Assets.plataformaBlue;
                         break;
-                    case Plataformas.COLOR_GRAY:
+                    case Platform.COLOR_GRAY:
                         keyframe = Assets.plataformaGray;
                         break;
-                    case Plataformas.COLOR_GREEN:
+                    case Platform.COLOR_GREEN:
                         keyframe = Assets.plataformaGreen;
                         break;
-                    case Plataformas.COLOR_MULTICOLOR:
+                    case Platform.COLOR_MULTICOLOR:
                         keyframe = Assets.plataformaMulticolor;
                         break;
-                    case Plataformas.COLOR_PINK:
+                    case Platform.COLOR_PINK:
                         keyframe = Assets.plataformaPink;
                         break;
-                    case Plataformas.COLOR_BEIGE_LIGHT:
+                    case Platform.COLOR_BEIGE_LIGHT:
                         keyframe = Assets.plataformaBeigeLight;
                         break;
-                    case Plataformas.COLOR_BLUE_LIGHT:
+                    case Platform.COLOR_BLUE_LIGHT:
                         keyframe = Assets.plataformaBlueLight;
                         break;
-                    case Plataformas.COLOR_GRAY_LIGHT:
+                    case Platform.COLOR_GRAY_LIGHT:
                         keyframe = Assets.plataformaGrayLight;
                         break;
-                    case Plataformas.COLOR_GREEN_LIGHT:
+                    case Platform.COLOR_GREEN_LIGHT:
                         keyframe = Assets.plataformaGreenLight;
                         break;
-                    case Plataformas.COLOR_MULTICOLOR_LIGHT:
+                    case Platform.COLOR_MULTICOLOR_LIGHT:
                         keyframe = Assets.plataformaMulticolorLight;
                         break;
-                    case Plataformas.COLOR_PINK_LIGHT:
+                    case Platform.COLOR_PINK_LIGHT:
                         keyframe = Assets.plataformaPinkLight;
                         break;
                 }
             }
-            batcher.draw(keyframe, obj.position.x - Plataformas.DRAW_WIDTH_NORMAL / 2f, obj.position.y - Plataformas.DRAW_HEIGTH_NORMAL / 2f,
-                    Plataformas.DRAW_WIDTH_NORMAL, Plataformas.DRAW_HEIGTH_NORMAL);
+            batcher.draw(keyframe, obj.position.x - Platform.DRAW_WIDTH_NORMAL / 2f, obj.position.y - Platform.DRAW_HEIGHT_NORMAL / 2f,
+                    Platform.DRAW_WIDTH_NORMAL, Platform.DRAW_HEIGHT_NORMAL);
         }
     }
 
     private void renderPiezasPlataformas() {
-        Iterator<PiezaPlataformas> i = oWorld.arrPiezasPlataformas.iterator();
+        Iterator<PlatformPiece> i = oWorld.arrPiezasPlataformas.iterator();
         while (i.hasNext()) {
-            PiezaPlataformas obj = i.next();
+            PlatformPiece obj = i.next();
 
             AtlasRegion keyframe = null;
 
-            if (obj.tipo == PiezaPlataformas.TIPO_LEFT) {
+            if (obj.type == PlatformPiece.TYPE_LEFT) {
                 switch (obj.color) {
-                    case Plataformas.COLOR_BEIGE:
+                    case Platform.COLOR_BEIGE:
                         keyframe = Assets.plataformaBeigeLeft;
                         break;
-                    case Plataformas.COLOR_BLUE:
+                    case Platform.COLOR_BLUE:
                         keyframe = Assets.plataformaBlueLeft;
                         break;
-                    case Plataformas.COLOR_GRAY:
+                    case Platform.COLOR_GRAY:
                         keyframe = Assets.plataformaGrayLeft;
                         break;
-                    case Plataformas.COLOR_GREEN:
+                    case Platform.COLOR_GREEN:
                         keyframe = Assets.plataformaGreenLeft;
                         break;
-                    case Plataformas.COLOR_MULTICOLOR:
+                    case Platform.COLOR_MULTICOLOR:
                         keyframe = Assets.plataformaMulticolorLeft;
                         break;
-                    case Plataformas.COLOR_PINK:
+                    case Platform.COLOR_PINK:
                         keyframe = Assets.plataformaPinkLeft;
                         break;
                 }
             } else {
                 switch (obj.color) {
-                    case Plataformas.COLOR_BEIGE:
+                    case Platform.COLOR_BEIGE:
                         keyframe = Assets.plataformaBeigeRight;
                         break;
-                    case Plataformas.COLOR_BLUE:
+                    case Platform.COLOR_BLUE:
                         keyframe = Assets.plataformaBlueRight;
                         break;
-                    case Plataformas.COLOR_GRAY:
+                    case Platform.COLOR_GRAY:
                         keyframe = Assets.plataformaGrayRight;
                         break;
-                    case Plataformas.COLOR_GREEN:
+                    case Platform.COLOR_GREEN:
                         keyframe = Assets.plataformaGreenRight;
                         break;
-                    case Plataformas.COLOR_MULTICOLOR:
+                    case Platform.COLOR_MULTICOLOR:
                         keyframe = Assets.plataformaMulticolorRight;
                         break;
-                    case Plataformas.COLOR_PINK:
+                    case Platform.COLOR_PINK:
                         keyframe = Assets.plataformaPinkRight;
                         break;
                 }
             }
 
-            batcher.draw(keyframe, obj.position.x - PiezaPlataformas.DRAW_WIDTH_NORMAL / 2f, obj.position.y - PiezaPlataformas.DRAW_HEIGTH_NORMAL
-                            / 2f, PiezaPlataformas.DRAW_WIDTH_NORMAL / 2f, PiezaPlataformas.DRAW_HEIGTH_NORMAL / 2f, PiezaPlataformas.DRAW_WIDTH_NORMAL,
-                    PiezaPlataformas.DRAW_HEIGTH_NORMAL, 1, 1, obj.angleDeg);
+            batcher.draw(keyframe, obj.position.x - PlatformPiece.DRAW_WIDTH_NORMAL / 2f, obj.position.y - PlatformPiece.DRAW_HEIGHT_NORMAL
+                            / 2f, PlatformPiece.DRAW_WIDTH_NORMAL / 2f, PlatformPiece.DRAW_HEIGHT_NORMAL / 2f, PlatformPiece.DRAW_WIDTH_NORMAL,
+                    PlatformPiece.DRAW_HEIGHT_NORMAL, 1, 1, obj.angleDegree);
         }
     }
 
     private void renderCoins() {
-        Iterator<Moneda> i = oWorld.arrMonedas.iterator();
+        Iterator<Coin> i = oWorld.arrMonedas.iterator();
         while (i.hasNext()) {
-            Moneda obj = i.next();
+            Coin obj = i.next();
 
-            batcher.draw(Assets.coin, obj.position.x - Moneda.DRAW_WIDTH / 2f, obj.position.y - Moneda.DRAW_HEIGHT / 2f, Moneda.DRAW_WIDTH,
-                    Moneda.DRAW_HEIGHT);
+            batcher.draw(Assets.coin, obj.position.x - Coin.DRAW_WIDTH / 2f, obj.position.y - Coin.DRAW_HEIGHT / 2f, Coin.DRAW_WIDTH,
+                    Coin.DRAW_HEIGHT);
         }
     }
 
@@ -265,34 +265,34 @@ public class WorldGameRender {
     }
 
     private void renderEnemigo() {
-        Iterator<Enemigo> i = oWorld.arrEnemigo.iterator();
+        Iterator<Enemy> i = oWorld.arrEnemigo.iterator();
         while (i.hasNext()) {
-            Enemigo obj = i.next();
+            Enemy obj = i.next();
 
             TextureRegion keyframe = Assets.enemigo.getKeyFrame(obj.stateTime, true);
 
-            batcher.draw(keyframe, obj.position.x - Enemigo.DRAW_WIDTH / 2f, obj.position.y - Enemigo.DRAW_HEIGHT / 2f, Enemigo.DRAW_WIDTH,
-                    Enemigo.DRAW_HEIGHT);
+            batcher.draw(keyframe, obj.position.x - Enemy.DRAW_WIDTH / 2f, obj.position.y - Enemy.DRAW_HEIGHT / 2f, Enemy.DRAW_WIDTH,
+                    Enemy.DRAW_HEIGHT);
         }
     }
 
     private void renderNube() {
-        Iterator<Nube> i = oWorld.arrNubes.iterator();
+        Iterator<Cloud> i = oWorld.arrNubes.iterator();
         while (i.hasNext()) {
-            Nube obj = i.next();
+            Cloud obj = i.next();
 
             TextureRegion keyframe = null;
 
-            switch (obj.tipo) {
-                case Nube.TIPO_ANGRY:
+            switch (obj.type) {
+                case Cloud.TYPE_ANGRY:
                     keyframe = Assets.nubeAngry;
                     break;
-                case Nube.TIPO_HAPPY:
+                case Cloud.TYPE_HAPPY:
                     keyframe = Assets.nubeHappy;
                     break;
             }
 
-            batcher.draw(keyframe, obj.position.x - Nube.DRAW_WIDTH / 2f, obj.position.y - Nube.DRAW_HEIGHT / 2f, Nube.DRAW_WIDTH, Nube.DRAW_HEIGHT);
+            batcher.draw(keyframe, obj.position.x - Cloud.DRAW_WIDTH / 2f, obj.position.y - Cloud.DRAW_HEIGHT / 2f, Cloud.DRAW_WIDTH, Cloud.DRAW_HEIGHT);
 
             if (obj.isBlowing) {
                 batcher.draw(Assets.nubeViento, obj.position.x - .35f, obj.position.y - .85f, .6f, .8f);
@@ -301,13 +301,13 @@ public class WorldGameRender {
     }
 
     private void renderRayo() {
-        Iterator<Rayo> i = oWorld.arrRayos.iterator();
+        Iterator<LightningBolt> i = oWorld.arrRayos.iterator();
         while (i.hasNext()) {
-            Rayo obj = i.next();
+            LightningBolt obj = i.next();
 
             TextureRegion keyframe = Assets.rayo.getKeyFrame(obj.stateTime, true);
 
-            batcher.draw(keyframe, obj.position.x - Rayo.DRAW_WIDTH / 2f, obj.position.y - Rayo.DRAW_HEIGHT / 2f, Rayo.DRAW_WIDTH, Rayo.DRAW_HEIGHT);
+            batcher.draw(keyframe, obj.position.x - LightningBolt.DRAW_WIDTH / 2f, obj.position.y - LightningBolt.DRAW_HEIGHT / 2f, LightningBolt.DRAW_WIDTH, LightningBolt.DRAW_HEIGHT);
         }
     }
 

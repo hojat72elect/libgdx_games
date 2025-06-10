@@ -1,10 +1,10 @@
-package com.nopalsoft.superjumper.objetos;
+package com.nopalsoft.superjumper.objects;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-public class Rayo implements Poolable {
+public class LightningBolt implements Poolable {
     public final static int STATE_NORMAL = 0;
     public final static int STATE_DESTROY = 1;
     public int state;
@@ -15,13 +15,13 @@ public class Rayo implements Poolable {
     public final static float WIDTH = .21f;
     public final static float HEIGHT = .93f;
 
-    public final static float VELOCIDAD_Y = -3f;
+    public final static float SPEED_Y = -3f;
 
     final public Vector2 position;
 
     public float stateTime;
 
-    public Rayo() {
+    public LightningBolt() {
         position = new Vector2();
     }
 

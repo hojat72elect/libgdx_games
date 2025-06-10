@@ -1,23 +1,23 @@
-package com.nopalsoft.superjumper.objetos;
+package com.nopalsoft.superjumper.objects;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.nopalsoft.superjumper.screens.Screens;
 
-public class Personaje {
+public class Player {
     public final static int STATE_NORMAL = 0;
     public final static int STATE_DEAD = 1;
     public int state;
 
     public final static float DRAW_WIDTH = .75f;
-    public final static float DRAW_HEIGTH = .8f;
+    public final static float DRAW_HEIGHT = .8f;
 
     public final static float WIDTH = .4f;
-    public final static float HEIGTH = .6f;
+    public final static float HEIGHT = .6f;
 
-    final float VELOCIDAD_JUMP = 7.5f;
-    final float VELOCIDAD_X = 5;
+    final float SPEED_JUMP = 7.5f;
+    final float SPEED_X = 5;
 
     public final float DURATION_BUBBLE = 3;
     public float durationBubble;
@@ -26,8 +26,8 @@ public class Personaje {
     public float durationJetPack;
 
     final public Vector2 position;
-    public Vector2 velocidad;
-    public float angleDeg;
+    public Vector2 speed;
+    public float angleDegree;
 
     public float stateTime;
 
@@ -35,29 +35,29 @@ public class Personaje {
     public boolean isBubble;
     public boolean isJetPack;
 
-    public Personaje(float x, float y) {
+    public Player(float x, float y) {
         position = new Vector2(x, y);
-        velocidad = new Vector2();
+        speed = new Vector2();
 
         stateTime = 0;
         state = STATE_NORMAL;
     }
 
-    public void update(Body body, float delta, float acelX) {
+    public void update(Body body, float delta, float accelerationX) {
         position.x = body.getPosition().x;
         position.y = body.getPosition().y;
 
-        velocidad = body.getLinearVelocity();
+        speed = body.getLinearVelocity();
 
         if (state == STATE_NORMAL) {
 
             if (didJump) {
                 didJump = false;
                 stateTime = 0;
-                velocidad.y = VELOCIDAD_JUMP;
+                speed.y = SPEED_JUMP;
             }
 
-            velocidad.x = acelX * VELOCIDAD_X;
+            speed.x = accelerationX * SPEED_X;
 
             if (isBubble) {
                 durationBubble += delta;
@@ -73,14 +73,14 @@ public class Personaje {
                     durationJetPack = 0;
                     isJetPack = false;
                 }
-                velocidad.y = VELOCIDAD_JUMP;
+                speed.y = SPEED_JUMP;
             }
         } else {
             body.setAngularVelocity(MathUtils.degRad * 360);
-            velocidad.x = 0;
+            speed.x = 0;
         }
 
-        body.setLinearVelocity(velocidad);
+        body.setLinearVelocity(speed);
 
         if (position.x >= Screens.WORLD_WIDTH) {
             position.x = 0;
@@ -90,9 +90,9 @@ public class Personaje {
             body.setTransform(position, 0);
         }
 
-        angleDeg = body.getAngle() * MathUtils.radDeg;
+        angleDegree = body.getAngle() * MathUtils.radDeg;
 
-        velocidad = body.getLinearVelocity();
+        speed = body.getLinearVelocity();
         stateTime += delta;
     }
 
