@@ -48,22 +48,22 @@ public class Coin implements Poolable {
         position = new Vector2();
     }
 
-    public static void createCoin(World worldBox, Array<Coin> arrMonedas, float y) {
-        createCoinCube(worldBox, arrMonedas, y);
+    public static void createCoin(World worldBox, Array<Coin> coins, float y) {
+        createCoinCube(worldBox, coins, y);
     }
 
-    public static void createUnaMoneda(World worldBox, Array<Coin> arrMonedas, float y) {
-        createCoin(worldBox, arrMonedas, generaPosX(1), y);
+    public static void createOneCoin(World worldBox, Array<Coin> coins, float y) {
+        createCoin(worldBox, coins, generatePositionX(1), y);
     }
 
-    private static void createCoinCube(World worldBox, Array<Coin> arrMonedas, float y) {
-        int renMax = MathUtils.random(25) + 1;
-        int colMax = MathUtils.random(6) + 1;
+    private static void createCoinCube(World worldBox, Array<Coin> coins, float y) {
+        int maxRows = MathUtils.random(25) + 1;
+        int maxColumns = MathUtils.random(6) + 1;
 
-        float x = generaPosX(colMax);
-        for (int col = 0; col < colMax; col++) {
-            for (int ren = 0; ren < renMax; ren++) {
-                createCoin(worldBox, arrMonedas, x + (col * (WIDTH + SPACE_BETWEEN_COINS)), y + (ren * (HEIGHT + SPACE_BETWEEN_COINS)));
+        float x = generatePositionX(maxColumns);
+        for (int col = 0; col < maxColumns; col++) {
+            for (int ren = 0; ren < maxRows; ren++) {
+                createCoin(worldBox, coins, x + (col * (WIDTH + SPACE_BETWEEN_COINS)), y + (ren * (HEIGHT + SPACE_BETWEEN_COINS)));
             }
         }
     }
@@ -72,10 +72,10 @@ public class Coin implements Poolable {
      * Generates an X position depending on the number of coins in the row so
      * that they do not go off the screen to the right or left.
      */
-    private static float generaPosX(int numeroMonedasDelRenglon) {
+    private static float generatePositionX(int numCoinsInRow) {
         float x = MathUtils.random(Screens.WORLD_WIDTH) + WIDTH / 2f;
-        if (x + (numeroMonedasDelRenglon * (WIDTH + SPACE_BETWEEN_COINS)) > Screens.WORLD_WIDTH) {
-            x -= (x + (numeroMonedasDelRenglon * (WIDTH + SPACE_BETWEEN_COINS))) - Screens.WORLD_WIDTH;// Saca la diferencia del ancho y lo que se pasa
+        if (x + (numCoinsInRow * (WIDTH + SPACE_BETWEEN_COINS)) > Screens.WORLD_WIDTH) {
+            x -= (x + (numCoinsInRow * (WIDTH + SPACE_BETWEEN_COINS))) - Screens.WORLD_WIDTH;// Take the difference in width and what is passed
             x += WIDTH / 2f; // Add half to make it stick
         }
         return x;

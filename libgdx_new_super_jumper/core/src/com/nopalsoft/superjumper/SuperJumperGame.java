@@ -8,23 +8,22 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.superjumper.screens.MainMenuScreen;
 import com.nopalsoft.superjumper.screens.Screens;
 
-public class MainSuperJumper extends Game {
+public class SuperJumperGame extends Game {
 
 
-    public I18NBundle idiomas;
-
-    public MainSuperJumper() {
-
-    }
+    public I18NBundle languagesBundle;
+    public SpriteBatch batch;
 
     public Stage stage;
-    public SpriteBatch batcher;
+    public SuperJumperGame() {
+
+    }
 
     @Override
     public void create() {
         stage = new Stage(new StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT));
 
-        batcher = new SpriteBatch();
+        batch = new SpriteBatch();
         Settings.load();
         Assets.load();
 

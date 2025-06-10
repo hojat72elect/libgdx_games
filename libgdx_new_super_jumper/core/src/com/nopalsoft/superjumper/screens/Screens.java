@@ -16,8 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.nopalsoft.superjumper.Assets;
-import com.nopalsoft.superjumper.MainSuperJumper;
 import com.nopalsoft.superjumper.Settings;
+import com.nopalsoft.superjumper.SuperJumperGame;
 import com.nopalsoft.superjumper.game.GameScreen;
 
 public abstract class Screens extends InputAdapter implements Screen {
@@ -27,7 +27,7 @@ public abstract class Screens extends InputAdapter implements Screen {
     public static final float WORLD_WIDTH = 4.8f;
     public static final float WORLD_HEIGHT = 8f;
 
-    public MainSuperJumper game;
+    public SuperJumperGame game;
 
     public OrthographicCamera oCam;
     public SpriteBatch batcher;
@@ -35,10 +35,10 @@ public abstract class Screens extends InputAdapter implements Screen {
 
     protected Music music;
 
-    public Screens(MainSuperJumper game) {
+    public Screens(SuperJumperGame game) {
         this.stage = game.stage;
         this.stage.clear();
-        this.batcher = game.batcher;
+        this.batcher = game.batch;
         this.game = game;
 
         oCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -82,7 +82,7 @@ public abstract class Screens extends InputAdapter implements Screen {
 
     Image blackFadeOut;
 
-    public void changeScreenWithFadeOut(final Class<?> newScreen, final MainSuperJumper game) {
+    public void changeScreenWithFadeOut(final Class<?> newScreen, final SuperJumperGame game) {
         blackFadeOut = new Image(Assets.pixelNegro);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         blackFadeOut.getColor().a = 0;

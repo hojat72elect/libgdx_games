@@ -22,11 +22,11 @@ import com.nopalsoft.superjumper.objects.Bullet;
 import com.nopalsoft.superjumper.objects.Cloud;
 import com.nopalsoft.superjumper.objects.Coin;
 import com.nopalsoft.superjumper.objects.Enemy;
-import com.nopalsoft.superjumper.objects.Item;
 import com.nopalsoft.superjumper.objects.LightningBolt;
 import com.nopalsoft.superjumper.objects.Platform;
 import com.nopalsoft.superjumper.objects.PlatformPiece;
 import com.nopalsoft.superjumper.objects.Player;
+import com.nopalsoft.superjumper.objects.PowerUpItem;
 import com.nopalsoft.superjumper.screens.Screens;
 
 public class WorldGame {
@@ -35,194 +35,192 @@ public class WorldGame {
     final public static int STATE_GAMEOVER = 1;
     int state;
 
-    float TIME_TO_CREATE_NUBE = 15;
-    float timeToCreateNube;
-
-    public World oWorldBox;
-
-    Player oPer;
-    private final Array<Body> arrBodies;
-    Array<Platform> arrPlataformas;
-    Array<PlatformPiece> arrPiezasPlataformas;
-    Array<Coin> arrMonedas;
-    Array<Enemy> arrEnemigo;
-    Array<Item> arrItem;
-    Array<Cloud> arrNubes;
-    Array<LightningBolt> arrRayos;
-    Array<Bullet> arrBullets;
+    private final Array<Body> arrayBodies;
+    public World worldBox;
+    public int maxDistance;
+    float TIME_UNTIL_NEXT_CLOUD = 15;
+    float timeUntilNextCloud;
+    Player player;
+    Array<Platform> arrayPlatforms;
+    Array<PlatformPiece> arrayPlatformPieces;
+    Array<Coin> arrayCoins;
+    Array<Enemy> arrayEnemies;
+    Array<PowerUpItem> arrayItems;
+    Array<Cloud> arrayClouds;
+    Array<LightningBolt> arrayLightningBolts;
 
     public int coins;
-    public int distanciaMax;
-    float mundoCreadoHastaY;
+    Array<Bullet> arrayBullets;
+    float gameWorldCreatedUntilY;
 
     public WorldGame() {
-        oWorldBox = new World(new Vector2(0, -9.8f), true);
-        oWorldBox.setContactListener(new Colisiones());
+        worldBox = new World(new Vector2(0, -9.8f), true);
+        worldBox.setContactListener(new CollisionHandler());
 
-        arrBodies = new Array<>();
-        arrPlataformas = new Array<>();
-        arrPiezasPlataformas = new Array<>();
-        arrMonedas = new Array<>();
-        arrEnemigo = new Array<>();
-        arrItem = new Array<>();
-        arrNubes = new Array<>();
-        arrRayos = new Array<>();
-        arrBullets = new Array<>();
+        arrayBodies = new Array<>();
+        arrayPlatforms = new Array<>();
+        arrayPlatformPieces = new Array<>();
+        arrayCoins = new Array<>();
+        arrayEnemies = new Array<>();
+        arrayItems = new Array<>();
+        arrayClouds = new Array<>();
+        arrayLightningBolts = new Array<>();
+        arrayBullets = new Array<>();
 
-        timeToCreateNube = 0;
+        timeUntilNextCloud = 0;
 
         state = STATE_RUNNING;
 
-        crearPiso();
-        crearPersonaje();
+        createFloor();
+        createPlayer();
 
-        mundoCreadoHastaY = oPer.position.y;
-        crearSiguienteParte();
+        gameWorldCreatedUntilY = player.position.y;
+        createNextSection();
     }
 
-    private void crearSiguienteParte() {
-        float y = mundoCreadoHastaY + 2;
+    private void createNextSection() {
+        float y = gameWorldCreatedUntilY + 2;
 
-        for (int i = 0; mundoCreadoHastaY < (y + 10); i++) {
-            mundoCreadoHastaY = y + (i * 2);
+        for (int i = 0; gameWorldCreatedUntilY < (y + 10); i++) {
+            gameWorldCreatedUntilY = y + (i * 2);
 
-            crearPlataforma(mundoCreadoHastaY);
-            crearPlataforma(mundoCreadoHastaY);
+            createPlatform(gameWorldCreatedUntilY);
+            createPlatform(gameWorldCreatedUntilY);
 
             if (MathUtils.random(100) < 5)
-                Coin.createCoin(oWorldBox, arrMonedas, mundoCreadoHastaY);
+                Coin.createCoin(worldBox, arrayCoins, gameWorldCreatedUntilY);
 
             if (MathUtils.random(20) < 5)
-                Coin.createUnaMoneda(oWorldBox, arrMonedas, mundoCreadoHastaY + .5f);
+                Coin.createOneCoin(worldBox, arrayCoins, gameWorldCreatedUntilY + .5f);
 
             if (MathUtils.random(20) < 5)
-                crearEnemigo(mundoCreadoHastaY + .5f);
+                createEnemy(gameWorldCreatedUntilY + .5f);
 
-            if (timeToCreateNube >= TIME_TO_CREATE_NUBE) {
-                crearNubes(mundoCreadoHastaY + .7f);
-                timeToCreateNube = 0;
+            if (timeUntilNextCloud >= TIME_UNTIL_NEXT_CLOUD) {
+                createCloud(gameWorldCreatedUntilY + .7f);
+                timeUntilNextCloud = 0;
             }
 
             if (MathUtils.random(50) < 5)
-                createItem(mundoCreadoHastaY + .5f);
+                createItem(gameWorldCreatedUntilY + .5f);
         }
     }
 
     /**
-     * El piso solo aparece 1 vez, al principio del juego
+     * The floor only appears once, at the beginning of the game.
      */
-    private void crearPiso() {
+    private void createFloor() {
         BodyDef bd = new BodyDef();
         bd.type = BodyType.StaticBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldBox.createBody(bd);
 
         EdgeShape shape = new EdgeShape();
         shape.set(0, 0, Screens.WORLD_WIDTH, 0);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
 
-        body.createFixture(fixutre);
+        body.createFixture(fixtureDefinition);
         body.setUserData("piso");
 
         shape.dispose();
     }
 
-    private void crearPersonaje() {
-        oPer = new Player(2.4f, .5f);
+    private void createPlayer() {
+        player = new Player(2.4f, .5f);
 
         BodyDef bd = new BodyDef();
-        bd.position.set(oPer.position.x, oPer.position.y);
+        bd.position.set(player.position.x, player.position.y);
         bd.type = BodyType.DynamicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldBox.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Player.WIDTH / 2f, Player.HEIGHT / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.density = 10;
-        fixutre.friction = 0;
-        fixutre.restitution = 0;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.density = 10;
+        fixtureDefinition.friction = 0;
+        fixtureDefinition.restitution = 0;
 
-        body.createFixture(fixutre);
-        body.setUserData(oPer);
+        body.createFixture(fixtureDefinition);
+        body.setUserData(player);
         body.setFixedRotation(true);
 
         shape.dispose();
     }
 
-    private void crearPlataforma(float y) {
+    private void createPlatform(float y) {
 
-        Platform oPlat = Pools.obtain(Platform.class);
-        oPlat.initialize(MathUtils.random(Screens.WORLD_WIDTH), y, MathUtils.random(1));
+        Platform platform = Pools.obtain(Platform.class);
+        platform.initialize(MathUtils.random(Screens.WORLD_WIDTH), y, MathUtils.random(1));
 
-        BodyDef bd = new BodyDef();
-        bd.position.set(oPlat.position.x, oPlat.position.y);
-        bd.type = BodyType.KinematicBody;
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.set(platform.position.x, platform.position.y);
+        bodyDefinition.type = BodyType.KinematicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldBox.createBody(bodyDefinition);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Platform.WIDTH_NORMAL / 2f, Platform.HEIGHT_NORMAL / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
 
-        body.createFixture(fixutre);
-        body.setUserData(oPlat);
-        arrPlataformas.add(oPlat);
+        body.createFixture(fixtureDefinition);
+        body.setUserData(platform);
+        arrayPlatforms.add(platform);
 
         shape.dispose();
     }
 
     /**
-     * La plataforma rompible son 2 cuadros
+     * The breakable platform is 2 frames.
      */
-    private void crearPiezasPlataforma(Platform oPlat) {
-        crearPiezasPlataforma(oPlat, PlatformPiece.TYPE_LEFT);
-        crearPiezasPlataforma(oPlat, PlatformPiece.TYPE_RIGHT);
+    private void createPlatformPieces(Platform oPlat) {
+        createPlatformPieces(oPlat, PlatformPiece.TYPE_LEFT);
+        createPlatformPieces(oPlat, PlatformPiece.TYPE_RIGHT);
     }
 
-    private void crearPiezasPlataforma(Platform oPla, int tipo) {
-        PlatformPiece oPieza;
+    private void createPlatformPieces(Platform platform, int type) {
+        PlatformPiece platformPiece;
         float x;
         float angularVelocity = 100;
 
-        if (tipo == PlatformPiece.TYPE_LEFT) {
-            x = oPla.position.x - PlatformPiece.WIDTH_NORMAL / 2f;
+        if (type == PlatformPiece.TYPE_LEFT) {
+            x = platform.position.x - PlatformPiece.WIDTH_NORMAL / 2f;
             angularVelocity *= -1;
         } else {
-            x = oPla.position.x + PlatformPiece.WIDTH_NORMAL / 2f;
+            x = platform.position.x + PlatformPiece.WIDTH_NORMAL / 2f;
         }
 
-        oPieza = Pools.obtain(PlatformPiece.class);
-        oPieza.initialize(x, oPla.position.y, tipo, oPla.color);
+        platformPiece = Pools.obtain(PlatformPiece.class);
+        platformPiece.initialize(x, platform.position.y, type, platform.color);
 
         BodyDef bd = new BodyDef();
-        bd.position.set(oPieza.position.x, oPieza.position.y);
+        bd.position.set(platformPiece.position.x, platformPiece.position.y);
         bd.type = BodyType.DynamicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldBox.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(PlatformPiece.WIDTH_NORMAL / 2f, PlatformPiece.HEIGHT_NORMAL / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
 
-        body.createFixture(fixutre);
-        body.setUserData(oPieza);
+        body.createFixture(fixtureDefinition);
+        body.setUserData(platformPiece);
         body.setAngularVelocity(MathUtils.degRad * angularVelocity);
-        arrPiezasPlataformas.add(oPieza);
+        arrayPlatformPieces.add(platformPiece);
 
         shape.dispose();
     }
 
-    private void crearEnemigo(float y) {
+    private void createEnemy(float y) {
         Enemy oEn = Pools.obtain(Enemy.class);
         oEn.initialize(MathUtils.random(Screens.WORLD_WIDTH), y);
 
@@ -230,84 +228,84 @@ public class WorldGame {
         bd.position.set(oEn.position.x, oEn.position.y);
         bd.type = BodyType.DynamicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldBox.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Enemy.WIDTH / 2f, Enemy.HEIGHT / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
+        FixtureDef enemyFixtureDefinition = new FixtureDef();
+        enemyFixtureDefinition.shape = shape;
+        enemyFixtureDefinition.isSensor = true;
 
-        body.createFixture(fixutre);
+        body.createFixture(enemyFixtureDefinition);
         body.setUserData(oEn);
         body.setGravityScale(0);
 
-        float velocidad = MathUtils.random(1f, Enemy.SPEED_X);
+        float speed = MathUtils.random(1f, Enemy.SPEED_X);
 
         if (MathUtils.randomBoolean())
-            body.setLinearVelocity(velocidad, 0);
+            body.setLinearVelocity(speed, 0);
         else
-            body.setLinearVelocity(-velocidad, 0);
-        arrEnemigo.add(oEn);
+            body.setLinearVelocity(-speed, 0);
+        arrayEnemies.add(oEn);
 
         shape.dispose();
     }
 
     private void createItem(float y) {
-        Item oItem = Pools.obtain(Item.class);
-        oItem.init(MathUtils.random(Screens.WORLD_WIDTH), y);
+        PowerUpItem oPowerUpItem = Pools.obtain(PowerUpItem.class);
+        oPowerUpItem.init(MathUtils.random(Screens.WORLD_WIDTH), y);
 
         BodyDef bd = new BodyDef();
-        bd.position.set(oItem.position.x, oItem.position.y);
+        bd.position.set(oPowerUpItem.position.x, oPowerUpItem.position.y);
         bd.type = BodyType.StaticBody;
-        Body oBody = oWorldBox.createBody(bd);
+        Body oBody = worldBox.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(Item.WIDTH / 2f, Item.HEIGHT / 2f);
+        shape.setAsBox(PowerUpItem.WIDTH / 2f, PowerUpItem.HEIGHT / 2f);
 
         FixtureDef fixture = new FixtureDef();
         fixture.shape = shape;
         fixture.isSensor = true;
         oBody.createFixture(fixture);
-        oBody.setUserData(oItem);
+        oBody.setUserData(oPowerUpItem);
         shape.dispose();
-        arrItem.add(oItem);
+        arrayItems.add(oPowerUpItem);
     }
 
-    private void crearNubes(float y) {
-        Cloud oCloud = Pools.obtain(Cloud.class);
-        oCloud.init(MathUtils.random(Screens.WORLD_WIDTH), y);
+    private void createCloud(float y) {
+        Cloud cloud = Pools.obtain(Cloud.class);
+        cloud.init(MathUtils.random(Screens.WORLD_WIDTH), y);
 
-        BodyDef bd = new BodyDef();
-        bd.position.set(oCloud.position.x, oCloud.position.y);
-        bd.type = BodyType.DynamicBody;
+        BodyDef cloudBodyDefinition = new BodyDef();
+        cloudBodyDefinition.position.set(cloud.position.x, cloud.position.y);
+        cloudBodyDefinition.type = BodyType.DynamicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body cloudBody = worldBox.createBody(cloudBodyDefinition);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Cloud.WIDTH / 2f, Cloud.HEIGHT / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
+        FixtureDef cloudFixtureDefinition = new FixtureDef();
+        cloudFixtureDefinition.shape = shape;
+        cloudFixtureDefinition.isSensor = true;
 
-        body.createFixture(fixutre);
-        body.setUserData(oCloud);
-        body.setGravityScale(0);
+        cloudBody.createFixture(cloudFixtureDefinition);
+        cloudBody.setUserData(cloud);
+        cloudBody.setGravityScale(0);
 
-        float velocidad = MathUtils.random(1f, Cloud.SPEED_X);
+        float speed = MathUtils.random(1f, Cloud.SPEED_X);
 
         if (MathUtils.randomBoolean())
-            body.setLinearVelocity(velocidad, 0);
+            cloudBody.setLinearVelocity(speed, 0);
         else
-            body.setLinearVelocity(-velocidad, 0);
-        arrNubes.add(oCloud);
+            cloudBody.setLinearVelocity(-speed, 0);
+        arrayClouds.add(cloud);
 
         shape.dispose();
     }
 
-    private void crearRayo(float x, float y) {
+    private void createLightningBolt(float x, float y) {
         LightningBolt oLightningBolt = Pools.obtain(LightningBolt.class);
         oLightningBolt.init(x, y);
 
@@ -315,247 +313,247 @@ public class WorldGame {
         bd.position.set(oLightningBolt.position.x, oLightningBolt.position.y);
         bd.type = BodyType.KinematicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body body = worldBox.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(LightningBolt.WIDTH / 2f, LightningBolt.HEIGHT / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
+        FixtureDef lightningBoltFixtureDefinition = new FixtureDef();
+        lightningBoltFixtureDefinition.shape = shape;
+        lightningBoltFixtureDefinition.isSensor = true;
 
-        body.createFixture(fixutre);
+        body.createFixture(lightningBoltFixtureDefinition);
         body.setUserData(oLightningBolt);
 
         body.setLinearVelocity(0, LightningBolt.SPEED_Y);
-        arrRayos.add(oLightningBolt);
+        arrayLightningBolts.add(oLightningBolt);
 
         shape.dispose();
     }
 
-    private void crearBullet(float origenX, float origenY, float destinoX, float destinoY) {
-        Bullet oBullet = Pools.obtain(Bullet.class);
-        oBullet.init(origenX, origenY);
+    private void createBullet(float origenX, float origenY, float destinationX, float destinationY) {
+        Bullet bullet = Pools.obtain(Bullet.class);
+        bullet.init(origenX, origenY);
 
-        BodyDef bd = new BodyDef();
-        bd.position.set(oBullet.position.x, oBullet.position.y);
-        bd.type = BodyType.KinematicBody;
+        BodyDef bulletBodyDefinition = new BodyDef();
+        bulletBodyDefinition.position.set(bullet.position.x, bullet.position.y);
+        bulletBodyDefinition.type = BodyType.KinematicBody;
 
-        Body body = oWorldBox.createBody(bd);
+        Body bulletBody = worldBox.createBody(bulletBodyDefinition);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Bullet.SIZE / 2f, Bullet.SIZE / 2f);
 
-        FixtureDef fixutre = new FixtureDef();
-        fixutre.shape = shape;
-        fixutre.isSensor = true;
+        FixtureDef bulletFixtureDefinition = new FixtureDef();
+        bulletFixtureDefinition.shape = shape;
+        bulletFixtureDefinition.isSensor = true;
 
-        body.createFixture(fixutre);
-        body.setUserData(oBullet);
-        body.setBullet(true);
+        bulletBody.createFixture(bulletFixtureDefinition);
+        bulletBody.setUserData(bullet);
+        bulletBody.setBullet(true);
 
-        Vector2 destino = new Vector2(destinoX, destinoY);
-        destino.sub(oBullet.position).nor().scl(Bullet.VELOCIDAD_XY);
+        Vector2 destination = new Vector2(destinationX, destinationY);
+        destination.sub(bullet.position).nor().scl(Bullet.SPEED);
 
-        body.setLinearVelocity(destino.x, destino.y);
+        bulletBody.setLinearVelocity(destination.x, destination.y);
 
-        arrBullets.add(oBullet);
+        arrayBullets.add(bullet);
 
         shape.dispose();
     }
 
-    public void update(float delta, float acelX, boolean fire, Vector3 touchPositionWorldCoords) {
-        oWorldBox.step(delta, 8, 4);
+    public void update(float delta, float accelerationX, boolean fire, Vector3 touchPositionWorldCoordinates) {
+        worldBox.step(delta, 8, 4);
 
-        eliminarObjetos();
+        removeObjects();
 
         /*
-         * REviso si es necesario generar la siquiete parte del mundo
+         * I check if it is necessary to generate the next part of the world
          */
-        if (oPer.position.y + 10 > mundoCreadoHastaY) {
-            crearSiguienteParte();
+        if (player.position.y + 10 > gameWorldCreatedUntilY) {
+            createNextSection();
         }
 
-        timeToCreateNube += delta;// Actualizo el tiempo para crear una nube
+        timeUntilNextCloud += delta;// I update the time to create a cloud.
 
-        oWorldBox.getBodies(arrBodies);
+        worldBox.getBodies(arrayBodies);
 
-        for (Body body : arrBodies) {
+        for (Body body : arrayBodies) {
             if (body.getUserData() instanceof Player) {
-                updatePersonaje(body, delta, acelX, fire, touchPositionWorldCoords);
+                updatePlayer(body, delta, accelerationX, fire, touchPositionWorldCoordinates);
             } else if (body.getUserData() instanceof Platform) {
-                updatePlataforma(body, delta);
+                updatePlatform(body, delta);
             } else if (body.getUserData() instanceof PlatformPiece) {
-                updatePiezaPlataforma(body, delta);
+                updatePlatformPiece(body, delta);
             } else if (body.getUserData() instanceof Coin) {
-                updateMoneda(body, delta);
+                updateCoin(body, delta);
             } else if (body.getUserData() instanceof Enemy) {
-                updateEnemigo(body, delta);
-            } else if (body.getUserData() instanceof Item) {
+                updateEnemy(body, delta);
+            } else if (body.getUserData() instanceof PowerUpItem) {
                 updateItem(body, delta);
             } else if (body.getUserData() instanceof Cloud) {
-                updateNube(body, delta);
+                updateCloud(body, delta);
             } else if (body.getUserData() instanceof LightningBolt) {
-                updateRayo(body, delta);
+                updateLightningBolt(body, delta);
             } else if (body.getUserData() instanceof Bullet) {
                 updateBullet(body, delta);
             }
         }
 
-        if (distanciaMax < (oPer.position.y * 10)) {
-            distanciaMax = (int) (oPer.position.y * 10);
+        if (maxDistance < (player.position.y * 10)) {
+            maxDistance = (int) (player.position.y * 10);
         }
 
-        // Si el personaje esta 5.5f mas abajo de la altura maxima se muere (Se multiplica por 10 porque la distancia se multiplica por 10 )
-        if (oPer.state == Player.STATE_NORMAL && distanciaMax - (5.5f * 10) > (oPer.position.y * 10)) {
-            oPer.die();
+        // If the character is 5.5f below the maximum height, he dies (It is multiplied by 10 because the distance is multiplied by 10).
+        if (player.state == Player.STATE_NORMAL && maxDistance - (5.5f * 10) > (player.position.y * 10)) {
+            player.die();
         }
-        if (oPer.state == Player.STATE_DEAD && distanciaMax - (25 * 10) > (oPer.position.y * 10)) {
+        if (player.state == Player.STATE_DEAD && maxDistance - (25 * 10) > (player.position.y * 10)) {
             state = STATE_GAMEOVER;
         }
     }
 
-    private void eliminarObjetos() {
-        oWorldBox.getBodies(arrBodies);
+    private void removeObjects() {
+        worldBox.getBodies(arrayBodies);
 
-        for (Body body : arrBodies) {
-            if (!oWorldBox.isLocked()) {
+        for (Body body : arrayBodies) {
+            if (!worldBox.isLocked()) {
 
                 if (body.getUserData() instanceof Platform) {
                     Platform oPlat = (Platform) body.getUserData();
                     if (oPlat.state == Platform.STATE_DESTROY) {
-                        arrPlataformas.removeValue(oPlat, true);
-                        oWorldBox.destroyBody(body);
+                        arrayPlatforms.removeValue(oPlat, true);
+                        worldBox.destroyBody(body);
                         if (oPlat.type == Platform.TYPE_BREAKABLE)
-                            crearPiezasPlataforma(oPlat);
+                            createPlatformPieces(oPlat);
                         Pools.free(oPlat);
                     }
                 } else if (body.getUserData() instanceof Coin) {
                     Coin oMon = (Coin) body.getUserData();
                     if (oMon.state == Coin.STATE_TAKEN) {
-                        arrMonedas.removeValue(oMon, true);
-                        oWorldBox.destroyBody(body);
+                        arrayCoins.removeValue(oMon, true);
+                        worldBox.destroyBody(body);
                         Pools.free(oMon);
                     }
                 } else if (body.getUserData() instanceof PlatformPiece) {
-                    PlatformPiece oPiez = (PlatformPiece) body.getUserData();
-                    if (oPiez.state == PlatformPiece.STATE_DESTROY) {
-                        arrPiezasPlataformas.removeValue(oPiez, true);
-                        oWorldBox.destroyBody(body);
-                        Pools.free(oPiez);
+                    PlatformPiece platformPiece = (PlatformPiece) body.getUserData();
+                    if (platformPiece.state == PlatformPiece.STATE_DESTROY) {
+                        arrayPlatformPieces.removeValue(platformPiece, true);
+                        worldBox.destroyBody(body);
+                        Pools.free(platformPiece);
                     }
                 } else if (body.getUserData() instanceof Enemy) {
                     Enemy oEnemy = (Enemy) body.getUserData();
                     if (oEnemy.state == Enemy.STATE_DEAD) {
-                        arrEnemigo.removeValue(oEnemy, true);
-                        oWorldBox.destroyBody(body);
+                        arrayEnemies.removeValue(oEnemy, true);
+                        worldBox.destroyBody(body);
                         Pools.free(oEnemy);
                     }
-                } else if (body.getUserData() instanceof Item) {
-                    Item oItem = (Item) body.getUserData();
-                    if (oItem.state == Item.STATE_TAKEN) {
-                        arrItem.removeValue(oItem, true);
-                        oWorldBox.destroyBody(body);
-                        Pools.free(oItem);
+                } else if (body.getUserData() instanceof PowerUpItem) {
+                    PowerUpItem oPowerUpItem = (PowerUpItem) body.getUserData();
+                    if (oPowerUpItem.state == PowerUpItem.STATE_TAKEN) {
+                        arrayItems.removeValue(oPowerUpItem, true);
+                        worldBox.destroyBody(body);
+                        Pools.free(oPowerUpItem);
                     }
                 } else if (body.getUserData() instanceof Cloud) {
                     Cloud oCloud = (Cloud) body.getUserData();
                     if (oCloud.state == Cloud.STATE_DEAD) {
-                        arrNubes.removeValue(oCloud, true);
-                        oWorldBox.destroyBody(body);
+                        arrayClouds.removeValue(oCloud, true);
+                        worldBox.destroyBody(body);
                         Pools.free(oCloud);
                     }
                 } else if (body.getUserData() instanceof LightningBolt) {
                     LightningBolt oLightningBolt = (LightningBolt) body.getUserData();
                     if (oLightningBolt.state == LightningBolt.STATE_DESTROY) {
-                        arrRayos.removeValue(oLightningBolt, true);
-                        oWorldBox.destroyBody(body);
+                        arrayLightningBolts.removeValue(oLightningBolt, true);
+                        worldBox.destroyBody(body);
                         Pools.free(oLightningBolt);
                     }
                 } else if (body.getUserData() instanceof Bullet) {
                     Bullet oBullet = (Bullet) body.getUserData();
                     if (oBullet.state == Bullet.STATE_DESTROY) {
-                        arrBullets.removeValue(oBullet, true);
-                        oWorldBox.destroyBody(body);
+                        arrayBullets.removeValue(oBullet, true);
+                        worldBox.destroyBody(body);
                         Pools.free(oBullet);
                     }
                 } else if (body.getUserData().equals("piso")) {
-                    if (oPer.position.y - 5.5f > body.getPosition().y || oPer.state == Player.STATE_DEAD) {
-                        oWorldBox.destroyBody(body);
+                    if (player.position.y - 5.5f > body.getPosition().y || player.state == Player.STATE_DEAD) {
+                        worldBox.destroyBody(body);
                     }
                 }
             }
         }
     }
 
-    private void updatePersonaje(Body body, float delta, float acelX, boolean fire, Vector3 touchPositionWorldCoords) {
-        oPer.update(body, delta, acelX);
+    private void updatePlayer(Body body, float delta, float accelerationX, boolean fire, Vector3 touchPositionWorldCoordinates) {
+        player.update(body, delta, accelerationX);
 
         if (Settings.numBullets > 0 && fire) {
-            crearBullet(oPer.position.x, oPer.position.y, touchPositionWorldCoords.x, touchPositionWorldCoords.y);
+            createBullet(player.position.x, player.position.y, touchPositionWorldCoordinates.x, touchPositionWorldCoordinates.y);
             Settings.numBullets--;
         }
     }
 
-    private void updatePlataforma(Body body, float delta) {
+    private void updatePlatform(Body body, float delta) {
         Platform obj = (Platform) body.getUserData();
         obj.update(delta);
-        if (oPer.position.y - 5.5f > obj.position.y) {
+        if (player.position.y - 5.5f > obj.position.y) {
             obj.setDestroy();
         }
     }
 
-    private void updatePiezaPlataforma(Body body, float delta) {
+    private void updatePlatformPiece(Body body, float delta) {
         PlatformPiece obj = (PlatformPiece) body.getUserData();
         obj.update(delta, body);
-        if (oPer.position.y - 5.5f > obj.position.y) {
+        if (player.position.y - 5.5f > obj.position.y) {
             obj.setDestroy();
         }
     }
 
-    private void updateMoneda(Body body, float delta) {
+    private void updateCoin(Body body, float delta) {
         Coin obj = (Coin) body.getUserData();
         obj.update(delta);
-        if (oPer.position.y - 5.5f > obj.position.y) {
+        if (player.position.y - 5.5f > obj.position.y) {
             obj.take();
         }
     }
 
-    private void updateEnemigo(Body body, float delta) {
+    private void updateEnemy(Body body, float delta) {
         Enemy obj = (Enemy) body.getUserData();
         obj.update(body, delta);
-        if (oPer.position.y - 5.5f > obj.position.y) {
+        if (player.position.y - 5.5f > obj.position.y) {
             obj.hit();
         }
     }
 
     private void updateItem(Body body, float delta) {
-        Item obj = (Item) body.getUserData();
+        PowerUpItem obj = (PowerUpItem) body.getUserData();
         obj.update(delta);
-        if (oPer.position.y - 5.5f > obj.position.y) {
+        if (player.position.y - 5.5f > obj.position.y) {
             obj.take();
         }
     }
 
-    private void updateNube(Body body, float delta) {
+    private void updateCloud(Body body, float delta) {
         Cloud obj = (Cloud) body.getUserData();
         obj.update(body, delta);
 
         if (obj.isLightning) {
-            crearRayo(obj.position.x, obj.position.y - .65f);
+            createLightningBolt(obj.position.x, obj.position.y - .65f);
             obj.fireLighting();
         }
 
-        if (oPer.position.y - 5.5f > obj.position.y) {
+        if (player.position.y - 5.5f > obj.position.y) {
             obj.destroy();
         }
     }
 
-    private void updateRayo(Body body, float delta) {
+    private void updateLightningBolt(Body body, float delta) {
         LightningBolt obj = (LightningBolt) body.getUserData();
         obj.update(body, delta);
 
-        if (oPer.position.y - 5.5f > obj.position.y) {
+        if (player.position.y - 5.5f > obj.position.y) {
             obj.destroy();
         }
     }
@@ -564,12 +562,12 @@ public class WorldGame {
         Bullet obj = (Bullet) body.getUserData();
         obj.update(body, delta);
 
-        if (oPer.position.y - 5.5f > obj.position.y) {
+        if (player.position.y - 5.5f > obj.position.y) {
             obj.destroy();
         }
     }
 
-    class Colisiones implements ContactListener {
+    class CollisionHandler implements ContactListener {
 
         @Override
         public void beginContact(Contact contact) {
@@ -577,73 +575,73 @@ public class WorldGame {
             Fixture b = contact.getFixtureB();
 
             if (a.getBody().getUserData() instanceof Player)
-                beginContactPersonaje(b);
+                checkPlayerCollisions(b);
             else if (b.getBody().getUserData() instanceof Player)
-                beginContactPersonaje(a);
+                checkPlayerCollisions(a);
 
             if (a.getBody().getUserData() instanceof Bullet)
-                beginContactBullet(a, b);
+                checkBulletCollisions(a, b);
             else if (b.getBody().getUserData() instanceof Bullet)
-                beginContactBullet(b, a);
+                checkBulletCollisions(b, a);
         }
 
-        private void beginContactPersonaje(Fixture fixOtraCosa) {
-            Object otraCosa = fixOtraCosa.getBody().getUserData();
+        private void checkPlayerCollisions(Fixture otherFixture) {
+            Object otherObject = otherFixture.getBody().getUserData();
 
-            if (otraCosa.equals("piso")) {
-                oPer.jump();
+            if (otherObject.equals("piso")) {
+                player.jump();
 
-                if (oPer.state == Player.STATE_DEAD) {
+                if (player.state == Player.STATE_DEAD) {
                     state = STATE_GAMEOVER;
                 }
-            } else if (otraCosa instanceof Platform) {
-                Platform obj = (Platform) otraCosa;
+            } else if (otherObject instanceof Platform) {
+                Platform obj = (Platform) otherObject;
 
-                if (oPer.speed.y <= 0) {
-                    oPer.jump();
+                if (player.speed.y <= 0) {
+                    player.jump();
                     if (obj.type == Platform.TYPE_BREAKABLE) {
                         obj.setDestroy();
                     }
                 }
-            } else if (otraCosa instanceof Coin) {
-                Coin obj = (Coin) otraCosa;
+            } else if (otherObject instanceof Coin) {
+                Coin obj = (Coin) otherObject;
                 obj.take();
                 coins++;
-                oPer.jump();
-            } else if (otraCosa instanceof Enemy) {
-                oPer.hit();
-            } else if (otraCosa instanceof LightningBolt) {
-                oPer.hit();
-            } else if (otraCosa instanceof Item) {
-                Item obj = (Item) otraCosa;
+                player.jump();
+            } else if (otherObject instanceof Enemy) {
+                player.hit();
+            } else if (otherObject instanceof LightningBolt) {
+                player.hit();
+            } else if (otherObject instanceof PowerUpItem) {
+                PowerUpItem obj = (PowerUpItem) otherObject;
                 obj.take();
 
-                switch (obj.tipo) {
-                    case Item.TIPO_BUBBLE:
-                        oPer.setBubble();
+                switch (obj.type) {
+                    case PowerUpItem.TYPE_BUBBLE:
+                        player.setBubble();
                         break;
-                    case Item.TIPO_JETPACK:
-                        oPer.setJetPack();
+                    case PowerUpItem.TYPE_JETPACK:
+                        player.setJetPack();
                         break;
-                    case Item.TIPO_GUN:
+                    case PowerUpItem.TYPE_GUN:
                         Settings.numBullets += 10;
                         break;
                 }
             }
         }
 
-        private void beginContactBullet(Fixture fixBullet, Fixture fixOtraCosa) {
-            Object otraCosa = fixOtraCosa.getBody().getUserData();
-            Bullet oBullet = (Bullet) fixBullet.getBody().getUserData();
+        private void checkBulletCollisions(Fixture bulletFixture, Fixture otherFixture) {
+            Object otherObject = otherFixture.getBody().getUserData();
+            Bullet bullet = (Bullet) bulletFixture.getBody().getUserData();
 
-            if (otraCosa instanceof Enemy) {
-                Enemy obj = (Enemy) otraCosa;
+            if (otherObject instanceof Enemy) {
+                Enemy obj = (Enemy) otherObject;
                 obj.hit();
-                oBullet.destroy();
-            } else if (otraCosa instanceof Cloud) {
-                Cloud obj = (Cloud) otraCosa;
+                bullet.destroy();
+            } else if (otherObject instanceof Cloud) {
+                Cloud obj = (Cloud) otherObject;
                 obj.hit();
-                oBullet.destroy();
+                bullet.destroy();
             }
         }
 
@@ -658,26 +656,26 @@ public class WorldGame {
             Fixture b = contact.getFixtureB();
 
             if (a.getBody().getUserData() instanceof Player)
-                preSolveHero(a, b, contact);
+                preSolvePlayer(a, b, contact);
             else if (b.getBody().getUserData() instanceof Player)
-                preSolveHero(b, a, contact);
+                preSolvePlayer(b, a, contact);
         }
 
-        private void preSolveHero(Fixture fixPersonaje, Fixture otraCosa, Contact contact) {
-            Object oOtraCosa = otraCosa.getBody().getUserData();
+        private void preSolvePlayer(Fixture playerFixture, Fixture otherFixture, Contact contact) {
+            Object otherObject = otherFixture.getBody().getUserData();
 
-            if (oOtraCosa instanceof Platform) {
-                // Si va para arriba atraviesa la plataforma
+            if (otherObject instanceof Platform) {
+                // If you go up, cross the platform.
 
-                Platform obj = (Platform) oOtraCosa;
+                Platform obj = (Platform) otherObject;
 
-                float ponyY = fixPersonaje.getBody().getPosition().y - .30f;
+                float ponyY = playerFixture.getBody().getPosition().y - .30f;
                 float pisY = obj.position.y + Platform.HEIGHT_NORMAL / 2f;
 
                 if (ponyY < pisY)
                     contact.setEnabled(false);
 
-                if (obj.type == Platform.TYPE_NORMAL && oPer.state == Player.STATE_DEAD) {
+                if (obj.type == Platform.TYPE_NORMAL && player.state == Player.STATE_DEAD) {
                     contact.setEnabled(false);
                 }
             }

@@ -11,7 +11,7 @@ public class Bullet implements Poolable {
 
     public final static float SIZE = .15f;
 
-    public final static float VELOCIDAD_XY = 8f;
+    public final static float SPEED = 8f;
 
     final public Vector2 position;
     public float stateTime;

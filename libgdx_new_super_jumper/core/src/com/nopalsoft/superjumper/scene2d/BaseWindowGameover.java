@@ -12,14 +12,14 @@ import com.nopalsoft.superjumper.game.GameScreen;
 import com.nopalsoft.superjumper.game.WorldGame;
 import com.nopalsoft.superjumper.screens.MainMenuScreen;
 
-public class VentanaGameover extends Ventana {
+public class BaseWindowGameover extends BaseWindow {
 
-    TextButton btMenu, btTryAgain;
-    WorldGame oWorld;
+    TextButton buttonMenu, buttonTryAgain;
+    WorldGame worldGame;
 
-    public VentanaGameover(final GameScreen currentScreen) {
+    public BaseWindowGameover(final GameScreen currentScreen) {
         super(currentScreen, 350, 400, 250);
-        oWorld = currentScreen.oWorld;
+        worldGame = currentScreen.oWorld;
 
         Label lbShop = new Label("Game over!", Assets.labelStyleGrande);
         lbShop.setFontScale(1.5f);
@@ -36,10 +36,10 @@ public class VentanaGameover extends Ventana {
         Label lbScore = new Label("Score", Assets.labelStyleChico);
         lbScore.setAlignment(Align.left);
 
-        Label lblNumScore = new Label(oWorld.distanciaMax + "", Assets.labelStyleChico);
+        Label lblNumScore = new Label(worldGame.maxDistance + "", Assets.labelStyleChico);
         lblNumScore.setAlignment(Align.right);
 
-        Label lbBestScore = new Label("Mejor puntuación", Assets.labelStyleChico);
+        Label lbBestScore = new Label("Best Score", Assets.labelStyleChico);
         lbScore.setAlignment(Align.left);
 
         Label lbBestNumScore = new Label(Settings.bestScore + "", Assets.labelStyleChico);
@@ -59,9 +59,9 @@ public class VentanaGameover extends Ventana {
 
         content.defaults().expandX().uniform().fill();
 
-        content.add(btTryAgain);
+        content.add(buttonTryAgain);
         content.row().padTop(20);
-        content.add(btMenu);
+        content.add(buttonMenu);
 
         content.pack();
         content.setPosition(getWidth() / 2f - content.getWidth() / 2f, 60);
@@ -70,22 +70,22 @@ public class VentanaGameover extends Ventana {
     }
 
     private void initButtons() {
-        btMenu = new TextButton("Menu", Assets.textButtonStyleGrande);
-        btMenu.pad(15);
+        buttonMenu = new TextButton("Menu", Assets.textButtonStyleGrande);
+        buttonMenu.pad(15);
 
-        screen.addEfectoPress(btMenu);
-        btMenu.addListener(new ClickListener() {
+        screen.addEfectoPress(buttonMenu);
+        buttonMenu.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 hide();
                 screen.changeScreenWithFadeOut(MainMenuScreen.class, game);
             }
         });
 
-        btTryAgain = new TextButton("Try again", Assets.textButtonStyleGrande);
-        btTryAgain.pad(15);
+        buttonTryAgain = new TextButton("Try again", Assets.textButtonStyleGrande);
+        buttonTryAgain.pad(15);
 
-        screen.addEfectoPress(btTryAgain);
-        btTryAgain.addListener(new ClickListener() {
+        screen.addEfectoPress(buttonTryAgain);
+        buttonTryAgain.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 hide();
                 screen.changeScreenWithFadeOut(GameScreen.class, game);

@@ -4,21 +4,21 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.I18NBundle;
-import com.nopalsoft.superjumper.MainSuperJumper;
+import com.nopalsoft.superjumper.SuperJumperGame;
 import com.nopalsoft.superjumper.screens.Screens;
 
-public class Ventana extends Group {
-    public static final float DURACION_ANIMATION = .3f;
+public class BaseWindow extends Group {
+    public static final float ANIMATION_DURATION = .3f;
     protected Screens screen;
-    protected I18NBundle idiomas;
-    protected MainSuperJumper game;
+    protected I18NBundle languagesBundle;
+    protected SuperJumperGame game;
 
     private boolean isVisible = false;
 
-    public Ventana(Screens currentScreen, float width, float height, float positionY) {
+    public BaseWindow(Screens currentScreen, float width, float height, float positionY) {
         screen = currentScreen;
         game = currentScreen.game;
-        idiomas = game.idiomas;
+        languagesBundle = game.languagesBundle;
         setSize(width, height);
         setY(positionY);
     }
@@ -29,7 +29,7 @@ public class Ventana extends Group {
         setX(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f);
 
         setScale(.5f);
-        addAction(Actions.sequence(Actions.scaleTo(1, 1, DURACION_ANIMATION), Actions.run(this::endResize)));
+        addAction(Actions.sequence(Actions.scaleTo(1, 1, ANIMATION_DURATION), Actions.run(this::endResize)));
 
         isVisible = true;
         stage.addActor(this);

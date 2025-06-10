@@ -11,11 +11,11 @@ import com.nopalsoft.superjumper.objects.Bullet;
 import com.nopalsoft.superjumper.objects.Cloud;
 import com.nopalsoft.superjumper.objects.Coin;
 import com.nopalsoft.superjumper.objects.Enemy;
-import com.nopalsoft.superjumper.objects.Item;
 import com.nopalsoft.superjumper.objects.LightningBolt;
 import com.nopalsoft.superjumper.objects.Platform;
 import com.nopalsoft.superjumper.objects.PlatformPiece;
 import com.nopalsoft.superjumper.objects.Player;
+import com.nopalsoft.superjumper.objects.PowerUpItem;
 import com.nopalsoft.superjumper.screens.Screens;
 
 public class WorldGameRender {
@@ -37,13 +37,13 @@ public class WorldGameRender {
         boxRender = new Box2DDebugRenderer();
     }
 
-    public void unprojectToWorldCoords(Vector3 touchPoint) {
+    public void unprojectToWorldCoordinates(Vector3 touchPoint) {
         camera.unproject(touchPoint);
     }
 
     public void render() {
         if (oWorld.state == WorldGame.STATE_RUNNING)
-            camera.position.y = oWorld.oPer.position.y;
+            camera.position.y = oWorld.player.position.y;
 
         if (camera.position.y < Screens.WORLD_HEIGHT / 2f) {
             camera.position.y = Screens.WORLD_HEIGHT / 2f;
@@ -54,24 +54,24 @@ public class WorldGameRender {
 
         batcher.begin();
 
-        renderPersonaje();
-        renderPlataformas();
-        renderPiezasPlataformas();
+        renderPlayer();
+        renderPlatforms();
+        renderPlatformPieces();
         renderCoins();
         renderItems();
-        renderEnemigo();
-        renderNube();
-        renderRayo();
+        renderEnemies();
+        renderClouds();
+        renderLightningBolts();
         renderBullet();
 
         batcher.end();
 
     }
 
-    private void renderPersonaje() {
+    private void renderPlayer() {
         AtlasRegion keyframe;
 
-        Player obj = oWorld.oPer;
+        Player obj = oWorld.player;
 
         if (obj.speed.y > 0)
             keyframe = Assets.personajeJump;
@@ -97,8 +97,8 @@ public class WorldGameRender {
         }
     }
 
-    private void renderPlataformas() {
-        for (Platform obj : oWorld.arrPlataformas) {
+    private void renderPlatforms() {
+        for (Platform obj : oWorld.arrayPlatforms) {
             AtlasRegion keyframe = null;
 
             if (obj.type == Platform.TYPE_BREAKABLE) {
@@ -167,8 +167,8 @@ public class WorldGameRender {
         }
     }
 
-    private void renderPiezasPlataformas() {
-        for (PlatformPiece obj : oWorld.arrPiezasPlataformas) {
+    private void renderPlatformPieces() {
+        for (PlatformPiece obj : oWorld.arrayPlatformPieces) {
             AtlasRegion keyframe = null;
 
             if (obj.type == PlatformPiece.TYPE_LEFT) {
@@ -222,34 +222,34 @@ public class WorldGameRender {
     }
 
     private void renderCoins() {
-        for (Coin obj : oWorld.arrMonedas) {
+        for (Coin obj : oWorld.arrayCoins) {
             batcher.draw(Assets.coin, obj.position.x - Coin.DRAW_WIDTH / 2f, obj.position.y - Coin.DRAW_HEIGHT / 2f, Coin.DRAW_WIDTH,
                     Coin.DRAW_HEIGHT);
         }
     }
 
     private void renderItems() {
-        for (Item obj : oWorld.arrItem) {
+        for (PowerUpItem obj : oWorld.arrayItems) {
             TextureRegion keyframe = null;
 
-            switch (obj.tipo) {
-                case Item.TIPO_BUBBLE:
+            switch (obj.type) {
+                case PowerUpItem.TYPE_BUBBLE:
                     keyframe = Assets.bubbleSmall;
                     break;
-                case Item.TIPO_JETPACK:
+                case PowerUpItem.TYPE_JETPACK:
                     keyframe = Assets.jetpackSmall;
                     break;
-                case Item.TIPO_GUN:
+                case PowerUpItem.TYPE_GUN:
                     keyframe = Assets.gun;
                     break;
             }
 
-            batcher.draw(keyframe, obj.position.x - Item.DRAW_WIDTH / 2f, obj.position.y - Item.DRAW_HEIGHT / 2f, Item.DRAW_WIDTH, Item.DRAW_HEIGHT);
+            batcher.draw(keyframe, obj.position.x - PowerUpItem.DRAW_WIDTH / 2f, obj.position.y - PowerUpItem.DRAW_HEIGHT / 2f, PowerUpItem.DRAW_WIDTH, PowerUpItem.DRAW_HEIGHT);
         }
     }
 
-    private void renderEnemigo() {
-        for (Enemy obj : oWorld.arrEnemigo) {
+    private void renderEnemies() {
+        for (Enemy obj : oWorld.arrayEnemies) {
             TextureRegion keyframe = Assets.enemigo.getKeyFrame(obj.stateTime, true);
 
             batcher.draw(keyframe, obj.position.x - Enemy.DRAW_WIDTH / 2f, obj.position.y - Enemy.DRAW_HEIGHT / 2f, Enemy.DRAW_WIDTH,
@@ -257,8 +257,8 @@ public class WorldGameRender {
         }
     }
 
-    private void renderNube() {
-        for (Cloud obj : oWorld.arrNubes) {
+    private void renderClouds() {
+        for (Cloud obj : oWorld.arrayClouds) {
             TextureRegion keyframe = null;
 
             switch (obj.type) {
@@ -278,8 +278,8 @@ public class WorldGameRender {
         }
     }
 
-    private void renderRayo() {
-        for (LightningBolt obj : oWorld.arrRayos) {
+    private void renderLightningBolts() {
+        for (LightningBolt obj : oWorld.arrayLightningBolts) {
             TextureRegion keyframe = Assets.rayo.getKeyFrame(obj.stateTime, true);
 
             batcher.draw(keyframe, obj.position.x - LightningBolt.DRAW_WIDTH / 2f, obj.position.y - LightningBolt.DRAW_HEIGHT / 2f, LightningBolt.DRAW_WIDTH, LightningBolt.DRAW_HEIGHT);
@@ -287,7 +287,7 @@ public class WorldGameRender {
     }
 
     private void renderBullet() {
-        for (Bullet obj : oWorld.arrBullets) {
+        for (Bullet obj : oWorld.arrayBullets) {
             batcher.draw(Assets.bullet, obj.position.x - Bullet.SIZE / 2f, obj.position.y - Bullet.SIZE / 2f, Bullet.SIZE, Bullet.SIZE);
         }
     }

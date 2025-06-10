@@ -10,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.superjumper.Assets;
-import com.nopalsoft.superjumper.MainSuperJumper;
 import com.nopalsoft.superjumper.Settings;
+import com.nopalsoft.superjumper.SuperJumperGame;
 import com.nopalsoft.superjumper.game.GameScreen;
 
 public class MainMenuScreen extends Screens {
@@ -21,7 +21,7 @@ public class MainMenuScreen extends Screens {
     TextButton btShop, btPlay, btLeaderboard, btRate;
     Label lbBestScore;
 
-    public MainMenuScreen(final MainSuperJumper game) {
+    public MainMenuScreen(final SuperJumperGame game) {
         super(game);
 
         titulo = new Image(Assets.titulo);
