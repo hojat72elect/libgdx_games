@@ -18,41 +18,39 @@ import com.nopalsoft.superjumper.objects.PlatformPiece;
 import com.nopalsoft.superjumper.objects.Player;
 import com.nopalsoft.superjumper.screens.Screens;
 
-import java.util.Iterator;
-
 public class WorldGameRender {
     final float WIDTH = Screens.WORLD_WIDTH;
     final float HEIGHT = Screens.WORLD_HEIGHT;
 
     WorldGame oWorld;
     SpriteBatch batcher;
-    OrthographicCamera oCam;
+    OrthographicCamera camera;
     Box2DDebugRenderer boxRender;
 
     public WorldGameRender(SpriteBatch batcher, WorldGame oWorld) {
         this.oWorld = oWorld;
         this.batcher = batcher;
 
-        oCam = new OrthographicCamera(WIDTH, HEIGHT);
-        oCam.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
+        camera = new OrthographicCamera(WIDTH, HEIGHT);
+        camera.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
 
         boxRender = new Box2DDebugRenderer();
     }
 
     public void unprojectToWorldCoords(Vector3 touchPoint) {
-        oCam.unproject(touchPoint);
+        camera.unproject(touchPoint);
     }
 
-    public void render(float delta) {
+    public void render() {
         if (oWorld.state == WorldGame.STATE_RUNNING)
-            oCam.position.y = oWorld.oPer.position.y;
+            camera.position.y = oWorld.oPer.position.y;
 
-        if (oCam.position.y < Screens.WORLD_HEIGHT / 2f) {
-            oCam.position.y = Screens.WORLD_HEIGHT / 2f;
+        if (camera.position.y < Screens.WORLD_HEIGHT / 2f) {
+            camera.position.y = Screens.WORLD_HEIGHT / 2f;
         }
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        camera.update();
+        batcher.setProjectionMatrix(camera.combined);
 
         batcher.begin();
 
@@ -68,12 +66,10 @@ public class WorldGameRender {
 
         batcher.end();
 
-        // boxRender.render(oWorld.oWorldBox, oCam.combined);
-
     }
 
     private void renderPersonaje() {
-        AtlasRegion keyframe = null;
+        AtlasRegion keyframe;
 
         Player obj = oWorld.oPer;
 
@@ -102,10 +98,7 @@ public class WorldGameRender {
     }
 
     private void renderPlataformas() {
-        Iterator<Platform> i = oWorld.arrPlataformas.iterator();
-        while (i.hasNext()) {
-            Platform obj = i.next();
-
+        for (Platform obj : oWorld.arrPlataformas) {
             AtlasRegion keyframe = null;
 
             if (obj.type == Platform.TYPE_BREAKABLE) {
@@ -175,10 +168,7 @@ public class WorldGameRender {
     }
 
     private void renderPiezasPlataformas() {
-        Iterator<PlatformPiece> i = oWorld.arrPiezasPlataformas.iterator();
-        while (i.hasNext()) {
-            PlatformPiece obj = i.next();
-
+        for (PlatformPiece obj : oWorld.arrPiezasPlataformas) {
             AtlasRegion keyframe = null;
 
             if (obj.type == PlatformPiece.TYPE_LEFT) {
@@ -232,20 +222,14 @@ public class WorldGameRender {
     }
 
     private void renderCoins() {
-        Iterator<Coin> i = oWorld.arrMonedas.iterator();
-        while (i.hasNext()) {
-            Coin obj = i.next();
-
+        for (Coin obj : oWorld.arrMonedas) {
             batcher.draw(Assets.coin, obj.position.x - Coin.DRAW_WIDTH / 2f, obj.position.y - Coin.DRAW_HEIGHT / 2f, Coin.DRAW_WIDTH,
                     Coin.DRAW_HEIGHT);
         }
     }
 
     private void renderItems() {
-        Iterator<Item> i = oWorld.arrItem.iterator();
-        while (i.hasNext()) {
-            Item obj = i.next();
-
+        for (Item obj : oWorld.arrItem) {
             TextureRegion keyframe = null;
 
             switch (obj.tipo) {
@@ -265,10 +249,7 @@ public class WorldGameRender {
     }
 
     private void renderEnemigo() {
-        Iterator<Enemy> i = oWorld.arrEnemigo.iterator();
-        while (i.hasNext()) {
-            Enemy obj = i.next();
-
+        for (Enemy obj : oWorld.arrEnemigo) {
             TextureRegion keyframe = Assets.enemigo.getKeyFrame(obj.stateTime, true);
 
             batcher.draw(keyframe, obj.position.x - Enemy.DRAW_WIDTH / 2f, obj.position.y - Enemy.DRAW_HEIGHT / 2f, Enemy.DRAW_WIDTH,
@@ -277,10 +258,7 @@ public class WorldGameRender {
     }
 
     private void renderNube() {
-        Iterator<Cloud> i = oWorld.arrNubes.iterator();
-        while (i.hasNext()) {
-            Cloud obj = i.next();
-
+        for (Cloud obj : oWorld.arrNubes) {
             TextureRegion keyframe = null;
 
             switch (obj.type) {
@@ -301,10 +279,7 @@ public class WorldGameRender {
     }
 
     private void renderRayo() {
-        Iterator<LightningBolt> i = oWorld.arrRayos.iterator();
-        while (i.hasNext()) {
-            LightningBolt obj = i.next();
-
+        for (LightningBolt obj : oWorld.arrRayos) {
             TextureRegion keyframe = Assets.rayo.getKeyFrame(obj.stateTime, true);
 
             batcher.draw(keyframe, obj.position.x - LightningBolt.DRAW_WIDTH / 2f, obj.position.y - LightningBolt.DRAW_HEIGHT / 2f, LightningBolt.DRAW_WIDTH, LightningBolt.DRAW_HEIGHT);
@@ -312,9 +287,7 @@ public class WorldGameRender {
     }
 
     private void renderBullet() {
-        Iterator<Bullet> i = oWorld.arrBullets.iterator();
-        while (i.hasNext()) {
-            Bullet obj = i.next();
+        for (Bullet obj : oWorld.arrBullets) {
             batcher.draw(Assets.bullet, obj.position.x - Bullet.SIZE / 2f, obj.position.y - Bullet.SIZE / 2f, Bullet.SIZE, Bullet.SIZE);
         }
     }

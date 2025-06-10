@@ -129,7 +129,7 @@ public class GameScreen extends Screens {
         batcher.end();
 
         if (state != STATE_PAUSED) {
-            renderer.render(delta);
+            renderer.render();
         }
     }
 

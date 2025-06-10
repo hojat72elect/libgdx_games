@@ -5,9 +5,6 @@ import com.badlogic.gdx.Preferences;
 
 public class Settings {
 
-    public final static int NUM_GEMS_SHARE_FACEBOOK = 250;
-    public final static int NUM_GEMS_INVITE_FACEBOOK = 50;
-
     public static boolean isMusicOn;
     public static boolean isSoundOn;
 

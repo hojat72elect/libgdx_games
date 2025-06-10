@@ -17,8 +17,6 @@ public class VentanaGameover extends Ventana {
     TextButton btMenu, btTryAgain;
     WorldGame oWorld;
 
-    int buttonSize = 55;
-
     public VentanaGameover(final GameScreen currentScreen) {
         super(currentScreen, 350, 400, 250);
         oWorld = currentScreen.oWorld;

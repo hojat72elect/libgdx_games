@@ -29,11 +29,7 @@ import com.nopalsoft.superjumper.objects.PlatformPiece;
 import com.nopalsoft.superjumper.objects.Player;
 import com.nopalsoft.superjumper.screens.Screens;
 
-import java.util.Iterator;
-
 public class WorldGame {
-    final float WIDTH = Screens.WORLD_WIDTH;
-    final float HEIGHT = Screens.WORLD_HEIGHT;
 
     final public static int STATE_RUNNING = 0;
     final public static int STATE_GAMEOVER = 1;
@@ -63,15 +59,15 @@ public class WorldGame {
         oWorldBox = new World(new Vector2(0, -9.8f), true);
         oWorldBox.setContactListener(new Colisiones());
 
-        arrBodies = new Array<Body>();
-        arrPlataformas = new Array<Platform>();
-        arrPiezasPlataformas = new Array<PlatformPiece>();
-        arrMonedas = new Array<Coin>();
-        arrEnemigo = new Array<Enemy>();
-        arrItem = new Array<Item>();
-        arrNubes = new Array<Cloud>();
-        arrRayos = new Array<LightningBolt>();
-        arrBullets = new Array<Bullet>();
+        arrBodies = new Array<>();
+        arrPlataformas = new Array<>();
+        arrPiezasPlataformas = new Array<>();
+        arrMonedas = new Array<>();
+        arrEnemigo = new Array<>();
+        arrItem = new Array<>();
+        arrNubes = new Array<>();
+        arrRayos = new Array<>();
+        arrBullets = new Array<>();
 
         timeToCreateNube = 0;
 
@@ -184,8 +180,6 @@ public class WorldGame {
 
     /**
      * La plataforma rompible son 2 cuadros
-     *
-     * @param i
      */
     private void crearPiezasPlataforma(Platform oPlat) {
         crearPiezasPlataforma(oPlat, PlatformPiece.TYPE_LEFT);
@@ -375,7 +369,7 @@ public class WorldGame {
 
         eliminarObjetos();
 
-        /**
+        /*
          * REviso si es necesario generar la siquiete parte del mundo
          */
         if (oPer.position.y + 10 > mundoCreadoHastaY) {
@@ -385,10 +379,8 @@ public class WorldGame {
         timeToCreateNube += delta;// Actualizo el tiempo para crear una nube
 
         oWorldBox.getBodies(arrBodies);
-        Iterator<Body> i = arrBodies.iterator();
 
-        while (i.hasNext()) {
-            Body body = i.next();
+        for (Body body : arrBodies) {
             if (body.getUserData() instanceof Player) {
                 updatePersonaje(body, delta, acelX, fire, touchPositionWorldCoords);
             } else if (body.getUserData() instanceof Platform) {
@@ -425,11 +417,8 @@ public class WorldGame {
 
     private void eliminarObjetos() {
         oWorldBox.getBodies(arrBodies);
-        Iterator<Body> i = arrBodies.iterator();
 
-        while (i.hasNext()) {
-            Body body = i.next();
-
+        for (Body body : arrBodies) {
             if (!oWorldBox.isLocked()) {
 
                 if (body.getUserData() instanceof Platform) {
@@ -588,9 +577,9 @@ public class WorldGame {
             Fixture b = contact.getFixtureB();
 
             if (a.getBody().getUserData() instanceof Player)
-                beginContactPersonaje(a, b);
+                beginContactPersonaje(b);
             else if (b.getBody().getUserData() instanceof Player)
-                beginContactPersonaje(b, a);
+                beginContactPersonaje(a);
 
             if (a.getBody().getUserData() instanceof Bullet)
                 beginContactBullet(a, b);
@@ -598,7 +587,7 @@ public class WorldGame {
                 beginContactBullet(b, a);
         }
 
-        private void beginContactPersonaje(Fixture fixPersonaje, Fixture fixOtraCosa) {
+        private void beginContactPersonaje(Fixture fixOtraCosa) {
             Object otraCosa = fixOtraCosa.getBody().getUserData();
 
             if (otraCosa.equals("piso")) {

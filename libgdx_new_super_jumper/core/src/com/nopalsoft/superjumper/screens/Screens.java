@@ -86,19 +86,11 @@ public abstract class Screens extends InputAdapter implements Screen {
         blackFadeOut = new Image(Assets.pixelNegro);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         blackFadeOut.getColor().a = 0;
-        blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                if (newScreen == GameScreen.class) {
-                    game.setScreen(new GameScreen(game));
-                } else if (newScreen == MainMenuScreen.class) {
-                    game.setScreen(new MainMenuScreen(game));
-                }
-                // else if (newScreen == ShopScreen.class)
-                //	game.setScreen(new ShopScreen(game));
-
-                // El blackFadeOut se remueve del stage cuando se le da new Screens(game) "Revisar el constructor de la clase Screens" por lo que no hay necesidad de hacer
-                // blackFadeout.remove();
+        blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run(() -> {
+            if (newScreen == GameScreen.class) {
+                game.setScreen(new GameScreen(game));
+            } else if (newScreen == MainMenuScreen.class) {
+                game.setScreen(new MainMenuScreen(game));
             }
         })));
 

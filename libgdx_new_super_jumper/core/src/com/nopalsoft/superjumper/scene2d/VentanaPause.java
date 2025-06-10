@@ -16,8 +16,6 @@ public class VentanaPause extends Ventana {
     TextButton btMenu, btResume;
     WorldGame oWorld;
 
-    int buttonSize = 55;
-
     public VentanaPause(final GameScreen currentScreen) {
         super(currentScreen, 350, 280, 300);
         oWorld = currentScreen.oWorld;

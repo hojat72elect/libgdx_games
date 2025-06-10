@@ -9,7 +9,6 @@ public class Bullet implements Poolable {
     public final static int STATE_DESTROY = 1;
     public int state;
 
-    public final static float DRAW_SIZE = .18f;
     public final static float SIZE = .15f;
 
     public final static float VELOCIDAD_XY = 8f;
