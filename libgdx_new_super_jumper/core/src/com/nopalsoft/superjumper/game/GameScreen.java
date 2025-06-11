@@ -42,19 +42,19 @@ public class GameScreen extends Screens {
         pauseWindow = new BaseWindowPause(this);
 
         oWorld = new WorldGame();
-        renderer = new WorldGameRender(batcher, oWorld);
+        renderer = new WorldGameRender(batch, oWorld);
         touchPositionWorldCoordinates = new Vector3();
 
         state = STATE_RUNNING;
-        Settings.numeroVecesJugadas++;
+        Settings.numTimesPlayed++;
 
         Table scoresTable = new Table();
         scoresTable.setSize(SCREEN_WIDTH, 40);
         scoresTable.setY(SCREEN_HEIGHT - scoresTable.getHeight());
 
-        labelCoins = new Label("", Assets.labelStyleGrande);
-        labelDistance = new Label("", Assets.labelStyleGrande);
-        labelBullets = new Label("", Assets.labelStyleGrande);
+        labelCoins = new Label("", Assets.labelStyleLarge);
+        labelDistance = new Label("", Assets.labelStyleLarge);
+        labelBullets = new Label("", Assets.labelStyleLarge);
 
         scoresTable.add(new Image(new TextureRegionDrawable(Assets.coin))).left().padLeft(5);
         scoresTable.add(labelCoins).left();
@@ -64,10 +64,10 @@ public class GameScreen extends Screens {
         scoresTable.add(new Image(new TextureRegionDrawable(Assets.gun))).height(45).width(30).left();
         scoresTable.add(labelBullets).left().padRight(5);
 
-        buttonPause = new Button(Assets.btPause);
+        buttonPause = new Button(Assets.buttonPause);
         buttonPause.setSize(35, 35);
         buttonPause.setPosition(SCREEN_WIDTH - 40, SCREEN_HEIGHT - 80);
-        addEfectoPress(buttonPause);
+        addPressEffect(buttonPause);
         buttonPause.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -122,9 +122,9 @@ public class GameScreen extends Screens {
     @Override
     public void draw(float delta) {
 
-        batcher.begin();
-        batcher.draw(Assets.fondo, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        batcher.end();
+        batch.begin();
+        batch.draw(Assets.background, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.end();
 
         if (state != STATE_PAUSED) {
             renderer.render();

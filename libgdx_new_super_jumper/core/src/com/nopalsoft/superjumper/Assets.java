@@ -15,18 +15,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class Assets {
 
-    public static BitmapFont fontChico;
-    public static BitmapFont fontGrande;
+    public static BitmapFont fontSmall;
+    public static BitmapFont fontLarge;
 
-    public static AtlasRegion fondo;
-    public static TextureRegionDrawable titulo;
+    public static AtlasRegion background;
+    public static TextureRegionDrawable title;
 
-    /**
-     * Player
-     */
-    public static AtlasRegion personajeJump;
-    public static AtlasRegion personajeStand;
-    public static Animation<TextureRegion> personajeWalk;
+
+    public static AtlasRegion playerJump;
+    public static AtlasRegion playerStand;
+    public static Animation<TextureRegion> playerWalkAnimation;
 
     public static AtlasRegion coin;
     public static AtlasRegion gun;
@@ -38,91 +36,88 @@ public class Assets {
     public static AtlasRegion jetpack;
     public static Animation<TextureRegion> jetpackFire;
 
-    public static Animation<TextureRegion> enemigo;
+    public static Animation<TextureRegion> enemyAnimation;
 
-    public static AtlasRegion nubeHappy;
-    public static AtlasRegion nubeAngry;
+    public static AtlasRegion happyCloud;
+    public static AtlasRegion angryCloud;
 
-    public static Animation<TextureRegion> rayo;
-    public static AtlasRegion nubeViento;
-    /**
-     * Platform
-     */
+    public static Animation<TextureRegion> lightningBoltAnimation;
+    public static AtlasRegion windyCloud;
 
-    public static AtlasRegion plataformaBeige;
-    public static AtlasRegion plataformaBeigeLight;
-    public static AtlasRegion plataformaBeigeBroken;
-    public static AtlasRegion plataformaBeigeLeft;
-    public static AtlasRegion plataformaBeigeRight;
+    public static AtlasRegion platformBeige;
+    public static AtlasRegion platformBeigeLight;
+    public static AtlasRegion platformBeigeBroken;
+    public static AtlasRegion platformBeigeLeft;
+    public static AtlasRegion platformBeigeRight;
 
-    public static AtlasRegion plataformaBlue;
-    public static AtlasRegion plataformaBlueLight;
-    public static AtlasRegion plataformaBlueBroken;
-    public static AtlasRegion plataformaBlueLeft;
-    public static AtlasRegion plataformaBlueRight;
+    public static AtlasRegion platformBlue;
+    public static AtlasRegion platformBlueLight;
+    public static AtlasRegion platformBlueBroken;
+    public static AtlasRegion platformBlueLeft;
+    public static AtlasRegion platformBlueRight;
 
-    public static AtlasRegion plataformaGray;
-    public static AtlasRegion plataformaGrayLight;
-    public static AtlasRegion plataformaGrayBroken;
-    public static AtlasRegion plataformaGrayLeft;
-    public static AtlasRegion plataformaGrayRight;
-    public static AtlasRegion plataformaGreen;
-    public static AtlasRegion plataformaGreenLight;
-    public static AtlasRegion plataformaGreenBroken;
-    public static AtlasRegion plataformaGreenLeft;
-    public static AtlasRegion plataformaGreenRight;
+    public static AtlasRegion platformGray;
+    public static AtlasRegion platformGrayLight;
+    public static AtlasRegion platformGrayBroken;
+    public static AtlasRegion platformGrayLeft;
+    public static AtlasRegion platformGrayRight;
 
-    public static AtlasRegion plataformaMulticolor;
-    public static AtlasRegion plataformaMulticolorLight;
-    public static AtlasRegion plataformaMulticolorBroken;
-    public static AtlasRegion plataformaMulticolorLeft;
-    public static AtlasRegion plataformaMulticolorRight;
+    public static AtlasRegion platformGreen;
+    public static AtlasRegion platformGreenLight;
+    public static AtlasRegion platformGreenBroken;
+    public static AtlasRegion platformGreenLeft;
+    public static AtlasRegion platformGreenRight;
 
-    public static AtlasRegion plataformaPink;
-    public static AtlasRegion plataformaPinkLight;
-    public static AtlasRegion plataformaPinkBroken;
-    public static AtlasRegion plataformaPinkLeft;
-    public static AtlasRegion plataformaPinkRight;
+    public static AtlasRegion platformRainbow;
+    public static AtlasRegion platformRainbowLight;
+    public static AtlasRegion platformRainbowBroken;
+    public static AtlasRegion platformRainbowLeft;
+    public static AtlasRegion platformRainbowRight;
 
-    public static TextureRegionDrawable btPause;
+    public static AtlasRegion platformPink;
+    public static AtlasRegion platformPinkLight;
+    public static AtlasRegion platformPinkBroken;
+    public static AtlasRegion platformPinkLeft;
+    public static AtlasRegion platformPinkRight;
 
-    public static LabelStyle labelStyleChico;
-    public static LabelStyle labelStyleGrande;
-    public static TextButtonStyle textButtonStyleGrande;
+    public static TextureRegionDrawable buttonPause;
 
-    public static NinePatchDrawable pixelNegro;
+    public static LabelStyle labelStyleSmall;
+    public static LabelStyle labelStyleLarge;
+    public static TextButtonStyle textButtonStyleLarge;
+
+    public static NinePatchDrawable blackPixel;
 
     public static void loadStyles(TextureAtlas atlas) {
-        // Label Style
-        labelStyleChico = new LabelStyle(fontChico, Color.WHITE);
-        labelStyleGrande = new LabelStyle(fontGrande, Color.WHITE);
+
+        labelStyleSmall = new LabelStyle(fontSmall, Color.WHITE);
+        labelStyleLarge = new LabelStyle(fontLarge, Color.WHITE);
 
         TextureRegionDrawable button = new TextureRegionDrawable(atlas.findRegion("button"));
-        textButtonStyleGrande = new TextButtonStyle(button, button, null, fontGrande);
+        textButtonStyleLarge = new TextButtonStyle(button, button, null, fontLarge);
 
-        pixelNegro = new NinePatchDrawable(new NinePatch(atlas.findRegion("pixelNegro"), 1, 1, 0, 0));
+        blackPixel = new NinePatchDrawable(new NinePatch(atlas.findRegion("pixelNegro"), 1, 1, 0, 0));
     }
 
     public static void load() {
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("data/atlasMap.txt"));
 
-        // fontChico = new BitmapFont(Gdx.files.internal("data/fontChico.fnt"), atlas.findRegion("fontChico"));
-        fontChico = new BitmapFont(Gdx.files.internal("data/fontGrande.fnt"), atlas.findRegion("fontGrande"));
-        fontGrande = new BitmapFont(Gdx.files.internal("data/fontGrande.fnt"), atlas.findRegion("fontGrande"));
+        fontSmall = new BitmapFont(Gdx.files.internal("data/fontGrande.fnt"), atlas.findRegion("fontGrande"));
+        fontLarge = new BitmapFont(Gdx.files.internal("data/fontGrande.fnt"), atlas.findRegion("fontGrande"));
 
         loadStyles(atlas);
 
-        btPause = new TextureRegionDrawable(atlas.findRegion("btPause"));
+        buttonPause = new TextureRegionDrawable(atlas.findRegion("btPause"));
 
-        fondo = atlas.findRegion("Background");
-        titulo = new TextureRegionDrawable(atlas.findRegion("titulo"));
+        background = atlas.findRegion("Background");
+        title = new TextureRegionDrawable(atlas.findRegion("titulo"));
 
-        personajeJump = atlas.findRegion("personajeJump");
-        personajeStand = atlas.findRegion("personajeStand");
+        playerJump = atlas.findRegion("personajeJump");
+        playerStand = atlas.findRegion("personajeStand");
 
         AtlasRegion walk1 = atlas.findRegion("personajeWalk1");
         AtlasRegion walk2 = atlas.findRegion("personajeWalk2");
-        personajeWalk = new Animation(.5f, walk1, walk2);
+        playerWalkAnimation = new Animation(.5f, walk1, walk2);
 
         coin = atlas.findRegion("Coin");
         gun = atlas.findRegion("Pistol");
@@ -137,52 +132,52 @@ public class Assets {
         AtlasRegion jetpackFire2 = atlas.findRegion("JetFire2");
         jetpackFire = new Animation(.085f, jetpackFire1, jetpackFire2);
 
-        AtlasRegion enemigo1 = atlas.findRegion("HearthEnemy1");
-        AtlasRegion enemigo2 = atlas.findRegion("HearthEnemy2");
-        enemigo = new Animation(.2f, enemigo1, enemigo2);
+        AtlasRegion flyingHeart1 = atlas.findRegion("HearthEnemy1");
+        AtlasRegion flyingHeart2 = atlas.findRegion("HearthEnemy2");
+        enemyAnimation = new Animation(.2f, flyingHeart1, flyingHeart2);
 
-        nubeHappy = atlas.findRegion("HappyCloud");
-        nubeAngry = atlas.findRegion("AngryCloud");
-        nubeViento = atlas.findRegion("CloudWind");
+        happyCloud = atlas.findRegion("HappyCloud");
+        angryCloud = atlas.findRegion("AngryCloud");
+        windyCloud = atlas.findRegion("CloudWind");
 
         AtlasRegion lightning1 = atlas.findRegion("Lightning1");
         AtlasRegion lightning2 = atlas.findRegion("Lightning2");
-        rayo = new Animation(.08f, lightning1, lightning2);
+        lightningBoltAnimation = new Animation(.08f, lightning1, lightning2);
 
-        plataformaBeige = atlas.findRegion("LandPiece_DarkBeige");
-        plataformaBeigeLight = atlas.findRegion("LandPiece_LightBeige");
-        plataformaBeigeBroken = atlas.findRegion("BrokenLandPiece_Beige");
-        plataformaBeigeLeft = atlas.findRegion("HalfLandPiece_Left_Beige");
-        plataformaBeigeRight = atlas.findRegion("HalfLandPiece_Right_Beige");
+        platformBeige = atlas.findRegion("LandPiece_DarkBeige");
+        platformBeigeLight = atlas.findRegion("LandPiece_LightBeige");
+        platformBeigeBroken = atlas.findRegion("BrokenLandPiece_Beige");
+        platformBeigeLeft = atlas.findRegion("HalfLandPiece_Left_Beige");
+        platformBeigeRight = atlas.findRegion("HalfLandPiece_Right_Beige");
 
-        plataformaBlue = atlas.findRegion("LandPiece_DarkBlue");
-        plataformaBlueLight = atlas.findRegion("LandPiece_LightBlue");
-        plataformaBlueBroken = atlas.findRegion("BrokenLandPiece_Blue");
-        plataformaBlueLeft = atlas.findRegion("HalfLandPiece_Left_Blue");
-        plataformaBlueRight = atlas.findRegion("HalfLandPiece_Right_Blue");
+        platformBlue = atlas.findRegion("LandPiece_DarkBlue");
+        platformBlueLight = atlas.findRegion("LandPiece_LightBlue");
+        platformBlueBroken = atlas.findRegion("BrokenLandPiece_Blue");
+        platformBlueLeft = atlas.findRegion("HalfLandPiece_Left_Blue");
+        platformBlueRight = atlas.findRegion("HalfLandPiece_Right_Blue");
 
-        plataformaGray = atlas.findRegion("LandPiece_DarkGray");
-        plataformaGrayLight = atlas.findRegion("LandPiece_LightGray");
-        plataformaGrayBroken = atlas.findRegion("BrokenLandPiece_Gray");
-        plataformaGrayLeft = atlas.findRegion("HalfLandPiece_Left_Gray");
-        plataformaGrayRight = atlas.findRegion("HalfLandPiece_Right_Gray");
+        platformGray = atlas.findRegion("LandPiece_DarkGray");
+        platformGrayLight = atlas.findRegion("LandPiece_LightGray");
+        platformGrayBroken = atlas.findRegion("BrokenLandPiece_Gray");
+        platformGrayLeft = atlas.findRegion("HalfLandPiece_Left_Gray");
+        platformGrayRight = atlas.findRegion("HalfLandPiece_Right_Gray");
 
-        plataformaGreen = atlas.findRegion("LandPiece_DarkGreen");
-        plataformaGreenLight = atlas.findRegion("LandPiece_LightGreen");
-        plataformaGreenBroken = atlas.findRegion("BrokenLandPiece_Green");
-        plataformaGreenLeft = atlas.findRegion("HalfLandPiece_Left_Green");
-        plataformaGreenRight = atlas.findRegion("HalfLandPiece_Right_Green");
+        platformGreen = atlas.findRegion("LandPiece_DarkGreen");
+        platformGreenLight = atlas.findRegion("LandPiece_LightGreen");
+        platformGreenBroken = atlas.findRegion("BrokenLandPiece_Green");
+        platformGreenLeft = atlas.findRegion("HalfLandPiece_Left_Green");
+        platformGreenRight = atlas.findRegion("HalfLandPiece_Right_Green");
 
-        plataformaMulticolor = atlas.findRegion("LandPiece_DarkMulticolored");
-        plataformaMulticolorLight = atlas.findRegion("LandPiece_LightMulticolored");
-        plataformaMulticolorBroken = atlas.findRegion("BrokenLandPiece_Multicolored");
-        plataformaMulticolorLeft = atlas.findRegion("HalfLandPiece_Left_Multicolored");
-        plataformaMulticolorRight = atlas.findRegion("HalfLandPiece_Right_Multicolored");
+        platformRainbow = atlas.findRegion("LandPiece_DarkMulticolored");
+        platformRainbowLight = atlas.findRegion("LandPiece_LightMulticolored");
+        platformRainbowBroken = atlas.findRegion("BrokenLandPiece_Multicolored");
+        platformRainbowLeft = atlas.findRegion("HalfLandPiece_Left_Multicolored");
+        platformRainbowRight = atlas.findRegion("HalfLandPiece_Right_Multicolored");
 
-        plataformaPink = atlas.findRegion("LandPiece_DarkPink");
-        plataformaPinkLight = atlas.findRegion("LandPiece_LightPink");
-        plataformaPinkBroken = atlas.findRegion("BrokenLandPiece_Pink");
-        plataformaPinkLeft = atlas.findRegion("HalfLandPiece_Left_Pink");
-        plataformaPinkRight = atlas.findRegion("HalfLandPiece_Right_Pink");
+        platformPink = atlas.findRegion("LandPiece_DarkPink");
+        platformPinkLight = atlas.findRegion("LandPiece_LightPink");
+        platformPinkBroken = atlas.findRegion("BrokenLandPiece_Pink");
+        platformPinkLeft = atlas.findRegion("HalfLandPiece_Left_Pink");
+        platformPinkRight = atlas.findRegion("HalfLandPiece_Right_Pink");
     }
 }

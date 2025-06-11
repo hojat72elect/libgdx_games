@@ -74,9 +74,9 @@ public class WorldGameRender {
         Player obj = oWorld.player;
 
         if (obj.speed.y > 0)
-            keyframe = Assets.personajeJump;
+            keyframe = Assets.playerJump;
         else
-            keyframe = Assets.personajeStand;
+            keyframe = Assets.playerStand;
 
         if (obj.speed.x > 0)
             batcher.draw(keyframe, obj.position.x + Player.DRAW_WIDTH / 2f, obj.position.y - Player.DRAW_HEIGHT / 2f,
@@ -104,61 +104,61 @@ public class WorldGameRender {
             if (obj.type == Platform.TYPE_BREAKABLE) {
                 switch (obj.color) {
                     case Platform.COLOR_BEIGE:
-                        keyframe = Assets.plataformaBeigeBroken;
+                        keyframe = Assets.platformBeigeBroken;
                         break;
                     case Platform.COLOR_BLUE:
-                        keyframe = Assets.plataformaBlueBroken;
+                        keyframe = Assets.platformBlueBroken;
                         break;
                     case Platform.COLOR_GRAY:
-                        keyframe = Assets.plataformaGrayBroken;
+                        keyframe = Assets.platformGrayBroken;
                         break;
                     case Platform.COLOR_GREEN:
-                        keyframe = Assets.plataformaGreenBroken;
+                        keyframe = Assets.platformGreenBroken;
                         break;
                     case Platform.COLOR_MULTICOLOR:
-                        keyframe = Assets.plataformaMulticolorBroken;
+                        keyframe = Assets.platformRainbowBroken;
                         break;
                     case Platform.COLOR_PINK:
-                        keyframe = Assets.plataformaPinkBroken;
+                        keyframe = Assets.platformPinkBroken;
                         break;
                 }
             } else {
                 switch (obj.color) {
                     case Platform.COLOR_BEIGE:
-                        keyframe = Assets.plataformaBeige;
+                        keyframe = Assets.platformBeige;
                         break;
                     case Platform.COLOR_BLUE:
-                        keyframe = Assets.plataformaBlue;
+                        keyframe = Assets.platformBlue;
                         break;
                     case Platform.COLOR_GRAY:
-                        keyframe = Assets.plataformaGray;
+                        keyframe = Assets.platformGray;
                         break;
                     case Platform.COLOR_GREEN:
-                        keyframe = Assets.plataformaGreen;
+                        keyframe = Assets.platformGreen;
                         break;
                     case Platform.COLOR_MULTICOLOR:
-                        keyframe = Assets.plataformaMulticolor;
+                        keyframe = Assets.platformRainbow;
                         break;
                     case Platform.COLOR_PINK:
-                        keyframe = Assets.plataformaPink;
+                        keyframe = Assets.platformPink;
                         break;
                     case Platform.COLOR_BEIGE_LIGHT:
-                        keyframe = Assets.plataformaBeigeLight;
+                        keyframe = Assets.platformBeigeLight;
                         break;
                     case Platform.COLOR_BLUE_LIGHT:
-                        keyframe = Assets.plataformaBlueLight;
+                        keyframe = Assets.platformBlueLight;
                         break;
                     case Platform.COLOR_GRAY_LIGHT:
-                        keyframe = Assets.plataformaGrayLight;
+                        keyframe = Assets.platformGrayLight;
                         break;
                     case Platform.COLOR_GREEN_LIGHT:
-                        keyframe = Assets.plataformaGreenLight;
+                        keyframe = Assets.platformGreenLight;
                         break;
                     case Platform.COLOR_MULTICOLOR_LIGHT:
-                        keyframe = Assets.plataformaMulticolorLight;
+                        keyframe = Assets.platformRainbowLight;
                         break;
                     case Platform.COLOR_PINK_LIGHT:
-                        keyframe = Assets.plataformaPinkLight;
+                        keyframe = Assets.platformPinkLight;
                         break;
                 }
             }
@@ -174,43 +174,43 @@ public class WorldGameRender {
             if (obj.type == PlatformPiece.TYPE_LEFT) {
                 switch (obj.color) {
                     case Platform.COLOR_BEIGE:
-                        keyframe = Assets.plataformaBeigeLeft;
+                        keyframe = Assets.platformBeigeLeft;
                         break;
                     case Platform.COLOR_BLUE:
-                        keyframe = Assets.plataformaBlueLeft;
+                        keyframe = Assets.platformBlueLeft;
                         break;
                     case Platform.COLOR_GRAY:
-                        keyframe = Assets.plataformaGrayLeft;
+                        keyframe = Assets.platformGrayLeft;
                         break;
                     case Platform.COLOR_GREEN:
-                        keyframe = Assets.plataformaGreenLeft;
+                        keyframe = Assets.platformGreenLeft;
                         break;
                     case Platform.COLOR_MULTICOLOR:
-                        keyframe = Assets.plataformaMulticolorLeft;
+                        keyframe = Assets.platformRainbowLeft;
                         break;
                     case Platform.COLOR_PINK:
-                        keyframe = Assets.plataformaPinkLeft;
+                        keyframe = Assets.platformPinkLeft;
                         break;
                 }
             } else {
                 switch (obj.color) {
                     case Platform.COLOR_BEIGE:
-                        keyframe = Assets.plataformaBeigeRight;
+                        keyframe = Assets.platformBeigeRight;
                         break;
                     case Platform.COLOR_BLUE:
-                        keyframe = Assets.plataformaBlueRight;
+                        keyframe = Assets.platformBlueRight;
                         break;
                     case Platform.COLOR_GRAY:
-                        keyframe = Assets.plataformaGrayRight;
+                        keyframe = Assets.platformGrayRight;
                         break;
                     case Platform.COLOR_GREEN:
-                        keyframe = Assets.plataformaGreenRight;
+                        keyframe = Assets.platformGreenRight;
                         break;
                     case Platform.COLOR_MULTICOLOR:
-                        keyframe = Assets.plataformaMulticolorRight;
+                        keyframe = Assets.platformRainbowRight;
                         break;
                     case Platform.COLOR_PINK:
-                        keyframe = Assets.plataformaPinkRight;
+                        keyframe = Assets.platformPinkRight;
                         break;
                 }
             }
@@ -250,7 +250,7 @@ public class WorldGameRender {
 
     private void renderEnemies() {
         for (Enemy obj : oWorld.arrayEnemies) {
-            TextureRegion keyframe = Assets.enemigo.getKeyFrame(obj.stateTime, true);
+            TextureRegion keyframe = Assets.enemyAnimation.getKeyFrame(obj.stateTime, true);
 
             batcher.draw(keyframe, obj.position.x - Enemy.DRAW_WIDTH / 2f, obj.position.y - Enemy.DRAW_HEIGHT / 2f, Enemy.DRAW_WIDTH,
                     Enemy.DRAW_HEIGHT);
@@ -263,24 +263,24 @@ public class WorldGameRender {
 
             switch (obj.type) {
                 case Cloud.TYPE_ANGRY:
-                    keyframe = Assets.nubeAngry;
+                    keyframe = Assets.angryCloud;
                     break;
                 case Cloud.TYPE_HAPPY:
-                    keyframe = Assets.nubeHappy;
+                    keyframe = Assets.happyCloud;
                     break;
             }
 
             batcher.draw(keyframe, obj.position.x - Cloud.DRAW_WIDTH / 2f, obj.position.y - Cloud.DRAW_HEIGHT / 2f, Cloud.DRAW_WIDTH, Cloud.DRAW_HEIGHT);
 
             if (obj.isBlowing) {
-                batcher.draw(Assets.nubeViento, obj.position.x - .35f, obj.position.y - .85f, .6f, .8f);
+                batcher.draw(Assets.windyCloud, obj.position.x - .35f, obj.position.y - .85f, .6f, .8f);
             }
         }
     }
 
     private void renderLightningBolts() {
         for (LightningBolt obj : oWorld.arrayLightningBolts) {
-            TextureRegion keyframe = Assets.rayo.getKeyFrame(obj.stateTime, true);
+            TextureRegion keyframe = Assets.lightningBoltAnimation.getKeyFrame(obj.stateTime, true);
 
             batcher.draw(keyframe, obj.position.x - LightningBolt.DRAW_WIDTH / 2f, obj.position.y - LightningBolt.DRAW_HEIGHT / 2f, LightningBolt.DRAW_WIDTH, LightningBolt.DRAW_HEIGHT);
         }

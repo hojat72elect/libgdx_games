@@ -65,7 +65,5 @@ public class Platform implements Poolable {
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
-
     }
 }

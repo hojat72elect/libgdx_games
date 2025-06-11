@@ -82,8 +82,8 @@ public class Coin implements Poolable {
     }
 
     private static void createCoin(World worldBox, Array<Coin> arrayCoins, float x, float y) {
-        Coin oCoin = Pools.obtain(Coin.class);
-        oCoin.init(x, y);
+        Coin coin = Pools.obtain(Coin.class);
+        coin.init(x, y);
 
         BodyDef bodyDefinition = new BodyDef();
         bodyDefinition.position.x = x;
@@ -98,9 +98,9 @@ public class Coin implements Poolable {
         fixtureDefinition.shape = shape;
         fixtureDefinition.isSensor = true;
         body.createFixture(fixtureDefinition);
-        body.setUserData(oCoin);
+        body.setUserData(coin);
         shape.dispose();
-        arrayCoins.add(oCoin);
+        arrayCoins.add(coin);
     }
 
     @Override

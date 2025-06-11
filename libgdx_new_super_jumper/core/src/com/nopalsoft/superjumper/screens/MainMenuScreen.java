@@ -16,59 +16,59 @@ import com.nopalsoft.superjumper.game.GameScreen;
 
 public class MainMenuScreen extends Screens {
 
-    Image titulo;
+    Image imageTitle;
 
-    TextButton btShop, btPlay, btLeaderboard, btRate;
-    Label lbBestScore;
+    TextButton buttonShop, buttonPlay, buttonLeaderBoard, buttonRate;
+    Label labelBestScore;
 
     public MainMenuScreen(final SuperJumperGame game) {
         super(game);
 
-        titulo = new Image(Assets.titulo);
-        titulo.setPosition(SCREEN_WIDTH / 2f - titulo.getWidth() / 2f, 800);
+        imageTitle = new Image(Assets.title);
+        imageTitle.setPosition(SCREEN_WIDTH / 2f - imageTitle.getWidth() / 2f, 800);
 
-        titulo.addAction(Actions.sequence(Actions.moveTo(titulo.getX(), 600, 1, Interpolation.bounceOut), Actions.run(() -> stage.addActor(lbBestScore))));
+        imageTitle.addAction(Actions.sequence(Actions.moveTo(imageTitle.getX(), 600, 1, Interpolation.bounceOut), Actions.run(() -> stage.addActor(labelBestScore))));
 
-        lbBestScore = new Label("Best score " + Settings.bestScore, Assets.labelStyleChico);
-        lbBestScore.setPosition(SCREEN_WIDTH / 2f - lbBestScore.getWidth() / 2f, 570);
-        lbBestScore.getColor().a = 0;
-        lbBestScore.addAction(Actions.alpha(1, .25f));
+        labelBestScore = new Label("Best score " + Settings.bestScore, Assets.labelStyleSmall);
+        labelBestScore.setPosition(SCREEN_WIDTH / 2f - labelBestScore.getWidth() / 2f, 570);
+        labelBestScore.getColor().a = 0;
+        labelBestScore.addAction(Actions.alpha(1, .25f));
 
-        btPlay = new TextButton("Play", Assets.textButtonStyleGrande);
-        btPlay.setPosition(SCREEN_WIDTH / 2f - btPlay.getWidth() / 2f, 440);
-        btPlay.pad(10);
-        btPlay.pack();
-        addEfectoPress(btPlay);
-        btPlay.addListener(new ClickListener() {
+        buttonPlay = new TextButton("Play", Assets.textButtonStyleLarge);
+        buttonPlay.setPosition(SCREEN_WIDTH / 2f - buttonPlay.getWidth() / 2f, 440);
+        buttonPlay.pad(10);
+        buttonPlay.pack();
+        addPressEffect(buttonPlay);
+        buttonPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(GameScreen.class, game);
             }
         });
 
-        btShop = new TextButton("Shop", Assets.textButtonStyleGrande);
-        btShop.setPosition(SCREEN_WIDTH / 2f - btShop.getWidth() / 2f, 340);
-        btShop.pad(10);
-        btShop.pack();
-        addEfectoPress(btShop);
+        buttonShop = new TextButton("Shop", Assets.textButtonStyleLarge);
+        buttonShop.setPosition(SCREEN_WIDTH / 2f - buttonShop.getWidth() / 2f, 340);
+        buttonShop.pad(10);
+        buttonShop.pack();
+        addPressEffect(buttonShop);
 
-        btRate = new TextButton("Rate", Assets.textButtonStyleGrande);
-        btRate.setPosition(SCREEN_WIDTH / 2f - btRate.getWidth() / 2f, 340);
-        btRate.pad(10);
-        btRate.pack();
-        addEfectoPress(btRate);
+        buttonRate = new TextButton("Rate", Assets.textButtonStyleLarge);
+        buttonRate.setPosition(SCREEN_WIDTH / 2f - buttonRate.getWidth() / 2f, 340);
+        buttonRate.pad(10);
+        buttonRate.pack();
+        addPressEffect(buttonRate);
 
-        btLeaderboard = new TextButton("Leaderboard", Assets.textButtonStyleGrande);
-        btLeaderboard.pad(10);
-        btLeaderboard.pack();
-        btLeaderboard.setPosition(SCREEN_WIDTH / 2f - btLeaderboard.getWidth() / 2f, 240);
+        buttonLeaderBoard = new TextButton("Leaderboard", Assets.textButtonStyleLarge);
+        buttonLeaderBoard.pad(10);
+        buttonLeaderBoard.pack();
+        buttonLeaderBoard.setPosition(SCREEN_WIDTH / 2f - buttonLeaderBoard.getWidth() / 2f, 240);
 
-        addEfectoPress(btLeaderboard);
+        addPressEffect(buttonLeaderBoard);
 
-        stage.addActor(titulo);
-        stage.addActor(btPlay);
-        stage.addActor(btRate);
-        stage.addActor(btLeaderboard);
+        stage.addActor(imageTitle);
+        stage.addActor(buttonPlay);
+        stage.addActor(buttonRate);
+        stage.addActor(buttonLeaderBoard);
     }
 
     @Override
@@ -78,14 +78,14 @@ public class MainMenuScreen extends Screens {
 
     @Override
     public void draw(float delta) {
-        batcher.begin();
-        batcher.draw(Assets.fondo, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        batcher.draw(Assets.plataformaBeigeBroken, 100, 100, 125, 45);
-        batcher.draw(Assets.plataformaBlue, 350, 280, 125, 45);
-        batcher.draw(Assets.plataformaMulticolor, 25, 430, 125, 45);
-        batcher.draw(Assets.personajeJump, 25, 270, 75, 80);
-        batcher.draw(Assets.nubeHappy, 350, 500, 95, 60);
-        batcher.end();
+        batch.begin();
+        batch.draw(Assets.background, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.draw(Assets.platformBeigeBroken, 100, 100, 125, 45);
+        batch.draw(Assets.platformBlue, 350, 280, 125, 45);
+        batch.draw(Assets.platformRainbow, 25, 430, 125, 45);
+        batch.draw(Assets.playerJump, 25, 270, 75, 80);
+        batch.draw(Assets.happyCloud, 350, 500, 95, 60);
+        batch.end();
     }
 
     @Override

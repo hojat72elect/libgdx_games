@@ -12,7 +12,7 @@ public class Settings {
     public static boolean didLikeFacebook;
     public static boolean didRate;
 
-    public static int numeroVecesJugadas;
+    private final static Preferences preferences = Gdx.app.getPreferences("com.nopalsoft.superjumper");
 
     public static int coinsTotal;
     public static int numBullets;
@@ -23,50 +23,49 @@ public class Settings {
     public static int LEVEL_SHIELD;
     public static int LEVEL_SECOND_JUMP;
     public static int LEVEL_WEAPON;
-
-    private final static Preferences pref = Gdx.app.getPreferences("com.nopalsoft.superjumper");
+    public static int numTimesPlayed;
 
     public static void save() {
 
-        pref.putBoolean("isMusicOn", isMusicOn);
-        pref.putBoolean("isSoundOn", isSoundOn);
+        preferences.putBoolean("isMusicOn", isMusicOn);
+        preferences.putBoolean("isSoundOn", isSoundOn);
 
-        pref.putBoolean("didBuyNoAds", didBuyNoAds);
-        pref.putBoolean("didLikeFacebook", didLikeFacebook);
-        pref.putBoolean("didRate", didRate);
+        preferences.putBoolean("didBuyNoAds", didBuyNoAds);
+        preferences.putBoolean("didLikeFacebook", didLikeFacebook);
+        preferences.putBoolean("didRate", didRate);
 
-        pref.putInteger("numeroVecesJugadas", numeroVecesJugadas);
-        pref.putInteger("coinsTotal", coinsTotal);
-        pref.putInteger("numBullets", numBullets);
-        pref.putInteger("bestScore", bestScore);
+        preferences.putInteger("numeroVecesJugadas", numTimesPlayed);
+        preferences.putInteger("coinsTotal", coinsTotal);
+        preferences.putInteger("numBullets", numBullets);
+        preferences.putInteger("bestScore", bestScore);
 
-        pref.putInteger("LEVEL_WEAPON", LEVEL_WEAPON);
-        pref.putInteger("LEVEL_SECOND_JUMP", LEVEL_SECOND_JUMP);
-        pref.putInteger("LEVEL_LIFE", LEVEL_LIFE);
-        pref.putInteger("LEVEL_SHIELD", LEVEL_SHIELD);
+        preferences.putInteger("LEVEL_WEAPON", LEVEL_WEAPON);
+        preferences.putInteger("LEVEL_SECOND_JUMP", LEVEL_SECOND_JUMP);
+        preferences.putInteger("LEVEL_LIFE", LEVEL_LIFE);
+        preferences.putInteger("LEVEL_SHIELD", LEVEL_SHIELD);
 
-        pref.flush();
+        preferences.flush();
     }
 
     public static void load() {
 
-        isMusicOn = pref.getBoolean("isMusicOn", true);
-        isSoundOn = pref.getBoolean("isSoundOn", true);
+        isMusicOn = preferences.getBoolean("isMusicOn", true);
+        isSoundOn = preferences.getBoolean("isSoundOn", true);
 
-        didBuyNoAds = pref.getBoolean("didBuyNoAds", false);
-        didLikeFacebook = pref.getBoolean("didLikeFacebook", false);
-        didRate = pref.getBoolean("didRate", false);
+        didBuyNoAds = preferences.getBoolean("didBuyNoAds", false);
+        didLikeFacebook = preferences.getBoolean("didLikeFacebook", false);
+        didRate = preferences.getBoolean("didRate", false);
 
-        numeroVecesJugadas = pref.getInteger("numeroVecesJugadas", 0);
+        numTimesPlayed = preferences.getInteger("numeroVecesJugadas", 0);
 
-        coinsTotal = pref.getInteger("coinsTotal", 0);
-        numBullets = pref.getInteger("numBullets", 30);
-        bestScore = pref.getInteger("bestScore", 0);
+        coinsTotal = preferences.getInteger("coinsTotal", 0);
+        numBullets = preferences.getInteger("numBullets", 30);
+        bestScore = preferences.getInteger("bestScore", 0);
 
-        LEVEL_WEAPON = pref.getInteger("LEVEL_WEAPON", 0);
-        LEVEL_SECOND_JUMP = pref.getInteger("LEVEL_SECOND_JUMP", 0);
-        LEVEL_LIFE = pref.getInteger("LEVEL_LIFE", 0);
-        LEVEL_SHIELD = pref.getInteger("LEVEL_SHIELD", 0);
+        LEVEL_WEAPON = preferences.getInteger("LEVEL_WEAPON", 0);
+        LEVEL_SECOND_JUMP = preferences.getInteger("LEVEL_SECOND_JUMP", 0);
+        LEVEL_LIFE = preferences.getInteger("LEVEL_LIFE", 0);
+        LEVEL_SHIELD = preferences.getInteger("LEVEL_SHIELD", 0);
     }
 
     public static void setBestScore(int distance) {

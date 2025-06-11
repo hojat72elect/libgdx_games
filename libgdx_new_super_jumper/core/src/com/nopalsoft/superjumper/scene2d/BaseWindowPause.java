@@ -13,28 +13,28 @@ import com.nopalsoft.superjumper.screens.MainMenuScreen;
 
 public class BaseWindowPause extends BaseWindow {
 
-    TextButton btMenu, btResume;
-    WorldGame oWorld;
+    TextButton buttonMenu, buttonResume;
+    WorldGame worldGame;
 
     public BaseWindowPause(final GameScreen currentScreen) {
         super(currentScreen, 350, 280, 300);
-        oWorld = currentScreen.oWorld;
+        worldGame = currentScreen.oWorld;
 
-        Label lbShop = new Label("Pause", Assets.labelStyleGrande);
-        lbShop.setFontScale(1.5f);
-        lbShop.setAlignment(Align.center);
-        lbShop.setPosition(getWidth() / 2f - lbShop.getWidth() / 2f, 230);
-        addActor(lbShop);
+        Label labelShop = new Label("Pause", Assets.labelStyleLarge);
+        labelShop.setFontScale(1.5f);
+        labelShop.setAlignment(Align.center);
+        labelShop.setPosition(getWidth() / 2f - labelShop.getWidth() / 2f, 230);
+        addActor(labelShop);
 
-        initButtons();
+        initializeButtons();
 
         Table content = new Table();
 
         content.defaults().expandX().uniform().fill();
 
-        content.add(btResume);
+        content.add(buttonResume);
         content.row().padTop(20);
-        content.add(btMenu);
+        content.add(buttonMenu);
 
         content.pack();
         content.setPosition(getWidth() / 2f - content.getWidth() / 2f, 50);
@@ -42,23 +42,23 @@ public class BaseWindowPause extends BaseWindow {
         addActor(content);
     }
 
-    private void initButtons() {
-        btMenu = new TextButton("Menu", Assets.textButtonStyleGrande);
-        btMenu.pad(15);
+    private void initializeButtons() {
+        buttonMenu = new TextButton("Menu", Assets.textButtonStyleLarge);
+        buttonMenu.pad(15);
 
-        screen.addEfectoPress(btMenu);
-        btMenu.addListener(new ClickListener() {
+        screen.addPressEffect(buttonMenu);
+        buttonMenu.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 hide();
                 screen.changeScreenWithFadeOut(MainMenuScreen.class, game);
             }
         });
 
-        btResume = new TextButton("Resume", Assets.textButtonStyleGrande);
-        btResume.pad(15);
+        buttonResume = new TextButton("Resume", Assets.textButtonStyleLarge);
+        buttonResume.pad(15);
 
-        screen.addEfectoPress(btResume);
-        btResume.addListener(new ClickListener() {
+        screen.addPressEffect(buttonResume);
+        buttonResume.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 hide();
             }

@@ -21,37 +21,37 @@ public class BaseWindowGameover extends BaseWindow {
         super(currentScreen, 350, 400, 250);
         worldGame = currentScreen.oWorld;
 
-        Label lbShop = new Label("Game over!", Assets.labelStyleGrande);
-        lbShop.setFontScale(1.5f);
-        lbShop.setAlignment(Align.center);
-        lbShop.setPosition(getWidth() / 2f - lbShop.getWidth() / 2f, 350);
-        addActor(lbShop);
+        Label labelShop = new Label("Game over!", Assets.labelStyleLarge);
+        labelShop.setFontScale(1.5f);
+        labelShop.setAlignment(Align.center);
+        labelShop.setPosition(getWidth() / 2f - labelShop.getWidth() / 2f, 350);
+        addActor(labelShop);
 
-        initButtons();
+        initializeButtons();
 
         final Table scoreTable = new Table();
         scoreTable.setSize(getWidth(), 130);
         scoreTable.setY(230);
 
-        Label lbScore = new Label("Score", Assets.labelStyleChico);
-        lbScore.setAlignment(Align.left);
+        Label labelScore = new Label("Score", Assets.labelStyleSmall);
+        labelScore.setAlignment(Align.left);
 
-        Label lblNumScore = new Label(worldGame.maxDistance + "", Assets.labelStyleChico);
-        lblNumScore.setAlignment(Align.right);
+        Label labelNumScore = new Label(worldGame.maxDistance + "", Assets.labelStyleSmall);
+        labelNumScore.setAlignment(Align.right);
 
-        Label lbBestScore = new Label("Best Score", Assets.labelStyleChico);
-        lbScore.setAlignment(Align.left);
+        Label labelBestScore = new Label("Best Score", Assets.labelStyleSmall);
+        labelScore.setAlignment(Align.left);
 
-        Label lbBestNumScore = new Label(Settings.bestScore + "", Assets.labelStyleChico);
-        lblNumScore.setAlignment(Align.right);
+        Label labelBestNumScore = new Label(Settings.bestScore + "", Assets.labelStyleSmall);
+        labelNumScore.setAlignment(Align.right);
 
         scoreTable.pad(10);
-        scoreTable.add(lbScore).left();
-        scoreTable.add(lblNumScore).right().expand();
+        scoreTable.add(labelScore).left();
+        scoreTable.add(labelNumScore).right().expand();
 
         scoreTable.row();
-        scoreTable.add(lbBestScore).left();
-        scoreTable.add(lbBestNumScore).right().expand();
+        scoreTable.add(labelBestScore).left();
+        scoreTable.add(labelBestNumScore).right().expand();
 
         addActor(scoreTable);
 
@@ -69,11 +69,11 @@ public class BaseWindowGameover extends BaseWindow {
         addActor(content);
     }
 
-    private void initButtons() {
-        buttonMenu = new TextButton("Menu", Assets.textButtonStyleGrande);
+    private void initializeButtons() {
+        buttonMenu = new TextButton("Menu", Assets.textButtonStyleLarge);
         buttonMenu.pad(15);
 
-        screen.addEfectoPress(buttonMenu);
+        screen.addPressEffect(buttonMenu);
         buttonMenu.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 hide();
@@ -81,10 +81,10 @@ public class BaseWindowGameover extends BaseWindow {
             }
         });
 
-        buttonTryAgain = new TextButton("Try again", Assets.textButtonStyleGrande);
+        buttonTryAgain = new TextButton("Try again", Assets.textButtonStyleLarge);
         buttonTryAgain.pad(15);
 
-        screen.addEfectoPress(buttonTryAgain);
+        screen.addPressEffect(buttonTryAgain);
         buttonTryAgain.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 hide();
