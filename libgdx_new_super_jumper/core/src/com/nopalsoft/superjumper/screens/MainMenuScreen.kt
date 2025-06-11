@@ -15,13 +15,13 @@ import com.nopalsoft.superjumper.SuperJumperGame
 import com.nopalsoft.superjumper.game.GameScreen
 
 class MainMenuScreen(game: SuperJumperGame) : Screens(game) {
-    var imageTitle: Image = Image(Assets.title)
+    private var imageTitle: Image = Image(Assets.title)
 
-    var buttonShop: TextButton
-    var buttonPlay: TextButton
-    var buttonLeaderBoard: TextButton
-    var buttonRate: TextButton
-    var labelBestScore: Label = Label("Best score " + Settings.bestScore, Assets.labelStyleSmall)
+    private var buttonShop: TextButton
+    private var buttonPlay: TextButton
+    private var buttonLeaderBoard: TextButton
+    private var buttonRate: TextButton
+    private var labelBestScore: Label = Label("Best score " + Settings.bestScore, Assets.labelStyleSmall)
 
     init {
         imageTitle.setPosition(SCREEN_WIDTH / 2f - imageTitle.width / 2f, 800f)

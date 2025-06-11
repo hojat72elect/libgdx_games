@@ -20,18 +20,18 @@ import com.nopalsoft.superjumper.screens.Screens
 class GameScreen(game: SuperJumperGame) : Screens(game) {
     var state: Int = 0
     var oWorld: WorldGame = WorldGame()
-    var renderer: WorldGameRender = WorldGameRender(batch, oWorld)
+    private var renderer: WorldGameRender = WorldGameRender(batch!!, oWorld)
 
-    var touchPositionWorldCoordinates: Vector3 = Vector3()
-    var didFire: Boolean = false
+    private var touchPositionWorldCoordinates: Vector3 = Vector3()
+    private var didFire: Boolean = false
 
-    var labelDistance: Label
-    var labelCoins: Label
-    var labelBullets: Label
+    private var labelDistance: Label
+    private var labelCoins: Label
+    private var labelBullets: Label
 
-    var buttonPause: Button
+    private var buttonPause: Button
 
-    var pauseWindow: BaseWindowPause = BaseWindowPause(this)
+    private var pauseWindow: BaseWindowPause = BaseWindowPause(this)
 
     init {
         state = STATE_RUNNING
@@ -122,12 +122,8 @@ class GameScreen(game: SuperJumperGame) : Screens(game) {
 
     private fun setGameover() {
         state = STATE_GAME_OVER
-        Settings.setBestScore(oWorld.maxDistance)
+        Settings.updateBestScore(oWorld.maxDistance)
         BaseWindowGameover(this).show(stage!!)
-    }
-
-    override fun hide() {
-        super.hide()
     }
 
     override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {

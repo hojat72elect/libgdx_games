@@ -1,7 +1,6 @@
 package com.nopalsoft.superjumper.scene2d
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
@@ -14,9 +13,9 @@ import com.nopalsoft.superjumper.game.WorldGame
 import com.nopalsoft.superjumper.screens.MainMenuScreen
 
 class BaseWindowGameover(currentScreen: GameScreen) : BaseWindow(currentScreen, 350f, 400f, 250f) {
-    var buttonMenu: TextButton? = null
-    var buttonTryAgain: TextButton? = null
-    var worldGame: WorldGame = currentScreen.oWorld
+    private var buttonMenu: TextButton? = null
+    private var buttonTryAgain: TextButton? = null
+    private var worldGame: WorldGame = currentScreen.oWorld
 
     init {
         val labelShop = Label("Game over!", Assets.labelStyleLarge)
@@ -91,7 +90,4 @@ class BaseWindowGameover(currentScreen: GameScreen) : BaseWindow(currentScreen, 
         })
     }
 
-    override fun show(stage: Stage) {
-        super.show(stage)
-    }
 }

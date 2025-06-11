@@ -8,7 +8,7 @@ import com.nopalsoft.superjumper.SuperJumperGame
 import com.nopalsoft.superjumper.screens.Screens
 
 open class BaseWindow(@JvmField protected var screen: Screens, width: Float, height: Float, positionY: Float) : Group() {
-    protected var languagesBundle: I18NBundle?
+    private var languagesBundle: I18NBundle?
 
     @JvmField
     protected var game: SuperJumperGame = screen.game
@@ -41,7 +41,7 @@ open class BaseWindow(@JvmField protected var screen: Screens, width: Float, hei
         remove()
     }
 
-    protected fun endResize() {
+    private fun endResize() {
     }
 
     companion object {

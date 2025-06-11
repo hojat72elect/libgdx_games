@@ -36,10 +36,10 @@ class WorldGame {
     var state: Int
 
     private val arrayBodies: Array<Body>
-    var worldBox: World = World(Vector2(0f, -9.8f), true)
+    private var worldBox: World = World(Vector2(0f, -9.8f), true)
     var maxDistance: Int = 0
-    var TIME_UNTIL_NEXT_CLOUD: Float = 15f
-    var timeUntilNextCloud: Float
+    private var TIME_UNTIL_NEXT_CLOUD: Float = 15f
+    private var timeUntilNextCloud: Float
 
     @JvmField
     var player: Player? = null
@@ -69,7 +69,7 @@ class WorldGame {
 
     @JvmField
     var arrayBullets: Array<Bullet>
-    var gameWorldCreatedUntilY: Float
+    private var gameWorldCreatedUntilY: Float
 
     init {
         worldBox.setContactListener(CollisionHandler())
@@ -388,24 +388,42 @@ class WorldGame {
         worldBox.getBodies(arrayBodies)
 
         for (body in arrayBodies) {
-            if (body.userData is Player) {
-                updatePlayer(body, delta, accelerationX, fire, touchPositionWorldCoordinates)
-            } else if (body.userData is Platform) {
-                updatePlatform(body, delta)
-            } else if (body.userData is PlatformPiece) {
-                updatePlatformPiece(body, delta)
-            } else if (body.userData is Coin) {
-                updateCoin(body, delta)
-            } else if (body.userData is Enemy) {
-                updateEnemy(body, delta)
-            } else if (body.userData is PowerUpItem) {
-                updateItem(body, delta)
-            } else if (body.userData is Cloud) {
-                updateCloud(body, delta)
-            } else if (body.userData is LightningBolt) {
-                updateLightningBolt(body, delta)
-            } else if (body.userData is Bullet) {
-                updateBullet(body, delta)
+            when (body.userData) {
+                is Player -> {
+                    updatePlayer(body, delta, accelerationX, fire, touchPositionWorldCoordinates)
+                }
+
+                is Platform -> {
+                    updatePlatform(body, delta)
+                }
+
+                is PlatformPiece -> {
+                    updatePlatformPiece(body, delta)
+                }
+
+                is Coin -> {
+                    updateCoin(body, delta)
+                }
+
+                is Enemy -> {
+                    updateEnemy(body, delta)
+                }
+
+                is PowerUpItem -> {
+                    updateItem(body, delta)
+                }
+
+                is Cloud -> {
+                    updateCloud(body, delta)
+                }
+
+                is LightningBolt -> {
+                    updateLightningBolt(body, delta)
+                }
+
+                is Bullet -> {
+                    updateBullet(body, delta)
+                }
             }
         }
 
@@ -596,12 +614,11 @@ class WorldGame {
                     state = STATE_GAMEOVER
                 }
             } else if (otherObject is Platform) {
-                val obj = otherObject
 
                 if (player!!.speed.y <= 0) {
                     player!!.jump()
-                    if (obj.type == Platform.TYPE_BREAKABLE) {
-                        obj.setDestroy()
+                    if (otherObject.type == Platform.TYPE_BREAKABLE) {
+                        otherObject.setDestroy()
                     }
                 }
             } else if (otherObject is Coin) {
@@ -613,10 +630,9 @@ class WorldGame {
             } else if (otherObject is LightningBolt) {
                 player!!.hit()
             } else if (otherObject is PowerUpItem) {
-                val obj = otherObject
-                obj.take()
+                otherObject.take()
 
-                when (obj.type) {
+                when (otherObject.type) {
                     PowerUpItem.TYPE_BUBBLE -> player!!.setBubble()
                     PowerUpItem.TYPE_JETPACK -> player!!.setJetPack()
                     PowerUpItem.TYPE_GUN -> Settings.numBullets += 10

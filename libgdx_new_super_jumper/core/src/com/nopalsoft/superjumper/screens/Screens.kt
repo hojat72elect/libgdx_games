@@ -24,7 +24,7 @@ abstract class Screens(game: SuperJumperGame) : InputAdapter(), Screen {
     @JvmField
     var game: SuperJumperGame
 
-    var camera: OrthographicCamera
+    private var camera: OrthographicCamera
 
     @JvmField
     var batch: SpriteBatch?
@@ -32,7 +32,7 @@ abstract class Screens(game: SuperJumperGame) : InputAdapter(), Screen {
     @JvmField
     var stage: Stage? = game.stage
 
-    protected var music: Music? = null
+    private var music: Music? = null
 
     override fun render(delta: Float) {
         var delta = delta
@@ -63,7 +63,7 @@ abstract class Screens(game: SuperJumperGame) : InputAdapter(), Screen {
         })
     }
 
-    var blackFadeOut: Image? = null
+    private var blackFadeOut: Image? = null
 
     init {
         stage!!.clear()
