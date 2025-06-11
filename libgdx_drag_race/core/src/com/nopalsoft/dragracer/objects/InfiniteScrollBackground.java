@@ -1,4 +1,4 @@
-package com.nopalsoft.dragracer.objetos;
+package com.nopalsoft.dragracer.objects;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.forever;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
@@ -9,11 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.nopalsoft.dragracer.Assets;
 
-public class InfiniteScrollBg extends Actor {
+public class InfiniteScrollBackground extends Actor {
 
 	MoveToAction moveAction;
 
-	public InfiniteScrollBg(float width, float height) {
+	public InfiniteScrollBackground(float width, float height) {
 		setWidth(width);
 		setHeight(height);
 		setPosition(0, height);

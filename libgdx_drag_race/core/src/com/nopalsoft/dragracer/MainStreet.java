@@ -4,18 +4,13 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.nopalsoft.dragracer.handlers.GameServicesHandler;
-import com.nopalsoft.dragracer.handlers.RequestHandler;
 import com.nopalsoft.dragracer.screens.MainMenuScreen;
 import com.nopalsoft.dragracer.screens.Screens;
 
 public class MainStreet extends Game {
-    public final GameServicesHandler gameServiceHandler;
-    public final RequestHandler reqHandler;
 
-    public MainStreet(RequestHandler reqHandler, GameServicesHandler gameServiceHandler) {
-        this.reqHandler = reqHandler;
-        this.gameServiceHandler = gameServiceHandler;
+    public MainStreet() {
+
     }
 
     public Stage stage;
@@ -28,9 +23,6 @@ public class MainStreet extends Game {
 
         batcher = new SpriteBatch();
         Assets.load();
-
-        if (Settings.didBuyNoAds)
-            reqHandler.removeAds();
 
         setScreen(new MainMenuScreen(this));
     }

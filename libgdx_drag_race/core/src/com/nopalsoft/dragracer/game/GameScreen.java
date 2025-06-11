@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.dragracer.Assets;
 import com.nopalsoft.dragracer.MainStreet;
 import com.nopalsoft.dragracer.Settings;
-import com.nopalsoft.dragracer.objetos.SpeedBar;
+import com.nopalsoft.dragracer.objects.SpeedBar;
 import com.nopalsoft.dragracer.scene2D.MarcoGameOver;
 import com.nopalsoft.dragracer.scene2D.SwipeHorizontalTutorial;
 import com.nopalsoft.dragracer.scene2D.SwipeVerticalTutorial;
@@ -41,8 +41,8 @@ public class GameScreen extends Screens {
     Label lbLeaderboard;
 
     SpeedBar speedBar;
-    private Stage stageGame;
-    private TrafficGame trafficGame;
+    private final Stage stageGame;
+    private final TrafficGame trafficGame;
     int score, coins;
 
     boolean canSuperSpeed;
@@ -105,15 +105,7 @@ public class GameScreen extends Screens {
 
         lbLeaderboard = new Label("Leaderboard", Assets.labelStyleGrande);
         lbLeaderboard.setPosition(500, 110);
-        lbLeaderboard.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn())
-                    game.gameServiceHandler.getLeaderboard();
-                else
-                    game.gameServiceHandler.signIn();
-            }
-        });
+
 
         btMusica = new Button(Assets.styleButtonMusica);
         btMusica.setPosition(5, 5);
@@ -170,10 +162,8 @@ public class GameScreen extends Screens {
     @Override
     public void update(float delta) {
 
-        switch (state) {
-            case STATE_RUNNING:
-                updateRunning(delta);
-                break;
+        if (state == STATE_RUNNING) {
+            updateRunning(delta);
         }
     }
 
@@ -209,7 +199,6 @@ public class GameScreen extends Screens {
     private void setGameover() {
         state = STATE_GAME_OVER;
         Settings.setNewScore(score);
-        game.gameServiceHandler.submitScore(score);
         Settings.coinsTotal += coins;
         stage.clear();
         marcoGameOver = new MarcoGameOver(this, score, coins);
@@ -218,7 +207,6 @@ public class GameScreen extends Screens {
         stage.addActor(lbLeaderboard);
         stage.addActor(lbShopScreen);
         stage.addActor(btMusica);
-        game.reqHandler.showAdBanner();
     }
 
     private void setReady() {
@@ -269,10 +257,6 @@ public class GameScreen extends Screens {
     public void hide() {
         super.hide();
         stageGame.dispose();
-        if (Settings.numeroVecesJugadas % Settings.TIMES_TO_SHOW_AD == 0)
-            game.reqHandler.showInterstitial();
-
-        game.reqHandler.hideAdBanner();
     }
 
     @Override

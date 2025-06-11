@@ -6,10 +6,10 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.nopalsoft.dragracer.Assets;
-import com.nopalsoft.dragracer.objetos.EnemyCar;
-import com.nopalsoft.dragracer.objetos.InfiniteScrollBg;
-import com.nopalsoft.dragracer.objetos.Moneda;
-import com.nopalsoft.dragracer.objetos.PlayerCar;
+import com.nopalsoft.dragracer.objects.EnemyCar;
+import com.nopalsoft.dragracer.objects.InfiniteScrollBackground;
+import com.nopalsoft.dragracer.objects.Moneda;
+import com.nopalsoft.dragracer.objects.PlayerCar;
 import com.nopalsoft.dragracer.screens.Screens;
 
 public class TrafficGame extends Table {
@@ -38,7 +38,7 @@ public class TrafficGame extends Table {
     float score;
     int coins;
 
-    private final InfiniteScrollBg backgroundRoad;
+    private final InfiniteScrollBackground backgroundRoad;
     public PlayerCar oCar;
     private final Array<EnemyCar> arrEnemyCars;
     private final Array<Moneda> arrCoins;
@@ -50,7 +50,7 @@ public class TrafficGame extends Table {
     public TrafficGame() {
         setBounds(0, 0, WIDTH, HEIGHT);
         setClip(true);
-        backgroundRoad = new InfiniteScrollBg(getWidth(), getHeight());
+        backgroundRoad = new InfiniteScrollBackground(getWidth(), getHeight());
         addActor(backgroundRoad);
 
         oCar = new PlayerCar(this);

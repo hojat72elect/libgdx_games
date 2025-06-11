@@ -2,17 +2,14 @@ package com.nopalsoft.dragracer.scene2D;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.dragracer.Assets;
-import com.nopalsoft.dragracer.MainStreet;
 import com.nopalsoft.dragracer.Settings;
 import com.nopalsoft.dragracer.screens.Screens;
 
@@ -73,28 +70,13 @@ public class MarcoGameOver extends Group {
         btShareTwitter.setSize(50, 50);
         btShareTwitter.setPosition(155, 20);
         screen.addEfectoPress(btShareTwitter);
-        btShareTwitter.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                screen.game.reqHandler
-                        .shareOnTwitter("My best distance playing Drag Racing V6 is "
-                                + Settings.bestScore + "m, can you beat me?");
-            }
-        });
+
 
         btShareFacebook = new Button(new TextureRegionDrawable(
                 Assets.btFacebook));
         btShareFacebook.setSize(50, 50);
         btShareFacebook.setPosition(225, 20);
         screen.addEfectoPress(btShareFacebook);
-        btShareFacebook.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                screen.game.reqHandler
-                        .shareOnFacebook("My best distance playing Drag Racing V6 is "
-                                + Settings.bestScore + "m, can you beat me?");
-            }
-        });
 
         addActor(bestScoreTable);
         addActor(btShareTwitter);

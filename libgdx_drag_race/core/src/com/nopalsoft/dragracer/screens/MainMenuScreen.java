@@ -55,12 +55,6 @@ public class MainMenuScreen extends Screens {
 
         lbRate = new Label("Rate", Assets.labelStyleGrande);
         lbRate.setPosition(500, 340);
-        lbRate.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.showRater();
-            }
-        });
 
         lbShopScreen = new Label("Shop screen", Assets.labelStyleGrande);
         lbShopScreen.setPosition(500, 240);
@@ -73,15 +67,6 @@ public class MainMenuScreen extends Screens {
 
         lbLeaderboard = new Label("Leaderboard", Assets.labelStyleGrande);
         lbLeaderboard.setPosition(500, 140);
-        lbLeaderboard.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn())
-                    game.gameServiceHandler.getLeaderboard();
-                else
-                    game.gameServiceHandler.signIn();
-            }
-        });
 
         btMusica = new Button(Assets.styleButtonMusica);
         btMusica.setPosition(5, 5);
