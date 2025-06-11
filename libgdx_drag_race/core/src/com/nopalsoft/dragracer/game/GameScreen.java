@@ -31,7 +31,7 @@ public class GameScreen extends Screens {
     static final int STATE_GAME_OVER = 4;
     static int state;
 
-    int TIME_TO_START = 3;// Tiempo que aparece al inicio
+    int TIME_TO_START = 3;// Time that appears at the beginning
 
     Label lbScore, lbCoin;
     Table tbScores;
@@ -49,7 +49,7 @@ public class GameScreen extends Screens {
 
     Group gpPaused;
     MarcoGameOver marcoGameOver;
-    Button btMusica;
+    Button buttonMusic;
 
     public GameScreen(MainStreet game) {
         super(game);
@@ -61,7 +61,6 @@ public class GameScreen extends Screens {
 
         setReady();
         Settings.numeroVecesJugadas++;
-
     }
 
     private void initUI() {
@@ -107,15 +106,15 @@ public class GameScreen extends Screens {
         lbLeaderboard.setPosition(500, 110);
 
 
-        btMusica = new Button(Assets.styleButtonMusica);
-        btMusica.setPosition(5, 5);
-        btMusica.setChecked(!Settings.isMusicOn);
+        buttonMusic = new Button(Assets.styleButtonMusica);
+        buttonMusic.setPosition(5, 5);
+        buttonMusic.setChecked(!Settings.isMusicOn);
         Gdx.app.log("Musica", Settings.isMusicOn + "");
-        btMusica.addListener(new ClickListener() {
+        buttonMusic.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Settings.isMusicOn = !Settings.isMusicOn;
-                btMusica.setChecked(!Settings.isMusicOn);
+                buttonMusic.setChecked(!Settings.isMusicOn);
                 if (Settings.isMusicOn)
                     Assets.music.play();
                 else
@@ -150,7 +149,6 @@ public class GameScreen extends Screens {
                 setRunning();
             }
         });
-
     }
 
     @Override
@@ -181,12 +179,10 @@ public class GameScreen extends Screens {
             canSuperSpeed = true;
             new SwipeVerticalTutorial(stage);
         }
-        // if (!canSuperSpeed)// Si es posible no lo actualizo para qque solo se reinicia cuando haga uso del poder
         speedBar.updateActualLife(trafficGame.numCoinsForSuperSpeed);
 
         lbScore.setText("Distance " + score + "m");
         lbCoin.setText(coins + "");
-
     }
 
     private void setRunning() {
@@ -206,26 +202,25 @@ public class GameScreen extends Screens {
         stage.addActor(lbTryAgain);
         stage.addActor(lbLeaderboard);
         stage.addActor(lbShopScreen);
-        stage.addActor(btMusica);
+        stage.addActor(buttonMusic);
     }
 
     private void setReady() {
         state = STATE_READY;
 
-        final Label lbContador = new Label(TIME_TO_START + "", Assets.labelStyleGrande);
-        lbContador.setFontScale(2.5f);
-        lbContador.setPosition(SCREEN_WIDTH / 2f - lbContador.getWidth() / 2f, 600);
-        lbContador.setAlignment(Align.center);
-        lbContador.getColor().a = 0;
-        lbContador.addAction(Actions.repeat(3, Actions.sequence(Actions.fadeIn(1), Actions.run(new Runnable() {
+        final Label labelCounter = new Label(TIME_TO_START + "", Assets.labelStyleGrande);
+        labelCounter.setFontScale(2.5f);
+        labelCounter.setPosition(SCREEN_WIDTH / 2f - labelCounter.getWidth() / 2f, 600);
+        labelCounter.setAlignment(Align.center);
+        labelCounter.getColor().a = 0;
+        labelCounter.addAction(Actions.repeat(3, Actions.sequence(Actions.fadeIn(1), Actions.run(new Runnable() {
             @Override
             public void run() {
-                if (TIME_TO_START == 1)// Porque la siguiente vez que se llama se convierte en 0
+                if (TIME_TO_START == 1)// Because the next time it is called it becomes 0
                     setRunning();
                 TIME_TO_START--;
-                lbContador.setText(TIME_TO_START + "");
-                lbContador.getColor().a = 0;
-
+                labelCounter.setText(TIME_TO_START + "");
+                labelCounter.getColor().a = 0;
             }
         }))));
 
@@ -233,8 +228,7 @@ public class GameScreen extends Screens {
             stage.addActor(new SwipeHorizontalTutorial());
         }
 
-        stage.addActor(lbContador);
-
+        stage.addActor(labelCounter);
     }
 
     private void setPaused() {
@@ -243,7 +237,6 @@ public class GameScreen extends Screens {
             state = STATE_PAUSED;
             stage.addActor(gpPaused);
         }
-
     }
 
     @Override
@@ -262,7 +255,6 @@ public class GameScreen extends Screens {
     @Override
     public void draw(float delta) {
         stageGame.draw();
-
     }
 
     @Override
@@ -298,6 +290,5 @@ public class GameScreen extends Screens {
             trafficGame.setSuperSpeed();
 
         return true;
-
     }
 }

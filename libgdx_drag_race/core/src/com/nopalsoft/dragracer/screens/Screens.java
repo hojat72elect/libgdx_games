@@ -1,7 +1,5 @@
 package com.nopalsoft.dragracer.screens;
 
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
@@ -20,12 +18,13 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.nopalsoft.dragracer.Assets;
 import com.nopalsoft.dragracer.MainStreet;
 import com.nopalsoft.dragracer.Settings;
 import com.nopalsoft.dragracer.game.GameScreen;
 import com.nopalsoft.dragracer.shop.ShopScreen;
+
+import java.util.Random;
 
 public abstract class Screens extends InputAdapter implements Screen,
         GestureListener {
@@ -56,7 +55,6 @@ public abstract class Screens extends InputAdapter implements Screen,
 
         InputMultiplexer input = new InputMultiplexer(this, detector, stage);
         Gdx.input.setInputProcessor(input);
-
     }
 
     @Override
@@ -74,7 +72,6 @@ public abstract class Screens extends InputAdapter implements Screen,
 
         stage.act(delta);
         stage.draw();
-
     }
 
     Image blackFadeOut;
@@ -140,14 +137,12 @@ public abstract class Screens extends InputAdapter implements Screen,
     @Override
     public void pause() {
         Assets.music.pause();
-
     }
 
     @Override
     public void resume() {
         if (Settings.isMusicOn)
             Assets.music.play();
-
     }
 
     @Override
@@ -257,8 +252,6 @@ public abstract class Screens extends InputAdapter implements Screen,
                              Actor toActor) {
                 actor.setColor(Color.WHITE);
             }
-
         });
     }
-
 }

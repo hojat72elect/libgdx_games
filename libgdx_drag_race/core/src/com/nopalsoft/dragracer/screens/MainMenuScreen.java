@@ -96,7 +96,6 @@ public class MainMenuScreen extends Screens {
         setAnimationChangeColor(lbPlay);
 
         stage.addActor(titulo);
-
     }
 
     @Override
@@ -116,7 +115,5 @@ public class MainMenuScreen extends Screens {
         if (keycode == Keys.ESCAPE || keycode == Keys.BACK)
             Gdx.app.exit();
         return true;
-
     }
-
 }

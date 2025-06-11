@@ -1,7 +1,5 @@
 package com.nopalsoft.dragracer.game;
 
-import java.util.Iterator;
-
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
@@ -11,6 +9,8 @@ import com.nopalsoft.dragracer.objects.InfiniteScrollBackground;
 import com.nopalsoft.dragracer.objects.Moneda;
 import com.nopalsoft.dragracer.objects.PlayerCar;
 import com.nopalsoft.dragracer.screens.Screens;
+
+import java.util.Iterator;
 
 public class TrafficGame extends Table {
     public static final int STATE_RUNNING = 0;
@@ -82,7 +82,6 @@ public class TrafficGame extends Table {
         if (oCar.state == PlayerCar.STATE_DEAD) {
             state = STATE_GAMEOVER;
         }
-
     }
 
     private void updateCar(float delta) {
@@ -96,7 +95,6 @@ public class TrafficGame extends Table {
         if (timeToSpawnCar >= TIME_TO_SPAWN_CAR) {
             timeToSpawnCar -= TIME_TO_SPAWN_CAR;
             spawnCar();
-
         }
 
         Iterator<EnemyCar> iter = arrEnemyCars.iterator();
@@ -142,10 +140,8 @@ public class TrafficGame extends Table {
                 }
                 Assets.soundCrash.stop();
                 Assets.playSound(Assets.soundCrash);
-
             }
         }
-
     }
 
     private void updateMonedas(float delta) {
@@ -190,9 +186,7 @@ public class TrafficGame extends Table {
 
             if (isSuperSpeed)
                 obj.setSpeed();
-
         }
-
     }
 
     public void setSuperSpeed() {
@@ -202,7 +196,6 @@ public class TrafficGame extends Table {
         velocidadActual = 30;
         numCoinsForSuperSpeed = 0;
         backgroundRoad.setSpeed();
-
     }
 
     public void stopSuperSpeed() {
@@ -238,5 +231,4 @@ public class TrafficGame extends Table {
         arrCoins.add(obj);
         addActor(obj);
     }
-
 }

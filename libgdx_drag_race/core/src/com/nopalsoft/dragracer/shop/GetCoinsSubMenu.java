@@ -55,7 +55,6 @@ public class GetCoinsSubMenu {
                                 }
                             })));
                 }
-
             }
         });
 
@@ -117,7 +116,6 @@ public class GetCoinsSubMenu {
                 .height(5).padTop(15);
 
         return tbContent;
-
     }
 
     protected void addEfectoPress(final Actor actor) {

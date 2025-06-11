@@ -12,76 +12,75 @@ import com.nopalsoft.dragracer.Settings;
 
 public class Moneda extends Actor {
 
-	final int STATE_NORMAL = 0;
-	final int STATE_TAKEN = 1;
-	public int state;
+    final int STATE_NORMAL = 0;
+    final int STATE_TAKEN = 1;
+    public int state;
 
-	private Rectangle bounds = new Rectangle();
-	private MoveToAction moveAction;
-	boolean isSuperSpeed;
+    private final Rectangle bounds = new Rectangle();
+    private final MoveToAction moveAction;
+    boolean isSuperSpeed;
 
-	public Moneda(float x, float y) {
+    public Moneda(float x, float y) {
 
-		// Le resto menos 5 para que los bounds no esten tan grandes : VEr metodo draw
-		setWidth(10);
-		setHeight(32);
-		setPosition(x - getWidth() / 2f, y);
+        // Le resto menos 5 para que los bounds no esten tan grandes : VEr metodo draw
+        setWidth(10);
+        setHeight(32);
+        setPosition(x - getWidth() / 2f, y);
 
-		addAction(Actions.forever(Actions.rotateBy(360, 1f)));
+        addAction(Actions.forever(Actions.rotateBy(360, 1f)));
 
-		moveAction = new MoveToAction();
-		moveAction.setPosition(getX(), -getHeight());
-		moveAction.setDuration(5);
-		addAction(moveAction);
+        moveAction = new MoveToAction();
+        moveAction.setPosition(getX(), -getHeight());
+        moveAction.setDuration(5);
+        addAction(moveAction);
 
-		state = STATE_NORMAL;
-	}
+        state = STATE_NORMAL;
+    }
 
-	@Override
-	public void act(float delta) {
-		super.act(delta);
-		updateBounds();
-	}
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        updateBounds();
+    }
 
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
 
-		batch.draw(Assets.coin, getX(), getY(), getWidth() / 2f,
-				getHeight() / 2f, getWidth(), getHeight(), 1, 1, getRotation());
+        batch.draw(Assets.coin, getX(), getY(), getWidth() / 2f,
+                getHeight() / 2f, getWidth(), getHeight(), 1, 1, getRotation());
 
-		if (Settings.drawDebugLines) {
-			batch.end();
-			renders.setProjectionMatrix(batch.getProjectionMatrix());
-			renders.begin(ShapeType.Line);
-			renders.rect(bounds.x, bounds.y, bounds.width, bounds.height);
-			renders.end();
-			batch.begin();
-		}
-	}
+        if (Settings.drawDebugLines) {
+            batch.end();
+            renders.setProjectionMatrix(batch.getProjectionMatrix());
+            renders.begin(ShapeType.Line);
+            renders.rect(bounds.x, bounds.y, bounds.width, bounds.height);
+            renders.end();
+            batch.begin();
+        }
+    }
 
-	ShapeRenderer renders = new ShapeRenderer();
+    ShapeRenderer renders = new ShapeRenderer();
 
-	private void updateBounds() {
-		bounds.set(getX(), getY(), getWidth(), getHeight());
+    private void updateBounds() {
+        bounds.set(getX(), getY(), getWidth(), getHeight());
+    }
 
-	}
+    public void setSpeed() {
+        if (!isSuperSpeed) {
+            isSuperSpeed = true;
+            moveAction.reset();
+            moveAction.setDuration(1f);
+            addAction(moveAction);
+        }
+    }
 
-	public void setSpeed() {
-		if (!isSuperSpeed) {
-			isSuperSpeed = true;
-			moveAction.reset();
-			moveAction.setDuration(1f);
-			addAction(moveAction);
-		}
-	}
+    public void hit() {
+        if (state == STATE_NORMAL) {
+            state = STATE_TAKEN;
+        }
+    }
 
-	public void hit() {
-		if (state == STATE_NORMAL) {
-			state = STATE_TAKEN;
-		}
-	}
-
-	public Rectangle getBounds() {
-		return bounds;
-	}
+    public Rectangle getBounds() {
+        return bounds;
+    }
 }

@@ -81,7 +81,5 @@ public class MarcoGameOver extends Group {
         addActor(bestScoreTable);
         addActor(btShareTwitter);
         addActor(btShareFacebook);
-
-
     }
 }

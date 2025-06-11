@@ -11,34 +11,32 @@ import com.nopalsoft.dragracer.Assets;
 
 public class InfiniteScrollBackground extends Actor {
 
-	MoveToAction moveAction;
+    MoveToAction moveAction;
 
-	public InfiniteScrollBackground(float width, float height) {
-		setWidth(width);
-		setHeight(height);
-		setPosition(0, height);
+    public InfiniteScrollBackground(float width, float height) {
+        setWidth(width);
+        setHeight(height);
+        setPosition(0, height);
 
-		moveAction = new MoveToAction();
-		moveAction.setPosition(0, 0);
-		moveAction.setDuration(1.75f);
+        moveAction = new MoveToAction();
+        moveAction.setPosition(0, 0);
+        moveAction.setDuration(1.75f);
 
-		addAction(forever(sequence(moveAction, moveTo(0, height))));
+        addAction(forever(sequence(moveAction, moveTo(0, height))));
+    }
 
-	}
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+        batch.draw(Assets.calle, getX(), getY() - getHeight(), getWidth(),
+                getHeight() * 2);
+    }
 
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-		batch.draw(Assets.calle, getX(), getY() - getHeight(), getWidth(),
-				getHeight() * 2);
-	}
+    public void setSpeed() {
+        moveAction.setDuration(.3f);
+    }
 
-	public void setSpeed() {
-		moveAction.setDuration(.3f);
-	}
-
-	public void stopSpeed() {
-		moveAction.setDuration(1.75f);
-	}
-
+    public void stopSpeed() {
+        moveAction.setDuration(1.75f);
+    }
 }

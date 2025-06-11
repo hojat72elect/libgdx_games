@@ -26,5 +26,4 @@ public class MainStreet extends Game {
 
         setScreen(new MainMenuScreen(this));
     }
-
 }
