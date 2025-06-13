@@ -16,21 +16,19 @@ import com.nopalsoft.dragracer.Settings;
 
 public class GetCoinsSubMenu {
 
-    int monedasLikeFacebook = 250;
+    int coinsForFacebookLike = 250;
 
-    // Comun
+    
     TextButton btLikeFacebook;
-
-    // iOS
     TextButton btBuy50MilCoins;
 
-    Table contenedor;
+    Table tableContainer;
     MainStreet game;
 
-    public GetCoinsSubMenu(final MainStreet game, Table contenedor) {
+    public GetCoinsSubMenu(final MainStreet game, Table tableContainer) {
         this.game = game;
-        this.contenedor = contenedor;
-        contenedor.clear();
+        this.tableContainer = tableContainer;
+        tableContainer.clear();
 
         btLikeFacebook = new TextButton("Like us", Assets.styleTextButtonBuy);
         if (Settings.didLikeFacebook)
@@ -48,7 +46,7 @@ public class GetCoinsSubMenu {
 
                                 @Override
                                 public void run() {
-                                    Settings.coinsTotal += monedasLikeFacebook;
+                                    Settings.coinsTotal += coinsForFacebookLike;
                                     btLikeFacebook.setText("Visit us");
                                     btLikeFacebook
                                             .setStyle(Assets.styleTextButtonSelected);
@@ -63,43 +61,43 @@ public class GetCoinsSubMenu {
 
 
         // Facebook Like
-        contenedor.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+        tableContainer.add(new Image(Assets.separadorHorizontal)).expandX().fill()
                 .height(5);
-        contenedor.row();
-        contenedor
-                .add(agregarPersonajeTabla(monedasLikeFacebook,
+        tableContainer.row();
+        tableContainer
+                .add(addPlayerTable(coinsForFacebookLike,
                         Assets.btFacebook, "Like us on facebook and get "
-                                + monedasLikeFacebook + " coins",
+                                + coinsForFacebookLike + " coins",
                         btLikeFacebook)).expandX().fill();
-        contenedor.row();
+        tableContainer.row();
 
-        TextureRegionDrawable moneda = new TextureRegionDrawable(
+        TextureRegionDrawable coinDrawable = new TextureRegionDrawable(
                 Assets.coinFrente);
 
-        contenedor
-                .add(agregarPersonajeTabla(
+        tableContainer
+                .add(addPlayerTable(
                         50000,
-                        moneda,
+                        coinDrawable,
                         "Coin super mega pack. Get this pack and you will be racing in cash",
                         btBuy50MilCoins)).expandX().fill();
-        contenedor.row();
+        tableContainer.row();
     }
 
-    private Table agregarPersonajeTabla(int numMonedasToGet,
-                                        TextureRegionDrawable imagen, String descripcion, TextButton boton) {
+    private Table addPlayerTable(int numCoinsToGet,
+                                 TextureRegionDrawable imageDrawable, String description, TextButton button) {
 
         Image moneda = new Image(Assets.coinFrente);
-        Image imgPersonaje = new Image(imagen);
+        Image imgPersonaje = new Image(imageDrawable);
 
         Table tbBarraTitulo = new Table();
         tbBarraTitulo
-                .add(new Label("Get " + numMonedasToGet, Assets.labelStyleChico))
+                .add(new Label("Get " + numCoinsToGet, Assets.labelStyleChico))
                 .left().padLeft(5);
         tbBarraTitulo.add(moneda).left().expandX().padLeft(5);
 
         Table tbDescrip = new Table();
         tbDescrip.add(imgPersonaje).left().pad(10).size(55, 55);
-        Label lblDescripcion = new Label(descripcion, Assets.labelStyleChico);
+        Label lblDescripcion = new Label(description, Assets.labelStyleChico);
         lblDescripcion.setWrap(true);
         tbDescrip.add(lblDescripcion).expand().fill().padLeft(5);
 
@@ -109,7 +107,7 @@ public class GetCoinsSubMenu {
         tbContent.add(tbDescrip).expandX().fill();
         tbContent.row().colspan(2);
 
-        tbContent.add(boton).right().padRight(10).size(120, 45);
+        tbContent.add(button).right().padRight(10).size(120, 45);
 
         tbContent.row().colspan(2);
         tbContent.add(new Image(Assets.separadorHorizontal)).expandX().fill()

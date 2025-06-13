@@ -81,7 +81,7 @@ public class ShopScreen extends Screens {
                 new TextureRegionDrawable(Assets.carroTornado));
         btPersonajes.setSize(45, 65);
         btPersonajes.setPosition(23, 660);
-        addEfectoPress(btPersonajes);
+        addPressEffect(btPersonajes);
         btPersonajes.addListener(new ClickListener() {
             public void clicked(
                     com.badlogic.gdx.scenes.scene2d.InputEvent event, float x,
@@ -93,7 +93,7 @@ public class ShopScreen extends Screens {
         btPowerUps = new Button(new TextureRegionDrawable(Assets.carroTornado));
         btPowerUps.setSize(55, 55);
         btPowerUps.setPosition(17, 570);
-        addEfectoPress(btPowerUps);
+        addPressEffect(btPowerUps);
         btPowerUps.addListener(new ClickListener() {
             public void clicked(
                     com.badlogic.gdx.scenes.scene2d.InputEvent event, float x,
@@ -106,7 +106,7 @@ public class ShopScreen extends Screens {
         btMonedas = new Button(new TextureRegionDrawable(Assets.coinFrente));
         btMonedas.setSize(55, 55);
         btMonedas.setPosition(17, 480);
-        addEfectoPress(btMonedas);
+        addPressEffect(btMonedas);
         btMonedas.addListener(new ClickListener() {
             public void clicked(
                     com.badlogic.gdx.scenes.scene2d.InputEvent event, float x,
@@ -118,7 +118,7 @@ public class ShopScreen extends Screens {
         btNoAds = new Button(new TextureRegionDrawable(Assets.btNoAds));
         btNoAds.setSize(55, 55);
         btNoAds.setPosition(17, 390);
-        addEfectoPress(btNoAds);
+        addPressEffect(btNoAds);
         btNoAds.addListener(new ClickListener() {
             public void clicked(
                     com.badlogic.gdx.scenes.scene2d.InputEvent event, float x,
@@ -130,7 +130,7 @@ public class ShopScreen extends Screens {
         btAtras = new Button(new TextureRegionDrawable(Assets.btAtras));
         btAtras.setSize(55, 55);
         btAtras.setPosition(17, 10);
-        addEfectoPress(btAtras);
+        addPressEffect(btAtras);
         btAtras.addListener(new ClickListener() {
             public void clicked(
                     com.badlogic.gdx.scenes.scene2d.InputEvent event, float x,

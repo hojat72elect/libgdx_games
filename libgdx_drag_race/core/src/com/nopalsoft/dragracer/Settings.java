@@ -5,7 +5,6 @@ import com.badlogic.gdx.Preferences;
 import com.nopalsoft.dragracer.shop.PersonajesSubMenu;
 
 public class Settings {
-    final public static int TIMES_TO_SHOW_AD = 5;
 
     public static boolean drawDebugLines = false;
 
@@ -43,11 +42,6 @@ public class Settings {
         pref.putBoolean("isMusicOn", isMusicOn);
         pref.flush();
     }
-
-    // public static void deleteAll() {
-    // pref.clear();
-    // pref.flush();
-    // }
 
     public static void setNewScore(int score) {
         if (bestScore < score)

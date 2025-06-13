@@ -24,8 +24,6 @@ import com.nopalsoft.dragracer.Settings;
 import com.nopalsoft.dragracer.game.GameScreen;
 import com.nopalsoft.dragracer.shop.ShopScreen;
 
-import java.util.Random;
-
 public abstract class Screens extends InputAdapter implements Screen,
         GestureListener {
     public static final int SCREEN_WIDTH = 480;
@@ -36,20 +34,19 @@ public abstract class Screens extends InputAdapter implements Screen,
 
     public MainStreet game;
 
-    public OrthographicCamera oCam;
-    public SpriteBatch batcher;
+    public OrthographicCamera camera;
+    public SpriteBatch batch;
     public Stage stage;
 
-    Random oRan;
 
     public Screens(final MainStreet game) {
         this.stage = game.stage;
         this.stage.clear();
-        this.batcher = game.batcher;
+        this.batch = game.batcher;
         this.game = game;
 
-        oCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
-        oCam.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
+        camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
+        camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
 
         GestureDetector detector = new GestureDetector(20, .5f, 2, .15f, this);
 
@@ -66,8 +63,8 @@ public abstract class Screens extends InputAdapter implements Screen,
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
         draw(delta);
 
         stage.act(delta);
@@ -91,14 +88,13 @@ public abstract class Screens extends InputAdapter implements Screen,
                             game.setScreen(new GameScreen(game));
                         else if (newScreen == ShopScreen.class)
                             game.setScreen(new ShopScreen(game));
-                        // El blackFadeOut se remueve del stage cuando se le da new Screens(game) "Revisar el constructor de la clase Screens" por lo que no hay necesidad de hacer
-                        // blackFadeout.remove();
+                        // The blackFadeOut is removed from the stage when new Screens(game) is given "Review the constructor of the Screens class" so there is no need to do.
                     }
                 })));
         stage.addActor(blackFadeOut);
     }
 
-    public void addEfectoPress(final Actor actor) {
+    public void addPressEffect(final Actor actor) {
         actor.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
@@ -148,24 +144,24 @@ public abstract class Screens extends InputAdapter implements Screen,
     @Override
     public void dispose() {
         stage.dispose();
-        batcher.dispose();
+        batch.dispose();
     }
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public boolean longPress(float x, float y) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
@@ -189,26 +185,26 @@ public abstract class Screens extends InputAdapter implements Screen,
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public boolean panStop(float x, float y, int pointer, int button) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public boolean zoom(float initialDistance, float distance) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2,
                          Vector2 pointer1, Vector2 pointer2) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

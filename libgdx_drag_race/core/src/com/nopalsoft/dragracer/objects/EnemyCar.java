@@ -20,7 +20,7 @@ import com.nopalsoft.dragracer.shop.PersonajesSubMenu;
 
 public class EnemyCar extends Actor {
 
-    int tipo;
+    int type;
     boolean isSuperSpeed;
     TextureRegion keyframe;
 
@@ -29,11 +29,11 @@ public class EnemyCar extends Actor {
 
     public EnemyCar(float x, float y) {
 
-        tipo = MathUtils.random(16);
+        type = MathUtils.random(16);
 
         float width, height;
 
-        switch (tipo) {
+        switch (type) {
             case PersonajesSubMenu.SKIN_CARRO_DIABLO:
                 keyframe = Assets.carroDiablo;
                 width = keyframe.getRegionWidth();
@@ -117,7 +117,7 @@ public class EnemyCar extends Actor {
                 break;
         }
 
-        // Le resto menos 5 para que los bounds no esten tan grandes : VEr metodo draw
+        // I subtract minus 5 so that the bounds are not so large: See draw method
         setWidth(width - 20);
         setHeight(height - 20);
         setPosition(x - getWidth() / 2f, y);
@@ -138,10 +138,10 @@ public class EnemyCar extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // le sumo mas 20 a los bounds actuales para que el draw quede mejor
+        // I add 20 more to the current bounds so that the draw is better
         float drawWidth = getWidth() + 20;
         float drawHeight = getHeight() + 20;
-        // Le resto 10 porque es la mitad de los +20
+        // I subtract 10 because it is half of the +20
         batch.draw(keyframe, getX() - 10, getY() - 10, drawWidth / 2f,
                 drawHeight / 2f, drawWidth, drawHeight, 1, 1, getRotation());
 
@@ -175,21 +175,21 @@ public class EnemyCar extends Actor {
         addAction(fadeOut(1f));
 
         if (front && above)
-            agregarAccion(-360, 200, 200);
+            addAction(-360, 200, 200);
 
         if (front && !above)
-            agregarAccion(360, 200, -200);
+            addAction(360, 200, -200);
 
         if (!front && above)
-            agregarAccion(360, -200, 200);
+            addAction(360, -200, 200);
 
         if (!front && !above)
-            agregarAccion(-360, -200, -200);
+            addAction(-360, -200, -200);
     }
 
-    private void agregarAccion(float rotacion, float posX, float posY) {
+    private void addAction(float rotation, float posX, float posY) {
         addAction(sequence(
-                parallel(Actions.rotateBy(rotacion, 1.5f),
+                parallel(Actions.rotateBy(rotation, 1.5f),
                         Actions.moveBy(posX, posY, 1.5f)), removeActor()));
     }
 

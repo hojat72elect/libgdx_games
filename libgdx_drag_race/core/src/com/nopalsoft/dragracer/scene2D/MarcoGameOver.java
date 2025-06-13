@@ -17,7 +17,7 @@ public class MarcoGameOver extends Group {
 
     Screens screen;
 
-    public MarcoGameOver(final Screens screen, int distancia, int coins) {
+    public MarcoGameOver(final Screens screen, int distance, int coins) {
         this.screen = screen;
         setSize(420, 350);
         setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 900);
@@ -26,7 +26,7 @@ public class MarcoGameOver extends Group {
         background.setSize(getWidth(), getHeight());
         addActor(background);
 
-        Label lblScore = new Label("Distance\n" + distancia + "m",
+        Label lblScore = new Label("Distance\n" + distance + "m",
                 Assets.labelStyleGrande);
         lblScore.setAlignment(Align.center);
         lblScore.setFontScale(1.3f);
@@ -69,14 +69,14 @@ public class MarcoGameOver extends Group {
         btShareTwitter = new Button(new TextureRegionDrawable(Assets.btTwitter));
         btShareTwitter.setSize(50, 50);
         btShareTwitter.setPosition(155, 20);
-        screen.addEfectoPress(btShareTwitter);
+        screen.addPressEffect(btShareTwitter);
 
 
         btShareFacebook = new Button(new TextureRegionDrawable(
                 Assets.btFacebook));
         btShareFacebook.setSize(50, 50);
         btShareFacebook.setPosition(225, 20);
-        screen.addEfectoPress(btShareFacebook);
+        screen.addPressEffect(btShareFacebook);
 
         addActor(bestScoreTable);
         addActor(btShareTwitter);

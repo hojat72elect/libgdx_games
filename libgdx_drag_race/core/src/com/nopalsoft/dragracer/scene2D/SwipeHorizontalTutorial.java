@@ -12,7 +12,6 @@ public class SwipeHorizontalTutorial extends Group {
     public SwipeHorizontalTutorial() {
         setSize(Screens.SCREEN_WIDTH, 195);
         setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 0);
-        // debug();
 
         final Image swipeArrows = new Image(Assets.swipeArrows);
         swipeArrows.setPosition(getWidth() / 2f - swipeArrows.getWidth() / 2f,
@@ -30,35 +29,33 @@ public class SwipeHorizontalTutorial extends Group {
         swipeHand.setOrigin(swipeHand.getWidth() / 2f,
                 swipeHand.getHeight() / 2f);
         swipeHand.setScale(1.2f);
-        swipeHand.addAction(//
+        swipeHand.addAction(
                 Actions.sequence(
-                        //
                         Actions.scaleTo(1, 1, .25f),
                         Actions.run(new Runnable() {
                             @Override
                             public void run() {
                                 swipeHand.setDrawable(Assets.swipeHandDown);
                             }
-                        }),//
-                        Actions.moveTo(250, 10, .5f), //
+                        }),
+                        Actions.moveTo(250, 10, .5f),
                         Actions.run(new Runnable() {
                             @Override
                             public void run() {
                                 swipeHand.setDrawable(Assets.swipeHand);
                             }
-                        }),//
-                        Actions.scaleTo(1.1f, 1.1f, .15f),//
+                        }),
+                        Actions.scaleTo(1.1f, 1.1f, .15f),
                         Actions.run(new Runnable() {
                             @Override
                             public void run() {
-                                // swipeArrows.remove();
+
                                 swipeHand.remove();
                                 addActor(lblSwipeToMove);
                             }
-                        })//
+                        })
                 ));
 
-        // stage.addActor(swipeArrows);
         addActor(swipeHand);
         addActor(swipeArrows);
     }

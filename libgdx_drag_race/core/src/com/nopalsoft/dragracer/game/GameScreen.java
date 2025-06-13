@@ -33,12 +33,12 @@ public class GameScreen extends Screens {
 
     int TIME_TO_START = 3;// Time that appears at the beginning
 
-    Label lbScore, lbCoin;
-    Table tbScores;
+    Label labelScore, labelCoin;
+    Table tableScores;
 
-    Label lbTryAgain;
-    Label lbShopScreen;
-    Label lbLeaderboard;
+    Label labelTryAgain;
+    Label labelShopScreen;
+    Label labelLeaderboard;
 
     SpeedBar speedBar;
     private final Stage stageGame;
@@ -47,7 +47,7 @@ public class GameScreen extends Screens {
 
     boolean canSuperSpeed;
 
-    Group gpPaused;
+    Group groupPaused;
     MarcoGameOver marcoGameOver;
     Button buttonMusic;
 
@@ -64,46 +64,46 @@ public class GameScreen extends Screens {
     }
 
     private void initUI() {
-        speedBar = new SpeedBar(TrafficGame.NUM_COINS_FOR_SUPERSPEED, 5, 720, 160, 20);
+        speedBar = new SpeedBar(TrafficGame.NUM_COINS_FOR_SUPER_SPEED, 5, 720, 160, 20);
 
-        lbScore = new Label("Distance 0m", Assets.labelStyleGrande);
-        lbScore.setFontScale(.8f);
+        labelScore = new Label("Distance 0m", Assets.labelStyleGrande);
+        labelScore.setFontScale(.8f);
 
-        lbCoin = new Label("0", Assets.labelStyleGrande);
-        lbCoin.setFontScale(.8f);
+        labelCoin = new Label("0", Assets.labelStyleGrande);
+        labelCoin.setFontScale(.8f);
 
         Image imgCoin = new Image(Assets.coinFrente);
 
-        tbScores = new Table();
-        tbScores.setWidth(SCREEN_WIDTH);
-        tbScores.setPosition(0, SCREEN_HEIGHT - lbScore.getHeight() / 2);
-        tbScores.padLeft(5).padRight(5);
+        tableScores = new Table();
+        tableScores.setWidth(SCREEN_WIDTH);
+        tableScores.setPosition(0, SCREEN_HEIGHT - labelScore.getHeight() / 2);
+        tableScores.padLeft(5).padRight(5);
 
-        tbScores.add(lbScore).left();
-        tbScores.add(lbCoin).right().expand().padRight(5);
-        tbScores.add(imgCoin).right();
+        tableScores.add(labelScore).left();
+        tableScores.add(labelCoin).right().expand().padRight(5);
+        tableScores.add(imgCoin).right();
 
         // Gameover
-        lbTryAgain = new Label("Try again", Assets.labelStyleGrande);
-        lbTryAgain.setPosition(500, 310);
-        lbTryAgain.addListener(new ClickListener() {
+        labelTryAgain = new Label("Try again", Assets.labelStyleGrande);
+        labelTryAgain.setPosition(500, 310);
+        labelTryAgain.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(GameScreen.class, game);
             }
         });
 
-        lbShopScreen = new Label("Shop screen", Assets.labelStyleGrande);
-        lbShopScreen.setPosition(500, 210);
-        lbShopScreen.addListener(new ClickListener() {
+        labelShopScreen = new Label("Shop screen", Assets.labelStyleGrande);
+        labelShopScreen.setPosition(500, 210);
+        labelShopScreen.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(ShopScreen.class, game);
             }
         });
 
-        lbLeaderboard = new Label("Leaderboard", Assets.labelStyleGrande);
-        lbLeaderboard.setPosition(500, 110);
+        labelLeaderboard = new Label("Leaderboard", Assets.labelStyleGrande);
+        labelLeaderboard.setPosition(500, 110);
 
 
         buttonMusic = new Button(Assets.styleButtonMusica);
@@ -123,27 +123,27 @@ public class GameScreen extends Screens {
             }
         });
 
-        entranceAction(lbTryAgain, 310, .25f);
-        entranceAction(lbShopScreen, 210, .5f);
-        entranceAction(lbLeaderboard, 110, .85f);
+        entranceAction(labelTryAgain, 310, .25f);
+        entranceAction(labelShopScreen, 210, .5f);
+        entranceAction(labelLeaderboard, 110, .85f);
 
-        setAnimationChangeColor(lbShopScreen);
-        setAnimationChangeColor(lbLeaderboard);
-        setAnimationChangeColor(lbTryAgain);
+        setAnimationChangeColor(labelShopScreen);
+        setAnimationChangeColor(labelLeaderboard);
+        setAnimationChangeColor(labelTryAgain);
 
         // Paused
-        gpPaused = new Group();
-        gpPaused.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        groupPaused = new Group();
+        groupPaused.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
         Image background = new Image(Assets.pixelNegro);
-        background.setSize(gpPaused.getWidth(), gpPaused.getHeight());
+        background.setSize(groupPaused.getWidth(), groupPaused.getHeight());
 
-        Label lblPaused = new Label("Game Paused\nTouch to resume", Assets.labelStyleGrande);
-        lblPaused.setPosition(gpPaused.getWidth() / 2f - lblPaused.getWidth() / 2f, gpPaused.getHeight() / 2f - lblPaused.getHeight() / 2f);
-        lblPaused.setAlignment(Align.center);
-        lblPaused.addAction(Actions.forever(Actions.sequence(Actions.alpha(.55f, .85f), Actions.alpha(1, .85f))));
-        gpPaused.addActor(lblPaused);
-        gpPaused.addListener(new ClickListener() {
+        Label labelPause = new Label("Game Paused\nTouch to resume", Assets.labelStyleGrande);
+        labelPause.setPosition(groupPaused.getWidth() / 2f - labelPause.getWidth() / 2f, groupPaused.getHeight() / 2f - labelPause.getHeight() / 2f);
+        labelPause.setAlignment(Align.center);
+        labelPause.addAction(Actions.forever(Actions.sequence(Actions.alpha(.55f, .85f), Actions.alpha(1, .85f))));
+        groupPaused.addActor(labelPause);
+        groupPaused.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 setRunning();
@@ -181,14 +181,14 @@ public class GameScreen extends Screens {
         }
         speedBar.updateActualLife(trafficGame.numCoinsForSuperSpeed);
 
-        lbScore.setText("Distance " + score + "m");
-        lbCoin.setText(coins + "");
+        labelScore.setText("Distance " + score + "m");
+        labelCoin.setText(coins + "");
     }
 
     private void setRunning() {
         stage.clear();
         state = STATE_RUNNING;
-        stage.addActor(tbScores);
+        stage.addActor(tableScores);
         stage.addActor(speedBar);
     }
 
@@ -199,9 +199,9 @@ public class GameScreen extends Screens {
         stage.clear();
         marcoGameOver = new MarcoGameOver(this, score, coins);
         stage.addActor(marcoGameOver);
-        stage.addActor(lbTryAgain);
-        stage.addActor(lbLeaderboard);
-        stage.addActor(lbShopScreen);
+        stage.addActor(labelTryAgain);
+        stage.addActor(labelLeaderboard);
+        stage.addActor(labelShopScreen);
         stage.addActor(buttonMusic);
     }
 
@@ -235,7 +235,7 @@ public class GameScreen extends Screens {
         if (state == STATE_RUNNING || state == STATE_READY) {
             stage.clear();
             state = STATE_PAUSED;
-            stage.addActor(gpPaused);
+            stage.addActor(groupPaused);
         }
     }
 

@@ -19,13 +19,13 @@ import com.nopalsoft.dragracer.shop.PersonajesSubMenu;
 
 public class PlayerCar extends Actor {
     public static final int STATE_NORMAL = 0;
-    public static final int STATE_GIRANDO = 1;
+    public static final int STATE_SPINNING = 1;
     public static final int STATE_EXPLOSION = 2;
     public static final int STATE_DEAD = 3;
     public int state;
 
     public static final float TIME_EXPLOSION = Assets.newExplosion.getAnimationDuration();
-    public static final float TIME_GIRANDO = 1.5f;
+    public static final float TIME_SPINNING = 1.5f;
 
     private final TrafficGame trafficGame;
     private final Rectangle bounds = new Rectangle();
@@ -140,7 +140,7 @@ public class PlayerCar extends Actor {
         super.act(delta);
         updateBounds();
 
-        if (state == STATE_GIRANDO && stateTime >= TIME_GIRANDO) {
+        if (state == STATE_SPINNING && stateTime >= TIME_SPINNING) {
             state = STATE_EXPLOSION;
             stateTime = 0;
         }
@@ -164,7 +164,7 @@ public class PlayerCar extends Actor {
 
         switch (state) {
             case STATE_NORMAL:
-            case STATE_GIRANDO:
+            case STATE_SPINNING:
                 batch.draw(keyframe, getX(), getY(), drawWidth / 2, drawHeight / 2,
                         drawWidth, drawHeight, 1, 1, angle);
                 break;
@@ -239,26 +239,26 @@ public class PlayerCar extends Actor {
     public void crash(boolean front, boolean above) {
         clearActions();
         if (state == STATE_NORMAL) {
-            state = STATE_GIRANDO;
+            state = STATE_SPINNING;
             stateTime = 0;
         }
 
         if (front && above)
-            agregarAccion(-360, 125, 125);
+            addAction(-360, 125, 125);
 
         if (front && !above)
-            agregarAccion(360, 125, -125);
+            addAction(360, 125, -125);
 
         if (!front && above)
-            agregarAccion(360, -125, 125);
+            addAction(360, -125, 125);
 
         if (!front && !above)
-            agregarAccion(-360, -125, -125);
+            addAction(-360, -125, -125);
     }
 
-    private void agregarAccion(float rotacion, float posX, float posY) {
-        addAction(sequence(parallel(Actions.rotateBy(rotacion, TIME_GIRANDO),
-                Actions.moveBy(posX, posY, TIME_GIRANDO))));
+    private void addAction(float rotation, float posX, float posY) {
+        addAction(sequence(parallel(Actions.rotateBy(rotation, TIME_SPINNING),
+                Actions.moveBy(posX, posY, TIME_SPINNING))));
     }
 
     public Rectangle getBounds() {

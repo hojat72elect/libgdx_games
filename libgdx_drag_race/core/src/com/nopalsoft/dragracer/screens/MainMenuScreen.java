@@ -16,67 +16,67 @@ import com.nopalsoft.dragracer.shop.ShopScreen;
 
 public class MainMenuScreen extends Screens {
 
-    Image titulo;
+    Image titleImage;
 
-    Label lbShopScreen;
-    Label lbPlay;
-    Label lbLeaderboard;
-    Label lbRate;
+    Label labelShopScreen;
+    Label labelPlay;
+    Label labelLeaderBoard;
+    Label labelRate;
 
-    Button btMusica;
+    Button buttonMusic;
 
     public MainMenuScreen(final MainStreet game) {
         super(game);
 
-        titulo = new Image(Assets.titulo);
-        titulo.setPosition(SCREEN_WIDTH / 2f - titulo.getWidth() / 2f, 520);
-        titulo.getColor().a = 0;
-        titulo.addAction(Actions.sequence(Actions.fadeIn(.5f),
+        titleImage = new Image(Assets.titulo);
+        titleImage.setPosition(SCREEN_WIDTH / 2f - titleImage.getWidth() / 2f, 520);
+        titleImage.getColor().a = 0;
+        titleImage.addAction(Actions.sequence(Actions.fadeIn(.5f),
                 Actions.run(new Runnable() {
 
                     @Override
                     public void run() {
-                        stage.addActor(lbPlay);
-                        stage.addActor(lbRate);
-                        stage.addActor(lbLeaderboard);
-                        stage.addActor(lbShopScreen);
-                        stage.addActor(btMusica);
+                        stage.addActor(labelPlay);
+                        stage.addActor(labelRate);
+                        stage.addActor(labelLeaderBoard);
+                        stage.addActor(labelShopScreen);
+                        stage.addActor(buttonMusic);
                     }
                 })));
 
-        lbPlay = new Label("Play", Assets.labelStyleGrande);
-        lbPlay.setPosition(500, 440);
-        lbPlay.addListener(new ClickListener() {
+        labelPlay = new Label("Play", Assets.labelStyleGrande);
+        labelPlay.setPosition(500, 440);
+        labelPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(GameScreen.class, game);
             }
         });
 
-        lbRate = new Label("Rate", Assets.labelStyleGrande);
-        lbRate.setPosition(500, 340);
+        labelRate = new Label("Rate", Assets.labelStyleGrande);
+        labelRate.setPosition(500, 340);
 
-        lbShopScreen = new Label("Shop screen", Assets.labelStyleGrande);
-        lbShopScreen.setPosition(500, 240);
-        lbShopScreen.addListener(new ClickListener() {
+        labelShopScreen = new Label("Shop screen", Assets.labelStyleGrande);
+        labelShopScreen.setPosition(500, 240);
+        labelShopScreen.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(ShopScreen.class, game);
             }
         });
 
-        lbLeaderboard = new Label("Leaderboard", Assets.labelStyleGrande);
-        lbLeaderboard.setPosition(500, 140);
+        labelLeaderBoard = new Label("Leaderboard", Assets.labelStyleGrande);
+        labelLeaderBoard.setPosition(500, 140);
 
-        btMusica = new Button(Assets.styleButtonMusica);
-        btMusica.setPosition(5, 5);
-        btMusica.setChecked(!Settings.isMusicOn);
+        buttonMusic = new Button(Assets.styleButtonMusica);
+        buttonMusic.setPosition(5, 5);
+        buttonMusic.setChecked(!Settings.isMusicOn);
         Gdx.app.log("Musica", Settings.isMusicOn + "");
-        btMusica.addListener(new ClickListener() {
+        buttonMusic.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Settings.isMusicOn = !Settings.isMusicOn;
-                btMusica.setChecked(!Settings.isMusicOn);
+                buttonMusic.setChecked(!Settings.isMusicOn);
                 if (Settings.isMusicOn)
                     Assets.music.play();
                 else
@@ -85,17 +85,17 @@ public class MainMenuScreen extends Screens {
             }
         });
 
-        entranceAction(lbPlay, lbPlay.getY(), .25f);
-        entranceAction(lbRate, lbRate.getY(), .5f);
-        entranceAction(lbShopScreen, lbShopScreen.getY(), .75f);
-        entranceAction(lbLeaderboard, lbLeaderboard.getY(), 1f);
+        entranceAction(labelPlay, labelPlay.getY(), .25f);
+        entranceAction(labelRate, labelRate.getY(), .5f);
+        entranceAction(labelShopScreen, labelShopScreen.getY(), .75f);
+        entranceAction(labelLeaderBoard, labelLeaderBoard.getY(), 1f);
 
-        setAnimationChangeColor(lbShopScreen);
-        setAnimationChangeColor(lbRate);
-        setAnimationChangeColor(lbLeaderboard);
-        setAnimationChangeColor(lbPlay);
+        setAnimationChangeColor(labelShopScreen);
+        setAnimationChangeColor(labelRate);
+        setAnimationChangeColor(labelLeaderBoard);
+        setAnimationChangeColor(labelPlay);
 
-        stage.addActor(titulo);
+        stage.addActor(titleImage);
     }
 
     @Override
@@ -105,9 +105,9 @@ public class MainMenuScreen extends Screens {
 
     @Override
     public void draw(float delta) {
-        batcher.begin();
-        batcher.draw(Assets.calle, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 2);
-        batcher.end();
+        batch.begin();
+        batch.draw(Assets.calle, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 2);
+        batch.end();
     }
 
     @Override
