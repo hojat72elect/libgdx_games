@@ -18,7 +18,7 @@ public class SwipeHorizontalTutorial extends Group {
                 160);
 
         final Label lblSwipeToMove = new Label("Swipe to move",
-                Assets.labelStyleGrande);
+                Assets.labelStyleLarge);
         lblSwipeToMove.setPosition(getWidth() / 2f - lblSwipeToMove.getWidth()
                 / 2f, 100);
         lblSwipeToMove.getColor().a = 0;

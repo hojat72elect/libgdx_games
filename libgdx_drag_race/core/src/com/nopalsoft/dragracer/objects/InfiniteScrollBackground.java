@@ -28,7 +28,7 @@ public class InfiniteScrollBackground extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.draw(Assets.calle, getX(), getY() - getHeight(), getWidth(),
+        batch.draw(Assets.street, getX(), getY() - getHeight(), getWidth(),
                 getHeight() * 2);
     }
 

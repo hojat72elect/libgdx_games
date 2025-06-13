@@ -27,13 +27,13 @@ public class ShopScreen extends Screens {
     public ShopScreen(final MainStreet game) {
         super(game);
 
-        Label lbShop = new Label("Shop", Assets.labelStyleGrande);
+        Label lbShop = new Label("Shop", Assets.labelStyleLarge);
         lbShop.setSize(135, 50);
         lbShop.setPosition(3, 747);
 
-        Image imgCoin = new Image(Assets.coinFrente);
+        Image imgCoin = new Image(Assets.coinFront);
 
-        lbCoin = new Label("0", Assets.labelStyleGrande);
+        lbCoin = new Label("0", Assets.labelStyleLarge);
         lbCoin.setFontScale(.8f);
 
         Table tbScores = new Table();
@@ -44,12 +44,12 @@ public class ShopScreen extends Screens {
         tbScores.add(lbCoin).right().expand().padRight(5);
         tbScores.add(imgCoin).right();
 
-        Image separadorH = new Image(Assets.separadorHorizontal);
+        Image separadorH = new Image(Assets.horizontalSeparatorDrawable);
         separadorH.setSize(SCREEN_WIDTH, 5);
         separadorH.setColor(Color.LIGHT_GRAY);
         separadorH.setPosition(0, 740);
 
-        Image separadorV = new Image(Assets.separadorVertical);
+        Image separadorV = new Image(Assets.verticalSeparatorDrawable);
         separadorV.setSize(5, 745);
         separadorV.setColor(Color.LIGHT_GRAY);
         separadorV.setPosition(90, 0);
@@ -73,12 +73,12 @@ public class ShopScreen extends Screens {
         stage.addActor(btAtras);
         stage.addActor(scroll);
 
-        new PersonajesSubMenu(game, contenedor);
+        new PlayerSubMenu(game, contenedor);
     }
 
     private void initButtons() {
         btPersonajes = new Button(
-                new TextureRegionDrawable(Assets.carroTornado));
+                new TextureRegionDrawable(Assets.carTornado));
         btPersonajes.setSize(45, 65);
         btPersonajes.setPosition(23, 660);
         addPressEffect(btPersonajes);
@@ -86,11 +86,11 @@ public class ShopScreen extends Screens {
             public void clicked(
                     com.badlogic.gdx.scenes.scene2d.InputEvent event, float x,
                     float y) {
-                new PersonajesSubMenu(game, contenedor);
+                new PlayerSubMenu(game, contenedor);
             }
         });
 
-        btPowerUps = new Button(new TextureRegionDrawable(Assets.carroTornado));
+        btPowerUps = new Button(new TextureRegionDrawable(Assets.carTornado));
         btPowerUps.setSize(55, 55);
         btPowerUps.setPosition(17, 570);
         addPressEffect(btPowerUps);
@@ -103,7 +103,7 @@ public class ShopScreen extends Screens {
             }
         });
 
-        btMonedas = new Button(new TextureRegionDrawable(Assets.coinFrente));
+        btMonedas = new Button(new TextureRegionDrawable(Assets.coinFront));
         btMonedas.setSize(55, 55);
         btMonedas.setPosition(17, 480);
         addPressEffect(btMonedas);
@@ -115,7 +115,7 @@ public class ShopScreen extends Screens {
             }
         });
 
-        btNoAds = new Button(new TextureRegionDrawable(Assets.btNoAds));
+        btNoAds = new Button(new TextureRegionDrawable(Assets.buttonNoAds));
         btNoAds.setSize(55, 55);
         btNoAds.setPosition(17, 390);
         addPressEffect(btNoAds);
@@ -127,7 +127,7 @@ public class ShopScreen extends Screens {
             }
         });
 
-        btAtras = new Button(new TextureRegionDrawable(Assets.btAtras));
+        btAtras = new Button(new TextureRegionDrawable(Assets.buttonBack));
         btAtras.setSize(55, 55);
         btAtras.setPosition(17, 10);
         addPressEffect(btAtras);

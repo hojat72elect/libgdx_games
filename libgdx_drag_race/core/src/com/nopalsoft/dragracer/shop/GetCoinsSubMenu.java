@@ -19,8 +19,8 @@ public class GetCoinsSubMenu {
     int coinsForFacebookLike = 250;
 
     
-    TextButton btLikeFacebook;
-    TextButton btBuy50MilCoins;
+    TextButton buttonLikeFacebook;
+    TextButton buttonBuy50MilCoins;
 
     Table tableContainer;
     MainStreet game;
@@ -30,12 +30,12 @@ public class GetCoinsSubMenu {
         this.tableContainer = tableContainer;
         tableContainer.clear();
 
-        btLikeFacebook = new TextButton("Like us", Assets.styleTextButtonBuy);
+        buttonLikeFacebook = new TextButton("Like us", Assets.styleTextButtonBuy);
         if (Settings.didLikeFacebook)
-            btLikeFacebook = new TextButton("Visit Us",
+            buttonLikeFacebook = new TextButton("Visit Us",
                     Assets.styleTextButtonSelected);
-        addEfectoPress(btLikeFacebook);
-        btLikeFacebook.addListener(new ClickListener() {
+        addPressEffect(buttonLikeFacebook);
+        buttonLikeFacebook.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (!Settings.didLikeFacebook) {
@@ -47,8 +47,8 @@ public class GetCoinsSubMenu {
                                 @Override
                                 public void run() {
                                     Settings.coinsTotal += coinsForFacebookLike;
-                                    btLikeFacebook.setText("Visit us");
-                                    btLikeFacebook
+                                    buttonLikeFacebook.setText("Visit us");
+                                    buttonLikeFacebook
                                             .setStyle(Assets.styleTextButtonSelected);
                                 }
                             })));
@@ -56,67 +56,67 @@ public class GetCoinsSubMenu {
             }
         });
 
-        btBuy50MilCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
-        addEfectoPress(btBuy50MilCoins);
+        buttonBuy50MilCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
+        addPressEffect(buttonBuy50MilCoins);
 
 
         // Facebook Like
-        tableContainer.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+        tableContainer.add(new Image(Assets.horizontalSeparatorDrawable)).expandX().fill()
                 .height(5);
         tableContainer.row();
         tableContainer
                 .add(addPlayerTable(coinsForFacebookLike,
-                        Assets.btFacebook, "Like us on facebook and get "
+                        Assets.buttonFacebook, "Like us on facebook and get "
                                 + coinsForFacebookLike + " coins",
-                        btLikeFacebook)).expandX().fill();
+                        buttonLikeFacebook)).expandX().fill();
         tableContainer.row();
 
         TextureRegionDrawable coinDrawable = new TextureRegionDrawable(
-                Assets.coinFrente);
+                Assets.coinFront);
 
         tableContainer
                 .add(addPlayerTable(
                         50000,
                         coinDrawable,
                         "Coin super mega pack. Get this pack and you will be racing in cash",
-                        btBuy50MilCoins)).expandX().fill();
+                        buttonBuy50MilCoins)).expandX().fill();
         tableContainer.row();
     }
 
     private Table addPlayerTable(int numCoinsToGet,
                                  TextureRegionDrawable imageDrawable, String description, TextButton button) {
 
-        Image moneda = new Image(Assets.coinFrente);
-        Image imgPersonaje = new Image(imageDrawable);
+        Image coinImage = new Image(Assets.coinFront);
+        Image playerImage = new Image(imageDrawable);
 
-        Table tbBarraTitulo = new Table();
-        tbBarraTitulo
-                .add(new Label("Get " + numCoinsToGet, Assets.labelStyleChico))
+        Table titleBarTable = new Table();
+        titleBarTable
+                .add(new Label("Get " + numCoinsToGet, Assets.labelStyleSmall))
                 .left().padLeft(5);
-        tbBarraTitulo.add(moneda).left().expandX().padLeft(5);
+        titleBarTable.add(coinImage).left().expandX().padLeft(5);
 
-        Table tbDescrip = new Table();
-        tbDescrip.add(imgPersonaje).left().pad(10).size(55, 55);
-        Label lblDescripcion = new Label(description, Assets.labelStyleChico);
-        lblDescripcion.setWrap(true);
-        tbDescrip.add(lblDescripcion).expand().fill().padLeft(5);
+        Table descriptionTable = new Table();
+        descriptionTable.add(playerImage).left().pad(10).size(55, 55);
+        Label descriptionLabel = new Label(description, Assets.labelStyleSmall);
+        descriptionLabel.setWrap(true);
+        descriptionTable.add(descriptionLabel).expand().fill().padLeft(5);
 
         Table tbContent = new Table();
-        tbContent.add(tbBarraTitulo).expandX().fill().colspan(2).padTop(8);
+        tbContent.add(titleBarTable).expandX().fill().colspan(2).padTop(8);
         tbContent.row().colspan(2);
-        tbContent.add(tbDescrip).expandX().fill();
+        tbContent.add(descriptionTable).expandX().fill();
         tbContent.row().colspan(2);
 
         tbContent.add(button).right().padRight(10).size(120, 45);
 
         tbContent.row().colspan(2);
-        tbContent.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+        tbContent.add(new Image(Assets.horizontalSeparatorDrawable)).expandX().fill()
                 .height(5).padTop(15);
 
         return tbContent;
     }
 
-    protected void addEfectoPress(final Actor actor) {
+    protected void addPressEffect(final Actor actor) {
         actor.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,

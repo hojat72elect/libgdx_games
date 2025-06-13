@@ -60,19 +60,19 @@ public class GameScreen extends Screens {
         initUI();
 
         setReady();
-        Settings.numeroVecesJugadas++;
+        Settings.numberOfTimesPlayed++;
     }
 
     private void initUI() {
         speedBar = new SpeedBar(TrafficGame.NUM_COINS_FOR_SUPER_SPEED, 5, 720, 160, 20);
 
-        labelScore = new Label("Distance 0m", Assets.labelStyleGrande);
+        labelScore = new Label("Distance 0m", Assets.labelStyleLarge);
         labelScore.setFontScale(.8f);
 
-        labelCoin = new Label("0", Assets.labelStyleGrande);
+        labelCoin = new Label("0", Assets.labelStyleLarge);
         labelCoin.setFontScale(.8f);
 
-        Image imgCoin = new Image(Assets.coinFrente);
+        Image imgCoin = new Image(Assets.coinFront);
 
         tableScores = new Table();
         tableScores.setWidth(SCREEN_WIDTH);
@@ -84,7 +84,7 @@ public class GameScreen extends Screens {
         tableScores.add(imgCoin).right();
 
         // Gameover
-        labelTryAgain = new Label("Try again", Assets.labelStyleGrande);
+        labelTryAgain = new Label("Try again", Assets.labelStyleLarge);
         labelTryAgain.setPosition(500, 310);
         labelTryAgain.addListener(new ClickListener() {
             @Override
@@ -93,7 +93,7 @@ public class GameScreen extends Screens {
             }
         });
 
-        labelShopScreen = new Label("Shop screen", Assets.labelStyleGrande);
+        labelShopScreen = new Label("Shop screen", Assets.labelStyleLarge);
         labelShopScreen.setPosition(500, 210);
         labelShopScreen.addListener(new ClickListener() {
             @Override
@@ -102,11 +102,11 @@ public class GameScreen extends Screens {
             }
         });
 
-        labelLeaderboard = new Label("Leaderboard", Assets.labelStyleGrande);
+        labelLeaderboard = new Label("Leaderboard", Assets.labelStyleLarge);
         labelLeaderboard.setPosition(500, 110);
 
 
-        buttonMusic = new Button(Assets.styleButtonMusica);
+        buttonMusic = new Button(Assets.styleButtonMusic);
         buttonMusic.setPosition(5, 5);
         buttonMusic.setChecked(!Settings.isMusicOn);
         Gdx.app.log("Musica", Settings.isMusicOn + "");
@@ -135,10 +135,10 @@ public class GameScreen extends Screens {
         groupPaused = new Group();
         groupPaused.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-        Image background = new Image(Assets.pixelNegro);
+        Image background = new Image(Assets.blackPixel);
         background.setSize(groupPaused.getWidth(), groupPaused.getHeight());
 
-        Label labelPause = new Label("Game Paused\nTouch to resume", Assets.labelStyleGrande);
+        Label labelPause = new Label("Game Paused\nTouch to resume", Assets.labelStyleLarge);
         labelPause.setPosition(groupPaused.getWidth() / 2f - labelPause.getWidth() / 2f, groupPaused.getHeight() / 2f - labelPause.getHeight() / 2f);
         labelPause.setAlignment(Align.center);
         labelPause.addAction(Actions.forever(Actions.sequence(Actions.alpha(.55f, .85f), Actions.alpha(1, .85f))));
@@ -208,7 +208,7 @@ public class GameScreen extends Screens {
     private void setReady() {
         state = STATE_READY;
 
-        final Label labelCounter = new Label(TIME_TO_START + "", Assets.labelStyleGrande);
+        final Label labelCounter = new Label(TIME_TO_START + "", Assets.labelStyleLarge);
         labelCounter.setFontScale(2.5f);
         labelCounter.setPosition(SCREEN_WIDTH / 2f - labelCounter.getWidth() / 2f, 600);
         labelCounter.setAlignment(Align.center);
@@ -224,7 +224,7 @@ public class GameScreen extends Screens {
             }
         }))));
 
-        if (Settings.numeroVecesJugadas < 5) {
+        if (Settings.numberOfTimesPlayed < 5) {
             stage.addActor(new SwipeHorizontalTutorial());
         }
 

@@ -2,45 +2,45 @@ package com.nopalsoft.dragracer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.nopalsoft.dragracer.shop.PersonajesSubMenu;
+import com.nopalsoft.dragracer.shop.PlayerSubMenu;
 
 public class Settings {
 
     public static boolean drawDebugLines = false;
 
-    public static int numeroVecesJugadas = 0;
+    public static int numberOfTimesPlayed = 0;
     public static int bestScore = 0;
     public static int coinsTotal = 0;
     public static boolean didBuyNoAds;
     public static boolean didLikeFacebook;
     public static boolean isMusicOn = true;
 
-    public static int skinSeleccionada = PersonajesSubMenu.SKIN_CARRO_DIABLO;
+    public static int selectedSkin = PlayerSubMenu.SKIN_DEVIL;
 
-    private final static Preferences pref = Gdx.app
+    private final static Preferences preferences = Gdx.app
             .getPreferences("com.tiar.dragrace.shop");
 
     public static void load() {
-        numeroVecesJugadas = pref.getInteger("numeroVecesJugadas");
-        bestScore = pref.getInteger("bestScore");
-        coinsTotal = pref.getInteger("coinsTotal");
-        skinSeleccionada = pref.getInteger("skinSeleccionada");
+        numberOfTimesPlayed = preferences.getInteger("numeroVecesJugadas");
+        bestScore = preferences.getInteger("bestScore");
+        coinsTotal = preferences.getInteger("coinsTotal");
+        selectedSkin = preferences.getInteger("skinSeleccionada");
 
-        didBuyNoAds = pref.getBoolean("didBuyNoAds");
-        didLikeFacebook = pref.getBoolean("didLikeFacebook");
-        isMusicOn = pref.getBoolean("isMusicOn", true);
+        didBuyNoAds = preferences.getBoolean("didBuyNoAds");
+        didLikeFacebook = preferences.getBoolean("didLikeFacebook");
+        isMusicOn = preferences.getBoolean("isMusicOn", true);
     }
 
     public static void save() {
-        pref.putInteger("numeroVecesJugadas", numeroVecesJugadas);
-        pref.putInteger("bestScore", bestScore);
-        pref.putInteger("coinsTotal", coinsTotal);
-        pref.putInteger("skinSeleccionada", skinSeleccionada);
+        preferences.putInteger("numeroVecesJugadas", numberOfTimesPlayed);
+        preferences.putInteger("bestScore", bestScore);
+        preferences.putInteger("coinsTotal", coinsTotal);
+        preferences.putInteger("skinSeleccionada", selectedSkin);
 
-        pref.putBoolean("didBuyNoAds", didBuyNoAds);
-        pref.putBoolean("didLikeFacebook", didLikeFacebook);
-        pref.putBoolean("isMusicOn", isMusicOn);
-        pref.flush();
+        preferences.putBoolean("didBuyNoAds", didBuyNoAds);
+        preferences.putBoolean("didLikeFacebook", didLikeFacebook);
+        preferences.putBoolean("isMusicOn", isMusicOn);
+        preferences.flush();
     }
 
     public static void setNewScore(int score) {

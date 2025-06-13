@@ -16,17 +16,15 @@ import com.nopalsoft.dragracer.Assets;
 import com.nopalsoft.dragracer.MainStreet;
 import com.nopalsoft.dragracer.Settings;
 
-import java.util.Iterator;
+public class PlayerSubMenu {
 
-public class PersonajesSubMenu {
+    public static final int SKIN_DEVIL = 0;
+    public static final int SKIN_BANSHEE = 1;
+    public static final int SKIN_TURISMO = 3;
+    public static final int SKIN_BULLET_CAR = 6;
+    public static final int SKIN_TORNADO_CAR = 2;
 
-    public static final int SKIN_CARRO_DIABLO = 0;
-    public static final int SKIN_CARRO_BANSHEE = 1;
-    public static final int SKIN_CARRO_TURISMO = 3;
-    public static final int SKIN_CARRO_BULLET = 6;
-    public static final int SKIN_CARRO_TORNADO = 2;
-
-    public static final int SKIN_CARRO_AUDI_S5 = 4;
+    public static final int SKIN_AUDI_S5 = 4;
     public static final int SKIN_CARRO_BMW_X6 = 5;
     public static final int SKIN_CARRO_CHEVRLOTE_CROSSFIRE = 7;
     public static final int SKIN_CARRO_CITROEN_C4 = 8;
@@ -65,7 +63,7 @@ public class PersonajesSubMenu {
             btBuyCitroenC4, btBuyDodgeCharger, btBuyFiat500Lounge,
             btBuyHondaCRV, btBuyMazda6, btBuyMazdaRX8, btBuySeatIbiza,
             btBuyVolkswagenScirocco;
-    Array<TextButton> arrBotones;
+    Array<TextButton> arrayButtons;
 
     Table contenedor;
     MainStreet game;
@@ -73,12 +71,12 @@ public class PersonajesSubMenu {
     private final static Preferences pref = Gdx.app
             .getPreferences("com.tiar.dragrace.shop");
 
-    public PersonajesSubMenu(MainStreet game, Table contenedor) {
+    public PlayerSubMenu(MainStreet game, Table containerTable) {
         this.game = game;
-        this.contenedor = contenedor;
+        this.contenedor = containerTable;
         loadPurchases();
 
-        contenedor.clear();
+        containerTable.clear();
 
         Label lblPrecioBanshee = null;
         Label lblPrecioTornado = null;
@@ -98,208 +96,208 @@ public class PersonajesSubMenu {
 
         if (!didBuyBanshee)
             lblPrecioBanshee = new Label(PRECIO_BANSHEE + "",
-                    Assets.labelStyleChico);
+                    Assets.labelStyleSmall);
         if (!didBuyTornado)
             lblPrecioTornado = new Label(PRECIO_TORNADO + "",
-                    Assets.labelStyleChico);
+                    Assets.labelStyleSmall);
 
         if (!didBuyTurismo)
             lblPrecioTurismo = new Label(PRECIO_TURISMO + "",
-                    Assets.labelStyleChico);
+                    Assets.labelStyleSmall);
 
         if (!didBuyAudiS5)
             lblPrecioAudiS5 = new Label(PRECIO_CARRO_AUDI_S5 + "",
-                    Assets.labelStyleChico);
+                    Assets.labelStyleSmall);
 
         if (!didBuyBmwX6)
             lblPrecioBmwX6 = new Label(PRECIO_CARRO_BMW_X6 + "",
-                    Assets.labelStyleChico);
+                    Assets.labelStyleSmall);
 
         if (!didBuyBullet)
             lblPrecioCamaro = new Label(PRECIO_BULLET + "",
-                    Assets.labelStyleChico);
+                    Assets.labelStyleSmall);
 
         if (!didBuyCrossfire)
             lblPrecioCrossfire = new Label(PRECIO_CARRO_CHEVRLOTE_CROSSFIRE
-                    + "", Assets.labelStyleChico);
+                    + "", Assets.labelStyleSmall);
 
         if (!didBuyCitroenC4)
             lblPrecioCitroenC4 = new Label(PRECIO_CARRO_CITROEN_C4 + "",
-                    Assets.labelStyleChico);
+                    Assets.labelStyleSmall);
 
         if (!didBuyDodgeCharger)
             lblPrecioDodgeCharger = new Label(PRECIO_CARRO_DODGE_CHARGER + "",
-                    Assets.labelStyleChico);
+                    Assets.labelStyleSmall);
 
         if (!didBuyFiat500)
             lblPrecioFiat500Lounge = new Label(PRECIO_CARRO_FIAT_500_LOUNGE
-                    + "", Assets.labelStyleChico);
+                    + "", Assets.labelStyleSmall);
 
         if (!didBuyHondaCRV)
             lblPrecioHondeCRV = new Label(PRECIO_CARRO_HONDA_CRV + "",
-                    Assets.labelStyleChico);
+                    Assets.labelStyleSmall);
 
         if (!didBuyMazda6)
             lblPrecioMazda6 = new Label(PRECIO_CARRO_MAZDA_6 + "",
-                    Assets.labelStyleChico);
+                    Assets.labelStyleSmall);
 
         if (!didBuyMazdaRX8)
             lblPrecioMazdaRX8 = new Label(PRECIO_CARRO_MAZDA_RX8 + "",
-                    Assets.labelStyleChico);
+                    Assets.labelStyleSmall);
 
         if (!didBuySeatIbiza)
             lblPrecioSeatIbiza = new Label(PRECIO_CARRO_SEAT_IBIZA + "",
-                    Assets.labelStyleChico);
+                    Assets.labelStyleSmall);
 
         if (!didBuyVolkswagenScirocco)
             lblPrecioVOlkswagenScirocco = new Label(
                     PRECIO_CARRO_VOLKSWAGEN_SCIROCCO + "",
-                    Assets.labelStyleChico);
+                    Assets.labelStyleSmall);
 
-        inicializarBotones();
+        initializeButtons();
 
-        contenedor.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+        containerTable.add(new Image(Assets.horizontalSeparatorDrawable)).expandX().fill()
                 .height(5);
-        contenedor.row();
+        containerTable.row();
 
         // Usar Default
-        contenedor
+        containerTable
                 .add(agregarPersonajeTabla(
                         "Diablo",
                         null,
-                        Assets.carroDiablo,
+                        Assets.carDiablo,
                         "Good car. It's not the fastest, but it's got great handling although maybe a little too twitchy for some.",
                         btBuyDiablo)).expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
         // SKIN_CARRO_BANSHEE
-        contenedor
+        containerTable
                 .add(agregarPersonajeTabla(
                         "Banshee",
                         lblPrecioBanshee,
-                        Assets.carroBanshee,
+                        Assets.carBanshee,
                         "Looks great and drives even better. Awesome acceleration and slight oversteer make this a thrilling ride.",
                         btBuyBanshee)).expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
         // SKIN_CARRO_TORNADO
-        contenedor
+        containerTable
                 .add(agregarPersonajeTabla(
                         "Tornado",
                         lblPrecioTornado,
-                        Assets.carroTornado,
+                        Assets.carTornado,
                         "Pretty speedy. Nothing too hot about this car, it looks ok and is ok to drive.",
                         btBuyTornado)).expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
         // SKIN_CARRO_TURISMO
-        contenedor
+        containerTable
                 .add(agregarPersonajeTabla(
                         "Turismo",
                         lblPrecioTurismo,
-                        Assets.carroTurismo,
+                        Assets.carTurismo,
                         "If you can get this rare sport car, you'll be rewarded with a superbly fast drive. If you get it, take care of it.",
                         btBuyTurismo)).expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
         // SKIN_CARRO_AUDI_S5
-        contenedor
+        containerTable
                 .add(agregarPersonajeTabla("Ventura", lblPrecioAudiS5,
-                        Assets.audiS5, "No description", btBuyAudiS5))
+                        Assets.carAudiS5, "No description", btBuyAudiS5))
                 .expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
         // SKIN_CARRO_BMW_X6
-        contenedor
-                .add(agregarPersonajeTabla("XMW", lblPrecioBmwX6, Assets.bmwX6,
+        containerTable
+                .add(agregarPersonajeTabla("XMW", lblPrecioBmwX6, Assets.carBmwX6,
                         "No description", btBuyBmwX6)).expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
         // PRECIO_BULLET
-        contenedor
+        containerTable
                 .add(agregarPersonajeTabla(
                         "Bullet",
                         lblPrecioCamaro,
-                        Assets.carroBullet,
+                        Assets.carBullet,
                         "Probably the best sporty hatchback. It's quick and sticks to road really well. Acceleration is great too.",
                         btBuyBullet)).expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
         // SKIN_CARRO_CHEVRLOTE_CROSSFIRE
-        contenedor
+        containerTable
                 .add(agregarPersonajeTabla("Crosstown", lblPrecioCrossfire,
-                        Assets.chevroletCrossfire, "No description",
+                        Assets.carChevroletCrossfire, "No description",
                         btBuyCrossfire)).expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
         // SKIN_CARRO_CITROEN_C4
-        contenedor
+        containerTable
                 .add(agregarPersonajeTabla("Omega X", lblPrecioCitroenC4,
-                        Assets.citroenC4, "No description", btBuyCitroenC4))
+                        Assets.carCitroenC4, "No description", btBuyCitroenC4))
                 .expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
         // SKIN_CARRO_DODGE_CHARGER
-        contenedor
+        containerTable
                 .add(agregarPersonajeTabla("Vulcano", lblPrecioDodgeCharger,
-                        Assets.dodgeCharger, "No description",
+                        Assets.carDodgeCharger, "No description",
                         btBuyDodgeCharger)).expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
         // SKIN_CARRO_FIAT_500_LOUNGE
-        contenedor
+        containerTable
                 .add(agregarPersonajeTabla("Fiesta", lblPrecioFiat500Lounge,
-                        Assets.fiat500Lounge, "No description",
+                        Assets.carFiat500Lounge, "No description",
                         btBuyFiat500Lounge)).expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
         // SKIN_CARRO_HONDA_CRV
-        contenedor
+        containerTable
                 .add(agregarPersonajeTabla("Comander", lblPrecioHondeCRV,
-                        Assets.hondaCRV, "No description", btBuyHondaCRV))
+                        Assets.carHondaCRV, "No description", btBuyHondaCRV))
                 .expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
         // SKIN_CARRO_MAZDA_6
-        contenedor
+        containerTable
                 .add(agregarPersonajeTabla("Orion", lblPrecioMazda6,
-                        Assets.mazda6, "No description", btBuyMazda6))
+                        Assets.carMazda6, "No description", btBuyMazda6))
                 .expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
         // SKIN_CARRO_MAZDA_RX8
-        contenedor
+        containerTable
                 .add(agregarPersonajeTabla("Colorado", lblPrecioMazdaRX8,
-                        Assets.mazdaRX8, "No description", btBuyMazdaRX8))
+                        Assets.carMazdaRx8, "No description", btBuyMazdaRX8))
                 .expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
         // SKIN_CARRO_SEAT_IBIZA
-        contenedor
+        containerTable
                 .add(agregarPersonajeTabla("Formosa", lblPrecioSeatIbiza,
-                        Assets.seatIbiza, "No description", btBuySeatIbiza))
+                        Assets.carSeatIbiza, "No description", btBuySeatIbiza))
                 .expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
         // SKIN_CARRO_VOLKSWAGEN_SCIROCCO
-        contenedor
+        containerTable
                 .add(agregarPersonajeTabla("SHU", lblPrecioVOlkswagenScirocco,
-                        Assets.volkswagenScirocco, "No description",
+                        Assets.carVolkswagenScirocco, "No description",
                         btBuyVolkswagenScirocco)).expandX().fill();
-        contenedor.row();
+        containerTable.row();
     }
 
     private Table agregarPersonajeTabla(String titulo, Label lblPrecio,
                                         AtlasRegion imagen, String descripcion, TextButton boton) {
 
-        Image moneda = new Image(Assets.coinFrente);
+        Image moneda = new Image(Assets.coinFront);
         Image imgPersonaje = new Image(imagen);
 
         if (lblPrecio == null)
             moneda.setVisible(false);
 
         Table tbBarraTitulo = new Table();
-        tbBarraTitulo.add(new Label(titulo, Assets.labelStyleChico)).expandX()
+        tbBarraTitulo.add(new Label(titulo, Assets.labelStyleSmall)).expandX()
                 .left();
         tbBarraTitulo.add(moneda).right();
         tbBarraTitulo.add(lblPrecio).right().padRight(10);
@@ -310,7 +308,7 @@ public class PersonajesSubMenu {
         tbContent.row();
         tbContent.add(imgPersonaje).left().pad(10).size(40, 90);
 
-        Label lblDescripcion = new Label(descripcion, Assets.labelStyleChico);
+        Label lblDescripcion = new Label(descripcion, Assets.labelStyleSmall);
         lblDescripcion.setWrap(true);
         lblDescripcion.setFontScale(.85f);
         tbContent.add(lblDescripcion).expand().fill().padLeft(5);
@@ -318,25 +316,25 @@ public class PersonajesSubMenu {
         tbContent.row().colspan(2);
         tbContent.add(boton).expandX().right().padRight(10).size(120, 45);
         tbContent.row().colspan(2);
-        tbContent.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+        tbContent.add(new Image(Assets.horizontalSeparatorDrawable)).expandX().fill()
                 .height(5).padTop(15);
 
         return tbContent;
     }
 
-    private void inicializarBotones() {
-        arrBotones = new Array<TextButton>();
+    private void initializeButtons() {
+        arrayButtons = new Array<>();
 
         // DEFAULT
         btBuyDiablo = new TextButton("Select", Assets.styleTextButtonPurchased);
-        if (Settings.skinSeleccionada == SKIN_CARRO_DIABLO)
+        if (Settings.selectedSkin == SKIN_DEVIL)
             btBuyDiablo.setVisible(false);
 
-        addEfectoPress(btBuyDiablo);
+        addPressEffect(btBuyDiablo);
         btBuyDiablo.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Settings.skinSeleccionada = SKIN_CARRO_DIABLO;
+                Settings.selectedSkin = SKIN_DEVIL;
                 setSelected(btBuyDiablo);
             }
         });
@@ -348,15 +346,15 @@ public class PersonajesSubMenu {
         else
             btBuyBanshee = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_CARRO_BANSHEE)
+        if (Settings.selectedSkin == SKIN_BANSHEE)
             btBuyBanshee.setVisible(false);
 
-        addEfectoPress(btBuyBanshee);
+        addPressEffect(btBuyBanshee);
         btBuyBanshee.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyBanshee) {
-                    Settings.skinSeleccionada = SKIN_CARRO_BANSHEE;
+                    Settings.selectedSkin = SKIN_BANSHEE;
                     setSelected(btBuyBanshee);
                 } else if (Settings.coinsTotal >= PRECIO_BANSHEE) {
                     Settings.coinsTotal -= PRECIO_BANSHEE;
@@ -374,15 +372,15 @@ public class PersonajesSubMenu {
         else
             btBuyTornado = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_CARRO_TORNADO)
+        if (Settings.selectedSkin == SKIN_TORNADO_CAR)
             btBuyTornado.setVisible(false);
 
-        addEfectoPress(btBuyTornado);
+        addPressEffect(btBuyTornado);
         btBuyTornado.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyTornado) {
-                    Settings.skinSeleccionada = SKIN_CARRO_TORNADO;
+                    Settings.selectedSkin = SKIN_TORNADO_CAR;
                     setSelected(btBuyTornado);
                 } else if (Settings.coinsTotal >= PRECIO_TORNADO) {
                     Settings.coinsTotal -= PRECIO_TORNADO;
@@ -400,15 +398,15 @@ public class PersonajesSubMenu {
         else
             btBuyTurismo = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_CARRO_TURISMO)
+        if (Settings.selectedSkin == SKIN_TURISMO)
             btBuyTurismo.setVisible(false);
 
-        addEfectoPress(btBuyTurismo);
+        addPressEffect(btBuyTurismo);
         btBuyTurismo.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyTurismo) {
-                    Settings.skinSeleccionada = SKIN_CARRO_TURISMO;
+                    Settings.selectedSkin = SKIN_TURISMO;
                     setSelected(btBuyTurismo);
                 } else if (Settings.coinsTotal >= PRECIO_TURISMO) {
                     Settings.coinsTotal -= PRECIO_TURISMO;
@@ -426,15 +424,15 @@ public class PersonajesSubMenu {
         else
             btBuyAudiS5 = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_CARRO_AUDI_S5)
+        if (Settings.selectedSkin == SKIN_AUDI_S5)
             btBuyAudiS5.setVisible(false);
 
-        addEfectoPress(btBuyAudiS5);
+        addPressEffect(btBuyAudiS5);
         btBuyAudiS5.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyAudiS5) {
-                    Settings.skinSeleccionada = SKIN_CARRO_AUDI_S5;
+                    Settings.selectedSkin = SKIN_AUDI_S5;
                     setSelected(btBuyAudiS5);
                 } else if (Settings.coinsTotal >= PRECIO_CARRO_AUDI_S5) {
                     Settings.coinsTotal -= PRECIO_CARRO_AUDI_S5;
@@ -452,15 +450,15 @@ public class PersonajesSubMenu {
         else
             btBuyBmwX6 = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_CARRO_BMW_X6)
+        if (Settings.selectedSkin == SKIN_CARRO_BMW_X6)
             btBuyBmwX6.setVisible(false);
 
-        addEfectoPress(btBuyBmwX6);
+        addPressEffect(btBuyBmwX6);
         btBuyBmwX6.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyBmwX6) {
-                    Settings.skinSeleccionada = SKIN_CARRO_BMW_X6;
+                    Settings.selectedSkin = SKIN_CARRO_BMW_X6;
                     setSelected(btBuyBmwX6);
                 } else if (Settings.coinsTotal >= PRECIO_CARRO_BMW_X6) {
                     Settings.coinsTotal -= PRECIO_CARRO_BMW_X6;
@@ -478,15 +476,15 @@ public class PersonajesSubMenu {
         else
             btBuyBullet = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_CARRO_BULLET)
+        if (Settings.selectedSkin == SKIN_BULLET_CAR)
             btBuyBullet.setVisible(false);
 
-        addEfectoPress(btBuyBullet);
+        addPressEffect(btBuyBullet);
         btBuyBullet.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyBullet) {
-                    Settings.skinSeleccionada = SKIN_CARRO_BULLET;
+                    Settings.selectedSkin = SKIN_BULLET_CAR;
                     setSelected(btBuyBullet);
                 } else if (Settings.coinsTotal >= PRECIO_BULLET) {
                     Settings.coinsTotal -= PRECIO_BULLET;
@@ -504,15 +502,15 @@ public class PersonajesSubMenu {
         else
             btBuyCrossfire = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_CARRO_CHEVRLOTE_CROSSFIRE)
+        if (Settings.selectedSkin == SKIN_CARRO_CHEVRLOTE_CROSSFIRE)
             btBuyCrossfire.setVisible(false);
 
-        addEfectoPress(btBuyCrossfire);
+        addPressEffect(btBuyCrossfire);
         btBuyCrossfire.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyCrossfire) {
-                    Settings.skinSeleccionada = SKIN_CARRO_CHEVRLOTE_CROSSFIRE;
+                    Settings.selectedSkin = SKIN_CARRO_CHEVRLOTE_CROSSFIRE;
                     setSelected(btBuyCrossfire);
                 } else if (Settings.coinsTotal >= PRECIO_CARRO_CHEVRLOTE_CROSSFIRE) {
                     Settings.coinsTotal -= PRECIO_CARRO_CHEVRLOTE_CROSSFIRE;
@@ -530,15 +528,15 @@ public class PersonajesSubMenu {
         else
             btBuyCitroenC4 = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_CARRO_CITROEN_C4)
+        if (Settings.selectedSkin == SKIN_CARRO_CITROEN_C4)
             btBuyCitroenC4.setVisible(false);
 
-        addEfectoPress(btBuyCitroenC4);
+        addPressEffect(btBuyCitroenC4);
         btBuyCitroenC4.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyCitroenC4) {
-                    Settings.skinSeleccionada = SKIN_CARRO_CITROEN_C4;
+                    Settings.selectedSkin = SKIN_CARRO_CITROEN_C4;
                     setSelected(btBuyCitroenC4);
                 } else if (Settings.coinsTotal >= PRECIO_CARRO_CITROEN_C4) {
                     Settings.coinsTotal -= PRECIO_CARRO_CITROEN_C4;
@@ -556,15 +554,15 @@ public class PersonajesSubMenu {
         else
             btBuyDodgeCharger = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_CARRO_DODGE_CHARGER)
+        if (Settings.selectedSkin == SKIN_CARRO_DODGE_CHARGER)
             btBuyDodgeCharger.setVisible(false);
 
-        addEfectoPress(btBuyDodgeCharger);
+        addPressEffect(btBuyDodgeCharger);
         btBuyDodgeCharger.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyDodgeCharger) {
-                    Settings.skinSeleccionada = SKIN_CARRO_DODGE_CHARGER;
+                    Settings.selectedSkin = SKIN_CARRO_DODGE_CHARGER;
                     setSelected(btBuyDodgeCharger);
                 } else if (Settings.coinsTotal >= PRECIO_CARRO_DODGE_CHARGER) {
                     Settings.coinsTotal -= PRECIO_CARRO_DODGE_CHARGER;
@@ -583,15 +581,15 @@ public class PersonajesSubMenu {
             btBuyFiat500Lounge = new TextButton("Buy",
                     Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_CARRO_FIAT_500_LOUNGE)
+        if (Settings.selectedSkin == SKIN_CARRO_FIAT_500_LOUNGE)
             btBuyFiat500Lounge.setVisible(false);
 
-        addEfectoPress(btBuyFiat500Lounge);
+        addPressEffect(btBuyFiat500Lounge);
         btBuyFiat500Lounge.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyFiat500) {
-                    Settings.skinSeleccionada = SKIN_CARRO_FIAT_500_LOUNGE;
+                    Settings.selectedSkin = SKIN_CARRO_FIAT_500_LOUNGE;
                     setSelected(btBuyFiat500Lounge);
                 } else if (Settings.coinsTotal >= PRECIO_CARRO_FIAT_500_LOUNGE) {
                     Settings.coinsTotal -= PRECIO_CARRO_FIAT_500_LOUNGE;
@@ -609,15 +607,15 @@ public class PersonajesSubMenu {
         else
             btBuyHondaCRV = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_CARRO_HONDA_CRV)
+        if (Settings.selectedSkin == SKIN_CARRO_HONDA_CRV)
             btBuyHondaCRV.setVisible(false);
 
-        addEfectoPress(btBuyHondaCRV);
+        addPressEffect(btBuyHondaCRV);
         btBuyHondaCRV.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyHondaCRV) {
-                    Settings.skinSeleccionada = SKIN_CARRO_HONDA_CRV;
+                    Settings.selectedSkin = SKIN_CARRO_HONDA_CRV;
                     setSelected(btBuyHondaCRV);
                 } else if (Settings.coinsTotal >= PRECIO_CARRO_HONDA_CRV) {
                     Settings.coinsTotal -= PRECIO_CARRO_HONDA_CRV;
@@ -635,15 +633,15 @@ public class PersonajesSubMenu {
         else
             btBuyMazda6 = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_CARRO_MAZDA_6)
+        if (Settings.selectedSkin == SKIN_CARRO_MAZDA_6)
             btBuyMazda6.setVisible(false);
 
-        addEfectoPress(btBuyMazda6);
+        addPressEffect(btBuyMazda6);
         btBuyMazda6.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyMazda6) {
-                    Settings.skinSeleccionada = SKIN_CARRO_MAZDA_6;
+                    Settings.selectedSkin = SKIN_CARRO_MAZDA_6;
                     setSelected(btBuyMazda6);
                 } else if (Settings.coinsTotal >= PRECIO_CARRO_MAZDA_6) {
                     Settings.coinsTotal -= PRECIO_CARRO_MAZDA_6;
@@ -661,15 +659,15 @@ public class PersonajesSubMenu {
         else
             btBuyMazdaRX8 = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_CARRO_MAZDA_RX8)
+        if (Settings.selectedSkin == SKIN_CARRO_MAZDA_RX8)
             btBuyMazdaRX8.setVisible(false);
 
-        addEfectoPress(btBuyMazdaRX8);
+        addPressEffect(btBuyMazdaRX8);
         btBuyMazdaRX8.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyMazdaRX8) {
-                    Settings.skinSeleccionada = SKIN_CARRO_MAZDA_RX8;
+                    Settings.selectedSkin = SKIN_CARRO_MAZDA_RX8;
                     setSelected(btBuyMazdaRX8);
                 } else if (Settings.coinsTotal >= PRECIO_CARRO_MAZDA_RX8) {
                     Settings.coinsTotal -= PRECIO_CARRO_MAZDA_RX8;
@@ -687,15 +685,15 @@ public class PersonajesSubMenu {
         else
             btBuySeatIbiza = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_CARRO_SEAT_IBIZA)
+        if (Settings.selectedSkin == SKIN_CARRO_SEAT_IBIZA)
             btBuySeatIbiza.setVisible(false);
 
-        addEfectoPress(btBuySeatIbiza);
+        addPressEffect(btBuySeatIbiza);
         btBuySeatIbiza.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuySeatIbiza) {
-                    Settings.skinSeleccionada = SKIN_CARRO_SEAT_IBIZA;
+                    Settings.selectedSkin = SKIN_CARRO_SEAT_IBIZA;
                     setSelected(btBuySeatIbiza);
                 } else if (Settings.coinsTotal >= PRECIO_CARRO_SEAT_IBIZA) {
                     Settings.coinsTotal -= PRECIO_CARRO_SEAT_IBIZA;
@@ -714,15 +712,15 @@ public class PersonajesSubMenu {
             btBuyVolkswagenScirocco = new TextButton("Buy",
                     Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_CARRO_VOLKSWAGEN_SCIROCCO)
+        if (Settings.selectedSkin == SKIN_CARRO_VOLKSWAGEN_SCIROCCO)
             btBuyVolkswagenScirocco.setVisible(false);
 
-        addEfectoPress(btBuyVolkswagenScirocco);
+        addPressEffect(btBuyVolkswagenScirocco);
         btBuyVolkswagenScirocco.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyVolkswagenScirocco) {
-                    Settings.skinSeleccionada = SKIN_CARRO_VOLKSWAGEN_SCIROCCO;
+                    Settings.selectedSkin = SKIN_CARRO_VOLKSWAGEN_SCIROCCO;
                     setSelected(btBuyVolkswagenScirocco);
                 } else if (Settings.coinsTotal >= PRECIO_CARRO_VOLKSWAGEN_SCIROCCO) {
                     Settings.coinsTotal -= PRECIO_CARRO_VOLKSWAGEN_SCIROCCO;
@@ -733,22 +731,22 @@ public class PersonajesSubMenu {
             }
         });
 
-        arrBotones.add(btBuyDiablo);
-        arrBotones.add(btBuyBanshee);
-        arrBotones.add(btBuyTornado);
-        arrBotones.add(btBuyTurismo);
-        arrBotones.add(btBuyAudiS5);
-        arrBotones.add(btBuyBmwX6);
-        arrBotones.add(btBuyBullet);
-        arrBotones.add(btBuyCrossfire);
-        arrBotones.add(btBuyCitroenC4);
-        arrBotones.add(btBuyDodgeCharger);
-        arrBotones.add(btBuyFiat500Lounge);
-        arrBotones.add(btBuyHondaCRV);
-        arrBotones.add(btBuyMazda6);
-        arrBotones.add(btBuyMazdaRX8);
-        arrBotones.add(btBuySeatIbiza);
-        arrBotones.add(btBuyVolkswagenScirocco);
+        arrayButtons.add(btBuyDiablo);
+        arrayButtons.add(btBuyBanshee);
+        arrayButtons.add(btBuyTornado);
+        arrayButtons.add(btBuyTurismo);
+        arrayButtons.add(btBuyAudiS5);
+        arrayButtons.add(btBuyBmwX6);
+        arrayButtons.add(btBuyBullet);
+        arrayButtons.add(btBuyCrossfire);
+        arrayButtons.add(btBuyCitroenC4);
+        arrayButtons.add(btBuyDodgeCharger);
+        arrayButtons.add(btBuyFiat500Lounge);
+        arrayButtons.add(btBuyHondaCRV);
+        arrayButtons.add(btBuyMazda6);
+        arrayButtons.add(btBuyMazdaRX8);
+        arrayButtons.add(btBuySeatIbiza);
+        arrayButtons.add(btBuyVolkswagenScirocco);
     }
 
     private void loadPurchases() {
@@ -796,15 +794,14 @@ public class PersonajesSubMenu {
     }
 
     private void setSelected(TextButton boton) {
-        // Pongo todos visibles y al final el boton seleccionado en invisible
-        Iterator<TextButton> i = arrBotones.iterator();
-        while (i.hasNext()) {
-            i.next().setVisible(true);
+        // I make all visible and at the end the selected button invisible
+        for (TextButton button : arrayButtons) {
+            button.setVisible(true);
         }
         boton.setVisible(false);
     }
 
-    protected void addEfectoPress(final Actor actor) {
+    protected void addPressEffect(final Actor actor) {
         actor.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,

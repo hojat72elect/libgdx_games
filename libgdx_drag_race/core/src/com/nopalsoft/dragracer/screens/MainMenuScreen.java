@@ -28,7 +28,7 @@ public class MainMenuScreen extends Screens {
     public MainMenuScreen(final MainStreet game) {
         super(game);
 
-        titleImage = new Image(Assets.titulo);
+        titleImage = new Image(Assets.titleDrawable);
         titleImage.setPosition(SCREEN_WIDTH / 2f - titleImage.getWidth() / 2f, 520);
         titleImage.getColor().a = 0;
         titleImage.addAction(Actions.sequence(Actions.fadeIn(.5f),
@@ -44,7 +44,7 @@ public class MainMenuScreen extends Screens {
                     }
                 })));
 
-        labelPlay = new Label("Play", Assets.labelStyleGrande);
+        labelPlay = new Label("Play", Assets.labelStyleLarge);
         labelPlay.setPosition(500, 440);
         labelPlay.addListener(new ClickListener() {
             @Override
@@ -53,10 +53,10 @@ public class MainMenuScreen extends Screens {
             }
         });
 
-        labelRate = new Label("Rate", Assets.labelStyleGrande);
+        labelRate = new Label("Rate", Assets.labelStyleLarge);
         labelRate.setPosition(500, 340);
 
-        labelShopScreen = new Label("Shop screen", Assets.labelStyleGrande);
+        labelShopScreen = new Label("Shop screen", Assets.labelStyleLarge);
         labelShopScreen.setPosition(500, 240);
         labelShopScreen.addListener(new ClickListener() {
             @Override
@@ -65,10 +65,10 @@ public class MainMenuScreen extends Screens {
             }
         });
 
-        labelLeaderBoard = new Label("Leaderboard", Assets.labelStyleGrande);
+        labelLeaderBoard = new Label("Leaderboard", Assets.labelStyleLarge);
         labelLeaderBoard.setPosition(500, 140);
 
-        buttonMusic = new Button(Assets.styleButtonMusica);
+        buttonMusic = new Button(Assets.styleButtonMusic);
         buttonMusic.setPosition(5, 5);
         buttonMusic.setChecked(!Settings.isMusicOn);
         Gdx.app.log("Musica", Settings.isMusicOn + "");
@@ -106,7 +106,7 @@ public class MainMenuScreen extends Screens {
     @Override
     public void draw(float delta) {
         batch.begin();
-        batch.draw(Assets.calle, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 2);
+        batch.draw(Assets.street, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 2);
         batch.end();
     }
 

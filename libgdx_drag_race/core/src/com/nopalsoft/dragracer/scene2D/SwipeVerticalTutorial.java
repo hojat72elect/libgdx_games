@@ -12,7 +12,7 @@ public class SwipeVerticalTutorial {
     public SwipeVerticalTutorial(final Stage stage) {
 
         final Label labelSwipeToMove = new Label("Swipe for turbo!",
-                Assets.labelStyleGrande);
+                Assets.labelStyleLarge);
         labelSwipeToMove
                 .setPosition(
                         Screens.SCREEN_WIDTH / 2f - labelSwipeToMove.getWidth()

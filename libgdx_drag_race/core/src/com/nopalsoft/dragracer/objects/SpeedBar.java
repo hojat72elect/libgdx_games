@@ -25,10 +25,10 @@ public class SpeedBar extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
 
-        batch.draw(Assets.barraMarcadorRojo, this.getX(), this.getY(),
+        batch.draw(Assets.redMarkerBar, this.getX(), this.getY(),
                 this.getWidth(), this.getHeight());
         if (actualLife > 0)
-            batch.draw(Assets.barraMarcadorVerde, this.getX(), this.getY(),
+            batch.draw(Assets.greenMarkerBar, this.getX(), this.getY(),
                     this.getWidth() * (actualLife / maxLife), this.getHeight());
     }
 }

@@ -22,12 +22,12 @@ public class MarcoGameOver extends Group {
         setSize(420, 350);
         setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 900);
         addAction(Actions.moveTo(getX(), 390, 1, Interpolation.bounceOut));
-        Image background = new Image(Assets.fondoPuntuaciones);
+        Image background = new Image(Assets.scoresBackgroundDrawable);
         background.setSize(getWidth(), getHeight());
         addActor(background);
 
         Label lblScore = new Label("Distance\n" + distance + "m",
-                Assets.labelStyleGrande);
+                Assets.labelStyleLarge);
         lblScore.setAlignment(Align.center);
         lblScore.setFontScale(1.3f);
         lblScore.setPosition(getWidth() / 2f - lblScore.getWidth() / 2f, 210);
@@ -39,20 +39,20 @@ public class MarcoGameOver extends Group {
         bestScoreTable.padLeft(15).padRight(15);
         // bestScoreTable.debug();
 
-        Label lblBestScore = new Label("Best distance", Assets.labelStyleGrande);
+        Label lblBestScore = new Label("Best distance", Assets.labelStyleLarge);
         lblBestScore.setAlignment(Align.left);
         lblBestScore.setFontScale(.75f);
 
         Label lblNumBestScore = new Label(Settings.bestScore + "m",
-                Assets.labelStyleGrande);
+                Assets.labelStyleLarge);
         lblNumBestScore.setAlignment(Align.right);
         lblNumBestScore.setFontScale(.75f);
 
-        Label lblCoins = new Label("Coins", Assets.labelStyleGrande);
+        Label lblCoins = new Label("Coins", Assets.labelStyleLarge);
         lblCoins.setAlignment(Align.left);
         lblCoins.setFontScale(.75f);
 
-        Label lblNumBestCoins = new Label(coins + "", Assets.labelStyleGrande);
+        Label lblNumBestCoins = new Label(coins + "", Assets.labelStyleLarge);
         lblNumBestCoins.setAlignment(Align.right);
         lblNumBestCoins.setFontScale(.75f);
 
@@ -66,14 +66,14 @@ public class MarcoGameOver extends Group {
         // Facebook Twitter
         Button btShareFacebook, btShareTwitter;
 
-        btShareTwitter = new Button(new TextureRegionDrawable(Assets.btTwitter));
+        btShareTwitter = new Button(new TextureRegionDrawable(Assets.buttonTwitter));
         btShareTwitter.setSize(50, 50);
         btShareTwitter.setPosition(155, 20);
         screen.addPressEffect(btShareTwitter);
 
 
         btShareFacebook = new Button(new TextureRegionDrawable(
-                Assets.btFacebook));
+                Assets.buttonFacebook));
         btShareFacebook.setSize(50, 50);
         btShareFacebook.setPosition(225, 20);
         screen.addPressEffect(btShareFacebook);
