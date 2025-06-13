@@ -42,7 +42,7 @@ public abstract class Screens extends InputAdapter implements Screen,
     public Screens(final MainStreet game) {
         this.stage = game.stage;
         this.stage.clear();
-        this.batch = game.batcher;
+        this.batch = game.batch;
         this.game = game;
 
         camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);

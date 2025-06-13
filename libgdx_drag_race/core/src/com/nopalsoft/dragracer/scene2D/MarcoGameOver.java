@@ -26,18 +26,17 @@ public class MarcoGameOver extends Group {
         background.setSize(getWidth(), getHeight());
         addActor(background);
 
-        Label lblScore = new Label("Distance\n" + distance + "m",
+        Label labelScore = new Label("Distance\n" + distance + "m",
                 Assets.labelStyleLarge);
-        lblScore.setAlignment(Align.center);
-        lblScore.setFontScale(1.3f);
-        lblScore.setPosition(getWidth() / 2f - lblScore.getWidth() / 2f, 210);
-        addActor(lblScore);
+        labelScore.setAlignment(Align.center);
+        labelScore.setFontScale(1.3f);
+        labelScore.setPosition(getWidth() / 2f - labelScore.getWidth() / 2f, 210);
+        addActor(labelScore);
 
         Table bestScoreTable = new Table();
         bestScoreTable.setSize(getWidth(), 110);
         bestScoreTable.setY(80);
         bestScoreTable.padLeft(15).padRight(15);
-        // bestScoreTable.debug();
 
         Label lblBestScore = new Label("Best distance", Assets.labelStyleLarge);
         lblBestScore.setAlignment(Align.left);

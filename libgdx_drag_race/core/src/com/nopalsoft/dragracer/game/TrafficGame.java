@@ -40,8 +40,8 @@ public class TrafficGame extends Table {
 
     private final InfiniteScrollBackground backgroundRoad;
     public PlayerCar oCar;
-    private final Array<EnemyCar> arrEnemyCars;
-    private final Array<Coin> arrCoins;
+    private final Array<EnemyCar> arrayEnemyCars;
+    private final Array<Coin> arrayCoins;
 
     public final float lane2 = 390;
     public final float lane1 = 240;
@@ -55,8 +55,8 @@ public class TrafficGame extends Table {
 
         oCar = new PlayerCar(this);
         addActor(oCar);
-        arrEnemyCars = new Array<>();
-        arrCoins = new Array<>();
+        arrayEnemyCars = new Array<>();
+        arrayCoins = new Array<>();
 
         state = STATE_RUNNING;
     }
@@ -95,7 +95,7 @@ public class TrafficGame extends Table {
             spawnCar();
         }
 
-        Iterator<EnemyCar> iterator = arrEnemyCars.iterator();
+        Iterator<EnemyCar> iterator = arrayEnemyCars.iterator();
         while (iterator.hasNext()) {
             EnemyCar enemyCar = iterator.next();
             if (enemyCar.getBounds().y + enemyCar.getHeight() <= 0) {
@@ -109,7 +109,7 @@ public class TrafficGame extends Table {
         }
 
         // Then I check the collisions with the player
-        iterator = arrEnemyCars.iterator();
+        iterator = arrayEnemyCars.iterator();
         while (iterator.hasNext()) {
             EnemyCar enemyCar = iterator.next();
             if (enemyCar.getBounds().overlaps(oCar.getBounds())) {
@@ -139,7 +139,7 @@ public class TrafficGame extends Table {
             spawnCoin();
         }
 
-        Iterator<Coin> iterator = arrCoins.iterator();
+        Iterator<Coin> iterator = arrayCoins.iterator();
         while (iterator.hasNext()) {
             Coin obj = iterator.next();
             if (obj.getBounds().y + obj.getHeight() <= 0) {
@@ -157,8 +157,8 @@ public class TrafficGame extends Table {
             }
 
             // I see if it's touching an enemy
-            for (EnemyCar objEnemy : arrEnemyCars) {
-                if (obj.getBounds().overlaps(objEnemy.getBounds())) {
+            for (EnemyCar enemyCar : arrayEnemyCars) {
+                if (obj.getBounds().overlaps(enemyCar.getBounds())) {
                     iterator.remove();
                     removeActor(obj);
                     break;
@@ -195,7 +195,7 @@ public class TrafficGame extends Table {
         if (lane == 2)
             x = lane2;
         EnemyCar enemyCar = new EnemyCar(x, getHeight());
-        arrEnemyCars.add(enemyCar);
+        arrayEnemyCars.add(enemyCar);
         addActor(enemyCar);
     }
 
@@ -209,7 +209,7 @@ public class TrafficGame extends Table {
         if (lane == 2)
             x = lane2;
         Coin obj = new Coin(x, getHeight());
-        arrCoins.add(obj);
+        arrayCoins.add(obj);
         addActor(obj);
     }
 }

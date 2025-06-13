@@ -44,7 +44,7 @@ public class EnemyCar extends Actor {
                 width = keyframe.getRegionWidth();
                 height = keyframe.getRegionHeight();
                 break;
-            case PlayerSubMenu.SKIN_TORNADO_CAR:
+            case PlayerSubMenu.SKIN_TORNADO:
                 keyframe = Assets.carTornado;
                 width = keyframe.getRegionWidth();
                 height = keyframe.getRegionHeight();
@@ -59,57 +59,57 @@ public class EnemyCar extends Actor {
                 width = keyframe.getRegionWidth();
                 height = keyframe.getRegionHeight();
                 break;
-            case PlayerSubMenu.SKIN_CARRO_BMW_X6:
+            case PlayerSubMenu.SKIN_BMW_X6:
                 keyframe = Assets.carBmwX6;
                 width = keyframe.getRegionWidth();
                 height = keyframe.getRegionHeight();
                 break;
-            case PlayerSubMenu.SKIN_BULLET_CAR:
-                keyframe = Assets.carBullet;
+            case PlayerSubMenu.SKIN_CAMARO:
+                keyframe = Assets.carCamaro;
                 width = keyframe.getRegionWidth();
                 height = keyframe.getRegionHeight();
                 break;
-            case PlayerSubMenu.SKIN_CARRO_CHEVRLOTE_CROSSFIRE:
+            case PlayerSubMenu.SKIN_CHEVROLET_CROSSFIRE:
                 keyframe = Assets.carChevroletCrossfire;
                 width = keyframe.getRegionWidth();
                 height = keyframe.getRegionHeight();
                 break;
-            case PlayerSubMenu.SKIN_CARRO_CITROEN_C4:
+            case PlayerSubMenu.SKIN_CITROEN_C4:
                 keyframe = Assets.carCitroenC4;
                 width = keyframe.getRegionWidth();
                 height = keyframe.getRegionHeight();
                 break;
-            case PlayerSubMenu.SKIN_CARRO_DODGE_CHARGER:
+            case PlayerSubMenu.SKIN_DODGE_CHARGER:
                 keyframe = Assets.carDodgeCharger;
                 width = keyframe.getRegionWidth();
                 height = keyframe.getRegionHeight();
                 break;
-            case PlayerSubMenu.SKIN_CARRO_FIAT_500_LOUNGE:
+            case PlayerSubMenu.SKIN_FIAT_500_LOUNGE:
                 keyframe = Assets.carFiat500Lounge;
                 width = keyframe.getRegionWidth();
                 height = keyframe.getRegionHeight();
                 break;
-            case PlayerSubMenu.SKIN_CARRO_HONDA_CRV:
+            case PlayerSubMenu.SKIN_HONDA_CRV:
                 keyframe = Assets.carHondaCRV;
                 width = keyframe.getRegionWidth();
                 height = keyframe.getRegionHeight();
                 break;
-            case PlayerSubMenu.SKIN_CARRO_MAZDA_6:
+            case PlayerSubMenu.SKIN_MAZDA_6:
                 keyframe = Assets.carMazda6;
                 width = keyframe.getRegionWidth();
                 height = keyframe.getRegionHeight();
                 break;
-            case PlayerSubMenu.SKIN_CARRO_MAZDA_RX8:
+            case PlayerSubMenu.SKIN_MAZDA_RX8:
                 keyframe = Assets.carMazdaRx8;
                 width = keyframe.getRegionWidth();
                 height = keyframe.getRegionHeight();
                 break;
-            case PlayerSubMenu.SKIN_CARRO_SEAT_IBIZA:
+            case PlayerSubMenu.SKIN_SEAT_IBIZA:
                 keyframe = Assets.carSeatIbiza;
                 width = keyframe.getRegionWidth();
                 height = keyframe.getRegionHeight();
                 break;
-            case PlayerSubMenu.SKIN_CARRO_VOLKSWAGEN_SCIROCCO:
+            case PlayerSubMenu.SKIN_VOLKSWAGEN_SCIROCCO:
             default:
                 keyframe = Assets.carVolkswagenScirocco;
                 width = keyframe.getRegionWidth();

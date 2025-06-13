@@ -18,43 +18,43 @@ import com.nopalsoft.dragracer.Settings;
 
 public class PlayerSubMenu {
 
+    // cars
     public static final int SKIN_DEVIL = 0;
     public static final int SKIN_BANSHEE = 1;
     public static final int SKIN_TURISMO = 3;
-    public static final int SKIN_BULLET_CAR = 6;
-    public static final int SKIN_TORNADO_CAR = 2;
-
+    public static final int SKIN_CAMARO = 6;
+    public static final int SKIN_TORNADO = 2;
     public static final int SKIN_AUDI_S5 = 4;
-    public static final int SKIN_CARRO_BMW_X6 = 5;
-    public static final int SKIN_CARRO_CHEVRLOTE_CROSSFIRE = 7;
-    public static final int SKIN_CARRO_CITROEN_C4 = 8;
-    public static final int SKIN_CARRO_DODGE_CHARGER = 9;
-    public static final int SKIN_CARRO_FIAT_500_LOUNGE = 10;
-    public static final int SKIN_CARRO_HONDA_CRV = 11;
-    public static final int SKIN_CARRO_MAZDA_6 = 12;
-    public static final int SKIN_CARRO_MAZDA_RX8 = 13;
-    public static final int SKIN_CARRO_SEAT_IBIZA = 14;
-    public static final int SKIN_CARRO_VOLKSWAGEN_SCIROCCO = 15;
+    public static final int SKIN_BMW_X6 = 5;
+    public static final int SKIN_CHEVROLET_CROSSFIRE = 7;
+    public static final int SKIN_CITROEN_C4 = 8;
+    public static final int SKIN_DODGE_CHARGER = 9;
+    public static final int SKIN_FIAT_500_LOUNGE = 10;
+    public static final int SKIN_HONDA_CRV = 11;
+    public static final int SKIN_MAZDA_6 = 12;
+    public static final int SKIN_MAZDA_RX8 = 13;
+    public static final int SKIN_SEAT_IBIZA = 14;
+    public static final int SKIN_VOLKSWAGEN_SCIROCCO = 15;
 
-    final int PRECIO_BANSHEE = 50;
-    final int PRECIO_BULLET = 175;
-    final int PRECIO_TURISMO = 100;
-    final int PRECIO_TORNADO = 75;
-
-    final int PRECIO_CARRO_AUDI_S5 = 125;
-    final int PRECIO_CARRO_BMW_X6 = 150;
-    final int PRECIO_CARRO_CHEVRLOTE_CROSSFIRE = 200;
-    final int PRECIO_CARRO_CITROEN_C4 = 225;
-    final int PRECIO_CARRO_DODGE_CHARGER = 250;
-    final int PRECIO_CARRO_FIAT_500_LOUNGE = 275;
-    final int PRECIO_CARRO_HONDA_CRV = 300;
-    final int PRECIO_CARRO_MAZDA_6 = 325;
-    final int PRECIO_CARRO_MAZDA_RX8 = 350;
-    final int PRECIO_CARRO_SEAT_IBIZA = 375;
-    final int PRECIO_CARRO_VOLKSWAGEN_SCIROCCO = 400;
+    // car prices
+    final int PRICE_BANSHEE = 50;
+    final int PRICE_CAMARO = 175;
+    final int PRICE_TURISMO = 100;
+    final int PRICE_TORNADO = 75;
+    final int PRICE_AUDI_S5 = 125;
+    final int PRICE_BMW_X6 = 150;
+    final int PRICE_CHEVROLET_CROSSFIRE = 200;
+    final int PRICE_CITROEN_C4 = 225;
+    final int PRICE_DODGE_CHARGER = 250;
+    final int PRICE_FIAT_500_LOUNGE = 275;
+    final int PRICE_HONDA_CRV = 300;
+    final int PRICE_MAZDA_6 = 325;
+    final int PRICE_MAZDA_RX8 = 350;
+    final int PRICE_SEAT_IBIZA = 375;
+    final int PRICE_VOLKSWAGEN_SCIROCCO = 400;
 
     boolean didBuyBanshee, didBuyTornado, didBuyTurismo, didBuyAudiS5,
-            didBuyBmwX6, didBuyBullet, didBuyCrossfire, didBuyCitroenC4,
+            didBuyBmwX6, didBuyCamaro, didBuyCrossfire, didBuyCitroenC4,
             didBuyDodgeCharger, didBuyFiat500, didBuyHondaCRV, didBuyMazda6,
             didBuyMazdaRX8, didBuySeatIbiza, didBuyVolkswagenScirocco;
 
@@ -65,7 +65,7 @@ public class PlayerSubMenu {
             btBuyVolkswagenScirocco;
     Array<TextButton> arrayButtons;
 
-    Table contenedor;
+    Table containerTable;
     MainStreet game;
 
     private final static Preferences pref = Gdx.app
@@ -73,85 +73,85 @@ public class PlayerSubMenu {
 
     public PlayerSubMenu(MainStreet game, Table containerTable) {
         this.game = game;
-        this.contenedor = containerTable;
+        this.containerTable = containerTable;
         loadPurchases();
 
         containerTable.clear();
 
-        Label lblPrecioBanshee = null;
-        Label lblPrecioTornado = null;
-        Label lblPrecioTurismo = null;
-        Label lblPrecioAudiS5 = null;
-        Label lblPrecioBmwX6 = null;
-        Label lblPrecioCamaro = null;
-        Label lblPrecioCrossfire = null;
-        Label lblPrecioCitroenC4 = null;
-        Label lblPrecioDodgeCharger = null;
-        Label lblPrecioFiat500Lounge = null;
-        Label lblPrecioHondeCRV = null;
-        Label lblPrecioMazda6 = null;
-        Label lblPrecioMazdaRX8 = null;
-        Label lblPrecioSeatIbiza = null;
-        Label lblPrecioVOlkswagenScirocco = null;
+        Label labelPriceBanshee = null;
+        Label labelPriceTornado = null;
+        Label labelPriceTurismo = null;
+        Label labelPriceAudiS5 = null;
+        Label labelPriceBmwX6 = null;
+        Label labelPriceCamaro = null;
+        Label labelPriceCrossfire = null;
+        Label labelPriceCitroenC4 = null;
+        Label labelPriceDodgeCharger = null;
+        Label labelPriceFiat500Lounge = null;
+        Label labelPriceHondaCRV = null;
+        Label labelPriceMazda6 = null;
+        Label labelPriceMazdaRX8 = null;
+        Label labelPriceSeatIbiza = null;
+        Label labelPriceVolkswagenScirocco = null;
 
         if (!didBuyBanshee)
-            lblPrecioBanshee = new Label(PRECIO_BANSHEE + "",
+            labelPriceBanshee = new Label(PRICE_BANSHEE + "",
                     Assets.labelStyleSmall);
         if (!didBuyTornado)
-            lblPrecioTornado = new Label(PRECIO_TORNADO + "",
+            labelPriceTornado = new Label(PRICE_TORNADO + "",
                     Assets.labelStyleSmall);
 
         if (!didBuyTurismo)
-            lblPrecioTurismo = new Label(PRECIO_TURISMO + "",
+            labelPriceTurismo = new Label(PRICE_TURISMO + "",
                     Assets.labelStyleSmall);
 
         if (!didBuyAudiS5)
-            lblPrecioAudiS5 = new Label(PRECIO_CARRO_AUDI_S5 + "",
+            labelPriceAudiS5 = new Label(PRICE_AUDI_S5 + "",
                     Assets.labelStyleSmall);
 
         if (!didBuyBmwX6)
-            lblPrecioBmwX6 = new Label(PRECIO_CARRO_BMW_X6 + "",
+            labelPriceBmwX6 = new Label(PRICE_BMW_X6 + "",
                     Assets.labelStyleSmall);
 
-        if (!didBuyBullet)
-            lblPrecioCamaro = new Label(PRECIO_BULLET + "",
+        if (!didBuyCamaro)
+            labelPriceCamaro = new Label(PRICE_CAMARO + "",
                     Assets.labelStyleSmall);
 
         if (!didBuyCrossfire)
-            lblPrecioCrossfire = new Label(PRECIO_CARRO_CHEVRLOTE_CROSSFIRE
+            labelPriceCrossfire = new Label(PRICE_CHEVROLET_CROSSFIRE
                     + "", Assets.labelStyleSmall);
 
         if (!didBuyCitroenC4)
-            lblPrecioCitroenC4 = new Label(PRECIO_CARRO_CITROEN_C4 + "",
+            labelPriceCitroenC4 = new Label(PRICE_CITROEN_C4 + "",
                     Assets.labelStyleSmall);
 
         if (!didBuyDodgeCharger)
-            lblPrecioDodgeCharger = new Label(PRECIO_CARRO_DODGE_CHARGER + "",
+            labelPriceDodgeCharger = new Label(PRICE_DODGE_CHARGER + "",
                     Assets.labelStyleSmall);
 
         if (!didBuyFiat500)
-            lblPrecioFiat500Lounge = new Label(PRECIO_CARRO_FIAT_500_LOUNGE
+            labelPriceFiat500Lounge = new Label(PRICE_FIAT_500_LOUNGE
                     + "", Assets.labelStyleSmall);
 
         if (!didBuyHondaCRV)
-            lblPrecioHondeCRV = new Label(PRECIO_CARRO_HONDA_CRV + "",
+            labelPriceHondaCRV = new Label(PRICE_HONDA_CRV + "",
                     Assets.labelStyleSmall);
 
         if (!didBuyMazda6)
-            lblPrecioMazda6 = new Label(PRECIO_CARRO_MAZDA_6 + "",
+            labelPriceMazda6 = new Label(PRICE_MAZDA_6 + "",
                     Assets.labelStyleSmall);
 
         if (!didBuyMazdaRX8)
-            lblPrecioMazdaRX8 = new Label(PRECIO_CARRO_MAZDA_RX8 + "",
+            labelPriceMazdaRX8 = new Label(PRICE_MAZDA_RX8 + "",
                     Assets.labelStyleSmall);
 
         if (!didBuySeatIbiza)
-            lblPrecioSeatIbiza = new Label(PRECIO_CARRO_SEAT_IBIZA + "",
+            labelPriceSeatIbiza = new Label(PRICE_SEAT_IBIZA + "",
                     Assets.labelStyleSmall);
 
         if (!didBuyVolkswagenScirocco)
-            lblPrecioVOlkswagenScirocco = new Label(
-                    PRECIO_CARRO_VOLKSWAGEN_SCIROCCO + "",
+            labelPriceVolkswagenScirocco = new Label(
+                    PRICE_VOLKSWAGEN_SCIROCCO + "",
                     Assets.labelStyleSmall);
 
         initializeButtons();
@@ -160,9 +160,8 @@ public class PlayerSubMenu {
                 .height(5);
         containerTable.row();
 
-        // Usar Default
         containerTable
-                .add(agregarPersonajeTabla(
+                .add(addPlayerTable(
                         "Diablo",
                         null,
                         Assets.carDiablo,
@@ -170,156 +169,140 @@ public class PlayerSubMenu {
                         btBuyDiablo)).expandX().fill();
         containerTable.row();
 
-        // SKIN_CARRO_BANSHEE
         containerTable
-                .add(agregarPersonajeTabla(
+                .add(addPlayerTable(
                         "Banshee",
-                        lblPrecioBanshee,
+                        labelPriceBanshee,
                         Assets.carBanshee,
-                        "Looks great and drives even better. Awesome acceleration and slight oversteer make this a thrilling ride.",
+                        "Looks great and drives even better. Awesome acceleration and slight over-steer make this a thrilling ride.",
                         btBuyBanshee)).expandX().fill();
         containerTable.row();
 
-        // SKIN_CARRO_TORNADO
         containerTable
-                .add(agregarPersonajeTabla(
+                .add(addPlayerTable(
                         "Tornado",
-                        lblPrecioTornado,
+                        labelPriceTornado,
                         Assets.carTornado,
                         "Pretty speedy. Nothing too hot about this car, it looks ok and is ok to drive.",
                         btBuyTornado)).expandX().fill();
         containerTable.row();
 
-        // SKIN_CARRO_TURISMO
         containerTable
-                .add(agregarPersonajeTabla(
+                .add(addPlayerTable(
                         "Turismo",
-                        lblPrecioTurismo,
+                        labelPriceTurismo,
                         Assets.carTurismo,
                         "If you can get this rare sport car, you'll be rewarded with a superbly fast drive. If you get it, take care of it.",
                         btBuyTurismo)).expandX().fill();
         containerTable.row();
 
-        // SKIN_CARRO_AUDI_S5
         containerTable
-                .add(agregarPersonajeTabla("Ventura", lblPrecioAudiS5,
+                .add(addPlayerTable("Ventura", labelPriceAudiS5,
                         Assets.carAudiS5, "No description", btBuyAudiS5))
                 .expandX().fill();
         containerTable.row();
 
-        // SKIN_CARRO_BMW_X6
         containerTable
-                .add(agregarPersonajeTabla("XMW", lblPrecioBmwX6, Assets.carBmwX6,
+                .add(addPlayerTable("XMW", labelPriceBmwX6, Assets.carBmwX6,
                         "No description", btBuyBmwX6)).expandX().fill();
         containerTable.row();
 
-        // PRECIO_BULLET
         containerTable
-                .add(agregarPersonajeTabla(
+                .add(addPlayerTable(
                         "Bullet",
-                        lblPrecioCamaro,
-                        Assets.carBullet,
+                        labelPriceCamaro,
+                        Assets.carCamaro,
                         "Probably the best sporty hatchback. It's quick and sticks to road really well. Acceleration is great too.",
                         btBuyBullet)).expandX().fill();
         containerTable.row();
 
-        // SKIN_CARRO_CHEVRLOTE_CROSSFIRE
         containerTable
-                .add(agregarPersonajeTabla("Crosstown", lblPrecioCrossfire,
+                .add(addPlayerTable("Crosstown", labelPriceCrossfire,
                         Assets.carChevroletCrossfire, "No description",
                         btBuyCrossfire)).expandX().fill();
         containerTable.row();
 
-        // SKIN_CARRO_CITROEN_C4
         containerTable
-                .add(agregarPersonajeTabla("Omega X", lblPrecioCitroenC4,
+                .add(addPlayerTable("Omega X", labelPriceCitroenC4,
                         Assets.carCitroenC4, "No description", btBuyCitroenC4))
                 .expandX().fill();
         containerTable.row();
 
-        // SKIN_CARRO_DODGE_CHARGER
         containerTable
-                .add(agregarPersonajeTabla("Vulcano", lblPrecioDodgeCharger,
+                .add(addPlayerTable("Vulcano", labelPriceDodgeCharger,
                         Assets.carDodgeCharger, "No description",
                         btBuyDodgeCharger)).expandX().fill();
         containerTable.row();
 
-        // SKIN_CARRO_FIAT_500_LOUNGE
         containerTable
-                .add(agregarPersonajeTabla("Fiesta", lblPrecioFiat500Lounge,
+                .add(addPlayerTable("Fiesta", labelPriceFiat500Lounge,
                         Assets.carFiat500Lounge, "No description",
                         btBuyFiat500Lounge)).expandX().fill();
         containerTable.row();
 
-        // SKIN_CARRO_HONDA_CRV
         containerTable
-                .add(agregarPersonajeTabla("Comander", lblPrecioHondeCRV,
+                .add(addPlayerTable("Comander", labelPriceHondaCRV,
                         Assets.carHondaCRV, "No description", btBuyHondaCRV))
                 .expandX().fill();
         containerTable.row();
 
-        // SKIN_CARRO_MAZDA_6
         containerTable
-                .add(agregarPersonajeTabla("Orion", lblPrecioMazda6,
+                .add(addPlayerTable("Orion", labelPriceMazda6,
                         Assets.carMazda6, "No description", btBuyMazda6))
                 .expandX().fill();
         containerTable.row();
 
-        // SKIN_CARRO_MAZDA_RX8
         containerTable
-                .add(agregarPersonajeTabla("Colorado", lblPrecioMazdaRX8,
+                .add(addPlayerTable("Colorado", labelPriceMazdaRX8,
                         Assets.carMazdaRx8, "No description", btBuyMazdaRX8))
                 .expandX().fill();
         containerTable.row();
 
-        // SKIN_CARRO_SEAT_IBIZA
         containerTable
-                .add(agregarPersonajeTabla("Formosa", lblPrecioSeatIbiza,
+                .add(addPlayerTable("Formosa", labelPriceSeatIbiza,
                         Assets.carSeatIbiza, "No description", btBuySeatIbiza))
                 .expandX().fill();
         containerTable.row();
 
-        // SKIN_CARRO_VOLKSWAGEN_SCIROCCO
         containerTable
-                .add(agregarPersonajeTabla("SHU", lblPrecioVOlkswagenScirocco,
+                .add(addPlayerTable("SHU", labelPriceVolkswagenScirocco,
                         Assets.carVolkswagenScirocco, "No description",
                         btBuyVolkswagenScirocco)).expandX().fill();
         containerTable.row();
     }
 
-    private Table agregarPersonajeTabla(String titulo, Label lblPrecio,
-                                        AtlasRegion imagen, String descripcion, TextButton boton) {
+    private Table addPlayerTable(String title, Label priceLabel,
+                                 AtlasRegion image, String description, TextButton button) {
 
-        Image moneda = new Image(Assets.coinFront);
-        Image imgPersonaje = new Image(imagen);
+        Image coinImage = new Image(Assets.coinFront);
+        Image playerImage = new Image(image);
 
-        if (lblPrecio == null)
-            moneda.setVisible(false);
+        if (priceLabel == null)
+            coinImage.setVisible(false);
 
-        Table tbBarraTitulo = new Table();
-        tbBarraTitulo.add(new Label(titulo, Assets.labelStyleSmall)).expandX()
+        Table titleBarTable = new Table();
+        titleBarTable.add(new Label(title, Assets.labelStyleSmall)).expandX()
                 .left();
-        tbBarraTitulo.add(moneda).right();
-        tbBarraTitulo.add(lblPrecio).right().padRight(10);
+        titleBarTable.add(coinImage).right();
+        titleBarTable.add(priceLabel).right().padRight(10);
 
-        Table tbContent = new Table();
-        // tbContent.debug();
-        tbContent.add(tbBarraTitulo).expandX().fill().colspan(2).padTop(8);
-        tbContent.row();
-        tbContent.add(imgPersonaje).left().pad(10).size(40, 90);
+        Table tableContent = new Table();
+        tableContent.add(titleBarTable).expandX().fill().colspan(2).padTop(8);
+        tableContent.row();
+        tableContent.add(playerImage).left().pad(10).size(40, 90);
 
-        Label lblDescripcion = new Label(descripcion, Assets.labelStyleSmall);
-        lblDescripcion.setWrap(true);
-        lblDescripcion.setFontScale(.85f);
-        tbContent.add(lblDescripcion).expand().fill().padLeft(5);
+        Label labelDescription = new Label(description, Assets.labelStyleSmall);
+        labelDescription.setWrap(true);
+        labelDescription.setFontScale(.85f);
+        tableContent.add(labelDescription).expand().fill().padLeft(5);
 
-        tbContent.row().colspan(2);
-        tbContent.add(boton).expandX().right().padRight(10).size(120, 45);
-        tbContent.row().colspan(2);
-        tbContent.add(new Image(Assets.horizontalSeparatorDrawable)).expandX().fill()
+        tableContent.row().colspan(2);
+        tableContent.add(button).expandX().right().padRight(10).size(120, 45);
+        tableContent.row().colspan(2);
+        tableContent.add(new Image(Assets.horizontalSeparatorDrawable)).expandX().fill()
                 .height(5).padTop(15);
 
-        return tbContent;
+        return tableContent;
     }
 
     private void initializeButtons() {
@@ -339,7 +322,6 @@ public class PlayerSubMenu {
             }
         });
 
-        // SKIN_CARRO_BANSHEE
         if (didBuyBanshee)
             btBuyBanshee = new TextButton("Select",
                     Assets.styleTextButtonPurchased);
@@ -356,8 +338,8 @@ public class PlayerSubMenu {
                 if (didBuyBanshee) {
                     Settings.selectedSkin = SKIN_BANSHEE;
                     setSelected(btBuyBanshee);
-                } else if (Settings.coinsTotal >= PRECIO_BANSHEE) {
-                    Settings.coinsTotal -= PRECIO_BANSHEE;
+                } else if (Settings.coinsTotal >= PRICE_BANSHEE) {
+                    Settings.coinsTotal -= PRICE_BANSHEE;
                     setButtonStylePurchased(btBuyBanshee);
                     didBuyBanshee = true;
                 }
@@ -365,14 +347,13 @@ public class PlayerSubMenu {
             }
         });
 
-        // SKIN_CARRO_TORNADO
         if (didBuyTornado)
             btBuyTornado = new TextButton("Select",
                     Assets.styleTextButtonPurchased);
         else
             btBuyTornado = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.selectedSkin == SKIN_TORNADO_CAR)
+        if (Settings.selectedSkin == SKIN_TORNADO)
             btBuyTornado.setVisible(false);
 
         addPressEffect(btBuyTornado);
@@ -380,10 +361,10 @@ public class PlayerSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyTornado) {
-                    Settings.selectedSkin = SKIN_TORNADO_CAR;
+                    Settings.selectedSkin = SKIN_TORNADO;
                     setSelected(btBuyTornado);
-                } else if (Settings.coinsTotal >= PRECIO_TORNADO) {
-                    Settings.coinsTotal -= PRECIO_TORNADO;
+                } else if (Settings.coinsTotal >= PRICE_TORNADO) {
+                    Settings.coinsTotal -= PRICE_TORNADO;
                     setButtonStylePurchased(btBuyTornado);
                     didBuyTornado = true;
                 }
@@ -391,7 +372,6 @@ public class PlayerSubMenu {
             }
         });
 
-        // SKIN_CARRO_TURISMO
         if (didBuyTurismo)
             btBuyTurismo = new TextButton("Select",
                     Assets.styleTextButtonPurchased);
@@ -408,8 +388,8 @@ public class PlayerSubMenu {
                 if (didBuyTurismo) {
                     Settings.selectedSkin = SKIN_TURISMO;
                     setSelected(btBuyTurismo);
-                } else if (Settings.coinsTotal >= PRECIO_TURISMO) {
-                    Settings.coinsTotal -= PRECIO_TURISMO;
+                } else if (Settings.coinsTotal >= PRICE_TURISMO) {
+                    Settings.coinsTotal -= PRICE_TURISMO;
                     setButtonStylePurchased(btBuyTurismo);
                     didBuyTurismo = true;
                 }
@@ -417,7 +397,6 @@ public class PlayerSubMenu {
             }
         });
 
-        // SKIN_CARRO_AUDI_S5
         if (didBuyAudiS5)
             btBuyAudiS5 = new TextButton("Select",
                     Assets.styleTextButtonPurchased);
@@ -434,8 +413,8 @@ public class PlayerSubMenu {
                 if (didBuyAudiS5) {
                     Settings.selectedSkin = SKIN_AUDI_S5;
                     setSelected(btBuyAudiS5);
-                } else if (Settings.coinsTotal >= PRECIO_CARRO_AUDI_S5) {
-                    Settings.coinsTotal -= PRECIO_CARRO_AUDI_S5;
+                } else if (Settings.coinsTotal >= PRICE_AUDI_S5) {
+                    Settings.coinsTotal -= PRICE_AUDI_S5;
                     setButtonStylePurchased(btBuyAudiS5);
                     didBuyAudiS5 = true;
                 }
@@ -443,14 +422,13 @@ public class PlayerSubMenu {
             }
         });
 
-        // SKIN_CARRO_BMW_X6
         if (didBuyBmwX6)
             btBuyBmwX6 = new TextButton("Select",
                     Assets.styleTextButtonPurchased);
         else
             btBuyBmwX6 = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.selectedSkin == SKIN_CARRO_BMW_X6)
+        if (Settings.selectedSkin == SKIN_BMW_X6)
             btBuyBmwX6.setVisible(false);
 
         addPressEffect(btBuyBmwX6);
@@ -458,10 +436,10 @@ public class PlayerSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyBmwX6) {
-                    Settings.selectedSkin = SKIN_CARRO_BMW_X6;
+                    Settings.selectedSkin = SKIN_BMW_X6;
                     setSelected(btBuyBmwX6);
-                } else if (Settings.coinsTotal >= PRECIO_CARRO_BMW_X6) {
-                    Settings.coinsTotal -= PRECIO_CARRO_BMW_X6;
+                } else if (Settings.coinsTotal >= PRICE_BMW_X6) {
+                    Settings.coinsTotal -= PRICE_BMW_X6;
                     setButtonStylePurchased(btBuyBmwX6);
                     didBuyBmwX6 = true;
                 }
@@ -469,40 +447,38 @@ public class PlayerSubMenu {
             }
         });
 
-        // SKIN_CARRO_BULLET
-        if (didBuyBullet)
+        if (didBuyCamaro)
             btBuyBullet = new TextButton("Select",
                     Assets.styleTextButtonPurchased);
         else
             btBuyBullet = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.selectedSkin == SKIN_BULLET_CAR)
+        if (Settings.selectedSkin == SKIN_CAMARO)
             btBuyBullet.setVisible(false);
 
         addPressEffect(btBuyBullet);
         btBuyBullet.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (didBuyBullet) {
-                    Settings.selectedSkin = SKIN_BULLET_CAR;
+                if (didBuyCamaro) {
+                    Settings.selectedSkin = SKIN_CAMARO;
                     setSelected(btBuyBullet);
-                } else if (Settings.coinsTotal >= PRECIO_BULLET) {
-                    Settings.coinsTotal -= PRECIO_BULLET;
+                } else if (Settings.coinsTotal >= PRICE_CAMARO) {
+                    Settings.coinsTotal -= PRICE_CAMARO;
                     setButtonStylePurchased(btBuyBullet);
-                    didBuyBullet = true;
+                    didBuyCamaro = true;
                 }
                 savePurchases();
             }
         });
 
-        // SKIN_CARRO_CHEVRLOTE_CROSSFIRE
         if (didBuyCrossfire)
             btBuyCrossfire = new TextButton("Select",
                     Assets.styleTextButtonPurchased);
         else
             btBuyCrossfire = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.selectedSkin == SKIN_CARRO_CHEVRLOTE_CROSSFIRE)
+        if (Settings.selectedSkin == SKIN_CHEVROLET_CROSSFIRE)
             btBuyCrossfire.setVisible(false);
 
         addPressEffect(btBuyCrossfire);
@@ -510,10 +486,10 @@ public class PlayerSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyCrossfire) {
-                    Settings.selectedSkin = SKIN_CARRO_CHEVRLOTE_CROSSFIRE;
+                    Settings.selectedSkin = SKIN_CHEVROLET_CROSSFIRE;
                     setSelected(btBuyCrossfire);
-                } else if (Settings.coinsTotal >= PRECIO_CARRO_CHEVRLOTE_CROSSFIRE) {
-                    Settings.coinsTotal -= PRECIO_CARRO_CHEVRLOTE_CROSSFIRE;
+                } else if (Settings.coinsTotal >= PRICE_CHEVROLET_CROSSFIRE) {
+                    Settings.coinsTotal -= PRICE_CHEVROLET_CROSSFIRE;
                     setButtonStylePurchased(btBuyCrossfire);
                     didBuyCrossfire = true;
                 }
@@ -521,14 +497,13 @@ public class PlayerSubMenu {
             }
         });
 
-        // SKIN_CARRO_CITROEN_C4
         if (didBuyCitroenC4)
             btBuyCitroenC4 = new TextButton("Select",
                     Assets.styleTextButtonPurchased);
         else
             btBuyCitroenC4 = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.selectedSkin == SKIN_CARRO_CITROEN_C4)
+        if (Settings.selectedSkin == SKIN_CITROEN_C4)
             btBuyCitroenC4.setVisible(false);
 
         addPressEffect(btBuyCitroenC4);
@@ -536,10 +511,10 @@ public class PlayerSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyCitroenC4) {
-                    Settings.selectedSkin = SKIN_CARRO_CITROEN_C4;
+                    Settings.selectedSkin = SKIN_CITROEN_C4;
                     setSelected(btBuyCitroenC4);
-                } else if (Settings.coinsTotal >= PRECIO_CARRO_CITROEN_C4) {
-                    Settings.coinsTotal -= PRECIO_CARRO_CITROEN_C4;
+                } else if (Settings.coinsTotal >= PRICE_CITROEN_C4) {
+                    Settings.coinsTotal -= PRICE_CITROEN_C4;
                     setButtonStylePurchased(btBuyCitroenC4);
                     didBuyCitroenC4 = true;
                 }
@@ -547,14 +522,13 @@ public class PlayerSubMenu {
             }
         });
 
-        // SKIN_CARRO_DODGE_CHARGER
         if (didBuyDodgeCharger)
             btBuyDodgeCharger = new TextButton("Select",
                     Assets.styleTextButtonPurchased);
         else
             btBuyDodgeCharger = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.selectedSkin == SKIN_CARRO_DODGE_CHARGER)
+        if (Settings.selectedSkin == SKIN_DODGE_CHARGER)
             btBuyDodgeCharger.setVisible(false);
 
         addPressEffect(btBuyDodgeCharger);
@@ -562,10 +536,10 @@ public class PlayerSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyDodgeCharger) {
-                    Settings.selectedSkin = SKIN_CARRO_DODGE_CHARGER;
+                    Settings.selectedSkin = SKIN_DODGE_CHARGER;
                     setSelected(btBuyDodgeCharger);
-                } else if (Settings.coinsTotal >= PRECIO_CARRO_DODGE_CHARGER) {
-                    Settings.coinsTotal -= PRECIO_CARRO_DODGE_CHARGER;
+                } else if (Settings.coinsTotal >= PRICE_DODGE_CHARGER) {
+                    Settings.coinsTotal -= PRICE_DODGE_CHARGER;
                     setButtonStylePurchased(btBuyDodgeCharger);
                     didBuyDodgeCharger = true;
                 }
@@ -573,7 +547,6 @@ public class PlayerSubMenu {
             }
         });
 
-        // SKIN_CARRO_FIAT_500_LOUNGE
         if (didBuyFiat500)
             btBuyFiat500Lounge = new TextButton("Select",
                     Assets.styleTextButtonPurchased);
@@ -581,7 +554,7 @@ public class PlayerSubMenu {
             btBuyFiat500Lounge = new TextButton("Buy",
                     Assets.styleTextButtonBuy);
 
-        if (Settings.selectedSkin == SKIN_CARRO_FIAT_500_LOUNGE)
+        if (Settings.selectedSkin == SKIN_FIAT_500_LOUNGE)
             btBuyFiat500Lounge.setVisible(false);
 
         addPressEffect(btBuyFiat500Lounge);
@@ -589,10 +562,10 @@ public class PlayerSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyFiat500) {
-                    Settings.selectedSkin = SKIN_CARRO_FIAT_500_LOUNGE;
+                    Settings.selectedSkin = SKIN_FIAT_500_LOUNGE;
                     setSelected(btBuyFiat500Lounge);
-                } else if (Settings.coinsTotal >= PRECIO_CARRO_FIAT_500_LOUNGE) {
-                    Settings.coinsTotal -= PRECIO_CARRO_FIAT_500_LOUNGE;
+                } else if (Settings.coinsTotal >= PRICE_FIAT_500_LOUNGE) {
+                    Settings.coinsTotal -= PRICE_FIAT_500_LOUNGE;
                     setButtonStylePurchased(btBuyFiat500Lounge);
                     didBuyFiat500 = true;
                 }
@@ -600,14 +573,13 @@ public class PlayerSubMenu {
             }
         });
 
-        // SKIN_CARRO_HONDA_CRV
         if (didBuyHondaCRV)
             btBuyHondaCRV = new TextButton("Select",
                     Assets.styleTextButtonPurchased);
         else
             btBuyHondaCRV = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.selectedSkin == SKIN_CARRO_HONDA_CRV)
+        if (Settings.selectedSkin == SKIN_HONDA_CRV)
             btBuyHondaCRV.setVisible(false);
 
         addPressEffect(btBuyHondaCRV);
@@ -615,10 +587,10 @@ public class PlayerSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyHondaCRV) {
-                    Settings.selectedSkin = SKIN_CARRO_HONDA_CRV;
+                    Settings.selectedSkin = SKIN_HONDA_CRV;
                     setSelected(btBuyHondaCRV);
-                } else if (Settings.coinsTotal >= PRECIO_CARRO_HONDA_CRV) {
-                    Settings.coinsTotal -= PRECIO_CARRO_HONDA_CRV;
+                } else if (Settings.coinsTotal >= PRICE_HONDA_CRV) {
+                    Settings.coinsTotal -= PRICE_HONDA_CRV;
                     setButtonStylePurchased(btBuyHondaCRV);
                     didBuyHondaCRV = true;
                 }
@@ -626,14 +598,13 @@ public class PlayerSubMenu {
             }
         });
 
-        // SKIN_CARRO_MAZDA_6
         if (didBuyMazda6)
             btBuyMazda6 = new TextButton("Select",
                     Assets.styleTextButtonPurchased);
         else
             btBuyMazda6 = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.selectedSkin == SKIN_CARRO_MAZDA_6)
+        if (Settings.selectedSkin == SKIN_MAZDA_6)
             btBuyMazda6.setVisible(false);
 
         addPressEffect(btBuyMazda6);
@@ -641,10 +612,10 @@ public class PlayerSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyMazda6) {
-                    Settings.selectedSkin = SKIN_CARRO_MAZDA_6;
+                    Settings.selectedSkin = SKIN_MAZDA_6;
                     setSelected(btBuyMazda6);
-                } else if (Settings.coinsTotal >= PRECIO_CARRO_MAZDA_6) {
-                    Settings.coinsTotal -= PRECIO_CARRO_MAZDA_6;
+                } else if (Settings.coinsTotal >= PRICE_MAZDA_6) {
+                    Settings.coinsTotal -= PRICE_MAZDA_6;
                     setButtonStylePurchased(btBuyMazda6);
                     didBuyMazda6 = true;
                 }
@@ -652,14 +623,13 @@ public class PlayerSubMenu {
             }
         });
 
-        // SKIN_CARRO_MAZDA_RX8
         if (didBuyMazdaRX8)
             btBuyMazdaRX8 = new TextButton("Select",
                     Assets.styleTextButtonPurchased);
         else
             btBuyMazdaRX8 = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.selectedSkin == SKIN_CARRO_MAZDA_RX8)
+        if (Settings.selectedSkin == SKIN_MAZDA_RX8)
             btBuyMazdaRX8.setVisible(false);
 
         addPressEffect(btBuyMazdaRX8);
@@ -667,10 +637,10 @@ public class PlayerSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyMazdaRX8) {
-                    Settings.selectedSkin = SKIN_CARRO_MAZDA_RX8;
+                    Settings.selectedSkin = SKIN_MAZDA_RX8;
                     setSelected(btBuyMazdaRX8);
-                } else if (Settings.coinsTotal >= PRECIO_CARRO_MAZDA_RX8) {
-                    Settings.coinsTotal -= PRECIO_CARRO_MAZDA_RX8;
+                } else if (Settings.coinsTotal >= PRICE_MAZDA_RX8) {
+                    Settings.coinsTotal -= PRICE_MAZDA_RX8;
                     setButtonStylePurchased(btBuyMazdaRX8);
                     didBuyMazdaRX8 = true;
                 }
@@ -678,14 +648,13 @@ public class PlayerSubMenu {
             }
         });
 
-        // SKIN_CARRO_SEAT_IBIZA
         if (didBuySeatIbiza)
             btBuySeatIbiza = new TextButton("Select",
                     Assets.styleTextButtonPurchased);
         else
             btBuySeatIbiza = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.selectedSkin == SKIN_CARRO_SEAT_IBIZA)
+        if (Settings.selectedSkin == SKIN_SEAT_IBIZA)
             btBuySeatIbiza.setVisible(false);
 
         addPressEffect(btBuySeatIbiza);
@@ -693,10 +662,10 @@ public class PlayerSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuySeatIbiza) {
-                    Settings.selectedSkin = SKIN_CARRO_SEAT_IBIZA;
+                    Settings.selectedSkin = SKIN_SEAT_IBIZA;
                     setSelected(btBuySeatIbiza);
-                } else if (Settings.coinsTotal >= PRECIO_CARRO_SEAT_IBIZA) {
-                    Settings.coinsTotal -= PRECIO_CARRO_SEAT_IBIZA;
+                } else if (Settings.coinsTotal >= PRICE_SEAT_IBIZA) {
+                    Settings.coinsTotal -= PRICE_SEAT_IBIZA;
                     setButtonStylePurchased(btBuySeatIbiza);
                     didBuySeatIbiza = true;
                 }
@@ -704,7 +673,6 @@ public class PlayerSubMenu {
             }
         });
 
-        // SKIN_CARRO_VOLKSWAGEN_SCIROCCO
         if (didBuyVolkswagenScirocco)
             btBuyVolkswagenScirocco = new TextButton("Select",
                     Assets.styleTextButtonPurchased);
@@ -712,7 +680,7 @@ public class PlayerSubMenu {
             btBuyVolkswagenScirocco = new TextButton("Buy",
                     Assets.styleTextButtonBuy);
 
-        if (Settings.selectedSkin == SKIN_CARRO_VOLKSWAGEN_SCIROCCO)
+        if (Settings.selectedSkin == SKIN_VOLKSWAGEN_SCIROCCO)
             btBuyVolkswagenScirocco.setVisible(false);
 
         addPressEffect(btBuyVolkswagenScirocco);
@@ -720,10 +688,10 @@ public class PlayerSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyVolkswagenScirocco) {
-                    Settings.selectedSkin = SKIN_CARRO_VOLKSWAGEN_SCIROCCO;
+                    Settings.selectedSkin = SKIN_VOLKSWAGEN_SCIROCCO;
                     setSelected(btBuyVolkswagenScirocco);
-                } else if (Settings.coinsTotal >= PRECIO_CARRO_VOLKSWAGEN_SCIROCCO) {
-                    Settings.coinsTotal -= PRECIO_CARRO_VOLKSWAGEN_SCIROCCO;
+                } else if (Settings.coinsTotal >= PRICE_VOLKSWAGEN_SCIROCCO) {
+                    Settings.coinsTotal -= PRICE_VOLKSWAGEN_SCIROCCO;
                     setButtonStylePurchased(btBuyVolkswagenScirocco);
                     didBuyVolkswagenScirocco = true;
                 }
@@ -755,7 +723,7 @@ public class PlayerSubMenu {
         didBuyTurismo = pref.getBoolean("didBuyTurismo", false);
         didBuyAudiS5 = pref.getBoolean("didBuyAudiS5", false);
         didBuyBmwX6 = pref.getBoolean("didBuyBmwX6", false);
-        didBuyBullet = pref.getBoolean("didBuyBullet", false);
+        didBuyCamaro = pref.getBoolean("didBuyBullet", false);
         didBuyCrossfire = pref.getBoolean("didBuyCrossfire", false);
         didBuyCitroenC4 = pref.getBoolean("didBuyCitroenC4", false);
         didBuyDodgeCharger = pref.getBoolean("didBuyDodgeCharger", false);
@@ -774,7 +742,7 @@ public class PlayerSubMenu {
         pref.putBoolean("didBuyTurismo", didBuyTurismo);
         pref.putBoolean("didBuyAudiS5", didBuyAudiS5);
         pref.putBoolean("didBuyBmwX6", didBuyBmwX6);
-        pref.putBoolean("didBuyBullet", didBuyBullet);
+        pref.putBoolean("didBuyBullet", didBuyCamaro);
         pref.putBoolean("didBuyCrossfire", didBuyCrossfire);
         pref.putBoolean("didBuyCitroenC4", didBuyCitroenC4);
         pref.putBoolean("didBuyDodgeCharger", didBuyDodgeCharger);
@@ -788,17 +756,17 @@ public class PlayerSubMenu {
         Settings.save();
     }
 
-    private void setButtonStylePurchased(TextButton boton) {
-        boton.setStyle(Assets.styleTextButtonPurchased);
-        boton.setText("Select");
+    private void setButtonStylePurchased(TextButton button) {
+        button.setStyle(Assets.styleTextButtonPurchased);
+        button.setText("Select");
     }
 
-    private void setSelected(TextButton boton) {
+    private void setSelected(TextButton selectedButton) {
         // I make all visible and at the end the selected button invisible
         for (TextButton button : arrayButtons) {
             button.setVisible(true);
         }
-        boton.setVisible(false);
+        selectedButton.setVisible(false);
     }
 
     protected void addPressEffect(final Actor actor) {

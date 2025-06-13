@@ -52,7 +52,7 @@ public class Assets {
     public static AtlasRegion carDiablo;
     public static AtlasRegion carBanshee;
     public static AtlasRegion carTurismo;
-    public static AtlasRegion carBullet;
+    public static AtlasRegion carCamaro;
     public static AtlasRegion carTornado;
     public static AtlasRegion carAudiS5;
     public static AtlasRegion carBmwX6;
@@ -154,7 +154,7 @@ public class Assets {
         carDiablo = atlas.findRegion("Carros/diablo");
         carBanshee = atlas.findRegion("Carros/banshee");
         carTurismo = atlas.findRegion("Carros/turismo");
-        carBullet = atlas.findRegion("Carros/bullet");
+        carCamaro = atlas.findRegion("Carros/bullet");
         carTornado = atlas.findRegion("Carros/tornado");
 
         carAudiS5 = atlas.findRegion("Carros/Audi S5");
