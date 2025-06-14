@@ -1,5 +1,6 @@
 buildscript {
-    
+    ext.kotlin_version = '2.0.21'
+
 
     repositories {
         mavenLocal()
@@ -10,8 +11,10 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.4'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
+apply plugin: 'kotlin'
 
 allprojects {
     apply plugin: "eclipse"
@@ -75,4 +78,12 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         
     }
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+compileKotlin {
 }
