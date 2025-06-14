@@ -259,13 +259,13 @@ public class GameScreen extends Screens {
 
     @Override
     public void left() {
-        trafficGame.oCar.tryMoveLeft();
+        trafficGame.car.tryMoveLeft();
         super.left();
     }
 
     @Override
     public void right() {
-        trafficGame.oCar.tryMoveRight();
+        trafficGame.car.tryMoveRight();
         super.right();
     }
 
@@ -281,9 +281,9 @@ public class GameScreen extends Screens {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Keys.LEFT || keycode == Keys.A)
-            trafficGame.oCar.tryMoveLeft();
+            trafficGame.car.tryMoveLeft();
         else if (keycode == Keys.RIGHT || keycode == Keys.D)
-            trafficGame.oCar.tryMoveRight();
+            trafficGame.car.tryMoveRight();
         else if (keycode == Keys.ESCAPE || keycode == Keys.BACK)
             changeScreenWithFadeOut(MainMenuScreen.class, game);
         else if (keycode == Keys.SPACE)

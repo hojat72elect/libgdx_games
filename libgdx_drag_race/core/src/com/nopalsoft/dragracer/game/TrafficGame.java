@@ -39,7 +39,7 @@ public class TrafficGame extends Table {
     int coins;
 
     private final InfiniteScrollBackground backgroundRoad;
-    public PlayerCar oCar;
+    public PlayerCar car;
     private final Array<EnemyCar> arrayEnemyCars;
     private final Array<Coin> arrayCoins;
 
@@ -53,8 +53,8 @@ public class TrafficGame extends Table {
         backgroundRoad = new InfiniteScrollBackground(getWidth(), getHeight());
         addActor(backgroundRoad);
 
-        oCar = new PlayerCar(this);
-        addActor(oCar);
+        car = new PlayerCar(this);
+        addActor(car);
         arrayEnemyCars = new Array<>();
         arrayCoins = new Array<>();
 
@@ -79,7 +79,7 @@ public class TrafficGame extends Table {
         updateCoins(delta);
         score += delta * currentSpeed;
 
-        if (oCar.state == PlayerCar.STATE_DEAD) {
+        if (car.state == PlayerCar.STATE_DEAD) {
             state = STATE_GAMEOVER;
         }
     }
@@ -112,17 +112,17 @@ public class TrafficGame extends Table {
         iterator = arrayEnemyCars.iterator();
         while (iterator.hasNext()) {
             EnemyCar enemyCar = iterator.next();
-            if (enemyCar.getBounds().overlaps(oCar.getBounds())) {
+            if (enemyCar.getBounds().overlaps(car.getBounds())) {
                 iterator.remove();
 
-                if (enemyCar.getX() > oCar.getX()) {
-                    enemyCar.crash(true, enemyCar.getY() > oCar.getY());
+                if (enemyCar.getX() > car.getX()) {
+                    enemyCar.crash(true, enemyCar.getY() > car.getY());
                     if (!isSuperSpeed)
-                        oCar.crash(false, true);
+                        car.crash(false, true);
                 } else {
-                    enemyCar.crash(false, enemyCar.getY() > oCar.getY());
+                    enemyCar.crash(false, enemyCar.getY() > car.getY());
                     if (!isSuperSpeed)
-                        oCar.crash(true, true);
+                        car.crash(true, true);
                 }
                 Assets.soundCrash.stop();
                 Assets.playSound(Assets.soundCrash);
@@ -148,7 +148,7 @@ public class TrafficGame extends Table {
                 continue;
             }
             // I see if they are touching my car
-            if (oCar.getBounds().overlaps(obj.getBounds())) {
+            if (car.getBounds().overlaps(obj.getBounds())) {
                 iterator.remove();
                 removeActor(obj);
                 coins++;
