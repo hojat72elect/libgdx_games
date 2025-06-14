@@ -65,19 +65,15 @@ public class AlienShip extends DynamicGameObject {
         stateTime += deltaTime;
     }
 
-    public void beingHit(int poderBala) {
+    /**
+     * Llamar este metodo es poder de bala 1
+     */
+    public void beingHit() {
         vidasLeft--;
         if (vidasLeft <= 0) {
             state = EXPLOTING;
             velocity.add(0, 0);
             stateTime = 0;
         }
-    }
-
-    /**
-     * Llamar este metodo es poder de bala 1
-     */
-    public void beingHit() {
-        beingHit(1);
     }
 }

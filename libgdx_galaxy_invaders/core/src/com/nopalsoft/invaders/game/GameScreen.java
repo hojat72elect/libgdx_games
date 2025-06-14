@@ -3,7 +3,6 @@ package com.nopalsoft.invaders.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -26,7 +25,6 @@ import com.nopalsoft.invaders.screens.MainMenuScreen;
 import com.nopalsoft.invaders.screens.Screens;
 
 public class GameScreen extends Screens {
-    FPSLogger fps = new FPSLogger();
 
     static final int GAME_READY = 0;
     public static final int GAME_RUNNING = 1;
@@ -414,7 +412,7 @@ public class GameScreen extends Screens {
 
         switch (state) {
             case GAME_TUTORIAL:
-                presentTurorial(delta);
+                presentTurorial();
                 break;
             case GAME_READY:
                 presentReady();
@@ -429,7 +427,7 @@ public class GameScreen extends Screens {
     float rotacion = 0;
     float addRotacion = .3f;
 
-    private void presentTurorial(float delta) {
+    private void presentTurorial() {
         if (pantallaTutorial == 0 && Settings.isTiltControl) {
             if (rotacion < -20 || rotacion > 20)
                 addRotacion *= -1;

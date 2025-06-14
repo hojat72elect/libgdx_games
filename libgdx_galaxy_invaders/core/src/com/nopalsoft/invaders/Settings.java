@@ -9,7 +9,7 @@ public class Settings {
 
     public static boolean soundEnabled = false;
     public static boolean musicEnabled = false;
-    public final static int[] highScores = new int[]{0, 0, 0, 0, 0};// solo 5 puntuaciones se guardan
+    public final static int[] highScores = new int[]{0, 0, 0, 0, 0};// only 5 scores are saved
     public static boolean isTiltControl = true;
     public static int aceletometerSensitive = 10;
     public static int numeroDeVecesQueSeHaJugado = 0;
@@ -23,7 +23,7 @@ public class Settings {
 
         soundEnabled = pref.getBoolean("sonidoActivado", false);
         musicEnabled = pref.getBoolean("musicaActivado", false);
-        for (int i = 0; i < 5; i++) {// solo 5 puntuaciones se cargan
+        for (int i = 0; i < 5; i++) {// only 5 scores are loaded
             highScores[i] = Integer.parseInt(pref.getString("puntuacion" + i, "0"));
         }
         aceletometerSensitive = pref.getInteger("acelerometerSensitive", 10);
@@ -42,11 +42,6 @@ public class Settings {
         pref.putInteger("acelerometerSensitive", aceletometerSensitive);
         pref.putInteger("numeroDeVecesQueSeHaJugado", numeroDeVecesQueSeHaJugado);
         pref.flush();
-    }
-
-    public static void borrarDatosGuardados() {
-        pref.clear();
-        load();
     }
 
     public static void agregarPuntuacion(int puntuacion) {

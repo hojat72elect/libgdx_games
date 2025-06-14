@@ -234,11 +234,11 @@ public class SettingsScreen extends Screens {
         camRender.update();
         batcher.setProjectionMatrix(camRender.combined);
         batcher.begin();
-        renderNave(delta);
+        renderNave();
         batcher.end();
     }
 
-    private void renderNave(float delta) {
+    private void renderNave() {
         TextureRegion keyFrame;
         if (oNave.velocity.x < -3)
             keyFrame = Assets.naveLeft;

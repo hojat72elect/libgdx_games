@@ -249,7 +249,7 @@ public class Assets {
         boost3 = atlas1.findRegion("upgShield");
         upgLife = atlas1.findRegion("upgLife");
 
-        /* Municiones */
+        // Municiones
         balaNormal = atlas1.findRegion("balaNormal");
         balaNormalEnemigo = atlas1.findRegion("balaNormalEnemigo");
 
@@ -266,7 +266,7 @@ public class Assets {
         balaNivel3 = atlas1.findRegion("disparoA3");
         balaNivel4 = atlas1.findRegion("disparoA4");
 
-        /* explosionFuego */
+        // explosionFuego
         AtlasRegion newExpl1 = atlas1.findRegion("newExplosion1");
         AtlasRegion newExpl2 = atlas1.findRegion("newExplosion2");
         AtlasRegion newExpl3 = atlas1.findRegion("newExplosion3");

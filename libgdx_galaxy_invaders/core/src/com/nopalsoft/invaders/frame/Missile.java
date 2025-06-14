@@ -1,7 +1,6 @@
 package com.nopalsoft.invaders.frame;
 
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Vector2;
 
 public class Missile extends DynamicGameObject {
 
@@ -47,9 +46,4 @@ public class Missile extends DynamicGameObject {
         state = STATE_EXPLOTANDO;
     }
 
-    // Regresa la velocidad
-    public Vector2 getVelocity() {
-        Vector2 vel = new Vector2(velocity.x, velocity.y);
-        return vel;
-    }
 }

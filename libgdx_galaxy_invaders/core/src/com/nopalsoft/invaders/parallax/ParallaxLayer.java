@@ -41,8 +41,8 @@ public class ParallaxLayer {
      * @param parallaxRatio the relative speed of x,y {@link ParallaxBackground#ParallaxBackground(ParallaxLayer[], float, float, Vector2)}
      * @param startPosition the init position of x,y
      * @param padding       the padding of the region at x,y
-     * @width ancho
-     * @height alto
+     * @param width ancho
+     * @param height alto
      */
     public ParallaxLayer(TextureRegion region, Vector2 parallaxRatio, Vector2 startPosition, Vector2 padding, float width, float height) {
         this.region = region;
