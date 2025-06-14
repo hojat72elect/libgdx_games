@@ -67,8 +67,8 @@ class MainMenuScreen(game: MainStreet) : Screens(game) {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
                 Settings.isMusicOn = !Settings.isMusicOn
                 buttonMusic.isChecked = !Settings.isMusicOn
-                if (Settings.isMusicOn) Assets.music.play()
-                else Assets.music.stop()
+                if (Settings.isMusicOn) Assets.music?.play()
+                else Assets.music?.stop()
                 super.clicked(event, x, y)
             }
         })

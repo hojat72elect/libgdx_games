@@ -62,7 +62,7 @@ class PlayerCar(private val trafficGame: TrafficGame) : Actor() {
                 drawHeight = height + 20
                 angle = 0f
                 batch.draw(
-                    Assets.newExplosion.getKeyFrame(stateTime), x
+                    Assets.newExplosion?.getKeyFrame(stateTime), x
                             - drawWidth / 2 / 2f, y, drawWidth / 2,
                     drawHeight / 2, drawWidth, drawHeight, 1f, 1f, angle
                 )
@@ -73,7 +73,7 @@ class PlayerCar(private val trafficGame: TrafficGame) : Actor() {
                 drawHeight = height + 20
                 angle = 0f
                 batch.draw(
-                    Assets.newExplosion.getKeyFrame(stateTime), x
+                    Assets.newExplosion?.getKeyFrame(stateTime), x
                             - drawWidth / 2 / 2f, y, drawWidth / 2,
                     drawHeight / 2, drawWidth, drawHeight, 1f, 1f, angle
                 )
@@ -260,8 +260,8 @@ class PlayerCar(private val trafficGame: TrafficGame) : Actor() {
             )
         }
 
-        if (MathUtils.randomBoolean()) Assets.playSound(Assets.soundTurn1)
-        else Assets.playSound(Assets.soundTurn2)
+        if (MathUtils.randomBoolean()) Assets.playSound(Assets.soundTurn1!!)
+        else Assets.playSound(Assets.soundTurn2!!)
     }
 
     fun crash(front: Boolean, above: Boolean) {
@@ -296,7 +296,7 @@ class PlayerCar(private val trafficGame: TrafficGame) : Actor() {
         const val STATE_SPINNING: Int = 1
         const val STATE_EXPLOSION: Int = 2
         const val STATE_DEAD: Int = 3
-        val TIME_EXPLOSION: Float = Assets.newExplosion.animationDuration
+        val TIME_EXPLOSION: Float = Assets.newExplosion!!.animationDuration
         const val TIME_SPINNING: Float = 1.5f
     }
 }

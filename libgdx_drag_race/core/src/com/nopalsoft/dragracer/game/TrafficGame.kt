@@ -115,8 +115,8 @@ class TrafficGame : Table() {
                     enemyCar.crash(false, enemyCar.y > car.y)
                     if (!isSuperSpeed) car.crash(true, true)
                 }
-                Assets.soundCrash.stop()
-                Assets.playSound(Assets.soundCrash)
+                Assets.soundCrash?.stop()
+                Assets.playSound(Assets.soundCrash!!)
             }
         }
     }
