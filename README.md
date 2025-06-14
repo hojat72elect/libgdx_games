@@ -1,5 +1,4 @@
-This repo contains all of the 3D LibGDX game examples I have worked with so far.
-I wanted to only focus on 3D games so had to remove other games examples.
+This repo contains all of the  LibGDX game examples I have worked on so far. My plan is to gradually improve and eventually publish these games. You can gain more information about each one in their corresponding directory.
 
 
 The games that I currently have here:
@@ -7,4 +6,12 @@ The games that I currently have here:
     <li>3D-TETRIS</li>
     <li>Chemtris</li>
     <li>gdx-gltf-starter</li>
+    <li>Drag Race</li>
+    <li>Galaxy Invaders</li>
+    <li>Super Jumper</li>
+    <li>Ninja Runner</li>
+    <li>Slam the Bird</li>
+    <li>Sokoban</li>
+    <li>Shark Adventure</li>
+    <li>Lightblocks</li>
 </ol>
