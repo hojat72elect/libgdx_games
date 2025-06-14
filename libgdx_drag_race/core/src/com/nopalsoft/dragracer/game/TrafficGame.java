@@ -4,9 +4,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.nopalsoft.dragracer.Assets;
+import com.nopalsoft.dragracer.objects.Coin;
 import com.nopalsoft.dragracer.objects.EnemyCar;
 import com.nopalsoft.dragracer.objects.InfiniteScrollBackground;
-import com.nopalsoft.dragracer.objects.Coin;
 import com.nopalsoft.dragracer.objects.PlayerCar;
 import com.nopalsoft.dragracer.screens.Screens;
 
@@ -98,7 +98,7 @@ public class TrafficGame extends Table {
         Iterator<EnemyCar> iterator = arrayEnemyCars.iterator();
         while (iterator.hasNext()) {
             EnemyCar enemyCar = iterator.next();
-            if (enemyCar.getBounds().y + enemyCar.getHeight() <= 0) {
+            if (enemyCar.bounds.y + enemyCar.getHeight() <= 0) {
                 iterator.remove();
                 removeActor(enemyCar);
                 continue;
@@ -112,7 +112,7 @@ public class TrafficGame extends Table {
         iterator = arrayEnemyCars.iterator();
         while (iterator.hasNext()) {
             EnemyCar enemyCar = iterator.next();
-            if (enemyCar.getBounds().overlaps(car.getBounds())) {
+            if (enemyCar.bounds.overlaps(car.bounds)) {
                 iterator.remove();
 
                 if (enemyCar.getX() > car.getX()) {
@@ -142,13 +142,13 @@ public class TrafficGame extends Table {
         Iterator<Coin> iterator = arrayCoins.iterator();
         while (iterator.hasNext()) {
             Coin obj = iterator.next();
-            if (obj.getBounds().y + obj.getHeight() <= 0) {
+            if (obj.bounds.y + obj.getHeight() <= 0) {
                 iterator.remove();
                 removeActor(obj);
                 continue;
             }
             // I see if they are touching my car
-            if (car.getBounds().overlaps(obj.getBounds())) {
+            if (car.bounds.overlaps(obj.bounds)) {
                 iterator.remove();
                 removeActor(obj);
                 coins++;
@@ -158,7 +158,7 @@ public class TrafficGame extends Table {
 
             // I see if it's touching an enemy
             for (EnemyCar enemyCar : arrayEnemyCars) {
-                if (obj.getBounds().overlaps(enemyCar.getBounds())) {
+                if (obj.bounds.overlaps(enemyCar.bounds)) {
                     iterator.remove();
                     removeActor(obj);
                     break;
