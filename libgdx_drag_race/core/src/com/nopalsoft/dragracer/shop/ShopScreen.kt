@@ -63,16 +63,16 @@ class ShopScreen(game: MainStreet) : Screens(game) {
         scroll.setSize((SCREEN_WIDTH - 95).toFloat(), (SCREEN_HEIGHT - 62).toFloat())
         scroll.setPosition(95f, 0f)
 
-        stage.addActor(tbScores)
-        stage.addActor(labelShop)
-        stage.addActor(verticalSeparatorImage)
-        stage.addActor(horizontalSeparatorImage)
-        stage.addActor(buttonPlayers)
-        // stage.addActor(btPowerUps);
-        stage.addActor(buttonCoins)
-        stage.addActor(buttonNoAds)
-        stage.addActor(buttonBack)
-        stage.addActor(scroll)
+        stage?.addActor(tbScores)
+        stage?.addActor(labelShop)
+        stage?.addActor(verticalSeparatorImage)
+        stage?.addActor(horizontalSeparatorImage)
+        stage?.addActor(buttonPlayers)
+
+        stage?.addActor(buttonCoins)
+        stage?.addActor(buttonNoAds)
+        stage?.addActor(buttonBack)
+        stage?.addActor(scroll)
 
         PlayerSubMenu(game, tableContainer)
     }
@@ -83,7 +83,7 @@ class ShopScreen(game: MainStreet) : Screens(game) {
         )
         buttonPlayers!!.setSize(45f, 65f)
         buttonPlayers!!.setPosition(23f, 660f)
-        addPressEffect(buttonPlayers)
+        addPressEffect(buttonPlayers!!)
         buttonPlayers!!.addListener(object : ClickListener() {
             override fun clicked(
                 event: InputEvent, x: Float,
@@ -96,12 +96,12 @@ class ShopScreen(game: MainStreet) : Screens(game) {
         buttonPowerUps = Button(TextureRegionDrawable(Assets.carTornado))
         buttonPowerUps!!.setSize(55f, 55f)
         buttonPowerUps!!.setPosition(17f, 570f)
-        addPressEffect(buttonPowerUps)
+        addPressEffect(buttonPowerUps!!)
 
         buttonCoins = Button(TextureRegionDrawable(Assets.coinFront))
         buttonCoins!!.setSize(55f, 55f)
         buttonCoins!!.setPosition(17f, 480f)
-        addPressEffect(buttonCoins)
+        addPressEffect(buttonCoins!!)
         buttonCoins!!.addListener(object : ClickListener() {
             override fun clicked(
                 event: InputEvent, x: Float,
@@ -114,7 +114,7 @@ class ShopScreen(game: MainStreet) : Screens(game) {
         buttonNoAds = Button(TextureRegionDrawable(Assets.buttonNoAds))
         buttonNoAds!!.setSize(55f, 55f)
         buttonNoAds!!.setPosition(17f, 390f)
-        addPressEffect(buttonNoAds)
+        addPressEffect(buttonNoAds!!)
         buttonNoAds!!.addListener(object : ClickListener() {
             override fun clicked(
                 event: InputEvent, x: Float,
@@ -127,7 +127,7 @@ class ShopScreen(game: MainStreet) : Screens(game) {
         buttonBack = Button(TextureRegionDrawable(Assets.buttonBack))
         buttonBack!!.setSize(55f, 55f)
         buttonBack!!.setPosition(17f, 10f)
-        addPressEffect(buttonBack)
+        addPressEffect(buttonBack!!)
         buttonBack!!.addListener(object : ClickListener() {
             override fun clicked(
                 event: InputEvent, x: Float,
