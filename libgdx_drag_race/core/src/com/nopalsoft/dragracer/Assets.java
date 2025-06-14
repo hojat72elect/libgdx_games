@@ -169,29 +169,29 @@ public class Assets {
         carSeatIbiza = atlas.findRegion("Carros/Seat Ibiza");
         carVolkswagenScirocco = atlas.findRegion("Carros/Volkswagen Scirocco");
 
-        AtlasRegion newExpl1 = atlas.findRegion("Animaciones/newExplosion1");
-        AtlasRegion newExpl2 = atlas.findRegion("Animaciones/newExplosion2");
-        AtlasRegion newExpl3 = atlas.findRegion("Animaciones/newExplosion3");
-        AtlasRegion newExpl4 = atlas.findRegion("Animaciones/newExplosion4");
-        AtlasRegion newExpl5 = atlas.findRegion("Animaciones/newExplosion5");
-        AtlasRegion newExpl6 = atlas.findRegion("Animaciones/newExplosion6");
-        AtlasRegion newExpl7 = atlas.findRegion("Animaciones/newExplosion7");
-        AtlasRegion newExpl8 = atlas.findRegion("Animaciones/newExplosion8");
-        AtlasRegion newExpl9 = atlas.findRegion("Animaciones/newExplosion9");
-        AtlasRegion newExpl10 = atlas.findRegion("Animaciones/newExplosion10");
-        AtlasRegion newExpl11 = atlas.findRegion("Animaciones/newExplosion11");
-        AtlasRegion newExpl12 = atlas.findRegion("Animaciones/newExplosion12");
-        AtlasRegion newExpl13 = atlas.findRegion("Animaciones/newExplosion13");
-        AtlasRegion newExpl14 = atlas.findRegion("Animaciones/newExplosion14");
-        AtlasRegion newExpl15 = atlas.findRegion("Animaciones/newExplosion15");
-        AtlasRegion newExpl16 = atlas.findRegion("Animaciones/newExplosion16");
-        AtlasRegion newExpl17 = atlas.findRegion("Animaciones/newExplosion17");
-        AtlasRegion newExpl18 = atlas.findRegion("Animaciones/newExplosion18");
-        AtlasRegion newExpl19 = atlas.findRegion("Animaciones/newExplosion19");
-        newExplosion = new Animation(0.05f, newExpl1, newExpl2, newExpl3,
-                newExpl4, newExpl5, newExpl6, newExpl7, newExpl8, newExpl9,
-                newExpl10, newExpl11, newExpl12, newExpl13, newExpl14,
-                newExpl15, newExpl16, newExpl17, newExpl18, newExpl19);
+        AtlasRegion explosionFrame1 = atlas.findRegion("Animaciones/newExplosion1");
+        AtlasRegion explosionFrame2 = atlas.findRegion("Animaciones/newExplosion2");
+        AtlasRegion explosionFrame3 = atlas.findRegion("Animaciones/newExplosion3");
+        AtlasRegion explosionFrame4 = atlas.findRegion("Animaciones/newExplosion4");
+        AtlasRegion explosionFrame5 = atlas.findRegion("Animaciones/newExplosion5");
+        AtlasRegion explosionFrame6 = atlas.findRegion("Animaciones/newExplosion6");
+        AtlasRegion explosionFrame7 = atlas.findRegion("Animaciones/newExplosion7");
+        AtlasRegion explosionFrame8 = atlas.findRegion("Animaciones/newExplosion8");
+        AtlasRegion explosionFrame9 = atlas.findRegion("Animaciones/newExplosion9");
+        AtlasRegion explosionFrame10 = atlas.findRegion("Animaciones/newExplosion10");
+        AtlasRegion explosionFrame11 = atlas.findRegion("Animaciones/newExplosion11");
+        AtlasRegion explosionFrame12 = atlas.findRegion("Animaciones/newExplosion12");
+        AtlasRegion explosionFrame13 = atlas.findRegion("Animaciones/newExplosion13");
+        AtlasRegion explosionFrame14 = atlas.findRegion("Animaciones/newExplosion14");
+        AtlasRegion explosionFrame15 = atlas.findRegion("Animaciones/newExplosion15");
+        AtlasRegion explosionFrame16 = atlas.findRegion("Animaciones/newExplosion16");
+        AtlasRegion explosionFrame17 = atlas.findRegion("Animaciones/newExplosion17");
+        AtlasRegion explosionFrame18 = atlas.findRegion("Animaciones/newExplosion18");
+        AtlasRegion explosionFrame19 = atlas.findRegion("Animaciones/newExplosion19");
+        newExplosion = new Animation(0.05f, explosionFrame1, explosionFrame2, explosionFrame3,
+                explosionFrame4, explosionFrame5, explosionFrame6, explosionFrame7, explosionFrame8, explosionFrame9,
+                explosionFrame10, explosionFrame11, explosionFrame12, explosionFrame13, explosionFrame14,
+                explosionFrame15, explosionFrame16, explosionFrame17, explosionFrame18, explosionFrame19);
 
         buttonBack = new TextureRegionDrawable(atlas.findRegion("Shop/btAtras2"));
         buttonNoAds = new TextureRegionDrawable(atlas.findRegion("Shop/btNoAds"));
