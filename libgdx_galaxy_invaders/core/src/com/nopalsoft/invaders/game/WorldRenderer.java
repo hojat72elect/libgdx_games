@@ -16,7 +16,6 @@ import com.nopalsoft.invaders.frame.Missile;
 import com.nopalsoft.invaders.frame.Nave;
 import com.nopalsoft.invaders.screens.Screens;
 
-
 public class WorldRenderer {
 
     static final float FRUSTUM_WIDTH = Screens.WORLD_SCREEN_WIDTH;
