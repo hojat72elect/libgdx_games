@@ -179,7 +179,7 @@ public class GameScreen extends Screens {
             canSuperSpeed = true;
             new SwipeVerticalTutorial(stage);
         }
-        speedBar.updateActualLife(trafficGame.numCoinsForSuperSpeed);
+        speedBar.updateLifeBar(trafficGame.numCoinsForSuperSpeed);
 
         labelScore.setText("Distance " + score + "m");
         labelCoin.setText(coins + "");
