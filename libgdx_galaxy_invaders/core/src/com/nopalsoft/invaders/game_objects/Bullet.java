@@ -1,4 +1,4 @@
-package com.nopalsoft.invaders.frame;
+package com.nopalsoft.invaders.game_objects;
 
 public class Bullet extends DynamicGameObject {
 

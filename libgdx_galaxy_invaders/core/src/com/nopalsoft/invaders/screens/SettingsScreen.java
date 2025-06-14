@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.invaders.Assets;
 import com.nopalsoft.invaders.MainInvaders;
 import com.nopalsoft.invaders.Settings;
-import com.nopalsoft.invaders.frame.Nave;
+import com.nopalsoft.invaders.game_objects.Nave;
 
 public class SettingsScreen extends Screens {
 

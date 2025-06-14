@@ -1,4 +1,4 @@
-package com.nopalsoft.invaders.frame;
+package com.nopalsoft.invaders.game_objects;
 
 import com.badlogic.gdx.math.Vector2;
 
