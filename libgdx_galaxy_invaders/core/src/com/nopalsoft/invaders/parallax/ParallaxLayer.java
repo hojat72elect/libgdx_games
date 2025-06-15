@@ -8,7 +8,7 @@ public class ParallaxLayer {
     public Vector2 parallaxRatio;
     public Vector2 startPosition;
     public Vector2 padding;
-    public float width, heigth;
+    public float width, height;
 
     /**
      * @param region        the TextureRegion to draw , this can be any width/height
@@ -18,7 +18,7 @@ public class ParallaxLayer {
     public ParallaxLayer(TextureRegion region, Vector2 parallaxRatio, Vector2 padding) {
         this(region, parallaxRatio, new Vector2(0, 0), padding);
         this.width = region.getRegionWidth();
-        this.heigth = region.getRegionHeight();
+        this.height = region.getRegionHeight();
     }
 
     /**
@@ -33,7 +33,7 @@ public class ParallaxLayer {
         this.startPosition = startPosition;
         this.padding = padding;
         this.width = region.getRegionWidth();
-        this.heigth = region.getRegionHeight();
+        this.height = region.getRegionHeight();
     }
 
     /**
@@ -41,8 +41,6 @@ public class ParallaxLayer {
      * @param parallaxRatio the relative speed of x,y {@link ParallaxBackground#ParallaxBackground(ParallaxLayer[], float, float, Vector2)}
      * @param startPosition the init position of x,y
      * @param padding       the padding of the region at x,y
-     * @param width ancho
-     * @param height alto
      */
     public ParallaxLayer(TextureRegion region, Vector2 parallaxRatio, Vector2 startPosition, Vector2 padding, float width, float height) {
         this.region = region;
@@ -50,6 +48,6 @@ public class ParallaxLayer {
         this.startPosition = startPosition;
         this.padding = padding;
         this.width = width;
-        this.heigth = height;
+        this.height = height;
     }
 }

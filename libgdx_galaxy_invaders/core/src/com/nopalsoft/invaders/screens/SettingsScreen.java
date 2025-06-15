@@ -39,7 +39,7 @@ public class SettingsScreen extends Screens {
     public SettingsScreen(final MainInvaders game) {
         super(game);
 
-        /* Acelerometer Slider */
+        //Accelerometer Slider
         aceletometerSlider = new Slider(1, 20, 1f, false, Assets.styleSlider);
         aceletometerSlider.setPosition(70, 295);
         aceletometerSlider.setValue(21 - Settings.aceletometerSensitive);
@@ -79,7 +79,7 @@ public class SettingsScreen extends Screens {
             }
         });
 
-        /* OnScreenControls */
+        // OnScreen Controls
 
         btLeft = new ImageButton(Assets.btLeft);
         btLeft.setSize(65, 50);
@@ -151,17 +151,16 @@ public class SettingsScreen extends Screens {
 
         setOptions();
 
-        // Voy a poner a la nave aqui que se mueva tambien;
+        // I'm going to put the ship here to move too.
         oNave = new Nave(WORLD_SCREEN_WIDTH / 2.0f, WORLD_SCREEN_HEIGHT / 3.0f); // Coloco la nave en posicion
         this.camRender = new OrthographicCamera(WORLD_SCREEN_WIDTH, WORLD_SCREEN_HEIGHT);
         camRender.position.set(WORLD_SCREEN_WIDTH / 2.0f, WORLD_SCREEN_HEIGHT / 2.0f, 0);
-        // menuControls.debug();
 
     }
 
     protected void setOptions() {
         stage.clear();
-        accel = 0;// porque a veces se quedaba moviendo la nave cuando se pasaba de tilt a control
+        accel = 0;// because sometimes the ship would stay moving when switching from tilt to control
         stage.addActor(btBack);
         stage.addActor(menuControls);
         stage.addActor(aceletometerSlider);

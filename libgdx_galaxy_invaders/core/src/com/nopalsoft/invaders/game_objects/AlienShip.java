@@ -66,7 +66,7 @@ public class AlienShip extends DynamicGameObject {
     }
 
     /**
-     * Llamar este metodo es poder de bala 1
+     * Calling this method is bullet power 1
      */
     public void beingHit() {
         vidasLeft--;

@@ -42,11 +42,11 @@ public class WorldRenderer {
     private void renderBackground(float deltaTime) {
         batch.disableBlending();
         batch.begin();
-        // batch.draw(Assets.fondo1, cam.position.x - FRUSTUM_WIDTH / 2, cam.position.y - FRUSTUM_HEIGHT / 2, FRUSTUM_WIDTH,FRUSTUM_HEIGHT);
+
         batch.end();
         if (oWorld.state == World.STATE_RUNNING) {
             Assets.parallaxFondo.render(deltaTime);
-        } else {// GAMEOVER, PAUSA, READY, ETC
+        } else {// GAMEOVER, PAUSE, READY, ETC
             Assets.parallaxFondo.render(0);
         }
     }
@@ -81,7 +81,7 @@ public class WorldRenderer {
         batch.draw(keyFrame, oWorld.oNave.position.x - Nave.DRAW_WIDTH / 2f, oWorld.oNave.position.y - Nave.DRAW_HEIGHT
                 / 2f, Nave.DRAW_WIDTH, Nave.DRAW_HEIGHT);
 
-        /* Dibuja el escudo de la nave */
+        // Draw the ship's shield
         if (oWorld.oNave.vidasEscudo > 0) {
             batch.draw(Assets.shield.getKeyFrame(oWorld.oNave.stateTime, true), oWorld.oNave.position.x - 5.5f,
                     oWorld.oNave.position.y - 5.5f, 11, 11);
@@ -158,8 +158,6 @@ public class WorldRenderer {
                     break;
             }
 
-            // Pa cuando era perseguidor
-            // batch.draw(keyFrame, oMissil.position.x-widht/2f, oMissil.position.y-heigth/2f,.5f,.5f,widht,heigth,1,1,oMissil.getVelocity().rotate(-90).angle());
             batch.draw(keyFrame, oMissile.position.x - widht / 2f, oMissile.position.y - heigth / 2f, widht, heigth);
         }
     }

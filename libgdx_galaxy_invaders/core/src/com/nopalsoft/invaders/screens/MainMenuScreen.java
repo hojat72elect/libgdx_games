@@ -135,8 +135,8 @@ public class MainMenuScreen extends Screens {
             }
         });
 
-        // Las medidas se sacaron con una formual de 3 si 480 / 960 x 585 donde 585 es el tamano,
-        // 960 es el tamano para lo que se hicieron y 480 es el tamano de la camara
+        // The measurements are taken with a formula of 3 if 480 / 960 x 585 where 585 is the size,
+        // 960 is the size for what they were made and 480 is the size of the camera
         elipseIzq = new Image(Assets.elipseMenuIzq);
         elipseIzq.setSize(18.5f, 292.5f);
         elipseIzq.setPosition(0, 60);

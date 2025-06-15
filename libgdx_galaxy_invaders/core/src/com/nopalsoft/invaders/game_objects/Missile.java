@@ -17,14 +17,14 @@ public class Missile extends DynamicGameObject {
     public int state;
 
     /**
-     * X y Y son la posicion de la punta de nave
+     * X and Y are the position of the tip of the ship
      *
-     * @param x La misma que Bob.x
-     * @param y La misma que Bob.y
+     * @param x The same as Bob.x
+     * @param y The same as Bob.y
      */
     public Missile(float x, float y) {
         super(x, y, WIDTH, HEIGHT);
-        // Tambien inicializo el radio porque la explosion va estar guapetona
+        // I also initialize the radius because the explosion is going to be cool.
         boundsCircle = new Circle(position.x, position.y, RADIO_EXPLOSION);
         state = STATE_DISPARADO;
         stateTime = 0;

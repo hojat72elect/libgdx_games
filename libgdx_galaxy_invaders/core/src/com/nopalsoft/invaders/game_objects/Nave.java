@@ -28,7 +28,7 @@ public class Nave extends DynamicGameObject {
     public Nave(float x, float y) {
         super(x, y, WIDTH, HEIGHT);
         vidas = 3;
-        vidasEscudo = 1;// empizas con 1 de shield por si los putos te pegan
+        vidasEscudo = 1;// You start with 1 shield in case the bastards hit you.
         state = NAVE_STATE_NORMAL;
         Gdx.app.log("Estado", "Se creo la nave");
     }

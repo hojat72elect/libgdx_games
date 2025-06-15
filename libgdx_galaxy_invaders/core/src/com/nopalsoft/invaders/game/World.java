@@ -40,8 +40,8 @@ public class World {
     int extraChanceDrop;
 
     int maxMissilesRonda, maxBalasRonda;
-    int nivelBala;// Es el nivel en que se encuentra la bala actual cada vez que se agarra un boost aumenta
-    float probs;// Esta variable ira aumentando cada nivel para dar mas dificultad al juego
+    int nivelBala;// It is the level at which the current bullet is located, each time a boost is grabbed it increases
+    float probs;// This variable will increase with each level to make the game more difficult.
     float aumentoVel;
 
     public World() {
@@ -63,7 +63,7 @@ public class World {
     private void agregarAliens() {
         currentLevel++;
 
-        // Cada 2 niveles aumento los missiles que se pueden disparar
+        // Every 2 levels the missiles that can be fired increase
         if (currentLevel % 2f == 0) {
             maxMissilesRonda++;
             maxBalasRonda++;
@@ -79,7 +79,7 @@ public class World {
             aumentoVel += .02f;
         }
 
-        // agregare 25 aliens 5x5 columnas de 5 filas de 5
+        // I will add 25 aliens 5x5 columns of 5 rows of 5
         for (int col = 0; col < 6; col++) {
             y += 3.8;
             x = 1.5f;
@@ -94,19 +94,19 @@ public class World {
 
     public void update(float deltaTime, float accelX, boolean seDisparo, boolean seDisparoMissil) {
         updateNave(deltaTime, accelX);
-        updateAlienShip(deltaTime);// <-- aqui mismo se agregan las balas de los aliens. Se updatean en otro metodo
+        updateAlienShip(deltaTime);// Alien bullets are added right here. They are updated using another method.
 
         updateBalaNormalYConNivel(deltaTime, seDisparo);
         updateMissil(deltaTime, seDisparoMissil);
         updateBalaAlien(deltaTime);
-        /* Los boost se agregan cada vez que se da hit a un alienShip. Aqui solo se actualizan */
+        // Boosts are added every time an alien ship is hit. They are only updated here.
         updateBoost(deltaTime);
 
         if (oNave.state != Nave.NAVE_STATE_EXPLODE) {
             checkCollision();
         }
         checkGameOver();
-        checkLevelEnd();// Cuando ya mate a todos los aliens
+        checkLevelEnd();// When I've killed all the aliens
     }
 
     private void updateNave(float deltaTime, float accelX) {
@@ -123,19 +123,19 @@ public class World {
             AlienShip oAlienShip = it.next();
             oAlienShip.update(deltaTime);
 
-            /* AgregoBalas a los Aliens */
+            // I add bullets to the aliens
             if (oRan.nextInt(5000) < (1 + probs) && oAlienShip.state != AlienShip.EXPLOTING) {
                 float x = oAlienShip.position.x;
                 float y = oAlienShip.position.y;
                 alienBullets.add(new Bullet(x, y));
             }
 
-            /* Elimino si ya explotaron */
+            // I delete if they have already exploded
             if (oAlienShip.state == AlienShip.EXPLOTING && oAlienShip.stateTime > AlienShip.TIEMPO_EXPLODE) {
                 it.remove();
             }
 
-            /* Si los alien llegan hacia abajo pierdes automaticamente */
+            // If the aliens reach the bottom you automatically lose.
             if (oAlienShip.position.y < 9.5f) {
                 state = STATE_GAME_OVER;
             }
@@ -143,7 +143,7 @@ public class World {
     }
 
     private void updateBalaAlien(float deltaTime) {
-        /* Ahora Actualizo //Recalculo len por si se disparo una bala nueva */
+        // Now I Update. I recalculate len in case a new bullet was fired
 
         Iterator<Bullet> it = alienBullets.iterator();
         while (it.hasNext()) {
@@ -169,7 +169,7 @@ public class World {
         while (it1.hasNext()) {
             Bullet oBullet = it1.next();
             if (oBullet.position.y > HEIGHT + 2)
-                oBullet.destruirBala();// para que no llegue tan lejos el misil
+                oBullet.destruirBala();// so that the missile doesn't get too far
             oBullet.update(deltaTime);
             if (oBullet.state == Bullet.STATE_EXPLOTANDO) {
                 it1.remove();
@@ -178,7 +178,7 @@ public class World {
     }
 
     private void updateMissil(float deltaTime, boolean seDisparoMissil) {
-        /* Limite de maxMissilesRonda Missiles en una ronda */
+        // Limit of max Missiles Round Missiles in a round
         int len = missiles.size;
         if (seDisparoMissil && missileCount > 0 && len < maxMissilesRonda) {
             float x = oNave.position.x;
@@ -188,7 +188,7 @@ public class World {
             Assets.playSound(Assets.missilFire, 0.15f);
         }
 
-        /* Ahora Actualizo. Recalculo len por si se disparo una missil nueva */
+        // Now I'm updating. I'm recalculating len in case a new missile is fired.
         Iterator<Missile> it = missiles.iterator();
         while (it.hasNext()) {
             Missile oMissile = it.next();
@@ -213,7 +213,7 @@ public class World {
     }
 
     /**
-     * ##################################### # Se Checan todo tipo de colisiones # #####################################
+     * All types of collisions are checked.
      */
     private void checkCollision() {
         checkColisionNaveBalaAliens();// Primero reviso si le dieron a mi nave =(
@@ -237,9 +237,9 @@ public class World {
                 if (Intersector.overlaps(oAlien.boundsCircle, oBala.boundsRectangle) && (oAlien.state != AlienShip.EXPLOTING)) {
                     oBala.hitTarget(oAlien.vidasLeft);
                     oAlien.beingHit();
-                    if (oAlien.state == AlienShip.EXPLOTING) {// Solo aumenta la puntuacion y agrego boost si ya esta exlotando, no si disminuyo su vida
-                        score += oAlien.puntuacion;// Actualizo la puntuacion
-                        agregarBoost(oAlien.position.x, oAlien.position.y);/* Aqui voy a ver si me da algun boost o no */
+                    if (oAlien.state == AlienShip.EXPLOTING) { // It only increases the score and I add boost if it is already exploding, not if I decrease its life
+                        score += oAlien.puntuacion; // I update the score
+                        agregarBoost(oAlien.position.x, oAlien.position.y); // Here I'll see if it gives me any boost or not.
                         Assets.playSound(Assets.explosionSound, 0.6f);
                     }
                 }
@@ -253,18 +253,18 @@ public class World {
                 if (oMissile.state == Missile.STATE_DISPARADO && Intersector.overlaps(oAlien.boundsCircle, oMissile.boundsRectangle) && oAlien.state != AlienShip.EXPLOTING) {
                     oMissile.hitTarget();
                     oAlien.beingHit();
-                    if (oAlien.state == AlienShip.EXPLOTING) {// Solo aumenta la puntuacion y agrego boost si ya esta exlotando, no si disminuyo su vida
-                        score += oAlien.puntuacion;// Actualizo la puntuacion
-                        agregarBoost(oAlien.position.x, oAlien.position.y);/* Aqui voy a ver si me da algun boost o no */
+                    if (oAlien.state == AlienShip.EXPLOTING) {// It only increases the score and I add boost if it is already exploding, not if I decrease its life
+                        score += oAlien.puntuacion;// I update the score
+                        agregarBoost(oAlien.position.x, oAlien.position.y); // Here I'll see if it gives me any boost or not.
                         Assets.playSound(Assets.explosionSound, 0.6f);
                     }
                 }
-                // Checo con el radio de la explosion
+                // Check with the radius of the explosion
                 if (oMissile.state == Missile.STATE_EXPLOTANDO && Intersector.overlaps(oAlien.boundsCircle, oMissile.boundsCircle) && oAlien.state != AlienShip.EXPLOTING) {
                     oAlien.beingHit();
-                    if (oAlien.state == AlienShip.EXPLOTING) {// Solo aumenta la puntuacion y agrego boost si ya esta exlotando, no si disminuyo su vida
-                        score += oAlien.puntuacion;// Actualizo la puntuacion
-                        agregarBoost(oAlien.position.x, oAlien.position.y);/* Aqui voy a ver si me da algun boost o no */
+                    if (oAlien.state == AlienShip.EXPLOTING) {// It only increases the score and I add boost if it is already exploding, not if I decrease its life
+                        score += oAlien.puntuacion;// I update the score
+                        agregarBoost(oAlien.position.x, oAlien.position.y); // Here I'll see if it gives me any boost or not.
                         Assets.playSound(Assets.explosionSound, 0.6f);
                     }
                 }
@@ -300,13 +300,13 @@ public class World {
     }
 
     /**
-     * Recibe las coordenadas en x,y de la nave que acaba de ser destruida El Boost puede ser una vida, armas, escudo, etc
+     * Receives the x,y coordinates of the ship that has just been destroyed. The Boost can be a life, weapons, shield, etc.
      *
-     * @param x posicion donde va aparecer el boost
-     * @param y posicion donde va aparecer el boost
+     * @param x position where the boost will appear
+     * @param y position where the boost will appear
      */
     private void agregarBoost(float x, float y) {
-        if (oRan.nextInt(100) < 5 + extraChanceDrop) {// Probabilidades de que aparezca un boost
+        if (oRan.nextInt(100) < 5 + extraChanceDrop) {// Chances of a boost appearing
             switch (oRan.nextInt(4)) {
                 case Boost.VIDA_EXTRA:
                     boosts.add(new Boost(Boost.VIDA_EXTRA, x, y));

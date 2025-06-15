@@ -32,7 +32,7 @@ public class GameScreen extends Screens {
     public static final int GAME_PAUSE = 3;
     public final int GAME_TUTORIAL = 4;
 
-    int pantallaTutorial; // si esta en la pantalla 1 o en la 2 del tutorial
+    int pantallaTutorial; // if it is on screen 1 or 2 of the tutorial
     World oWorld;
     WorldRenderer renderer;
     boolean seDisparo = false;
@@ -76,7 +76,7 @@ public class GameScreen extends Screens {
         leftButton = new Rectangle(0, 0, 160, 480);
         rightButton = new Rectangle(161, 0, 160, 480);
 
-        // Controles OnScreen
+        // OnScreen Controls
         accel = 0;
         nivel = oWorld.currentLevel;
         btLeft = new ImageButton(Assets.btLeft);
@@ -130,9 +130,9 @@ public class GameScreen extends Screens {
             }
         });
 
-        // Fin Controles OnScreen
+        // End OnScreen Controls
 
-        // /Inicio dialog Pause
+        // Start dialog Pause
         dialogPause = new Dialog(Assets.idiomas.get("game_paused"), Assets.styleDialogPause);
 
         TextButton btContinue = new TextButton(Assets.idiomas.get("continue"), Assets.styleTextButton);
@@ -162,7 +162,7 @@ public class GameScreen extends Screens {
         dialogPause.getButtonTable().row();
         dialogPause.getButtonTable().add(btMenu).minWidth(160).minHeight(40).expand();
 
-        // Inicio dialogGameOver
+        // Start GameOver dialog
 
         dialogGameOver = new Dialog("Game Over", Assets.styleDialogPause);
 
@@ -241,7 +241,6 @@ public class GameScreen extends Screens {
         scoresBar.add(imVida).size(20).right();
         scoresBar.add(lbNumVidas).right();
         scoresBar.add(btPause).size(26).right().padLeft(8);
-        // scoresBar.debug();
 
         stage.addActor(scoresBar);
     }
@@ -256,7 +255,6 @@ public class GameScreen extends Screens {
         stage.addActor(lbTiltYourDevice);
 
         gpTutorial = new Group();
-        // gpTutorial.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
         Table boostTable = new Table();
         gpTutorial.addActor(boostTable);
@@ -306,7 +304,6 @@ public class GameScreen extends Screens {
 
     @Override
     public void update(float deltaTime) {
-        // if (deltaTime > 0.1f) deltaTime = 0.1f;
         switch (state) {
             case GAME_TUTORIAL:
                 updateTutorial();
