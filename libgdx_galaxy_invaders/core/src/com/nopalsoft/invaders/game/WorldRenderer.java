@@ -13,7 +13,7 @@ import com.nopalsoft.invaders.game_objects.AlienShip;
 import com.nopalsoft.invaders.game_objects.Boost;
 import com.nopalsoft.invaders.game_objects.Bullet;
 import com.nopalsoft.invaders.game_objects.Missile;
-import com.nopalsoft.invaders.game_objects.Nave;
+import com.nopalsoft.invaders.game_objects.SpaceShip;
 import com.nopalsoft.invaders.screens.Screens;
 
 public class WorldRenderer {
@@ -45,9 +45,9 @@ public class WorldRenderer {
 
         batch.end();
         if (oWorld.state == World.STATE_RUNNING) {
-            Assets.parallaxFondo.render(deltaTime);
+            Assets.backgroundLayer.render(deltaTime);
         } else {// GAMEOVER, PAUSE, READY, ETC
-            Assets.parallaxFondo.render(0);
+            Assets.backgroundLayer.render(0);
         }
     }
 
@@ -68,23 +68,23 @@ public class WorldRenderer {
 
     private void renderNave() {
         TextureRegion keyFrame;
-        if (oWorld.oNave.state == Nave.NAVE_STATE_NORMAL) {
-            if (oWorld.oNave.velocity.x < -3)
-                keyFrame = Assets.naveLeft;
-            else if (oWorld.oNave.velocity.x > 3)
-                keyFrame = Assets.naveRight;
+        if (oWorld.oSpaceShip.state == SpaceShip.NAVE_STATE_NORMAL) {
+            if (oWorld.oSpaceShip.velocity.x < -3)
+                keyFrame = Assets.spaceShipLeft;
+            else if (oWorld.oSpaceShip.velocity.x > 3)
+                keyFrame = Assets.spaceShipRight;
             else
-                keyFrame = Assets.nave;
+                keyFrame = Assets.spaceShip;
         } else {
-            keyFrame = Assets.explosionFuego.getKeyFrame(oWorld.oNave.stateTime, false);
+            keyFrame = Assets.explosionAnimation.getKeyFrame(oWorld.oSpaceShip.stateTime, false);
         }
-        batch.draw(keyFrame, oWorld.oNave.position.x - Nave.DRAW_WIDTH / 2f, oWorld.oNave.position.y - Nave.DRAW_HEIGHT
-                / 2f, Nave.DRAW_WIDTH, Nave.DRAW_HEIGHT);
+        batch.draw(keyFrame, oWorld.oSpaceShip.position.x - SpaceShip.DRAW_WIDTH / 2f, oWorld.oSpaceShip.position.y - SpaceShip.DRAW_HEIGHT
+                / 2f, SpaceShip.DRAW_WIDTH, SpaceShip.DRAW_HEIGHT);
 
         // Draw the ship's shield
-        if (oWorld.oNave.vidasEscudo > 0) {
-            batch.draw(Assets.shield.getKeyFrame(oWorld.oNave.stateTime, true), oWorld.oNave.position.x - 5.5f,
-                    oWorld.oNave.position.y - 5.5f, 11, 11);
+        if (oWorld.oSpaceShip.vidasEscudo > 0) {
+            batch.draw(Assets.shieldAnimation.getKeyFrame(oWorld.oSpaceShip.stateTime, true), oWorld.oSpaceShip.position.x - 5.5f,
+                    oWorld.oSpaceShip.position.y - 5.5f, 11, 11);
         }
     }
 
@@ -94,7 +94,7 @@ public class WorldRenderer {
             AlienShip oAlienShip = oWorld.alienShips.get(i);
             TextureRegion keyFrame;
             if (oAlienShip.state == AlienShip.EXPLOTING) {
-                keyFrame = Assets.explosionFuego.getKeyFrame(oAlienShip.stateTime, false);
+                keyFrame = Assets.explosionAnimation.getKeyFrame(oAlienShip.stateTime, false);
             } else {
                 if (oAlienShip.vidasLeft >= 10)
                     keyFrame = Assets.alien4;
@@ -116,15 +116,15 @@ public class WorldRenderer {
             Bullet bullet = oWorld.shipBullets.get(i);
 
             if (bullet.level <= 1) {
-                batch.draw(Assets.balaNormal, bullet.position.x - 0.15f, bullet.position.y - 0.45f, 0.3f, 0.9f);
+                batch.draw(Assets.normalBullet, bullet.position.x - 0.15f, bullet.position.y - 0.45f, 0.3f, 0.9f);
             } else if (bullet.level == 2) {
-                batch.draw(Assets.balaNivel1, bullet.position.x - 1.05f, bullet.position.y - 0.75f, 2.1f, 1.5f);
+                batch.draw(Assets.bulletLevel1, bullet.position.x - 1.05f, bullet.position.y - 0.75f, 2.1f, 1.5f);
             } else if (bullet.level == 3) {
-                batch.draw(Assets.balaNivel2, bullet.position.x - 1.05f, bullet.position.y - 0.75f, 2.1f, 1.5f);
+                batch.draw(Assets.bulletLevel2, bullet.position.x - 1.05f, bullet.position.y - 0.75f, 2.1f, 1.5f);
             } else if (bullet.level == 4) {
-                batch.draw(Assets.balaNivel3, bullet.position.x - 1.05f, bullet.position.y - 0.75f, 2.1f, 1.5f);
+                batch.draw(Assets.bulletLevel3, bullet.position.x - 1.05f, bullet.position.y - 0.75f, 2.1f, 1.5f);
             } else {
-                batch.draw(Assets.balaNivel4, bullet.position.x - 1.05f, bullet.position.y - 0.75f, 2.1f, 1.5f);
+                batch.draw(Assets.bulletLevel4, bullet.position.x - 1.05f, bullet.position.y - 0.75f, 2.1f, 1.5f);
             }
         }
     }
@@ -134,7 +134,7 @@ public class WorldRenderer {
         int len = oWorld.alienBullets.size;
         for (int i = 0; i < len; i++) {
             Bullet oAlienBullet = oWorld.alienBullets.get(i);
-            batch.draw(Assets.balaNormalEnemigo, oAlienBullet.position.x - 0.15f, oAlienBullet.position.y - 0.45f, 0.3f,
+            batch.draw(Assets.normalEnemyBullet, oAlienBullet.position.x - 0.15f, oAlienBullet.position.y - 0.45f, 0.3f,
                     0.9f);
         }
     }
@@ -147,13 +147,13 @@ public class WorldRenderer {
             TextureRegion keyFrame;
             switch (oMissile.state) {
                 case Missile.STATE_DISPARADO:
-                    keyFrame = Assets.misil.getKeyFrame(oMissile.stateTime, true);
+                    keyFrame = Assets.missileAnimation.getKeyFrame(oMissile.stateTime, true);
                     widht = .8f;
                     heigth = 2.5f;
                     break;
                 default:
                 case Missile.STATE_EXPLOTANDO:
-                    keyFrame = Assets.explosionFuego.getKeyFrame(oMissile.stateTime, false);
+                    keyFrame = Assets.explosionAnimation.getKeyFrame(oMissile.stateTime, false);
                     widht = heigth = 15.0f;
                     break;
             }
@@ -193,7 +193,7 @@ public class WorldRenderer {
         render.setProjectionMatrix(cam.combined);
         render.begin(ShapeType.Line);
 
-        Rectangle naveBounds = oWorld.oNave.boundsRectangle;
+        Rectangle naveBounds = oWorld.oSpaceShip.boundsRectangle;
         render.rect(naveBounds.x, naveBounds.y, naveBounds.width, naveBounds.height);
 
         for (AlienShip obj : oWorld.alienShips) {

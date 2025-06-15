@@ -3,7 +3,7 @@ package com.nopalsoft.invaders.game_objects;
 import com.badlogic.gdx.Gdx;
 import com.nopalsoft.invaders.game.World;
 
-public class Nave extends DynamicGameObject {
+public class SpaceShip extends DynamicGameObject {
 
     public static final float DRAW_WIDTH = 4.5f;
     public static final float DRAW_HEIGHT = 3.6f;
@@ -18,14 +18,14 @@ public class Nave extends DynamicGameObject {
     public static final int NAVE_STATE_BEING_HIT = 2;
 
     public static final float TIEMPO_EXPLODE = 0.05f * 19;
-    public static final float TIEMPO_BEING_HIT = 0.05f * 21; // uno mas pa que tenga tantillo tiempo de pensar jaja
+    public static final float TIEMPO_BEING_HIT = 0.05f * 21; // One more so that I have a little time to think haha
 
     public int vidasEscudo;
     public int vidas;
     public int state;
     public float stateTime;
 
-    public Nave(float x, float y) {
+    public SpaceShip(float x, float y) {
         super(x, y, WIDTH, HEIGHT);
         vidas = 3;
         vidasEscudo = 1;// You start with 1 shield in case the bastards hit you.

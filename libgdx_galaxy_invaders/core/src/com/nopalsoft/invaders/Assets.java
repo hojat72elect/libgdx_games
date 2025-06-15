@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -26,65 +25,65 @@ import com.nopalsoft.invaders.parallax.ParallaxLayer;
 
 public class Assets {
 
-    public static I18NBundle idiomas;
+    public static I18NBundle languagesBundle;
     private static final GlyphLayout glyphLayout = new GlyphLayout();
 
-    public static AtlasRegion fondo;
-    public static ParallaxBackground parallaxFondo;
+    public static AtlasRegion backgroundAtlasRegion;
+    public static ParallaxBackground backgroundLayer;
 
-    public static AtlasRegion naveLeft;
-    public static AtlasRegion naveRight;
-    public static AtlasRegion nave;
+    public static AtlasRegion spaceShipLeft;
+    public static AtlasRegion spaceShipRight;
+    public static AtlasRegion spaceShip;
 
     // Fonts
-    public static BitmapFont font60;// Principalemnte para el titulo de la app
+    public static BitmapFont font60;// Mainly for the title of the app
     public static BitmapFont font45;
     public static BitmapFont font15;
     public static BitmapFont font10;
 
     // Menu
-    public static AtlasRegion elipseMenuIzq;
-    public static NinePatchDrawable btSignInUp;
-    public static NinePatchDrawable btSignInDown;
-    public static NinePatchDrawable tituloMenuRecuadro;
+    public static AtlasRegion leftMenuEllipse;
+    public static NinePatchDrawable buttonSignInUp;
+    public static NinePatchDrawable buttonSignInDown;
+    public static NinePatchDrawable titleMenuBox;
 
     // Game
-    public static NinePatchDrawable recuadroInGameStatus;
-    public static TextureRegionDrawable btLeft;
-    public static TextureRegionDrawable btRight;
-    public static TextureRegionDrawable btFire;
-    public static TextureRegionDrawable btFireDown;
-    public static TextureRegionDrawable btMissil;
-    public static TextureRegionDrawable btMissilDown;
+    public static NinePatchDrawable inGameStatusDrawable;
+    public static TextureRegionDrawable buttonLeft;
+    public static TextureRegionDrawable buttonRight;
+    public static TextureRegionDrawable buttonFire;
+    public static TextureRegionDrawable buttonFirePressed;
+    public static TextureRegionDrawable buttonMissile;
+    public static TextureRegionDrawable buttonMissilePressed;
 
     // Aid
     public static AtlasRegion help1;
-    public static AtlasRegion clickAyuda;
+    public static AtlasRegion helpClick;
 
     // Buttons
-    public static TextureRegionDrawable botonSonidoOn;
-    public static TextureRegionDrawable botonSonidoOff;
-    public static TextureRegionDrawable botonMusicaOn;
-    public static TextureRegionDrawable botonMusicaOff;
+    public static TextureRegionDrawable buttonSoundOn;
+    public static TextureRegionDrawable buttonSoundOff;
+    public static TextureRegionDrawable buttonMusicOn;
+    public static TextureRegionDrawable buttonMusicOff;
 
     // Ammunition
-    public static AtlasRegion balaNormal;
-    public static Animation<TextureRegion> misil;
-    public static Animation<TextureRegion> superRayo;
-    public static AtlasRegion balaNivel1;
-    public static AtlasRegion balaNivel2;
-    public static AtlasRegion balaNivel3;
-    public static AtlasRegion balaNivel4;
+    public static AtlasRegion normalBullet;
+    public static Animation<TextureRegion> missileAnimation;
+    public static Animation<TextureRegion> superBombAnimation;
+    public static AtlasRegion bulletLevel1;
+    public static AtlasRegion bulletLevel2;
+    public static AtlasRegion bulletLevel3;
+    public static AtlasRegion bulletLevel4;
 
     public static AtlasRegion boost1;
     public static AtlasRegion boost2;
     public static AtlasRegion boost3;
     public static AtlasRegion upgLife;
 
-    public static Animation<TextureRegion> explosionFuego;
-    public static Animation<TextureRegion> shield;
+    public static Animation<TextureRegion> explosionAnimation;
+    public static Animation<TextureRegion> shieldAnimation;
 
-    public static AtlasRegion balaNormalEnemigo;
+    public static AtlasRegion normalEnemyBullet;
     public static AtlasRegion alien1;
     public static AtlasRegion alien2;
     public static AtlasRegion alien3;
@@ -95,7 +94,7 @@ public class Assets {
     public static Sound coinSound;
     public static Sound clickSound;
     public static Sound explosionSound;
-    public static Sound missilFire;
+    public static Sound missileFiringSound;
 
     // Styles
     public static TextButtonStyle styleTextButtonMenu;
@@ -113,10 +112,6 @@ public class Assets {
     public static ImageButtonStyle styleImageButtonPause;
     public static ImageButtonStyle styleImageButtonStyleCheckBox;
 
-    public static Texture loadTexture(String file) {
-        return new Texture(Gdx.files.internal(file));
-    }
-
 
     static private void loadFont(TextureAtlas atlas) {
         font60 = new BitmapFont(Gdx.files.internal("data/font35.fnt"), atlas.findRegion("font35"), false);
@@ -133,160 +128,160 @@ public class Assets {
     static private void loadSceneStyles(TextureAtlas atlas) {
 
         // Dialog
-        NinePatchDrawable recuadroLogIn = new NinePatchDrawable(atlas.createPatch("recuadroLogIn"));
+        NinePatchDrawable loginDialogDrawable = new NinePatchDrawable(atlas.createPatch("recuadroLogIn"));
         AtlasRegion dialogDim = atlas.findRegion("fondoNegro");
-        styleDialogPause = new WindowStyle(font45, Color.GREEN, recuadroLogIn);
+        styleDialogPause = new WindowStyle(font45, Color.GREEN, loginDialogDrawable);
         styleDialogPause.stageBackground = new NinePatchDrawable(new NinePatch(dialogDim));
         styleLabelDialog = new LabelStyle(font15, Color.GREEN);
 
-        NinePatchDrawable default_round_down = new NinePatchDrawable(atlas.createPatch("botonDown"));
-        NinePatchDrawable default_round = new NinePatchDrawable(atlas.createPatch("boton"));
-        styleTextButton = new TextButtonStyle(default_round, default_round_down, null, font15);
+        NinePatchDrawable defaultRoundDown = new NinePatchDrawable(atlas.createPatch("botonDown"));
+        NinePatchDrawable defaultRound = new NinePatchDrawable(atlas.createPatch("boton"));
+        styleTextButton = new TextButtonStyle(defaultRound, defaultRoundDown, null, font15);
         styleTextButton.fontColor = Color.GREEN;
 
         // Menu
-        NinePatchDrawable botonMenu = new NinePatchDrawable(atlas.createPatch("botonMenu"));
-        NinePatchDrawable botonMenuDown = new NinePatchDrawable(atlas.createPatch("botonMenuPresionado"));
-        styleTextButtonMenu = new TextButtonStyle(botonMenu, botonMenuDown, null, font45);
+        NinePatchDrawable menuButtonDrawable = new NinePatchDrawable(atlas.createPatch("botonMenu"));
+        NinePatchDrawable menuButtonPressedDrawable = new NinePatchDrawable(atlas.createPatch("botonMenuPresionado"));
+        styleTextButtonMenu = new TextButtonStyle(menuButtonDrawable, menuButtonPressedDrawable, null, font45);
         styleTextButtonMenu.fontColor = Color.GREEN;
 
         styleLabel = new LabelStyle(font15, Color.GREEN);
 
         // Slider
-        NinePatchDrawable default_slider = new NinePatchDrawable(atlas.createPatch("default-slider"));
-        TextureRegionDrawable default_slider_knob = new TextureRegionDrawable(atlas.findRegion("default-slider-knob"));
+        NinePatchDrawable defaultSlider = new NinePatchDrawable(atlas.createPatch("default-slider"));
+        TextureRegionDrawable defaultSliderKnob = new TextureRegionDrawable(atlas.findRegion("default-slider-knob"));
 
-        styleSlider = new SliderStyle(default_slider, default_slider_knob);
+        styleSlider = new SliderStyle(defaultSlider, defaultSliderKnob);
 
-        TextureRegionDrawable btBackUp = new TextureRegionDrawable(atlas.findRegion("btBack"));
-        TextureRegionDrawable btBackDown = new TextureRegionDrawable(atlas.findRegion("btBackDown"));
+        TextureRegionDrawable buttonBackUp = new TextureRegionDrawable(atlas.findRegion("btBack"));
+        TextureRegionDrawable buttonBackDown = new TextureRegionDrawable(atlas.findRegion("btBackDown"));
 
-        styleTextButtonBack = new TextButtonStyle(btBackUp, btBackDown, null, font15);
+        styleTextButtonBack = new TextButtonStyle(buttonBackUp, buttonBackDown, null, font15);
         styleTextButtonBack.fontColor = Color.GREEN;
 
-        TextureRegionDrawable btPauseUp = new TextureRegionDrawable(atlas.findRegion("btPause"));
-        TextureRegionDrawable btPauseDown = new TextureRegionDrawable(atlas.findRegion("btPauseDown"));
-        styleImageButtonPause = new ImageButtonStyle(btPauseUp, btPauseDown, null, null, null, null);
+        TextureRegionDrawable buttonPauseUp = new TextureRegionDrawable(atlas.findRegion("btPause"));
+        TextureRegionDrawable buttonPauseDown = new TextureRegionDrawable(atlas.findRegion("btPauseDown"));
+        styleImageButtonPause = new ImageButtonStyle(buttonPauseUp, buttonPauseDown, null, null, null, null);
 
-        NinePatchDrawable botonFacebook = new NinePatchDrawable(atlas.createPatch("btShareFacebookUp"));
-        NinePatchDrawable botonFacebookDown = new NinePatchDrawable(atlas.createPatch("btShareFacebookDown"));
-        styleTextButtonFacebook = new TextButtonStyle(botonFacebook, botonFacebookDown, null, font10);
+        NinePatchDrawable buttonFacebook = new NinePatchDrawable(atlas.createPatch("btShareFacebookUp"));
+        NinePatchDrawable buttonFacebookPressed = new NinePatchDrawable(atlas.createPatch("btShareFacebookDown"));
+        styleTextButtonFacebook = new TextButtonStyle(buttonFacebook, buttonFacebookPressed, null, font10);
 
         TextureRegionDrawable checked = new TextureRegionDrawable(atlas.findRegion("checkBoxDown"));
-        TextureRegionDrawable uncheked = new TextureRegionDrawable(atlas.findRegion("checkBox"));
+        TextureRegionDrawable unchecked = new TextureRegionDrawable(atlas.findRegion("checkBox"));
 
-        styleImageButtonStyleCheckBox = new ImageButtonStyle(uncheked, checked, checked, null, null, null);
+        styleImageButtonStyleCheckBox = new ImageButtonStyle(unchecked, checked, checked, null, null, null);
     }
 
     public static void load() {
-        idiomas = I18NBundle.createBundle(Gdx.files.internal("strings/strings"));
+        languagesBundle = I18NBundle.createBundle(Gdx.files.internal("strings/strings"));
 
 
-        TextureAtlas atlas1 = new TextureAtlas(Gdx.files.internal("data/atlasMap.txt"));
+        TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("data/atlasMap.txt"));
 
-        loadFont(atlas1);
-        loadSceneStyles(atlas1);
+        loadFont(textureAtlas);
+        loadSceneStyles(textureAtlas);
 
         // Menu
-        elipseMenuIzq = atlas1.findRegion("elipseMenuIzq");
-        tituloMenuRecuadro = new NinePatchDrawable(atlas1.createPatch("tituloMenuRecuadro"));
+        leftMenuEllipse = textureAtlas.findRegion("elipseMenuIzq");
+        titleMenuBox = new NinePatchDrawable(textureAtlas.createPatch("tituloMenuRecuadro"));
 
         // Game
-        recuadroInGameStatus = new NinePatchDrawable(atlas1.createPatch("recuadroInGameStatus"));
-        btLeft = new TextureRegionDrawable(atlas1.findRegion("btLeft"));
-        btRight = new TextureRegionDrawable(atlas1.findRegion("btRight"));
-        btFire = new TextureRegionDrawable(atlas1.findRegion("btFire"));
-        btFireDown = new TextureRegionDrawable(atlas1.findRegion("btFire"));
-        btMissil = new TextureRegionDrawable(atlas1.findRegion("btMissil"));
-        btMissilDown = new TextureRegionDrawable(atlas1.findRegion("btMissil"));
+        inGameStatusDrawable = new NinePatchDrawable(textureAtlas.createPatch("recuadroInGameStatus"));
+        buttonLeft = new TextureRegionDrawable(textureAtlas.findRegion("btLeft"));
+        buttonRight = new TextureRegionDrawable(textureAtlas.findRegion("btRight"));
+        buttonFire = new TextureRegionDrawable(textureAtlas.findRegion("btFire"));
+        buttonFirePressed = new TextureRegionDrawable(textureAtlas.findRegion("btFire"));
+        buttonMissile = new TextureRegionDrawable(textureAtlas.findRegion("btMissil"));
+        buttonMissilePressed = new TextureRegionDrawable(textureAtlas.findRegion("btMissil"));
 
-        fondo = atlas1.findRegion("fondo");
+        backgroundAtlasRegion = textureAtlas.findRegion("fondo");
 
-        btSignInUp = new NinePatchDrawable(new NinePatch(atlas1.createPatch("btSignInUp")));
-        btSignInDown = new NinePatchDrawable(new NinePatch(atlas1.createPatch("btSignInDown")));
+        buttonSignInUp = new NinePatchDrawable(new NinePatch(textureAtlas.createPatch("btSignInUp")));
+        buttonSignInDown = new NinePatchDrawable(new NinePatch(textureAtlas.createPatch("btSignInDown")));
 
         // Aid
-        help1 = atlas1.findRegion("help1");
-        clickAyuda = atlas1.findRegion("ayudaClick");
+        help1 = textureAtlas.findRegion("help1");
+        helpClick = textureAtlas.findRegion("ayudaClick");
 
         // Buttons
-        botonMusicaOn = new TextureRegionDrawable(atlas1.findRegion("btMusica"));
-        botonMusicaOff = new TextureRegionDrawable(atlas1.findRegion("btSinMusica"));
-        botonSonidoOn = new TextureRegionDrawable(atlas1.findRegion("btSonido"));
-        botonSonidoOff = new TextureRegionDrawable(atlas1.findRegion("btSinSonido"));
+        buttonMusicOn = new TextureRegionDrawable(textureAtlas.findRegion("btMusica"));
+        buttonMusicOff = new TextureRegionDrawable(textureAtlas.findRegion("btSinMusica"));
+        buttonSoundOn = new TextureRegionDrawable(textureAtlas.findRegion("btSonido"));
+        buttonSoundOff = new TextureRegionDrawable(textureAtlas.findRegion("btSinSonido"));
 
         // spaceship
-        naveRight = atlas1.findRegion("naveRight");
-        naveLeft = atlas1.findRegion("naveLeft");
-        nave = atlas1.findRegion("nave");
+        spaceShipRight = textureAtlas.findRegion("naveRight");
+        spaceShipLeft = textureAtlas.findRegion("naveLeft");
+        spaceShip = textureAtlas.findRegion("nave");
 
-        AtlasRegion shield0 = atlas1.findRegion("shield0");
-        AtlasRegion shield1 = atlas1.findRegion("shield1");
-        AtlasRegion shield2 = atlas1.findRegion("shield2");
-        AtlasRegion shield3 = atlas1.findRegion("shield3");
-        AtlasRegion shield4 = atlas1.findRegion("shield4");
-        AtlasRegion shield5 = atlas1.findRegion("shield5");
-        AtlasRegion shield6 = atlas1.findRegion("shield6");
-        AtlasRegion shield7 = atlas1.findRegion("shield7");
-        AtlasRegion shield8 = atlas1.findRegion("shield9");
-        AtlasRegion shield9 = atlas1.findRegion("shield9");
-        AtlasRegion shield10 = atlas1.findRegion("shield10");
-        AtlasRegion shield11 = atlas1.findRegion("shield11");
-        shield = new Animation(.1f, shield0, shield1, shield2, shield3, shield4, shield5, shield6, shield7, shield8, shield9, shield10, shield11);
+        AtlasRegion shield0 = textureAtlas.findRegion("shield0");
+        AtlasRegion shield1 = textureAtlas.findRegion("shield1");
+        AtlasRegion shield2 = textureAtlas.findRegion("shield2");
+        AtlasRegion shield3 = textureAtlas.findRegion("shield3");
+        AtlasRegion shield4 = textureAtlas.findRegion("shield4");
+        AtlasRegion shield5 = textureAtlas.findRegion("shield5");
+        AtlasRegion shield6 = textureAtlas.findRegion("shield6");
+        AtlasRegion shield7 = textureAtlas.findRegion("shield7");
+        AtlasRegion shield8 = textureAtlas.findRegion("shield9");
+        AtlasRegion shield9 = textureAtlas.findRegion("shield9");
+        AtlasRegion shield10 = textureAtlas.findRegion("shield10");
+        AtlasRegion shield11 = textureAtlas.findRegion("shield11");
+        shieldAnimation = new Animation(.1f, shield0, shield1, shield2, shield3, shield4, shield5, shield6, shield7, shield8, shield9, shield10, shield11);
 
         // UFO
-        alien1 = atlas1.findRegion("alien1");
-        alien2 = atlas1.findRegion("alien2");
-        alien3 = atlas1.findRegion("alien3");
-        alien4 = atlas1.findRegion("alien4");
+        alien1 = textureAtlas.findRegion("alien1");
+        alien2 = textureAtlas.findRegion("alien2");
+        alien3 = textureAtlas.findRegion("alien3");
+        alien4 = textureAtlas.findRegion("alien4");
 
-        boost1 = atlas1.findRegion("upgLaser");
-        boost2 = atlas1.findRegion("upgBomb");
-        boost3 = atlas1.findRegion("upgShield");
-        upgLife = atlas1.findRegion("upgLife");
+        boost1 = textureAtlas.findRegion("upgLaser");
+        boost2 = textureAtlas.findRegion("upgBomb");
+        boost3 = textureAtlas.findRegion("upgShield");
+        upgLife = textureAtlas.findRegion("upgLife");
 
         // Ammunition
-        balaNormal = atlas1.findRegion("balaNormal");
-        balaNormalEnemigo = atlas1.findRegion("balaNormalEnemigo");
+        normalBullet = textureAtlas.findRegion("balaNormal");
+        normalEnemyBullet = textureAtlas.findRegion("balaNormalEnemigo");
 
-        AtlasRegion misil1 = atlas1.findRegion("misil1");
-        AtlasRegion misil2 = atlas1.findRegion("misil2");
-        misil = new Animation(0.2f, misil1, misil2);
+        AtlasRegion missile1AtlasRegion = textureAtlas.findRegion("misil1");
+        AtlasRegion missile2AtlasRegion = textureAtlas.findRegion("misil2");
+        missileAnimation = new Animation(0.2f, missile1AtlasRegion, missile2AtlasRegion);
 
-        AtlasRegion superRayo1 = atlas1.findRegion("superRayo1");
-        AtlasRegion superRayo2 = atlas1.findRegion("superRayo2");
-        superRayo = new Animation(0.2f, superRayo1, superRayo2);
+        AtlasRegion superBomb1AtlasRegion = textureAtlas.findRegion("superRayo1");
+        AtlasRegion superBomb2AtlasRegion = textureAtlas.findRegion("superRayo2");
+        superBombAnimation = new Animation(0.2f, superBomb1AtlasRegion, superBomb2AtlasRegion);
 
-        balaNivel1 = atlas1.findRegion("disparoA1");
-        balaNivel2 = atlas1.findRegion("disparoA2");
-        balaNivel3 = atlas1.findRegion("disparoA3");
-        balaNivel4 = atlas1.findRegion("disparoA4");
+        bulletLevel1 = textureAtlas.findRegion("disparoA1");
+        bulletLevel2 = textureAtlas.findRegion("disparoA2");
+        bulletLevel3 = textureAtlas.findRegion("disparoA3");
+        bulletLevel4 = textureAtlas.findRegion("disparoA4");
 
         // explosion Fire
-        AtlasRegion newExpl1 = atlas1.findRegion("newExplosion1");
-        AtlasRegion newExpl2 = atlas1.findRegion("newExplosion2");
-        AtlasRegion newExpl3 = atlas1.findRegion("newExplosion3");
-        AtlasRegion newExpl4 = atlas1.findRegion("newExplosion4");
-        AtlasRegion newExpl5 = atlas1.findRegion("newExplosion5");
-        AtlasRegion newExpl6 = atlas1.findRegion("newExplosion6");
-        AtlasRegion newExpl7 = atlas1.findRegion("newExplosion7");
-        AtlasRegion newExpl8 = atlas1.findRegion("newExplosion8");
-        AtlasRegion newExpl9 = atlas1.findRegion("newExplosion9");
-        AtlasRegion newExpl10 = atlas1.findRegion("newExplosion10");
-        AtlasRegion newExpl11 = atlas1.findRegion("newExplosion11");
-        AtlasRegion newExpl12 = atlas1.findRegion("newExplosion12");
-        AtlasRegion newExpl13 = atlas1.findRegion("newExplosion13");
-        AtlasRegion newExpl14 = atlas1.findRegion("newExplosion14");
-        AtlasRegion newExpl15 = atlas1.findRegion("newExplosion15");
-        AtlasRegion newExpl16 = atlas1.findRegion("newExplosion16");
-        AtlasRegion newExpl17 = atlas1.findRegion("newExplosion17");
-        AtlasRegion newExpl18 = atlas1.findRegion("newExplosion18");
-        AtlasRegion newExpl19 = atlas1.findRegion("newExplosion19");
-        explosionFuego = new Animation(0.05f, newExpl1, newExpl2, newExpl3, newExpl4, newExpl5, newExpl6, newExpl7, newExpl8, newExpl9, newExpl10, newExpl11, newExpl12, newExpl13, newExpl14, newExpl15, newExpl16, newExpl17, newExpl18, newExpl19);
+        AtlasRegion explosionFrame1 = textureAtlas.findRegion("newExplosion1");
+        AtlasRegion explosionFrame2 = textureAtlas.findRegion("newExplosion2");
+        AtlasRegion explosionFrame3 = textureAtlas.findRegion("newExplosion3");
+        AtlasRegion explosionFrame4 = textureAtlas.findRegion("newExplosion4");
+        AtlasRegion explosionFrame5 = textureAtlas.findRegion("newExplosion5");
+        AtlasRegion explosionFrame6 = textureAtlas.findRegion("newExplosion6");
+        AtlasRegion explosionFrame7 = textureAtlas.findRegion("newExplosion7");
+        AtlasRegion explosionFrame8 = textureAtlas.findRegion("newExplosion8");
+        AtlasRegion explosionFrame9 = textureAtlas.findRegion("newExplosion9");
+        AtlasRegion explosionFrame10 = textureAtlas.findRegion("newExplosion10");
+        AtlasRegion explosionFrame11 = textureAtlas.findRegion("newExplosion11");
+        AtlasRegion explosionFrame12 = textureAtlas.findRegion("newExplosion12");
+        AtlasRegion explosionFrame13 = textureAtlas.findRegion("newExplosion13");
+        AtlasRegion explosionFrame14 = textureAtlas.findRegion("newExplosion14");
+        AtlasRegion explosionFrame15 = textureAtlas.findRegion("newExplosion15");
+        AtlasRegion explosionFrame16 = textureAtlas.findRegion("newExplosion16");
+        AtlasRegion explosionFrame17 = textureAtlas.findRegion("newExplosion17");
+        AtlasRegion explosionFrame18 = textureAtlas.findRegion("newExplosion18");
+        AtlasRegion explosionFrame19 = textureAtlas.findRegion("newExplosion19");
+        explosionAnimation = new Animation(0.05f, explosionFrame1, explosionFrame2, explosionFrame3, explosionFrame4, explosionFrame5, explosionFrame6, explosionFrame7, explosionFrame8, explosionFrame9, explosionFrame10, explosionFrame11, explosionFrame12, explosionFrame13, explosionFrame14, explosionFrame15, explosionFrame16, explosionFrame17, explosionFrame18, explosionFrame19);
 
-        ParallaxLayer para1 = new ParallaxLayer(fondo, new Vector2(0, 50), new Vector2(0, 0));
-        ParallaxLayer[] arr = new ParallaxLayer[]{para1};
-        parallaxFondo = new ParallaxBackground(arr, 320, 480, new Vector2(0, 1));
+        ParallaxLayer parallaxLayer = new ParallaxLayer(backgroundAtlasRegion, new Vector2(0, 50), new Vector2(0, 0));
+        ParallaxLayer[] arrayLayers = new ParallaxLayer[]{parallaxLayer};
+        backgroundLayer = new ParallaxBackground(arrayLayers, 320, 480, new Vector2(0, 1));
 
         music = Gdx.audio.newMusic(Gdx.files.internal("data/sonidos/musica.mp3"));
         music.setLooping(true);
@@ -294,7 +289,7 @@ public class Assets {
         coinSound = Gdx.audio.newSound(Gdx.files.internal("data/sonidos/coin.ogg"));
         clickSound = Gdx.audio.newSound(Gdx.files.internal("data/sonidos/click.ogg"));
         explosionSound = Gdx.audio.newSound(Gdx.files.internal("data/sonidos/sound_explode.ogg"));
-        missilFire = Gdx.audio.newSound(Gdx.files.internal("data/sonidos/missilFire3.ogg"));
+        missileFiringSound = Gdx.audio.newSound(Gdx.files.internal("data/sonidos/missilFire3.ogg"));
 
         Settings.load();
         if (Settings.musicEnabled)

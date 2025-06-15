@@ -11,45 +11,45 @@ public class Settings {
     public static boolean musicEnabled = false;
     public final static int[] highScores = new int[]{0, 0, 0, 0, 0};// only 5 scores are saved
     public static boolean isTiltControl = true;
-    public static int aceletometerSensitive = 10;
-    public static int numeroDeVecesQueSeHaJugado = 0;
+    public static int accelerometerSensitivity = 10;
+    public static int numberOfTimesPlayed = 0;
 
-    private final static String prefName = "com.tiarsoft.droid.Settings";
-    private final static Preferences pref = Gdx.app.getPreferences(prefName);
+    private final static String preferencesName = "com.tiarsoft.droid.Settings";
+    private final static Preferences preferences = Gdx.app.getPreferences(preferencesName);
 
     public static void load() {
 
-        isTiltControl = pref.getBoolean("isTiltControl", true);
+        isTiltControl = preferences.getBoolean("isTiltControl", true);
 
-        soundEnabled = pref.getBoolean("sonidoActivado", false);
-        musicEnabled = pref.getBoolean("musicaActivado", false);
+        soundEnabled = preferences.getBoolean("sonidoActivado", false);
+        musicEnabled = preferences.getBoolean("musicaActivado", false);
         for (int i = 0; i < 5; i++) {// only 5 scores are loaded
-            highScores[i] = Integer.parseInt(pref.getString("puntuacion" + i, "0"));
+            highScores[i] = Integer.parseInt(preferences.getString("puntuacion" + i, "0"));
         }
-        aceletometerSensitive = pref.getInteger("acelerometerSensitive", 10);
-        numeroDeVecesQueSeHaJugado = pref.getInteger("numeroDeVecesQueSeHaJugado", 0);
+        accelerometerSensitivity = preferences.getInteger("acelerometerSensitive", 10);
+        numberOfTimesPlayed = preferences.getInteger("numeroDeVecesQueSeHaJugado", 0);
     }
 
     public static void save() {
-        pref.putBoolean("isTiltControl", isTiltControl);
+        preferences.putBoolean("isTiltControl", isTiltControl);
 
-        pref.putBoolean("sonidoActivado", soundEnabled);
-        pref.putBoolean("musicaActivado", musicEnabled);
+        preferences.putBoolean("sonidoActivado", soundEnabled);
+        preferences.putBoolean("musicaActivado", musicEnabled);
 
         for (int i = 0; i < 5; i++) {// solo 5 puntuaciones se cargan
-            pref.putString("puntuacion" + i, String.valueOf(highScores[i]));
+            preferences.putString("puntuacion" + i, String.valueOf(highScores[i]));
         }
-        pref.putInteger("acelerometerSensitive", aceletometerSensitive);
-        pref.putInteger("numeroDeVecesQueSeHaJugado", numeroDeVecesQueSeHaJugado);
-        pref.flush();
+        preferences.putInteger("acelerometerSensitive", accelerometerSensitivity);
+        preferences.putInteger("numeroDeVecesQueSeHaJugado", numberOfTimesPlayed);
+        preferences.flush();
     }
 
-    public static void agregarPuntuacion(int puntuacion) {
+    public static void addScore(int newScore) {
         for (int i = 0; i < 5; i++) {
-            if (highScores[i] < puntuacion) {
+            if (highScores[i] < newScore) {
                 for (int j = 4; j > i; j--)
                     highScores[j] = highScores[j - 1];
-                highScores[i] = puntuacion;
+                highScores[i] = newScore;
                 break;
             }
         }

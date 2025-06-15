@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.invaders.Assets;
-import com.nopalsoft.invaders.MainInvaders;
+import com.nopalsoft.invaders.GalaxyInvadersGame;
 import com.nopalsoft.invaders.Settings;
 import com.nopalsoft.invaders.game.GameScreen;
 
@@ -27,12 +27,12 @@ public class MainMenuScreen extends Screens {
     ImageButton btSonido, btMusica;
     Image elipseIzq;
 
-    public MainMenuScreen(final MainInvaders game) {
+    public MainMenuScreen(final GalaxyInvadersGame game) {
         super(game);
 
         Table tituloTable = new Table();
-        tituloTable.setBackground(Assets.tituloMenuRecuadro);
-        Label titulo = new Label(Assets.idiomas.get("titulo_app"), new LabelStyle(Assets.font60, Color.GREEN));
+        tituloTable.setBackground(Assets.titleMenuBox);
+        Label titulo = new Label(Assets.languagesBundle.get("titulo_app"), new LabelStyle(Assets.font60, Color.GREEN));
         titulo.setAlignment(Align.center);
         tituloTable.setSize(265, 100);
         tituloTable.setPosition((SCREEN_WIDTH - 265) / 2f, SCREEN_HEIGHT - 110);
@@ -44,7 +44,7 @@ public class MainMenuScreen extends Screens {
         lbHighestScore.setAlignment(Align.center);
         lbHighestScore.setPosition(0, SCREEN_HEIGHT - 120);
 
-        btPlay = new TextButton(Assets.idiomas.get("play"), Assets.styleTextButtonMenu);
+        btPlay = new TextButton(Assets.languagesBundle.get("play"), Assets.styleTextButtonMenu);
         btPlay.setSize(250, 50);
         btPlay.setPosition(0, 280);
         btPlay.addListener(new ClickListener() {
@@ -55,7 +55,7 @@ public class MainMenuScreen extends Screens {
             }
         });
 
-        btSettings = new TextButton(Assets.idiomas.get("settings"), Assets.styleTextButtonMenu);
+        btSettings = new TextButton(Assets.languagesBundle.get("settings"), Assets.styleTextButtonMenu);
         btSettings.setSize(300, 50);
         btSettings.setPosition(0, 210);
         btSettings.addListener(new ClickListener() {
@@ -66,7 +66,7 @@ public class MainMenuScreen extends Screens {
             }
         });
 
-        btLeaderBoard = new TextButton(Assets.idiomas.get("leaderboard"), Assets.styleTextButtonMenu);
+        btLeaderBoard = new TextButton(Assets.languagesBundle.get("leaderboard"), Assets.styleTextButtonMenu);
         btLeaderBoard.setSize(310, 50);
         btLeaderBoard.setPosition(0, 140);
         btLeaderBoard.addListener(new ClickListener() {
@@ -77,7 +77,7 @@ public class MainMenuScreen extends Screens {
             }
         });
 
-        btMore = new TextButton(Assets.idiomas.get("more"), Assets.styleTextButtonMenu);
+        btMore = new TextButton(Assets.languagesBundle.get("more"), Assets.styleTextButtonMenu);
         btMore.setSize(250, 50);
         btMore.setPosition(0, 70);
         btMore.addListener(new ClickListener() {
@@ -87,7 +87,7 @@ public class MainMenuScreen extends Screens {
             }
         });
 
-        btFacebook = new TextButton(Assets.idiomas.get("like_us_to_get_lastest_news"), Assets.styleTextButtonFacebook);
+        btFacebook = new TextButton(Assets.languagesBundle.get("like_us_to_get_lastest_news"), Assets.styleTextButtonFacebook);
         btFacebook.getLabel().setWrap(true);
         btFacebook.setWidth(170);
         btFacebook.setPosition(SCREEN_WIDTH - btFacebook.getWidth() - 2, 2);
@@ -99,7 +99,7 @@ public class MainMenuScreen extends Screens {
             }
         });
 
-        btSonido = new ImageButton(Assets.botonSonidoOn, Assets.botonSonidoOff, Assets.botonSonidoOff);
+        btSonido = new ImageButton(Assets.buttonSoundOn, Assets.buttonSoundOff, Assets.buttonSoundOff);
         btSonido.setSize(40, 40);
         btSonido.setPosition(2, 2);
         if (!Settings.soundEnabled)
@@ -114,7 +114,7 @@ public class MainMenuScreen extends Screens {
             }
         });
 
-        btMusica = new ImageButton(Assets.botonMusicaOn, Assets.botonMusicaOff, Assets.botonMusicaOff);
+        btMusica = new ImageButton(Assets.buttonMusicOn, Assets.buttonMusicOff, Assets.buttonMusicOff);
         btMusica.setSize(40, 40);
         btMusica.setPosition(44, 2);
         if (!Settings.musicEnabled)
@@ -137,7 +137,7 @@ public class MainMenuScreen extends Screens {
 
         // The measurements are taken with a formula of 3 if 480 / 960 x 585 where 585 is the size,
         // 960 is the size for what they were made and 480 is the size of the camera
-        elipseIzq = new Image(Assets.elipseMenuIzq);
+        elipseIzq = new Image(Assets.leftMenuEllipse);
         elipseIzq.setSize(18.5f, 292.5f);
         elipseIzq.setPosition(0, 60);
 
@@ -154,14 +154,14 @@ public class MainMenuScreen extends Screens {
         stage.addActor(btFacebook);
 
 
-        if (Settings.numeroDeVecesQueSeHaJugado == 0) {
-            game.dialogs.showDialogSignIn();
+        if (Settings.numberOfTimesPlayed == 0) {
+            game.dialog.showDialogSignIn();
         }
     }
 
     @Override
     public void update(float delta) {
-        lbHighestScore.setText(Assets.idiomas.format("local_highest_score", String.valueOf(Settings.highScores[0])));
+        lbHighestScore.setText(Assets.languagesBundle.format("local_highest_score", String.valueOf(Settings.highScores[0])));
     }
 
     @Override
@@ -170,15 +170,15 @@ public class MainMenuScreen extends Screens {
         batcher.setProjectionMatrix(oCam.combined);
 
         batcher.disableBlending();
-        Assets.parallaxFondo.render(delta);
+        Assets.backgroundLayer.render(delta);
     }
 
     @Override
     public boolean keyDown(int tecleada) {
         if (tecleada == Keys.BACK || tecleada == Keys.ESCAPE) {
             Assets.playSound(Assets.clickSound);
-            if (game.dialogs.isDialogShown()) {
-                game.dialogs.dismissAll();
+            if (game.dialog.isDialogShown()) {
+                game.dialog.dismissAll();
             } else {
 
                 Gdx.app.exit();

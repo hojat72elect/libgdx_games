@@ -16,37 +16,37 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.invaders.Assets;
-import com.nopalsoft.invaders.MainInvaders;
+import com.nopalsoft.invaders.GalaxyInvadersGame;
 import com.nopalsoft.invaders.Settings;
-import com.nopalsoft.invaders.game_objects.Nave;
+import com.nopalsoft.invaders.game_objects.SpaceShip;
 
 public class SettingsScreen extends Screens {
 
     ImageButton tiltControl;
     ImageButton onScreenControl;
-    Slider aceletometerSlider;
-    TextButton btBack;
+    Slider accelerometerSlider;
+    TextButton buttonBack;
     Table menuControls;
 
-    ImageButton btLeft, btRight, btMissil, btFire;
+    ImageButton buttonLeft, buttonRight, buttonMissile, buttonFire;
 
     Label touchLeft, touchRight;
 
-    public final Nave oNave;
+    public final SpaceShip oSpaceShip;
     OrthographicCamera camRender;
     float accel;
 
-    public SettingsScreen(final MainInvaders game) {
+    public SettingsScreen(final GalaxyInvadersGame game) {
         super(game);
 
         //Accelerometer Slider
-        aceletometerSlider = new Slider(1, 20, 1f, false, Assets.styleSlider);
-        aceletometerSlider.setPosition(70, 295);
-        aceletometerSlider.setValue(21 - Settings.aceletometerSensitive);
-        aceletometerSlider.addListener(new ChangeListener() {
+        accelerometerSlider = new Slider(1, 20, 1f, false, Assets.styleSlider);
+        accelerometerSlider.setPosition(70, 295);
+        accelerometerSlider.setValue(21 - Settings.accelerometerSensitivity);
+        accelerometerSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Settings.aceletometerSensitive = 21 - (int) ((Slider) actor).getValue();
+                Settings.accelerometerSensitivity = 21 - (int) ((Slider) actor).getValue();
             }
         });
 
@@ -81,10 +81,10 @@ public class SettingsScreen extends Screens {
 
         // OnScreen Controls
 
-        btLeft = new ImageButton(Assets.btLeft);
-        btLeft.setSize(65, 50);
-        btLeft.setPosition(10, 5);
-        btLeft.addListener(new ClickListener() {
+        buttonLeft = new ImageButton(Assets.buttonLeft);
+        buttonLeft.setSize(65, 50);
+        buttonLeft.setPosition(10, 5);
+        buttonLeft.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 accel = 5;
@@ -96,10 +96,10 @@ public class SettingsScreen extends Screens {
                 super.exit(event, x, y, pointer, toActor);
             }
         });
-        btRight = new ImageButton(Assets.btRight);
-        btRight.setSize(65, 50);
-        btRight.setPosition(85, 5);
-        btRight.addListener(new ClickListener() {
+        buttonRight = new ImageButton(Assets.buttonRight);
+        buttonRight.setSize(65, 50);
+        buttonRight.setPosition(85, 5);
+        buttonRight.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
                 accel = -5;
@@ -112,24 +112,24 @@ public class SettingsScreen extends Screens {
             }
         });
 
-        btMissil = new ImageButton(Assets.btMissil, Assets.btMissilDown);
-        btMissil.setSize(60, 60);
-        btMissil.setPosition(SCREEN_WIDTH - 5 - 60 - 20 - 60, 5);
-        btFire = new ImageButton(Assets.btFire, Assets.btFireDown);
-        btFire.setSize(60, 60);
-        btFire.setPosition(SCREEN_WIDTH - 60 - 5, 5);
+        buttonMissile = new ImageButton(Assets.buttonMissile, Assets.buttonMissilePressed);
+        buttonMissile.setSize(60, 60);
+        buttonMissile.setPosition(SCREEN_WIDTH - 5 - 60 - 20 - 60, 5);
+        buttonFire = new ImageButton(Assets.buttonFire, Assets.buttonFirePressed);
+        buttonFire.setSize(60, 60);
+        buttonFire.setPosition(SCREEN_WIDTH - 60 - 5, 5);
 
-        menuControls.add(new Label(Assets.idiomas.get("on_screen_control"), Assets.styleLabel)).left();
+        menuControls.add(new Label(Assets.languagesBundle.get("on_screen_control"), Assets.styleLabel)).left();
         menuControls.add(onScreenControl).size(25);
         menuControls.row().padTop(10);
-        menuControls.add(new Label(Assets.idiomas.get("tilt_control"), Assets.styleLabel)).left();
+        menuControls.add(new Label(Assets.languagesBundle.get("tilt_control"), Assets.styleLabel)).left();
         menuControls.add(tiltControl).size(25);
 
-        btBack = new TextButton(Assets.idiomas.get("back"), Assets.styleTextButtonBack);
-        btBack.pad(0, 15, 35, 0);
-        btBack.setSize(63, 63);
-        btBack.setPosition(SCREEN_WIDTH - 63, SCREEN_HEIGHT - 63);
-        btBack.addListener(new ClickListener() {
+        buttonBack = new TextButton(Assets.languagesBundle.get("back"), Assets.styleTextButtonBack);
+        buttonBack.pad(0, 15, 35, 0);
+        buttonBack.setSize(63, 63);
+        buttonBack.setPosition(SCREEN_WIDTH - 63, SCREEN_HEIGHT - 63);
+        buttonBack.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(Assets.clickSound);
@@ -137,13 +137,13 @@ public class SettingsScreen extends Screens {
             }
         });
 
-        touchLeft = new Label(Assets.idiomas.get("touch_left_side_to_fire_missils"), Assets.styleLabel);
+        touchLeft = new Label(Assets.languagesBundle.get("touch_left_side_to_fire_missils"), Assets.styleLabel);
         touchLeft.setWrap(true);
         touchLeft.setWidth(160);
         touchLeft.setAlignment(Align.center);
         touchLeft.setPosition(0, 50);
 
-        touchRight = new Label(Assets.idiomas.get("touch_right_side_to_fire"), Assets.styleLabel);
+        touchRight = new Label(Assets.languagesBundle.get("touch_right_side_to_fire"), Assets.styleLabel);
         touchRight.setWrap(true);
         touchRight.setWidth(160);
         touchRight.setAlignment(Align.center);
@@ -152,7 +152,7 @@ public class SettingsScreen extends Screens {
         setOptions();
 
         // I'm going to put the ship here to move too.
-        oNave = new Nave(WORLD_SCREEN_WIDTH / 2.0f, WORLD_SCREEN_HEIGHT / 3.0f); // Coloco la nave en posicion
+        oSpaceShip = new SpaceShip(WORLD_SCREEN_WIDTH / 2.0f, WORLD_SCREEN_HEIGHT / 3.0f); // Coloco la nave en posicion
         this.camRender = new OrthographicCamera(WORLD_SCREEN_WIDTH, WORLD_SCREEN_HEIGHT);
         camRender.position.set(WORLD_SCREEN_WIDTH / 2.0f, WORLD_SCREEN_HEIGHT / 2.0f, 0);
 
@@ -161,9 +161,9 @@ public class SettingsScreen extends Screens {
     protected void setOptions() {
         stage.clear();
         accel = 0;// because sometimes the ship would stay moving when switching from tilt to control
-        stage.addActor(btBack);
+        stage.addActor(buttonBack);
         stage.addActor(menuControls);
-        stage.addActor(aceletometerSlider);
+        stage.addActor(accelerometerSlider);
         if (Settings.isTiltControl)
             setTiltControls();
         else
@@ -176,10 +176,10 @@ public class SettingsScreen extends Screens {
     }
 
     protected void setOnScreenControl() {
-        stage.addActor(btLeft);
-        stage.addActor(btRight);
-        stage.addActor(btMissil);
-        stage.addActor(btFire);
+        stage.addActor(buttonLeft);
+        stage.addActor(buttonRight);
+        stage.addActor(buttonMissile);
+        stage.addActor(buttonFire);
     }
 
     @Override
@@ -196,9 +196,9 @@ public class SettingsScreen extends Screens {
                     accel = -5f;
             }
         }
-        oNave.velocity.x = -accel / Settings.aceletometerSensitive * Nave.NAVE_MOVE_SPEED;
+        oSpaceShip.velocity.x = -accel / Settings.accelerometerSensitivity * SpaceShip.NAVE_MOVE_SPEED;
 
-        oNave.update(delta);
+        oSpaceShip.update(delta);
     }
 
     @Override
@@ -208,26 +208,26 @@ public class SettingsScreen extends Screens {
         batcher.setProjectionMatrix(oCam.combined);
 
         batcher.disableBlending();
-        Assets.parallaxFondo.render(delta);
+        Assets.backgroundLayer.render(delta);
 
         stage.act(delta);
         stage.draw();
 
         batcher.enableBlending();
         batcher.begin();
-        Assets.font45.draw(batcher, Assets.idiomas.get("control_options"), 10, 460);
+        Assets.font45.draw(batcher, Assets.languagesBundle.get("control_options"), 10, 460);
 
         if (Settings.isTiltControl) {
-            String tiltSensitive = Assets.idiomas.get("tilt_sensitive");
+            String tiltSensitive = Assets.languagesBundle.get("tilt_sensitive");
             float textWidth = Assets.getTextWidth(Assets.font15, tiltSensitive);
             Assets.font15.draw(batcher, tiltSensitive, SCREEN_WIDTH / 2f - textWidth / 2f, 335);
-            batcher.draw(Assets.clickAyuda, 155, 0, 10, 125);
+            batcher.draw(Assets.helpClick, 155, 0, 10, 125);
         } else {
-            String speed = Assets.idiomas.get("speed");
+            String speed = Assets.languagesBundle.get("speed");
             float textWidth = Assets.getTextWidth(Assets.font15, speed);
             Assets.font15.draw(batcher, speed, SCREEN_WIDTH / 2f - textWidth / 2f, 335);
         }
-        Assets.font15.draw(batcher, (int) aceletometerSlider.getValue() + "", 215, 313);
+        Assets.font15.draw(batcher, (int) accelerometerSlider.getValue() + "", 215, 313);
         batcher.end();
 
         camRender.update();
@@ -239,14 +239,14 @@ public class SettingsScreen extends Screens {
 
     private void renderNave() {
         TextureRegion keyFrame;
-        if (oNave.velocity.x < -3)
-            keyFrame = Assets.naveLeft;
-        else if (oNave.velocity.x > 3)
-            keyFrame = Assets.naveRight;
+        if (oSpaceShip.velocity.x < -3)
+            keyFrame = Assets.spaceShipLeft;
+        else if (oSpaceShip.velocity.x > 3)
+            keyFrame = Assets.spaceShipRight;
         else
-            keyFrame = Assets.nave;
+            keyFrame = Assets.spaceShip;
 
-        batcher.draw(keyFrame, oNave.position.x - Nave.DRAW_WIDTH / 2f, oNave.position.y - Nave.DRAW_HEIGHT / 2f, Nave.DRAW_WIDTH, Nave.DRAW_HEIGHT);
+        batcher.draw(keyFrame, oSpaceShip.position.x - SpaceShip.DRAW_WIDTH / 2f, oSpaceShip.position.y - SpaceShip.DRAW_HEIGHT / 2f, SpaceShip.DRAW_WIDTH, SpaceShip.DRAW_HEIGHT);
     }
 
     @Override

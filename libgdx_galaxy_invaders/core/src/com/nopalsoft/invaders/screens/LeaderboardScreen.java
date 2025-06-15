@@ -7,17 +7,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.invaders.Assets;
-import com.nopalsoft.invaders.MainInvaders;
+import com.nopalsoft.invaders.GalaxyInvadersGame;
 
 public class LeaderboardScreen extends Screens {
 
     TextButton btLeaderBoard, btAchievements, btBack, btSignOut;
     Image elipseIzq;
 
-    public LeaderboardScreen(final MainInvaders game) {
+    public LeaderboardScreen(final GalaxyInvadersGame game) {
         super(game);
 
-        btBack = new TextButton(Assets.idiomas.get("back"), Assets.styleTextButtonBack);
+        btBack = new TextButton(Assets.languagesBundle.get("back"), Assets.styleTextButtonBack);
         btBack.pad(0, 15, 35, 0);
         btBack.setSize(63, 63);
         btBack.setPosition(SCREEN_WIDTH - 63, SCREEN_HEIGHT - 63);
@@ -29,7 +29,7 @@ public class LeaderboardScreen extends Screens {
             }
         });
 
-        btLeaderBoard = new TextButton(Assets.idiomas.get("leaderboard"), Assets.styleTextButtonMenu);
+        btLeaderBoard = new TextButton(Assets.languagesBundle.get("leaderboard"), Assets.styleTextButtonMenu);
         btLeaderBoard.setHeight(50);// Altura 50
         btLeaderBoard.setSize(50, 0);// Al ancho actual le agregamos 50
         btLeaderBoard.setPosition(0, 245);
@@ -40,7 +40,7 @@ public class LeaderboardScreen extends Screens {
             }
         });
 
-        btAchievements = new TextButton(Assets.idiomas.get("achievements"), Assets.styleTextButtonMenu);
+        btAchievements = new TextButton(Assets.languagesBundle.get("achievements"), Assets.styleTextButtonMenu);
         btAchievements.setHeight(50);// Altura 50
         btAchievements.setSize(50, 0);// Al ancho actual le agregamos 50
         btAchievements.setPosition(0, 150);
@@ -51,7 +51,7 @@ public class LeaderboardScreen extends Screens {
             }
         });
 
-        btSignOut = new TextButton(Assets.idiomas.get("sign_out"), new TextButtonStyle(Assets.btSignInUp, Assets.btSignInDown, null, Assets.font15));
+        btSignOut = new TextButton(Assets.languagesBundle.get("sign_out"), new TextButtonStyle(Assets.buttonSignInUp, Assets.buttonSignInDown, null, Assets.font15));
         btSignOut.getLabel().setWrap(true);
         btSignOut.setWidth(140);
         btSignOut.setPosition(2, 2);
@@ -63,7 +63,7 @@ public class LeaderboardScreen extends Screens {
             }
         });
 
-        elipseIzq = new Image(Assets.elipseMenuIzq);
+        elipseIzq = new Image(Assets.leftMenuEllipse);
         elipseIzq.setSize(18.5f, 250.5f);
         elipseIzq.setPosition(0, 105);
 
@@ -80,7 +80,7 @@ public class LeaderboardScreen extends Screens {
         batcher.setProjectionMatrix(oCam.combined);
 
         batcher.disableBlending();
-        Assets.parallaxFondo.render(delta);
+        Assets.backgroundLayer.render(delta);
     }
 
     @Override

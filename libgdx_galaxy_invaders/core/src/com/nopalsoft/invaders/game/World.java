@@ -9,7 +9,7 @@ import com.nopalsoft.invaders.game_objects.AlienShip;
 import com.nopalsoft.invaders.game_objects.Boost;
 import com.nopalsoft.invaders.game_objects.Bullet;
 import com.nopalsoft.invaders.game_objects.Missile;
-import com.nopalsoft.invaders.game_objects.Nave;
+import com.nopalsoft.invaders.game_objects.SpaceShip;
 import com.nopalsoft.invaders.screens.Screens;
 
 import java.util.Iterator;
@@ -25,7 +25,7 @@ public class World {
     public static final int STATE_PAUSED = 2;
     int state;
 
-    Nave oNave;
+    SpaceShip oSpaceShip;
     Array<Boost> boosts = new Array<>();
     Array<Missile> missiles = new Array<>();
     Array<Bullet> shipBullets = new Array<>();
@@ -45,9 +45,9 @@ public class World {
     float aumentoVel;
 
     public World() {
-        oNave = new Nave(WIDTH / 2f, 9.5f);
+        oSpaceShip = new SpaceShip(WIDTH / 2f, 9.5f);
 
-        oNave.vidas = 5;
+        oSpaceShip.vidas = 5;
         extraChanceDrop = 5;
         maxMissilesRonda = 5;
         maxBalasRonda = 5;
@@ -102,7 +102,7 @@ public class World {
         // Boosts are added every time an alien ship is hit. They are only updated here.
         updateBoost(deltaTime);
 
-        if (oNave.state != Nave.NAVE_STATE_EXPLODE) {
+        if (oSpaceShip.state != SpaceShip.NAVE_STATE_EXPLODE) {
             checkCollision();
         }
         checkGameOver();
@@ -110,10 +110,10 @@ public class World {
     }
 
     private void updateNave(float deltaTime, float accelX) {
-        if (oNave.state != Nave.NAVE_STATE_EXPLODE) {
-            oNave.velocity.x = -accelX / Settings.aceletometerSensitive * Nave.NAVE_MOVE_SPEED;
+        if (oSpaceShip.state != SpaceShip.NAVE_STATE_EXPLODE) {
+            oSpaceShip.velocity.x = -accelX / Settings.accelerometerSensitivity * SpaceShip.NAVE_MOVE_SPEED;
         }
-        oNave.update(deltaTime);
+        oSpaceShip.update(deltaTime);
     }
 
     private void updateAlienShip(float deltaTime) {
@@ -158,8 +158,8 @@ public class World {
     }
 
     private void updateBalaNormalYConNivel(float deltaTime, boolean seDisparo) {
-        float x = oNave.position.x;
-        float y = oNave.position.y + 1;
+        float x = oSpaceShip.position.x;
+        float y = oSpaceShip.position.y + 1;
 
         if (seDisparo && shipBullets.size < maxBalasRonda) {
             shipBullets.add(new Bullet(x, y, nivelBala));
@@ -181,11 +181,11 @@ public class World {
         // Limit of max Missiles Round Missiles in a round
         int len = missiles.size;
         if (seDisparoMissil && missileCount > 0 && len < maxMissilesRonda) {
-            float x = oNave.position.x;
-            float y = oNave.position.y + 1;
+            float x = oSpaceShip.position.x;
+            float y = oSpaceShip.position.y + 1;
             missiles.add(new Missile(x, y));
             missileCount--;
-            Assets.playSound(Assets.missilFire, 0.15f);
+            Assets.playSound(Assets.missileFiringSound, 0.15f);
         }
 
         // Now I'm updating. I'm recalculating len in case a new missile is fired.
@@ -224,8 +224,8 @@ public class World {
 
     private void checkColisionNaveBalaAliens() {
         for (Bullet oAlienBullet : alienBullets) {
-            if (Intersector.overlaps(oNave.boundsRectangle, oAlienBullet.boundsRectangle) && oNave.state != Nave.NAVE_STATE_EXPLODE && oNave.state != Nave.NAVE_STATE_BEING_HIT) {
-                oNave.beingHit();
+            if (Intersector.overlaps(oSpaceShip.boundsRectangle, oAlienBullet.boundsRectangle) && oSpaceShip.state != SpaceShip.NAVE_STATE_EXPLODE && oSpaceShip.state != SpaceShip.NAVE_STATE_BEING_HIT) {
+                oSpaceShip.beingHit();
                 oAlienBullet.hitTarget(1);
             }
         }
@@ -277,10 +277,10 @@ public class World {
         Iterator<Boost> it = boosts.iterator();
         while (it.hasNext()) {
             Boost oBoost = it.next();
-            if (Intersector.overlaps(oBoost.boundsCircle, oNave.boundsRectangle) && oNave.state != Nave.NAVE_STATE_EXPLODE) {
+            if (Intersector.overlaps(oBoost.boundsCircle, oSpaceShip.boundsRectangle) && oSpaceShip.state != SpaceShip.NAVE_STATE_EXPLODE) {
                 switch (oBoost.type) {
                     case Boost.VIDA_EXTRA:
-                        oNave.hitVidaExtra();
+                        oSpaceShip.hitVidaExtra();
                         break;
                     case Boost.UPGRADE_NIVEL_ARMAS:
                         nivelBala++;
@@ -290,7 +290,7 @@ public class World {
                         break;
                     default:
                     case Boost.SHIELD:
-                        oNave.hitEscudo();
+                        oSpaceShip.hitEscudo();
                         break;
                 }
                 it.remove();
@@ -325,8 +325,8 @@ public class World {
     }
 
     private void checkGameOver() {
-        if (oNave.state == Nave.NAVE_STATE_EXPLODE && oNave.stateTime > Nave.TIEMPO_EXPLODE) {
-            oNave.position.x = 200;
+        if (oSpaceShip.state == SpaceShip.NAVE_STATE_EXPLODE && oSpaceShip.stateTime > SpaceShip.TIEMPO_EXPLODE) {
+            oSpaceShip.position.x = 200;
             state = STATE_GAME_OVER;
         }
     }

@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.nopalsoft.invaders.Assets;
-import com.nopalsoft.invaders.MainInvaders;
+import com.nopalsoft.invaders.GalaxyInvadersGame;
 import com.nopalsoft.invaders.Settings;
 import com.nopalsoft.invaders.game.GameScreen;
 
@@ -20,22 +20,22 @@ public abstract class Screens extends InputAdapter implements Screen {
     public static final int WORLD_SCREEN_WIDTH = 32;
     public static final int WORLD_SCREEN_HEIGHT = 48;
 
-    public MainInvaders game;
+    public GalaxyInvadersGame game;
 
     public OrthographicCamera oCam;
     public SpriteBatch batcher;
     public Stage stage;
     public Assets oAssets;
 
-    public Screens(MainInvaders game) {
+    public Screens(GalaxyInvadersGame game) {
         stage = game.stage;
         stage.clear();
         this.game = game;
-        oAssets = game.oAssets;
+        oAssets = game.assetManager;
 
         oCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
         oCam.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
-        batcher = game.spriteBatch;
+        batcher = game.batch;
 
         InputMultiplexer input = new InputMultiplexer(this, stage);
         Gdx.input.setInputProcessor(input);
