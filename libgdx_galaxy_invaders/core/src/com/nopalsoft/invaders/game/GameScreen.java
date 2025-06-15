@@ -72,7 +72,7 @@ public class GameScreen extends Screens {
         touchPoint = new Vector3();
 
         world = new World();
-        renderer = new WorldRenderer(batcher, world);
+        renderer = new WorldRenderer(batch, world);
         leftButton = new Rectangle(0, 0, 160, 480);
         rightButton = new Rectangle(161, 0, 160, 480);
 
@@ -355,7 +355,7 @@ public class GameScreen extends Screens {
             world.update(deltaTime, accel, isFiring, isMissileFired);
         } else if (Settings.isTiltControl) {
             if (Gdx.input.justTouched()) {
-                oCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+                camera.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 
                 if (leftButton.contains(touchPoint.x, touchPoint.y)) {
                     isMissileFired = true;
@@ -402,10 +402,10 @@ public class GameScreen extends Screens {
             renderer.render(delta);
         else
             Assets.backgroundLayer.render(delta);
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
-        batcher.enableBlending();
-        batcher.begin();
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+        batch.enableBlending();
+        batch.begin();
 
         switch (state) {
             case GAME_TUTORIAL:
@@ -418,7 +418,7 @@ public class GameScreen extends Screens {
                 presentRunning();
                 break;
         }
-        batcher.end();
+        batch.end();
     }
 
     float rotacion = 0;
@@ -429,22 +429,22 @@ public class GameScreen extends Screens {
             if (rotacion < -20 || rotacion > 20)
                 addRotacion *= -1;
             rotacion += addRotacion;
-            batcher.draw(Assets.help1, SCREEN_WIDTH / 2f - 51, 190, 51, 0, 102, 200, 1, 1, rotacion);
+            batch.draw(Assets.help1, SCREEN_WIDTH / 2f - 51, 190, 51, 0, 102, 200, 1, 1, rotacion);
         } else {
-            batcher.draw(Assets.helpClick, 155, 0, 10, 125);
+            batch.draw(Assets.helpClick, 155, 0, 10, 125);
         }
     }
 
     private void presentReady() {
         String touchToStart = Assets.languagesBundle.get("touch_to_start");
         float textWidth = Assets.getTextWidth(Assets.font45, touchToStart);
-        Assets.font45.draw(batcher, touchToStart, (SCREEN_WIDTH / 2f) - (textWidth / 2f), 220);
+        Assets.font45.draw(batch, touchToStart, (SCREEN_WIDTH / 2f) - (textWidth / 2f), 220);
     }
 
     private void presentRunning() {
         if (world.missileCount > 0 && Settings.isTiltControl) {
-            batcher.draw(Assets.missileAnimation.getKeyFrame(0), 1, 1, 8, 28);
-            Assets.font15.draw(batcher, "X" + world.missileCount, 10, 25);
+            batch.draw(Assets.missileAnimation.getKeyFrame(0), 1, 1, 8, 28);
+            Assets.font15.draw(batch, "X" + world.missileCount, 10, 25);
         }
     }
 

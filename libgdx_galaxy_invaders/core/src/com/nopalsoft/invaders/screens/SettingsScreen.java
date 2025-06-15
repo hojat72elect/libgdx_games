@@ -32,9 +32,9 @@ public class SettingsScreen extends Screens {
 
     Label touchLeft, touchRight;
 
-    public final SpaceShip oSpaceShip;
-    OrthographicCamera camRender;
-    float accel;
+    public final SpaceShip spaceShip;
+    OrthographicCamera camera;
+    float acceleration;
 
     public SettingsScreen(final GalaxyInvadersGame game) {
         super(game);
@@ -80,19 +80,18 @@ public class SettingsScreen extends Screens {
         });
 
         // OnScreen Controls
-
         buttonLeft = new ImageButton(Assets.buttonLeft);
         buttonLeft.setSize(65, 50);
         buttonLeft.setPosition(10, 5);
         buttonLeft.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                accel = 5;
+                acceleration = 5;
             }
 
             @Override
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                accel = 0;
+                acceleration = 0;
                 super.exit(event, x, y, pointer, toActor);
             }
         });
@@ -102,12 +101,12 @@ public class SettingsScreen extends Screens {
         buttonRight.addListener(new ClickListener() {
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                accel = -5;
+                acceleration = -5;
             }
 
             @Override
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                accel = 0;
+                acceleration = 0;
                 super.exit(event, x, y, pointer, toActor);
             }
         });
@@ -152,15 +151,15 @@ public class SettingsScreen extends Screens {
         setOptions();
 
         // I'm going to put the ship here to move too.
-        oSpaceShip = new SpaceShip(WORLD_SCREEN_WIDTH / 2.0f, WORLD_SCREEN_HEIGHT / 3.0f); // Coloco la nave en posicion
-        this.camRender = new OrthographicCamera(WORLD_SCREEN_WIDTH, WORLD_SCREEN_HEIGHT);
-        camRender.position.set(WORLD_SCREEN_WIDTH / 2.0f, WORLD_SCREEN_HEIGHT / 2.0f, 0);
+        spaceShip = new SpaceShip(WORLD_SCREEN_WIDTH / 2.0f, WORLD_SCREEN_HEIGHT / 3.0f); // Coloco la nave en posicion
+        this.camera = new OrthographicCamera(WORLD_SCREEN_WIDTH, WORLD_SCREEN_HEIGHT);
+        camera.position.set(WORLD_SCREEN_WIDTH / 2.0f, WORLD_SCREEN_HEIGHT / 2.0f, 0);
 
     }
 
     protected void setOptions() {
         stage.clear();
-        accel = 0;// because sometimes the ship would stay moving when switching from tilt to control
+        acceleration = 0;// because sometimes the ship would stay moving when switching from tilt to control
         stage.addActor(buttonBack);
         stage.addActor(menuControls);
         stage.addActor(accelerometerSlider);
@@ -186,72 +185,72 @@ public class SettingsScreen extends Screens {
     public void update(float delta) {
 
         if (Settings.isTiltControl) {
-            accel = Gdx.input.getAccelerometerX();
+            acceleration = Gdx.input.getAccelerometerX();
         } else {
             if (Gdx.app.getType() == ApplicationType.Applet || Gdx.app.getType() == ApplicationType.Desktop || Gdx.app.getType() == ApplicationType.WebGL) {
-                accel = 0;
+                acceleration = 0;
                 if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT) || Gdx.input.isKeyPressed(Keys.A))
-                    accel = 5f;
+                    acceleration = 5f;
                 if (Gdx.input.isKeyPressed(Keys.DPAD_RIGHT) || Gdx.input.isKeyPressed(Keys.D))
-                    accel = -5f;
+                    acceleration = -5f;
             }
         }
-        oSpaceShip.velocity.x = -accel / Settings.accelerometerSensitivity * SpaceShip.NAVE_MOVE_SPEED;
+        spaceShip.velocity.x = -acceleration / Settings.accelerometerSensitivity * SpaceShip.NAVE_MOVE_SPEED;
 
-        oSpaceShip.update(delta);
+        spaceShip.update(delta);
     }
 
     @Override
     public void draw(float delta) {
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        this.camera.update();
+        batch.setProjectionMatrix(this.camera.combined);
 
-        batcher.disableBlending();
+        batch.disableBlending();
         Assets.backgroundLayer.render(delta);
 
         stage.act(delta);
         stage.draw();
 
-        batcher.enableBlending();
-        batcher.begin();
-        Assets.font45.draw(batcher, Assets.languagesBundle.get("control_options"), 10, 460);
+        batch.enableBlending();
+        batch.begin();
+        Assets.font45.draw(batch, Assets.languagesBundle.get("control_options"), 10, 460);
 
         if (Settings.isTiltControl) {
             String tiltSensitive = Assets.languagesBundle.get("tilt_sensitive");
             float textWidth = Assets.getTextWidth(Assets.font15, tiltSensitive);
-            Assets.font15.draw(batcher, tiltSensitive, SCREEN_WIDTH / 2f - textWidth / 2f, 335);
-            batcher.draw(Assets.helpClick, 155, 0, 10, 125);
+            Assets.font15.draw(batch, tiltSensitive, SCREEN_WIDTH / 2f - textWidth / 2f, 335);
+            batch.draw(Assets.helpClick, 155, 0, 10, 125);
         } else {
             String speed = Assets.languagesBundle.get("speed");
             float textWidth = Assets.getTextWidth(Assets.font15, speed);
-            Assets.font15.draw(batcher, speed, SCREEN_WIDTH / 2f - textWidth / 2f, 335);
+            Assets.font15.draw(batch, speed, SCREEN_WIDTH / 2f - textWidth / 2f, 335);
         }
-        Assets.font15.draw(batcher, (int) accelerometerSlider.getValue() + "", 215, 313);
-        batcher.end();
+        Assets.font15.draw(batch, (int) accelerometerSlider.getValue() + "", 215, 313);
+        batch.end();
 
-        camRender.update();
-        batcher.setProjectionMatrix(camRender.combined);
-        batcher.begin();
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
         renderNave();
-        batcher.end();
+        batch.end();
     }
 
     private void renderNave() {
         TextureRegion keyFrame;
-        if (oSpaceShip.velocity.x < -3)
+        if (spaceShip.velocity.x < -3)
             keyFrame = Assets.spaceShipLeft;
-        else if (oSpaceShip.velocity.x > 3)
+        else if (spaceShip.velocity.x > 3)
             keyFrame = Assets.spaceShipRight;
         else
             keyFrame = Assets.spaceShip;
 
-        batcher.draw(keyFrame, oSpaceShip.position.x - SpaceShip.DRAW_WIDTH / 2f, oSpaceShip.position.y - SpaceShip.DRAW_HEIGHT / 2f, SpaceShip.DRAW_WIDTH, SpaceShip.DRAW_HEIGHT);
+        batch.draw(keyFrame, spaceShip.position.x - SpaceShip.DRAW_WIDTH / 2f, spaceShip.position.y - SpaceShip.DRAW_HEIGHT / 2f, SpaceShip.DRAW_WIDTH, SpaceShip.DRAW_HEIGHT);
     }
 
     @Override
-    public boolean keyDown(int tecleada) {
-        if (tecleada == Keys.BACK || tecleada == Keys.ESCAPE) {
+    public boolean keyDown(int keycode) {
+        if (keycode == Keys.BACK || keycode == Keys.ESCAPE) {
             Assets.playSound(Assets.clickSound);
             game.setScreen(new MainMenuScreen(game));
             return true;

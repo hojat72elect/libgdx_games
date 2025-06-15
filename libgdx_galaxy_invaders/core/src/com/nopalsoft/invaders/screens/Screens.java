@@ -22,20 +22,20 @@ public abstract class Screens extends InputAdapter implements Screen {
 
     public GalaxyInvadersGame game;
 
-    public OrthographicCamera oCam;
-    public SpriteBatch batcher;
+    public OrthographicCamera camera;
+    public SpriteBatch batch;
     public Stage stage;
-    public Assets oAssets;
+    public Assets assetsManager;
 
     public Screens(GalaxyInvadersGame game) {
         stage = game.stage;
         stage.clear();
         this.game = game;
-        oAssets = game.assetManager;
+        assetsManager = game.assetManager;
 
-        oCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
-        oCam.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
-        batcher = game.batch;
+        camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
+        camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
+        batch = game.batch;
 
         InputMultiplexer input = new InputMultiplexer(this, stage);
         Gdx.input.setInputProcessor(input);
@@ -107,6 +107,6 @@ public abstract class Screens extends InputAdapter implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        batcher.dispose();
+        batch.dispose();
     }
 }

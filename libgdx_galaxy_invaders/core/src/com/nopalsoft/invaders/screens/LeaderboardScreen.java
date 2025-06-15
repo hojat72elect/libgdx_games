@@ -11,17 +11,17 @@ import com.nopalsoft.invaders.GalaxyInvadersGame;
 
 public class LeaderboardScreen extends Screens {
 
-    TextButton btLeaderBoard, btAchievements, btBack, btSignOut;
-    Image elipseIzq;
+    TextButton buttonLeaderBoard, buttonAchievements, buttonBack, buttonSignOut;
+    Image leftEllipse;
 
     public LeaderboardScreen(final GalaxyInvadersGame game) {
         super(game);
 
-        btBack = new TextButton(Assets.languagesBundle.get("back"), Assets.styleTextButtonBack);
-        btBack.pad(0, 15, 35, 0);
-        btBack.setSize(63, 63);
-        btBack.setPosition(SCREEN_WIDTH - 63, SCREEN_HEIGHT - 63);
-        btBack.addListener(new ClickListener() {
+        buttonBack = new TextButton(Assets.languagesBundle.get("back"), Assets.styleTextButtonBack);
+        buttonBack.pad(0, 15, 35, 0);
+        buttonBack.setSize(63, 63);
+        buttonBack.setPosition(SCREEN_WIDTH - 63, SCREEN_HEIGHT - 63);
+        buttonBack.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(Assets.clickSound);
@@ -29,33 +29,33 @@ public class LeaderboardScreen extends Screens {
             }
         });
 
-        btLeaderBoard = new TextButton(Assets.languagesBundle.get("leaderboard"), Assets.styleTextButtonMenu);
-        btLeaderBoard.setHeight(50);// Altura 50
-        btLeaderBoard.setSize(50, 0);// Al ancho actual le agregamos 50
-        btLeaderBoard.setPosition(0, 245);
-        btLeaderBoard.addListener(new ClickListener() {
+        buttonLeaderBoard = new TextButton(Assets.languagesBundle.get("leaderboard"), Assets.styleTextButtonMenu);
+        buttonLeaderBoard.setHeight(50);// Height 50
+        buttonLeaderBoard.setSize(50, 0);// We add 50 to the current width
+        buttonLeaderBoard.setPosition(0, 245);
+        buttonLeaderBoard.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(Assets.clickSound);
             }
         });
 
-        btAchievements = new TextButton(Assets.languagesBundle.get("achievements"), Assets.styleTextButtonMenu);
-        btAchievements.setHeight(50);// Altura 50
-        btAchievements.setSize(50, 0);// Al ancho actual le agregamos 50
-        btAchievements.setPosition(0, 150);
-        btAchievements.addListener(new ClickListener() {
+        buttonAchievements = new TextButton(Assets.languagesBundle.get("achievements"), Assets.styleTextButtonMenu);
+        buttonAchievements.setHeight(50);// Height 50
+        buttonAchievements.setSize(50, 0);// We add 50 to the current width
+        buttonAchievements.setPosition(0, 150);
+        buttonAchievements.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(Assets.clickSound);
             }
         });
 
-        btSignOut = new TextButton(Assets.languagesBundle.get("sign_out"), new TextButtonStyle(Assets.buttonSignInUp, Assets.buttonSignInDown, null, Assets.font15));
-        btSignOut.getLabel().setWrap(true);
-        btSignOut.setWidth(140);
-        btSignOut.setPosition(2, 2);
-        btSignOut.addListener(new ClickListener() {
+        buttonSignOut = new TextButton(Assets.languagesBundle.get("sign_out"), new TextButtonStyle(Assets.buttonSignInUp, Assets.buttonSignInDown, null, Assets.font15));
+        buttonSignOut.getLabel().setWrap(true);
+        buttonSignOut.setWidth(140);
+        buttonSignOut.setPosition(2, 2);
+        buttonSignOut.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(Assets.clickSound);
@@ -63,23 +63,23 @@ public class LeaderboardScreen extends Screens {
             }
         });
 
-        elipseIzq = new Image(Assets.leftMenuEllipse);
-        elipseIzq.setSize(18.5f, 250.5f);
-        elipseIzq.setPosition(0, 105);
+        leftEllipse = new Image(Assets.leftMenuEllipse);
+        leftEllipse.setSize(18.5f, 250.5f);
+        leftEllipse.setPosition(0, 105);
 
-        stage.addActor(btSignOut);
-        stage.addActor(btAchievements);
-        stage.addActor(btLeaderBoard);
-        stage.addActor(btBack);
-        stage.addActor(elipseIzq);
+        stage.addActor(buttonSignOut);
+        stage.addActor(buttonAchievements);
+        stage.addActor(buttonLeaderBoard);
+        stage.addActor(buttonBack);
+        stage.addActor(leftEllipse);
     }
 
     @Override
     public void draw(float delta) {
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
 
-        batcher.disableBlending();
+        batch.disableBlending();
         Assets.backgroundLayer.render(delta);
     }
 
