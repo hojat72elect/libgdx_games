@@ -133,17 +133,17 @@ class MainMenuScreen(game: GalaxyInvadersGame) : Screens(game) {
         leftEllipse.setSize(18.5f, 292.5f)
         leftEllipse.setPosition(0f, 60f)
 
-        stage.addActor(tableTitle)
-        stage.addActor(labelHighestScore)
+        stage?.addActor(tableTitle)
+        stage?.addActor(labelHighestScore)
 
-        stage.addActor(buttonPlay)
-        stage.addActor(buttonSettings)
-        stage.addActor(buttonLeaderBoard)
-        stage.addActor(buttonMore)
-        stage.addActor(leftEllipse)
-        stage.addActor(buttonSound)
-        stage.addActor(buttonMusic)
-        stage.addActor(buttonFacebook)
+        stage?.addActor(buttonPlay)
+        stage?.addActor(buttonSettings)
+        stage?.addActor(buttonLeaderBoard)
+        stage?.addActor(buttonMore)
+        stage?.addActor(leftEllipse)
+        stage?.addActor(buttonSound)
+        stage?.addActor(buttonMusic)
+        stage?.addActor(buttonFacebook)
 
 
         if (Settings.numberOfTimesPlayed == 0) {
@@ -157,9 +157,9 @@ class MainMenuScreen(game: GalaxyInvadersGame) : Screens(game) {
 
     override fun draw(delta: Float) {
         camera.update()
-        batch.projectionMatrix = camera.combined
+        batch?.projectionMatrix = camera.combined
 
-        batch.disableBlending()
+        batch?.disableBlending()
         Assets.backgroundLayer!!.render(delta)
     }
 

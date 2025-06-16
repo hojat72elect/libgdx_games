@@ -63,18 +63,18 @@ class LeaderboardScreen(game: GalaxyInvadersGame) : Screens(game) {
         leftEllipse.setSize(18.5f, 250.5f)
         leftEllipse.setPosition(0f, 105f)
 
-        stage.addActor(buttonSignOut)
-        stage.addActor(buttonAchievements)
-        stage.addActor(buttonLeaderBoard)
-        stage.addActor(buttonBack)
-        stage.addActor(leftEllipse)
+        stage?.addActor(buttonSignOut)
+        stage?.addActor(buttonAchievements)
+        stage?.addActor(buttonLeaderBoard)
+        stage?.addActor(buttonBack)
+        stage?.addActor(leftEllipse)
     }
 
     override fun draw(delta: Float) {
         camera.update()
-        batch.projectionMatrix = camera.combined
+        batch?.projectionMatrix = camera.combined
 
-        batch.disableBlending()
+        batch?.disableBlending()
         Assets.backgroundLayer!!.render(delta)
     }
 

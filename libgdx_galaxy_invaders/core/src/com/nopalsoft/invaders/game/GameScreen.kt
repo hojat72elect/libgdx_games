@@ -67,7 +67,7 @@ class GameScreen(game: GalaxyInvadersGame) : Screens(game) {
         labelTiltYourDevice!!.setAlignment(Align.center)
         labelTiltYourDevice!!.setPosition(0f, 120f)
         labelTiltYourDevice!!.width = SCREEN_WIDTH.toFloat()
-        stage.addActor(labelTiltYourDevice)
+        stage?.addActor(labelTiltYourDevice)
 
         groupTutorial = Group()
 
@@ -128,7 +128,7 @@ class GameScreen(game: GalaxyInvadersGame) : Screens(game) {
             if (tutorialScreenIndex == 0) {
                 tutorialScreenIndex++
                 labelTiltYourDevice!!.remove()
-                stage.addActor(groupTutorial)
+                stage?.addActor(groupTutorial)
             } else {
                 state = GAME_READY
                 groupTutorial!!.remove()
@@ -141,10 +141,10 @@ class GameScreen(game: GalaxyInvadersGame) : Screens(game) {
             state = GAME_RUNNING
 
             if (!Settings.isTiltControl) {
-                stage.addActor(buttonLeft)
-                stage.addActor(buttonRight)
-                stage.addActor(buttonMissile)
-                stage.addActor(buttonFire)
+                stage?.addActor(buttonLeft)
+                stage?.addActor(buttonRight)
+                stage?.addActor(buttonMissile)
+                stage?.addActor(buttonFire)
             }
         }
     }
@@ -202,16 +202,16 @@ class GameScreen(game: GalaxyInvadersGame) : Screens(game) {
         if (state != GAME_TUTORIAL) renderer.render(delta)
         else Assets.backgroundLayer!!.render(delta)
         camera.update()
-        batch.projectionMatrix = camera.combined
-        batch.enableBlending()
-        batch.begin()
+        batch?.projectionMatrix = camera.combined
+        batch?.enableBlending()
+        batch?.begin()
 
         when (state) {
             GAME_TUTORIAL -> displayTutorial()
             GAME_READY -> drawTouchToStart()
             GAME_RUNNING -> showMissileCount()
         }
-        batch.end()
+        batch?.end()
     }
 
     private var rotationAngle: Float = 0f
@@ -228,7 +228,7 @@ class GameScreen(game: GalaxyInvadersGame) : Screens(game) {
         touchPoint = Vector3()
 
         world = World()
-        renderer = WorldRenderer(batch, world)
+        renderer = WorldRenderer(batch!!, world)
         leftButton = Rectangle(0f, 0f, 160f, 480f)
         rightButton = Rectangle(161f, 0f, 160f, 480f)
 
@@ -385,16 +385,16 @@ class GameScreen(game: GalaxyInvadersGame) : Screens(game) {
         scoresBarTable.add(labelLivesCount).right()
         scoresBarTable.add(buttonPause).size(26f).right().padLeft(8f)
 
-        stage.addActor(scoresBarTable)
+        stage?.addActor(scoresBarTable)
     }
 
     private fun displayTutorial() {
         if (tutorialScreenIndex == 0 && Settings.isTiltControl) {
             if (rotationAngle < -20 || rotationAngle > 20) rotationStep *= -1f
             rotationAngle += rotationStep
-            batch.draw(Assets.help1, SCREEN_WIDTH / 2f - 51, 190f, 51f, 0f, 102f, 200f, 1f, 1f, rotationAngle)
+            batch?.draw(Assets.help1, SCREEN_WIDTH / 2f - 51, 190f, 51f, 0f, 102f, 200f, 1f, 1f, rotationAngle)
         } else {
-            batch.draw(Assets.helpClick, 155f, 0f, 10f, 125f)
+            batch?.draw(Assets.helpClick, 155f, 0f, 10f, 125f)
         }
     }
 
@@ -406,7 +406,7 @@ class GameScreen(game: GalaxyInvadersGame) : Screens(game) {
 
     private fun showMissileCount() {
         if (world.missileCount > 0 && Settings.isTiltControl) {
-            batch.draw(Assets.missileAnimation!!.getKeyFrame(0f), 1f, 1f, 8f, 28f)
+            batch?.draw(Assets.missileAnimation!!.getKeyFrame(0f), 1f, 1f, 8f, 28f)
             Assets.font15!!.draw(batch, "X" + world.missileCount, 10f, 25f)
         }
     }
