@@ -19,7 +19,7 @@ class World {
     var state: Int
 
     @JvmField
-    var oSpaceShip: SpaceShip
+    var oSpaceShip: SpaceShip = SpaceShip(WIDTH / 2f, 9.5f)
 
     @JvmField
     var boosts: Array<Boost> = Array()
@@ -36,21 +36,20 @@ class World {
     @JvmField
     var alienShips: Array<AlienShip> = Array()
 
-    var oRan: Random
+    private var oRan: Random
     var score: Int
     var currentLevel: Int = 0
     var missileCount: Int = 5
 
-    var extraChanceDrop: Int
+    private var extraChanceDrop: Int
 
-    var maxMissilesRonda: Int
-    var maxBalasRonda: Int
-    var nivelBala: Int = 0 // It is the level at which the current bullet is located, each time a boost is grabbed it increases
-    var probs: Float // This variable will increase with each level to make the game more difficult.
-    var aumentoVel: Float
+    private var maxMissilesRonda: Int
+    private var maxBalasRonda: Int
+    private var nivelBala: Int = 0 // It is the level at which the current bullet is located, each time a boost is grabbed it increases
+    private var probs: Float // This variable will increase with each level to make the game more difficult.
+    private var aumentoVel: Float
 
     init {
-        oSpaceShip = SpaceShip(WIDTH / 2f, 9.5f)
 
         oSpaceShip.lives = 5
         extraChanceDrop = 5
