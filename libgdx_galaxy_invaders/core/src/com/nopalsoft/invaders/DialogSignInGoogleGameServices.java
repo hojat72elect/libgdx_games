@@ -8,13 +8,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class DialogSingInGGS {
+public class DialogSignInGoogleGameServices {
     Stage stage;
     final GalaxyInvadersGame game;
 
     Dialog dialogSignIn, dialogRate;
 
-    public DialogSingInGGS(GalaxyInvadersGame game, Stage stage) {
+    public DialogSignInGoogleGameServices(GalaxyInvadersGame game, Stage stage) {
         this.stage = stage;
         this.game = game;
     }

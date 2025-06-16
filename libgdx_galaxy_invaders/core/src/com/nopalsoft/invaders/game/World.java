@@ -47,7 +47,7 @@ public class World {
     public World() {
         oSpaceShip = new SpaceShip(WIDTH / 2f, 9.5f);
 
-        oSpaceShip.vidas = 5;
+        oSpaceShip.lives = 5;
         extraChanceDrop = 5;
         maxMissilesRonda = 5;
         maxBalasRonda = 5;
@@ -102,7 +102,7 @@ public class World {
         // Boosts are added every time an alien ship is hit. They are only updated here.
         updateBoost(deltaTime);
 
-        if (oSpaceShip.state != SpaceShip.NAVE_STATE_EXPLODE) {
+        if (oSpaceShip.state != SpaceShip.SPACESHIP_STATE_EXPLODE) {
             checkCollision();
         }
         checkGameOver();
@@ -110,8 +110,8 @@ public class World {
     }
 
     private void updateNave(float deltaTime, float accelX) {
-        if (oSpaceShip.state != SpaceShip.NAVE_STATE_EXPLODE) {
-            oSpaceShip.velocity.x = -accelX / Settings.accelerometerSensitivity * SpaceShip.NAVE_MOVE_SPEED;
+        if (oSpaceShip.state != SpaceShip.SPACESHIP_STATE_EXPLODE) {
+            oSpaceShip.velocity.x = -accelX / Settings.accelerometerSensitivity * SpaceShip.SPACESHIP_SPEED;
         }
         oSpaceShip.update(deltaTime);
     }
@@ -124,14 +124,14 @@ public class World {
             oAlienShip.update(deltaTime);
 
             // I add bullets to the aliens
-            if (oRan.nextInt(5000) < (1 + probs) && oAlienShip.state != AlienShip.EXPLOTING) {
+            if (oRan.nextInt(5000) < (1 + probs) && oAlienShip.state != AlienShip.EXPLODING) {
                 float x = oAlienShip.position.x;
                 float y = oAlienShip.position.y;
                 alienBullets.add(new Bullet(x, y));
             }
 
             // I delete if they have already exploded
-            if (oAlienShip.state == AlienShip.EXPLOTING && oAlienShip.stateTime > AlienShip.TIEMPO_EXPLODE) {
+            if (oAlienShip.state == AlienShip.EXPLODING && oAlienShip.stateTime > AlienShip.EXPLOSION_DURATION) {
                 it.remove();
             }
 
@@ -151,7 +151,7 @@ public class World {
             if (oAlienBullet.position.y < -2)
                 oAlienBullet.destruirBala();
             oAlienBullet.update(deltaTime);
-            if (oAlienBullet.state == Bullet.STATE_EXPLOTANDO) {
+            if (oAlienBullet.state == Bullet.STATE_EXPLODING) {
                 it.remove();
             }
         }
@@ -171,7 +171,7 @@ public class World {
             if (oBullet.position.y > HEIGHT + 2)
                 oBullet.destruirBala();// so that the missile doesn't get too far
             oBullet.update(deltaTime);
-            if (oBullet.state == Bullet.STATE_EXPLOTANDO) {
+            if (oBullet.state == Bullet.STATE_EXPLODING) {
                 it1.remove();
             }
         }
@@ -192,10 +192,10 @@ public class World {
         Iterator<Missile> it = missiles.iterator();
         while (it.hasNext()) {
             Missile oMissile = it.next();
-            if (oMissile.position.y > HEIGHT + 2 && oMissile.state != Missile.STATE_EXPLOTANDO)
+            if (oMissile.position.y > HEIGHT + 2 && oMissile.state != Missile.STATE_EXPLODING)
                 oMissile.hitTarget();
             oMissile.update(deltaTime);
-            if (oMissile.state == Missile.STATE_EXPLOTANDO && oMissile.stateTime > Missile.TIEMPO_EXPLODE) {
+            if (oMissile.state == Missile.STATE_EXPLODING && oMissile.stateTime > Missile.EXPLOSION_DURATION) {
                 it.remove();
             }
         }
@@ -224,7 +224,7 @@ public class World {
 
     private void checkColisionNaveBalaAliens() {
         for (Bullet oAlienBullet : alienBullets) {
-            if (Intersector.overlaps(oSpaceShip.boundsRectangle, oAlienBullet.boundsRectangle) && oSpaceShip.state != SpaceShip.NAVE_STATE_EXPLODE && oSpaceShip.state != SpaceShip.NAVE_STATE_BEING_HIT) {
+            if (Intersector.overlaps(oSpaceShip.boundsRectangle, oAlienBullet.boundsRectangle) && oSpaceShip.state != SpaceShip.SPACESHIP_STATE_EXPLODE && oSpaceShip.state != SpaceShip.SPACESHIP_STATE_BEING_HIT) {
                 oSpaceShip.beingHit();
                 oAlienBullet.hitTarget(1);
             }
@@ -234,11 +234,11 @@ public class World {
     private void checkColisionAliensBala() {
         for (Bullet oBala : shipBullets) {
             for (AlienShip oAlien : alienShips) {
-                if (Intersector.overlaps(oAlien.boundsCircle, oBala.boundsRectangle) && (oAlien.state != AlienShip.EXPLOTING)) {
-                    oBala.hitTarget(oAlien.vidasLeft);
+                if (Intersector.overlaps(oAlien.boundsCircle, oBala.boundsRectangle) && (oAlien.state != AlienShip.EXPLODING)) {
+                    oBala.hitTarget(oAlien.remainingLives);
                     oAlien.beingHit();
-                    if (oAlien.state == AlienShip.EXPLOTING) { // It only increases the score and I add boost if it is already exploding, not if I decrease its life
-                        score += oAlien.puntuacion; // I update the score
+                    if (oAlien.state == AlienShip.EXPLODING) { // It only increases the score and I add boost if it is already exploding, not if I decrease its life
+                        score += oAlien.score; // I update the score
                         agregarBoost(oAlien.position.x, oAlien.position.y); // Here I'll see if it gives me any boost or not.
                         Assets.playSound(Assets.explosionSound, 0.6f);
                     }
@@ -250,20 +250,20 @@ public class World {
     private void checkColisionAlienMissil() {
         for (Missile oMissile : missiles) {
             for (AlienShip oAlien : alienShips) {
-                if (oMissile.state == Missile.STATE_DISPARADO && Intersector.overlaps(oAlien.boundsCircle, oMissile.boundsRectangle) && oAlien.state != AlienShip.EXPLOTING) {
+                if (oMissile.state == Missile.STATE_LAUNCHED && Intersector.overlaps(oAlien.boundsCircle, oMissile.boundsRectangle) && oAlien.state != AlienShip.EXPLODING) {
                     oMissile.hitTarget();
                     oAlien.beingHit();
-                    if (oAlien.state == AlienShip.EXPLOTING) {// It only increases the score and I add boost if it is already exploding, not if I decrease its life
-                        score += oAlien.puntuacion;// I update the score
+                    if (oAlien.state == AlienShip.EXPLODING) {// It only increases the score and I add boost if it is already exploding, not if I decrease its life
+                        score += oAlien.score;// I update the score
                         agregarBoost(oAlien.position.x, oAlien.position.y); // Here I'll see if it gives me any boost or not.
                         Assets.playSound(Assets.explosionSound, 0.6f);
                     }
                 }
                 // Check with the radius of the explosion
-                if (oMissile.state == Missile.STATE_EXPLOTANDO && Intersector.overlaps(oAlien.boundsCircle, oMissile.boundsCircle) && oAlien.state != AlienShip.EXPLOTING) {
+                if (oMissile.state == Missile.STATE_EXPLODING && Intersector.overlaps(oAlien.boundsCircle, oMissile.boundsCircle) && oAlien.state != AlienShip.EXPLODING) {
                     oAlien.beingHit();
-                    if (oAlien.state == AlienShip.EXPLOTING) {// It only increases the score and I add boost if it is already exploding, not if I decrease its life
-                        score += oAlien.puntuacion;// I update the score
+                    if (oAlien.state == AlienShip.EXPLODING) {// It only increases the score and I add boost if it is already exploding, not if I decrease its life
+                        score += oAlien.score;// I update the score
                         agregarBoost(oAlien.position.x, oAlien.position.y); // Here I'll see if it gives me any boost or not.
                         Assets.playSound(Assets.explosionSound, 0.6f);
                     }
@@ -277,15 +277,15 @@ public class World {
         Iterator<Boost> it = boosts.iterator();
         while (it.hasNext()) {
             Boost oBoost = it.next();
-            if (Intersector.overlaps(oBoost.boundsCircle, oSpaceShip.boundsRectangle) && oSpaceShip.state != SpaceShip.NAVE_STATE_EXPLODE) {
+            if (Intersector.overlaps(oBoost.boundsCircle, oSpaceShip.boundsRectangle) && oSpaceShip.state != SpaceShip.SPACESHIP_STATE_EXPLODE) {
                 switch (oBoost.type) {
-                    case Boost.VIDA_EXTRA:
+                    case Boost.EXTRA_LIFE_BOOST:
                         oSpaceShip.hitVidaExtra();
                         break;
-                    case Boost.UPGRADE_NIVEL_ARMAS:
+                    case Boost.EXTRA_MISSILE_BOOST:
                         nivelBala++;
                         break;
-                    case Boost.MISSIL_EXTRA:
+                    case Boost.EXTRA_SHIELD_BOOST:
                         missileCount++;
                         break;
                     default:
@@ -308,14 +308,14 @@ public class World {
     private void agregarBoost(float x, float y) {
         if (oRan.nextInt(100) < 5 + extraChanceDrop) {// Chances of a boost appearing
             switch (oRan.nextInt(4)) {
-                case Boost.VIDA_EXTRA:
-                    boosts.add(new Boost(Boost.VIDA_EXTRA, x, y));
+                case Boost.EXTRA_LIFE_BOOST:
+                    boosts.add(new Boost(Boost.EXTRA_LIFE_BOOST, x, y));
                     break;
                 case 1:
-                    boosts.add(new Boost(Boost.UPGRADE_NIVEL_ARMAS, x, y));
+                    boosts.add(new Boost(Boost.EXTRA_MISSILE_BOOST, x, y));
                     break;
-                case Boost.MISSIL_EXTRA:
-                    boosts.add(new Boost(Boost.MISSIL_EXTRA, x, y));
+                case Boost.EXTRA_SHIELD_BOOST:
+                    boosts.add(new Boost(Boost.EXTRA_SHIELD_BOOST, x, y));
                     break;
                 default:// Boost.SHIELD
                     boosts.add(new Boost(Boost.SHIELD, x, y));
@@ -325,7 +325,7 @@ public class World {
     }
 
     private void checkGameOver() {
-        if (oSpaceShip.state == SpaceShip.NAVE_STATE_EXPLODE && oSpaceShip.stateTime > SpaceShip.TIEMPO_EXPLODE) {
+        if (oSpaceShip.state == SpaceShip.SPACESHIP_STATE_EXPLODE && oSpaceShip.stateTime > SpaceShip.EXPLOSION_DURATION) {
             oSpaceShip.position.x = 200;
             state = STATE_GAME_OVER;
         }

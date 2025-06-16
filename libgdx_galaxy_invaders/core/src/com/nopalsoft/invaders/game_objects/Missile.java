@@ -8,10 +8,10 @@ public class Missile extends DynamicGameObject {
     public static final float HEIGHT = 1.4f;
 
     public static final float RADIO_EXPLOSION = 7.5f;
-    public final float VELOCIDAD = 30;
-    public static final float TIEMPO_EXPLODE = 0.05f * 19;
-    public final static int STATE_DISPARADO = 0;
-    public final static int STATE_EXPLOTANDO = 1;
+    public final float SPEED = 30;
+    public static final float EXPLOSION_DURATION = 0.05f * 19;
+    public final static int STATE_LAUNCHED = 0;
+    public final static int STATE_EXPLODING = 1;
 
     public float stateTime;
     public int state;
@@ -26,9 +26,9 @@ public class Missile extends DynamicGameObject {
         super(x, y, WIDTH, HEIGHT);
         // I also initialize the radius because the explosion is going to be cool.
         boundsCircle = new Circle(position.x, position.y, RADIO_EXPLOSION);
-        state = STATE_DISPARADO;
+        state = STATE_LAUNCHED;
         stateTime = 0;
-        velocity.set(0, VELOCIDAD);
+        velocity.set(0, SPEED);
     }
 
     public void update(float deltaTime) {
@@ -43,7 +43,7 @@ public class Missile extends DynamicGameObject {
     public void hitTarget() {
         velocity.set(0, 0);
         stateTime = 0;
-        state = STATE_EXPLOTANDO;
+        state = STATE_EXPLODING;
     }
 
 }

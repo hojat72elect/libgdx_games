@@ -25,13 +25,13 @@ public abstract class Screens extends InputAdapter implements Screen {
     public OrthographicCamera camera;
     public SpriteBatch batch;
     public Stage stage;
-    public Assets assetsManager;
+    public Assets assetManager;
 
     public Screens(GalaxyInvadersGame game) {
         stage = game.stage;
         stage.clear();
         this.game = game;
-        assetsManager = game.assetManager;
+        assetManager = game.assetManager;
 
         camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
         camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);

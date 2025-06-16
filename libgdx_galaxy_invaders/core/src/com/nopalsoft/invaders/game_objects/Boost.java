@@ -6,9 +6,9 @@ public class Boost extends DynamicGameObject {
     public static final float RADIUS = 1f;
     public static final float SPEED = -10f;
 
-    public static final int VIDA_EXTRA = 0;
-    public static final int UPGRADE_NIVEL_ARMAS = 1;
-    public static final int MISSIL_EXTRA = 2;
+    public static final int EXTRA_LIFE_BOOST = 0;
+    public static final int EXTRA_MISSILE_BOOST = 1;
+    public static final int EXTRA_SHIELD_BOOST = 2;
     public static final int SHIELD = 3;
     public final int type;
     int stateTime;

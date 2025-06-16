@@ -195,7 +195,7 @@ public class SettingsScreen extends Screens {
                     acceleration = -5f;
             }
         }
-        spaceShip.velocity.x = -acceleration / Settings.accelerometerSensitivity * SpaceShip.NAVE_MOVE_SPEED;
+        spaceShip.velocity.x = -acceleration / Settings.accelerometerSensitivity * SpaceShip.SPACESHIP_SPEED;
 
         spaceShip.update(delta);
     }

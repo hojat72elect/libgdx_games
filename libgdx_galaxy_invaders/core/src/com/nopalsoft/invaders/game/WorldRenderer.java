@@ -68,7 +68,7 @@ public class WorldRenderer {
 
     private void renderNave() {
         TextureRegion keyFrame;
-        if (oWorld.oSpaceShip.state == SpaceShip.NAVE_STATE_NORMAL) {
+        if (oWorld.oSpaceShip.state == SpaceShip.SPACESHIP_STATE_NORMAL) {
             if (oWorld.oSpaceShip.velocity.x < -3)
                 keyFrame = Assets.spaceShipLeft;
             else if (oWorld.oSpaceShip.velocity.x > 3)
@@ -82,7 +82,7 @@ public class WorldRenderer {
                 / 2f, SpaceShip.DRAW_WIDTH, SpaceShip.DRAW_HEIGHT);
 
         // Draw the ship's shield
-        if (oWorld.oSpaceShip.vidasEscudo > 0) {
+        if (oWorld.oSpaceShip.shieldCount > 0) {
             batch.draw(Assets.shieldAnimation.getKeyFrame(oWorld.oSpaceShip.stateTime, true), oWorld.oSpaceShip.position.x - 5.5f,
                     oWorld.oSpaceShip.position.y - 5.5f, 11, 11);
         }
@@ -93,14 +93,14 @@ public class WorldRenderer {
         for (int i = 0; i < len; i++) {
             AlienShip oAlienShip = oWorld.alienShips.get(i);
             TextureRegion keyFrame;
-            if (oAlienShip.state == AlienShip.EXPLOTING) {
+            if (oAlienShip.state == AlienShip.EXPLODING) {
                 keyFrame = Assets.explosionAnimation.getKeyFrame(oAlienShip.stateTime, false);
             } else {
-                if (oAlienShip.vidasLeft >= 10)
+                if (oAlienShip.remainingLives >= 10)
                     keyFrame = Assets.alien4;
-                else if (oAlienShip.vidasLeft >= 5)
+                else if (oAlienShip.remainingLives >= 5)
                     keyFrame = Assets.alien3;
-                else if (oAlienShip.vidasLeft >= 2)
+                else if (oAlienShip.remainingLives >= 2)
                     keyFrame = Assets.alien2;
                 else
                     keyFrame = Assets.alien1;
@@ -146,13 +146,13 @@ public class WorldRenderer {
             float widht, heigth;
             TextureRegion keyFrame;
             switch (oMissile.state) {
-                case Missile.STATE_DISPARADO:
+                case Missile.STATE_LAUNCHED:
                     keyFrame = Assets.missileAnimation.getKeyFrame(oMissile.stateTime, true);
                     widht = .8f;
                     heigth = 2.5f;
                     break;
                 default:
-                case Missile.STATE_EXPLOTANDO:
+                case Missile.STATE_EXPLODING:
                     keyFrame = Assets.explosionAnimation.getKeyFrame(oMissile.stateTime, false);
                     widht = heigth = 15.0f;
                     break;
@@ -169,14 +169,14 @@ public class WorldRenderer {
             TextureRegion keyFrame;
 
             switch (oBoost.type) {
-                case Boost.VIDA_EXTRA:
+                case Boost.EXTRA_LIFE_BOOST:
                     keyFrame = Assets.upgLife;
 
                     break;
-                case Boost.UPGRADE_NIVEL_ARMAS:
+                case Boost.EXTRA_MISSILE_BOOST:
                     keyFrame = Assets.boost1;
                     break;
-                case Boost.MISSIL_EXTRA:
+                case Boost.EXTRA_SHIELD_BOOST:
                     keyFrame = Assets.boost2;
                     break;
                 default:// Boost.SHIELD

@@ -12,13 +12,13 @@ public class GalaxyInvadersGame extends Game {
     public Stage stage;
     public Assets assetManager;
     public SpriteBatch batch;
-    public DialogSingInGGS dialog;
+    public DialogSignInGoogleGameServices dialog;
 
     @Override
     public void create() {
         stage = new Stage(new StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT));
         batch = new SpriteBatch();
-        dialog = new DialogSingInGGS(this, stage);
+        dialog = new DialogSignInGoogleGameServices(this, stage);
 
         Assets.load();
         setScreen(new MainMenuScreen(this));// Here I have to put the main screen

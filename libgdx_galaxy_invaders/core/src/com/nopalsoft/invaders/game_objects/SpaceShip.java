@@ -11,26 +11,26 @@ public class SpaceShip extends DynamicGameObject {
     public static final float WIDTH = 4f;
     public static final float HEIGHT = 2.5f;
 
-    public static final float NAVE_MOVE_SPEED = 50;
+    public static final float SPACESHIP_SPEED = 50;
 
-    public static final int NAVE_STATE_NORMAL = 0;
-    public static final int NAVE_STATE_EXPLODE = 1;
-    public static final int NAVE_STATE_BEING_HIT = 2;
+    public static final int SPACESHIP_STATE_NORMAL = 0;
+    public static final int SPACESHIP_STATE_EXPLODE = 1;
+    public static final int SPACESHIP_STATE_BEING_HIT = 2;
 
-    public static final float TIEMPO_EXPLODE = 0.05f * 19;
-    public static final float TIEMPO_BEING_HIT = 0.05f * 21; // One more so that I have a little time to think haha
+    public static final float EXPLOSION_DURATION = 0.05f * 19;
+    public static final float BEING_HIT_DURATION = 0.05f * 21; // One more so that I have a little time to think haha
 
-    public int vidasEscudo;
-    public int vidas;
+    public int shieldCount;
+    public int lives;
     public int state;
     public float stateTime;
 
     public SpaceShip(float x, float y) {
         super(x, y, WIDTH, HEIGHT);
-        vidas = 3;
-        vidasEscudo = 1;// You start with 1 shield in case the bastards hit you.
-        state = NAVE_STATE_NORMAL;
-        Gdx.app.log("Estado", "Se creo la nave");
+        lives = 3;
+        shieldCount = 1;// You start with 1 shield in case the bastards hit you.
+        state = SPACESHIP_STATE_NORMAL;
+        Gdx.app.log("State", "The ship was created");
     }
 
     public void update(float deltaTime) {
@@ -38,10 +38,10 @@ public class SpaceShip extends DynamicGameObject {
         boundsRectangle.x = position.x - boundsRectangle.width / 2;
         boundsRectangle.y = position.y - boundsRectangle.height / 2;
 
-        if (state == NAVE_STATE_BEING_HIT && stateTime > TIEMPO_BEING_HIT) {
-            state = NAVE_STATE_NORMAL;
+        if (state == SPACESHIP_STATE_BEING_HIT && stateTime > BEING_HIT_DURATION) {
+            state = SPACESHIP_STATE_NORMAL;
             stateTime = 0;
-            Gdx.app.log("Estado", "Se cambio a normal");
+            Gdx.app.log("State", "It changed to normal");
         }
 
         if (position.x < WIDTH / 2)
@@ -52,29 +52,29 @@ public class SpaceShip extends DynamicGameObject {
     }
 
     public void beingHit() {
-        if (vidasEscudo > 0) {
-            vidasEscudo--;
+        if (shieldCount > 0) {
+            shieldCount--;
         } else {
-            vidas--;
-            if (vidas <= 0) {
-                state = NAVE_STATE_EXPLODE;
+            lives--;
+            if (lives <= 0) {
+                state = SPACESHIP_STATE_EXPLODE;
                 stateTime = 0;
                 velocity.set(0, 0);
             } else {
-                state = NAVE_STATE_BEING_HIT;
+                state = SPACESHIP_STATE_BEING_HIT;
                 stateTime = 0;
             }
         }
     }
 
     public void hitVidaExtra() {
-        if (vidas < 99) {
-            vidas++;
+        if (lives < 99) {
+            lives++;
         }
     }
 
     public void hitEscudo() {
         stateTime = 0;
-        vidasEscudo = 3;
+        shieldCount = 3;
     }
 }
