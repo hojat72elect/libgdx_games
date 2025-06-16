@@ -194,7 +194,6 @@ public abstract class Screens extends InputAdapter implements Screen {
                         game.setScreen(new GameScreen(game));
                     else if (newScreen == ShopScreen.class)
                         game.setScreen(new ShopScreen(game));
-
                 })));
         stage.addActor(blackFadeOut);
     }

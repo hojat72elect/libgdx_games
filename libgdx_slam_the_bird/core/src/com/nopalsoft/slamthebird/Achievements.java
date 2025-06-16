@@ -36,5 +36,4 @@ public class Achievements {
     public static void unlockCoins() {
         didInit();
     }
-
 }

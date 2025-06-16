@@ -11,5 +11,4 @@ public class DesktopLauncher {
         config.setTitle("Slam the bird");
         new Lwjgl3Application(new MainSlamBird(), config);
     }
-
 }
