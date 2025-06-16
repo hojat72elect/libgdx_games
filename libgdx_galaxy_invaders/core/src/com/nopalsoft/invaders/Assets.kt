@@ -398,7 +398,7 @@ object Assets {
             explosionFrame19
         )
 
-        val parallaxLayer = ParallaxLayer(backgroundAtlasRegion, Vector2(0f, 50f), Vector2(0f, 0f))
+        val parallaxLayer = ParallaxLayer(backgroundAtlasRegion!!, Vector2(0f, 50f), Vector2(0f, 0f))
         val arrayLayers = arrayOf(parallaxLayer)
         backgroundLayer = ParallaxBackground(arrayLayers, 320f, 480f, Vector2(0f, 1f))
 
