@@ -20,17 +20,17 @@ import com.nopalsoft.invaders.game.GameScreen
 
 
 class MainMenuScreen(game: GalaxyInvadersGame) : Screens(game) {
-    var buttonPlay: TextButton
-    var buttonSettings: TextButton
-    var buttonLeaderBoard: TextButton
-    var buttonMore: TextButton
-    var buttonFacebook: TextButton
+    private var buttonPlay: TextButton
+    private var buttonSettings: TextButton
+    private var buttonLeaderBoard: TextButton
+    private var buttonMore: TextButton
+    private var buttonFacebook: TextButton
 
-    var labelHighestScore: Label
+    private var labelHighestScore: Label
 
     var buttonSound: ImageButton
     var buttonMusic: ImageButton
-    var leftEllipse: Image
+    private var leftEllipse: Image
 
     init {
         val tableTitle = Table()
