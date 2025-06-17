@@ -134,31 +134,31 @@ public class Assets {
 
         styleLabelChico = new LabelStyle(font, Color.WHITE);
 
-        /* Button Buy */
+
         TextureRegionDrawable btBuy = new TextureRegionDrawable(
                 atlas.findRegion("Shop/btBuy"));
         styleTextButtonBuy = new TextButtonStyle(btBuy, null, null, font);
 
-        /* Button Purchased */
+
         TextureRegionDrawable btPurchased = new TextureRegionDrawable(
                 atlas.findRegion("Shop/btPurchased"));
         styleTextButtonPurchased = new TextButtonStyle(btPurchased, null, null,
                 font);
 
-        /* Button Selected */
+
         TextureRegionDrawable btSelected = new TextureRegionDrawable(
                 atlas.findRegion("Shop/btSelected"));
         styleTextButtonSelected = new TextButtonStyle(btSelected, null, null,
                 font);
 
-        /* Button Musica */
+
         TextureRegionDrawable btMusicOn = new TextureRegionDrawable(
                 atlas.findRegion("MenuPrincipal/btMusica"));
         TextureRegionDrawable btMusicOff = new TextureRegionDrawable(
                 atlas.findRegion("MenuPrincipal/btSinMusica"));
         styleButtonMusica = new ButtonStyle(btMusicOn, null, btMusicOff);
 
-        /* Boton Sonido */
+
         TextureRegionDrawable botonSonidoOn = new TextureRegionDrawable(
                 atlas.findRegion("MenuPrincipal/btSonido"));
         TextureRegionDrawable botonSonidoOff = new TextureRegionDrawable(
@@ -173,9 +173,9 @@ public class Assets {
 
         String perSeleccionado = "AndroidBot";
 
-        if (Settings.skinSeleccionada == PlayerSkinsSubMenu.SKIN_RED_ANDROID) {
+        if (Settings.selectedSkin == PlayerSkinsSubMenu.SKIN_RED_ANDROID) {
             perSeleccionado = "AndroidBotRojo";
-        } else if (Settings.skinSeleccionada == PlayerSkinsSubMenu.SKIN_BLUE_ANDROID) {
+        } else if (Settings.selectedSkin == PlayerSkinsSubMenu.SKIN_BLUE_ANDROID) {
             perSeleccionado = "AndroidBotAzul";
         }
 
@@ -208,7 +208,7 @@ public class Assets {
                 + "/personajeHit");
         animPersonajeHit = new Animation<>(.1f, per1, per2, per3);
 
-        // Estos son los que aparecen en la tienda;
+        // These are the ones that appear in the store;
         personajeShopDefault = atlas
                 .findRegion("Personajes/AndroidBot/personajeFall");
         personajeShopRojo = atlas
@@ -337,7 +337,7 @@ public class Assets {
 
         Settings.load();
 
-        // Se debe llamar despues de cargar settings
+        // Must be called after loading settings
         cargarPersonaje();
 
         soundCoin = Gdx.audio.newSound(Gdx.files

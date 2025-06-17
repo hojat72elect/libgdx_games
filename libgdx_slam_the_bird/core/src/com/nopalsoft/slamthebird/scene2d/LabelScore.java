@@ -6,19 +6,19 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.nopalsoft.slamthebird.Assets;
 
 public class LabelScore extends Actor {
-    int puntuacion;
+    int score;
 
-    public LabelScore(float x, float y, int puntuacion) {
-        this.puntuacion = puntuacion;
+    public LabelScore(float x, float y, int score) {
+        this.score = score;
         this.setPosition(x, y);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        drawNumGrandeCentradoX(batch, this.getX(), this.getY(), puntuacion);
+        drawLargeNumberCenteredX(batch, this.getX(), this.getY(), score);
     }
 
-    public void drawNumGrandeCentradoX(Batch batcher, float x, float y, int puntuacion) {
+    public void drawLargeNumberCenteredX(Batch batcher, float x, float y, int puntuacion) {
         String score = String.valueOf(puntuacion);
 
         int len = score.length();
@@ -47,7 +47,7 @@ public class LabelScore extends Actor {
                 keyFrame = Assets.num7Grande;
             } else if (character == '8') {
                 keyFrame = Assets.num8Grande;
-            } else {// 9
+            } else {
                 keyFrame = Assets.num9Grande;
             }
             batcher.draw(keyFrame, x + ((charWidth - 1f) * i) - textWidth / 2f, y, charWidth, 64);

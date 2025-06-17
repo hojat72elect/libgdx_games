@@ -7,10 +7,10 @@ import com.nopalsoft.slamthebird.Assets;
 import com.nopalsoft.slamthebird.game.WorldGame;
 
 public class LabelCombo extends Actor {
-    int comboActual;
+    int actualCombo;
 
-    public LabelCombo(float x, float y, int comboActual) {
-        this.comboActual = comboActual;
+    public LabelCombo(float x, float y, int actualCombo) {
+        this.actualCombo = actualCombo;
         this.setPosition(x, y);
     }
 
@@ -18,21 +18,21 @@ public class LabelCombo extends Actor {
     public void draw(Batch batch, float parentAlpha) {
 
         batch.draw(Assets.combo, getX(), getY(), 65, 27);
-        if (comboActual >= WorldGame.COMBO_TO_START_GETTING_COINS) {
+        if (actualCombo >= WorldGame.COMBO_TO_START_GETTING_COINS) {
             batch.draw(Assets.moneda, getX() + 20, getY() + 35, 23, 26);
         }
-        drawPuntuacionChicoOrigenIzq(batch, this.getX() + 70, this.getY() + 2,
-                comboActual);
+        drawSmallScoreLeftOrigin(batch, this.getX() + 70, this.getY() + 2,
+                actualCombo);
     }
 
-    public void drawPuntuacionChicoOrigenIzq(Batch batcher, float x, float y,
-                                             int comboActual) {
+    public void drawSmallScoreLeftOrigin(Batch batch, float x, float y,
+                                         int comboActual) {
         String score = String.valueOf(comboActual);
 
-        int len = score.length();
+        int length = score.length();
         float charWidth;
         float textWidth = 0;
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < length; i++) {
             AtlasRegion keyFrame;
 
             charWidth = 22;
@@ -61,7 +61,7 @@ public class LabelCombo extends Actor {
                 keyFrame = Assets.num9Chico;
             }
 
-            batcher.draw(keyFrame, x + textWidth, y, charWidth, 22);
+            batch.draw(keyFrame, x + textWidth, y, charWidth, 22);
             textWidth += charWidth;
         }
     }

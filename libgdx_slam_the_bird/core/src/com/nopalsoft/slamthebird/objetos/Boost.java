@@ -11,10 +11,10 @@ import com.nopalsoft.slamthebird.game.WorldGame;
 
 public class Boost implements Poolable {
 
-    public static final int TIPO_SUPERJUMP = 0;
-    public static final int TIPO_INVENCIBLE = 1;
-    public static final int TIPO_COIN_RAIN = 2;
-    public static final int TIPO_ICE = 3;
+    public static final int TYPE_SUPER_JUMP = 0;
+    public static final int TYPE_INVINCIBLE = 1;
+    public static final int TYPE_COIN_RAIN = 2;
+    public static final int TYPE_FREEZE = 3;
 
     public static float DURATION_AVAILABLE = 5;
 
@@ -24,24 +24,24 @@ public class Boost implements Poolable {
 
     public Vector2 position;
     public float stateTime;
-    public int tipo;
+    public int type;
 
     public Boost() {
         position = new Vector2();
     }
 
     public void init(WorldGame oWorld, float x, float y, int tipo) {
-        this.tipo = tipo;
+        this.type = tipo;
         position.set(x, y);
         stateTime = 0;
         state = STATE_NORMAL;
 
-        BodyDef bd = new BodyDef();
-        bd.position.x = x;
-        bd.position.y = y;
-        bd.type = BodyType.KinematicBody;
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.x = x;
+        bodyDefinition.position.y = y;
+        bodyDefinition.type = BodyType.KinematicBody;
 
-        Body oBody = oWorld.oWorldBox.createBody(bd);
+        Body body = oWorld.oWorldBox.createBody(bodyDefinition);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(.15f, .15f);
@@ -53,9 +53,9 @@ public class Boost implements Poolable {
         fixture.friction = 0;
         fixture.isSensor = true;
 
-        oBody.createFixture(fixture);
+        body.createFixture(fixture);
 
-        oBody.setUserData(this);
+        body.setUserData(this);
         shape.dispose();
     }
 
@@ -77,7 +77,5 @@ public class Boost implements Poolable {
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
-
     }
 }

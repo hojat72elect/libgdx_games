@@ -16,29 +16,26 @@ import com.nopalsoft.slamthebird.SlamTheBirdGame;
 
 public class GetCoinsSubMenu {
 
-    int monedasLikeFacebook = 1500;
+    int facebookLikeCoinBonus = 1500;
 
-    // Comun
-    TextButton btLikeFacebook;
+    TextButton buttonLikeFacebook;
+    TextButton buttonBuy5MCoins, buttonBuy15MCoins, buttonBuy30MCoins,
+            buttonBuy50MCoins;
 
-    // iOS
-    TextButton btBuy5milCoins, btBuy15MilCoins, btBuy30MilCoins,
-            btBuy50MilCoins;
-
-    Table contenedor;
+    Table tableContainer;
     SlamTheBirdGame game;
 
-    public GetCoinsSubMenu(final SlamTheBirdGame game, Table contenedor) {
+    public GetCoinsSubMenu(final SlamTheBirdGame game, Table tableContainer) {
         this.game = game;
-        this.contenedor = contenedor;
-        contenedor.clear();
+        this.tableContainer = tableContainer;
+        tableContainer.clear();
 
-        btLikeFacebook = new TextButton("Like us", Assets.styleTextButtonBuy);
+        buttonLikeFacebook = new TextButton("Like us", Assets.styleTextButtonBuy);
         if (Settings.didLikeFacebook)
-            btLikeFacebook = new TextButton("Visit Us",
+            buttonLikeFacebook = new TextButton("Visit Us",
                     Assets.styleTextButtonSelected);
-        addEfectoPress(btLikeFacebook);
-        btLikeFacebook.addListener(new ClickListener() {
+        addEfectoPress(buttonLikeFacebook);
+        buttonLikeFacebook.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (!Settings.didLikeFacebook) {
@@ -46,75 +43,75 @@ public class GetCoinsSubMenu {
                     Settings.didLikeFacebook = true;
                     game.stage.addAction(Actions.sequence(Actions.delay(1),
                             Actions.run(() -> {
-                                Settings.monedasActuales += monedasLikeFacebook;
-                                btLikeFacebook.setText("Visit us");
-                                btLikeFacebook
+                                Settings.currentCoins += facebookLikeCoinBonus;
+                                buttonLikeFacebook.setText("Visit us");
+                                buttonLikeFacebook
                                         .setStyle(Assets.styleTextButtonSelected);
                             })));
                 }
             }
         });
 
-        btBuy5milCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
-        addEfectoPress(btBuy5milCoins);
+        buttonBuy5MCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
+        addEfectoPress(buttonBuy5MCoins);
 
-        btBuy15MilCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
-        addEfectoPress(btBuy15MilCoins);
+        buttonBuy15MCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
+        addEfectoPress(buttonBuy15MCoins);
 
-        btBuy30MilCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
-        addEfectoPress(btBuy30MilCoins);
+        buttonBuy30MCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
+        addEfectoPress(buttonBuy30MCoins);
 
-        btBuy50MilCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
-        addEfectoPress(btBuy50MilCoins);
+        buttonBuy50MCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
+        addEfectoPress(buttonBuy50MCoins);
 
         // Facebook Like
-        contenedor.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+        tableContainer.add(new Image(Assets.separadorHorizontal)).expandX().fill()
                 .height(5);
-        contenedor.row();
-        contenedor
-                .add(agregarPersonajeTabla(monedasLikeFacebook,
+        tableContainer.row();
+        tableContainer
+                .add(agregarPersonajeTabla(facebookLikeCoinBonus,
                         Assets.btFacebook, "Like us on facebook and get "
-                                + monedasLikeFacebook + " coins",
-                        btLikeFacebook)).expandX().fill();
-        contenedor.row();
+                                + facebookLikeCoinBonus + " coins",
+                        buttonLikeFacebook)).expandX().fill();
+        tableContainer.row();
 
         TextureRegionDrawable moneda = new TextureRegionDrawable(Assets.moneda);
         // Venta de monedas
 
 
         // Comprar 5mil
-        contenedor
+        tableContainer
                 .add(agregarPersonajeTabla(
                         5000,
                         moneda,
                         "Coin simple pack. A quick way to buy simple upgrades",
-                        btBuy5milCoins)).expandX().fill();
-        contenedor.row();
+                        buttonBuy5MCoins)).expandX().fill();
+        tableContainer.row();
 
         // Comprar 15mil
-        contenedor
+        tableContainer
                 .add(agregarPersonajeTabla(
                         15000,
                         moneda,
                         "Coin super pack. Get some cash for upgrades and characters",
-                        btBuy15MilCoins)).expandX().fill();
-        contenedor.row();
+                        buttonBuy15MCoins)).expandX().fill();
+        tableContainer.row();
 
-        contenedor
+        tableContainer
                 .add(agregarPersonajeTabla(
                         30000,
                         moneda,
                         "Coin mega pack. You can buy a lot of characters and upgrades",
-                        btBuy30MilCoins)).expandX().fill();
-        contenedor.row();
+                        buttonBuy30MCoins)).expandX().fill();
+        tableContainer.row();
 
-        contenedor
+        tableContainer
                 .add(agregarPersonajeTabla(
                         50000,
                         moneda,
                         "Coin super mega pack. Get this pack and you will be slamming in cash",
-                        btBuy50MilCoins)).expandX().fill();
-        contenedor.row();
+                        buttonBuy50MCoins)).expandX().fill();
+        tableContainer.row();
     }
 
     private Table agregarPersonajeTabla(int numMonedasToGet,

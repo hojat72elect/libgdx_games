@@ -29,18 +29,18 @@ public abstract class BaseScreen extends InputAdapter implements Screen {
 
     public SlamTheBirdGame game;
 
-    public OrthographicCamera oCam;
-    public SpriteBatch batcher;
+    public OrthographicCamera camera;
+    public SpriteBatch batch;
     public Stage stage;
 
     public BaseScreen(SlamTheBirdGame game) {
         this.stage = game.stage;
         this.stage.clear();
-        this.batcher = game.batch;
+        this.batch = game.batch;
         this.game = game;
 
-        oCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
-        oCam.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
+        camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
+        camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
 
         InputMultiplexer input = new InputMultiplexer(this, stage);
         Gdx.input.setInputProcessor(input);
@@ -94,7 +94,7 @@ public abstract class BaseScreen extends InputAdapter implements Screen {
                 keyFrame = Assets.num9Grande;
             }
 
-            batcher.draw(keyFrame, x + ((charWidth - 1f) * i) - textWidth / 2f,
+            batch.draw(keyFrame, x + ((charWidth - 1f) * i) - textWidth / 2f,
                     y, charWidth, 64);
         }
     }
@@ -135,7 +135,7 @@ public abstract class BaseScreen extends InputAdapter implements Screen {
                 keyFrame = Assets.num9Chico;
             }
             textWidth += charWidth;
-            batcher.draw(keyFrame, x - textWidth, y, charWidth, 32);
+            batch.draw(keyFrame, x - textWidth, y, charWidth, 32);
         }
     }
 
@@ -172,7 +172,7 @@ public abstract class BaseScreen extends InputAdapter implements Screen {
                 keyFrame = Assets.num9Chico;
             }
 
-            batcher.draw(keyFrame, x + ((charWidth - 1f) * i) - textWidth / 2f,
+            batch.draw(keyFrame, x + ((charWidth - 1f) * i) - textWidth / 2f,
                     y, charWidth, 32);
         }
     }
@@ -243,7 +243,7 @@ public abstract class BaseScreen extends InputAdapter implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        batcher.dispose();
+        batch.dispose();
         Settings.save();
     }
 }

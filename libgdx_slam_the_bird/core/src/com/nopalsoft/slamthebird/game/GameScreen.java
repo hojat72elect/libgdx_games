@@ -17,8 +17,8 @@ import com.nopalsoft.slamthebird.Settings;
 import com.nopalsoft.slamthebird.SlamTheBirdGame;
 import com.nopalsoft.slamthebird.scene2d.DialogPause;
 import com.nopalsoft.slamthebird.scene2d.DialogRate;
+import com.nopalsoft.slamthebird.scene2d.LabelCoins;
 import com.nopalsoft.slamthebird.scene2d.LabelCombo;
-import com.nopalsoft.slamthebird.scene2d.LabelMonedas;
 import com.nopalsoft.slamthebird.scene2d.LabelScore;
 import com.nopalsoft.slamthebird.screens.BaseScreen;
 import com.nopalsoft.slamthebird.shop.ShopScreen;
@@ -48,7 +48,7 @@ public class GameScreen extends BaseScreen {
     public GameScreen(SlamTheBirdGame game) {
         super(game);
         worldGame = new WorldGame();
-        renderer = new WorldGameRender(batcher, worldGame);
+        renderer = new WorldGameRender(batch, worldGame);
 
         groupTryAgain = new Group();
         ventanaRate = new DialogRate(this);
@@ -71,7 +71,7 @@ public class GameScreen extends BaseScreen {
                     return false;
 
                 setRunning();
-                Settings.numeroVecesJugadas++;
+                Settings.playCount++;
                 return true;
             }
         });
@@ -305,10 +305,10 @@ public class GameScreen extends BaseScreen {
     public void draw(float delta) {
         renderer.render();
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
 
-        batcher.begin();
+        batch.begin();
 
         switch (state) {
             case STATE_RUNNING:
@@ -321,13 +321,13 @@ public class GameScreen extends BaseScreen {
             default:
                 break;
         }
-        batcher.end();
+        batch.end();
     }
 
     private void drawRunning() {
         drawLargeNumberCenteredX(SCREEN_WIDTH / 2f, 700, worldGame.scoreSlamed);
 
-        batcher.draw(Assets.moneda, 449, 764, 30, 34);
+        batch.draw(Assets.moneda, 449, 764, 30, 34);
         drawPuntuacionChicoOrigenDerecha(445, 764, worldGame.monedasTomadas);
     }
 
@@ -395,8 +395,8 @@ public class GameScreen extends BaseScreen {
                     groupButtons.addAction(Actions.fadeIn(.5f));
                     stage.addActor(groupButtons);
 
-                    if (Settings.numeroVecesJugadas % 7 == 0
-                            && !Settings.seCalifico) {
+                    if (Settings.playCount % 7 == 0
+                            && !Settings.didRateApp) {
                         ventanaRate.show(stage);
                     }
                 })));
@@ -418,7 +418,7 @@ public class GameScreen extends BaseScreen {
         coinsEarned.setPosition(25, 47);
 
         LabelScore lblScore = new LabelScore(420 / 2f, 120, worldGame.scoreSlamed);
-        LabelMonedas lblMonedas = new LabelMonedas(385, 45,
+        LabelCoins lblMonedas = new LabelCoins(385, 45,
                 worldGame.monedasTomadas);
 
         Achievements.unlockCoins();
@@ -429,7 +429,7 @@ public class GameScreen extends BaseScreen {
         groupTryAgain.addActor(coinsEarned);
 
         worldGame = new WorldGame();
-        renderer = new WorldGameRender(batcher, worldGame);
+        renderer = new WorldGameRender(batch, worldGame);
 
         stage.addActor(groupTryAgain);
     }

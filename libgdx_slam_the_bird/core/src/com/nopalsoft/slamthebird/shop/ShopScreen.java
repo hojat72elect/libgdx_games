@@ -125,13 +125,13 @@ public class ShopScreen extends BaseScreen {
 
     @Override
     public void draw(float delta) {
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
 
-        batcher.begin();
-        batcher.draw(Assets.moneda, 449, 764, 30, 34);
-        drawPuntuacionChicoOrigenDerecha(445, 764, Settings.monedasActuales);
-        batcher.end();
+        batch.begin();
+        batch.draw(Assets.moneda, 449, 764, 30, 34);
+        drawPuntuacionChicoOrigenDerecha(445, 764, Settings.currentCoins);
+        batch.end();
     }
 
     @Override

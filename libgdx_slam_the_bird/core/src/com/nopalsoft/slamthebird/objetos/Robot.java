@@ -12,16 +12,16 @@ public class Robot {
     public static int STATE_JUMPING = 1;
     public static int STATE_DEAD = 2;
 
-    public float VELOCIDAD_JUMP = 6.25f;
-    public float VELOCIDAD_MOVE = 5f;
+    public float JUMP_SPEED = 6.25f;
+    public float MOVE_SPEED = 5f;
 
     public float DURATION_SUPER_JUMP = 5;
     public float durationSuperJump;
 
-    public float DURATION_INVENCIBLE = 5;
-    public float durationInvencible;
+    public float INVINCIBLE_DURATION = 5;
+    public float invincibilityDuration;
 
-    public static final float DURATION_DEAD_ANIMATION = 2;
+    public static final float DEAD_ANIMATION_DURATION = 2;
 
     public Vector2 position;
 
@@ -30,26 +30,26 @@ public class Robot {
 
     public boolean jump, slam;
     public boolean isSuperJump;
-    public boolean isInvencible;
+    public boolean isInvincible;
 
-    public float angleGrad;
-    public Vector2 velocidad;
+    public float angleDegrees;
+    public Vector2 velocity;
 
     public Robot(float x, float y) {
         position = new Vector2(x, y);
         state = STATE_JUMPING;
-        velocidad = new Vector2();
-        jump = true;// para que haga el primer salto
+        velocity = new Vector2();
+        jump = true;// to make the first jump
 
-        DURATION_SUPER_JUMP += Settings.NIVEL_BOOST_SUPER_JUMP;
-        DURATION_INVENCIBLE += Settings.NIVEL_BOOST_INVENCIBLE;
+        DURATION_SUPER_JUMP += Settings.BOOST_SUPER_JUMP;
+        INVINCIBLE_DURATION += Settings.BOOST_INVINCIBLE;
     }
 
     public void update(float delta, Body body, float acelX, boolean slam) {
-        this.slam = slam;// Para dibujar la caida rapida =)
+        this.slam = slam;// To draw the rapid fall =)
         position.x = body.getPosition().x;
         position.y = body.getPosition().y;
-        angleGrad = 0;
+        angleDegrees = 0;
         if (state == STATE_FALLING || state == STATE_JUMPING) {
 
             if (slam)
@@ -63,20 +63,20 @@ public class Robot {
                 stateTime = 0;
                 if (isSuperJump) {
                     body.setLinearVelocity(body.getLinearVelocity().x,
-                            VELOCIDAD_JUMP + 3);
+                            JUMP_SPEED + 3);
                 } else {
                     body.setLinearVelocity(body.getLinearVelocity().x,
-                            VELOCIDAD_JUMP);
+                            JUMP_SPEED);
                 }
             }
 
-            Vector2 velocidad = body.getLinearVelocity();
+            Vector2 velocity = body.getLinearVelocity();
 
-            if (velocidad.y < 0 && state != STATE_FALLING) {
+            if (velocity.y < 0 && state != STATE_FALLING) {
                 state = STATE_FALLING;
                 stateTime = 0;
             }
-            body.setLinearVelocity(acelX * VELOCIDAD_MOVE, velocidad.y);
+            body.setLinearVelocity(acelX * MOVE_SPEED, velocity.y);
 
             if (isSuperJump) {
                 durationSuperJump += delta;
@@ -86,21 +86,20 @@ public class Robot {
                 }
             }
 
-            if (isInvencible) {
-                durationInvencible += delta;
-                if (durationInvencible >= DURATION_INVENCIBLE) {
-                    isInvencible = false;
-                    durationInvencible = 0;
+            if (isInvincible) {
+                invincibilityDuration += delta;
+                if (invincibilityDuration >= INVINCIBLE_DURATION) {
+                    isInvincible = false;
+                    invincibilityDuration = 0;
                 }
             }
         } else if (state == STATE_DEAD) {
             body.setLinearVelocity(0, -3);
             body.setFixedRotation(false);
-            angleGrad = (float) Math.toDegrees(body.getAngle());
-            // if (body.getAngularVelocity() != 0)
+            angleDegrees = (float) Math.toDegrees(body.getAngle());
             body.setAngularVelocity((float) Math.toRadians(20));
         }
-        velocidad = body.getLinearVelocity();
+        velocity = body.getLinearVelocity();
         stateTime += delta;
     }
 
@@ -108,8 +107,8 @@ public class Robot {
         position.x = body.getPosition().x;
         position.y = body.getPosition().y;
 
-        body.setLinearVelocity(acelX * VELOCIDAD_MOVE, 0);
-        velocidad = body.getLinearVelocity();
+        body.setLinearVelocity(acelX * MOVE_SPEED, 0);
+        velocity = body.getLinearVelocity();
     }
 
     public void jump() {
@@ -121,7 +120,7 @@ public class Robot {
     }
 
     /**
-     * El robot es golpeado y muere
+     * The robot is hit and dies.
      */
     public void hit() {
         state = STATE_DEAD;

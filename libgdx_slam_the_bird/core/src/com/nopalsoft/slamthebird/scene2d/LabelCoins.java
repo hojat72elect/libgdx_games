@@ -5,26 +5,26 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.nopalsoft.slamthebird.Assets;
 
-public class LabelMonedas extends Actor {
-    int numMonedas;
+public class LabelCoins extends Actor {
+    int numCoins;
 
-    public LabelMonedas(float x, float y, int numMonedas) {
-        this.numMonedas = numMonedas;
+    public LabelCoins(float x, float y, int numCoins) {
+        this.numCoins = numCoins;
         this.setPosition(x, y);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        drawPuntuacionChicoOrigenDerecha(batch, this.getX(), this.getY(), numMonedas);
+        drawScoreRightAligned(batch, this.getX(), this.getY(), numCoins);
     }
 
-    public void drawPuntuacionChicoOrigenDerecha(Batch batcher, float x, float y, int numMonedas) {
-        String score = String.valueOf(numMonedas);
+    public void drawScoreRightAligned(Batch batch, float x, float y, int numCoins) {
+        String score = String.valueOf(numCoins);
 
-        int len = score.length();
+        int length = score.length();
         float charWidth;
         float textWidth = 0;
-        for (int i = len - 1; i >= 0; i--) {
+        for (int i = length - 1; i >= 0; i--) {
             AtlasRegion keyFrame;
 
             charWidth = 22;
@@ -53,7 +53,7 @@ public class LabelMonedas extends Actor {
                 keyFrame = Assets.num9Chico;
             }
             textWidth += charWidth;
-            batcher.draw(keyFrame, x - textWidth, y, charWidth, 32);
+            batch.draw(keyFrame, x - textWidth, y, charWidth, 32);
         }
     }
 }

@@ -129,14 +129,14 @@ public class PlayerSkinsSubMenu {
 
         // default skin
         buttonDefault = new TextButton("Select", Assets.styleTextButtonPurchased);
-        if (Settings.skinSeleccionada == SKIN_DEFAULT)
+        if (Settings.selectedSkin == SKIN_DEFAULT)
             buttonDefault.setVisible(false);
 
         addPressEffect(buttonDefault);
         buttonDefault.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Settings.skinSeleccionada = SKIN_DEFAULT;
+                Settings.selectedSkin = SKIN_DEFAULT;
                 setSelected(buttonDefault);
                 Assets.cargarPersonaje();
             }
@@ -149,7 +149,7 @@ public class PlayerSkinsSubMenu {
         else
             buttonRedAndroid = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_RED_ANDROID)
+        if (Settings.selectedSkin == SKIN_RED_ANDROID)
             buttonRedAndroid.setVisible(false);
 
         addPressEffect(buttonRedAndroid);
@@ -157,11 +157,11 @@ public class PlayerSkinsSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (isRedAndroidPurchased) {
-                    Settings.skinSeleccionada = SKIN_RED_ANDROID;
+                    Settings.selectedSkin = SKIN_RED_ANDROID;
                     setSelected(buttonRedAndroid);
                     Assets.cargarPersonaje();
-                } else if (Settings.monedasActuales >= PRICE_RED_ANDROID) {
-                    Settings.monedasActuales -= PRICE_RED_ANDROID;
+                } else if (Settings.currentCoins >= PRICE_RED_ANDROID) {
+                    Settings.currentCoins -= PRICE_RED_ANDROID;
                     setButtonStylePurchased(buttonRedAndroid);
                     isRedAndroidPurchased = true;
                     labelPriceRedAndroid.remove();
@@ -177,7 +177,7 @@ public class PlayerSkinsSubMenu {
         else
             buttonBlueAndroid = new TextButton("Buy", Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == SKIN_BLUE_ANDROID)
+        if (Settings.selectedSkin == SKIN_BLUE_ANDROID)
             buttonBlueAndroid.setVisible(false);
 
         addPressEffect(buttonBlueAndroid);
@@ -185,11 +185,11 @@ public class PlayerSkinsSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (isBlueAndroidPurchased) {
-                    Settings.skinSeleccionada = SKIN_BLUE_ANDROID;
+                    Settings.selectedSkin = SKIN_BLUE_ANDROID;
                     setSelected(buttonBlueAndroid);
                     Assets.cargarPersonaje();
-                } else if (Settings.monedasActuales >= PRICE_BLUE_ANDROID) {
-                    Settings.monedasActuales -= PRICE_BLUE_ANDROID;
+                } else if (Settings.currentCoins >= PRICE_BLUE_ANDROID) {
+                    Settings.currentCoins -= PRICE_BLUE_ANDROID;
                     setButtonStylePurchased(buttonBlueAndroid);
                     isBlueAndroidPurchased = true;
                     labelPriceBlueAndroid.remove();

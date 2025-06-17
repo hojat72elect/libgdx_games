@@ -9,11 +9,11 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
-public class Moneda implements Poolable {
+public class Coin implements Poolable {
 
     public static final float RADIUS = .15f;
 
-    public static float VELOCIDAD_MOVE = 1;
+    public static float MOVE_SPEED = 1;
 
     public static final int STATE_NORMAL = 0;
     public static final int STATE_TAKEN = 1;
@@ -22,7 +22,7 @@ public class Moneda implements Poolable {
     public Vector2 position;
     public float stateTime;
 
-    public Moneda() {
+    public Coin() {
         position = new Vector2();
     }
 
@@ -43,28 +43,28 @@ public class Moneda implements Poolable {
 
     }
 
-    public static Body crearMoneda(World oWorldBox, float x, float y, float velocidadX) {
-        BodyDef bd = new BodyDef();
-        bd.position.x = x;
-        bd.position.y = y;
-        bd.type = BodyType.DynamicBody;
+    public static Body createCoinBody(World world, float x, float y, float velocityX) {
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.x = x;
+        bodyDefinition.position.y = y;
+        bodyDefinition.type = BodyType.DynamicBody;
 
-        Body oBody = oWorldBox.createBody(bd);
+        Body body = world.createBody(bodyDefinition);
 
         CircleShape shape = new CircleShape();
         shape.setRadius(RADIUS);
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.density = 1;
-        fixture.restitution = .5f;
-        fixture.friction = 0;
-        fixture.filter.groupIndex = -1;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.density = 1;
+        fixtureDefinition.restitution = .5f;
+        fixtureDefinition.friction = 0;
+        fixtureDefinition.filter.groupIndex = -1;
 
-        oBody.setGravityScale(0);
-        oBody.createFixture(fixture);
-        oBody.setLinearVelocity(velocidadX, 0);
+        body.setGravityScale(0);
+        body.createFixture(fixtureDefinition);
+        body.setLinearVelocity(velocityX, 0);
 
-        return oBody;
+        return body;
     }
 }

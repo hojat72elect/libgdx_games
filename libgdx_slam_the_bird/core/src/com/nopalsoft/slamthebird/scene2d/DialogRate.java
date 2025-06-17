@@ -16,22 +16,22 @@ public class DialogRate extends Dialog {
         setY(300);
         setBackGround();
 
-        Label lbTitle = new Label("Support this game", Assets.styleLabelChico);
-        lbTitle.setPosition(getWidth() / 2f - lbTitle.getWidth() / 2f, 210);
+        Label labelTitle = new Label("Support this game", Assets.styleLabelChico);
+        labelTitle.setPosition(getWidth() / 2f - labelTitle.getWidth() / 2f, 210);
 
-        Label lbContenido = new Label(
+        Label labelDescription = new Label(
                 "Hello, thank you for playing Slam the Bird.\nHelp us to support this game. Just rate us at the app store.",
                 Assets.styleLabelChico);
-        lbContenido.setSize(getWidth() - 20, 170);
-        lbContenido.setPosition(getWidth() / 2f - lbContenido.getWidth() / 2f,
+        labelDescription.setSize(getWidth() - 20, 170);
+        labelDescription.setPosition(getWidth() / 2f - labelDescription.getWidth() / 2f,
                 50);
-        lbContenido.setWrap(true);
+        labelDescription.setWrap(true);
 
-        TextButton btRate = new TextButton("Rate",
+        TextButton buttonRate = new TextButton("Rate",
                 Assets.styleTextButtonPurchased);
-        screen.addEfectoPress(btRate);
-        btRate.getLabel().setWrap(true);
-        btRate.addListener(new ClickListener() {
+        screen.addEfectoPress(buttonRate);
+        buttonRate.getLabel().setWrap(true);
+        buttonRate.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 hide();
@@ -49,16 +49,16 @@ public class DialogRate extends Dialog {
             }
         });
 
-        Table tbBotones = new Table();
-        tbBotones.setSize(getWidth() - 20, 60);
-        tbBotones.setPosition(getWidth() / 2f - tbBotones.getWidth() / 2f, 10);
+        Table tableButtons = new Table();
+        tableButtons.setSize(getWidth() - 20, 60);
+        tableButtons.setPosition(getWidth() / 2f - tableButtons.getWidth() / 2f, 10);
 
-        tbBotones.defaults().uniform().expand().center().fill().pad(10);
-        tbBotones.add(btRate);
-        tbBotones.add(btNotNow);
+        tableButtons.defaults().uniform().expand().center().fill().pad(10);
+        tableButtons.add(buttonRate);
+        tableButtons.add(btNotNow);
 
-        addActor(lbContenido);
-        addActor(tbBotones);
-        addActor(lbTitle);
+        addActor(labelDescription);
+        addActor(tableButtons);
+        addActor(labelTitle);
     }
 }

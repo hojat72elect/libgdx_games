@@ -38,8 +38,8 @@ public class NoAdsSubMenu {
         buttonNoAds.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (Settings.monedasActuales >= priceNoAds) {
-                    Settings.monedasActuales -= priceNoAds;
+                if (Settings.currentCoins >= priceNoAds) {
+                    Settings.currentCoins -= priceNoAds;
                     Settings.didBuyNoAds = true;
                     labelNoAds.setVisible(false);
                     buttonNoAds.setVisible(false);

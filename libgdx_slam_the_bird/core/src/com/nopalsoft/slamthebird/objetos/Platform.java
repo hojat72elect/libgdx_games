@@ -2,7 +2,7 @@ package com.nopalsoft.slamthebird.objetos;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Plataforma {
+public class Platform {
     public static float WIDTH = .75f;
     public static float HEIGHT = .2f;
 
@@ -14,26 +14,26 @@ public class Plataforma {
     public int state;
 
     final float TIME_TO_BE_ACTIVE = 1.25f;
-    public final float DURATION_ACTIVE = 10; // Este tiempo debe ser menor TIME_TO_CHANGE_STATE_PLATAFORM en la clase WorldGame
+    public final float DURATION_ACTIVE = 10; // This time must be less than TIME_TO_CHANGE_STATE_PLATFORM in the WorldGame class
 
     public Vector2 position;
     public float stateTime;
 
     private boolean isFire, isBreakable;
 
-    public float changinScale;// Para cuando cambie se vea una animacion// empieza en .5 para que no se aga todo chico
+    public float animationScale;// When it changes you will see an animation starting at .5 so that everything doesn't end small
 
-    public Plataforma(float x, float y) {
+    public Platform(float x, float y) {
         position = new Vector2(x, y);
         state = STATE_NORMAL;
-        changinScale = .5f;
+        animationScale = .5f;
     }
 
     public void update(float delta) {
         stateTime += delta;
 
         if (state == STATE_CHANGING) {
-            changinScale = stateTime / TIME_TO_BE_ACTIVE;// 1.2 escala maxima
+            animationScale = stateTime / TIME_TO_BE_ACTIVE;// 1.2 maximum scale
 
             if (stateTime >= TIME_TO_BE_ACTIVE) {
                 if (isFire)
@@ -48,7 +48,7 @@ public class Plataforma {
             isBreakable = isFire = false;
             state = STATE_NORMAL;
             stateTime = 0;
-            changinScale = .5f;
+            animationScale = .5f;
         }
     }
 

@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.nopalsoft.slamthebird.Assets;
 import com.nopalsoft.slamthebird.objetos.Boost;
+import com.nopalsoft.slamthebird.objetos.Coin;
 import com.nopalsoft.slamthebird.objetos.Enemy;
-import com.nopalsoft.slamthebird.objetos.Moneda;
-import com.nopalsoft.slamthebird.objetos.Plataforma;
+import com.nopalsoft.slamthebird.objetos.Platform;
 import com.nopalsoft.slamthebird.objetos.Robot;
 import com.nopalsoft.slamthebird.screens.BaseScreen;
 
@@ -67,10 +67,10 @@ public class WorldGameRender {
 
     private void renderPlataformas() {
 
-        for (Plataforma obj : oWorld.arrPlataformas) {
+        for (Platform obj : oWorld.arrPlataformas) {
             TextureRegion keyFrame = Assets.plataforma;
 
-            if (obj.state == Plataforma.STATE_BROKEN) {
+            if (obj.state == Platform.STATE_BROKEN) {
                 if (obj.stateTime < Assets.plataformBreakable.getAnimationDuration())
                     keyFrame = Assets.plataformBreakable.getKeyFrame(
                             obj.stateTime, false);
@@ -78,18 +78,18 @@ public class WorldGameRender {
                     continue;
             }
 
-            if (obj.state == Plataforma.STATE_BREAKABLE)
+            if (obj.state == Platform.STATE_BREAKABLE)
                 keyFrame = Assets.plataformBreakable.getKeyFrame(0);
 
-            if (obj.state == Plataforma.STATE_CHANGING)
+            if (obj.state == Platform.STATE_CHANGING)
                 batcher.draw(keyFrame, obj.position.x - .5f,
                         obj.position.y - .1f, .5f, .15f, 1f, .3f,
-                        obj.changinScale, obj.changinScale, 0);
+                        obj.animationScale, obj.animationScale, 0);
             else
                 batcher.draw(keyFrame, obj.position.x - .5f,
                         obj.position.y - .15f, 1f, .3f);
 
-            if (obj.state == Plataforma.STATE_FIRE)
+            if (obj.state == Platform.STATE_FIRE)
                 batcher.draw(Assets.animPlataformFire.getKeyFrame(
                                 obj.stateTime, true), obj.position.x - .5f,
                         obj.position.y + .1f, 1f, .3f);
@@ -99,10 +99,10 @@ public class WorldGameRender {
     private void renderBoost() {
 
         for (Boost obj : oWorld.arrBoost) {
-            TextureRegion keyFrame = switch (obj.tipo) {
-                case Boost.TIPO_COIN_RAIN -> Assets.boostCoinRain;
-                case Boost.TIPO_ICE -> Assets.boostIce;
-                case Boost.TIPO_SUPERJUMP -> Assets.boostSuperSalto;
+            TextureRegion keyFrame = switch (obj.type) {
+                case Boost.TYPE_COIN_RAIN -> Assets.boostCoinRain;
+                case Boost.TYPE_FREEZE -> Assets.boostIce;
+                case Boost.TYPE_SUPER_JUMP -> Assets.boostSuperSalto;
                 default -> Assets.boostInvencible;
             };
 
@@ -113,7 +113,7 @@ public class WorldGameRender {
 
     private void renderMonedas() {
 
-        for (Moneda obj : oWorld.arrMonedas) {
+        for (Coin obj : oWorld.arrMonedas) {
             batcher.draw(Assets.animMoneda.getKeyFrame(obj.stateTime, true),
                     obj.position.x - .15f, obj.position.y - .15f, .3f, .34f);
         }
@@ -121,16 +121,16 @@ public class WorldGameRender {
 
     public void renderEnemigos() {
         for (Enemy obj : oWorld.arrEnemigos) {
-            if (obj.state == Enemy.STATE_JUST_APPEAR) {
+            if (obj.state == Enemy.STATE_JUST_APPEARED) {
                 batcher.draw(Assets.flapSpawn, obj.position.x - .25f,
                         obj.position.y - .25f, .25f, .25f, .5f, .5f,
-                        obj.appearScale, obj.appearScale, 0);
+                        obj.visualScale, obj.visualScale, 0);
                 continue;
             }
 
             TextureRegion keyFrame;
             if (obj.state == Enemy.STATE_FLYING) {
-                if (obj.vidas >= 3)
+                if (obj.lives >= 3)
                     keyFrame = Assets.animflapAlasRojo.getKeyFrame(
                             obj.stateTime, true);
                 else
@@ -142,7 +142,7 @@ public class WorldGameRender {
                 keyFrame = Assets.flapAzul;
             }
 
-            if (obj.velocidad.x > 0)
+            if (obj.velocity.x > 0)
                 batcher.draw(keyFrame, obj.position.x - .285f,
                         obj.position.y - .21f, .57f, .42f);
             else
@@ -169,16 +169,16 @@ public class WorldGameRender {
 
         // c
 
-        if (obj.velocidad.x > .1f)
+        if (obj.velocity.x > .1f)
             batcher.draw(keyFrame, obj.position.x - .3f, obj.position.y - .3f,
-                    .3f, .3f, .6f, .6f, 1, 1, obj.angleGrad);
-        else if (obj.velocidad.x < -.1f)
+                    .3f, .3f, .6f, .6f, 1, 1, obj.angleDegrees);
+        else if (obj.velocity.x < -.1f)
             batcher.draw(keyFrame, obj.position.x + .3f, obj.position.y - .3f,
-                    -.3f, .3f, -.6f, .6f, 1, 1, obj.angleGrad);
+                    -.3f, .3f, -.6f, .6f, 1, 1, obj.angleDegrees);
         else
             batcher.draw(Assets.personaje, obj.position.x - .3f,
                     obj.position.y - .3f, .3f, .3f, .6f, .6f, 1, 1,
-                    obj.angleGrad);
+                    obj.angleDegrees);
 
         // TODO el personaje cuando se muere no tiene velocidad por lo que no aparece el keyframe sino que agarra assetspersonaje
 
@@ -187,11 +187,11 @@ public class WorldGameRender {
     }
 
     private void renderBoostActivo(Robot obj) {
-        if (obj.isInvencible || obj.isSuperJump) {
+        if (obj.isInvincible || obj.isSuperJump) {
             float timeToAlert = 2.5f;// Tiempo para que empieze a parpaderar el boost
             TextureRegion boostKeyFrame;
-            if (obj.isInvencible) {
-                if (obj.DURATION_INVENCIBLE - obj.durationInvencible <= timeToAlert) {
+            if (obj.isInvincible) {
+                if (obj.INVINCIBLE_DURATION - obj.invincibilityDuration <= timeToAlert) {
                     boostKeyFrame = Assets.animBoostEndInvencible.getKeyFrame(
                             obj.stateTime, true);// anim
                 } else

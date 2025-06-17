@@ -22,9 +22,9 @@ import com.nopalsoft.slamthebird.Achievements;
 import com.nopalsoft.slamthebird.Assets;
 import com.nopalsoft.slamthebird.Settings;
 import com.nopalsoft.slamthebird.objetos.Boost;
+import com.nopalsoft.slamthebird.objetos.Coin;
 import com.nopalsoft.slamthebird.objetos.Enemy;
-import com.nopalsoft.slamthebird.objetos.Moneda;
-import com.nopalsoft.slamthebird.objetos.Plataforma;
+import com.nopalsoft.slamthebird.objetos.Platform;
 import com.nopalsoft.slamthebird.objetos.Robot;
 import com.nopalsoft.slamthebird.screens.BaseScreen;
 
@@ -54,11 +54,11 @@ public class WorldGame {
     public World oWorldBox;
 
     Robot oRobo;
-    Array<Plataforma> arrPlataformas;
+    Array<Platform> arrPlataformas;
     Array<Enemy> arrEnemigos;
     Array<Body> arrBodies;
     Array<Boost> arrBoost;
-    Array<Moneda> arrMonedas;
+    Array<Coin> arrMonedas;
 
     Random oRan;
 
@@ -75,10 +75,10 @@ public class WorldGame {
         }
     };
 
-    private final Pool<Moneda> monedaPool = new Pool<>() {
+    private final Pool<Coin> monedaPool = new Pool<>() {
         @Override
-        protected Moneda newObject() {
-            return new Moneda();
+        protected Coin newObject() {
+            return new Coin();
         }
     };
 
@@ -104,15 +104,15 @@ public class WorldGame {
         crearParedes(posPiso);// .05
         crearRobot(posPiso + .251f);
 
-        crearPlataformas(0 + Plataforma.WIDTH / 2f, 1.8f + posPiso);// Izq Abajo
-        crearPlataformas(WIDTH - Plataforma.WIDTH / 2f + .1f, 1.8f + posPiso);// Derecha abajo
+        crearPlataformas(0 + Platform.WIDTH / 2f, 1.8f + posPiso);// Izq Abajo
+        crearPlataformas(WIDTH - Platform.WIDTH / 2f + .1f, 1.8f + posPiso);// Derecha abajo
 
-        crearPlataformas(0 + Plataforma.WIDTH / 2f, 1.8f * 2f + posPiso);// Izq Arriba
-        crearPlataformas(WIDTH - Plataforma.WIDTH / 2f + .1f,
+        crearPlataformas(0 + Platform.WIDTH / 2f, 1.8f * 2f + posPiso);// Izq Arriba
+        crearPlataformas(WIDTH - Platform.WIDTH / 2f + .1f,
                 1.8f * 2f + posPiso);// Derecha Arribadd
 
         // Boost stuff
-        TIME_TO_SPAWN_BOOST -= Settings.NIVEL_BOOST_BOOST_TIME;
+        TIME_TO_SPAWN_BOOST -= Settings.BOOST_DURATION;
     }
 
     private void crearParedes(float posPisoY) {
@@ -219,7 +219,7 @@ public class WorldGame {
 
         PolygonShape shape = new PolygonShape();
 
-        shape.setAsBox(Plataforma.WIDTH / 2f, Plataforma.HEIGHT / 2f);
+        shape.setAsBox(Platform.WIDTH / 2f, Platform.HEIGHT / 2f);
 
         FixtureDef fixture = new FixtureDef();
         fixture.shape = shape;
@@ -227,7 +227,7 @@ public class WorldGame {
         fixture.friction = 0;
         oBody.createFixture(fixture);
 
-        Plataforma obj = new Plataforma(bd.position.x, bd.position.y);
+        Platform obj = new Platform(bd.position.x, bd.position.y);
         oBody.setUserData(obj);
         shape.dispose();
 
@@ -250,14 +250,14 @@ public class WorldGame {
         for (int i = 0; i < 6; i++) {
             float x = 0;
             float y = 8.4f + (i * .5f);
-            float velocidad = Moneda.VELOCIDAD_MOVE;
+            float velocidad = Coin.MOVE_SPEED;
             if (i % 2f != 0) {
                 velocidad *= -1;
                 x = WIDTH;
             }
 
-            Body body = Moneda.crearMoneda(oWorldBox, x, y, velocidad);
-            Moneda obj = monedaPool.obtain();
+            Body body = Coin.createCoinBody(oWorldBox, x, y, velocidad);
+            Coin obj = monedaPool.obtain();
             obj.init(body.getPosition().x, body.getPosition().y);
             arrMonedas.add(obj);
             body.setUserData(obj);
@@ -318,7 +318,7 @@ public class WorldGame {
             if (oRan.nextBoolean()) {
                 int plat = oRan.nextInt(4);
                 int state = oRan.nextInt(2);
-                Plataforma obj = arrPlataformas.get(plat);
+                Platform obj = arrPlataformas.get(plat);
                 if (state == 0) {
                     obj.setBreakable();
                 } else {
@@ -336,9 +336,9 @@ public class WorldGame {
                 updateEnemigo(delta, body);
             } else if (body.getUserData() instanceof Boost) {
                 updateBoost(delta, body);
-            } else if (body.getUserData() instanceof Plataforma) {
+            } else if (body.getUserData() instanceof Platform) {
                 updatePlataforma(delta, body);
-            } else if (body.getUserData() instanceof Moneda) {
+            } else if (body.getUserData() instanceof Coin) {
                 updateMoneda(delta, body);
             }
         }
@@ -353,7 +353,7 @@ public class WorldGame {
             if (!oWorldBox.isLocked()) {
                 if (body.getUserData() instanceof Robot obj) {
                     if (obj.state == Robot.STATE_DEAD
-                            && obj.stateTime >= Robot.DURATION_DEAD_ANIMATION) {
+                            && obj.stateTime >= Robot.DEAD_ANIMATION_DURATION) {
                         oWorldBox.destroyBody(body);
                         state = STATE_GAME_OVER;
                     }
@@ -375,8 +375,8 @@ public class WorldGame {
                         arrBoost.removeValue(obj, true);
                         boostPool.free(obj);
                     }
-                } else if (body.getUserData() instanceof Moneda obj) {
-                    if (obj.state == Moneda.STATE_TAKEN) {
+                } else if (body.getUserData() instanceof Coin obj) {
+                    if (obj.state == Coin.STATE_TAKEN) {
                         oWorldBox.destroyBody(body);
                         arrMonedas.removeValue(obj, true);
                         monedaPool.free(obj);
@@ -407,16 +407,16 @@ public class WorldGame {
     }
 
     private void updatePlataforma(float delta, Body body) {
-        Plataforma obj = (Plataforma) body.getUserData();
+        Platform obj = (Platform) body.getUserData();
         obj.update(delta);
     }
 
     private void updateMoneda(float delta, Body body) {
-        Moneda obj = (Moneda) body.getUserData();
+        Coin obj = (Coin) body.getUserData();
         obj.update(delta, body);
 
         if (obj.position.x < -3 || obj.position.x > WIDTH + 3) {
-            obj.state = Moneda.STATE_TAKEN;
+            obj.state = Coin.STATE_TAKEN;
         }
 
         if (isCoinRain) {
@@ -453,40 +453,40 @@ public class WorldGame {
             if (oOtraCosa.equals("piso")) {
                 oRobo.jump();
 
-                if (!oRobo.isInvencible)// Si es invencible no le quito el combo
+                if (!oRobo.isInvincible)// Si es invencible no le quito el combo
                     combo = 0;
-            } else if (oOtraCosa instanceof Plataforma obj) {
-                if (obj.state == Plataforma.STATE_FIRE && !oRobo.isInvencible) {
+            } else if (oOtraCosa instanceof Platform obj) {
+                if (obj.state == Platform.STATE_FIRE && !oRobo.isInvincible) {
                     oRobo.hit();
                     return;
-                } else if (obj.state == Plataforma.STATE_BREAKABLE) {
+                } else if (obj.state == Platform.STATE_BREAKABLE) {
                     obj.setBroken();
-                } else if (obj.state == Plataforma.STATE_BROKEN) {
+                } else if (obj.state == Platform.STATE_BROKEN) {
                     return;
                 }
-                if (!oRobo.isInvencible && oRobo.state == Robot.STATE_FALLING)// Si es invencible no le quito el combo
+                if (!oRobo.isInvincible && oRobo.state == Robot.STATE_FALLING)// Si es invencible no le quito el combo
                     combo = 0;
                 oRobo.jump();
             } else if (oOtraCosa instanceof Boost obj) {
                 obj.hit();
                 Assets.playSound(Assets.soundBoost);
 
-                if (obj.tipo == Boost.TIPO_SUPERJUMP) {
+                if (obj.type == Boost.TYPE_SUPER_JUMP) {
                     oRobo.isSuperJump = true;
-                } else if (obj.tipo == Boost.TIPO_INVENCIBLE) {
-                    oRobo.isInvencible = true;
-                } else if (obj.tipo == Boost.TIPO_COIN_RAIN) {
+                } else if (obj.type == Boost.TYPE_INVINCIBLE) {
+                    oRobo.isInvincible = true;
+                } else if (obj.type == Boost.TYPE_COIN_RAIN) {
                     isCoinRain = true;
-                } else if (obj.tipo == Boost.TIPO_ICE) {
+                } else if (obj.type == Boost.TYPE_FREEZE) {
                     for (Enemy arrEnemy : arrEnemigos) {
                         arrEnemy.setFrozen();
                     }
                 }
-            } else if (oOtraCosa instanceof Moneda obj) {
-                if (obj.state == Moneda.STATE_NORMAL) {
-                    obj.state = Moneda.STATE_TAKEN;
+            } else if (oOtraCosa instanceof Coin obj) {
+                if (obj.state == Coin.STATE_NORMAL) {
+                    obj.state = Coin.STATE_TAKEN;
                     monedasTomadas++;
-                    Settings.monedasActuales++;
+                    Settings.currentCoins++;
                     Assets.playSound(Assets.soundCoin);
                 }
             } else if (oOtraCosa instanceof Enemy obj) {
@@ -495,8 +495,8 @@ public class WorldGame {
                 float posRobot = oRobo.position.y - Robot.RADIUS;
                 float pisY = obj.position.y;
 
-                if (obj.state != Enemy.STATE_JUST_APPEAR) {
-                    if (oRobo.isInvencible) {
+                if (obj.state != Enemy.STATE_JUST_APPEARED) {
+                    if (oRobo.isInvincible) {
                         obj.die();
                         combo++;
                     } else if (posRobot > pisY) {
@@ -509,7 +509,7 @@ public class WorldGame {
                     }
                     if (combo >= COMBO_TO_START_GETTING_COINS) {
                         monedasTomadas += combo;
-                        Settings.monedasActuales += combo;
+                        Settings.currentCoins += combo;
                     }
 
                     Achievements.unlockCombos();
@@ -556,9 +556,9 @@ public class WorldGame {
             else if (b.getBody().getUserData() instanceof Enemy)
                 preSolveEnemigo(b, a, contact);
 
-            if (a.getBody().getUserData() instanceof Moneda)
+            if (a.getBody().getUserData() instanceof Coin)
                 preSolveMoneda(b, contact);
-            else if (b.getBody().getUserData() instanceof Moneda)
+            else if (b.getBody().getUserData() instanceof Coin)
                 preSolveMoneda(a, contact);
         }
 
@@ -567,20 +567,20 @@ public class WorldGame {
             Object oOtraCosa = otraCosa.getBody().getUserData();
             Robot oRobo = (Robot) robot.getBody().getUserData();
 
-            // Plataforma oneSide
-            if (oOtraCosa instanceof Plataforma obj) {
+            // Platform oneSide
+            if (oOtraCosa instanceof Platform obj) {
                 float posRobot = oRobo.position.y - Robot.RADIUS + .05f;
-                float pisY = obj.position.y + (Plataforma.HEIGHT / 2f);
+                float pisY = obj.position.y + (Platform.HEIGHT / 2f);
 
-                if (posRobot < pisY || obj.state == Plataforma.STATE_BROKEN)
+                if (posRobot < pisY || obj.state == Platform.STATE_BROKEN)
                     contact.setEnabled(false);
             }
             // Enemy no se puede tocar cuando aparece
             else if (oOtraCosa instanceof Enemy obj) {
-                if (obj.state == Enemy.STATE_JUST_APPEAR
-                        || oRobo.isInvencible)
+                if (obj.state == Enemy.STATE_JUST_APPEARED
+                        || oRobo.isInvincible)
                     contact.setEnabled(false);
-            } else if (oOtraCosa instanceof Moneda) {
+            } else if (oOtraCosa instanceof Coin) {
                 contact.setEnabled(false);
             }
         }
@@ -591,7 +591,7 @@ public class WorldGame {
             Enemy oEnem = (Enemy) enemigo.getBody().getUserData();
 
             // Enemy no puede tocar las plataformas si esta volando
-            if (oOtraCosa instanceof Plataforma) {
+            if (oOtraCosa instanceof Platform) {
                 if (oEnem.state == Enemy.STATE_FLYING)
                     contact.setEnabled(false);
             }
