@@ -9,19 +9,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.slamthebird.Assets;
-import com.nopalsoft.slamthebird.MainSlamBird;
 import com.nopalsoft.slamthebird.Settings;
+import com.nopalsoft.slamthebird.SlamTheBirdGame;
 import com.nopalsoft.slamthebird.game.GameScreen;
-import com.nopalsoft.slamthebird.screens.Screens;
+import com.nopalsoft.slamthebird.screens.BaseScreen;
 
-public class ShopScreen extends Screens {
+public class ShopScreen extends BaseScreen {
 
     Button btPersonajes, btPowerUps, btMonedas, btNoAds, btAtras;
 
     ScrollPane scroll;
     Table contenedor;
 
-    public ShopScreen(final MainSlamBird game) {
+    public ShopScreen(final SlamTheBirdGame game) {
         super(game);
         Image shop = new Image(Assets.shop);
         shop.setSize(135, 50);
@@ -55,7 +55,7 @@ public class ShopScreen extends Screens {
         stage.addActor(btAtras);
         stage.addActor(scroll);
 
-        new PersonajesSubMenu(game, contenedor);
+        new PlayerSkinsSubMenu(game, contenedor);
 
         btMonedas.remove();
     }
@@ -70,7 +70,7 @@ public class ShopScreen extends Screens {
             public void clicked(
                     com.badlogic.gdx.scenes.scene2d.InputEvent event, float x,
                     float y) {
-                new PersonajesSubMenu(game, contenedor);
+                new PlayerSkinsSubMenu(game, contenedor);
             }
         });
 

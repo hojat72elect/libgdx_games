@@ -5,22 +5,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.slamthebird.game.GameScreen;
-import com.nopalsoft.slamthebird.screens.Screens;
+import com.nopalsoft.slamthebird.screens.BaseScreen;
 
-public class MainSlamBird extends Game {
+public class SlamTheBirdGame extends Game {
 
-    public MainSlamBird() {
+    public SlamTheBirdGame() {
 
     }
 
     public Stage stage;
-    public SpriteBatch batcher;
+    public SpriteBatch batch;
 
     @Override
     public void create() {
-        stage = new Stage(new StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT));
+        stage = new Stage(new StretchViewport(BaseScreen.SCREEN_WIDTH, BaseScreen.SCREEN_HEIGHT));
 
-        batcher = new SpriteBatch();
+        batch = new SpriteBatch();
         Assets.load();
         Achievements.init();
 

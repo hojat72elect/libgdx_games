@@ -11,8 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.slamthebird.Assets;
-import com.nopalsoft.slamthebird.MainSlamBird;
 import com.nopalsoft.slamthebird.Settings;
+import com.nopalsoft.slamthebird.SlamTheBirdGame;
 
 public class UpgradesSubMenu {
     public final int MAX_LEVEL = 6;
@@ -36,9 +36,9 @@ public class UpgradesSubMenu {
     Image[] arrBoostInvencible;
 
     Table contenedor;
-    MainSlamBird game;
+    SlamTheBirdGame game;
 
-    public UpgradesSubMenu(MainSlamBird game, Table contenedor) {
+    public UpgradesSubMenu(SlamTheBirdGame game, Table contenedor) {
         this.game = game;
         this.contenedor = contenedor;
         contenedor.clear();

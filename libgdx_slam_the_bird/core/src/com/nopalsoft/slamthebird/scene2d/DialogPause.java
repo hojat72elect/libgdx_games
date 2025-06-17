@@ -6,13 +6,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.slamthebird.Assets;
 import com.nopalsoft.slamthebird.game.GameScreen;
-import com.nopalsoft.slamthebird.screens.Screens;
+import com.nopalsoft.slamthebird.screens.BaseScreen;
 
-public class VentanaPause extends Ventana {
+public class DialogPause extends Dialog {
 
     GameScreen gameScreen;
 
-    public VentanaPause(Screens currentScreen) {
+    public DialogPause(BaseScreen currentScreen) {
         super(currentScreen);
         setSize(350, 260);
         setY(300);

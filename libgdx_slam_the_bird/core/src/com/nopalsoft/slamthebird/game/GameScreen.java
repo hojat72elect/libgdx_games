@@ -13,17 +13,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.slamthebird.Achievements;
 import com.nopalsoft.slamthebird.Assets;
-import com.nopalsoft.slamthebird.MainSlamBird;
 import com.nopalsoft.slamthebird.Settings;
+import com.nopalsoft.slamthebird.SlamTheBirdGame;
+import com.nopalsoft.slamthebird.scene2d.DialogPause;
+import com.nopalsoft.slamthebird.scene2d.DialogRate;
 import com.nopalsoft.slamthebird.scene2d.LabelCombo;
 import com.nopalsoft.slamthebird.scene2d.LabelMonedas;
 import com.nopalsoft.slamthebird.scene2d.LabelScore;
-import com.nopalsoft.slamthebird.scene2d.VentanaPause;
-import com.nopalsoft.slamthebird.scene2d.VentanaRate;
-import com.nopalsoft.slamthebird.screens.Screens;
+import com.nopalsoft.slamthebird.screens.BaseScreen;
 import com.nopalsoft.slamthebird.shop.ShopScreen;
 
-public class GameScreen extends Screens {
+public class GameScreen extends BaseScreen {
     static final int STATE_READY = 1;
     static final int STATE_RUNNING = 2;
     static final int STATE_PAUSED = 3;
@@ -32,27 +32,27 @@ public class GameScreen extends Screens {
 
     static int state;
 
-    WorldGame oWorld;
+    WorldGame worldGame;
     WorldGameRender renderer;
 
-    Image fondoGameover;
+    Image gameOverBackgroundImage;
 
     Group groupTryAgain;
-    Group botones;
-    Image tituloApp;
-    boolean sideComboText;// Esta variable hace que apareza el texto del combo a la izq luego derecha luego izq,der,izq
+    Group groupButtons;
+    Image appTitleImage;
+    boolean isComboTextOnLeft;// This variable makes the combo text appear left then right then left, right, left
 
-    VentanaRate ventanaRate;
-    VentanaPause ventanaPause;
+    DialogRate ventanaRate;
+    DialogPause ventanaPause;
 
-    public GameScreen(MainSlamBird game) {
+    public GameScreen(SlamTheBirdGame game) {
         super(game);
-        oWorld = new WorldGame();
-        renderer = new WorldGameRender(batcher, oWorld);
+        worldGame = new WorldGame();
+        renderer = new WorldGameRender(batcher, worldGame);
 
         groupTryAgain = new Group();
-        ventanaRate = new VentanaRate(this);
-        ventanaPause = new VentanaPause(this);
+        ventanaRate = new DialogRate(this);
+        ventanaPause = new DialogPause(this);
 
         setUpBotones();
         setUpGameover();
@@ -61,9 +61,9 @@ public class GameScreen extends Screens {
     }
 
     private void setUpBotones() {
-        botones = new Group();
-        botones.setSize(stage.getWidth(), stage.getHeight());
-        botones.addListener(new InputListener() {
+        groupButtons = new Group();
+        groupButtons.setSize(stage.getWidth(), stage.getHeight());
+        groupButtons.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
                                      int pointer, int button) {
@@ -197,29 +197,29 @@ public class GameScreen extends Screens {
                 Actions.scaleTo(1f, 1f, scaleTime))));
 
 
-        botones.addActor(tapToPlay);
-        botones.addActor(bestScore);
-        botones.addActor(btShop);
-        botones.addActor(btMore);
-        botones.addActor(btLeaderboard);
-        botones.addActor(btAchievements);
-        botones.addActor(btRate);
-        botones.addActor(btMusica);
-        botones.addActor(btSonido);
-        botones.addActor(btShareFacebook);
-        botones.addActor(btShareTwitter);
+        groupButtons.addActor(tapToPlay);
+        groupButtons.addActor(bestScore);
+        groupButtons.addActor(btShop);
+        groupButtons.addActor(btMore);
+        groupButtons.addActor(btLeaderboard);
+        groupButtons.addActor(btAchievements);
+        groupButtons.addActor(btRate);
+        groupButtons.addActor(btMusica);
+        groupButtons.addActor(btSonido);
+        groupButtons.addActor(btShareFacebook);
+        groupButtons.addActor(btShareTwitter);
     }
 
     private void setUpGameover() {
-        fondoGameover = new Image(Assets.fondoGameover);
-        fondoGameover.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        fondoGameover.setOrigin(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f);
-        fondoGameover.setScale(2);
-        fondoGameover.addAction(Actions.sequence(
+        gameOverBackgroundImage = new Image(Assets.fondoGameover);
+        gameOverBackgroundImage.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        gameOverBackgroundImage.setOrigin(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f);
+        gameOverBackgroundImage.setScale(2);
+        gameOverBackgroundImage.addAction(Actions.sequence(
                 Actions.scaleTo(1.1f, 1.1f, .25f), Actions.delay(1f),
                 Actions.run(() -> {
-                    fondoGameover.remove();
-                    fondoGameover.setScale(2);
+                    gameOverBackgroundImage.remove();
+                    gameOverBackgroundImage.setScale(2);
                     setTryAgain();
                 })));
     }
@@ -248,7 +248,7 @@ public class GameScreen extends Screens {
         else if (Gdx.input.isKeyPressed(Keys.D))
             acelX = 1;
 
-        oWorld.updateReady(delta, acelX);
+        worldGame.updateReady(delta, acelX);
     }
 
     int combo;
@@ -270,28 +270,28 @@ public class GameScreen extends Screens {
             Gdx.app.log("Slam is", " " + true);
         }
 
-        oWorld.update(delta, acelX, slam);
+        worldGame.update(delta, acelX, slam);
 
-        if (oWorld.state == WorldGame.STATE_GAME_OVER) {
+        if (worldGame.state == WorldGame.STATE_GAME_OVER) {
             setGameover();
         }
 
-        if (oWorld.combo == 0)
+        if (worldGame.combo == 0)
             combo = 0;
 
-        if (oWorld.combo > combo) {
+        if (worldGame.combo > combo) {
             stage.getBatch().setColor(1, 1, 1, 1);// Un BUG que no pone el alpha en 1 otra vez
 
-            combo = oWorld.combo;
-            LabelCombo lblCombo = new LabelCombo(oWorld.oRobo.position.x * 100,
-                    oWorld.oRobo.position.y * 100 - 50, combo);
+            combo = worldGame.combo;
+            LabelCombo lblCombo = new LabelCombo(worldGame.oRobo.position.x * 100,
+                    worldGame.oRobo.position.y * 100 - 50, combo);
 
             float sideToMove;
-            if (sideComboText) {
+            if (isComboTextOnLeft) {
                 sideToMove = 0;
-                sideComboText = false;
+                isComboTextOnLeft = false;
             } else {
-                sideComboText = true;
+                isComboTextOnLeft = true;
                 sideToMove = 380;
             }
 
@@ -325,10 +325,10 @@ public class GameScreen extends Screens {
     }
 
     private void drawRunning() {
-        drawNumGrandeCentradoX(SCREEN_WIDTH / 2f, 700, oWorld.scoreSlamed);
+        drawLargeNumberCenteredX(SCREEN_WIDTH / 2f, 700, worldGame.scoreSlamed);
 
         batcher.draw(Assets.moneda, 449, 764, 30, 34);
-        drawPuntuacionChicoOrigenDerecha(445, 764, oWorld.monedasTomadas);
+        drawPuntuacionChicoOrigenDerecha(445, 764, worldGame.monedasTomadas);
     }
 
     private void drawReady() {
@@ -350,24 +350,24 @@ public class GameScreen extends Screens {
     }
 
     private void setReady() {
-        tituloApp = new Image(Assets.titulo);
-        tituloApp.setSize(400, 290);
-        tituloApp.setPosition(SCREEN_WIDTH / 2f - tituloApp.getWidth() / 2f,
+        appTitleImage = new Image(Assets.titulo);
+        appTitleImage.setSize(400, 290);
+        appTitleImage.setPosition(SCREEN_WIDTH / 2f - appTitleImage.getWidth() / 2f,
                 415);
         state = STATE_READY;
-        stage.addActor(botones);
-        stage.addActor(tituloApp);
+        stage.addActor(groupButtons);
+        stage.addActor(appTitleImage);
     }
 
     private void setRunning() {
 
         groupTryAgain.addAction(Actions.sequence(Actions.fadeOut(.5f),
                 Actions.removeActor()));
-        tituloApp.addAction(Actions.sequence(Actions.fadeOut(.5f),
+        appTitleImage.addAction(Actions.sequence(Actions.fadeOut(.5f),
                 Actions.removeActor()));
-        botones.addAction(Actions.sequence(Actions.fadeOut(.5f),
+        groupButtons.addAction(Actions.sequence(Actions.fadeOut(.5f),
                 Actions.run(() -> {
-                    botones.remove();
+                    groupButtons.remove();
                     groupTryAgain.remove();// POr el bug
                     state = STATE_RUNNING;
                 })));
@@ -375,10 +375,10 @@ public class GameScreen extends Screens {
 
     private void setGameover() {
 
-        Settings.setBestScores(oWorld.scoreSlamed);
+        Settings.setBestScores(worldGame.scoreSlamed);
 
         state = STATE_GAME_OVER;
-        stage.addActor(fondoGameover);
+        stage.addActor(gameOverBackgroundImage);
     }
 
     private void setTryAgain() {
@@ -392,8 +392,8 @@ public class GameScreen extends Screens {
         groupTryAgain.addAction(Actions.sequence(Actions.moveTo(
                 groupTryAgain.getX(), 410, 1, Interpolation.bounceOut), Actions
                 .run(() -> {
-                    botones.addAction(Actions.fadeIn(.5f));
-                    stage.addActor(botones);
+                    groupButtons.addAction(Actions.fadeIn(.5f));
+                    stage.addActor(groupButtons);
 
                     if (Settings.numeroVecesJugadas % 7 == 0
                             && !Settings.seCalifico) {
@@ -417,9 +417,9 @@ public class GameScreen extends Screens {
         coinsEarned.setSize(243, 25);
         coinsEarned.setPosition(25, 47);
 
-        LabelScore lblScore = new LabelScore(420 / 2f, 120, oWorld.scoreSlamed);
+        LabelScore lblScore = new LabelScore(420 / 2f, 120, worldGame.scoreSlamed);
         LabelMonedas lblMonedas = new LabelMonedas(385, 45,
-                oWorld.monedasTomadas);
+                worldGame.monedasTomadas);
 
         Achievements.unlockCoins();
 
@@ -428,8 +428,8 @@ public class GameScreen extends Screens {
         groupTryAgain.addActor(lblMonedas);
         groupTryAgain.addActor(coinsEarned);
 
-        oWorld = new WorldGame();
-        renderer = new WorldGameRender(batcher, oWorld);
+        worldGame = new WorldGame();
+        renderer = new WorldGameRender(batcher, worldGame);
 
         stage.addActor(groupTryAgain);
     }

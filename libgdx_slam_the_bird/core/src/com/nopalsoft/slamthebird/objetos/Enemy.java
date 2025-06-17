@@ -6,7 +6,7 @@ import com.nopalsoft.slamthebird.Settings;
 
 import java.util.Random;
 
-public class Enemigo {
+public class Enemy {
     public static float WIDTH = .4f;
     public static float HEIGHT = .4f;
 
@@ -45,7 +45,7 @@ public class Enemigo {
 
     public float appearScale;
 
-    public Enemigo(float x, float y) {
+    public Enemy(float x, float y) {
         position = new Vector2(x, y);
         state = STATE_JUST_APPEAR;
         vidas = 2;

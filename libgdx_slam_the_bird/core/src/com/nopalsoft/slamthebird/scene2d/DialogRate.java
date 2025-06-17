@@ -6,11 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.slamthebird.Assets;
-import com.nopalsoft.slamthebird.screens.Screens;
+import com.nopalsoft.slamthebird.screens.BaseScreen;
 
-public class VentanaRate extends Ventana {
+public class DialogRate extends Dialog {
 
-    public VentanaRate(Screens currentScreen) {
+    public DialogRate(BaseScreen currentScreen) {
         super(currentScreen);
         setSize(390, 260);
         setY(300);

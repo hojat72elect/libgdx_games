@@ -22,16 +22,16 @@ import com.nopalsoft.slamthebird.Achievements;
 import com.nopalsoft.slamthebird.Assets;
 import com.nopalsoft.slamthebird.Settings;
 import com.nopalsoft.slamthebird.objetos.Boost;
-import com.nopalsoft.slamthebird.objetos.Enemigo;
+import com.nopalsoft.slamthebird.objetos.Enemy;
 import com.nopalsoft.slamthebird.objetos.Moneda;
 import com.nopalsoft.slamthebird.objetos.Plataforma;
 import com.nopalsoft.slamthebird.objetos.Robot;
-import com.nopalsoft.slamthebird.screens.Screens;
+import com.nopalsoft.slamthebird.screens.BaseScreen;
 
 import java.util.Random;
 
 public class WorldGame {
-    final float WIDTH = Screens.WORLD_SCREEN_WIDTH;
+    final float WIDTH = BaseScreen.WORLD_SCREEN_WIDTH;
 
     public static final float COMBO_TO_START_GETTING_COINS = 3;
 
@@ -55,7 +55,7 @@ public class WorldGame {
 
     Robot oRobo;
     Array<Plataforma> arrPlataformas;
-    Array<Enemigo> arrEnemigos;
+    Array<Enemy> arrEnemigos;
     Array<Body> arrBodies;
     Array<Boost> arrBoost;
     Array<Moneda> arrMonedas;
@@ -182,7 +182,7 @@ public class WorldGame {
         float x = oRan.nextFloat() * (WIDTH - 1) + .5f;// Para que no apareza
         float y = oRan.nextFloat() * 4f + .6f;
 
-        Enemigo obj = new Enemigo(x, y);
+        Enemy obj = new Enemy(x, y);
         arrEnemigos.add(obj);
         BodyDef bd = new BodyDef();
         bd.position.x = x;
@@ -192,7 +192,7 @@ public class WorldGame {
         Body oBody = oWorldBox.createBody(bd);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(Enemigo.WIDTH / 2f, Enemigo.HEIGHT / 2f);
+        shape.setAsBox(Enemy.WIDTH / 2f, Enemy.HEIGHT / 2f);
 
         FixtureDef fixture = new FixtureDef();
         fixture.shape = shape;
@@ -332,7 +332,7 @@ public class WorldGame {
         for (Body body : arrBodies) {
             if (body.getUserData() instanceof Robot) {
                 updateRobot(delta, body, acelX, slam);
-            } else if (body.getUserData() instanceof Enemigo) {
+            } else if (body.getUserData() instanceof Enemy) {
                 updateEnemigo(delta, body);
             } else if (body.getUserData() instanceof Boost) {
                 updateBoost(delta, body);
@@ -357,8 +357,8 @@ public class WorldGame {
                         oWorldBox.destroyBody(body);
                         state = STATE_GAME_OVER;
                     }
-                } else if (body.getUserData() instanceof Enemigo obj) {
-                    if (obj.state == Enemigo.STATE_DEAD) {
+                } else if (body.getUserData() instanceof Enemy obj) {
+                    if (obj.state == Enemy.STATE_DEAD) {
                         oWorldBox.destroyBody(body);
                         arrEnemigos.removeValue(obj, true);
                         scoreSlamed++;
@@ -397,7 +397,7 @@ public class WorldGame {
     }
 
     private void updateEnemigo(float delta, Body body) {
-        Enemigo obj = (Enemigo) body.getUserData();
+        Enemy obj = (Enemy) body.getUserData();
         obj.update(delta, body, oRan);
     }
 
@@ -437,9 +437,9 @@ public class WorldGame {
             else if (b.getBody().getUserData() instanceof Robot)
                 beginContactRobotOtraCosa(b, a);
 
-            if (a.getBody().getUserData() instanceof Enemigo)
+            if (a.getBody().getUserData() instanceof Enemy)
                 beginContactEnemigoOtraCosa(a, b);
-            else if (b.getBody().getUserData() instanceof Enemigo)
+            else if (b.getBody().getUserData() instanceof Enemy)
                 beginContactEnemigoOtraCosa(b, a);
         }
 
@@ -478,8 +478,8 @@ public class WorldGame {
                 } else if (obj.tipo == Boost.TIPO_COIN_RAIN) {
                     isCoinRain = true;
                 } else if (obj.tipo == Boost.TIPO_ICE) {
-                    for (Enemigo arrEnemigo : arrEnemigos) {
-                        arrEnemigo.setFrozen();
+                    for (Enemy arrEnemy : arrEnemigos) {
+                        arrEnemy.setFrozen();
                     }
                 }
             } else if (oOtraCosa instanceof Moneda obj) {
@@ -489,13 +489,13 @@ public class WorldGame {
                     Settings.monedasActuales++;
                     Assets.playSound(Assets.soundCoin);
                 }
-            } else if (oOtraCosa instanceof Enemigo obj) {
+            } else if (oOtraCosa instanceof Enemy obj) {
 
                 // Puedo tocar de la mitad del enemigo para arriba
                 float posRobot = oRobo.position.y - Robot.RADIUS;
                 float pisY = obj.position.y;
 
-                if (obj.state != Enemigo.STATE_JUST_APPEAR) {
+                if (obj.state != Enemy.STATE_JUST_APPEAR) {
                     if (oRobo.isInvencible) {
                         obj.die();
                         combo++;
@@ -518,7 +518,7 @@ public class WorldGame {
         }
 
         private void beginContactEnemigoOtraCosa(Fixture enemy, Fixture otraCosa) {
-            Enemigo oEnemy = (Enemigo) enemy.getBody().getUserData();
+            Enemy oEnemy = (Enemy) enemy.getBody().getUserData();
             Object oOtraCosa = otraCosa.getBody().getUserData();
 
             if (oOtraCosa.equals("pared")) {
@@ -527,7 +527,7 @@ public class WorldGame {
                         enemy.getBody().getLinearVelocity().x * -1,
                         enemy.getBody().getLinearVelocity().y);
             } else if (oOtraCosa.equals("piso")) {
-                if (oEnemy.state == Enemigo.STATE_FLYING) {
+                if (oEnemy.state == Enemy.STATE_FLYING) {
                     enemy.getBody().setLinearVelocity(
                             enemy.getBody().getLinearVelocity().x,
                             enemy.getBody().getLinearVelocity().y * -1);
@@ -551,9 +551,9 @@ public class WorldGame {
             else if (b.getBody().getUserData() instanceof Robot)
                 preSolveRobot(b, a, contact);
 
-            if (a.getBody().getUserData() instanceof Enemigo)
+            if (a.getBody().getUserData() instanceof Enemy)
                 preSolveEnemigo(a, b, contact);
-            else if (b.getBody().getUserData() instanceof Enemigo)
+            else if (b.getBody().getUserData() instanceof Enemy)
                 preSolveEnemigo(b, a, contact);
 
             if (a.getBody().getUserData() instanceof Moneda)
@@ -575,9 +575,9 @@ public class WorldGame {
                 if (posRobot < pisY || obj.state == Plataforma.STATE_BROKEN)
                     contact.setEnabled(false);
             }
-            // Enemigo no se puede tocar cuando aparece
-            else if (oOtraCosa instanceof Enemigo obj) {
-                if (obj.state == Enemigo.STATE_JUST_APPEAR
+            // Enemy no se puede tocar cuando aparece
+            else if (oOtraCosa instanceof Enemy obj) {
+                if (obj.state == Enemy.STATE_JUST_APPEAR
                         || oRobo.isInvencible)
                     contact.setEnabled(false);
             } else if (oOtraCosa instanceof Moneda) {
@@ -588,11 +588,11 @@ public class WorldGame {
         private void preSolveEnemigo(Fixture enemigo, Fixture otraCosa,
                                      Contact contact) {
             Object oOtraCosa = otraCosa.getBody().getUserData();
-            Enemigo oEnem = (Enemigo) enemigo.getBody().getUserData();
+            Enemy oEnem = (Enemy) enemigo.getBody().getUserData();
 
-            // Enemigo no puede tocar las plataformas si esta volando
+            // Enemy no puede tocar las plataformas si esta volando
             if (oOtraCosa instanceof Plataforma) {
-                if (oEnem.state == Enemigo.STATE_FLYING)
+                if (oEnem.state == Enemy.STATE_FLYING)
                     contact.setEnabled(false);
             }
         }

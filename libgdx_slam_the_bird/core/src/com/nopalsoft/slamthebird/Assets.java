@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.nopalsoft.slamthebird.shop.PersonajesSubMenu;
+import com.nopalsoft.slamthebird.shop.PlayerSkinsSubMenu;
 
 public class Assets {
 
@@ -173,9 +173,9 @@ public class Assets {
 
         String perSeleccionado = "AndroidBot";
 
-        if (Settings.skinSeleccionada == PersonajesSubMenu.SKIN_ANDROID_ROJO) {
+        if (Settings.skinSeleccionada == PlayerSkinsSubMenu.SKIN_RED_ANDROID) {
             perSeleccionado = "AndroidBotRojo";
-        } else if (Settings.skinSeleccionada == PersonajesSubMenu.SKIN_ANDROID_AZUL) {
+        } else if (Settings.skinSeleccionada == PlayerSkinsSubMenu.SKIN_BLUE_ANDROID) {
             perSeleccionado = "AndroidBotAzul";
         }
 

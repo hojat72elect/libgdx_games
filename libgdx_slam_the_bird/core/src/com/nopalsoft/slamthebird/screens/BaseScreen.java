@@ -15,28 +15,28 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.nopalsoft.slamthebird.Assets;
-import com.nopalsoft.slamthebird.MainSlamBird;
 import com.nopalsoft.slamthebird.Settings;
+import com.nopalsoft.slamthebird.SlamTheBirdGame;
 import com.nopalsoft.slamthebird.game.GameScreen;
 import com.nopalsoft.slamthebird.shop.ShopScreen;
 
-public abstract class Screens extends InputAdapter implements Screen {
+public abstract class BaseScreen extends InputAdapter implements Screen {
     public static final int SCREEN_WIDTH = 480;
     public static final int SCREEN_HEIGHT = 800;
 
     public static final float WORLD_SCREEN_WIDTH = 4.8f;
     public static final float WORLD_SCREEN_HEIGHT = 8;
 
-    public MainSlamBird game;
+    public SlamTheBirdGame game;
 
     public OrthographicCamera oCam;
     public SpriteBatch batcher;
     public Stage stage;
 
-    public Screens(MainSlamBird game) {
+    public BaseScreen(SlamTheBirdGame game) {
         this.stage = game.stage;
         this.stage.clear();
-        this.batcher = game.batcher;
+        this.batcher = game.batch;
         this.game = game;
 
         oCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -53,28 +53,24 @@ public abstract class Screens extends InputAdapter implements Screen {
 
         update(delta);
 
-        // Gdx.gl.glClearColor(.3f, 0, 1f, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         draw(delta);
 
         stage.act(delta);
         stage.draw();
-
-
-//        stage.setDebugAll(true);
     }
 
-    public void drawNumGrandeCentradoX(float x, float y, int puntuacion) {
-        String score = String.valueOf(puntuacion);
+    public void drawLargeNumberCenteredX(float x, float y, int score) {
+        String scoreText = String.valueOf(score);
 
-        int len = score.length();
+        int length = scoreText.length();
         float charWidth = 42;
-        float textWidth = len * charWidth;
-        for (int i = 0; i < len; i++) {
+        float textWidth = length * charWidth;
+        for (int i = 0; i < length; i++) {
             AtlasRegion keyFrame;
 
-            char character = score.charAt(i);
+            char character = scoreText.charAt(i);
 
             if (character == '0') {
                 keyFrame = Assets.num0Grande;
@@ -94,7 +90,7 @@ public abstract class Screens extends InputAdapter implements Screen {
                 keyFrame = Assets.num7Grande;
             } else if (character == '8') {
                 keyFrame = Assets.num8Grande;
-            } else {// 9
+            } else {
                 keyFrame = Assets.num9Grande;
             }
 
@@ -104,17 +100,17 @@ public abstract class Screens extends InputAdapter implements Screen {
     }
 
     public void drawPuntuacionChicoOrigenDerecha(float x, float y,
-                                                 int puntuacion) {
-        String score = String.valueOf(puntuacion);
+                                                 int score) {
+        String scoreText = String.valueOf(score);
 
-        int len = score.length();
+        int len = scoreText.length();
         float charWidth;
         float textWidth = 0;
         for (int i = len - 1; i >= 0; i--) {
             AtlasRegion keyFrame;
 
             charWidth = 22;
-            char character = score.charAt(i);
+            char character = scoreText.charAt(i);
 
             if (character == '0') {
                 keyFrame = Assets.num0Chico;
@@ -135,7 +131,7 @@ public abstract class Screens extends InputAdapter implements Screen {
                 keyFrame = Assets.num7Chico;
             } else if (character == '8') {
                 keyFrame = Assets.num8Chico;
-            } else {// 9
+            } else {
                 keyFrame = Assets.num9Chico;
             }
             textWidth += charWidth;
@@ -184,7 +180,7 @@ public abstract class Screens extends InputAdapter implements Screen {
     Image blackFadeOut;
 
     public void changeScreenWithFadeOut(final Class<?> newScreen,
-                                        final MainSlamBird game) {
+                                        final SlamTheBirdGame game) {
         blackFadeOut = new Image(Assets.pixelNegro);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         blackFadeOut.getColor().a = 0;

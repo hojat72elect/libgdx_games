@@ -6,16 +6,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.nopalsoft.slamthebird.Assets;
 import com.nopalsoft.slamthebird.objetos.Boost;
-import com.nopalsoft.slamthebird.objetos.Enemigo;
+import com.nopalsoft.slamthebird.objetos.Enemy;
 import com.nopalsoft.slamthebird.objetos.Moneda;
 import com.nopalsoft.slamthebird.objetos.Plataforma;
 import com.nopalsoft.slamthebird.objetos.Robot;
-import com.nopalsoft.slamthebird.screens.Screens;
+import com.nopalsoft.slamthebird.screens.BaseScreen;
 
 public class WorldGameRender {
 
-    final float WIDTH = Screens.WORLD_SCREEN_WIDTH;
-    final float HEIGHT = Screens.WORLD_SCREEN_HEIGHT;
+    final float WIDTH = BaseScreen.WORLD_SCREEN_WIDTH;
+    final float HEIGHT = BaseScreen.WORLD_SCREEN_HEIGHT;
 
     SpriteBatch batcher;
     WorldGame oWorld;
@@ -120,8 +120,8 @@ public class WorldGameRender {
     }
 
     public void renderEnemigos() {
-        for (Enemigo obj : oWorld.arrEnemigos) {
-            if (obj.state == Enemigo.STATE_JUST_APPEAR) {
+        for (Enemy obj : oWorld.arrEnemigos) {
+            if (obj.state == Enemy.STATE_JUST_APPEAR) {
                 batcher.draw(Assets.flapSpawn, obj.position.x - .25f,
                         obj.position.y - .25f, .25f, .25f, .5f, .5f,
                         obj.appearScale, obj.appearScale, 0);
@@ -129,14 +129,14 @@ public class WorldGameRender {
             }
 
             TextureRegion keyFrame;
-            if (obj.state == Enemigo.STATE_FLYING) {
+            if (obj.state == Enemy.STATE_FLYING) {
                 if (obj.vidas >= 3)
                     keyFrame = Assets.animflapAlasRojo.getKeyFrame(
                             obj.stateTime, true);
                 else
                     keyFrame = Assets.animflapAlasAzul.getKeyFrame(
                             obj.stateTime, true);
-            } else if (obj.state == Enemigo.STATE_EVOLVING) {
+            } else if (obj.state == Enemy.STATE_EVOLVING) {
                 keyFrame = Assets.animEvolving.getKeyFrame(obj.stateTime, true);
             } else {
                 keyFrame = Assets.flapAzul;

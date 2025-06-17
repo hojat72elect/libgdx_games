@@ -10,50 +10,49 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.slamthebird.Assets;
-import com.nopalsoft.slamthebird.MainSlamBird;
 import com.nopalsoft.slamthebird.Settings;
+import com.nopalsoft.slamthebird.SlamTheBirdGame;
 
 public class NoAdsSubMenu {
 
     int priceNoAds = 35000;
 
-    TextButton btNoAds;
-    Label lblNoAds;
+    TextButton buttonNoAds;
+    Label labelNoAds;
 
-    Table contenedor;
-    MainSlamBird game;
+    Table tableContainer;
+    SlamTheBirdGame game;
 
-    public NoAdsSubMenu(final MainSlamBird game, Table contenedor) {
+    public NoAdsSubMenu(final SlamTheBirdGame game, Table tableContainer) {
         this.game = game;
-        this.contenedor = contenedor;
-        contenedor.clear();
+        this.tableContainer = tableContainer;
+        tableContainer.clear();
 
         if (!Settings.didBuyNoAds)
-            lblNoAds = new Label(priceNoAds + "", Assets.styleLabelChico);
+            labelNoAds = new Label(priceNoAds + "", Assets.styleLabelChico);
 
-        btNoAds = new TextButton("Buy", Assets.styleTextButtonBuy);
+        buttonNoAds = new TextButton("Buy", Assets.styleTextButtonBuy);
         if (Settings.didBuyNoAds)
-            btNoAds.setVisible(false);
-        addEfectoPress(btNoAds);
-        btNoAds.addListener(new ClickListener() {
+            buttonNoAds.setVisible(false);
+        addEfectoPress(buttonNoAds);
+        buttonNoAds.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (Settings.monedasActuales >= priceNoAds) {
                     Settings.monedasActuales -= priceNoAds;
                     Settings.didBuyNoAds = true;
-                    lblNoAds.setVisible(false);
-                    btNoAds.setVisible(false);
+                    labelNoAds.setVisible(false);
+                    buttonNoAds.setVisible(false);
                 }
             }
         });
 
-        // Upgrade BoostTime
-        contenedor.add(new Image(Assets.separadorHorizontal)).expandX().fill().height(5);
-        contenedor.row();
-        contenedor
-                .add(agregarPersonajeTabla(lblNoAds, Assets.btNoAds,
-                        btNoAds)).expandX().fill();
-        contenedor.row();
+        tableContainer.add(new Image(Assets.separadorHorizontal)).expandX().fill().height(5);
+        tableContainer.row();
+        tableContainer
+                .add(agregarPersonajeTabla(labelNoAds, Assets.btNoAds,
+                        buttonNoAds)).expandX().fill();
+        tableContainer.row();
     }
 
     private Table agregarPersonajeTabla(Label lblPrecio, TextureRegionDrawable imagen,

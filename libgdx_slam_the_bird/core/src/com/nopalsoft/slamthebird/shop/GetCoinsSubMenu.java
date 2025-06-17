@@ -11,8 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.slamthebird.Assets;
-import com.nopalsoft.slamthebird.MainSlamBird;
 import com.nopalsoft.slamthebird.Settings;
+import com.nopalsoft.slamthebird.SlamTheBirdGame;
 
 public class GetCoinsSubMenu {
 
@@ -26,9 +26,9 @@ public class GetCoinsSubMenu {
             btBuy50MilCoins;
 
     Table contenedor;
-    MainSlamBird game;
+    SlamTheBirdGame game;
 
-    public GetCoinsSubMenu(final MainSlamBird game, Table contenedor) {
+    public GetCoinsSubMenu(final SlamTheBirdGame game, Table contenedor) {
         this.game = game;
         this.contenedor = contenedor;
         contenedor.clear();
