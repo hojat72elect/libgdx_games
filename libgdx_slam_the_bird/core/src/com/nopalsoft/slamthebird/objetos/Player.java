@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.nopalsoft.slamthebird.Assets;
 import com.nopalsoft.slamthebird.Settings;
 
-public class Robot {
+public class Player {
     public static float RADIUS = .28f;
 
     public static int STATE_FALLING = 0;
@@ -35,7 +35,7 @@ public class Robot {
     public float angleDegrees;
     public Vector2 velocity;
 
-    public Robot(float x, float y) {
+    public Player(float x, float y) {
         position = new Vector2(x, y);
         state = STATE_JUMPING;
         velocity = new Vector2();

@@ -29,7 +29,7 @@ public class NoAdsSubMenu {
         tableContainer.clear();
 
         if (!Settings.didBuyNoAds)
-            labelNoAds = new Label(priceNoAds + "", Assets.styleLabelChico);
+            labelNoAds = new Label(priceNoAds + "", Assets.smallLabelStyle);
 
         buttonNoAds = new TextButton("Buy", Assets.styleTextButtonBuy);
         if (Settings.didBuyNoAds)
@@ -47,10 +47,10 @@ public class NoAdsSubMenu {
             }
         });
 
-        tableContainer.add(new Image(Assets.separadorHorizontal)).expandX().fill().height(5);
+        tableContainer.add(new Image(Assets.horizontalSeparator)).expandX().fill().height(5);
         tableContainer.row();
         tableContainer
-                .add(agregarPersonajeTabla(labelNoAds, Assets.btNoAds,
+                .add(agregarPersonajeTabla(labelNoAds, Assets.buttonNoAds,
                         buttonNoAds)).expandX().fill();
         tableContainer.row();
     }
@@ -58,20 +58,20 @@ public class NoAdsSubMenu {
     private Table agregarPersonajeTabla(Label lblPrecio, TextureRegionDrawable imagen,
                                         TextButton boton) {
 
-        Image moneda = new Image(Assets.moneda);
+        Image moneda = new Image(Assets.coinsRegion);
         Image imgPersonaje = new Image(imagen);
 
         if (lblPrecio == null)
             moneda.setVisible(false);
 
         Table tbBarraTitulo = new Table();
-        tbBarraTitulo.add(new Label("No more ads", Assets.styleLabelChico)).expandX().left().padLeft(5);
+        tbBarraTitulo.add(new Label("No more ads", Assets.smallLabelStyle)).expandX().left().padLeft(5);
         tbBarraTitulo.add(moneda).right();
         tbBarraTitulo.add(lblPrecio).right().padRight(10);
 
         Table tbDescrip = new Table();
         tbDescrip.add(imgPersonaje).left().pad(10).size(55, 45);
-        Label lblDescripcion = new Label("Buy it and no more ads will apper in the app", Assets.styleLabelChico);
+        Label lblDescripcion = new Label("Buy it and no more ads will apper in the app", Assets.smallLabelStyle);
         lblDescripcion.setWrap(true);
         tbDescrip.add(lblDescripcion).expand().fill().padLeft(5);
 
@@ -84,7 +84,7 @@ public class NoAdsSubMenu {
         tbContent.add(boton).right().padRight(10).size(120, 45);
 
         tbContent.row().colspan(2);
-        tbContent.add(new Image(Assets.separadorHorizontal)).expandX().fill().height(5).padTop(15);
+        tbContent.add(new Image(Assets.horizontalSeparator)).expandX().fill().height(5).padTop(15);
 
         return tbContent;
     }

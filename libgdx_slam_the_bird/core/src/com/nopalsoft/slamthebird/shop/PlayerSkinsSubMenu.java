@@ -47,20 +47,20 @@ public class PlayerSkinsSubMenu {
         isBlueAndroidPurchased = preferences.getBoolean("didBuyAzul", false);
 
         labelPriceRedAndroid = new Label(PRICE_RED_ANDROID + "",
-                Assets.styleLabelChico);
+                Assets.smallLabelStyle);
         labelPriceBlueAndroid = new Label(PRICE_BLUE_ANDROID + "",
-                Assets.styleLabelChico);
+                Assets.smallLabelStyle);
 
         initializeButtons();
 
-        tableContainer.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+        tableContainer.add(new Image(Assets.horizontalSeparator)).expandX().fill()
                 .height(5);
         tableContainer.row();
 
         // default skin
         tableContainer
                 .add(addPlayerTable("Green robot", null,
-                        Assets.personajeShopDefault,
+                        Assets.defaultPlayerSkin,
                         "Just a simple robot for slaming birds", buttonDefault))
                 .expandX().fill();
         tableContainer.row();
@@ -70,7 +70,7 @@ public class PlayerSkinsSubMenu {
                 .add(addPlayerTable(
                         "Red robot",
                         labelPriceRedAndroid,
-                        Assets.personajeShopRojo,
+                        Assets.redPlayerSkin,
                         "Do you like red color. Play with this amazing red robot and slam those birds",
                         buttonRedAndroid)).expandX().fill();
         tableContainer.row();
@@ -80,7 +80,7 @@ public class PlayerSkinsSubMenu {
                 .add(addPlayerTable(
                         "Blue robot",
                         labelPriceBlueAndroid,
-                        Assets.personajeShopAzul,
+                        Assets.bluePlayerSkin,
                         "Do you like blue color. Play with this amazing blue robot and slam those birds",
                         buttonBlueAndroid)).expandX().fill();
         tableContainer.row();
@@ -94,14 +94,14 @@ public class PlayerSkinsSubMenu {
     private Table addPlayerTable(String title, Label labelPrice,
                                  AtlasRegion imageAtlasRegion, String description, TextButton button) {
 
-        Image coinImage = new Image(Assets.moneda);
+        Image coinImage = new Image(Assets.coinsRegion);
         Image playerImage = new Image(imageAtlasRegion);
 
         if (labelPrice == null)
             coinImage.setVisible(false);
 
         Table tableTitleBar = new Table();
-        tableTitleBar.add(new Label(title, Assets.styleLabelChico)).expandX()
+        tableTitleBar.add(new Label(title, Assets.smallLabelStyle)).expandX()
                 .left();
         tableTitleBar.add(coinImage).right();
         tableTitleBar.add(labelPrice).right().padRight(10);
@@ -111,14 +111,14 @@ public class PlayerSkinsSubMenu {
         tableContent.row();
         tableContent.add(playerImage).left().pad(10).size(60);
 
-        Label labelDescription = new Label(description, Assets.styleLabelChico);
+        Label labelDescription = new Label(description, Assets.smallLabelStyle);
         labelDescription.setWrap(true);
         tableContent.add(labelDescription).expand().fill().padLeft(5);
 
         tableContent.row().colspan(2);
         tableContent.add(button).expandX().right().padRight(10).size(120, 45);
         tableContent.row().colspan(2);
-        tableContent.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+        tableContent.add(new Image(Assets.horizontalSeparator)).expandX().fill()
                 .height(5).padTop(15);
 
         return tableContent;
@@ -138,7 +138,7 @@ public class PlayerSkinsSubMenu {
             public void clicked(InputEvent event, float x, float y) {
                 Settings.selectedSkin = SKIN_DEFAULT;
                 setSelected(buttonDefault);
-                Assets.cargarPersonaje();
+                Assets.drawPlayer();
             }
         });
 
@@ -159,7 +159,7 @@ public class PlayerSkinsSubMenu {
                 if (isRedAndroidPurchased) {
                     Settings.selectedSkin = SKIN_RED_ANDROID;
                     setSelected(buttonRedAndroid);
-                    Assets.cargarPersonaje();
+                    Assets.drawPlayer();
                 } else if (Settings.currentCoins >= PRICE_RED_ANDROID) {
                     Settings.currentCoins -= PRICE_RED_ANDROID;
                     setButtonStylePurchased(buttonRedAndroid);
@@ -187,7 +187,7 @@ public class PlayerSkinsSubMenu {
                 if (isBlueAndroidPurchased) {
                     Settings.selectedSkin = SKIN_BLUE_ANDROID;
                     setSelected(buttonBlueAndroid);
-                    Assets.cargarPersonaje();
+                    Assets.drawPlayer();
                 } else if (Settings.currentCoins >= PRICE_BLUE_ANDROID) {
                     Settings.currentCoins -= PRICE_BLUE_ANDROID;
                     setButtonStylePurchased(buttonBlueAndroid);

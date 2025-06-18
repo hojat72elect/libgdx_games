@@ -21,7 +21,7 @@ public class Dialog extends Group {
     }
 
     public void setBackGround() {
-        Image img = new Image(Assets.fondoPuntuaciones);
+        Image img = new Image(Assets.scoresBackground);
         img.setSize(getWidth(), getHeight());
         addActor(img);
     }

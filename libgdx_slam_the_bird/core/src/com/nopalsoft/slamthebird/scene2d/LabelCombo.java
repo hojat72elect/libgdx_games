@@ -19,7 +19,7 @@ public class LabelCombo extends Actor {
 
         batch.draw(Assets.combo, getX(), getY(), 65, 27);
         if (actualCombo >= WorldGame.COMBO_TO_START_GETTING_COINS) {
-            batch.draw(Assets.moneda, getX() + 20, getY() + 35, 23, 26);
+            batch.draw(Assets.coinsRegion, getX() + 20, getY() + 35, 23, 26);
         }
         drawSmallScoreLeftOrigin(batch, this.getX() + 70, this.getY() + 2,
                 actualCombo);
@@ -39,26 +39,26 @@ public class LabelCombo extends Actor {
             char character = score.charAt(i);
 
             if (character == '0') {
-                keyFrame = Assets.num0Chico;
+                keyFrame = Assets.smallNum0;
             } else if (character == '1') {
-                keyFrame = Assets.num1Chico;
+                keyFrame = Assets.smallNum1;
                 charWidth = 11f;
             } else if (character == '2') {
-                keyFrame = Assets.num2Chico;
+                keyFrame = Assets.smallNum2;
             } else if (character == '3') {
-                keyFrame = Assets.num3Chico;
+                keyFrame = Assets.smallNum3;
             } else if (character == '4') {
-                keyFrame = Assets.num4Chico;
+                keyFrame = Assets.smallNum4;
             } else if (character == '5') {
-                keyFrame = Assets.num5Chico;
+                keyFrame = Assets.smallNum5;
             } else if (character == '6') {
-                keyFrame = Assets.num6Chico;
+                keyFrame = Assets.smallNum6;
             } else if (character == '7') {
-                keyFrame = Assets.num7Chico;
+                keyFrame = Assets.smallNum7;
             } else if (character == '8') {
-                keyFrame = Assets.num8Chico;
+                keyFrame = Assets.smallNum8;
             } else {// 9
-                keyFrame = Assets.num9Chico;
+                keyFrame = Assets.smallNum9;
             }
 
             batch.draw(keyFrame, x + textWidth, y, charWidth, 22);

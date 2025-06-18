@@ -73,25 +73,25 @@ public abstract class BaseScreen extends InputAdapter implements Screen {
             char character = scoreText.charAt(i);
 
             if (character == '0') {
-                keyFrame = Assets.num0Grande;
+                keyFrame = Assets.largeNum0;
             } else if (character == '1') {
-                keyFrame = Assets.num1Grande;
+                keyFrame = Assets.largeNum1;
             } else if (character == '2') {
-                keyFrame = Assets.num2Grande;
+                keyFrame = Assets.largeNum2;
             } else if (character == '3') {
-                keyFrame = Assets.num3Grande;
+                keyFrame = Assets.largeNum3;
             } else if (character == '4') {
-                keyFrame = Assets.num4Grande;
+                keyFrame = Assets.largeNum4;
             } else if (character == '5') {
-                keyFrame = Assets.num5Grande;
+                keyFrame = Assets.largeNum5;
             } else if (character == '6') {
-                keyFrame = Assets.num6Grande;
+                keyFrame = Assets.largeNum6;
             } else if (character == '7') {
-                keyFrame = Assets.num7Grande;
+                keyFrame = Assets.largeNum7;
             } else if (character == '8') {
-                keyFrame = Assets.num8Grande;
+                keyFrame = Assets.largeNum8;
             } else {
-                keyFrame = Assets.num9Grande;
+                keyFrame = Assets.largeNum9;
             }
 
             batch.draw(keyFrame, x + ((charWidth - 1f) * i) - textWidth / 2f,
@@ -99,8 +99,8 @@ public abstract class BaseScreen extends InputAdapter implements Screen {
         }
     }
 
-    public void drawPuntuacionChicoOrigenDerecha(float x, float y,
-                                                 int score) {
+    public void drawSmallScoreRightAligned(float x, float y,
+                                           int score) {
         String scoreText = String.valueOf(score);
 
         int len = scoreText.length();
@@ -113,26 +113,26 @@ public abstract class BaseScreen extends InputAdapter implements Screen {
             char character = scoreText.charAt(i);
 
             if (character == '0') {
-                keyFrame = Assets.num0Chico;
+                keyFrame = Assets.smallNum0;
             } else if (character == '1') {
-                keyFrame = Assets.num1Chico;
+                keyFrame = Assets.smallNum1;
                 charWidth = 11f;
             } else if (character == '2') {
-                keyFrame = Assets.num2Chico;
+                keyFrame = Assets.smallNum2;
             } else if (character == '3') {
-                keyFrame = Assets.num3Chico;
+                keyFrame = Assets.smallNum3;
             } else if (character == '4') {
-                keyFrame = Assets.num4Chico;
+                keyFrame = Assets.smallNum4;
             } else if (character == '5') {
-                keyFrame = Assets.num5Chico;
+                keyFrame = Assets.smallNum5;
             } else if (character == '6') {
-                keyFrame = Assets.num6Chico;
+                keyFrame = Assets.smallNum6;
             } else if (character == '7') {
-                keyFrame = Assets.num7Chico;
+                keyFrame = Assets.smallNum7;
             } else if (character == '8') {
-                keyFrame = Assets.num8Chico;
+                keyFrame = Assets.smallNum8;
             } else {
-                keyFrame = Assets.num9Chico;
+                keyFrame = Assets.smallNum9;
             }
             textWidth += charWidth;
             batch.draw(keyFrame, x - textWidth, y, charWidth, 32);
@@ -151,25 +151,25 @@ public abstract class BaseScreen extends InputAdapter implements Screen {
             char character = score.charAt(i);
 
             if (character == '0') {
-                keyFrame = Assets.num0Chico;
+                keyFrame = Assets.smallNum0;
             } else if (character == '1') {
-                keyFrame = Assets.num1Chico;
+                keyFrame = Assets.smallNum1;
             } else if (character == '2') {
-                keyFrame = Assets.num2Chico;
+                keyFrame = Assets.smallNum2;
             } else if (character == '3') {
-                keyFrame = Assets.num3Chico;
+                keyFrame = Assets.smallNum3;
             } else if (character == '4') {
-                keyFrame = Assets.num4Chico;
+                keyFrame = Assets.smallNum4;
             } else if (character == '5') {
-                keyFrame = Assets.num5Chico;
+                keyFrame = Assets.smallNum5;
             } else if (character == '6') {
-                keyFrame = Assets.num6Chico;
+                keyFrame = Assets.smallNum6;
             } else if (character == '7') {
-                keyFrame = Assets.num7Chico;
+                keyFrame = Assets.smallNum7;
             } else if (character == '8') {
-                keyFrame = Assets.num8Chico;
-            } else {// 9
-                keyFrame = Assets.num9Chico;
+                keyFrame = Assets.smallNum8;
+            } else {
+                keyFrame = Assets.smallNum9;
             }
 
             batch.draw(keyFrame, x + ((charWidth - 1f) * i) - textWidth / 2f,
@@ -181,7 +181,7 @@ public abstract class BaseScreen extends InputAdapter implements Screen {
 
     public void changeScreenWithFadeOut(final Class<?> newScreen,
                                         final SlamTheBirdGame game) {
-        blackFadeOut = new Image(Assets.pixelNegro);
+        blackFadeOut = new Image(Assets.blackPixel);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         blackFadeOut.getColor().a = 0;
         blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f),
@@ -194,7 +194,7 @@ public abstract class BaseScreen extends InputAdapter implements Screen {
         stage.addActor(blackFadeOut);
     }
 
-    public void addEfectoPress(final Actor actor) {
+    public void addPressEffect(final Actor actor) {
         actor.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,

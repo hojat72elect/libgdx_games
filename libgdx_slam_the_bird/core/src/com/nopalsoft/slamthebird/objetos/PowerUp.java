@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.nopalsoft.slamthebird.game.WorldGame;
 
-public class Boost implements Poolable {
+public class PowerUp implements Poolable {
 
     public static final int TYPE_SUPER_JUMP = 0;
     public static final int TYPE_INVINCIBLE = 1;
@@ -26,7 +26,7 @@ public class Boost implements Poolable {
     public float stateTime;
     public int type;
 
-    public Boost() {
+    public PowerUp() {
         position = new Vector2();
     }
 
@@ -41,7 +41,7 @@ public class Boost implements Poolable {
         bodyDefinition.position.y = y;
         bodyDefinition.type = BodyType.KinematicBody;
 
-        Body body = oWorld.oWorldBox.createBody(bodyDefinition);
+        Body body = oWorld.world.createBody(bodyDefinition);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(.15f, .15f);

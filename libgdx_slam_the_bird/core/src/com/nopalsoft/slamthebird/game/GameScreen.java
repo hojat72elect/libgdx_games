@@ -90,10 +90,10 @@ public class GameScreen extends BaseScreen {
                 Actions.sequence(Actions.alpha(.6f, .75f),
                         Actions.alpha(1, .75f))));
 
-        btShop = new Button(Assets.btShop);
+        btShop = new Button(Assets.buttonShop);
         btShop.setSize(90, 70);
         btShop.setPosition(0, 730);
-        addEfectoPress(btShop);
+        addPressEffect(btShop);
         btShop.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -101,42 +101,42 @@ public class GameScreen extends BaseScreen {
             }
         });
 
-        btMore = new Button(Assets.btMore);
+        btMore = new Button(Assets.buttonMore);
         btMore.setSize(90, 70);
         btMore.setPosition(390, 730);
-        addEfectoPress(btMore);
+        addPressEffect(btMore);
 
-        btLeaderboard = new Button(Assets.btLeaderboard);
+        btLeaderboard = new Button(Assets.buttonLeaderboard);
         btLeaderboard.setSize(110, 75);
         btLeaderboard.setPosition(230 - 110, 310);
-        addEfectoPress(btLeaderboard);
+        addPressEffect(btLeaderboard);
 
-        btAchievements = new Button(Assets.btAchievements);
+        btAchievements = new Button(Assets.buttonAchievements);
         btAchievements.setSize(110, 75);
         btAchievements.setPosition(250, 310);
-        addEfectoPress(btAchievements);
+        addPressEffect(btAchievements);
 
-        btRate = new Button(Assets.btRate);
+        btRate = new Button(Assets.buttonRate);
         btRate.setSize(110, 75);
 
         btRate.setPosition(SCREEN_WIDTH / 2f - btRate.getWidth() / 2f - 25, 220);// Con el boton face y twitter cambia la pos
-        addEfectoPress(btRate);
+        addPressEffect(btRate);
 
         btShareFacebook = new Button(new TextureRegionDrawable(
-                Assets.btFacebook));
+                Assets.buttonFacebook));
         btShareFacebook.setSize(40, 40);
         btShareFacebook.setPosition(280, 257);
-        addEfectoPress(btShareFacebook);
+        addPressEffect(btShareFacebook);
 
 
-        btShareTwitter = new Button(new TextureRegionDrawable(Assets.btTwitter));
+        btShareTwitter = new Button(new TextureRegionDrawable(Assets.buttonTwitter));
         btShareTwitter.setSize(40, 40);
         btShareTwitter.setPosition(280, 212);
-        addEfectoPress(btShareTwitter);
+        addPressEffect(btShareTwitter);
 
         final Button btMusica, btSonido;
 
-        btMusica = new Button(Assets.styleButtonMusica);
+        btMusica = new Button(Assets.buttonStyleMusic);
         btMusica.setPosition(5, 100);
         btMusica.setChecked(!Settings.isMusicOn);
         btMusica.addListener(new InputListener() {
@@ -163,7 +163,7 @@ public class GameScreen extends BaseScreen {
             }
         });
 
-        btSonido = new Button(Assets.styleButtonSonido);
+        btSonido = new Button(Assets.buttonStyleSound);
         btSonido.setPosition(5, 180);
         btSonido.setChecked(!Settings.isSoundOn);
         btSonido.addListener(new InputListener() {
@@ -211,7 +211,7 @@ public class GameScreen extends BaseScreen {
     }
 
     private void setUpGameover() {
-        gameOverBackgroundImage = new Image(Assets.fondoGameover);
+        gameOverBackgroundImage = new Image(Assets.gameOverBackground);
         gameOverBackgroundImage.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         gameOverBackgroundImage.setOrigin(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f);
         gameOverBackgroundImage.setScale(2);
@@ -283,8 +283,8 @@ public class GameScreen extends BaseScreen {
             stage.getBatch().setColor(1, 1, 1, 1);// Un BUG que no pone el alpha en 1 otra vez
 
             combo = worldGame.combo;
-            LabelCombo lblCombo = new LabelCombo(worldGame.oRobo.position.x * 100,
-                    worldGame.oRobo.position.y * 100 - 50, combo);
+            LabelCombo lblCombo = new LabelCombo(worldGame.player.position.x * 100,
+                    worldGame.player.position.y * 100 - 50, combo);
 
             float sideToMove;
             if (isComboTextOnLeft) {
@@ -325,10 +325,10 @@ public class GameScreen extends BaseScreen {
     }
 
     private void drawRunning() {
-        drawLargeNumberCenteredX(SCREEN_WIDTH / 2f, 700, worldGame.scoreSlamed);
+        drawLargeNumberCenteredX(SCREEN_WIDTH / 2f, 700, worldGame.scoreForSlammingEnemies);
 
-        batch.draw(Assets.moneda, 449, 764, 30, 34);
-        drawPuntuacionChicoOrigenDerecha(445, 764, worldGame.monedasTomadas);
+        batch.draw(Assets.coinsRegion, 449, 764, 30, 34);
+        drawSmallScoreRightAligned(445, 764, worldGame.coinsCollected);
     }
 
     private void drawReady() {
@@ -350,7 +350,7 @@ public class GameScreen extends BaseScreen {
     }
 
     private void setReady() {
-        appTitleImage = new Image(Assets.titulo);
+        appTitleImage = new Image(Assets.title);
         appTitleImage.setSize(400, 290);
         appTitleImage.setPosition(SCREEN_WIDTH / 2f - appTitleImage.getWidth() / 2f,
                 415);
@@ -375,7 +375,7 @@ public class GameScreen extends BaseScreen {
 
     private void setGameover() {
 
-        Settings.setBestScores(worldGame.scoreSlamed);
+        Settings.setBestScores(worldGame.scoreForSlammingEnemies);
 
         state = STATE_GAME_OVER;
         stage.addActor(gameOverBackgroundImage);
@@ -401,7 +401,7 @@ public class GameScreen extends BaseScreen {
                     }
                 })));
 
-        Image background = new Image(Assets.fondoPuntuaciones);
+        Image background = new Image(Assets.scoresBackground);
         background.setSize(groupTryAgain.getWidth(), groupTryAgain.getHeight());
         groupTryAgain.addActor(background);
 
@@ -417,9 +417,9 @@ public class GameScreen extends BaseScreen {
         coinsEarned.setSize(243, 25);
         coinsEarned.setPosition(25, 47);
 
-        LabelScore lblScore = new LabelScore(420 / 2f, 120, worldGame.scoreSlamed);
+        LabelScore lblScore = new LabelScore(420 / 2f, 120, worldGame.scoreForSlammingEnemies);
         LabelCoins lblMonedas = new LabelCoins(385, 45,
-                worldGame.monedasTomadas);
+                worldGame.coinsCollected);
 
         Achievements.unlockCoins();
 

@@ -20,12 +20,12 @@ public class DialogPause extends Dialog {
 
         gameScreen = (GameScreen) currentScreen;
 
-        Label lbTitle = new Label("Paused", Assets.styleLabelChico);
+        Label lbTitle = new Label("Paused", Assets.smallLabelStyle);
         lbTitle.setPosition(getWidth() / 2f - lbTitle.getWidth() / 2f, 210);
 
         TextButton btResume = new TextButton("Resume",
                 Assets.styleTextButtonPurchased);
-        screen.addEfectoPress(btResume);
+        screen.addPressEffect(btResume);
         btResume.setSize(150, 50);
         btResume.setPosition(getWidth() / 2f - btResume.getWidth() / 2f, 130);
         btResume.getLabel().setWrap(true);
@@ -39,7 +39,7 @@ public class DialogPause extends Dialog {
 
         TextButton btMainMenu = new TextButton("Menu",
                 Assets.styleTextButtonPurchased);
-        screen.addEfectoPress(btMainMenu);
+        screen.addPressEffect(btMainMenu);
         btMainMenu.setSize(150, 50);
         btMainMenu.setPosition(getWidth() / 2f - btResume.getWidth() / 2f, 40);
         btMainMenu.getLabel().setWrap(true);

@@ -20,337 +20,299 @@ import com.nopalsoft.slamthebird.shop.PlayerSkinsSubMenu;
 
 public class Assets {
 
-    static TextureAtlas atlas;
+    static TextureAtlas textureAtlas;
 
-    public static AtlasRegion titulo;
+    public static AtlasRegion title;
     public static AtlasRegion tapToPlay;
     public static AtlasRegion bestScore;
     public static AtlasRegion score;
     public static AtlasRegion combo;
     public static AtlasRegion coinsEarned;
     public static AtlasRegion shop;
-    public static NinePatchDrawable separadorHorizontal;
-    public static NinePatchDrawable separadorVertical;
 
-    public static AtlasRegion fondo;
-    public static AtlasRegion fondoGameover;
-    public static AtlasRegion personaje;
+    public static NinePatchDrawable horizontalSeparator;
+    public static NinePatchDrawable verticalSeparator;
 
-    public static AtlasRegion personajeShopDefault;
-    public static AtlasRegion personajeShopRojo;
-    public static AtlasRegion personajeShopAzul;
+    public static AtlasRegion background;
+    public static AtlasRegion gameOverBackground;
+    public static AtlasRegion player;
 
-    public static Animation<TextureRegion> animPersonajeJump;
-    public static Animation<TextureRegion> animPersonajeSlam;
-    public static Animation<TextureRegion> animPersonajeHit;
-    public static Animation<TextureRegion> slam;
+    public static AtlasRegion defaultPlayerSkin;
+    public static AtlasRegion redPlayerSkin;
+    public static AtlasRegion bluePlayerSkin;
 
-    public static NinePatchDrawable pixelNegro;
+    public static Animation<TextureRegion> playerJumpAnimation;
+    public static Animation<TextureRegion> playerSlamAnimation;
+    public static Animation<TextureRegion> playerHitAnimation;
+    public static Animation<TextureRegion> slamAnimation;
 
-    public static AtlasRegion plataforma;
-    public static Animation<TextureRegion> animPlataformFire;
-    public static Animation<TextureRegion> plataformBreakable;
+    public static NinePatchDrawable blackPixel;
 
-    public static TextureRegionDrawable btAchievements;
-    public static TextureRegionDrawable btLeaderboard;
-    public static TextureRegionDrawable btMore;
-    public static TextureRegionDrawable btRate;
-    public static TextureRegionDrawable btShop;
-    public static TextureRegionDrawable btFacebook;
-    public static TextureRegionDrawable btTwitter;
-    public static TextureRegionDrawable btAtras;
-    public static TextureRegionDrawable btNoAds;
-    public static ButtonStyle styleButtonMusica;
-    public static ButtonStyle styleButtonSonido;
+    public static AtlasRegion platform;
+    public static Animation<TextureRegion> platformFireAnimation;
+    public static Animation<TextureRegion> platformBreakAnimation;
+
+    public static TextureRegionDrawable buttonAchievements;
+    public static TextureRegionDrawable buttonLeaderboard;
+    public static TextureRegionDrawable buttonMore;
+    public static TextureRegionDrawable buttonRate;
+    public static TextureRegionDrawable buttonShop;
+    public static TextureRegionDrawable buttonFacebook;
+    public static TextureRegionDrawable buttonTwitter;
+    public static TextureRegionDrawable buttonBack;
+    public static TextureRegionDrawable buttonNoAds;
+
+    public static ButtonStyle buttonStyleMusic;
+    public static ButtonStyle buttonStyleSound;
 
     public static TextureRegionDrawable upgradeOn;
     public static TextureRegionDrawable upgradeOff;
 
-    public static TextureRegionDrawable fondoPuntuaciones;
+    public static TextureRegionDrawable scoresBackground;
 
-    public static AtlasRegion flapSpawn;
-    public static AtlasRegion flapAzul;
-    public static Animation<TextureRegion> animflapAlasAzul;
-    public static Animation<TextureRegion> animflapAlasRojo;
-    public static Animation<TextureRegion> animEvolving;
+    public static AtlasRegion flapSpawnRegion;
+    public static AtlasRegion flapBlueRegion;
 
-    public static Animation<TextureRegion> animMoneda;
-    public static AtlasRegion moneda;
-    public static AtlasRegion pixelTransparente;
+    public static Animation<TextureRegion> blueWingsFlapAnimation;
+    public static Animation<TextureRegion> redWingsFlapAnimation;
+    public static Animation<TextureRegion> evolvingFlapAnimation;
+    public static Animation<TextureRegion> coinAnimation;
 
-    public static AtlasRegion boostInvencible;
-    public static AtlasRegion boostCoinRain;
-    public static AtlasRegion boostIce;
-    public static AtlasRegion boostSuperSalto;
+    public static AtlasRegion coinsRegion;
+    public static AtlasRegion transparentPixelRegion;
+
+    public static AtlasRegion invincibilityBoost;
+    public static AtlasRegion coinRainBoost;
+    public static AtlasRegion freezeBoost;
+    public static AtlasRegion superJumpBoost;
     public static AtlasRegion boosts;
 
-    public static Animation<TextureRegion> animBoostEndInvencible;
-    public static Animation<TextureRegion> animBoostEndSuperSalto;
+    public static Animation<TextureRegion> invincibilityBoostEndAnimation;
+    public static Animation<TextureRegion> superJumpBoostEndAnimation;
 
-    public static AtlasRegion num0Grande;
-    public static AtlasRegion num1Grande;
-    public static AtlasRegion num2Grande;
-    public static AtlasRegion num3Grande;
-    public static AtlasRegion num4Grande;
-    public static AtlasRegion num5Grande;
-    public static AtlasRegion num6Grande;
-    public static AtlasRegion num7Grande;
-    public static AtlasRegion num8Grande;
-    public static AtlasRegion num9Grande;
+    public static AtlasRegion largeNum0;
+    public static AtlasRegion largeNum1;
+    public static AtlasRegion largeNum2;
+    public static AtlasRegion largeNum3;
+    public static AtlasRegion largeNum4;
+    public static AtlasRegion largeNum5;
+    public static AtlasRegion largeNum6;
+    public static AtlasRegion largeNum7;
+    public static AtlasRegion largeNum8;
+    public static AtlasRegion largeNum9;
 
-    public static AtlasRegion num0Chico;
-    public static AtlasRegion num1Chico;
-    public static AtlasRegion num2Chico;
-    public static AtlasRegion num3Chico;
-    public static AtlasRegion num4Chico;
-    public static AtlasRegion num5Chico;
-    public static AtlasRegion num6Chico;
-    public static AtlasRegion num7Chico;
-    public static AtlasRegion num8Chico;
-    public static AtlasRegion num9Chico;
+    public static AtlasRegion smallNum0;
+    public static AtlasRegion smallNum1;
+    public static AtlasRegion smallNum2;
+    public static AtlasRegion smallNum3;
+    public static AtlasRegion smallNum4;
+    public static AtlasRegion smallNum5;
+    public static AtlasRegion smallNum6;
+    public static AtlasRegion smallNum7;
+    public static AtlasRegion smallNum8;
+    public static AtlasRegion smallNum9;
 
     public static BitmapFont font;
 
     public static TextButtonStyle styleTextButtonBuy;
     public static TextButtonStyle styleTextButtonPurchased;
     public static TextButtonStyle styleTextButtonSelected;
+
     public static ScrollPaneStyle styleScrollPane;
-    public static LabelStyle styleLabelChico;
+    public static LabelStyle smallLabelStyle;
 
     public static Sound soundJump;
     public static Sound soundCoin;
     public static Sound soundBoost;
 
-    static Music musica;
+    static Music music;
 
-    public static void loadEstilos() {
+    public static void loadStyles() {
         font = new BitmapFont();
         font.getData().setScale(1.15f);
 
-        separadorHorizontal = new NinePatchDrawable(new NinePatch(
-                atlas.findRegion("Shop/separadorHorizontal"), 0, 1, 0, 0));
-        separadorVertical = new NinePatchDrawable(new NinePatch(
-                atlas.findRegion("Shop/separadorVertical"), 0, 1, 0, 0));
+        horizontalSeparator = new NinePatchDrawable(new NinePatch(textureAtlas.findRegion("Shop/separadorHorizontal"), 0, 1, 0, 0));
+        verticalSeparator = new NinePatchDrawable(new NinePatch(textureAtlas.findRegion("Shop/separadorVertical"), 0, 1, 0, 0));
 
-        styleLabelChico = new LabelStyle(font, Color.WHITE);
+        smallLabelStyle = new LabelStyle(font, Color.WHITE);
 
 
-        TextureRegionDrawable btBuy = new TextureRegionDrawable(
-                atlas.findRegion("Shop/btBuy"));
-        styleTextButtonBuy = new TextButtonStyle(btBuy, null, null, font);
+        TextureRegionDrawable buttonBuy = new TextureRegionDrawable(textureAtlas.findRegion("Shop/btBuy"));
+        styleTextButtonBuy = new TextButtonStyle(buttonBuy, null, null, font);
 
 
-        TextureRegionDrawable btPurchased = new TextureRegionDrawable(
-                atlas.findRegion("Shop/btPurchased"));
-        styleTextButtonPurchased = new TextButtonStyle(btPurchased, null, null,
-                font);
+        TextureRegionDrawable buttonPurchase = new TextureRegionDrawable(textureAtlas.findRegion("Shop/btPurchased"));
+        styleTextButtonPurchased = new TextButtonStyle(buttonPurchase, null, null, font);
 
 
-        TextureRegionDrawable btSelected = new TextureRegionDrawable(
-                atlas.findRegion("Shop/btSelected"));
-        styleTextButtonSelected = new TextButtonStyle(btSelected, null, null,
-                font);
+        TextureRegionDrawable buttonSelected = new TextureRegionDrawable(textureAtlas.findRegion("Shop/btSelected"));
+        styleTextButtonSelected = new TextButtonStyle(buttonSelected, null, null, font);
 
 
-        TextureRegionDrawable btMusicOn = new TextureRegionDrawable(
-                atlas.findRegion("MenuPrincipal/btMusica"));
-        TextureRegionDrawable btMusicOff = new TextureRegionDrawable(
-                atlas.findRegion("MenuPrincipal/btSinMusica"));
-        styleButtonMusica = new ButtonStyle(btMusicOn, null, btMusicOff);
+        TextureRegionDrawable buttonMusicOn = new TextureRegionDrawable(textureAtlas.findRegion("MenuPrincipal/btMusica"));
+        TextureRegionDrawable buttonMusicOff = new TextureRegionDrawable(textureAtlas.findRegion("MenuPrincipal/btSinMusica"));
+        buttonStyleMusic = new ButtonStyle(buttonMusicOn, null, buttonMusicOff);
 
 
-        TextureRegionDrawable botonSonidoOn = new TextureRegionDrawable(
-                atlas.findRegion("MenuPrincipal/btSonido"));
-        TextureRegionDrawable botonSonidoOff = new TextureRegionDrawable(
-                atlas.findRegion("MenuPrincipal/btSinSonido"));
-        styleButtonSonido = new ButtonStyle(botonSonidoOn, null, botonSonidoOff);
+        TextureRegionDrawable buttonSoundOn = new TextureRegionDrawable(textureAtlas.findRegion("MenuPrincipal/btSonido"));
+        TextureRegionDrawable buttonSoundOff = new TextureRegionDrawable(textureAtlas.findRegion("MenuPrincipal/btSinSonido"));
+        buttonStyleSound = new ButtonStyle(buttonSoundOn, null, buttonSoundOff);
 
-        styleScrollPane = new ScrollPaneStyle(null, null, null, null,
-                separadorVertical);
+        styleScrollPane = new ScrollPaneStyle(null, null, null, null, verticalSeparator);
     }
 
-    public static void cargarPersonaje() {
+    public static void drawPlayer() {
 
-        String perSeleccionado = "AndroidBot";
+        String selectedPlayer = "AndroidBot";
 
         if (Settings.selectedSkin == PlayerSkinsSubMenu.SKIN_RED_ANDROID) {
-            perSeleccionado = "AndroidBotRojo";
+            selectedPlayer = "AndroidBotRojo";
         } else if (Settings.selectedSkin == PlayerSkinsSubMenu.SKIN_BLUE_ANDROID) {
-            perSeleccionado = "AndroidBotAzul";
+            selectedPlayer = "AndroidBotAzul";
         }
 
-        personaje = atlas.findRegion("Personajes/" + perSeleccionado
+        player = textureAtlas.findRegion("Personajes/" + selectedPlayer
                 + "/personajeFall");
 
-        AtlasRegion per1 = atlas.findRegion("Personajes/" + perSeleccionado
-                + "/personajeSlam1");
-        AtlasRegion per2 = atlas.findRegion("Personajes/" + perSeleccionado
-                + "/personajeSlam2");
-        AtlasRegion per3 = atlas.findRegion("Personajes/" + perSeleccionado
-                + "/personajeSlam3");
-        AtlasRegion per4 = atlas.findRegion("Personajes/" + perSeleccionado
-                + "/personajeSlam4");
-        animPersonajeSlam = new Animation<>(.05f, per1, per2, per3, per4);
+        AtlasRegion per1 = textureAtlas.findRegion("Personajes/" + selectedPlayer + "/personajeSlam1");
+        AtlasRegion per2 = textureAtlas.findRegion("Personajes/" + selectedPlayer + "/personajeSlam2");
+        AtlasRegion per3 = textureAtlas.findRegion("Personajes/" + selectedPlayer + "/personajeSlam3");
+        AtlasRegion per4 = textureAtlas.findRegion("Personajes/" + selectedPlayer + "/personajeSlam4");
+        playerSlamAnimation = new Animation<>(.05f, per1, per2, per3, per4);
 
-        per1 = atlas.findRegion("Personajes/" + perSeleccionado
-                + "/personajeJump1");
-        per2 = atlas.findRegion("Personajes/" + perSeleccionado
-                + "/personajeJump1");
-        per3 = atlas.findRegion("Personajes/" + perSeleccionado
-                + "/personajeJump1");
-        animPersonajeJump = new Animation<>(.1f, per1, per2, per3);
+        per1 = textureAtlas.findRegion("Personajes/" + selectedPlayer + "/personajeJump1");
+        per2 = textureAtlas.findRegion("Personajes/" + selectedPlayer + "/personajeJump1");
+        per3 = textureAtlas.findRegion("Personajes/" + selectedPlayer + "/personajeJump1");
+        playerJumpAnimation = new Animation<>(.1f, per1, per2, per3);
 
-        per1 = atlas.findRegion("Personajes/" + perSeleccionado
-                + "/personajeHit");
-        per2 = atlas.findRegion("Personajes/" + perSeleccionado
-                + "/personajeHit");
-        per3 = atlas.findRegion("Personajes/" + perSeleccionado
-                + "/personajeHit");
-        animPersonajeHit = new Animation<>(.1f, per1, per2, per3);
+        per1 = textureAtlas.findRegion("Personajes/" + selectedPlayer + "/personajeHit");
+        per2 = textureAtlas.findRegion("Personajes/" + selectedPlayer + "/personajeHit");
+        per3 = textureAtlas.findRegion("Personajes/" + selectedPlayer + "/personajeHit");
+        playerHitAnimation = new Animation<>(.1f, per1, per2, per3);
 
         // These are the ones that appear in the store;
-        personajeShopDefault = atlas
-                .findRegion("Personajes/AndroidBot/personajeFall");
-        personajeShopRojo = atlas
-                .findRegion("Personajes/AndroidBotRojo/personajeFall");
-        personajeShopAzul = atlas
-                .findRegion("Personajes/AndroidBotAzul/personajeFall");
+        defaultPlayerSkin = textureAtlas.findRegion("Personajes/AndroidBot/personajeFall");
+        redPlayerSkin = textureAtlas.findRegion("Personajes/AndroidBotRojo/personajeFall");
+        bluePlayerSkin = textureAtlas.findRegion("Personajes/AndroidBotAzul/personajeFall");
     }
 
     public static void load() {
 
-        atlas = new TextureAtlas(Gdx.files.internal("data/atlasMap.txt"));
+        textureAtlas = new TextureAtlas(Gdx.files.internal("data/atlasMap.txt"));
 
-        loadEstilos();
+        loadStyles();
 
-        titulo = atlas.findRegion("MenuPrincipal/titulo");
-        tapToPlay = atlas.findRegion("MenuPrincipal/tapToPlay");
-        bestScore = atlas.findRegion("MenuPrincipal/bestScore");
-        score = atlas.findRegion("MenuPrincipal/score");
-        combo = atlas.findRegion("MenuPrincipal/combo");
-        coinsEarned = atlas.findRegion("MenuPrincipal/coinsEarned");
+        title = textureAtlas.findRegion("MenuPrincipal/titulo");
+        tapToPlay = textureAtlas.findRegion("MenuPrincipal/tapToPlay");
+        bestScore = textureAtlas.findRegion("MenuPrincipal/bestScore");
+        score = textureAtlas.findRegion("MenuPrincipal/score");
+        combo = textureAtlas.findRegion("MenuPrincipal/combo");
+        coinsEarned = textureAtlas.findRegion("MenuPrincipal/coinsEarned");
 
-        fondo = atlas.findRegion("fondo");
-        fondoPuntuaciones = new TextureRegionDrawable(
-                atlas.findRegion("MenuPrincipal/fondoPuntuaciones"));
-        fondoGameover = atlas.findRegion("fondoGameover");
+        background = textureAtlas.findRegion("fondo");
+        scoresBackground = new TextureRegionDrawable(textureAtlas.findRegion("MenuPrincipal/fondoPuntuaciones"));
+        gameOverBackground = textureAtlas.findRegion("fondoGameover");
 
-        pixelTransparente = atlas.findRegion("pixelTransparente");
+        transparentPixelRegion = textureAtlas.findRegion("pixelTransparente");
 
-        shop = atlas.findRegion("Shop/Shop");
+        shop = textureAtlas.findRegion("Shop/Shop");
 
-        btAtras = new TextureRegionDrawable(atlas.findRegion("Shop/btAtras"));
-        btNoAds = new TextureRegionDrawable(atlas.findRegion("Shop/btNoAds"));
+        buttonBack = new TextureRegionDrawable(textureAtlas.findRegion("Shop/btAtras"));
+        buttonNoAds = new TextureRegionDrawable(textureAtlas.findRegion("Shop/btNoAds"));
 
-        upgradeOff = new TextureRegionDrawable(
-                atlas.findRegion("Shop/upgradeOff"));
-        upgradeOn = new TextureRegionDrawable(
-                atlas.findRegion("Shop/upgradeOn"));
+        upgradeOff = new TextureRegionDrawable(textureAtlas.findRegion("Shop/upgradeOff"));
+        upgradeOn = new TextureRegionDrawable(textureAtlas.findRegion("Shop/upgradeOn"));
 
-        pixelNegro = new NinePatchDrawable(new NinePatch(
-                atlas.findRegion("MenuPrincipal/pixelNegro"), 1, 1, 0, 0));
+        blackPixel = new NinePatchDrawable(new NinePatch(textureAtlas.findRegion("MenuPrincipal/pixelNegro"), 1, 1, 0, 0));
 
-        AtlasRegion per1 = atlas.findRegion("moneda1");
-        AtlasRegion per2 = atlas.findRegion("moneda2");
-        AtlasRegion per3 = atlas.findRegion("moneda3");
-        moneda = per1;
-        animMoneda = new Animation<>(.15f, per1, per2, per3, per2);
+        AtlasRegion per1 = textureAtlas.findRegion("moneda1");
+        AtlasRegion per2 = textureAtlas.findRegion("moneda2");
+        AtlasRegion per3 = textureAtlas.findRegion("moneda3");
+        coinsRegion = per1;
+        coinAnimation = new Animation<>(.15f, per1, per2, per3, per2);
 
-        flapAzul = atlas.findRegion("InGame/flapAzul");
-        flapSpawn = atlas.findRegion("InGame/flapSpawn");
+        flapBlueRegion = textureAtlas.findRegion("InGame/flapAzul");
+        flapSpawnRegion = textureAtlas.findRegion("InGame/flapSpawn");
 
-        AtlasRegion flap1 = atlas.findRegion("InGame/flapAzulAlas1");
-        AtlasRegion flap2 = atlas.findRegion("InGame/flapAzulAlas2");
-        AtlasRegion flap3 = atlas.findRegion("InGame/flapAzulAlas3");
-        animflapAlasAzul = new Animation<>(.15f, flap1, flap2, flap3, flap2);
+        AtlasRegion flap1 = textureAtlas.findRegion("InGame/flapAzulAlas1");
+        AtlasRegion flap2 = textureAtlas.findRegion("InGame/flapAzulAlas2");
+        AtlasRegion flap3 = textureAtlas.findRegion("InGame/flapAzulAlas3");
+        blueWingsFlapAnimation = new Animation<>(.15f, flap1, flap2, flap3, flap2);
 
-        flap1 = atlas.findRegion("InGame/flapRojoAlas1");
-        flap2 = atlas.findRegion("InGame/flapRojoAlas2");
-        flap3 = atlas.findRegion("InGame/flapRojoAlas3");
-        animflapAlasRojo = new Animation<>(.15f, flap1, flap2, flap3, flap2);
-        animEvolving = new Animation<>(.075f, flapAzul, flap1, flapAzul, flap2,
-                flapAzul, flap3);
+        flap1 = textureAtlas.findRegion("InGame/flapRojoAlas1");
+        flap2 = textureAtlas.findRegion("InGame/flapRojoAlas2");
+        flap3 = textureAtlas.findRegion("InGame/flapRojoAlas3");
+        redWingsFlapAnimation = new Animation<>(.15f, flap1, flap2, flap3, flap2);
+        evolvingFlapAnimation = new Animation<>(.075f, flapBlueRegion, flap1, flapBlueRegion, flap2, flapBlueRegion, flap3);
 
-        flap1 = atlas.findRegion("InGame/plataformFire1");
-        flap2 = atlas.findRegion("InGame/plataformFire2");
-        flap3 = atlas.findRegion("InGame/plataformFire3");
-        animPlataformFire = new Animation<>(.15f, flap1, flap2, flap3, flap2);
+        flap1 = textureAtlas.findRegion("InGame/plataformFire1");
+        flap2 = textureAtlas.findRegion("InGame/plataformFire2");
+        flap3 = textureAtlas.findRegion("InGame/plataformFire3");
+        platformFireAnimation = new Animation<>(.15f, flap1, flap2, flap3, flap2);
 
-        flap1 = atlas.findRegion("InGame/plataforma2");
-        flap2 = atlas.findRegion("InGame/plataforma3");
-        flap3 = atlas.findRegion("InGame/plataforma4");
-        plataformBreakable = new Animation<>(.1f, flap1, flap2, flap3);
-        plataforma = atlas.findRegion("InGame/plataforma1");
+        flap1 = textureAtlas.findRegion("InGame/plataforma2");
+        flap2 = textureAtlas.findRegion("InGame/plataforma3");
+        flap3 = textureAtlas.findRegion("InGame/plataforma4");
+        platformBreakAnimation = new Animation<>(.1f, flap1, flap2, flap3);
+        platform = textureAtlas.findRegion("InGame/plataforma1");
 
-        flap1 = atlas.findRegion("InGame/slam1");
-        flap2 = atlas.findRegion("InGame/slam2");
-        flap3 = atlas.findRegion("InGame/slam3");
-        slam = new Animation<>(.1f, flap1, flap2, flap3);
+        flap1 = textureAtlas.findRegion("InGame/slam1");
+        flap2 = textureAtlas.findRegion("InGame/slam2");
+        flap3 = textureAtlas.findRegion("InGame/slam3");
+        slamAnimation = new Animation<>(.1f, flap1, flap2, flap3);
 
-        boostInvencible = atlas.findRegion("InGame/boostInvencible");
-        boostCoinRain = atlas.findRegion("InGame/boostCoinRain");
-        boostIce = atlas.findRegion("InGame/boostIce");
-        boostSuperSalto = atlas.findRegion("InGame/boostSuperSalto");
-        boosts = atlas.findRegion("InGame/boosts");
+        invincibilityBoost = textureAtlas.findRegion("InGame/boostInvencible");
+        coinRainBoost = textureAtlas.findRegion("InGame/boostCoinRain");
+        freezeBoost = textureAtlas.findRegion("InGame/boostIce");
+        superJumpBoost = textureAtlas.findRegion("InGame/boostSuperSalto");
+        boosts = textureAtlas.findRegion("InGame/boosts");
 
-        animBoostEndInvencible = new Animation<>(.15f, boostInvencible,
-                pixelTransparente);
-        animBoostEndSuperSalto = new Animation<>(.15f, boostSuperSalto,
-                pixelTransparente);
+        invincibilityBoostEndAnimation = new Animation<>(.15f, invincibilityBoost, transparentPixelRegion);
+        superJumpBoostEndAnimation = new Animation<>(.15f, superJumpBoost, transparentPixelRegion);
 
-        btAchievements = new TextureRegionDrawable(
-                atlas.findRegion("MenuPrincipal/btAchievements"));
-        btLeaderboard = new TextureRegionDrawable(
-                atlas.findRegion("MenuPrincipal/btLeaderboard"));
-        btMore = new TextureRegionDrawable(
-                atlas.findRegion("MenuPrincipal/btMore"));
-        btRate = new TextureRegionDrawable(
-                atlas.findRegion("MenuPrincipal/btRate"));
-        btShop = new TextureRegionDrawable(
-                atlas.findRegion("MenuPrincipal/btShop"));
-        btFacebook = new TextureRegionDrawable(
-                atlas.findRegion("MenuPrincipal/btFacebook"));
-        btTwitter = new TextureRegionDrawable(
-                atlas.findRegion("MenuPrincipal/btTwitter"));
+        buttonAchievements = new TextureRegionDrawable(textureAtlas.findRegion("MenuPrincipal/btAchievements"));
+        buttonLeaderboard = new TextureRegionDrawable(textureAtlas.findRegion("MenuPrincipal/btLeaderboard"));
+        buttonMore = new TextureRegionDrawable(textureAtlas.findRegion("MenuPrincipal/btMore"));
+        buttonRate = new TextureRegionDrawable(textureAtlas.findRegion("MenuPrincipal/btRate"));
+        buttonShop = new TextureRegionDrawable(textureAtlas.findRegion("MenuPrincipal/btShop"));
+        buttonFacebook = new TextureRegionDrawable(textureAtlas.findRegion("MenuPrincipal/btFacebook"));
+        buttonTwitter = new TextureRegionDrawable(textureAtlas.findRegion("MenuPrincipal/btTwitter"));
 
-        num0Grande = atlas.findRegion("Numeros/num0");
-        num1Grande = atlas.findRegion("Numeros/num1");
-        num2Grande = atlas.findRegion("Numeros/num2");
-        num3Grande = atlas.findRegion("Numeros/num3");
-        num4Grande = atlas.findRegion("Numeros/num4");
-        num5Grande = atlas.findRegion("Numeros/num5");
-        num6Grande = atlas.findRegion("Numeros/num6");
-        num7Grande = atlas.findRegion("Numeros/num7");
-        num8Grande = atlas.findRegion("Numeros/num8");
-        num9Grande = atlas.findRegion("Numeros/num9");
+        largeNum0 = textureAtlas.findRegion("Numeros/num0");
+        largeNum1 = textureAtlas.findRegion("Numeros/num1");
+        largeNum2 = textureAtlas.findRegion("Numeros/num2");
+        largeNum3 = textureAtlas.findRegion("Numeros/num3");
+        largeNum4 = textureAtlas.findRegion("Numeros/num4");
+        largeNum5 = textureAtlas.findRegion("Numeros/num5");
+        largeNum6 = textureAtlas.findRegion("Numeros/num6");
+        largeNum7 = textureAtlas.findRegion("Numeros/num7");
+        largeNum8 = textureAtlas.findRegion("Numeros/num8");
+        largeNum9 = textureAtlas.findRegion("Numeros/num9");
 
-        num0Chico = atlas.findRegion("Numeros/0");
-        num1Chico = atlas.findRegion("Numeros/1");
-        num2Chico = atlas.findRegion("Numeros/2");
-        num3Chico = atlas.findRegion("Numeros/3");
-        num4Chico = atlas.findRegion("Numeros/4");
-        num5Chico = atlas.findRegion("Numeros/5");
-        num6Chico = atlas.findRegion("Numeros/6");
-        num7Chico = atlas.findRegion("Numeros/7");
-        num8Chico = atlas.findRegion("Numeros/8");
-        num9Chico = atlas.findRegion("Numeros/9");
+        smallNum0 = textureAtlas.findRegion("Numeros/0");
+        smallNum1 = textureAtlas.findRegion("Numeros/1");
+        smallNum2 = textureAtlas.findRegion("Numeros/2");
+        smallNum3 = textureAtlas.findRegion("Numeros/3");
+        smallNum4 = textureAtlas.findRegion("Numeros/4");
+        smallNum5 = textureAtlas.findRegion("Numeros/5");
+        smallNum6 = textureAtlas.findRegion("Numeros/6");
+        smallNum7 = textureAtlas.findRegion("Numeros/7");
+        smallNum8 = textureAtlas.findRegion("Numeros/8");
+        smallNum9 = textureAtlas.findRegion("Numeros/9");
 
         Settings.load();
 
         // Must be called after loading settings
-        cargarPersonaje();
+        drawPlayer();
 
-        soundCoin = Gdx.audio.newSound(Gdx.files
-                .internal("data/Sounds/pickCoin.mp3"));
-        soundJump = Gdx.audio.newSound(Gdx.files
-                .internal("data/Sounds/salto.mp3"));
-        soundBoost = Gdx.audio.newSound(Gdx.files
-                .internal("data/Sounds/pickBoost.mp3"));
+        soundCoin = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/pickCoin.mp3"));
+        soundJump = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/salto.mp3"));
+        soundBoost = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/pickBoost.mp3"));
 
-        musica = Gdx.audio.newMusic(Gdx.files
+        music = Gdx.audio.newMusic(Gdx.files
                 .internal("data/Sounds/musica.mp3"));
 
-        musica.setLooping(true);
+        music.setLooping(true);
 
         if (Settings.isMusicOn)
             playMusic();
@@ -362,10 +324,10 @@ public class Assets {
     }
 
     public static void playMusic() {
-        musica.play();
+        music.play();
     }
 
     public static void pauseMusic() {
-        musica.pause();
+        music.pause();
     }
 }

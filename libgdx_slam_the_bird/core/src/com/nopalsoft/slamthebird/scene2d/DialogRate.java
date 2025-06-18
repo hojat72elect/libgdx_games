@@ -16,12 +16,12 @@ public class DialogRate extends Dialog {
         setY(300);
         setBackGround();
 
-        Label labelTitle = new Label("Support this game", Assets.styleLabelChico);
+        Label labelTitle = new Label("Support this game", Assets.smallLabelStyle);
         labelTitle.setPosition(getWidth() / 2f - labelTitle.getWidth() / 2f, 210);
 
         Label labelDescription = new Label(
                 "Hello, thank you for playing Slam the Bird.\nHelp us to support this game. Just rate us at the app store.",
-                Assets.styleLabelChico);
+                Assets.smallLabelStyle);
         labelDescription.setSize(getWidth() - 20, 170);
         labelDescription.setPosition(getWidth() / 2f - labelDescription.getWidth() / 2f,
                 50);
@@ -29,7 +29,7 @@ public class DialogRate extends Dialog {
 
         TextButton buttonRate = new TextButton("Rate",
                 Assets.styleTextButtonPurchased);
-        screen.addEfectoPress(buttonRate);
+        screen.addPressEffect(buttonRate);
         buttonRate.getLabel().setWrap(true);
         buttonRate.addListener(new ClickListener() {
             @Override
@@ -40,7 +40,7 @@ public class DialogRate extends Dialog {
 
         TextButton btNotNow = new TextButton("Not now",
                 Assets.styleTextButtonSelected);
-        screen.addEfectoPress(btNotNow);
+        screen.addPressEffect(btNotNow);
         btNotNow.getLabel().setWrap(true);
         btNotNow.addListener(new ClickListener() {
             @Override

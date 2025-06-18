@@ -65,17 +65,17 @@ public class GetCoinsSubMenu {
         addEfectoPress(buttonBuy50MCoins);
 
         // Facebook Like
-        tableContainer.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+        tableContainer.add(new Image(Assets.horizontalSeparator)).expandX().fill()
                 .height(5);
         tableContainer.row();
         tableContainer
                 .add(agregarPersonajeTabla(facebookLikeCoinBonus,
-                        Assets.btFacebook, "Like us on facebook and get "
+                        Assets.buttonFacebook, "Like us on facebook and get "
                                 + facebookLikeCoinBonus + " coins",
                         buttonLikeFacebook)).expandX().fill();
         tableContainer.row();
 
-        TextureRegionDrawable moneda = new TextureRegionDrawable(Assets.moneda);
+        TextureRegionDrawable moneda = new TextureRegionDrawable(Assets.coinsRegion);
         // Venta de monedas
 
 
@@ -117,18 +117,18 @@ public class GetCoinsSubMenu {
     private Table agregarPersonajeTabla(int numMonedasToGet,
                                         TextureRegionDrawable imagen, String descripcion, TextButton boton) {
 
-        Image moneda = new Image(Assets.moneda);
+        Image moneda = new Image(Assets.coinsRegion);
         Image imgPersonaje = new Image(imagen);
 
         Table tbBarraTitulo = new Table();
         tbBarraTitulo
-                .add(new Label("Get " + numMonedasToGet, Assets.styleLabelChico))
+                .add(new Label("Get " + numMonedasToGet, Assets.smallLabelStyle))
                 .left().padLeft(5);
         tbBarraTitulo.add(moneda).left().expandX().padLeft(5);
 
         Table tbDescrip = new Table();
         tbDescrip.add(imgPersonaje).left().pad(10).size(55, 45);
-        Label lblDescripcion = new Label(descripcion, Assets.styleLabelChico);
+        Label lblDescripcion = new Label(descripcion, Assets.smallLabelStyle);
         lblDescripcion.setWrap(true);
         tbDescrip.add(lblDescripcion).expand().fill().padLeft(5);
 
@@ -141,7 +141,7 @@ public class GetCoinsSubMenu {
         tbContent.add(boton).right().padRight(10).size(120, 45);
 
         tbContent.row().colspan(2);
-        tbContent.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+        tbContent.add(new Image(Assets.horizontalSeparator)).expandX().fill()
                 .height(5).padTop(15);
 
         return tbContent;

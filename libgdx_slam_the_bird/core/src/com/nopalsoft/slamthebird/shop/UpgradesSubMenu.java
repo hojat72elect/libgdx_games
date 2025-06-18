@@ -52,30 +52,30 @@ public class UpgradesSubMenu {
         if (Settings.BOOST_DURATION < MAX_LEVEL)
             labelPriceTime = new Label(
                     getPriceForLevel(Settings.BOOST_DURATION) + "",
-                    Assets.styleLabelChico);
+                    Assets.smallLabelStyle);
 
         if (Settings.BOOST_FREEZE < MAX_LEVEL)
             labelPriceFreeze = new Label(getPriceForLevel(Settings.BOOST_FREEZE)
-                    + "", Assets.styleLabelChico);
+                    + "", Assets.smallLabelStyle);
 
         if (Settings.BOOST_COINS < MAX_LEVEL)
             labelPriceCoins = new Label(
                     getPriceForLevel(Settings.BOOST_COINS) + "",
-                    Assets.styleLabelChico);
+                    Assets.smallLabelStyle);
 
         if (Settings.BOOST_SUPER_JUMP < MAX_LEVEL)
             labelPriceSuperJump = new Label(
                     getPriceForLevel(Settings.BOOST_SUPER_JUMP) + "",
-                    Assets.styleLabelChico);
+                    Assets.smallLabelStyle);
 
         if (Settings.BOOST_INVINCIBLE < MAX_LEVEL)
             labelPriceInvincible = new Label(
                     getPriceForLevel(Settings.BOOST_INVINCIBLE) + "",
-                    Assets.styleLabelChico);
+                    Assets.smallLabelStyle);
 
         initializeButtons();
 
-        tableContainer.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+        tableContainer.add(new Image(Assets.horizontalSeparator)).expandX().fill()
                 .height(5);
         tableContainer.row();
 
@@ -90,7 +90,7 @@ public class UpgradesSubMenu {
         // Upgrade Super Jump
         tableContainer
                 .add(addPlayerTable("Super jump", labelPriceSuperJump,
-                        Assets.boostSuperSalto,
+                        Assets.superJumpBoost,
                         "Super jump power up will last more time",
                         arrayBoostSuperJump, buttonSuperJump)).expandX()
                 .fill();
@@ -99,14 +99,14 @@ public class UpgradesSubMenu {
         // Upgrade Ice
         tableContainer
                 .add(addPlayerTable("Freeze enemies", labelPriceFreeze,
-                        Assets.boostIce, "Enemies will last more time frozen",
+                        Assets.freezeBoost, "Enemies will last more time frozen",
                         arrayBoostFreeze, buttonFreeze)).expandX().fill();
         tableContainer.row();
 
         // Upgrade Invencible
         tableContainer
                 .add(addPlayerTable("Invencible", labelPriceInvincible,
-                        Assets.boostInvencible,
+                        Assets.invincibilityBoost,
                         "The invencible power-up will last more time",
                         arrayBoostInvincible, buttonInvincible)).expandX()
                 .fill();
@@ -117,7 +117,7 @@ public class UpgradesSubMenu {
                 .add(addPlayerTable(
                         "Coin rain",
                         labelPriceCoins,
-                        Assets.boostCoinRain,
+                        Assets.coinRainBoost,
                         "More coins will fall down when the coin rain power-up is taken",
                         arrayBoostCoins, buttonCoins)).expandX().fill();
         tableContainer.row();
@@ -129,21 +129,21 @@ public class UpgradesSubMenu {
                                  AtlasRegion imageAtlasRegion, String description, Image[] levels,
                                  TextButton button) {
 
-        Image imageCoin = new Image(Assets.moneda);
+        Image imageCoin = new Image(Assets.coinsRegion);
         Image imagePlayer = new Image(imageAtlasRegion);
 
         if (labelPrice == null)
             imageCoin.setVisible(false);
 
         Table tableTitleBar = new Table();
-        tableTitleBar.add(new Label(title, Assets.styleLabelChico)).expandX()
+        tableTitleBar.add(new Label(title, Assets.smallLabelStyle)).expandX()
                 .left().padLeft(5);
         tableTitleBar.add(imageCoin).right();
         tableTitleBar.add(labelPrice).right().padRight(10);
 
         Table tableDescription = new Table();
         tableDescription.add(imagePlayer).left().pad(10).size(55, 45);
-        Label labelDescription = new Label(description, Assets.styleLabelChico);
+        Label labelDescription = new Label(description, Assets.smallLabelStyle);
         labelDescription.setWrap(true);
         tableDescription.add(labelDescription).expand().fill().padLeft(5);
 
@@ -164,7 +164,7 @@ public class UpgradesSubMenu {
         tableContent.add(button).right().padRight(10).size(120, 45);
 
         tableContent.row().colspan(2);
-        tableContent.add(new Image(Assets.separadorHorizontal)).expandX().fill()
+        tableContent.add(new Image(Assets.horizontalSeparator)).expandX().fill()
                 .height(5).padTop(15);
 
         return tableContent;
