@@ -27,8 +27,7 @@ public class DialogRate extends Dialog {
                 50);
         labelDescription.setWrap(true);
 
-        TextButton buttonRate = new TextButton("Rate",
-                Assets.styleTextButtonPurchased);
+        TextButton buttonRate = new TextButton("Rate", Assets.styleTextButtonPurchased);
         screen.addPressEffect(buttonRate);
         buttonRate.getLabel().setWrap(true);
         buttonRate.addListener(new ClickListener() {
@@ -38,11 +37,10 @@ public class DialogRate extends Dialog {
             }
         });
 
-        TextButton btNotNow = new TextButton("Not now",
-                Assets.styleTextButtonSelected);
-        screen.addPressEffect(btNotNow);
-        btNotNow.getLabel().setWrap(true);
-        btNotNow.addListener(new ClickListener() {
+        TextButton buttonNotNow = new TextButton("Not now", Assets.styleTextButtonSelected);
+        screen.addPressEffect(buttonNotNow);
+        buttonNotNow.getLabel().setWrap(true);
+        buttonNotNow.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 hide();
@@ -55,7 +53,7 @@ public class DialogRate extends Dialog {
 
         tableButtons.defaults().uniform().expand().center().fill().pad(10);
         tableButtons.add(buttonRate);
-        tableButtons.add(btNotNow);
+        tableButtons.add(buttonNotNow);
 
         addActor(labelDescription);
         addActor(tableButtons);

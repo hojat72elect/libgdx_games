@@ -1,4 +1,4 @@
-package com.nopalsoft.slamthebird.objetos;
+package com.nopalsoft.slamthebird.game_objects;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -30,8 +30,8 @@ public class PowerUp implements Poolable {
         position = new Vector2();
     }
 
-    public void init(WorldGame oWorld, float x, float y, int tipo) {
-        this.type = tipo;
+    public void init(WorldGame oWorld, float x, float y, int type) {
+        this.type = type;
         position.set(x, y);
         stateTime = 0;
         state = STATE_NORMAL;
@@ -46,14 +46,14 @@ public class PowerUp implements Poolable {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(.15f, .15f);
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.density = 8;
-        fixture.restitution = 0;
-        fixture.friction = 0;
-        fixture.isSensor = true;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.density = 8;
+        fixtureDefinition.restitution = 0;
+        fixtureDefinition.friction = 0;
+        fixtureDefinition.isSensor = true;
 
-        body.createFixture(fixture);
+        body.createFixture(fixtureDefinition);
 
         body.setUserData(this);
         shape.dispose();

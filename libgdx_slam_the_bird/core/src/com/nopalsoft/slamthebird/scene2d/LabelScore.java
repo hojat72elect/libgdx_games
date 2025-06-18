@@ -18,8 +18,8 @@ public class LabelScore extends Actor {
         drawLargeNumberCenteredX(batch, this.getX(), this.getY(), score);
     }
 
-    public void drawLargeNumberCenteredX(Batch batcher, float x, float y, int puntuacion) {
-        String score = String.valueOf(puntuacion);
+    public void drawLargeNumberCenteredX(Batch batcher, float x, float y, int newScore) {
+        String score = String.valueOf(newScore);
 
         int len = score.length();
         float charWidth = 42;

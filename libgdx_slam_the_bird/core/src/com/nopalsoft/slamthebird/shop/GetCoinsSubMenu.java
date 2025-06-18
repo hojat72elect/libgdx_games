@@ -34,7 +34,7 @@ public class GetCoinsSubMenu {
         if (Settings.didLikeFacebook)
             buttonLikeFacebook = new TextButton("Visit Us",
                     Assets.styleTextButtonSelected);
-        addEfectoPress(buttonLikeFacebook);
+        addPressEffect(buttonLikeFacebook);
         buttonLikeFacebook.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -53,101 +53,97 @@ public class GetCoinsSubMenu {
         });
 
         buttonBuy5MCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
-        addEfectoPress(buttonBuy5MCoins);
+        addPressEffect(buttonBuy5MCoins);
 
         buttonBuy15MCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
-        addEfectoPress(buttonBuy15MCoins);
+        addPressEffect(buttonBuy15MCoins);
 
         buttonBuy30MCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
-        addEfectoPress(buttonBuy30MCoins);
+        addPressEffect(buttonBuy30MCoins);
 
         buttonBuy50MCoins = new TextButton("Buy", Assets.styleTextButtonBuy);
-        addEfectoPress(buttonBuy50MCoins);
+        addPressEffect(buttonBuy50MCoins);
 
-        // Facebook Like
         tableContainer.add(new Image(Assets.horizontalSeparator)).expandX().fill()
                 .height(5);
         tableContainer.row();
         tableContainer
-                .add(agregarPersonajeTabla(facebookLikeCoinBonus,
+                .add(createPlayerTable(facebookLikeCoinBonus,
                         Assets.buttonFacebook, "Like us on facebook and get "
                                 + facebookLikeCoinBonus + " coins",
                         buttonLikeFacebook)).expandX().fill();
         tableContainer.row();
 
-        TextureRegionDrawable moneda = new TextureRegionDrawable(Assets.coinsRegion);
-        // Venta de monedas
+        TextureRegionDrawable coinDrawable = new TextureRegionDrawable(Assets.coinsRegion);
 
-
-        // Comprar 5mil
         tableContainer
-                .add(agregarPersonajeTabla(
+                .add(createPlayerTable(
                         5000,
-                        moneda,
+                        coinDrawable,
                         "Coin simple pack. A quick way to buy simple upgrades",
                         buttonBuy5MCoins)).expandX().fill();
         tableContainer.row();
 
-        // Comprar 15mil
+
         tableContainer
-                .add(agregarPersonajeTabla(
+                .add(createPlayerTable(
                         15000,
-                        moneda,
+                        coinDrawable,
                         "Coin super pack. Get some cash for upgrades and characters",
                         buttonBuy15MCoins)).expandX().fill();
         tableContainer.row();
 
         tableContainer
-                .add(agregarPersonajeTabla(
+                .add(createPlayerTable(
                         30000,
-                        moneda,
+                        coinDrawable,
                         "Coin mega pack. You can buy a lot of characters and upgrades",
                         buttonBuy30MCoins)).expandX().fill();
         tableContainer.row();
 
         tableContainer
-                .add(agregarPersonajeTabla(
+                .add(createPlayerTable(
                         50000,
-                        moneda,
+                        coinDrawable,
                         "Coin super mega pack. Get this pack and you will be slamming in cash",
                         buttonBuy50MCoins)).expandX().fill();
         tableContainer.row();
     }
 
-    private Table agregarPersonajeTabla(int numMonedasToGet,
-                                        TextureRegionDrawable imagen, String descripcion, TextButton boton) {
+    private Table createPlayerTable(int numCoinsToGet,
+                                    TextureRegionDrawable imageDrawable, String description, TextButton button) {
 
-        Image moneda = new Image(Assets.coinsRegion);
-        Image imgPersonaje = new Image(imagen);
+        Image coinImage = new Image(Assets.coinsRegion);
+        Image playerImage = new Image(imageDrawable);
 
-        Table tbBarraTitulo = new Table();
-        tbBarraTitulo
-                .add(new Label("Get " + numMonedasToGet, Assets.smallLabelStyle))
+        Table titleBarTable = new Table();
+        titleBarTable
+                .add(new Label("Get " + numCoinsToGet, Assets.smallLabelStyle))
                 .left().padLeft(5);
-        tbBarraTitulo.add(moneda).left().expandX().padLeft(5);
+        titleBarTable.add(coinImage).left().expandX().padLeft(5);
 
-        Table tbDescrip = new Table();
-        tbDescrip.add(imgPersonaje).left().pad(10).size(55, 45);
-        Label lblDescripcion = new Label(descripcion, Assets.smallLabelStyle);
-        lblDescripcion.setWrap(true);
-        tbDescrip.add(lblDescripcion).expand().fill().padLeft(5);
+        Table descriptionTable = new Table();
+        descriptionTable.add(playerImage).left().pad(10).size(55, 45);
+        Label descriptionLabel = new Label(description, Assets.smallLabelStyle);
+        descriptionLabel.setWrap(true);
+        descriptionTable.add(descriptionLabel).expand().fill().padLeft(5);
 
-        Table tbContent = new Table();
-        tbContent.add(tbBarraTitulo).expandX().fill().colspan(2).padTop(8);
-        tbContent.row().colspan(2);
-        tbContent.add(tbDescrip).expandX().fill();
-        tbContent.row().colspan(2);
+        Table contentTable = new Table();
+        contentTable.add(titleBarTable).expandX().fill().colspan(2).padTop(8);
+        contentTable.row().colspan(2);
+        contentTable.add(descriptionTable).expandX().fill();
+        contentTable.row().colspan(2);
 
-        tbContent.add(boton).right().padRight(10).size(120, 45);
+        contentTable.add(button).right().padRight(10).size(120, 45);
 
-        tbContent.row().colspan(2);
-        tbContent.add(new Image(Assets.horizontalSeparator)).expandX().fill()
+        contentTable.row().colspan(2);
+        contentTable.add(new Image(Assets.horizontalSeparator)).expandX().fill()
                 .height(5).padTop(15);
 
-        return tbContent;
+        return contentTable;
     }
 
-    protected void addEfectoPress(final Actor actor) {
+    protected void addPressEffect(final Actor actor) {
         actor.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,

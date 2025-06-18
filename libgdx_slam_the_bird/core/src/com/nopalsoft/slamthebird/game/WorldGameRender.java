@@ -5,11 +5,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.nopalsoft.slamthebird.Assets;
-import com.nopalsoft.slamthebird.objetos.Coin;
-import com.nopalsoft.slamthebird.objetos.Enemy;
-import com.nopalsoft.slamthebird.objetos.Platform;
-import com.nopalsoft.slamthebird.objetos.Player;
-import com.nopalsoft.slamthebird.objetos.PowerUp;
+import com.nopalsoft.slamthebird.game_objects.Coin;
+import com.nopalsoft.slamthebird.game_objects.Enemy;
+import com.nopalsoft.slamthebird.game_objects.Platform;
+import com.nopalsoft.slamthebird.game_objects.Player;
+import com.nopalsoft.slamthebird.game_objects.PowerUp;
 import com.nopalsoft.slamthebird.screens.BaseScreen;
 
 public class WorldGameRender {
@@ -50,21 +50,21 @@ public class WorldGameRender {
 
         batch.enableBlending();
 
-        renderFondo();
-        renderPlataformas();
-        renderBoost();
-        renderCoins();
-        renderEnemies();
-        renderPlayer();
+        drawBackground();
+        drawPlatforms();
+        drawPowerUps();
+        drawCoins();
+        drawEnemies();
+        drawPlayer();
 
         batch.end();
     }
 
-    private void renderFondo() {
+    private void drawBackground() {
         batch.draw(Assets.background, 0, 0, WIDTH, HEIGHT + 3);
     }
 
-    private void renderPlataformas() {
+    private void drawPlatforms() {
 
         for (Platform obj : worldGame.arrayPlatforms) {
             TextureRegion keyFrame = Assets.platform;
@@ -95,62 +95,62 @@ public class WorldGameRender {
         }
     }
 
-    private void renderBoost() {
+    private void drawPowerUps() {
 
-        for (PowerUp obj : worldGame.arrayPowerUps) {
-            TextureRegion keyFrame = switch (obj.type) {
+        for (PowerUp powerUp : worldGame.arrayPowerUps) {
+            TextureRegion keyFrame = switch (powerUp.type) {
                 case PowerUp.TYPE_COIN_RAIN -> Assets.coinRainBoost;
                 case PowerUp.TYPE_FREEZE -> Assets.freezeBoost;
                 case PowerUp.TYPE_SUPER_JUMP -> Assets.superJumpBoost;
                 default -> Assets.invincibilityBoost;
             };
 
-            batch.draw(keyFrame, obj.position.x - .175f,
-                    obj.position.y - .15f, .35f, .3f);
+            batch.draw(keyFrame, powerUp.position.x - .175f,
+                    powerUp.position.y - .15f, .35f, .3f);
         }
     }
 
-    private void renderCoins() {
+    private void drawCoins() {
 
-        for (Coin obj : worldGame.arrayCoins) {
-            batch.draw(Assets.coinAnimation.getKeyFrame(obj.stateTime, true),
-                    obj.position.x - .15f, obj.position.y - .15f, .3f, .34f);
+        for (Coin coin : worldGame.arrayCoins) {
+            batch.draw(Assets.coinAnimation.getKeyFrame(coin.stateTime, true),
+                    coin.position.x - .15f, coin.position.y - .15f, .3f, .34f);
         }
     }
 
-    public void renderEnemies() {
-        for (Enemy obj : worldGame.arrayEnemies) {
-            if (obj.state == Enemy.STATE_JUST_APPEARED) {
-                batch.draw(Assets.flapSpawnRegion, obj.position.x - .25f,
-                        obj.position.y - .25f, .25f, .25f, .5f, .5f,
-                        obj.visualScale, obj.visualScale, 0);
+    public void drawEnemies() {
+        for (Enemy enemy : worldGame.arrayEnemies) {
+            if (enemy.state == Enemy.STATE_JUST_APPEARED) {
+                batch.draw(Assets.flapSpawnRegion, enemy.position.x - .25f,
+                        enemy.position.y - .25f, .25f, .25f, .5f, .5f,
+                        enemy.visualScale, enemy.visualScale, 0);
                 continue;
             }
 
             TextureRegion keyFrame;
-            if (obj.state == Enemy.STATE_FLYING) {
-                if (obj.lives >= 3)
+            if (enemy.state == Enemy.STATE_FLYING) {
+                if (enemy.lives >= 3)
                     keyFrame = Assets.redWingsFlapAnimation.getKeyFrame(
-                            obj.stateTime, true);
+                            enemy.stateTime, true);
                 else
                     keyFrame = Assets.blueWingsFlapAnimation.getKeyFrame(
-                            obj.stateTime, true);
-            } else if (obj.state == Enemy.STATE_EVOLVING) {
-                keyFrame = Assets.evolvingFlapAnimation.getKeyFrame(obj.stateTime, true);
+                            enemy.stateTime, true);
+            } else if (enemy.state == Enemy.STATE_EVOLVING) {
+                keyFrame = Assets.evolvingFlapAnimation.getKeyFrame(enemy.stateTime, true);
             } else {
                 keyFrame = Assets.flapBlueRegion;
             }
 
-            if (obj.velocity.x > 0)
-                batch.draw(keyFrame, obj.position.x - .285f,
-                        obj.position.y - .21f, .57f, .42f);
+            if (enemy.velocity.x > 0)
+                batch.draw(keyFrame, enemy.position.x - .285f,
+                        enemy.position.y - .21f, .57f, .42f);
             else
-                batch.draw(keyFrame, obj.position.x + .285f,
-                        obj.position.y - .21f, -.57f, .42f);
+                batch.draw(keyFrame, enemy.position.x + .285f,
+                        enemy.position.y - .21f, -.57f, .42f);
         }
     }
 
-    private void renderPlayer() {
+    private void drawPlayer() {
 
         Player obj = worldGame.player;
         TextureRegion keyFrame;
@@ -166,8 +166,6 @@ public class WorldGameRender {
         } else
             keyFrame = Assets.playerHitAnimation.getKeyFrame(obj.stateTime, true);
 
-        // c
-
         if (obj.velocity.x > .1f)
             batch.draw(keyFrame, obj.position.x - .3f, obj.position.y - .3f,
                     .3f, .3f, .6f, .6f, 1, 1, obj.angleDegrees);
@@ -179,15 +177,13 @@ public class WorldGameRender {
                     obj.position.y - .3f, .3f, .3f, .6f, .6f, 1, 1,
                     obj.angleDegrees);
 
-        // TODO el personaje cuando se muere no tiene velocidad por lo que no aparece el keyframe sino que agarra assetspersonaje
-
-        // Esto renderear los boost arriba de la cabeza del personaje
-        renderBoostActivo(obj);
+        // This will render the boosts above the character's head.
+        drawActivePowerUp(obj);
     }
 
-    private void renderBoostActivo(Player obj) {
+    private void drawActivePowerUp(Player obj) {
         if (obj.isInvincible || obj.isSuperJump) {
-            float timeToAlert = 2.5f;// Tiempo para que empieze a parpaderar el boost
+            float timeToAlert = 2.5f;// Time for the boost to start flashing
             TextureRegion boostKeyFrame;
             if (obj.isInvincible) {
                 if (obj.INVINCIBLE_DURATION - obj.invincibilityDuration <= timeToAlert) {
@@ -202,7 +198,6 @@ public class WorldGameRender {
                 } else
                     boostKeyFrame = Assets.superJumpBoost;
             }
-            // batcher.draw(boostKeyFrame, obj.position.x - .0875f, obj.position.y + .3f, .175f, .15f);
             batch.draw(boostKeyFrame, obj.position.x - .175f,
                     obj.position.y + .3f, .35f, .3f);
         }

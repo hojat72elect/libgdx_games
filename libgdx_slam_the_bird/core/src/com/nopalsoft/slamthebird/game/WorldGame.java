@@ -21,11 +21,11 @@ import com.badlogic.gdx.utils.Pool;
 import com.nopalsoft.slamthebird.Achievements;
 import com.nopalsoft.slamthebird.Assets;
 import com.nopalsoft.slamthebird.Settings;
-import com.nopalsoft.slamthebird.objetos.Coin;
-import com.nopalsoft.slamthebird.objetos.Enemy;
-import com.nopalsoft.slamthebird.objetos.Platform;
-import com.nopalsoft.slamthebird.objetos.Player;
-import com.nopalsoft.slamthebird.objetos.PowerUp;
+import com.nopalsoft.slamthebird.game_objects.Coin;
+import com.nopalsoft.slamthebird.game_objects.Enemy;
+import com.nopalsoft.slamthebird.game_objects.Platform;
+import com.nopalsoft.slamthebird.game_objects.Player;
+import com.nopalsoft.slamthebird.game_objects.PowerUp;
 import com.nopalsoft.slamthebird.screens.BaseScreen;
 
 import java.util.Random;
@@ -102,7 +102,7 @@ public class WorldGame {
 
         float posPiso = .6f;
         createWalls(posPiso);// .05
-        crearRobot(posPiso + .251f);
+        createPlayer(posPiso + .251f);
 
         createPlatforms(0 + Platform.WIDTH / 2f, 1.8f + posPiso);// Left Down
         createPlatforms(WIDTH - Platform.WIDTH / 2f + .1f, 1.8f + posPiso);// Down right
@@ -120,7 +120,7 @@ public class WorldGame {
         bodyDefinition.position.x = 0;
         bodyDefinition.position.y = 0;
         bodyDefinition.type = BodyType.StaticBody;
-        Body oBody = world.createBody(bodyDefinition);
+        Body body = world.createBody(bodyDefinition);
 
         ChainShape shape = new ChainShape();
         Vector2[] vertices = new Vector2[4];
@@ -130,50 +130,49 @@ public class WorldGame {
         vertices[3] = new Vector2(WIDTH, 50);
         shape.createChain(vertices);
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.restitution = 0;
-        fixture.friction = 0;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.restitution = 0;
+        fixtureDefinition.friction = 0;
 
-        oBody.createFixture(fixture);
-        oBody.setUserData("pared");
+        body.createFixture(fixtureDefinition);
+        body.setUserData("pared");
         shape.dispose();
 
-        // Piso
-        EdgeShape shapePiso = new EdgeShape();
-        shapePiso.set(0, 0, WIDTH, 0);
+        EdgeShape groundShape = new EdgeShape();
+        groundShape.set(0, 0, WIDTH, 0);
         bodyDefinition.position.y = floorYPosition;
-        Body oBodyPiso = world.createBody(bodyDefinition);
+        Body groundBody = world.createBody(bodyDefinition);
 
-        fixture.shape = shapePiso;
-        oBodyPiso.createFixture(fixture);
-        oBodyPiso.setUserData("piso");
+        fixtureDefinition.shape = groundShape;
+        groundBody.createFixture(fixtureDefinition);
+        groundBody.setUserData("piso");
 
-        shapePiso.dispose();
+        groundShape.dispose();
     }
 
-    private void crearRobot(float y) {
+    private void createPlayer(float y) {
         player = new Player((float) 2.4, y);
         BodyDef bd = new BodyDef();
         bd.position.x = (float) 2.4;
         bd.position.y = y;
         bd.type = BodyType.DynamicBody;
 
-        Body oBody = world.createBody(bd);
+        Body body = world.createBody(bd);
 
         CircleShape shape = new CircleShape();
         shape.setRadius(Player.RADIUS);
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.density = 5;
-        fixture.restitution = 0;
-        fixture.friction = 0;
-        oBody.createFixture(fixture);
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.density = 5;
+        fixtureDefinition.restitution = 0;
+        fixtureDefinition.friction = 0;
+        body.createFixture(fixtureDefinition);
 
-        oBody.setFixedRotation(true);
-        oBody.setUserData(player);
-        oBody.setBullet(true);
+        body.setFixedRotation(true);
+        body.setUserData(player);
+        body.setBullet(true);
 
         shape.dispose();
     }
@@ -184,12 +183,12 @@ public class WorldGame {
 
         Enemy obj = new Enemy(x, y);
         arrayEnemies.add(obj);
-        BodyDef bd = new BodyDef();
-        bd.position.x = x;
-        bd.position.y = y;
-        bd.type = BodyType.DynamicBody;
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.x = x;
+        bodyDefinition.position.y = y;
+        bodyDefinition.type = BodyType.DynamicBody;
 
-        Body body = world.createBody(bd);
+        Body body = world.createBody(bodyDefinition);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(Enemy.WIDTH / 2f, Enemy.HEIGHT / 2f);
@@ -491,7 +490,7 @@ public class WorldGame {
                 }
             } else if (otherObject instanceof Enemy obj) {
 
-                // Puedo tocar de la mitad del enemigo para arriba
+                // I can touch from the middle of the enemy up
                 float posRobot = player.position.y - Player.RADIUS;
                 float pisY = obj.position.y;
 

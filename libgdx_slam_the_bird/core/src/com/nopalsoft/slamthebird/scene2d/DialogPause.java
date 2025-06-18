@@ -20,16 +20,15 @@ public class DialogPause extends Dialog {
 
         gameScreen = (GameScreen) currentScreen;
 
-        Label lbTitle = new Label("Paused", Assets.smallLabelStyle);
-        lbTitle.setPosition(getWidth() / 2f - lbTitle.getWidth() / 2f, 210);
+        Label labelTitle = new Label("Paused", Assets.smallLabelStyle);
+        labelTitle.setPosition(getWidth() / 2f - labelTitle.getWidth() / 2f, 210);
 
-        TextButton btResume = new TextButton("Resume",
-                Assets.styleTextButtonPurchased);
-        screen.addPressEffect(btResume);
-        btResume.setSize(150, 50);
-        btResume.setPosition(getWidth() / 2f - btResume.getWidth() / 2f, 130);
-        btResume.getLabel().setWrap(true);
-        btResume.addListener(new ClickListener() {
+        TextButton buttonResume = new TextButton("Resume", Assets.styleTextButtonPurchased);
+        screen.addPressEffect(buttonResume);
+        buttonResume.setSize(150, 50);
+        buttonResume.setPosition(getWidth() / 2f - buttonResume.getWidth() / 2f, 130);
+        buttonResume.getLabel().setWrap(true);
+        buttonResume.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 hide();
@@ -37,13 +36,13 @@ public class DialogPause extends Dialog {
             }
         });
 
-        TextButton btMainMenu = new TextButton("Menu",
+        TextButton buttonMainMenu = new TextButton("Menu",
                 Assets.styleTextButtonPurchased);
-        screen.addPressEffect(btMainMenu);
-        btMainMenu.setSize(150, 50);
-        btMainMenu.setPosition(getWidth() / 2f - btResume.getWidth() / 2f, 40);
-        btMainMenu.getLabel().setWrap(true);
-        btMainMenu.addListener(new ClickListener() {
+        screen.addPressEffect(buttonMainMenu);
+        buttonMainMenu.setSize(150, 50);
+        buttonMainMenu.setPosition(getWidth() / 2f - buttonResume.getWidth() / 2f, 40);
+        buttonMainMenu.getLabel().setWrap(true);
+        buttonMainMenu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 hide();
@@ -51,8 +50,8 @@ public class DialogPause extends Dialog {
             }
         });
 
-        addActor(btResume);
-        addActor(btMainMenu);
-        addActor(lbTitle);
+        addActor(buttonResume);
+        addActor(buttonMainMenu);
+        addActor(labelTitle);
     }
 }

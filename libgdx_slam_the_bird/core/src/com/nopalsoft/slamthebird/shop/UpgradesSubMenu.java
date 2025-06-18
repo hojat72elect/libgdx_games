@@ -103,7 +103,7 @@ public class UpgradesSubMenu {
                         arrayBoostFreeze, buttonFreeze)).expandX().fill();
         tableContainer.row();
 
-        // Upgrade Invencible
+        // Upgrade Invincibility
         tableContainer
                 .add(addPlayerTable("Invencible", labelPriceInvincible,
                         Assets.invincibilityBoost,
@@ -112,7 +112,7 @@ public class UpgradesSubMenu {
                 .fill();
         tableContainer.row();
 
-        // Upgrade Monedas
+        // Upgrade Coins
         tableContainer
                 .add(addPlayerTable(
                         "Coin rain",

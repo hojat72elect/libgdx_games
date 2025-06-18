@@ -34,7 +34,7 @@ public class NoAdsSubMenu {
         buttonNoAds = new TextButton("Buy", Assets.styleTextButtonBuy);
         if (Settings.didBuyNoAds)
             buttonNoAds.setVisible(false);
-        addEfectoPress(buttonNoAds);
+        addPressEffect(buttonNoAds);
         buttonNoAds.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -50,46 +50,46 @@ public class NoAdsSubMenu {
         tableContainer.add(new Image(Assets.horizontalSeparator)).expandX().fill().height(5);
         tableContainer.row();
         tableContainer
-                .add(agregarPersonajeTabla(labelNoAds, Assets.buttonNoAds,
+                .add(createPlayerTable(labelNoAds, Assets.buttonNoAds,
                         buttonNoAds)).expandX().fill();
         tableContainer.row();
     }
 
-    private Table agregarPersonajeTabla(Label lblPrecio, TextureRegionDrawable imagen,
-                                        TextButton boton) {
+    private Table createPlayerTable(Label labelPrice, TextureRegionDrawable imageDrawable,
+                                    TextButton button) {
 
-        Image moneda = new Image(Assets.coinsRegion);
-        Image imgPersonaje = new Image(imagen);
+        Image coinImage = new Image(Assets.coinsRegion);
+        Image playerImage = new Image(imageDrawable);
 
-        if (lblPrecio == null)
-            moneda.setVisible(false);
+        if (labelPrice == null)
+            coinImage.setVisible(false);
 
-        Table tbBarraTitulo = new Table();
-        tbBarraTitulo.add(new Label("No more ads", Assets.smallLabelStyle)).expandX().left().padLeft(5);
-        tbBarraTitulo.add(moneda).right();
-        tbBarraTitulo.add(lblPrecio).right().padRight(10);
+        Table tableTitleBar = new Table();
+        tableTitleBar.add(new Label("No more ads", Assets.smallLabelStyle)).expandX().left().padLeft(5);
+        tableTitleBar.add(coinImage).right();
+        tableTitleBar.add(labelPrice).right().padRight(10);
 
-        Table tbDescrip = new Table();
-        tbDescrip.add(imgPersonaje).left().pad(10).size(55, 45);
-        Label lblDescripcion = new Label("Buy it and no more ads will apper in the app", Assets.smallLabelStyle);
-        lblDescripcion.setWrap(true);
-        tbDescrip.add(lblDescripcion).expand().fill().padLeft(5);
+        Table tableDescription = new Table();
+        tableDescription.add(playerImage).left().pad(10).size(55, 45);
+        Label labelDescription = new Label("Buy it and no more ads will apper in the app", Assets.smallLabelStyle);
+        labelDescription.setWrap(true);
+        tableDescription.add(labelDescription).expand().fill().padLeft(5);
 
-        Table tbContent = new Table();
-        tbContent.add(tbBarraTitulo).expandX().fill().colspan(2).padTop(8);
-        tbContent.row().colspan(2);
-        tbContent.add(tbDescrip).expandX().fill();
-        tbContent.row().colspan(2);
+        Table tableContent = new Table();
+        tableContent.add(tableTitleBar).expandX().fill().colspan(2).padTop(8);
+        tableContent.row().colspan(2);
+        tableContent.add(tableDescription).expandX().fill();
+        tableContent.row().colspan(2);
 
-        tbContent.add(boton).right().padRight(10).size(120, 45);
+        tableContent.add(button).right().padRight(10).size(120, 45);
 
-        tbContent.row().colspan(2);
-        tbContent.add(new Image(Assets.horizontalSeparator)).expandX().fill().height(5).padTop(15);
+        tableContent.row().colspan(2);
+        tableContent.add(new Image(Assets.horizontalSeparator)).expandX().fill().height(5).padTop(15);
 
-        return tbContent;
+        return tableContent;
     }
 
-    protected void addEfectoPress(final Actor actor) {
+    protected void addPressEffect(final Actor actor) {
         actor.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

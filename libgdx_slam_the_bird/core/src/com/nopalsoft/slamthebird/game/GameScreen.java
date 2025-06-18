@@ -42,8 +42,8 @@ public class GameScreen extends BaseScreen {
     Image appTitleImage;
     boolean isComboTextOnLeft;// This variable makes the combo text appear left then right then left, right, left
 
-    DialogRate ventanaRate;
-    DialogPause ventanaPause;
+    DialogRate dialogRate;
+    DialogPause dialogPause;
 
     public GameScreen(SlamTheBirdGame game) {
         super(game);
@@ -51,23 +51,23 @@ public class GameScreen extends BaseScreen {
         renderer = new WorldGameRender(batch, worldGame);
 
         groupTryAgain = new Group();
-        ventanaRate = new DialogRate(this);
-        ventanaPause = new DialogPause(this);
+        dialogRate = new DialogRate(this);
+        dialogPause = new DialogPause(this);
 
-        setUpBotones();
+        setUpButtons();
         setUpGameover();
 
         setReady();
     }
 
-    private void setUpBotones() {
+    private void setUpButtons() {
         groupButtons = new Group();
         groupButtons.setSize(stage.getWidth(), stage.getHeight());
         groupButtons.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
                                      int pointer, int button) {
-                if (ventanaRate.isVisible())
+                if (dialogRate.isVisible())
                     return false;
 
                 setRunning();
@@ -76,7 +76,7 @@ public class GameScreen extends BaseScreen {
             }
         });
 
-        Button btAchievements, btLeaderboard, btMore, btRate, btShop;
+        Button buttonAchievements, buttonLeaderboard, buttonMore, buttonRate, buttonShop;
         Button btShareFacebook, btShareTwitter;
 
         Image tapToPlay, bestScore;
@@ -90,37 +90,37 @@ public class GameScreen extends BaseScreen {
                 Actions.sequence(Actions.alpha(.6f, .75f),
                         Actions.alpha(1, .75f))));
 
-        btShop = new Button(Assets.buttonShop);
-        btShop.setSize(90, 70);
-        btShop.setPosition(0, 730);
-        addPressEffect(btShop);
-        btShop.addListener(new ClickListener() {
+        buttonShop = new Button(Assets.buttonShop);
+        buttonShop.setSize(90, 70);
+        buttonShop.setPosition(0, 730);
+        addPressEffect(buttonShop);
+        buttonShop.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(ShopScreen.class, game);
             }
         });
 
-        btMore = new Button(Assets.buttonMore);
-        btMore.setSize(90, 70);
-        btMore.setPosition(390, 730);
-        addPressEffect(btMore);
+        buttonMore = new Button(Assets.buttonMore);
+        buttonMore.setSize(90, 70);
+        buttonMore.setPosition(390, 730);
+        addPressEffect(buttonMore);
 
-        btLeaderboard = new Button(Assets.buttonLeaderboard);
-        btLeaderboard.setSize(110, 75);
-        btLeaderboard.setPosition(230 - 110, 310);
-        addPressEffect(btLeaderboard);
+        buttonLeaderboard = new Button(Assets.buttonLeaderboard);
+        buttonLeaderboard.setSize(110, 75);
+        buttonLeaderboard.setPosition(230 - 110, 310);
+        addPressEffect(buttonLeaderboard);
 
-        btAchievements = new Button(Assets.buttonAchievements);
-        btAchievements.setSize(110, 75);
-        btAchievements.setPosition(250, 310);
-        addPressEffect(btAchievements);
+        buttonAchievements = new Button(Assets.buttonAchievements);
+        buttonAchievements.setSize(110, 75);
+        buttonAchievements.setPosition(250, 310);
+        addPressEffect(buttonAchievements);
 
-        btRate = new Button(Assets.buttonRate);
-        btRate.setSize(110, 75);
+        buttonRate = new Button(Assets.buttonRate);
+        buttonRate.setSize(110, 75);
 
-        btRate.setPosition(SCREEN_WIDTH / 2f - btRate.getWidth() / 2f - 25, 220);// Con el boton face y twitter cambia la pos
-        addPressEffect(btRate);
+        buttonRate.setPosition(SCREEN_WIDTH / 2f - buttonRate.getWidth() / 2f - 25, 220);// Con el boton face y twitter cambia la pos
+        addPressEffect(buttonRate);
 
         btShareFacebook = new Button(new TextureRegionDrawable(
                 Assets.buttonFacebook));
@@ -134,12 +134,12 @@ public class GameScreen extends BaseScreen {
         btShareTwitter.setPosition(280, 212);
         addPressEffect(btShareTwitter);
 
-        final Button btMusica, btSonido;
+        final Button buttonMusic, buttonSound;
 
-        btMusica = new Button(Assets.buttonStyleMusic);
-        btMusica.setPosition(5, 100);
-        btMusica.setChecked(!Settings.isMusicOn);
-        btMusica.addListener(new InputListener() {
+        buttonMusic = new Button(Assets.buttonStyleMusic);
+        buttonMusic.setPosition(5, 100);
+        buttonMusic.setChecked(!Settings.isMusicOn);
+        buttonMusic.addListener(new InputListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
@@ -148,13 +148,13 @@ public class GameScreen extends BaseScreen {
                 return true;
             }
         });
-        btMusica.addListener(new ClickListener() {
+        buttonMusic.addListener(new ClickListener() {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 event.stop();
                 Settings.isMusicOn = !Settings.isMusicOn;
-                btMusica.setChecked(!Settings.isMusicOn);
+                buttonMusic.setChecked(!Settings.isMusicOn);
                 if (Settings.isMusicOn)
                     Assets.playMusic();
                 else
@@ -163,10 +163,10 @@ public class GameScreen extends BaseScreen {
             }
         });
 
-        btSonido = new Button(Assets.buttonStyleSound);
-        btSonido.setPosition(5, 180);
-        btSonido.setChecked(!Settings.isSoundOn);
-        btSonido.addListener(new InputListener() {
+        buttonSound = new Button(Assets.buttonStyleSound);
+        buttonSound.setPosition(5, 180);
+        buttonSound.setChecked(!Settings.isSoundOn);
+        buttonSound.addListener(new InputListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
@@ -175,13 +175,13 @@ public class GameScreen extends BaseScreen {
                 return true;
             }
         });
-        btSonido.addListener(new ClickListener() {
+        buttonSound.addListener(new ClickListener() {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
                 Settings.isSoundOn = !Settings.isSoundOn;
-                btSonido.setChecked(!Settings.isSoundOn);
+                buttonSound.setChecked(!Settings.isSoundOn);
             }
         });
 
@@ -199,13 +199,13 @@ public class GameScreen extends BaseScreen {
 
         groupButtons.addActor(tapToPlay);
         groupButtons.addActor(bestScore);
-        groupButtons.addActor(btShop);
-        groupButtons.addActor(btMore);
-        groupButtons.addActor(btLeaderboard);
-        groupButtons.addActor(btAchievements);
-        groupButtons.addActor(btRate);
-        groupButtons.addActor(btMusica);
-        groupButtons.addActor(btSonido);
+        groupButtons.addActor(buttonShop);
+        groupButtons.addActor(buttonMore);
+        groupButtons.addActor(buttonLeaderboard);
+        groupButtons.addActor(buttonAchievements);
+        groupButtons.addActor(buttonRate);
+        groupButtons.addActor(buttonMusic);
+        groupButtons.addActor(buttonSound);
         groupButtons.addActor(btShareFacebook);
         groupButtons.addActor(btShareTwitter);
     }
@@ -339,7 +339,7 @@ public class GameScreen extends BaseScreen {
     private void setPaused() {
         if (state == STATE_RUNNING) {
             state = STATE_PAUSED;
-            ventanaPause.show(stage);
+            dialogPause.show(stage);
         }
     }
 
@@ -397,7 +397,7 @@ public class GameScreen extends BaseScreen {
 
                     if (Settings.playCount % 7 == 0
                             && !Settings.didRateApp) {
-                        ventanaRate.show(stage);
+                        dialogRate.show(stage);
                     }
                 })));
 
@@ -405,9 +405,6 @@ public class GameScreen extends BaseScreen {
         background.setSize(groupTryAgain.getWidth(), groupTryAgain.getHeight());
         groupTryAgain.addActor(background);
 
-        /*
-         * Aqui voy a agregar lo de mas del try agai
-         */
 
         Image score = new Image(Assets.score);
         score.setSize(225, 70);
@@ -417,15 +414,14 @@ public class GameScreen extends BaseScreen {
         coinsEarned.setSize(243, 25);
         coinsEarned.setPosition(25, 47);
 
-        LabelScore lblScore = new LabelScore(420 / 2f, 120, worldGame.scoreForSlammingEnemies);
-        LabelCoins lblMonedas = new LabelCoins(385, 45,
-                worldGame.coinsCollected);
+        LabelScore labelScore = new LabelScore(420 / 2f, 120, worldGame.scoreForSlammingEnemies);
+        LabelCoins labelCoins = new LabelCoins(385, 45, worldGame.coinsCollected);
 
         Achievements.unlockCoins();
 
         groupTryAgain.addActor(score);
-        groupTryAgain.addActor(lblScore);
-        groupTryAgain.addActor(lblMonedas);
+        groupTryAgain.addActor(labelScore);
+        groupTryAgain.addActor(labelCoins);
         groupTryAgain.addActor(coinsEarned);
 
         worldGame = new WorldGame();
