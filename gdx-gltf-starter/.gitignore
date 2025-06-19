@@ -1,4 +1,5 @@
 desktop/build
 core/build
+.kotlin
 
 .gradle
