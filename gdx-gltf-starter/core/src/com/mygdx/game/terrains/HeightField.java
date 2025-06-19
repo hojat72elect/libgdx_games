@@ -1,4 +1,3 @@
-
 package com.mygdx.game.terrains;
 
 import com.badlogic.gdx.graphics.Color;
@@ -13,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 

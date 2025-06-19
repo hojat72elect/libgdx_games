@@ -78,7 +78,6 @@ public class TerrainShader extends BaseShader {
                 shader.set(inputID, attr.value);
             }
         };
-
     }
 
     /**
