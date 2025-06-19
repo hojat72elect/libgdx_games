@@ -1,3 +1,4 @@
+apply plugin: 'org.jetbrains.kotlin.android'
 android {
     buildToolsVersion "30.0.3"
     compileSdkVersion 30
@@ -28,6 +29,9 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 }
 
