@@ -48,15 +48,15 @@ class ShopScreen(game: SlamTheBirdGame) : BaseScreen(game) {
         scrollPane.setSize((SCREEN_WIDTH - 95).toFloat(), (SCREEN_HEIGHT - 62).toFloat())
         scrollPane.setPosition(95f, 0f)
 
-        stage.addActor(shop)
-        stage.addActor(verticalSeparatorImage)
-        stage.addActor(horizontalSeparatorImage)
-        stage.addActor(buttonPlayers)
-        stage.addActor(buttonPowerUps)
-        stage.addActor(buttonCoins)
-        stage.addActor(buttonNoAds)
-        stage.addActor(buttonBack)
-        stage.addActor(scrollPane)
+        stage?.addActor(shop)
+        stage?.addActor(verticalSeparatorImage)
+        stage?.addActor(horizontalSeparatorImage)
+        stage?.addActor(buttonPlayers)
+        stage?.addActor(buttonPowerUps)
+        stage?.addActor(buttonCoins)
+        stage?.addActor(buttonNoAds)
+        stage?.addActor(buttonBack)
+        stage?.addActor(scrollPane)
 
         PlayerSkinsSubMenu(game, tableContainer)
 
@@ -67,7 +67,7 @@ class ShopScreen(game: SlamTheBirdGame) : BaseScreen(game) {
         buttonPlayers = Button(TextureRegionDrawable(Assets.defaultPlayerSkin))
         buttonPlayers!!.setSize(55f, 55f)
         buttonPlayers!!.setPosition(17f, 660f)
-        addPressEffect(buttonPlayers)
+        addPressEffect(buttonPlayers!!)
         buttonPlayers!!.addListener(object : ClickListener() {
             override fun clicked(
                 event: InputEvent, x: Float,
@@ -80,7 +80,7 @@ class ShopScreen(game: SlamTheBirdGame) : BaseScreen(game) {
         buttonPowerUps = Button(TextureRegionDrawable(Assets.boosts))
         buttonPowerUps!!.setSize(55f, 55f)
         buttonPowerUps!!.setPosition(17f, 570f)
-        addPressEffect(buttonPowerUps)
+        addPressEffect(buttonPowerUps!!)
         buttonPowerUps!!.addListener(object : ClickListener() {
             override fun clicked(
                 event: InputEvent, x: Float,
@@ -93,7 +93,7 @@ class ShopScreen(game: SlamTheBirdGame) : BaseScreen(game) {
         buttonCoins = Button(TextureRegionDrawable(Assets.coinsRegion))
         buttonCoins!!.setSize(55f, 55f)
         buttonCoins!!.setPosition(17f, 480f)
-        addPressEffect(buttonCoins)
+        addPressEffect(buttonCoins!!)
         buttonCoins!!.addListener(object : ClickListener() {
             override fun clicked(
                 event: InputEvent, x: Float,
@@ -106,7 +106,7 @@ class ShopScreen(game: SlamTheBirdGame) : BaseScreen(game) {
         buttonNoAds = Button(TextureRegionDrawable(Assets.buttonNoAds))
         buttonNoAds!!.setSize(55f, 55f)
         buttonNoAds!!.setPosition(17f, 390f)
-        addPressEffect(buttonNoAds)
+        addPressEffect(buttonNoAds!!)
         buttonNoAds!!.addListener(object : ClickListener() {
             override fun clicked(
                 event: InputEvent, x: Float,
@@ -119,7 +119,7 @@ class ShopScreen(game: SlamTheBirdGame) : BaseScreen(game) {
         buttonBack = Button(TextureRegionDrawable(Assets.buttonBack))
         buttonBack!!.setSize(55f, 55f)
         buttonBack!!.setPosition(17f, 10f)
-        addPressEffect(buttonBack)
+        addPressEffect(buttonBack!!)
         buttonBack!!.addListener(object : ClickListener() {
             override fun clicked(
                 event: InputEvent, x: Float,
@@ -132,12 +132,12 @@ class ShopScreen(game: SlamTheBirdGame) : BaseScreen(game) {
 
     override fun draw(delta: Float) {
         camera.update()
-        batch.projectionMatrix = camera.combined
+        batch?.projectionMatrix = camera.combined
 
-        batch.begin()
-        batch.draw(Assets.coinsRegion, 449f, 764f, 30f, 34f)
+        batch?.begin()
+        batch?.draw(Assets.coinsRegion, 449f, 764f, 30f, 34f)
         drawSmallScoreRightAligned(445f, 764f, Settings.currentCoins)
-        batch.end()
+        batch?.end()
     }
 
     override fun update(delta: Float) {
