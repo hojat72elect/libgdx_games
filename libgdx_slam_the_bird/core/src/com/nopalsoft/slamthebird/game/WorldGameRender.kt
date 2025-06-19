@@ -29,7 +29,7 @@ class WorldGameRender(batch: SpriteBatch, worldGame: WorldGame) {
     }
 
     fun render() {
-        camera.position.y = worldGame.player.position.y
+        camera.position.y = worldGame.player!!.position.y
 
         if (camera.position.y < HEIGHT / 2f) camera.position.y = HEIGHT / 2f
         else if (camera.position.y > HEIGHT / 2f + 3) camera.position.y = HEIGHT / 2f + 3
@@ -150,7 +150,7 @@ class WorldGameRender(batch: SpriteBatch, worldGame: WorldGame) {
         val obj = worldGame.player
         val keyFrame: TextureRegion
 
-        if (obj.slam && obj.state == Player.STATE_FALLING) {
+        if (obj!!.slam && obj.state == Player.STATE_FALLING) {
             keyFrame = Assets.playerSlamAnimation!!.getKeyFrame(obj.stateTime)
             batch.draw(
                 Assets.slamAnimation!!.getKeyFrame(obj.stateTime, true),

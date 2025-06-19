@@ -269,8 +269,8 @@ class GameScreen(game: SlamTheBirdGame) : BaseScreen(game) {
 
             combo = worldGame.combo
             val lblCombo = LabelCombo(
-                worldGame.player.position.x * 100,
-                worldGame.player.position.y * 100 - 50, combo
+                worldGame.player!!.position.x * 100,
+                worldGame.player!!.position.y * 100 - 50, combo
             )
 
             val sideToMove: Float
