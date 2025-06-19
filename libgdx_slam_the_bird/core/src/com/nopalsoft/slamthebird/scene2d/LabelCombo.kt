@@ -39,44 +39,44 @@ class LabelCombo(x: Float, y: Float, private var actualCombo: Int) : Actor() {
 
             when (character) {
                 '0' -> {
-                    keyFrame = Assets.smallNum0
+                    keyFrame = Assets.smallNum0!!
                 }
 
                 '1' -> {
-                    keyFrame = Assets.smallNum1
+                    keyFrame = Assets.smallNum1!!
                     charWidth = 11f
                 }
 
                 '2' -> {
-                    keyFrame = Assets.smallNum2
+                    keyFrame = Assets.smallNum2!!
                 }
 
                 '3' -> {
-                    keyFrame = Assets.smallNum3
+                    keyFrame = Assets.smallNum3!!
                 }
 
                 '4' -> {
-                    keyFrame = Assets.smallNum4
+                    keyFrame = Assets.smallNum4!!
                 }
 
                 '5' -> {
-                    keyFrame = Assets.smallNum5
+                    keyFrame = Assets.smallNum5!!
                 }
 
                 '6' -> {
-                    keyFrame = Assets.smallNum6
+                    keyFrame = Assets.smallNum6!!
                 }
 
                 '7' -> {
-                    keyFrame = Assets.smallNum7
+                    keyFrame = Assets.smallNum7!!
                 }
 
                 '8' -> {
-                    keyFrame = Assets.smallNum8
+                    keyFrame = Assets.smallNum8!!
                 }
 
                 else -> { // 9
-                    keyFrame = Assets.smallNum9
+                    keyFrame = Assets.smallNum9!!
                 }
             }
 

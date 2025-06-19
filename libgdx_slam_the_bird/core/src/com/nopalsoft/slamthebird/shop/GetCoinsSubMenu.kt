@@ -66,12 +66,7 @@ class GetCoinsSubMenu(var game: SlamTheBirdGame, tableContainer: Table) {
         tableContainer.row()
         tableContainer
             .add(
-                createPlayerTable(
-                    facebookLikeCoinBonus,
-                    Assets.buttonFacebook, ("Like us on facebook and get "
-                            + facebookLikeCoinBonus + " coins"),
-                    buttonLikeFacebook
-                )
+                createPlayerTable(facebookLikeCoinBonus, Assets.buttonFacebook!!, ("Like us on facebook and get $facebookLikeCoinBonus coins"), buttonLikeFacebook)
             ).expandX().fill()
         tableContainer.row()
 

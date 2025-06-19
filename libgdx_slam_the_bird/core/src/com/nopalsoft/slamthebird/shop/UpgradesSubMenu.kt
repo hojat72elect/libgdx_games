@@ -86,7 +86,7 @@ class UpgradesSubMenu(var game: SlamTheBirdGame, tableContainer: Table) {
             .add(
                 addPlayerTable(
                     "More power-ups",
-                    labelPriceTime, Assets.boosts,
+                    labelPriceTime, Assets.boosts!!,
                     "Power-ups will appear more often in the game",
                     arrayBoostTime, buttonBoostTime
                 )
@@ -98,7 +98,7 @@ class UpgradesSubMenu(var game: SlamTheBirdGame, tableContainer: Table) {
             .add(
                 addPlayerTable(
                     "Super jump", labelPriceSuperJump,
-                    Assets.superJumpBoost,
+                    Assets.superJumpBoost!!,
                     "Super jump power up will last more time",
                     arrayBoostSuperJump, buttonSuperJump
                 )
@@ -111,7 +111,7 @@ class UpgradesSubMenu(var game: SlamTheBirdGame, tableContainer: Table) {
             .add(
                 addPlayerTable(
                     "Freeze enemies", labelPriceFreeze,
-                    Assets.freezeBoost, "Enemies will last more time frozen",
+                    Assets.freezeBoost!!, "Enemies will last more time frozen",
                     arrayBoostFreeze, buttonFreeze
                 )
             ).expandX().fill()
@@ -122,7 +122,7 @@ class UpgradesSubMenu(var game: SlamTheBirdGame, tableContainer: Table) {
             .add(
                 addPlayerTable(
                     "Invencible", labelPriceInvincible,
-                    Assets.invincibilityBoost,
+                    Assets.invincibilityBoost!!,
                     "The invencible power-up will last more time",
                     arrayBoostInvincible, buttonInvincible
                 )
@@ -136,7 +136,7 @@ class UpgradesSubMenu(var game: SlamTheBirdGame, tableContainer: Table) {
                 addPlayerTable(
                     "Coin rain",
                     labelPriceCoins,
-                    Assets.coinRainBoost,
+                    Assets.coinRainBoost!!,
                     "More coins will fall down when the coin rain power-up is taken",
                     arrayBoostCoins, buttonCoins
                 )

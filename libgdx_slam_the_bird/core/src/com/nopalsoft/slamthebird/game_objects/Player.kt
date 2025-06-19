@@ -119,7 +119,7 @@ class Player(x: Float, y: Float) {
         if (state == STATE_FALLING) {
             jump = true
             stateTime = 0f
-            Assets.playSound(Assets.soundJump)
+            Assets.playSound(Assets.soundJump!!)
         }
     }
 

@@ -43,7 +43,7 @@ class NoAdsSubMenu(var game: SlamTheBirdGame, tableContainer: Table) {
         tableContainer
             .add(
                 createPlayerTable(
-                    labelNoAds, Assets.buttonNoAds,
+                    labelNoAds, Assets.buttonNoAds!!,
                     buttonNoAds
                 )
             ).expandX().fill()

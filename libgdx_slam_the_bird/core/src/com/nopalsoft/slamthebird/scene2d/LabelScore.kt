@@ -27,43 +27,43 @@ class LabelScore(x: Float, y: Float, private var score: Int) : Actor() {
 
             keyFrame = when (character) {
                 '0' -> {
-                    Assets.largeNum0
+                    Assets.largeNum0!!
                 }
 
                 '1' -> {
-                    Assets.largeNum1
+                    Assets.largeNum1!!
                 }
 
                 '2' -> {
-                    Assets.largeNum2
+                    Assets.largeNum2!!
                 }
 
                 '3' -> {
-                    Assets.largeNum3
+                    Assets.largeNum3!!
                 }
 
                 '4' -> {
-                    Assets.largeNum4
+                    Assets.largeNum4!!
                 }
 
                 '5' -> {
-                    Assets.largeNum5
+                    Assets.largeNum5!!
                 }
 
                 '6' -> {
-                    Assets.largeNum6
+                    Assets.largeNum6!!
                 }
 
                 '7' -> {
-                    Assets.largeNum7
+                    Assets.largeNum7!!
                 }
 
                 '8' -> {
-                    Assets.largeNum8
+                    Assets.largeNum8!!
                 }
 
                 else -> {
-                    Assets.largeNum9
+                    Assets.largeNum9!!
                 }
             }
             batcher.draw(keyFrame, x + ((charWidth - 1f) * i) - textWidth / 2f, y, charWidth, 64f)

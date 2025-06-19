@@ -56,7 +56,7 @@ class PlayerSkinsSubMenu(var game: SlamTheBirdGame, tableContainer: Table) {
             .add(
                 addPlayerTable(
                     "Green robot", null,
-                    Assets.defaultPlayerSkin,
+                    Assets.defaultPlayerSkin!!,
                     "Just a simple robot for slaming birds", buttonDefault
                 )
             )
@@ -69,7 +69,7 @@ class PlayerSkinsSubMenu(var game: SlamTheBirdGame, tableContainer: Table) {
                 addPlayerTable(
                     "Red robot",
                     labelPriceRedAndroid,
-                    Assets.redPlayerSkin,
+                    Assets.redPlayerSkin!!,
                     "Do you like red color. Play with this amazing red robot and slam those birds",
                     buttonRedAndroid
                 )
@@ -82,7 +82,7 @@ class PlayerSkinsSubMenu(var game: SlamTheBirdGame, tableContainer: Table) {
                 addPlayerTable(
                     "Blue robot",
                     labelPriceBlueAndroid,
-                    Assets.bluePlayerSkin,
+                    Assets.bluePlayerSkin!!,
                     "Do you like blue color. Play with this amazing blue robot and slam those birds",
                     buttonBlueAndroid
                 )
