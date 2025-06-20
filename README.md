@@ -4,7 +4,6 @@ This repo contains all of the  LibGDX game examples I have worked on so far. My 
 The games that I currently have here:
 <ol>
     <li>3D-TETRIS</li>
-    <li>Chemtris</li>
     <li>gdx-gltf-starter</li>
     <li>Drag Race</li>
     <li>Galaxy Invaders</li>
