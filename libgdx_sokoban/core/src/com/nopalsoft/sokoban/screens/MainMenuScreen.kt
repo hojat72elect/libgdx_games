@@ -11,16 +11,16 @@ import com.nopalsoft.sokoban.SokobanGame
 import com.nopalsoft.sokoban.scene2d.LevelSelector
 
 class MainMenuScreen(game: SokobanGame) : Screens(game) {
-    var levelSelector: LevelSelector = LevelSelector(this)
+    private var levelSelector: LevelSelector = LevelSelector(this)
 
-    var tableMenu: Table
-    var buttonLeaderBoard: Button
-    var buttonAchievements: Button
-    var buttonFacebook: Button
-    var buttonSettings: Button
-    var buttonMore: Button
-    var buttonNextPage: Button
-    var buttonPreviousPage: Button = Button(Assets.buttonLeftDrawable, Assets.buttonLeftPressedDrawable)
+    private var tableMenu: Table
+    private var buttonLeaderBoard: Button
+    private var buttonAchievements: Button
+    private var buttonFacebook: Button
+    private var buttonSettings: Button
+    private var buttonMore: Button
+    private var buttonNextPage: Button
+    private var buttonPreviousPage: Button = Button(Assets.buttonLeftDrawable, Assets.buttonLeftPressedDrawable)
 
     init {
         buttonPreviousPage.setSize(75f, 75f)
@@ -92,12 +92,18 @@ class MainMenuScreen(game: SokobanGame) : Screens(game) {
     }
 
     override fun keyDown(keycode: Int): Boolean {
-        if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
-            right()
-        } else if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D) {
-            left()
-        } else if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
-            Gdx.app.exit()
+        when (keycode) {
+            Input.Keys.LEFT, Input.Keys.A -> {
+                right()
+            }
+
+            Input.Keys.RIGHT, Input.Keys.D -> {
+                left()
+            }
+
+            Input.Keys.ESCAPE, Input.Keys.BACK -> {
+                Gdx.app.exit()
+            }
         }
 
         return true

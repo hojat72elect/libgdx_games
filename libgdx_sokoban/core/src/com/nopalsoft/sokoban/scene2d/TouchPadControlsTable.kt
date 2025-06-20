@@ -8,10 +8,10 @@ import com.nopalsoft.sokoban.Assets
 import com.nopalsoft.sokoban.game.GameScreen
 
 class TouchPadControlsTable(var gameScreen: GameScreen) : Table() {
-    var buttonUp: Button? = null
-    var buttonDown: Button? = null
-    var buttonLeft: Button? = null
-    var buttonRight: Button? = null
+    private var buttonUp: Button? = null
+    private var buttonDown: Button? = null
+    private var buttonLeft: Button? = null
+    private var buttonRight: Button? = null
 
     init {
         color.a = .4f

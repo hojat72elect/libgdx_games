@@ -12,13 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
-import com.badlogic.gdx.utils.I18NBundle
 import com.nopalsoft.sokoban.Assets
 import com.nopalsoft.sokoban.screens.Screens
 
 open class WindowGroup(protected var screen: Screens, width: Float, height: Float, positionY: Float) : Group() {
     private val dim: Image
-    protected var languages: I18NBundle? = screen.game.languages
 
     var isShown: Boolean = false
         private set
@@ -28,7 +26,7 @@ open class WindowGroup(protected var screen: Screens, width: Float, height: Floa
         y = positionY
 
         dim = Image(Assets.blackPixelDrawable)
-        dim.setSize(Screens.SCREEN_WIDTH.toFloat(), Screens.SCREEN_HEIGHT.toFloat())
+        dim.setSize(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT)
 
         setBackGround(Assets.windowBackground)
     }

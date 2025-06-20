@@ -18,126 +18,46 @@ import com.nopalsoft.sokoban.parallax.ParallaxBackground
 import com.nopalsoft.sokoban.parallax.ParallaxLayer
 
 object Assets {
-    @JvmField
     var font: BitmapFont? = null
-
-    @JvmField
     var fontRed: BitmapFont? = null
-
-    @JvmField
     var background: ParallaxBackground? = null
-
-    @JvmField
     var blackPixelDrawable: NinePatchDrawable? = null
-
-    @JvmField
     var map: TiledMap? = null
-
-    @JvmField
     var backgroundMoves: TextureRegionDrawable? = null
-
-    @JvmField
     var backgroundTime: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonRightDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonRightPressedDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonLeftDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonLeftPressedDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonUpDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonUpPressedDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonDownDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonDownPressedDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonRefreshDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonRefreshPressedDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonPauseDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonPausePressedDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonLeaderboardDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonLeaderboardPressedDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonAchievementDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonAchievementPressedDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonFacebookDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonFacebookPressedDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonSettingsDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonSettingsPressedDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonMoreDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonMorePressedDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonCloseDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonClosePressedDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var homeButtonDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var homeButtonPressedDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonOffDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonOnDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonPlayDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonPlayPressedDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var levelOffDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var levelStarDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var clockDrawable: TextureRegionDrawable? = null
-
     var beigeBox: AtlasRegion? = null
     var darkBeigeBox: AtlasRegion? = null
     var blackBox: AtlasRegion? = null
@@ -169,18 +89,18 @@ object Assets {
     var playerLeftAnimation: Animation<TextureRegion>? = null
     var playerRightAnimation: Animation<TextureRegion>? = null
 
-    @JvmField
+
     var playerStand: AtlasRegion? = null
 
-    var atlas: TextureAtlas? = null
+    private var atlas: TextureAtlas? = null
 
-    @JvmField
+
     var windowBackground: TextureRegionDrawable? = null
 
-    @JvmField
+
     var styleTextButtonLevel: TextButtonStyle? = null
 
-    @JvmField
+
     var styleTextButtonLevelLocked: TextButtonStyle? = null
 
     fun load() {
@@ -297,16 +217,15 @@ object Assets {
         backgroundTime = TextureRegionDrawable(atlas!!.findRegion("UI/backgroundTime"))
     }
 
-    @JvmStatic
     fun loadTiledMap(numMap: Int) {
         if (map != null) {
             map!!.dispose()
             map = null
         }
-        if (Settings.isTest) {
-            map = TmxMapLoader().load("data/mapsTest/map$numMap.tmx")
+        map = if (Settings.isTest) {
+            TmxMapLoader().load("data/mapsTest/map$numMap.tmx")
         } else {
-            map = AtlasTmxMapLoader().load("data/maps/map$numMap.tmx")
+            AtlasTmxMapLoader().load("data/maps/map$numMap.tmx")
         }
     }
 }

@@ -5,16 +5,9 @@ import com.badlogic.gdx.Preferences
 import com.nopalsoft.sokoban.objects.Level
 
 object Settings {
-    @JvmField
     var isTest: Boolean = true
-
-    @JvmField
     var animationWalkIsON: Boolean = false
-
-    @JvmField
     var NUM_MAPS: Int = 62
-
-    @JvmField
     var levels: Array<Level?> = emptyArray() // Each position is a level
 
     private val preferences: Preferences = Gdx.app.getPreferences("com.nopalsoft.sokoban")
@@ -32,13 +25,11 @@ object Settings {
         }
     }
 
-    @JvmStatic
     fun save() {
         preferences.putBoolean("animationWalkIsON", animationWalkIsON)
         preferences.flush()
     }
 
-    @JvmStatic
     fun levelCompeted(level: Int, moves: Int, time: Int) {
         levels[level]!!.numStars = 1
         levels[level]!!.bestMoves = moves

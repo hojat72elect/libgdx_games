@@ -9,7 +9,6 @@ class Box(position: Int, color: String) : Tile(position) {
 
     private var numColor = 0
 
-    @JvmField
     var isInRightEndPoint = false
     private var keyFrame: AtlasRegion? = null
 

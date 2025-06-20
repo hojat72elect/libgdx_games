@@ -10,13 +10,8 @@ import com.nopalsoft.sokoban.screens.Screens
 
 class SokobanGame : Game() {
 
-    @JvmField
     var stage: Stage? = null
-
-    @JvmField
     var batch: SpriteBatch? = null
-
-    @JvmField
     var languages: I18NBundle? = null
 
     override fun create() {

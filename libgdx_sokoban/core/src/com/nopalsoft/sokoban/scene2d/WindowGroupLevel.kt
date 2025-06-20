@@ -14,9 +14,9 @@ import com.nopalsoft.sokoban.game.GameScreen
 import com.nopalsoft.sokoban.screens.Screens
 
 class WindowGroupLevel(currentScreen: Screens) : WindowGroup(currentScreen, 350f, 300f, 100f) {
-    var buttonPlay: Button
-    var labelBestMoves: Label
-    var labelBestTime: Label
+    private var buttonPlay = Button(Assets.buttonPlayDrawable, Assets.buttonPlayPressedDrawable)
+    private var labelBestMoves = Label("0", LabelStyle(Assets.fontRed, Color.WHITE))
+    private var labelBestTime = Label("0", LabelStyle(Assets.fontRed, Color.WHITE))
 
     init {
         setCloseButton()
@@ -25,13 +25,8 @@ class WindowGroupLevel(currentScreen: Screens) : WindowGroup(currentScreen, 350f
         val tableMenu = Table()
         tableMenu.setFillParent(true)
 
-        buttonPlay = Button(Assets.buttonPlayDrawable, Assets.buttonPlayPressedDrawable)
-
         val imageClock = Image(Assets.clockDrawable)
         val imageMoves = Image(Assets.playerStand)
-
-        labelBestMoves = Label("0", LabelStyle(Assets.fontRed, Color.WHITE))
-        labelBestTime = Label("0", LabelStyle(Assets.fontRed, Color.WHITE))
 
         tableMenu.defaults().expandX()
 

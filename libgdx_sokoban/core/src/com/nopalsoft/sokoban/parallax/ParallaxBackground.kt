@@ -1,26 +1,18 @@
 package com.nopalsoft.sokoban.parallax
 
-import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
 
-class ParallaxBackground(private val layers: Array<ParallaxLayer>, width: Float, height: Float, speed: Vector2?) {
-    private val camera: Camera
-    private val batch: SpriteBatch
-    private val speed = Vector2()
-
-    /**
-     * @param layers The  background layers.
-     * @param width  The screenWith.
-     * @param height The screenHeight.
-     * @param speed  A Vector2 attribute to point out the x and y speed.
-     */
-    init {
-        this.speed.set(speed)
-        camera = OrthographicCamera(width, height)
-        batch = SpriteBatch()
-    }
+/**
+ * @param layers The  background layers.
+ * @param width  The screenWith.
+ * @param height The screenHeight.
+ * @param speed  A Vector2 attribute to point out the x and y speed.
+ */
+class ParallaxBackground(private val layers: Array<ParallaxLayer>, width: Float, height: Float, private val speed: Vector2) {
+    private val camera = OrthographicCamera(width, height)
+    private val batch = SpriteBatch()
 
     fun render(delta: Float) {
         camera.position.add(speed.x * delta, speed.y * delta, 0f)

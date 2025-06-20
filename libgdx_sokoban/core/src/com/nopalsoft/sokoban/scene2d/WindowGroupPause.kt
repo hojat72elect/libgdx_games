@@ -15,9 +15,9 @@ import com.nopalsoft.sokoban.screens.MainMenuScreen
 import com.nopalsoft.sokoban.screens.Screens
 
 class WindowGroupPause(currentScreen: Screens) : WindowGroup(currentScreen, 350f, 300f, 100f) {
-    var buttonHome: Button
-    var buttonRefresh: Button
-    var tableAnimations: Table
+    private var buttonHome: Button = Button(Assets.homeButtonDrawable, Assets.homeButtonPressedDrawable)
+    private var buttonRefresh: Button = Button(Assets.buttonRefreshDrawable, Assets.buttonRefreshPressedDrawable)
+    private var tableAnimations: Table = Table()
 
     init {
         setCloseButton()
@@ -26,14 +26,12 @@ class WindowGroupPause(currentScreen: Screens) : WindowGroup(currentScreen, 350f
         val tableMenu = Table()
         tableMenu.setFillParent(true)
 
-        buttonHome = Button(Assets.homeButtonDrawable, Assets.homeButtonPressedDrawable)
         buttonHome.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
                 screen.changeScreenWithFadeOut(MainMenuScreen::class.java, screen.game)
             }
         })
 
-        buttonRefresh = Button(Assets.buttonRefreshDrawable, Assets.buttonRefreshPressedDrawable)
         buttonRefresh.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
                 screen.changeScreenWithFadeOut(GameScreen::class.java, (screen as GameScreen).level, screen.game)
@@ -43,7 +41,6 @@ class WindowGroupPause(currentScreen: Screens) : WindowGroup(currentScreen, 350f
         val buttonAnimation = Button(Assets.buttonOffDrawable, Assets.buttonOnDrawable, Assets.buttonOnDrawable)
         buttonAnimation.isChecked = Settings.animationWalkIsON
 
-        tableAnimations = Table()
         tableAnimations.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
                 Settings.animationWalkIsON = !Settings.animationWalkIsON
@@ -53,7 +50,6 @@ class WindowGroupPause(currentScreen: Screens) : WindowGroup(currentScreen, 350f
         })
 
         tableMenu.defaults().expandX()
-
         tableMenu.pad(30f).padTop(55f)
         tableMenu.add(buttonHome)
         tableMenu.add(buttonRefresh)

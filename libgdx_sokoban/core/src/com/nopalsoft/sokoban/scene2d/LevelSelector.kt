@@ -20,20 +20,20 @@ import com.nopalsoft.sokoban.screens.MainMenuScreen
 import com.nopalsoft.sokoban.screens.Screens
 
 class LevelSelector(currentScreen: Screens) : Group() {
-    protected var menuScreen: MainMenuScreen
-    protected var languagesBundle: I18NBundle?
-    protected var game: SokobanGame
+    private var menuScreen: MainMenuScreen
+    private var languagesBundle: I18NBundle?
+    private var game: SokobanGame
 
-    var labelTitle: Label
+    private var labelTitle: Label
 
-    var scrollPane: ScrollPane
-    var tableLevelsContainer: Table
+    private var scrollPane: ScrollPane
+    private var tableLevelsContainer: Table
 
     /**
      * Current page (each page has 15 levels).
      */
-    var actualPage: Int
-    var totalStars: Int = 0
+    private var actualPage: Int
+    private var totalStars: Int = 0
 
     var vtLevel: WindowGroupLevel
 
@@ -92,7 +92,7 @@ class LevelSelector(currentScreen: Screens) : Group() {
     /**
      * Each list has 15 items.
      */
-    fun getListLevel(list: Int): Table {
+    private fun getListLevel(list: Int): Table {
         val content = Table()
 
         var level = list * 15
@@ -127,7 +127,7 @@ class LevelSelector(currentScreen: Screens) : Group() {
         scrollToPage(actualPage)
     }
 
-    fun getLevelButton(level: Int): Button {
+    private fun getLevelButton(level: Int): Button {
         val button: TextButton
 
         val skullsToNextLevel = (level * 1f).toInt() // I only need 1 star to unlock the next level
@@ -159,7 +159,7 @@ class LevelSelector(currentScreen: Screens) : Group() {
             }
         })
 
-        menuScreen.addEfectoPress(button)
+        menuScreen.addPressEffect(button)
 
         return button
     }

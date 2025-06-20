@@ -22,21 +22,21 @@ import com.nopalsoft.sokoban.screens.MainMenuScreen
 import com.nopalsoft.sokoban.screens.Screens
 
 class GameScreen(game: SokobanGame, var level: Int) : Screens(game) {
-    var state: Int = 0
+    private var state = 0
 
-    var renderer: BoardRenderer = BoardRenderer(batch!!)
-    var gameBoard: GameBoard = GameBoard()
+    private var renderer = BoardRenderer()
+    var gameBoard = GameBoard()
 
-    var touchpadControls: TouchPadControlsTable = TouchPadControlsTable(this)
-    var buttonUndo: Button
-    var buttonPause: Button
+    private var touchpadControls = TouchPadControlsTable(this)
+    private var buttonUndo: Button
+    private var buttonPause: Button
 
-    var counterTableTime: CounterTable = CounterTable(Assets.backgroundTime!!, 5f, 430f)
-    var counterTableMoves: CounterTable = CounterTable(Assets.backgroundMoves!!, 5f, 380f)
+    private var counterTableTime = CounterTable(Assets.backgroundTime!!, 5f, 430f)
+    private var counterTableMoves = CounterTable(Assets.backgroundMoves!!, 5f, 380f)
 
-    private val gameStage = Stage(StretchViewport(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat()))
+    private val gameStage = Stage(StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT))
 
-    var windowPause: WindowGroupPause = WindowGroupPause(this)
+    private var windowPause = WindowGroupPause(this)
 
     init {
         val labelLevelNumber = Label("Level " + (level + 1), LabelStyle(Assets.fontRed, Color.WHITE))
@@ -106,7 +106,7 @@ class GameScreen(game: SokobanGame, var level: Int) : Screens(game) {
         }))
     }
 
-    fun setRunning() {
+    private fun setRunning() {
         if (state != STATE_GAME_OVER) {
             state = STATE_RUNNING
         }
@@ -141,18 +141,30 @@ class GameScreen(game: SokobanGame, var level: Int) : Screens(game) {
 
     override fun keyDown(keycode: Int): Boolean {
         if (state == STATE_RUNNING) {
-            if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A) {
-                gameBoard.moveLeft = true
-            } else if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D) {
-                gameBoard.moveRight = true
-            } else if (keycode == Input.Keys.UP || keycode == Input.Keys.W) {
-                gameBoard.moveUp = true
-            } else if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S) {
-                gameBoard.moveDown = true
-            } else if (keycode == Input.Keys.Z) {
-                gameBoard.undo = true
-            } else if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
-                setPause()
+            when (keycode) {
+                Input.Keys.LEFT, Input.Keys.A -> {
+                    gameBoard.moveLeft = true
+                }
+
+                Input.Keys.RIGHT, Input.Keys.D -> {
+                    gameBoard.moveRight = true
+                }
+
+                Input.Keys.UP, Input.Keys.W -> {
+                    gameBoard.moveUp = true
+                }
+
+                Input.Keys.DOWN, Input.Keys.S -> {
+                    gameBoard.moveDown = true
+                }
+
+                Input.Keys.Z -> {
+                    gameBoard.undo = true
+                }
+
+                Input.Keys.ESCAPE, Input.Keys.BACK -> {
+                    setPause()
+                }
             }
         } else if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
             if (windowPause.isShown) windowPause.hide()

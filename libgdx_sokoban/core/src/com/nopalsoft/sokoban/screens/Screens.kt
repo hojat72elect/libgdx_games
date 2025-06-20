@@ -6,14 +6,12 @@ import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.input.GestureDetector.GestureListener
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.nopalsoft.sokoban.Assets
@@ -23,17 +21,12 @@ import com.nopalsoft.sokoban.SokobanGame
 import com.nopalsoft.sokoban.game.GameScreen
 import kotlin.math.abs
 
-abstract class Screens(game: SokobanGame) : InputAdapter(), Screen, GestureListener {
-    @JvmField
-    var game: SokobanGame
+abstract class Screens(val game: SokobanGame) : InputAdapter(), Screen, GestureListener {
 
-    var camera: OrthographicCamera
 
-    @JvmField
-    var batch: SpriteBatch?
-
-    @JvmField
-    var stage: Stage? = game.stage
+    private var camera = OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
+    var batch = game.batch
+    var stage = game.stage
 
     override fun render(delta: Float) {
         update(delta)
@@ -49,25 +42,18 @@ abstract class Screens(game: SokobanGame) : InputAdapter(), Screen, GestureListe
         stage!!.draw()
     }
 
-    var blackFadeOut: Image? = null
+    private var blackFadeOut: Image? = null
 
     init {
-        stage!!.clear()
-        this.batch = game.batch
-        this.game = game
-
-        camera = OrthographicCamera(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat())
+        stage?.clear()
         camera.position[SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f] = 0f
-
         val gestureDetector = GestureDetector(20f, .5f, 2f, .15f, this)
-
-        val input = InputMultiplexer(this, gestureDetector, stage)
-        Gdx.input.inputProcessor = input
+        Gdx.input.inputProcessor = InputMultiplexer(this, gestureDetector, stage)
     }
 
     fun changeScreenWithFadeOut(newScreen: Class<*>, level: Int, game: SokobanGame) {
         blackFadeOut = Image(Assets.blackPixelDrawable)
-        blackFadeOut!!.setSize(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat())
+        blackFadeOut!!.setSize(SCREEN_WIDTH, SCREEN_HEIGHT)
         blackFadeOut!!.color.a = 0f
         blackFadeOut!!.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run {
             if (newScreen == GameScreen::class.java) {
@@ -82,7 +68,7 @@ abstract class Screens(game: SokobanGame) : InputAdapter(), Screen, GestureListe
         changeScreenWithFadeOut(newScreen, -1, game)
     }
 
-    fun addEfectoPress(actor: Actor) {
+    fun addPressEffect(actor: Actor) {
         actor.addListener(object : InputListener() {
             override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
                 actor.setPosition(actor.x, actor.y - 5)
@@ -187,7 +173,7 @@ abstract class Screens(game: SokobanGame) : InputAdapter(), Screen, GestureListe
     }
 
     companion object {
-        const val SCREEN_WIDTH: Int = 800
-        const val SCREEN_HEIGHT: Int = 480
+        const val SCREEN_WIDTH = 800F
+        const val SCREEN_HEIGHT = 480F
     }
 }

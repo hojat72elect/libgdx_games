@@ -9,7 +9,7 @@ import com.nopalsoft.sokoban.game.GameBoard
 /**
  * Every tile that we draw on the screen is a child of this class.
  */
-open class Tile(@JvmField var position: Int) : Actor() {
+open class Tile(var position: Int) : Actor() {
 
     // ALL MAPS ARE 25x15 Tiles of 32px which gives a resolution of 800x480
     val SIZE = 32F * GameBoard.UNIT_SCALE // Token size
