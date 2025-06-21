@@ -11,3 +11,4 @@ target/
 *.iml
 .gradle/
 build/
+local.properties
