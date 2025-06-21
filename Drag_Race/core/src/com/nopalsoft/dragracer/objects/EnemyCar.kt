@@ -18,7 +18,6 @@ class EnemyCar(x: Float, y: Float) : Actor() {
     private var isSuperSpeed: Boolean = false
     private var keyframe: TextureRegion? = null
 
-    @JvmField
     val bounds: Rectangle = Rectangle()
     private val moveAction: MoveToAction
 

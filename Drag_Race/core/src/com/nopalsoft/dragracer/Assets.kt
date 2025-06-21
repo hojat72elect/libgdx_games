@@ -23,7 +23,7 @@ object Assets {
 
     var newExplosion: Animation<TextureRegion?>? = null
 
-    @JvmField
+
     var blackPixel: NinePatchDrawable? = null
     var scoresBackgroundDrawable: TextureRegionDrawable? = null
 
@@ -86,7 +86,7 @@ object Assets {
     var soundTurn2: Sound? = null
     var soundCrash: Sound? = null
 
-    @JvmField
+
     var music: Music? = null
 
     private fun loadFont() {

@@ -14,10 +14,7 @@ import com.nopalsoft.dragracer.game.TrafficGame
 import com.nopalsoft.dragracer.shop.PlayerSubMenu
 
 class PlayerCar(private val trafficGame: TrafficGame) : Actor() {
-    @JvmField
     var state: Int
-
-    @JvmField
     val bounds: Rectangle = Rectangle()
     private var lane: Int
 

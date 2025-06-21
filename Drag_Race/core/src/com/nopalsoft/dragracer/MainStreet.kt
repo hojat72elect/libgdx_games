@@ -8,10 +8,8 @@ import com.nopalsoft.dragracer.screens.MainMenuScreen
 import com.nopalsoft.dragracer.screens.Screens
 
 class MainStreet : Game() {
-    @JvmField
-    var stage: Stage? = null
 
-    @JvmField
+    var stage: Stage? = null
     var batch: SpriteBatch? = null
 
     override fun create() {

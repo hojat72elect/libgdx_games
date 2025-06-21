@@ -1,27 +1,23 @@
 package com.nopalsoft.dragracer
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Preferences
 import com.nopalsoft.dragracer.shop.PlayerSubMenu
 
 object Settings {
-    var drawDebugLines: Boolean = false
+    var drawDebugLines = false
 
-    var numberOfTimesPlayed: Int = 0
-    var bestScore: Int = 0
-    var coinsTotal: Int = 0
-    var didBuyNoAds: Boolean = false
-    var didLikeFacebook: Boolean = false
+    var numberOfTimesPlayed = 0
+    var bestScore = 0
+    var coinsTotal = 0
+    var didBuyNoAds = false
+    var didLikeFacebook = false
 
-    @JvmField
-    var isMusicOn: Boolean = true
+    var isMusicOn = true
 
-    var selectedSkin: Int = PlayerSubMenu.SKIN_DEVIL
+    var selectedSkin = PlayerSubMenu.SKIN_DEVIL
 
-    private val preferences: Preferences = Gdx.app
-        .getPreferences("com.tiar.dragrace.shop")
+    private val preferences = Gdx.app.getPreferences("com.tiar.dragrace.shop")
 
-    @JvmStatic
     fun load() {
         numberOfTimesPlayed = preferences.getInteger("numeroVecesJugadas")
         bestScore = preferences.getInteger("bestScore")
@@ -33,7 +29,6 @@ object Settings {
         isMusicOn = preferences.getBoolean("isMusicOn", true)
     }
 
-    @JvmStatic
     fun save() {
         preferences.putInteger("numeroVecesJugadas", numberOfTimesPlayed)
         preferences.putInteger("bestScore", bestScore)

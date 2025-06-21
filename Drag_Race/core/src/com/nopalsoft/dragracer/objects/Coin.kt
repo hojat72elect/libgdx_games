@@ -14,7 +14,6 @@ class Coin(x: Float, y: Float) : Actor() {
 
     private var state: Int
 
-    @JvmField
     val bounds: Rectangle = Rectangle()
     private val moveAction: MoveToAction
     private var isSuperSpeed: Boolean = false
