@@ -7,36 +7,26 @@ import com.nopalsoft.slamthebird.Settings
 
 class Player(x: Float, y: Float) {
 
-    @JvmField
     var durationSuperJump: Float = 0f
 
-    @JvmField
     var invincibilityDuration: Float = 0f
 
-    @JvmField
     var position = Vector2(x, y)
 
-    @JvmField
     var state: Int
 
-    @JvmField
     var stateTime: Float = 0f
 
     private var jump: Boolean
 
-    @JvmField
     var slam: Boolean = false
 
-    @JvmField
     var isSuperJump: Boolean = false
 
-    @JvmField
     var isInvincible: Boolean = false
 
-    @JvmField
     var angleDegrees: Float = 0f
 
-    @JvmField
     var velocity: Vector2
 
     init {
@@ -135,25 +125,12 @@ class Player(x: Float, y: Float) {
 
         private var JUMP_SPEED = 6.25f
         private var MOVE_SPEED = 5f
-
-        @JvmField
         var DURATION_SUPER_JUMP = 5f
-
-        @JvmField
         var INVINCIBLE_DURATION = 5f
-
-        @JvmField
         var RADIUS = .28f
-
-        @JvmField
         var STATE_FALLING = 0
-
-        @JvmField
         var STATE_JUMPING = 1
-
-        @JvmField
         var STATE_DEAD = 2
-
         const val DEAD_ANIMATION_DURATION = 2f
     }
 }

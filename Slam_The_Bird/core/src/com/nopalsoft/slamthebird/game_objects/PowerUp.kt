@@ -10,14 +10,10 @@ import com.badlogic.gdx.utils.Pool.Poolable
 import com.nopalsoft.slamthebird.game.WorldGame
 
 class PowerUp : Poolable {
-    @JvmField
-    var state = 0
 
-    @JvmField
+    var state = 0
     var position = Vector2()
     private var stateTime = 0f
-
-    @JvmField
     var type = 0
 
     fun init(oWorld: WorldGame, x: Float, y: Float, type: Int) {
@@ -73,12 +69,8 @@ class PowerUp : Poolable {
         const val TYPE_INVINCIBLE = 1
         const val TYPE_COIN_RAIN = 2
         const val TYPE_FREEZE = 3
-
         var DURATION_AVAILABLE = 5f
-
         var STATE_NORMAL = 0
-
-        @JvmField
         var STATE_TAKEN = 1
     }
 }

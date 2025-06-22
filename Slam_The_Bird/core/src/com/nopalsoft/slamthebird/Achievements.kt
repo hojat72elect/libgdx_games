@@ -27,17 +27,16 @@ object Achievements {
         Gdx.app.log("Achievements", "You must call first Achievements.init()")
     }
 
-    @JvmStatic
+
     fun unlockSuperJump() {
         didInit()
     }
 
-    @JvmStatic
+
     fun unlockCombos() {
         didInit()
     }
 
-    @JvmStatic
     fun unlockCoins() {
         didInit()
     }

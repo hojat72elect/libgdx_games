@@ -8,10 +8,8 @@ import com.nopalsoft.slamthebird.game.GameScreen
 import com.nopalsoft.slamthebird.screens.BaseScreen
 
 class SlamTheBirdGame : Game() {
-    @JvmField
-    var stage: Stage? = null
 
-    @JvmField
+    var stage: Stage? = null
     var batch: SpriteBatch? = null
 
     override fun create() {

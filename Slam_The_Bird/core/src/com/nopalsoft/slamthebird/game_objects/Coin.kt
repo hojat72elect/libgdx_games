@@ -10,14 +10,11 @@ import com.badlogic.gdx.physics.box2d.World
 import com.badlogic.gdx.utils.Pool.Poolable
 
 class Coin : Poolable {
-    @JvmField
-    var state: Int = 0
+    var state = 0
 
-    @JvmField
-    var position: Vector2 = Vector2()
+    var position = Vector2()
 
-    @JvmField
-    var stateTime: Float = 0f
+    var stateTime = 0f
 
     fun init(x: Float, y: Float) {
         position[x] = y
@@ -37,7 +34,6 @@ class Coin : Poolable {
     companion object {
         private const val RADIUS = .15f
 
-        @JvmField
         var MOVE_SPEED = 1f
 
         const val STATE_NORMAL = 0

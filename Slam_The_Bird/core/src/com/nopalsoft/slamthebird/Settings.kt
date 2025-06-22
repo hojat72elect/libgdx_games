@@ -1,42 +1,27 @@
 package com.nopalsoft.slamthebird
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Preferences
 
 object Settings {
-    @JvmField
-    var currentCoins: Int = 0
 
-    @JvmField
-    var bestScore: Int = 0
-    var selectedSkin: Int = 0
+    var currentCoins = 0
+    var bestScore = 0
+    var selectedSkin = 0
+    var playCount = 0
+    var BOOST_DURATION = 0
+    var BOOST_FREEZE = 0
+    var BOOST_COINS = 0
+    var BOOST_INVINCIBLE = 0
+    var BOOST_SUPER_JUMP = 0
 
-    @JvmField
-    var playCount: Int = 0
+    var isMusicOn = false
+    var isSoundOn = false
+    var didBuyNoAds = false
+    var didLikeFacebook = false
+    var didRateApp = false
 
-    @JvmField
-    var BOOST_DURATION: Int = 0
-    var BOOST_FREEZE: Int = 0
-    var BOOST_COINS: Int = 0
-    var BOOST_INVINCIBLE: Int = 0
-    var BOOST_SUPER_JUMP: Int = 0
+    private val preferences = Gdx.app.getPreferences("com.nopalsoft.slamthebird")
 
-    @JvmField
-    var isMusicOn: Boolean = false
-
-    @JvmField
-    var isSoundOn: Boolean = false
-
-    var didBuyNoAds: Boolean = false
-    var didLikeFacebook: Boolean = false
-
-    @JvmField
-    var didRateApp: Boolean = false
-
-    private val preferences: Preferences = Gdx.app
-        .getPreferences("com.nopalsoft.slamthebird")
-
-    @JvmStatic
     fun save() {
         preferences.putInteger("monedasActuales", currentCoins)
         preferences.putInteger("bestScore", bestScore)

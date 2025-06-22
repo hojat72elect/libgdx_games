@@ -20,198 +20,128 @@ import com.nopalsoft.slamthebird.shop.PlayerSkinsSubMenu
 
 object Assets {
     private var textureAtlas: TextureAtlas? = null
-
-    @JvmField
     var title: AtlasRegion? = null
-
-    @JvmField
     var tapToPlay: AtlasRegion? = null
-
-    @JvmField
     var bestScore: AtlasRegion? = null
-
-    @JvmField
     var score: AtlasRegion? = null
     var combo: AtlasRegion? = null
 
-    @JvmField
+
     var coinsEarned: AtlasRegion? = null
     var shop: AtlasRegion? = null
-
     var horizontalSeparator: NinePatchDrawable? = null
     var verticalSeparator: NinePatchDrawable? = null
-
-    @JvmField
     var background: AtlasRegion? = null
-
-    @JvmField
     var gameOverBackground: AtlasRegion? = null
 
-    @JvmField
     var player: AtlasRegion? = null
 
     var defaultPlayerSkin: AtlasRegion? = null
     var redPlayerSkin: AtlasRegion? = null
     var bluePlayerSkin: AtlasRegion? = null
-
-    @JvmField
     var playerJumpAnimation: Animation<TextureRegion>? = null
-
-    @JvmField
     var playerSlamAnimation: Animation<TextureRegion>? = null
-
-    @JvmField
     var playerHitAnimation: Animation<TextureRegion>? = null
-
-    @JvmField
     var slamAnimation: Animation<TextureRegion>? = null
-
-    @JvmField
     var blackPixel: NinePatchDrawable? = null
 
-    @JvmField
     var platform: AtlasRegion? = null
 
-    @JvmField
     var platformFireAnimation: Animation<TextureRegion>? = null
 
-    @JvmField
     var platformBreakAnimation: Animation<TextureRegion>? = null
 
-    @JvmField
     var buttonAchievements: TextureRegionDrawable? = null
 
-    @JvmField
     var buttonLeaderboard: TextureRegionDrawable? = null
 
-    @JvmField
     var buttonMore: TextureRegionDrawable? = null
 
-    @JvmField
     var buttonRate: TextureRegionDrawable? = null
 
-    @JvmField
     var buttonShop: TextureRegionDrawable? = null
 
-    @JvmField
     var buttonFacebook: TextureRegionDrawable? = null
 
-    @JvmField
     var buttonTwitter: TextureRegionDrawable? = null
     var buttonBack: TextureRegionDrawable? = null
     var buttonNoAds: TextureRegionDrawable? = null
 
-    @JvmField
     var buttonStyleMusic: ButtonStyle? = null
 
-    @JvmField
     var buttonStyleSound: ButtonStyle? = null
 
     var upgradeOn: TextureRegionDrawable? = null
     var upgradeOff: TextureRegionDrawable? = null
 
-    @JvmField
     var scoresBackground: TextureRegionDrawable? = null
 
-    @JvmField
     var flapSpawnRegion: AtlasRegion? = null
 
-    @JvmField
     var flapBlueRegion: AtlasRegion? = null
 
-    @JvmField
     var blueWingsFlapAnimation: Animation<TextureRegion>? = null
 
-    @JvmField
     var redWingsFlapAnimation: Animation<TextureRegion>? = null
 
-    @JvmField
     var evolvingFlapAnimation: Animation<TextureRegion?>? = null
 
-    @JvmField
     var coinAnimation: Animation<TextureRegion>? = null
 
-    @JvmField
     var coinsRegion: AtlasRegion? = null
     private var transparentPixelRegion: AtlasRegion? = null
 
-    @JvmField
     var invincibilityBoost: AtlasRegion? = null
 
-    @JvmField
     var coinRainBoost: AtlasRegion? = null
 
-    @JvmField
     var freezeBoost: AtlasRegion? = null
 
-    @JvmField
     var superJumpBoost: AtlasRegion? = null
     var boosts: AtlasRegion? = null
 
-    @JvmField
     var invincibilityBoostEndAnimation: Animation<TextureRegion?>? = null
 
-    @JvmField
     var superJumpBoostEndAnimation: Animation<TextureRegion?>? = null
 
-    @JvmField
     var largeNum0: AtlasRegion? = null
 
-    @JvmField
     var largeNum1: AtlasRegion? = null
 
-    @JvmField
     var largeNum2: AtlasRegion? = null
 
-    @JvmField
     var largeNum3: AtlasRegion? = null
 
-    @JvmField
     var largeNum4: AtlasRegion? = null
 
-    @JvmField
     var largeNum5: AtlasRegion? = null
 
-    @JvmField
     var largeNum6: AtlasRegion? = null
 
-    @JvmField
     var largeNum7: AtlasRegion? = null
 
-    @JvmField
     var largeNum8: AtlasRegion? = null
 
-    @JvmField
     var largeNum9: AtlasRegion? = null
 
-    @JvmField
     var smallNum0: AtlasRegion? = null
 
-    @JvmField
     var smallNum1: AtlasRegion? = null
 
-    @JvmField
     var smallNum2: AtlasRegion? = null
 
-    @JvmField
     var smallNum3: AtlasRegion? = null
 
-    @JvmField
     var smallNum4: AtlasRegion? = null
 
-    @JvmField
     var smallNum5: AtlasRegion? = null
 
-    @JvmField
     var smallNum6: AtlasRegion? = null
 
-    @JvmField
     var smallNum7: AtlasRegion? = null
 
-    @JvmField
     var smallNum8: AtlasRegion? = null
 
-    @JvmField
     var smallNum9: AtlasRegion? = null
 
     private var font: BitmapFont? = null
@@ -225,10 +155,8 @@ object Assets {
 
     var soundJump: Sound? = null
 
-    @JvmField
     var soundCoin: Sound? = null
 
-    @JvmField
     var soundBoost: Sound? = null
 
     private var music: Music? = null
@@ -241,7 +169,6 @@ object Assets {
         verticalSeparator = NinePatchDrawable(NinePatch(textureAtlas!!.findRegion("Shop/separadorVertical"), 0, 1, 0, 0))
 
         smallLabelStyle = LabelStyle(font, Color.WHITE)
-
 
         val buttonBuy = TextureRegionDrawable(textureAtlas!!.findRegion("Shop/btBuy"))
         styleTextButtonBuy = TextButtonStyle(buttonBuy, null, null, font)

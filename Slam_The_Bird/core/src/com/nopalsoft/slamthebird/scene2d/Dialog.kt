@@ -5,12 +5,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.nopalsoft.slamthebird.Assets
-import com.nopalsoft.slamthebird.SlamTheBirdGame
 import com.nopalsoft.slamthebird.screens.BaseScreen
 
-open class Dialog(@JvmField var screen: BaseScreen) : Group() {
-    @JvmField
-    var game: SlamTheBirdGame = screen.game
+open class Dialog(var screen: BaseScreen) : Group() {
+
+    var game = screen.game
 
     private var isVisible = false
 
