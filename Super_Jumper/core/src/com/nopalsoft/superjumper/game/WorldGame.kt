@@ -32,42 +32,27 @@ import com.nopalsoft.superjumper.objects.PowerUpItem
 import com.nopalsoft.superjumper.screens.Screens
 
 class WorldGame {
-    @JvmField
-    var state: Int
 
+    var state: Int
     private val arrayBodies: Array<Body>
     private var worldBox: World = World(Vector2(0f, -9.8f), true)
     var maxDistance: Int = 0
     private var TIME_UNTIL_NEXT_CLOUD: Float = 15f
     private var timeUntilNextCloud: Float
-
-    @JvmField
     var player: Player? = null
-
-    @JvmField
     var arrayPlatforms: Array<Platform>
-
-    @JvmField
     var arrayPlatformPieces: Array<PlatformPiece>
-
-    @JvmField
     var arrayCoins: Array<Coin>
 
-    @JvmField
     var arrayEnemies: Array<Enemy>
 
-    @JvmField
     var arrayItems: Array<PowerUpItem>
 
-    @JvmField
     var arrayClouds: Array<Cloud>
 
-    @JvmField
     var arrayLightningBolts: Array<LightningBolt>
-
     var coins: Int = 0
 
-    @JvmField
     var arrayBullets: Array<Bullet>
     private var gameWorldCreatedUntilY: Float
 

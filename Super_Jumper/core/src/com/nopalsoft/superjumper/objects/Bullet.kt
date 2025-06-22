@@ -5,12 +5,9 @@ import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.utils.Pool.Poolable
 
 class Bullet : Poolable {
-    @JvmField
-    var state: Int = 0
-
-    @JvmField
-    val position: Vector2 = Vector2()
-    var stateTime: Float = 0f
+    var state = 0
+    val position = Vector2()
+    var stateTime = 0f
 
     fun init(x: Float, y: Float) {
         position[x] = y

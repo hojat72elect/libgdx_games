@@ -5,15 +5,10 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Pool.Poolable
 
 class PowerUpItem : Poolable {
-    @JvmField
+
     var state = 0
-
-    @JvmField
     var type = 0
-
-    @JvmField
     val position = Vector2()
-
     var stateTime = 0f
 
     fun init(x: Float, y: Float) {

@@ -6,21 +6,11 @@ import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.utils.Pool.Poolable
 
 class PlatformPiece : Poolable {
-    @JvmField
     var state = 0
-
-    @JvmField
     var color = 0
-
-    @JvmField
     var type = 0
-
-    @JvmField
     val position = Vector2()
-
     var stateTime = 0f
-
-    @JvmField
     var angleDegree = 0f
 
     fun initialize(x: Float, y: Float, type: Int, color: Int) {

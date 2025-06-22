@@ -10,28 +10,24 @@ import com.nopalsoft.superjumper.screens.Screens
  * Clouds are indestructible. They all start out happy until you shoot them.
  */
 class Cloud : Poolable {
-    @JvmField
-    var state: Int = 0
 
-    private var timeToBlow: Float = 0f
+    var state = 0
+    private var timeToBlow = 0f
+    private var durationBlow = 0f
 
-    private var durationBlow: Float = 0f
 
-    @JvmField
-    var type: Int = 0
-    private var timeUntilLightning: Float = 0f
+    var type = 0
+    private var timeUntilLightning = 0f
 
-    @JvmField
-    val position: Vector2 = Vector2()
+    val position = Vector2()
     private var speed: Vector2
 
-    @JvmField
-    var isBlowing: Boolean = false
+    var isBlowing = false
 
-    @JvmField
-    var isLightning: Boolean = false
 
-    var stateTime: Float = 0f
+    var isLightning = false
+
+    var stateTime = 0f
 
     init {
         speed = Vector2()

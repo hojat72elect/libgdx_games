@@ -9,13 +9,8 @@ import com.nopalsoft.superjumper.screens.MainMenuScreen
 import com.nopalsoft.superjumper.screens.Screens
 
 class SuperJumperGame : Game() {
-    @JvmField
     var languagesBundle: I18NBundle? = null
-
-    @JvmField
     var batch: SpriteBatch? = null
-
-    @JvmField
     var stage: Stage? = null
 
     override fun create() {

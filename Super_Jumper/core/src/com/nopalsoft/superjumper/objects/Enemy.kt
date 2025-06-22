@@ -7,15 +7,11 @@ import com.badlogic.gdx.utils.Pool.Poolable
 import com.nopalsoft.superjumper.screens.Screens
 
 class Enemy : Poolable {
-    @JvmField
-    var state = 0
 
-    @JvmField
+    var state = 0
     val position = Vector2()
     private var speed: Vector2 = Vector2()
     private var angleDegree = 0f
-
-    @JvmField
     var stateTime = 0f
 
 

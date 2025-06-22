@@ -21,17 +21,11 @@ import com.nopalsoft.superjumper.SuperJumperGame
 import com.nopalsoft.superjumper.game.GameScreen
 
 abstract class Screens(game: SuperJumperGame) : InputAdapter(), Screen {
-    @JvmField
+
     var game: SuperJumperGame
-
     private var camera: OrthographicCamera
-
-    @JvmField
     var batch: SpriteBatch?
-
-    @JvmField
     var stage: Stage? = game.stage
-
     private var music: Music? = null
 
     override fun render(delta: Float) {
@@ -130,10 +124,9 @@ abstract class Screens(game: SuperJumperGame) : InputAdapter(), Screen {
     }
 
     companion object {
-        const val SCREEN_WIDTH: Int = 480
-        const val SCREEN_HEIGHT: Int = 800
-
-        const val WORLD_WIDTH: Float = 4.8f
-        const val WORLD_HEIGHT: Float = 8f
+        const val SCREEN_WIDTH = 480
+        const val SCREEN_HEIGHT = 800
+        const val WORLD_WIDTH = 4.8f
+        const val WORLD_HEIGHT = 8f
     }
 }

@@ -5,13 +5,8 @@ import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.utils.Pool.Poolable
 
 class LightningBolt : Poolable {
-    @JvmField
     var state = 0
-
-    @JvmField
     val position = Vector2()
-
-    @JvmField
     var stateTime = 0f
 
     fun init(x: Float, y: Float) {

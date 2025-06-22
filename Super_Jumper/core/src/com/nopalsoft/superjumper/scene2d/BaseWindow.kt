@@ -4,15 +4,12 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.I18NBundle
-import com.nopalsoft.superjumper.SuperJumperGame
 import com.nopalsoft.superjumper.screens.Screens
 
-open class BaseWindow(@JvmField protected var screen: Screens, width: Float, height: Float, positionY: Float) : Group() {
+open class BaseWindow(protected var screen: Screens, width: Float, height: Float, positionY: Float) : Group() {
+
     private var languagesBundle: I18NBundle?
-
-    @JvmField
-    protected var game: SuperJumperGame = screen.game
-
+    protected var game = screen.game
     private var isVisible = false
 
     init {

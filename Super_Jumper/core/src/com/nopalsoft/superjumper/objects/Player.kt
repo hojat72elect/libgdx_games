@@ -6,38 +6,21 @@ import com.badlogic.gdx.physics.box2d.Body
 import com.nopalsoft.superjumper.screens.Screens
 
 class Player(x: Float, y: Float) {
-    @JvmField
     var state: Int
 
 
-    private var durationBubble: Float = 0f
-
-
-    @JvmField
-    var durationJetPack: Float = 0f
-
-    @JvmField
-    val position: Vector2 = Vector2(x, y)
-
-    @JvmField
+    private var durationBubble = 0f
+    var durationJetPack = 0f
+    val position = Vector2(x, y)
     var speed: Vector2
-
-    @JvmField
-    var angleDegree: Float = 0f
-
+    var angleDegree = 0f
     var stateTime: Float
-
-    private var didJump: Boolean = false
-
-    @JvmField
-    var isBubble: Boolean = false
-
-    @JvmField
-    var isJetPack: Boolean = false
+    private var didJump = false
+    var isBubble = false
+    var isJetPack = false
 
     init {
         speed = Vector2()
-
         stateTime = 0f
         state = STATE_NORMAL
     }

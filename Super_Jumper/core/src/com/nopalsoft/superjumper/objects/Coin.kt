@@ -13,12 +13,9 @@ import com.badlogic.gdx.utils.Pools
 import com.nopalsoft.superjumper.screens.Screens
 
 class Coin : Poolable {
-    @JvmField
+
     var state = 0
-
-    @JvmField
     val position = Vector2()
-
     var stateTime = 0f
 
     fun initialize(x: Float, y: Float) {
@@ -49,12 +46,10 @@ class Coin : Poolable {
 
         private const val SPACE_BETWEEN_COINS = .025f // Variable so that the coins are not stuck together
 
-        @JvmStatic
         fun createCoin(worldBox: World, coins: Array<Coin>, y: Float) {
             createCoinCube(worldBox, coins, y)
         }
 
-        @JvmStatic
         fun createOneCoin(worldBox: World, coins: Array<Coin>, y: Float) {
             createCoin(worldBox, coins, generatePositionX(1), y)
         }
