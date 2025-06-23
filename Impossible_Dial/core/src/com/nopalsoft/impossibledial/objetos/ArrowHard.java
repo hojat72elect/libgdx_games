@@ -18,11 +18,9 @@ public class ArrowHard extends Arrow {
     public void didScore() {
         if (velocidadActual > 2.5f) {
             velocidadActual -= .25f;
-        }
-        else if (velocidadActual > 1.5f) {
+        } else if (velocidadActual > 1.5f) {
             velocidadActual -= .015f;
-        }
-        else if (velocidadActual > VELOCIDAD_MAXIMA) {
+        } else if (velocidadActual > VELOCIDAD_MAXIMA) {
             velocidadActual -= .0025f;
         }
 
@@ -68,7 +66,6 @@ public class ArrowHard extends Arrow {
             case COLOR_CYAN:
                 setDrawable(Assets.arrowCyan);
                 break;
-
         }
 
         float angulo = 360;
@@ -78,8 +75,6 @@ public class ArrowHard extends Arrow {
 
         getActions().clear();
         addAction(Actions.rotateBy(angulo, velocidadActual));
-
-
     }
 
     /**
@@ -96,31 +91,20 @@ public class ArrowHard extends Arrow {
 
         if ((getRotation() >= 0 && getRotation() <= 45) || (getRotation() >= -360 && getRotation() <= -315)) {
             return COLOR_GREEN;
-        }
-        else if ((getRotation() >= 45 && getRotation() <= 90) || (getRotation() >= -315 && getRotation() <= -270)) {
+        } else if ((getRotation() >= 45 && getRotation() <= 90) || (getRotation() >= -315 && getRotation() <= -270)) {
             return COLOR_YELLOW;
-        }
-        else if ((getRotation() >= 90 && getRotation() <= 135) || (getRotation() >= -270 && getRotation() <= -225)) {
+        } else if ((getRotation() >= 90 && getRotation() <= 135) || (getRotation() >= -270 && getRotation() <= -225)) {
             return COLOR_BROWN;
-        }
-        else if ((getRotation() >= 135 && getRotation() <= 180) || (getRotation() >= -225 && getRotation() <= -180)) {
+        } else if ((getRotation() >= 135 && getRotation() <= 180) || (getRotation() >= -225 && getRotation() <= -180)) {
             return COLOR_PURPLE;
-        }
-        else if ((getRotation() >= 180 && getRotation() <= 225) || (getRotation() >= -180 && getRotation() <= -135)) {
+        } else if ((getRotation() >= 180 && getRotation() <= 225) || (getRotation() >= -180 && getRotation() <= -135)) {
             return COLOR_BLUE;
-        }
-        else if ((getRotation() >= 225 && getRotation() <= 270) || (getRotation() >= -135 && getRotation() <= -90)) {
+        } else if ((getRotation() >= 225 && getRotation() <= 270) || (getRotation() >= -135 && getRotation() <= -90)) {
             return COLOR_BLACK;
-        }
-        else if ((getRotation() >= 270 && getRotation() <= 315) || (getRotation() >= -90 && getRotation() <= -45)) {
+        } else if ((getRotation() >= 270 && getRotation() <= 315) || (getRotation() >= -90 && getRotation() <= -45)) {
             return COLOR_RED;
-        }
-        else {
+        } else {
             return COLOR_CYAN;
         }
     }
-
-
-
-
 }

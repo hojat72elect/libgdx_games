@@ -19,11 +19,9 @@ public class ArrowEasy extends Arrow {
     public void didScore() {
         if (velocidadActual > 2.5f) {
             velocidadActual -= .4f;
-        }
-        else if (velocidadActual > 1.5f) {
+        } else if (velocidadActual > 1.5f) {
             velocidadActual -= .025f;
-        }
-        else if (velocidadActual > VELOCIDAD_MAXIMA) {
+        } else if (velocidadActual > VELOCIDAD_MAXIMA) {
             velocidadActual -= .005f;
         }
 
@@ -57,7 +55,6 @@ public class ArrowEasy extends Arrow {
             case COLOR_YELLOW:
                 setDrawable(Assets.arrowYellow);
                 break;
-
         }
 
         float angulo = 360;
@@ -67,8 +64,6 @@ public class ArrowEasy extends Arrow {
 
         getActions().clear();
         addAction(Actions.rotateBy(angulo, velocidadActual));
-
-
     }
 
     /**
@@ -85,17 +80,12 @@ public class ArrowEasy extends Arrow {
 
         if ((getRotation() >= 0 && getRotation() < 90) || (getRotation() >= -360 && getRotation() < -270)) {
             return COLOR_GREEN;
-        }
-        else if ((getRotation() >= 90 && getRotation() < 180) || (getRotation() >= -270 && getRotation() < -180)) {
+        } else if ((getRotation() >= 90 && getRotation() < 180) || (getRotation() >= -270 && getRotation() < -180)) {
             return COLOR_RED;
-        }
-        else if ((getRotation() >= 180 && getRotation() < 270) || (getRotation() >= -180 && getRotation() < -90)) {
+        } else if ((getRotation() >= 180 && getRotation() < 270) || (getRotation() >= -180 && getRotation() < -90)) {
             return COLOR_BLUE;
-        }
-        else {
+        } else {
             return COLOR_YELLOW;
         }
     }
-
-
 }

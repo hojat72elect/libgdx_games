@@ -1,18 +1,17 @@
 package com.nopalsoft.impossibledial.handlers;
 
 public interface RequestHandler {
-    public void showRater();
+    void showRater();
 
-    public void loadInterstitial();
+    void loadInterstitial();
 
-    public void showInterstitial();
+    void showInterstitial();
 
-    public void removeAds();
+    void removeAds();
 
-    public void shareAPK();
+    void shareAPK();
 
-    public void showAdBanner();
+    void showAdBanner();
 
-    public void hideAdBanner();
-
+    void hideAdBanner();
 }

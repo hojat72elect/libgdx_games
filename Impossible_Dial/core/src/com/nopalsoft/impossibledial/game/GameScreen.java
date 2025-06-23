@@ -60,8 +60,7 @@ public class GameScreen extends Screens {
         if (dificultad == DIFICULTAD_EASY) {
             circulo.setDrawable(Assets.circle);
             oArrow = new ArrowEasy(SCREEN_WIDTH / 2f - Arrow.WIDTH / 2f, circulo.getY() + circulo.getHeight() / 2f);
-        }
-        else {
+        } else {
             circulo.setDrawable(Assets.circleHard);
             oArrow = new ArrowHard(SCREEN_WIDTH / 2f - Arrow.WIDTH / 2f, circulo.getY() + circulo.getHeight() / 2f);
         }
@@ -105,7 +104,6 @@ public class GameScreen extends Screens {
                 if (!btShare.isDisabled()) {
                     game.reqHandler.shareAPK();
                 }
-
             }
         });
 
@@ -128,7 +126,6 @@ public class GameScreen extends Screens {
         setReady();
 
         game.reqHandler.loadInterstitial();
-
     }
 
 
@@ -149,13 +146,10 @@ public class GameScreen extends Screens {
 
                 if (dificultad == DIFICULTAD_EASY) {
                     Achievements.unlockScoreAchievementsEasy(score);
-                }
-                else {
+                } else {
                     Achievements.unlockScoreAchievementsHard(score);
                 }
-
-            }
-            else {
+            } else {
                 setGameover();
             }
         }
@@ -178,8 +172,6 @@ public class GameScreen extends Screens {
                 lbScore.setText(scoreAnterior + "");
             }
         }
-
-
     }
 
     @Override
@@ -200,9 +192,7 @@ public class GameScreen extends Screens {
         if (state == STATE_READY) {
             state = STATE_RUNNING;
             stage.addActor(oArrow);
-
         }
-
     }
 
     private void setGameover() {
@@ -216,22 +206,17 @@ public class GameScreen extends Screens {
                 bestScore = Settings.bestScoreEasy;
                 if (game.gameServiceHandler instanceof GoogleGameServicesHandler) {
                     leaderboardID = "CgkIlp_HkPwMEAIQAg";
-                }
-                else {
+                } else {
                     leaderboardID = "BestScoreID";
                 }
-
-            }
-            else {
+            } else {
                 Settings.setNewScoreHard(score);
                 bestScore = Settings.bestScoreHard;
                 if (game.gameServiceHandler instanceof GoogleGameServicesHandler) {
                     leaderboardID = "CgkIlp_HkPwMEAIQCQ";
-                }
-                else {
+                } else {
                     leaderboardID = "bestScoreHardID";
                 }
-
             }
             game.gameServiceHandler.submitScore(score, leaderboardID);
 
@@ -250,7 +235,7 @@ public class GameScreen extends Screens {
             StringBuilder scoreTextColor = new StringBuilder();
 
             // HOT FIX PARA PONER ENTRE LAS LETRAS COLORES OBVIAMENTE ESTA MAL PERO nO SE ME OCURRIO OTRA COSA
-            String apend[] = {"[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
+            String[] apend = {"[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
                     "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
                     "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
                     "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
@@ -322,5 +307,4 @@ public class GameScreen extends Screens {
         }
         return super.keyDown(keycode);
     }
-
 }

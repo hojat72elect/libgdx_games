@@ -43,7 +43,6 @@ public abstract class Screens extends InputAdapter implements Screen {
 
         InputMultiplexer input = new InputMultiplexer(this, stage);
         Gdx.input.setInputProcessor(input);
-
     }
 
     @Override
@@ -59,7 +58,6 @@ public abstract class Screens extends InputAdapter implements Screen {
 
         stage.act(delta);
         stage.draw();
-
     }
 
     Image blackFadeOut;
@@ -139,5 +137,4 @@ public abstract class Screens extends InputAdapter implements Screen {
         // stage.dispose();
         // batcher.dispose();
     }
-
 }

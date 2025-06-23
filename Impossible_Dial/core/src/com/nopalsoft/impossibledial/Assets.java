@@ -111,8 +111,5 @@ public class Assets {
 
 
         idiomas = I18NBundle.createBundle(Gdx.files.internal("strings/strings"));
-
     }
-
-
 }

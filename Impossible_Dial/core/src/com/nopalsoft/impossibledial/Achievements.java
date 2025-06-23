@@ -32,7 +32,6 @@ public class Achievements {
             masterHard = "masterID";
             godHard = "godID";
         }
-
     }
 
     public static void unlockScoreAchievementsEasy(long num) {
@@ -64,5 +63,4 @@ public class Achievements {
             gameHandler.unlockStepAchievement(Settings.numVecesJugadas * 100f / 250f, iLoveThisGame);//Para llegar al 100% se deben hacer 250 juegos
         }
     }
-
 }

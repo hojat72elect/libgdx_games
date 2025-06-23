@@ -17,7 +17,7 @@ import com.nopalsoft.impossibledial.screens.Screens;
 public class Ventana extends Group {
     public static final float DURACION_ANIMATION = .3f;
 
-    private Image dim;
+    private final Image dim;
     protected Screens screen;
     protected I18NBundle idiomas;
     protected MainGame game;
@@ -35,7 +35,6 @@ public class Ventana extends Group {
         dim.setSize(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
 
         setBackGround(Assets.dialogVentana);
-
     }
 
     protected void setCloseButton(float positionX, float positionY, float size) {
@@ -50,14 +49,12 @@ public class Ventana extends Group {
             }
         });
         addActor(btClose);
-
     }
 
     private void setBackGround(NinePatchDrawable imageBackground) {
         Image img = new Image(imageBackground);
         img.setSize(getWidth(), getHeight());
         addActor(img);
-
     }
 
     public void show(Stage stage) {
@@ -87,7 +84,5 @@ public class Ventana extends Group {
         game.reqHandler.hideAdBanner();
         addAction(Actions.sequence(Actions.scaleTo(.5f, .5f, DURACION_ANIMATION), Actions.removeActor()));
         dim.addAction(Actions.sequence(Actions.alpha(0, DURACION_ANIMATION), Actions.removeActor()));
-
     }
-
 }

@@ -56,13 +56,10 @@ public class CountDown extends Group {
                 one.remove();
                 gameScreen.setRunning();
                 remove();
-
             }
         };
         one.addAction(Actions.sequence(Actions.fadeOut(tiempoPorNumero), Actions.run(runAfterOne)));
 
         addActor(three);
-
-
     }
 }

@@ -3,22 +3,21 @@ package com.nopalsoft.impossibledial.handlers;
 public interface GameServicesHandler {
 
 
-    public void submitScore(long score, String leaderboardID);
+    void submitScore(long score, String leaderboardID);
 
 
-    public void unlockAchievement(String achievementId);
+    void unlockAchievement(String achievementId);
 
 
-    public void getLeaderboard();
+    void getLeaderboard();
 
-    public void unlockStepAchievement(float steps, String achievementID);
+    void unlockStepAchievement(float steps, String achievementID);
 
-    public void getAchievements();
+    void getAchievements();
 
-    public boolean isSignedIn();
+    boolean isSignedIn();
 
-    public void signIn();
+    void signIn();
 
-    public void signOut();
-
+    void signOut();
 }

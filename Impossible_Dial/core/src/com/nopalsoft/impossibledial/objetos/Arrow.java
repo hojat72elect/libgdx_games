@@ -47,8 +47,7 @@ public abstract class Arrow extends Image {
 
         if (getRotation() >= 360) {
             setRotation(0);
-        }
-        else if (getRotation() <= -360) {
+        } else if (getRotation() <= -360) {
             setRotation(0);
         }
     }
@@ -94,5 +93,4 @@ public abstract class Arrow extends Image {
     public static Color getRandomColor() {
         return getColor(MathUtils.random(7));
     }
-
 }

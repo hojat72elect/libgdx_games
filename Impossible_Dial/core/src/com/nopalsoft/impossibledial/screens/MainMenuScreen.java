@@ -86,8 +86,7 @@ public class MainMenuScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 if (game.gameServiceHandler.isSignedIn()) {
                     game.gameServiceHandler.getLeaderboard();
-                }
-                else {
+                } else {
                     game.gameServiceHandler.signIn();
                 }
             }
@@ -100,11 +99,9 @@ public class MainMenuScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 if (game.gameServiceHandler.isSignedIn()) {
                     game.gameServiceHandler.getAchievements();
-                }
-                else {
+                } else {
                     game.gameServiceHandler.signIn();
                 }
-
             }
         });
 
@@ -134,8 +131,6 @@ public class MainMenuScreen extends Screens {
         stage.addActor(arrow);
         stage.addActor(btJugar);
         stage.addActor(menuUI);
-
-
     }
 
     @Override
@@ -160,5 +155,4 @@ public class MainMenuScreen extends Screens {
         }
         return super.keyDown(keycode);
     }
-
 }

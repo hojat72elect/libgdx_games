@@ -46,8 +46,5 @@ public class VentanaDificultad extends Ventana {
 
         addActor(btHard);
         addActor(btEasy);
-
     }
-
-
 }

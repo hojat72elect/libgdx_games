@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.nopalsoft.impossibledial.MainGame;
 import com.nopalsoft.impossibledial.handlers.FacebookHandler;
 import com.nopalsoft.impossibledial.handlers.GameServicesHandler;
 import com.nopalsoft.impossibledial.handlers.RequestHandler;
