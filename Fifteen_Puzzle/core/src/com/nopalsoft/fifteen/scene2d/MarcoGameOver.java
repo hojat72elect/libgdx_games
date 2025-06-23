@@ -97,29 +97,11 @@ public class MarcoGameOver extends Group {
         btShareTwitter.setSize(50, 50);
         btShareTwitter.setPosition(155, 110);
         screen.addEfectoPress(btShareTwitter);
-        btShareTwitter.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                screen.game.reqHandler
-                        .shareOnTwitter("My best time playing  15 puzzle is "
-                                + Settings.bestTime
-                                + " seconds, can you beat me?");
-            }
-        });
 
         btShareFacebook = new Button(Assets.btFacebook);
         btShareFacebook.setSize(50, 50);
         btShareFacebook.setPosition(225, 110);
         screen.addEfectoPress(btShareFacebook);
-        btShareFacebook.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                screen.game.reqHandler
-                        .shareOnFacebook("My best time playing  15 puzzle is "
-                                + Settings.bestTime
-                                + " seconds, can you beat me?");
-            }
-        });
 
         final Label lbMainMenu = new Label("Main menu", Assets.labelStyleGrande);
         lbMainMenu.setWidth(getWidth() - 10);

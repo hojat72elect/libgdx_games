@@ -56,11 +56,6 @@ public class MainMenuScreen extends Screens {
         lbRate = new Label("Rate", Assets.labelStyleGrande);
         lbRate.setPosition(SCREEN_WIDTH / 2f - lbRate.getWidth() / 2f, 250);
         addEfectoPress(lbRate);
-        lbRate.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.showRater();
-            }
-        });
 
         // Leaderboard
         lbLeaderboard = new Label("Leaderboard", Assets.labelStyleGrande);
@@ -70,14 +65,6 @@ public class MainMenuScreen extends Screens {
         lbLeaderboard.setAlignment(Align.center);
 
         addEfectoPress(lbLeaderboard);
-        lbLeaderboard.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn()) {
-                    game.gameServiceHandler.getLeaderboard();
-                } else
-                    game.gameServiceHandler.signIn();
-            }
-        });
 
         btMusica = new Button(Assets.styleButtonMusica);
         btMusica.setPosition(5, 5);
@@ -110,12 +97,6 @@ public class MainMenuScreen extends Screens {
         btFacebook.setSize(50, 50);
         btFacebook.setPosition(SCREEN_WIDTH - btFacebook.getWidth() - 5, 10);
         addEfectoPress(btFacebook);
-        btFacebook.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.showFacebook();
-            }
-        });
 
         stage.addActor(imgTitulo);
         stage.addActor(lbPlay);

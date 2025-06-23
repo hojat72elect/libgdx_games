@@ -12,7 +12,6 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.fifteen.Assets;
 import com.nopalsoft.fifteen.MainFifteen;
 import com.nopalsoft.fifteen.Settings;
-import com.nopalsoft.fifteen.handlers.AmazonGameServicesHandler;
 import com.nopalsoft.fifteen.scene2d.MarcoGameOver;
 import com.nopalsoft.fifteen.scene2d.MarcoPaused;
 import com.nopalsoft.fifteen.screens.MainMenuScreen;
@@ -128,9 +127,6 @@ public class GameScreen extends Screens {
     public void hide() {
         super.hide();
         stageGame.dispose();
-        game.reqHandler.hideAdBanner();
-        if (Settings.numeroVecesJugadas % 3 == 0)
-            game.reqHandler.showInterstitial();
     }
 
     private void setReady() {
@@ -154,20 +150,9 @@ public class GameScreen extends Screens {
         state = STATE_GAME_OVER;
         Settings.setBestScores((int) oTablero.tiempo, oTablero.moves);
 
-        String idBestTime = "CgkIzqr6xOwWEAIQAA";
-        String idBestMoves = "CgkIzqr6xOwWEAIQAQ";
-
-        if (game.gameServiceHandler instanceof AmazonGameServicesHandler) {
-            idBestTime = "BestTime";
-            idBestMoves = "BestMoves";
-        }
-
-        game.gameServiceHandler.submitScore((int) oTablero.tiempo, idBestTime);
-        game.gameServiceHandler.submitScore(oTablero.moves, idBestMoves);
         MarcoGameOver oMarcoGameover = new MarcoGameOver(this,
                 (int) oTablero.tiempo, oTablero.moves);
         stage.addActor(oMarcoGameover);
-        game.reqHandler.showAdBanner();
     }
 
     @Override
