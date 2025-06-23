@@ -1,0 +1,228 @@
+atlasMap.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arrowBlue
+  rotate: false
+  xy: 655, 389
+  size: 12, 181
+  orig: 12, 181
+  offset: 0, 0
+  index: -1
+arrowBrown
+  rotate: false
+  xy: 669, 389
+  size: 12, 181
+  orig: 12, 181
+  offset: 0, 0
+  index: -1
+arrowCyan
+  rotate: false
+  xy: 683, 389
+  size: 12, 181
+  orig: 12, 181
+  offset: 0, 0
+  index: -1
+arrowGreen
+  rotate: false
+  xy: 697, 389
+  size: 12, 181
+  orig: 12, 181
+  offset: 0, 0
+  index: -1
+arrowMorado
+  rotate: false
+  xy: 711, 389
+  size: 12, 181
+  orig: 12, 181
+  offset: 0, 0
+  index: -1
+arrowNegro
+  rotate: false
+  xy: 725, 389
+  size: 12, 181
+  orig: 12, 181
+  offset: 0, 0
+  index: -1
+arrowRed
+  rotate: false
+  xy: 739, 389
+  size: 12, 181
+  orig: 12, 181
+  offset: 0, 0
+  index: -1
+arrowYellow
+  rotate: false
+  xy: 753, 389
+  size: 12, 181
+  orig: 12, 181
+  offset: 0, 0
+  index: -1
+btAchievement
+  rotate: false
+  xy: 2, 666
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btBack
+  rotate: false
+  xy: 305, 555
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btDisabled
+  rotate: false
+  xy: 733, 572
+  size: 20, 16
+  orig: 20, 16
+  offset: 0, 0
+  index: -1
+btEnabled
+  rotate: false
+  xy: 755, 572
+  size: 20, 16
+  orig: 20, 16
+  offset: 0, 0
+  index: -1
+btFacebook
+  rotate: false
+  xy: 376, 555
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btFalse
+  rotate: false
+  xy: 305, 626
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btJugar
+  rotate: false
+  xy: 357, 697
+  size: 68, 56
+  orig: 68, 56
+  offset: 0, 0
+  index: -1
+btLeaderboard
+  rotate: false
+  xy: 376, 626
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btRate
+  rotate: false
+  xy: 73, 669
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btShare
+  rotate: false
+  xy: 144, 669
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btTrue
+  rotate: false
+  xy: 215, 669
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+btTryAgain
+  rotate: false
+  xy: 286, 697
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+circulo
+  rotate: false
+  xy: 390, 2
+  size: 385, 385
+  orig: 385, 385
+  offset: 0, 0
+  index: -1
+circuloHard
+  rotate: false
+  xy: 2, 2
+  size: 386, 389
+  orig: 386, 389
+  offset: 0, 0
+  index: -1
+dialogRanking
+  rotate: false
+  xy: 2, 555
+  size: 110, 109
+  orig: 110, 109
+  offset: 0, 0
+  index: -1
+dialogVentana
+  rotate: false
+  xy: 655, 572
+  size: 76, 82
+  orig: 76, 82
+  offset: 0, 0
+  index: -1
+font32
+  rotate: false
+  xy: 484, 389
+  size: 169, 279
+  orig: 169, 279
+  offset: 0, 0
+  index: -1
+header
+  rotate: false
+  xy: 2, 533
+  size: 480, 20
+  orig: 480, 20
+  offset: 0, 0
+  index: -1
+one
+  rotate: false
+  xy: 263, 555
+  size: 40, 110
+  orig: 40, 110
+  offset: 0, 0
+  index: -1
+pixelNegro
+  rotate: false
+  xy: 655, 656
+  size: 5, 5
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
+play
+  rotate: false
+  xy: 427, 697
+  size: 47, 54
+  orig: 47, 54
+  offset: 0, 0
+  index: -1
+three
+  rotate: false
+  xy: 114, 555
+  size: 74, 112
+  orig: 74, 112
+  offset: 0, 0
+  index: -1
+titulo
+  rotate: false
+  xy: 2, 393
+  size: 450, 138
+  orig: 450, 138
+  offset: 0, 0
+  index: -1
+two
+  rotate: false
+  xy: 190, 555
+  size: 71, 112
+  orig: 71, 112
+  offset: 0, 0
+  index: -1

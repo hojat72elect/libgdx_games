@@ -1,0 +1,111 @@
+
+atlasMap.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+amarillo
+  rotate: false
+  xy: 260, 275
+  size: 80, 110
+  orig: 80, 110
+  offset: 0, 0
+  index: -1
+azul
+  rotate: false
+  xy: 260, 163
+  size: 80, 110
+  orig: 80, 110
+  offset: 0, 0
+  index: -1
+blanco
+  rotate: false
+  xy: 342, 275
+  size: 80, 110
+  orig: 80, 110
+  offset: 0, 0
+  index: -1
+btAtras
+  rotate: false
+  xy: 424, 142
+  size: 17, 19
+  orig: 17, 19
+  offset: 0, 0
+  index: -1
+btFacebook
+  rotate: false
+  xy: 260, 20
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+btTwitter
+  rotate: false
+  xy: 506, 356
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+fondoPuntuaciones
+  rotate: false
+  xy: 292, 32
+  size: 17, 17
+  split: 6, 6, 6, 6
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+font
+  rotate: false
+  xy: 2, 2
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+morado
+  rotate: false
+  xy: 260, 51
+  size: 80, 110
+  orig: 80, 110
+  offset: 0, 0
+  index: -1
+naranja
+  rotate: false
+  xy: 342, 163
+  size: 80, 110
+  orig: 80, 110
+  offset: 0, 0
+  index: -1
+pixelNegro
+  rotate: false
+  xy: 670, 509
+  size: 5, 5
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
+rojo
+  rotate: false
+  xy: 424, 275
+  size: 80, 110
+  orig: 80, 110
+  offset: 0, 0
+  index: -1
+step
+  rotate: false
+  xy: 342, 51
+  size: 80, 110
+  orig: 80, 110
+  offset: 0, 0
+  index: -1
+titulo
+  rotate: false
+  xy: 260, 387
+  size: 408, 127
+  orig: 408, 127
+  offset: 0, 0
+  index: -1
+wrong
+  rotate: false
+  xy: 424, 163
+  size: 80, 110
+  orig: 80, 110
+  offset: 0, 0
+  index: -1
