@@ -29,14 +29,14 @@ public class SettingsScreen extends ScreenAdapter {
 
 
     //Snake colors
-    private Texture snakeTexture;
+    private final Texture snakeTexture;
     private Table snakeTable;
-    private Array<PreviewSnake> previewSnakes;
+    private final Array<PreviewSnake> previewSnakes;
 
 
     private Button soundButton;
     private Button vibrationButton;
-    private SpeedChooser speedChooser;
+    private final SpeedChooser speedChooser;
 
 
     public SettingsScreen(SnakeIt gameClass) {
@@ -130,29 +130,19 @@ public class SettingsScreen extends ScreenAdapter {
 
     private void setUpButtons() {
         soundButton = new Button(game.skin, "sound");
-        if (game.soundOn)
-            soundButton.setChecked(false);
-
-        else
-            soundButton.setChecked(true);
+        soundButton.setChecked(!game.soundOn);
         soundButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.soundOn = !game.soundOn;
-                if (game.soundOn)
-                    soundButton.setChecked(false);
-                else
-                    soundButton.setChecked(true);
+                soundButton.setChecked(!game.soundOn);
                 game.savePreferences();
             }
         });
 
 
         vibrationButton = new Button(game.skin, "vibration");
-        if (game.vibrationOn)
-            vibrationButton.setChecked(false);
-        else
-            vibrationButton.setChecked(true);
+        vibrationButton.setChecked(!game.vibrationOn);
         vibrationButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -165,7 +155,6 @@ public class SettingsScreen extends ScreenAdapter {
                 game.savePreferences();
             }
         });
-
     }
 
     @Override

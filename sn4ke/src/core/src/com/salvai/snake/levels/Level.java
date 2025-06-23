@@ -33,7 +33,7 @@ public class Level {
         if (toReverse) {
             List<int[]> blockList = Arrays.asList(blocksPositions);
             Collections.reverse(blockList);
-            blocksPositions = (int[][]) blockList.toArray();
+            blocksPositions = blockList.toArray(new int[blockList.size()][]);
             toReverse = false;
         }
 

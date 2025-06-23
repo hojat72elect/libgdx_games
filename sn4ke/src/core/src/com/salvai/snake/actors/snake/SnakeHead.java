@@ -18,5 +18,4 @@ public class SnakeHead extends MovingGameObject {
         super(new Vector2(startX, startY), baseTexture, MovingDirection.NONE, worldUtils, true); //using baseTexture as normal one
         setColor(color);
     }
-
 }

@@ -56,12 +56,15 @@ public class Constants {
     public static final String SKIN_FILE_NAME = "skin/uiskin.json";
     public static final String SKIN_ATLAS_FILE_NAME = "skin/uiskin.atlas";
     public static final String LEVEL_PREVIEW = "level-preview/level-";
-    public static final String POINT_SFX = "sound/point.m4a";
-    public static final String UP_SFX = "sound/up.m4a";
-    public static final String LEFT_RIGHT_SFX = "sound/left-right.m4a";
-    public static final String DOWN_SFX = "sound/down.m4a";
-    public static final String GAME_OVER_SFX = "sound/game-over.m4a";
-    public static final String NEW_BEST_SFX = "sound/new-best.m4a";
+
+    // todo : they need to be converted into another file format that is readable by LibGDX.
+//    public static final String POINT_SFX = "sound/point.m4a";
+//    public static final String UP_SFX = "sound/up.m4a";
+//    public static final String LEFT_RIGHT_SFX = "sound/left-right.m4a";
+//    public static final String DOWN_SFX = "sound/down.m4a";
+//    public static final String GAME_OVER_SFX = "sound/game-over.m4a";
+//    public static final String NEW_BEST_SFX = "sound/new-best.m4a";
+
     //background
     public static final int MAX_BACKGROUND_OBJECTS = 60;
     public static final int MIN_BACKGROUND_SPEED = 20;

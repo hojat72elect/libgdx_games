@@ -26,6 +26,5 @@ public class Apple extends GameObject {
                 setPosition(screenPosition.x, screenPosition.y);
             }
         }), Actions.delay(0.2f), Actions.fadeIn(Constants.DURATION)));
-
     }
 }

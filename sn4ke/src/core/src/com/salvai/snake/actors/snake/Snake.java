@@ -17,8 +17,8 @@ public class Snake {
     public boolean addBody;
     public Texture texture;
     public Color bodyColor;
-    private Color headColor;
-    private WorldUtils worldUtils;
+    private final Color headColor;
+    private final WorldUtils worldUtils;
 
     public Snake(Texture texture, int styleIndex, WorldUtils worldUtils) {
         this.texture = texture;
@@ -70,7 +70,7 @@ public class Snake {
             snakeBodies.first().setDirectionWhitoutCheck(snakeHead.direction);
     }
 
-    public void move( int screenBlockSize) {
+    public void move(int screenBlockSize) {
         snakeHead.move(screenBlockSize);
         for (SnakeBody snakeBody : snakeBodies)
             snakeBody.move(screenBlockSize);
@@ -113,7 +113,6 @@ public class Snake {
         for (SnakeBody snakeBody : snakeBodies)
             snakeBody.setVisible(true);
     }
-
 }
 
 

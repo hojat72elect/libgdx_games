@@ -30,7 +30,7 @@ public class SplashScreen extends ScreenAdapter {
 
         game.assetsManager.loadSkin();
         game.assetsManager.loadImages();
-        game.assetsManager.loadSounds();
+//        game.assetsManager.loadSounds();
     }
 
 
@@ -69,8 +69,6 @@ public class SplashScreen extends ScreenAdapter {
                 countdownTime -= 1;
             }
         }
-
-
     }
 
 
@@ -86,5 +84,4 @@ public class SplashScreen extends ScreenAdapter {
         // change the stage's viewport when teh screen size is changed
         game.viewport.update(width, height, true);
     }
-
 }

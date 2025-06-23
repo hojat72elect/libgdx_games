@@ -7,7 +7,7 @@ import com.salvai.snake.screens.GameScreen;
 
 public class GameGestureDetector extends GestureDetector.GestureAdapter {
 
-    private GameScreen gameScreen;
+    private final GameScreen gameScreen;
 
     public GameGestureDetector(GameScreen gameScreen) {
         super();

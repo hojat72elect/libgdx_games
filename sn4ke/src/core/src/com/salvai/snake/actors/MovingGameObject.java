@@ -48,7 +48,7 @@ public abstract class MovingGameObject extends GameObject {
     }
 
 
-    public void move( int screenBlockSize) {
+    public void move(int screenBlockSize) {
         if (move)
             switch (direction) {
                 case UP:
@@ -80,7 +80,7 @@ public abstract class MovingGameObject extends GameObject {
         addAction(Actions.moveBy(0, -screenBlockSize, Constants.SNAKE_DURATION, Constants.SNAKE_INTERPOLATION));
     }
 
-    private void moveLeft( int screenBlockSize) {
+    private void moveLeft(int screenBlockSize) {
         addAction(Actions.moveBy(-screenBlockSize, 0, Constants.SNAKE_DURATION, Constants.SNAKE_INTERPOLATION));
     }
 
@@ -130,5 +130,4 @@ public abstract class MovingGameObject extends GameObject {
     public void setScreenPosition() {
         screenPosition = worldUtils.worldToScreen(worldPosition);
     }
-
 }

@@ -16,15 +16,15 @@ import com.salvai.snake.utils.RandomUtil;
 
 public class Background {
 
-    private Array<Integer> starsCreationDelay;
-    private Texture texture;
-    private Stage stage;
-    private int width;
-    private int height;
+    private final Array<Integer> starsCreationDelay;
+    private final Texture texture;
+    private final Stage stage;
+    private final int width;
+    private final int height;
 
     private boolean colorToReset;
-    private Image backgroundImage;
-    private int backgroundIndex;
+    private final Image backgroundImage;
+    private final int backgroundIndex;
     private int colorIndex;
 
 
@@ -54,14 +54,12 @@ public class Background {
         //create first stars
         for (int i = 0; i < Constants.MAX_BACKGROUND_OBJECTS - starsCreationDelay.size; i++)
             stage.addActor(new BackgroundObject(texture, true, MovingDirection.DOWN));
-
     }
 
     public void changeBackground(final int index) {
         colorIndex = index;
         setBackgroundObjectColor();
         backgroundImage.setColor(Colors.getBackgroundColor(index));
-
     }
 
     private void update(float delta, MovingDirection direction, int worldTime, boolean newBest) {
@@ -97,7 +95,6 @@ public class Background {
             if (starsCreationDelay.get(i) <= 0)
                 starsCreationDelay.removeIndex(i);
         }
-
     }
 
     private void createStars(MovingDirection direction) {
@@ -111,7 +108,6 @@ public class Background {
                 backgroundObject.remove();
                 starsCreationDelay.add(40); // new delay
             }
-
     }
 
     public void draw(float delta, MovingDirection direction, int worldTime, boolean newBest) {
@@ -197,6 +193,4 @@ public class Background {
                 getDrawable().draw(batch, x + getImageX(), y + getImageY(), getImageWidth() * scaleX, getImageHeight() * scaleY);
         }
     }
-
-
 }

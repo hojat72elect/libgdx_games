@@ -19,7 +19,6 @@ public abstract class GameObject extends Image {
         screenPosition = worldUtils.worldToScreen(worldPosition);
         setBounds(screenPosition.x, screenPosition.y, worldUtils.blockSize, worldUtils.blockSize);
     }
-
 }
 
 

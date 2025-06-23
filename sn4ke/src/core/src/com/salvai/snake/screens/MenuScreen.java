@@ -17,15 +17,15 @@ import com.salvai.snake.utils.Constants;
 import com.salvai.snake.utils.UrlController;
 
 
-
 public class MenuScreen extends ScreenAdapter {
 
     public MyDialog exitDialog;
     public Button playButton;
     public TextButton websiteButton;
     private Table table;
-    private SnakeIt game;
-    private float width, height;
+    private final SnakeIt game;
+    private final float width;
+    private final float height;
 
 
     public MenuScreen(SnakeIt gameClass) {
@@ -79,7 +79,6 @@ public class MenuScreen extends ScreenAdapter {
 
         exitDialog.getButtonTable().add(noButton);
         exitDialog.getButtonTable().add(yesButton);
-
     }
 
     public void setUpInputMultiplexer() {
@@ -121,7 +120,6 @@ public class MenuScreen extends ScreenAdapter {
                 UrlController.openWebsite();
             }
         });
-
     }
 
 
@@ -141,5 +139,4 @@ public class MenuScreen extends ScreenAdapter {
     public void resize(int width, int height) {
         game.stage.getViewport().update(width, height, true);
     }
-
 }

@@ -14,6 +14,4 @@ public class SnakeBody extends MovingGameObject {
         super(worldPosition, texture, direction, worldUtils, false);
         setColor(color);
     }
-
-
 }

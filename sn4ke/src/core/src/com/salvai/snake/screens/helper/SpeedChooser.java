@@ -11,7 +11,7 @@ public class SpeedChooser {
 
     public Slider slider;
     public Label label;
-    private SnakeIt game;
+    private final SnakeIt game;
     private int speedValue;
 
     public SpeedChooser(SnakeIt gameClass) {
@@ -19,7 +19,7 @@ public class SpeedChooser {
 
         speedValue = Constants.WORLD_TIME_MAX - game.worldTime;
 
-         label = new Label("speed",game.skin);
+        label = new Label("speed", game.skin);
 
 
         slider = new Slider(0, 20, 5, false, game.skin, "difficulty");
@@ -32,7 +32,5 @@ public class SpeedChooser {
                 game.worldTime = Constants.WORLD_TIME_MAX - speedValue;
             }
         });
-
     }
-
 }

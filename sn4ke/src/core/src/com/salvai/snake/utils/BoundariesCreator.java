@@ -8,7 +8,7 @@ import com.salvai.snake.actors.Block;
 public class BoundariesCreator {
 
     private final Texture texture;
-    private WorldUtils worldUtils;
+    private final WorldUtils worldUtils;
 
     public BoundariesCreator(Texture texture, WorldUtils worldUtils) {
         this.texture = texture;
@@ -16,7 +16,7 @@ public class BoundariesCreator {
     }
 
     public Array<Block> fullBoundaries() {
-        Array<Block> blocks = new Array<Block>();
+        Array<Block> blocks = new Array<>();
         //horizontal
         for (int i = 0; i <= worldUtils.worldWidth; i++) {
             blocks.add(new Block(new Vector2(i, 0), texture, worldUtils));
@@ -29,6 +29,4 @@ public class BoundariesCreator {
         }
         return blocks;
     }
-
-
 }

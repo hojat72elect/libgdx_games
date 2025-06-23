@@ -9,8 +9,8 @@ import com.salvai.snake.utils.WorldUtils;
 
 public class GameObjectMap {
 
-    private int[][] map;
-    private Array<Vector2> freePositions;
+    private final int[][] map;
+    private final Array<Vector2> freePositions;
 
     public GameObjectMap(Array<Block> blocks, WorldUtils worldUtils) {
         //because world starts from 0 to screenwidth/height
@@ -41,5 +41,4 @@ public class GameObjectMap {
                     map[i][j] = 0;
         return freePositions.random();
     }
-
 }

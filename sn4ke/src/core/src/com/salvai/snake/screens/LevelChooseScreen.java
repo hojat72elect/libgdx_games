@@ -31,9 +31,9 @@ public class LevelChooseScreen extends ScreenAdapter {
     float width;
     float height;
     private Table tableTabs;
-    private Array<Table> levelTables;
-    private Array<Label> levelLabels;
-    private ButtonGroup<TextButton> tabs;
+    private final Array<Table> levelTables;
+    private final Array<Label> levelLabels;
+    private final ButtonGroup<TextButton> tabs;
     private ScrollPane scrollPane;
 
 

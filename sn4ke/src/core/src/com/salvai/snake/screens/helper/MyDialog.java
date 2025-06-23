@@ -16,6 +16,4 @@ public class MyDialog extends Dialog {
             text(label);
         }
     }
-
-
 }

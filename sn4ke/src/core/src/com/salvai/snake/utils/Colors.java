@@ -32,7 +32,6 @@ public class Colors {
     }
 
 
-
     //converts value for libgdx color format
     private static Color getColor(int r, int g, int b) {
         return new Color(r / 255f, g / 255f, b / 255f, 1);

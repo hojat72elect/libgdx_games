@@ -7,7 +7,7 @@ import com.salvai.snake.utils.Constants;
 
 public class LevelReader {
 
-    private Json json;
+    private final Json json;
 
     public LevelReader() {
         json = new Json();
@@ -28,5 +28,4 @@ public class LevelReader {
         else
             return json.fromJson(Level.class, Gdx.files.internal("levels/level" + ((level / Constants.LEVELS_PRO_TAB) + 1) + "-" + level % Constants.LEVELS_PRO_TAB + ".json")); //TODO find out how to read levels correctly
     }
-
 }

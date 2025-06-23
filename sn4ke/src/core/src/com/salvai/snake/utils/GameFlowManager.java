@@ -17,10 +17,10 @@ public class GameFlowManager {
     public Array<Block> baseBlocks;
     public Array<Block> blocks;
     public Apple apple;
-    private GameScreen gameScreen;
-    private Texture blockTexture;
-    private BoundariesCreator boundariesCreator;
-    private GameObjectMap gameObjectMap;
+    private final GameScreen gameScreen;
+    private final Texture blockTexture;
+    private final BoundariesCreator boundariesCreator;
+    private final GameObjectMap gameObjectMap;
 
 
     public GameFlowManager(GameScreen screen) {
@@ -52,16 +52,14 @@ public class GameFlowManager {
             apple = new Apple(new Vector2(11, 19), blockTexture, gameScreen.game.worldUtils, gameScreen.game.selectedColor);
         else
             apple = new Apple(gameObjectMap.getFreePositions(snake, null), blockTexture, gameScreen.game.worldUtils, gameScreen.game.selectedColor);
-
-
     }
 
     public SnakeBody update(MovingDirection userDirection) {
         SnakeBody newSnakeBody = null;
 
         if (userDirection != null && userDirection != snake.snakeHead.direction) {
-            if (gameScreen.game.soundOn)
-                playMoveSound(userDirection);
+//            if (gameScreen.game.soundOn)
+//                playMoveSound(userDirection);
             snake.setDirection(userDirection);
         }
 
@@ -73,7 +71,7 @@ public class GameFlowManager {
                 Gdx.input.vibrate(Constants.VIBRATION_DURATION_GAME_OVER);
             }
             assignHighscore();
-            playGameOverSound();
+//            playGameOverSound();
         } else {
             snake.move(gameScreen.game.worldUtils.blockSize);
             checkScore();
@@ -83,27 +81,27 @@ public class GameFlowManager {
         return newSnakeBody;
     }
 
-    private void playGameOverSound() {
-        if (gameScreen.game.soundOn)
-            if (gameScreen.newHighscore)
-                gameScreen.newBestSound.play();
-            else
-                gameScreen.gameOverSound.play();
-    }
+//    private void playGameOverSound() {
+//        if (gameScreen.game.soundOn)
+//            if (gameScreen.newHighscore)
+//                gameScreen.newBestSound.play();
+//            else
+//                gameScreen.gameOverSound.play();
+//    }
 
-    private void playMoveSound(MovingDirection userDirection) {
-        switch (userDirection) {
-            case UP:
-                gameScreen.upSound.play();
-                break;
-            case DOWN:
-                gameScreen.downSound.play();
-                break;
-            default:
-                gameScreen.leftRightSound.play();
-                break;
-        }
-    }
+//    private void playMoveSound(MovingDirection userDirection) {
+//        switch (userDirection) {
+//            case UP:
+//                gameScreen.upSound.play();
+//                break;
+//            case DOWN:
+//                gameScreen.downSound.play();
+//                break;
+//            default:
+//                gameScreen.leftRightSound.play();
+//                break;
+//        }
+//    }
 
     private SnakeBody addBody() {
         SnakeBody newSnakeBody = null;
@@ -119,8 +117,8 @@ public class GameFlowManager {
         if (snake.eats(apple)) {
             gameScreen.game.score += Constants.POINT;
             gameScreen.updateScoreLabel();
-            if (gameScreen.game.soundOn)
-                gameScreen.pointSound.play();
+//            if (gameScreen.game.soundOn)
+//                gameScreen.pointSound.play();
 
             apple.reset(gameObjectMap.getFreePositions(snake, apple));
         }

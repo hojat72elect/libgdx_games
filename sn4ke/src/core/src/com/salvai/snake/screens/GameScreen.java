@@ -1,5 +1,9 @@
 package com.salvai.snake.screens;
 
+import static com.salvai.snake.enums.GameState.RUNNING;
+import static com.salvai.snake.enums.GameState.STARTED;
+import static com.salvai.snake.utils.Constants.BACKGROUND_COLOR;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
@@ -30,10 +34,6 @@ import com.salvai.snake.screens.helper.SpeedChooser;
 import com.salvai.snake.utils.Constants;
 import com.salvai.snake.utils.GameFlowManager;
 
-import static com.salvai.snake.enums.GameState.RUNNING;
-import static com.salvai.snake.enums.GameState.STARTED;
-import static com.salvai.snake.utils.Constants.BACKGROUND_COLOR;
-
 /**
  * Created by mert on 1/30/18.
  */
@@ -56,13 +56,13 @@ public class GameScreen extends ScreenAdapter {
     public Sound newBestSound;
     private int updateCountdown;
     private int gameOverEffectCount;
-    private GameFlowManager gameFlowManager;
+    private final GameFlowManager gameFlowManager;
     private Label scoreLabel;
     private Container<Label> scoreContainer;
     private Image handImage;
-    private Stage gameOverStage;
+    private final Stage gameOverStage;
     private Table gameOverTable;
-    private SpeedChooser speedChooser;
+    private final SpeedChooser speedChooser;
 
 
     public GameScreen(final SnakeIt gameClass) {
@@ -81,7 +81,7 @@ public class GameScreen extends ScreenAdapter {
         gameOverStage = new Stage(game.viewport);
 
 
-        loadSounds();
+//        loadSounds();
 
         game.savePreferences();
 
@@ -189,14 +189,14 @@ public class GameScreen extends ScreenAdapter {
         gameOverStage.addActor(gameOverTable);
     }
 
-    private void loadSounds() {
-        pointSound = game.assetsManager.manager.get(Constants.POINT_SFX, Sound.class);
-        upSound = game.assetsManager.manager.get(Constants.UP_SFX, Sound.class);
-        downSound = game.assetsManager.manager.get(Constants.DOWN_SFX, Sound.class);
-        leftRightSound = game.assetsManager.manager.get(Constants.LEFT_RIGHT_SFX, Sound.class);
-        gameOverSound = game.assetsManager.manager.get(Constants.GAME_OVER_SFX, Sound.class);
-        newBestSound = game.assetsManager.manager.get(Constants.NEW_BEST_SFX, Sound.class);
-    }
+//    private void loadSounds() {
+//        pointSound = game.assetsManager.manager.get(Constants.POINT_SFX, Sound.class);
+//        upSound = game.assetsManager.manager.get(Constants.UP_SFX, Sound.class);
+//        downSound = game.assetsManager.manager.get(Constants.DOWN_SFX, Sound.class);
+//        leftRightSound = game.assetsManager.manager.get(Constants.LEFT_RIGHT_SFX, Sound.class);
+//        gameOverSound = game.assetsManager.manager.get(Constants.GAME_OVER_SFX, Sound.class);
+//        newBestSound = game.assetsManager.manager.get(Constants.NEW_BEST_SFX, Sound.class);
+//    }
 
 
     private void setUpInputMultiplexer() {
@@ -255,7 +255,6 @@ public class GameScreen extends ScreenAdapter {
             if (newHighscore) {
                 scoreContainer.addAction(Actions.forever(Actions.sequence(Actions.scaleBy(Constants.SCORE_SCALE, Constants.SCORE_SCALE, Constants.HIGH_SCORE_DURATION,
                         Constants.INTERPOLATION), Actions.scaleBy(-Constants.SCORE_SCALE, -Constants.SCORE_SCALE, Constants.HIGH_SCORE_DURATION, Constants.INTERPOLATION))));
-
             }
 
             setUpGameOverTable();

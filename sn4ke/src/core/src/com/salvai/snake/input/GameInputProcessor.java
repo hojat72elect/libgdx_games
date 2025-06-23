@@ -11,7 +11,7 @@ import com.salvai.snake.screens.GameScreen;
 public class GameInputProcessor extends InputAdapter {
 
 
-    private GameScreen gameScreen;
+    private final GameScreen gameScreen;
 
     public GameInputProcessor(GameScreen gameScreen) {
         super();
@@ -28,5 +28,4 @@ public class GameInputProcessor extends InputAdapter {
             gameScreen.game.gameState = GameState.STARTED;
         return true;
     }
-
 }

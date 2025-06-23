@@ -2,7 +2,6 @@ package com.salvai.snake.utils;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
@@ -23,14 +22,14 @@ public class MyAssetsManager {
             manager.load(Constants.LEVEL_PREVIEW + i + ".png", Texture.class);
     }
 
-    public void loadSounds() {
-        manager.load(Constants.POINT_SFX, Sound.class);
-        manager.load(Constants.UP_SFX, Sound.class);
-        manager.load(Constants.LEFT_RIGHT_SFX, Sound.class);
-        manager.load(Constants.DOWN_SFX, Sound.class);
-        manager.load(Constants.GAME_OVER_SFX, Sound.class);
-        manager.load(Constants.NEW_BEST_SFX, Sound.class);
-    }
+//    public void loadSounds() {
+//        manager.load(Constants.POINT_SFX, Sound.class);
+//        manager.load(Constants.UP_SFX, Sound.class);
+//        manager.load(Constants.LEFT_RIGHT_SFX, Sound.class);
+//        manager.load(Constants.DOWN_SFX, Sound.class);
+//        manager.load(Constants.GAME_OVER_SFX, Sound.class);
+//        manager.load(Constants.NEW_BEST_SFX, Sound.class);
+//    }
 
     public void loadSplashScreen() {
         manager.load(Constants.BACKGROUND_IMAGE, Texture.class);
@@ -41,5 +40,4 @@ public class MyAssetsManager {
     public void loadSkin() {
         manager.load(Constants.SKIN_FILE_NAME, Skin.class, new SkinLoader.SkinParameter(Constants.SKIN_ATLAS_FILE_NAME));
     }
-
 }

@@ -52,7 +52,6 @@ public class WorldUtils {
                 playableWorldHeigth = worldHeight - Constants.PLAY_HEIGHT_FACTOR_Y_BIG + 1;
                 break;
         }
-
     }
 
     public Vector2 worldToScreen(Vector2 worldPosition) {

@@ -1,14 +1,14 @@
 package com.salvai.snake.screens.helper;
 
+import static com.salvai.snake.utils.Constants.DURATION;
+import static com.salvai.snake.utils.Constants.INTERPOLATION;
+import static com.salvai.snake.utils.Constants.SCALE;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.salvai.snake.utils.Colors;
-
-import static com.salvai.snake.utils.Constants.DURATION;
-import static com.salvai.snake.utils.Constants.INTERPOLATION;
-import static com.salvai.snake.utils.Constants.SCALE;
 
 
 public class PreviewSnake {
@@ -39,7 +39,6 @@ public class PreviewSnake {
         if (active)
             for (Image preview : previews)
                 preview.addAction(Actions.forever(Actions.sequence(Actions.scaleBy(SCALE, SCALE, DURATION, INTERPOLATION), Actions.scaleBy(-SCALE, -SCALE, DURATION, INTERPOLATION))));
-
     }
 
     public void startAnimation() {

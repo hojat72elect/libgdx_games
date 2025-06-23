@@ -11,8 +11,8 @@ import com.salvai.snake.screens.SettingsScreen;
 import com.salvai.snake.utils.Constants;
 
 public class CatchBackKeyProcessor extends InputAdapter {
-    private SnakeIt game;
-    private Screen screen;
+    private final SnakeIt game;
+    private final Screen screen;
 
     public CatchBackKeyProcessor(SnakeIt game, Screen screen) {
         this.game = game;

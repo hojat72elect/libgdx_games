@@ -8,5 +8,4 @@ public class Block extends GameObject {
     public Block(Vector2 worldPosition, Texture texture, WorldUtils worldUtils) {
         super(worldPosition, texture, worldUtils);
     }
-
 }
