@@ -48,7 +48,6 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
 
         InputMultiplexer input = new InputMultiplexer(this, detector, stage);
         Gdx.input.setInputProcessor(input);
-
     }
 
     @Override
@@ -66,7 +65,6 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
 
         stage.act(delta);
         stage.draw();
-
     }
 
     Image blackFadeOut;
@@ -129,13 +127,11 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
     @Override
     public void pause() {
         Assets.pauseMusic();
-
     }
 
     @Override
     public void resume() {
         Assets.playMusic();
-
     }
 
     @Override
@@ -224,5 +220,4 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
     public void pinchStop() {
 
     }
-
 }

@@ -80,5 +80,4 @@ public class HelpScreen extends Screens {
         }
         return super.keyDown(keycode);
     }
-
 }

@@ -1,28 +1,27 @@
 package com.nopalsoft.dosmil.handlers;
 
 public interface RequestHandler {
-    public void showRater();
+    void showRater();
 
-    public void loadInterstitial();
+    void loadInterstitial();
 
-    public void showInterstitial();
+    void showInterstitial();
 
-    public void showFacebook();
+    void showFacebook();
 
-    public void showMoreGames();
+    void showMoreGames();
 
-    public void shareOnFacebook(final String mensaje);
+    void shareOnFacebook(final String mensaje);
 
-    public void shareOnTwitter(final String mensaje);
+    void shareOnTwitter(final String mensaje);
 
-    public void buyNoAds();
+    void buyNoAds();
 
-    public void restorePurchases();
+    void restorePurchases();
 
-    public void removeAds();
+    void removeAds();
 
-    public void showAdBanner();
+    void showAdBanner();
 
-    public void hideAdBanner();
-
+    void hideAdBanner();
 }

@@ -15,8 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.I18NBundle;
 
-import java.util.Locale;
-
 public class Assets {
 
     public static I18NBundle idiomas;
@@ -75,27 +73,26 @@ public class Assets {
         labelStyleChico = new LabelStyle(fontChico, Color.WHITE);
         labelStyleGrande = new LabelStyle(fontGrande, Color.WHITE);
 
-		/* Button Musica */
+        /* Button Musica */
         TextureRegionDrawable btMusicOn = new TextureRegionDrawable(
                 atlas.findRegion("btMusica"));
         TextureRegionDrawable btMusicOff = new TextureRegionDrawable(
                 atlas.findRegion("btSinMusica"));
         styleButtonMusica = new ButtonStyle(btMusicOn, null, btMusicOff);
 
-		/* Boton Sonido */
+        /* Boton Sonido */
         TextureRegionDrawable botonSonidoOn = new TextureRegionDrawable(
                 atlas.findRegion("btSonido"));
         TextureRegionDrawable botonSonidoOff = new TextureRegionDrawable(
                 atlas.findRegion("btSinSonido"));
         styleButtonSonido = new ButtonStyle(botonSonidoOn, null, botonSonidoOff);
 
-		/* ImageButton Pause */
+        /* ImageButton Pause */
         TextureRegionDrawable btPauseUp = new TextureRegionDrawable(
                 atlas.findRegion("btPause"));
         TextureRegionDrawable btPauseDown = new TextureRegionDrawable(
                 atlas.findRegion("btPauseDown"));
         styleButtonPause = new ButtonStyle(btPauseUp, btPauseDown, null);
-
     }
 
     public static void load() {

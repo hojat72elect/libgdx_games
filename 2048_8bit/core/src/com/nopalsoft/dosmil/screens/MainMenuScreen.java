@@ -39,8 +39,6 @@ public class MainMenuScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(GameScreen.class, game);
             }
-
-            ;
         });
 
         // Help
@@ -51,8 +49,6 @@ public class MainMenuScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(HelpScreen.class, game);
             }
-
-            ;
         });
 
         // Rate
@@ -63,8 +59,6 @@ public class MainMenuScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 game.reqHandler.showRater();
             }
-
-            ;
         });
 
         // Leaderboard
@@ -82,10 +76,7 @@ public class MainMenuScreen extends Screens {
                     game.gameServiceHandler.getLeaderboard();
                 } else
                     game.gameServiceHandler.signIn();
-
             }
-
-            ;
         });
 
         btMusica = new Button(Assets.styleButtonMusica);
@@ -100,7 +91,6 @@ public class MainMenuScreen extends Screens {
                     Assets.playMusic();
                 else
                     Assets.pauseMusic();
-
             }
         });
 
@@ -134,7 +124,6 @@ public class MainMenuScreen extends Screens {
         stage.addActor(btMusica);
         stage.addActor(btSonido);
         stage.addActor(btFacebook);
-
     }
 
     @Override
@@ -147,7 +136,6 @@ public class MainMenuScreen extends Screens {
         batcher.begin();
         batcher.draw(Assets.fondo, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         batcher.end();
-
     }
 
     @Override
@@ -155,6 +143,5 @@ public class MainMenuScreen extends Screens {
         if (keycode == Keys.ESCAPE || keycode == Keys.BACK)
             Gdx.app.exit();
         return true;
-
     }
 }

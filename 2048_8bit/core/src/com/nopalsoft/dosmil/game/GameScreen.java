@@ -1,6 +1,5 @@
 package com.nopalsoft.dosmil.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -27,7 +26,7 @@ public class GameScreen extends Screens {
 
     Tablero oTablero;
 
-    private Stage stageGame;
+    private final Stage stageGame;
 
     Table tbMarcadores;
     Label lbTime, lbScore, lbBestScore;
@@ -45,7 +44,6 @@ public class GameScreen extends Screens {
 
         Settings.numeroVecesJugadas++;
         game.reqHandler.loadInterstitial();
-
     }
 
     private void initUI() {
@@ -80,12 +78,10 @@ public class GameScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 setPaused();
             }
-
         });
 
         stage.addActor(tbMarcadores);
         stage.addActor(btPause);
-
     }
 
     @Override
@@ -105,7 +101,6 @@ public class GameScreen extends Screens {
 
         lbTime.setText(Assets.idiomas.get("time") + "\n" + ((int) oTablero.tiempo));
         lbScore.setText(Assets.idiomas.get("score") + "\n" + (oTablero.score));
-
     }
 
     private void updateRunning(float delta) {
@@ -124,7 +119,6 @@ public class GameScreen extends Screens {
         batcher.end();
 
         stageGame.draw();
-
     }
 
     @Override
@@ -148,7 +142,6 @@ public class GameScreen extends Screens {
         state = STATE_PAUSED;
         stage.addActor(oPaused);
         game.reqHandler.showAdBanner();
-
     }
 
     public void setRunning() {
@@ -165,7 +158,6 @@ public class GameScreen extends Screens {
         MarcoGameOver oGameOver = new MarcoGameOver(this, oTablero.didWin, (int) oTablero.tiempo, oTablero.score);
         stage.addActor(oGameOver);
         game.reqHandler.showAdBanner();
-
     }
 
     @Override
@@ -174,6 +166,7 @@ public class GameScreen extends Screens {
             setRunning();
         return super.fling(velocityX, velocityY, button);
     }
+
     /**
      * Es muy imporante recordar que lo que se mueve es la pieza blanca por lo tanto si yo digo moveUp la pieza blanca se movera hacia arriba pero el usuario piensa que si hace un swipe down la pieza
      * de arriba de la blanca es la que baja. Cuando nosotros sabemos que la que sube es la blanca.
@@ -232,5 +225,4 @@ public class GameScreen extends Screens {
 
         return true;
     }
-
 }

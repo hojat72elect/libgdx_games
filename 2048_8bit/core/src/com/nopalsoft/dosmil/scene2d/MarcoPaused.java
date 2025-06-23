@@ -44,7 +44,6 @@ public class MarcoPaused extends Group {
                 GameScreen oGame = (GameScreen) screen;
                 remove();
                 oGame.setRunning();
-
             }
         });
 
@@ -59,7 +58,6 @@ public class MarcoPaused extends Group {
             public void clicked(InputEvent event, float x, float y) {
                 screen.changeScreenWithFadeOut(MainMenuScreen.class,
                         screen.game);
-
             }
         });
 
@@ -70,9 +68,7 @@ public class MarcoPaused extends Group {
                     public void run() {
                         addActor(lbMainMenu);
                         addActor(lbResume);
-
                     }
                 })));
-
     }
 }
