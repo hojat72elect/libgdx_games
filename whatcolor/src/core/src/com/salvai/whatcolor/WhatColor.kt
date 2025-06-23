@@ -19,7 +19,7 @@ import com.salvai.whatcolor.utils.GameFlowManager
 import com.salvai.whatcolor.utils.MyAssetsManager
 
 
-class WhatColor (): Game() {
+class WhatColor : Game() {
 
     var gameState: GameState = GameState.MENU
     lateinit var camera: OrthographicCamera
