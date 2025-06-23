@@ -80,7 +80,6 @@ public class GameScreenClassic extends Screens {
 
         if (Settings.numVecesJugadas % Settings.MOSTRAR_ADD_CADA_N_INTENTOS == 0)
             game.reqHandler.showInterstitial();
-
     }
 
     private void inicializarReady() {
@@ -98,7 +97,6 @@ public class GameScreenClassic extends Screens {
 
         stage.addActor(getReady);
         stage.addActor(tapCat);
-
     }
 
     private void inicializarGameOver() {
@@ -127,7 +125,6 @@ public class GameScreenClassic extends Screens {
                             stage.addActor(btShareTwitter);
                             stage.addActor(bottomMenu);
                         }
-
                     }
                 })));
 
@@ -153,7 +150,6 @@ public class GameScreenClassic extends Screens {
                 game.reqHandler.hideAdBanner();
                 changeScreenWithFadeOut(GameScreenClassic.class, game);
             }
-
         });
 
         btPlayArcade = new Button(
@@ -178,7 +174,6 @@ public class GameScreenClassic extends Screens {
                 game.reqHandler.hideAdBanner();
                 changeScreenWithFadeOut(GameScreenArcade.class, game);
             }
-
         });
 
         btScore = new Button(new TextureRegionDrawable(Assets.btLeaderboard));
@@ -200,9 +195,7 @@ public class GameScreenClassic extends Screens {
                     game.gameServiceHandler.getLeaderboard();
                 else
                     game.gameServiceHandler.signIn();
-
             }
-
         });
 
         btShareFacebook = new Button(new TextureRegionDrawable(
@@ -226,7 +219,6 @@ public class GameScreenClassic extends Screens {
                                 + Settings.bestScoreClassic
                                 + ", can you beat me?");
             }
-
         });
 
         btShareTwitter = new Button(new TextureRegionDrawable(Assets.btTwitter));
@@ -250,9 +242,7 @@ public class GameScreenClassic extends Screens {
                         .shareOnTwitter("My best score playing classic Clumsy ufo is "
                                 + Settings.bestScoreClassic
                                 + ", can you beat me?");
-
             }
-
         });
 
         btRate = new Button(new TextureRegionDrawable(Assets.btRate));
@@ -270,9 +260,7 @@ public class GameScreenClassic extends Screens {
                                 int pointer, int button) {
                 btRate.setPosition(btRate.getX(), btRate.getY() + 3);
                 game.reqHandler.showRater();
-
             }
-
         });
 
         btNoAds = new Button(new TextureRegionDrawable(Assets.btNoAds));
@@ -292,9 +280,7 @@ public class GameScreenClassic extends Screens {
                                 int pointer, int button) {
                 btNoAds.setPosition(btNoAds.getX(), btNoAds.getY() + 3);
                 game.reqHandler.comprarRemoveAds();
-
             }
-
         });
 
         btRestorePurchases = new Button(new TextureRegionDrawable(Assets.btRestorePurchases));
@@ -314,9 +300,7 @@ public class GameScreenClassic extends Screens {
                 btRestorePurchases.setPosition(btRestorePurchases.getX(),
                         btRestorePurchases.getY() + 3);
                 game.reqHandler.restorePurchases();
-
             }
-
         });
 
         bottomMenu = new Table();
@@ -363,7 +347,6 @@ public class GameScreenClassic extends Screens {
             default:
                 break;
         }
-
     }
 
     private void updateReady(float delta) {
@@ -372,7 +355,6 @@ public class GameScreenClassic extends Screens {
             tapCat.remove();
             state = STATE_RUNNING;
         }
-
     }
 
     private void updateGameOver(float delta) {
@@ -407,12 +389,9 @@ public class GameScreenClassic extends Screens {
                     medalla.setSize(90, 90);
                     medalla.setPosition(45, 47);
                     medallsFondo.addActor(medalla);
-
                 }
-
             }
         }
-
     }
 
     private void updateRunning(float delta) {
@@ -432,7 +411,6 @@ public class GameScreenClassic extends Screens {
         }
 
         salto = false;
-
     }
 
     private void setGameover() {
@@ -443,7 +421,6 @@ public class GameScreenClassic extends Screens {
         stage.addActor(medallsFondo);
         stage.addActor(gameOver);
         game.reqHandler.showAdBanner();
-
     }
 
     @Override
@@ -470,7 +447,6 @@ public class GameScreenClassic extends Screens {
             drawPuntuacionGrande(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f + 250,
                     oWorld.score);
         batcher.end();
-
     }
 
     @Override
@@ -481,7 +457,6 @@ public class GameScreenClassic extends Screens {
             batcher.begin();
             drawGameover(delta);
             batcher.end();
-            return;
         }
     }
 
@@ -492,13 +467,11 @@ public class GameScreenClassic extends Screens {
         drawPuntuacionChicoOrigenDerecha(
                 medallsFondo.getX() + medallsFondo.getWidth() - 30,
                 medallsFondo.getY() + 110, numIncGameOver);
-
     }
 
     private void drawReady(float delta) {
         // if (oWorld.oUfo != null)
         oWorld.oUfo.update(delta, null);
-
     }
 
     @Override

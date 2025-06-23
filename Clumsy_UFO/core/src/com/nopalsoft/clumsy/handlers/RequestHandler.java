@@ -1,23 +1,23 @@
 package com.nopalsoft.clumsy.handlers;
 
 public interface RequestHandler {
-	public void showRater();
+    void showRater();
 
-	public void showInterstitial();
+    void showInterstitial();
 
-	public void showFacebook();
+    void showFacebook();
 
-	public void showMoreGames();
+    void showMoreGames();
 
-	public void shareOnFacebook(final String mensaje);
+    void shareOnFacebook(final String mensaje);
 
-	public void shareOnTwitter(final String mensaje);
+    void shareOnTwitter(final String mensaje);
 
-	public void showAdBanner();
+    void showAdBanner();
 
-	public void hideAdBanner();
+    void hideAdBanner();
 
-	public void comprarRemoveAds();
+    void comprarRemoveAds();
 
-	public void restorePurchases();
+    void restorePurchases();
 }

@@ -11,59 +11,56 @@ import com.nopalsoft.clumsy.objects.Ufo;
 
 public class ColisionesClassic implements ContactListener {
 
-	WorldGameClassic oWorld;
+    WorldGameClassic oWorld;
 
-	public ColisionesClassic(WorldGameClassic oWorld) {
-		this.oWorld = oWorld;
-	}
+    public ColisionesClassic(WorldGameClassic oWorld) {
+        this.oWorld = oWorld;
+    }
 
-	@Override
-	public void beginContact(Contact contact) {
-		Fixture a = contact.getFixtureA();
-		Fixture b = contact.getFixtureB();
+    @Override
+    public void beginContact(Contact contact) {
+        Fixture a = contact.getFixtureA();
+        Fixture b = contact.getFixtureB();
 
-		if (a.getBody().getUserData() instanceof Ufo)
-			beginContactBirdOtraCosa(a, b);
-		else if (b.getBody().getUserData() instanceof Ufo)
-			beginContactBirdOtraCosa(b, a);
+        if (a.getBody().getUserData() instanceof Ufo)
+            beginContactBirdOtraCosa(a, b);
+        else if (b.getBody().getUserData() instanceof Ufo)
+            beginContactBirdOtraCosa(b, a);
+    }
 
-	}
+    private void beginContactBirdOtraCosa(Fixture bird, Fixture otraCosa) {
+        Ufo oUfo = (Ufo) bird.getBody().getUserData();
+        Object oOtraCosa = otraCosa.getBody().getUserData();
 
-	private void beginContactBirdOtraCosa(Fixture bird, Fixture otraCosa) {
-		Ufo oUfo = (Ufo) bird.getBody().getUserData();
-		Object oOtraCosa = otraCosa.getBody().getUserData();
+        if (oOtraCosa instanceof Contador) {
+            Contador obj = (Contador) oOtraCosa;
+            if (obj.state == Contador.STATE_NORMAL) {
+                obj.state = Contador.STATE_DESTROY;
+                oWorld.score++;
+                Assets.playSound(Assets.point);
+            }
+        } else {
+            if (oUfo.state == Ufo.STATE_NORMAL) {
+                oUfo.getHurt();
+                Assets.playSound(Assets.hit);
+            }
+        }
+    }
 
-		if (oOtraCosa instanceof Contador) {
-			Contador obj = (Contador) oOtraCosa;
-			if (obj.state == Contador.STATE_NORMAL) {
-				obj.state = Contador.STATE_DESTROY;
-				oWorld.score++;
-				Assets.playSound(Assets.point);
-			}
-		}
-		else {
-			if (oUfo.state == Ufo.STATE_NORMAL) {
-				oUfo.getHurt();
-				Assets.playSound(Assets.hit);
-			}
-		}
-	}
+    @Override
+    public void endContact(Contact contact) {
 
-	@Override
-	public void endContact(Contact contact) {
+    }
 
-	}
+    @Override
+    public void preSolve(Contact contact, Manifold oldManifold) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void preSolve(Contact contact, Manifold oldManifold) {
-		// TODO Auto-generated method stub
+    }
 
-	}
+    @Override
+    public void postSolve(Contact contact, ContactImpulse impulse) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void postSolve(Contact contact, ContactImpulse impulse) {
-		// TODO Auto-generated method stub
-
-	}
-
+    }
 }

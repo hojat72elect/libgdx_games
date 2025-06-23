@@ -48,7 +48,6 @@ public class MainMenuScreen extends Screens {
                 Assets.playSound(Assets.swooshing);
                 changeScreenWithFadeOut(GameScreenClassic.class, game);
             }
-
         });
 
         btPlayArcade = new Button(new TextureRegionDrawable(Assets.btPlayArcade));
@@ -67,7 +66,6 @@ public class MainMenuScreen extends Screens {
                 Assets.playSound(Assets.swooshing);
                 changeScreenWithFadeOut(GameScreenArcade.class, game);
             }
-
         });
 
         btScore = new Button(new TextureRegionDrawable(Assets.btLeaderboard));
@@ -87,9 +85,7 @@ public class MainMenuScreen extends Screens {
                     game.gameServiceHandler.getLeaderboard();
                 else
                     game.gameServiceHandler.signIn();
-
             }
-
         });
 
         btRate = new Button(new TextureRegionDrawable(Assets.btRate));
@@ -105,9 +101,7 @@ public class MainMenuScreen extends Screens {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 btRate.setPosition(btRate.getX(), btRate.getY() + 3);
                 game.reqHandler.showRater();
-
             }
-
         });
 
         btNoAds = new Button(new TextureRegionDrawable(Assets.btNoAds));
@@ -125,9 +119,7 @@ public class MainMenuScreen extends Screens {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 btNoAds.setPosition(btNoAds.getX(), btNoAds.getY() + 3);
                 game.reqHandler.comprarRemoveAds();
-
             }
-
         });
 
         btRestorePurchases = new Button(new TextureRegionDrawable(Assets.btRestorePurchases));
@@ -143,9 +135,7 @@ public class MainMenuScreen extends Screens {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 btRestorePurchases.setPosition(btRestorePurchases.getX(), btRestorePurchases.getY() + 3);
                 game.reqHandler.restorePurchases();
-
             }
-
         });
 
         Table bottomMenu = new Table();
@@ -184,7 +174,6 @@ public class MainMenuScreen extends Screens {
         batcher.draw(Assets.bird.getKeyFrame(oBird.stateTime, true), oBird.position.x - 27, oBird.position.y - 20, 58,
                 40);
         batcher.end();
-
     }
 
     @Override
@@ -199,5 +188,4 @@ public class MainMenuScreen extends Screens {
             Gdx.app.exit();
         return false;
     }
-
 }

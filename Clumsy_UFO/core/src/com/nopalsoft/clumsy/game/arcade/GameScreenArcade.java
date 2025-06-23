@@ -80,7 +80,6 @@ public class GameScreenArcade extends Screens {
 
         if (Settings.numVecesJugadas % Settings.MOSTRAR_ADD_CADA_N_INTENTOS == 0)
             game.reqHandler.showInterstitial();
-
     }
 
     private void inicializarReady() {
@@ -98,7 +97,6 @@ public class GameScreenArcade extends Screens {
 
         stage.addActor(getReady);
         stage.addActor(tapCat);
-
     }
 
     private void inicializarGameOver() {
@@ -126,9 +124,7 @@ public class GameScreenArcade extends Screens {
                             stage.addActor(btShareFacebook);
                             stage.addActor(btShareTwitter);
                             stage.addActor(bottomMenu);
-
                         }
-
                     }
                 })));
 
@@ -154,7 +150,6 @@ public class GameScreenArcade extends Screens {
                 game.reqHandler.hideAdBanner();
                 changeScreenWithFadeOut(GameScreenClassic.class, game);
             }
-
         });
 
         btPlayArcade = new Button(
@@ -179,7 +174,6 @@ public class GameScreenArcade extends Screens {
                 game.reqHandler.hideAdBanner();
                 changeScreenWithFadeOut(GameScreenArcade.class, game);
             }
-
         });
 
         btScore = new Button(new TextureRegionDrawable(Assets.btLeaderboard));
@@ -201,9 +195,7 @@ public class GameScreenArcade extends Screens {
                     game.gameServiceHandler.getLeaderboard();
                 else
                     game.gameServiceHandler.signIn();
-
             }
-
         });
 
         btShareFacebook = new Button(new TextureRegionDrawable(
@@ -227,7 +219,6 @@ public class GameScreenArcade extends Screens {
                                 + Settings.bestScoreArcade
                                 + ", can you beat me?");
             }
-
         });
 
         btShareTwitter = new Button(new TextureRegionDrawable(Assets.btTwitter));
@@ -252,7 +243,6 @@ public class GameScreenArcade extends Screens {
                                 + Settings.bestScoreArcade
                                 + ", can you beat me?");
             }
-
         });
 
         btRate = new Button(new TextureRegionDrawable(Assets.btRate));
@@ -270,9 +260,7 @@ public class GameScreenArcade extends Screens {
                                 int pointer, int button) {
                 btRate.setPosition(btRate.getX(), btRate.getY() + 3);
                 game.reqHandler.showRater();
-
             }
-
         });
 
         btNoAds = new Button(new TextureRegionDrawable(Assets.btNoAds));
@@ -292,9 +280,7 @@ public class GameScreenArcade extends Screens {
                                 int pointer, int button) {
                 btNoAds.setPosition(btNoAds.getX(), btNoAds.getY() + 3);
                 game.reqHandler.comprarRemoveAds();
-
             }
-
         });
 
         btRestorePurchases = new Button(new TextureRegionDrawable(Assets.btRestorePurchases));
@@ -314,9 +300,7 @@ public class GameScreenArcade extends Screens {
                 btRestorePurchases.setPosition(btRestorePurchases.getX(),
                         btRestorePurchases.getY() + 3);
                 game.reqHandler.restorePurchases();
-
             }
-
         });
 
         bottomMenu = new Table();
@@ -331,7 +315,6 @@ public class GameScreenArcade extends Screens {
         gameOver = new Image(Assets.gameover);
         gameOver.setSize(320, 100);
         gameOver.setPosition(SCREEN_WIDTH / 2f - 160, 600);
-
     }
 
     private void fadeOutButtons() {
@@ -364,7 +347,6 @@ public class GameScreenArcade extends Screens {
             default:
                 break;
         }
-
     }
 
     private void updateReady(float delta) {
@@ -373,7 +355,6 @@ public class GameScreenArcade extends Screens {
             tapCat.remove();
             state = STATE_RUNNING;
         }
-
     }
 
     private void updateGameOver(float delta) {
@@ -409,12 +390,9 @@ public class GameScreenArcade extends Screens {
                     medalla.setSize(90, 90);
                     medalla.setPosition(45, 47);
                     medallsFondo.addActor(medalla);
-
                 }
-
             }
         }
-
     }
 
     private void updateRunning(float delta) {
@@ -434,7 +412,6 @@ public class GameScreenArcade extends Screens {
         }
 
         salto = false;
-
     }
 
     private void setGameover() {
@@ -446,7 +423,6 @@ public class GameScreenArcade extends Screens {
         stage.addActor(medallsFondo);
         stage.addActor(gameOver);
         game.reqHandler.showAdBanner();
-
     }
 
     @Override
@@ -473,7 +449,6 @@ public class GameScreenArcade extends Screens {
             drawPuntuacionGrandeSinCentrar(0, SCREEN_HEIGHT - 65,
                     (int) oWorld.score);
         batcher.end();
-
     }
 
     @Override
@@ -484,7 +459,6 @@ public class GameScreenArcade extends Screens {
             batcher.begin();
             drawGameover(delta);
             batcher.end();
-            return;
         }
     }
 
@@ -495,13 +469,11 @@ public class GameScreenArcade extends Screens {
         drawPuntuacionChicoOrigenDerecha(
                 medallsFondo.getX() + medallsFondo.getWidth() - 30,
                 medallsFondo.getY() + 110, numIncGameOver);
-
     }
 
     private void drawReady(float delta) {
         // if (oWorld.oUfo != null)
         oWorld.oUfo.update(delta, null);
-
     }
 
     @Override

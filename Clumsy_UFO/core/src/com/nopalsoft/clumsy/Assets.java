@@ -2,8 +2,11 @@ package com.nopalsoft.clumsy;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.nopalsoft.clumsy.parallax.ParallaxBackground;
@@ -173,7 +176,7 @@ public class Assets {
         ParallaxLayer floor = new ParallaxLayer(atlas.findRegion("floor"),
                 new Vector2(24, 0), new Vector2(0, 0), new Vector2(-1, 700),
                 336, 140);
-        ParallaxLayer as[] = new ParallaxLayer[]{floor};
+        ParallaxLayer[] as = new ParallaxLayer[]{floor};
 
         parallaxFondo = new ParallaxBackground(as, 480, 800, new Vector2(10, 0));
 
@@ -184,7 +187,6 @@ public class Assets {
         wing = Gdx.audio.newSound(Gdx.files.internal(path + "/sonidos/sfx_wing.mp3"));
 
         Settings.load();
-
     }
 
     public static void playSound(Sound sound) {

@@ -32,5 +32,4 @@ public class MainClumsy extends Game {
 
         setScreen(new MainMenuScreen(this));
     }
-
 }

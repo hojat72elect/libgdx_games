@@ -12,10 +12,6 @@ public class AndroidLauncher extends AndroidApplication implements RequestHandle
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-        // When I change flavors load different assets
-        if (BuildConfig.APPLICATION_ID.equals("com.nopalsoft.penis")) {
-            Assets.LOAD_FLAPPY_PENIS = true;
-        }
         initialize(new MainClumsy(this, this), config);
     }
 
