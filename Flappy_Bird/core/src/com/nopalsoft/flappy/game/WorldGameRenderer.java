@@ -1,7 +1,5 @@
 package com.nopalsoft.flappy.game;
 
-import java.util.Iterator;
-
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -74,5 +72,4 @@ public class WorldGameRenderer {
         }
         spriteBatch.draw(keyFrame, obj.position.x - .3f, obj.position.y - .25f, .6f, .5f);
     }
-
 }

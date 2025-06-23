@@ -93,5 +93,4 @@ public abstract class Screens extends InputAdapter implements Screen {
     @Override
     public void dispose() {
     }
-
 }

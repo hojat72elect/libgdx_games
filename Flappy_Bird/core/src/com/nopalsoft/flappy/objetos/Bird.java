@@ -30,5 +30,4 @@ public class Bird {
         state = STATE_DEAD;
         stateTime = 0;
     }
-
 }

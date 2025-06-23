@@ -67,7 +67,6 @@ public class WorldGame {
         createFloor();
 
         state = STATE_RUNNING;
-
     }
 
     private void createBird() {
@@ -142,7 +141,6 @@ public class WorldGame {
 
         //add counter object (between the two pipes)
         addCounter(x, y + Counter.HEIGHT / 2f + Pipe.HEIGHT / 2f + .1f);
-
     }
 
     private void addPipe(float x, float y, boolean isTopPipe) {
@@ -170,7 +168,6 @@ public class WorldGame {
         oBody.setUserData(obj);
         arrPipes.add(obj);
         shape.dispose();
-
     }
 
     private void addCounter(float x, float y) {
@@ -231,7 +228,6 @@ public class WorldGame {
         if (jump && oBird.state == Bird.STATE_NORMAL) {
             body.setLinearVelocity(0, Bird.JUMP_SPEED);
         }
-
     }
 
     private void updatePipes(Body body) {
@@ -241,10 +237,8 @@ public class WorldGame {
             obj.update(body);
             if (obj.position.x <= -5)
                 obj.state = Pipe.STATE_REMOVE;
-
         } else
             body.setLinearVelocity(0, 0);
-
     }
 
     private void updateCounter(Body body) {
@@ -291,7 +285,6 @@ public class WorldGame {
                 beginContactBird(a, b);
             else if (b.getBody().getUserData() instanceof Bird)
                 beginContactBird(b, a);
-
         }
 
         private void beginContactBird(Fixture bird, Fixture otraCosa) {
@@ -302,12 +295,10 @@ public class WorldGame {
                 if (obj.state == Counter.STATE_NORMAL) {
                     obj.state = Counter.STATE_REMOVE;
                     score++;
-
                 }
             } else {
                 if (oBird.state == Bird.STATE_NORMAL) {
                     oBird.hurt();
-
                 }
             }
         }
@@ -326,7 +317,5 @@ public class WorldGame {
         public void postSolve(Contact contact, ContactImpulse impulse) {
 
         }
-
     }
-
 }

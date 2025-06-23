@@ -52,7 +52,6 @@ public class GameScreen extends Screens {
                 updateGameOver(delta);
                 break;
         }
-
     }
 
     private void updateReady(float delta) {
@@ -68,7 +67,6 @@ public class GameScreen extends Screens {
                         }
                     })));
         }
-
     }
 
     private void updateRunning(float delta) {

@@ -32,5 +32,4 @@ public class Pipe {
         position.x = body.getPosition().x;
         position.y = body.getPosition().y;
     }
-
 }

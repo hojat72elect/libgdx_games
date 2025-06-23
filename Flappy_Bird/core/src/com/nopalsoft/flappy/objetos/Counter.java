@@ -26,5 +26,4 @@ public class Counter {
         position.x = body.getPosition().x;
         position.y = body.getPosition().y;
     }
-
 }

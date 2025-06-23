@@ -5,9 +5,9 @@ import com.nopalsoft.flappy.game.GameScreen;
 
 public class MainFlappyBird extends Game {
 
-	@Override
-	public void create() {
-		Assets.load();
-		setScreen(new GameScreen(this));
-	}
+    @Override
+    public void create() {
+        Assets.load();
+        setScreen(new GameScreen(this));
+    }
 }
