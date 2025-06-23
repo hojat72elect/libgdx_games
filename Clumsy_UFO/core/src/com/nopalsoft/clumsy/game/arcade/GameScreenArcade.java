@@ -77,9 +77,6 @@ public class GameScreenArcade extends Screens {
 
         inicializarGameOver();
         inicializarReady();
-
-        if (Settings.numVecesJugadas % Settings.MOSTRAR_ADD_CADA_N_INTENTOS == 0)
-            game.reqHandler.showInterstitial();
     }
 
     private void inicializarReady() {
@@ -147,7 +144,6 @@ public class GameScreenArcade extends Screens {
                 fadeOutButtons();
                 state = STATE_TRY_AGAIN;
                 Assets.playSound(Assets.swooshing);
-                game.reqHandler.hideAdBanner();
                 changeScreenWithFadeOut(GameScreenClassic.class, game);
             }
         });
@@ -171,7 +167,6 @@ public class GameScreenArcade extends Screens {
                 fadeOutButtons();
                 state = STATE_TRY_AGAIN;
                 Assets.playSound(Assets.swooshing);
-                game.reqHandler.hideAdBanner();
                 changeScreenWithFadeOut(GameScreenArcade.class, game);
             }
         });
@@ -191,10 +186,6 @@ public class GameScreenArcade extends Screens {
             public void touchUp(InputEvent event, float x, float y,
                                 int pointer, int button) {
                 btScore.setPosition(btScore.getX(), btScore.getY() + 3);
-                if (game.gameServiceHandler.isSignedIn())
-                    game.gameServiceHandler.getLeaderboard();
-                else
-                    game.gameServiceHandler.signIn();
             }
         });
 
@@ -214,10 +205,6 @@ public class GameScreenArcade extends Screens {
             public void touchUp(InputEvent event, float x, float y,
                                 int pointer, int button) {
                 btShareFacebook.setPosition(295, 230);
-                game.reqHandler
-                        .shareOnFacebook("My best score playing arcade Clumsy ufo is "
-                                + Settings.bestScoreArcade
-                                + ", can you beat me?");
             }
         });
 
@@ -238,10 +225,6 @@ public class GameScreenArcade extends Screens {
                                 int pointer, int button) {
                 btShareTwitter.setPosition(btShareTwitter.getX(),
                         btShareTwitter.getY() + 3);
-                game.reqHandler
-                        .shareOnTwitter("My best score playing arcade Clumsy ufo is "
-                                + Settings.bestScoreArcade
-                                + ", can you beat me?");
             }
         });
 
@@ -259,7 +242,6 @@ public class GameScreenArcade extends Screens {
             public void touchUp(InputEvent event, float x, float y,
                                 int pointer, int button) {
                 btRate.setPosition(btRate.getX(), btRate.getY() + 3);
-                game.reqHandler.showRater();
             }
         });
 
@@ -279,7 +261,6 @@ public class GameScreenArcade extends Screens {
             public void touchUp(InputEvent event, float x, float y,
                                 int pointer, int button) {
                 btNoAds.setPosition(btNoAds.getX(), btNoAds.getY() + 3);
-                game.reqHandler.comprarRemoveAds();
             }
         });
 
@@ -299,7 +280,6 @@ public class GameScreenArcade extends Screens {
                                 int pointer, int button) {
                 btRestorePurchases.setPosition(btRestorePurchases.getX(),
                         btRestorePurchases.getY() + 3);
-                game.reqHandler.restorePurchases();
             }
         });
 
@@ -418,11 +398,8 @@ public class GameScreenArcade extends Screens {
         state = STATE_GAME_OVER;
         if (Settings.bestScoreArcade < oWorld.score)
             Settings.bestScoreArcade = (int) oWorld.score;
-        game.gameServiceHandler.submitScore("CgkI0_DfzucDEAIQAg",
-                (int) oWorld.score);
         stage.addActor(medallsFondo);
         stage.addActor(gameOver);
-        game.reqHandler.showAdBanner();
     }
 
     @Override

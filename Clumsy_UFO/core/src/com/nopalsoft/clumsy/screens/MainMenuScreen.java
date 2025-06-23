@@ -81,10 +81,6 @@ public class MainMenuScreen extends Screens {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 btScore.setPosition(160, 180);
-                if (game.gameServiceHandler.isSignedIn())
-                    game.gameServiceHandler.getLeaderboard();
-                else
-                    game.gameServiceHandler.signIn();
             }
         });
 
@@ -100,7 +96,6 @@ public class MainMenuScreen extends Screens {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 btRate.setPosition(btRate.getX(), btRate.getY() + 3);
-                game.reqHandler.showRater();
             }
         });
 
@@ -118,7 +113,6 @@ public class MainMenuScreen extends Screens {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 btNoAds.setPosition(btNoAds.getX(), btNoAds.getY() + 3);
-                game.reqHandler.comprarRemoveAds();
             }
         });
 
@@ -134,7 +128,6 @@ public class MainMenuScreen extends Screens {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 btRestorePurchases.setPosition(btRestorePurchases.getX(), btRestorePurchases.getY() + 3);
-                game.reqHandler.restorePurchases();
             }
         });
 
