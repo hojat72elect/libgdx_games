@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.nopalsoft.fifteen.MainFifteen;
 import com.nopalsoft.fifteen.handlers.GameServicesHandler;
 import com.nopalsoft.fifteen.handlers.RequestHandler;
 

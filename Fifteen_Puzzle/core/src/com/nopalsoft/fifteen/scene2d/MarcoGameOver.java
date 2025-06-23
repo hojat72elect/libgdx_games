@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.fifteen.Assets;
-import com.nopalsoft.fifteen.MainFifteen;
 import com.nopalsoft.fifteen.Settings;
 import com.nopalsoft.fifteen.screens.MainMenuScreen;
 import com.nopalsoft.fifteen.screens.Screens;
@@ -149,6 +148,5 @@ public class MarcoGameOver extends Group {
                         addActor(lbMainMenu);
                     }
                 })));
-
     }
 }

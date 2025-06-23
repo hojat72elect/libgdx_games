@@ -35,5 +35,4 @@ public class MainFifteen extends Game {
 
         setScreen(new MainMenuScreen(this));
     }
-
 }

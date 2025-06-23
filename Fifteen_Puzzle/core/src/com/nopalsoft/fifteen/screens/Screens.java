@@ -1,7 +1,5 @@
 package com.nopalsoft.fifteen.screens;
 
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
@@ -18,11 +16,12 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.nopalsoft.fifteen.Assets;
 import com.nopalsoft.fifteen.MainFifteen;
 import com.nopalsoft.fifteen.Settings;
 import com.nopalsoft.fifteen.game.GameScreen;
+
+import java.util.Random;
 
 public abstract class Screens extends InputAdapter implements Screen, GestureListener {
     public static final int SCREEN_WIDTH = 480;
@@ -49,7 +48,6 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
 
         InputMultiplexer input = new InputMultiplexer(this, detector, stage);
         Gdx.input.setInputProcessor(input);
-
     }
 
     @Override
@@ -133,13 +131,11 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
     @Override
     public void pause() {
         Assets.pauseMusic();
-
     }
 
     @Override
     public void resume() {
         Assets.playMusic();
-
     }
 
     @Override
@@ -229,5 +225,4 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
     public void right() {
         Gdx.app.log("RIGHT", "");
     }
-
 }
