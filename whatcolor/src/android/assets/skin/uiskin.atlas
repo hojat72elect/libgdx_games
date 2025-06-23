@@ -1,0 +1,52 @@
+
+uiskin.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+chooser-button1
+  rotate: false
+  xy: 509, 507
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+text-button1
+  rotate: false
+  xy: 509, 507
+  size: 128, 128
+  split: 12, 12, 12, 33
+  pad: 0, 0, 0, 0
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+chooser-button2
+  rotate: false
+  xy: 1, 65
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+text-button2
+  rotate: false
+  xy: 1, 65
+  size: 128, 128
+  split: 12, 12, 26, 19
+  pad: 0, 0, 0, 0
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+origa___
+  rotate: false
+  xy: 1, 195
+  size: 506, 440
+  orig: 506, 440
+  offset: 0, 0
+  index: -1
+snake-block
+  rotate: false
+  xy: 1, 31
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1

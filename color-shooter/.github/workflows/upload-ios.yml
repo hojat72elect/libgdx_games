@@ -1,0 +1,58 @@
+name: iOS upload
+
+on:
+  push:
+    branches:    
+      - 'prod'
+    paths:
+      - "src/ios/**"
+      - ".github/workflows/upload-ios.yml"
+
+env:
+  WORKING_DIRECTORY: src
+  BUILD_CERTIFICATE_BASE64: ${{ secrets.IOS_BUILD_CERTIFICATE_BASE64 }}
+  PROVISION_PROFILE_BASE64: ${{ secrets.IOS_PROVISION_PROFILE_BASE64 }}
+  P12_PASSWORD: ${{ secrets.IOS_P12_PASSWORD }}
+  KEYCHAIN_PASSWORD: ""
+
+jobs:
+  deploy:
+    runs-on: macos-12
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
+      - name: Install the Apple certificate and provisioning profile
+        run: |
+          # create variables
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          # import certificate and provisioning profile from secrets
+          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode --output $CERTIFICATE_PATH
+          echo -n "$PROVISION_PROFILE_BASE64" | base64 --decode --output $PP_PATH
+
+          # create temporary keychain
+          security create-keychain -p "" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "" $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+          security default-keychain -s $KEYCHAIN_PATH
+          security set-key-partition-list -S apple-tool:,apple: -s -k "" $KEYCHAIN_PATH
+
+          # apply provisioning profile
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+
+      - name: Export and release to Testflight
+        uses: dulvui/libgdx-ios-upload@v1.1
+        with:
+          apple-id-username: ${{ secrets.IOS_APPLE_ID_USERNAME }}
+          apple-id-password: ${{ secrets.IOS_APPLE_ID_PASSWORD }}
+          working-directory: ${{ env.WORKING_DIRECTORY }}

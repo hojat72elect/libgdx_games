@@ -1,0 +1,199 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	origami: {
+		file: origa___.fnt
+	}
+}
+com.badlogic.gdx.graphics.Color: {
+	bg: {
+		r: 0.78431374
+		g: 0.9019608
+		b: 0.7882353
+		a: 1
+	}
+	dark: {
+		r: 0.14901961
+		g: 0.19607843
+		b: 0.21960784
+		a: 1
+	}
+	light: {
+		r: 0.64705884
+		g: 0.8392157
+		b: 0.654902
+		a: 1
+	}
+	red: {
+		r: 0.7529412
+		g: 0.22352941
+		b: 0.16862746
+		a: 1
+	}
+	transparent: {
+		r: 1
+		g: 1
+		b: 1
+		a: 0
+	}
+	white: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+	white_transparent: {
+		r: 1
+		g: 1
+		b: 1
+		a: 0.32333332
+	}
+	yellow: {
+		r: 0.94509804
+		g: 0.76862746
+		b: 0.05882353
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+	round-dark-gray: {
+		name: round-white
+		color: {
+			r: 0.22
+			g: 0.22
+			b: 0.22
+			a: 1
+		}
+	}
+	round-dark: {
+		name: round-white
+		color: dark
+	}
+	round-white-transparent: {
+		name: round-white
+		color: white_transparent
+	}
+	block-transparent: {
+		name: snake-block
+		color: white_transparent
+	}
+	snake-block-dark: {
+		name: snake-block
+		color: dark
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	play: {
+		up: play-button1
+		down: play-button2
+	}
+	home: {
+		up: home1
+		down: home2
+	}
+	settings: {
+		up: settings1
+		down: settings2
+	}
+	back: {
+		up: back1
+		down: back2
+	}
+	sound: {
+		up: sound1
+		down: sound2
+		checked: sound3
+		checkedOver: sound4
+	}
+	vibration: {
+		up: vibration1
+		down: vibration2
+		checked: vibration3
+		checkedOver: vibration4
+	}
+	best: {
+		up: best1
+		down: best2
+	}
+	camera: {
+		up: camera1
+		down: camera2
+	}
+	no: {
+		up: no1
+		down: no2
+	}
+	yes: {
+		up: yes2
+		down: yes1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
+	default: {
+		font: origami
+		fontColor: dark
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: origami
+		fontColor: white
+	}
+	level: {
+		font: origami
+		fontColor: white
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
+	default-horizontal: {
+		background: round-white
+		knob: snake-block-dark
+	}
+	default-vertical: {
+		background: snake-block
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+	default: {
+		vScroll: round-white-small
+		vScrollKnob: round-white-small
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
+	difficulty: {
+		background: snake-block-dark
+		knob: knob
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: {
+		font: origami
+		fontColor: dark
+		downFontColor: white
+		overFontColor: white
+		checkedFontColor: white
+		over: snake-block-dark
+		checked: snake-block-dark
+	}
+	login: {
+		font: origami
+		fontColor: white
+		downFontColor: dark
+		up: snake-block-dark
+		down: snake-block
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: default
+		background: round-white
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: {
+		titleFont: origami
+	}
+	no-background: {
+		titleFont: origami
+	}
+}
+}

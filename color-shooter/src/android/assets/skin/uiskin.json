@@ -1,0 +1,287 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	jelleeroman: {
+		file: jellee.roman.fnt
+	}
+	jelleeroman-score: {
+		file: jellee.roman(2).fnt
+	}
+}
+com.badlogic.gdx.graphics.Color: {
+	black: {
+		r: 0
+		g: 0
+		b: 0
+		a: 1
+	}
+	blue: {
+		r: 0.20392157
+		g: 0.59607846
+		b: 0.85882354
+		a: 1
+	}
+	blue-dark: {
+		r: 0.16078432
+		g: 0.5019608
+		b: 0.7254902
+		a: 1
+	}
+	gray: {
+		r: 0.68333334
+		g: 0.68333334
+		b: 0.68333334
+		a: 1
+	}
+	green: {
+		r: 0.18039216
+		g: 0.8
+		b: 0.44313726
+		a: 1
+	}
+	green-dark: {
+		r: 0.15294118
+		g: 0.68235296
+		b: 0.3764706
+		a: 1
+	}
+	red: {
+		r: 0.90588236
+		g: 0.29803923
+		b: 0.23529412
+		a: 1
+	}
+	red-dark: {
+		r: 0.7529412
+		g: 0.22352941
+		b: 0.16862746
+		a: 1
+	}
+	white: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+	white-transparent: {
+		r: 1
+		g: 1
+		b: 1
+		a: 0.6300001
+	}
+	yellow: {
+		r: 0.94509804
+		g: 0.76862746
+		b: 0.05882353
+		a: 1
+	}
+	yellow-dark: {
+		r: 0.9529412
+		g: 0.6117647
+		b: 0.07058824
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+	round-dark-gray: {
+		name: round-white
+		color: {
+			r: 0.22
+			g: 0.22
+			b: 0.22
+			a: 1
+		}
+	}
+	round-light-gray: {
+		name: round-white
+		color: {
+			r: 0.86333334
+			g: 0.86333334
+			b: 0.86333334
+			a: 1
+		}
+	}
+	round-gray-small: {
+		name: round-white-small
+		color: {
+			r: 0.4633333
+			g: 0.4633333
+			b: 0.4633333
+			a: 1
+		}
+	}
+	round-white-transparent-small: {
+		name: round-white-small
+		color: white-transparent
+	}
+	round-red-dark: {
+		name: round-white
+		color: {
+			r: 0.7529412
+			g: 0.22352941
+			b: 0.16862746
+			a: 1
+		}
+	}
+	round-red: {
+		name: round-white
+		color: red
+	}
+	round-yellow: {
+		name: round-white
+		color: yellow
+	}
+	round-yellow-dark: {
+		name: round-white
+		color: yellow-dark
+	}
+	round-blue: {
+		name: round-white
+		color: blue
+	}
+	round-blue-dark: {
+		name: round-white
+		color: blue-dark
+	}
+	round-green: {
+		name: round-white
+		color: green
+	}
+	round-green-dark: {
+		name: round-white
+		color: green-dark
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	one-star: {
+		up: one-stars
+	}
+	play: {
+		up: play
+		down: play-pressed
+	}
+	home: {
+		up: home-button
+		down: home-button-pressed
+	}
+	share: {
+		up: share
+		down: share-pressed
+	}
+	sound: {
+		up: sound-on
+		down: sound-on-pressed
+		checked: sound-off
+		checkedOver: sound-off-pressed
+	}
+	play-services: {
+		up: play-services
+		down: play-services-pressed
+	}
+	highscore: {
+		up: highscore
+		down: highscore-pressed
+	}
+	three-star: {
+		up: three-stars
+	}
+	two-star: {
+		up: two-stars
+	}
+	levels: {
+		up: levels
+		down: levels-pressed
+	}
+	no-star: {
+		up: no-stars
+	}
+	replay: {
+		up: replay
+		down: replay-pressed
+	}
+	locked-0: {
+		up: locked-red
+		down: locked-red-pressed
+	}
+	locked-3: {
+		up: locked-blue
+		down: locked-blue-pressed
+	}
+	locked-1: {
+		up: locked-yellow
+		down: locked-yellow-pressed
+	}
+	locked-2: {
+		up: locked-green
+		down: locked-green-pressed
+	}
+	endless: {
+		up: endless
+		down: endless-pressed
+	}
+	locked-white: {
+		up: locked-white
+		down: locked-white-pressed
+	}
+	infinity: {
+		up: endless
+		down: endless-pressed
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: jelleeroman
+		fontColor: white
+		background: round-white
+	}
+	score: {
+		font: jelleeroman-score
+		fontColor: black
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+	default: {
+		hScroll: round-gray-small
+		hScrollKnob: round-white-small
+		vScroll: round-gray-small
+		vScrollKnob: round-white-small
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: {
+		font: jelleeroman
+		fontColor: white
+		up: round-white
+		down: round-light-gray
+	}
+	level-0: {
+		font: jelleeroman
+		fontColor: white
+		up: red-button
+		down: red-button-pressed
+	}
+	level-1: {
+		font: jelleeroman
+		fontColor: white
+		up: yellow-button
+		down: yellow-button-pressed
+	}
+	level-2: {
+		font: jelleeroman
+		fontColor: white
+		up: green-button
+		down: green-button-pressed
+	}
+	level-3: {
+		font: jelleeroman
+		fontColor: white
+		up: blue-button
+		down: blue-button-pressed
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: default
+		background: round-white
+	}
+}
+}
