@@ -43,14 +43,13 @@ public class GameScreen extends Screens {
         initUI();
 
         Settings.numeroVecesJugadas++;
-        game.reqHandler.loadInterstitial();
     }
 
     private void initUI() {
         tbMarcadores = new Table();
         tbMarcadores.setSize(SCREEN_WIDTH, 100);
         tbMarcadores.setPosition(0, 680);
-        // tbMarcadores.debug();
+
 
         lbTime = new Label(Assets.idiomas.get("score") + "\n0", Assets.labelStyleChico);
         lbTime.setAlignment(Align.center);
@@ -131,9 +130,6 @@ public class GameScreen extends Screens {
     public void hide() {
         super.hide();
         stageGame.dispose();
-        game.reqHandler.hideAdBanner();
-        if (Settings.numeroVecesJugadas % 3 == 0)
-            game.reqHandler.showInterstitial();
     }
 
     private void setPaused() {
@@ -141,23 +137,19 @@ public class GameScreen extends Screens {
             return;
         state = STATE_PAUSED;
         stage.addActor(oPaused);
-        game.reqHandler.showAdBanner();
     }
 
     public void setRunning() {
         if (state == STATE_GAME_OVER)
             return;
         state = STATE_RUNNING;
-        game.reqHandler.hideAdBanner();
     }
 
     private void setGameover() {
         state = STATE_GAME_OVER;
         Settings.setBestScores(oTablero.score);
-        game.gameServiceHandler.submitScore(oTablero.score);
         MarcoGameOver oGameOver = new MarcoGameOver(this, oTablero.didWin, (int) oTablero.tiempo, oTablero.score);
         stage.addActor(oGameOver);
-        game.reqHandler.showAdBanner();
     }
 
     @Override
