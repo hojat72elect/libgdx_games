@@ -123,18 +123,15 @@ public class GameScreen extends Screens {
             case MODE_CLASSIC:
                 if (Settings.bestTimeClassicMode > oWorld.time)
                     Settings.bestTimeClassicMode = oWorld.time;
-                game.gameServiceHandler.submitScoreClassicMode(oWorld.time);
                 break;
             case MODE_TIME:
                 if (Settings.bestScoreTimeMode < oWorld.score)
                     Settings.bestScoreTimeMode = oWorld.score;
-                game.gameServiceHandler.submitScoreTimeMode(oWorld.score);
                 break;
 
             case MODE_ENDLESS:
                 if (Settings.bestScoreEndlessMode < oWorld.score)
                     Settings.bestScoreEndlessMode = oWorld.score;
-                game.gameServiceHandler.submitScoreEndlessMode(oWorld.score);
                 break;
         }
 
@@ -143,7 +140,6 @@ public class GameScreen extends Screens {
 
     private void setGameover() {
         state = STATE_GAME_OVER;
-        game.reqHandler.showAdBanner();
         VentanaGameOver ventana = new VentanaGameOver(this);
         ventana.show(stage);
     }
@@ -182,10 +178,6 @@ public class GameScreen extends Screens {
     public void hide() {
         super.hide();
         stageGame.dispose();
-        game.reqHandler.hideAdBanner();
-
-        if (Settings.numeroVecesJugadas % 8 == 0)
-            game.reqHandler.showInterstitial();
     }
 
     @Override

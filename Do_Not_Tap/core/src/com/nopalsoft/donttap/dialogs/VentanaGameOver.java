@@ -117,27 +117,11 @@ public class VentanaGameOver extends Group {
         btShareTwitter.setSize(55, 55);
         btShareTwitter.setPosition(140, 160);
         screen.addEfectoPress(btShareTwitter);
-        btShareTwitter.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                screen.game.reqHandler
-                        .shareOnTwitter("My best score playing Don't tap the wrong tile is "
-                                + txtBestNumScore + ", can you beat me?");
-            }
-        });
 
         btShareFacebook = new Button(Assets.btFacebook);
         btShareFacebook.setSize(55, 55);
         btShareFacebook.setPosition(235, 160);
         screen.addEfectoPress(btShareFacebook);
-        btShareFacebook.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                screen.game.reqHandler
-                        .shareOnFacebook("My best score playing Don't tap the wrong tile is "
-                                + txtBestNumScore + ", can you beat me?");
-            }
-        });
 
         final TextButton btTryAgain = new TextButton("Try again",
                 Assets.textButtonStyleChico);

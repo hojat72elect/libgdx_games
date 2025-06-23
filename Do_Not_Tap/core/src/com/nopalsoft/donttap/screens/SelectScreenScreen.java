@@ -104,8 +104,6 @@ public class SelectScreenScreen extends Screens {
         stage.addActor(lbSelectGameMode);
         stage.addActor(menu);
         stage.addActor(btBack);
-
-        game.reqHandler.showAdBanner();
     }
 
     @Override
@@ -117,18 +115,14 @@ public class SelectScreenScreen extends Screens {
 
     @Override
     public void hide() {
-        game.reqHandler.hideAdBanner();
         super.hide();
     }
 
     @Override
     public void draw(float delta) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void update(float delta) {
-
     }
 }

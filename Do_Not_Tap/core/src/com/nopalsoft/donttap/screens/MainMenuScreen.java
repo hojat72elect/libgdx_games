@@ -43,37 +43,15 @@ public class MainMenuScreen extends Screens {
 
         btRate = new TextButton("Rate", Assets.textButtonStyleChico);
         addEfectoPress(btRate);
-        btRate.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.showRater();
-            }
-        });
 
         btLeaderboards = new TextButton("Leaderboards",
                 Assets.textButtonStyleChico);
         addEfectoPress(btLeaderboards);
-        btLeaderboards.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn()) {
-                    game.gameServiceHandler.getLeaderboard();
-                } else {
-                    game.gameServiceHandler.signIn();
-                }
-            }
-        });
 
         btFacebook = new Button(Assets.btFacebook);
         btFacebook.setSize(55, 55);
         btFacebook.setPosition(SCREEN_WIDTH - 67, 7);
         addEfectoPress(btFacebook);
-        btFacebook.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.showFacebook();
-            }
-        });
 
         menu.add(btPlay);
 
@@ -97,12 +75,9 @@ public class MainMenuScreen extends Screens {
 
     @Override
     public void draw(float delta) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void update(float delta) {
-
     }
 }
