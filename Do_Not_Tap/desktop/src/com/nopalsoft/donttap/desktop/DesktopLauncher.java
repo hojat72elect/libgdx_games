@@ -70,7 +70,6 @@ public class DesktopLauncher {
             // TODO Auto-generated method stub
 
         }
-
     };
 
     static GoogleGameServicesHandler gameHandler = new GoogleGameServicesHandler() {
