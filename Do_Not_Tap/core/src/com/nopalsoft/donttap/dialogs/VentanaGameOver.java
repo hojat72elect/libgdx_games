@@ -50,8 +50,6 @@ public class VentanaGameOver extends Group {
         final String txtBestNumScore;
 
 
-
-
         switch (screen.mode) {
             case GameScreen.MODE_CLASSIC:
                 txtMode = "Classic";
@@ -184,7 +182,6 @@ public class VentanaGameOver extends Group {
                         btShareTwitter.remove();
                     }
                 })));
-
     }
 
     public void show(Stage stage) {
@@ -198,5 +195,4 @@ public class VentanaGameOver extends Group {
 
         stage.addActor(this);
     }
-
 }

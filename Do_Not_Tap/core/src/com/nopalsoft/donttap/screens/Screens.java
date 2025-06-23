@@ -1,7 +1,5 @@
 package com.nopalsoft.donttap.screens;
 
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
@@ -21,6 +19,8 @@ import com.nopalsoft.donttap.Assets;
 import com.nopalsoft.donttap.MainDoNot;
 import com.nopalsoft.donttap.Settings;
 import com.nopalsoft.donttap.game.GameScreen;
+
+import java.util.Random;
 
 public abstract class Screens extends InputAdapter implements Screen {
     public static final int SCREEN_WIDTH = 480;
@@ -48,7 +48,6 @@ public abstract class Screens extends InputAdapter implements Screen {
 
         InputMultiplexer input = new InputMultiplexer(this, stage);
         Gdx.input.setInputProcessor(input);
-
     }
 
     @Override
@@ -155,7 +154,6 @@ public abstract class Screens extends InputAdapter implements Screen {
             tabBackground.row();
         }
         stage.addActor(tabBackground);
-
     }
 
     public abstract void draw(float delta);
@@ -194,5 +192,4 @@ public abstract class Screens extends InputAdapter implements Screen {
         stage.dispose();
         batcher.dispose();
     }
-
 }

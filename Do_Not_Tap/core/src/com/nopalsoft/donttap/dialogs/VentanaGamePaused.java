@@ -88,10 +88,8 @@ public class VentanaGamePaused extends Group {
                     public void run() {
                         addActor(btResume);
                         addActor(btMainMenu);
-
                     }
                 })));
-
     }
 
     Image dim;
@@ -111,7 +109,5 @@ public class VentanaGamePaused extends Group {
     private void hide() {
         dim.remove();
         remove();
-
     }
-
 }

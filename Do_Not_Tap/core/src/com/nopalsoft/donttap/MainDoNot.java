@@ -36,5 +36,4 @@ public class MainDoNot extends Game {
 
         setScreen(new MainMenuScreen(this));
     }
-
 }

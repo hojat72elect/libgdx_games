@@ -1,8 +1,8 @@
 package com.nopalsoft.donttap.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -15,8 +15,6 @@ import com.nopalsoft.donttap.Settings;
 import com.nopalsoft.donttap.dialogs.VentanaGameOver;
 import com.nopalsoft.donttap.dialogs.VentanaGamePaused;
 import com.nopalsoft.donttap.screens.Screens;
-
-import java.util.Locale;
 
 public class GameScreen extends Screens {
     static final int STATE_RUNNING = 2;
@@ -51,7 +49,6 @@ public class GameScreen extends Screens {
 
         state = STATE_RUNNING;
         Settings.numeroVecesJugadas++;
-
     }
 
     private void initMarcadores() {
@@ -84,11 +81,11 @@ public class GameScreen extends Screens {
                 lbBestScore.setText("Best\n" + text);
                 break;
             case MODE_TIME:
-                lbBestScore.setText("Best\n" + Settings.bestScoreTimeMode + "");
+                lbBestScore.setText("Best\n" + Settings.bestScoreTimeMode);
                 break;
 
             case MODE_ENDLESS:
-                lbBestScore.setText("Best\n" + Settings.bestScoreEndlessMode + "");
+                lbBestScore.setText("Best\n" + Settings.bestScoreEndlessMode);
                 break;
         }
 
@@ -98,7 +95,6 @@ public class GameScreen extends Screens {
         tbMarcadores.add(lbBestScore);
 
         stage.addActor(tbMarcadores);
-
     }
 
     @Override
@@ -143,7 +139,6 @@ public class GameScreen extends Screens {
         }
 
         setGameover();
-
     }
 
     private void setGameover() {
@@ -151,7 +146,6 @@ public class GameScreen extends Screens {
         game.reqHandler.showAdBanner();
         VentanaGameOver ventana = new VentanaGameOver(this);
         ventana.show(stage);
-
     }
 
     public void setRunning() {
@@ -204,5 +198,4 @@ public class GameScreen extends Screens {
             setPaused();
         return super.keyDown(keycode);
     }
-
 }

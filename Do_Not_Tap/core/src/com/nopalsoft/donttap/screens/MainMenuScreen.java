@@ -38,7 +38,6 @@ public class MainMenuScreen extends Screens {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(SelectScreenScreen.class, game);
-
             }
         });
 
@@ -48,7 +47,6 @@ public class MainMenuScreen extends Screens {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.reqHandler.showRater();
-
             }
         });
 
@@ -63,7 +61,6 @@ public class MainMenuScreen extends Screens {
                 } else {
                     game.gameServiceHandler.signIn();
                 }
-
             }
         });
 
@@ -96,7 +93,6 @@ public class MainMenuScreen extends Screens {
         if (keycode == Keys.ESCAPE || keycode == Keys.BACK)
             Gdx.app.exit();
         return true;
-
     }
 
     @Override
@@ -109,5 +105,4 @@ public class MainMenuScreen extends Screens {
     public void update(float delta) {
 
     }
-
 }
