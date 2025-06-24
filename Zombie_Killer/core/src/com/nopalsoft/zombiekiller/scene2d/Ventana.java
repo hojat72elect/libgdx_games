@@ -14,77 +14,72 @@ import com.nopalsoft.zombiekiller.MainZombie;
 import com.nopalsoft.zombiekiller.screens.Screens;
 
 public class Ventana extends Group {
-	public static final float DURACION_ANIMATION = .3f;
-	protected Screens screen;
-	protected I18NBundle idiomas;
-	protected MainZombie game;
+    public static final float DURACION_ANIMATION = .3f;
+    protected Screens screen;
+    protected I18NBundle idiomas;
+    protected MainZombie game;
 
-	private boolean isVisible = false;
+    private boolean isVisible = false;
 
-	public Ventana(Screens currentScreen, float width, float height, float positionY, TextureRegionDrawable imageBackgroun) {
-		screen = currentScreen;
-		game = currentScreen.game;
-		idiomas = game.idiomas;
-		setSize(width, height);
-		setY(positionY);
+    public Ventana(Screens currentScreen, float width, float height, float positionY, TextureRegionDrawable imageBackgroun) {
+        screen = currentScreen;
+        game = currentScreen.game;
+        idiomas = game.idiomas;
+        setSize(width, height);
+        setY(positionY);
 
-		setBackGround(imageBackgroun);
-	}
+        setBackGround(imageBackgroun);
+    }
 
-	protected void setCloseButton(float positionX, float positionY, float size) {
-		Button btClose = new Button(Assets.btClose);
-		btClose.setSize(size, size);
-		btClose.setPosition(positionX, positionY);
-		screen.addEfectoPress(btClose);
-		btClose.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				hide();
-			}
-		});
-		addActor(btClose);
+    protected void setCloseButton(float positionX, float positionY, float size) {
+        Button btClose = new Button(Assets.btClose);
+        btClose.setSize(size, size);
+        btClose.setPosition(positionX, positionY);
+        screen.addEfectoPress(btClose);
+        btClose.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                hide();
+            }
+        });
+        addActor(btClose);
+    }
 
-	}
+    private void setBackGround(TextureRegionDrawable imageBackground) {
+        Image img = new Image(imageBackground);
+        img.setSize(getWidth(), getHeight());
+        addActor(img);
+    }
 
-	private void setBackGround(TextureRegionDrawable imageBackground) {
-		Image img = new Image(imageBackground);
-		img.setSize(getWidth(), getHeight());
-		addActor(img);
+    public void show(Stage stage) {
 
-	}
+        setOrigin(getWidth() / 2f, getHeight() / 2f);
+        setX(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f);
 
-	public void show(Stage stage) {
+        setScale(.5f);
+        addAction(Actions.sequence(Actions.scaleTo(1, 1, DURACION_ANIMATION), Actions.run(new Runnable() {
 
-		setOrigin(getWidth() / 2f, getHeight() / 2f);
-		setX(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f);
+            @Override
+            public void run() {
+                endResize();
+            }
+        })));
 
-		setScale(.5f);
-		addAction(Actions.sequence(Actions.scaleTo(1, 1, DURACION_ANIMATION), Actions.run(new Runnable() {
+        isVisible = true;
+        stage.addActor(this);
+    }
 
-			@Override
-			public void run() {
-				endResize();
-			}
+    public boolean isVisible() {
+        return isVisible;
+    }
 
-		})));
+    public void hide() {
+        isVisible = false;
+        game.reqHandler.hideAdBanner();
+        remove();
+    }
 
-		isVisible = true;
-		stage.addActor(this);
+    protected void endResize() {
 
-	}
-
-	public boolean isVisible() {
-		return isVisible;
-	}
-
-	public void hide() {
-		isVisible = false;
-		game.reqHandler.hideAdBanner();
-		remove();
-	}
-
-	protected void endResize() {
-
-	}
-
+    }
 }

@@ -83,7 +83,6 @@ public class GetGemsSubMenu {
 
                         }
                     }, idiomas.get("type_your_message"), "", "");
-
                 } else
                     game.facebookHandler.facebookSignIn();
             }
@@ -154,8 +153,6 @@ public class GetGemsSubMenu {
 
         contenedor.add(agregarPersonajeTabla(50000, moneda, idiomas.get("coin_super_mega_pack"), btBuy50MilCoins)).expandX().fill();
         contenedor.row();
-
-
     }
 
     private Table agregarPersonajeTabla(int numMonedasToGet, TextureRegionDrawable imagen, String descripcion, TextButton boton) {
@@ -186,7 +183,6 @@ public class GetGemsSubMenu {
         tbContent.add(boton).right().padBottom(20).size(120, 45);
 
         return tbContent;
-
     }
 
     protected void addEfectoPress(final Actor actor) {

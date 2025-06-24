@@ -39,5 +39,4 @@ public class MainZombie extends Game {
 
         setScreen(new MainMenuScreen(this));
     }
-
 }

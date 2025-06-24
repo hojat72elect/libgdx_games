@@ -11,63 +11,60 @@ import com.nopalsoft.zombiekiller.screens.Screens;
 
 public class VentanaRate extends Ventana {
 
-	TextButton btYes, btLater;
+    TextButton btYes, btLater;
 
-	public VentanaRate(Screens currentScreen) {
-		super(currentScreen, 400, 310, 100, Assets.backgroundSmallWindow);
+    public VentanaRate(Screens currentScreen) {
+        super(currentScreen, 400, 310, 100, Assets.backgroundSmallWindow);
 
-		Label lbShop = new Label(idiomas.get("support_this_game"), Assets.labelStyleGrande);
-		lbShop.setFontScale(1.2f);
-		lbShop.setAlignment(Align.center);
-		lbShop.setPosition(getWidth() / 2f - lbShop.getWidth() / 2f, 230);
-		addActor(lbShop);
+        Label lbShop = new Label(idiomas.get("support_this_game"), Assets.labelStyleGrande);
+        lbShop.setFontScale(1.2f);
+        lbShop.setAlignment(Align.center);
+        lbShop.setPosition(getWidth() / 2f - lbShop.getWidth() / 2f, 230);
+        addActor(lbShop);
 
-		Label lbContent = new Label(idiomas.get("support_description"), Assets.labelStyleChico);
-		lbContent.setWrap(true);
-		lbContent.setWidth(getWidth() - 60);
-		lbContent.setPosition(35, 150);
-		addActor(lbContent);
+        Label lbContent = new Label(idiomas.get("support_description"), Assets.labelStyleChico);
+        lbContent.setWrap(true);
+        lbContent.setWidth(getWidth() - 60);
+        lbContent.setPosition(35, 150);
+        addActor(lbContent);
 
-		initButtons();
+        initButtons();
 
-		Table content = new Table();
-		content.setSize(375, 90);
-		content.setPosition(getWidth() / 2f - content.getWidth() / 2f, 40);
-		// content.debug();
+        Table content = new Table();
+        content.setSize(375, 90);
+        content.setPosition(getWidth() / 2f - content.getWidth() / 2f, 40);
+        // content.debug();
 
-		content.defaults().expandX().uniform();
+        content.defaults().expandX().uniform();
 
-		content.add(btYes);
-		content.add(btLater);
+        content.add(btYes);
+        content.add(btLater);
 
-		addActor(content);
+        addActor(content);
+    }
 
-	}
+    private void initButtons() {
+        btYes = new TextButton(idiomas.get("OK"), Assets.styleTextButtonPurchased);
+        screen.addEfectoPress(btYes);
+        btYes.addListener(new ClickListener() {
+            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
+                hide();
+                game.reqHandler.showRater();
+            }
+        });
 
-	private void initButtons() {
-		btYes = new TextButton(idiomas.get("OK"), Assets.styleTextButtonPurchased);
-		screen.addEfectoPress(btYes);
-		btYes.addListener(new ClickListener() {
-			public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-				hide();
-				game.reqHandler.showRater();
-			};
-		});
+        btLater = new TextButton(idiomas.get("not_now"), Assets.styleTextButtonPurchased);
+        screen.addEfectoPress(btLater);
+        btLater.addListener(new ClickListener() {
+            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
+                hide();
+            }
+        });
+    }
 
-		btLater = new TextButton(idiomas.get("not_now"), Assets.styleTextButtonPurchased);
-		screen.addEfectoPress(btLater);
-		btLater.addListener(new ClickListener() {
-			public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-				hide();
-			};
-		});
-
-	}
-
-	@Override
-	public void show(Stage stage) {
-		super.show(stage);
-		game.reqHandler.showAdBanner();
-	}
-
+    @Override
+    public void show(Stage stage) {
+        super.show(stage);
+        game.reqHandler.showAdBanner();
+    }
 }

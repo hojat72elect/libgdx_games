@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.nopalsoft.zombiekiller.MainZombie;
 import com.nopalsoft.zombiekiller.handlers.FacebookHandler;
 import com.nopalsoft.zombiekiller.handlers.GameServicesHandler;
 import com.nopalsoft.zombiekiller.handlers.RequestHandler;
