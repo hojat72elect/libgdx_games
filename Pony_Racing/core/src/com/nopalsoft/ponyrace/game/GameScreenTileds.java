@@ -281,8 +281,6 @@ public class GameScreenTileds extends Screens {
             setTryAgain();
         }
 
-        setPuntuacionesGoogleGameServices();
-
         stringMonedasRecolectadas.delete(0, stringMonedasRecolectadas.length());
         stringMonedasRecolectadas.append(oWorld.oPony.monedasRecolectadas);
 
@@ -302,86 +300,6 @@ public class GameScreenTileds extends Screens {
         if (oWorld.state == WorldTiled.State.nextLevel || oWorld.state == WorldTiled.State.tryAgain) {
             if (((int) oWorld.tiempoLeft) % 2 == 0 && oWorld.oPony.monedasRecolectadas % 2 == 0 && ((int) oWorld.tiempoLap % 2) == 0)
                 Settings.isEnabledSecretWorld = true;
-        }
-    }
-
-    private void setPuntuacionesGoogleGameServices() {
-
-        String idWorld1 = "CgkIv7KCocYXEAIQAQ";
-        String idWorld2 = "CgkIv7KCocYXEAIQAg";
-        String idWorld3 = "CgkIv7KCocYXEAIQAw";
-        String idWorld4 = "CgkIv7KCocYXEAIQBA";
-        String idWorld5 = "CgkIv7KCocYXEAIQBQ";
-        String idWorld6 = "CgkIv7KCocYXEAIQBg";
-        String idWorld7 = "CgkIv7KCocYXEAIQBw";
-        String idWorld8 = "CgkIv7KCocYXEAIQCA";
-        String idWorld9 = "CgkIv7KCocYXEAIQCQ";
-        String idWorld10 = "CgkIv7KCocYXEAIQCg";
-        String idWorld11 = "CgkIv7KCocYXEAIQCw";
-        String idWorld12 = "CgkIv7KCocYXEAIQDA";
-        String idWorld13 = "CgkIv7KCocYXEAIQDQ";
-        String idWorld14 = "CgkIv7KCocYXEAIQDg";
-        String idWorld15 = "CgkIv7KCocYXEAIQDw";
-        String idWorld16 = "CgkIv7KCocYXEAIQEA";
-        String idWorld17 = "CgkIv7KCocYXEAIQFA";
-
-
-        if (state == State.nextLevel || state == State.tryAgain) { // Si esta corriendo, o pausado, o timeup ps no se sube el tiempo a GPGS
-
-            switch (nivelTiled) {
-                case 1:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld1);
-                    break;
-                case 2:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld2);
-                    break;
-                case 3:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld3);
-                    break;
-                case 4:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld4);
-                    break;
-                case 5:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld5);
-                    break;
-                case 6:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld6);
-                    break;
-                case 7:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld7);
-                    break;
-                case 8:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld8);
-                    break;
-                case 9:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld9);
-                    break;
-                case 10:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld10);
-                    break;
-                case 11:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld11);
-                    break;
-                case 12:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld12);
-                    break;
-                case 13:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld13);
-                    break;
-                case 14:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld14);
-                    break;
-                case 15:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld15);
-                    break;
-                case 16:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld16);
-                    break;
-                case 17:
-                    game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld17);
-                    break;
-            }
-            game.achievements.checkMonedasAchievements(oWorld.oPony.monedasRecolectadas);
         }
     }
 
@@ -700,11 +618,6 @@ public class GameScreenTileds extends Screens {
         // Pongo esta condicion porque algunas veces el usuario presiona 2 veces el boton y se llama 2 veces este metodo;
         if (oWorld == null || renderer == null)
             return;
-        // Checo el achivmente de las monedas
-        game.achievements.checkMonedasAchievements(oWorld.oPony.monedasRecolectadas);
-        game.achievements.checkEatChiliAchievements(oWorld.oPony.chilesRecolectados);
-        game.achievements.checkEatChocolateAchievements(oWorld.oPony.dulcesRecolectados);
-        game.achievements.checkGetBallonsAchievements(oWorld.oPony.globosRecolectados);
 
         oWorld.oWorldBox.dispose();
         renderer.renderBox.dispose();
@@ -721,10 +634,6 @@ public class GameScreenTileds extends Screens {
 
         // El Ad se mostrara cada 5 veces
         int tiempoAds = 6;
-
-        if (Settings.statTimesPlayed % tiempoAds == 0) {
-            game.reqHandler.showInterstitial();
-        }
     }
 
     @Override

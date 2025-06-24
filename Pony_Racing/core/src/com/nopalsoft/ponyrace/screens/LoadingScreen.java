@@ -28,19 +28,14 @@ public class LoadingScreen extends Screens {
 
         if (clase == MainMenuScreen.class) {
             oAssets.loadMenus();
-            game.reqHandler.hideAdBanner();
         } else if (clase == LeaderboardChooseScreen.class) {
             oAssets.loadMenus();
-            game.reqHandler.hideAdBanner();
         } else if (clase == WorldMapTiledScreen.class) {
             oAssets.loadMenus();
-            game.reqHandler.showAdBanner();
         } else if (clase == ShopScreen.class) {
             oAssets.loadMenus();
-            game.reqHandler.hideAdBanner();
         } else if (clase == GameScreenTileds.class) {
             oAssets.loadGameScreenTiled(nivelTiled);
-            game.reqHandler.hideAdBanner();
         }
     }
 

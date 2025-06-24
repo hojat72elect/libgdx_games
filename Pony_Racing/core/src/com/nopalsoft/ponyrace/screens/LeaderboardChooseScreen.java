@@ -38,14 +38,7 @@ public class LeaderboardChooseScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 btLeaderBoard.wasSelected = true;
                 btLeaderBoard.addAction(Actions.sequence(Actions.delay(.2f),
-                        btLeaderBoard.accionInicial,
-                        Actions.run(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                game.gameServiceHandler.getLeaderboard();
-                            }
-                        })));
+                        btLeaderBoard.accionInicial));
             }
         });
 
@@ -57,14 +50,7 @@ public class LeaderboardChooseScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 btAchievements.wasSelected = true;
                 btAchievements.addAction(Actions.sequence(Actions.delay(.2f),
-                        btAchievements.accionInicial,
-                        Actions.run(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                game.gameServiceHandler.getAchievements();
-                            }
-                        })));
+                        btAchievements.accionInicial));
             }
         });
 
@@ -95,7 +81,6 @@ public class LeaderboardChooseScreen extends Screens {
         btSignOut.setPosition(5, 5);
         btSignOut.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                game.gameServiceHandler.signIn();
                 LeaderboardChooseScreen.this.game
                         .setScreen(new LoadingScreen(
                                 LeaderboardChooseScreen.this.game,

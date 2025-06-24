@@ -513,7 +513,6 @@ public class WorldTiled {
             if (oPony.lugarEnLaCarrera == 1) {
                 if (state != State.nextLevel) {// Solo lo checa 1 vez
                     game.achievements.checkWorldComplete(nivelTiled);
-                    game.achievements.checkWinFirstPlaceAchievements();
                     game.achievements.checkVictoryMoreThan15Secs(nivelTiled, tiempoLeft);
                 }
                 state = State.nextLevel;
@@ -635,17 +634,11 @@ public class WorldTiled {
                 } else if (fixOtraCosa.getUserData() != null && fixOtraCosa.getUserData().equals("nucleoBomba")) {
                     ((Bomba) otraCosaDataBody).explode(fixOtraCosa.getBody());
                     ponyDataBody.getHurt(((Bomba) otraCosaDataBody).TIEMPO_HURT);
-                    if (isMalo) {// Solo si yo he golpeado ponis malos
-                        game.achievements.checkHitBombAchievements();
-                    }
                 } else if (fixOtraCosa.getUserData() != null && fixOtraCosa.getUserData().equals("nucleoWood")) {
                     Wood oWood = (Wood) otraCosaDataBody;
                     if (oWood.state == Wood.State.normal) {
                         oWood.hitByPony(fixOtraCosa.getBody());
                         ponyDataBody.getHurt(((Wood) otraCosaDataBody).TIEMPO_HURT);
-                        if (isMalo && oWood.ponyTirador instanceof PonyPlayer) {// Solo si la tira el jugador se puede validar el achivement
-                            game.achievements.checkHitSpikeAchievements();
-                        }
                     }
                 } else if (otraCosaDataBody instanceof Moneda && !isMalo) {
                     Moneda oMoneda = ((Moneda) otraCosaDataBody);
@@ -800,7 +793,6 @@ public class WorldTiled {
                     && fixOtraCosa.getUserData().equals("sensorBomba")) {
                 if (((Bomba) otraCosaData).state == Bomba.State.explode) {
                     oPonyMalo.getHurt(((Bomba) otraCosaData).TIEMPO_HURT);
-                    game.achievements.checkHitBombAchievements();
                 }
             }
         }

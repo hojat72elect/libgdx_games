@@ -70,12 +70,7 @@ public class MainMenuScreen extends Screens {
 
             public void clicked(InputEvent event, float x, float y) {
                 btMore.wasSelected = true;
-                btMore.addAction(Actions.sequence(Actions.delay(.2f), btMore.accionInicial, Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        game.reqHandler.showMoreGames();
-                    }
-                })));
+                btMore.addAction(Actions.sequence(Actions.delay(.2f), btMore.accionInicial));
             }
         });
 
@@ -88,9 +83,6 @@ public class MainMenuScreen extends Screens {
                 btLeaderBoard.addAction(Actions.sequence(Actions.delay(.2f), btLeaderBoard.accionInicial, Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                        if (!game.gameServiceHandler.isSignedIn())
-                            game.gameServiceHandler.signIn();
-                        else
                             game.setScreen(new LoadingScreen(game, LeaderboardChooseScreen.class));
                     }
                 })));
@@ -100,28 +92,6 @@ public class MainMenuScreen extends Screens {
         btFacebook = new ImageButton(oAssets.btnFacebook);
         btFacebook.setSize(50, 50);
         btFacebook.setPosition(750, 0);
-        btFacebook.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-//				btFacebook.addAction(Actions.sequence(Actions.delay(1f), Actions.run(new Runnable() {
-//					@Override
-//					public void run() {
-//						if (!Settings.seDioLike) {
-//							Settings.seDioLike = true;
-//							Settings.sumarMonedas(Settings.MONEDAS_REGALO_FACEBOOK);
-//							Settings.guardar();
-//						}
-//					}
-//				})));
-//				game.reqHandler.showFacebook();
-
-                game.reqHandler.shareOnFacebook("asd");
-
-                // // --
-                // Settings.borrarDatosGuardados();
-                // game.reqHandler.resetAchievements();
-            }
-        });
 
         btSonido = new ImageButton(oAssets.btSonidoOff, null, oAssets.btSonidoON);
         btSonido.setSize(60, 60);

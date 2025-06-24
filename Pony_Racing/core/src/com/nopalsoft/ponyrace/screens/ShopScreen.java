@@ -384,7 +384,6 @@ public class ShopScreen extends Screens {
                         deleteTableDentroDentroUp(dentroUpBallon);
                     costUpBallon = checkPriceBallon();
                     setLabelPrices();
-                    game.achievements.checkUpgradesAchivmentes();
                 } else {
                     showDialogGetCoins();
                 }
@@ -402,7 +401,6 @@ public class ShopScreen extends Screens {
                         deleteTableDentroDentroUp(dentroUpChocolate);
                     costUpChocolate = checkPriceChocolate();
                     setLabelPrices();
-                    game.achievements.checkUpgradesAchivmentes();
                 } else {
                     showDialogGetCoins();
                 }
@@ -420,7 +418,6 @@ public class ShopScreen extends Screens {
                         deleteTableDentroDentroUp(dentroUpChili);
                     costUpChili = checkPriceChili();
                     setLabelPrices();
-                    game.achievements.checkUpgradesAchivmentes();
                 } else {
                     showDialogGetCoins();
                 }
@@ -487,7 +484,6 @@ public class ShopScreen extends Screens {
                                 }
                             }
                         })));
-                game.reqHandler.showFacebook();
             }
         });
 
@@ -1047,7 +1043,6 @@ public class ShopScreen extends Screens {
 
     @Override
     public void hide() {
-        game.achievements.checkUpgradesAchivmentes();
         super.hide();
     }
 

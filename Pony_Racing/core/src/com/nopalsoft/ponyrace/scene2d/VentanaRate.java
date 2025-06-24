@@ -35,7 +35,6 @@ public class VentanaRate extends Ventana {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 hide();
-                game.reqHandler.showRater();
             }
         });
 
