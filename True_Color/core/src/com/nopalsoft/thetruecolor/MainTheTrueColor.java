@@ -51,7 +51,6 @@ public class MainTheTrueColor extends Game {
         Assets.load();
         com.nopalsoft.thetruecolor.Achievements.init(this);
         setScreen(new MainMenuScreen(this));
-
     }
 
     public void setArrayPerson(Array<Person> _arrPerson) {
@@ -76,7 +75,6 @@ public class MainTheTrueColor extends Game {
             MainMenuScreen oScreen = (MainMenuScreen) getScreen();
             oScreen.updateLeaderboard();
         }
-
     }
 
     private void getPersonPhoto(final Person oPerson) {

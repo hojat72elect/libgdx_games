@@ -1,6 +1,7 @@
 package com.nopalsoft.thetruecolor;
 
 import android.os.Bundle;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.backends.android.AndroidApplication;
@@ -141,7 +142,6 @@ public class AndroidLauncher extends AndroidApplication implements RequestHandle
                         onTextureLoaded.onTextureLoaded(texture);
                     }
                 });
-
             }
 
             @Override

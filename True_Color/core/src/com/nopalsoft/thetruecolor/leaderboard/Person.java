@@ -15,7 +15,7 @@ public class Person extends Group implements Comparable<Person> {
     final float HEIGHT = 75;
 
     public enum TipoCuenta {
-        GOOGLE_PLAY, FACEBOOK, AMAZON;
+        GOOGLE_PLAY, FACEBOOK, AMAZON
     }
 
     public TipoCuenta tipoCuenta;
@@ -29,7 +29,7 @@ public class Person extends Group implements Comparable<Person> {
      * uso un image button porque puede tener fondo y una imagen
      */
     private ImageButton imagenPersona;
-    private Image imagenCuenta;
+    private final Image imagenCuenta;
 
     Label lbNombre;
     Label lbScore;
@@ -86,7 +86,6 @@ public class Person extends Group implements Comparable<Person> {
         imagenPersona.getImageCell().size(60);
         imagenPersona.setPosition(60, HEIGHT / 2f - imagenPersona.getHeight() / 2f);
         addActor(imagenPersona);
-
     }
 
     // Sacado de http://stackoverflow.com/a/15329259/3479489
@@ -96,7 +95,7 @@ public class Person extends Group implements Comparable<Person> {
         int nGroups = (str.length() - floatPos - 1 - (str.indexOf("-") > -1 ? 1 : 0)) / 3;
         for (int i = 0; i < nGroups; i++) {
             int commaPos = str.length() - i * 4 - 3 - floatPos;
-            str = str.substring(0, commaPos) + "," + str.substring(commaPos, str.length());
+            str = str.substring(0, commaPos) + "," + str.substring(commaPos);
         }
         return str;
     }
@@ -115,11 +114,7 @@ public class Person extends Group implements Comparable<Person> {
     public boolean equals(Object obj) {
         if (obj instanceof Person) {
             Person objPerson = (Person) obj;
-            if (id.equals(objPerson.id) && tipoCuenta == objPerson.tipoCuenta)
-                return true;
-            else
-                return false;
-
+            return id.equals(objPerson.id) && tipoCuenta == objPerson.tipoCuenta;
         } else
             return false;
     }
@@ -129,7 +124,6 @@ public class Person extends Group implements Comparable<Person> {
         score = _score;
         lbNombre.setText(name);
         lbScore.setText(formatScore());
-
     }
 
     public void setImagenURL(String scoreHolderIconImageUrl) {

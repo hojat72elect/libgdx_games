@@ -46,6 +46,5 @@ public class VentanaMoreLanguages extends Ventana {
 
         addActor(lbText);
         addActor(btTransalate);
-
     }
 }

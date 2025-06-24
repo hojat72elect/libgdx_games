@@ -80,9 +80,7 @@ public class GameScreen extends Screens {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 checarPalabra(false);
-
             }
-
         });
 
         btBack = new Button(Assets.btBack);
@@ -115,7 +113,6 @@ public class GameScreen extends Screens {
                 if (!btShare.isDisabled()) {
                     game.reqHandler.shareAPK();
                 }
-
             }
         });
 
@@ -139,7 +136,6 @@ public class GameScreen extends Screens {
         setReady();
 
         game.reqHandler.loadInterstitial();
-
     }
 
     public void createNewPalabra() {
@@ -160,14 +156,11 @@ public class GameScreen extends Screens {
 
                 if (score < 10) {
                     timeInicialPorPalabra -= .14f;// 1.8seg menos
-                }
-                else if (score < 40) {
+                } else if (score < 40) {
                     timeInicialPorPalabra -= .05f;// 1.5seg menos
-                }
-                else if (score < 70) {
+                } else if (score < 70) {
                     timeInicialPorPalabra -= .015f;// .54seg menos
-                }
-                else {
+                } else {
                     timeInicialPorPalabra -= .0075f;
                 }
 
@@ -175,12 +168,10 @@ public class GameScreen extends Screens {
                     timeInicialPorPalabra = TIME_MINIMO_POR_PALABRA;
                 }
                 createNewPalabra();
-            }
-            else {
+            } else {
                 setGameover();
             }
         }
-
     }
 
     @Override
@@ -217,7 +208,6 @@ public class GameScreen extends Screens {
             state = STATE_RUNNING;
             createNewPalabra();
         }
-
     }
 
     private void setGameover() {
@@ -239,7 +229,7 @@ public class GameScreen extends Screens {
             StringBuilder scoreTextColor = new StringBuilder();
 
             // HOT FIX PARA PONER ENTRE LAS LETRAS COLORES OBVIAMENTE ESTA MAL PERO nO SE ME OCURRIO OTRA COSA
-            String apend[] = {"[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
+            String[] apend = {"[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
                     "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
                     "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
                     "[ORANGE]"};
@@ -249,7 +239,7 @@ public class GameScreen extends Screens {
             }
             scoreTextColor.append(apend[scoreText.length()]);
 
-            Label lblScore = new Label(scoreTextColor.toString() + "\n" + score, new LabelStyle(Assets.fontChico, Color.WHITE));
+            Label lblScore = new Label(scoreTextColor + "\n" + score, new LabelStyle(Assets.fontChico, Color.WHITE));
             lblScore.setAlignment(Align.center);
             lblScore.setFontScale(2.5f);
             lblScore.pack();
@@ -311,5 +301,4 @@ public class GameScreen extends Screens {
         }
         return super.keyDown(keycode);
     }
-
 }

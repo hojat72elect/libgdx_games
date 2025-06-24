@@ -5,7 +5,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -73,8 +77,7 @@ public class DialogRanking extends Group {
             public void clicked(InputEvent event, float x, float y) {
                 if (game.gameServiceHandler instanceof AmazonGameServicesHandler) {
                     ventanaAmazon.show(getStage());
-                }
-                else {
+                } else {
                     ventanaGoogle.show(getStage());
                 }
             }
@@ -108,7 +111,6 @@ public class DialogRanking extends Group {
         Image img = new Image(dialogRanking);
         img.setSize(getWidth(), getHeight());
         addActor(img);
-
     }
 
     public void addPerson(Person person) {

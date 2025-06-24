@@ -14,79 +14,74 @@ import com.nopalsoft.thetruecolor.MainTheTrueColor;
 import com.nopalsoft.thetruecolor.screens.Screens;
 
 public class Ventana extends Group {
-	public static final float DURACION_ANIMATION = .3f;
+    public static final float DURACION_ANIMATION = .3f;
 
-	private Image dim;
-	protected Screens screen;
-	protected I18NBundle idiomas;
-	protected MainTheTrueColor game;
+    private final Image dim;
+    protected Screens screen;
+    protected I18NBundle idiomas;
+    protected MainTheTrueColor game;
 
-	private boolean isShown = false;
+    private boolean isShown = false;
 
-	public Ventana(Screens currentScreen, float width, float height, float positionY) {
-		screen = currentScreen;
-		game = currentScreen.game;
-		idiomas = Assets.idiomas;
-		setSize(width, height);
-		setY(positionY);
+    public Ventana(Screens currentScreen, float width, float height, float positionY) {
+        screen = currentScreen;
+        game = currentScreen.game;
+        idiomas = Assets.idiomas;
+        setSize(width, height);
+        setY(positionY);
 
-		dim = new Image(Assets.pixelNegro);
-		dim.setSize(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
+        dim = new Image(Assets.pixelNegro);
+        dim.setSize(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
 
-		setBackGround(Assets.dialogVentana);
+        setBackGround(Assets.dialogVentana);
+    }
 
-	}
+    protected void setCloseButton(float positionX, float positionY, float size) {
+        Button btClose = new Button(Assets.btFalse);
+        btClose.setSize(size, size);
+        btClose.setPosition(positionX, positionY);
+        screen.addEfectoPress(btClose);
+        btClose.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                hide();
+            }
+        });
+        addActor(btClose);
+    }
 
-	protected void setCloseButton(float positionX, float positionY, float size) {
-		Button btClose = new Button(Assets.btFalse);
-		btClose.setSize(size, size);
-		btClose.setPosition(positionX, positionY);
-		screen.addEfectoPress(btClose);
-		btClose.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				hide();
-			}
-		});
-		addActor(btClose);
+    private void setBackGround(NinePatchDrawable imageBackground) {
+        Image img = new Image(imageBackground);
+        img.setSize(getWidth(), getHeight());
+        addActor(img);
+    }
 
-	}
+    public void show(Stage stage) {
 
-	private void setBackGround(NinePatchDrawable imageBackground) {
-		Image img = new Image(imageBackground);
-		img.setSize(getWidth(), getHeight());
-		addActor(img);
+        setOrigin(getWidth() / 2f, getHeight() / 2f);
+        setX(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f);
 
-	}
+        setScale(.5f);
+        addAction(Actions.scaleTo(1, 1, DURACION_ANIMATION));
 
-	public void show(Stage stage) {
+        dim.getColor().a = 0;
+        dim.addAction(Actions.alpha(.7f, DURACION_ANIMATION));
 
-		setOrigin(getWidth() / 2f, getHeight() / 2f);
-		setX(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f);
+        isShown = true;
+        stage.addActor(dim);
+        stage.addActor(this);
 
-		setScale(.5f);
-		addAction(Actions.scaleTo(1, 1, DURACION_ANIMATION));
+        game.reqHandler.showAdBanner();
+    }
 
-		dim.getColor().a = 0;
-		dim.addAction(Actions.alpha(.7f, DURACION_ANIMATION));
+    public boolean isShown() {
+        return isShown;
+    }
 
-		isShown = true;
-		stage.addActor(dim);
-		stage.addActor(this);
-
-		game.reqHandler.showAdBanner();
-	}
-
-	public boolean isShown() {
-		return isShown;
-	}
-
-	public void hide() {
-		isShown = false;
-		game.reqHandler.hideAdBanner();
-		addAction(Actions.sequence(Actions.scaleTo(.5f, .5f, DURACION_ANIMATION), Actions.removeActor()));
-		dim.addAction(Actions.sequence(Actions.alpha(0, DURACION_ANIMATION), Actions.removeActor()));
-
-	}
-
+    public void hide() {
+        isShown = false;
+        game.reqHandler.hideAdBanner();
+        addAction(Actions.sequence(Actions.scaleTo(.5f, .5f, DURACION_ANIMATION), Actions.removeActor()));
+        dim.addAction(Actions.sequence(Actions.alpha(0, DURACION_ANIMATION), Actions.removeActor()));
+    }
 }

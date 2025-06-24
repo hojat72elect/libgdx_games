@@ -2,8 +2,12 @@ package com.nopalsoft.thetruecolor.scene2d;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.thetruecolor.Assets;
@@ -14,7 +18,7 @@ public class VentanaHelpSettings extends Ventana {
     static final float WIDTH = 440;
     static final float HEIGHT = 600;
 
-    public static enum Languages {
+    public enum Languages {
         DEFAULT, ENGLISH, SPANISH, CHINESE_TAIWAN, RUSSIAN, FRENCH, JAPANESE, PORTUGUESE
     }
 
@@ -185,7 +189,6 @@ public class VentanaHelpSettings extends Ventana {
             label.setFontScale(.7f);
         }
         return label;
-
     }
 
     private TextButton crearBotton(String texto, Languages language, TextureRegionDrawable flag) {
@@ -198,7 +201,6 @@ public class VentanaHelpSettings extends Ventana {
         }
         btAux.getLabel().setFontScale(.8f);
         return btAux;
-
     }
 
     private ClickListener addClickListener(final Languages language) {
@@ -210,9 +212,7 @@ public class VentanaHelpSettings extends Ventana {
                 Assets.loadAssetsWithSettings();
                 idiomas = Assets.idiomas;
                 fillTableColores();
-
             }
         };
     }
-
 }

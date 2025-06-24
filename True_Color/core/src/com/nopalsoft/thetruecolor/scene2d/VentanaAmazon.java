@@ -12,55 +12,53 @@ import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.screens.Screens;
 
 public class VentanaAmazon extends Ventana {
-	static final float WIDTH = 440;
-	static final float HEIGHT = 250;
+    static final float WIDTH = 440;
+    static final float HEIGHT = 250;
 
-	Label lbText;
-	TextButton btAmazonLogin;
+    Label lbText;
+    TextButton btAmazonLogin;
 
-	public VentanaAmazon(Screens currentScreen) {
-		super(currentScreen, WIDTH, HEIGHT, 300);
+    public VentanaAmazon(Screens currentScreen) {
+        super(currentScreen, WIDTH, HEIGHT, 300);
 
-		setCloseButton(400, 210, 50);
+        setCloseButton(400, 210, 50);
 
-		lbText = new Label(idiomas.get("loginToGoogle").replace("Google", "Amazon"), new LabelStyle(Assets.fontChico, Color.BLACK));
-		lbText.setWidth(getWidth() - 20);
-		lbText.setFontScale(.75f);
-		lbText.setWrap(true);
-		lbText.setPosition(getWidth() / 2f - lbText.getWidth() / 2f, 165);
+        lbText = new Label(idiomas.get("loginToGoogle").replace("Google", "Amazon"), new LabelStyle(Assets.fontChico, Color.BLACK));
+        lbText.setWidth(getWidth() - 20);
+        lbText.setFontScale(.75f);
+        lbText.setWrap(true);
+        lbText.setPosition(getWidth() / 2f - lbText.getWidth() / 2f, 165);
 
-		btAmazonLogin = new TextButton("", new TextButtonStyle(Assets.btJugar, null, null, Assets.fontChico));
-		screen.addEfectoPress(btAmazonLogin);
-		btAmazonLogin.getLabel().setFontScale(.75f);
+        btAmazonLogin = new TextButton("", new TextButtonStyle(Assets.btJugar, null, null, Assets.fontChico));
+        screen.addEfectoPress(btAmazonLogin);
+        btAmazonLogin.getLabel().setFontScale(.75f);
 
-		btAmazonLogin.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				if (game.gameServiceHandler.isSignedIn()) {
-					game.gameServiceHandler.signOut();
-				}
-				else {
-					game.gameServiceHandler.signIn();
-				}
-				hide();
-			}
-		});
+        btAmazonLogin.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (game.gameServiceHandler.isSignedIn()) {
+                    game.gameServiceHandler.signOut();
+                } else {
+                    game.gameServiceHandler.signIn();
+                }
+                hide();
+            }
+        });
 
-		addActor(lbText);
-		addActor(btAmazonLogin);
+        addActor(lbText);
+        addActor(btAmazonLogin);
+    }
 
-	}
+    @Override
+    public void show(Stage stage) {
+        super.show(stage);
 
-	@Override
-	public void show(Stage stage) {
-		super.show(stage);
+        String textButton = idiomas.get("login");
+        if (game.gameServiceHandler.isSignedIn())
+            textButton = idiomas.get("logout");
 
-		String textButton = idiomas.get("login");
-		if (game.gameServiceHandler.isSignedIn())
-			textButton = idiomas.get("logout");
-
-		btAmazonLogin.setText(textButton);
-		btAmazonLogin.pack();
-		btAmazonLogin.setPosition(getWidth() / 2f - btAmazonLogin.getWidth() / 2f, 35);
-	}
+        btAmazonLogin.setText(textButton);
+        btAmazonLogin.pack();
+        btAmazonLogin.setPosition(getWidth() / 2f - btAmazonLogin.getWidth() / 2f, 35);
+    }
 }

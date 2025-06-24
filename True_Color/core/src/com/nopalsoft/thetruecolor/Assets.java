@@ -120,7 +120,6 @@ public class Assets {
         flagMore = new TextureRegionDrawable(atlas.findRegion("flags/flag_more"));
 
         loadAssetsWithSettings();
-
     }
 
     public static void loadAssetsWithSettings() {
@@ -155,5 +154,4 @@ public class Assets {
 
         idiomas = I18NBundle.createBundle(Gdx.files.internal("strings/strings"), locale);
     }
-
 }

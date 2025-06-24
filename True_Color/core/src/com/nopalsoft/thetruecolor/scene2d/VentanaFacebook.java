@@ -12,55 +12,53 @@ import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.screens.Screens;
 
 public class VentanaFacebook extends Ventana {
-	static final float WIDTH = 440;
-	static final float HEIGHT = 250;
+    static final float WIDTH = 440;
+    static final float HEIGHT = 250;
 
-	Label lbText;
-	TextButton btFacebookLogin;
+    Label lbText;
+    TextButton btFacebookLogin;
 
-	public VentanaFacebook(Screens currentScreen) {
-		super(currentScreen, WIDTH, HEIGHT, 300);
+    public VentanaFacebook(Screens currentScreen) {
+        super(currentScreen, WIDTH, HEIGHT, 300);
 
-		setCloseButton(400, 210, 50);
+        setCloseButton(400, 210, 50);
 
-		lbText = new Label(idiomas.get("loginToFacebook"), new LabelStyle(Assets.fontChico, Color.BLACK));
-		lbText.setWidth(getWidth() - 20);
-		lbText.setFontScale(.75f);
-		lbText.setWrap(true);
-		lbText.setPosition(getWidth() / 2f - lbText.getWidth() / 2f, 140);
+        lbText = new Label(idiomas.get("loginToFacebook"), new LabelStyle(Assets.fontChico, Color.BLACK));
+        lbText.setWidth(getWidth() - 20);
+        lbText.setFontScale(.75f);
+        lbText.setWrap(true);
+        lbText.setPosition(getWidth() / 2f - lbText.getWidth() / 2f, 140);
 
-		btFacebookLogin = new TextButton("", new TextButtonStyle(Assets.btFacebookText, null, null, Assets.fontChico));
-		screen.addEfectoPress(btFacebookLogin);
-		btFacebookLogin.getLabel().setFontScale(.75f);
+        btFacebookLogin = new TextButton("", new TextButtonStyle(Assets.btFacebookText, null, null, Assets.fontChico));
+        screen.addEfectoPress(btFacebookLogin);
+        btFacebookLogin.getLabel().setFontScale(.75f);
 
-		btFacebookLogin.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				if (game.facebookHandler.facebookIsSignedIn()) {
-					game.facebookHandler.facebookSignOut();
-				}
-				else {
-					game.facebookHandler.facebookSignIn();
-				}
-				hide();
-			}
-		});
+        btFacebookLogin.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (game.facebookHandler.facebookIsSignedIn()) {
+                    game.facebookHandler.facebookSignOut();
+                } else {
+                    game.facebookHandler.facebookSignIn();
+                }
+                hide();
+            }
+        });
 
-		addActor(lbText);
-		addActor(btFacebookLogin);
+        addActor(lbText);
+        addActor(btFacebookLogin);
+    }
 
-	}
+    @Override
+    public void show(Stage stage) {
+        super.show(stage);
 
-	@Override
-	public void show(Stage stage) {
-		super.show(stage);
+        String textButton = idiomas.get("login");
+        if (game.facebookHandler.facebookIsSignedIn())
+            textButton = idiomas.get("logout");
 
-		String textButton = idiomas.get("login");
-		if (game.facebookHandler.facebookIsSignedIn())
-			textButton = idiomas.get("logout");
-
-		btFacebookLogin.setText(textButton);
-		btFacebookLogin.pack();
-		btFacebookLogin.setPosition(getWidth() / 2f - btFacebookLogin.getWidth() / 2f, 35);
-	}
+        btFacebookLogin.setText(textButton);
+        btFacebookLogin.pack();
+        btFacebookLogin.setPosition(getWidth() / 2f - btFacebookLogin.getWidth() / 2f, 35);
+    }
 }

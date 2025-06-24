@@ -21,161 +21,154 @@ import com.nopalsoft.thetruecolor.scene2d.VentanaHelpSettings.Languages;
 
 public class MainMenuScreen extends Screens {
 
-	Image titulo;
-	DialogRanking dialogRanking;
+    Image titulo;
+    DialogRanking dialogRanking;
 
-	ImageButton btJugar;
+    ImageButton btJugar;
 
-	Table menuUI;
-	Button btRate, btLeaderboard, btAchievement, btHelp;
+    Table menuUI;
+    Button btRate, btLeaderboard, btAchievement, btHelp;
 
-	VentanaHelpSettings ventanaHelp;
+    VentanaHelpSettings ventanaHelp;
 
-	public MainMenuScreen(final MainTheTrueColor game) {
-		super(game);
+    public MainMenuScreen(final MainTheTrueColor game) {
+        super(game);
 
-		titulo = new Image(Assets.titulo);
-		titulo.setPosition(SCREEN_WIDTH / 2f - titulo.getWidth() / 2f, 610);
+        titulo = new Image(Assets.titulo);
+        titulo.setPosition(SCREEN_WIDTH / 2f - titulo.getWidth() / 2f, 610);
 
-		ventanaHelp = new VentanaHelpSettings(this);
-		dialogRanking = new DialogRanking(this);
+        ventanaHelp = new VentanaHelpSettings(this);
+        dialogRanking = new DialogRanking(this);
 
-		btJugar = new ImageButton(new ImageButtonStyle(Assets.btJugar, null, null, Assets.play, null, null));
-		addEfectoPress(btJugar);
-		btJugar.getImageCell().padLeft(10).size(47, 54);// Centro la imagen play con el pad, y le pongo el tamano
-		btJugar.setSize(288, 72);
-		btJugar.setPosition(SCREEN_WIDTH / 2f - btJugar.getWidth() / 2f, 120);
-		btJugar.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				changeScreenWithFadeOut(GameScreen.class, game);
-			}
-		});
+        btJugar = new ImageButton(new ImageButtonStyle(Assets.btJugar, null, null, Assets.play, null, null));
+        addEfectoPress(btJugar);
+        btJugar.getImageCell().padLeft(10).size(47, 54);// Centro la imagen play con el pad, y le pongo el tamano
+        btJugar.setSize(288, 72);
+        btJugar.setPosition(SCREEN_WIDTH / 2f - btJugar.getWidth() / 2f, 120);
+        btJugar.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                changeScreenWithFadeOut(GameScreen.class, game);
+            }
+        });
 
-		btRate = new Button(Assets.btRate);
-		addEfectoPress(btRate);
-		btRate.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				game.reqHandler.showRater();
-			}
-		});
+        btRate = new Button(Assets.btRate);
+        addEfectoPress(btRate);
+        btRate.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.reqHandler.showRater();
+            }
+        });
 
-		btLeaderboard = new Button(Assets.btLeaderboard);
-		addEfectoPress(btLeaderboard);
-		btLeaderboard.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				if (game.gameServiceHandler.isSignedIn())
-					game.gameServiceHandler.getLeaderboard();
-				else
-					game.gameServiceHandler.signIn();
-			}
-		});
+        btLeaderboard = new Button(Assets.btLeaderboard);
+        addEfectoPress(btLeaderboard);
+        btLeaderboard.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (game.gameServiceHandler.isSignedIn())
+                    game.gameServiceHandler.getLeaderboard();
+                else
+                    game.gameServiceHandler.signIn();
+            }
+        });
 
-		btAchievement = new Button(Assets.btAchievement);
-		addEfectoPress(btAchievement);
-		btAchievement.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				if (game.gameServiceHandler.isSignedIn())
-					game.gameServiceHandler.getAchievements();
-				else
-					game.gameServiceHandler.signIn();
+        btAchievement = new Button(Assets.btAchievement);
+        addEfectoPress(btAchievement);
+        btAchievement.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (game.gameServiceHandler.isSignedIn())
+                    game.gameServiceHandler.getAchievements();
+                else
+                    game.gameServiceHandler.signIn();
+            }
+        });
 
-			}
-		});
+        btHelp = new Button(Assets.btHelp);
+        addEfectoPress(btHelp);
+        btHelp.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ventanaHelp.show(stage);
+            }
+        });
 
-		btHelp = new Button(Assets.btHelp);
-		addEfectoPress(btHelp);
-		btHelp.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				ventanaHelp.show(stage);
-			}
-		});
+        menuUI = new Table();
+        menuUI.setSize(SCREEN_WIDTH, 70);
+        menuUI.setPosition(0, 35);
+        menuUI.defaults().size(70).expand();
 
-		menuUI = new Table();
-		menuUI.setSize(SCREEN_WIDTH, 70);
-		menuUI.setPosition(0, 35);
-		menuUI.defaults().size(70).expand();
+        if (Gdx.app.getType() != ApplicationType.WebGL) {
+            menuUI.add(btRate);
+            menuUI.add(btLeaderboard);
+            menuUI.add(btAchievement);
+        }
+        menuUI.add(btHelp);
 
-		if (Gdx.app.getType() != ApplicationType.WebGL) {
-			menuUI.add(btRate);
-			menuUI.add(btLeaderboard);
-			menuUI.add(btAchievement);
-		}
-		menuUI.add(btHelp);
+        stage.addActor(titulo);
+        stage.addActor(dialogRanking);
+        stage.addActor(btJugar);
+        stage.addActor(menuUI);
 
-		stage.addActor(titulo);
-		stage.addActor(dialogRanking);
-		stage.addActor(btJugar);
-		stage.addActor(menuUI);
+        if (game.arrPerson != null)
+            updateLeaderboard();
 
-		if (game.arrPerson != null)
-			updateLeaderboard();
+        if (game.facebookHandler.facebookIsSignedIn())
+            game.facebookHandler.facebookGetScores();
 
-		if (game.facebookHandler.facebookIsSignedIn())
-			game.facebookHandler.facebookGetScores();
+        if (game.gameServiceHandler.isSignedIn())
+            game.gameServiceHandler.getScores();
+    }
 
-		if (game.gameServiceHandler.isSignedIn())
-			game.gameServiceHandler.getScores();
+    @Override
+    public void update(float delta) {
 
-	}
+    }
 
-	@Override
-	public void update(float delta) {
+    @Override
+    public void draw(float delta) {
+        batcher.begin();
+        batcher.draw(Assets.header, 0, 780, 480, 20);
+        batcher.draw(Assets.header, 0, 0, 480, 20);
+        batcher.end();
+    }
 
-	}
+    public void updateLeaderboard() {
+        dialogRanking.clearLeaderboard();
+        game.arrPerson.sort();// Acomoda de mayor a menor
+        for (Person obj : game.arrPerson) {
+            dialogRanking.addPerson(obj);
+        }
+    }
 
-	@Override
-	public void draw(float delta) {
-		batcher.begin();
-		batcher.draw(Assets.header, 0, 780, 480, 20);
-		batcher.draw(Assets.header, 0, 0, 480, 20);
-		batcher.end();
-	}
+    @Override
+    public boolean keyDown(int keycode) {
+        if (keycode == Keys.BACK | keycode == Keys.ESCAPE) {
+            Gdx.app.exit();
+            return true;
+        } else if (keycode == Keys.E) {
+            Settings.selectedLanguage = Languages.ENGLISH;
+            Settings.save();
+            Assets.loadAssetsWithSettings();
+            game.setScreen(new MainMenuScreen(game));
+        } else if (keycode == Keys.R) {
+            Settings.selectedLanguage = Languages.SPANISH;
+            Settings.save();
+            Assets.loadAssetsWithSettings();
+            game.setScreen(new MainMenuScreen(game));
+        } else if (keycode == Keys.T) {
+            Settings.selectedLanguage = Languages.CHINESE_TAIWAN;
+            Settings.save();
+            Assets.loadAssetsWithSettings();
+            game.setScreen(new MainMenuScreen(game));
+        } else if (keycode == Keys.Y) {
+            Settings.selectedLanguage = Languages.DEFAULT;
+            Settings.save();
+            Assets.loadAssetsWithSettings();
+            game.setScreen(new MainMenuScreen(game));
+        }
 
-	public void updateLeaderboard() {
-		dialogRanking.clearLeaderboard();
-		game.arrPerson.sort();// Acomoda de mayor a menor
-		for (Person obj : game.arrPerson) {
-			dialogRanking.addPerson(obj);
-		}
-	}
-
-	@Override
-	public boolean keyDown(int keycode) {
-		if (keycode == Keys.BACK | keycode == Keys.ESCAPE) {
-			Gdx.app.exit();
-			return true;
-		}
-		else if (keycode == Keys.E) {
-			Settings.selectedLanguage = Languages.ENGLISH;
-			Settings.save();
-			Assets.loadAssetsWithSettings();
-			game.setScreen(new MainMenuScreen(game));
-		}
-		else if (keycode == Keys.R) {
-			Settings.selectedLanguage = Languages.SPANISH;
-			Settings.save();
-			Assets.loadAssetsWithSettings();
-			game.setScreen(new MainMenuScreen(game));
-		}
-		else if (keycode == Keys.T) {
-			Settings.selectedLanguage = Languages.CHINESE_TAIWAN;
-			Settings.save();
-			Assets.loadAssetsWithSettings();
-			game.setScreen(new MainMenuScreen(game));
-		}
-		else if (keycode == Keys.Y) {
-			Settings.selectedLanguage = Languages.DEFAULT;
-			Settings.save();
-			Assets.loadAssetsWithSettings();
-			game.setScreen(new MainMenuScreen(game));
-		}
-
-		return super.keyDown(keycode);
-	}
-
+        return super.keyDown(keycode);
+    }
 }
