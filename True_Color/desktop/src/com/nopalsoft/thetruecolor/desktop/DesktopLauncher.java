@@ -176,7 +176,6 @@ public class DesktopLauncher {
         public void facebookSubmitScore(int score) {
 
         }
-
     };
 
     static HandlerGWT handlerGWT = new HandlerGWT() {
