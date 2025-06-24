@@ -70,7 +70,6 @@ public class Assets extends AssetManager {
         cargarFont();
 
         load(atlasComun, TextureAtlas.class);
-
     }
 
     public void cargarComun() {
@@ -108,7 +107,6 @@ public class Assets extends AssetManager {
 
         btShareFacebookUp = new NinePatchDrawable(new NinePatch(atlas.createPatch("btShareFacebookUp")));
         btShareFacebookDown = new NinePatchDrawable(new NinePatch(atlas.createPatch("btShareFacebookDown")));
-
     }
 
     /**
@@ -156,7 +154,6 @@ public class Assets extends AssetManager {
 
         if (!isLoaded(atlasWorldTiledScreenRuta))
             load(atlasWorldTiledScreenRuta, TiledMap.class);
-
     }
 
     public void cargarMenus() {
@@ -179,7 +176,6 @@ public class Assets extends AssetManager {
 
         cargarWorldMap(atlas);
         cargarTienda(atlas);
-
     }
 
     public void unLoadMenus() {
@@ -188,7 +184,6 @@ public class Assets extends AssetManager {
         unload(atlasMenusRuta);
         unload(atlasWorldTiledScreenRuta);
         System.gc();
-
     }
 
     /**
@@ -256,7 +251,6 @@ public class Assets extends AssetManager {
         SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal("data/menus/shoptitle.json"));
         animationTiendaTitle = skeletonData.findAnimation("animation");
         skeletonTiendaTitle = new Skeleton(skeletonData);
-
     }
 
     /**
@@ -309,7 +303,6 @@ public class Assets extends AssetManager {
         btDerDown = new NinePatchDrawable(new NinePatch(atlas.findRegion("derPresionado")));
         btIzqUp = new NinePatchDrawable(new NinePatch(atlas.findRegion("izqSinPresionar")));
         btIzqDown = new NinePatchDrawable(new NinePatch(atlas.findRegion("izqPresionado")));
-
     }
 
     /**
@@ -498,7 +491,6 @@ public class Assets extends AssetManager {
 
         if (!isLoaded("data/musica/salto.mp3"))
             load("data/musica/salto.mp3", Sound.class);
-
     }
 
     /**
@@ -640,7 +632,6 @@ public class Assets extends AssetManager {
         } else {
             musicaMenus.stop();
         }
-
     }
 
     public void platMusicInGame() {
@@ -668,5 +659,4 @@ public class Assets extends AssetManager {
         if (Settings.isSonidoON)
             sound.play(1);
     }
-
 }

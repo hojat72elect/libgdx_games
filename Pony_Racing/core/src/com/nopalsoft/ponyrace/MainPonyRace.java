@@ -35,7 +35,6 @@ public class MainPonyRace extends Game {
         stage = new Stage(new StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT));
         batcher = new SpriteBatch();
         this.setScreen(new LoadingScreen(this, MainMenuScreen.class, 1));
-
     }
 
     String status;
@@ -50,5 +49,4 @@ public class MainPonyRace extends Game {
         oAssets.dispose();
         super.dispose();
     }
-
 }

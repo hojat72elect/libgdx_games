@@ -1,10 +1,10 @@
 /******************************************************************************
  * Spine Runtimes Software License
  * Version 2
- * 
+ *
  * Copyright (c) 2013, Esoteric Software
  * All rights reserved.
- * 
+ *
  * You are granted a perpetual, non-exclusive, non-sublicensable and
  * non-transferable license to install, execute and perform the Spine Runtimes
  * Software (the "Software") solely for internal use. Without the written
@@ -29,18 +29,18 @@
 package com.esotericsoftware.spine.attachments;
 
 abstract public class Attachment {
-	final String name;
+    final String name;
 
-	public Attachment (String name) {
-		if (name == null) throw new IllegalArgumentException("name cannot be null.");
-		this.name = name;
-	}
+    public Attachment(String name) {
+        if (name == null) throw new IllegalArgumentException("name cannot be null.");
+        this.name = name;
+    }
 
-	public String getName () {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String toString () {
-		return name;
-	}
+    public String toString() {
+        return name;
+    }
 }

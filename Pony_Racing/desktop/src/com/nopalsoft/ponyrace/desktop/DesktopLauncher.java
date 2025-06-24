@@ -15,15 +15,6 @@ public class DesktopLauncher {
         cfg.width = 800;
         cfg.height = 480;
         new LwjglApplication(new MainPonyRace(handler, gameServicesHandler, formatter), cfg);
-
-
-        // Pack the world map
-//        String[] arg = {"/Users/Yayo/Dropbox/Tiarsoft/Pony Games Racing/tiled/worldmap", "/Users/Yayo/Dropbox/Tiarsoft/Pony Games Racing/tiled/worldmap/worldMapPacked", "--strip-unused"};
-
-        // // Pack the levels
-//        String[] arg = {"/Users/Yayo/Dropbox/Tiarsoft/Pony Games Racing/tiled", "/Users/Yayo/Dropbox/Tiarsoft/Pony Games Racing/tiled/tilesPacked", "--strip-unused"};
-
-//        TiledMapPacker.main(arg);
     }
 
     static FloatFormatter formatter = new FloatFormatter() {
@@ -37,50 +28,41 @@ public class DesktopLauncher {
     static RequestHandler handler = new RequestHandler() {
 
         @Override
-        public void showRater() {
-            // TODO Auto-generated method stub
-
-        }
+        public void showRater() {}
 
         @Override
         public void showMoreGames() {
-            // TODO Auto-generated method stub
+
 
         }
 
         @Override
         public void showInterstitial() {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void showFacebook() {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void showAdBanner() {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void shareOnFacebook(String mensaje) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void hideAdBanner() {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void shareOnTwitter(String mensaje) {
-            // TODO Auto-generated method stub
 
         }
     };
@@ -89,49 +71,41 @@ public class DesktopLauncher {
 
         @Override
         public void unlockAchievement(String achievementId) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void submitScore(float tiempoLap, String leaderBoard) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void getLeaderboard() {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void getAchievements() {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public boolean isSignedIn() {
-            // TODO Auto-generated method stub
             return false;
         }
 
         @Override
         public void signIn() {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void signOut() {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void unlockIncrementalAchievement(String achievementId, int pasosDados) {
-            // TODO Auto-generated method stub
 
         }
     };

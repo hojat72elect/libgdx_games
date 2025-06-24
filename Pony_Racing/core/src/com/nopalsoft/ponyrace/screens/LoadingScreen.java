@@ -13,7 +13,6 @@ public class LoadingScreen extends Screens {
     public LoadingScreen(MainPonyRace game, Class<?> clase, int nivelTiled) {
         super(game);
         create(game, clase, nivelTiled);
-
     }
 
     public LoadingScreen(MainPonyRace game, Class<?> clase) {
@@ -30,24 +29,19 @@ public class LoadingScreen extends Screens {
         if (clase == MainMenuScreen.class) {
             oAssets.loadMenus();
             game.reqHandler.hideAdBanner();
-
         } else if (clase == LeaderboardChooseScreen.class) {
             oAssets.loadMenus();
             game.reqHandler.hideAdBanner();
-
         } else if (clase == WorldMapTiledScreen.class) {
             oAssets.loadMenus();
             game.reqHandler.showAdBanner();
-
         } else if (clase == ShopScreen.class) {
             oAssets.loadMenus();
             game.reqHandler.hideAdBanner();
-
         } else if (clase == GameScreenTileds.class) {
             oAssets.loadGameScreenTiled(nivelTiled);
             game.reqHandler.hideAdBanner();
         }
-
     }
 
     @Override
@@ -63,7 +57,6 @@ public class LoadingScreen extends Screens {
             } else if (clase == WorldMapTiledScreen.class) {
                 oAssets.cargarMenus();
                 game.setScreen(new WorldMapTiledScreen(game));
-
             } else if (clase == ShopScreen.class) {
                 oAssets.cargarMenus();
                 game.setScreen(new ShopScreen(game));
@@ -71,12 +64,10 @@ public class LoadingScreen extends Screens {
                 oAssets.cargarGameScreenTiled();
                 game.setScreen(new GameScreenTileds(game, nivelTiled));
             }
-
         } else {
 
             cargaActual = (int) (game.oAssets.getProgress() * 100);
         }
-
     }
 
     @Override
@@ -98,5 +89,4 @@ public class LoadingScreen extends Screens {
         // TODO Auto-generated method stub
 
     }
-
 }

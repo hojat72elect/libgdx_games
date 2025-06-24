@@ -107,9 +107,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
                     }
                 })));
             }
-
-            ;
-
         });
 
         btTienda = new BotonNube(oAssets.nube, "Shop", oAssets.fontGde);
@@ -127,9 +124,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
                     }
                 })));
             }
-
-            ;
-
         });
 
         btDiffUp = new Button(oAssets.btDerUp, oAssets.btDerDown);
@@ -138,8 +132,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
             public void clicked(InputEvent event, float x, float y) {
                 changeDificutad(1);
             }
-
-            ;
         });
 
         btDiffDown = new ImageButton(oAssets.btIzqUp, oAssets.btIzqDown);
@@ -148,8 +140,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
             public void clicked(InputEvent event, float x, float y) {
                 changeDificutad(-1);
             }
-
-            ;
         });
 
         LabelStyle lblEstilo = new LabelStyle(oAssets.fontChco, Color.WHITE);
@@ -175,7 +165,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
         gestureDetector = new GestureDetector(20, 0.5f, 2, 0.15f, this);
         InputMultiplexer input = new InputMultiplexer(stage, gestureDetector, this);
         Gdx.input.setInputProcessor(input);
-
     }
 
     private void inicializarNiveles() {
@@ -197,7 +186,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
             float y = (rectangle.y - rectangle.height * 0.5f) * unitScale;
 
             arrMundos.add(new Mundos(new Vector2(x, y), new Rectangle(x - .75f, y - .85f, 1.5f, 1.5f), level));
-
         }
 
         arrMundos.sort(new Comparator<Mundos>() {
@@ -209,7 +197,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
                 return -1;
             }
         });
-
     }
 
     @Override
@@ -257,7 +244,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
     public void changeToGameTiledScreen(int level) {
         game.oAssets.unLoadMenus();
         game.setScreen(new LoadingScreen(game, GameScreenTileds.class, level));
-
     }
 
     @Override
@@ -289,7 +275,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
 
         stage.act(delta);
         stage.draw();
-
     }
 
     private void renderRenderMap(float delta) {
@@ -308,7 +293,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
             oAssets.fontChco.getData().setScale(.0125f);
             oAssets.fontChco.draw(batcher, arrMundos.get(i).level + "", x - .25f, y + .2f);
             oAssets.fontChco.getData().setScale(.6f);
-
         }
         if (Settings.isEnabledSecretWorld) {
             oAssets.rayoAnim.apply(oAssets.rayoSkeleton, ScreenlastStatetime, ScreenStateTime, true, null);
@@ -325,7 +309,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
         oAssets.humoVolcanSkeleton.updateWorldTransform();
         oAssets.humoVolcanSkeleton.update(delta);
         skelrender.draw(batcher, oAssets.humoVolcanSkeleton);
-
     }
 
     @Override
@@ -344,7 +327,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
         while (it.hasNext()) {
             Mundos obj = it.next();
             render.rect(obj.bounds.x, obj.bounds.y, obj.bounds.width, obj.bounds.height);
-
         }
         if (Settings.isEnabledSecretWorld) {
             render.rect(secretWorldBounds.x, secretWorldBounds.y, secretWorldBounds.width, secretWorldBounds.height);
@@ -353,7 +335,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
         render.end();
 
         render.dispose();
-
     }
 
     @Override
@@ -377,7 +358,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
             this.bounds = bounds;
             this.level = level;
         }
-
     }
 
     @Override

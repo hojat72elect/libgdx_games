@@ -1,10 +1,10 @@
 /******************************************************************************
  * Spine Runtimes Software License
  * Version 2
- * 
+ *
  * Copyright (c) 2013, Esoteric Software
  * All rights reserved.
- * 
+ *
  * You are granted a perpetual, non-exclusive, non-sublicensable and
  * non-transferable license to install, execute and perform the Spine Runtimes
  * Software (the "Software") solely for internal use. Without the written
@@ -29,44 +29,44 @@
 package com.esotericsoftware.spine;
 
 public class Event {
-	final private EventData data;
-	int intValue;
-	float floatValue;
-	String stringValue;
+    final private EventData data;
+    int intValue;
+    float floatValue;
+    String stringValue;
 
-	public Event (EventData data) {
-		this.data = data;
-	}
+    public Event(EventData data) {
+        this.data = data;
+    }
 
-	public int getInt () {
-		return intValue;
-	}
+    public int getInt() {
+        return intValue;
+    }
 
-	public void setInt (int intValue) {
-		this.intValue = intValue;
-	}
+    public void setInt(int intValue) {
+        this.intValue = intValue;
+    }
 
-	public float getFloat () {
-		return floatValue;
-	}
+    public float getFloat() {
+        return floatValue;
+    }
 
-	public void setFloat (float floatValue) {
-		this.floatValue = floatValue;
-	}
+    public void setFloat(float floatValue) {
+        this.floatValue = floatValue;
+    }
 
-	public String getString () {
-		return stringValue;
-	}
+    public String getString() {
+        return stringValue;
+    }
 
-	public void setString (String stringValue) {
-		this.stringValue = stringValue;
-	}
+    public void setString(String stringValue) {
+        this.stringValue = stringValue;
+    }
 
-	public EventData getData () {
-		return data;
-	}
+    public EventData getData() {
+        return data;
+    }
 
-	public String toString () {
-		return data.name;
-	}
+    public String toString() {
+        return data.name;
+    }
 }

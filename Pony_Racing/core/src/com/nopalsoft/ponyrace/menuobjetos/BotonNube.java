@@ -1,6 +1,10 @@
 package com.nopalsoft.ponyrace.menuobjetos;
 
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -25,7 +29,6 @@ public class BotonNube extends Actor {
         this.texto = texto;
         accionInicial = new IniciarAnimacion();
         glyphLayout = new GlyphLayout();
-
     }
 
     @Override
@@ -73,11 +76,7 @@ public class BotonNube extends Actor {
         @Override
         public boolean act(float delta) {
             tiempoAnimacion += delta;
-            if (tiempoAnimacion > animation.getAnimationDuration())
-                return true;
-            return false;
+            return tiempoAnimacion > animation.getAnimationDuration();
         }
-
     }
-
 }

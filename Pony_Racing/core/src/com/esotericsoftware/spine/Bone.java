@@ -1,10 +1,10 @@
 /******************************************************************************
  * Spine Runtimes Software License
  * Version 2
- * 
+ *
  * Copyright (c) 2013, Esoteric Software
  * All rights reserved.
- * 
+ *
  * You are granted a perpetual, non-exclusive, non-sublicensable and
  * non-transferable license to install, execute and perform the Spine Runtimes
  * Software (the "Software") solely for internal use. Without the written
@@ -28,190 +28,205 @@
 
 package com.esotericsoftware.spine;
 
+import static com.badlogic.gdx.math.Matrix3.M00;
+import static com.badlogic.gdx.math.Matrix3.M01;
+import static com.badlogic.gdx.math.Matrix3.M02;
+import static com.badlogic.gdx.math.Matrix3.M10;
+import static com.badlogic.gdx.math.Matrix3.M11;
+import static com.badlogic.gdx.math.Matrix3.M12;
+import static com.badlogic.gdx.math.Matrix3.M20;
+import static com.badlogic.gdx.math.Matrix3.M21;
+import static com.badlogic.gdx.math.Matrix3.M22;
+
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Matrix3;
 
-import static com.badlogic.gdx.math.Matrix3.*;
-
 public class Bone {
-	final BoneData data;
-	final Bone parent;
-	float x, y;
-	float rotation;
-	float scaleX, scaleY;
+    final BoneData data;
+    final Bone parent;
+    float x, y;
+    float rotation;
+    float scaleX, scaleY;
 
-	float m00, m01, worldX; // a b x
-	float m10, m11, worldY; // c d y
-	float worldRotation;
-	float worldScaleX, worldScaleY;
+    float m00, m01, worldX; // a b x
+    float m10, m11, worldY; // c d y
+    float worldRotation;
+    float worldScaleX, worldScaleY;
 
-	/** @param parent May be null. */
-	public Bone (BoneData data, Bone parent) {
-		if (data == null) throw new IllegalArgumentException("data cannot be null.");
-		this.data = data;
-		this.parent = parent;
-		setToSetupPose();
-	}
+    /**
+     * @param parent May be null.
+     */
+    public Bone(BoneData data, Bone parent) {
+        if (data == null) throw new IllegalArgumentException("data cannot be null.");
+        this.data = data;
+        this.parent = parent;
+        setToSetupPose();
+    }
 
-	/** Copy constructor.
-	 * @param parent May be null. */
-	public Bone (Bone bone, Bone parent) {
-		if (bone == null) throw new IllegalArgumentException("bone cannot be null.");
-		this.parent = parent;
-		data = bone.data;
-		x = bone.x;
-		y = bone.y;
-		rotation = bone.rotation;
-		scaleX = bone.scaleX;
-		scaleY = bone.scaleY;
-	}
+    /**
+     * Copy constructor.
+     *
+     * @param parent May be null.
+     */
+    public Bone(Bone bone, Bone parent) {
+        if (bone == null) throw new IllegalArgumentException("bone cannot be null.");
+        this.parent = parent;
+        data = bone.data;
+        x = bone.x;
+        y = bone.y;
+        rotation = bone.rotation;
+        scaleX = bone.scaleX;
+        scaleY = bone.scaleY;
+    }
 
-	/** Computes the world SRT using the parent bone and the local SRT. */
-	public void updateWorldTransform (boolean flipX, boolean flipY) {
-		Bone parent = this.parent;
-		if (parent != null) {
-			worldX = x * parent.m00 + y * parent.m01 + parent.worldX;
-			worldY = x * parent.m10 + y * parent.m11 + parent.worldY;
-			if (data.inheritScale) {
-				worldScaleX = parent.worldScaleX * scaleX;
-				worldScaleY = parent.worldScaleY * scaleY;
-			} else {
-				worldScaleX = scaleX;
-				worldScaleY = scaleY;
-			}
-			worldRotation = data.inheritRotation ? parent.worldRotation + rotation : rotation;
-		} else {
-			worldX = flipX ? -x : x;
-			worldY = flipY ? -y : y;
-			worldScaleX = scaleX;
-			worldScaleY = scaleY;
-			worldRotation = rotation;
-		}
-		float cos = MathUtils.cosDeg(worldRotation);
-		float sin = MathUtils.sinDeg(worldRotation);
-		m00 = cos * worldScaleX;
-		m10 = sin * worldScaleX;
-		m01 = -sin * worldScaleY;
-		m11 = cos * worldScaleY;
-		if (flipX) {
-			m00 = -m00;
-			m01 = -m01;
-		}
-		if (flipY) {
-			m10 = -m10;
-			m11 = -m11;
-		}
-	}
+    /**
+     * Computes the world SRT using the parent bone and the local SRT.
+     */
+    public void updateWorldTransform(boolean flipX, boolean flipY) {
+        Bone parent = this.parent;
+        if (parent != null) {
+            worldX = x * parent.m00 + y * parent.m01 + parent.worldX;
+            worldY = x * parent.m10 + y * parent.m11 + parent.worldY;
+            if (data.inheritScale) {
+                worldScaleX = parent.worldScaleX * scaleX;
+                worldScaleY = parent.worldScaleY * scaleY;
+            } else {
+                worldScaleX = scaleX;
+                worldScaleY = scaleY;
+            }
+            worldRotation = data.inheritRotation ? parent.worldRotation + rotation : rotation;
+        } else {
+            worldX = flipX ? -x : x;
+            worldY = flipY ? -y : y;
+            worldScaleX = scaleX;
+            worldScaleY = scaleY;
+            worldRotation = rotation;
+        }
+        float cos = MathUtils.cosDeg(worldRotation);
+        float sin = MathUtils.sinDeg(worldRotation);
+        m00 = cos * worldScaleX;
+        m10 = sin * worldScaleX;
+        m01 = -sin * worldScaleY;
+        m11 = cos * worldScaleY;
+        if (flipX) {
+            m00 = -m00;
+            m01 = -m01;
+        }
+        if (flipY) {
+            m10 = -m10;
+            m11 = -m11;
+        }
+    }
 
-	public void setToSetupPose () {
-		BoneData data = this.data;
-		x = data.x;
-		y = data.y;
-		rotation = data.rotation;
-		scaleX = data.scaleX;
-		scaleY = data.scaleY;
-	}
+    public void setToSetupPose() {
+        BoneData data = this.data;
+        x = data.x;
+        y = data.y;
+        rotation = data.rotation;
+        scaleX = data.scaleX;
+        scaleY = data.scaleY;
+    }
 
-	public BoneData getData () {
-		return data;
-	}
+    public BoneData getData() {
+        return data;
+    }
 
-	public Bone getParent () {
-		return parent;
-	}
+    public Bone getParent() {
+        return parent;
+    }
 
-	public float getX () {
-		return x;
-	}
+    public float getX() {
+        return x;
+    }
 
-	public void setX (float x) {
-		this.x = x;
-	}
+    public void setX(float x) {
+        this.x = x;
+    }
 
-	public float getY () {
-		return y;
-	}
+    public float getY() {
+        return y;
+    }
 
-	public void setY (float y) {
-		this.y = y;
-	}
+    public void setY(float y) {
+        this.y = y;
+    }
 
-	public float getRotation () {
-		return rotation;
-	}
+    public float getRotation() {
+        return rotation;
+    }
 
-	public void setRotation (float rotation) {
-		this.rotation = rotation;
-	}
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
+    }
 
-	public float getScaleX () {
-		return scaleX;
-	}
+    public float getScaleX() {
+        return scaleX;
+    }
 
-	public void setScaleX (float scaleX) {
-		this.scaleX = scaleX;
-	}
+    public void setScaleX(float scaleX) {
+        this.scaleX = scaleX;
+    }
 
-	public float getScaleY () {
-		return scaleY;
-	}
+    public float getScaleY() {
+        return scaleY;
+    }
 
-	public void setScaleY (float scaleY) {
-		this.scaleY = scaleY;
-	}
+    public void setScaleY(float scaleY) {
+        this.scaleY = scaleY;
+    }
 
-	public float getM00 () {
-		return m00;
-	}
+    public float getM00() {
+        return m00;
+    }
 
-	public float getM01 () {
-		return m01;
-	}
+    public float getM01() {
+        return m01;
+    }
 
-	public float getM10 () {
-		return m10;
-	}
+    public float getM10() {
+        return m10;
+    }
 
-	public float getM11 () {
-		return m11;
-	}
+    public float getM11() {
+        return m11;
+    }
 
-	public float getWorldX () {
-		return worldX;
-	}
+    public float getWorldX() {
+        return worldX;
+    }
 
-	public float getWorldY () {
-		return worldY;
-	}
+    public float getWorldY() {
+        return worldY;
+    }
 
-	public float getWorldRotation () {
-		return worldRotation;
-	}
+    public float getWorldRotation() {
+        return worldRotation;
+    }
 
-	public float getWorldScaleX () {
-		return worldScaleX;
-	}
+    public float getWorldScaleX() {
+        return worldScaleX;
+    }
 
-	public float getWorldScaleY () {
-		return worldScaleY;
-	}
+    public float getWorldScaleY() {
+        return worldScaleY;
+    }
 
-	public Matrix3 getWorldTransform (Matrix3 worldTransform) {
-		if (worldTransform == null) throw new IllegalArgumentException("worldTransform cannot be null.");
-		float[] val = worldTransform.val;
-		val[M00] = m00;
-		val[M01] = m01;
-		val[M10] = m10;
-		val[M11] = m11;
-		val[M02] = worldX;
-		val[M12] = worldY;
-		val[M20] = 0;
-		val[M21] = 0;
-		val[M22] = 1;
-		return worldTransform;
-	}
+    public Matrix3 getWorldTransform(Matrix3 worldTransform) {
+        if (worldTransform == null) throw new IllegalArgumentException("worldTransform cannot be null.");
+        float[] val = worldTransform.val;
+        val[M00] = m00;
+        val[M01] = m01;
+        val[M10] = m10;
+        val[M11] = m11;
+        val[M02] = worldX;
+        val[M12] = worldY;
+        val[M20] = 0;
+        val[M21] = 0;
+        val[M22] = 1;
+        return worldTransform;
+    }
 
-	public String toString () {
-		return data.name;
-	}
+    public String toString() {
+        return data.name;
+    }
 }

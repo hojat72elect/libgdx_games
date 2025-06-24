@@ -14,325 +14,317 @@ import com.nopalsoft.ponyrace.game.WorldTiled;
 import java.util.Random;
 
 public class Pony {
-	static public final int STATE_DEAD = 0;
-	static public final int STATE_WALK_LEFT = 1;
-	static public final int STATE_WALK_RIGHT = 2;
-	static public final int STATE_STAND = 3;
+    static public final int STATE_DEAD = 0;
+    static public final int STATE_WALK_LEFT = 1;
+    static public final int STATE_WALK_RIGHT = 2;
+    static public final int STATE_STAND = 3;
 
-	private final int MAX_ANGLE_DEGREES = 18;
+    private final int MAX_ANGLE_DEGREES = 18;
 
-	public static final float VEL_JUMP = 3.5f;
-	public static final float VEL_RUN = 2.0f;
-	public static float TIEMPO_IS_HURT = 0f;
-	public final float TIEMPO_IS_CHILE;
-	public final float TIEMPO_IS_DULCE;
+    public static final float VEL_JUMP = 3.5f;
+    public static final float VEL_RUN = 2.0f;
+    public static float TIEMPO_IS_HURT = 0f;
+    public final float TIEMPO_IS_CHILE;
+    public final float TIEMPO_IS_DULCE;
 
-	public int state;
+    public int state;
 
-	public float angleRad;
-	public boolean canRotate;// Solo cuando toca el piso inclinado puede rotar
+    public float angleRad;
+    public boolean canRotate;// Solo cuando toca el piso inclinado puede rotar
 
-	public AnimationState animState;
-	public Skeleton ponySkel;
+    public AnimationState animState;
+    public Skeleton ponySkel;
 
-	public final Vector3 position;
-	public final Vector3 aceleration;
+    public final Vector3 position;
+    public final Vector3 aceleration;
 
-	public boolean isJumping;
-	public boolean isDoubleJump;
-	public boolean isHurt;
-	public boolean isChile; // Es true cuando toca un chile
-	public boolean isDulce;// Es true cuando toca un dulce
+    public boolean isJumping;
+    public boolean isDoubleJump;
+    public boolean isHurt;
+    public boolean isChile; // Es true cuando toca un chile
+    public boolean isDulce;// Es true cuando toca un dulce
 
-	public Vector2 regresoHoyo;
-	public boolean cayoEnHoyo;
-	public boolean tocoElPisoDespuesCaerHoyo;
+    public Vector2 regresoHoyo;
+    public boolean cayoEnHoyo;
+    public boolean tocoElPisoDespuesCaerHoyo;
 
-	public float stateTime;
-	public float chileTime;
-	public float dulceTime;
-	public Random oRan;
+    public float stateTime;
+    public float chileTime;
+    public float dulceTime;
+    public Random oRan;
 
-	public String nombreSkin;
+    public String nombreSkin;
 
-	public int monedasRecolectadas;
-	public int chilesRecolectados;
-	public int globosRecolectados;
-	public int dulcesRecolectados;
+    public int monedasRecolectadas;
+    public int chilesRecolectados;
+    public int globosRecolectados;
+    public int dulcesRecolectados;
 
-	public int lugarEnLaCarrera; // Variable que dice si vas en primer, segundo, tercer, et. Lugar en la carrera
+    public int lugarEnLaCarrera; // Variable que dice si vas en primer, segundo, tercer, et. Lugar en la carrera
 
-	public boolean pasoLaMeta;
+    public boolean pasoLaMeta;
 
-	// Variables para saber si disparo o no
-	public boolean fireBomb;
-	public boolean fireWood;
+    // Variables para saber si disparo o no
+    public boolean fireBomb;
+    public boolean fireWood;
 
-	public Pony(float x, float y, String nombreSkin, WorldTiled oWorld) {
-		this.oRan = oWorld.oRan;
+    public Pony(float x, float y, String nombreSkin, WorldTiled oWorld) {
+        this.oRan = oWorld.oRan;
 
-		switch (Settings.nivelChili) {
-			default:
-			case 0:
-				TIEMPO_IS_CHILE = 3;
-				break;
-			case 1:
-				TIEMPO_IS_CHILE = 3.5f;
-				break;
-			case 2:
-				TIEMPO_IS_CHILE = 5f;
-				break;
-			case 3:
-				TIEMPO_IS_CHILE = 7f;
-				break;
-			case 4:
-				TIEMPO_IS_CHILE = 9;
-				break;
-			case 5:
-				TIEMPO_IS_CHILE = 11f;
-				break;
-		}
+        switch (Settings.nivelChili) {
+            default:
+            case 0:
+                TIEMPO_IS_CHILE = 3;
+                break;
+            case 1:
+                TIEMPO_IS_CHILE = 3.5f;
+                break;
+            case 2:
+                TIEMPO_IS_CHILE = 5f;
+                break;
+            case 3:
+                TIEMPO_IS_CHILE = 7f;
+                break;
+            case 4:
+                TIEMPO_IS_CHILE = 9;
+                break;
+            case 5:
+                TIEMPO_IS_CHILE = 11f;
+                break;
+        }
 
-		switch (Settings.nivelChocolate) {
-			default:
-			case 0:
-				TIEMPO_IS_DULCE = 3;
-				break;
-			case 1:
-				TIEMPO_IS_DULCE = 3.5f;
-				break;
-			case 2:
-				TIEMPO_IS_DULCE = 4f;
-				break;
-			case 3:
-				TIEMPO_IS_DULCE = 5f;
-				break;
-			case 4:
-				TIEMPO_IS_DULCE = 7;
-				break;
-			case 5:
-				TIEMPO_IS_DULCE = 9f;
-				break;
-		}
+        switch (Settings.nivelChocolate) {
+            default:
+            case 0:
+                TIEMPO_IS_DULCE = 3;
+                break;
+            case 1:
+                TIEMPO_IS_DULCE = 3.5f;
+                break;
+            case 2:
+                TIEMPO_IS_DULCE = 4f;
+                break;
+            case 3:
+                TIEMPO_IS_DULCE = 5f;
+                break;
+            case 4:
+                TIEMPO_IS_DULCE = 7;
+                break;
+            case 5:
+                TIEMPO_IS_DULCE = 9f;
+                break;
+        }
 
-		this.nombreSkin = nombreSkin;
+        this.nombreSkin = nombreSkin;
 
-		state = STATE_WALK_RIGHT;
+        state = STATE_WALK_RIGHT;
 
-		position = new Vector3(x, y, 0);
-		aceleration = new Vector3();
-		regresoHoyo = new Vector2();
-		monedasRecolectadas = 0;
-		stateTime = 0;
-		isJumping = false;
-		isDoubleJump = false;
-		isHurt = false;
-		pasoLaMeta = false;
-		tocoElPisoDespuesCaerHoyo = true;
-		ponySkel = new Skeleton(oWorld.game.oAssets.ponySkeletonData);
-		ponySkel.setSkin(nombreSkin);
-		ponySkel.setToSetupPose();
+        position = new Vector3(x, y, 0);
+        aceleration = new Vector3();
+        regresoHoyo = new Vector2();
+        monedasRecolectadas = 0;
+        stateTime = 0;
+        isJumping = false;
+        isDoubleJump = false;
+        isHurt = false;
+        pasoLaMeta = false;
+        tocoElPisoDespuesCaerHoyo = true;
+        ponySkel = new Skeleton(oWorld.game.oAssets.ponySkeletonData);
+        ponySkel.setSkin(nombreSkin);
+        ponySkel.setToSetupPose();
 
-		AnimationStateData stateData = new AnimationStateData(ponySkel.getData());
-		stateData.setMix("Jump", "Running", .45f);
-		stateData.setMix("Jump", "standing", .45f);
-		stateData.setMix("Jump2", "standing", .45f);
-		stateData.setMix("Jump2", "Running", .45f);
-		stateData.setMix("Jump", "Jump2", -.45f);
-		stateData.setMix("hurt", "Running", .3f);
-		stateData.setMix("hurt", "standing", .3f);
-		// stateData.setMix("hurt", "death", .3f);
-		stateData.setMix("hurt", "hurt", .3f);
+        AnimationStateData stateData = new AnimationStateData(ponySkel.getData());
+        stateData.setMix("Jump", "Running", .45f);
+        stateData.setMix("Jump", "standing", .45f);
+        stateData.setMix("Jump2", "standing", .45f);
+        stateData.setMix("Jump2", "Running", .45f);
+        stateData.setMix("Jump", "Jump2", -.45f);
+        stateData.setMix("hurt", "Running", .3f);
+        stateData.setMix("hurt", "standing", .3f);
+        // stateData.setMix("hurt", "death", .3f);
+        stateData.setMix("hurt", "hurt", .3f);
 
-		animState = new AnimationState(stateData);
-		animState.addListener(new AnimationStateListener() {
-			@Override
-			public void event(int trackIndex, Event event) {
-				// TODO Auto-generated method stub
+        animState = new AnimationState(stateData);
+        animState.addListener(new AnimationStateListener() {
+            @Override
+            public void event(int trackIndex, Event event) {
+                // TODO Auto-generated method stub
 
-			}
+            }
 
-			@Override
-			public void complete(int trackIndex, int loopCount) {
-				// TODO Auto-generated method stub
+            @Override
+            public void complete(int trackIndex, int loopCount) {
+                // TODO Auto-generated method stub
 
-			}
+            }
 
-			@Override
-			public void start(int trackIndex) {
-				// TODO Auto-generated method stub
+            @Override
+            public void start(int trackIndex) {
+                // TODO Auto-generated method stub
 
-			}
+            }
 
-			@Override
-			public void end(int trackIndex) {
-				ponySkel.setToSetupPose();
+            @Override
+            public void end(int trackIndex) {
+                ponySkel.setToSetupPose();
+            }
+        });
+        animState.setAnimation(0, "standing", true);
+    }
 
-			}
-		});
-		animState.setAnimation(0, "standing", true);
-	}
+    public void update(float delta, Body obj, float accelX) {
 
-	public void update(float delta, Body obj, float accelX) {
+        stateTime += delta;
+        position.x = obj.getPosition().x;
+        position.y = obj.getPosition().y;
 
-		stateTime += delta;
-		position.x = obj.getPosition().x;
-		position.y = obj.getPosition().y;
+        float angleLimitRad = (float) Math.toRadians(MAX_ANGLE_DEGREES);
+        angleRad = obj.getAngle();
 
-		float angleLimitRad = (float) Math.toRadians(MAX_ANGLE_DEGREES);
-		angleRad = obj.getAngle();
+        if (!canRotate || isJumping)
+            angleRad = 0;
+        else if (angleRad > angleLimitRad)
+            angleRad = angleLimitRad;
+        else if (angleRad < -angleLimitRad)
+            angleRad = -angleLimitRad;
 
-		if (!canRotate || isJumping)
-			angleRad = 0;
-		else if (angleRad > angleLimitRad)
-			angleRad = angleLimitRad;
-		else if (angleRad < -angleLimitRad)
-			angleRad = -angleLimitRad;
+        obj.setTransform(position.x, position.y, angleRad);
 
-		obj.setTransform(position.x, position.y, angleRad);
+        aceleration.set(accelX, 0, 0);
 
-		aceleration.set(accelX, 0, 0);
+        if (state == STATE_DEAD)
+            return;
 
-		if (state == STATE_DEAD)
-			return;
+        if (isChile) {
+            chileTime += delta;
+            if (chileTime >= TIEMPO_IS_CHILE) {
+                chileTime = 0;
+                isChile = false;
+            }
+        }
 
-		if (isChile) {
-			chileTime += delta;
-			if (chileTime >= TIEMPO_IS_CHILE) {
-				chileTime = 0;
-				isChile = false;
-			}
+        if (isDulce) {
+            dulceTime += delta;
+            if (dulceTime >= TIEMPO_IS_DULCE) {
+                dulceTime = 0;
+                isDulce = false;
+            }
+        }
 
-		}
+        if (accelX < 0)
+            state = STATE_WALK_LEFT;
+        else if (accelX > 0)
+            state = STATE_WALK_RIGHT;
 
-		if (isDulce) {
-			dulceTime += delta;
-			if (dulceTime >= TIEMPO_IS_DULCE) {
-				dulceTime = 0;
-				isDulce = false;
-			}
-		}
+        if (isHurt && stateTime < TIEMPO_IS_HURT)
+            return;
+        else if (isHurt) {
+            isHurt = false;
+            stateTime = 0;
+            // if (this instanceof PonyMalo)// A veces se lastimaban y se atoraban, por eso cuando terminan de estar heridos le pongo que salten en putiza
+            // ((PonyMalo) this).hasToJump = true;
 
-		if (accelX < 0)
-			state = STATE_WALK_LEFT;
-		else if (accelX > 0)
-			state = STATE_WALK_RIGHT;
+        }
 
-		if (isHurt && stateTime < TIEMPO_IS_HURT)
-			return;
-		else if (isHurt) {
-			isHurt = false;
-			stateTime = 0;
-			// if (this instanceof PonyMalo)// A veces se lastimaban y se atoraban, por eso cuando terminan de estar heridos le pongo que salten en putiza
-			// ((PonyMalo) this).hasToJump = true;
+        if (isChile && animState.getCurrent(0).getAnimation().getName().equals("Running"))
+            animState.setAnimation(0, "Runningchile", true);
+        else if (isDulce && animState.getCurrent(0).getAnimation().getName().equals("Running"))
+            animState.setAnimation(0, "Runningchocolate", true);
+        else if (!isDulce && !isChile && (animState.getCurrent(0).getAnimation().getName().equals("Runningchile") || animState.getCurrent(0).getAnimation().getName().equals("Runningchocolate")))
+            animState.setAnimation(0, "Running", true);
 
-		}
+        if ((animState.getCurrent(0).getAnimation().getName().equals("standingchocolate") || animState.getCurrent(0).getAnimation().getName().equals("standingchile") || animState.getCurrent(0).getAnimation().getName().equals("standing") || animState.getCurrent(0).getAnimation().getName().equals("hurt")) && aceleration.x != 0) {
+            if (isDulce)
+                animState.setAnimation(0, "Runningchocolate", true);
+            else if (isChile)
+                animState.setAnimation(0, "Runningchile", true);
+            else
+                animState.setAnimation(0, "Running", true);
+        }
 
-		if (isChile && animState.getCurrent(0).getAnimation().getName().equals("Running"))
-			animState.setAnimation(0, "Runningchile", true);
-		else if (isDulce && animState.getCurrent(0).getAnimation().getName().equals("Running"))
-			animState.setAnimation(0, "Runningchocolate", true);
-		else if (!isDulce && !isChile && (animState.getCurrent(0).getAnimation().getName().equals("Runningchile") || animState.getCurrent(0).getAnimation().getName().equals("Runningchocolate")))
-			animState.setAnimation(0, "Running", true);
+        // Si no se esta moviendo a la izq o derecha, y si ya toco el suelo lo
+        // pongo en stanging
+        if ((animState.getCurrent(0).getAnimation().getName().equals("Runningchocolate") || animState.getCurrent(0).getAnimation().getName().equals("Running") || animState.getCurrent(0).getAnimation().getName().equals("Runningchile") || animState.getCurrent(0).getAnimation().getName().equals("hurt")) && aceleration.x == 0 && !isJumping) {
+            if (isDulce)
+                animState.setAnimation(0, "standingchocolate", true);
+            else if (isChile)
+                animState.setAnimation(0, "standingchile", true);
+            else
+                animState.setAnimation(0, "standing", true);
+        }
+    }
 
-		if ((animState.getCurrent(0).getAnimation().getName().equals("standingchocolate") || animState.getCurrent(0).getAnimation().getName().equals("standingchile") || animState.getCurrent(0).getAnimation().getName().equals("standing") || animState.getCurrent(0).getAnimation().getName().equals("hurt")) && aceleration.x != 0) {
-			if (isDulce)
-				animState.setAnimation(0, "Runningchocolate", true);
-			else if (isChile)
-				animState.setAnimation(0, "Runningchile", true);
-			else
-				animState.setAnimation(0, "Running", true);
-		}
+    public void jump() {
+        // isJumping=false; //salto infinito
+        if (isDoubleJump || isHurt)
+            return;
 
-		// Si no se esta moviendo a la izq o derecha, y si ya toco el suelo lo
-		// pongo en stanging
-		if ((animState.getCurrent(0).getAnimation().getName().equals("Runningchocolate") || animState.getCurrent(0).getAnimation().getName().equals("Running") || animState.getCurrent(0).getAnimation().getName().equals("Runningchile") || animState.getCurrent(0).getAnimation().getName().equals("hurt")) && aceleration.x == 0 && !isJumping) {
-			if (isDulce)
-				animState.setAnimation(0, "standingchocolate", true);
-			else if (isChile)
-				animState.setAnimation(0, "standingchile", true);
-			else
-				animState.setAnimation(0, "standing", true);
-		}
+        if (isJumping) {
+            if (isDulce)
+                animState.setAnimation(0, "Jump2chocolate", false);
+            else if (isChile)
+                animState.setAnimation(0, "Jump2chile", false);
+            else
+                animState.setAnimation(0, "Jump2", false);
+        } else {
+            if (isDulce)
+                animState.setAnimation(0, "Jumpchocolate", false);
+            else if (isChile)
+                animState.setAnimation(0, "Jumpchile", false);
+            else
+                animState.setAnimation(0, "Jump", false);
+        }
+        animState.addAnimation(0, "Running", true, 0);
 
-	}
+        if (!isJumping)
+            isJumping = true;
+        else if (!isDoubleJump)
+            isDoubleJump = true;
+    }
 
-	public void jump() {
-		// isJumping=false; //salto infinito
-		if (isDoubleJump || isHurt)
-			return;
+    public void getHurt(float tiempoIsHurt) {
+        if (isHurt || isChile)
+            return;
 
-		if (isJumping) {
-			if (isDulce)
-				animState.setAnimation(0, "Jump2chocolate", false);
-			else if (isChile)
-				animState.setAnimation(0, "Jump2chile", false);
-			else
-				animState.setAnimation(0, "Jump2", false);
-		}
-		else {
-			if (isDulce)
-				animState.setAnimation(0, "Jumpchocolate", false);
-			else if (isChile)
-				animState.setAnimation(0, "Jumpchile", false);
-			else
-				animState.setAnimation(0, "Jump", false);
-		}
-		animState.addAnimation(0, "Running", true, 0);
+        TIEMPO_IS_HURT = tiempoIsHurt;
+        stateTime = 0;
+        isHurt = true;
 
-		if (!isJumping)
-			isJumping = true;
-		else if (!isDoubleJump)
-			isDoubleJump = true;
+        // Gdx.app.log("Tiempo Hurt", TIEMPO_IS_HURT+"");
 
-	}
+        animState.setAnimation(0, "hurt", true);
+    }
 
-	public void getHurt(float tiempoIsHurt) {
-		if (isHurt || isChile)
-			return;
+    public void die() {
+        stateTime = 0;
+        state = STATE_DEAD;
+        animState.setAnimation(0, "death", false);
+    }
 
-		TIEMPO_IS_HURT = tiempoIsHurt;
-		stateTime = 0;
-		isHurt = true;
+    public void tocoElPiso() {
+        isJumping = false;
+        isDoubleJump = false;
+        canRotate = false;
+        tocoElPisoDespuesCaerHoyo = true;
+    }
 
-		// Gdx.app.log("Tiempo Hurt", TIEMPO_IS_HURT+"");
+    public void tocoPisoInclinado() {
+        tocoElPiso();
+        canRotate = true;
+    }
 
-		animState.setAnimation(0, "hurt", true);
+    public void cayoEnHoyo() {
+        tocoElPisoDespuesCaerHoyo = false;
+        cayoEnHoyo = true;
+    }
 
-	}
+    public void tocoChile() {
+        chileTime = 0;
+        isChile = true;
+    }
 
-	public void die() {
-		stateTime = 0;
-		state = STATE_DEAD;
-		animState.setAnimation(0, "death", false);
-	}
-
-	public void tocoElPiso() {
-		isJumping = false;
-		isDoubleJump = false;
-		canRotate = false;
-		tocoElPisoDespuesCaerHoyo = true;
-
-	}
-
-	public void tocoPisoInclinado() {
-		tocoElPiso();
-		canRotate = true;
-	}
-
-	public void cayoEnHoyo() {
-		tocoElPisoDespuesCaerHoyo = false;
-		cayoEnHoyo = true;
-	}
-
-	public void tocoChile() {
-		chileTime = 0;
-		isChile = true;
-	}
-
-	public void tocoDulce() {
-		dulceTime = 0;
-		isDulce = true;
-	}
-
+    public void tocoDulce() {
+        dulceTime = 0;
+        isDulce = true;
+    }
 }

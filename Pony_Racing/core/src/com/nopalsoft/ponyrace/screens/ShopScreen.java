@@ -5,8 +5,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -122,8 +126,6 @@ public class ShopScreen extends Screens {
                             }
                         })));
             }
-
-            ;
         });
 
         // Crear table principal (contiene el submenu de la izq y el scrollPanel de la derecha.
@@ -181,7 +183,6 @@ public class ShopScreen extends Screens {
                 setUpdrades();
                 super.clicked(event, x, y);
             }
-
         });
 
         coins = new TextButton("Bits", btStyleMenu);
@@ -192,7 +193,6 @@ public class ShopScreen extends Screens {
                 setCoins();
                 super.clicked(event, x, y);
             }
-
         });
 
         ponys = new TextButton("Ponys", btStyleMenu);
@@ -203,7 +203,6 @@ public class ShopScreen extends Screens {
                 new PonysSubMenu(ShopScreen.this, contenedor);
                 super.clicked(event, x, y);
             }
-
         });
         itemsInt2 = new TextButton("?", btStyleMenu);
         itemsInt2.addListener(new ClickListener() {
@@ -211,9 +210,6 @@ public class ShopScreen extends Screens {
 
                 itemsInt2.setChecked(false);
             }
-
-            ;
-
         });
 
         menuLateral.add(items).fillX().expandX();
@@ -492,7 +488,6 @@ public class ShopScreen extends Screens {
                             }
                         })));
                 game.reqHandler.showFacebook();
-
             }
         });
 
@@ -508,7 +503,6 @@ public class ShopScreen extends Screens {
 
         lblPrecioUpBomb.setAlignment(Align.left);
         setLabelPrices();
-
     }
 
     private void deleteTableDentroDentroUp(Table tabDelete) {
@@ -517,9 +511,7 @@ public class ShopScreen extends Screens {
             Table obj = (Table) ite.next();
 
             obj.removeActor(tabDelete);
-
         }
-
     }
 
     private void setLabelPrices() {
@@ -571,7 +563,6 @@ public class ShopScreen extends Screens {
         } else {
             lblPrecioTime.setText(costUpTime + "");
         }
-
     }
 
     private void setItems() {
@@ -817,7 +808,6 @@ public class ShopScreen extends Screens {
             tbDentro.add(dentroUpTime);
         contenedor.add(tbDentro).expandX().fill();
         contenedor.row().padTop(15);
-
     }
 
     private void setCoins() {
@@ -839,7 +829,6 @@ public class ShopScreen extends Screens {
         tbDentro.add(btLikeUsFacebook).size(120, 70);
         contenedor.add(tbDentro).expandX().fill();
         contenedor.row().padTop(15);
-
     }
 
     @Override
@@ -917,7 +906,6 @@ public class ShopScreen extends Screens {
         oAssets.skeletonTiendaTitle.updateWorldTransform();
         oAssets.skeletonTiendaTitle.update(delta);
         skelrender.draw(batcher, oAssets.skeletonTiendaTitle);
-
     }
 
     private void showDialogGetCoins() {
@@ -959,7 +947,6 @@ public class ShopScreen extends Screens {
             case 5:
                 return UPGRADE_PRICE_WOOD_LEVEL5;
         }
-
     }
 
     private int checkPriceChocolate() {
@@ -978,7 +965,6 @@ public class ShopScreen extends Screens {
             case 5:
                 return UPGRADE_PRICE_CHOCOLATE_LEVEL5;
         }
-
     }
 
     private int checkPriceBallon() {
@@ -1074,5 +1060,4 @@ public class ShopScreen extends Screens {
         }
         return false;
     }
-
 }

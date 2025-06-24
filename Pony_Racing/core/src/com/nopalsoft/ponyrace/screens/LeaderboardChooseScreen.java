@@ -44,12 +44,9 @@ public class LeaderboardChooseScreen extends Screens {
                             public void run() {
 
                                 game.gameServiceHandler.getLeaderboard();
-
                             }
                         })));
             }
-
-            ;
         });
 
         btAchievements = new BotonNube(oAssets.nube, "Achievements",
@@ -66,12 +63,9 @@ public class LeaderboardChooseScreen extends Screens {
                             public void run() {
 
                                 game.gameServiceHandler.getAchievements();
-
                             }
                         })));
             }
-
-            ;
         });
 
         btBack = new BotonNube(oAssets.nube, "Back", oAssets.fontGde);
@@ -92,8 +86,6 @@ public class LeaderboardChooseScreen extends Screens {
                             }
                         })));
             }
-
-            ;
         });
 
         TextButtonStyle stilo = new TextButtonStyle(oAssets.btSignInUp,
@@ -109,13 +101,11 @@ public class LeaderboardChooseScreen extends Screens {
                                 LeaderboardChooseScreen.this.game,
                                 MainMenuScreen.class));
             }
-
         });
 
 
         stage.addActor(btSignOut);
         stage.addActor(btBack);
-
     }
 
     @Override
@@ -136,7 +126,6 @@ public class LeaderboardChooseScreen extends Screens {
 
         stage.act(delta);
         stage.draw();
-
     }
 
     @Override
@@ -154,5 +143,4 @@ public class LeaderboardChooseScreen extends Screens {
         }
         return false;
     }
-
 }

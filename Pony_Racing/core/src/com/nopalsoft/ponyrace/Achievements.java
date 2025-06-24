@@ -45,7 +45,6 @@ public class Achievements {
             _20_COOLER = "CgkIv7KCocYXEAIQGA";
             FASTER_THAN_THE_MAKER = "CgkIv7KCocYXEAIQGQ";
             I_WORK_OUT = "CgkIv7KCocYXEAIQHQ";
-
         } else {
             EASY = "easy";
             _18plus = "18plus";
@@ -54,7 +53,6 @@ public class Achievements {
             FASTER_THAN_THE_MAKER = "iworkout";
             I_WORK_OUT = "fasterThanTheMaker";
         }
-
     }
 
     public void checkWorldComplete(int nivelTiled) {
@@ -125,7 +123,6 @@ public class Achievements {
             gameServicesHandler.unlockAchievement(_20_COOLER);
             Gdx.app.log("ACHIEVEMENT", "20% cooler");
         }
-
     }
 
     public void checkVictoryMoreThan15Secs(int nivelTiled, float timeLeft) {
@@ -150,8 +147,10 @@ public class Achievements {
         for (int i = 0; i < len; i++) {
             MundosCompletados obj = arrMundos[i];
 
-            if (!obj.did15Sec)
+            if (!obj.did15Sec) {
                 gotIt = false;
+                break;
+            }
         }
 
         if (gotIt) {
@@ -175,7 +174,6 @@ public class Achievements {
 
         if (Settings.statMonedasTotal < 12000)
             gameServicesHandler.unlockIncrementalAchievement("CgkIv7KCocYXEAIQHA", monedasTomadasLevel);// 23 My name is not Filthy Rich
-
     }
 
     public void checkUpgradesAchivmentes() {
@@ -245,7 +243,5 @@ public class Achievements {
         public MundosCompletados(int nivel) {
             this.nivel = nivel;
         }
-
     }
-
 }

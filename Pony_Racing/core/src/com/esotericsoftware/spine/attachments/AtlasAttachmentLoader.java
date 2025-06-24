@@ -1,10 +1,10 @@
 /******************************************************************************
  * Spine Runtimes Software License
  * Version 2
- * 
+ *
  * Copyright (c) 2013, Esoteric Software
  * All rights reserved.
- * 
+ *
  * You are granted a perpetual, non-exclusive, non-sublicensable and
  * non-transferable license to install, execute and perform the Spine Runtimes
  * Software (the "Software") solely for internal use. Without the written
@@ -33,34 +33,34 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.esotericsoftware.spine.Skin;
 
 public class AtlasAttachmentLoader implements AttachmentLoader {
-	private TextureAtlas atlas;
+    private final TextureAtlas atlas;
 
-	public AtlasAttachmentLoader (TextureAtlas atlas) {
-		if (atlas == null) throw new IllegalArgumentException("atlas cannot be null.");
-		this.atlas = atlas;
-	}
+    public AtlasAttachmentLoader(TextureAtlas atlas) {
+        if (atlas == null) throw new IllegalArgumentException("atlas cannot be null.");
+        this.atlas = atlas;
+    }
 
-	public RegionAttachment newRegionAttachment (Skin skin, String name, String path) {
-		RegionAttachment attachment = new RegionAttachment(name);
-		attachment.setPath(path);
-		AtlasRegion region = atlas.findRegion(path);
-		if (region == null)
-			throw new RuntimeException("Region not found in atlas: " + attachment + " (region attachment: " + name + ")");
-		attachment.setRegion(region);
-		return attachment;
-	}
+    public RegionAttachment newRegionAttachment(Skin skin, String name, String path) {
+        RegionAttachment attachment = new RegionAttachment(name);
+        attachment.setPath(path);
+        AtlasRegion region = atlas.findRegion(path);
+        if (region == null)
+            throw new RuntimeException("Region not found in atlas: " + attachment + " (region attachment: " + name + ")");
+        attachment.setRegion(region);
+        return attachment;
+    }
 
-	public MeshAttachment newMeshAttachment (Skin skin, String name, String path) {
-		MeshAttachment attachment = new MeshAttachment(name);
-		attachment.setPath(path);
-		AtlasRegion region = atlas.findRegion(path);
-		if (region == null)
-			throw new RuntimeException("Region not found in atlas: " + attachment + " (region attachment: " + name + ")");
-		attachment.setRegion(region);
-		return attachment;
-	}
+    public MeshAttachment newMeshAttachment(Skin skin, String name, String path) {
+        MeshAttachment attachment = new MeshAttachment(name);
+        attachment.setPath(path);
+        AtlasRegion region = atlas.findRegion(path);
+        if (region == null)
+            throw new RuntimeException("Region not found in atlas: " + attachment + " (region attachment: " + name + ")");
+        attachment.setRegion(region);
+        return attachment;
+    }
 
-	public BoundingBoxAttachment newBoundingBoxAttachment (Skin skin, String name) {
-		return new BoundingBoxAttachment(name);
-	}
+    public BoundingBoxAttachment newBoundingBoxAttachment(Skin skin, String name) {
+        return new BoundingBoxAttachment(name);
+    }
 }

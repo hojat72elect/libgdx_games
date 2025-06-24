@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BloodStone extends GameObject {
     public enum Tipo {
-        chica, mediana, grande;
+        chica, mediana, grande
     }
 
     public float lastStatetime;
@@ -16,13 +16,10 @@ public class BloodStone extends GameObject {
         stateTime = oRan.nextFloat() * 5f;
         lastStatetime = stateTime;
         this.tipo = tipo;
-
     }
 
     public void update(float delta) {
         lastStatetime = stateTime;
         stateTime += delta;
-
     }
-
 }

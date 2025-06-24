@@ -1,10 +1,10 @@
 /******************************************************************************
  * Spine Runtimes Software License
  * Version 2
- * 
+ *
  * Copyright (c) 2013, Esoteric Software
  * All rights reserved.
- * 
+ *
  * You are granted a perpetual, non-exclusive, non-sublicensable and
  * non-transferable license to install, execute and perform the Spine Runtimes
  * Software (the "Software") solely for internal use. Without the written
@@ -33,100 +33,109 @@ import com.badlogic.gdx.utils.FloatArray;
 import com.esotericsoftware.spine.attachments.Attachment;
 
 public class Slot {
-	final SlotData data;
-	final Bone bone;
-	private final Skeleton skeleton;
-	final Color color;
-	Attachment attachment;
-	private float attachmentTime;
-	private final FloatArray attachmentVertices = new FloatArray();
+    final SlotData data;
+    final Bone bone;
+    private final Skeleton skeleton;
+    final Color color;
+    Attachment attachment;
+    private float attachmentTime;
+    private final FloatArray attachmentVertices = new FloatArray();
 
-	Slot () {
-		data = null;
-		bone = null;
-		skeleton = null;
-		color = new Color(1, 1, 1, 1);
-	}
+    Slot() {
+        data = null;
+        bone = null;
+        skeleton = null;
+        color = new Color(1, 1, 1, 1);
+    }
 
-	public Slot (SlotData data, Skeleton skeleton, Bone bone) {
-		if (data == null) throw new IllegalArgumentException("data cannot be null.");
-		if (skeleton == null) throw new IllegalArgumentException("skeleton cannot be null.");
-		if (bone == null) throw new IllegalArgumentException("bone cannot be null.");
-		this.data = data;
-		this.skeleton = skeleton;
-		this.bone = bone;
-		color = new Color();
-		setToSetupPose();
-	}
+    public Slot(SlotData data, Skeleton skeleton, Bone bone) {
+        if (data == null) throw new IllegalArgumentException("data cannot be null.");
+        if (skeleton == null) throw new IllegalArgumentException("skeleton cannot be null.");
+        if (bone == null) throw new IllegalArgumentException("bone cannot be null.");
+        this.data = data;
+        this.skeleton = skeleton;
+        this.bone = bone;
+        color = new Color();
+        setToSetupPose();
+    }
 
-	/** Copy constructor. */
-	public Slot (Slot slot, Skeleton skeleton, Bone bone) {
-		if (slot == null) throw new IllegalArgumentException("slot cannot be null.");
-		if (skeleton == null) throw new IllegalArgumentException("skeleton cannot be null.");
-		if (bone == null) throw new IllegalArgumentException("bone cannot be null.");
-		data = slot.data;
-		this.skeleton = skeleton;
-		this.bone = bone;
-		color = new Color(slot.color);
-		attachment = slot.attachment;
-		attachmentTime = slot.attachmentTime;
-	}
+    /**
+     * Copy constructor.
+     */
+    public Slot(Slot slot, Skeleton skeleton, Bone bone) {
+        if (slot == null) throw new IllegalArgumentException("slot cannot be null.");
+        if (skeleton == null) throw new IllegalArgumentException("skeleton cannot be null.");
+        if (bone == null) throw new IllegalArgumentException("bone cannot be null.");
+        data = slot.data;
+        this.skeleton = skeleton;
+        this.bone = bone;
+        color = new Color(slot.color);
+        attachment = slot.attachment;
+        attachmentTime = slot.attachmentTime;
+    }
 
-	public SlotData getData () {
-		return data;
-	}
+    public SlotData getData() {
+        return data;
+    }
 
-	public Skeleton getSkeleton () {
-		return skeleton;
-	}
+    public Skeleton getSkeleton() {
+        return skeleton;
+    }
 
-	public Bone getBone () {
-		return bone;
-	}
+    public Bone getBone() {
+        return bone;
+    }
 
-	public Color getColor () {
-		return color;
-	}
+    public Color getColor() {
+        return color;
+    }
 
-	/** @return May be null. */
-	public Attachment getAttachment () {
-		return attachment;
-	}
+    /**
+     * @return May be null.
+     */
+    public Attachment getAttachment() {
+        return attachment;
+    }
 
-	/** Sets the attachment, resets {@link #getAttachmentTime()}, and clears {@link #getAttachmentVertices()}.
-	 * @param attachment May be null. */
-	public void setAttachment (Attachment attachment) {
-		if (this.attachment == attachment) return;
-		this.attachment = attachment;
-		attachmentTime = skeleton.time;
-		attachmentVertices.clear();
-	}
+    /**
+     * Sets the attachment, resets {@link #getAttachmentTime()}, and clears {@link #getAttachmentVertices()}.
+     *
+     * @param attachment May be null.
+     */
+    public void setAttachment(Attachment attachment) {
+        if (this.attachment == attachment) return;
+        this.attachment = attachment;
+        attachmentTime = skeleton.time;
+        attachmentVertices.clear();
+    }
 
-	public void setAttachmentTime (float time) {
-		attachmentTime = skeleton.time - time;
-	}
+    public void setAttachmentTime(float time) {
+        attachmentTime = skeleton.time - time;
+    }
 
-	/** Returns the time since the attachment was set. */
-	public float getAttachmentTime () {
-		return skeleton.time - attachmentTime;
-	}
+    /**
+     * Returns the time since the attachment was set.
+     */
+    public float getAttachmentTime() {
+        return skeleton.time - attachmentTime;
+    }
 
-	public FloatArray getAttachmentVertices () {
-		return attachmentVertices;
-	}
+    public FloatArray getAttachmentVertices() {
+        return attachmentVertices;
+    }
 
-	void setToSetupPose (int slotIndex) {
-		color.set(data.color);
-		setAttachment(data.attachmentName == null ? null : skeleton.getAttachment(slotIndex, data.attachmentName));
-		// BOZO - Set mesh to setup pose.
-		// attachmentVertices.clear();
-	}
+    void setToSetupPose(int slotIndex) {
+        color.set(data.color);
+        setAttachment(data.attachmentName == null ? null : skeleton.getAttachment(slotIndex, data.attachmentName));
+        // BOZO - Set mesh to setup pose.
+        // attachmentVertices.clear();
+    }
 
-	public void setToSetupPose () {
-		setToSetupPose(skeleton.data.slots.indexOf(data, true));
-	}
+    public void setToSetupPose() {
+        setToSetupPose(skeleton.data.slots.indexOf(data, true));
+    }
 
-	public String toString () {
-		return data.name;
-	}
+    public String toString() {
+        return data.name;
+    }
 }

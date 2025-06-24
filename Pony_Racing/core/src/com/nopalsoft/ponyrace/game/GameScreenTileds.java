@@ -17,7 +17,12 @@ import com.nopalsoft.ponyrace.MainPonyRace;
 import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.menuobjetos.BotonNube;
 import com.nopalsoft.ponyrace.objetos.Pony;
-import com.nopalsoft.ponyrace.scene2d.*;
+import com.nopalsoft.ponyrace.scene2d.Ventana;
+import com.nopalsoft.ponyrace.scene2d.VentanaNextLevel;
+import com.nopalsoft.ponyrace.scene2d.VentanaPause;
+import com.nopalsoft.ponyrace.scene2d.VentanaRate;
+import com.nopalsoft.ponyrace.scene2d.VentanaTimesUp;
+import com.nopalsoft.ponyrace.scene2d.VentanaTryAgain;
 import com.nopalsoft.ponyrace.screens.LoadingScreen;
 import com.nopalsoft.ponyrace.screens.Screens;
 import com.nopalsoft.ponyrace.screens.WorldMapTiledScreen;
@@ -25,8 +30,7 @@ import com.nopalsoft.ponyrace.screens.WorldMapTiledScreen;
 public class GameScreenTileds extends Screens {
 
     public enum State {
-        ready, running, paused, timeUp, nextLevel, tryAgain;
-
+        ready, running, paused, timeUp, nextLevel, tryAgain
     }
 
     // Variables para descontar las monedas 1 por 1 cuando terminas la carrera y te dan monedas
@@ -129,11 +133,10 @@ public class GameScreenTileds extends Screens {
         vtPause = new VentanaPause(this);
         vtRate = new VentanaRate(this);
 
-        if (Settings.seCalificoApp == false && Settings.statTimesPlayed % 5 == 0) {
+        if (!Settings.seCalificoApp && Settings.statTimesPlayed % 5 == 0) {
 
             vtRate.show(stage);
         }
-
     }
 
     int tamanoBoton = 105;
@@ -188,26 +191,18 @@ public class GameScreenTileds extends Screens {
                 accelX = 1;
             }
 
-            ;
-
             public void exit(InputEvent event, float x, float y, int pointer, com.badlogic.gdx.scenes.scene2d.Actor toActor) {
                 accelX = 0;
             }
-
-            ;
         });
         btIzq.addListener(new ClickListener() {
             public void enter(InputEvent event, float x, float y, int pointer, com.badlogic.gdx.scenes.scene2d.Actor fromActor) {
                 accelX = -1;
             }
 
-            ;
-
             public void exit(InputEvent event, float x, float y, int pointer, com.badlogic.gdx.scenes.scene2d.Actor toActor) {
                 accelX = 0;
             }
-
-            ;
         });
 
         btPausa.addListener(new ClickListener() {
@@ -229,7 +224,6 @@ public class GameScreenTileds extends Screens {
 //        }
 
         stage.addActor(btPausa);
-
     }
 
     @Override
@@ -258,7 +252,6 @@ public class GameScreenTileds extends Screens {
                 updateTryAgain(delta);
                 break;
         }
-
     }
 
     private void updateReady(float delta) {
@@ -276,7 +269,6 @@ public class GameScreenTileds extends Screens {
 
         if (oWorld.state == WorldTiled.State.timeUp) {
             setTimeUp();
-
         } else if (oWorld.state == WorldTiled.State.nextLevel) {// Solo se pone cuando ganas en primer lugar
             setNextLevel();
 
@@ -285,7 +277,6 @@ public class GameScreenTileds extends Screens {
 
             if (Settings.mundosDesbloqueados > Assets.mundoMaximo)
                 Settings.mundosDesbloqueados = Assets.mundoMaximo;
-
         } else if (oWorld.state == WorldTiled.State.tryAgain) {
             setTryAgain();
         }
@@ -312,7 +303,6 @@ public class GameScreenTileds extends Screens {
             if (((int) oWorld.tiempoLeft) % 2 == 0 && oWorld.oPony.monedasRecolectadas % 2 == 0 && ((int) oWorld.tiempoLap % 2) == 0)
                 Settings.isEnabledSecretWorld = true;
         }
-
     }
 
     private void setPuntuacionesGoogleGameServices() {
@@ -390,16 +380,13 @@ public class GameScreenTileds extends Screens {
                 case 17:
                     game.gameServiceHandler.submitScore(oWorld.tiempoLap, idWorld17);
                     break;
-
             }
             game.achievements.checkMonedasAchievements(oWorld.oPony.monedasRecolectadas);
         }
-
     }
 
     private void updateTimeUp(float delta) {
         oWorld.update(delta, renderer);
-
     }
 
     private void updateNextLevel(float delta) {
@@ -409,7 +396,6 @@ public class GameScreenTileds extends Screens {
             drawStatsEndRace = true;
             giveCoinsAfterfinish(delta);
         }
-
     }
 
     private void updateTryAgain(float delta) {
@@ -475,20 +461,17 @@ public class GameScreenTileds extends Screens {
                 break;
             case timeUp:
                 break;
-
         }
 
         batcher.end();
 
         stage.act();
         stage.draw();
-
     }
 
     private void presentReady(float delta) {
         glyphLayout.setText(oAssets.fontGde, "Touch the screen to start");
         oAssets.fontGde.draw(batcher, "Touch the screen to start", SCREEN_WIDTH / 2f - glyphLayout.width / 2f, SCREEN_HEIGHT / 2f - glyphLayout.height / 2f);
-
     }
 
     private void presentRunning(float delta) {
@@ -583,7 +566,6 @@ public class GameScreenTileds extends Screens {
 
         if (nivelTiled != 1000)// Si es el mundo secreto no agrego el try again
             stage.addActor(btTryAgain);
-
     }
 
     public void setTryAgain() {
@@ -604,14 +586,12 @@ public class GameScreenTileds extends Screens {
     public void setRunning() {
         setBotonesInterfaz();
         state = State.running;
-
     }
 
     public void setPause() {
         state = State.paused;
         stage.clear();
         vtPause.show(stage);
-
     }
 
     BotonNube btMainMenu;
@@ -631,12 +611,9 @@ public class GameScreenTileds extends Screens {
                     public void run() {
                         GameScreenTileds.this.game.setScreen(new LoadingScreen(game, WorldMapTiledScreen.class));
                         dispose();
-
                     }
                 })));
             }
-
-            ;
         });
 
         btContinue = new BotonNube(oAssets.nube, "Continue", oAssets.fontChco);
@@ -647,12 +624,9 @@ public class GameScreenTileds extends Screens {
                     @Override
                     public void run() {
                         setRunning();
-
                     }
                 })));
             }
-
-            ;
         });
 
         btTryAgain = new BotonNube(oAssets.nube, "Try again", oAssets.fontChco);
@@ -665,12 +639,9 @@ public class GameScreenTileds extends Screens {
                         GameScreenTileds.this.game.setScreen(new LoadingScreen(game, GameScreenTileds.class, nivelTiled));
                         if (Settings.dificultadActual == Settings.DIFICULTAD_SUPERHARD & state == State.nextLevel)
                             Settings.sumarMonedas((int) (MULTIPLICADOR_MONEDAS_TIME_LEFT * oWorld.tiempoLeft));
-
                     }
                 })));
             }
-
-            ;
         });
 
         btNextLevel = new BotonNube(oAssets.nube, "Next", oAssets.fontChco);
@@ -685,12 +656,9 @@ public class GameScreenTileds extends Screens {
                             Settings.sumarMonedas((int) (MULTIPLICADOR_MONEDAS_TIME_LEFT * oWorld.tiempoLeft));
 
                         dispose();
-
                     }
                 })));
             }
-
-            ;
         });
 
         btSonido = new ImageButton(oAssets.btSonidoOff, null, oAssets.btSonidoON);
@@ -745,7 +713,6 @@ public class GameScreenTileds extends Screens {
         renderer = null;
         oWorld = null;
         game.oAssets.unloadGameScreenTiled();
-
     }
 
     @Override
@@ -758,7 +725,6 @@ public class GameScreenTileds extends Screens {
         if (Settings.statTimesPlayed % tiempoAds == 0) {
             game.reqHandler.showInterstitial();
         }
-
     }
 
     @Override
@@ -822,6 +788,4 @@ public class GameScreenTileds extends Screens {
         setPause();
         super.pause();
     }
-
-
 }

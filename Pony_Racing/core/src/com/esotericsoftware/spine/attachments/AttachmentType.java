@@ -1,10 +1,10 @@
 /******************************************************************************
  * Spine Runtimes Software License
  * Version 2
- * 
+ *
  * Copyright (c) 2013, Esoteric Software
  * All rights reserved.
- * 
+ *
  * You are granted a perpetual, non-exclusive, non-sublicensable and
  * non-transferable license to install, execute and perform the Spine Runtimes
  * Software (the "Software") solely for internal use. Without the written
@@ -29,5 +29,5 @@
 package com.esotericsoftware.spine.attachments;
 
 public enum AttachmentType {
-	region, boundingbox, mesh
+    region, boundingbox, mesh
 }

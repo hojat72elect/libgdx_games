@@ -109,7 +109,6 @@ public abstract class Screens extends InputAdapter implements Screen {
     @Override
     public void pause() {
         oAssets.pauseMusic();
-
     }
 
     @Override
@@ -118,12 +117,10 @@ public abstract class Screens extends InputAdapter implements Screen {
             oAssets.platMusicInGame();
         else
             oAssets.playMusicMenus();
-
     }
 
     @Override
     public void dispose() {
 
     }
-
 }

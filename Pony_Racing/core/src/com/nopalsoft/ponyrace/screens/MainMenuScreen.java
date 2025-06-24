@@ -45,7 +45,6 @@ public class MainMenuScreen extends Screens {
 
         oAssets.skeletonMenuTitle.setX(400);
         oAssets.skeletonMenuTitle.setY(370);
-
     }
 
     public void cargarBotones() {
@@ -60,12 +59,9 @@ public class MainMenuScreen extends Screens {
                     @Override
                     public void run() {
                         MainMenuScreen.this.game.setScreen(new LoadingScreen(game, WorldMapTiledScreen.class));
-
                     }
                 })));
             }
-
-            ;
         });
 
         btMore = new BotonNube(oAssets.nube, "More", oAssets.fontGde);
@@ -78,13 +74,9 @@ public class MainMenuScreen extends Screens {
                     @Override
                     public void run() {
                         game.reqHandler.showMoreGames();
-
                     }
                 })));
-
             }
-
-            ;
         });
 
         btLeaderBoard = new BotonNube(oAssets.nube, "LeaderBoards", oAssets.fontChco);
@@ -100,12 +92,9 @@ public class MainMenuScreen extends Screens {
                             game.gameServiceHandler.signIn();
                         else
                             game.setScreen(new LoadingScreen(game, LeaderboardChooseScreen.class));
-
                     }
                 })));
             }
-
-            ;
         });
 
         btFacebook = new ImageButton(oAssets.btnFacebook);
@@ -158,7 +147,6 @@ public class MainMenuScreen extends Screens {
                 super.clicked(event, x, y);
             }
         });
-
     }
 
     @Override
@@ -191,7 +179,6 @@ public class MainMenuScreen extends Screens {
         oAssets.skeletonMenuTitle.updateWorldTransform();
         oAssets.skeletonMenuTitle.update(delta);
         skelrender.draw(batcher, oAssets.skeletonMenuTitle);
-
     }
 
     @Override
@@ -213,5 +200,4 @@ public class MainMenuScreen extends Screens {
     public void hide() {
         super.hide();
     }
-
 }

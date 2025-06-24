@@ -2,33 +2,32 @@ package com.nopalsoft.ponyrace.handlers;
 
 public interface GameServicesHandler {
 
-	/**
-	 * Este metodo abstrae a GPGS o a AGC
-	 * 
-	 * @param tiempoLap
-	 */
-	public void submitScore(float tiempoLap, String leaderBoard);
+    /**
+     * Este metodo abstrae a GPGS o a AGC
+     *
+     * @param tiempoLap
+     */
+    void submitScore(float tiempoLap, String leaderBoard);
 
-	/**
-	 * Este metodo abstrae a GPGS o a AGC
-	 * 
-	 * @param achievementId
-	 */
-	public void unlockAchievement(String achievementId);
-
-
-	public void getLeaderboard();
+    /**
+     * Este metodo abstrae a GPGS o a AGC
+     *
+     * @param achievementId
+     */
+    void unlockAchievement(String achievementId);
 
 
-	public void getAchievements();
+    void getLeaderboard();
 
-	public boolean isSignedIn();
 
-	public void signIn();
+    void getAchievements();
 
-	public void signOut();
+    boolean isSignedIn();
 
-	public void unlockIncrementalAchievement(String achievementId,
-                                             int pasosDados);
+    void signIn();
 
+    void signOut();
+
+    void unlockIncrementalAchievement(String achievementId,
+                                      int pasosDados);
 }

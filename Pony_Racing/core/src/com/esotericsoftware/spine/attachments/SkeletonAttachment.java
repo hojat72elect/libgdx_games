@@ -1,10 +1,10 @@
 /******************************************************************************
  * Spine Runtimes Software License
  * Version 2
- * 
+ *
  * Copyright (c) 2013, Esoteric Software
  * All rights reserved.
- * 
+ *
  * You are granted a perpetual, non-exclusive, non-sublicensable and
  * non-transferable license to install, execute and perform the Spine Runtimes
  * Software (the "Software") solely for internal use. Without the written
@@ -30,21 +30,27 @@ package com.esotericsoftware.spine.attachments;
 
 import com.esotericsoftware.spine.Skeleton;
 
-/** Attachment that displays a skeleton. */
+/**
+ * Attachment that displays a skeleton.
+ */
 public class SkeletonAttachment extends Attachment {
-	private Skeleton skeleton;
+    private Skeleton skeleton;
 
-	public SkeletonAttachment (String name) {
-		super(name);
-	}
+    public SkeletonAttachment(String name) {
+        super(name);
+    }
 
-	/** @return May return null. */
-	public Skeleton getSkeleton () {
-		return skeleton;
-	}
+    /**
+     * @return May return null.
+     */
+    public Skeleton getSkeleton() {
+        return skeleton;
+    }
 
-	/** @param skeleton May be null. */
-	public void setSkeleton (Skeleton skeleton) {
-		this.skeleton = skeleton;
-	}
+    /**
+     * @param skeleton May be null.
+     */
+    public void setSkeleton(Skeleton skeleton) {
+        this.skeleton = skeleton;
+    }
 }

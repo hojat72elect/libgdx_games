@@ -1,16 +1,33 @@
 package com.nopalsoft.ponyrace.objetos;
 
-import com.badlogic.gdx.maps.*;
-import com.badlogic.gdx.maps.objects.*;
+import com.badlogic.gdx.maps.Map;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.objects.CircleMapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
+import com.badlogic.gdx.maps.objects.PolylineMapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.ChainShape;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Logger;
 import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.game.WorldTiled;
+
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
@@ -18,12 +35,12 @@ public class TiledMapManagerBox2d {
 
     public final static short CONTACT_CORREDORES = -1;
 
-    private WorldTiled oWorld;
-    private World oWorldBox;
-    private float m_units;
-    private Logger logger;
-    private FixtureDef defaultFixture;
-    private LinkedHashMap<Integer, String> nombrePonys;
+    private final WorldTiled oWorld;
+    private final World oWorldBox;
+    private final float m_units;
+    private final Logger logger;
+    private final FixtureDef defaultFixture;
+    private final LinkedHashMap<Integer, String> nombrePonys;
 
     public TiledMapManagerBox2d(WorldTiled oWorld, float unitsPerPixel) {
         this.oWorld = oWorld;
@@ -36,13 +53,11 @@ public class TiledMapManagerBox2d {
         defaultFixture.density = 1.0f;
         defaultFixture.friction = .5f;
         defaultFixture.restitution = 0.0f;
-
     }
 
     public void createObjetosDesdeTiled(Map map) {
         crearFisicos(map, "fisicos");
         crearInteaccion(map, "interaccion");
-
     }
 
     private void crearInteaccion(Map map, String layerName) {
@@ -79,9 +94,7 @@ public class TiledMapManagerBox2d {
                 crearGlobo(object);
                 continue;
             }
-
         }
-
     }
 
     public void crearFisicos(Map map, String layerName) {
@@ -186,7 +199,6 @@ public class TiledMapManagerBox2d {
                             Bandera1.TipoAccion.saltoDer));
                 else if (properties.get("jump").equals("stand"))
                     body.setUserData(new Bandera1(oWorld, Bandera1.TipoAccion.salto));
-
             } else
                 body.setUserData(tipo);
 
@@ -194,9 +206,7 @@ public class TiledMapManagerBox2d {
             defaultFixture.isSensor = false;
             defaultFixture.filter.groupIndex = 0;
             shape.dispose();
-
         }
-
     }
 
     private void crearPisable(MapObject object) {
@@ -216,7 +226,6 @@ public class TiledMapManagerBox2d {
         float height = (rectangle.height * m_units * 0.5f);
         float width = (rectangle.width * m_units * 0.5f);
         body.setUserData(new Pisable(x, y, width, height));
-
     }
 
     private Shape getRectangle(RectangleMapObject rectangleObject) {
@@ -233,7 +242,6 @@ public class TiledMapManagerBox2d {
         circleShape.setRadius(circle.radius * m_units);
         circleShape.setPosition(new Vector2(circle.x * m_units, circle.y * m_units));
         return circleShape;
-
     }
 
     private Shape getPolygon(PolygonMapObject polygonObject) {
@@ -284,7 +292,6 @@ public class TiledMapManagerBox2d {
         if (tipo.equals("pony")) {
             nombreSkin = Settings.skinSeleccionada;
             oPony = new PonyPlayer(x, y, nombreSkin, oWorld);
-
         } else {// Ponis malos
 
             if (Settings.skinSeleccionada.equals(nombrePonys.get(contadorPonisCreados)))
@@ -467,7 +474,6 @@ public class TiledMapManagerBox2d {
         oBody.setUserData(obj);
         oWorld.arrMonedas.add(obj);
         pies.dispose();
-
     }
 
     private void crearChile(MapObject object) {
@@ -498,7 +504,6 @@ public class TiledMapManagerBox2d {
         oBody.setUserData(obj);
         oWorld.arrChiles.add(obj);
         pies.dispose();
-
     }
 
     private void crearGlobo(MapObject object) {
@@ -529,7 +534,6 @@ public class TiledMapManagerBox2d {
         oBody.setUserData(obj);
         oWorld.arrGlobos.add(obj);
         pies.dispose();
-
     }
 
     private void crearDulce(MapObject object) {
@@ -560,7 +564,5 @@ public class TiledMapManagerBox2d {
         oBody.setUserData(obj);
         oWorld.arrDulces.add(obj);
         pies.dispose();
-
     }
-
 }

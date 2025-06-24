@@ -73,7 +73,6 @@ public class VentanaNextLevel extends Ventana {
                 game.reqHandler.shareOnFacebook("I just made " + gameScreen.lapTime + " seconds playing Pony Racing, can you beat my time?");
                 game.setScreen(new LoadingScreen(game, WorldMapTiledScreen.class));
                 screen.dispose();
-
             }
         });
 
