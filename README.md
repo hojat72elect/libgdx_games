@@ -4,14 +4,29 @@ corresponding directory.
 
 The games that I currently have here:
 <ol>
+    <li>2048</li>
     <li>Beat The High Score</li>
     <li>Box2D Lights</li>
+    <li>Clumsy UFO</li>
+    <li>Color Shooter</li>
+    <li>Do Not Tap</li>
     <li>Drag Race</li>
+    <li>Fifteen Puzzle</li>
+    <li>Flappy Bird</li>
     <li>Galaxy Invaders</li>
     <li>GDX GLTF Example</li>
+    <li>Impossible Dial</li>
+    <li>Lander</li>
     <li>Ninja Runner</li>
+    <li>Pony Racing</li>
     <li>Shark Adventure</li>
     <li>Slam the Bird</li>
+    <li>Sn4ke</li>
     <li>Sokoban</li>
     <li>Super Jumper</li>
+    <li>True Color</li>
+    <li>Whatcolor</li>
+    <li>Zombie Dash</li>
+    <li>Zombie Killer</li>
+    <li>Zombie wars</li>
 </ol>
