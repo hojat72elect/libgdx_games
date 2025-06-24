@@ -1,6 +1,4 @@
 buildscript {
-
-
     repositories {
         mavenLocal()
         mavenCentral()
@@ -10,7 +8,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.2.2'
-        classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.16'
     }
 }
 
@@ -21,7 +18,6 @@ allprojects {
     ext {
         appName = "Sn4ke"
         gdxVersion = '1.12.0'
-        roboVMVersion = '2.3.16'
     }
 
     repositories {
@@ -48,21 +44,6 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
     }
-}
-
-project(":ios") {
-   apply plugin: "java-library"
-   apply plugin: "robovm"
-
-
-   dependencies {
-       implementation project(":core")
-       api "com.mobidevelop.robovm:robovm-rt:$roboVMVersion"
-       api "com.mobidevelop.robovm:robovm-cocoatouch:$roboVMVersion"
-       api "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
-       api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
-
-   }
 }
 
 project(":core") {
