@@ -1,7 +1,5 @@
 package com.nopalsoft.zombiedash.shop;
 
-import java.util.Iterator;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -20,6 +18,8 @@ import com.nopalsoft.zombiedash.MainZombieDash;
 import com.nopalsoft.zombiedash.Settings;
 import com.nopalsoft.zombiedash.objects.Hero;
 import com.nopalsoft.zombiedash.scene2d.AnimatedSpriteActor;
+
+import java.util.Iterator;
 
 public class PersonajesSubMenu {
 
@@ -98,7 +98,6 @@ public class PersonajesSubMenu {
                 idiomas.get("ghost_description"),//
                 btBuyVader)).expandX().fill();
         contenedor.row();
-
     }
 
     private Table agregarPersonajeTabla(String titulo, Label lblPrecio, AnimationSprite imagen, String descripcion, TextButton boton) {
@@ -133,7 +132,6 @@ public class PersonajesSubMenu {
         tbContent.row().colspan(2);
 
         return tbContent;
-
     }
 
     private void inicializarBotones() {
@@ -262,7 +260,6 @@ public class PersonajesSubMenu {
         arrBotones.add(btBuySoldier);
         arrBotones.add(btBuyElite);
         arrBotones.add(btBuyVader);
-
     }
 
     private void loadPurchases() {
@@ -270,7 +267,6 @@ public class PersonajesSubMenu {
         didBuySoldier = pref.getBoolean("didBuySoldier", false);
         didBuyElite = pref.getBoolean("didBuyElite", false);
         didBuyVader = pref.getBoolean("didBuyVader", false);
-
     }
 
     private void savePurchases() {
@@ -280,13 +276,11 @@ public class PersonajesSubMenu {
         pref.putBoolean("didBuyVader", didBuyVader);
         pref.flush();
         Settings.save();
-
     }
 
     private void setButtonStylePurchased(TextButton boton) {
         boton.setStyle(Assets.styleTextButtonPurchased);
         boton.setText(textSelect);
-
     }
 
     private void setSelected(TextButton boton) {

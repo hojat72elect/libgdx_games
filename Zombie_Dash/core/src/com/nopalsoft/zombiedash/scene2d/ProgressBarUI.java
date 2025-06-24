@@ -25,7 +25,6 @@ public class ProgressBarUI extends Table {
         setBackground(Assets.backgroundProgressBar);
         setIcon(icon);
         this.bar = bar;
-
     }
 
     public ProgressBarUI(AtlasRegion bar, AtlasRegion icon, float maxNum, float x, float y) {
@@ -36,7 +35,6 @@ public class ProgressBarUI extends Table {
         setBackground(Assets.backgroundProgressBar);
         setIcon(icon);
         this.bar = bar;
-
     }
 
     private void setIcon(AtlasRegion icon) {
@@ -45,7 +43,6 @@ public class ProgressBarUI extends Table {
         imgIcon.scaleBy(-.3f);
         imgIcon.setPosition(-15, getHeight() / 2f - (imgIcon.getPrefHeight() * imgIcon.getScaleY() / 2f));
         addActor(imgIcon);
-
     }
 
     public void updateActualNum(float actualNum) {

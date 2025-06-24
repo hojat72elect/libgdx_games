@@ -1,6 +1,5 @@
 package com.nopalsoft.zombiedash.shop;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -84,8 +83,6 @@ public class VentanaShop extends Ventana {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 new PersonajesSubMenu(contenedor, game);
             }
-
-            ;
         });
 
         btGems = new Button(Assets.btGems);
@@ -96,8 +93,6 @@ public class VentanaShop extends Ventana {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 new GetGemsSubMenu(screen.game, contenedor);
             }
-
-            ;
         });
 
         btNoAds = new Button(Assets.btMore);
@@ -108,10 +103,6 @@ public class VentanaShop extends Ventana {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 game.reqHandler.showMoreGames();
             }
-
-            ;
         });
-
     }
-
 }

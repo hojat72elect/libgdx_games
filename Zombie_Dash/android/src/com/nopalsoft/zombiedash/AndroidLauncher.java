@@ -2,10 +2,8 @@ package com.nopalsoft.zombiedash;
 
 import android.os.Bundle;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.nopalsoft.zombiedash.MainZombieDash;
 import com.nopalsoft.zombiedash.handlers.FacebookHandler;
 import com.nopalsoft.zombiedash.handlers.GameServicesHandler;
 import com.nopalsoft.zombiedash.handlers.RequestHandler;

@@ -139,7 +139,6 @@ public class UpgradesSubMenu {
         contenedor.row();
 
         setArrays();
-
     }
 
     private Table agregarCompra(String titulo, Label lblPrecio, AnimationSprite imagen, String descripcion, TextButton boton) {
@@ -176,7 +175,6 @@ public class UpgradesSubMenu {
         tbContent.add(boton).expandX().right().size(120, 45);
 
         return tbContent;
-
     }
 
     /**
@@ -228,7 +226,6 @@ public class UpgradesSubMenu {
         tbContent.add(boton).left().size(120, 45).padLeft(0);
 
         return tbContent;
-
     }
 
     private void inicializarBotones() {
@@ -350,7 +347,6 @@ public class UpgradesSubMenu {
                 }
             }
         });
-
     }
 
     private void setArrays() {
@@ -369,7 +365,6 @@ public class UpgradesSubMenu {
         for (int i = 0; i < Settings.LEVEL_SHIELD; i++) {
             arrShield[i].setDrawable(new TextureRegionDrawable(Assets.itemSkull));
         }
-
     }
 
     private int calcularPrecio(int nivel) {
@@ -391,15 +386,12 @@ public class UpgradesSubMenu {
             default:
             case 5:
                 return precioNivel6;
-
         }
-
     }
 
     private void updateLabelPriceAndButton(int nivel, Label label, TextButton boton) {
         if (nivel < MAX_LEVEL) {
             label.setText(calcularPrecio(nivel) + "");
-
         } else {
             label.setVisible(false);
             boton.setVisible(false);

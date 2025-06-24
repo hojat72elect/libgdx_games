@@ -9,8 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.zombiedash.Assets;
 import com.nopalsoft.zombiedash.Settings;
 import com.nopalsoft.zombiedash.game.GameScreen;
@@ -93,8 +93,6 @@ public class VentanaGameover extends Ventana {
                 } else
                     game.facebookHandler.facebookSignIn();
             }
-
-            ;
         });
 
         addActor(lbShare);
@@ -111,8 +109,6 @@ public class VentanaGameover extends Ventana {
                 hide();
                 screen.changeScreenWithFadeOut(MainMenuScreen.class, game);
             }
-
-            ;
         });
 
         btShop = new Button(Assets.btShop);
@@ -122,8 +118,6 @@ public class VentanaGameover extends Ventana {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 ventanaShop.show(screen.stage);
             }
-
-            ;
         });
 
         btTryAgain = new Button(Assets.btTryAgain);
@@ -134,10 +128,7 @@ public class VentanaGameover extends Ventana {
                 hide();
                 screen.changeScreenWithFadeOut(GameScreen.class, game);
             }
-
-            ;
         });
-
     }
 
     @Override
@@ -145,5 +136,4 @@ public class VentanaGameover extends Ventana {
         super.show(stage);
         game.reqHandler.showAdBanner();
     }
-
 }

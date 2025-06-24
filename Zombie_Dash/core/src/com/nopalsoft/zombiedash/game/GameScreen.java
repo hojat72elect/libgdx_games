@@ -201,7 +201,6 @@ public class GameScreen extends Screens {
         batcher.begin();
         // Assets.fontGrande.draw(batcher, Gdx.graphics.getFramesPerSecond() + "", 10, 200);
         batcher.end();
-
     }
 
     protected void setPaused() {
@@ -209,7 +208,6 @@ public class GameScreen extends Screens {
             state = STATE_PAUSED;
             ventanaPause.show(stage);
         }
-
     }
 
     public void setGameover() {
@@ -221,7 +219,6 @@ public class GameScreen extends Screens {
 
     public void setRunning() {
         state = STATE_RUNNING;
-
     }
 
     public void checkRevive() {
@@ -233,7 +230,6 @@ public class GameScreen extends Screens {
         } else {
             setGameover();
         }
-
     }
 
     public void setRevive() {
@@ -267,7 +263,6 @@ public class GameScreen extends Screens {
             return true;
         }
         return false;
-
     }
 
     @Override
@@ -278,5 +273,4 @@ public class GameScreen extends Screens {
         }
         return false;
     }
-
 }

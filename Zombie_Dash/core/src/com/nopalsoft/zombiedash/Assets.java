@@ -213,7 +213,6 @@ public class Assets {
         // sliderStyle
         TextureRegionDrawable separadorHorizontal = new TextureRegionDrawable(atlas.findRegion("UI/separadorHorizontal"));
         sliderStyle = new SliderStyle(separadorHorizontal, knobScroll);
-
     }
 
     public static void load() {
@@ -375,7 +374,7 @@ public class Assets {
         ParallaxLayer layerFondo2 = new ParallaxLayer(fondoFlipped, new Vector2(1.5f, 0), new Vector2(799, 0), new Vector2(798, 0));
         ParallaxLayer layerMoon = new ParallaxLayer(atlas.findRegion("moon"), new Vector2(2f, 0), new Vector2(799, 260), new Vector2(2500, 300));
 
-        ParallaxLayer as[] = new ParallaxLayer[]{layerFondo, layerFondo2, layerMoon};
+        ParallaxLayer[] as = new ParallaxLayer[]{layerFondo, layerFondo2, layerMoon};
         parallaxBackground = new ParallaxBackground(as, 800, 480f, new Vector2(10, 0));
 
         Settings.load();
@@ -515,5 +514,4 @@ public class Assets {
             sonido.play(volume);
         }
     }
-
 }

@@ -58,7 +58,6 @@ public class MainMenuScreen extends Screens {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(GameScreen.class, game);
-
             }
         });
 
@@ -68,7 +67,6 @@ public class MainMenuScreen extends Screens {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ventanaShop.show(stage);
-
             }
         });
 
@@ -81,7 +79,6 @@ public class MainMenuScreen extends Screens {
                     game.gameServiceHandler.getLeaderboard();
                 } else
                     game.gameServiceHandler.signIn();
-
             }
         });
 
@@ -94,7 +91,6 @@ public class MainMenuScreen extends Screens {
                     game.gameServiceHandler.getAchievements();
                 } else
                     game.gameServiceHandler.signIn();
-
             }
         });
 
@@ -104,7 +100,6 @@ public class MainMenuScreen extends Screens {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(SettingsScreen.class, game);
-
             }
         });
 
@@ -123,7 +118,6 @@ public class MainMenuScreen extends Screens {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.facebookHandler.showFacebook();
-
             }
         });
 
@@ -135,7 +129,6 @@ public class MainMenuScreen extends Screens {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.reqHandler.shareOnTwitter("");
-
             }
         });
 
@@ -153,7 +146,6 @@ public class MainMenuScreen extends Screens {
                     music.play();
                 else
                     music.pause();
-
             }
         });
 
@@ -175,8 +167,6 @@ public class MainMenuScreen extends Screens {
         stage.addActor(btSonido);
         stage.addActor(btMusica);
         stage.addActor(titulo);
-
-
     }
 
     @Override
@@ -187,7 +177,6 @@ public class MainMenuScreen extends Screens {
     @Override
     public void draw(float delta) {
         Assets.parallaxBackground.render(delta);
-
     }
 
     @Override

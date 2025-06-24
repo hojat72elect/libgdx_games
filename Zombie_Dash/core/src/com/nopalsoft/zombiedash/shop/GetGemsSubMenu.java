@@ -81,7 +81,6 @@ public class GetGemsSubMenu {
 
                         }
                     }, idiomas.get("type_your_message"), "", "");
-
                 } else
                     game.facebookHandler.facebookSignIn();
             }
@@ -182,7 +181,6 @@ public class GetGemsSubMenu {
         tbContent.add(boton).right().padBottom(20).size(120, 45);
 
         return tbContent;
-
     }
 
     protected void addEfectoPress(final Actor actor) {
