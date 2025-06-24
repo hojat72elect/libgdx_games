@@ -2,7 +2,6 @@ package com.nopalsoft.zombiekiller.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.tiledmappacker.TiledMapPacker;
 import com.nopalsoft.zombiekiller.MainZombie;
 import com.nopalsoft.zombiekiller.Settings;
 import com.nopalsoft.zombiekiller.handlers.FacebookHandler;
@@ -15,11 +14,6 @@ public class DesktopLauncher {
         config.width = 800;
         config.height = 480;
         new LwjglApplication(new MainZombie(handler, gameHandler, faceHandler), config);
-
-        // // Pack the levels
-//        String[] arg = {"/Users/yayo/Downloads/ZombiePlataformer/ZombiePlataformer/Maps", "/Users/yayo/Downloads/ZombiePlataformer/ZombiePlataformer/Maps/packed", "--strip-unused"};
-//
-//        TiledMapPacker.main(arg);
     }
 
     static RequestHandler handler = new RequestHandler() {
