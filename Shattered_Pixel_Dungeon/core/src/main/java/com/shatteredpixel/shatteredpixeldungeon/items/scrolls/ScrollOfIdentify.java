@@ -35,53 +35,53 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 public class ScrollOfIdentify extends InventoryScroll {
 
-	{
-		icon = ItemSpriteSheet.Icons.SCROLL_IDENTIFY;
+    {
+        icon = ItemSpriteSheet.Icons.SCROLL_IDENTIFY;
 
-		bones = true;
-	}
+        bones = true;
+    }
 
-	@Override
-	protected boolean usableOnItem(Item item) {
-		return !item.isIdentified();
-	}
+    @Override
+    protected boolean usableOnItem(Item item) {
+        return !item.isIdentified();
+    }
 
-	@Override
-	protected void onItemSelected( Item item ) {
-		
-		curUser.sprite.parent.add( new Identification( curUser.sprite.center().offset( 0, -16 ) ) );
+    @Override
+    protected void onItemSelected(Item item) {
 
-		IDItem(item);
-	}
+        curUser.sprite.parent.add(new Identification(curUser.sprite.center().offset(0, -16)));
 
-	public static void IDItem( Item item ){
-		if (ShardOfOblivion.passiveIDDisabled()) {
-			if (item instanceof Weapon){
-				((Weapon) item).setIDReady();
-				GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), item.name());
-				return;
-			} else if (item instanceof Armor){
-				((Armor) item).setIDReady();
-				GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), item.name());
-				return;
-			} else if (item instanceof Ring){
-				((Ring) item).setIDReady();
-				GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), item.name());
-				return;
-			} else if (item instanceof Wand){
-				((Wand) item).setIDReady();
-				GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), item.name());
-				return;
-			}
-		}
+        IDItem(item);
+    }
 
-		item.identify();
-		GLog.i(Messages.get(ScrollOfIdentify.class, "it_is", item.title()));
-		Badges.validateItemLevelAquired( item );
-	}
-	
-	@Override
-	public int value() {
-		return isKnown() ? 30 * quantity : super.value();
-	}
+    public static void IDItem(Item item) {
+        if (ShardOfOblivion.passiveIDDisabled()) {
+            if (item instanceof Weapon) {
+                ((Weapon) item).setIDReady();
+                GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), item.name());
+                return;
+            } else if (item instanceof Armor) {
+                ((Armor) item).setIDReady();
+                GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), item.name());
+                return;
+            } else if (item instanceof Ring) {
+                ((Ring) item).setIDReady();
+                GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), item.name());
+                return;
+            } else if (item instanceof Wand) {
+                ((Wand) item).setIDReady();
+                GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), item.name());
+                return;
+            }
+        }
+
+        item.identify();
+        GLog.i(Messages.get(ScrollOfIdentify.class, "it_is", item.title()));
+        Badges.validateItemLevelAquired(item);
+    }
+
+    @Override
+    public int value() {
+        return isKnown() ? 30 * quantity : super.value();
+    }
 }

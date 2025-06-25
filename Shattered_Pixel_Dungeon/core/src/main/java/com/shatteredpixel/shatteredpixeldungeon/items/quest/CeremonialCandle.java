@@ -85,7 +85,7 @@ public class CeremonialCandle extends Item {
 
 	@Override
 	public boolean doPickUp(Hero hero, int pos) {
-		if (super.doPickUp(hero, pos)){
+		if (super.doPickUp(hero, pos)) {
 			aflame = false;
 			return true;
 		}
@@ -120,12 +120,12 @@ public class CeremonialCandle extends Item {
 		return super.emitter();
 	}
 
-	private static void checkCandles(){
-		if (!(Dungeon.level instanceof RegularLevel)){
+	private static void checkCandles() {
+		if (!(Dungeon.level instanceof RegularLevel)) {
 			return;
 		}
 
-		if (!(((RegularLevel) Dungeon.level).room(ritualPos) instanceof RitualSiteRoom)){
+		if (!(((RegularLevel) Dungeon.level).room(ritualPos) instanceof RitualSiteRoom)) {
 			return;
 		}
 
@@ -137,11 +137,11 @@ public class CeremonialCandle extends Item {
 		candleHeaps[3] = Dungeon.level.heaps.get(ritualPos - 1);
 
 		boolean allCandles = true;
-		for (Heap h : candleHeaps){
-			if (h != null && h.type == Heap.Type.HEAP){
+		for (Heap h : candleHeaps) {
+			if (h != null && h.type == Heap.Type.HEAP) {
 				boolean foundCandle = false;
-				for (Item i : h.items){
-					if (i instanceof CeremonialCandle){
+				for (Item i : h.items) {
+					if (i instanceof CeremonialCandle) {
 						if (!((CeremonialCandle) i).aflame) {
 							((CeremonialCandle) i).aflame = true;
 							h.sprite.view(h).place(h.pos);
@@ -149,7 +149,7 @@ public class CeremonialCandle extends Item {
 						foundCandle = true;
 					}
 				}
-				if (!foundCandle){
+				if (!foundCandle) {
 					allCandles = false;
 				}
 			} else {
@@ -157,28 +157,28 @@ public class CeremonialCandle extends Item {
 			}
 		}
 
-		if (allCandles){
+		if (allCandles) {
 
 			for (Heap h : candleHeaps) {
-				for (Item i : h.items.toArray(new Item[0])){
-					if (i instanceof CeremonialCandle){
+				for (Item i : h.items.toArray(new Item[0])) {
+					if (i instanceof CeremonialCandle) {
 						h.remove(i);
 					}
 				}
 			}
-				
+
 			Elemental.NewbornFireElemental elemental = new Elemental.NewbornFireElemental();
-			Char ch = Actor.findChar( ritualPos );
+			Char ch = Actor.findChar(ritualPos);
 			if (ch != null) {
 				ArrayList<Integer> candidates = new ArrayList<>();
 				for (int n : PathFinder.NEIGHBOURS8) {
 					int cell = ritualPos + n;
-					if ((Dungeon.level.passable[cell] || Dungeon.level.avoid[cell]) && Actor.findChar( cell ) == null) {
-						candidates.add( cell );
+					if ((Dungeon.level.passable[cell] || Dungeon.level.avoid[cell]) && Actor.findChar(cell) == null) {
+						candidates.add(cell);
 					}
 				}
 				if (candidates.size() > 0) {
-					elemental.pos = Random.element( candidates );
+					elemental.pos = Random.element(candidates);
 				} else {
 					elemental.pos = ritualPos;
 				}
@@ -188,15 +188,14 @@ public class CeremonialCandle extends Item {
 			elemental.state = elemental.HUNTING;
 			GameScene.add(elemental, 1);
 
-			if (Dungeon.level instanceof PrisonLevel){
+			if (Dungeon.level instanceof PrisonLevel) {
 				((PrisonLevel) Dungeon.level).updateWandmakerQuestMusic();
 			}
 
-			for (int i : PathFinder.NEIGHBOURS9){
-				CellEmitter.get(ritualPos+i).burst(ElmoParticle.FACTORY, 10);
+			for (int i : PathFinder.NEIGHBOURS9) {
+				CellEmitter.get(ritualPos + i).burst(ElmoParticle.FACTORY, 10);
 			}
 			Sample.INSTANCE.play(Assets.Sounds.BURNING);
 		}
-
 	}
 }

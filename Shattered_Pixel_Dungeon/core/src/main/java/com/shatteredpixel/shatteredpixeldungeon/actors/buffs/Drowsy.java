@@ -26,35 +26,31 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
 public class Drowsy extends FlavourBuff {
 
-	public static final float DURATION = 5f;
+    public static final float DURATION = 5f;
 
-	{
-		type = buffType.NEUTRAL;
-		announced = true;
-	}
+    {
+        type = buffType.NEUTRAL;
+        announced = true;
+    }
 
-	@Override
-	public int icon() {
-		return BuffIndicator.DROWSY;
-	}
+    @Override
+    public int icon() {
+        return BuffIndicator.DROWSY;
+    }
 
-	@Override
-	public float iconFadePercent() {
-		return Math.max(0, (DURATION - visualcooldown()) / DURATION);
-	}
+    @Override
+    public float iconFadePercent() {
+        return Math.max(0, (DURATION - visualcooldown()) / DURATION);
+    }
 
-	public boolean attachTo(Char target ) {
-		if (!target.isImmune(Sleep.class) && super.attachTo(target)) {
-			return true;
-		}
-		return false;
-	}
+    public boolean attachTo(Char target) {
+        return !target.isImmune(Sleep.class) && super.attachTo(target);
+    }
 
-	@Override
-	public boolean act(){
-		Buff.affect(target, MagicalSleep.class);
+    @Override
+    public boolean act() {
+        Buff.affect(target, MagicalSleep.class);
 
-		return super.act();
-	}
-
+        return super.act();
+    }
 }

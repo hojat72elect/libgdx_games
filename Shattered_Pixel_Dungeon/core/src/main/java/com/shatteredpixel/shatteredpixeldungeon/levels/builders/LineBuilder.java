@@ -30,75 +30,73 @@ import java.util.ArrayList;
 //A simple builder which utilizes a line as its core feature.
 public class LineBuilder extends RegularBuilder {
 
-	@Override
-	public ArrayList<Room> build(ArrayList<Room> rooms) {
-	
-		setupRooms(rooms);
-		
-		if (entrance == null){
-			return null;
-		}
+    @Override
+    public ArrayList<Room> build(ArrayList<Room> rooms) {
 
-		float direction = Random.Float(0, 360);
-		ArrayList<Room> branchable = new ArrayList<>();
-		
-		entrance.setSize();
-		entrance.setPos(0, 0);
+        setupRooms(rooms);
 
-		mainPathRooms.add(0, entrance);
-		if (exit != null) mainPathRooms.add(exit);
+        if (entrance == null) {
+            return null;
+        }
 
-		if (shop != null){
-			placeRoom(rooms, entrance, shop, direction + 180f);
-		}
-		
-		Room prev = entrance;
+        float direction = Random.Float(0, 360);
+        ArrayList<Room> branchable = new ArrayList<>();
 
-		float[] pathTunnels = pathTunnelChances.clone();
-		for (int i = 1; i < mainPathRooms.size(); i++){
-			Room r = mainPathRooms.get(i);
+        entrance.setSize();
+        entrance.setPos(0, 0);
 
-			int tunnels = Random.chances(pathTunnels);
-			if (tunnels == -1){
-				pathTunnels = pathTunnelChances.clone();
-				tunnels = Random.chances(pathTunnels);
-			}
-			pathTunnels[tunnels]--;
+        mainPathRooms.add(0, entrance);
+        if (exit != null) mainPathRooms.add(exit);
 
-			for (int j = 0; j < tunnels; j++){
-				ConnectionRoom t = ConnectionRoom.createRoom();
-				placeRoom(rooms, prev, t, direction + Random.Float(-pathVariance, pathVariance));
-				branchable.add(t);
-				rooms.add(t);
-				prev = t;
-			}
+        if (shop != null) {
+            placeRoom(rooms, entrance, shop, direction + 180f);
+        }
 
-			placeRoom(rooms, prev, r, direction + Random.Float(-pathVariance, pathVariance));
-			branchable.add(r);
-			prev = r;
-		}
-		
-		ArrayList<Room> roomsToBranch = new ArrayList<>();
-		roomsToBranch.addAll(multiConnections);
-		roomsToBranch.addAll(singleConnections);
-		weightRooms(branchable);
-		if (!createBranches(rooms, branchable, roomsToBranch, branchTunnelChances)){
-			return null;
-		}
-		
-		findNeighbours(rooms);
-		
-		for (Room r : rooms){
-			for (Room n : r.neigbours){
-				if (!n.connected.containsKey(r)
-						&& Random.Float() < extraConnectionChance){
-					r.connect(n);
-				}
-			}
-		}
-		
-		return rooms;
-	
-	}
+        Room prev = entrance;
 
+        float[] pathTunnels = pathTunnelChances.clone();
+        for (int i = 1; i < mainPathRooms.size(); i++) {
+            Room r = mainPathRooms.get(i);
+
+            int tunnels = Random.chances(pathTunnels);
+            if (tunnels == -1) {
+                pathTunnels = pathTunnelChances.clone();
+                tunnels = Random.chances(pathTunnels);
+            }
+            pathTunnels[tunnels]--;
+
+            for (int j = 0; j < tunnels; j++) {
+                ConnectionRoom t = ConnectionRoom.createRoom();
+                placeRoom(rooms, prev, t, direction + Random.Float(-pathVariance, pathVariance));
+                branchable.add(t);
+                rooms.add(t);
+                prev = t;
+            }
+
+            placeRoom(rooms, prev, r, direction + Random.Float(-pathVariance, pathVariance));
+            branchable.add(r);
+            prev = r;
+        }
+
+        ArrayList<Room> roomsToBranch = new ArrayList<>();
+        roomsToBranch.addAll(multiConnections);
+        roomsToBranch.addAll(singleConnections);
+        weightRooms(branchable);
+        if (!createBranches(rooms, branchable, roomsToBranch, branchTunnelChances)) {
+            return null;
+        }
+
+        findNeighbours(rooms);
+
+        for (Room r : rooms) {
+            for (Room n : r.neigbours) {
+                if (!n.connected.containsKey(r)
+                        && Random.Float() < extraConnectionChance) {
+                    r.connect(n);
+                }
+            }
+        }
+
+        return rooms;
+    }
 }

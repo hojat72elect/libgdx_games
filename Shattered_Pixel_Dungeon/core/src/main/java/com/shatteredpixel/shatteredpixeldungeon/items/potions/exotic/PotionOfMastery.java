@@ -40,97 +40,97 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
 public class PotionOfMastery extends ExoticPotion {
-	
-	{
-		icon = ItemSpriteSheet.Icons.POTION_MASTERY;
 
-		unique = true;
+    {
+        icon = ItemSpriteSheet.Icons.POTION_MASTERY;
 
-		talentFactor = 2f;
-	}
+        unique = true;
 
-	protected static boolean identifiedByUse = false;
+        talentFactor = 2f;
+    }
 
-	@Override
-	//need to override drink so that time isn't spent right away
-	protected void drink(final Hero hero) {
+    protected static boolean identifiedByUse = false;
 
-		if (!isKnown()) {
-			identify();
-			curItem = detach( hero.belongings.backpack );
-			identifiedByUse = true;
-		} else {
-			identifiedByUse = false;
-		}
+    @Override
+    //need to override drink so that time isn't spent right away
+    protected void drink(final Hero hero) {
 
-		GameScene.selectItem(itemSelector);
-	}
+        if (!isKnown()) {
+            identify();
+            curItem = detach(hero.belongings.backpack);
+            identifiedByUse = true;
+        } else {
+            identifiedByUse = false;
+        }
 
-	protected WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
+        GameScene.selectItem(itemSelector);
+    }
 
-		@Override
-		public String textPrompt() {
-			return Messages.get(PotionOfMastery.class, "prompt");
-		}
+    protected WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
 
-		@Override
-		public boolean itemSelectable(Item item) {
-			return
-					(item instanceof MeleeWeapon && !((MeleeWeapon) item).masteryPotionBonus)
-					|| (item instanceof Armor && !((Armor) item).masteryPotionBonus);
-		}
+        @Override
+        public String textPrompt() {
+            return Messages.get(PotionOfMastery.class, "prompt");
+        }
 
-		@Override
-		public void onSelect(Item item) {
+        @Override
+        public boolean itemSelectable(Item item) {
+            return
+                    (item instanceof MeleeWeapon && !((MeleeWeapon) item).masteryPotionBonus)
+                            || (item instanceof Armor && !((Armor) item).masteryPotionBonus);
+        }
 
-			if (item == null && identifiedByUse){
-				GameScene.show( new WndOptions(new ItemSprite(PotionOfMastery.this),
-						Messages.titleCase(name()),
-						Messages.get(ExoticPotion.class, "warning"),
-						Messages.get(ExoticPotion.class, "yes"),
-						Messages.get(ExoticPotion.class, "no") ) {
-					@Override
-					protected void onSelect( int index ) {
-						switch (index) {
-							case 0:
-								curUser.spendAndNext(1f);
-								identifiedByUse = false;
-								break;
-							case 1:
-								GameScene.selectItem(itemSelector);
-								break;
-						}
-					}
-					public void onBackPressed() {}
-				} );
-			} else if (item != null) {
+        @Override
+        public void onSelect(Item item) {
 
-				if (item instanceof Weapon) {
-					((Weapon) item).masteryPotionBonus = true;
-					GLog.p( Messages.get(PotionOfMastery.class, "weapon_easier") );
-				} else if (item instanceof Armor) {
-					((Armor) item).masteryPotionBonus = true;
-					GLog.p( Messages.get(PotionOfMastery.class, "armor_easier") );
-				}
-				updateQuickslot();
+            if (item == null && identifiedByUse) {
+                GameScene.show(new WndOptions(new ItemSprite(PotionOfMastery.this),
+                        Messages.titleCase(name()),
+                        Messages.get(ExoticPotion.class, "warning"),
+                        Messages.get(ExoticPotion.class, "yes"),
+                        Messages.get(ExoticPotion.class, "no")) {
+                    @Override
+                    protected void onSelect(int index) {
+                        switch (index) {
+                            case 0:
+                                curUser.spendAndNext(1f);
+                                identifiedByUse = false;
+                                break;
+                            case 1:
+                                GameScene.selectItem(itemSelector);
+                                break;
+                        }
+                    }
 
-				Sample.INSTANCE.play( Assets.Sounds.DRINK );
-				curUser.sprite.operate(curUser.pos);
+                    public void onBackPressed() {
+                    }
+                });
+            } else if (item != null) {
 
-				if (!identifiedByUse) {
-					curItem.detach(curUser.belongings.backpack);
-				}
-				identifiedByUse = false;
+                if (item instanceof Weapon) {
+                    ((Weapon) item).masteryPotionBonus = true;
+                    GLog.p(Messages.get(PotionOfMastery.class, "weapon_easier"));
+                } else if (item instanceof Armor) {
+                    ((Armor) item).masteryPotionBonus = true;
+                    GLog.p(Messages.get(PotionOfMastery.class, "armor_easier"));
+                }
+                updateQuickslot();
 
-				if (!anonymous) {
-					Catalog.countUse(PotionOfMastery.class);
-					if (Random.Float() < talentChance) {
-						Talent.onPotionUsed(curUser, curUser.pos, talentFactor);
-					}
-				}
-			}
+                Sample.INSTANCE.play(Assets.Sounds.DRINK);
+                curUser.sprite.operate(curUser.pos);
 
-		}
-	};
-	
+                if (!identifiedByUse) {
+                    curItem.detach(curUser.belongings.backpack);
+                }
+                identifiedByUse = false;
+
+                if (!anonymous) {
+                    Catalog.countUse(PotionOfMastery.class);
+                    if (Random.Float() < talentChance) {
+                        Talent.onPotionUsed(curUser, curUser.pos, talentFactor);
+                    }
+                }
+            }
+        }
+    };
 }

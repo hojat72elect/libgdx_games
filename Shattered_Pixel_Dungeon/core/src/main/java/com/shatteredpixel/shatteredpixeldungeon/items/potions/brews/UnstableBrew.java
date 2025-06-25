@@ -48,128 +48,128 @@ import java.util.HashMap;
 
 public class UnstableBrew extends Brew {
 
-	{
-		image = ItemSpriteSheet.BREW_UNSTABLE;
-	}
+    {
+        image = ItemSpriteSheet.BREW_UNSTABLE;
+    }
 
-	@Override
-	public ArrayList<String> actions(Hero hero) {
-		ArrayList<String> actions = super.actions(hero);
-		actions.add(AC_DRINK);
-		return actions;
-	}
+    @Override
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_DRINK);
+        return actions;
+    }
 
-	@Override
-	public String defaultAction() {
-		return AC_CHOOSE;
-	}
+    @Override
+    public String defaultAction() {
+        return AC_CHOOSE;
+    }
 
-	private static HashMap<Class<? extends Potion>, Float> potionChances = new HashMap<>();
-	static {
-		potionChances.put(PotionOfHealing.class, 3f);
-		potionChances.put(PotionOfMindVision.class, 2f);
-		potionChances.put(PotionOfFrost.class, 2f);
-		potionChances.put(PotionOfLiquidFlame.class, 2f);
-		potionChances.put(PotionOfToxicGas.class, 2f);
-		potionChances.put(PotionOfHaste.class, 2f);
-		potionChances.put(PotionOfInvisibility.class, 2f);
-		potionChances.put(PotionOfLevitation.class, 2f);
-		potionChances.put(PotionOfParalyticGas.class, 2f);
-		potionChances.put(PotionOfPurity.class, 2f);
-		potionChances.put(PotionOfExperience.class, 1f);
-	}
-	
-	@Override
-	public void apply(Hero hero) {
-		//Don't allow this to roll healing in pharma
-		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
-			potionChances.put(PotionOfHealing.class, 0f);
-		}
+    private static final HashMap<Class<? extends Potion>, Float> potionChances = new HashMap<>();
 
-		Potion p = Reflection.newInstance(Random.chances(potionChances));
+    static {
+        potionChances.put(PotionOfHealing.class, 3f);
+        potionChances.put(PotionOfMindVision.class, 2f);
+        potionChances.put(PotionOfFrost.class, 2f);
+        potionChances.put(PotionOfLiquidFlame.class, 2f);
+        potionChances.put(PotionOfToxicGas.class, 2f);
+        potionChances.put(PotionOfHaste.class, 2f);
+        potionChances.put(PotionOfInvisibility.class, 2f);
+        potionChances.put(PotionOfLevitation.class, 2f);
+        potionChances.put(PotionOfParalyticGas.class, 2f);
+        potionChances.put(PotionOfPurity.class, 2f);
+        potionChances.put(PotionOfExperience.class, 1f);
+    }
 
-		//reroll the potion if it wasn't a good potion to drink
-		while (mustThrowPots.contains(p.getClass())){
-			p = Reflection.newInstance(Random.chances(potionChances));
-		}
+    @Override
+    public void apply(Hero hero) {
+        //Don't allow this to roll healing in pharma
+        if (Dungeon.isChallenged(Challenges.NO_HEALING)) {
+            potionChances.put(PotionOfHealing.class, 0f);
+        }
 
-		p.anonymize();
-		p.apply(hero);
+        Potion p = Reflection.newInstance(Random.chances(potionChances));
 
-		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
-			potionChances.put(PotionOfHealing.class, 3f);
-		}
-	}
-	
-	@Override
-	public void shatter(int cell) {
-		Potion p = Reflection.newInstance(Random.chances(potionChances));
+        //reroll the potion if it wasn't a good potion to drink
+        while (mustThrowPots.contains(p.getClass())) {
+            p = Reflection.newInstance(Random.chances(potionChances));
+        }
 
-		//reroll the potion if it wasn't a good potion to throw
-		while (!mustThrowPots.contains(p.getClass()) && !canThrowPots.contains(p.getClass())){
-			p = Reflection.newInstance(Random.chances(potionChances));
-		}
+        p.anonymize();
+        p.apply(hero);
 
-		p.anonymize();
-		curItem = p;
-		p.shatter(cell);
-	}
-	
-	@Override
-	public boolean isKnown() {
-		return true;
-	}
+        if (Dungeon.isChallenged(Challenges.NO_HEALING)) {
+            potionChances.put(PotionOfHealing.class, 3f);
+        }
+    }
 
-	//lower values, as it's cheaper to make
-	@Override
-	public int value() {
-		return 40 * quantity;
-	}
+    @Override
+    public void shatter(int cell) {
+        Potion p = Reflection.newInstance(Random.chances(potionChances));
 
-	@Override
-	public int energyVal() {
-		return 8 * quantity;
-	}
+        //reroll the potion if it wasn't a good potion to throw
+        while (!mustThrowPots.contains(p.getClass()) && !canThrowPots.contains(p.getClass())) {
+            p = Reflection.newInstance(Random.chances(potionChances));
+        }
 
-	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
-		
-		@Override
-		public boolean testIngredients(ArrayList<Item> ingredients) {
-			boolean potion = false;
-			boolean seed = false;
+        p.anonymize();
+        curItem = p;
+        p.shatter(cell);
+    }
 
-			for (Item i : ingredients){
-				if (i instanceof Plant.Seed) {
-					seed = true;
-					//if it is a regular or exotic potion
-				} else if (ExoticPotion.regToExo.containsKey(i.getClass())
-						|| ExoticPotion.regToExo.containsValue(i.getClass())) {
-					potion = true;
-				}
-			}
+    @Override
+    public boolean isKnown() {
+        return true;
+    }
 
-			return potion && seed;
-		}
+    //lower values, as it's cheaper to make
+    @Override
+    public int value() {
+        return 40 * quantity;
+    }
 
-		@Override
-		public int cost(ArrayList<Item> ingredients) {
-			return 1;
-		}
+    @Override
+    public int energyVal() {
+        return 8 * quantity;
+    }
 
-		@Override
-		public Item brew(ArrayList<Item> ingredients) {
+    public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
 
-			for (Item i : ingredients){
-				i.quantity(i.quantity()-1);
-			}
-			
-			return sampleOutput(null);
-		}
-		
-		@Override
-		public Item sampleOutput(ArrayList<Item> ingredients) {
-			return new UnstableBrew();
-		}
-	}
-	
+        @Override
+        public boolean testIngredients(ArrayList<Item> ingredients) {
+            boolean potion = false;
+            boolean seed = false;
+
+            for (Item i : ingredients) {
+                if (i instanceof Plant.Seed) {
+                    seed = true;
+                    //if it is a regular or exotic potion
+                } else if (ExoticPotion.regToExo.containsKey(i.getClass())
+                        || ExoticPotion.regToExo.containsValue(i.getClass())) {
+                    potion = true;
+                }
+            }
+
+            return potion && seed;
+        }
+
+        @Override
+        public int cost(ArrayList<Item> ingredients) {
+            return 1;
+        }
+
+        @Override
+        public Item brew(ArrayList<Item> ingredients) {
+
+            for (Item i : ingredients) {
+                i.quantity(i.quantity() - 1);
+            }
+
+            return sampleOutput(null);
+        }
+
+        @Override
+        public Item sampleOutput(ArrayList<Item> ingredients) {
+            return new UnstableBrew();
+        }
+    }
 }

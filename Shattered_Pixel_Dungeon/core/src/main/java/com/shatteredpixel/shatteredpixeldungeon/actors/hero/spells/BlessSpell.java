@@ -42,90 +42,89 @@ import com.watabou.noosa.audio.Sample;
 
 public class BlessSpell extends TargetedClericSpell {
 
-	public static final BlessSpell INSTANCE = new BlessSpell();
+    public static final BlessSpell INSTANCE = new BlessSpell();
 
-	@Override
-	public int icon() {
-		return HeroIcon.BLESS;
-	}
+    @Override
+    public int icon() {
+        return HeroIcon.BLESS;
+    }
 
-	@Override
-	public int targetingFlags(){
-		return -1; //auto-targeting behaviour is often wrong, so we don't use it
-	}
+    @Override
+    public int targetingFlags() {
+        return -1; //auto-targeting behaviour is often wrong, so we don't use it
+    }
 
-	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.hasTalent(Talent.BLESS);
-	}
+    @Override
+    public boolean canCast(Hero hero) {
+        return super.canCast(hero) && hero.hasTalent(Talent.BLESS);
+    }
 
-	@Override
-	protected void onTargetSelected(HolyTome tome, Hero hero, Integer target) {
-		if (target == null){
-			return;
-		}
+    @Override
+    protected void onTargetSelected(HolyTome tome, Hero hero, Integer target) {
+        if (target == null) {
+            return;
+        }
 
-		Char ch = Actor.findChar(target);
-		if (ch == null || !Dungeon.level.heroFOV[target]){
-			GLog.w(Messages.get(this, "no_target"));
-			return;
-		}
+        Char ch = Actor.findChar(target);
+        if (ch == null || !Dungeon.level.heroFOV[target]) {
+            GLog.w(Messages.get(this, "no_target"));
+            return;
+        }
 
-		Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
+        Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 
-		affectChar(hero, ch);
+        affectChar(hero, ch);
 
-		if (ch == hero){
-			hero.busy();
-			hero.sprite.operate(ch.pos);
-			hero.spend( 1f );
-		} else {
-			hero.sprite.zap(ch.pos);
-			hero.spendAndNext( 1f );
-		}
+        if (ch == hero) {
+            hero.busy();
+            hero.sprite.operate(ch.pos);
+            hero.spend(1f);
+        } else {
+            hero.sprite.zap(ch.pos);
+            hero.spendAndNext(1f);
+        }
 
-		Char ally = PowerOfMany.getPoweredAlly();
-		if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null){
-			if (ch == hero){
-				affectChar(hero, ally); //if cast on hero, duplicate to ally
-			} else if (ally == ch) {
-				affectChar(hero, hero); //if cast on ally, duplicate to hero
-			}
-		}
+        Char ally = PowerOfMany.getPoweredAlly();
+        if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null) {
+            if (ch == hero) {
+                affectChar(hero, ally); //if cast on hero, duplicate to ally
+            } else if (ally == ch) {
+                affectChar(hero, hero); //if cast on ally, duplicate to hero
+            }
+        }
 
-		onSpellCast(tome, hero);
-	}
+        onSpellCast(tome, hero);
+    }
 
-	private void affectChar(Hero hero, Char ch){
-		new Flare(6, 32).color(0xFFFF00, true).show(ch.sprite, 2f);
-		if (ch == hero){
-			Buff.prolong(ch, Bless.class, 2f + 4*hero.pointsInTalent(Talent.BLESS));
-			Buff.affect(ch, Barrier.class).setShield(5 + 5*hero.pointsInTalent(Talent.BLESS));
-			ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(5 + 5*hero.pointsInTalent(Talent.BLESS)), FloatingText.SHIELDING );
-		} else {
-			Buff.prolong(ch, Bless.class, 5f + 5*hero.pointsInTalent(Talent.BLESS));
-			int totalHeal = 5 + 5*hero.pointsInTalent(Talent.BLESS);
-			if (ch.HT - ch.HP < totalHeal){
-				int barrier = totalHeal - (ch.HT - ch.HP);
-				barrier = Math.max(barrier, 0);
-				if (ch.HP != ch.HT) {
-					ch.HP = ch.HT;
-					ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(totalHeal - barrier), FloatingText.HEALING);
-				}
-				if (barrier > 0) {
-					Buff.affect(ch, Barrier.class).setShield(barrier);
-					ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(barrier), FloatingText.SHIELDING);
-				}
-			} else {
-				ch.HP = ch.HP + totalHeal;
-				ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(totalHeal), FloatingText.HEALING );
-			}
-		}
-	}
+    private void affectChar(Hero hero, Char ch) {
+        new Flare(6, 32).color(0xFFFF00, true).show(ch.sprite, 2f);
+        if (ch == hero) {
+            Buff.prolong(ch, Bless.class, 2f + 4 * hero.pointsInTalent(Talent.BLESS));
+            Buff.affect(ch, Barrier.class).setShield(5 + 5 * hero.pointsInTalent(Talent.BLESS));
+            ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(5 + 5 * hero.pointsInTalent(Talent.BLESS)), FloatingText.SHIELDING);
+        } else {
+            Buff.prolong(ch, Bless.class, 5f + 5 * hero.pointsInTalent(Talent.BLESS));
+            int totalHeal = 5 + 5 * hero.pointsInTalent(Talent.BLESS);
+            if (ch.HT - ch.HP < totalHeal) {
+                int barrier = totalHeal - (ch.HT - ch.HP);
+                barrier = Math.max(barrier, 0);
+                if (ch.HP != ch.HT) {
+                    ch.HP = ch.HT;
+                    ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(totalHeal - barrier), FloatingText.HEALING);
+                }
+                if (barrier > 0) {
+                    Buff.affect(ch, Barrier.class).setShield(barrier);
+                    ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(barrier), FloatingText.SHIELDING);
+                }
+            } else {
+                ch.HP = ch.HP + totalHeal;
+                ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(totalHeal), FloatingText.HEALING);
+            }
+        }
+    }
 
-	public String desc(){
-		int talentLvl = Dungeon.hero.pointsInTalent(Talent.BLESS);
-		return Messages.get(this, "desc", 2+4*talentLvl, 5+5*talentLvl, 5+5*talentLvl, 5+5*talentLvl) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
-	}
-
+    public String desc() {
+        int talentLvl = Dungeon.hero.pointsInTalent(Talent.BLESS);
+        return Messages.get(this, "desc", 2 + 4 * talentLvl, 5 + 5 * talentLvl, 5 + 5 * talentLvl, 5 + 5 * talentLvl) + "\n\n" + Messages.get(this, "charge_cost", (int) chargeUse(Dungeon.hero));
+    }
 }

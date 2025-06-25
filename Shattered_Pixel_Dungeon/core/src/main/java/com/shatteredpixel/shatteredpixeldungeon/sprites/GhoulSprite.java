@@ -26,45 +26,45 @@ import com.watabou.noosa.TextureFilm;
 
 public class GhoulSprite extends MobSprite {
 
-	private Animation crumple;
-	
-	public GhoulSprite() {
-		super();
-		
-		texture( Assets.Sprites.GHOUL );
-		
-		TextureFilm frames = new TextureFilm( texture, 12, 14 );
+    private final Animation crumple;
 
-		idle = new Animation( 2, true );
-		idle.frames( frames, 0, 0, 0, 1 );
+    public GhoulSprite() {
+        super();
 
-		run = new Animation( 12, true );
-		run.frames( frames, 2, 3, 4, 5, 6, 7 );
+        texture(Assets.Sprites.GHOUL);
 
-		attack = new Animation( 12, false );
-		attack.frames( frames, 0, 8, 9 );
+        TextureFilm frames = new TextureFilm(texture, 12, 14);
 
-		crumple = new Animation( 15, false);
-		crumple.frames( frames, 0, 10, 11, 12 );
+        idle = new Animation(2, true);
+        idle.frames(frames, 0, 0, 0, 1);
 
-		die = new Animation( 15, false );
-		die.frames( frames, 0, 10, 11, 12, 13 );
-		
-		play( idle );
-	}
+        run = new Animation(12, true);
+        run.frames(frames, 2, 3, 4, 5, 6, 7);
 
-	public void crumple(){
-		hideEmo();
-		processStateRemoval(State.PARALYSED);
-		play(crumple);
-	}
+        attack = new Animation(12, false);
+        attack.frames(frames, 0, 8, 9);
 
-	@Override
-	public void die() {
-		if (curAnim == crumple){
-			//causes the sprite to not rise then fall again when dieing.
-			die.frames[0] = die.frames[1] = die.frames[2] = die.frames[3];
-		}
-		super.die();
-	}
+        crumple = new Animation(15, false);
+        crumple.frames(frames, 0, 10, 11, 12);
+
+        die = new Animation(15, false);
+        die.frames(frames, 0, 10, 11, 12, 13);
+
+        play(idle);
+    }
+
+    public void crumple() {
+        hideEmo();
+        processStateRemoval(State.PARALYSED);
+        play(crumple);
+    }
+
+    @Override
+    public void die() {
+        if (curAnim == crumple) {
+            //causes the sprite to not rise then fall again when dieing.
+            die.frames[0] = die.frames[1] = die.frames[2] = die.frames[3];
+        }
+        super.die();
+    }
 }

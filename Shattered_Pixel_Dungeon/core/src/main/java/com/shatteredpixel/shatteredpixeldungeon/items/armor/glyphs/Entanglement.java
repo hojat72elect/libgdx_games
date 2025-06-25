@@ -35,31 +35,29 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
 public class Entanglement extends Glyph {
-	
-	private static ItemSprite.Glowing BROWN = new ItemSprite.Glowing( 0x663300 );
-	
-	@Override
-	public int proc(Armor armor, Char attacker, final Char defender, final int damage ) {
 
-		final int level = Math.max( 0, armor.buffedLvl() );
-		float procChance = 1/4f * procChanceMultiplier(defender);
+    private static final ItemSprite.Glowing BROWN = new ItemSprite.Glowing(0x663300);
 
-		if (Random.Float() < procChance) {
+    @Override
+    public int proc(Armor armor, Char attacker, final Char defender, final int damage) {
 
-			float powerMulti = Math.max(1f, procChance);
+        final int level = Math.max(0, armor.buffedLvl());
+        float procChance = 1 / 4f * procChanceMultiplier(defender);
 
-			Buff.affect( defender, Earthroot.Armor.class ).level( Math.round((5 + 2 * level)*powerMulti) );
-			CellEmitter.bottom( defender.pos ).start( EarthParticle.FACTORY, 0.05f, 8 );
-			if (defender == Dungeon.hero) PixelScene.shake( 1, 0.4f );
-			
-		}
+        if (Random.Float() < procChance) {
 
-		return damage;
-	}
+            float powerMulti = Math.max(1f, procChance);
 
-	@Override
-	public Glowing glowing() {
-		return BROWN;
-	}
-	
+            Buff.affect(defender, Earthroot.Armor.class).level(Math.round((5 + 2 * level) * powerMulti));
+            CellEmitter.bottom(defender.pos).start(EarthParticle.FACTORY, 0.05f, 8);
+            if (defender == Dungeon.hero) PixelScene.shake(1, 0.4f);
+        }
+
+        return damage;
+    }
+
+    @Override
+    public Glowing glowing() {
+        return BROWN;
+    }
 }

@@ -31,26 +31,26 @@ import com.watabou.noosa.audio.Sample;
 
 public class PotionOfParalyticGas extends Potion {
 
-	{
-		icon = ItemSpriteSheet.Icons.POTION_PARAGAS;
-	}
+    {
+        icon = ItemSpriteSheet.Icons.POTION_PARAGAS;
+    }
 
-	@Override
-	public void shatter( int cell ) {
+    @Override
+    public void shatter(int cell) {
 
-		splash( cell );
-		if (Dungeon.level.heroFOV[cell]) {
-			identify();
+        splash(cell);
+        if (Dungeon.level.heroFOV[cell]) {
+            identify();
 
-			Sample.INSTANCE.play( Assets.Sounds.SHATTER );
-			Sample.INSTANCE.play( Assets.Sounds.GAS );
-		}
+            Sample.INSTANCE.play(Assets.Sounds.SHATTER);
+            Sample.INSTANCE.play(Assets.Sounds.GAS);
+        }
 
-		GameScene.add( Blob.seed( cell, 1000, ParalyticGas.class ) );
-	}
-	
-	@Override
-	public int value() {
-		return isKnown() ? 40 * quantity : super.value();
-	}
+        GameScene.add(Blob.seed(cell, 1000, ParalyticGas.class));
+    }
+
+    @Override
+    public int value() {
+        return isKnown() ? 40 * quantity : super.value();
+    }
 }

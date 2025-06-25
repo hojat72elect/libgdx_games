@@ -40,105 +40,98 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
 public class ScrollOfSirensSong extends ExoticScroll {
-	
-	{
-		icon = ItemSpriteSheet.Icons.SCROLL_SIREN;
-	}
 
-	protected static boolean identifiedByUse = false;
-	
-	@Override
-	public void doRead() {
-		if (!isKnown()) {
-			identify();
-			curItem = detach(curUser.belongings.backpack);
-			identifiedByUse = true;
-		} else {
-			identifiedByUse = false;
-		}
-		GameScene.selectCell(targeter);
-	}
+    {
+        icon = ItemSpriteSheet.Icons.SCROLL_SIREN;
+    }
 
-	private CellSelector.Listener targeter = new CellSelector.Listener() {
+    protected static boolean identifiedByUse = false;
 
-		@Override
-		public void onSelect(Integer cell) {
-			if (cell == null && isKnown()){
-				return;
-			}
+    @Override
+    public void doRead() {
+        if (!isKnown()) {
+            identify();
+            curItem = detach(curUser.belongings.backpack);
+            identifiedByUse = true;
+        } else {
+            identifiedByUse = false;
+        }
+        GameScene.selectCell(targeter);
+    }
 
-			Mob target = null;
-			if (cell != null){
-				Char ch = Actor.findChar(cell);
-				if (ch != null && ch.alignment != Char.Alignment.ALLY && ch instanceof Mob){
-					target = (Mob)ch;
-				}
-			}
+    private final CellSelector.Listener targeter = new CellSelector.Listener() {
 
-			if (target == null && !anonymous && !identifiedByUse){
-				GLog.w(Messages.get(ScrollOfSirensSong.class, "cancel"));
-				return;
+        @Override
+        public void onSelect(Integer cell) {
+            if (cell == null && isKnown()) {
+                return;
+            }
 
-			} else {
+            Mob target = null;
+            if (cell != null) {
+                Char ch = Actor.findChar(cell);
+                if (ch != null && ch.alignment != Char.Alignment.ALLY && ch instanceof Mob) {
+                    target = (Mob) ch;
+                }
+            }
 
-				curUser.sprite.centerEmitter().start( Speck.factory( Speck.HEART ), 0.2f, 5 );
-				Sample.INSTANCE.play( Assets.Sounds.CHARMS );
-				Sample.INSTANCE.playDelayed( Assets.Sounds.LULLABY, 0.1f );
+            if (target == null && !anonymous && !identifiedByUse) {
+                GLog.w(Messages.get(ScrollOfSirensSong.class, "cancel"));
+            } else {
 
-				for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-					if (Dungeon.level.heroFOV[mob.pos] && mob != target && mob.alignment != Char.Alignment.ALLY) {
-						Buff.affect( mob, Charm.class, Charm.DURATION ).object = curUser.id();
-						mob.sprite.centerEmitter().start( Speck.factory( Speck.HEART ), 0.2f, 5 );
-					}
-				}
+                curUser.sprite.centerEmitter().start(Speck.factory(Speck.HEART), 0.2f, 5);
+                Sample.INSTANCE.play(Assets.Sounds.CHARMS);
+                Sample.INSTANCE.playDelayed(Assets.Sounds.LULLABY, 0.1f);
 
-				if (target != null){
-					if (!target.isImmune(Enthralled.class)){
-						AllyBuff.affectAndLoot(target, curUser, Enthralled.class);
+                for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+                    if (Dungeon.level.heroFOV[mob.pos] && mob != target && mob.alignment != Char.Alignment.ALLY) {
+                        Buff.affect(mob, Charm.class, Charm.DURATION).object = curUser.id();
+                        mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART), 0.2f, 5);
+                    }
+                }
 
-					} else {
-						Buff.affect( target, Charm.class, Charm.DURATION ).object = curUser.id();
+                if (target != null) {
+                    if (!target.isImmune(Enthralled.class)) {
+                        AllyBuff.affectAndLoot(target, curUser, Enthralled.class);
+                    } else {
+                        Buff.affect(target, Charm.class, Charm.DURATION).object = curUser.id();
+                    }
+                    target.sprite.centerEmitter().burst(Speck.factory(Speck.HEART), 10);
+                } else {
+                    GLog.w(Messages.get(ScrollOfSirensSong.class, "no_target"));
+                }
 
-					}
-					target.sprite.centerEmitter().burst( Speck.factory( Speck.HEART ), 10 );
-				} else {
-					GLog.w(Messages.get(ScrollOfSirensSong.class, "no_target"));
-				}
+                if (!identifiedByUse) {
+                    curItem.detach(curUser.belongings.backpack);
+                }
+                identifiedByUse = false;
 
-				if (!identifiedByUse) {
-					curItem.detach(curUser.belongings.backpack);
-				}
-				identifiedByUse = false;
+                readAnimation();
+            }
+        }
 
-				readAnimation();
+        @Override
+        public String prompt() {
+            return Messages.get(ScrollOfSirensSong.class, "prompt");
+        }
+    };
 
-			}
-		}
+    public static class Enthralled extends AllyBuff {
 
-		@Override
-		public String prompt() {
-			return Messages.get(ScrollOfSirensSong.class, "prompt");
-		}
+        {
+            type = buffType.NEGATIVE;
+            announced = true;
+        }
 
-	};
+        @Override
+        public void fx(boolean on) {
+            if (on) target.sprite.add(CharSprite.State.HEARTS);
+            else target.sprite.remove(CharSprite.State.HEARTS);
+        }
 
-	public static class Enthralled extends AllyBuff {
-
-		{
-			type = buffType.NEGATIVE;
-			announced = true;
-		}
-
-		@Override
-		public void fx(boolean on) {
-			if (on) target.sprite.add(CharSprite.State.HEARTS);
-			else    target.sprite.remove(CharSprite.State.HEARTS);
-		}
-
-		@Override
-		public int icon() {
-			return BuffIndicator.HEART;
-		}
-	}
-	
+        @Override
+        public int icon() {
+            return BuffIndicator.HEART;
+        }
+    }
 }

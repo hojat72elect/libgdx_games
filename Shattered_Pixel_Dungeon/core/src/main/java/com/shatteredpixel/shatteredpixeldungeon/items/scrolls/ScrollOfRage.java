@@ -35,32 +35,32 @@ import com.watabou.noosa.audio.Sample;
 
 public class ScrollOfRage extends Scroll {
 
-	{
-		icon = ItemSpriteSheet.Icons.SCROLL_RAGE;
-	}
+    {
+        icon = ItemSpriteSheet.Icons.SCROLL_RAGE;
+    }
 
-	@Override
-	public void doRead() {
+    @Override
+    public void doRead() {
 
-		detach(curUser.belongings.backpack);
-		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-			mob.beckon( curUser.pos );
-			if (mob.alignment != Char.Alignment.ALLY && Dungeon.level.heroFOV[mob.pos]) {
-				Buff.prolong(mob, Amok.class, 5f);
-			}
-		}
+        detach(curUser.belongings.backpack);
+        for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+            mob.beckon(curUser.pos);
+            if (mob.alignment != Char.Alignment.ALLY && Dungeon.level.heroFOV[mob.pos]) {
+                Buff.prolong(mob, Amok.class, 5f);
+            }
+        }
 
-		GLog.w( Messages.get(this, "roar") );
-		identify();
-		
-		curUser.sprite.centerEmitter().start( Speck.factory( Speck.SCREAM ), 0.3f, 3 );
-		Sample.INSTANCE.play( Assets.Sounds.CHALLENGE );
+        GLog.w(Messages.get(this, "roar"));
+        identify();
 
-		readAnimation();
-	}
-	
-	@Override
-	public int value() {
-		return isKnown() ? 40 * quantity : super.value();
-	}
+        curUser.sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.3f, 3);
+        Sample.INSTANCE.play(Assets.Sounds.CHALLENGE);
+
+        readAnimation();
+    }
+
+    @Override
+    public int value() {
+        return isKnown() ? 40 * quantity : super.value();
+    }
 }

@@ -29,72 +29,72 @@ import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
 public class RuinsRoom extends PatchRoom {
-	
-	@Override
-	public float[] sizeCatProbs() {
-		return new float[]{4, 2, 1};
-	}
 
-	@Override
-	public boolean canMerge(Level l, Room other, Point p, int mergeTerrain) {
-		return true;
-	}
+    @Override
+    public float[] sizeCatProbs() {
+        return new float[]{4, 2, 1};
+    }
 
-	@Override
-	protected float fill() {
-		//fill scales from ~30% at 4x4, to ~60% at 18x18
-		// normal   ~30% to ~40%
-		// large    ~40% to ~50%
-		// giant    ~50% to ~60%
-		int scale = Math.min(width()*height(), 18*18);
-		return 0.30f + scale/1024f;
-	}
+    @Override
+    public boolean canMerge(Level l, Room other, Point p, int mergeTerrain) {
+        return true;
+    }
 
-	@Override
-	protected int clustering() {
-		return 0;
-	}
+    @Override
+    protected float fill() {
+        //fill scales from ~30% at 4x4, to ~60% at 18x18
+        // normal   ~30% to ~40%
+        // large    ~40% to ~50%
+        // giant    ~50% to ~60%
+        int scale = Math.min(width() * height(), 18 * 18);
+        return 0.30f + scale / 1024f;
+    }
 
-	@Override
-	protected boolean ensurePath() {
-		return connected.size() > 0;
-	}
+    @Override
+    protected int clustering() {
+        return 0;
+    }
 
-	@Override
-	protected boolean cleanEdges() {
-		return true;
-	}
+    @Override
+    protected boolean ensurePath() {
+        return connected.size() > 0;
+    }
 
-	@Override
-	public void paint(Level level) {
-		Painter.fill( level, this, Terrain.WALL );
-		Painter.fill( level, this, 1 , Terrain.EMPTY );
-		for (Door door : connected.values()) {
-			door.set( Door.Type.REGULAR );
-		}
-		
-		setupPatch(level);
-		for (int i = top + 1; i < bottom; i++) {
-			for (int j = left + 1; j < right; j++) {
-				if (patch[xyToPatchCoords(j, i)]) {
+    @Override
+    protected boolean cleanEdges() {
+        return true;
+    }
 
-					//isolated bits of wall are turned into rubble
-					boolean wall;
-					if (i > top+1 && i < bottom-1 && j >left+1 && j<right-1){
-						int adjacent = 0;
-						if (patch[xyToPatchCoords(j-1, i)]) adjacent++;
-						if (patch[xyToPatchCoords(j+1, i)]) adjacent++;
-						if (patch[xyToPatchCoords(j, i-1)]) adjacent++;
-						if (patch[xyToPatchCoords(j, i+1)]) adjacent++;
-						wall = Random.Int(2) < adjacent;
-					} else {
-						wall = true;
-					}
+    @Override
+    public void paint(Level level) {
+        Painter.fill(level, this, Terrain.WALL);
+        Painter.fill(level, this, 1, Terrain.EMPTY);
+        for (Door door : connected.values()) {
+            door.set(Door.Type.REGULAR);
+        }
 
-					int cell = i * level.width() + j;
-					level.map[cell] = wall ? Terrain.WALL : Terrain.REGION_DECO;
-				}
-			}
-		}
-	}
+        setupPatch(level);
+        for (int i = top + 1; i < bottom; i++) {
+            for (int j = left + 1; j < right; j++) {
+                if (patch[xyToPatchCoords(j, i)]) {
+
+                    //isolated bits of wall are turned into rubble
+                    boolean wall;
+                    if (i > top + 1 && i < bottom - 1 && j > left + 1 && j < right - 1) {
+                        int adjacent = 0;
+                        if (patch[xyToPatchCoords(j - 1, i)]) adjacent++;
+                        if (patch[xyToPatchCoords(j + 1, i)]) adjacent++;
+                        if (patch[xyToPatchCoords(j, i - 1)]) adjacent++;
+                        if (patch[xyToPatchCoords(j, i + 1)]) adjacent++;
+                        wall = Random.Int(2) < adjacent;
+                    } else {
+                        wall = true;
+                    }
+
+                    int cell = i * level.width() + j;
+                    level.map[cell] = wall ? Terrain.WALL : Terrain.REGION_DECO;
+                }
+            }
+        }
+    }
 }

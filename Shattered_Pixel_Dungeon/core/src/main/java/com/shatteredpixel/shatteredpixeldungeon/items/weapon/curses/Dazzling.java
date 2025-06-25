@@ -35,36 +35,36 @@ import com.watabou.utils.Random;
 
 public class Dazzling extends Weapon.Enchantment {
 
-	private static ItemSprite.Glowing BLACK = new ItemSprite.Glowing( 0x000000 );
+    private static final ItemSprite.Glowing BLACK = new ItemSprite.Glowing(0x000000);
 
-	@Override
-	public int proc(Weapon weapon, Char attacker, Char defender, int damage ) {
+    @Override
+    public int proc(Weapon weapon, Char attacker, Char defender, int damage) {
 
-		float procChance = 1/10f * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance) {
-			for (Char ch : Actor.chars()){
-				if (ch.fieldOfView != null && ch.fieldOfView[defender.pos]){
-					Buff.prolong(ch, Blindness.class, ch == attacker ? Blindness.DURATION : Blindness.DURATION/2f);
-					if (ch == Dungeon.hero){
-						GameScene.flash(0x80FFFFFF);
-					}
-				}
-			}
-			if (Dungeon.level.heroFOV[attacker.pos] || Dungeon.level.heroFOV[defender.pos]){
-				Sample.INSTANCE.play( Assets.Sounds.BLAST );
-			}
-		}
+        float procChance = 1 / 10f * procChanceMultiplier(attacker);
+        if (Random.Float() < procChance) {
+            for (Char ch : Actor.chars()) {
+                if (ch.fieldOfView != null && ch.fieldOfView[defender.pos]) {
+                    Buff.prolong(ch, Blindness.class, ch == attacker ? Blindness.DURATION : Blindness.DURATION / 2f);
+                    if (ch == Dungeon.hero) {
+                        GameScene.flash(0x80FFFFFF);
+                    }
+                }
+            }
+            if (Dungeon.level.heroFOV[attacker.pos] || Dungeon.level.heroFOV[defender.pos]) {
+                Sample.INSTANCE.play(Assets.Sounds.BLAST);
+            }
+        }
 
-		return damage;
-	}
+        return damage;
+    }
 
-	@Override
-	public boolean curse() {
-		return true;
-	}
+    @Override
+    public boolean curse() {
+        return true;
+    }
 
-	@Override
-	public ItemSprite.Glowing glowing() {
-		return BLACK;
-	}
+    @Override
+    public ItemSprite.Glowing glowing() {
+        return BLACK;
+    }
 }

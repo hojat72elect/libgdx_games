@@ -31,75 +31,74 @@ import com.watabou.utils.Bundle;
 //currently only applies to the hero
 public class GreaterHaste extends Buff {
 
-	{
-		type = buffType.POSITIVE;
-	}
+    {
+        type = buffType.POSITIVE;
+    }
 
-	private int left;
+    private int left;
 
-	@Override
-	public boolean act() {
+    @Override
+    public boolean act() {
 
-		spendMove();
+        spendMove();
 
-		spend(TICK);
-		return true;
-	}
+        spend(TICK);
+        return true;
+    }
 
-	public void spendMove(){
-		left--;
-		if (left <= 0){
-			detach();
-		}
-	}
+    public void spendMove() {
+        left--;
+        if (left <= 0) {
+            detach();
+        }
+    }
 
-	public void set(int time){
-		left = time;
-	}
+    public void set(int time) {
+        left = time;
+    }
 
-	public void extend( float duration ) {
-		left += duration;
-	}
+    public void extend(float duration) {
+        left += duration;
+    }
 
-	@Override
-	public int icon() {
-		return BuffIndicator.HASTE;
-	}
+    @Override
+    public int icon() {
+        return BuffIndicator.HASTE;
+    }
 
-	@Override
-	public void tintIcon(Image icon) {
-		icon.hardlight(1f, 0.3f, 0f);
-	}
+    @Override
+    public void tintIcon(Image icon) {
+        icon.hardlight(1f, 0.3f, 0f);
+    }
 
-	@Override
-	public float iconFadePercent() {
-		//currently tied to the lethal haste talent, as that's the only source
-		float duration = 1 + 2*Dungeon.hero.pointsInTalent(Talent.LETHAL_HASTE);
-		return Math.max(0, (duration - left) / duration);
-	}
+    @Override
+    public float iconFadePercent() {
+        //currently tied to the lethal haste talent, as that's the only source
+        float duration = 1 + 2 * Dungeon.hero.pointsInTalent(Talent.LETHAL_HASTE);
+        return Math.max(0, (duration - left) / duration);
+    }
 
-	@Override
-	public String iconTextDisplay() {
-		return Integer.toString(left);
-	}
+    @Override
+    public String iconTextDisplay() {
+        return Integer.toString(left);
+    }
 
-	@Override
-	public String desc() {
-		return Messages.get(this, "desc", left);
-	}
+    @Override
+    public String desc() {
+        return Messages.get(this, "desc", left);
+    }
 
-	private static final String LEFT	= "left";
+    private static final String LEFT = "left";
 
-	@Override
-	public void storeInBundle( Bundle bundle ) {
-		super.storeInBundle( bundle );
-		bundle.put( LEFT, left );
-	}
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(LEFT, left);
+    }
 
-	@Override
-	public void restoreFromBundle( Bundle bundle ) {
-		super.restoreFromBundle(bundle);
-		left = bundle.getInt( LEFT );
-	}
-
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        left = bundle.getInt(LEFT);
+    }
 }

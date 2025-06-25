@@ -38,43 +38,42 @@ import com.watabou.noosa.audio.Sample;
 
 public class Guidebook extends Item {
 
-	{
-		image = ItemSpriteSheet.MASTERY;
-	}
+    {
+        image = ItemSpriteSheet.MASTERY;
+    }
 
-	@Override
-	public final boolean doPickUp(Hero hero, int pos) {
-		Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_INTRO);
-		Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_EXAMINING);
-		Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_SURPRISE_ATKS);
-		Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_IDING);
-		Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_FOOD);
-		Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_ALCHEMY);
-		Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_DIEING);
+    @Override
+    public final boolean doPickUp(Hero hero, int pos) {
+        Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_INTRO);
+        Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_EXAMINING);
+        Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_SURPRISE_ATKS);
+        Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_IDING);
+        Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_FOOD);
+        Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_ALCHEMY);
+        Document.ADVENTURERS_GUIDE.findPage(Document.GUIDE_DIEING);
 
-		GameScene.pickUpJournal(this, pos);
-		//we do this here so the pickup message appears before the tutorial text
-		GameLog.wipe();
-		GLog.i( Messages.capitalize(Messages.get(Hero.class, "you_now_have", name())) );
-		if (SPDSettings.interfaceSize() == 0){
-			GLog.p(Messages.get(GameScene.class, "tutorial_guidebook_mobile"));
-		} else {
-			GLog.p(Messages.get(GameScene.class, "tutorial_guidebook_desktop", KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.JOURNAL, ControllerHandler.isControllerConnected()))));
-		}
-		GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_INTRO);
-		Sample.INSTANCE.play( Assets.Sounds.ITEM );
-		hero.spendAndNext( TIME_TO_PICK_UP );
-		return true;
-	}
+        GameScene.pickUpJournal(this, pos);
+        //we do this here so the pickup message appears before the tutorial text
+        GameLog.wipe();
+        GLog.i(Messages.capitalize(Messages.get(Hero.class, "you_now_have", name())));
+        if (SPDSettings.interfaceSize() == 0) {
+            GLog.p(Messages.get(GameScene.class, "tutorial_guidebook_mobile"));
+        } else {
+            GLog.p(Messages.get(GameScene.class, "tutorial_guidebook_desktop", KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.JOURNAL, ControllerHandler.isControllerConnected()))));
+        }
+        GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_INTRO);
+        Sample.INSTANCE.play(Assets.Sounds.ITEM);
+        hero.spendAndNext(TIME_TO_PICK_UP);
+        return true;
+    }
 
-	@Override
-	public boolean isUpgradable() {
-		return false;
-	}
+    @Override
+    public boolean isUpgradable() {
+        return false;
+    }
 
-	@Override
-	public boolean isIdentified() {
-		return true;
-	}
-
+    @Override
+    public boolean isIdentified() {
+        return true;
+    }
 }

@@ -50,299 +50,295 @@ import com.watabou.noosa.audio.Music;
 import com.watabou.utils.GameMath;
 
 public class RankingsScene extends PixelScene {
-	
-	private static final float ROW_HEIGHT_MAX	= 20;
-	private static final float ROW_HEIGHT_MIN	= 12;
 
-	private static final float MAX_ROW_WIDTH    = 160;
+    private static final float ROW_HEIGHT_MAX = 20;
+    private static final float ROW_HEIGHT_MIN = 12;
 
-	private static final float GAP	= 4;
-	
-	private Archs archs;
+    private static final float MAX_ROW_WIDTH = 160;
 
-	@Override
-	public void create() {
-		
-		super.create();
+    private static final float GAP = 4;
 
-		Music.INSTANCE.playTracks(
-				new String[]{Assets.Music.THEME_1, Assets.Music.THEME_2},
-				new float[]{1, 1},
-				false);
+    private Archs archs;
 
-		uiCamera.visible = false;
-		
-		int w = Camera.main.width;
-		int h = Camera.main.height;
-		
-		archs = new Archs();
-		archs.setSize( w, h );
-		add( archs );
-		
-		Rankings.INSTANCE.load();
+    @Override
+    public void create() {
 
-		IconTitle title = new IconTitle( Icons.RANKINGS.get(), Messages.get(this, "title"));
-		title.setSize(200, 0);
-		title.setPos(
-				(w - title.reqWidth()) / 2f,
-				(20 - title.height()) / 2f
-		);
-		align(title);
-		add(title);
-		
-		if (Rankings.INSTANCE.records.size() > 0) {
+        super.create();
 
-			//attempts to give each record as much space as possible, ideally as much space as portrait mode
-			float rowHeight = GameMath.gate(ROW_HEIGHT_MIN, (uiCamera.height - 26)/Rankings.INSTANCE.records.size(), ROW_HEIGHT_MAX);
+        Music.INSTANCE.playTracks(
+                new String[]{Assets.Music.THEME_1, Assets.Music.THEME_2},
+                new float[]{1, 1},
+                false);
 
-			float left = (w - Math.min( MAX_ROW_WIDTH, w )) / 2 + GAP;
-			float top = (h - rowHeight  * Rankings.INSTANCE.records.size()) / 2;
-			
-			int pos = 0;
-			
-			for (Rankings.Record rec : Rankings.INSTANCE.records) {
-				Record row = new Record( pos, pos == Rankings.INSTANCE.lastRecord, rec );
-				float offset = 0;
-				if (rowHeight <= 14){
-					offset = (pos % 2 == 1) ? 5 : -5;
-				}
-				row.setRect( left+offset, top + pos * rowHeight, w - left * 2, rowHeight );
-				add(row);
-				
-				pos++;
-			}
-			
-			if (Rankings.INSTANCE.totalNumber >= Rankings.TABLE_SIZE) {
-				
-				RenderedTextBlock label = PixelScene.renderTextBlock( 8 );
-				label.hardlight( 0xCCCCCC );
-				label.setHightlighting(true, Window.SHPX_COLOR);
-				label.text( Messages.get(this, "total") + " _" + Rankings.INSTANCE.wonNumber + "_/" + Rankings.INSTANCE.totalNumber );
-				add( label );
-				
-				label.setPos(
-						(w - label.width()) / 2,
-						h - label.height() - 2*GAP
-				);
-				align(label);
+        uiCamera.visible = false;
 
-			}
-			
-		} else {
+        int w = Camera.main.width;
+        int h = Camera.main.height;
 
-			RenderedTextBlock noRec = PixelScene.renderTextBlock(Messages.get(this, "no_games"), 8);
-			noRec.hardlight( 0xCCCCCC );
-			noRec.setPos(
-					(w - noRec.width()) / 2,
-					(h - noRec.height()) / 2
-			);
-			align(noRec);
-			add(noRec);
-			
-		}
+        archs = new Archs();
+        archs.setSize(w, h);
+        add(archs);
 
-		ExitButton btnExit = new ExitButton();
-		btnExit.setPos( Camera.main.width - btnExit.width(), 0 );
-		add( btnExit );
+        Rankings.INSTANCE.load();
 
-		int left = 0;
+        IconTitle title = new IconTitle(Icons.RANKINGS.get(), Messages.get(this, "title"));
+        title.setSize(200, 0);
+        title.setPos(
+                (w - title.reqWidth()) / 2f,
+                (20 - title.height()) / 2f
+        );
+        align(title);
+        add(title);
 
-		if (Rankings.INSTANCE.latestDaily != null) {
-			IconButton btnDailies = new IconButton(Icons.CALENDAR.get()) {
-				@Override
-				protected void onClick() {
-					ShatteredPixelDungeon.scene().addToFront(new WndDailies());
-				}
+        if (Rankings.INSTANCE.records.size() > 0) {
 
-				@Override
-				protected void onPointerUp() {
-					icon.hardlight(0.5f, 1f, 2f);
-				}
-			};
-			btnDailies.icon().hardlight(0.5f, 1f, 2f);
-			btnDailies.setRect( left, 0, 16, 20 );
-			left += 16;
-			add(btnDailies);
-		}
+            //attempts to give each record as much space as possible, ideally as much space as portrait mode
+            float rowHeight = GameMath.gate(ROW_HEIGHT_MIN, (uiCamera.height - 26) / Rankings.INSTANCE.records.size(), ROW_HEIGHT_MAX);
 
-		if (Dungeon.daily){
-			addToFront(new WndDailies());
-		} else if (Badges.isUnlocked(Badges.Badge.VICTORY) && !SPDSettings.victoryNagged()) {
-			SPDSettings.victoryNagged(true);
-			add(new WndVictoryCongrats());
-		}
+            float left = (w - Math.min(MAX_ROW_WIDTH, w)) / 2 + GAP;
+            float top = (h - rowHeight * Rankings.INSTANCE.records.size()) / 2;
 
-		fadeIn();
-	}
+            int pos = 0;
 
-	@Override
-	public void destroy() {
-		super.destroy();
-		//so that opening daily records does not trigger WndDailies opening on future visits
-		Dungeon.daily = Dungeon.dailyReplay = false;
-	}
+            for (Rankings.Record rec : Rankings.INSTANCE.records) {
+                Record row = new Record(pos, pos == Rankings.INSTANCE.lastRecord, rec);
+                float offset = 0;
+                if (rowHeight <= 14) {
+                    offset = (pos % 2 == 1) ? 5 : -5;
+                }
+                row.setRect(left + offset, top + pos * rowHeight, w - left * 2, rowHeight);
+                add(row);
 
-	@Override
-	protected void onBackPressed() {
-		ShatteredPixelDungeon.switchNoFade(TitleScene.class);
-	}
-	
-	public static class Record extends Button {
-		
-		private static final float GAP	= 4;
-		
-		private static final int[] TEXT_WIN	= {0xFFFF88, 0xB2B25F};
-		private static final int[] TEXT_LOSE= {0xDDDDDD, 0x888888};
-		private static final int FLARE_WIN	= 0x888866;
-		private static final int FLARE_LOSE	= 0x666666;
-		
-		private Rankings.Record rec;
-		
-		protected Image shield;
-		private Flare flare;
-		private BitmapText position;
-		private RenderedTextBlock desc;
-		private Image steps;
-		private BitmapText depth;
-		private Image classIcon;
-		private BitmapText level;
-		
-		public Record( int pos, boolean latest, Rankings.Record rec ) {
-			super();
-			
-			this.rec = rec;
-			
-			if (latest) {
-				flare = new Flare( 6, 24 );
-				flare.angularSpeed = 90;
-				flare.color( rec.win ? FLARE_WIN : FLARE_LOSE );
-				addToBack( flare );
-			}
+                pos++;
+            }
 
-			if (pos != Rankings.TABLE_SIZE-1) {
-				position.text(Integer.toString(pos + 1));
-			} else
-				position.text(" ");
-			position.measure();
-			
-			desc.text( Messages.titleCase(rec.desc()) );
+            if (Rankings.INSTANCE.totalNumber >= Rankings.TABLE_SIZE) {
 
-			int odd = pos % 2;
-			
-			if (rec.win) {
-				shield.copy( new ItemSprite(ItemSpriteSheet.AMULET, null) );
-				position.hardlight( TEXT_WIN[odd] );
-				desc.hardlight( TEXT_WIN[odd] );
-				depth.hardlight( TEXT_WIN[odd] );
-				level.hardlight( TEXT_WIN[odd] );
-			} else {
-				position.hardlight( TEXT_LOSE[odd] );
-				desc.hardlight( TEXT_LOSE[odd] );
-				depth.hardlight( TEXT_LOSE[odd] );
-				level.hardlight( TEXT_LOSE[odd] );
+                RenderedTextBlock label = PixelScene.renderTextBlock(8);
+                label.hardlight(0xCCCCCC);
+                label.setHightlighting(true, Window.SHPX_COLOR);
+                label.text(Messages.get(this, "total") + " _" + Rankings.INSTANCE.wonNumber + "_/" + Rankings.INSTANCE.totalNumber);
+                add(label);
 
-				if (rec.depth != 0){
-					depth.text( Integer.toString(rec.depth) );
-					depth.measure();
-					steps.copy(Icons.STAIRS.get());
+                label.setPos(
+                        (w - label.width()) / 2,
+                        h - label.height() - 2 * GAP
+                );
+                align(label);
+            }
+        } else {
 
-					add(steps);
-					add(depth);
-				}
+            RenderedTextBlock noRec = PixelScene.renderTextBlock(Messages.get(this, "no_games"), 8);
+            noRec.hardlight(0xCCCCCC);
+            noRec.setPos(
+                    (w - noRec.width()) / 2,
+                    (h - noRec.height()) / 2
+            );
+            align(noRec);
+            add(noRec);
+        }
 
-				if (rec.ascending){
-					shield.copy( new ItemSprite(ItemSpriteSheet.AMULET, null) );
-					shield.hardlight(0.4f, 0.4f, 0.7f);
-				}
+        ExitButton btnExit = new ExitButton();
+        btnExit.setPos(Camera.main.width - btnExit.width(), 0);
+        add(btnExit);
 
-			}
+        int left = 0;
 
-			if (rec.daily){
-				shield.copy( Icons.get(Icons.CALENDAR) );
-				shield.hardlight(0.5f, 1f, 2f);
-			} else if (!rec.customSeed.isEmpty()){
-				shield.copy( Icons.get(Icons.SEED) );
-				shield.hardlight(1f, 1.5f, 0.67f);
-			}
+        if (Rankings.INSTANCE.latestDaily != null) {
+            IconButton btnDailies = new IconButton(Icons.CALENDAR.get()) {
+                @Override
+                protected void onClick() {
+                    ShatteredPixelDungeon.scene().addToFront(new WndDailies());
+                }
 
-			if (rec.herolevel != 0){
-				level.text( Integer.toString(rec.herolevel) );
-				level.measure();
-				add(level);
-			}
-			
-			classIcon.copy( Icons.get( rec.heroClass ) );
-			if (rec.heroClass == HeroClass.ROGUE){
-				//cloak of shadows needs to be brightened a bit
-				classIcon.brightness(2f);
-			}
-		}
-		
-		@Override
-		protected void createChildren() {
-			
-			super.createChildren();
-			
-			shield = new Image(new ItemSprite( ItemSpriteSheet.TOMB, null ));
-			add( shield );
-			
-			position = new BitmapText( PixelScene.pixelFont);
-			add( position );
-			
-			desc = renderTextBlock( 7 );
-			add( desc );
+                @Override
+                protected void onPointerUp() {
+                    icon.hardlight(0.5f, 1f, 2f);
+                }
+            };
+            btnDailies.icon().hardlight(0.5f, 1f, 2f);
+            btnDailies.setRect(left, 0, 16, 20);
+            left += 16;
+            add(btnDailies);
+        }
 
-			depth = new BitmapText( PixelScene.pixelFont);
+        if (Dungeon.daily) {
+            addToFront(new WndDailies());
+        } else if (Badges.isUnlocked(Badges.Badge.VICTORY) && !SPDSettings.victoryNagged()) {
+            SPDSettings.victoryNagged(true);
+            add(new WndVictoryCongrats());
+        }
 
-			steps = new Image();
-			
-			classIcon = new Image();
-			add( classIcon );
+        fadeIn();
+    }
 
-			level = new BitmapText( PixelScene.pixelFont);
-		}
-		
-		@Override
-		protected void layout() {
-			
-			super.layout();
-			
-			shield.x = x + (16 - shield.width) / 2f;
-			shield.y = y + (height - shield.height) / 2f;
-			align(shield);
-			
-			position.x = shield.x + (shield.width - position.width()) / 2f;
-			position.y = shield.y + (shield.height - position.height()) / 2f + 1;
-			align(position);
-			
-			if (flare != null) {
-				flare.point( shield.center() );
-			}
+    @Override
+    public void destroy() {
+        super.destroy();
+        //so that opening daily records does not trigger WndDailies opening on future visits
+        Dungeon.daily = Dungeon.dailyReplay = false;
+    }
 
-			classIcon.x = x + width - 16 + (16 - classIcon.width())/2f;
-			classIcon.y = shield.y + (16 - classIcon.height())/2f;
-			align(classIcon);
+    @Override
+    protected void onBackPressed() {
+        ShatteredPixelDungeon.switchNoFade(TitleScene.class);
+    }
 
-			level.x = classIcon.x + (classIcon.width - level.width()) / 2f;
-			level.y = classIcon.y + (classIcon.height - level.height()) / 2f + 1;
-			align(level);
+    public static class Record extends Button {
 
-			steps.x = x + width - 32 + (16 - steps.width())/2f;
-			steps.y = shield.y + (16 - steps.height())/2f;
-			align(steps);
+        private static final float GAP = 4;
 
-			depth.x = steps.x + (steps.width - depth.width()) / 2f;
-			depth.y = steps.y + (steps.height - depth.height()) / 2f + 1;
-			align(depth);
+        private static final int[] TEXT_WIN = {0xFFFF88, 0xB2B25F};
+        private static final int[] TEXT_LOSE = {0xDDDDDD, 0x888888};
+        private static final int FLARE_WIN = 0x888866;
+        private static final int FLARE_LOSE = 0x666666;
 
-			desc.maxWidth((int)(steps.x - (x + 16 + GAP)));
-			desc.setPos(x + 16 + GAP, shield.y + (shield.height - desc.height()) / 2f + 1);
-			align(desc);
-		}
-		
-		@Override
-		protected void onClick() {
-			parent.add( new WndRanking( rec ) );
-		}
-	}
+        private final Rankings.Record rec;
+
+        protected Image shield;
+        private Flare flare;
+        private BitmapText position;
+        private RenderedTextBlock desc;
+        private Image steps;
+        private BitmapText depth;
+        private Image classIcon;
+        private BitmapText level;
+
+        public Record(int pos, boolean latest, Rankings.Record rec) {
+            super();
+
+            this.rec = rec;
+
+            if (latest) {
+                flare = new Flare(6, 24);
+                flare.angularSpeed = 90;
+                flare.color(rec.win ? FLARE_WIN : FLARE_LOSE);
+                addToBack(flare);
+            }
+
+            if (pos != Rankings.TABLE_SIZE - 1) {
+                position.text(Integer.toString(pos + 1));
+            } else
+                position.text(" ");
+            position.measure();
+
+            desc.text(Messages.titleCase(rec.desc()));
+
+            int odd = pos % 2;
+
+            if (rec.win) {
+                shield.copy(new ItemSprite(ItemSpriteSheet.AMULET, null));
+                position.hardlight(TEXT_WIN[odd]);
+                desc.hardlight(TEXT_WIN[odd]);
+                depth.hardlight(TEXT_WIN[odd]);
+                level.hardlight(TEXT_WIN[odd]);
+            } else {
+                position.hardlight(TEXT_LOSE[odd]);
+                desc.hardlight(TEXT_LOSE[odd]);
+                depth.hardlight(TEXT_LOSE[odd]);
+                level.hardlight(TEXT_LOSE[odd]);
+
+                if (rec.depth != 0) {
+                    depth.text(Integer.toString(rec.depth));
+                    depth.measure();
+                    steps.copy(Icons.STAIRS.get());
+
+                    add(steps);
+                    add(depth);
+                }
+
+                if (rec.ascending) {
+                    shield.copy(new ItemSprite(ItemSpriteSheet.AMULET, null));
+                    shield.hardlight(0.4f, 0.4f, 0.7f);
+                }
+            }
+
+            if (rec.daily) {
+                shield.copy(Icons.get(Icons.CALENDAR));
+                shield.hardlight(0.5f, 1f, 2f);
+            } else if (!rec.customSeed.isEmpty()) {
+                shield.copy(Icons.get(Icons.SEED));
+                shield.hardlight(1f, 1.5f, 0.67f);
+            }
+
+            if (rec.herolevel != 0) {
+                level.text(Integer.toString(rec.herolevel));
+                level.measure();
+                add(level);
+            }
+
+            classIcon.copy(Icons.get(rec.heroClass));
+            if (rec.heroClass == HeroClass.ROGUE) {
+                //cloak of shadows needs to be brightened a bit
+                classIcon.brightness(2f);
+            }
+        }
+
+        @Override
+        protected void createChildren() {
+
+            super.createChildren();
+
+            shield = new Image(new ItemSprite(ItemSpriteSheet.TOMB, null));
+            add(shield);
+
+            position = new BitmapText(PixelScene.pixelFont);
+            add(position);
+
+            desc = renderTextBlock(7);
+            add(desc);
+
+            depth = new BitmapText(PixelScene.pixelFont);
+
+            steps = new Image();
+
+            classIcon = new Image();
+            add(classIcon);
+
+            level = new BitmapText(PixelScene.pixelFont);
+        }
+
+        @Override
+        protected void layout() {
+
+            super.layout();
+
+            shield.x = x + (16 - shield.width) / 2f;
+            shield.y = y + (height - shield.height) / 2f;
+            align(shield);
+
+            position.x = shield.x + (shield.width - position.width()) / 2f;
+            position.y = shield.y + (shield.height - position.height()) / 2f + 1;
+            align(position);
+
+            if (flare != null) {
+                flare.point(shield.center());
+            }
+
+            classIcon.x = x + width - 16 + (16 - classIcon.width()) / 2f;
+            classIcon.y = shield.y + (16 - classIcon.height()) / 2f;
+            align(classIcon);
+
+            level.x = classIcon.x + (classIcon.width - level.width()) / 2f;
+            level.y = classIcon.y + (classIcon.height - level.height()) / 2f + 1;
+            align(level);
+
+            steps.x = x + width - 32 + (16 - steps.width()) / 2f;
+            steps.y = shield.y + (16 - steps.height()) / 2f;
+            align(steps);
+
+            depth.x = steps.x + (steps.width - depth.width()) / 2f;
+            depth.y = steps.y + (steps.height - depth.height()) / 2f + 1;
+            align(depth);
+
+            desc.maxWidth((int) (steps.x - (x + 16 + GAP)));
+            desc.setPos(x + 16 + GAP, shield.y + (shield.height - desc.height()) / 2f + 1);
+            align(desc);
+        }
+
+        @Override
+        protected void onClick() {
+            parent.add(new WndRanking(rec));
+        }
+    }
 }

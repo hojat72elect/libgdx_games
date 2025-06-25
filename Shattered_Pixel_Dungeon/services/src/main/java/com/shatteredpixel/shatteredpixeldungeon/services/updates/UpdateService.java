@@ -25,31 +25,32 @@ package com.shatteredpixel.shatteredpixeldungeon.services.updates;
 // perhaps rename to PlatformService, StoreService, DistributionService, etc?
 public abstract class UpdateService {
 
-	public static abstract class UpdateResultCallback {
-		public abstract void onUpdateAvailable( AvailableUpdateData update );
-		public abstract void onNoUpdateFound();
-		public abstract void onConnectionFailed();
-	}
+    public static abstract class UpdateResultCallback {
+        public abstract void onUpdateAvailable(AvailableUpdateData update);
 
-	//whether the service supports offering update notifications via an ingame prompt
-	public abstract boolean supportsUpdatePrompts();
+        public abstract void onNoUpdateFound();
 
-	//whether the service supports an opt-in channel for betas
-	public abstract boolean supportsBetaChannel();
+        public abstract void onConnectionFailed();
+    }
 
-	public abstract void checkForUpdate( boolean useMetered, boolean includeBetas, UpdateResultCallback callback );
+    //whether the service supports offering update notifications via an ingame prompt
+    public abstract boolean supportsUpdatePrompts();
 
-	public abstract void initializeUpdate( AvailableUpdateData update );
+    //whether the service supports an opt-in channel for betas
+    public abstract boolean supportsBetaChannel();
 
-	public static abstract class ReviewResultCallback {
-		public abstract void onComplete();
-	}
+    public abstract void checkForUpdate(boolean useMetered, boolean includeBetas, UpdateResultCallback callback);
 
-	//whether the service supports prompts to review the game via and ingame prompt
-	public abstract boolean supportsReviews();
+    public abstract void initializeUpdate(AvailableUpdateData update);
 
-	public abstract void initializeReview( ReviewResultCallback callback );
+    public static abstract class ReviewResultCallback {
+        public abstract void onComplete();
+    }
 
-	public abstract void openReviewURI();
+    //whether the service supports prompts to review the game via and ingame prompt
+    public abstract boolean supportsReviews();
 
+    public abstract void initializeReview(ReviewResultCallback callback);
+
+    public abstract void openReviewURI();
 }

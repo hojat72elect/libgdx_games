@@ -27,39 +27,38 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 
 public class SkullsRoom extends StandardRoom {
 
-	@Override
-	public int minWidth() {
-		return Math.max(7, super.minWidth());
-	}
+    @Override
+    public int minWidth() {
+        return Math.max(7, super.minWidth());
+    }
 
-	@Override
-	public int minHeight() {
-		return Math.max(7, super.minHeight());
-	}
+    @Override
+    public int minHeight() {
+        return Math.max(7, super.minHeight());
+    }
 
-	@Override
-	public float[] sizeCatProbs() {
-		return new float[]{0, 3, 1};
-	}
+    @Override
+    public float[] sizeCatProbs() {
+        return new float[]{0, 3, 1};
+    }
 
-	@Override
-	public void paint(Level level) {
+    @Override
+    public void paint(Level level) {
 
-		Painter.fill( level, this, Terrain.WALL );
+        Painter.fill(level, this, Terrain.WALL);
 
-		Painter.fillEllipse(level, this, 2, Terrain.EMPTY);
+        Painter.fillEllipse(level, this, 2, Terrain.EMPTY);
 
-		for (Door door : connected.values()) {
-			door.set( Door.Type.REGULAR );
-			if (door.x == left || door.x == right){
-				Painter.drawInside(level, this, door, width()/2, Terrain.EMPTY);
-			} else {
-				Painter.drawInside(level, this, door, height()/2, Terrain.EMPTY);
-			}
-		}
+        for (Door door : connected.values()) {
+            door.set(Door.Type.REGULAR);
+            if (door.x == left || door.x == right) {
+                Painter.drawInside(level, this, door, width() / 2, Terrain.EMPTY);
+            } else {
+                Painter.drawInside(level, this, door, height() / 2, Terrain.EMPTY);
+            }
+        }
 
-		Painter.fillEllipse(level, this, 4, Terrain.STATUE);
-		Painter.fillEllipse(level, this, 6, Terrain.WALL);
-
-	}
+        Painter.fillEllipse(level, this, 4, Terrain.STATUE);
+        Painter.fillEllipse(level, this, 6, Terrain.WALL);
+    }
 }

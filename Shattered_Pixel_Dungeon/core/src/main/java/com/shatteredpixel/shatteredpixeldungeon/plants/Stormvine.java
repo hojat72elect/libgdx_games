@@ -33,31 +33,31 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class Stormvine extends Plant {
 
-	{
-		image = 5;
-		seedClass = Seed.class;
-	}
+    {
+        image = 5;
+        seedClass = Seed.class;
+    }
 
-	@Override
-	public void activate( Char ch ) {
+    @Override
+    public void activate(Char ch) {
 
-		if (ch != null) {
-			if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN){
-				Buff.affect(ch, Levitation.class, Levitation.DURATION/2f);
-			} else {
-				if (ch instanceof Mob){
-					Buff.prolong(ch, Trap.HazardAssistTracker.class, Trap.HazardAssistTracker.DURATION);
-				}
-				Buff.affect(ch, Vertigo.class, Vertigo.DURATION);
-			}
-		}
-	}
+        if (ch != null) {
+            if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN) {
+                Buff.affect(ch, Levitation.class, Levitation.DURATION / 2f);
+            } else {
+                if (ch instanceof Mob) {
+                    Buff.prolong(ch, Trap.HazardAssistTracker.class, Trap.HazardAssistTracker.DURATION);
+                }
+                Buff.affect(ch, Vertigo.class, Vertigo.DURATION);
+            }
+        }
+    }
 
-	public static class Seed extends Plant.Seed {
-		{
-			image = ItemSpriteSheet.SEED_STORMVINE;
+    public static class Seed extends Plant.Seed {
+        {
+            image = ItemSpriteSheet.SEED_STORMVINE;
 
-			plantClass = Stormvine.class;
-		}
-	}
+            plantClass = Stormvine.class;
+        }
+    }
 }

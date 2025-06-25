@@ -39,104 +39,103 @@ import com.watabou.noosa.audio.Sample;
 import java.util.ArrayList;
 
 public class Stylus extends Item {
-	
-	private static final float TIME_TO_INSCRIBE = 2;
-	
-	private static final String AC_INSCRIBE = "INSCRIBE";
-	
-	{
-		image = ItemSpriteSheet.STYLUS;
-		
-		stackable = true;
 
-		defaultAction = AC_INSCRIBE;
+    private static final float TIME_TO_INSCRIBE = 2;
 
-		bones = true;
-	}
-	
-	@Override
-	public ArrayList<String> actions( Hero hero ) {
-		ArrayList<String> actions = super.actions( hero );
-		actions.add( AC_INSCRIBE );
-		return actions;
-	}
-	
-	@Override
-	public void execute( Hero hero, String action ) {
+    private static final String AC_INSCRIBE = "INSCRIBE";
 
-		super.execute( hero, action );
+    {
+        image = ItemSpriteSheet.STYLUS;
 
-		if (action.equals(AC_INSCRIBE)) {
+        stackable = true;
 
-			curUser = hero;
-			GameScene.selectItem( itemSelector );
-			
-		}
-	}
-	
-	@Override
-	public boolean isUpgradable() {
-		return false;
-	}
-	
-	@Override
-	public boolean isIdentified() {
-		return true;
-	}
-	
-	private void inscribe( Armor armor ) {
+        defaultAction = AC_INSCRIBE;
 
-		if (!armor.cursedKnown){
-			GLog.w( Messages.get(this, "identify"));
-			return;
-		} else if (armor.cursed || armor.hasCurseGlyph()){
-			GLog.w( Messages.get(this, "cursed"));
-			return;
-		}
-		
-		detach(curUser.belongings.backpack);
-		Catalog.countUse(getClass());
+        bones = true;
+    }
 
-		GLog.w( Messages.get(this, "inscribed"));
+    @Override
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_INSCRIBE);
+        return actions;
+    }
 
-		armor.inscribe();
-		
-		curUser.sprite.operate(curUser.pos);
-		curUser.sprite.centerEmitter().start(PurpleParticle.BURST, 0.05f, 10);
-		Enchanting.show(curUser, armor);
-		Sample.INSTANCE.play(Assets.Sounds.BURNING);
-		
-		curUser.spend(TIME_TO_INSCRIBE);
-		curUser.busy();
-	}
-	
-	@Override
-	public int value() {
-		return 30 * quantity;
-	}
+    @Override
+    public void execute(Hero hero, String action) {
 
-	private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
+        super.execute(hero, action);
 
-		@Override
-		public String textPrompt() {
-			return Messages.get(Stylus.class, "prompt");
-		}
+        if (action.equals(AC_INSCRIBE)) {
 
-		@Override
-		public Class<?extends Bag> preferredBag(){
-			return Belongings.Backpack.class;
-		}
+            curUser = hero;
+            GameScene.selectItem(itemSelector);
+        }
+    }
 
-		@Override
-		public boolean itemSelectable(Item item) {
-			return item instanceof Armor;
-		}
+    @Override
+    public boolean isUpgradable() {
+        return false;
+    }
 
-		@Override
-		public void onSelect( Item item ) {
-			if (item != null) {
-				Stylus.this.inscribe( (Armor)item );
-			}
-		}
-	};
+    @Override
+    public boolean isIdentified() {
+        return true;
+    }
+
+    private void inscribe(Armor armor) {
+
+        if (!armor.cursedKnown) {
+            GLog.w(Messages.get(this, "identify"));
+            return;
+        } else if (armor.cursed || armor.hasCurseGlyph()) {
+            GLog.w(Messages.get(this, "cursed"));
+            return;
+        }
+
+        detach(curUser.belongings.backpack);
+        Catalog.countUse(getClass());
+
+        GLog.w(Messages.get(this, "inscribed"));
+
+        armor.inscribe();
+
+        curUser.sprite.operate(curUser.pos);
+        curUser.sprite.centerEmitter().start(PurpleParticle.BURST, 0.05f, 10);
+        Enchanting.show(curUser, armor);
+        Sample.INSTANCE.play(Assets.Sounds.BURNING);
+
+        curUser.spend(TIME_TO_INSCRIBE);
+        curUser.busy();
+    }
+
+    @Override
+    public int value() {
+        return 30 * quantity;
+    }
+
+    private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
+
+        @Override
+        public String textPrompt() {
+            return Messages.get(Stylus.class, "prompt");
+        }
+
+        @Override
+        public Class<? extends Bag> preferredBag() {
+            return Belongings.Backpack.class;
+        }
+
+        @Override
+        public boolean itemSelectable(Item item) {
+            return item instanceof Armor;
+        }
+
+        @Override
+        public void onSelect(Item item) {
+            if (item != null) {
+                Stylus.this.inscribe((Armor) item);
+            }
+        }
+    };
 }

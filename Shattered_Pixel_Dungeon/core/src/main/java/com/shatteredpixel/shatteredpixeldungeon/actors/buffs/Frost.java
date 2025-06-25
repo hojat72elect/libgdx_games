@@ -40,105 +40,102 @@ import java.util.ArrayList;
 
 public class Frost extends FlavourBuff {
 
-	public static final float DURATION	= 10f;
+    public static final float DURATION = 10f;
 
-	{
-		type = buffType.NEGATIVE;
-		announced = true;
-	}
-	
-	@Override
-	public boolean attachTo( Char target ) {
-		Buff.detach( target, Burning.class );
+    {
+        type = buffType.NEGATIVE;
+        announced = true;
+    }
 
-		if (super.attachTo( target )) {
-			
-			target.paralysed++;
-			Buff.detach( target, Chill.class );
+    @Override
+    public boolean attachTo(Char target) {
+        Buff.detach(target, Burning.class);
 
-			if (target instanceof Hero) {
+        if (super.attachTo(target)) {
 
-				Hero hero = (Hero)target;
-				ArrayList<Item> freezable = new ArrayList<>();
-				//does not reach inside of containers
-				if (!hero.belongings.lostInventory()) {
-					for (Item i : hero.belongings.backpack.items) {
-						if (!i.unique && (i instanceof Potion || i instanceof MysteryMeat)) {
-							freezable.add(i);
-						}
-					}
-				}
-				
-				if (!freezable.isEmpty()){
-					Item toFreeze = Random.element(freezable).detach( hero.belongings.backpack );
-					GLog.w( Messages.capitalize(Messages.get(this, "freezes", toFreeze.title())) );
-					if (toFreeze instanceof Potion){
-						((Potion) toFreeze).shatter(hero.pos);
-					} else if (toFreeze instanceof MysteryMeat){
-						FrozenCarpaccio carpaccio = new FrozenCarpaccio();
-						if (!carpaccio.collect( hero.belongings.backpack )) {
-							Dungeon.level.drop( carpaccio, target.pos ).sprite.drop();
-						}
-					}
-				}
-				
-			} else if (target instanceof Thief) {
+            target.paralysed++;
+            Buff.detach(target, Chill.class);
 
-				Item item = ((Thief) target).item;
+            if (target instanceof Hero) {
 
-				if (item instanceof Potion && !item.unique) {
-					((Potion) ((Thief) target).item).shatter(target.pos);
-					((Thief) target).item = null;
-				} else if (item instanceof MysteryMeat){
-					((Thief) target).item = new FrozenCarpaccio();
-				}
+                Hero hero = (Hero) target;
+                ArrayList<Item> freezable = new ArrayList<>();
+                //does not reach inside of containers
+                if (!hero.belongings.lostInventory()) {
+                    for (Item i : hero.belongings.backpack.items) {
+                        if (!i.unique && (i instanceof Potion || i instanceof MysteryMeat)) {
+                            freezable.add(i);
+                        }
+                    }
+                }
 
-			}
+                if (!freezable.isEmpty()) {
+                    Item toFreeze = Random.element(freezable).detach(hero.belongings.backpack);
+                    GLog.w(Messages.capitalize(Messages.get(this, "freezes", toFreeze.title())));
+                    if (toFreeze instanceof Potion) {
+                        ((Potion) toFreeze).shatter(hero.pos);
+                    } else if (toFreeze instanceof MysteryMeat) {
+                        FrozenCarpaccio carpaccio = new FrozenCarpaccio();
+                        if (!carpaccio.collect(hero.belongings.backpack)) {
+                            Dungeon.level.drop(carpaccio, target.pos).sprite.drop();
+                        }
+                    }
+                }
+            } else if (target instanceof Thief) {
 
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	@Override
-	public void detach() {
-		super.detach();
-		if (target.paralysed > 0)
-			target.paralysed--;
-		if (Dungeon.level.water[target.pos])
-			Buff.prolong(target, Chill.class, Chill.DURATION/2f);
-	}
-	
-	@Override
-	public int icon() {
-		return BuffIndicator.FROST;
-	}
+                Item item = ((Thief) target).item;
 
-	@Override
-	public void tintIcon(Image icon) {
-		icon.hardlight(0f, 0.75f, 1f);
-	}
+                if (item instanceof Potion && !item.unique) {
+                    ((Potion) ((Thief) target).item).shatter(target.pos);
+                    ((Thief) target).item = null;
+                } else if (item instanceof MysteryMeat) {
+                    ((Thief) target).item = new FrozenCarpaccio();
+                }
+            }
 
-	@Override
-	public float iconFadePercent() {
-		return Math.max(0, (DURATION - visualcooldown()) / DURATION);
-	}
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	@Override
-	public void fx(boolean on) {
-		if (on) {
-			target.sprite.add(CharSprite.State.FROZEN);
-			target.sprite.add(CharSprite.State.PARALYSED);
-		} else {
-			target.sprite.remove(CharSprite.State.FROZEN);
-			if (target.paralysed <= 1) target.sprite.remove(CharSprite.State.PARALYSED);
-		}
-	}
+    @Override
+    public void detach() {
+        super.detach();
+        if (target.paralysed > 0)
+            target.paralysed--;
+        if (Dungeon.level.water[target.pos])
+            Buff.prolong(target, Chill.class, Chill.DURATION / 2f);
+    }
 
-	{
-		//can't chill what's frozen!
-		immunities.add( Chill.class );
-	}
+    @Override
+    public int icon() {
+        return BuffIndicator.FROST;
+    }
 
+    @Override
+    public void tintIcon(Image icon) {
+        icon.hardlight(0f, 0.75f, 1f);
+    }
+
+    @Override
+    public float iconFadePercent() {
+        return Math.max(0, (DURATION - visualcooldown()) / DURATION);
+    }
+
+    @Override
+    public void fx(boolean on) {
+        if (on) {
+            target.sprite.add(CharSprite.State.FROZEN);
+            target.sprite.add(CharSprite.State.PARALYSED);
+        } else {
+            target.sprite.remove(CharSprite.State.FROZEN);
+            if (target.paralysed <= 1) target.sprite.remove(CharSprite.State.PARALYSED);
+        }
+    }
+
+    {
+        //can't chill what's frozen!
+        immunities.add(Chill.class);
+    }
 }

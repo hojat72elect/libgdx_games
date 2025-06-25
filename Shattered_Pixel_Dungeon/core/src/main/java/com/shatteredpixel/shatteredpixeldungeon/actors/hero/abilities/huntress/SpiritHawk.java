@@ -37,6 +37,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbili
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -54,280 +55,277 @@ import java.util.ArrayList;
 
 public class SpiritHawk extends ArmorAbility {
 
-	@Override
-	public String targetingPrompt() {
-		if (getHawk() == null) {
-			return super.targetingPrompt();
-		} else {
-			return Messages.get(this, "prompt");
-		}
-	}
+    @Override
+    public String targetingPrompt() {
+        if (getHawk() == null) {
+            return super.targetingPrompt();
+        } else {
+            return Messages.get(this, "prompt");
+        }
+    }
 
-	@Override
-	public boolean useTargeting(){
-		return false;
-	}
+    @Override
+    public boolean useTargeting() {
+        return false;
+    }
 
-	{
-		baseChargeUse = 35f;
-	}
+    {
+        baseChargeUse = 35f;
+    }
 
-	@Override
-	public float chargeUse(Hero hero) {
-		if (getHawk() == null) {
-			return super.chargeUse(hero);
-		} else {
-			return 0;
-		}
-	}
+    @Override
+    public float chargeUse(Hero hero) {
+        if (getHawk() == null) {
+            return super.chargeUse(hero);
+        } else {
+            return 0;
+        }
+    }
 
-	@Override
-	protected void activate(ClassArmor armor, Hero hero, Integer target) {
-		HawkAlly ally = getHawk();
+    @Override
+    protected void activate(ClassArmor armor, Hero hero, Integer target) {
+        HawkAlly ally = getHawk();
 
-		if (ally != null){
-			if (target == null){
-				return;
-			} else {
-				ally.directTocell(target);
-			}
-		} else {
-			ArrayList<Integer> spawnPoints = new ArrayList<>();
-			for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
-				int p = hero.pos + PathFinder.NEIGHBOURS8[i];
-				if (Actor.findChar(p) == null && (Dungeon.level.passable[p] || Dungeon.level.avoid[p])) {
-					spawnPoints.add(p);
-				}
-			}
+        if (ally != null) {
+            if (target == null) {
+            } else {
+                ally.directTocell(target);
+            }
+        } else {
+            ArrayList<Integer> spawnPoints = new ArrayList<>();
+            for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
+                int p = hero.pos + PathFinder.NEIGHBOURS8[i];
+                if (Actor.findChar(p) == null && (Dungeon.level.passable[p] || Dungeon.level.avoid[p])) {
+                    spawnPoints.add(p);
+                }
+            }
 
-			if (!spawnPoints.isEmpty()){
-				armor.charge -= chargeUse(hero);
-				armor.updateQuickslot();
+            if (!spawnPoints.isEmpty()) {
+                armor.charge -= chargeUse(hero);
+                Item.updateQuickslot();
 
-				ally = new HawkAlly();
-				ally.pos = Random.element(spawnPoints);
-				GameScene.add(ally);
+                ally = new HawkAlly();
+                ally.pos = Random.element(spawnPoints);
+                GameScene.add(ally);
 
-				ScrollOfTeleportation.appear(ally, ally.pos);
-				Dungeon.observe();
+                ScrollOfTeleportation.appear(ally, ally.pos);
+                Dungeon.observe();
 
-				Invisibility.dispel();
-				hero.spendAndNext(Actor.TICK);
+                Invisibility.dispel();
+                hero.spendAndNext(Actor.TICK);
+            } else {
+                GLog.w(Messages.get(this, "no_space"));
+            }
+        }
+    }
 
-			} else {
-				GLog.w(Messages.get(this, "no_space"));
-			}
-		}
+    @Override
+    public int icon() {
+        return HeroIcon.SPIRIT_HAWK;
+    }
 
-	}
+    @Override
+    public Talent[] talents() {
+        return new Talent[]{Talent.EAGLE_EYE, Talent.GO_FOR_THE_EYES, Talent.SWIFT_SPIRIT, Talent.HEROIC_ENERGY};
+    }
 
-	@Override
-	public int icon() {
-		return HeroIcon.SPIRIT_HAWK;
-	}
+    private static HawkAlly getHawk() {
+        for (Char ch : Actor.chars()) {
+            if (ch instanceof HawkAlly) {
+                return (HawkAlly) ch;
+            }
+        }
+        return null;
+    }
 
-	@Override
-	public Talent[] talents() {
-		return new Talent[]{Talent.EAGLE_EYE, Talent.GO_FOR_THE_EYES, Talent.SWIFT_SPIRIT, Talent.HEROIC_ENERGY};
-	}
+    public static class HawkAlly extends DirectableAlly {
 
-	private static HawkAlly getHawk(){
-		for (Char ch : Actor.chars()){
-			if (ch instanceof HawkAlly){
-				return (HawkAlly) ch;
-			}
-		}
-		return null;
-	}
+        {
+            spriteClass = HawkSprite.class;
 
-	public static class HawkAlly extends DirectableAlly {
+            HP = HT = 10;
+            defenseSkill = 60;
 
-		{
-			spriteClass = HawkSprite.class;
+            flying = true;
+            if (Dungeon.hero != null) {
+                viewDistance = (int) GameMath.gate(6, 6 + Dungeon.hero.pointsInTalent(Talent.EAGLE_EYE), 8);
+                baseSpeed = 2f + Dungeon.hero.pointsInTalent(Talent.SWIFT_SPIRIT) / 2f;
+            } else {
+                viewDistance = 6;
+                baseSpeed = 2f;
+            }
+            attacksAutomatically = false;
 
-			HP = HT = 10;
-			defenseSkill = 60;
+            immunities.addAll(new BlobImmunity().immunities());
+            immunities.add(AllyBuff.class);
+        }
 
-			flying = true;
-			if (Dungeon.hero != null) {
-				viewDistance = (int) GameMath.gate(6, 6 + Dungeon.hero.pointsInTalent(Talent.EAGLE_EYE), 8);
-				baseSpeed = 2f + Dungeon.hero.pointsInTalent(Talent.SWIFT_SPIRIT) / 2f;
-			} else {
-				viewDistance = 6;
-				baseSpeed = 2f;
-			}
-			attacksAutomatically = false;
+        @Override
+        public int attackSkill(Char target) {
+            return 60;
+        }
 
-			immunities.addAll(new BlobImmunity().immunities());
-			immunities.add(AllyBuff.class);
-		}
+        private int dodgesUsed = 0;
+        private float timeRemaining = 100f;
 
-		@Override
-		public int attackSkill(Char target) {
-			return 60;
-		}
+        @Override
+        public int defenseSkill(Char enemy) {
+            if (Dungeon.hero.hasTalent(Talent.SWIFT_SPIRIT) &&
+                    dodgesUsed < 2 * Dungeon.hero.pointsInTalent(Talent.SWIFT_SPIRIT)) {
+                dodgesUsed++;
+                return Char.INFINITE_EVASION;
+            }
+            return super.defenseSkill(enemy);
+        }
 
-		private int dodgesUsed = 0;
-		private float timeRemaining = 100f;
+        @Override
+        public int damageRoll() {
+            return Random.NormalIntRange(5, 10);
+        }
 
-		@Override
-		public int defenseSkill(Char enemy) {
-			if (Dungeon.hero.hasTalent(Talent.SWIFT_SPIRIT) &&
-					dodgesUsed < 2*Dungeon.hero.pointsInTalent(Talent.SWIFT_SPIRIT)) {
-				dodgesUsed++;
-				return Char.INFINITE_EVASION;
-			}
-			return super.defenseSkill(enemy);
-		}
+        @Override
+        public int attackProc(Char enemy, int damage) {
+            damage = super.attackProc(enemy, damage);
+            switch (Dungeon.hero.pointsInTalent(Talent.GO_FOR_THE_EYES)) {
+                case 1:
+                    Buff.prolong(enemy, Blindness.class, 2);
+                    break;
+                case 2:
+                    Buff.prolong(enemy, Blindness.class, 5);
+                    break;
+                case 3:
+                    Buff.prolong(enemy, Blindness.class, 5);
+                    Buff.prolong(enemy, Cripple.class, 2);
+                    break;
+                case 4:
+                    Buff.prolong(enemy, Blindness.class, 5);
+                    Buff.prolong(enemy, Cripple.class, 5);
+                    break;
+                default:
+                    //do nothing
+            }
 
-		@Override
-		public int damageRoll() {
-			return Random.NormalIntRange(5, 10);
-		}
+            return damage;
+        }
 
-		@Override
-		public int attackProc(Char enemy, int damage) {
-			damage = super.attackProc( enemy, damage );
-			switch (Dungeon.hero.pointsInTalent(Talent.GO_FOR_THE_EYES)){
-				case 1:
-					Buff.prolong( enemy, Blindness.class, 2);
-					break;
-				case 2:
-					Buff.prolong( enemy, Blindness.class, 5);
-					break;
-				case 3:
-					Buff.prolong( enemy, Blindness.class, 5);
-					Buff.prolong( enemy, Cripple.class, 2);
-					break;
-				case 4:
-					Buff.prolong( enemy, Blindness.class, 5);
-					Buff.prolong( enemy, Cripple.class, 5);
-					break;
-				default:
-					//do nothing
-			}
+        @Override
+        protected boolean act() {
+            if (timeRemaining <= 0) {
+                die(null);
+                Dungeon.hero.interrupt();
+                return true;
+            }
+            viewDistance = 6 + Dungeon.hero.pointsInTalent(Talent.EAGLE_EYE);
+            baseSpeed = 2f + Dungeon.hero.pointsInTalent(Talent.SWIFT_SPIRIT) / 2f;
+            boolean result = super.act();
+            Dungeon.level.updateFieldOfView(this, fieldOfView);
+            GameScene.updateFog(pos, viewDistance + (int) Math.ceil(speed()));
+            return result;
+        }
 
-			return damage;
-		}
+        @Override
+        public void die(Object cause) {
+            flying = false;
+            super.die(cause);
+        }
 
-		@Override
-		protected boolean act() {
-			if (timeRemaining <= 0){
-				die(null);
-				Dungeon.hero.interrupt();
-				return true;
-			}
-			viewDistance = 6+Dungeon.hero.pointsInTalent(Talent.EAGLE_EYE);
-			baseSpeed = 2f + Dungeon.hero.pointsInTalent(Talent.SWIFT_SPIRIT)/2f;
-			boolean result = super.act();
-			Dungeon.level.updateFieldOfView( this, fieldOfView );
-			GameScene.updateFog(pos, viewDistance+(int)Math.ceil(speed()));
-			return result;
-		}
+        @Override
+        protected void spend(float time) {
+            super.spend(time);
+            timeRemaining -= time;
+        }
 
-		@Override
-		public void die(Object cause) {
-			flying = false;
-			super.die(cause);
-		}
+        @Override
+        public void destroy() {
+            super.destroy();
+            Dungeon.observe();
+            GameScene.updateFog();
+        }
 
-		@Override
-		protected void spend(float time) {
-			super.spend(time);
-			timeRemaining -= time;
-		}
+        @Override
+        public void defendPos(int cell) {
+            GLog.i(Messages.get(this, "direct_defend"));
+            super.defendPos(cell);
+        }
 
-		@Override
-		public void destroy() {
-			super.destroy();
-			Dungeon.observe();
-			GameScene.updateFog();
-		}
+        @Override
+        public void followHero() {
+            GLog.i(Messages.get(this, "direct_follow"));
+            super.followHero();
+        }
 
-		@Override
-		public void defendPos(int cell) {
-			GLog.i(Messages.get(this, "direct_defend"));
-			super.defendPos(cell);
-		}
+        @Override
+        public void targetChar(Char ch) {
+            GLog.i(Messages.get(this, "direct_attack"));
+            super.targetChar(ch);
+        }
 
-		@Override
-		public void followHero() {
-			GLog.i(Messages.get(this, "direct_follow"));
-			super.followHero();
-		}
+        @Override
+        public String description() {
+            String message = Messages.get(this, "desc", (int) timeRemaining);
+            if (Actor.chars().contains(this)) {
+                message += "\n\n" + Messages.get(this, "desc_remaining", (int) timeRemaining);
+                if (dodgesUsed < 2 * Dungeon.hero.pointsInTalent(Talent.SWIFT_SPIRIT)) {
+                    message += "\n" + Messages.get(this, "desc_dodges", (2 * Dungeon.hero.pointsInTalent(Talent.SWIFT_SPIRIT) - dodgesUsed));
+                }
+            }
+            return message;
+        }
 
-		@Override
-		public void targetChar(Char ch) {
-			GLog.i(Messages.get(this, "direct_attack"));
-			super.targetChar(ch);
-		}
+        private static final String DODGES_USED = "dodges_used";
+        private static final String TIME_REMAINING = "time_remaining";
 
-		@Override
-		public String description() {
-			String message = Messages.get(this, "desc", (int)timeRemaining);
-			if (Actor.chars().contains(this)){
-				message += "\n\n" + Messages.get(this, "desc_remaining", (int)timeRemaining);
-				if (dodgesUsed < 2*Dungeon.hero.pointsInTalent(Talent.SWIFT_SPIRIT)){
-					message += "\n" + Messages.get(this, "desc_dodges", (2*Dungeon.hero.pointsInTalent(Talent.SWIFT_SPIRIT) - dodgesUsed));
-				}
-			}
-			return message;
-		}
+        @Override
+        public void storeInBundle(Bundle bundle) {
+            super.storeInBundle(bundle);
+            bundle.put(DODGES_USED, dodgesUsed);
+            bundle.put(TIME_REMAINING, timeRemaining);
+        }
 
-		private static final String DODGES_USED     = "dodges_used";
-		private static final String TIME_REMAINING  = "time_remaining";
+        @Override
+        public void restoreFromBundle(Bundle bundle) {
+            super.restoreFromBundle(bundle);
+            dodgesUsed = bundle.getInt(DODGES_USED);
+            timeRemaining = bundle.getFloat(TIME_REMAINING);
+        }
+    }
 
-		@Override
-		public void storeInBundle(Bundle bundle) {
-			super.storeInBundle(bundle);
-			bundle.put(DODGES_USED, dodgesUsed);
-			bundle.put(TIME_REMAINING, timeRemaining);
-		}
+    public static class HawkSprite extends MobSprite {
 
-		@Override
-		public void restoreFromBundle(Bundle bundle) {
-			super.restoreFromBundle(bundle);
-			dodgesUsed = bundle.getInt(DODGES_USED);
-			timeRemaining = bundle.getFloat(TIME_REMAINING);
-		}
-	}
+        public HawkSprite() {
+            super();
 
-	public static class HawkSprite extends MobSprite {
+            texture(Assets.Sprites.SPIRIT_HAWK);
 
-		public HawkSprite() {
-			super();
+            TextureFilm frames = new TextureFilm(texture, 15, 15);
 
-			texture( Assets.Sprites.SPIRIT_HAWK );
+            int c = 0;
 
-			TextureFilm frames = new TextureFilm( texture, 15, 15 );
+            idle = new Animation(6, true);
+            idle.frames(frames, 0, 1);
 
-			int c = 0;
+            run = new Animation(8, true);
+            run.frames(frames, 0, 1);
 
-			idle = new Animation( 6, true );
-			idle.frames( frames, 0, 1 );
+            attack = new Animation(12, false);
+            attack.frames(frames, 2, 3, 0, 1);
 
-			run = new Animation( 8, true );
-			run.frames( frames, 0, 1 );
+            die = new Animation(12, false);
+            die.frames(frames, 4, 5, 6);
 
-			attack = new Animation( 12, false );
-			attack.frames( frames, 2, 3, 0, 1 );
+            play(idle);
+        }
 
-			die = new Animation( 12, false );
-			die.frames( frames, 4, 5, 6 );
+        @Override
+        public int blood() {
+            return 0xFF00FFFF;
+        }
 
-			play( idle );
-		}
-
-		@Override
-		public int blood() {
-			return 0xFF00FFFF;
-		}
-
-		@Override
-		public void die() {
-			super.die();
-			emitter().start( ShaftParticle.FACTORY, 0.3f, 4 );
-			emitter().start( Speck.factory( Speck.LIGHT ), 0.2f, 3 );
-		}
-	}
+        @Override
+        public void die() {
+            super.die();
+            emitter().start(ShaftParticle.FACTORY, 0.3f, 4);
+            emitter().start(Speck.factory(Speck.LIGHT), 0.2f, 3);
+        }
+    }
 }

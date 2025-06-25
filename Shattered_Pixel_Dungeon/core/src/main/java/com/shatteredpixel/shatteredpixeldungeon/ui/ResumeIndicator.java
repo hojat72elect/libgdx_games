@@ -31,62 +31,61 @@ import com.watabou.noosa.Image;
 
 public class ResumeIndicator extends Tag {
 
-	private Image icon;
+    private Image icon;
 
-	public ResumeIndicator() {
-		super(0xA3A695);
+    public ResumeIndicator() {
+        super(0xA3A695);
 
-		setSize( SIZE, SIZE );
+        setSize(SIZE, SIZE);
 
-		visible = false;
+        visible = false;
+    }
 
-	}
-	
-	@Override
-	public GameAction keyAction() {
-		return SPDAction.TAG_RESUME;
-	}
+    @Override
+    public GameAction keyAction() {
+        return SPDAction.TAG_RESUME;
+    }
 
-	@Override
-	protected void createChildren() {
-		super.createChildren();
+    @Override
+    protected void createChildren() {
+        super.createChildren();
 
-		icon = Icons.get( Icons.ARROW);
-		add( icon );
-	}
+        icon = Icons.get(Icons.ARROW);
+        add(icon);
+    }
 
-	@Override
-	protected void layout() {
-		super.layout();
+    @Override
+    protected void layout() {
+        super.layout();
 
-		if (!flipped)   icon.x = x + (SIZE - icon.width()) / 2f + 1;
-		else            icon.x = x + width - (SIZE + icon.width()) / 2f - 1;
-		icon.y = y + (height - icon.height) / 2f;
-		PixelScene.align(icon);
-	}
+        if (!flipped) icon.x = x + (SIZE - icon.width()) / 2f + 1;
+        else icon.x = x + width - (SIZE + icon.width()) / 2f - 1;
+        icon.y = y + (height - icon.height) / 2f;
+        PixelScene.align(icon);
+    }
 
-	@Override
-	protected void onClick() {
-		super.onClick();
-		if (Dungeon.hero.ready) {
-			Dungeon.hero.resume();
-		}
-	}
+    @Override
+    protected void onClick() {
+        super.onClick();
+        if (Dungeon.hero.ready) {
+            Dungeon.hero.resume();
+        }
+    }
 
-	@Override
-	protected String hoverText() {
-		return Messages.titleCase(Messages.get(WndKeyBindings.class, "tag_resume"));
-	}
+    @Override
+    protected String hoverText() {
+        return Messages.titleCase(Messages.get(WndKeyBindings.class, "tag_resume"));
+    }
 
-	@Override
-	public void update() {
-		if (!Dungeon.hero.isAlive())
-			visible = false;
-		else if (visible != (Dungeon.hero.lastAction != null)){
-			visible = Dungeon.hero.lastAction != null;
-			if (visible)
-				flash();
-		}
-		super.update();
-	}
+    @Override
+    public void update() {
+        if (!Dungeon.hero.isAlive())
+            visible = false;
+        else if (visible == (Dungeon.hero.lastAction == null)) {
+            visible = Dungeon.hero.lastAction != null;
+            if (visible)
+                flash();
+        }
+        super.update();
+    }
 }

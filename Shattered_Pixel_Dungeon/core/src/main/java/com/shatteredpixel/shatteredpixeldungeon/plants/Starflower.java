@@ -34,43 +34,42 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class Starflower extends Plant {
 
-	{
-		image = 9;
-		seedClass = Seed.class;
-	}
+    {
+        image = 9;
+        seedClass = Seed.class;
+    }
 
-	@Override
-	public void activate( Char ch ) {
+    @Override
+    public void activate(Char ch) {
 
-		if (ch != null) {
-			Buff.prolong(ch, Bless.class, Bless.DURATION);
-			if (Dungeon.level.heroFOV[ch.pos]){
-				new Flare(6, 32).color(0xFFFF00, true).show(ch.sprite, 2f);
-			}
-			if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN){
-				Buff.prolong(ch, Recharging.class, Recharging.DURATION);
-				SpellSprite.show( ch, SpellSprite.CHARGE );
-			}
-		}
+        if (ch != null) {
+            Buff.prolong(ch, Bless.class, Bless.DURATION);
+            if (Dungeon.level.heroFOV[ch.pos]) {
+                new Flare(6, 32).color(0xFFFF00, true).show(ch.sprite, 2f);
+            }
+            if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN) {
+                Buff.prolong(ch, Recharging.class, Recharging.DURATION);
+                SpellSprite.show(ch, SpellSprite.CHARGE);
+            }
+        }
+    }
 
-	}
+    public static class Seed extends Plant.Seed {
 
-	public static class Seed extends Plant.Seed{
+        {
+            image = ItemSpriteSheet.SEED_STARFLOWER;
 
-		{
-			image = ItemSpriteSheet.SEED_STARFLOWER;
+            plantClass = Starflower.class;
+        }
 
-			plantClass = Starflower.class;
-		}
-		
-		@Override
-		public int value() {
-			return 30 * quantity;
-		}
+        @Override
+        public int value() {
+            return 30 * quantity;
+        }
 
-		@Override
-		public int energyVal() {
-			return 3 * quantity;
-		}
-	}
+        @Override
+        public int energyVal() {
+            return 3 * quantity;
+        }
+    }
 }

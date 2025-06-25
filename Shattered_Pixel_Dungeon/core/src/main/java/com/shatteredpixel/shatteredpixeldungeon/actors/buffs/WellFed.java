@@ -33,83 +33,83 @@ import com.watabou.utils.Bundle;
 
 public class WellFed extends Buff {
 
-	{
-		type = buffType.POSITIVE;
-		announced = true;
-	}
-	
-	int left;
-	
-	@Override
-	public boolean act() {
-		left --;
-		if (left < 0){
-			detach();
-			if (target instanceof Hero) {
-				((Hero) target).resting = false;
-			}
-			return true;
-		} else if (left % 18 == 0 && target.HP < target.HT){
-			target.HP += 1;
-			target.sprite.showStatusWithIcon(CharSprite.POSITIVE, "1", FloatingText.HEALING);
+    {
+        type = buffType.POSITIVE;
+        announced = true;
+    }
 
-			if (target.HP == target.HT && target instanceof Hero) {
-				((Hero) target).resting = false;
-			}
-		}
+    int left;
 
-		//salt cube does slow this buff down, but doesn't lessen the bonus health
-		spend(TICK / SaltCube.hungerGainMultiplier());
-		return true;
-	}
-	
-	public void reset(){
-		//heals one HP every 18 turns for 450 turns
-		//25 HP healed in total
-		left = (int)Hunger.STARVING;
-		if (Dungeon.isChallenged(Challenges.NO_FOOD)){
-			//150 turns if on diet is enabled
-			left /= 3;
-		}
-	}
+    @Override
+    public boolean act() {
+        left--;
+        if (left < 0) {
+            detach();
+            if (target instanceof Hero) {
+                ((Hero) target).resting = false;
+            }
+            return true;
+        } else if (left % 18 == 0 && target.HP < target.HT) {
+            target.HP += 1;
+            target.sprite.showStatusWithIcon(CharSprite.POSITIVE, "1", FloatingText.HEALING);
 
-	public void extend( float duration ) {
-		left += duration;
-	}
-	
-	@Override
-	public int icon() {
-		return BuffIndicator.WELL_FED;
-	}
+            if (target.HP == target.HT && target instanceof Hero) {
+                ((Hero) target).resting = false;
+            }
+        }
 
-	@Override
-	public float iconFadePercent() {
-		return Math.max(0, (Hunger.STARVING - left) / Hunger.STARVING);
-	}
+        //salt cube does slow this buff down, but doesn't lessen the bonus health
+        spend(TICK / SaltCube.hungerGainMultiplier());
+        return true;
+    }
 
-	@Override
-	public String iconTextDisplay() {
-		int visualLeft = (int)(left / SaltCube.hungerGainMultiplier());
-		return Integer.toString(visualLeft+1);
-	}
-	
-	@Override
-	public String desc() {
-		int visualLeft = (int)(left / SaltCube.hungerGainMultiplier());
-		return Messages.get(this, "desc", visualLeft + 1);
-	}
-	
-	private static final String LEFT = "left";
-	
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(LEFT, left);
-	}
-	
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		left = bundle.getInt(LEFT);
-	}
+    public void reset() {
+        //heals one HP every 18 turns for 450 turns
+        //25 HP healed in total
+        left = (int) Hunger.STARVING;
+        if (Dungeon.isChallenged(Challenges.NO_FOOD)) {
+            //150 turns if on diet is enabled
+            left /= 3;
+        }
+    }
+
+    public void extend(float duration) {
+        left += duration;
+    }
+
+    @Override
+    public int icon() {
+        return BuffIndicator.WELL_FED;
+    }
+
+    @Override
+    public float iconFadePercent() {
+        return Math.max(0, (Hunger.STARVING - left) / Hunger.STARVING);
+    }
+
+    @Override
+    public String iconTextDisplay() {
+        int visualLeft = (int) (left / SaltCube.hungerGainMultiplier());
+        return Integer.toString(visualLeft + 1);
+    }
+
+    @Override
+    public String desc() {
+        int visualLeft = (int) (left / SaltCube.hungerGainMultiplier());
+        return Messages.get(this, "desc", visualLeft + 1);
+    }
+
+    private static final String LEFT = "left";
+
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(LEFT, left);
+    }
+
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        left = bundle.getInt(LEFT);
+    }
 }

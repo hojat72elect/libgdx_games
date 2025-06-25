@@ -31,26 +31,26 @@ import com.watabou.noosa.audio.Sample;
 
 public class PotionOfToxicGas extends Potion {
 
-	{
-		icon = ItemSpriteSheet.Icons.POTION_TOXICGAS;
-	}
+    {
+        icon = ItemSpriteSheet.Icons.POTION_TOXICGAS;
+    }
 
-	@Override
-	public void shatter( int cell ) {
+    @Override
+    public void shatter(int cell) {
 
-		splash( cell );
-		if (Dungeon.level.heroFOV[cell]) {
-			identify();
+        splash(cell);
+        if (Dungeon.level.heroFOV[cell]) {
+            identify();
 
-			Sample.INSTANCE.play( Assets.Sounds.SHATTER );
-			Sample.INSTANCE.play( Assets.Sounds.GAS );
-		}
+            Sample.INSTANCE.play(Assets.Sounds.SHATTER);
+            Sample.INSTANCE.play(Assets.Sounds.GAS);
+        }
 
-		GameScene.add( Blob.seed( cell, 1000, ToxicGas.class ) );
-	}
-	
-	@Override
-	public int value() {
-		return isKnown() ? 30 * quantity : super.value();
-	}
+        GameScene.add(Blob.seed(cell, 1000, ToxicGas.class));
+    }
+
+    @Override
+    public int value() {
+        return isKnown() ? 30 * quantity : super.value();
+    }
 }

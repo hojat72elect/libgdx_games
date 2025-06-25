@@ -25,8 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class MageArmor extends ClassArmor {
 
-	{
-		image = ItemSpriteSheet.ARMOR_MAGE;
-	}
-
+    {
+        image = ItemSpriteSheet.ARMOR_MAGE;
+    }
 }

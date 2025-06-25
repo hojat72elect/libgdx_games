@@ -36,98 +36,98 @@ import com.watabou.utils.Random;
 
 public class RotLasher extends Mob {
 
-	{
-		spriteClass = RotLasherSprite.class;
+    {
+        spriteClass = RotLasherSprite.class;
 
-		HP = HT = 80;
-		defenseSkill = 0;
+        HP = HT = 80;
+        defenseSkill = 0;
 
-		EXP = 1;
+        EXP = 1;
 
-		loot = Generator.Category.SEED;
-		lootChance = 0.75f;
+        loot = Generator.Category.SEED;
+        lootChance = 0.75f;
 
-		state = WANDERING = new Waiting();
-		viewDistance = 1;
+        state = WANDERING = new Waiting();
+        viewDistance = 1;
 
-		properties.add(Property.IMMOVABLE);
-		properties.add(Property.MINIBOSS);
-	}
+        properties.add(Property.IMMOVABLE);
+        properties.add(Property.MINIBOSS);
+    }
 
-	@Override
-	protected boolean act() {
-		if (HP < HT && (enemy == null || !Dungeon.level.adjacent(pos, enemy.pos))) {
-			sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(Math.min(5, HT - HP)), FloatingText.HEALING);
-			HP = Math.min(HT, HP + 5);
-		}
-		return super.act();
-	}
+    @Override
+    protected boolean act() {
+        if (HP < HT && (enemy == null || !Dungeon.level.adjacent(pos, enemy.pos))) {
+            sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(Math.min(5, HT - HP)), FloatingText.HEALING);
+            HP = Math.min(HT, HP + 5);
+        }
+        return super.act();
+    }
 
-	@Override
-	public void damage(int dmg, Object src) {
-		if (src instanceof Burning) {
-			destroy();
-			sprite.die();
-		} else {
-			super.damage(dmg, src);
-		}
-	}
+    @Override
+    public void damage(int dmg, Object src) {
+        if (src instanceof Burning) {
+            destroy();
+            sprite.die();
+        } else {
+            super.damage(dmg, src);
+        }
+    }
 
-	@Override
-	public boolean attack(Char enemy, float dmgMulti, float dmgBonus, float accMulti) {
-		if (enemy == Dungeon.hero){
-			Statistics.questScores[1] -= 100;
-		}
-		return super.attack(enemy, dmgMulti, dmgBonus, accMulti);
-	}
+    @Override
+    public boolean attack(Char enemy, float dmgMulti, float dmgBonus, float accMulti) {
+        if (enemy == Dungeon.hero) {
+            Statistics.questScores[1] -= 100;
+        }
+        return super.attack(enemy, dmgMulti, dmgBonus, accMulti);
+    }
 
-	@Override
-	public int attackProc(Char enemy, int damage) {
-		damage = super.attackProc( enemy, damage );
-		Buff.affect( enemy, Cripple.class, 2f );
-		return super.attackProc(enemy, damage);
-	}
+    @Override
+    public int attackProc(Char enemy, int damage) {
+        damage = super.attackProc(enemy, damage);
+        Buff.affect(enemy, Cripple.class, 2f);
+        return super.attackProc(enemy, damage);
+    }
 
-	@Override
-	public boolean reset() {
-		return true;
-	}
+    @Override
+    public boolean reset() {
+        return true;
+    }
 
-	@Override
-	protected boolean getCloser(int target) {
-		return false;
-	}
+    @Override
+    protected boolean getCloser(int target) {
+        return false;
+    }
 
-	@Override
-	protected boolean getFurther(int target) {
-		return false;
-	}
+    @Override
+    protected boolean getFurther(int target) {
+        return false;
+    }
 
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange(10, 20);
-	}
+    @Override
+    public int damageRoll() {
+        return Random.NormalIntRange(10, 20);
+    }
 
-	@Override
-	public int attackSkill( Char target ) {
-		return 25;
-	}
+    @Override
+    public int attackSkill(Char target) {
+        return 25;
+    }
 
-	@Override
-	public int drRoll() {
-		return super.drRoll() + Random.NormalIntRange(0, 8);
-	}
-	
-	{
-		immunities.add( ToxicGas.class );
-	}
+    @Override
+    public int drRoll() {
+        return super.drRoll() + Random.NormalIntRange(0, 8);
+    }
 
-	private class Waiting extends Mob.Wandering{
+    {
+        immunities.add(ToxicGas.class);
+    }
 
-		@Override
-		protected boolean noticeEnemy() {
-			spend(TICK);
-			return super.noticeEnemy();
-		}
-	}
+    private class Waiting extends Mob.Wandering {
+
+        @Override
+        protected boolean noticeEnemy() {
+            spend(TICK);
+            return super.noticeEnemy();
+        }
+    }
 }

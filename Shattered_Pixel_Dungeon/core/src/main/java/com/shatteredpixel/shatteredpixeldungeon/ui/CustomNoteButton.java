@@ -50,350 +50,346 @@ import java.util.Comparator;
 //this is contained in its own class as custom notes have a lot of messy window UI logic
 public class CustomNoteButton extends IconButton {
 
-	public CustomNoteButton () {
-		super(Icons.PLUS.get());
+    public CustomNoteButton() {
+        super(Icons.PLUS.get());
 
-		width = 11;
-		height = 11;
-	}
+        width = 11;
+        height = 11;
+    }
 
-	@Override
-	protected void onClick() {
-		super.onClick();
+    @Override
+    protected void onClick() {
+        super.onClick();
 
-		if (Notes.getRecords(Notes.CustomRecord.class).size() >= Notes.customRecordLimit()){
-			GameScene.show(new WndTitledMessage(Icons.INFO.get(),
-					Messages.get(this, "limit_title"),
-					Messages.get(this, "limit_text")));
-			return;
-		}
+        if (Notes.getRecords(Notes.CustomRecord.class).size() >= Notes.customRecordLimit()) {
+            GameScene.show(new WndTitledMessage(Icons.INFO.get(),
+                    Messages.get(this, "limit_title"),
+                    Messages.get(this, "limit_text")));
+            return;
+        }
 
-		GameScene.show(new WndNoteTypeSelect());
+        GameScene.show(new WndNoteTypeSelect());
+    }
 
-	}
+    @Override
+    protected String hoverText() {
+        return Messages.get(this, "title");
+    }
 
-	@Override
-	protected String hoverText() {
-		return Messages.get(this, "title");
-	}
+    private static WndNoteTypeSelect NOTE_SELECT_INSTANCE;
 
-	private static WndNoteTypeSelect NOTE_SELECT_INSTANCE;
+    private class WndNoteTypeSelect extends WndOptions {
 
-	private class WndNoteTypeSelect extends WndOptions {
+        public WndNoteTypeSelect() {
+            super(Icons.SCROLL_COLOR.get(),
+                    Messages.get(CustomNoteButton.class, "title"),
+                    Messages.get(CustomNoteButton.class, "desc"),
+                    Messages.get(CustomNoteButton.class, "new_text"),
+                    Messages.get(CustomNoteButton.class, "new_floor"),
+                    Messages.get(CustomNoteButton.class, "new_inv"),
+                    Messages.get(CustomNoteButton.class, "new_type"));
+            NOTE_SELECT_INSTANCE = this;
+        }
 
-		public WndNoteTypeSelect(){
-			super(Icons.SCROLL_COLOR.get(),
-					Messages.get(CustomNoteButton.class, "title"),
-					Messages.get(CustomNoteButton.class, "desc"),
-					Messages.get(CustomNoteButton.class, "new_text"),
-					Messages.get(CustomNoteButton.class, "new_floor"),
-					Messages.get(CustomNoteButton.class, "new_inv"),
-					Messages.get(CustomNoteButton.class, "new_type"));
-			NOTE_SELECT_INSTANCE = this;
-		}
+        @Override
+        protected void onSelect(int index) {
+            if (index == 0) {
+                Notes.CustomRecord custom = new Notes.CustomRecord("", "");
+                addNote(null, custom,
+                        Messages.get(CustomNoteButton.class, "new_text"),
+                        Messages.get(CustomNoteButton.class, "new_text_title"));
+            } else if (index == 1) {
+                GameScene.show(new WndDepthSelect());
+            } else if (index == 2) {
+                GameScene.selectItem(itemSelector);
+            } else {
+                GameScene.show(new WndItemtypeSelect());
+            }
+        }
 
-		@Override
-		protected void onSelect(int index) {
-			if (index == 0){
-				Notes.CustomRecord custom = new Notes.CustomRecord("", "");
-				addNote(null, custom,
-						Messages.get(CustomNoteButton.class, "new_text"),
-						Messages.get(CustomNoteButton.class, "new_text_title"));
-			} else if (index == 1){
-				GameScene.show(new WndDepthSelect());
-			} else if (index == 2){
-				GameScene.selectItem(itemSelector);
-			} else {
-				GameScene.show(new WndItemtypeSelect());
-			}
-		}
+        @Override
+        public void hide() {
+            //do nothing, prevents window closing when user steps back in note creation process
+        }
 
-		@Override
-		public void hide() {
-			//do nothing, prevents window closing when user steps back in note creation process
-		}
+        @Override
+        public void onBackPressed() {
+            super.hide(); //actually hide in this case
+            NOTE_SELECT_INSTANCE = null;
+        }
+    }
 
-		@Override
-		public void onBackPressed() {
-			super.hide(); //actually hide in this case
-			NOTE_SELECT_INSTANCE = null;
-		}
-	}
+    private class WndDepthSelect extends WndTitledMessage {
 
-	private class WndDepthSelect extends WndTitledMessage {
+        public WndDepthSelect() {
+            super(Icons.STAIRS.get(),
+                    Messages.get(CustomNoteButton.class, "new_floor"),
+                    Messages.get(CustomNoteButton.class, "new_floor_prompt"));
 
-		public WndDepthSelect(){
-			super(Icons.STAIRS.get(),
-					Messages.get(CustomNoteButton.class, "new_floor"),
-					Messages.get(CustomNoteButton.class, "new_floor_prompt"));
+            int top = height + 2;
+            int left = 0;
 
-			int top = height+2;
-			int left = 0;
+            for (int i = Statistics.deepestFloor; i > 0; i--) {
+                if (i % 5 == 0 && left > 0) {
+                    left = 0;
+                    top += 17;
+                }
+                int finalI = i;
+                RedButton btnDepth = new RedButton(Integer.toString(finalI)) {
+                    @Override
+                    protected void onClick() {
+                        addNote(WndDepthSelect.this, new Notes.CustomRecord(finalI, "", ""),
+                                Messages.get(CustomNoteButton.class, "new_floor"),
+                                Messages.get(CustomNoteButton.class, "new_floor_title", finalI));
+                    }
+                };
+                btnDepth.setRect(left, top, 23, 16);
+                left += 24;
+                add(btnDepth);
+            }
 
-			for (int i = Statistics.deepestFloor; i > 0; i --){
-				if (i % 5 == 0 && left > 0){
-					left = 0;
-					top += 17;
-				}
-				int finalI = i;
-				RedButton btnDepth = new RedButton(Integer.toString(finalI)){
-					@Override
-					protected void onClick() {
-						addNote(WndDepthSelect.this, new Notes.CustomRecord(finalI, "", ""),
-								Messages.get(CustomNoteButton.class, "new_floor"),
-								Messages.get(CustomNoteButton.class, "new_floor_title", finalI));
-					}
-				};
-				btnDepth.setRect(left, top, 23, 16);
-				left += 24;
-				add(btnDepth);
-			}
+            resize(width, top + (left == 0 ? 0 : 16));
+        }
+    }
 
-			resize(width, top + (left == 0 ? 0 : 16));
+    private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
 
-		}
+        @Override
+        public String textPrompt() {
+            return Messages.get(CustomNoteButton.class, "new_inv_prompt");
+        }
 
-	}
+        @Override
+        public boolean hideAfterSelecting() {
+            return false;
+        }
 
-	private WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
+        @Override
+        public boolean itemSelectable(Item item) {
+            if (item instanceof EquipableItem) {
+                if (item instanceof Ring && Notes.findCustomRecord(item.getClass()) != null) {
+                    return false;
+                }
+                return item.customNoteID == -1
+                        || Notes.findCustomRecord(item.customNoteID) == null;
+            } else {
+                return Notes.findCustomRecord(item.getClass()) == null;
+            }
+        }
 
-		@Override
-		public String textPrompt() {
-			return	Messages.get(CustomNoteButton.class, "new_inv_prompt");
-		}
+        @Override
+        public void onSelect(Item item) {
+            if (item != null) {
+                Notes.CustomRecord custom;
+                if (item instanceof EquipableItem || item instanceof Wand || item instanceof Trinket) {
+                    custom = new Notes.CustomRecord(item, "", "");
+                    custom.assignID();
+                    item.customNoteID = custom.ID();
+                } else {
+                    custom = new Notes.CustomRecord(item.getClass(), "", "");
+                    custom.assignID();
+                }
 
-		@Override
-		public boolean hideAfterSelecting() {
-			return false;
-		}
+                addNote(null, custom,
+                        Messages.get(CustomNoteButton.class, "new_inv"),
+                        Messages.get(CustomNoteButton.class, "new_item_title", Messages.titleCase(item.name())));
+            }
+        }
+    };
 
-		@Override
-		public boolean itemSelectable(Item item) {
-			if (item instanceof EquipableItem){
-				if (item instanceof Ring && Notes.findCustomRecord(item.getClass()) != null){
-					return false;
-				}
-				return item.customNoteID == -1
-						|| Notes.findCustomRecord(item.customNoteID) == null;
-			} else {
-				return Notes.findCustomRecord(item.getClass()) == null;
-			}
-		}
+    private static class WndItemtypeSelect extends WndTitledMessage {
 
-		@Override
-		public void onSelect( Item item ) {
-			if (item != null){
-				Notes.CustomRecord custom;
-				if (item instanceof EquipableItem || item instanceof Wand || item instanceof Trinket) {
-					custom = new Notes.CustomRecord(item, "", "");
-					custom.assignID();
-					item.customNoteID = custom.ID();
-				} else {
-					custom = new Notes.CustomRecord(item.getClass(), "", "");
-					custom.assignID();
-				}
+        public WndItemtypeSelect() {
+            super(Icons.SCROLL_COLOR.get(),
+                    Messages.get(CustomNoteButton.class, "new_type"),
+                    Messages.get(CustomNoteButton.class, "new_type_prompt"));
 
-				addNote(null, custom,
-						Messages.get(CustomNoteButton.class, "new_inv"),
-						Messages.get(CustomNoteButton.class, "new_item_title", Messages.titleCase(item.name())));
-			}
-		}
-	};
+            int top = height + 2;
+            int left = 0;
 
-	private static class WndItemtypeSelect extends WndTitledMessage {
+            ArrayList<Item> items = new ArrayList<>();
+            for (Class<?> potionCls : Generator.Category.POTION.classes) {
+                items.add((Item) Reflection.newInstance(potionCls));
+            }
+            for (Class<?> potionCls : Generator.Category.SCROLL.classes) {
+                items.add((Item) Reflection.newInstance(potionCls));
+            }
+            for (Class<?> potionCls : Generator.Category.RING.classes) {
+                items.add((Item) Reflection.newInstance(potionCls));
+            }
+            Collections.sort(items, itemVisualcomparator);
+            for (Item item : items) {
+                ItemButton itemButton = new ItemButton() {
+                    @Override
+                    protected void onClick() {
+                        addNote(WndItemtypeSelect.this, new Notes.CustomRecord(item.getClass(), "", ""),
+                                Messages.get(CustomNoteButton.class, "new_type"),
+                                Messages.get(CustomNoteButton.class, "new_item_title", Messages.titleCase(item.name())));
+                    }
+                };
+                itemButton.item(item);
+                itemButton.setRect(left, top, 19, 19);
+                add(itemButton);
 
-		public WndItemtypeSelect() {
-			super(Icons.SCROLL_COLOR.get(),
-					Messages.get(CustomNoteButton.class, "new_type"),
-					Messages.get(CustomNoteButton.class, "new_type_prompt"));
+                if (Notes.findCustomRecord(item.getClass()) != null) {
+                    itemButton.slot.enable(false);
+                }
 
-			int top = height + 2;
-			int left = 0;
+                left += 20;
+                if (left >= width - 19) {
+                    top += 20;
+                    left = 0;
+                }
+            }
+            if (left > 0) {
+                top += 20;
+                left = 0;
+            }
 
-			ArrayList<Item> items = new ArrayList<>();
-			for (Class<?> potionCls : Generator.Category.POTION.classes) {
-				items.add((Item) Reflection.newInstance(potionCls));
-			}
-			for (Class<?> potionCls : Generator.Category.SCROLL.classes) {
-				items.add((Item) Reflection.newInstance(potionCls));
-			}
-			for (Class<?> potionCls : Generator.Category.RING.classes) {
-				items.add((Item) Reflection.newInstance(potionCls));
-			}
-			Collections.sort(items, itemVisualcomparator);
-			for (Item item : items) {
-				ItemButton itemButton = new ItemButton(){
-					@Override
-					protected void onClick() {
-						addNote(WndItemtypeSelect.this, new Notes.CustomRecord(item.getClass(), "", ""),
-								Messages.get(CustomNoteButton.class, "new_type"),
-								Messages.get(CustomNoteButton.class, "new_item_title", Messages.titleCase(item.name())));
-					}
-				};
-				itemButton.item(item);
-				itemButton.setRect(left, top, 19, 19);
-				add(itemButton);
+            resize(width, top);
+        }
+    }
 
-				if (Notes.findCustomRecord(item.getClass()) != null){
-					itemButton.slot.enable(false);
-				}
+    //items are sorted first sorted potions -> scrolls -> rings, and then based on their sprites.
+    private static final Comparator<Item> itemVisualcomparator = new Comparator<Item>() {
+        @Override
+        public int compare(Item i1, Item i2) {
+            int i1Idx = i1.image();
+            int i2Idx = i2.image();
 
-				left += 20;
-				if (left >= width - 19){
-					top += 20;
-					left = 0;
-				}
-			}
-			if (left > 0){
-				top += 20;
-				left = 0;
-			}
+            if (i1 instanceof Scroll) i1Idx += 1000;
+            if (i1 instanceof Ring) i1Idx += 2000;
 
-			resize(width, top);
-		}
-	}
+            if (i2 instanceof Scroll) i2Idx += 1000;
+            if (i2 instanceof Ring) i2Idx += 2000;
 
-	//items are sorted first sorted potions -> scrolls -> rings, and then based on their sprites.
-	private static Comparator<Item> itemVisualcomparator = new Comparator<Item>() {
-		@Override
-		public int compare(Item i1, Item i2) {
-			int i1Idx = i1.image();
-			int i2Idx = i2.image();
+            return i1Idx - i2Idx;
+        }
+    };
 
-			if (i1 instanceof Scroll)   i1Idx += 1000;
-			if (i1 instanceof Ring)     i1Idx += 2000;
+    public static class CustomNoteWindow extends WndJournalItem {
 
-			if (i2 instanceof Scroll)   i2Idx += 1000;
-			if (i2 instanceof Ring)     i2Idx += 2000;
+        public CustomNoteWindow(Notes.CustomRecord rec, Window parentWindow) {
+            super(rec.icon(), rec.title(), rec.desc());
 
-			return i1Idx - i2Idx;
-		}
-	};
+            RedButton title = new RedButton(Messages.get(CustomNoteWindow.class, "edit_title")) {
+                @Override
+                protected void onClick() {
+                    GameScene.show(new WndTextInput(Messages.get(CustomNoteWindow.class, "edit_title"),
+                            "",
+                            rec.title(),
+                            50,
+                            false,
+                            Messages.get(CustomNoteWindow.class, "confirm"),
+                            Messages.get(CustomNoteWindow.class, "cancel")) {
+                        @Override
+                        public void onSelect(boolean positive, String text) {
+                            if (positive && !text.isEmpty()) {
+                                rec.editText(text, rec.desc());
+                                CustomNoteWindow.this.hide();
+                                if (parentWindow instanceof WndUseItem) {
+                                    WndUseItem newParent = new WndUseItem(((WndUseItem) parentWindow).owner, ((WndUseItem) parentWindow).item);
+                                    GameScene.show(newParent);
+                                    GameScene.show(new CustomNoteWindow(rec, newParent));
+                                } else {
+                                    GameScene.show(new CustomNoteWindow(rec, parentWindow));
+                                }
+                            }
+                        }
+                    });
+                }
+            };
+            add(title);
+            title.setRect(0, Math.min(height + 2, PixelScene.uiCamera.height - 50), width / 2 - 1, 16);
 
-	public static class CustomNoteWindow extends WndJournalItem {
+            String editBodyText = rec.desc().isEmpty() ? Messages.get(CustomNoteWindow.class, "add_text") : Messages.get(CustomNoteWindow.class, "edit_text");
+            RedButton body = new RedButton(editBodyText) {
+                @Override
+                protected void onClick() {
+                    GameScene.show(new WndTextInput(editBodyText,
+                            "",
+                            rec.desc(),
+                            500,
+                            true,
+                            Messages.get(CustomNoteWindow.class, "confirm"),
+                            Messages.get(CustomNoteWindow.class, "cancel")) {
+                        @Override
+                        public void onSelect(boolean positive, String text) {
+                            if (positive) {
+                                rec.editText(rec.title(), text);
+                                CustomNoteWindow.this.hide();
+                                GameScene.show(new CustomNoteWindow(rec, parentWindow));
+                            }
+                        }
+                    });
+                }
+            };
+            add(body);
+            body.setRect(title.right() + 2, title.top(), width / 2 - 1, 16);
 
-		public CustomNoteWindow(Notes.CustomRecord rec, Window parentWindow) {
-			super(rec.icon(), rec.title(), rec.desc());
+            RedButton delete = new RedButton(Messages.get(CustomNoteWindow.class, "delete")) {
+                @Override
+                protected void onClick() {
+                    GameScene.show(new WndOptions(Icons.WARNING.get(),
+                            Messages.get(CustomNoteWindow.class, "delete"),
+                            Messages.get(CustomNoteWindow.class, "delete_warn"),
+                            Messages.get(CustomNoteWindow.class, "confirm"),
+                            Messages.get(CustomNoteWindow.class, "cancel")) {
+                        @Override
+                        protected void onSelect(int index) {
+                            if (index == 0) {
+                                Notes.remove(rec);
+                                CustomNoteWindow.this.hide();
+                                if (parentWindow instanceof WndJournal || parentWindow == null) {
+                                    ShatteredPixelDungeon.scene().addToFront(new WndJournal());
+                                } else if (parentWindow instanceof WndUseItem) {
+                                    GameScene.show(new WndUseItem(((WndUseItem) parentWindow).owner, ((WndUseItem) parentWindow).item));
+                                }
+                            }
+                        }
+                    });
+                }
+            };
+            add(delete);
+            delete.setRect(0, title.bottom() + 1, width, 16);
 
-			RedButton title = new RedButton( Messages.get(CustomNoteWindow.class, "edit_title") ){
-				@Override
-				protected void onClick() {
-					GameScene.show(new WndTextInput(Messages.get(CustomNoteWindow.class, "edit_title"),
-							"",
-							rec.title(),
-							50,
-							false,
-							Messages.get(CustomNoteWindow.class, "confirm"),
-							Messages.get(CustomNoteWindow.class, "cancel")){
-						@Override
-						public void onSelect(boolean positive, String text) {
-							if (positive && !text.isEmpty()){
-								rec.editText(text, rec.desc());
-								CustomNoteWindow.this.hide();
-								if (parentWindow instanceof WndUseItem){
-									WndUseItem newParent = new WndUseItem(((WndUseItem) parentWindow).owner, ((WndUseItem) parentWindow).item);
-									GameScene.show(newParent);
-									GameScene.show(new CustomNoteWindow(rec, newParent));
-								} else {
-									GameScene.show(new CustomNoteWindow(rec, parentWindow));
-								}
-							}
-						}
-					});
-				}
-			};
-			add(title);
-			title.setRect(0, Math.min(height+2, PixelScene.uiCamera.height-50), width/2-1, 16);
+            resize(width, (int) delete.bottom());
+        }
 
-			String editBodyText = rec.desc().isEmpty() ? Messages.get(CustomNoteWindow.class, "add_text") : Messages.get(CustomNoteWindow.class, "edit_text");
-			RedButton body = new RedButton(editBodyText){
-				@Override
-				protected void onClick() {
-					GameScene.show(new WndTextInput(editBodyText,
-							"",
-							rec.desc(),
-							500,
-							true,
-							Messages.get(CustomNoteWindow.class, "confirm"),
-							Messages.get(CustomNoteWindow.class, "cancel")){
-						@Override
-						public void onSelect(boolean positive, String text) {
-							if (positive){
-								rec.editText(rec.title(), text);
-								CustomNoteWindow.this.hide();
-								GameScene.show(new CustomNoteWindow(rec, parentWindow));
-							}
-						}
-					});
-				}
-			};
-			add(body);
-			body.setRect(title.right()+2, title.top(), width/2-1, 16);
+        @Override
+        protected boolean useHighlighting() {
+            return false;
+        }
+    }
 
-			RedButton delete = new RedButton( Messages.get(CustomNoteWindow.class, "delete") ){
-				@Override
-				protected void onClick() {
-					GameScene.show(new WndOptions(Icons.WARNING.get(),
-							Messages.get(CustomNoteWindow.class, "delete"),
-							Messages.get(CustomNoteWindow.class, "delete_warn"),
-							Messages.get(CustomNoteWindow.class, "confirm"),
-							Messages.get(CustomNoteWindow.class, "cancel")){
-						@Override
-						protected void onSelect(int index) {
-							if (index == 0){
-								Notes.remove(rec);
-								CustomNoteWindow.this.hide();
-								if (parentWindow instanceof WndJournal || parentWindow == null){
-									ShatteredPixelDungeon.scene().addToFront(new WndJournal());
-								} else if (parentWindow instanceof WndUseItem){
-									GameScene.show(new WndUseItem(((WndUseItem) parentWindow).owner, ((WndUseItem) parentWindow).item));
-								}
-							}
-						}
-					});
-				}
-			};
-			add(delete);
-			delete.setRect(0, title.bottom()+1, width, 16);
-
-			resize(width, (int)delete.bottom());
-		}
-
-		@Override
-		protected boolean useHighlighting() {
-			return false;
-		}
-	}
-
-	private static void addNote(Window parentWindow, Notes.CustomRecord note, String promptTitle, String prompttext){
-		GameScene.show(new WndTextInput(promptTitle,
-				prompttext,
-				"",
-				50,
-				false,
-				Messages.get(CustomNoteWindow.class, "confirm"),
-				Messages.get(CustomNoteWindow.class, "cancel")){
-			@Override
-			public void onSelect(boolean positive, String text) {
-				if (positive && !text.isEmpty()){
-					Notes.add(note);
-					note.editText(text, "");
-					if (parentWindow != null) {
-						parentWindow.hide();
-					}
-					if (WndBag.INSTANCE != null) {
-						WndBag.INSTANCE.hide();
-					}
-					if (NOTE_SELECT_INSTANCE != null){
-						NOTE_SELECT_INSTANCE.onBackPressed();
-					}
-					hide();
-					WndJournal wnd = new WndJournal();
-					ShatteredPixelDungeon.scene().addToFront(wnd);
-					ShatteredPixelDungeon.scene().addToFront(new CustomNoteWindow(note, wnd));
-				}
-			}
-		});
-	}
-
+    private static void addNote(Window parentWindow, Notes.CustomRecord note, String promptTitle, String prompttext) {
+        GameScene.show(new WndTextInput(promptTitle,
+                prompttext,
+                "",
+                50,
+                false,
+                Messages.get(CustomNoteWindow.class, "confirm"),
+                Messages.get(CustomNoteWindow.class, "cancel")) {
+            @Override
+            public void onSelect(boolean positive, String text) {
+                if (positive && !text.isEmpty()) {
+                    Notes.add(note);
+                    note.editText(text, "");
+                    if (parentWindow != null) {
+                        parentWindow.hide();
+                    }
+                    if (WndBag.INSTANCE != null) {
+                        WndBag.INSTANCE.hide();
+                    }
+                    if (NOTE_SELECT_INSTANCE != null) {
+                        NOTE_SELECT_INSTANCE.onBackPressed();
+                    }
+                    hide();
+                    WndJournal wnd = new WndJournal();
+                    ShatteredPixelDungeon.scene().addToFront(wnd);
+                    ShatteredPixelDungeon.scene().addToFront(new CustomNoteWindow(note, wnd));
+                }
+            }
+        });
+    }
 }

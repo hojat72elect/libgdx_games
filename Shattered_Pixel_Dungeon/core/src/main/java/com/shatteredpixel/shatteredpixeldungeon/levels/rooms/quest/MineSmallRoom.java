@@ -36,72 +36,74 @@ import java.util.ArrayList;
 
 public class MineSmallRoom extends CaveRoom {
 
-	@Override
-	public int minWidth() { return Math.max(6, super.minWidth()); }
+    @Override
+    public int minWidth() {
+        return Math.max(6, super.minWidth());
+    }
 
-	@Override
-	public int minHeight() { return Math.max(6, super.minHeight()); }
+    @Override
+    public int minHeight() {
+        return Math.max(6, super.minHeight());
+    }
 
-	@Override
-	public float[] sizeCatProbs() {
-		return new float[]{1, 0, 0};
-	}
+    @Override
+    public float[] sizeCatProbs() {
+        return new float[]{1, 0, 0};
+    }
 
-	@Override
-	protected float fill() {
-		return 0.40f;
-	}
+    @Override
+    protected float fill() {
+        return 0.40f;
+    }
 
-	@Override
-	public void paint(Level level) {
-		super.paint(level);
+    @Override
+    public void paint(Level level) {
+        super.paint(level);
 
-		if (Blacksmith.Quest.Type() == Blacksmith.Quest.CRYSTAL){
-			for (int i = 0; i < width()*height()/3; i ++){
-				Point r = random(1);
-				if (level.map[level.pointToCell(r)] != Terrain.WALL) {
-					Painter.set(level, r, Terrain.MINE_CRYSTAL);
-				}
-			}
-		} else if (Blacksmith.Quest.Type() == Blacksmith.Quest.GNOLL) {
+        if (Blacksmith.Quest.Type() == Blacksmith.Quest.CRYSTAL) {
+            for (int i = 0; i < width() * height() / 3; i++) {
+                Point r = random(1);
+                if (level.map[level.pointToCell(r)] != Terrain.WALL) {
+                    Painter.set(level, r, Terrain.MINE_CRYSTAL);
+                }
+            }
+        } else if (Blacksmith.Quest.Type() == Blacksmith.Quest.GNOLL) {
 
-			//connections to non-secret rooms have a 9/10 chance to become empty, otherwise wall
-			for (Room n : connected.keySet()){
-				if (!(n instanceof SecretRoom) && connected.get(n).type == Door.Type.REGULAR){
-					if (Random.Int(10) == 0){
-						connected.get(n).set(Door.Type.EMPTY);
-					} else {
-						connected.get(n).set(Door.Type.WALL);
-					}
-					connected.get(n).lockTypeChanges(true);
-				}
-			}
+            //connections to non-secret rooms have a 9/10 chance to become empty, otherwise wall
+            for (Room n : connected.keySet()) {
+                if (!(n instanceof SecretRoom) && connected.get(n).type == Door.Type.REGULAR) {
+                    if (Random.Int(10) == 0) {
+                        connected.get(n).set(Door.Type.EMPTY);
+                    } else {
+                        connected.get(n).set(Door.Type.WALL);
+                    }
+                    connected.get(n).lockTypeChanges(true);
+                }
+            }
 
-			ArrayList<Door> doors = new ArrayList<>();
-			for (Door d : connected.values()){
-				if (d.type == Door.Type.WALL){
-					doors.add(d);
-				}
-			}
+            ArrayList<Door> doors = new ArrayList<>();
+            for (Door d : connected.values()) {
+                if (d.type == Door.Type.WALL) {
+                    doors.add(d);
+                }
+            }
 
-			for (Point p : getPoints()){
-				int cell = level.pointToCell(p);
-				if (level.map[cell] == Terrain.EMPTY){
-					float dist = 1000;
-					for (Door d : doors){
-						dist = Math.min(dist, Point.distance(p, d));
-					}
-					dist = GameMath.gate(1f, dist, 5f);
-					float val = Random.Float((float) Math.pow(dist, 2));
-					if (val <= 0.75f || dist <= 1) {
-						Painter.set(level, cell, Terrain.MINE_BOULDER);
-					} else if (val <= 5f && dist <= 2){
-						Painter.set(level, cell, Terrain.EMPTY_DECO);
-					}
-				}
-			}
-
-		}
-
-	}
+            for (Point p : getPoints()) {
+                int cell = level.pointToCell(p);
+                if (level.map[cell] == Terrain.EMPTY) {
+                    float dist = 1000;
+                    for (Door d : doors) {
+                        dist = Math.min(dist, Point.distance(p, d));
+                    }
+                    dist = GameMath.gate(1f, dist, 5f);
+                    float val = Random.Float((float) Math.pow(dist, 2));
+                    if (val <= 0.75f || dist <= 1) {
+                        Painter.set(level, cell, Terrain.MINE_BOULDER);
+                    } else if (val <= 5f && dist <= 2) {
+                        Painter.set(level, cell, Terrain.EMPTY_DECO);
+                    }
+                }
+            }
+        }
+    }
 }

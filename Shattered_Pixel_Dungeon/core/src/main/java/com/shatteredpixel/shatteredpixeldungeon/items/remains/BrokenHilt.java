@@ -30,13 +30,13 @@ import com.watabou.noosa.audio.Sample;
 
 public class BrokenHilt extends RemainsItem {
 
-	{
-		image = ItemSpriteSheet.BROKEN_HILT;
-	}
+    {
+        image = ItemSpriteSheet.BROKEN_HILT;
+    }
 
-	@Override
-	protected void doEffect(Hero hero) {
-		Buff.affect( hero, PhysicalEmpower.class).set(Math.max(2, hero.lvl/3), 2);
-		Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
-	}
+    @Override
+    protected void doEffect(Hero hero) {
+        Buff.affect(hero, PhysicalEmpower.class).set(Math.max(2, hero.lvl / 3), 2);
+        Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
+    }
 }

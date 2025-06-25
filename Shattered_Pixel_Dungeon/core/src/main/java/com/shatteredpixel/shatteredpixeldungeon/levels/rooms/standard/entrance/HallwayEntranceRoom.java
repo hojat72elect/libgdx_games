@@ -30,25 +30,24 @@ import com.watabou.utils.Point;
 
 public class HallwayEntranceRoom extends HallwayRoom {
 
-	@Override
-	public boolean isEntrance() {
-		return true;
-	}
+    @Override
+    public boolean isEntrance() {
+        return true;
+    }
 
-	@Override
-	public void paint(Level level) {
-		super.paint(level);
+    @Override
+    public void paint(Level level) {
+        super.paint(level);
 
-		int entrance = -1;
-		for ( Point p : getPoints()){
-			if (level.map[level.pointToCell(p)] == Terrain.STATUE_SP
-				|| level.map[level.pointToCell(p)] == Terrain.REGION_DECO_ALT){
-				entrance = level.pointToCell(p);
-				break;
-			}
-		}
-		Painter.set( level, entrance, Terrain.ENTRANCE_SP );
-		level.transitions.add(new LevelTransition(level, entrance, LevelTransition.Type.REGULAR_ENTRANCE));
-
-	}
+        int entrance = -1;
+        for (Point p : getPoints()) {
+            if (level.map[level.pointToCell(p)] == Terrain.STATUE_SP
+                    || level.map[level.pointToCell(p)] == Terrain.REGION_DECO_ALT) {
+                entrance = level.pointToCell(p);
+                break;
+            }
+        }
+        Painter.set(level, entrance, Terrain.ENTRANCE_SP);
+        level.transitions.add(new LevelTransition(level, entrance, LevelTransition.Type.REGULAR_ENTRANCE));
+    }
 }

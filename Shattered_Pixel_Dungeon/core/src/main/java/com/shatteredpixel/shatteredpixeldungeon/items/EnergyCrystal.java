@@ -35,52 +35,51 @@ import java.util.ArrayList;
 
 public class EnergyCrystal extends Item {
 
-	{
-		image = ItemSpriteSheet.ENERGY;
-		stackable = true;
-	}
+    {
+        image = ItemSpriteSheet.ENERGY;
+        stackable = true;
+    }
 
-	public EnergyCrystal() {
-		this( 1 );
-	}
+    public EnergyCrystal() {
+        this(1);
+    }
 
-	public EnergyCrystal( int value ) {
-		this.quantity = value;
-	}
+    public EnergyCrystal(int value) {
+        this.quantity = value;
+    }
 
-	@Override
-	public ArrayList<String> actions(Hero hero ) {
-		return new ArrayList<>();
-	}
+    @Override
+    public ArrayList<String> actions(Hero hero) {
+        return new ArrayList<>();
+    }
 
-	@Override
-	public boolean doPickUp(Hero hero, int pos) {
+    @Override
+    public boolean doPickUp(Hero hero, int pos) {
 
-		Catalog.setSeen(getClass());
-		Statistics.itemTypesDiscovered.add(getClass());
+        Catalog.setSeen(getClass());
+        Statistics.itemTypesDiscovered.add(getClass());
 
-		Dungeon.energy += quantity;
-		//TODO track energy collected maybe? We do already track recipes crafted though..
+        Dungeon.energy += quantity;
+        //TODO track energy collected maybe? We do already track recipes crafted though..
 
-		GameScene.pickUp( this, pos );
-		hero.sprite.showStatusWithIcon( 0x44CCFF, Integer.toString(quantity), FloatingText.ENERGY );
-		hero.spendAndNext( TIME_TO_PICK_UP );
+        GameScene.pickUp(this, pos);
+        hero.sprite.showStatusWithIcon(0x44CCFF, Integer.toString(quantity), FloatingText.ENERGY);
+        hero.spendAndNext(TIME_TO_PICK_UP);
 
-		Sample.INSTANCE.play( Assets.Sounds.ITEM );
+        Sample.INSTANCE.play(Assets.Sounds.ITEM);
 
-		updateQuickslot();
+        updateQuickslot();
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public boolean isUpgradable() {
-		return false;
-	}
+    @Override
+    public boolean isUpgradable() {
+        return false;
+    }
 
-	@Override
-	public boolean isIdentified() {
-		return true;
-	}
-
+    @Override
+    public boolean isIdentified() {
+        return true;
+    }
 }

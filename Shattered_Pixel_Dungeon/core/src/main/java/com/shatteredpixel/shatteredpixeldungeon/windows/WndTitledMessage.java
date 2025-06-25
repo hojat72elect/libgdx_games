@@ -29,50 +29,49 @@ import com.watabou.noosa.ui.Component;
 
 public class WndTitledMessage extends Window {
 
-	protected static final int WIDTH_MIN    = 120;
-	protected static final int WIDTH_MAX    = 220;
-	protected static final int GAP	= 2;
+    protected static final int WIDTH_MIN = 120;
+    protected static final int WIDTH_MAX = 220;
+    protected static final int GAP = 2;
 
-	public WndTitledMessage( Image icon, String title, String message ) {
-		
-		this( new IconTitle( icon, title ), message );
+    public WndTitledMessage(Image icon, String title, String message) {
 
-	}
-	
-	public WndTitledMessage( Component titlebar, String message ) {
+        this(new IconTitle(icon, title), message);
+    }
 
-		super();
+    public WndTitledMessage(Component titlebar, String message) {
 
-		int width = WIDTH_MIN;
+        super();
 
-		titlebar.setRect( 0, 0, width, 0 );
-		add(titlebar);
+        int width = WIDTH_MIN;
 
-		RenderedTextBlock text = PixelScene.renderTextBlock( 6 );
-		if (!useHighlighting()) text.setHightlighting(false);
-		text.text( message, width );
-		text.setPos( titlebar.left(), titlebar.bottom() + 2*GAP );
-		add( text );
+        titlebar.setRect(0, 0, width, 0);
+        add(titlebar);
 
-		while (PixelScene.landscape()
-				&& text.bottom() > targetHeight()
-				&& width < WIDTH_MAX){
-			width += 20;
-			titlebar.setRect(0, 0, width, 0);
-			text.setPos( titlebar.left(), titlebar.bottom() + 2*GAP );
-			text.maxWidth(width);
-		}
+        RenderedTextBlock text = PixelScene.renderTextBlock(6);
+        if (!useHighlighting()) text.setHightlighting(false);
+        text.text(message, width);
+        text.setPos(titlebar.left(), titlebar.bottom() + 2 * GAP);
+        add(text);
 
-		bringToFront(titlebar);
+        while (PixelScene.landscape()
+                && text.bottom() > targetHeight()
+                && width < WIDTH_MAX) {
+            width += 20;
+            titlebar.setRect(0, 0, width, 0);
+            text.setPos(titlebar.left(), titlebar.bottom() + 2 * GAP);
+            text.maxWidth(width);
+        }
 
-		resize( width, (int)text.bottom() + 2 );
-	}
+        bringToFront(titlebar);
 
-	protected boolean useHighlighting(){
-		return true;
-	}
+        resize(width, (int) text.bottom() + 2);
+    }
 
-	protected float targetHeight() {
-		return PixelScene.MIN_HEIGHT_L - 10;
-	}
+    protected boolean useHighlighting() {
+        return true;
+    }
+
+    protected float targetHeight() {
+        return PixelScene.MIN_HEIGHT_L - 10;
+    }
 }

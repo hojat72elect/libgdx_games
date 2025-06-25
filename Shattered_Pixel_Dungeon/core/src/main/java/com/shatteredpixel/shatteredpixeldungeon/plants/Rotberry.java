@@ -36,49 +36,49 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class Rotberry extends Plant {
 
-	{
-		image = 0;
-		seedClass = Seed.class;
-	}
+    {
+        image = 0;
+        seedClass = Seed.class;
+    }
 
-	@Override
-	public void activate( Char ch ) {
-		if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN){
-			Buff.affect(ch, AdrenalineSurge.class).reset(1, AdrenalineSurge.DURATION);
-		} else {
-			GameScene.add( Blob.seed( pos, 100, ToxicGas.class ) );
-		}
-	}
-	
-	@Override
-	public void wither() {
-		Dungeon.level.uproot( pos );
-		
-		if (Dungeon.level.heroFOV[pos]) {
-			CellEmitter.get( pos ).burst( LeafParticle.GENERAL, 6 );
-		}
+    @Override
+    public void activate(Char ch) {
+        if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN) {
+            Buff.affect(ch, AdrenalineSurge.class).reset(1, AdrenalineSurge.DURATION);
+        } else {
+            GameScene.add(Blob.seed(pos, 100, ToxicGas.class));
+        }
+    }
 
-		//seed always drops, no lotus benefit
-		Dungeon.level.drop( new Seed(), pos ).sprite.drop();
-	}
+    @Override
+    public void wither() {
+        Dungeon.level.uproot(pos);
 
-	public static class Seed extends Plant.Seed {
-		{
-			image = ItemSpriteSheet.SEED_ROTBERRY;
+        if (Dungeon.level.heroFOV[pos]) {
+            CellEmitter.get(pos).burst(LeafParticle.GENERAL, 6);
+        }
 
-			plantClass = Rotberry.class;
+        //seed always drops, no lotus benefit
+        Dungeon.level.drop(new Seed(), pos).sprite.drop();
+    }
 
-			unique = true;
-		}
-		
-		@Override
-		public int value() {
-			return 30 * quantity;
-		}
+    public static class Seed extends Plant.Seed {
+        {
+            image = ItemSpriteSheet.SEED_ROTBERRY;
 
-		@Override
-		public int energyVal() {
-			return 3 * quantity;
-		}
-	}
+            plantClass = Rotberry.class;
+
+            unique = true;
+        }
+
+        @Override
+        public int value() {
+            return 30 * quantity;
+        }
+
+        @Override
+        public int energyVal() {
+            return 3 * quantity;
+        }
+    }
 }

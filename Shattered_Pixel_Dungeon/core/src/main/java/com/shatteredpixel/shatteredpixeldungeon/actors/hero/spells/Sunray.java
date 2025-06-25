@@ -45,90 +45,91 @@ import com.watabou.utils.Random;
 
 public class Sunray extends TargetedClericSpell {
 
-	public static final Sunray INSTANCE = new Sunray();
+    public static final Sunray INSTANCE = new Sunray();
 
-	@Override
-	public int icon() {
-		return HeroIcon.SUNRAY;
-	}
+    @Override
+    public int icon() {
+        return HeroIcon.SUNRAY;
+    }
 
-	@Override
-	public String desc() {
-		int min = Dungeon.hero.pointsInTalent(Talent.SUNRAY) == 2 ? 6 : 4;
-		int max = Dungeon.hero.pointsInTalent(Talent.SUNRAY) == 2 ? 12 : 8;
-		int dur = Dungeon.hero.pointsInTalent(Talent.SUNRAY) == 2 ? 6 : 4;
-		return Messages.get(this, "desc", min, max, dur) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
-	}
+    @Override
+    public String desc() {
+        int min = Dungeon.hero.pointsInTalent(Talent.SUNRAY) == 2 ? 6 : 4;
+        int max = Dungeon.hero.pointsInTalent(Talent.SUNRAY) == 2 ? 12 : 8;
+        int dur = Dungeon.hero.pointsInTalent(Talent.SUNRAY) == 2 ? 6 : 4;
+        return Messages.get(this, "desc", min, max, dur) + "\n\n" + Messages.get(this, "charge_cost", (int) chargeUse(Dungeon.hero));
+    }
 
-	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.hasTalent(Talent.SUNRAY);
-	}
+    @Override
+    public boolean canCast(Hero hero) {
+        return super.canCast(hero) && hero.hasTalent(Talent.SUNRAY);
+    }
 
-	@Override
-	protected void onTargetSelected(HolyTome tome, Hero hero, Integer target) {
-		if (target == null){
-			return;
-		}
+    @Override
+    protected void onTargetSelected(HolyTome tome, Hero hero, Integer target) {
+        if (target == null) {
+            return;
+        }
 
-		Ballistica aim = new Ballistica(hero.pos, target,  targetingFlags());
+        Ballistica aim = new Ballistica(hero.pos, target, targetingFlags());
 
-		if (Actor.findChar( aim.collisionPos ) == hero){
-			GLog.i( Messages.get(Wand.class, "self_target") );
-			return;
-		}
+        if (Actor.findChar(aim.collisionPos) == hero) {
+            GLog.i(Messages.get(Wand.class, "self_target"));
+            return;
+        }
 
-		if (Actor.findChar(aim.collisionPos) != null) {
-			QuickSlotButton.target(Actor.findChar(aim.collisionPos));
-		} else {
-			QuickSlotButton.target(Actor.findChar(target));
-		}
+        if (Actor.findChar(aim.collisionPos) != null) {
+            QuickSlotButton.target(Actor.findChar(aim.collisionPos));
+        } else {
+            QuickSlotButton.target(Actor.findChar(target));
+        }
 
-		hero.busy();
-		Sample.INSTANCE.play( Assets.Sounds.RAY );
-		hero.sprite.zap(target);
+        hero.busy();
+        Sample.INSTANCE.play(Assets.Sounds.RAY);
+        hero.sprite.zap(target);
 
-		hero.sprite.parent.add(
-				new Beam.SunRay(hero.sprite.center(), DungeonTilemap.raisedTileCenterToWorld(aim.collisionPos)));
+        hero.sprite.parent.add(
+                new Beam.SunRay(hero.sprite.center(), DungeonTilemap.raisedTileCenterToWorld(aim.collisionPos)));
 
-		Char ch = Actor.findChar( aim.collisionPos );
-		if (ch != null) {
-			ch.sprite.burst(0xFFFFFF44, 5);
+        Char ch = Actor.findChar(aim.collisionPos);
+        if (ch != null) {
+            ch.sprite.burst(0xFFFFFF44, 5);
 
-			if (Char.hasProp(ch, Char.Property.UNDEAD) || Char.hasProp(ch, Char.Property.DEMONIC)){
-				if (hero.pointsInTalent(Talent.SUNRAY) == 2) {
-					ch.damage(12, Sunray.this);
-				} else {
-					ch.damage(8, Sunray.this);
-				}
-			} else {
-				if (hero.pointsInTalent(Talent.SUNRAY) == 2) {
-					ch.damage(Random.NormalIntRange(6, 12), Sunray.this);
-				} else {
-					ch.damage(Random.NormalIntRange(4, 8), Sunray.this);
-				}
-			}
+            if (Char.hasProp(ch, Char.Property.UNDEAD) || Char.hasProp(ch, Char.Property.DEMONIC)) {
+                if (hero.pointsInTalent(Talent.SUNRAY) == 2) {
+                    ch.damage(12, Sunray.this);
+                } else {
+                    ch.damage(8, Sunray.this);
+                }
+            } else {
+                if (hero.pointsInTalent(Talent.SUNRAY) == 2) {
+                    ch.damage(Random.NormalIntRange(6, 12), Sunray.this);
+                } else {
+                    ch.damage(Random.NormalIntRange(4, 8), Sunray.this);
+                }
+            }
 
-			if (ch.isAlive()) {
-				if (ch.buff(Blindness.class) != null && ch.buff(SunRayRecentlyBlindedTracker.class) != null) {
-					Buff.prolong(ch, Paralysis.class, 2f + 2f*hero.pointsInTalent(Talent.SUNRAY));
-					ch.buff(SunRayRecentlyBlindedTracker.class).detach();
-				} else if (ch.buff(SunRayUsedTracker.class) == null) {
-					Buff.prolong(ch, Blindness.class, 2f + 2f*hero.pointsInTalent(Talent.SUNRAY));
-					Buff.prolong(ch, SunRayRecentlyBlindedTracker.class, 2f + 2f*hero.pointsInTalent(Talent.SUNRAY));
-					Buff.affect(ch, SunRayUsedTracker.class);
-				}
-			}
-		}
+            if (ch.isAlive()) {
+                if (ch.buff(Blindness.class) != null && ch.buff(SunRayRecentlyBlindedTracker.class) != null) {
+                    Buff.prolong(ch, Paralysis.class, 2f + 2f * hero.pointsInTalent(Talent.SUNRAY));
+                    ch.buff(SunRayRecentlyBlindedTracker.class).detach();
+                } else if (ch.buff(SunRayUsedTracker.class) == null) {
+                    Buff.prolong(ch, Blindness.class, 2f + 2f * hero.pointsInTalent(Talent.SUNRAY));
+                    Buff.prolong(ch, SunRayRecentlyBlindedTracker.class, 2f + 2f * hero.pointsInTalent(Talent.SUNRAY));
+                    Buff.affect(ch, SunRayUsedTracker.class);
+                }
+            }
+        }
 
-		hero.spend( 1f );
-		hero.next();
+        hero.spend(1f);
+        hero.next();
 
-		onSpellCast(tome, hero);
+        onSpellCast(tome, hero);
+    }
 
-	}
+    public static class SunRayUsedTracker extends Buff {
+    }
 
-	public static class SunRayUsedTracker extends Buff {}
-	public static class SunRayRecentlyBlindedTracker extends FlavourBuff {}
-
+    public static class SunRayRecentlyBlindedTracker extends FlavourBuff {
+    }
 }

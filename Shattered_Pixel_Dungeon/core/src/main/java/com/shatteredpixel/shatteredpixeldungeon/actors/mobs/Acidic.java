@@ -31,30 +31,31 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.AcidicSprite;
 
 public class Acidic extends Scorpio {
 
-	{
-		spriteClass = AcidicSprite.class;
-		
-		properties.add(Property.ACIDIC);
+    {
+        spriteClass = AcidicSprite.class;
 
-		loot = PotionOfExperience.class;
-		lootChance = 1f;
-	}
-	@Override
-	public int attackProc(Char enemy, int damage) {
-		Buff.affect(enemy, Ooze.class).set( Ooze.DURATION );
-		return super.attackProc(enemy, damage);
-	}
+        properties.add(Property.ACIDIC);
 
-	@Override
-	public int defenseProc( Char enemy, int damage ) {
-		if (Dungeon.level.adjacent(pos, enemy.pos)){
-			Buff.affect(enemy, Ooze.class).set( Ooze.DURATION );
-		}
-		return super.defenseProc( enemy, damage );
-	}
+        loot = PotionOfExperience.class;
+        lootChance = 1f;
+    }
 
-	@Override
-	public Item createLoot() {
-		return new PotionOfExperience();
-	}
+    @Override
+    public int attackProc(Char enemy, int damage) {
+        Buff.affect(enemy, Ooze.class).set(Ooze.DURATION);
+        return super.attackProc(enemy, damage);
+    }
+
+    @Override
+    public int defenseProc(Char enemy, int damage) {
+        if (Dungeon.level.adjacent(pos, enemy.pos)) {
+            Buff.affect(enemy, Ooze.class).set(Ooze.DURATION);
+        }
+        return super.defenseProc(enemy, damage);
+    }
+
+    @Override
+    public Item createLoot() {
+        return new PotionOfExperience();
+    }
 }

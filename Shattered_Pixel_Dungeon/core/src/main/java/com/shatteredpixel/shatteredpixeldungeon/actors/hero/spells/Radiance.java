@@ -38,51 +38,50 @@ import com.watabou.noosa.audio.Sample;
 
 public class Radiance extends ClericSpell {
 
-	public static final Radiance INSTANCE = new Radiance();
+    public static final Radiance INSTANCE = new Radiance();
 
-	@Override
-	public int icon() {
-		return HeroIcon.RADIANCE;
-	}
+    @Override
+    public int icon() {
+        return HeroIcon.RADIANCE;
+    }
 
-	@Override
-	public float chargeUse(Hero hero) {
-		return 2;
-	}
+    @Override
+    public float chargeUse(Hero hero) {
+        return 2;
+    }
 
-	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.subClass == HeroSubClass.PRIEST;
-	}
+    @Override
+    public boolean canCast(Hero hero) {
+        return super.canCast(hero) && hero.subClass == HeroSubClass.PRIEST;
+    }
 
-	@Override
-	public void onCast(HolyTome tome, Hero hero) {
+    @Override
+    public void onCast(HolyTome tome, Hero hero) {
 
-		GameScene.flash( 0x80FFFFFF );
-		Sample.INSTANCE.play(Assets.Sounds.BLAST);
+        GameScene.flash(0x80FFFFFF);
+        Sample.INSTANCE.play(Assets.Sounds.BLAST);
 
-		if (Dungeon.level.viewDistance < 6 ){
-			Buff.prolong(hero, Light.class, Dungeon.isChallenged(Challenges.DARKNESS) ? 20 : 100);
-		}
+        if (Dungeon.level.viewDistance < 6) {
+            Buff.prolong(hero, Light.class, Dungeon.isChallenged(Challenges.DARKNESS) ? 20 : 100);
+        }
 
-		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-			if (mob.alignment != Char.Alignment.ALLY && Dungeon.level.heroFOV[mob.pos]) {
+        for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+            if (mob.alignment != Char.Alignment.ALLY && Dungeon.level.heroFOV[mob.pos]) {
 
-				if (mob.buff(GuidingLight.Illuminated.class) != null){
-					mob.damage(hero.lvl+5, GuidingLight.class);
-				} else {
-					Buff.affect(mob, GuidingLight.Illuminated.class);
-					Buff.affect(mob, GuidingLight.WasIlluminatedTracker.class);
-				}
-				Buff.affect(mob, Paralysis.class, 3f);
-			}
-		}
+                if (mob.buff(GuidingLight.Illuminated.class) != null) {
+                    mob.damage(hero.lvl + 5, GuidingLight.class);
+                } else {
+                    Buff.affect(mob, GuidingLight.Illuminated.class);
+                    Buff.affect(mob, GuidingLight.WasIlluminatedTracker.class);
+                }
+                Buff.affect(mob, Paralysis.class, 3f);
+            }
+        }
 
-		hero.spend( 1f );
-		hero.busy();
-		hero.sprite.operate(hero.pos);
+        hero.spend(1f);
+        hero.busy();
+        hero.sprite.operate(hero.pos);
 
-		onSpellCast(tome, hero);
-
-	}
+        onSpellCast(tome, hero);
+    }
 }

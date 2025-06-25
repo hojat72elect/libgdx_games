@@ -40,121 +40,121 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 public class WndSadGhost extends Window {
 
-	private static final int WIDTH		= 120;
-	private static final int BTN_SIZE	= 32;
-	private static final int BTN_GAP	= 5;
-	private static final int GAP		= 2;
+    private static final int WIDTH = 120;
+    private static final int BTN_SIZE = 32;
+    private static final int BTN_GAP = 5;
+    private static final int GAP = 2;
 
-	Ghost ghost;
-	
-	public WndSadGhost( final Ghost ghost, final int type ) {
-		
-		super();
+    Ghost ghost;
 
-		this.ghost = ghost;
-		
-		IconTitle titlebar = new IconTitle();
-		RenderedTextBlock message;
-		switch (type){
-			case 1:default:
-				titlebar.icon( new FetidRatSprite() );
-				titlebar.label( Messages.get(this, "rat_title") );
-				message = PixelScene.renderTextBlock( Messages.get(this, "rat")+"\n\n"+Messages.get(this, "give_item"), 6 );
-				break;
-			case 2:
-				titlebar.icon( new GnollTricksterSprite() );
-				titlebar.label( Messages.get(this, "gnoll_title") );
-				message = PixelScene.renderTextBlock( Messages.get(this, "gnoll")+"\n\n"+Messages.get(this, "give_item"), 6 );
-				break;
-			case 3:
-				titlebar.icon( new GreatCrabSprite());
-				titlebar.label( Messages.get(this, "crab_title") );
-				message = PixelScene.renderTextBlock( Messages.get(this, "crab")+"\n\n"+Messages.get(this, "give_item"), 6 );
-				break;
+    public WndSadGhost(final Ghost ghost, final int type) {
 
-		}
+        super();
 
-		titlebar.setRect( 0, 0, WIDTH, 0 );
-		add( titlebar );
+        this.ghost = ghost;
 
-		message.maxWidth(WIDTH);
-		message.setPos(0, titlebar.bottom() + GAP);
-		add( message );
+        IconTitle titlebar = new IconTitle();
+        RenderedTextBlock message;
+        switch (type) {
+            case 1:
+            default:
+                titlebar.icon(new FetidRatSprite());
+                titlebar.label(Messages.get(this, "rat_title"));
+                message = PixelScene.renderTextBlock(Messages.get(this, "rat") + "\n\n" + Messages.get(this, "give_item"), 6);
+                break;
+            case 2:
+                titlebar.icon(new GnollTricksterSprite());
+                titlebar.label(Messages.get(this, "gnoll_title"));
+                message = PixelScene.renderTextBlock(Messages.get(this, "gnoll") + "\n\n" + Messages.get(this, "give_item"), 6);
+                break;
+            case 3:
+                titlebar.icon(new GreatCrabSprite());
+                titlebar.label(Messages.get(this, "crab_title"));
+                message = PixelScene.renderTextBlock(Messages.get(this, "crab") + "\n\n" + Messages.get(this, "give_item"), 6);
+                break;
+        }
 
-		ItemButton btnWeapon = new ItemButton(){
-			@Override
-			protected void onClick() {
-				GameScene.show(new RewardWindow(item()));
-			}
-		};
-		btnWeapon.item( Ghost.Quest.weapon );
-		btnWeapon.setRect( (WIDTH - BTN_GAP) / 2 - BTN_SIZE, message.top() + message.height() + BTN_GAP, BTN_SIZE, BTN_SIZE );
-		add( btnWeapon );
+        titlebar.setRect(0, 0, WIDTH, 0);
+        add(titlebar);
 
-		ItemButton btnArmor = new ItemButton(){
-			@Override
-			protected void onClick() {
-				GameScene.show(new RewardWindow(item()));
-			}
-		};
-		btnArmor.item( Ghost.Quest.armor );
-		btnArmor.setRect( btnWeapon.right() + BTN_GAP, btnWeapon.top(), BTN_SIZE, BTN_SIZE );
-		add(btnArmor);
+        message.maxWidth(WIDTH);
+        message.setPos(0, titlebar.bottom() + GAP);
+        add(message);
 
-		resize(WIDTH, (int) btnArmor.bottom() + BTN_GAP);
-	}
-	
-	private void selectReward( Item reward ) {
-		
-		hide();
-		
-		if (reward == null) return;
+        ItemButton btnWeapon = new ItemButton() {
+            @Override
+            protected void onClick() {
+                GameScene.show(new RewardWindow(item()));
+            }
+        };
+        btnWeapon.item(Ghost.Quest.weapon);
+        btnWeapon.setRect((WIDTH - BTN_GAP) / 2 - BTN_SIZE, message.top() + message.height() + BTN_GAP, BTN_SIZE, BTN_SIZE);
+        add(btnWeapon);
 
-		if (reward instanceof Weapon && Ghost.Quest.enchant != null){
-			((Weapon) reward).enchant(Ghost.Quest.enchant);
-		} else if (reward instanceof Armor && Ghost.Quest.glyph != null){
-			((Armor) reward).inscribe(Ghost.Quest.glyph);
-		}
-		
-		reward.identify(false);
-		if (reward.doPickUp( Dungeon.hero )) {
-			GLog.i( Messages.capitalize(Messages.get(Dungeon.hero, "you_now_have", reward.name())) );
-		} else {
-			Dungeon.level.drop( reward, ghost.pos ).sprite.drop();
-		}
-		
-		ghost.yell( Messages.get(this, "farewell") );
-		ghost.die( null );
-		
-		Ghost.Quest.complete();
-	}
+        ItemButton btnArmor = new ItemButton() {
+            @Override
+            protected void onClick() {
+                GameScene.show(new RewardWindow(item()));
+            }
+        };
+        btnArmor.item(Ghost.Quest.armor);
+        btnArmor.setRect(btnWeapon.right() + BTN_GAP, btnWeapon.top(), BTN_SIZE, BTN_SIZE);
+        add(btnArmor);
 
-	private class RewardWindow extends WndInfoItem {
+        resize(WIDTH, (int) btnArmor.bottom() + BTN_GAP);
+    }
 
-		public RewardWindow( Item item ) {
-			super(item);
+    private void selectReward(Item reward) {
 
-			RedButton btnConfirm = new RedButton(Messages.get(WndSadGhost.class, "confirm")){
-				@Override
-				protected void onClick() {
-					RewardWindow.this.hide();
+        hide();
 
-					WndSadGhost.this.selectReward( item );
-				}
-			};
-			btnConfirm.setRect(0, height+2, width/2-1, 16);
-			add(btnConfirm);
+        if (reward == null) return;
 
-			RedButton btnCancel = new RedButton(Messages.get(WndSadGhost.class, "cancel")){
-				@Override
-				protected void onClick() {
-					RewardWindow.this.hide();
-				}
-			};
-			btnCancel.setRect(btnConfirm.right()+2, height+2, btnConfirm.width(), 16);
-			add(btnCancel);
+        if (reward instanceof Weapon && Ghost.Quest.enchant != null) {
+            ((Weapon) reward).enchant(Ghost.Quest.enchant);
+        } else if (reward instanceof Armor && Ghost.Quest.glyph != null) {
+            ((Armor) reward).inscribe(Ghost.Quest.glyph);
+        }
 
-			resize(width, (int)btnCancel.bottom());
-		}
-	}
+        reward.identify(false);
+        if (reward.doPickUp(Dungeon.hero)) {
+            GLog.i(Messages.capitalize(Messages.get(Dungeon.hero, "you_now_have", reward.name())));
+        } else {
+            Dungeon.level.drop(reward, ghost.pos).sprite.drop();
+        }
+
+        ghost.yell(Messages.get(this, "farewell"));
+        ghost.die(null);
+
+        Ghost.Quest.complete();
+    }
+
+    private class RewardWindow extends WndInfoItem {
+
+        public RewardWindow(Item item) {
+            super(item);
+
+            RedButton btnConfirm = new RedButton(Messages.get(WndSadGhost.class, "confirm")) {
+                @Override
+                protected void onClick() {
+                    RewardWindow.this.hide();
+
+                    WndSadGhost.this.selectReward(item);
+                }
+            };
+            btnConfirm.setRect(0, height + 2, width / 2 - 1, 16);
+            add(btnConfirm);
+
+            RedButton btnCancel = new RedButton(Messages.get(WndSadGhost.class, "cancel")) {
+                @Override
+                protected void onClick() {
+                    RewardWindow.this.hide();
+                }
+            };
+            btnCancel.setRect(btnConfirm.right() + 2, height + 2, btnConfirm.width(), 16);
+            add(btnCancel);
+
+            resize(width, (int) btnCancel.bottom());
+        }
+    }
 }

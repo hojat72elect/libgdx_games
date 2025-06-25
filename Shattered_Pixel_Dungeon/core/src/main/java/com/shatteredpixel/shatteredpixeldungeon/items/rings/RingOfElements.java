@@ -40,64 +40,65 @@ import java.util.HashSet;
 
 public class RingOfElements extends Ring {
 
-	{
-		icon = ItemSpriteSheet.Icons.RING_ELEMENTS;
-		buffClass = Resistance.class;
-	}
+    {
+        icon = ItemSpriteSheet.Icons.RING_ELEMENTS;
+        buffClass = Resistance.class;
+    }
 
-	public String statsInfo() {
-		if (isIdentified()){
-			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.##", 100f * (1f - Math.pow(0.825f, soloBuffedBonus()))));
-			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
-				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.##", 100f * (1f - Math.pow(0.825f, combinedBuffedBonus(Dungeon.hero)))));
-			}
-			return info;
-		} else {
-			return Messages.get(this, "typical_stats", Messages.decimalFormat("#.##", 17.5f));
-		}
-	}
+    public String statsInfo() {
+        if (isIdentified()) {
+            String info = Messages.get(this, "stats",
+                    Messages.decimalFormat("#.##", 100f * (1f - Math.pow(0.825f, soloBuffedBonus()))));
+            if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)) {
+                info += "\n\n" + Messages.get(this, "combined_stats",
+                        Messages.decimalFormat("#.##", 100f * (1f - Math.pow(0.825f, combinedBuffedBonus(Dungeon.hero)))));
+            }
+            return info;
+        } else {
+            return Messages.get(this, "typical_stats", Messages.decimalFormat("#.##", 17.5f));
+        }
+    }
 
-	public String upgradeStat1(int level){
-		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return Messages.decimalFormat("#.##", 100f * (1f - Math.pow(0.825f, level+1))) + "%";
-	}
-	
-	@Override
-	protected RingBuff buff( ) {
-		return new Resistance();
-	}
+    public String upgradeStat1(int level) {
+        if (cursed && cursedKnown) level = Math.min(-1, level - 3);
+        return Messages.decimalFormat("#.##", 100f * (1f - Math.pow(0.825f, level + 1))) + "%";
+    }
 
-	public static final HashSet<Class> RESISTS = new HashSet<>();
-	static {
-		RESISTS.add( Burning.class );
-		RESISTS.add( Chill.class );
-		RESISTS.add( Frost.class );
-		RESISTS.add( Ooze.class );
-		RESISTS.add( Paralysis.class );
-		RESISTS.add( Poison.class );
-		RESISTS.add( Corrosion.class );
+    @Override
+    protected RingBuff buff() {
+        return new Resistance();
+    }
 
-		RESISTS.add( ToxicGas.class );
-		RESISTS.add( Electricity.class );
+    public static final HashSet<Class> RESISTS = new HashSet<>();
 
-		RESISTS.addAll( AntiMagic.RESISTS );
-	}
-	
-	public static float resist( Char target, Class effect ){
-		if (getBuffedBonus(target, Resistance.class) == 0) return 1f;
-		
-		for (Class c : RESISTS){
-			if (c.isAssignableFrom(effect)){
-				return (float)Math.pow(0.825, getBuffedBonus(target, Resistance.class));
-			}
-		}
-		
-		return 1f;
-	}
-	
-	public class Resistance extends RingBuff {
-	
-	}
+    static {
+        RESISTS.add(Burning.class);
+        RESISTS.add(Chill.class);
+        RESISTS.add(Frost.class);
+        RESISTS.add(Ooze.class);
+        RESISTS.add(Paralysis.class);
+        RESISTS.add(Poison.class);
+        RESISTS.add(Corrosion.class);
+
+        RESISTS.add(ToxicGas.class);
+        RESISTS.add(Electricity.class);
+
+        RESISTS.addAll(AntiMagic.RESISTS);
+    }
+
+    public static float resist(Char target, Class effect) {
+        if (getBuffedBonus(target, Resistance.class) == 0) return 1f;
+
+        for (Class c : RESISTS) {
+            if (c.isAssignableFrom(effect)) {
+                return (float) Math.pow(0.825, getBuffedBonus(target, Resistance.class));
+            }
+        }
+
+        return 1f;
+    }
+
+    public class Resistance extends RingBuff {
+
+    }
 }

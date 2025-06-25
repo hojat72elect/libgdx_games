@@ -67,338 +67,336 @@ import java.util.HashMap;
 
 public class AscensionChallenge extends Buff {
 
-	private static HashMap<Class<?extends Mob>, Float> modifiers = new HashMap<>();
-	static {
-		modifiers.put(Rat.class,            10f);
-		modifiers.put(Snake.class,          9f);
-		modifiers.put(Gnoll.class,          9f);
-		modifiers.put(Swarm.class,          8.5f);
-		modifiers.put(Crab.class,           8f);
-		modifiers.put(Slime.class,          8f);
+    private static final HashMap<Class<? extends Mob>, Float> modifiers = new HashMap<>();
 
-		modifiers.put(Skeleton.class,       5f);
-		modifiers.put(Thief.class,          5f);
-		modifiers.put(DM100.class,          4.5f);
-		modifiers.put(Guard.class,          4f);
-		modifiers.put(Necromancer.class,    4f);
+    static {
+        modifiers.put(Rat.class, 10f);
+        modifiers.put(Snake.class, 9f);
+        modifiers.put(Gnoll.class, 9f);
+        modifiers.put(Swarm.class, 8.5f);
+        modifiers.put(Crab.class, 8f);
+        modifiers.put(Slime.class, 8f);
 
-		modifiers.put(Bat.class,            2.5f);
-		modifiers.put(Brute.class,          2.25f);
-		modifiers.put(Shaman.class,         2.25f);
-		modifiers.put(Spinner.class,        2f);
-		modifiers.put(DM200.class,          2f);
+        modifiers.put(Skeleton.class, 5f);
+        modifiers.put(Thief.class, 5f);
+        modifiers.put(DM100.class, 4.5f);
+        modifiers.put(Guard.class, 4f);
+        modifiers.put(Necromancer.class, 4f);
 
-		modifiers.put(Ghoul.class,          1.67f);
-		modifiers.put(Elemental.class,      1.67f);
-		modifiers.put(Warlock.class,        1.5f);
-		modifiers.put(Monk.class,           1.5f);
-		modifiers.put(Golem.class,          1.33f);
+        modifiers.put(Bat.class, 2.5f);
+        modifiers.put(Brute.class, 2.25f);
+        modifiers.put(Shaman.class, 2.25f);
+        modifiers.put(Spinner.class, 2f);
+        modifiers.put(DM200.class, 2f);
 
-		modifiers.put(RipperDemon.class,    1.2f);
-		modifiers.put(Succubus.class,       1.2f);
-		modifiers.put(Eye.class,            1.1f);
-		modifiers.put(Scorpio.class,        1.1f);
-	}
+        modifiers.put(Ghoul.class, 1.67f);
+        modifiers.put(Elemental.class, 1.67f);
+        modifiers.put(Warlock.class, 1.5f);
+        modifiers.put(Monk.class, 1.5f);
+        modifiers.put(Golem.class, 1.33f);
 
-	public static float statModifier(Char ch){
-		if (Dungeon.hero == null || Dungeon.hero.buff(AscensionChallenge.class) == null){
-			return 1;
-		}
+        modifiers.put(RipperDemon.class, 1.2f);
+        modifiers.put(Succubus.class, 1.2f);
+        modifiers.put(Eye.class, 1.1f);
+        modifiers.put(Scorpio.class, 1.1f);
+    }
 
-		if (ch instanceof Ratmogrify.TransmogRat){
-			ch = ((Ratmogrify.TransmogRat) ch).getOriginal();
-		}
+    public static float statModifier(Char ch) {
+        if (Dungeon.hero == null || Dungeon.hero.buff(AscensionChallenge.class) == null) {
+            return 1;
+        }
 
-		if (ch.buff(AscensionBuffBlocker.class) != null){
-			return 1f;
-		}
+        if (ch instanceof Ratmogrify.TransmogRat) {
+            ch = ((Ratmogrify.TransmogRat) ch).getOriginal();
+        }
 
-		for (Class<?extends Mob> cls : modifiers.keySet()){
-			if (cls.isAssignableFrom(ch.getClass())){
-				return modifiers.get(cls);
-			}
-		}
+        if (ch.buff(AscensionBuffBlocker.class) != null) {
+            return 1f;
+        }
 
-		return 1;
-	}
+        for (Class<? extends Mob> cls : modifiers.keySet()) {
+            if (cls.isAssignableFrom(ch.getClass())) {
+                return modifiers.get(cls);
+            }
+        }
 
-	//distant mobs get constantly beckoned to the hero at 2+ stacks
-	public static void beckonEnemies(){
-		if (Dungeon.hero.buff(AscensionChallenge.class) != null
-				&& Dungeon.hero.buff(AscensionChallenge.class).stacks >= 2f){
-			for (Mob m : Dungeon.level.mobs){
-				if (m.alignment == Char.Alignment.ENEMY && m.distance(Dungeon.hero) > 8) {
-					m.beckon(Dungeon.hero.pos);
-				}
-			}
-		}
-	}
+        return 1;
+    }
 
-	//mobs move at 2x speed when not hunting/fleeing at 4 stacks or higher
-	public static float enemySpeedModifier(Mob m){
-		if (Dungeon.hero.buff(AscensionChallenge.class) != null
-				&& m.alignment == Char.Alignment.ENEMY
-				&& Dungeon.hero.buff(AscensionChallenge.class).stacks >= 4f
-				&& m.state != m.HUNTING && m.state != m.FLEEING){
-			return 2;
-		}
+    //distant mobs get constantly beckoned to the hero at 2+ stacks
+    public static void beckonEnemies() {
+        if (Dungeon.hero.buff(AscensionChallenge.class) != null
+                && Dungeon.hero.buff(AscensionChallenge.class).stacks >= 2f) {
+            for (Mob m : Dungeon.level.mobs) {
+                if (m.alignment == Char.Alignment.ENEMY && m.distance(Dungeon.hero) > 8) {
+                    m.beckon(Dungeon.hero.pos);
+                }
+            }
+        }
+    }
 
-		return 1;
-	}
+    //mobs move at 2x speed when not hunting/fleeing at 4 stacks or higher
+    public static float enemySpeedModifier(Mob m) {
+        if (Dungeon.hero.buff(AscensionChallenge.class) != null
+                && m.alignment == Char.Alignment.ENEMY
+                && Dungeon.hero.buff(AscensionChallenge.class).stacks >= 4f
+                && m.state != m.HUNTING && m.state != m.FLEEING) {
+            return 2;
+        }
 
-	//hero speed is halved and capped at 1x at 6+ stacks
-	public static float modifyHeroSpeed(float speed){
-		if (Dungeon.hero.buff(AscensionChallenge.class) != null
-				&& Dungeon.hero.buff(AscensionChallenge.class).stacks >= 6f){
-			return Math.min(speed/2f, 1f);
-		}
+        return 1;
+    }
 
-		return speed;
-	}
+    //hero speed is halved and capped at 1x at 6+ stacks
+    public static float modifyHeroSpeed(float speed) {
+        if (Dungeon.hero.buff(AscensionChallenge.class) != null
+                && Dungeon.hero.buff(AscensionChallenge.class).stacks >= 6f) {
+            return Math.min(speed / 2f, 1f);
+        }
 
-	public static boolean qualifiedForPacifist(){
-		if (Dungeon.hero.buff(AscensionChallenge.class) != null){
-			return !Dungeon.hero.buff(AscensionChallenge.class).stacksLowered;
-		}
-		return false;
-	}
+        return speed;
+    }
 
-	public static void processEnemyKill(Char enemy){
-		AscensionChallenge chal = Dungeon.hero.buff(AscensionChallenge.class);
-		if (chal == null) return;
+    public static boolean qualifiedForPacifist() {
+        if (Dungeon.hero.buff(AscensionChallenge.class) != null) {
+            return !Dungeon.hero.buff(AscensionChallenge.class).stacksLowered;
+        }
+        return false;
+    }
 
-		if (enemy instanceof Ratmogrify.TransmogRat){
-			enemy = ((Ratmogrify.TransmogRat) enemy).getOriginal();
-			if (enemy == null) return;
-		}
+    public static void processEnemyKill(Char enemy) {
+        AscensionChallenge chal = Dungeon.hero.buff(AscensionChallenge.class);
+        if (chal == null) return;
 
-		//only enemies that are boosted count
-		if (enemy.buff(AscensionBuffBlocker.class) != null){
-			return;
-		}
+        if (enemy instanceof Ratmogrify.TransmogRat) {
+            enemy = ((Ratmogrify.TransmogRat) enemy).getOriginal();
+            if (enemy == null) return;
+        }
 
-		boolean found = false;
-		for (Class<?extends Mob> cls : modifiers.keySet()){
-			if (cls.isAssignableFrom(enemy.getClass())){
-				found = true;
-				break;
-			}
-		}
-		if (!found) return;
+        //only enemies that are boosted count
+        if (enemy.buff(AscensionBuffBlocker.class) != null) {
+            return;
+        }
 
-		float oldStacks = chal.stacks;
-		if (enemy instanceof Ghoul || enemy instanceof RipperDemon){
-			chal.stacks -= 0.5f;
-		} else {
-			chal.stacks -= 1;
-		}
-		chal.stacksLowered = true;
-		chal.stacks = Math.max(0, chal.stacks);
-		if (chal.stacks < 8f && (int)(chal.stacks/2) != (int)(oldStacks/2f)){
-			GLog.p(Messages.get(AscensionChallenge.class, "weaken"));
-		}
+        boolean found = false;
+        for (Class<? extends Mob> cls : modifiers.keySet()) {
+            if (cls.isAssignableFrom(enemy.getClass())) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) return;
 
-		//if the hero is at the max level, grant them 10 effective xp per stack cleared
-		// for the purposes of on-xp gain effects
-		if (oldStacks > chal.stacks && Dungeon.hero.lvl == Hero.MAX_LEVEL){
-			Dungeon.hero.earnExp(Math.round(10*(oldStacks - chal.stacks)), chal.getClass());
-		}
+        float oldStacks = chal.stacks;
+        if (enemy instanceof Ghoul || enemy instanceof RipperDemon) {
+            chal.stacks -= 0.5f;
+        } else {
+            chal.stacks -= 1;
+        }
+        chal.stacksLowered = true;
+        chal.stacks = Math.max(0, chal.stacks);
+        if (chal.stacks < 8f && (int) (chal.stacks / 2) != (int) (oldStacks / 2f)) {
+            GLog.p(Messages.get(AscensionChallenge.class, "weaken"));
+        }
 
-		BuffIndicator.refreshHero();
-	}
+        //if the hero is at the max level, grant them 10 effective xp per stack cleared
+        // for the purposes of on-xp gain effects
+        if (oldStacks > chal.stacks && Dungeon.hero.lvl == Hero.MAX_LEVEL) {
+            Dungeon.hero.earnExp(Math.round(10 * (oldStacks - chal.stacks)), chal.getClass());
+        }
 
-	public static int AscensionCorruptResist(Mob m){
-		//default to just using their EXP value if no ascent challenge is happening
-		if (Dungeon.hero.buff(AscensionChallenge.class) == null){
-			return m.EXP;
-		}
+        BuffIndicator.refreshHero();
+    }
 
-		if (m instanceof Ratmogrify.TransmogRat){
-			m = ((Ratmogrify.TransmogRat) m).getOriginal();
-		}
+    public static int AscensionCorruptResist(Mob m) {
+        //default to just using their EXP value if no ascent challenge is happening
+        if (Dungeon.hero.buff(AscensionChallenge.class) == null) {
+            return m.EXP;
+        }
 
-		if (m.buff(AscensionBuffBlocker.class) != null){
-			return m.EXP;
-		}
+        if (m instanceof Ratmogrify.TransmogRat) {
+            m = ((Ratmogrify.TransmogRat) m).getOriginal();
+        }
 
-		if (m instanceof RipperDemon){
-			return 10; //reduced due to their numbers
-		} else if (m instanceof Ghoul){
-			return 7; //half of 13, rounded up
-		} else {
-			for (Class<?extends Mob> cls : modifiers.keySet()){
-				if (cls.isAssignableFrom(m.getClass())){
-					return Math.max(13, m.EXP); //same exp as an eye
-				}
-			}
-		}
-		return m.EXP;
-	}
+        if (m.buff(AscensionBuffBlocker.class) != null) {
+            return m.EXP;
+        }
 
-	{
-		revivePersists = true;
-	}
+        if (m instanceof RipperDemon) {
+            return 10; //reduced due to their numbers
+        } else if (m instanceof Ghoul) {
+            return 7; //half of 13, rounded up
+        } else {
+            for (Class<? extends Mob> cls : modifiers.keySet()) {
+                if (cls.isAssignableFrom(m.getClass())) {
+                    return Math.max(13, m.EXP); //same exp as an eye
+                }
+            }
+        }
+        return m.EXP;
+    }
 
-	private float stacks = 0;
-	private float damageInc = 0;
+    {
+        revivePersists = true;
+    }
 
-	private boolean stacksLowered = false;
+    private float stacks = 0;
+    private float damageInc = 0;
 
-	public void onLevelSwitch(){
-		if (Dungeon.depth < Statistics.highestAscent){
-			Statistics.highestAscent = Dungeon.depth;
-			justAscended = true;
-			if (Dungeon.bossLevel()){
-				Dungeon.hero.buff(Hunger.class).satisfy(Hunger.STARVING);
-				Buff.affect(Dungeon.hero, Healing.class).setHeal(Dungeon.hero.HT, 0, 20);
-			} else {
-				stacks += 2f;
+    private boolean stacksLowered = false;
 
-				//clears any existing mobs from the level and adds one initial one
-				//this helps balance difficulty between levels with lots of mobs left, and ones with few
-				for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-					if (!mob.reset()) {
-						Dungeon.level.mobs.remove( mob );
-					}
-				}
-				Dungeon.level.spawnMob(12);
+    public void onLevelSwitch() {
+        if (Dungeon.depth < Statistics.highestAscent) {
+            Statistics.highestAscent = Dungeon.depth;
+            justAscended = true;
+            if (Dungeon.bossLevel()) {
+                Dungeon.hero.buff(Hunger.class).satisfy(Hunger.STARVING);
+                Buff.affect(Dungeon.hero, Healing.class).setHeal(Dungeon.hero.HT, 0, 20);
+            } else {
+                stacks += 2f;
 
-			}
-		}
-		if (Statistics.highestAscent < 20){
-			for (Mob m : Dungeon.level.mobs.toArray(new Mob[0])){
-				if (m instanceof Shopkeeper){
-					((Shopkeeper) m).flee();
-				}
-			}
-		}
+                //clears any existing mobs from the level and adds one initial one
+                //this helps balance difficulty between levels with lots of mobs left, and ones with few
+                for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+                    if (!mob.reset()) {
+                        Dungeon.level.mobs.remove(mob);
+                    }
+                }
+                Dungeon.level.spawnMob(12);
+            }
+        }
+        if (Statistics.highestAscent < 20) {
+            for (Mob m : Dungeon.level.mobs.toArray(new Mob[0])) {
+                if (m instanceof Shopkeeper) {
+                    ((Shopkeeper) m).flee();
+                }
+            }
+        }
+    }
 
-	}
+    //messages at boss levels only trigger on first ascent
+    private boolean justAscended = false;
 
-	//messages at boss levels only trigger on first ascent
-	private boolean justAscended = false;
+    public void saySwitch() {
+        if (Dungeon.bossLevel()) {
+            if (justAscended) {
+                GLog.p(Messages.get(this, "break"));
+                for (Char ch : Actor.chars()) {
+                    if (ch instanceof DriedRose.GhostHero) {
+                        ((DriedRose.GhostHero) ch).sayAppeared();
+                    }
+                }
+            }
+        } else {
+            if (Dungeon.depth == 1) {
+                GLog.n(Messages.get(this, "almost"));
+            } else if (stacks >= 8f) {
+                GLog.n(Messages.get(this, "damage"));
+            } else if (stacks >= 6f) {
+                GLog.n(Messages.get(this, "slow"));
+            } else if (stacks >= 4f) {
+                GLog.n(Messages.get(this, "haste"));
+            } else if (stacks >= 2f) {
+                GLog.n(Messages.get(this, "beckon"));
+            }
+            if (stacks > 8 || stacks > 4 && Dungeon.depth > 20) {
+                GLog.h(Messages.get(this, "weaken_info"));
+            }
+        }
+        justAscended = false;
+    }
 
-	public void saySwitch(){
-		if (Dungeon.bossLevel()){
-			if (justAscended) {
-				GLog.p(Messages.get(this, "break"));
-				for (Char ch : Actor.chars()){
-					if (ch instanceof DriedRose.GhostHero){
-						((DriedRose.GhostHero) ch).sayAppeared();
-					}
-				}
-			}
-		} else {
-			if (Dungeon.depth == 1){
-				GLog.n(Messages.get(this, "almost"));
-			} else if (stacks >= 8f){
-				GLog.n(Messages.get(this, "damage"));
-			} else if (stacks >= 6f){
-				GLog.n(Messages.get(this, "slow"));
-			} else if (stacks >= 4f){
-				GLog.n(Messages.get(this, "haste"));
-			} else if (stacks >= 2f){
-				GLog.n(Messages.get(this, "beckon"));
-			}
-			if (stacks > 8 || stacks > 4 && Dungeon.depth > 20){
-				GLog.h(Messages.get(this, "weaken_info"));
-			}
-		}
-		justAscended = false;
-	}
+    @Override
+    public boolean act() {
 
-	@Override
-	public boolean act() {
+        beckonEnemies();
 
-		beckonEnemies();
+        //hero starts progressively taking damage over time at 8+ stacks
+        if (stacks >= 8 && !Dungeon.bossLevel()) {
+            damageInc += (stacks - 4) / 4f;
+            if (damageInc >= 1) {
+                target.damage((int) damageInc, this);
+                damageInc -= (int) damageInc;
 
-		//hero starts progressively taking damage over time at 8+ stacks
-		if (stacks >= 8 && !Dungeon.bossLevel()){
-			damageInc += (stacks-4)/4f;
-			if (damageInc >= 1){
-				target.damage((int)damageInc, this);
-				damageInc -= (int)damageInc;
+                if (target == Dungeon.hero && !target.isAlive()) {
+                    Badges.validateDeathFromFriendlyMagic();
+                    GLog.n(Messages.get(this, "on_kill"));
+                    Dungeon.fail(Amulet.class);
+                }
+            }
+        } else {
+            damageInc = 0;
+        }
 
-				if (target == Dungeon.hero && !target.isAlive()){
-					Badges.validateDeathFromFriendlyMagic();
-					GLog.n(Messages.get(this, "on_kill"));
-					Dungeon.fail(Amulet.class);
-				}
-			}
-		} else {
-			damageInc = 0;
-		}
+        spend(TICK);
+        return true;
+    }
 
-		spend(TICK);
-		return true;
-	}
+    @Override
+    public int icon() {
+        return BuffIndicator.AMULET;
+    }
 
-	@Override
-	public int icon() {
-		return BuffIndicator.AMULET;
-	}
+    @Override
+    public void tintIcon(Image icon) {
+        if (stacks < 2) {
+            icon.hardlight(0.5f, 1, 0);
+        } else if (stacks < 4) {
+            icon.hardlight(1, 1, 0);
+        } else if (stacks < 6) {
+            icon.hardlight(1, 0.67f, 0);
+        } else if (stacks < 8) {
+            icon.hardlight(1, 0.33f, 0);
+        } else {
+            icon.hardlight(1, 0, 0);
+        }
+    }
 
-	@Override
-	public void tintIcon(Image icon) {
-		if (stacks < 2){
-			icon.hardlight(0.5f, 1, 0);
-		} else if (stacks < 4) {
-			icon.hardlight(1, 1, 0);
-		} else if (stacks < 6){
-			icon.hardlight(1, 0.67f, 0);
-		} else if (stacks < 8){
-			icon.hardlight(1, 0.33f, 0);
-		} else {
-			icon.hardlight(1, 0, 0);
-		}
-	}
+    @Override
+    public String desc() {
+        String desc = Messages.get(this, "desc");
+        desc += "\n";
+        if (stacks < 2) {
 
-	@Override
-	public String desc() {
-		String desc = Messages.get(this, "desc");
-		desc += "\n";
-		if (stacks < 2){
+            desc += "\n" + Messages.get(this, "desc_clear");
+        } else {
 
-			desc += "\n" + Messages.get(this, "desc_clear");
+            if (stacks >= 2) desc += "\n" + Messages.get(this, "desc_beckon");
+            if (stacks >= 4) desc += "\n" + Messages.get(this, "desc_haste");
+            if (stacks >= 6) desc += "\n" + Messages.get(this, "desc_slow");
+            if (stacks >= 8) desc += "\n" + Messages.get(this, "desc_damage");
+        }
 
-		} else {
+        return desc;
+    }
 
-			if (stacks >= 2)    desc += "\n" + Messages.get(this, "desc_beckon");
-			if (stacks >= 4)    desc += "\n" + Messages.get(this, "desc_haste");
-			if (stacks >= 6)    desc += "\n" + Messages.get(this, "desc_slow");
-			if (stacks >= 8)    desc += "\n" + Messages.get(this, "desc_damage");
+    public static final String STACKS = "enemy_stacks";
+    public static final String DAMAGE = "damage_inc";
 
-		}
+    public static final String STACKS_LOWERED = "stacks_lowered";
 
-		return desc;
-	}
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(STACKS, stacks);
+        bundle.put(DAMAGE, damageInc);
+        bundle.put(STACKS_LOWERED, stacksLowered);
+    }
 
-	public static final String STACKS = "enemy_stacks";
-	public static final String DAMAGE = "damage_inc";
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        stacks = bundle.getFloat(STACKS);
+        damageInc = bundle.getFloat(DAMAGE);
+        if (bundle.contains(STACKS_LOWERED)) {
+            stacksLowered = bundle.getBoolean(STACKS_LOWERED);
+            //pre-v3.1 saves
+        } else {
+            stacksLowered = true;
+        }
+    }
 
-	public static final String STACKS_LOWERED = "stacks_lowered";
-
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(STACKS, stacks);
-		bundle.put(DAMAGE, damageInc);
-		bundle.put(STACKS_LOWERED, stacksLowered);
-	}
-
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		stacks = bundle.getFloat(STACKS);
-		damageInc = bundle.getFloat(DAMAGE);
-		if (bundle.contains(STACKS_LOWERED)){
-			stacksLowered = bundle.getBoolean(STACKS_LOWERED);
-		//pre-v3.1 saves
-		} else {
-			stacksLowered = true;
-		}
-	}
-
-	//chars with this buff are not boosted by the ascension challenge
-	public static class AscensionBuffBlocker extends Buff{};
+    //chars with this buff are not boosted by the ascension challenge
+    public static class AscensionBuffBlocker extends Buff {
+    }
 }

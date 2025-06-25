@@ -34,191 +34,191 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
-import com.watabou.utils.BArray;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 
 public class DeathMark extends ArmorAbility {
 
-	{
-		baseChargeUse = 25f;
-	}
+    {
+        baseChargeUse = 25f;
+    }
 
-	@Override
-	public String targetingPrompt() {
-		return Messages.get(this, "prompt");
-	}
+    @Override
+    public String targetingPrompt() {
+        return Messages.get(this, "prompt");
+    }
 
-	@Override
-	public int targetedPos(Char user, int dst) {
-		return dst;
-	}
+    @Override
+    public int targetedPos(Char user, int dst) {
+        return dst;
+    }
 
-	@Override
-	public float chargeUse( Hero hero ) {
-		float chargeUse = super.chargeUse(hero);
-		if (hero.buff(DoubleMarkTracker.class) != null){
-			//reduced charge use by 30%/50%/65%/75%
-			chargeUse *= Math.pow(0.707, hero.pointsInTalent(Talent.DOUBLE_MARK));
-		}
-		return chargeUse;
-	}
+    @Override
+    public float chargeUse(Hero hero) {
+        float chargeUse = super.chargeUse(hero);
+        if (hero.buff(DoubleMarkTracker.class) != null) {
+            //reduced charge use by 30%/50%/65%/75%
+            chargeUse *= Math.pow(0.707, hero.pointsInTalent(Talent.DOUBLE_MARK));
+        }
+        return chargeUse;
+    }
 
-	@Override
-	protected void activate(ClassArmor armor, Hero hero, Integer target) {
-		if (target == null){
-			return;
-		}
+    @Override
+    protected void activate(ClassArmor armor, Hero hero, Integer target) {
+        if (target == null) {
+            return;
+        }
 
-		Char ch = Actor.findChar(target);
+        Char ch = Actor.findChar(target);
 
-		if (ch == null || !Dungeon.level.heroFOV[target]){
-			GLog.w(Messages.get(this, "no_target"));
-			return;
-		} else if (ch.alignment != Char.Alignment.ENEMY){
-			GLog.w(Messages.get(this, "ally_target"));
-			return;
-		}
+        if (ch == null || !Dungeon.level.heroFOV[target]) {
+            GLog.w(Messages.get(this, "no_target"));
+            return;
+        } else if (ch.alignment != Char.Alignment.ENEMY) {
+            GLog.w(Messages.get(this, "ally_target"));
+            return;
+        }
 
-		if (ch != null){
-			Buff.affect(ch, DeathMarkTracker.class, DeathMarkTracker.DURATION).setInitialHP(ch.HP);
-		}
+        if (ch != null) {
+            Buff.affect(ch, DeathMarkTracker.class, DeathMarkTracker.DURATION).setInitialHP(ch.HP);
+        }
 
-		armor.charge -= chargeUse( hero );
-		armor.updateQuickslot();
-		hero.sprite.zap(target);
+        armor.charge -= chargeUse(hero);
+        Item.updateQuickslot();
+        hero.sprite.zap(target);
 
-		hero.next();
+        hero.next();
 
-		if (hero.buff(DoubleMarkTracker.class) != null){
-			hero.buff(DoubleMarkTracker.class).detach();
-		} else if (hero.hasTalent(Talent.DOUBLE_MARK)) {
-			Buff.affect(hero, DoubleMarkTracker.class, 0.01f);
-		}
+        if (hero.buff(DoubleMarkTracker.class) != null) {
+            hero.buff(DoubleMarkTracker.class).detach();
+        } else if (hero.hasTalent(Talent.DOUBLE_MARK)) {
+            Buff.affect(hero, DoubleMarkTracker.class, 0.01f);
+        }
+    }
 
-	}
+    public static void processFearTheReaper(Char ch) {
+        if (ch.HP > 0 || ch.buff(DeathMarkTracker.class) == null) {
+            return;
+        }
 
-	public static void processFearTheReaper( Char ch ){
-		if (ch.HP > 0 || ch.buff(DeathMarkTracker.class) == null){
-			return;
-		}
+        if (Dungeon.hero.hasTalent(Talent.FEAR_THE_REAPER)) {
+            if (Dungeon.hero.pointsInTalent(Talent.FEAR_THE_REAPER) >= 2) {
+                Buff.prolong(ch, Terror.class, 5f).object = Dungeon.hero.id();
+            }
+            Buff.prolong(ch, Cripple.class, 5f);
 
-		if (Dungeon.hero.hasTalent(Talent.FEAR_THE_REAPER)) {
-			if (Dungeon.hero.pointsInTalent(Talent.FEAR_THE_REAPER) >= 2) {
-				Buff.prolong(ch, Terror.class, 5f).object = Dungeon.hero.id();
-			}
-			Buff.prolong(ch, Cripple.class, 5f);
+            if (Dungeon.hero.pointsInTalent(Talent.FEAR_THE_REAPER) >= 3) {
+                boolean[] passable = BArray.not(Dungeon.level.solid, null);
+                PathFinder.buildDistanceMap(ch.pos, passable, 3);
 
-			if (Dungeon.hero.pointsInTalent(Talent.FEAR_THE_REAPER) >= 3) {
-				boolean[] passable = BArray.not(Dungeon.level.solid, null);
-				PathFinder.buildDistanceMap(ch.pos, passable, 3);
+                for (Char near : Actor.chars()) {
+                    if (near != ch && near.alignment == Char.Alignment.ENEMY
+                            && PathFinder.distance[near.pos] != Integer.MAX_VALUE) {
+                        if (Dungeon.hero.pointsInTalent(Talent.FEAR_THE_REAPER) == 4) {
+                            Buff.prolong(near, Terror.class, 5f).object = Dungeon.hero.id();
+                        }
+                        Buff.prolong(near, Cripple.class, 5f);
+                    }
+                }
+            }
+        }
+    }
 
-				for (Char near : Actor.chars()) {
-					if (near != ch && near.alignment == Char.Alignment.ENEMY
-							&& PathFinder.distance[near.pos] != Integer.MAX_VALUE) {
-						if (Dungeon.hero.pointsInTalent(Talent.FEAR_THE_REAPER) == 4) {
-							Buff.prolong(near, Terror.class, 5f).object = Dungeon.hero.id();
-						}
-						Buff.prolong(near, Cripple.class, 5f);
-					}
-				}
-			}
-		}
-	}
+    public static class DoubleMarkTracker extends FlavourBuff {
+    }
 
-	public static class DoubleMarkTracker extends FlavourBuff{};
+    @Override
+    public int icon() {
+        return HeroIcon.DEATH_MARK;
+    }
 
-	@Override
-	public int icon() {
-		return HeroIcon.DEATH_MARK;
-	}
+    @Override
+    public Talent[] talents() {
+        return new Talent[]{Talent.FEAR_THE_REAPER, Talent.DEATHLY_DURABILITY, Talent.DOUBLE_MARK, Talent.HEROIC_ENERGY};
+    }
 
-	@Override
-	public Talent[] talents() {
-		return new Talent[]{Talent.FEAR_THE_REAPER, Talent.DEATHLY_DURABILITY, Talent.DOUBLE_MARK, Talent.HEROIC_ENERGY};
-	}
+    public static class DeathMarkTracker extends FlavourBuff {
 
-	public static class DeathMarkTracker extends FlavourBuff {
+        public static float DURATION = 5f;
 
-		public static float DURATION = 5f;
+        int initialHP = 0;
 
-		int initialHP = 0;
+        {
+            type = buffType.NEGATIVE;
+            announced = true;
+        }
 
-		{
-			type = buffType.NEGATIVE;
-			announced = true;
-		}
+        @Override
+        public int icon() {
+            return BuffIndicator.INVERT_MARK;
+        }
 
-		@Override
-		public int icon() {
-			return BuffIndicator.INVERT_MARK;
-		}
+        @Override
+        public void tintIcon(Image icon) {
+            icon.hardlight(1f, 0.2f, 0.2f);
+        }
 
-		@Override
-		public void tintIcon(Image icon) {
-			icon.hardlight(1f, 0.2f, 0.2f);
-		}
+        @Override
+        public float iconFadePercent() {
+            return Math.max(0, (DURATION - visualcooldown()) / DURATION);
+        }
 
-		@Override
-		public float iconFadePercent() {
-			return Math.max(0, (DURATION - visualcooldown()) / DURATION);
-		}
+        private void setInitialHP(int hp) {
+            if (initialHP < hp) {
+                initialHP = hp;
+            }
+        }
 
-		private void setInitialHP( int hp ){
-			if (initialHP < hp){
-				initialHP = hp;
-			}
-		}
+        @Override
+        public boolean attachTo(Char target) {
+            if (super.attachTo(target)) {
+                target.deathMarked = true;
+                return true;
+            } else {
+                return false;
+            }
+        }
 
-		@Override
-		public boolean attachTo(Char target) {
-			if (super.attachTo(target)){
-				target.deathMarked = true;
-				return true;
-			} else {
-				return false;
-			}
-		}
+        @Override
+        public void detach() {
+            super.detach();
+            target.deathMarked = false;
+            if (!target.isAlive()) {
+                target.sprite.flash();
+                target.sprite.bloodBurstA(target.sprite.center(), target.HT * 2);
+                Sample.INSTANCE.play(Assets.Sounds.HIT_STAB);
+                Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
+                target.die(this);
+                int shld = Math.round(initialHP * (0.125f * Dungeon.hero.pointsInTalent(Talent.DEATHLY_DURABILITY)));
+                if (shld > 0 && target.alignment != Char.Alignment.ALLY) {
+                    Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shld), FloatingText.SHIELDING);
+                    Buff.affect(Dungeon.hero, Barrier.class).setShield(shld);
+                }
+            }
+        }
 
-		@Override
-		public void detach() {
-			super.detach();
-			target.deathMarked = false;
-			if (!target.isAlive()){
-				target.sprite.flash();
-				target.sprite.bloodBurstA(target.sprite.center(), target.HT*2);
-				Sample.INSTANCE.play(Assets.Sounds.HIT_STAB);
-				Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
-				target.die(this);
-				int shld = Math.round(initialHP * (0.125f*Dungeon.hero.pointsInTalent(Talent.DEATHLY_DURABILITY)));
-				if (shld > 0 && target.alignment != Char.Alignment.ALLY){
-					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shld), FloatingText.SHIELDING);
-					Buff.affect(Dungeon.hero, Barrier.class).setShield(shld);
-				}
-			}
-		}
+        private static final String INITIAL_HP = "initial_hp";
 
-		private static String INITIAL_HP = "initial_hp";
+        @Override
+        public void storeInBundle(Bundle bundle) {
+            super.storeInBundle(bundle);
+            bundle.put(INITIAL_HP, initialHP);
+        }
 
-		@Override
-		public void storeInBundle(Bundle bundle) {
-			super.storeInBundle(bundle);
-			bundle.put(INITIAL_HP, initialHP);
-		}
-
-		@Override
-		public void restoreFromBundle(Bundle bundle) {
-			super.restoreFromBundle(bundle);
-			initialHP = bundle.getInt(INITIAL_HP);
-		}
-	}
-
+        @Override
+        public void restoreFromBundle(Bundle bundle) {
+            super.restoreFromBundle(bundle);
+            initialHP = bundle.getInt(INITIAL_HP);
+        }
+    }
 }

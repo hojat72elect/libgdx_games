@@ -39,87 +39,86 @@ import com.watabou.noosa.audio.Sample;
 
 public class DivineIntervention extends ClericSpell {
 
-	public static DivineIntervention INSTANCE = new DivineIntervention();
+    public static DivineIntervention INSTANCE = new DivineIntervention();
 
-	@Override
-	public int icon() {
-		return HeroIcon.DIVINE_INTERVENTION;
-	}
+    @Override
+    public int icon() {
+        return HeroIcon.DIVINE_INTERVENTION;
+    }
 
-	@Override
-	public float chargeUse(Hero hero) {
-		return 5;
-	}
+    @Override
+    public float chargeUse(Hero hero) {
+        return 5;
+    }
 
-	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero)
-				&& hero.hasTalent(Talent.DIVINE_INTERVENTION)
-				&& hero.buff(AscendedForm.AscendBuff.class) != null
-				&& !hero.buff(AscendedForm.AscendBuff.class).divineInverventionCast;
-	}
+    @Override
+    public boolean canCast(Hero hero) {
+        return super.canCast(hero)
+                && hero.hasTalent(Talent.DIVINE_INTERVENTION)
+                && hero.buff(AscendedForm.AscendBuff.class) != null
+                && !hero.buff(AscendedForm.AscendBuff.class).divineInverventionCast;
+    }
 
-	@Override
-	public void onCast(HolyTome tome, Hero hero) {
+    @Override
+    public void onCast(HolyTome tome, Hero hero) {
 
-		Sample.INSTANCE.play(Assets.Sounds.CHARGEUP, 1, 1.2f);
-		hero.sprite.operate(hero.pos);
+        Sample.INSTANCE.play(Assets.Sounds.CHARGEUP, 1, 1.2f);
+        hero.sprite.operate(hero.pos);
 
-		for (Char ch : Actor.chars()){
-			if (ch.alignment == Char.Alignment.ALLY && ch != hero){
-				Buff.affect(ch, DivineShield.class).setShield(100 + 50*hero.pointsInTalent(Talent.DIVINE_INTERVENTION));
-				new Flare(6, 32).color(0xFFFF00, true).show(ch.sprite, 2f);
-			}
-		}
+        for (Char ch : Actor.chars()) {
+            if (ch.alignment == Char.Alignment.ALLY && ch != hero) {
+                Buff.affect(ch, DivineShield.class).setShield(100 + 50 * hero.pointsInTalent(Talent.DIVINE_INTERVENTION));
+                new Flare(6, 32).color(0xFFFF00, true).show(ch.sprite, 2f);
+            }
+        }
 
-		hero.spendAndNext( 1f );
-		onSpellCast(tome, hero);
+        hero.spendAndNext(1f);
+        onSpellCast(tome, hero);
 
-		//we apply buffs here so that the 5 charge cost and shield boost do not stack
-		hero.buff(AscendedForm.AscendBuff.class).setShield(100 + 50*hero.pointsInTalent(Talent.DIVINE_INTERVENTION));
-		new Flare(6, 32).color(0xFFFF00, true).show(hero.sprite, 2f);
+        //we apply buffs here so that the 5 charge cost and shield boost do not stack
+        hero.buff(AscendedForm.AscendBuff.class).setShield(100 + 50 * hero.pointsInTalent(Talent.DIVINE_INTERVENTION));
+        new Flare(6, 32).color(0xFFFF00, true).show(hero.sprite, 2f);
 
-		hero.buff(AscendedForm.AscendBuff.class).divineInverventionCast = true;
-		hero.buff(AscendedForm.AscendBuff.class).extend(2+hero.pointsInTalent(Talent.DIVINE_INTERVENTION));
+        hero.buff(AscendedForm.AscendBuff.class).divineInverventionCast = true;
+        hero.buff(AscendedForm.AscendBuff.class).extend(2 + hero.pointsInTalent(Talent.DIVINE_INTERVENTION));
+    }
 
-	}
+    @Override
+    public String desc() {
+        int shield = 100 + 50 * Dungeon.hero.pointsInTalent(Talent.DIVINE_INTERVENTION);
+        int leftBonus = 2 + Dungeon.hero.pointsInTalent(Talent.DIVINE_INTERVENTION);
+        return Messages.get(this, "desc", shield, leftBonus) + "\n\n" + Messages.get(this, "charge_cost", (int) chargeUse(Dungeon.hero));
+    }
 
-	@Override
-	public String desc() {
-		int shield = 100 + 50*Dungeon.hero.pointsInTalent(Talent.DIVINE_INTERVENTION);
-		int leftBonus = 2+Dungeon.hero.pointsInTalent(Talent.DIVINE_INTERVENTION);
-		return Messages.get(this, "desc", shield, leftBonus) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
-	}
+    public static class DivineShield extends ShieldBuff {
 
-	public static class DivineShield extends ShieldBuff{
+        {
+            shieldUsePriority = 1;
+        }
 
-		{
-			shieldUsePriority = 1;
-		}
+        @Override
+        public boolean act() {
 
-		@Override
-		public boolean act() {
+            if (Dungeon.hero == null || Dungeon.hero.buff(AscendedForm.AscendBuff.class) == null) {
+                detach();
+            }
 
-			if (Dungeon.hero == null || Dungeon.hero.buff(AscendedForm.AscendBuff.class) == null){
-				detach();
-			}
+            spend(TICK);
+            return true;
+        }
 
-			spend(TICK);
-			return true;
-		}
+        @Override
+        public int shielding() {
+            if (Dungeon.hero == null || Dungeon.hero.buff(AscendedForm.AscendBuff.class) == null) {
+                return 0;
+            }
+            return super.shielding();
+        }
 
-		@Override
-		public int shielding() {
-			if (Dungeon.hero == null || Dungeon.hero.buff(AscendedForm.AscendBuff.class) == null){
-				return 0;
-			}
-			return super.shielding();
-		}
-
-		@Override
-		public void fx(boolean on) {
-			if (on) target.sprite.add(CharSprite.State.SHIELDED);
-			else    target.sprite.remove(CharSprite.State.SHIELDED);
-		}
-	}
+        @Override
+        public void fx(boolean on) {
+            if (on) target.sprite.add(CharSprite.State.SHIELDED);
+            else target.sprite.remove(CharSprite.State.SHIELDED);
+        }
+    }
 }

@@ -32,29 +32,28 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.BanditSprite;
 import com.watabou.utils.Random;
 
 public class Bandit extends Thief {
-	
-	public Item item;
-	
-	{
-		spriteClass = BanditSprite.class;
 
-		//guaranteed first drop, then 1/3, 1/9, etc.
-		lootChance = 1f;
-	}
-	
-	@Override
-	protected boolean steal( Hero hero ) {
-		if (super.steal( hero )) {
-			
-			Buff.prolong( hero, Blindness.class, Blindness.DURATION/2f );
-			Buff.affect( hero, Poison.class ).set(Random.IntRange(5, 6) );
-			Buff.prolong( hero, Cripple.class, Cripple.DURATION/2f );
-			Dungeon.observe();
-			
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
+    public Item item;
+
+    {
+        spriteClass = BanditSprite.class;
+
+        //guaranteed first drop, then 1/3, 1/9, etc.
+        lootChance = 1f;
+    }
+
+    @Override
+    protected boolean steal(Hero hero) {
+        if (super.steal(hero)) {
+
+            Buff.prolong(hero, Blindness.class, Blindness.DURATION / 2f);
+            Buff.affect(hero, Poison.class).set(Random.IntRange(5, 6));
+            Buff.prolong(hero, Cripple.class, Cripple.DURATION / 2f);
+            Dungeon.observe();
+
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

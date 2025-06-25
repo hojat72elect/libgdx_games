@@ -40,233 +40,231 @@ import java.util.Iterator;
 
 public class Bones {
 
-	private static final String BONES_FILE	= "bones.dat";
-	
-	private static final String LEVEL	= "level";
-	private static final String BRANCH	= "branch";
-	private static final String ITEM	= "item";
-	private static final String HERO_CLASS	= "hero_class";
+    private static final String BONES_FILE = "bones.dat";
 
-	private static int depth = -1;
-	private static int branch = -1;
+    private static final String LEVEL = "level";
+    private static final String BRANCH = "branch";
+    private static final String ITEM = "item";
+    private static final String HERO_CLASS = "hero_class";
 
-	private static Item item;
-	private static HeroClass heroClass;
+    private static int depth = -1;
+    private static int branch = -1;
 
-	public static void leave() {
+    private static Item item;
+    private static HeroClass heroClass;
 
-		//remains will usually drop on the floor the hero died on
-		// but are capped at 5 floors above the lowest depth reached (even when ascending)
-		depth = Math.max(Dungeon.depth, Statistics.deepestFloor-5);
+    public static void leave() {
 
-		branch = Dungeon.branch;
+        //remains will usually drop on the floor the hero died on
+        // but are capped at 5 floors above the lowest depth reached (even when ascending)
+        depth = Math.max(Dungeon.depth, Statistics.deepestFloor - 5);
 
-		//daily runs do not interact with remains
-		if (Dungeon.daily) {
-			depth = branch = -1;
-			return;
-		}
+        branch = Dungeon.branch;
 
-		item = pickItem(Dungeon.hero);
-		heroClass = Dungeon.hero.heroClass;
+        //daily runs do not interact with remains
+        if (Dungeon.daily) {
+            depth = branch = -1;
+            return;
+        }
 
-		Bundle bundle = new Bundle();
-		bundle.put( LEVEL, depth );
-		bundle.put( BRANCH, branch );
-		bundle.put( ITEM, item );
-		bundle.put( HERO_CLASS, heroClass );
+        item = pickItem(Dungeon.hero);
+        heroClass = Dungeon.hero.heroClass;
 
-		try {
-			FileUtils.bundleToFile( BONES_FILE, bundle );
-		} catch (IOException e) {
-			ShatteredPixelDungeon.reportException(e);
-		}
-	}
+        Bundle bundle = new Bundle();
+        bundle.put(LEVEL, depth);
+        bundle.put(BRANCH, branch);
+        bundle.put(ITEM, item);
+        bundle.put(HERO_CLASS, heroClass);
 
-	private static Item pickItem(Hero hero){
-		Item item = null;
+        try {
+            FileUtils.bundleToFile(BONES_FILE, bundle);
+        } catch (IOException e) {
+            ShatteredPixelDungeon.reportException(e);
+        }
+    }
 
-		//seeded runs don't leave items
-		//This is to prevent using specific seeds to transport items to regular runs
-		if (!Dungeon.customSeedText.isEmpty()){
-			return null;
-		}
+    private static Item pickItem(Hero hero) {
+        Item item = null;
 
-		if (Random.Int(3) != 0) {
-			switch (Random.Int(7)) {
-				case 0:
-					item = hero.belongings.weapon;
-					//if the hero has two weapons (champion), pick the stronger one
-					if (hero.belongings.secondWep != null &&
-							(item == null || hero.belongings.secondWep.trueLevel() > item.trueLevel())){
-						item = hero.belongings.secondWep;
-						break;
-					}
-					break;
-				case 1:
-					item = hero.belongings.armor;
-					break;
-				case 2:
-					item = hero.belongings.artifact;
-					break;
-				case 3:
-					item = hero.belongings.misc;
-					break;
-				case 4:
-					item = hero.belongings.ring;
-					break;
-				case 5: case 6:
-					item = Dungeon.quickslot.randomNonePlaceholder();
-					break;
-			}
-			if (item == null || !item.bones) {
-				return pickItem(hero);
-			}
-		} else {
+        //seeded runs don't leave items
+        //This is to prevent using specific seeds to transport items to regular runs
+        if (!Dungeon.customSeedText.isEmpty()) {
+            return null;
+        }
 
-			Iterator<Item> iterator = hero.belongings.backpack.iterator();
-			Item curItem;
-			ArrayList<Item> items = new ArrayList<>();
-			while (iterator.hasNext()){
-				curItem = iterator.next();
-				if (curItem.bones) {
-					items.add(curItem);
-				}
-			}
+        if (Random.Int(3) != 0) {
+            switch (Random.Int(7)) {
+                case 0:
+                    item = hero.belongings.weapon;
+                    //if the hero has two weapons (champion), pick the stronger one
+                    if (hero.belongings.secondWep != null &&
+                            (item == null || hero.belongings.secondWep.trueLevel() > item.trueLevel())) {
+                        item = hero.belongings.secondWep;
+                        break;
+                    }
+                    break;
+                case 1:
+                    item = hero.belongings.armor;
+                    break;
+                case 2:
+                    item = hero.belongings.artifact;
+                    break;
+                case 3:
+                    item = hero.belongings.misc;
+                    break;
+                case 4:
+                    item = hero.belongings.ring;
+                    break;
+                case 5:
+                case 6:
+                    item = Dungeon.quickslot.randomNonePlaceholder();
+                    break;
+            }
+            if (item == null || !item.bones) {
+                return pickItem(hero);
+            }
+        } else {
 
-			//if there are few items, there is an increasingly high chance of leaving nothing
-			if (Random.Int(3) < items.size()) {
-				item = Random.element(items);
-				if (item.stackable){
-					item.quantity(Random.NormalIntRange(1, (item.quantity() + 1) / 2));
-					if (item.quantity() > 3){
-						item.quantity(3);
-					}
-				}
-			} else {
-				item = null;
-			}
-		}
-		
-		return item;
-	}
+            Iterator<Item> iterator = hero.belongings.backpack.iterator();
+            Item curItem;
+            ArrayList<Item> items = new ArrayList<>();
+            while (iterator.hasNext()) {
+                curItem = iterator.next();
+                if (curItem.bones) {
+                    items.add(curItem);
+                }
+            }
 
-	public static ArrayList<Item> get() {
-		//daily runs do not interact with remains
-		if (Dungeon.daily){
-			return null;
-		}
+            //if there are few items, there is an increasingly high chance of leaving nothing
+            if (Random.Int(3) < items.size()) {
+                item = Random.element(items);
+                if (item.stackable) {
+                    item.quantity(Random.NormalIntRange(1, (item.quantity() + 1) / 2));
+                    if (item.quantity() > 3) {
+                        item.quantity(3);
+                    }
+                }
+            } else {
+                item = null;
+            }
+        }
 
-		if (depth == -1) {
+        return item;
+    }
 
-			try {
-				Bundle bundle = FileUtils.bundleFromFile(BONES_FILE);
+    public static ArrayList<Item> get() {
+        //daily runs do not interact with remains
+        if (Dungeon.daily) {
+            return null;
+        }
 
-				depth = bundle.getInt( LEVEL );
-				branch = bundle.getInt( BRANCH );
-				if (depth > 0) {
-					if (bundle.contains(ITEM)) {
-						item = (Item) bundle.get(ITEM);
-					} else {
-						item = null;
-					}
-					if (bundle.contains(HERO_CLASS)){
-						heroClass = bundle.getEnum(HERO_CLASS, HeroClass.class);
-					} else {
-						heroClass = null;
-					}
-				}
+        if (depth == -1) {
 
-				return get();
+            try {
+                Bundle bundle = FileUtils.bundleFromFile(BONES_FILE);
 
-			} catch (IOException e) {
-				return null;
-			}
+                depth = bundle.getInt(LEVEL);
+                branch = bundle.getInt(BRANCH);
+                if (depth > 0) {
+                    if (bundle.contains(ITEM)) {
+                        item = (Item) bundle.get(ITEM);
+                    } else {
+                        item = null;
+                    }
+                    if (bundle.contains(HERO_CLASS)) {
+                        heroClass = bundle.getEnum(HERO_CLASS, HeroClass.class);
+                    } else {
+                        heroClass = null;
+                    }
+                }
 
-		} else {
-			if (lootAtCurLevel()) {
+                return get();
+            } catch (IOException e) {
+                return null;
+            }
+        } else {
+            if (lootAtCurLevel()) {
 
-				Bundle emptyBones = new Bundle();
-				emptyBones.put(LEVEL, 0);
-				try {
-					FileUtils.bundleToFile( BONES_FILE, emptyBones );
-				} catch (IOException e) {
-					ShatteredPixelDungeon.reportException(e);
-				}
-				depth = 0;
+                Bundle emptyBones = new Bundle();
+                emptyBones.put(LEVEL, 0);
+                try {
+                    FileUtils.bundleToFile(BONES_FILE, emptyBones);
+                } catch (IOException e) {
+                    ShatteredPixelDungeon.reportException(e);
+                }
+                depth = 0;
 
-				//challenged or seeded runs don't get items from prior runs
-				if (Dungeon.challenges != 0 || !Dungeon.customSeedText.isEmpty()){
-					item = null;
-				}
+                //challenged or seeded runs don't get items from prior runs
+                if (Dungeon.challenges != 0 || !Dungeon.customSeedText.isEmpty()) {
+                    item = null;
+                }
 
-				//Enforces artifact uniqueness
-				if (item instanceof Artifact){
-					if (Generator.removeArtifact(((Artifact)item).getClass())) {
-						
-						//generates a new artifact of the same type, always +0
-						Artifact artifact = Reflection.newInstance(((Artifact)item).getClass());
-						
-						if (artifact != null){
-							artifact.cursed = true;
-							artifact.cursedKnown = true;
-						}
+                //Enforces artifact uniqueness
+                if (item instanceof Artifact) {
+                    if (Generator.removeArtifact(((Artifact) item).getClass())) {
 
-						item = artifact;
-						
-					} else {
-						item = new Gold(item.value());
-					}
-				}
+                        //generates a new artifact of the same type, always +0
+                        Artifact artifact = Reflection.newInstance(((Artifact) item).getClass());
 
-				if (item != null) {
-					if (item.isUpgradable() && !(item instanceof MissileWeapon)) {
-						item.cursed = true;
-						item.cursedKnown = true;
-					}
+                        if (artifact != null) {
+                            artifact.cursed = true;
+                            artifact.cursedKnown = true;
+                        }
 
-					if (item.isUpgradable()) {
-						//caps at +3
-						if (item.level() > 3) {
-							item.degrade(item.level() - 3);
-						}
-						//thrown weapons are always IDed, otherwise set unknown
-						item.levelKnown = item instanceof MissileWeapon;
-					}
+                        item = artifact;
+                    } else {
+                        item = new Gold(item.value());
+                    }
+                }
 
-					item.reset();
-				}
+                if (item != null) {
+                    if (item.isUpgradable() && !(item instanceof MissileWeapon)) {
+                        item.cursed = true;
+                        item.cursedKnown = true;
+                    }
 
-				ArrayList<Item> result = new ArrayList<>();
+                    if (item.isUpgradable()) {
+                        //caps at +3
+                        if (item.level() > 3) {
+                            item.degrade(item.level() - 3);
+                        }
+                        //thrown weapons are always IDed, otherwise set unknown
+                        item.levelKnown = item instanceof MissileWeapon;
+                    }
 
-				if (heroClass != null) {
-					result.add(RemainsItem.get(heroClass));
-					if (Dungeon.bossLevel()){
-						Statistics.qualifiedForBossRemainsBadge = true;
-					}
-				}
+                    item.reset();
+                }
 
-				if (item != null) {
-					result.add(item);
-				}
+                ArrayList<Item> result = new ArrayList<>();
 
-				return result.isEmpty() ? null : result;
-			} else {
-				return null;
-			}
-		}
-	}
+                if (heroClass != null) {
+                    result.add(RemainsItem.get(heroClass));
+                    if (Dungeon.bossLevel()) {
+                        Statistics.qualifiedForBossRemainsBadge = true;
+                    }
+                }
 
-	private static boolean lootAtCurLevel(){
-		if (branch == Dungeon.branch) {
-			if (branch == 0) {
-				//always match depth exactly for main path
-				return depth == Dungeon.depth;
-			} else if (branch == 1) {
-				//just match the region for quest sub-floors
-				return depth/5 == Dungeon.depth/5;
-			}
-		}
-		return false;
-	}
+                if (item != null) {
+                    result.add(item);
+                }
+
+                return result.isEmpty() ? null : result;
+            } else {
+                return null;
+            }
+        }
+    }
+
+    private static boolean lootAtCurLevel() {
+        if (branch == Dungeon.branch) {
+            if (branch == 0) {
+                //always match depth exactly for main path
+                return depth == Dungeon.depth;
+            } else if (branch == 1) {
+                //just match the region for quest sub-floors
+                return depth / 5 == Dungeon.depth / 5;
+            }
+        }
+        return false;
+    }
 }

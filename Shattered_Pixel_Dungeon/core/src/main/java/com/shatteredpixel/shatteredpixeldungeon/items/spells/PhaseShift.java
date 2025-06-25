@@ -35,60 +35,57 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 public class PhaseShift extends TargetedSpell {
-	
-	{
-		image = ItemSpriteSheet.PHASE_SHIFT;
 
-		usesTargeting = true;
+    {
+        image = ItemSpriteSheet.PHASE_SHIFT;
 
-		talentChance = 1/(float)Recipe.OUT_QUANTITY;
-	}
-	
-	@Override
-	protected void affectTarget(Ballistica bolt, Hero hero) {
-		final Char ch = Actor.findChar(bolt.collisionPos);
-		
-		if (ch != null) {
-			if (ScrollOfTeleportation.teleportChar(ch)){
+        usesTargeting = true;
 
-				if (ch instanceof Mob) {
-					if (((Mob) ch).state == ((Mob) ch).HUNTING) ((Mob) ch).state = ((Mob) ch).WANDERING;
-					((Mob) ch).beckon(Dungeon.level.randomDestination( ch ));
-				}
-				if (!Char.hasProp(ch, Char.Property.BOSS) && !Char.hasProp(ch, Char.Property.MINIBOSS)) {
-					Buff.affect(ch, Paralysis.class, Paralysis.DURATION);
-				}
-				
-			}
-		} else {
-			GLog.w( Messages.get(this, "no_target") );
-		}
-	}
-	
-	@Override
-	public int value() {
-		return (int)(60 * (quantity/(float)Recipe.OUT_QUANTITY));
-	}
+        talentChance = 1 / (float) Recipe.OUT_QUANTITY;
+    }
 
-	@Override
-	public int energyVal() {
-		return (int)(12 * (quantity/(float)Recipe.OUT_QUANTITY));
-	}
-	
-	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+    @Override
+    protected void affectTarget(Ballistica bolt, Hero hero) {
+        final Char ch = Actor.findChar(bolt.collisionPos);
 
-		private static final int OUT_QUANTITY = 6;
-		
-		{
-			inputs =  new Class[]{ScrollOfTeleportation.class};
-			inQuantity = new int[]{1};
-			
-			cost = 10;
-			
-			output = PhaseShift.class;
-			outQuantity = OUT_QUANTITY;
-		}
-		
-	}
-	
+        if (ch != null) {
+            if (ScrollOfTeleportation.teleportChar(ch)) {
+
+                if (ch instanceof Mob) {
+                    if (((Mob) ch).state == ((Mob) ch).HUNTING) ((Mob) ch).state = ((Mob) ch).WANDERING;
+                    ((Mob) ch).beckon(Dungeon.level.randomDestination(ch));
+                }
+                if (!Char.hasProp(ch, Char.Property.BOSS) && !Char.hasProp(ch, Char.Property.MINIBOSS)) {
+                    Buff.affect(ch, Paralysis.class, Paralysis.DURATION);
+                }
+            }
+        } else {
+            GLog.w(Messages.get(this, "no_target"));
+        }
+    }
+
+    @Override
+    public int value() {
+        return (int) (60 * (quantity / (float) Recipe.OUT_QUANTITY));
+    }
+
+    @Override
+    public int energyVal() {
+        return (int) (12 * (quantity / (float) Recipe.OUT_QUANTITY));
+    }
+
+    public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+
+        private static final int OUT_QUANTITY = 6;
+
+        {
+            inputs = new Class[]{ScrollOfTeleportation.class};
+            inQuantity = new int[]{1};
+
+            cost = 10;
+
+            output = PhaseShift.class;
+            outQuantity = OUT_QUANTITY;
+        }
+    }
 }

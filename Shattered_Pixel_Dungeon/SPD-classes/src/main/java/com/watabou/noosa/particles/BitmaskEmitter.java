@@ -28,37 +28,37 @@ import com.watabou.utils.RectF;
 
 public class BitmaskEmitter extends Emitter {
 
-	// DON'T USE WITH COMPLETELY TRANSPARENT IMAGES!!!
+    // DON'T USE WITH COMPLETELY TRANSPARENT IMAGES!!!
 
-	private SmartTexture map;
-	private int mapW;
-	private int mapH;
+    private final SmartTexture map;
+    private final int mapW;
+    private final int mapH;
 
-	public BitmaskEmitter( Image target ) {
-		super();
+    public BitmaskEmitter(Image target) {
+        super();
 
-		this.target = target;
+        this.target = target;
 
-		map = target.texture;
-		mapW = map.bitmap.getWidth();
-		mapH = map.bitmap.getHeight();
-	}
+        map = target.texture;
+        mapW = map.bitmap.getWidth();
+        mapH = map.bitmap.getHeight();
+    }
 
-	@Override
-	protected void emit( int index ) {
+    @Override
+    protected void emit(int index) {
 
-		RectF frame = ((Image)target).frame();
-		float ofsX = frame.left * mapW;
-		float ofsY = frame.top * mapH;
+        RectF frame = ((Image) target).frame();
+        float ofsX = frame.left * mapW;
+        float ofsY = frame.top * mapH;
 
-		float x, y;
-		do {
-			x = Random.Float( frame.width() ) * mapW;
-			y = Random.Float( frame.height() ) * mapH;
-		} while ((map.bitmap.getPixel( (int)(x + ofsX), (int)(y + ofsY) ) & 0x000000FF) == 0);
+        float x, y;
+        do {
+            x = Random.Float(frame.width()) * mapW;
+            y = Random.Float(frame.height()) * mapH;
+        } while ((map.bitmap.getPixel((int) (x + ofsX), (int) (y + ofsY)) & 0x000000FF) == 0);
 
-		factory.emit( this, index,
-				target.x + x * target.scale.x,
-				target.y + y * target.scale.y );
-	}
+        factory.emit(this, index,
+                target.x + x * target.scale.x,
+                target.y + y * target.scale.y);
+    }
 }

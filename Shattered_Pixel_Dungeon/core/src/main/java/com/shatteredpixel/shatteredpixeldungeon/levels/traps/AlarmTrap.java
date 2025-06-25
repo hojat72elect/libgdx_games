@@ -32,23 +32,23 @@ import com.watabou.noosa.audio.Sample;
 
 public class AlarmTrap extends Trap {
 
-	{
-		color = RED;
-		shape = DOTS;
-	}
+    {
+        color = RED;
+        shape = DOTS;
+    }
 
-	@Override
-	public void activate() {
+    @Override
+    public void activate() {
 
-		for (Mob mob : Dungeon.level.mobs) {
-				mob.beckon( pos );
-		}
+        for (Mob mob : Dungeon.level.mobs) {
+            mob.beckon(pos);
+        }
 
-		if (Dungeon.level.heroFOV[pos]) {
-			GLog.w( Messages.get(this, "alarm") );
-			CellEmitter.center( pos ).start( Speck.factory( Speck.SCREAM ), 0.3f, 3 );
-		}
+        if (Dungeon.level.heroFOV[pos]) {
+            GLog.w(Messages.get(this, "alarm"));
+            CellEmitter.center(pos).start(Speck.factory(Speck.SCREAM), 0.3f, 3);
+        }
 
-		Sample.INSTANCE.play( Assets.Sounds.ALERT );
-	}
+        Sample.INSTANCE.play(Assets.Sounds.ALERT);
+    }
 }

@@ -35,63 +35,65 @@ import com.watabou.utils.Random;
 
 public class ArmoryRoom extends SpecialRoom {
 
-	public void paint( Level level ) {
-		
-		Painter.fill( level, this, Terrain.WALL );
-		Painter.fill( level, this, 1, Terrain.EMPTY );
-		
-		Door entrance = entrance();
-		Point statue = null;
-		if (entrance.x == left) {
-			statue = new Point( right-1, Random.Int( 2 ) == 0 ? top+1 : bottom-1 );
-		} else if (entrance.x == right) {
-			statue = new Point( left+1, Random.Int( 2 ) == 0 ? top+1 : bottom-1 );
-		} else if (entrance.y == top) {
-			statue = new Point( Random.Int( 2 ) == 0 ? left+1 : right-1, bottom-1 );
-		} else if (entrance.y == bottom) {
-			statue = new Point( Random.Int( 2 ) == 0 ? left+1 : right-1, top+1 );
-		}
-		if (statue != null) {
-			Painter.set( level, statue, Terrain.STATUE );
-		}
-		
-		int n = Random.IntRange( 2, 3 );
-		prizeCats = new float[]{1,1,1,1};
-		for (int i=0; i < n; i++) {
-			int pos;
-			do {
-				pos = level.pointToCell(random());
-			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
-			level.drop( prize( level ), pos );
-		}
+    public void paint(Level level) {
 
-		Item cata = level.findPrizeItem(TrinketCatalyst.class);
-		if (cata != null){
-			int pos;
-			do {
-				pos = level.pointToCell(random());
-			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
-			level.drop( cata, pos );
-		}
-		
-		entrance.set( Door.Type.LOCKED );
-		level.addItemToSpawn( new IronKey( Dungeon.depth ) );
-	}
+        Painter.fill(level, this, Terrain.WALL);
+        Painter.fill(level, this, 1, Terrain.EMPTY);
 
-	//only a max of 1 prize from each category can be dropped at a time
-	private static float[] prizeCats;
-	private static Item prize( Level level ) {
-		int index = Random.chances(prizeCats);
-		prizeCats[index] = 0;
-		switch (index){
-			case 0:
-				return new Bomb().random();
-			case 1:
-				return Generator.randomWeapon();
-			case 2:
-				return Generator.randomArmor();
-			case 3: default:
-				return Generator.randomMissile();
-		}
-	}
+        Door entrance = entrance();
+        Point statue = null;
+        if (entrance.x == left) {
+            statue = new Point(right - 1, Random.Int(2) == 0 ? top + 1 : bottom - 1);
+        } else if (entrance.x == right) {
+            statue = new Point(left + 1, Random.Int(2) == 0 ? top + 1 : bottom - 1);
+        } else if (entrance.y == top) {
+            statue = new Point(Random.Int(2) == 0 ? left + 1 : right - 1, bottom - 1);
+        } else if (entrance.y == bottom) {
+            statue = new Point(Random.Int(2) == 0 ? left + 1 : right - 1, top + 1);
+        }
+        if (statue != null) {
+            Painter.set(level, statue, Terrain.STATUE);
+        }
+
+        int n = Random.IntRange(2, 3);
+        prizeCats = new float[]{1, 1, 1, 1};
+        for (int i = 0; i < n; i++) {
+            int pos;
+            do {
+                pos = level.pointToCell(random());
+            } while (level.map[pos] != Terrain.EMPTY || level.heaps.get(pos) != null);
+            level.drop(prize(level), pos);
+        }
+
+        Item cata = level.findPrizeItem(TrinketCatalyst.class);
+        if (cata != null) {
+            int pos;
+            do {
+                pos = level.pointToCell(random());
+            } while (level.map[pos] != Terrain.EMPTY || level.heaps.get(pos) != null);
+            level.drop(cata, pos);
+        }
+
+        entrance.set(Door.Type.LOCKED);
+        level.addItemToSpawn(new IronKey(Dungeon.depth));
+    }
+
+    //only a max of 1 prize from each category can be dropped at a time
+    private static float[] prizeCats;
+
+    private static Item prize(Level level) {
+        int index = Random.chances(prizeCats);
+        prizeCats[index] = 0;
+        switch (index) {
+            case 0:
+                return new Bomb().random();
+            case 1:
+                return Generator.randomWeapon();
+            case 2:
+                return Generator.randomArmor();
+            case 3:
+            default:
+                return Generator.randomMissile();
+        }
+    }
 }

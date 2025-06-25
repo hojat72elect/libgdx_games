@@ -33,78 +33,77 @@ import com.watabou.noosa.Tilemap;
 import com.watabou.utils.Point;
 
 public class RitualSiteRoom extends StandardRoom {
-	
-	@Override
-	public int minWidth() {
-		return Math.max(super.minWidth(), 9);
-	}
-	
-	@Override
-	public int minHeight() {
-		return Math.max(super.minHeight(), 9);
-	}
 
-	public void paint( Level level ) {
+    @Override
+    public int minWidth() {
+        return Math.max(super.minWidth(), 9);
+    }
 
-		for (Door door : connected.values()) {
-			door.set( Door.Type.REGULAR );
-		}
+    @Override
+    public int minHeight() {
+        return Math.max(super.minHeight(), 9);
+    }
 
-		Painter.fill(level, this, Terrain.WALL);
-		Painter.fill(level, this, 1, Terrain.EMPTY);
+    public void paint(Level level) {
 
-		RitualMarker vis = new RitualMarker();
-		Point c = center();
-		vis.pos(c.x - 1, c.y - 1);
+        for (Door door : connected.values()) {
+            door.set(Door.Type.REGULAR);
+        }
 
-		level.customTiles.add(vis);
-		
-		Painter.fill(level, c.x-1, c.y-1, 3, 3, Terrain.CUSTOM_DECO_EMPTY);
+        Painter.fill(level, this, Terrain.WALL);
+        Painter.fill(level, this, 1, Terrain.EMPTY);
 
-		level.addItemToSpawn(new CeremonialCandle());
-		level.addItemToSpawn(new CeremonialCandle());
-		level.addItemToSpawn(new CeremonialCandle());
-		level.addItemToSpawn(new CeremonialCandle());
+        RitualMarker vis = new RitualMarker();
+        Point c = center();
+        vis.pos(c.x - 1, c.y - 1);
 
-		CeremonialCandle.ritualPos = c.x + (level.width() * c.y);
-	}
+        level.customTiles.add(vis);
 
-	@Override
-	public boolean canPlaceItem(Point p, Level l) {
-		return super.canPlaceItem(p, l) && l.distance(CeremonialCandle.ritualPos, l.pointToCell(p)) >= 2;
-	}
+        Painter.fill(level, c.x - 1, c.y - 1, 3, 3, Terrain.CUSTOM_DECO_EMPTY);
 
-	@Override
-	public boolean canPlaceCharacter(Point p, Level l) {
-		return super.canPlaceCharacter(p, l) && l.distance(CeremonialCandle.ritualPos, l.pointToCell(p)) >= 2;
-	}
+        level.addItemToSpawn(new CeremonialCandle());
+        level.addItemToSpawn(new CeremonialCandle());
+        level.addItemToSpawn(new CeremonialCandle());
+        level.addItemToSpawn(new CeremonialCandle());
 
-	public static class RitualMarker extends CustomTilemap {
-		
-		{
-			texture = Assets.Environment.PRISON_QUEST;
-			
-			tileW = tileH = 3;
-		}
-		
-		final int TEX_WIDTH = 64;
+        CeremonialCandle.ritualPos = c.x + (level.width() * c.y);
+    }
 
-		@Override
-		public Tilemap create() {
-			Tilemap v = super.create();
-			v.map(mapSimpleImage(0, 0, TEX_WIDTH), 3);
-			return v;
-		}
+    @Override
+    public boolean canPlaceItem(Point p, Level l) {
+        return super.canPlaceItem(p, l) && l.distance(CeremonialCandle.ritualPos, l.pointToCell(p)) >= 2;
+    }
 
-		@Override
-		public String name(int tileX, int tileY) {
-			return Messages.get(this, "name");
-		}
+    @Override
+    public boolean canPlaceCharacter(Point p, Level l) {
+        return super.canPlaceCharacter(p, l) && l.distance(CeremonialCandle.ritualPos, l.pointToCell(p)) >= 2;
+    }
 
-		@Override
-		public String desc(int tileX, int tileY) {
-			return Messages.get(this, "desc");
-		}
-	}
+    public static class RitualMarker extends CustomTilemap {
 
+        {
+            texture = Assets.Environment.PRISON_QUEST;
+
+            tileW = tileH = 3;
+        }
+
+        final int TEX_WIDTH = 64;
+
+        @Override
+        public Tilemap create() {
+            Tilemap v = super.create();
+            v.map(mapSimpleImage(0, 0, TEX_WIDTH), 3);
+            return v;
+        }
+
+        @Override
+        public String name(int tileX, int tileY) {
+            return Messages.get(this, "name");
+        }
+
+        @Override
+        public String desc(int tileX, int tileY) {
+            return Messages.get(this, "desc");
+        }
+    }
 }

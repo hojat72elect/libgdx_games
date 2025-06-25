@@ -46,102 +46,102 @@ import com.watabou.utils.Callback;
 import java.util.ArrayList;
 
 public class Pickaxe extends MeleeWeapon {
-	
-	{
-		image = ItemSpriteSheet.PICKAXE;
 
-		levelKnown = true;
-		
-		unique = true;
-		bones = false;
+    {
+        image = ItemSpriteSheet.PICKAXE;
 
-		tier = 2;
-	}
+        levelKnown = true;
 
-	@Override
-	public int STRReq(int lvl) {
-		return super.STRReq(lvl) + 2; //tier 3 strength requirement with tier 2 damage stats
-	}
+        unique = true;
+        bones = false;
 
-	@Override
-	public ArrayList<String> actions( Hero hero ) {
-		ArrayList<String> actions = super.actions( hero );
-		if (Dungeon.level instanceof MiningLevel){
-			actions.remove(AC_DROP);
-			actions.remove(AC_THROW);
-		}
-		return actions;
-	}
+        tier = 2;
+    }
 
-	@Override
-	public boolean keptThroughLostInventory() {
-		//pickaxe is always kept when it's needed for the mining level
-		return super.keptThroughLostInventory() || Dungeon.level instanceof MiningLevel;
-	}
-	@Override
-	public String targetingPrompt() {
-		return Messages.get(this, "prompt");
-	}
+    @Override
+    public int STRReq(int lvl) {
+        return super.STRReq(lvl) + 2; //tier 3 strength requirement with tier 2 damage stats
+    }
 
-	@Override
-	protected void duelistAbility(Hero hero, Integer target) {
-		if (target == null) {
-			return;
-		}
+    @Override
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        if (Dungeon.level instanceof MiningLevel) {
+            actions.remove(AC_DROP);
+            actions.remove(AC_THROW);
+        }
+        return actions;
+    }
 
-		Char enemy = Actor.findChar(target);
-		if (enemy == null || enemy == hero || hero.isCharmedBy(enemy) || !Dungeon.level.heroFOV[target]) {
-			GLog.w(Messages.get(this, "ability_no_target"));
-			return;
-		}
+    @Override
+    public boolean keptThroughLostInventory() {
+        //pickaxe is always kept when it's needed for the mining level
+        return super.keptThroughLostInventory() || Dungeon.level instanceof MiningLevel;
+    }
 
-		hero.belongings.abilityWeapon = this;
-		if (!hero.canAttack(enemy)){
-			GLog.w(Messages.get(this, "ability_target_range"));
-			hero.belongings.abilityWeapon = null;
-			return;
-		}
-		hero.belongings.abilityWeapon = null;
+    @Override
+    public String targetingPrompt() {
+        return Messages.get(this, "prompt");
+    }
 
-		hero.sprite.attack(enemy.pos, new Callback() {
-			@Override
-			public void call() {
-				int damageBoost = 0;
-				if (Char.hasProp(enemy, Char.Property.INORGANIC)
-						|| enemy instanceof Swarm
-						|| enemy instanceof Bee
-						|| enemy instanceof Crab
-						|| enemy instanceof Spinner
-						|| enemy instanceof Scorpio) {
-					//+(8+2*lvl) damage, equivalent to +100% damage
-					damageBoost = augment.damageFactor(8 + 2*buffedLvl());
-				}
-				beforeAbilityUsed(hero, enemy);
-				AttackIndicator.target(enemy);
-				if (hero.attack(enemy, 1, damageBoost, Char.INFINITE_ACCURACY)) {
-					if (enemy.isAlive()) {
-						Buff.affect(enemy, Vulnerable.class, 3f);
-					} else {
-						onAbilityKill(hero, enemy);
-					}
-					Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
-				}
-				Invisibility.dispel();
-				hero.spendAndNext(hero.attackDelay());
-				afterAbilityUsed(hero);
-			}
-		});
-	}
+    @Override
+    protected void duelistAbility(Hero hero, Integer target) {
+        if (target == null) {
+            return;
+        }
 
-	@Override
-	public String abilityInfo() {
-		int dmgBoost = 8 + 2*buffedLvl();
-		return Messages.get(this, "ability_desc", augment.damageFactor(min()+dmgBoost), augment.damageFactor(max()+dmgBoost));
-	}
+        Char enemy = Actor.findChar(target);
+        if (enemy == null || enemy == hero || hero.isCharmedBy(enemy) || !Dungeon.level.heroFOV[target]) {
+            GLog.w(Messages.get(this, "ability_no_target"));
+            return;
+        }
 
-	public String upgradeAbilityStat(int level){
-		int dmgBoost = 8 + 2*level;
-		return augment.damageFactor(min(level)+dmgBoost) + "-" + augment.damageFactor(max(level)+dmgBoost);
-	}
+        hero.belongings.abilityWeapon = this;
+        if (!hero.canAttack(enemy)) {
+            GLog.w(Messages.get(this, "ability_target_range"));
+            hero.belongings.abilityWeapon = null;
+            return;
+        }
+        hero.belongings.abilityWeapon = null;
 
+        hero.sprite.attack(enemy.pos, new Callback() {
+            @Override
+            public void call() {
+                int damageBoost = 0;
+                if (Char.hasProp(enemy, Char.Property.INORGANIC)
+                        || enemy instanceof Swarm
+                        || enemy instanceof Bee
+                        || enemy instanceof Crab
+                        || enemy instanceof Spinner
+                        || enemy instanceof Scorpio) {
+                    //+(8+2*lvl) damage, equivalent to +100% damage
+                    damageBoost = augment.damageFactor(8 + 2 * buffedLvl());
+                }
+                beforeAbilityUsed(hero, enemy);
+                AttackIndicator.target(enemy);
+                if (hero.attack(enemy, 1, damageBoost, Char.INFINITE_ACCURACY)) {
+                    if (enemy.isAlive()) {
+                        Buff.affect(enemy, Vulnerable.class, 3f);
+                    } else {
+                        onAbilityKill(hero, enemy);
+                    }
+                    Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
+                }
+                Invisibility.dispel();
+                hero.spendAndNext(hero.attackDelay());
+                afterAbilityUsed(hero);
+            }
+        });
+    }
+
+    @Override
+    public String abilityInfo() {
+        int dmgBoost = 8 + 2 * buffedLvl();
+        return Messages.get(this, "ability_desc", augment.damageFactor(min() + dmgBoost), augment.damageFactor(max() + dmgBoost));
+    }
+
+    public String upgradeAbilityStat(int level) {
+        int dmgBoost = 8 + 2 * level;
+        return augment.damageFactor(min(level) + dmgBoost) + "-" + augment.damageFactor(max(level) + dmgBoost);
+    }
 }

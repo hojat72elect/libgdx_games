@@ -59,211 +59,212 @@ import java.util.ArrayList;
 
 public class HallowedGround extends TargetedClericSpell {
 
-	public static final HallowedGround INSTANCE = new HallowedGround();
+    public static final HallowedGround INSTANCE = new HallowedGround();
 
-	@Override
-	public int icon() {
-		return HeroIcon.HALLOWED_GROUND;
-	}
+    @Override
+    public int icon() {
+        return HeroIcon.HALLOWED_GROUND;
+    }
 
-	@Override
-	public float chargeUse(Hero hero) {
-		return 2;
-	}
+    @Override
+    public float chargeUse(Hero hero) {
+        return 2;
+    }
 
-	@Override
-	public int targetingFlags() {
-		return Ballistica.STOP_TARGET;
-	}
+    @Override
+    public int targetingFlags() {
+        return Ballistica.STOP_TARGET;
+    }
 
-	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.hasTalent(Talent.HALLOWED_GROUND);
-	}
+    @Override
+    public boolean canCast(Hero hero) {
+        return super.canCast(hero) && hero.hasTalent(Talent.HALLOWED_GROUND);
+    }
 
-	@Override
-	protected void onTargetSelected(HolyTome tome, Hero hero, Integer target) {
+    @Override
+    protected void onTargetSelected(HolyTome tome, Hero hero, Integer target) {
 
-		if (target == null){
-			return;
-		}
+        if (target == null) {
+            return;
+        }
 
-		if (Dungeon.level.solid[target] || !Dungeon.level.heroFOV[target]){
-			GLog.w(Messages.get(this, "invalid_target"));
-			return;
-		}
+        if (Dungeon.level.solid[target] || !Dungeon.level.heroFOV[target]) {
+            GLog.w(Messages.get(this, "invalid_target"));
+            return;
+        }
 
-		ArrayList<Char> affected = new ArrayList<>();
+        ArrayList<Char> affected = new ArrayList<>();
 
-		PathFinder.buildDistanceMap(target, BArray.not(Dungeon.level.solid, null), hero.pointsInTalent(Talent.HALLOWED_GROUND));
-		for (int i = 0; i < Dungeon.level.length(); i++){
-			if (PathFinder.distance[i] != Integer.MAX_VALUE){
-				int c = Dungeon.level.map[i];
-				if (c == Terrain.EMPTY || c == Terrain.EMBERS || c == Terrain.EMPTY_DECO) {
-					Level.set( i, Terrain.GRASS);
-					GameScene.updateMap( i );
-					CellEmitter.get(i).burst(LeafParticle.LEVEL_SPECIFIC, 2);
-				}
-				GameScene.add(Blob.seed(i, 20, HallowedTerrain.class));
-				CellEmitter.get(i).burst(ShaftParticle.FACTORY, 2);
+        PathFinder.buildDistanceMap(target, BArray.not(Dungeon.level.solid, null), hero.pointsInTalent(Talent.HALLOWED_GROUND));
+        for (int i = 0; i < Dungeon.level.length(); i++) {
+            if (PathFinder.distance[i] != Integer.MAX_VALUE) {
+                int c = Dungeon.level.map[i];
+                if (c == Terrain.EMPTY || c == Terrain.EMBERS || c == Terrain.EMPTY_DECO) {
+                    Level.set(i, Terrain.GRASS);
+                    GameScene.updateMap(i);
+                    CellEmitter.get(i).burst(LeafParticle.LEVEL_SPECIFIC, 2);
+                }
+                GameScene.add(Blob.seed(i, 20, HallowedTerrain.class));
+                CellEmitter.get(i).burst(ShaftParticle.FACTORY, 2);
 
-				Char ch = Actor.findChar(i);
-				if (ch != null){
-					affected.add(ch);
-				}
-			}
-		}
+                Char ch = Actor.findChar(i);
+                if (ch != null) {
+                    affected.add(ch);
+                }
+            }
+        }
 
-		Char ally = PowerOfMany.getPoweredAlly();
-		if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null){
-			if (affected.contains(hero) && !affected.contains(ally)){
-				affected.add(ally);
-			} else if (!affected.contains(hero) && affected.contains(ally)){
-				affected.add(hero);
-			}
-		}
+        Char ally = PowerOfMany.getPoweredAlly();
+        if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null) {
+            if (affected.contains(hero) && !affected.contains(ally)) {
+                affected.add(ally);
+            } else if (!affected.contains(hero) && affected.contains(ally)) {
+                affected.add(hero);
+            }
+        }
 
-		for (Char ch : affected){
-			affectChar(ch);
-		}
+        for (Char ch : affected) {
+            affectChar(ch);
+        }
 
-		Sample.INSTANCE.play(Assets.Sounds.MELD);
-		hero.sprite.zap(target);
-		hero.spendAndNext( 1f );
+        Sample.INSTANCE.play(Assets.Sounds.MELD);
+        hero.sprite.zap(target);
+        hero.spendAndNext(1f);
 
-		onSpellCast(tome, hero);
+        onSpellCast(tome, hero);
+    }
 
-	}
+    private void affectChar(Char ch) {
+        if (ch.alignment == Char.Alignment.ALLY) {
 
-	private void affectChar( Char ch ){
-		if (ch.alignment == Char.Alignment.ALLY){
+            if (ch == Dungeon.hero || ch.HP == ch.HT) {
+                int barrierToGive = Math.min(15, 30 - ch.shielding());
+                Buff.affect(ch, Barrier.class).incShield(barrierToGive);
+                ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(barrierToGive), FloatingText.SHIELDING);
+            } else {
+                int barrier = 15 - (ch.HT - ch.HP);
+                barrier = Math.max(barrier, 0);
+                ch.HP += 15 - barrier;
+                ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(15 - barrier), FloatingText.HEALING);
+                if (barrier > 0) {
+                    Buff.affect(ch, Barrier.class).incShield(barrier);
+                    ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(barrier), FloatingText.SHIELDING);
+                }
+            }
+        } else if (!ch.flying) {
+            Buff.affect(ch, Roots.class, 2f);
+        }
+    }
 
-			if (ch == Dungeon.hero || ch.HP == ch.HT){
-				int barrierToGive = Math.min(15, 30 - ch.shielding());
-				Buff.affect(ch, Barrier.class).incShield(barrierToGive);
-				ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(barrierToGive), FloatingText.SHIELDING );
-			} else {
-				int barrier = 15 - (ch.HT - ch.HP);
-				barrier = Math.max(barrier, 0);
-				ch.HP += 15 - barrier;
-				ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(15-barrier), FloatingText.HEALING );
-				if (barrier > 0){
-					Buff.affect(ch, Barrier.class).incShield(barrier);
-					ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(barrier), FloatingText.SHIELDING );
-				}
-			}
-		} else if (!ch.flying) {
-			Buff.affect(ch, Roots.class, 2f);
-		}
-	}
+    public String desc() {
+        int area = 1 + 2 * Dungeon.hero.pointsInTalent(Talent.HALLOWED_GROUND);
+        return Messages.get(this, "desc", area) + "\n\n" + Messages.get(this, "charge_cost", (int) chargeUse(Dungeon.hero));
+    }
 
-	public String desc(){
-		int area = 1 + 2*Dungeon.hero.pointsInTalent(Talent.HALLOWED_GROUND);
-		return Messages.get(this, "desc", area) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
-	}
+    public static class HallowedTerrain extends Blob {
 
-	public static class HallowedTerrain extends Blob {
+        @Override
+        protected void evolve() {
 
-		@Override
-		protected void evolve() {
+            int cell;
 
-			int cell;
+            Fire fire = (Fire) Dungeon.level.blobs.get(Fire.class);
 
-			Fire fire = (Fire)Dungeon.level.blobs.get( Fire.class );
+            ArrayList<Char> affected = new ArrayList<>();
 
-			ArrayList<Char> affected = new ArrayList<>();
+            // on avg, hallowed ground produces 9/17/25 tiles of grass, 100/67/50% of total tiles
+            int chance = 10 + 10 * Dungeon.hero.pointsInTalent(Talent.HALLOWED_GROUND);
 
-			// on avg, hallowed ground produces 9/17/25 tiles of grass, 100/67/50% of total tiles
-			int chance = 10 + 10*Dungeon.hero.pointsInTalent(Talent.HALLOWED_GROUND);
+            for (int i = area.left - 1; i <= area.right; i++) {
+                for (int j = area.top - 1; j <= area.bottom; j++) {
+                    cell = i + j * Dungeon.level.width();
+                    if (cur[cell] > 0) {
 
-			for (int i = area.left-1; i <= area.right; i++) {
-				for (int j = area.top-1; j <= area.bottom; j++) {
-					cell = i + j*Dungeon.level.width();
-					if (cur[cell] > 0) {
+                        //fire destroys hallowed terrain
+                        if (fire != null && fire.volume > 0 && fire.cur[cell] > 0) {
+                            off[cell] = cur[cell] = 0;
+                            continue;
+                        }
 
-						//fire destroys hallowed terrain
-						if (fire != null && fire.volume > 0 && fire.cur[cell] > 0){
-							off[cell] = cur[cell] = 0;
-							continue;
-						}
+                        int c = Dungeon.level.map[cell];
+                        if (c == Terrain.GRASS && Dungeon.level.plants.get(c) == null) {
+                            if (Random.Int(chance) == 0) {
+                                if (!Regeneration.regenOn()
+                                        || (Dungeon.hero.buff(HallowedFurrowTracker.class) != null && Dungeon.hero.buff(HallowedFurrowTracker.class).count() > 100)) {
+                                    Level.set(cell, Terrain.FURROWED_GRASS);
+                                } else {
+                                    Level.set(cell, Terrain.HIGH_GRASS);
+                                }
+                                GameScene.updateMap(cell);
+                                CellEmitter.get(cell).burst(LeafParticle.LEVEL_SPECIFIC, 5);
+                            }
+                        } else if (c == Terrain.EMPTY || c == Terrain.EMBERS || c == Terrain.EMPTY_DECO) {
+                            Level.set(cell, Terrain.GRASS);
+                            GameScene.updateMap(cell);
+                            CellEmitter.get(cell).burst(LeafParticle.LEVEL_SPECIFIC, 2);
+                        }
 
-						int c = Dungeon.level.map[cell];
-						if (c == Terrain.GRASS && Dungeon.level.plants.get(c) == null) {
-							if (Random.Int(chance) == 0) {
-								if (!Regeneration.regenOn()
-										|| (Dungeon.hero.buff(HallowedFurrowTracker.class) != null && Dungeon.hero.buff(HallowedFurrowTracker.class).count() > 100)){
-									Level.set(cell, Terrain.FURROWED_GRASS);
-								} else {
-									Level.set(cell, Terrain.HIGH_GRASS);
-								}
-								GameScene.updateMap(cell);
-								CellEmitter.get(cell).burst(LeafParticle.LEVEL_SPECIFIC, 5);
-							}
-						} else if (c == Terrain.EMPTY || c == Terrain.EMBERS || c == Terrain.EMPTY_DECO) {
-							Level.set(cell, Terrain.GRASS);
-							GameScene.updateMap(cell);
-							CellEmitter.get(cell).burst(LeafParticle.LEVEL_SPECIFIC, 2);
-						}
+                        Char ch = Actor.findChar(cell);
+                        if (ch != null) {
+                            affected.add(ch);
+                        }
 
-						Char ch = Actor.findChar(cell);
-						if (ch != null){
-							affected.add(ch);
-						}
+                        off[cell] = cur[cell] - 1;
+                        volume += off[cell];
+                    } else {
+                        off[cell] = 0;
+                    }
+                }
+            }
 
-						off[cell] = cur[cell] - 1;
-						volume += off[cell];
-					} else {
-						off[cell] = 0;
-					}
-				}
-			}
+            //max of 100 turns of grass per hero level before it starts to furrow
+            if (volume > 0) {
+                Buff.count(Dungeon.hero, HallowedFurrowTracker.class, 1);
+            }
 
-			//max of 100 turns of grass per hero level before it starts to furrow
-			if (volume > 0){
-				Buff.count(Dungeon.hero, HallowedFurrowTracker.class, 1);
-			}
+            Char ally = PowerOfMany.getPoweredAlly();
+            if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null) {
+                if (affected.contains(Dungeon.hero) && !affected.contains(ally)) {
+                    affected.add(ally);
+                } else if (!affected.contains(Dungeon.hero) && affected.contains(ally)) {
+                    affected.add(Dungeon.hero);
+                }
+            }
 
-			Char ally = PowerOfMany.getPoweredAlly();
-			if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null){
-				if (affected.contains(Dungeon.hero) && !affected.contains(ally)){
-					affected.add(ally);
-				} else if (!affected.contains(Dungeon.hero) && affected.contains(ally)){
-					affected.add(Dungeon.hero);
-				}
-			}
+            for (Char ch : affected) {
+                affectChar(ch);
+            }
+        }
 
-			for (Char ch :affected){
-				affectChar(ch);
-			}
+        private void affectChar(Char ch) {
+            if (ch.alignment == Char.Alignment.ALLY) {
+                if (ch == Dungeon.hero || ch.HP == ch.HT) {
+                    Buff.affect(ch, Barrier.class).incShield(1);
+                    ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, "1", FloatingText.SHIELDING);
+                } else {
+                    ch.HP++;
+                    ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, "1", FloatingText.HEALING);
+                }
+            } else if (!ch.flying && ch.buff(Roots.class) == null) {
+                Buff.prolong(ch, Cripple.class, 1f);
+            }
+        }
 
-		}
+        @Override
+        public void use(BlobEmitter emitter) {
+            super.use(emitter);
+            emitter.pour(ShaftParticle.FACTORY, 1f);
+        }
 
-		private void affectChar( Char ch ){
-			if (ch.alignment == Char.Alignment.ALLY){
-				if (ch == Dungeon.hero || ch.HP == ch.HT){
-					Buff.affect(ch, Barrier.class).incShield(1);
-					ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, "1", FloatingText.SHIELDING );
-				} else {
-					ch.HP++;
-					ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, "1", FloatingText.HEALING );
-				}
-			} else if (!ch.flying && ch.buff(Roots.class) == null){
-				Buff.prolong(ch, Cripple.class, 1f);
-			}
-		}
+        @Override
+        public String tileDesc() {
+            return Messages.get(this, "desc");
+        }
+    }
 
-		@Override
-		public void use(BlobEmitter emitter) {
-			super.use( emitter );
-			emitter.pour( ShaftParticle.FACTORY, 1f );
-		}
-
-		@Override
-		public String tileDesc() {
-			return Messages.get(this, "desc");
-		}
-	}
-
-	public static class HallowedFurrowTracker extends CounterBuff{{revivePersists = true;}}
-
+    public static class HallowedFurrowTracker extends CounterBuff {
+        {
+            revivePersists = true;
+        }
+    }
 }

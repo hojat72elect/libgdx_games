@@ -32,32 +32,31 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
 public class Affection extends Glyph {
-	
-	private static ItemSprite.Glowing PINK = new ItemSprite.Glowing( 0xFF4488 );
-	
-	@Override
-	public int proc( Armor armor, Char attacker, Char defender, int damage) {
 
-		int level = Math.max(0, armor.buffedLvl());
-		
-		// lvl 0 - 15%
-		// lvl 1 ~ 19%
-		// lvl 2 ~ 23%
-		float procChance = (level+3f)/(level+20f) * procChanceMultiplier(defender);
-		if (Random.Float() < procChance) {
+    private static final ItemSprite.Glowing PINK = new ItemSprite.Glowing(0xFF4488);
 
-			float powerMulti = Math.max(1f, procChance);
+    @Override
+    public int proc(Armor armor, Char attacker, Char defender, int damage) {
 
-			Buff.affect( attacker, Charm.class, Math.round(Charm.DURATION*powerMulti) ).object = defender.id();
-			attacker.sprite.centerEmitter().start( Speck.factory( Speck.HEART ), 0.2f, 5 );
+        int level = Math.max(0, armor.buffedLvl());
 
-		}
-		
-		return damage;
-	}
+        // lvl 0 - 15%
+        // lvl 1 ~ 19%
+        // lvl 2 ~ 23%
+        float procChance = (level + 3f) / (level + 20f) * procChanceMultiplier(defender);
+        if (Random.Float() < procChance) {
 
-	@Override
-	public Glowing glowing() {
-		return PINK;
-	}
+            float powerMulti = Math.max(1f, procChance);
+
+            Buff.affect(attacker, Charm.class, Math.round(Charm.DURATION * powerMulti)).object = defender.id();
+            attacker.sprite.centerEmitter().start(Speck.factory(Speck.HEART), 0.2f, 5);
+        }
+
+        return damage;
+    }
+
+    @Override
+    public Glowing glowing() {
+        return PINK;
+    }
 }

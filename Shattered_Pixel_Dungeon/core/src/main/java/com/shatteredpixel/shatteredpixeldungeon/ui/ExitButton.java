@@ -30,29 +30,29 @@ import com.watabou.noosa.Game;
 
 public class ExitButton extends IconButton {
 
-	public ExitButton() {
-		super(Icons.EXIT.get());
+    public ExitButton() {
+        super(Icons.EXIT.get());
 
-		width = 20;
-		height = 20;
-	}
+        width = 20;
+        height = 20;
+    }
 
-	@Override
-	protected void onClick() {
-		if (Game.scene() instanceof TitleScene) {
-			Game.instance.finish();
-		} else {
-			ShatteredPixelDungeon.switchNoFade( TitleScene.class );
-		}
-	}
+    @Override
+    protected void onClick() {
+        if (Game.scene() instanceof TitleScene) {
+            Game.instance.finish();
+        } else {
+            ShatteredPixelDungeon.switchNoFade(TitleScene.class);
+        }
+    }
 
-	@Override
-	public GameAction keyAction() {
-		return GameAction.BACK;
-	}
+    @Override
+    public GameAction keyAction() {
+        return GameAction.BACK;
+    }
 
-	@Override
-	protected String hoverText() {
-		return Messages.titleCase(Messages.get(WndKeyBindings.class, "back"));
-	}
+    @Override
+    protected String hoverText() {
+        return Messages.titleCase(Messages.get(WndKeyBindings.class, "back"));
+    }
 }

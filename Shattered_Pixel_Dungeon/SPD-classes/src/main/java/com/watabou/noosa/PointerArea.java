@@ -25,130 +25,130 @@ import com.watabou.input.PointerEvent;
 import com.watabou.utils.Signal;
 
 public class PointerArea extends Visual implements Signal.Listener<PointerEvent> {
-	
-	// Its target can be pointerarea itself
-	public Visual target;
-	
-	protected PointerEvent curEvent = null;
-	protected boolean hovered = false;
 
-	public int blockLevel = BLOCK_WHEN_ACTIVE;
-	public static final int ALWAYS_BLOCK = 0;       //Always block input to overlapping elements
-	public static final int BLOCK_WHEN_ACTIVE = 1;  //Only block when active (default)
-	public static final int NEVER_BLOCK = 2;        //Never block (handy for buttons in scroll areas)
-	
-	public PointerArea( Visual target ) {
-		super( 0, 0, 0, 0 );
-		this.target = target;
-		
-		PointerEvent.addPointerListener( this );
-	}
-	
-	public PointerArea( float x, float y, float width, float height ) {
-		super( x, y, width, height );
-		this.target = this;
-		
-		visible = false;
-		
-		PointerEvent.addPointerListener( this );
-	}
-	
-	@Override
-	public boolean onSignal( PointerEvent event ) {
+    // Its target can be pointerarea itself
+    public Visual target;
 
-		boolean hit = event != null && target.overlapsScreenPoint( (int)event.current.x, (int)event.current.y );
-		
-		if (!isActive()) {
-			return (hit && blockLevel == ALWAYS_BLOCK);
-		}
-		
-		if (hit) {
-			
-			boolean returnValue = (event.type == PointerEvent.Type.DOWN || event == curEvent);
-			
-			if (event.type == PointerEvent.Type.DOWN) {
-				
-				if (curEvent == null) {
-					curEvent = event;
-				}
-				onPointerDown( event );
-				
-			} else if (event.type == PointerEvent.Type.UP) {
-				
-				onPointerUp( event );
-				
-				if (curEvent == event) {
-					curEvent = null;
-					onClick( event );
-				}
+    protected PointerEvent curEvent = null;
+    protected boolean hovered = false;
 
-			//similar to up, but no click
-			} else if (event.type == PointerEvent.Type.CANCEL) {
+    public int blockLevel = BLOCK_WHEN_ACTIVE;
+    public static final int ALWAYS_BLOCK = 0;       //Always block input to overlapping elements
+    public static final int BLOCK_WHEN_ACTIVE = 1;  //Only block when active (default)
+    public static final int NEVER_BLOCK = 2;        //Never block (handy for buttons in scroll areas)
 
-				onPointerUp( event );
+    public PointerArea(Visual target) {
+        super(0, 0, 0, 0);
+        this.target = target;
 
-				if (curEvent == event) {
-					curEvent = null;
-				}
+        PointerEvent.addPointerListener(this);
+    }
 
-			} else if (event.type == PointerEvent.Type.HOVER) {
-				if (event.handled && hovered){
-					hovered = false;
-					onHoverEnd(event);
-				} else if (!event.handled && !hovered){
-					hovered = true;
-					onHoverStart(event);
-				}
-				event.handle();
-			}
-			
-			return returnValue && blockLevel != NEVER_BLOCK;
-			
-		} else {
-			
-			if (event == null && curEvent != null) {
-				onDrag(curEvent);
+    public PointerArea(float x, float y, float width, float height) {
+        super(x, y, width, height);
+        this.target = this;
 
-			} else if (curEvent != null &&
-					(event.type == PointerEvent.Type.UP || event.type == PointerEvent.Type.CANCEL)) {
-				onPointerUp( event );
-				curEvent = null;
+        visible = false;
 
-			} else if (event != null && event.type == PointerEvent.Type.HOVER && hovered){
-				hovered = false;
-				onHoverEnd(event);
-			}
-			
-			return false;
-			
-		}
-	}
-	
-	protected void onPointerDown( PointerEvent event ) { }
-	
-	protected void onPointerUp( PointerEvent event) { }
-	
-	protected void onClick( PointerEvent event ) { }
-	
-	protected void onDrag( PointerEvent event ) { }
+        PointerEvent.addPointerListener(this);
+    }
 
-	protected void onHoverStart( PointerEvent event ) { }
+    @Override
+    public boolean onSignal(PointerEvent event) {
 
-	protected void onHoverEnd( PointerEvent event ) { }
-	
-	public void reset() {
-		curEvent = null;
-	}
+        boolean hit = event != null && target.overlapsScreenPoint((int) event.current.x, (int) event.current.y);
 
-	//moves this pointer area to the front of the pointer event order
-	public void givePointerPriority(){
-		PointerEvent.removePointerListener( this );
-		PointerEvent.addPointerListener( this );
-	}
-	
-	@Override
-	public void destroy() {
-		PointerEvent.removePointerListener( this );
-		super.destroy();
-	}
+        if (!isActive()) {
+            return (hit && blockLevel == ALWAYS_BLOCK);
+        }
+
+        if (hit) {
+
+            boolean returnValue = (event.type == PointerEvent.Type.DOWN || event == curEvent);
+
+            if (event.type == PointerEvent.Type.DOWN) {
+
+                if (curEvent == null) {
+                    curEvent = event;
+                }
+                onPointerDown(event);
+            } else if (event.type == PointerEvent.Type.UP) {
+
+                onPointerUp(event);
+
+                if (curEvent == event) {
+                    curEvent = null;
+                    onClick(event);
+                }
+
+                //similar to up, but no click
+            } else if (event.type == PointerEvent.Type.CANCEL) {
+
+                onPointerUp(event);
+
+                if (curEvent == event) {
+                    curEvent = null;
+                }
+            } else if (event.type == PointerEvent.Type.HOVER) {
+                if (event.handled && hovered) {
+                    hovered = false;
+                    onHoverEnd(event);
+                } else if (!event.handled && !hovered) {
+                    hovered = true;
+                    onHoverStart(event);
+                }
+                event.handle();
+            }
+
+            return returnValue && blockLevel != NEVER_BLOCK;
+        } else {
+
+            if (event == null && curEvent != null) {
+                onDrag(curEvent);
+            } else if (curEvent != null &&
+                    (event.type == PointerEvent.Type.UP || event.type == PointerEvent.Type.CANCEL)) {
+                onPointerUp(event);
+                curEvent = null;
+            } else if (event != null && event.type == PointerEvent.Type.HOVER && hovered) {
+                hovered = false;
+                onHoverEnd(event);
+            }
+
+            return false;
+        }
+    }
+
+    protected void onPointerDown(PointerEvent event) {
+    }
+
+    protected void onPointerUp(PointerEvent event) {
+    }
+
+    protected void onClick(PointerEvent event) {
+    }
+
+    protected void onDrag(PointerEvent event) {
+    }
+
+    protected void onHoverStart(PointerEvent event) {
+    }
+
+    protected void onHoverEnd(PointerEvent event) {
+    }
+
+    public void reset() {
+        curEvent = null;
+    }
+
+    //moves this pointer area to the front of the pointer event order
+    public void givePointerPriority() {
+        PointerEvent.removePointerListener(this);
+        PointerEvent.addPointerListener(this);
+    }
+
+    @Override
+    public void destroy() {
+        PointerEvent.removePointerListener(this);
+        super.destroy();
+    }
 }

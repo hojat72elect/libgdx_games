@@ -28,26 +28,26 @@ import com.watabou.noosa.Image;
 
 public class TargetedCell extends Image {
 
-	private float alpha;
+    private float alpha;
 
-	public TargetedCell( int pos, int color ) {
-		super(Icons.get(Icons.TARGET));
-		hardlight(color);
+    public TargetedCell(int pos, int color) {
+        super(Icons.get(Icons.TARGET));
+        hardlight(color);
 
-		origin.set( width/2f );
+        origin.set(width / 2f);
 
-		point( DungeonTilemap.tileToWorld( pos ) );
+        point(DungeonTilemap.tileToWorld(pos));
 
-		alpha = 1f;
-	}
+        alpha = 1f;
+    }
 
-	@Override
-	public void update() {
-		if ((alpha -= Game.elapsed/2f) > 0) {
-			alpha( alpha );
-			scale.set( alpha );
-		} else {
-			killAndErase();
-		}
-	}
+    @Override
+    public void update() {
+        if ((alpha -= Game.elapsed / 2f) > 0) {
+            alpha(alpha);
+            scale.set(alpha);
+        } else {
+            killAndErase();
+        }
+    }
 }

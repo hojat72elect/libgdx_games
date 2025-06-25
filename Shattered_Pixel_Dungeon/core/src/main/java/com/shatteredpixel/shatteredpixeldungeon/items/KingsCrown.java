@@ -42,88 +42,84 @@ import com.watabou.noosa.audio.Sample;
 import java.util.ArrayList;
 
 public class KingsCrown extends Item {
-	
-	private static final String AC_WEAR = "WEAR";
-	
-	{
-		image = ItemSpriteSheet.CROWN;
 
-		defaultAction = AC_WEAR;
+    private static final String AC_WEAR = "WEAR";
 
-		unique = true;
-	}
-	
-	@Override
-	public ArrayList<String> actions( Hero hero ) {
-		ArrayList<String> actions = super.actions( hero );
-		actions.add( AC_WEAR );
-		return actions;
-	}
-	
-	@Override
-	public void execute( Hero hero, String action ) {
+    {
+        image = ItemSpriteSheet.CROWN;
 
-		super.execute( hero, action );
+        defaultAction = AC_WEAR;
 
-		if (action.equals(AC_WEAR)) {
+        unique = true;
+    }
 
-			curUser = hero;
-			if (hero.belongings.armor() != null){
-				GameScene.show( new WndChooseAbility(this, hero.belongings.armor(), hero));
-			} else {
-				GLog.w( Messages.get(this, "naked"));
-			}
-			
-		}
-	}
-	
-	@Override
-	public boolean isUpgradable() {
-		return false;
-	}
-	
-	@Override
-	public boolean isIdentified() {
-		return true;
-	}
-	
-	public void upgradeArmor(Hero hero, Armor armor, ArmorAbility ability) {
+    @Override
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_WEAR);
+        return actions;
+    }
 
-		detach(hero.belongings.backpack);
-		Catalog.countUse( getClass() );
+    @Override
+    public void execute(Hero hero, String action) {
 
-		hero.sprite.emitter().burst( Speck.factory( Speck.CROWN), 12 );
-		hero.spend(Actor.TICK);
-		hero.busy();
+        super.execute(hero, action);
 
-		if (armor != null){
+        if (action.equals(AC_WEAR)) {
 
-			if (ability instanceof Ratmogrify){
-				GLog.p(Messages.get(this, "ratgraded"));
-			} else {
-				GLog.p(Messages.get(this, "upgraded"));
-			}
+            curUser = hero;
+            if (hero.belongings.armor() != null) {
+                GameScene.show(new WndChooseAbility(this, hero.belongings.armor(), hero));
+            } else {
+                GLog.w(Messages.get(this, "naked"));
+            }
+        }
+    }
 
-			ClassArmor classArmor = ClassArmor.upgrade(hero, armor);
-			if (hero.belongings.armor == armor) {
+    @Override
+    public boolean isUpgradable() {
+        return false;
+    }
 
-				hero.belongings.armor = classArmor;
-				((HeroSprite) hero.sprite).updateArmor();
-				classArmor.activate(hero);
+    @Override
+    public boolean isIdentified() {
+        return true;
+    }
 
-			} else {
+    public void upgradeArmor(Hero hero, Armor armor, ArmorAbility ability) {
 
-				armor.detach(hero.belongings.backpack);
-				classArmor.collect(hero.belongings.backpack);
+        detach(hero.belongings.backpack);
+        Catalog.countUse(getClass());
 
-			}
-		}
+        hero.sprite.emitter().burst(Speck.factory(Speck.CROWN), 12);
+        hero.spend(Actor.TICK);
+        hero.busy();
 
-		hero.armorAbility = ability;
-		Talent.initArmorTalents(hero);
+        if (armor != null) {
 
-		hero.sprite.operate( hero.pos );
-		Sample.INSTANCE.play( Assets.Sounds.MASTERY );
-	}
+            if (ability instanceof Ratmogrify) {
+                GLog.p(Messages.get(this, "ratgraded"));
+            } else {
+                GLog.p(Messages.get(this, "upgraded"));
+            }
 
+            ClassArmor classArmor = ClassArmor.upgrade(hero, armor);
+            if (hero.belongings.armor == armor) {
+
+                hero.belongings.armor = classArmor;
+                ((HeroSprite) hero.sprite).updateArmor();
+                classArmor.activate(hero);
+            } else {
+
+                armor.detach(hero.belongings.backpack);
+                classArmor.collect(hero.belongings.backpack);
+            }
+        }
+
+        hero.armorAbility = ability;
+        Talent.initArmorTalents(hero);
+
+        hero.sprite.operate(hero.pos);
+        Sample.INSTANCE.play(Assets.Sounds.MASTERY);
+    }
 }

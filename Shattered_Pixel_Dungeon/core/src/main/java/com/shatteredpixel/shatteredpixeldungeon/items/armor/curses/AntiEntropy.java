@@ -36,35 +36,34 @@ import com.watabou.utils.Random;
 
 public class AntiEntropy extends Glyph {
 
-	private static ItemSprite.Glowing BLACK = new ItemSprite.Glowing( 0x000000 );
-	
-	@Override
-	public int proc( Armor armor, Char attacker, Char defender, int damage) {
+    private static final ItemSprite.Glowing BLACK = new ItemSprite.Glowing(0x000000);
 
-		float procChance = 1/8f * procChanceMultiplier(defender);
-		if ( Random.Float() < procChance ) {
+    @Override
+    public int proc(Armor armor, Char attacker, Char defender, int damage) {
 
-			for (int i : PathFinder.NEIGHBOURS8){
-				Freezing.affect(defender.pos+i);
-			}
+        float procChance = 1 / 8f * procChanceMultiplier(defender);
+        if (Random.Float() < procChance) {
 
-			if (!Dungeon.level.water[defender.pos]) {
-				Buff.affect(defender, Burning.class).reignite(defender, 4);
-			}
-			defender.sprite.emitter().burst( FlameParticle.FACTORY, 5 );
+            for (int i : PathFinder.NEIGHBOURS8) {
+                Freezing.affect(defender.pos + i);
+            }
 
-		}
-		
-		return damage;
-	}
+            if (!Dungeon.level.water[defender.pos]) {
+                Buff.affect(defender, Burning.class).reignite(defender, 4);
+            }
+            defender.sprite.emitter().burst(FlameParticle.FACTORY, 5);
+        }
 
-	@Override
-	public Glowing glowing() {
-		return BLACK;
-	}
+        return damage;
+    }
 
-	@Override
-	public boolean curse() {
-		return true;
-	}
+    @Override
+    public Glowing glowing() {
+        return BLACK;
+    }
+
+    @Override
+    public boolean curse() {
+        return true;
+    }
 }

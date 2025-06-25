@@ -31,68 +31,68 @@ import java.util.ArrayList;
 
 public abstract class RemainsItem extends Item {
 
-	{
-		bones = false;
+    {
+        bones = false;
 
-		defaultAction = AC_USE;
-	}
+        defaultAction = AC_USE;
+    }
 
-	public static final String AC_USE =  "USE";
+    public static final String AC_USE = "USE";
 
-	@Override
-	public ArrayList<String> actions(Hero hero) {
-		ArrayList<String> actions = super.actions(hero);
-		actions.add(AC_USE);
-		return actions;
-	}
+    @Override
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_USE);
+        return actions;
+    }
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
+    @Override
+    public void execute(Hero hero, String action) {
+        super.execute(hero, action);
 
-		if (action.equals(AC_USE)){
-			hero.sprite.operate(hero.pos);
+        if (action.equals(AC_USE)) {
+            hero.sprite.operate(hero.pos);
 
-			Catalog.countUse(getClass());
-			doEffect(hero);
+            Catalog.countUse(getClass());
+            doEffect(hero);
 
-			hero.spendAndNext(Actor.TICK);
-			detach(hero.belongings.backpack);
-		}
-	}
+            hero.spendAndNext(Actor.TICK);
+            detach(hero.belongings.backpack);
+        }
+    }
 
-	protected abstract void doEffect(Hero hero);
+    protected abstract void doEffect(Hero hero);
 
-	@Override
-	public boolean isIdentified() {
-		return true;
-	}
+    @Override
+    public boolean isIdentified() {
+        return true;
+    }
 
-	@Override
-	public boolean isUpgradable() {
-		return false;
-	}
+    @Override
+    public boolean isUpgradable() {
+        return false;
+    }
 
-	@Override
-	public int value() {
-		return 50;
-	}
+    @Override
+    public int value() {
+        return 50;
+    }
 
-	public static RemainsItem get(HeroClass cls){
-		switch (cls){
-			case WARRIOR: default:
-				return new SealShard();
-			case MAGE:
-				return new BrokenStaff();
-			case ROGUE:
-				return new CloakScrap();
-			case HUNTRESS:
-				return new BowFragment();
-			case DUELIST:
-				return new BrokenHilt();
-			case CLERIC:
-				return new TornPage();
-		}
-	}
-
+    public static RemainsItem get(HeroClass cls) {
+        switch (cls) {
+            case WARRIOR:
+            default:
+                return new SealShard();
+            case MAGE:
+                return new BrokenStaff();
+            case ROGUE:
+                return new CloakScrap();
+            case HUNTRESS:
+                return new BowFragment();
+            case DUELIST:
+                return new BrokenHilt();
+            case CLERIC:
+                return new TornPage();
+        }
+    }
 }

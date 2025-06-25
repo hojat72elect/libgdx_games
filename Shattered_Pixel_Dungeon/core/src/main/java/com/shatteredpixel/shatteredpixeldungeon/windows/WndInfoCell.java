@@ -34,128 +34,127 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.watabou.noosa.Image;
 
 public class WndInfoCell extends Window {
-	
-	private static final float GAP	= 2;
-	
-	private static final int WIDTH = 120;
 
-	public static Image cellImage( int cell ){
-		int tile = Dungeon.level.map[cell];
-		if (Dungeon.level.water[cell]) {
-			tile = Terrain.WATER;
-		} else if (Dungeon.level.pit[cell]) {
-			tile = Terrain.CHASM;
-		}
+    private static final float GAP = 2;
 
-		Image customImage = null;
-		int x = cell % Dungeon.level.width();
-		int y = cell / Dungeon.level.width();
-		for (CustomTilemap i : Dungeon.level.customTiles){
-			if ((x >= i.tileX && x < i.tileX+i.tileW) &&
-					(y >= i.tileY && y < i.tileY+i.tileH)){
-				if ((customImage = i.image(x - i.tileX, y - i.tileY)) != null) {
-					break;
-				}
-			}
-		}
+    private static final int WIDTH = 120;
 
-		if (customImage != null){
-			return customImage;
-		} else {
+    public static Image cellImage(int cell) {
+        int tile = Dungeon.level.map[cell];
+        if (Dungeon.level.water[cell]) {
+            tile = Terrain.WATER;
+        } else if (Dungeon.level.pit[cell]) {
+            tile = Terrain.CHASM;
+        }
 
-			if (tile == Terrain.WATER) {
-				Image water = new Image(Dungeon.level.waterTex());
-				water.frame(0, 0, DungeonTilemap.SIZE, DungeonTilemap.SIZE);
-				return water;
-			} else {
-				return DungeonTerrainTilemap.tile(cell, tile);
-			}
-		}
-	}
+        Image customImage = null;
+        int x = cell % Dungeon.level.width();
+        int y = cell / Dungeon.level.width();
+        for (CustomTilemap i : Dungeon.level.customTiles) {
+            if ((x >= i.tileX && x < i.tileX + i.tileW) &&
+                    (y >= i.tileY && y < i.tileY + i.tileH)) {
+                if ((customImage = i.image(x - i.tileX, y - i.tileY)) != null) {
+                    break;
+                }
+            }
+        }
 
-	public static String cellName( int cell ){
+        if (customImage != null) {
+            return customImage;
+        } else {
 
-		CustomTilemap customTile = null;
-		int x = cell % Dungeon.level.width();
-		int y = cell / Dungeon.level.width();
-		for (CustomTilemap i : Dungeon.level.customTiles){
-			if ((x >= i.tileX && x < i.tileX+i.tileW) &&
-					(y >= i.tileY && y < i.tileY+i.tileH)){
-				if (i.image(x - i.tileX, y - i.tileY) != null) {
-					x -= i.tileX;
-					y -= i.tileY;
-					customTile = i;
-					break;
-				}
-			}
-		}
+            if (tile == Terrain.WATER) {
+                Image water = new Image(Dungeon.level.waterTex());
+                water.frame(0, 0, DungeonTilemap.SIZE, DungeonTilemap.SIZE);
+                return water;
+            } else {
+                return DungeonTerrainTilemap.tile(cell, tile);
+            }
+        }
+    }
 
-		if (customTile != null && customTile.name(x, y) != null){
-			return customTile.name(x, y);
-		} else {
-			return Dungeon.level.tileName(Dungeon.level.map[cell]);
-		}
-	}
-	
-	public WndInfoCell( int cell ) {
-		
-		super();
+    public static String cellName(int cell) {
 
-		CustomTilemap customTile = null;
-		int x = cell % Dungeon.level.width();
-		int y = cell / Dungeon.level.width();
-		for (CustomTilemap i : Dungeon.level.customTiles){
-			if ((x >= i.tileX && x < i.tileX+i.tileW) &&
-					(y >= i.tileY && y < i.tileY+i.tileH)){
-				if (i.image(x - i.tileX, y - i.tileY) != null) {
-					x -= i.tileX;
-					y -= i.tileY;
-					customTile = i;
-					break;
-				}
-			}
-		}
+        CustomTilemap customTile = null;
+        int x = cell % Dungeon.level.width();
+        int y = cell / Dungeon.level.width();
+        for (CustomTilemap i : Dungeon.level.customTiles) {
+            if ((x >= i.tileX && x < i.tileX + i.tileW) &&
+                    (y >= i.tileY && y < i.tileY + i.tileH)) {
+                if (i.image(x - i.tileX, y - i.tileY) != null) {
+                    x -= i.tileX;
+                    y -= i.tileY;
+                    customTile = i;
+                    break;
+                }
+            }
+        }
+
+        if (customTile != null && customTile.name(x, y) != null) {
+            return customTile.name(x, y);
+        } else {
+            return Dungeon.level.tileName(Dungeon.level.map[cell]);
+        }
+    }
+
+    public WndInfoCell(int cell) {
+
+        super();
+
+        CustomTilemap customTile = null;
+        int x = cell % Dungeon.level.width();
+        int y = cell / Dungeon.level.width();
+        for (CustomTilemap i : Dungeon.level.customTiles) {
+            if ((x >= i.tileX && x < i.tileX + i.tileW) &&
+                    (y >= i.tileY && y < i.tileY + i.tileH)) {
+                if (i.image(x - i.tileX, y - i.tileY) != null) {
+                    x -= i.tileX;
+                    y -= i.tileY;
+                    customTile = i;
+                    break;
+                }
+            }
+        }
 
 
-		String desc = "";
+        String desc = "";
 
-		IconTitle titlebar = new IconTitle();
-		titlebar.icon(cellImage(cell));
-		titlebar.label(cellName(cell));
+        IconTitle titlebar = new IconTitle();
+        titlebar.icon(cellImage(cell));
+        titlebar.label(cellName(cell));
 
-		if (customTile != null){
-			String customDesc = customTile.desc(x, y);
-			if (customDesc != null) {
-				desc += customDesc;
-			} else {
-				desc += Dungeon.level.tileDesc(Dungeon.level.map[cell]);
-			}
+        if (customTile != null) {
+            String customDesc = customTile.desc(x, y);
+            if (customDesc != null) {
+                desc += customDesc;
+            } else {
+                desc += Dungeon.level.tileDesc(Dungeon.level.map[cell]);
+            }
+        } else {
 
-		} else {
+            desc += Dungeon.level.tileDesc(Dungeon.level.map[cell]);
+        }
+        titlebar.setRect(0, 0, WIDTH, 0);
+        add(titlebar);
 
-			desc += Dungeon.level.tileDesc(Dungeon.level.map[cell]);
-		}
-		titlebar.setRect(0, 0, WIDTH, 0);
-		add(titlebar);
+        RenderedTextBlock info = PixelScene.renderTextBlock(6);
+        add(info);
 
-		RenderedTextBlock info = PixelScene.renderTextBlock(6);
-		add(info);
+        if (Dungeon.level.heroFOV[cell]) {
+            for (Blob blob : Dungeon.level.blobs.values()) {
+                if (blob.volume > 0 && blob.cur[cell] > 0 && blob.tileDesc() != null) {
+                    if (desc.length() > 0) {
+                        desc += "\n\n";
+                    }
+                    desc += blob.tileDesc();
+                }
+            }
+        }
 
-		if (Dungeon.level.heroFOV[cell]) {
-			for (Blob blob : Dungeon.level.blobs.values()) {
-				if (blob.volume > 0 && blob.cur[cell] > 0 && blob.tileDesc() != null) {
-					if (desc.length() > 0) {
-						desc += "\n\n";
-					}
-					desc += blob.tileDesc();
-				}
-			}
-		}
-		
-		info.text( desc.length() == 0 ? Messages.get(this, "nothing") : desc );
-		info.maxWidth(WIDTH);
-		info.setPos(titlebar.left(), titlebar.bottom() + 2*GAP);
-		
-		resize( WIDTH, (int)info.bottom()+2 );
-	}
+        info.text(desc.length() == 0 ? Messages.get(this, "nothing") : desc);
+        info.maxWidth(WIDTH);
+        info.setPos(titlebar.left(), titlebar.bottom() + 2 * GAP);
+
+        resize(WIDTH, (int) info.bottom() + 2);
+    }
 }

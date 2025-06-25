@@ -33,38 +33,36 @@ import com.watabou.utils.Callback;
 import java.io.IOException;
 
 public class SkeletonKey extends Key {
-	
-	{
-		image = ItemSpriteSheet.SKELETON_KEY;
-	}
-	
-	public SkeletonKey() {
-		this( 0 );
-	}
-	
-	public SkeletonKey( int depth ) {
-		super();
-		this.depth = depth;
-	}
 
-	@Override
-	public boolean doPickUp(Hero hero, int pos) {
-		if(!SPDSettings.supportNagged()){
-			try {
-				Dungeon.saveAll();
-				Game.runOnRenderThread(new Callback() {
-					@Override
-					public void call() {
-						ShatteredPixelDungeon.scene().add(new WndSupportPrompt());
-					}
-				});
-			} catch (IOException e) {
-				ShatteredPixelDungeon.reportException(e);
-			}
-			
-		}
-		
-		return super.doPickUp(hero, pos);
-	}
+    {
+        image = ItemSpriteSheet.SKELETON_KEY;
+    }
 
+    public SkeletonKey() {
+        this(0);
+    }
+
+    public SkeletonKey(int depth) {
+        super();
+        this.depth = depth;
+    }
+
+    @Override
+    public boolean doPickUp(Hero hero, int pos) {
+        if (!SPDSettings.supportNagged()) {
+            try {
+                Dungeon.saveAll();
+                Game.runOnRenderThread(new Callback() {
+                    @Override
+                    public void call() {
+                        ShatteredPixelDungeon.scene().add(new WndSupportPrompt());
+                    }
+                });
+            } catch (IOException e) {
+                ShatteredPixelDungeon.reportException(e);
+            }
+        }
+
+        return super.doPickUp(hero, pos);
+    }
 }

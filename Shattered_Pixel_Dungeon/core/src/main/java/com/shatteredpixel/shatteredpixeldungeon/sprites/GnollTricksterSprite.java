@@ -30,53 +30,51 @@ import com.watabou.utils.Callback;
 
 public class GnollTricksterSprite extends MobSprite {
 
-	private Animation cast;
+    private final Animation cast;
 
-	public GnollTricksterSprite() {
-		super();
+    public GnollTricksterSprite() {
+        super();
 
-		texture( Assets.Sprites.GNOLL );
+        texture(Assets.Sprites.GNOLL);
 
-		TextureFilm frames = new TextureFilm( texture, 12, 15 );
+        TextureFilm frames = new TextureFilm(texture, 12, 15);
 
-		int c = 42;
+        int c = 42;
 
-		idle = new MovieClip.Animation( 2, true );
-		idle.frames( frames, 0+c, 0+c, 0+c, 1+c, 0+c, 0+c, 1+c, 1+c );
+        idle = new MovieClip.Animation(2, true);
+        idle.frames(frames, c, c, c, 1 + c, c, c, 1 + c, 1 + c);
 
-		run = new MovieClip.Animation( 12, true );
-		run.frames( frames, 4+c, 5+c, 6+c, 7+c );
+        run = new MovieClip.Animation(12, true);
+        run.frames(frames, 4 + c, 5 + c, 6 + c, 7 + c);
 
-		attack = new MovieClip.Animation( 12, false );
-		attack.frames( frames, 2+c, 3+c, 0+c );
+        attack = new MovieClip.Animation(12, false);
+        attack.frames(frames, 2 + c, 3 + c, c);
 
-		cast = attack.clone();
+        cast = attack.clone();
 
-		die = new Animation( 12, false );
-		die.frames( frames, 8+c, 9+c, 10+c );
+        die = new Animation(12, false);
+        die.frames(frames, 8 + c, 9 + c, 10 + c);
 
-		play( idle );
-	}
+        play(idle);
+    }
 
-	@Override
-	public void attack( int cell ) {
-		if (!Dungeon.level.adjacent(cell, ch.pos)) {
+    @Override
+    public void attack(int cell) {
+        if (!Dungeon.level.adjacent(cell, ch.pos)) {
 
-			((MissileSprite)parent.recycle( MissileSprite.class )).
-					reset( this, cell, new ParalyticDart(), new Callback() {
-						@Override
-						public void call() {
-							ch.onAttackComplete();
-						}
-					} );
+            ((MissileSprite) parent.recycle(MissileSprite.class)).
+                    reset(this, cell, new ParalyticDart(), new Callback() {
+                        @Override
+                        public void call() {
+                            ch.onAttackComplete();
+                        }
+                    });
 
-			play( cast );
-			turnTo( ch.pos , cell );
+            play(cast);
+            turnTo(ch.pos, cell);
+        } else {
 
-		} else {
-
-			super.attack( cell );
-
-		}
-	}
+            super.attack(cell);
+        }
+    }
 }

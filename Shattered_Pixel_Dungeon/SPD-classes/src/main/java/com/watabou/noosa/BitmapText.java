@@ -33,335 +33,333 @@ import java.nio.FloatBuffer;
 
 public class BitmapText extends Visual {
 
-	protected String text;
-	protected Font font;
+    protected String text;
+    protected Font font;
 
-	protected float[] vertices = new float[16];
-	protected FloatBuffer quads;
-	protected Vertexbuffer buffer;
-	
-	public int realLength;
-	
-	protected boolean dirty = true;
-	
-	public BitmapText() {
-		this( "", null );
-	}
-	
-	public BitmapText( Font font ) {
-		this( "", font );
-	}
-	
-	public BitmapText( String text, Font font ) {
-		super( 0, 0, 0, 0 );
-		
-		this.text = text;
-		this.font = font;
-	}
-	
-	@Override
-	protected void updateMatrix() {
-		// "origin" field is ignored
-		Matrix.setIdentity( matrix );
-		Matrix.translate( matrix, x, y );
-		Matrix.scale( matrix, scale.x, scale.y );
-		Matrix.rotate( matrix, angle );
-	}
-	
-	@Override
-	public void draw() {
-		
-		super.draw();
+    protected float[] vertices = new float[16];
+    protected FloatBuffer quads;
+    protected Vertexbuffer buffer;
 
-		if (dirty) {
-			updateVertices();
-			((Buffer)quads).limit(quads.position());
-			if (buffer == null)
-				buffer = new Vertexbuffer(quads);
-			else
-				buffer.updateVertices(quads);
-		}
-		
-		NoosaScript script = NoosaScript.get();
-		
-		font.texture.bind();
-		
-		script.camera( camera() );
-		
-		script.uModel.valueM4( matrix );
-		script.lighting(
-			rm, gm, bm, am,
-			ra, ga, ba, aa );
-		script.drawQuadSet( buffer, realLength, 0 );
-		
-	}
+    public int realLength;
 
-	@Override
-	public void destroy() {
-		super.destroy();
-		if (buffer != null)
-			buffer.delete();
-	}
+    protected boolean dirty = true;
 
-	protected synchronized void updateVertices() {
+    public BitmapText() {
+        this("", null);
+    }
 
-		width = 0;
-		height = 0;
+    public BitmapText(Font font) {
+        this("", font);
+    }
 
-		if (text == null) {
-			text = "";
-		}
+    public BitmapText(String text, Font font) {
+        super(0, 0, 0, 0);
 
-		quads = Quad.createSet( text.length() );
-		realLength = 0;
+        this.text = text;
+        this.font = font;
+    }
 
-		int length = text.length();
-		for (int i=0; i < length; i++) {
-			RectF rect = font.get( text.charAt( i ) );
+    @Override
+    protected void updateMatrix() {
+        // "origin" field is ignored
+        Matrix.setIdentity(matrix);
+        Matrix.translate(matrix, x, y);
+        Matrix.scale(matrix, scale.x, scale.y);
+        Matrix.rotate(matrix, angle);
+    }
 
-			if (rect == null) {
-				rect=null;
-			}
-			float w = font.width( rect );
-			float h = font.height( rect );
+    @Override
+    public void draw() {
 
-			vertices[0]     = width;
-			vertices[1]     = 0;
+        super.draw();
 
-			vertices[2]     = rect.left;
-			vertices[3]     = rect.top;
+        if (dirty) {
+            updateVertices();
+            ((Buffer) quads).limit(quads.position());
+            if (buffer == null)
+                buffer = new Vertexbuffer(quads);
+            else
+                buffer.updateVertices(quads);
+        }
 
-			vertices[4]     = width + w;
-			vertices[5]     = 0;
+        NoosaScript script = NoosaScript.get();
 
-			vertices[6]     = rect.right;
-			vertices[7]     = rect.top;
+        font.texture.bind();
 
-			vertices[8]     = width + w;
-			vertices[9]     = h;
+        script.camera(camera());
 
-			vertices[10]    = rect.right;
-			vertices[11]    = rect.bottom;
+        script.uModel.valueM4(matrix);
+        script.lighting(
+                rm, gm, bm, am,
+                ra, ga, ba, aa);
+        script.drawQuadSet(buffer, realLength, 0);
+    }
 
-			vertices[12]    = width;
-			vertices[13]    = h;
+    @Override
+    public void destroy() {
+        super.destroy();
+        if (buffer != null)
+            buffer.delete();
+    }
 
-			vertices[14]    = rect.left;
-			vertices[15]    = rect.bottom;
+    protected synchronized void updateVertices() {
 
-			quads.put( vertices );
-			realLength++;
+        width = 0;
+        height = 0;
 
-			width += w + font.tracking;
-			if (h > height) {
-				height = h;
-			}
-		}
+        if (text == null) {
+            text = "";
+        }
 
-		if (length > 0) {
-			width -= font.tracking;
-		}
+        quads = Quad.createSet(text.length());
+        realLength = 0;
 
-		dirty = false;
+        int length = text.length();
+        for (int i = 0; i < length; i++) {
+            RectF rect = font.get(text.charAt(i));
 
-	}
+            if (rect == null) {
+                rect = null;
+            }
+            float w = font.width(rect);
+            float h = font.height(rect);
 
-	public synchronized void measure() {
+            vertices[0] = width;
+            vertices[1] = 0;
 
-		width = 0;
-		height = 0;
+            vertices[2] = rect.left;
+            vertices[3] = rect.top;
 
-		if (text == null) {
-			text = "";
-		}
+            vertices[4] = width + w;
+            vertices[5] = 0;
 
-		int length = text.length();
-		for (int i=0; i < length; i++) {
-			RectF rect = font.get( text.charAt( i ) );
+            vertices[6] = rect.right;
+            vertices[7] = rect.top;
 
-			float w = font.width( rect );
-			float h = font.height( rect );
+            vertices[8] = width + w;
+            vertices[9] = h;
 
-			width += w + font.tracking;
-			if (h > height) {
-				height = h;
-			}
-		}
+            vertices[10] = rect.right;
+            vertices[11] = rect.bottom;
 
-		if (length > 0) {
-			width -= font.tracking;
-		}
-	}
+            vertices[12] = width;
+            vertices[13] = h;
 
-	public float baseLine() {
-		return font.baseLine * scale.y;
-	}
+            vertices[14] = rect.left;
+            vertices[15] = rect.bottom;
 
-	public Font font() {
-		return font;
-	}
+            quads.put(vertices);
+            realLength++;
 
-	public synchronized void font( Font value ) {
-		font = value;
-	}
+            width += w + font.tracking;
+            if (h > height) {
+                height = h;
+            }
+        }
 
-	public String text() {
-		return text;
-	}
+        if (length > 0) {
+            width -= font.tracking;
+        }
 
-	public synchronized void text( String str ) {
-		if (str == null || !str.equals(text)) {
-			text = str;
-			dirty = true;
-		}
-	}
-	
-	public static class Font extends TextureFilm {
+        dirty = false;
+    }
 
-		public static final String LATIN_FULL =
-			" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F";
-		
-		public SmartTexture texture;
-		
-		public float tracking = 0;
-		public float baseLine;
-		
-		public float lineHeight;
-		
-		protected Font( SmartTexture tx ) {
-			super( tx );
-			
-			texture = tx;
-		}
-		
-		public Font( SmartTexture tx, int width, String chars ) {
-			this( tx, width, tx.height, chars );
-		}
-		
-		public Font( SmartTexture tx, int width, int height, String chars ) {
-			super( tx );
-			
-			texture = tx;
-			
-			int length = chars.length();
-			
-			float uw = (float)width / tx.width;
-			float vh = (float)height / tx.height;
-			
-			float left = 0;
-			float top = 0;
-			float bottom = vh;
-			
-			for (int i=0; i < length; i++) {
-				RectF rect = new RectF( left, top, left += uw, bottom );
-				add( chars.charAt( i ), rect );
-				if (left >= 1) {
-					left = 0;
-					top = bottom;
-					bottom += vh;
-				}
-			}
-			
-			lineHeight = baseLine = height;
-		}
+    public synchronized void measure() {
 
-		protected void splitBy( Pixmap bitmap, int height, int color, String chars ) {
-			
-			int length = chars.length();
-			
-			int width = bitmap.getWidth();
-			float vHeight = (float)height / bitmap.getHeight();
-			
-			int pos;
-			int line = 0;
-			
-		spaceMeasuring:
-			for (pos=0; pos <  width; pos++) {
-				for (int j=0; j < height; j++) {
-					if (bitmap.getPixel( pos, j ) != color) {
-						break spaceMeasuring;
-					}
-				}
-			}
-			add( ' ', new RectF( 0, 0, (float)pos / width, vHeight-0.01f ) );
+        width = 0;
+        height = 0;
 
-			int separator = pos;
-			
-			for (int i=0; i < length; i++) {
-				
-				char ch = chars.charAt( i );
-				if (ch == ' ') {
-					continue;
-				} else {
+        if (text == null) {
+            text = "";
+        }
 
-					boolean found;
+        int length = text.length();
+        for (int i = 0; i < length; i++) {
+            RectF rect = font.get(text.charAt(i));
 
-					do{
-						if (separator >= width) {
-							line += height;
-							separator = 0;
-						}
-						found = false;
-						for (int j=line; j < line + height; j++) {
-							if (colorNotMatch( bitmap, separator, j, color)) {
-								found = true;
-								break;
-							}
-						}
-						if (!found) separator++;
-					} while (!found);
-					int start = separator;
-					
-					do {
-						if (++separator >= width) {
-							line += height;
-							separator = start = 0;
-							if (line + height >= bitmap.getHeight())
-								break;
-						}
-						found = true;
-						for (int j=line; j < line + height; j++) {
-							if (colorNotMatch( bitmap, separator, j, color)) {
-								found = false;
-								break;
-							}
-						}
-					} while (!found);
-					
-					add( ch, new RectF( (float)start / width, (float)line / bitmap.getHeight(), (float)separator / width, (float)line / bitmap.getHeight() + vHeight) );
-					separator++;
-				}
-			}
-			
-			lineHeight = baseLine = height( frames.get( chars.charAt( 0 ) ) );
-		}
-		
-		private boolean colorNotMatch(Pixmap pixmap, int x, int y, int color) {
-			int pixel = pixmap.getPixel(x, y);
-			if ((pixel & 0xFF) == 0) {
-				return color != 0;
-			}
-			return pixel != color;
-		}
-		
-		public static Font colorMarked( SmartTexture tex, int color, String chars ) {
-			Font font = new Font( tex );
-			font.splitBy( tex.bitmap, tex.height, color, chars );
-			return font;
-		}
-		 
-		public static Font colorMarked( SmartTexture tex, int height, int color, String chars ) {
-			Font font = new Font( tex );
-			font.splitBy( tex.bitmap, height, color, chars );
-			return font;
-		}
-		
-		public RectF get( char ch ) {
-			if (frames.containsKey( ch )){
-				return super.get( ch );
-			} else {
-				return super.get( '?' );
-			}
-		}
-	}
+            float w = font.width(rect);
+            float h = font.height(rect);
+
+            width += w + font.tracking;
+            if (h > height) {
+                height = h;
+            }
+        }
+
+        if (length > 0) {
+            width -= font.tracking;
+        }
+    }
+
+    public float baseLine() {
+        return font.baseLine * scale.y;
+    }
+
+    public Font font() {
+        return font;
+    }
+
+    public synchronized void font(Font value) {
+        font = value;
+    }
+
+    public String text() {
+        return text;
+    }
+
+    public synchronized void text(String str) {
+        if (str == null || !str.equals(text)) {
+            text = str;
+            dirty = true;
+        }
+    }
+
+    public static class Font extends TextureFilm {
+
+        public static final String LATIN_FULL =
+                " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u007F";
+
+        public SmartTexture texture;
+
+        public float tracking = 0;
+        public float baseLine;
+
+        public float lineHeight;
+
+        protected Font(SmartTexture tx) {
+            super(tx);
+
+            texture = tx;
+        }
+
+        public Font(SmartTexture tx, int width, String chars) {
+            this(tx, width, tx.height, chars);
+        }
+
+        public Font(SmartTexture tx, int width, int height, String chars) {
+            super(tx);
+
+            texture = tx;
+
+            int length = chars.length();
+
+            float uw = (float) width / tx.width;
+            float vh = (float) height / tx.height;
+
+            float left = 0;
+            float top = 0;
+            float bottom = vh;
+
+            for (int i = 0; i < length; i++) {
+                RectF rect = new RectF(left, top, left += uw, bottom);
+                add(chars.charAt(i), rect);
+                if (left >= 1) {
+                    left = 0;
+                    top = bottom;
+                    bottom += vh;
+                }
+            }
+
+            lineHeight = baseLine = height;
+        }
+
+        protected void splitBy(Pixmap bitmap, int height, int color, String chars) {
+
+            int length = chars.length();
+
+            int width = bitmap.getWidth();
+            float vHeight = (float) height / bitmap.getHeight();
+
+            int pos;
+            int line = 0;
+
+            spaceMeasuring:
+            for (pos = 0; pos < width; pos++) {
+                for (int j = 0; j < height; j++) {
+                    if (bitmap.getPixel(pos, j) != color) {
+                        break spaceMeasuring;
+                    }
+                }
+            }
+            add(' ', new RectF(0, 0, (float) pos / width, vHeight - 0.01f));
+
+            int separator = pos;
+
+            for (int i = 0; i < length; i++) {
+
+                char ch = chars.charAt(i);
+                if (ch == ' ') {
+                    continue;
+                } else {
+
+                    boolean found;
+
+                    do {
+                        if (separator >= width) {
+                            line += height;
+                            separator = 0;
+                        }
+                        found = false;
+                        for (int j = line; j < line + height; j++) {
+                            if (colorNotMatch(bitmap, separator, j, color)) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) separator++;
+                    } while (!found);
+                    int start = separator;
+
+                    do {
+                        if (++separator >= width) {
+                            line += height;
+                            separator = start = 0;
+                            if (line + height >= bitmap.getHeight())
+                                break;
+                        }
+                        found = true;
+                        for (int j = line; j < line + height; j++) {
+                            if (colorNotMatch(bitmap, separator, j, color)) {
+                                found = false;
+                                break;
+                            }
+                        }
+                    } while (!found);
+
+                    add(ch, new RectF((float) start / width, (float) line / bitmap.getHeight(), (float) separator / width, (float) line / bitmap.getHeight() + vHeight));
+                    separator++;
+                }
+            }
+
+            lineHeight = baseLine = height(frames.get(chars.charAt(0)));
+        }
+
+        private boolean colorNotMatch(Pixmap pixmap, int x, int y, int color) {
+            int pixel = pixmap.getPixel(x, y);
+            if ((pixel & 0xFF) == 0) {
+                return color != 0;
+            }
+            return pixel != color;
+        }
+
+        public static Font colorMarked(SmartTexture tex, int color, String chars) {
+            Font font = new Font(tex);
+            font.splitBy(tex.bitmap, tex.height, color, chars);
+            return font;
+        }
+
+        public static Font colorMarked(SmartTexture tex, int height, int color, String chars) {
+            Font font = new Font(tex);
+            font.splitBy(tex.bitmap, height, color, chars);
+            return font;
+        }
+
+        public RectF get(char ch) {
+            if (frames.containsKey(ch)) {
+                return super.get(ch);
+            } else {
+                return super.get('?');
+            }
+        }
+    }
 }

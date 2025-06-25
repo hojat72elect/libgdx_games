@@ -41,104 +41,104 @@ import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 
 public class Dagger extends MeleeWeapon {
-	
-	{
-		image = ItemSpriteSheet.DAGGER;
-		hitSound = Assets.Sounds.HIT_STAB;
-		hitSoundPitch = 1.1f;
 
-		tier = 1;
-		
-		bones = false;
-	}
+    {
+        image = ItemSpriteSheet.DAGGER;
+        hitSound = Assets.Sounds.HIT_STAB;
+        hitSoundPitch = 1.1f;
 
-	@Override
-	public int max(int lvl) {
-		return  4*(tier+1) +    //8 base, down from 10
-				lvl*(tier+1);   //scaling unchanged
-	}
-	
-	@Override
-	public int damageRoll(Char owner) {
-		if (owner instanceof Hero) {
-			Hero hero = (Hero)owner;
-			Char enemy = hero.attackTarget();
-			if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)) {
-				//deals 75% toward max to max on surprise, instead of min to max.
-				int diff = max() - min();
-				int damage = augment.damageFactor(Hero.heroDamageIntRange(
-						min() + Math.round(diff*0.75f),
-						max()));
-				int exStr = hero.STR() - STRReq();
-				if (exStr > 0) {
-					damage += Hero.heroDamageIntRange(0, exStr);
-				}
-				return damage;
-			}
-		}
-		return super.damageRoll(owner);
-	}
+        tier = 1;
 
-	@Override
-	public String targetingPrompt() {
-		return Messages.get(this, "prompt");
-	}
+        bones = false;
+    }
 
-	public boolean useTargeting(){
-		return false;
-	}
+    @Override
+    public int max(int lvl) {
+        return 4 * (tier + 1) +    //8 base, down from 10
+                lvl * (tier + 1);   //scaling unchanged
+    }
 
-	@Override
-	protected void duelistAbility(Hero hero, Integer target) {
-		sneakAbility(hero, target, 5, 2+buffedLvl(), this);
-	}
+    @Override
+    public int damageRoll(Char owner) {
+        if (owner instanceof Hero) {
+            Hero hero = (Hero) owner;
+            Char enemy = hero.attackTarget();
+            if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)) {
+                //deals 75% toward max to max on surprise, instead of min to max.
+                int diff = max() - min();
+                int damage = augment.damageFactor(Hero.heroDamageIntRange(
+                        min() + Math.round(diff * 0.75f),
+                        max()));
+                int exStr = hero.STR() - STRReq();
+                if (exStr > 0) {
+                    damage += Hero.heroDamageIntRange(0, exStr);
+                }
+                return damage;
+            }
+        }
+        return super.damageRoll(owner);
+    }
 
-	@Override
-	public String abilityInfo() {
-		if (levelKnown){
-			return Messages.get(this, "ability_desc", 2+buffedLvl());
-		} else {
-			return Messages.get(this, "typical_ability_desc", 2);
-		}
-	}
+    @Override
+    public String targetingPrompt() {
+        return Messages.get(this, "prompt");
+    }
 
-	@Override
-	public String upgradeAbilityStat(int level) {
-		return Integer.toString(2+level);
-	}
+    public boolean useTargeting() {
+        return false;
+    }
 
-	public static void sneakAbility(Hero hero, Integer target, int maxDist, int invisTurns, MeleeWeapon wep){
-		if (target == null) {
-			return;
-		}
+    @Override
+    protected void duelistAbility(Hero hero, Integer target) {
+        sneakAbility(hero, target, 5, 2 + buffedLvl(), this);
+    }
 
-		PathFinder.buildDistanceMap(Dungeon.hero.pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null), maxDist);
-		if (PathFinder.distance[target] == Integer.MAX_VALUE || !Dungeon.level.heroFOV[target] || hero.rooted) {
-			GLog.w(Messages.get(wep, "ability_target_range"));
-			if (Dungeon.hero.rooted) PixelScene.shake( 1, 1f );
-			return;
-		}
+    @Override
+    public String abilityInfo() {
+        if (levelKnown) {
+            return Messages.get(this, "ability_desc", 2 + buffedLvl());
+        } else {
+            return Messages.get(this, "typical_ability_desc", 2);
+        }
+    }
 
-		if (Actor.findChar(target) != null) {
-			GLog.w(Messages.get(wep, "ability_occupied"));
-			return;
-		}
+    @Override
+    public String upgradeAbilityStat(int level) {
+        return Integer.toString(2 + level);
+    }
 
-		wep.beforeAbilityUsed(hero, null);
-		Buff.prolong(hero, Invisibility.class, invisTurns-1); //1 fewer turns as ability is instant
+    public static void sneakAbility(Hero hero, Integer target, int maxDist, int invisTurns, MeleeWeapon wep) {
+        if (target == null) {
+            return;
+        }
 
-		Dungeon.hero.sprite.turnTo( Dungeon.hero.pos, target);
-		Dungeon.hero.pos = target;
-		Dungeon.level.occupyCell(Dungeon.hero);
-		Dungeon.observe();
-		GameScene.updateFog();
-		Dungeon.hero.checkVisibleMobs();
+        PathFinder.buildDistanceMap(Dungeon.hero.pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null), maxDist);
+        if (PathFinder.distance[target] == Integer.MAX_VALUE || !Dungeon.level.heroFOV[target] || hero.rooted) {
+            GLog.w(Messages.get(wep, "ability_target_range"));
+            if (Dungeon.hero.rooted) PixelScene.shake(1, 1f);
+            return;
+        }
 
-		Dungeon.hero.sprite.place( Dungeon.hero.pos );
-		CellEmitter.get( Dungeon.hero.pos ).burst( Speck.factory( Speck.WOOL ), 6 );
-		Sample.INSTANCE.play( Assets.Sounds.PUFF );
+        if (Actor.findChar(target) != null) {
+            GLog.w(Messages.get(wep, "ability_occupied"));
+            return;
+        }
 
-		hero.next();
-		wep.afterAbilityUsed(hero);
-	}
+        wep.beforeAbilityUsed(hero, null);
+        Buff.prolong(hero, Invisibility.class, invisTurns - 1); //1 fewer turns as ability is instant
+
+        Dungeon.hero.sprite.turnTo(Dungeon.hero.pos, target);
+        Dungeon.hero.pos = target;
+        Dungeon.level.occupyCell(Dungeon.hero);
+        Dungeon.observe();
+        GameScene.updateFog();
+        Dungeon.hero.checkVisibleMobs();
+
+        Dungeon.hero.sprite.place(Dungeon.hero.pos);
+        CellEmitter.get(Dungeon.hero.pos).burst(Speck.factory(Speck.WOOL), 6);
+        Sample.INSTANCE.play(Assets.Sounds.PUFF);
+
+        hero.next();
+        wep.afterAbilityUsed(hero);
+    }
 }

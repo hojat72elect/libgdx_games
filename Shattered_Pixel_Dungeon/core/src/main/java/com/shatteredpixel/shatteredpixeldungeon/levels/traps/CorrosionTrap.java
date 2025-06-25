@@ -33,26 +33,25 @@ import com.watabou.utils.PathFinder;
 
 public class CorrosionTrap extends Trap {
 
-	{
-		color = GREY;
-		shape = GRILL;
-	}
+    {
+        color = GREY;
+        shape = GRILL;
+    }
 
-	@Override
-	public void activate() {
+    @Override
+    public void activate() {
 
-		CorrosiveGas corrosiveGas = Blob.seed(pos, 80 + 5 * scalingDepth(), CorrosiveGas.class);
-		Sample.INSTANCE.play(Assets.Sounds.GAS);
+        CorrosiveGas corrosiveGas = Blob.seed(pos, 80 + 5 * scalingDepth(), CorrosiveGas.class);
+        Sample.INSTANCE.play(Assets.Sounds.GAS);
 
-		corrosiveGas.setStrength(1+scalingDepth()/4);
+        corrosiveGas.setStrength(1 + scalingDepth() / 4);
 
-		for( int i : PathFinder.NEIGHBOURS9) {
-			if (Actor.findChar(pos+i) instanceof Mob){
-				Buff.prolong(Actor.findChar(pos+i), Trap.HazardAssistTracker.class, HazardAssistTracker.DURATION);
-			}
-		}
+        for (int i : PathFinder.NEIGHBOURS9) {
+            if (Actor.findChar(pos + i) instanceof Mob) {
+                Buff.prolong(Actor.findChar(pos + i), Trap.HazardAssistTracker.class, HazardAssistTracker.DURATION);
+            }
+        }
 
-		GameScene.add(corrosiveGas);
-
-	}
+        GameScene.add(corrosiveGas);
+    }
 }

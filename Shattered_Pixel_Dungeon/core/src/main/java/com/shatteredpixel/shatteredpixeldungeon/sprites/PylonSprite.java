@@ -30,74 +30,74 @@ import com.watabou.noosa.audio.Sample;
 
 public class PylonSprite extends MobSprite {
 
-	private Animation activeIdle;
+    private final Animation activeIdle;
 
-	public PylonSprite() {
-		super();
+    public PylonSprite() {
+        super();
 
-		perspectiveRaise = 5/16f; //1 pixel less
-		renderShadow = false;
+        perspectiveRaise = 5 / 16f; //1 pixel less
+        renderShadow = false;
 
-		texture( Assets.Sprites.PYLON );
+        texture(Assets.Sprites.PYLON);
 
-		TextureFilm frames = new TextureFilm( texture, 10, 20 );
+        TextureFilm frames = new TextureFilm(texture, 10, 20);
 
-		idle = new Animation( 1, false );
-		idle.frames( frames, 0 );
+        idle = new Animation(1, false);
+        idle.frames(frames, 0);
 
-		activeIdle = new Animation( 1, false );
-		activeIdle.frames( frames, 1 );
+        activeIdle = new Animation(1, false);
+        activeIdle.frames(frames, 1);
 
-		run = idle.clone();
+        run = idle.clone();
 
-		attack = idle.clone();
+        attack = idle.clone();
 
-		die = new Animation( 1, false );
-		die.frames( frames, 2 );
+        die = new Animation(1, false);
+        die.frames(frames, 2);
 
-		play( idle );
-	}
+        play(idle);
+    }
 
-	@Override
-	public void link(Char ch) {
-		super.link(ch);
-		if (ch instanceof Pylon && ch.alignment == Char.Alignment.ENEMY){
-			activate();
-		}
-		renderShadow = false;
-	}
+    @Override
+    public void link(Char ch) {
+        super.link(ch);
+        if (ch instanceof Pylon && ch.alignment == Char.Alignment.ENEMY) {
+            activate();
+        }
+        renderShadow = false;
+    }
 
-	@Override
-	public void place(int cell) {
-		if (parent != null) parent.bringToFront(this);
-		super.place(cell);
-	}
+    @Override
+    public void place(int cell) {
+        if (parent != null) parent.bringToFront(this);
+        super.place(cell);
+    }
 
-	public void activate(){
-		idle = activeIdle.clone();
-		idle();
-	}
+    public void activate() {
+        idle = activeIdle.clone();
+        idle();
+    }
 
-	@Override
-	public void play(Animation anim) {
-		if (anim == die){
-			turnTo(ch.pos, ch.pos+1); //always face right to merge with custom tiles
-			emitter().burst(BlastParticle.FACTORY, 20);
-			Sample.INSTANCE.play(Assets.Sounds.BLAST);
-		}
-		super.play(anim);
-	}
+    @Override
+    public void play(Animation anim) {
+        if (anim == die) {
+            turnTo(ch.pos, ch.pos + 1); //always face right to merge with custom tiles
+            emitter().burst(BlastParticle.FACTORY, 20);
+            Sample.INSTANCE.play(Assets.Sounds.BLAST);
+        }
+        super.play(anim);
+    }
 
-	@Override
-	public void onComplete(Animation anim) {
-		if (anim == attack){
-			flash();
-		}
-		super.onComplete(anim);
-	}
+    @Override
+    public void onComplete(Animation anim) {
+        if (anim == attack) {
+            flash();
+        }
+        super.onComplete(anim);
+    }
 
-	@Override
-	public int blood() {
-		return 0xFFFFFF88;
-	}
+    @Override
+    public int blood() {
+        return 0xFFFFFF88;
+    }
 }

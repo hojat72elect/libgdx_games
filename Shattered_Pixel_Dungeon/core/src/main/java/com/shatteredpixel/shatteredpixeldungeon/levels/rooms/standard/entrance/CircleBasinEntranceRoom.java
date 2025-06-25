@@ -29,24 +29,23 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.CircleBasi
 
 public class CircleBasinEntranceRoom extends CircleBasinRoom {
 
-	@Override
-	public float[] sizeCatProbs() {
-		return new float[]{0, 1, 0};
-	}
+    @Override
+    public float[] sizeCatProbs() {
+        return new float[]{0, 1, 0};
+    }
 
-	@Override
-	public boolean isEntrance() {
-		return true;
-	}
+    @Override
+    public boolean isEntrance() {
+        return true;
+    }
 
-	@Override
-	public void paint(Level level) {
-		super.paint(level);
+    @Override
+    public void paint(Level level) {
+        super.paint(level);
 
-		int entrance = level.pointToCell(center());
-		Painter.set( level, entrance, Terrain.ENTRANCE_SP );
+        int entrance = level.pointToCell(center());
+        Painter.set(level, entrance, Terrain.ENTRANCE_SP);
 
-		level.transitions.add(new LevelTransition(level, entrance, LevelTransition.Type.REGULAR_ENTRANCE));
-	}
-
+        level.transitions.add(new LevelTransition(level, entrance, LevelTransition.Type.REGULAR_ENTRANCE));
+    }
 }

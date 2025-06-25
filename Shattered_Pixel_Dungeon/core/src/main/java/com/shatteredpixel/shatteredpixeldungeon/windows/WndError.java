@@ -26,8 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 
 public class WndError extends WndTitledMessage {
 
-	public WndError( String message ) {
-		super( Icons.WARNING.get(), Messages.get(WndError.class, "title"), message );
-	}
-
+    public WndError(String message) {
+        super(Icons.WARNING.get(), Messages.get(WndError.class, "title"), message);
+    }
 }

@@ -33,23 +33,21 @@ import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.watabou.noosa.audio.Sample;
 
 public class StoneOfFear extends Runestone {
-	
-	{
-		image = ItemSpriteSheet.STONE_FEAR;
-	}
-	
-	@Override
-	protected void activate(int cell) {
 
-		Char ch = Actor.findChar( cell );
+    {
+        image = ItemSpriteSheet.STONE_FEAR;
+    }
 
-		if (ch != null && ch.alignment != Char.Alignment.ALLY ){
-			Buff.affect( ch, Terror.class, Terror.DURATION ).object = curUser.id();
-		}
+    @Override
+    protected void activate(int cell) {
 
-		new Flare( 5, 16 ).color( 0xFF0000, true ).show(Dungeon.hero.sprite.parent, DungeonTilemap.tileCenterToWorld(cell), 2f );
-		Sample.INSTANCE.play( Assets.Sounds.READ );
-		
-	}
-	
+        Char ch = Actor.findChar(cell);
+
+        if (ch != null && ch.alignment != Char.Alignment.ALLY) {
+            Buff.affect(ch, Terror.class, Terror.DURATION).object = curUser.id();
+        }
+
+        new Flare(5, 16).color(0xFF0000, true).show(Dungeon.hero.sprite.parent, DungeonTilemap.tileCenterToWorld(cell), 2f);
+        Sample.INSTANCE.play(Assets.Sounds.READ);
+    }
 }

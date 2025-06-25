@@ -49,191 +49,188 @@ import com.watabou.utils.Random;
 import java.util.ArrayList;
 
 public class Burning extends Buff implements Hero.Doom {
-	
-	private static final float DURATION = 8f;
-	
-	private float left;
-	private boolean acted = false; //whether the debuff has done any damage at all yet
-	private int burnIncrement = 0; //for tracking burning of hero items
-	
-	private static final String LEFT	= "left";
-	private static final String ACTED	= "acted";
-	private static final String BURN	= "burnIncrement";
 
-	{
-		type = buffType.NEGATIVE;
-		announced = true;
-	}
-	
-	@Override
-	public void storeInBundle( Bundle bundle ) {
-		super.storeInBundle( bundle );
-		bundle.put( LEFT, left );
-		bundle.put( ACTED, acted );
-		bundle.put( BURN, burnIncrement );
-	}
-	
-	@Override
-	public void restoreFromBundle( Bundle bundle ) {
-		super.restoreFromBundle(bundle);
-		left = bundle.getFloat( LEFT );
-		acted = bundle.getBoolean( ACTED );
-		burnIncrement = bundle.getInt( BURN );
-	}
+    private static final float DURATION = 8f;
 
-	@Override
-	public boolean attachTo(Char target) {
-		Buff.detach( target, Chill.class);
+    private float left;
+    private boolean acted = false; //whether the debuff has done any damage at all yet
+    private int burnIncrement = 0; //for tracking burning of hero items
 
-		return super.attachTo(target);
-	}
+    private static final String LEFT = "left";
+    private static final String ACTED = "acted";
+    private static final String BURN = "burnIncrement";
 
-	@Override
-	public boolean act() {
+    {
+        type = buffType.NEGATIVE;
+        announced = true;
+    }
 
-		if (acted && Dungeon.level.water[target.pos] && !target.flying){
-			detach();
-		} else if (target.isAlive() && !target.isImmune(getClass())) {
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(LEFT, left);
+        bundle.put(ACTED, acted);
+        bundle.put(BURN, burnIncrement);
+    }
 
-			acted = true;
-			int damage = Random.NormalIntRange( 1, 3 + Dungeon.scalingDepth()/4 );
-			Buff.detach( target, Chill.class);
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        left = bundle.getFloat(LEFT);
+        acted = bundle.getBoolean(ACTED);
+        burnIncrement = bundle.getInt(BURN);
+    }
 
-			if (target instanceof Hero
-					&& target.buff(TimekeepersHourglass.timeStasis.class) == null
-					&& target.buff(TimeStasis.class) == null) {
-				
-				Hero hero = (Hero)target;
+    @Override
+    public boolean attachTo(Char target) {
+        Buff.detach(target, Chill.class);
 
-				hero.damage( damage, this );
-				burnIncrement++;
+        return super.attachTo(target);
+    }
 
-				//at 4+ turns, there is a (turns-3)/3 chance an item burns
-				if (Random.Int(3) < (burnIncrement - 3)){
-					burnIncrement = 0;
+    @Override
+    public boolean act() {
 
-					ArrayList<Item> burnable = new ArrayList<>();
-					//does not reach inside of containers
-					if (!hero.belongings.lostInventory()) {
-						for (Item i : hero.belongings.backpack.items) {
-							if (!i.unique && (i instanceof Scroll || i instanceof MysteryMeat || i instanceof FrozenCarpaccio)) {
-								burnable.add(i);
-							}
-						}
-					}
+        if (acted && Dungeon.level.water[target.pos] && !target.flying) {
+            detach();
+        } else if (target.isAlive() && !target.isImmune(getClass())) {
 
-					if (!burnable.isEmpty()){
-						Item toBurn = Random.element(burnable).detach(hero.belongings.backpack);
-						GLog.w( Messages.capitalize(Messages.get(this, "burnsup", toBurn.title())) );
-						if (toBurn instanceof MysteryMeat || toBurn instanceof FrozenCarpaccio){
-							ChargrilledMeat steak = new ChargrilledMeat();
-							if (!steak.collect( hero.belongings.backpack )) {
-								Dungeon.level.drop( steak, hero.pos ).sprite.drop();
-							}
-						}
-						Heap.burnFX( hero.pos );
-					}
-				}
-				
-			} else {
-				target.damage( damage, this );
-			}
+            acted = true;
+            int damage = Random.NormalIntRange(1, 3 + Dungeon.scalingDepth() / 4);
+            Buff.detach(target, Chill.class);
 
-			if (target instanceof Thief && ((Thief) target).item != null) {
+            if (target instanceof Hero
+                    && target.buff(TimekeepersHourglass.timeStasis.class) == null
+                    && target.buff(TimeStasis.class) == null) {
 
-				Item item = ((Thief) target).item;
+                Hero hero = (Hero) target;
 
-				if (!item.unique && item instanceof Scroll) {
-					target.sprite.emitter().burst( ElmoParticle.FACTORY, 6 );
-					((Thief)target).item = null;
-				} else if (item instanceof MysteryMeat) {
-					target.sprite.emitter().burst( ElmoParticle.FACTORY, 6 );
-					((Thief)target).item = new ChargrilledMeat();
-				}
+                hero.damage(damage, this);
+                burnIncrement++;
 
-			}
+                //at 4+ turns, there is a (turns-3)/3 chance an item burns
+                if (Random.Int(3) < (burnIncrement - 3)) {
+                    burnIncrement = 0;
 
-		} else {
+                    ArrayList<Item> burnable = new ArrayList<>();
+                    //does not reach inside of containers
+                    if (!hero.belongings.lostInventory()) {
+                        for (Item i : hero.belongings.backpack.items) {
+                            if (!i.unique && (i instanceof Scroll || i instanceof MysteryMeat || i instanceof FrozenCarpaccio)) {
+                                burnable.add(i);
+                            }
+                        }
+                    }
 
-			detach();
-		}
-		
-		if (Dungeon.level.flamable[target.pos] && Blob.volumeAt(target.pos, Fire.class) == 0) {
-			GameScene.add( Blob.seed( target.pos, 4, Fire.class ) );
-		}
-		
-		spend( TICK );
-		left -= TICK;
-		
-		if (left <= 0 ||
-			(Dungeon.level.water[target.pos] && !target.flying)) {
-			
-			detach();
-		}
-		
-		return true;
-	}
-	
-	public void reignite( Char ch ) {
-		reignite( ch, DURATION );
-	}
-	
-	public void reignite( Char ch, float duration ) {
-		if (ch.isImmune(Burning.class)){
-			if (ch.glyphLevel(Brimstone.class) >= 0){
-				//generate avg of 1 shield per turn per 50% boost, to a max of 4x boost
-				float shieldChance = 2*(Armor.Glyph.genericProcChanceMultiplier(ch) - 1f);
-				int shieldCap = Math.round(shieldChance*4f);
-				int shieldGain = (int)shieldChance;
-				if (Random.Float() < shieldChance%1) shieldGain++;
-				if (shieldCap > 0 && shieldGain > 0){
-					Barrier barrier = Buff.affect(ch, Barrier.class);
-					if (barrier.shielding() < shieldCap){
-						barrier.incShield(Math.min(shieldGain, shieldCap - barrier.shielding()));
-					}
-				}
-			}
-		}
-		if (left < duration) left = duration;
-		acted = false;
-	}
+                    if (!burnable.isEmpty()) {
+                        Item toBurn = Random.element(burnable).detach(hero.belongings.backpack);
+                        GLog.w(Messages.capitalize(Messages.get(this, "burnsup", toBurn.title())));
+                        if (toBurn instanceof MysteryMeat || toBurn instanceof FrozenCarpaccio) {
+                            ChargrilledMeat steak = new ChargrilledMeat();
+                            if (!steak.collect(hero.belongings.backpack)) {
+                                Dungeon.level.drop(steak, hero.pos).sprite.drop();
+                            }
+                        }
+                        Heap.burnFX(hero.pos);
+                    }
+                }
+            } else {
+                target.damage(damage, this);
+            }
 
-	public void extend( float duration ) {
-		left += duration;
-	}
-	
-	@Override
-	public int icon() {
-		return BuffIndicator.FIRE;
-	}
+            if (target instanceof Thief && ((Thief) target).item != null) {
 
-	@Override
-	public float iconFadePercent() {
-		return Math.max(0, (DURATION - left) / DURATION);
-	}
+                Item item = ((Thief) target).item;
 
-	@Override
-	public String iconTextDisplay() {
-		return Integer.toString((int)left);
-	}
+                if (!item.unique && item instanceof Scroll) {
+                    target.sprite.emitter().burst(ElmoParticle.FACTORY, 6);
+                    ((Thief) target).item = null;
+                } else if (item instanceof MysteryMeat) {
+                    target.sprite.emitter().burst(ElmoParticle.FACTORY, 6);
+                    ((Thief) target).item = new ChargrilledMeat();
+                }
+            }
+        } else {
 
-	@Override
-	public void fx(boolean on) {
-		if (on) target.sprite.add(CharSprite.State.BURNING);
-		else target.sprite.remove(CharSprite.State.BURNING);
-	}
+            detach();
+        }
 
-	@Override
-	public String desc() {
-		return Messages.get(this, "desc", dispTurns(left));
-	}
+        if (Dungeon.level.flamable[target.pos] && Blob.volumeAt(target.pos, Fire.class) == 0) {
+            GameScene.add(Blob.seed(target.pos, 4, Fire.class));
+        }
 
-	@Override
-	public void onDeath() {
-		
-		Badges.validateDeathFromFire();
-		
-		Dungeon.fail( this );
-		GLog.n( Messages.get(this, "ondeath") );
-	}
+        spend(TICK);
+        left -= TICK;
+
+        if (left <= 0 ||
+                (Dungeon.level.water[target.pos] && !target.flying)) {
+
+            detach();
+        }
+
+        return true;
+    }
+
+    public void reignite(Char ch) {
+        reignite(ch, DURATION);
+    }
+
+    public void reignite(Char ch, float duration) {
+        if (ch.isImmune(Burning.class)) {
+            if (ch.glyphLevel(Brimstone.class) >= 0) {
+                //generate avg of 1 shield per turn per 50% boost, to a max of 4x boost
+                float shieldChance = 2 * (Armor.Glyph.genericProcChanceMultiplier(ch) - 1f);
+                int shieldCap = Math.round(shieldChance * 4f);
+                int shieldGain = (int) shieldChance;
+                if (Random.Float() < shieldChance % 1) shieldGain++;
+                if (shieldCap > 0 && shieldGain > 0) {
+                    Barrier barrier = Buff.affect(ch, Barrier.class);
+                    if (barrier.shielding() < shieldCap) {
+                        barrier.incShield(Math.min(shieldGain, shieldCap - barrier.shielding()));
+                    }
+                }
+            }
+        }
+        if (left < duration) left = duration;
+        acted = false;
+    }
+
+    public void extend(float duration) {
+        left += duration;
+    }
+
+    @Override
+    public int icon() {
+        return BuffIndicator.FIRE;
+    }
+
+    @Override
+    public float iconFadePercent() {
+        return Math.max(0, (DURATION - left) / DURATION);
+    }
+
+    @Override
+    public String iconTextDisplay() {
+        return Integer.toString((int) left);
+    }
+
+    @Override
+    public void fx(boolean on) {
+        if (on) target.sprite.add(CharSprite.State.BURNING);
+        else target.sprite.remove(CharSprite.State.BURNING);
+    }
+
+    @Override
+    public String desc() {
+        return Messages.get(this, "desc", dispTurns(left));
+    }
+
+    @Override
+    public void onDeath() {
+
+        Badges.validateDeathFromFire();
+
+        Dungeon.fail(this);
+        GLog.n(Messages.get(this, "ondeath"));
+    }
 }

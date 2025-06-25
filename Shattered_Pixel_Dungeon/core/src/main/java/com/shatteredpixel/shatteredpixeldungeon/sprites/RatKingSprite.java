@@ -30,60 +30,59 @@ import com.watabou.noosa.TextureFilm;
 
 public class RatKingSprite extends MobSprite {
 
-	public boolean festive;
-	
-	public RatKingSprite() {
-		super();
+    public boolean festive;
 
-		resetAnims();
-	}
+    public RatKingSprite() {
+        super();
 
-	public void resetAnims(){
+        resetAnims();
+    }
 
-		int c;
-		switch (Holiday.getCurrentHoliday()){
-			default:
-				c = 0;
-				break;
-			case APRIL_FOOLS:
-				c = 8;
-				break;
-			case WINTER_HOLIDAYS:
-				c = 16;
-				break;
-		}
+    public void resetAnims() {
 
-		if (Dungeon.hero != null && Dungeon.hero.armorAbility instanceof Ratmogrify){
-			c = 24;
-			if (parent != null) aura(0xFFFF00, 5);
-		}
+        int c;
+        switch (Holiday.getCurrentHoliday()) {
+            case APRIL_FOOLS:
+                c = 8;
+                break;
+            case WINTER_HOLIDAYS:
+                c = 16;
+                break;
+            default:
+                c = 0;
+                break;
+        }
 
-		texture( Assets.Sprites.RATKING );
+        if (Dungeon.hero != null && Dungeon.hero.armorAbility instanceof Ratmogrify) {
+            c = 24;
+            if (parent != null) aura(0xFFFF00, 5);
+        }
 
-		TextureFilm frames = new TextureFilm( texture, 16, 17 );
+        texture(Assets.Sprites.RATKING);
 
-		idle = new Animation( 2, true );
-		idle.frames( frames, c+0, c+0, c+0, c+1 );
+        TextureFilm frames = new TextureFilm(texture, 16, 17);
 
-		run = new Animation( 10, true );
-		run.frames( frames, c+2, c+3, c+4, c+5, c+6 );
+        idle = new Animation(2, true);
+        idle.frames(frames, c, c, c, c + 1);
 
-		attack = new Animation( 15, false );
-		attack.frames( frames, c+0 );
+        run = new Animation(10, true);
+        run.frames(frames, c + 2, c + 3, c + 4, c + 5, c + 6);
 
-		die = new Animation( 10, false );
-		die.frames( frames, c+0 );
+        attack = new Animation(15, false);
+        attack.frames(frames, c);
 
-		play( idle );
+        die = new Animation(10, false);
+        die.frames(frames, c);
 
-	}
+        play(idle);
+    }
 
 
-	@Override
-	public void link(Char ch) {
-		super.link(ch);
-		if (Dungeon.hero != null && Dungeon.hero.armorAbility instanceof Ratmogrify){
-			aura(0xFFFF00, 5);
-		}
-	}
+    @Override
+    public void link(Char ch) {
+        super.link(ch);
+        if (Dungeon.hero != null && Dungeon.hero.armorAbility instanceof Ratmogrify) {
+            aura(0xFFFF00, 5);
+        }
+    }
 }

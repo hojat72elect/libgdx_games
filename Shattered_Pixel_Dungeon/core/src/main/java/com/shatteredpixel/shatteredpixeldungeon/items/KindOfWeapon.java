@@ -43,251 +43,247 @@ import com.watabou.utils.Random;
 
 abstract public class KindOfWeapon extends EquipableItem {
 
-	protected String hitSound = Assets.Sounds.HIT;
-	protected float hitSoundPitch = 1f;
-	
-	@Override
-	public void execute(Hero hero, String action) {
-		if (hero.subClass == HeroSubClass.CHAMPION && action.equals(AC_EQUIP)){
-			usesTargeting = false;
-			String primaryName = Messages.titleCase(hero.belongings.weapon != null ? hero.belongings.weapon.trueName() : Messages.get(KindOfWeapon.class, "empty"));
-			String secondaryName = Messages.titleCase(hero.belongings.secondWep != null ? hero.belongings.secondWep.trueName() : Messages.get(KindOfWeapon.class, "empty"));
-			if (primaryName.length() > 18) primaryName = primaryName.substring(0, 15) + "...";
-			if (secondaryName.length() > 18) secondaryName = secondaryName.substring(0, 15) + "...";
-			GameScene.show(new WndOptions(
-					new ItemSprite(this),
-					Messages.titleCase(name()),
-					Messages.get(KindOfWeapon.class, "which_equip_msg"),
-					Messages.get(KindOfWeapon.class, "which_equip_primary", primaryName),
-					Messages.get(KindOfWeapon.class, "which_equip_secondary", secondaryName)
-			){
-				@Override
-				protected void onSelect(int index) {
-					super.onSelect(index);
-					if (index == 0 || index == 1){
-						//In addition to equipping itself, item reassigns itself to the quickslot
-						//This is a special case as the item is being removed from inventory, but is staying with the hero.
-						int slot = Dungeon.quickslot.getSlot( KindOfWeapon.this );
-						slotOfUnequipped = -1;
-						if (index == 0) {
-							doEquip(hero);
-						} else {
-							equipSecondary(hero);
-						}
-						if (slot != -1) {
-							Dungeon.quickslot.setSlot( slot, KindOfWeapon.this );
-							updateQuickslot();
-						//if this item wasn't quickslotted, but the item it is replacing as equipped was
-						//then also have the item occupy the unequipped item's quickslot
-						} else if (slotOfUnequipped != -1 && defaultAction() != null) {
-							Dungeon.quickslot.setSlot( slotOfUnequipped, KindOfWeapon.this );
-							updateQuickslot();
-						}
-					}
-				}
-			});
-		} else {
-			super.execute(hero, action);
-		}
-	}
+    protected String hitSound = Assets.Sounds.HIT;
+    protected float hitSoundPitch = 1f;
 
-	@Override
-	public boolean isEquipped( Hero hero ) {
-		return hero != null && (hero.belongings.weapon() == this || hero.belongings.secondWep() == this);
-	}
+    @Override
+    public void execute(Hero hero, String action) {
+        if (hero.subClass == HeroSubClass.CHAMPION && action.equals(AC_EQUIP)) {
+            usesTargeting = false;
+            String primaryName = Messages.titleCase(hero.belongings.weapon != null ? hero.belongings.weapon.trueName() : Messages.get(KindOfWeapon.class, "empty"));
+            String secondaryName = Messages.titleCase(hero.belongings.secondWep != null ? hero.belongings.secondWep.trueName() : Messages.get(KindOfWeapon.class, "empty"));
+            if (primaryName.length() > 18) primaryName = primaryName.substring(0, 15) + "...";
+            if (secondaryName.length() > 18) secondaryName = secondaryName.substring(0, 15) + "...";
+            GameScene.show(new WndOptions(
+                    new ItemSprite(this),
+                    Messages.titleCase(name()),
+                    Messages.get(KindOfWeapon.class, "which_equip_msg"),
+                    Messages.get(KindOfWeapon.class, "which_equip_primary", primaryName),
+                    Messages.get(KindOfWeapon.class, "which_equip_secondary", secondaryName)
+            ) {
+                @Override
+                protected void onSelect(int index) {
+                    super.onSelect(index);
+                    if (index == 0 || index == 1) {
+                        //In addition to equipping itself, item reassigns itself to the quickslot
+                        //This is a special case as the item is being removed from inventory, but is staying with the hero.
+                        int slot = Dungeon.quickslot.getSlot(KindOfWeapon.this);
+                        slotOfUnequipped = -1;
+                        if (index == 0) {
+                            doEquip(hero);
+                        } else {
+                            equipSecondary(hero);
+                        }
+                        if (slot != -1) {
+                            Dungeon.quickslot.setSlot(slot, KindOfWeapon.this);
+                            updateQuickslot();
+                            //if this item wasn't quickslotted, but the item it is replacing as equipped was
+                            //then also have the item occupy the unequipped item's quickslot
+                        } else if (slotOfUnequipped != -1 && defaultAction() != null) {
+                            Dungeon.quickslot.setSlot(slotOfUnequipped, KindOfWeapon.this);
+                            updateQuickslot();
+                        }
+                    }
+                }
+            });
+        } else {
+            super.execute(hero, action);
+        }
+    }
 
-	private static boolean isSwiftEquipping = false;
+    @Override
+    public boolean isEquipped(Hero hero) {
+        return hero != null && (hero.belongings.weapon() == this || hero.belongings.secondWep() == this);
+    }
 
-	protected float timeToEquip( Hero hero ) {
-		return isSwiftEquipping ? 0f : super.timeToEquip(hero);
-	}
-	
-	@Override
-	public boolean doEquip( Hero hero ) {
+    private static boolean isSwiftEquipping = false;
 
-		isSwiftEquipping = false;
-		if (hero.belongings.contains(this) && hero.hasTalent(Talent.SWIFT_EQUIP)){
-			if (hero.buff(Talent.SwiftEquipCooldown.class) == null
-					|| hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()){
-				isSwiftEquipping = true;
-			}
-		}
+    protected float timeToEquip(Hero hero) {
+        return isSwiftEquipping ? 0f : super.timeToEquip(hero);
+    }
 
-		// 15/25% chance
-		if (hero.heroClass != HeroClass.CLERIC && hero.hasTalent(Talent.HOLY_INTUITION)
-				&& cursed && !cursedKnown
-				&& Random.Int(20) < 1 + 2*hero.pointsInTalent(Talent.HOLY_INTUITION)){
-			cursedKnown = true;
-			GLog.p(Messages.get(this, "curse_detected"));
-			return false;
-		}
+    @Override
+    public boolean doEquip(Hero hero) {
 
-		detachAll( hero.belongings.backpack );
-		
-		if (hero.belongings.weapon == null || hero.belongings.weapon.doUnequip( hero, true )) {
-			
-			hero.belongings.weapon = this;
-			activate( hero );
-			Talent.onItemEquipped(hero, this);
-			Badges.validateDuelistUnlock();
-			updateQuickslot();
+        isSwiftEquipping = false;
+        if (hero.belongings.contains(this) && hero.hasTalent(Talent.SWIFT_EQUIP)) {
+            if (hero.buff(Talent.SwiftEquipCooldown.class) == null
+                    || hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()) {
+                isSwiftEquipping = true;
+            }
+        }
 
-			cursedKnown = true;
-			if (cursed) {
-				equipCursed( hero );
-				GLog.n( Messages.get(KindOfWeapon.class, "equip_cursed") );
-			}
+        // 15/25% chance
+        if (hero.heroClass != HeroClass.CLERIC && hero.hasTalent(Talent.HOLY_INTUITION)
+                && cursed && !cursedKnown
+                && Random.Int(20) < 1 + 2 * hero.pointsInTalent(Talent.HOLY_INTUITION)) {
+            cursedKnown = true;
+            GLog.p(Messages.get(this, "curse_detected"));
+            return false;
+        }
 
-			hero.spendAndNext( timeToEquip(hero) );
-			if (isSwiftEquipping) {
-				GLog.i(Messages.get(this, "swift_equip"));
-				if (hero.buff(Talent.SwiftEquipCooldown.class) == null){
-					Buff.affect(hero, Talent.SwiftEquipCooldown.class, 19f)
-							.secondUse = hero.pointsInTalent(Talent.SWIFT_EQUIP) == 2;
-				} else if (hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()) {
-					hero.buff(Talent.SwiftEquipCooldown.class).secondUse = false;
-				}
-				isSwiftEquipping = false;
-			}
-			return true;
-			
-		} else {
-			isSwiftEquipping = false;
-			collect( hero.belongings.backpack );
-			return false;
-		}
-	}
+        detachAll(hero.belongings.backpack);
 
-	public boolean equipSecondary( Hero hero ){
+        if (hero.belongings.weapon == null || hero.belongings.weapon.doUnequip(hero, true)) {
 
-		isSwiftEquipping = false;
-		if (hero.belongings.contains(this) && hero.hasTalent(Talent.SWIFT_EQUIP)){
-			if (hero.buff(Talent.SwiftEquipCooldown.class) == null
-					|| hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()){
-				isSwiftEquipping = true;
-			}
-		}
+            hero.belongings.weapon = this;
+            activate(hero);
+            Talent.onItemEquipped(hero, this);
+            Badges.validateDuelistUnlock();
+            updateQuickslot();
 
-		boolean wasInInv = hero.belongings.contains(this);
-		detachAll( hero.belongings.backpack );
+            cursedKnown = true;
+            if (cursed) {
+                equipCursed(hero);
+                GLog.n(Messages.get(KindOfWeapon.class, "equip_cursed"));
+            }
 
-		if (hero.belongings.secondWep == null || hero.belongings.secondWep.doUnequip( hero, true )) {
+            hero.spendAndNext(timeToEquip(hero));
+            if (isSwiftEquipping) {
+                GLog.i(Messages.get(this, "swift_equip"));
+                if (hero.buff(Talent.SwiftEquipCooldown.class) == null) {
+                    Buff.affect(hero, Talent.SwiftEquipCooldown.class, 19f)
+                            .secondUse = hero.pointsInTalent(Talent.SWIFT_EQUIP) == 2;
+                } else if (hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()) {
+                    hero.buff(Talent.SwiftEquipCooldown.class).secondUse = false;
+                }
+                isSwiftEquipping = false;
+            }
+            return true;
+        } else {
+            isSwiftEquipping = false;
+            collect(hero.belongings.backpack);
+            return false;
+        }
+    }
 
-			hero.belongings.secondWep = this;
-			activate( hero );
-			Talent.onItemEquipped(hero, this);
-			Badges.validateDuelistUnlock();
-			updateQuickslot();
+    public boolean equipSecondary(Hero hero) {
 
-			cursedKnown = true;
-			if (cursed) {
-				equipCursed( hero );
-				GLog.n( Messages.get(KindOfWeapon.class, "equip_cursed") );
-			}
+        isSwiftEquipping = false;
+        if (hero.belongings.contains(this) && hero.hasTalent(Talent.SWIFT_EQUIP)) {
+            if (hero.buff(Talent.SwiftEquipCooldown.class) == null
+                    || hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()) {
+                isSwiftEquipping = true;
+            }
+        }
 
-			hero.spendAndNext( timeToEquip(hero) );
-			if (isSwiftEquipping) {
-				GLog.i(Messages.get(this, "swift_equip"));
-				if (hero.buff(Talent.SwiftEquipCooldown.class) == null){
-					Buff.affect(hero, Talent.SwiftEquipCooldown.class, 19f)
-							.secondUse = hero.pointsInTalent(Talent.SWIFT_EQUIP) == 2;
-				} else if (hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()) {
-					hero.buff(Talent.SwiftEquipCooldown.class).secondUse = false;
-				}
-				isSwiftEquipping = false;
-			}
-			return true;
+        boolean wasInInv = hero.belongings.contains(this);
+        detachAll(hero.belongings.backpack);
 
-		} else {
-			isSwiftEquipping = false;
-			collect( hero.belongings.backpack );
-			return false;
-		}
-	}
+        if (hero.belongings.secondWep == null || hero.belongings.secondWep.doUnequip(hero, true)) {
 
-	@Override
-	public boolean doUnequip( Hero hero, boolean collect, boolean single ) {
-		boolean second = hero.belongings.secondWep == this;
+            hero.belongings.secondWep = this;
+            activate(hero);
+            Talent.onItemEquipped(hero, this);
+            Badges.validateDuelistUnlock();
+            updateQuickslot();
 
-		if (second){
-			//do this first so that the item can go to a full inventory
-			hero.belongings.secondWep = null;
-		}
+            cursedKnown = true;
+            if (cursed) {
+                equipCursed(hero);
+                GLog.n(Messages.get(KindOfWeapon.class, "equip_cursed"));
+            }
 
-		if (super.doUnequip( hero, collect, single )) {
+            hero.spendAndNext(timeToEquip(hero));
+            if (isSwiftEquipping) {
+                GLog.i(Messages.get(this, "swift_equip"));
+                if (hero.buff(Talent.SwiftEquipCooldown.class) == null) {
+                    Buff.affect(hero, Talent.SwiftEquipCooldown.class, 19f)
+                            .secondUse = hero.pointsInTalent(Talent.SWIFT_EQUIP) == 2;
+                } else if (hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()) {
+                    hero.buff(Talent.SwiftEquipCooldown.class).secondUse = false;
+                }
+                isSwiftEquipping = false;
+            }
+            return true;
+        } else {
+            isSwiftEquipping = false;
+            collect(hero.belongings.backpack);
+            return false;
+        }
+    }
 
-			if (!second){
-				hero.belongings.weapon = null;
-			}
-			return true;
+    @Override
+    public boolean doUnequip(Hero hero, boolean collect, boolean single) {
+        boolean second = hero.belongings.secondWep == this;
 
-		} else {
+        if (second) {
+            //do this first so that the item can go to a full inventory
+            hero.belongings.secondWep = null;
+        }
 
-			if (second){
-				hero.belongings.secondWep = this;
-			}
-			return false;
+        if (super.doUnequip(hero, collect, single)) {
 
-		}
-	}
+            if (!second) {
+                hero.belongings.weapon = null;
+            }
+            return true;
+        } else {
 
-	public int min(){
-		return min(buffedLvl());
-	}
+            if (second) {
+                hero.belongings.secondWep = this;
+            }
+            return false;
+        }
+    }
 
-	public int max(){
-		return max(buffedLvl());
-	}
+    public int min() {
+        return min(buffedLvl());
+    }
 
-	abstract public int min(int lvl);
-	abstract public int max(int lvl);
+    public int max() {
+        return max(buffedLvl());
+    }
 
-	public int damageRoll( Char owner ) {
-		if (owner instanceof Hero){
-			return Hero.heroDamageIntRange(min(), max());
-		} else {
-			return Random.NormalIntRange(min(), max());
-		}
-	}
-	
-	public float accuracyFactor( Char owner, Char target ) {
-		return 1f;
-	}
-	
-	public float delayFactor( Char owner ) {
-		return 1f;
-	}
+    abstract public int min(int lvl);
 
-	public int reachFactor( Char owner ){
-		return 1;
-	}
-	
-	public boolean canReach( Char owner, int target){
-		int reach = reachFactor(owner);
-		if (Dungeon.level.distance( owner.pos, target ) > reach){
-			return false;
-		} else {
-			boolean[] passable = BArray.not(Dungeon.level.solid, null);
-			for (Char ch : Actor.chars()) {
-				if (ch != owner) passable[ch.pos] = false;
-			}
-			
-			PathFinder.buildDistanceMap(target, passable, reach);
-			
-			return PathFinder.distance[owner.pos] <= reach;
-		}
-	}
+    abstract public int max(int lvl);
 
-	public int defenseFactor( Char owner ) {
-		return 0;
-	}
-	
-	public int proc( Char attacker, Char defender, int damage ) {
-		return damage;
-	}
+    public int damageRoll(Char owner) {
+        if (owner instanceof Hero) {
+            return Hero.heroDamageIntRange(min(), max());
+        } else {
+            return Random.NormalIntRange(min(), max());
+        }
+    }
 
-	public void hitSound( float pitch ){
-		Sample.INSTANCE.play(hitSound, 1, pitch * hitSoundPitch);
-	}
-	
+    public float accuracyFactor(Char owner, Char target) {
+        return 1f;
+    }
+
+    public float delayFactor(Char owner) {
+        return 1f;
+    }
+
+    public int reachFactor(Char owner) {
+        return 1;
+    }
+
+    public boolean canReach(Char owner, int target) {
+        int reach = reachFactor(owner);
+        if (Dungeon.level.distance(owner.pos, target) > reach) {
+            return false;
+        } else {
+            boolean[] passable = BArray.not(Dungeon.level.solid, null);
+            for (Char ch : Actor.chars()) {
+                if (ch != owner) passable[ch.pos] = false;
+            }
+
+            PathFinder.buildDistanceMap(target, passable, reach);
+
+            return PathFinder.distance[owner.pos] <= reach;
+        }
+    }
+
+    public int defenseFactor(Char owner) {
+        return 0;
+    }
+
+    public int proc(Char attacker, Char defender, int damage) {
+        return damage;
+    }
+
+    public void hitSound(float pitch) {
+        Sample.INSTANCE.play(hitSound, 1, pitch * hitSoundPitch);
+    }
 }

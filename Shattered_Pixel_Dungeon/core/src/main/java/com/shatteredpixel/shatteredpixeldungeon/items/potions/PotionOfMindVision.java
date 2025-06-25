@@ -32,26 +32,26 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 public class PotionOfMindVision extends Potion {
 
-	{
-		icon = ItemSpriteSheet.Icons.POTION_MINDVIS;
-	}
+    {
+        icon = ItemSpriteSheet.Icons.POTION_MINDVIS;
+    }
 
-	@Override
-	public void apply( Hero hero ) {
-		identify();
-		Buff.prolong( hero, MindVision.class, MindVision.DURATION );
-		SpellSprite.show(hero, SpellSprite.VISION, 1, 0.77f, 0.9f);
-		Dungeon.observe();
-		
-		if (Dungeon.level.mobs.size() > 0) {
-			GLog.i( Messages.get(this, "see_mobs") );
-		} else {
-			GLog.i( Messages.get(this, "see_none") );
-		}
-	}
-	
-	@Override
-	public int value() {
-		return isKnown() ? 30 * quantity : super.value();
-	}
+    @Override
+    public void apply(Hero hero) {
+        identify();
+        Buff.prolong(hero, MindVision.class, MindVision.DURATION);
+        SpellSprite.show(hero, SpellSprite.VISION, 1, 0.77f, 0.9f);
+        Dungeon.observe();
+
+        if (Dungeon.level.mobs.size() > 0) {
+            GLog.i(Messages.get(this, "see_mobs"));
+        } else {
+            GLog.i(Messages.get(this, "see_none"));
+        }
+    }
+
+    @Override
+    public int value() {
+        return isKnown() ? 30 * quantity : super.value();
+    }
 }

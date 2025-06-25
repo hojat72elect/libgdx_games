@@ -30,30 +30,29 @@ import com.watabou.utils.Random;
 
 public class Thorns extends Armor.Glyph {
 
-	private static ItemSprite.Glowing RED = new ItemSprite.Glowing( 0x660022 );
+    private static final ItemSprite.Glowing RED = new ItemSprite.Glowing(0x660022);
 
-	@Override
-	public int proc(Armor armor, Char attacker, Char defender, int damage) {
+    @Override
+    public int proc(Armor armor, Char attacker, Char defender, int damage) {
 
-		int level = Math.max(0, armor.buffedLvl());
+        int level = Math.max(0, armor.buffedLvl());
 
-		// lvl 0 - 16.7%
-		// lvl 1 - 23.1%
-		// lvl 2 - 28.5%
-		float procChance = (level+2f)/(level+12f) * procChanceMultiplier(defender);
-		if ( attacker.alignment != defender.alignment && Random.Float() < procChance ) {
+        // lvl 0 - 16.7%
+        // lvl 1 - 23.1%
+        // lvl 2 - 28.5%
+        float procChance = (level + 2f) / (level + 12f) * procChanceMultiplier(defender);
+        if (attacker.alignment != defender.alignment && Random.Float() < procChance) {
 
-			float powerMulti = Math.max(1f, procChance);
+            float powerMulti = Math.max(1f, procChance);
 
-			Buff.affect( attacker, Bleeding.class).set( Math.round((4 + level)*powerMulti) );
+            Buff.affect(attacker, Bleeding.class).set(Math.round((4 + level) * powerMulti));
+        }
 
-		}
+        return damage;
+    }
 
-		return damage;
-	}
-
-	@Override
-	public ItemSprite.Glowing glowing() {
-		return RED;
-	}
+    @Override
+    public ItemSprite.Glowing glowing() {
+        return RED;
+    }
 }

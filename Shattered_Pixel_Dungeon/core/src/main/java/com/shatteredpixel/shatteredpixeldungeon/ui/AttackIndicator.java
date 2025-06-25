@@ -38,171 +38,171 @@ import java.util.ArrayList;
 
 //FIXME needs a refactor, lots of weird thread interaction here.
 public class AttackIndicator extends Tag {
-	
-	private static final float ENABLED	= 1.0f;
-	private static final float DISABLED	= 0.3f;
 
-	private static float delay;
-	
-	private static AttackIndicator instance;
-	
-	private CharSprite sprite = null;
-	
-	private Mob lastTarget;
-	private ArrayList<Mob> candidates = new ArrayList<>();
-	
-	public AttackIndicator() {
-		super( DangerIndicator.COLOR );
+    private static final float ENABLED = 1.0f;
+    private static final float DISABLED = 0.3f;
 
-		synchronized (this) {
-			instance = this;
-			lastTarget = null;
+    private static float delay;
 
-			setSize(SIZE, SIZE);
-			visible(false);
-			enable(false);
-		}
-	}
-	
-	@Override
-	public GameAction keyAction() {
-		return SPDAction.TAG_ATTACK;
-	}
-	
-	@Override
-	protected void createChildren() {
-		super.createChildren();
-	}
-	
-	@Override
-	protected synchronized void layout() {
-		super.layout();
+    private static AttackIndicator instance;
 
-		if (sprite != null) {
-			if (!flipped)   sprite.x = x + (SIZE - sprite.width()) / 2f + 1;
-			else            sprite.x = x + width - (SIZE + sprite.width()) / 2f - 1;
-			sprite.y = y + (height - sprite.height()) / 2f;
-			PixelScene.align(sprite);
-		}
-	}
-	
-	@Override
-	public synchronized void update() {
-		super.update();
+    private CharSprite sprite = null;
 
-		if (!bg.visible){
-			if (sprite != null) sprite.visible = false;
-			enable(false);
-			if (delay > 0f) delay -= Game.elapsed;
-			if (delay <= 0f) active = false;
-		} else {
-			delay = 0.75f;
-			active = true;
-			if (bg.width > 0 && sprite != null)sprite.visible = true;
+    private Mob lastTarget;
+    private final ArrayList<Mob> candidates = new ArrayList<>();
 
-			if (Dungeon.hero.isAlive()) {
+    public AttackIndicator() {
+        super(DangerIndicator.COLOR);
 
-				enable(Dungeon.hero.ready);
+        synchronized (this) {
+            instance = this;
+            lastTarget = null;
 
-			} else {
-				visible( false );
-				enable( false );
-			}
-		}
-	}
-	
-	private synchronized void checkEnemies() {
+            setSize(SIZE, SIZE);
+            visible(false);
+            enable(false);
+        }
+    }
 
-		candidates.clear();
-		int v = Dungeon.hero.visibleEnemies();
-		for (int i=0; i < v; i++) {
-			Mob mob = Dungeon.hero.visibleEnemy( i );
-			if ( Dungeon.hero.canAttack( mob) ) {
-				candidates.add( mob );
-			}
-		}
-		
-		if (lastTarget == null || !candidates.contains( lastTarget )) {
-			if (candidates.isEmpty()) {
-				lastTarget = null;
-			} else {
-				active = true;
-				lastTarget = Random.element( candidates );
-				updateImage();
-				flash();
-			}
-		} else {
-			active = true;
-			if (!bg.visible) {
-				flash();
-			}
-		}
-		
-		visible( lastTarget != null );
-		enable( bg.visible );
-	}
-	
-	private synchronized void updateImage() {
-		
-		if (sprite != null) {
-			sprite.killAndErase();
-			sprite = null;
-		}
-		
-		sprite = Reflection.newInstance(lastTarget.spriteClass);
-		active = true;
-		sprite.linkVisuals(lastTarget);
-		sprite.idle();
-		sprite.paused = true;
-		sprite.visible = bg.visible;
+    @Override
+    public GameAction keyAction() {
+        return SPDAction.TAG_ATTACK;
+    }
 
-		if (sprite.width() > 20 || sprite.height() > 20){
-			sprite.scale.set(PixelScene.align(20f/Math.max(sprite.width(), sprite.height())));
-		}
+    @Override
+    protected void createChildren() {
+        super.createChildren();
+    }
 
-		add( sprite );
+    @Override
+    protected synchronized void layout() {
+        super.layout();
 
-		layout();
-	}
-	
-	private boolean enabled = true;
-	private synchronized void enable( boolean value ) {
-		enabled = value;
-		if (sprite != null) {
-			sprite.alpha( value ? ENABLED : DISABLED );
-		}
-	}
-	
-	private synchronized void visible( boolean value ) {
-		bg.visible = value;
-	}
-	
-	@Override
-	protected void onClick() {
-		super.onClick();
-		if (enabled && Dungeon.hero.ready) {
-			if (Dungeon.hero.handle( lastTarget.pos )) {
-				Dungeon.hero.next();
-			}
-		}
-	}
+        if (sprite != null) {
+            if (!flipped) sprite.x = x + (SIZE - sprite.width()) / 2f + 1;
+            else sprite.x = x + width - (SIZE + sprite.width()) / 2f - 1;
+            sprite.y = y + (height - sprite.height()) / 2f;
+            PixelScene.align(sprite);
+        }
+    }
 
-	@Override
-	protected String hoverText() {
-		return Messages.titleCase(Messages.get(WndKeyBindings.class, "tag_attack"));
-	}
+    @Override
+    public synchronized void update() {
+        super.update();
 
-	public static void target(Char target ) {
-		if (target == null) return;
-		synchronized (instance) {
-			instance.lastTarget = (Mob) target;
-			instance.updateImage();
+        if (!bg.visible) {
+            if (sprite != null) sprite.visible = false;
+            enable(false);
+            if (delay > 0f) delay -= Game.elapsed;
+            if (delay <= 0f) active = false;
+        } else {
+            delay = 0.75f;
+            active = true;
+            if (bg.width > 0 && sprite != null) sprite.visible = true;
 
-			QuickSlotButton.target(target);
-		}
-	}
-	
-	public static void updateState() {
-		instance.checkEnemies();
-	}
+            if (Dungeon.hero.isAlive()) {
+
+                enable(Dungeon.hero.ready);
+            } else {
+                visible(false);
+                enable(false);
+            }
+        }
+    }
+
+    private synchronized void checkEnemies() {
+
+        candidates.clear();
+        int v = Dungeon.hero.visibleEnemies();
+        for (int i = 0; i < v; i++) {
+            Mob mob = Dungeon.hero.visibleEnemy(i);
+            if (Dungeon.hero.canAttack(mob)) {
+                candidates.add(mob);
+            }
+        }
+
+        if (lastTarget == null || !candidates.contains(lastTarget)) {
+            if (candidates.isEmpty()) {
+                lastTarget = null;
+            } else {
+                active = true;
+                lastTarget = Random.element(candidates);
+                updateImage();
+                flash();
+            }
+        } else {
+            active = true;
+            if (!bg.visible) {
+                flash();
+            }
+        }
+
+        visible(lastTarget != null);
+        enable(bg.visible);
+    }
+
+    private synchronized void updateImage() {
+
+        if (sprite != null) {
+            sprite.killAndErase();
+            sprite = null;
+        }
+
+        sprite = Reflection.newInstance(lastTarget.spriteClass);
+        active = true;
+        sprite.linkVisuals(lastTarget);
+        sprite.idle();
+        sprite.paused = true;
+        sprite.visible = bg.visible;
+
+        if (sprite.width() > 20 || sprite.height() > 20) {
+            sprite.scale.set(PixelScene.align(20f / Math.max(sprite.width(), sprite.height())));
+        }
+
+        add(sprite);
+
+        layout();
+    }
+
+    private boolean enabled = true;
+
+    private synchronized void enable(boolean value) {
+        enabled = value;
+        if (sprite != null) {
+            sprite.alpha(value ? ENABLED : DISABLED);
+        }
+    }
+
+    private synchronized void visible(boolean value) {
+        bg.visible = value;
+    }
+
+    @Override
+    protected void onClick() {
+        super.onClick();
+        if (enabled && Dungeon.hero.ready) {
+            if (Dungeon.hero.handle(lastTarget.pos)) {
+                Dungeon.hero.next();
+            }
+        }
+    }
+
+    @Override
+    protected String hoverText() {
+        return Messages.titleCase(Messages.get(WndKeyBindings.class, "tag_attack"));
+    }
+
+    public static void target(Char target) {
+        if (target == null) return;
+        synchronized (instance) {
+            instance.lastTarget = (Mob) target;
+            instance.updateImage();
+
+            QuickSlotButton.target(target);
+        }
+    }
+
+    public static void updateState() {
+        instance.checkEnemies();
+    }
 }

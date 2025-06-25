@@ -25,14 +25,13 @@ import com.watabou.noosa.Game;
 
 public class UpdateImpl {
 
-	private static UpdateService updateChecker = new DebugUpdates();
+    private static final UpdateService updateChecker = new DebugUpdates();
 
-	public static UpdateService getUpdateService(){
-		return updateChecker;
-	}
+    public static UpdateService getUpdateService() {
+        return updateChecker;
+    }
 
-	public static boolean supportsUpdates(){
-		return Game.version.contains("INDEV");
-	}
-
+    public static boolean supportsUpdates() {
+        return Game.version.contains("INDEV");
+    }
 }

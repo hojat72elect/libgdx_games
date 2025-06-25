@@ -26,33 +26,32 @@ import com.watabou.noosa.TextureFilm;
 
 public class HermitCrabSprite extends MobSprite {
 
-	public HermitCrabSprite() {
-		super();
+    public HermitCrabSprite() {
+        super();
 
-		texture( Assets.Sprites.CRAB );
+        texture(Assets.Sprites.CRAB);
 
-		TextureFilm frames = new TextureFilm( texture, 16, 16 );
+        TextureFilm frames = new TextureFilm(texture, 16, 16);
 
-		int c = 16;
+        int c = 16;
 
-		idle = new Animation( 5, true );
-		idle.frames( frames, 0+c, 1+c, 0+c, 2+c );
+        idle = new Animation(5, true);
+        idle.frames(frames, c, 1 + c, c, 2 + c);
 
-		run = new Animation( 10, true ); //slower run animation
-		run.frames( frames, 3+c, 4+c, 5+c, 6+c );
+        run = new Animation(10, true); //slower run animation
+        run.frames(frames, 3 + c, 4 + c, 5 + c, 6 + c);
 
-		attack = new Animation( 12, false );
-		attack.frames( frames, 7+c, 8+c, 9+c );
+        attack = new Animation(12, false);
+        attack.frames(frames, 7 + c, 8 + c, 9 + c);
 
-		die = new Animation( 12, false );
-		die.frames( frames, 10+c, 11+c, 12+c, 13+c );
+        die = new Animation(12, false);
+        die.frames(frames, 10 + c, 11 + c, 12 + c, 13 + c);
 
-		play( idle );
-	}
+        play(idle);
+    }
 
-	@Override
-	public int blood() {
-		return 0xFFFFEA80;
-	}
-
+    @Override
+    public int blood() {
+        return 0xFFFFEA80;
+    }
 }

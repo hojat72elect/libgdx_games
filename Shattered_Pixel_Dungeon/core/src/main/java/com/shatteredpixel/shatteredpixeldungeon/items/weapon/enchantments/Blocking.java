@@ -36,89 +36,88 @@ import com.watabou.noosa.Image;
 import com.watabou.utils.Random;
 
 public class Blocking extends Weapon.Enchantment {
-	
-	private static ItemSprite.Glowing BLUE = new ItemSprite.Glowing( 0x0000FF );
-	
-	@Override
-	public int proc(Weapon weapon, Char attacker, Char defender, int damage) {
-		
-		int level = Math.max( 0, weapon.buffedLvl() );
 
-		// lvl 0 - 10%
-		// lvl 1 ~ 12%
-		// lvl 2 ~ 14%
-		float procChance = (level+4f)/(level+40f) * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance){
-			float powerMulti = Math.max(1f, procChance);
+    private static final ItemSprite.Glowing BLUE = new ItemSprite.Glowing(0x0000FF);
 
-			BlockBuff b = Buff.affect(attacker, BlockBuff.class);
-			int shield = Math.round(powerMulti * (2 + weapon.buffedLvl()));
-			b.setShield(shield);
-			attacker.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shield), FloatingText.SHIELDING);
-			attacker.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 5);
-		}
-		
-		return damage;
-	}
-	
-	@Override
-	public ItemSprite.Glowing glowing() {
-		return BLUE;
-	}
-	
-	public static class BlockBuff extends ShieldBuff {
+    @Override
+    public int proc(Weapon weapon, Char attacker, Char defender, int damage) {
 
-		{
-			type = buffType.POSITIVE;
+        int level = Math.max(0, weapon.buffedLvl());
 
-			shieldUsePriority = 2;
-		}
+        // lvl 0 - 10%
+        // lvl 1 ~ 12%
+        // lvl 2 ~ 14%
+        float procChance = (level + 4f) / (level + 40f) * procChanceMultiplier(attacker);
+        if (Random.Float() < procChance) {
+            float powerMulti = Math.max(1f, procChance);
 
-		@Override
-		public boolean act() {
-			detach();
-			return true;
-		}
+            BlockBuff b = Buff.affect(attacker, BlockBuff.class);
+            int shield = Math.round(powerMulti * (2 + weapon.buffedLvl()));
+            b.setShield(shield);
+            attacker.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shield), FloatingText.SHIELDING);
+            attacker.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 5);
+        }
 
-		@Override
-		public void setShield(int shield) {
-			super.setShield(shield);
-			postpone(5f);
-		}
+        return damage;
+    }
 
-		@Override
-		public void fx(boolean on) {
-			if (on) {
-				target.sprite.add(CharSprite.State.SHIELDED);
-			} else if (target.buff(Barrier.class) == null) {
-				target.sprite.remove(CharSprite.State.SHIELDED);
-			}
-		}
+    @Override
+    public ItemSprite.Glowing glowing() {
+        return BLUE;
+    }
 
-		@Override
-		public int icon() {
-			return BuffIndicator.ARMOR;
-		}
-		
-		@Override
-		public void tintIcon(Image icon) {
-			icon.hardlight(0.5f, 1f, 2f);
-		}
+    public static class BlockBuff extends ShieldBuff {
 
-		@Override
-		public float iconFadePercent() {
-			return Math.max(0, (5f - visualcooldown()) / 5f);
-		}
+        {
+            type = buffType.POSITIVE;
 
-		@Override
-		public String iconTextDisplay() {
-			return Integer.toString((int)visualcooldown());
-		}
+            shieldUsePriority = 2;
+        }
 
-		@Override
-		public String desc() {
-			return Messages.get(this, "desc", shielding(), dispTurns(visualcooldown()));
-		}
-	
-	}
+        @Override
+        public boolean act() {
+            detach();
+            return true;
+        }
+
+        @Override
+        public void setShield(int shield) {
+            super.setShield(shield);
+            postpone(5f);
+        }
+
+        @Override
+        public void fx(boolean on) {
+            if (on) {
+                target.sprite.add(CharSprite.State.SHIELDED);
+            } else if (target.buff(Barrier.class) == null) {
+                target.sprite.remove(CharSprite.State.SHIELDED);
+            }
+        }
+
+        @Override
+        public int icon() {
+            return BuffIndicator.ARMOR;
+        }
+
+        @Override
+        public void tintIcon(Image icon) {
+            icon.hardlight(0.5f, 1f, 2f);
+        }
+
+        @Override
+        public float iconFadePercent() {
+            return Math.max(0, (5f - visualcooldown()) / 5f);
+        }
+
+        @Override
+        public String iconTextDisplay() {
+            return Integer.toString((int) visualcooldown());
+        }
+
+        @Override
+        public String desc() {
+            return Messages.get(this, "desc", shielding(), dispTurns(visualcooldown()));
+        }
+    }
 }

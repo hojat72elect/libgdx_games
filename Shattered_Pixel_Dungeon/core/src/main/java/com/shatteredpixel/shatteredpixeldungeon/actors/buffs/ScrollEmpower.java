@@ -29,66 +29,66 @@ import com.watabou.utils.Bundle;
 
 public class ScrollEmpower extends Buff {
 
-	{
-		type = buffType.POSITIVE;
-	}
+    {
+        type = buffType.POSITIVE;
+    }
 
-	private int left;
+    private int left;
 
-	public void reset(int left){
-		this.left = left;
-		Item.updateQuickslot();
-	}
+    public void reset(int left) {
+        this.left = left;
+        Item.updateQuickslot();
+    }
 
-	public void use(){
-		left--;
-		if (left <= 0){
-			detach();
-		}
-	}
+    public void use() {
+        left--;
+        if (left <= 0) {
+            detach();
+        }
+    }
 
-	@Override
-	public void detach() {
-		super.detach();
-		Item.updateQuickslot();
-	}
+    @Override
+    public void detach() {
+        super.detach();
+        Item.updateQuickslot();
+    }
 
-	@Override
-	public int icon() {
-		return BuffIndicator.WAND;
-	}
+    @Override
+    public int icon() {
+        return BuffIndicator.WAND;
+    }
 
-	@Override
-	public void tintIcon(Image icon) {
-		icon.hardlight(0.84f, 0.79f, 0.65f); //scroll colors
-	}
+    @Override
+    public void tintIcon(Image icon) {
+        icon.hardlight(0.84f, 0.79f, 0.65f); //scroll colors
+    }
 
-	@Override
-	public float iconFadePercent() {
-		return Math.max(0, (3f - left) / 3f);
-	}
+    @Override
+    public float iconFadePercent() {
+        return Math.max(0, (3f - left) / 3f);
+    }
 
-	@Override
-	public String iconTextDisplay() {
-		return Integer.toString(left);
-	}
+    @Override
+    public String iconTextDisplay() {
+        return Integer.toString(left);
+    }
 
-	@Override
-	public String desc() {
-		return Messages.get(this, "desc", 2, left);
-	}
+    @Override
+    public String desc() {
+        return Messages.get(this, "desc", 2, left);
+    }
 
-	private static final String LEFT = "left";
+    private static final String LEFT = "left";
 
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(LEFT, left);
-	}
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(LEFT, left);
+    }
 
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		left = bundle.getInt(LEFT);
-	}
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        left = bundle.getInt(LEFT);
+    }
 }

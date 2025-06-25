@@ -216,755 +216,752 @@ import java.util.LinkedHashMap;
 
 public class Generator {
 
-	public enum Category {
-		TRINKET ( 0, 0, Trinket.class),
+    public enum Category {
+        TRINKET(0, 0, Trinket.class),
 
-		WEAPON	( 2, 2, MeleeWeapon.class),
-		WEP_T1	( 0, 0, MeleeWeapon.class),
-		WEP_T2	( 0, 0, MeleeWeapon.class),
-		WEP_T3	( 0, 0, MeleeWeapon.class),
-		WEP_T4	( 0, 0, MeleeWeapon.class),
-		WEP_T5	( 0, 0, MeleeWeapon.class),
-		
-		ARMOR	( 2, 1, Armor.class ),
-		
-		MISSILE ( 1, 2, MissileWeapon.class ),
-		MIS_T1  ( 0, 0, MissileWeapon.class ),
-		MIS_T2  ( 0, 0, MissileWeapon.class ),
-		MIS_T3  ( 0, 0, MissileWeapon.class ),
-		MIS_T4  ( 0, 0, MissileWeapon.class ),
-		MIS_T5  ( 0, 0, MissileWeapon.class ),
-		
-		WAND	( 1, 1, Wand.class ),
-		RING	( 1, 0, Ring.class ),
-		ARTIFACT( 0, 1, Artifact.class),
-		
-		FOOD	( 0, 0, Food.class ),
-		
-		POTION	( 8, 8, Potion.class ),
-		SEED	( 1, 1, Plant.Seed.class ),
-		
-		SCROLL	( 8, 8, Scroll.class ),
-		STONE   ( 1, 1, Runestone.class),
-		
-		GOLD	( 10, 10,   Gold.class );
-		
-		public Class<?>[] classes;
+        WEAPON(2, 2, MeleeWeapon.class),
+        WEP_T1(0, 0, MeleeWeapon.class),
+        WEP_T2(0, 0, MeleeWeapon.class),
+        WEP_T3(0, 0, MeleeWeapon.class),
+        WEP_T4(0, 0, MeleeWeapon.class),
+        WEP_T5(0, 0, MeleeWeapon.class),
 
-		//some item types use a deck-based system, where the probs decrement as items are picked
-		// until they are all 0, and then they reset. Those generator classes should define
-		// defaultProbs. If defaultProbs is null then a deck system isn't used.
-		//Artifacts in particular don't reset, no duplicates!
-		public float[] probs;
-		public float[] defaultProbs = null;
+        ARMOR(2, 1, Armor.class),
 
-		//some items types have two decks and swap between them
-		// this enforces more consistency while still allowing for better precision
-		public float[] defaultProbs2 = null;
-		public boolean using2ndProbs = false;
-		//but in such cases we still need a reference to the full deck in case of non-deck generation
-		public float[] defaultProbsTotal = null;
+        MISSILE(1, 2, MissileWeapon.class),
+        MIS_T1(0, 0, MissileWeapon.class),
+        MIS_T2(0, 0, MissileWeapon.class),
+        MIS_T3(0, 0, MissileWeapon.class),
+        MIS_T4(0, 0, MissileWeapon.class),
+        MIS_T5(0, 0, MissileWeapon.class),
 
-		//These variables are used as a part of the deck system, to ensure that drops are consistent
-		// regardless of when they occur (either as part of seeded levelgen, or random item drops)
-		public Long seed = null;
-		public int dropped = 0;
+        WAND(1, 1, Wand.class),
+        RING(1, 0, Ring.class),
+        ARTIFACT(0, 1, Artifact.class),
 
-		//game has two decks of 35 items for overall category probs
-		//one deck has a ring and extra armor, the other has an artifact and extra thrown weapon
-		//Note that pure random drops only happen as part of levelgen atm, so no seed is needed here
-		public float firstProb;
-		public float secondProb;
-		public Class<? extends Item> superClass;
-		
-		private Category( float firstProb, float secondProb, Class<? extends Item> superClass ) {
-			this.firstProb = firstProb;
-			this.secondProb = secondProb;
-			this.superClass = superClass;
-		}
+        FOOD(0, 0, Food.class),
 
-		//some generator categories can have ordering within that category as well
-		// note that sub category ordering doesn't need to always include items that belong
-		// to that categories superclass, e.g. bombs are ordered within thrown weapons
-		private static HashMap<Class, ArrayList<Class>> subOrderings = new HashMap<>();
-		static {
-			subOrderings.put(Trinket.class, new ArrayList<>(Arrays.asList(Trinket.class, TrinketCatalyst.class)));
-			subOrderings.put(MissileWeapon.class, new ArrayList<>(Arrays.asList(MissileWeapon.class, Bomb.class)));
-			subOrderings.put(Potion.class, new ArrayList<>(Arrays.asList(Waterskin.class, Potion.class, ExoticPotion.class, Brew.class, Elixir.class, LiquidMetal.class)));
-			subOrderings.put(Scroll.class, new ArrayList<>(Arrays.asList(Scroll.class, ExoticScroll.class, Spell.class, ArcaneResin.class)));
-		}
+        POTION(8, 8, Potion.class),
+        SEED(1, 1, Plant.Seed.class),
 
-		//in case there are multiple matches, this will return the latest match
-		public static int order( Item item ) {
-			int catResult = -1, subResult = 0;
-			for (int i=0; i < values().length; i++) {
-				ArrayList<Class> subOrdering = subOrderings.get(values()[i].superClass);
-				if (subOrdering != null){
-					for (int j=0; j < subOrdering.size(); j++){
-						if (subOrdering.get(j).isInstance(item)){
-							catResult = i;
-							subResult = j;
-						}
-					}
-				} else {
-					if (values()[i].superClass.isInstance(item)) {
-						catResult = i;
-						subResult = 0;
-					}
-				}
-			}
-			if (catResult != -1) return catResult*100 + subResult;
+        SCROLL(8, 8, Scroll.class),
+        STONE(1, 1, Runestone.class),
 
-			//items without a category-defined order are sorted based on the spritesheet
-			return Short.MAX_VALUE+item.image();
-		}
+        GOLD(10, 10, Gold.class);
 
-		static {
-			GOLD.classes = new Class<?>[]{
-					Gold.class };
-			GOLD.probs = new float[]{ 1 };
-			
-			POTION.classes = new Class<?>[]{
-					PotionOfStrength.class, //2 drop every chapter, see Dungeon.posNeeded()
-					PotionOfHealing.class,
-					PotionOfMindVision.class,
-					PotionOfFrost.class,
-					PotionOfLiquidFlame.class,
-					PotionOfToxicGas.class,
-					PotionOfHaste.class,
-					PotionOfInvisibility.class,
-					PotionOfLevitation.class,
-					PotionOfParalyticGas.class,
-					PotionOfPurity.class,
-					PotionOfExperience.class};
-			POTION.defaultProbs  = new float[]{ 0, 3, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1 };
-			POTION.defaultProbs2 = new float[]{ 0, 3, 2, 2, 1, 2, 1, 1, 1, 1, 1, 0 };
-			POTION.probs = POTION.defaultProbs.clone();
-			
-			SEED.classes = new Class<?>[]{
-					Rotberry.Seed.class, //quest item
-					Sungrass.Seed.class,
-					Fadeleaf.Seed.class,
-					Icecap.Seed.class,
-					Firebloom.Seed.class,
-					Sorrowmoss.Seed.class,
-					Swiftthistle.Seed.class,
-					Blindweed.Seed.class,
-					Stormvine.Seed.class,
-					Earthroot.Seed.class,
-					Mageroyal.Seed.class,
-					Starflower.Seed.class};
-			SEED.defaultProbs = new float[]{ 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1 };
-			SEED.probs = SEED.defaultProbs.clone();
-			
-			SCROLL.classes = new Class<?>[]{
-					ScrollOfUpgrade.class, //3 drop every chapter, see Dungeon.souNeeded()
-					ScrollOfIdentify.class,
-					ScrollOfRemoveCurse.class,
-					ScrollOfMirrorImage.class,
-					ScrollOfRecharging.class,
-					ScrollOfTeleportation.class,
-					ScrollOfLullaby.class,
-					ScrollOfMagicMapping.class,
-					ScrollOfRage.class,
-					ScrollOfRetribution.class,
-					ScrollOfTerror.class,
-					ScrollOfTransmutation.class
-			};
-			SCROLL.defaultProbs  = new float[]{ 0, 3, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1 };
-			SCROLL.defaultProbs2 = new float[]{ 0, 3, 2, 2, 1, 2, 1, 1, 1, 1, 1, 0 };
-			SCROLL.probs = SCROLL.defaultProbs.clone();
-			
-			STONE.classes = new Class<?>[]{
-					StoneOfEnchantment.class,   //1 is guaranteed to drop on floors 6-19
-					StoneOfIntuition.class,     //1 additional stone is also dropped on floors 1-3
-					StoneOfDetectMagic.class,
-					StoneOfFlock.class,
-					StoneOfShock.class,
-					StoneOfBlink.class,
-					StoneOfDeepSleep.class,
-					StoneOfClairvoyance.class,
-					StoneOfAggression.class,
-					StoneOfBlast.class,
-					StoneOfFear.class,
-					StoneOfAugmentation.class  //1 is sold in each shop
-			};
-			STONE.defaultProbs = new float[]{ 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0 };
-			STONE.probs = STONE.defaultProbs.clone();
+        public Class<?>[] classes;
 
-			WAND.classes = new Class<?>[]{
-					WandOfMagicMissile.class,
-					WandOfLightning.class,
-					WandOfDisintegration.class,
-					WandOfFireblast.class,
-					WandOfCorrosion.class,
-					WandOfBlastWave.class,
-					WandOfLivingEarth.class,
-					WandOfFrost.class,
-					WandOfPrismaticLight.class,
-					WandOfWarding.class,
-					WandOfTransfusion.class,
-					WandOfCorruption.class,
-					WandOfRegrowth.class };
-			WAND.defaultProbs = new float[]{ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 };
-			WAND.probs = WAND.defaultProbs.clone();
-			
-			//see generator.randomWeapon
-			WEAPON.classes = new Class<?>[]{};
-			WEAPON.probs = new float[]{};
-			
-			WEP_T1.classes = new Class<?>[]{
-					WornShortsword.class,
-					MagesStaff.class,
-					Dagger.class,
-					Gloves.class,
-					Rapier.class,
-					Cudgel.class,
-			};
-			WEP_T1.defaultProbs = new float[]{ 2, 0, 2, 2, 2, 2 };
-			WEP_T1.probs = WEP_T1.defaultProbs.clone();
-			
-			WEP_T2.classes = new Class<?>[]{
-					Shortsword.class,
-					HandAxe.class,
-					Spear.class,
-					Quarterstaff.class,
-					Dirk.class,
-					Sickle.class,
-					Pickaxe.class
-			};
-			WEP_T2.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 0 };
-			WEP_T2.probs = WEP_T2.defaultProbs.clone();
-			
-			WEP_T3.classes = new Class<?>[]{
-					Sword.class,
-					Mace.class,
-					Scimitar.class,
-					RoundShield.class,
-					Sai.class,
-					Whip.class
-			};
-			WEP_T3.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2 };
-			WEP_T3.probs = WEP_T1.defaultProbs.clone();
-			
-			WEP_T4.classes = new Class<?>[]{
-					Longsword.class,
-					BattleAxe.class,
-					Flail.class,
-					RunicBlade.class,
-					AssassinsBlade.class,
-					Crossbow.class,
-					Katana.class
-			};
-			WEP_T4.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2 };
-			WEP_T4.probs = WEP_T4.defaultProbs.clone();
-			
-			WEP_T5.classes = new Class<?>[]{
-					Greatsword.class,
-					WarHammer.class,
-					Glaive.class,
-					Greataxe.class,
-					Greatshield.class,
-					Gauntlet.class,
-					WarScythe.class
-			};
-			WEP_T5.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2 };
-			WEP_T5.probs = WEP_T5.defaultProbs.clone();
-			
-			//see Generator.randomArmor
-			ARMOR.classes = new Class<?>[]{
-					ClothArmor.class,
-					LeatherArmor.class,
-					MailArmor.class,
-					ScaleArmor.class,
-					PlateArmor.class,
-					WarriorArmor.class,
-					MageArmor.class,
-					RogueArmor.class,
-					HuntressArmor.class,
-					DuelistArmor.class,
-					ClericArmor.class
-			};
-			ARMOR.probs = new float[]{ 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0 };
-			
-			//see Generator.randomMissile
-			MISSILE.classes = new Class<?>[]{};
-			MISSILE.probs = new float[]{};
-			
-			MIS_T1.classes = new Class<?>[]{
-					ThrowingStone.class,
-					ThrowingKnife.class,
-					ThrowingSpike.class,
-					Dart.class
-			};
-			MIS_T1.defaultProbs = new float[]{ 3, 3, 3, 0 };
-			MIS_T1.probs = MIS_T1.defaultProbs.clone();
-			
-			MIS_T2.classes = new Class<?>[]{
-					FishingSpear.class,
-					ThrowingClub.class,
-					Shuriken.class
-			};
-			MIS_T2.defaultProbs = new float[]{ 3, 3, 3 };
-			MIS_T2.probs = MIS_T2.defaultProbs.clone();
-			
-			MIS_T3.classes = new Class<?>[]{
-					ThrowingSpear.class,
-					Kunai.class,
-					Bolas.class
-			};
-			MIS_T3.defaultProbs = new float[]{ 3, 3, 3 };
-			MIS_T3.probs = MIS_T3.defaultProbs.clone();
-			
-			MIS_T4.classes = new Class<?>[]{
-					Javelin.class,
-					Tomahawk.class,
-					HeavyBoomerang.class
-			};
-			MIS_T4.defaultProbs = new float[]{ 3, 3, 3 };
-			MIS_T4.probs = MIS_T4.defaultProbs.clone();
-			
-			MIS_T5.classes = new Class<?>[]{
-					Trident.class,
-					ThrowingHammer.class,
-					ForceCube.class
-			};
-			MIS_T5.defaultProbs = new float[]{ 3, 3, 3 };
-			MIS_T5.probs = MIS_T5.defaultProbs.clone();
-			
-			FOOD.classes = new Class<?>[]{
-					Food.class,
-					Pasty.class,
-					MysteryMeat.class };
-			FOOD.defaultProbs = new float[]{ 4, 1, 0 };
-			FOOD.probs = FOOD.defaultProbs.clone();
-			
-			RING.classes = new Class<?>[]{
-					RingOfAccuracy.class,
-					RingOfArcana.class,
-					RingOfElements.class,
-					RingOfEnergy.class,
-					RingOfEvasion.class,
-					RingOfForce.class,
-					RingOfFuror.class,
-					RingOfHaste.class,
-					RingOfMight.class,
-					RingOfSharpshooting.class,
-					RingOfTenacity.class,
-					RingOfWealth.class};
-			RING.defaultProbs = new float[]{ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 };
-			RING.probs = RING.defaultProbs.clone();
-			
-			ARTIFACT.classes = new Class<?>[]{
-					AlchemistsToolkit.class,
-					ChaliceOfBlood.class,
-					CloakOfShadows.class,
-					DriedRose.class,
-					EtherealChains.class,
-					HolyTome.class,
-					HornOfPlenty.class,
-					MasterThievesArmband.class,
-					SandalsOfNature.class,
-					TalismanOfForesight.class,
-					TimekeepersHourglass.class,
-					UnstableSpellbook.class
-			};
-			ARTIFACT.defaultProbs = new float[]{ 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1 };
-			ARTIFACT.probs = ARTIFACT.defaultProbs.clone();
+        //some item types use a deck-based system, where the probs decrement as items are picked
+        // until they are all 0, and then they reset. Those generator classes should define
+        // defaultProbs. If defaultProbs is null then a deck system isn't used.
+        //Artifacts in particular don't reset, no duplicates!
+        public float[] probs;
+        public float[] defaultProbs = null;
 
-			//Trinkets are unique like artifacts, but unlike them you can only have one at once
-			//So we don't need the same enforcement of uniqueness
-			TRINKET.classes = new Class<?>[]{
-					RatSkull.class,
-					ParchmentScrap.class,
-					PetrifiedSeed.class,
-					ExoticCrystals.class,
-					MossyClump.class,
-					DimensionalSundial.class,
-					ThirteenLeafClover.class,
-					TrapMechanism.class,
-					MimicTooth.class,
-					WondrousResin.class,
-					EyeOfNewt.class,
-					SaltCube.class,
-					VialOfBlood.class,
-					ShardOfOblivion.class,
-					ChaoticCenser.class,
-					FerretTuft.class
-			};
-			TRINKET.defaultProbs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
-			TRINKET.probs = TRINKET.defaultProbs.clone();
+        //some items types have two decks and swap between them
+        // this enforces more consistency while still allowing for better precision
+        public float[] defaultProbs2 = null;
+        public boolean using2ndProbs = false;
+        //but in such cases we still need a reference to the full deck in case of non-deck generation
+        public float[] defaultProbsTotal = null;
 
-			for (Category cat : Category.values()){
-				if (cat.defaultProbs2 != null){
-					cat.defaultProbsTotal = new float[cat.defaultProbs.length];
-					for (int i = 0; i < cat.defaultProbs.length; i++){
-						cat.defaultProbsTotal[i] = cat.defaultProbs[i] + cat.defaultProbs2[i];
-					}
-				}
-			}
-		}
-	}
+        //These variables are used as a part of the deck system, to ensure that drops are consistent
+        // regardless of when they occur (either as part of seeded levelgen, or random item drops)
+        public Long seed = null;
+        public int dropped = 0;
 
-	private static final float[][] floorSetTierProbs = new float[][] {
-			{0, 75, 20,  4,  1},
-			{0, 25, 50, 20,  5},
-			{0,  0, 40, 50, 10},
-			{0,  0, 20, 40, 40},
-			{0,  0,  0, 20, 80}
-	};
+        //game has two decks of 35 items for overall category probs
+        //one deck has a ring and extra armor, the other has an artifact and extra thrown weapon
+        //Note that pure random drops only happen as part of levelgen atm, so no seed is needed here
+        public float firstProb;
+        public float secondProb;
+        public Class<? extends Item> superClass;
 
-	private static boolean usingFirstDeck = false;
-	private static HashMap<Category,Float> defaultCatProbs = new LinkedHashMap<>();
-	private static HashMap<Category,Float> categoryProbs = new LinkedHashMap<>();
+        Category(float firstProb, float secondProb, Class<? extends Item> superClass) {
+            this.firstProb = firstProb;
+            this.secondProb = secondProb;
+            this.superClass = superClass;
+        }
 
-	public static void fullReset() {
-		usingFirstDeck = Random.Int(2) == 0;
-		generalReset();
-		for (Category cat : Category.values()) {
-			cat.using2ndProbs =  cat.defaultProbs2 != null && Random.Int(2) == 0;
-			reset(cat);
-			if (cat.defaultProbs != null) {
-				cat.seed = Random.Long();
-				cat.dropped = 0;
-			}
-		}
-	}
+        //some generator categories can have ordering within that category as well
+        // note that sub category ordering doesn't need to always include items that belong
+        // to that categories superclass, e.g. bombs are ordered within thrown weapons
+        private static final HashMap<Class, ArrayList<Class>> subOrderings = new HashMap<>();
 
-	public static void generalReset(){
-		for (Category cat : Category.values()) {
-			categoryProbs.put( cat, usingFirstDeck ? cat.firstProb : cat.secondProb );
-			defaultCatProbs.put( cat, cat.firstProb + cat.secondProb );
-		}
-	}
+        static {
+            subOrderings.put(Trinket.class, new ArrayList<>(Arrays.asList(Trinket.class, TrinketCatalyst.class)));
+            subOrderings.put(MissileWeapon.class, new ArrayList<>(Arrays.asList(MissileWeapon.class, Bomb.class)));
+            subOrderings.put(Potion.class, new ArrayList<>(Arrays.asList(Waterskin.class, Potion.class, ExoticPotion.class, Brew.class, Elixir.class, LiquidMetal.class)));
+            subOrderings.put(Scroll.class, new ArrayList<>(Arrays.asList(Scroll.class, ExoticScroll.class, Spell.class, ArcaneResin.class)));
+        }
 
-	public static void reset(Category cat){
-		if (cat.defaultProbs != null) {
-			if (cat.defaultProbs2 != null){
-				cat.using2ndProbs = !cat.using2ndProbs;
-				cat.probs = cat.using2ndProbs ? cat.defaultProbs2.clone() : cat.defaultProbs.clone();
-			} else {
-				cat.probs = cat.defaultProbs.clone();
-			}
-		}
-	}
+        //in case there are multiple matches, this will return the latest match
+        public static int order(Item item) {
+            int catResult = -1, subResult = 0;
+            for (int i = 0; i < values().length; i++) {
+                ArrayList<Class> subOrdering = subOrderings.get(values()[i].superClass);
+                if (subOrdering != null) {
+                    for (int j = 0; j < subOrdering.size(); j++) {
+                        if (subOrdering.get(j).isInstance(item)) {
+                            catResult = i;
+                            subResult = j;
+                        }
+                    }
+                } else {
+                    if (values()[i].superClass.isInstance(item)) {
+                        catResult = i;
+                        subResult = 0;
+                    }
+                }
+            }
+            if (catResult != -1) return catResult * 100 + subResult;
 
-	//reverts changes to drop chances generates by this item
-	//equivalent of shuffling the card back into the deck, does not preserve order!
-	public static void undoDrop(Item item){
-		undoDrop(item.getClass());
-	}
+            //items without a category-defined order are sorted based on the spritesheet
+            return Short.MAX_VALUE + item.image();
+        }
 
-	public static void undoDrop(Class cls){
-		for (Category cat : Category.values()){
-			if (cls.isAssignableFrom(cat.superClass)){
-				if (cat.defaultProbs == null) continue;
-				for (int i = 0; i < cat.classes.length; i++){
-					if (cls == cat.classes[i]){
-						cat.probs[i]++;
-					}
-				}
-			}
-		}
-	}
-	
-	public static Item random() {
-		Category cat = Random.chances( categoryProbs );
-		if (cat == null){
-			usingFirstDeck = !usingFirstDeck;
-			generalReset();
-			cat = Random.chances( categoryProbs );
-		}
-		categoryProbs.put( cat, categoryProbs.get( cat ) - 1);
+        static {
+            GOLD.classes = new Class<?>[]{
+                    Gold.class};
+            GOLD.probs = new float[]{1};
 
-		if (cat == Category.SEED) {
-			//We specifically use defaults for seeds here because, unlike other item categories
-			// their predominant source of drops is grass, not levelgen. This way the majority
-			// of seed drops still use a deck, but the few that are spawned by levelgen are consistent
-			return randomUsingDefaults(cat);
-		} else {
-			return random(cat);
-		}
-	}
+            POTION.classes = new Class<?>[]{
+                    PotionOfStrength.class, //2 drop every chapter, see Dungeon.posNeeded()
+                    PotionOfHealing.class,
+                    PotionOfMindVision.class,
+                    PotionOfFrost.class,
+                    PotionOfLiquidFlame.class,
+                    PotionOfToxicGas.class,
+                    PotionOfHaste.class,
+                    PotionOfInvisibility.class,
+                    PotionOfLevitation.class,
+                    PotionOfParalyticGas.class,
+                    PotionOfPurity.class,
+                    PotionOfExperience.class};
+            POTION.defaultProbs = new float[]{0, 3, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1};
+            POTION.defaultProbs2 = new float[]{0, 3, 2, 2, 1, 2, 1, 1, 1, 1, 1, 0};
+            POTION.probs = POTION.defaultProbs.clone();
 
-	public static Item randomUsingDefaults(){
-		return randomUsingDefaults(Random.chances( defaultCatProbs ));
-	}
-	
-	public static Item random( Category cat ) {
-		switch (cat) {
-			case ARMOR:
-				return randomArmor();
-			case WEAPON:
-				return randomWeapon();
-			case MISSILE:
-				return randomMissile();
-			case ARTIFACT:
-				Item item = randomArtifact();
-				//if we're out of artifacts, return a ring instead.
-				return item != null ? item : random(Category.RING);
-			default:
-				if (cat.defaultProbs != null && cat.seed != null){
-					Random.pushGenerator(cat.seed);
-					for (int i = 0; i < cat.dropped; i++) Random.Long();
-				}
+            SEED.classes = new Class<?>[]{
+                    Rotberry.Seed.class, //quest item
+                    Sungrass.Seed.class,
+                    Fadeleaf.Seed.class,
+                    Icecap.Seed.class,
+                    Firebloom.Seed.class,
+                    Sorrowmoss.Seed.class,
+                    Swiftthistle.Seed.class,
+                    Blindweed.Seed.class,
+                    Stormvine.Seed.class,
+                    Earthroot.Seed.class,
+                    Mageroyal.Seed.class,
+                    Starflower.Seed.class};
+            SEED.defaultProbs = new float[]{0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1};
+            SEED.probs = SEED.defaultProbs.clone();
 
-				int i = Random.chances(cat.probs);
-				if (i == -1) {
-					reset(cat);
-					i = Random.chances(cat.probs);
-				}
-				if (cat.defaultProbs != null) cat.probs[i]--;
-				Class<?> itemCls = cat.classes[i];
+            SCROLL.classes = new Class<?>[]{
+                    ScrollOfUpgrade.class, //3 drop every chapter, see Dungeon.souNeeded()
+                    ScrollOfIdentify.class,
+                    ScrollOfRemoveCurse.class,
+                    ScrollOfMirrorImage.class,
+                    ScrollOfRecharging.class,
+                    ScrollOfTeleportation.class,
+                    ScrollOfLullaby.class,
+                    ScrollOfMagicMapping.class,
+                    ScrollOfRage.class,
+                    ScrollOfRetribution.class,
+                    ScrollOfTerror.class,
+                    ScrollOfTransmutation.class
+            };
+            SCROLL.defaultProbs = new float[]{0, 3, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1};
+            SCROLL.defaultProbs2 = new float[]{0, 3, 2, 2, 1, 2, 1, 1, 1, 1, 1, 0};
+            SCROLL.probs = SCROLL.defaultProbs.clone();
 
-				if (cat.defaultProbs != null && cat.seed != null){
-					Random.popGenerator();
-					cat.dropped++;
-				}
+            STONE.classes = new Class<?>[]{
+                    StoneOfEnchantment.class,   //1 is guaranteed to drop on floors 6-19
+                    StoneOfIntuition.class,     //1 additional stone is also dropped on floors 1-3
+                    StoneOfDetectMagic.class,
+                    StoneOfFlock.class,
+                    StoneOfShock.class,
+                    StoneOfBlink.class,
+                    StoneOfDeepSleep.class,
+                    StoneOfClairvoyance.class,
+                    StoneOfAggression.class,
+                    StoneOfBlast.class,
+                    StoneOfFear.class,
+                    StoneOfAugmentation.class  //1 is sold in each shop
+            };
+            STONE.defaultProbs = new float[]{0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0};
+            STONE.probs = STONE.defaultProbs.clone();
 
-				if (ExoticPotion.regToExo.containsKey(itemCls)){
-					if (Random.Float() < ExoticCrystals.consumableExoticChance()){
-						itemCls = ExoticPotion.regToExo.get(itemCls);
-					}
-				} else if (ExoticScroll.regToExo.containsKey(itemCls)){
-					if (Random.Float() < ExoticCrystals.consumableExoticChance()){
-						itemCls = ExoticScroll.regToExo.get(itemCls);
-					}
-				}
+            WAND.classes = new Class<?>[]{
+                    WandOfMagicMissile.class,
+                    WandOfLightning.class,
+                    WandOfDisintegration.class,
+                    WandOfFireblast.class,
+                    WandOfCorrosion.class,
+                    WandOfBlastWave.class,
+                    WandOfLivingEarth.class,
+                    WandOfFrost.class,
+                    WandOfPrismaticLight.class,
+                    WandOfWarding.class,
+                    WandOfTransfusion.class,
+                    WandOfCorruption.class,
+                    WandOfRegrowth.class};
+            WAND.defaultProbs = new float[]{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
+            WAND.probs = WAND.defaultProbs.clone();
 
-				return ((Item) Reflection.newInstance(itemCls)).random();
-		}
-	}
+            //see generator.randomWeapon
+            WEAPON.classes = new Class<?>[]{};
+            WEAPON.probs = new float[]{};
 
-	//overrides any deck systems and always uses default probs
-	// except for artifacts, which must always use a deck
-	public static Item randomUsingDefaults( Category cat ){
-		if (cat == Category.WEAPON){
-			return randomWeapon(true);
-		} else if (cat == Category.MISSILE){
-			return randomMissile(true);
-		} else if (cat.defaultProbs == null || cat == Category.ARTIFACT) {
-			return random(cat);
-		} else if (cat.defaultProbsTotal != null){
-			return ((Item) Reflection.newInstance(cat.classes[Random.chances(cat.defaultProbsTotal)])).random();
-		} else {
-			Class<?> itemCls = cat.classes[Random.chances(cat.defaultProbs)];
+            WEP_T1.classes = new Class<?>[]{
+                    WornShortsword.class,
+                    MagesStaff.class,
+                    Dagger.class,
+                    Gloves.class,
+                    Rapier.class,
+                    Cudgel.class,
+            };
+            WEP_T1.defaultProbs = new float[]{2, 0, 2, 2, 2, 2};
+            WEP_T1.probs = WEP_T1.defaultProbs.clone();
 
-			if (ExoticPotion.regToExo.containsKey(itemCls)){
-				if (Random.Float() < ExoticCrystals.consumableExoticChance()){
-					itemCls = ExoticPotion.regToExo.get(itemCls);
-				}
-			} else if (ExoticScroll.regToExo.containsKey(itemCls)){
-				if (Random.Float() < ExoticCrystals.consumableExoticChance()){
-					itemCls = ExoticScroll.regToExo.get(itemCls);
-				}
-			}
+            WEP_T2.classes = new Class<?>[]{
+                    Shortsword.class,
+                    HandAxe.class,
+                    Spear.class,
+                    Quarterstaff.class,
+                    Dirk.class,
+                    Sickle.class,
+                    Pickaxe.class
+            };
+            WEP_T2.defaultProbs = new float[]{2, 2, 2, 2, 2, 2, 0};
+            WEP_T2.probs = WEP_T2.defaultProbs.clone();
 
-			return ((Item) Reflection.newInstance(itemCls)).random();
-		}
-	}
-	
-	public static Item random( Class<? extends Item> cl ) {
-		return Reflection.newInstance(cl).random();
-	}
+            WEP_T3.classes = new Class<?>[]{
+                    Sword.class,
+                    Mace.class,
+                    Scimitar.class,
+                    RoundShield.class,
+                    Sai.class,
+                    Whip.class
+            };
+            WEP_T3.defaultProbs = new float[]{2, 2, 2, 2, 2, 2};
+            WEP_T3.probs = WEP_T1.defaultProbs.clone();
 
-	public static Armor randomArmor(){
-		return randomArmor(Dungeon.depth / 5);
-	}
-	
-	public static Armor randomArmor(int floorSet) {
+            WEP_T4.classes = new Class<?>[]{
+                    Longsword.class,
+                    BattleAxe.class,
+                    Flail.class,
+                    RunicBlade.class,
+                    AssassinsBlade.class,
+                    Crossbow.class,
+                    Katana.class
+            };
+            WEP_T4.defaultProbs = new float[]{2, 2, 2, 2, 2, 2, 2};
+            WEP_T4.probs = WEP_T4.defaultProbs.clone();
 
-		floorSet = (int)GameMath.gate(0, floorSet, floorSetTierProbs.length-1);
-		
-		Armor a = (Armor)Reflection.newInstance(Category.ARMOR.classes[Random.chances(floorSetTierProbs[floorSet])]);
-		a.random();
-		return a;
-	}
+            WEP_T5.classes = new Class<?>[]{
+                    Greatsword.class,
+                    WarHammer.class,
+                    Glaive.class,
+                    Greataxe.class,
+                    Greatshield.class,
+                    Gauntlet.class,
+                    WarScythe.class
+            };
+            WEP_T5.defaultProbs = new float[]{2, 2, 2, 2, 2, 2, 2};
+            WEP_T5.probs = WEP_T5.defaultProbs.clone();
 
-	public static final Category[] wepTiers = new Category[]{
-			Category.WEP_T1,
-			Category.WEP_T2,
-			Category.WEP_T3,
-			Category.WEP_T4,
-			Category.WEP_T5
-	};
+            //see Generator.randomArmor
+            ARMOR.classes = new Class<?>[]{
+                    ClothArmor.class,
+                    LeatherArmor.class,
+                    MailArmor.class,
+                    ScaleArmor.class,
+                    PlateArmor.class,
+                    WarriorArmor.class,
+                    MageArmor.class,
+                    RogueArmor.class,
+                    HuntressArmor.class,
+                    DuelistArmor.class,
+                    ClericArmor.class
+            };
+            ARMOR.probs = new float[]{1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0};
 
-	public static MeleeWeapon randomWeapon(){
-		return randomWeapon(Dungeon.depth / 5);
-	}
+            //see Generator.randomMissile
+            MISSILE.classes = new Class<?>[]{};
+            MISSILE.probs = new float[]{};
 
-	public static MeleeWeapon randomWeapon(int floorSet) {
-		return randomWeapon(floorSet, false);
-	}
+            MIS_T1.classes = new Class<?>[]{
+                    ThrowingStone.class,
+                    ThrowingKnife.class,
+                    ThrowingSpike.class,
+                    Dart.class
+            };
+            MIS_T1.defaultProbs = new float[]{3, 3, 3, 0};
+            MIS_T1.probs = MIS_T1.defaultProbs.clone();
 
-	public static MeleeWeapon randomWeapon(boolean useDefaults) {
-		return randomWeapon(Dungeon.depth / 5, useDefaults);
-	}
-	
-	public static MeleeWeapon randomWeapon(int floorSet, boolean useDefaults) {
+            MIS_T2.classes = new Class<?>[]{
+                    FishingSpear.class,
+                    ThrowingClub.class,
+                    Shuriken.class
+            };
+            MIS_T2.defaultProbs = new float[]{3, 3, 3};
+            MIS_T2.probs = MIS_T2.defaultProbs.clone();
 
-		floorSet = (int)GameMath.gate(0, floorSet, floorSetTierProbs.length-1);
+            MIS_T3.classes = new Class<?>[]{
+                    ThrowingSpear.class,
+                    Kunai.class,
+                    Bolas.class
+            };
+            MIS_T3.defaultProbs = new float[]{3, 3, 3};
+            MIS_T3.probs = MIS_T3.defaultProbs.clone();
 
-		MeleeWeapon w;
-		if (useDefaults){
-			w = (MeleeWeapon) randomUsingDefaults(wepTiers[Random.chances(floorSetTierProbs[floorSet])]);
-		} else {
-			w = (MeleeWeapon) random(wepTiers[Random.chances(floorSetTierProbs[floorSet])]);
-		}
-		return w;
-	}
-	
-	public static final Category[] misTiers = new Category[]{
-			Category.MIS_T1,
-			Category.MIS_T2,
-			Category.MIS_T3,
-			Category.MIS_T4,
-			Category.MIS_T5
-	};
-	
-	public static MissileWeapon randomMissile(){
-		return randomMissile(Dungeon.depth / 5);
-	}
+            MIS_T4.classes = new Class<?>[]{
+                    Javelin.class,
+                    Tomahawk.class,
+                    HeavyBoomerang.class
+            };
+            MIS_T4.defaultProbs = new float[]{3, 3, 3};
+            MIS_T4.probs = MIS_T4.defaultProbs.clone();
 
-	public static MissileWeapon randomMissile(int floorSet) {
-		return randomMissile(floorSet, false);
-	}
+            MIS_T5.classes = new Class<?>[]{
+                    Trident.class,
+                    ThrowingHammer.class,
+                    ForceCube.class
+            };
+            MIS_T5.defaultProbs = new float[]{3, 3, 3};
+            MIS_T5.probs = MIS_T5.defaultProbs.clone();
 
-	public static MissileWeapon randomMissile(boolean useDefaults) {
-		return randomMissile(Dungeon.depth / 5, useDefaults);
-	}
+            FOOD.classes = new Class<?>[]{
+                    Food.class,
+                    Pasty.class,
+                    MysteryMeat.class};
+            FOOD.defaultProbs = new float[]{4, 1, 0};
+            FOOD.probs = FOOD.defaultProbs.clone();
 
-	public static MissileWeapon randomMissile(int floorSet, boolean useDefaults) {
-		
-		floorSet = (int)GameMath.gate(0, floorSet, floorSetTierProbs.length-1);
+            RING.classes = new Class<?>[]{
+                    RingOfAccuracy.class,
+                    RingOfArcana.class,
+                    RingOfElements.class,
+                    RingOfEnergy.class,
+                    RingOfEvasion.class,
+                    RingOfForce.class,
+                    RingOfFuror.class,
+                    RingOfHaste.class,
+                    RingOfMight.class,
+                    RingOfSharpshooting.class,
+                    RingOfTenacity.class,
+                    RingOfWealth.class};
+            RING.defaultProbs = new float[]{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
+            RING.probs = RING.defaultProbs.clone();
 
-		MissileWeapon w;
-		if (useDefaults){
-			w = (MissileWeapon)randomUsingDefaults(misTiers[Random.chances(floorSetTierProbs[floorSet])]);
-		} else {
-			w = (MissileWeapon)random(misTiers[Random.chances(floorSetTierProbs[floorSet])]);
-		}
-		return w;
-	}
+            ARTIFACT.classes = new Class<?>[]{
+                    AlchemistsToolkit.class,
+                    ChaliceOfBlood.class,
+                    CloakOfShadows.class,
+                    DriedRose.class,
+                    EtherealChains.class,
+                    HolyTome.class,
+                    HornOfPlenty.class,
+                    MasterThievesArmband.class,
+                    SandalsOfNature.class,
+                    TalismanOfForesight.class,
+                    TimekeepersHourglass.class,
+                    UnstableSpellbook.class
+            };
+            ARTIFACT.defaultProbs = new float[]{1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1};
+            ARTIFACT.probs = ARTIFACT.defaultProbs.clone();
 
-	//enforces uniqueness of artifacts throughout a run.
-	public static Artifact randomArtifact() {
+            //Trinkets are unique like artifacts, but unlike them you can only have one at once
+            //So we don't need the same enforcement of uniqueness
+            TRINKET.classes = new Class<?>[]{
+                    RatSkull.class,
+                    ParchmentScrap.class,
+                    PetrifiedSeed.class,
+                    ExoticCrystals.class,
+                    MossyClump.class,
+                    DimensionalSundial.class,
+                    ThirteenLeafClover.class,
+                    TrapMechanism.class,
+                    MimicTooth.class,
+                    WondrousResin.class,
+                    EyeOfNewt.class,
+                    SaltCube.class,
+                    VialOfBlood.class,
+                    ShardOfOblivion.class,
+                    ChaoticCenser.class,
+                    FerretTuft.class
+            };
+            TRINKET.defaultProbs = new float[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+            TRINKET.probs = TRINKET.defaultProbs.clone();
 
-		Category cat = Category.ARTIFACT;
+            for (Category cat : Category.values()) {
+                if (cat.defaultProbs2 != null) {
+                    cat.defaultProbsTotal = new float[cat.defaultProbs.length];
+                    for (int i = 0; i < cat.defaultProbs.length; i++) {
+                        cat.defaultProbsTotal[i] = cat.defaultProbs[i] + cat.defaultProbs2[i];
+                    }
+                }
+            }
+        }
+    }
 
-		if (cat.defaultProbs != null && cat.seed != null){
-			Random.pushGenerator(cat.seed);
-			for (int i = 0; i < cat.dropped; i++) Random.Long();
-		}
+    private static final float[][] floorSetTierProbs = new float[][]{
+            {0, 75, 20, 4, 1},
+            {0, 25, 50, 20, 5},
+            {0, 0, 40, 50, 10},
+            {0, 0, 20, 40, 40},
+            {0, 0, 0, 20, 80}
+    };
 
-		int i = Random.chances( cat.probs );
+    private static boolean usingFirstDeck = false;
+    private static final HashMap<Category, Float> defaultCatProbs = new LinkedHashMap<>();
+    private static final HashMap<Category, Float> categoryProbs = new LinkedHashMap<>();
 
-		if (cat.defaultProbs != null && cat.seed != null){
-			Random.popGenerator();
-			cat.dropped++;
-		}
+    public static void fullReset() {
+        usingFirstDeck = Random.Int(2) == 0;
+        generalReset();
+        for (Category cat : Category.values()) {
+            cat.using2ndProbs = cat.defaultProbs2 != null && Random.Int(2) == 0;
+            reset(cat);
+            if (cat.defaultProbs != null) {
+                cat.seed = Random.Long();
+                cat.dropped = 0;
+            }
+        }
+    }
 
-		//if no artifacts are left, return null
-		if (i == -1){
-			return null;
-		}
+    public static void generalReset() {
+        for (Category cat : Category.values()) {
+            categoryProbs.put(cat, usingFirstDeck ? cat.firstProb : cat.secondProb);
+            defaultCatProbs.put(cat, cat.firstProb + cat.secondProb);
+        }
+    }
 
-		cat.probs[i]--;
-		return (Artifact) Reflection.newInstance((Class<? extends Artifact>) cat.classes[i]).random();
+    public static void reset(Category cat) {
+        if (cat.defaultProbs != null) {
+            if (cat.defaultProbs2 != null) {
+                cat.using2ndProbs = !cat.using2ndProbs;
+                cat.probs = cat.using2ndProbs ? cat.defaultProbs2.clone() : cat.defaultProbs.clone();
+            } else {
+                cat.probs = cat.defaultProbs.clone();
+            }
+        }
+    }
 
-	}
+    //reverts changes to drop chances generates by this item
+    //equivalent of shuffling the card back into the deck, does not preserve order!
+    public static void undoDrop(Item item) {
+        undoDrop(item.getClass());
+    }
 
-	public static boolean removeArtifact(Class<?extends Artifact> artifact) {
-		Category cat = Category.ARTIFACT;
-		for (int i = 0; i < cat.classes.length; i++){
-			if (cat.classes[i].equals(artifact) && cat.probs[i] > 0) {
-				cat.probs[i] = 0;
-				return true;
-			}
-		}
-		return false;
-	}
+    public static void undoDrop(Class cls) {
+        for (Category cat : Category.values()) {
+            if (cls.isAssignableFrom(cat.superClass)) {
+                if (cat.defaultProbs == null) continue;
+                for (int i = 0; i < cat.classes.length; i++) {
+                    if (cls == cat.classes[i]) {
+                        cat.probs[i]++;
+                    }
+                }
+            }
+        }
+    }
 
-	private static final String FIRST_DECK = "first_deck";
-	private static final String GENERAL_PROBS = "general_probs";
-	private static final String CATEGORY_PROBS = "_probs";
-	private static final String CATEGORY_USING_PROBS2 = "_using_probs2";
-	private static final String CATEGORY_SEED = "_seed";
-	private static final String CATEGORY_DROPPED = "_dropped";
+    public static Item random() {
+        Category cat = Random.chances(categoryProbs);
+        if (cat == null) {
+            usingFirstDeck = !usingFirstDeck;
+            generalReset();
+            cat = Random.chances(categoryProbs);
+        }
+        categoryProbs.put(cat, categoryProbs.get(cat) - 1);
 
-	public static void storeInBundle(Bundle bundle) {
-		bundle.put(FIRST_DECK, usingFirstDeck);
+        if (cat == Category.SEED) {
+            //We specifically use defaults for seeds here because, unlike other item categories
+            // their predominant source of drops is grass, not levelgen. This way the majority
+            // of seed drops still use a deck, but the few that are spawned by levelgen are consistent
+            return randomUsingDefaults(cat);
+        } else {
+            return random(cat);
+        }
+    }
 
-		Float[] genProbs = categoryProbs.values().toArray(new Float[0]);
-		float[] storeProbs = new float[genProbs.length];
-		for (int i = 0; i < storeProbs.length; i++){
-			storeProbs[i] = genProbs[i];
-		}
-		bundle.put( GENERAL_PROBS, storeProbs);
+    public static Item randomUsingDefaults() {
+        return randomUsingDefaults(Random.chances(defaultCatProbs));
+    }
 
-		for (Category cat : Category.values()){
-			if (cat.defaultProbs == null) continue;
+    public static Item random(Category cat) {
+        switch (cat) {
+            case ARMOR:
+                return randomArmor();
+            case WEAPON:
+                return randomWeapon();
+            case MISSILE:
+                return randomMissile();
+            case ARTIFACT:
+                Item item = randomArtifact();
+                //if we're out of artifacts, return a ring instead.
+                return item != null ? item : random(Category.RING);
+            default:
+                if (cat.defaultProbs != null && cat.seed != null) {
+                    Random.pushGenerator(cat.seed);
+                    for (int i = 0; i < cat.dropped; i++) Random.Long();
+                }
 
-			bundle.put(cat.name().toLowerCase() + CATEGORY_PROBS, cat.probs);
+                int i = Random.chances(cat.probs);
+                if (i == -1) {
+                    reset(cat);
+                    i = Random.chances(cat.probs);
+                }
+                if (cat.defaultProbs != null) cat.probs[i]--;
+                Class<?> itemCls = cat.classes[i];
 
-			if (cat.defaultProbs2 != null){
-				bundle.put(cat.name().toLowerCase() + CATEGORY_USING_PROBS2, cat.using2ndProbs);
-			}
+                if (cat.defaultProbs != null && cat.seed != null) {
+                    Random.popGenerator();
+                    cat.dropped++;
+                }
 
-			if (cat.seed != null) {
-				bundle.put(cat.name().toLowerCase() + CATEGORY_SEED, cat.seed);
-				bundle.put(cat.name().toLowerCase() + CATEGORY_DROPPED, cat.dropped);
-			}
-		}
-	}
+                if (ExoticPotion.regToExo.containsKey(itemCls)) {
+                    if (Random.Float() < ExoticCrystals.consumableExoticChance()) {
+                        itemCls = ExoticPotion.regToExo.get(itemCls);
+                    }
+                } else if (ExoticScroll.regToExo.containsKey(itemCls)) {
+                    if (Random.Float() < ExoticCrystals.consumableExoticChance()) {
+                        itemCls = ExoticScroll.regToExo.get(itemCls);
+                    }
+                }
 
-	public static void restoreFromBundle(Bundle bundle) {
-		fullReset();
+                return ((Item) Reflection.newInstance(itemCls)).random();
+        }
+    }
 
-		usingFirstDeck = bundle.getBoolean(FIRST_DECK);
+    //overrides any deck systems and always uses default probs
+    // except for artifacts, which must always use a deck
+    public static Item randomUsingDefaults(Category cat) {
+        if (cat == Category.WEAPON) {
+            return randomWeapon(true);
+        } else if (cat == Category.MISSILE) {
+            return randomMissile(true);
+        } else if (cat.defaultProbs == null || cat == Category.ARTIFACT) {
+            return random(cat);
+        } else if (cat.defaultProbsTotal != null) {
+            return ((Item) Reflection.newInstance(cat.classes[Random.chances(cat.defaultProbsTotal)])).random();
+        } else {
+            Class<?> itemCls = cat.classes[Random.chances(cat.defaultProbs)];
 
-		if (bundle.contains(GENERAL_PROBS)){
-			float[] probs = bundle.getFloatArray(GENERAL_PROBS);
-			if (probs.length == Category.values().length) {
-				for (int i = 0; i < probs.length; i++) {
-					categoryProbs.put(Category.values()[i], probs[i]);
-				}
-			}
-		}
+            if (ExoticPotion.regToExo.containsKey(itemCls)) {
+                if (Random.Float() < ExoticCrystals.consumableExoticChance()) {
+                    itemCls = ExoticPotion.regToExo.get(itemCls);
+                }
+            } else if (ExoticScroll.regToExo.containsKey(itemCls)) {
+                if (Random.Float() < ExoticCrystals.consumableExoticChance()) {
+                    itemCls = ExoticScroll.regToExo.get(itemCls);
+                }
+            }
 
-		for (Category cat : Category.values()){
-			if (bundle.contains(cat.name().toLowerCase() + CATEGORY_PROBS)){
-				float[] probs = bundle.getFloatArray(cat.name().toLowerCase() + CATEGORY_PROBS);
-				if (cat.defaultProbs != null && probs.length == cat.defaultProbs.length){
-					cat.probs = probs;
-				}
-				if (bundle.contains(cat.name().toLowerCase() + CATEGORY_USING_PROBS2)){
-					cat.using2ndProbs = bundle.getBoolean(cat.name().toLowerCase() + CATEGORY_USING_PROBS2);
-				} else {
-					cat.using2ndProbs = false;
-				}
-				if (bundle.contains(cat.name().toLowerCase() + CATEGORY_SEED)){
-					cat.seed = bundle.getLong(cat.name().toLowerCase() + CATEGORY_SEED);
-					cat.dropped = bundle.getInt(cat.name().toLowerCase() + CATEGORY_DROPPED);
-				}
+            return ((Item) Reflection.newInstance(itemCls)).random();
+        }
+    }
 
-				//pre-v3.0.0 conversion for artifacts specifically
-				if (cat == Category.ARTIFACT && probs.length != cat.defaultProbs.length){
-					int tomeIDX = 5;
-					int j = 0;
-					for (int i = 0; i < probs.length; i++){
-						if (i == tomeIDX){
-							cat.probs[j] = 0;
-							j++;
-						}
-						cat.probs[j] = probs[i];
-						j++;
-					}
+    public static Item random(Class<? extends Item> cl) {
+        return Reflection.newInstance(cl).random();
+    }
 
-				}
+    public static Armor randomArmor() {
+        return randomArmor(Dungeon.depth / 5);
+    }
 
-			}
-		}
-		
-	}
+    public static Armor randomArmor(int floorSet) {
+
+        floorSet = (int) GameMath.gate(0, floorSet, floorSetTierProbs.length - 1);
+
+        Armor a = (Armor) Reflection.newInstance(Category.ARMOR.classes[Random.chances(floorSetTierProbs[floorSet])]);
+        a.random();
+        return a;
+    }
+
+    public static final Category[] wepTiers = new Category[]{
+            Category.WEP_T1,
+            Category.WEP_T2,
+            Category.WEP_T3,
+            Category.WEP_T4,
+            Category.WEP_T5
+    };
+
+    public static MeleeWeapon randomWeapon() {
+        return randomWeapon(Dungeon.depth / 5);
+    }
+
+    public static MeleeWeapon randomWeapon(int floorSet) {
+        return randomWeapon(floorSet, false);
+    }
+
+    public static MeleeWeapon randomWeapon(boolean useDefaults) {
+        return randomWeapon(Dungeon.depth / 5, useDefaults);
+    }
+
+    public static MeleeWeapon randomWeapon(int floorSet, boolean useDefaults) {
+
+        floorSet = (int) GameMath.gate(0, floorSet, floorSetTierProbs.length - 1);
+
+        MeleeWeapon w;
+        if (useDefaults) {
+            w = (MeleeWeapon) randomUsingDefaults(wepTiers[Random.chances(floorSetTierProbs[floorSet])]);
+        } else {
+            w = (MeleeWeapon) random(wepTiers[Random.chances(floorSetTierProbs[floorSet])]);
+        }
+        return w;
+    }
+
+    public static final Category[] misTiers = new Category[]{
+            Category.MIS_T1,
+            Category.MIS_T2,
+            Category.MIS_T3,
+            Category.MIS_T4,
+            Category.MIS_T5
+    };
+
+    public static MissileWeapon randomMissile() {
+        return randomMissile(Dungeon.depth / 5);
+    }
+
+    public static MissileWeapon randomMissile(int floorSet) {
+        return randomMissile(floorSet, false);
+    }
+
+    public static MissileWeapon randomMissile(boolean useDefaults) {
+        return randomMissile(Dungeon.depth / 5, useDefaults);
+    }
+
+    public static MissileWeapon randomMissile(int floorSet, boolean useDefaults) {
+
+        floorSet = (int) GameMath.gate(0, floorSet, floorSetTierProbs.length - 1);
+
+        MissileWeapon w;
+        if (useDefaults) {
+            w = (MissileWeapon) randomUsingDefaults(misTiers[Random.chances(floorSetTierProbs[floorSet])]);
+        } else {
+            w = (MissileWeapon) random(misTiers[Random.chances(floorSetTierProbs[floorSet])]);
+        }
+        return w;
+    }
+
+    //enforces uniqueness of artifacts throughout a run.
+    public static Artifact randomArtifact() {
+
+        Category cat = Category.ARTIFACT;
+
+        if (cat.defaultProbs != null && cat.seed != null) {
+            Random.pushGenerator(cat.seed);
+            for (int i = 0; i < cat.dropped; i++) Random.Long();
+        }
+
+        int i = Random.chances(cat.probs);
+
+        if (cat.defaultProbs != null && cat.seed != null) {
+            Random.popGenerator();
+            cat.dropped++;
+        }
+
+        //if no artifacts are left, return null
+        if (i == -1) {
+            return null;
+        }
+
+        cat.probs[i]--;
+        return (Artifact) Reflection.newInstance((Class<? extends Artifact>) cat.classes[i]).random();
+    }
+
+    public static boolean removeArtifact(Class<? extends Artifact> artifact) {
+        Category cat = Category.ARTIFACT;
+        for (int i = 0; i < cat.classes.length; i++) {
+            if (cat.classes[i].equals(artifact) && cat.probs[i] > 0) {
+                cat.probs[i] = 0;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static final String FIRST_DECK = "first_deck";
+    private static final String GENERAL_PROBS = "general_probs";
+    private static final String CATEGORY_PROBS = "_probs";
+    private static final String CATEGORY_USING_PROBS2 = "_using_probs2";
+    private static final String CATEGORY_SEED = "_seed";
+    private static final String CATEGORY_DROPPED = "_dropped";
+
+    public static void storeInBundle(Bundle bundle) {
+        bundle.put(FIRST_DECK, usingFirstDeck);
+
+        Float[] genProbs = categoryProbs.values().toArray(new Float[0]);
+        float[] storeProbs = new float[genProbs.length];
+        for (int i = 0; i < storeProbs.length; i++) {
+            storeProbs[i] = genProbs[i];
+        }
+        bundle.put(GENERAL_PROBS, storeProbs);
+
+        for (Category cat : Category.values()) {
+            if (cat.defaultProbs == null) continue;
+
+            bundle.put(cat.name().toLowerCase() + CATEGORY_PROBS, cat.probs);
+
+            if (cat.defaultProbs2 != null) {
+                bundle.put(cat.name().toLowerCase() + CATEGORY_USING_PROBS2, cat.using2ndProbs);
+            }
+
+            if (cat.seed != null) {
+                bundle.put(cat.name().toLowerCase() + CATEGORY_SEED, cat.seed);
+                bundle.put(cat.name().toLowerCase() + CATEGORY_DROPPED, cat.dropped);
+            }
+        }
+    }
+
+    public static void restoreFromBundle(Bundle bundle) {
+        fullReset();
+
+        usingFirstDeck = bundle.getBoolean(FIRST_DECK);
+
+        if (bundle.contains(GENERAL_PROBS)) {
+            float[] probs = bundle.getFloatArray(GENERAL_PROBS);
+            if (probs.length == Category.values().length) {
+                for (int i = 0; i < probs.length; i++) {
+                    categoryProbs.put(Category.values()[i], probs[i]);
+                }
+            }
+        }
+
+        for (Category cat : Category.values()) {
+            if (bundle.contains(cat.name().toLowerCase() + CATEGORY_PROBS)) {
+                float[] probs = bundle.getFloatArray(cat.name().toLowerCase() + CATEGORY_PROBS);
+                if (cat.defaultProbs != null && probs.length == cat.defaultProbs.length) {
+                    cat.probs = probs;
+                }
+                if (bundle.contains(cat.name().toLowerCase() + CATEGORY_USING_PROBS2)) {
+                    cat.using2ndProbs = bundle.getBoolean(cat.name().toLowerCase() + CATEGORY_USING_PROBS2);
+                } else {
+                    cat.using2ndProbs = false;
+                }
+                if (bundle.contains(cat.name().toLowerCase() + CATEGORY_SEED)) {
+                    cat.seed = bundle.getLong(cat.name().toLowerCase() + CATEGORY_SEED);
+                    cat.dropped = bundle.getInt(cat.name().toLowerCase() + CATEGORY_DROPPED);
+                }
+
+                //pre-v3.0.0 conversion for artifacts specifically
+                if (cat == Category.ARTIFACT && probs.length != cat.defaultProbs.length) {
+                    int tomeIDX = 5;
+                    int j = 0;
+                    for (int i = 0; i < probs.length; i++) {
+                        if (i == tomeIDX) {
+                            cat.probs[j] = 0;
+                            j++;
+                        }
+                        cat.probs[j] = probs[i];
+                        j++;
+                    }
+                }
+            }
+        }
+    }
 }

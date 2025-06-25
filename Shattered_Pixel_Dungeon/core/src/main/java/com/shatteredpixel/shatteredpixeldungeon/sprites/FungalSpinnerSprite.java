@@ -32,71 +32,71 @@ import com.watabou.utils.Callback;
 
 public class FungalSpinnerSprite extends MobSprite {
 
-	public FungalSpinnerSprite() {
-		super();
+    public FungalSpinnerSprite() {
+        super();
 
-		perspectiveRaise = 0f;
+        perspectiveRaise = 0f;
 
-		texture( Assets.Sprites.FUNGAL_SPINNER );
+        texture(Assets.Sprites.FUNGAL_SPINNER);
 
-		TextureFilm frames = new TextureFilm( texture, 16, 16 );
+        TextureFilm frames = new TextureFilm(texture, 16, 16);
 
-		idle = new MovieClip.Animation( 10, true );
-		idle.frames( frames, 0, 0, 0, 0, 0, 1, 0, 1 );
+        idle = new MovieClip.Animation(10, true);
+        idle.frames(frames, 0, 0, 0, 0, 0, 1, 0, 1);
 
-		run = new MovieClip.Animation( 15, true );
-		run.frames( frames, 0, 2, 0, 3 );
+        run = new MovieClip.Animation(15, true);
+        run.frames(frames, 0, 2, 0, 3);
 
-		attack = new MovieClip.Animation( 12, false );
-		attack.frames( frames, 0, 4, 5, 0 );
+        attack = new MovieClip.Animation(12, false);
+        attack.frames(frames, 0, 4, 5, 0);
 
-		zap = attack.clone();
+        zap = attack.clone();
 
-		die = new MovieClip.Animation( 12, false );
-		die.frames( frames, 6, 7, 8, 9 );
+        die = new MovieClip.Animation(12, false);
+        die.frames(frames, 6, 7, 8, 9);
 
-		play( idle );
-	}
+        play(idle);
+    }
 
-	@Override
-	public void link(Char ch) {
-		super.link(ch);
-		if (parent != null) {
-			parent.sendToBack(this);
-			if (aura != null){
-				parent.sendToBack(aura);
-			}
-		}
-		renderShadow = false;
-	}
+    @Override
+    public void link(Char ch) {
+        super.link(ch);
+        if (parent != null) {
+            parent.sendToBack(this);
+            if (aura != null) {
+                parent.sendToBack(aura);
+            }
+        }
+        renderShadow = false;
+    }
 
-	public void zap( int cell ) {
+    public void zap(int cell) {
 
-		super.zap( cell );
+        super.zap(cell);
 
-		MagicMissile.boltFromChar( parent,
-				MagicMissile.FOLIAGE,
-				this,
-				cell,
-				new Callback() {
-					@Override
-					public void call() {
-						((Spinner)ch).shootWeb();
-					}
-				} );
-		Sample.INSTANCE.play( Assets.Sounds.MISS );
-	}
+        MagicMissile.boltFromChar(parent,
+                MagicMissile.FOLIAGE,
+                this,
+                cell,
+                new Callback() {
+                    @Override
+                    public void call() {
+                        ((Spinner) ch).shootWeb();
+                    }
+                });
+        Sample.INSTANCE.play(Assets.Sounds.MISS);
+    }
 
-	@Override
-	public void onComplete( MovieClip.Animation anim ) {
-		if (anim == zap) {
-			play( run );
-		}
-		super.onComplete( anim );
-	}
+    @Override
+    public void onComplete(MovieClip.Animation anim) {
+        if (anim == zap) {
+            play(run);
+        }
+        super.onComplete(anim);
+    }
 
-	@Override
-	public int blood() {
-		return 0xFF88CC44;
-	}
+    @Override
+    public int blood() {
+        return 0xFF88CC44;
+    }
 }

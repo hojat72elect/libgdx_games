@@ -42,125 +42,121 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUpgrade;
 
 public class ScrollOfUpgrade extends InventoryScroll {
-	
-	{
-		icon = ItemSpriteSheet.Icons.SCROLL_UPGRADE;
-		preferredBag = Belongings.Backpack.class;
 
-		unique = true;
+    {
+        icon = ItemSpriteSheet.Icons.SCROLL_UPGRADE;
+        preferredBag = Belongings.Backpack.class;
 
-		talentFactor = 2f;
-	}
+        unique = true;
 
-	@Override
-	protected boolean usableOnItem(Item item) {
-		return item.isUpgradable();
-	}
+        talentFactor = 2f;
+    }
 
-	@Override
-	protected void onItemSelected( Item item ) {
+    @Override
+    protected boolean usableOnItem(Item item) {
+        return item.isUpgradable();
+    }
 
-		GameScene.show(new WndUpgrade(this, item, identifiedByUse));
+    @Override
+    protected void onItemSelected(Item item) {
 
-	}
+        GameScene.show(new WndUpgrade(this, item, identifiedByUse));
+    }
 
-	public void reShowSelector(boolean force){
-		identifiedByUse = force;
-		curItem = this;
-		GameScene.selectItem(itemSelector);
-	}
+    public void reShowSelector(boolean force) {
+        identifiedByUse = force;
+        curItem = this;
+        GameScene.selectItem(itemSelector);
+    }
 
-	public Item upgradeItem( Item item ){
-		upgrade( curUser );
+    public Item upgradeItem(Item item) {
+        upgrade(curUser);
 
-		Degrade.detach( curUser, Degrade.class );
+        Degrade.detach(curUser, Degrade.class);
 
-		//logic for telling the user when item properties change from upgrades
-		//...yes this is rather messy
-		if (item instanceof Weapon){
-			Weapon w = (Weapon) item;
-			boolean wasCursed = w.cursed;
-			boolean wasHardened = w.enchantHardened;
-			boolean hadCursedEnchant = w.hasCurseEnchant();
-			boolean hadGoodEnchant = w.hasGoodEnchant();
+        //logic for telling the user when item properties change from upgrades
+        //...yes this is rather messy
+        if (item instanceof Weapon) {
+            Weapon w = (Weapon) item;
+            boolean wasCursed = w.cursed;
+            boolean wasHardened = w.enchantHardened;
+            boolean hadCursedEnchant = w.hasCurseEnchant();
+            boolean hadGoodEnchant = w.hasGoodEnchant();
 
-			item = w.upgrade();
+            item = w.upgrade();
 
-			if (w.cursedKnown && hadCursedEnchant && !w.hasCurseEnchant()){
-				removeCurse( Dungeon.hero );
-			} else if (w.cursedKnown && wasCursed && !w.cursed){
-				weakenCurse( Dungeon.hero );
-			}
-			if (wasHardened && !w.enchantHardened){
-				GLog.w( Messages.get(Weapon.class, "hardening_gone") );
-			} else if (hadGoodEnchant && !w.hasGoodEnchant()){
-				GLog.w( Messages.get(Weapon.class, "incompatible") );
-			}
+            if (w.cursedKnown && hadCursedEnchant && !w.hasCurseEnchant()) {
+                removeCurse(Dungeon.hero);
+            } else if (w.cursedKnown && wasCursed && !w.cursed) {
+                weakenCurse(Dungeon.hero);
+            }
+            if (wasHardened && !w.enchantHardened) {
+                GLog.w(Messages.get(Weapon.class, "hardening_gone"));
+            } else if (hadGoodEnchant && !w.hasGoodEnchant()) {
+                GLog.w(Messages.get(Weapon.class, "incompatible"));
+            }
+        } else if (item instanceof Armor) {
+            Armor a = (Armor) item;
+            boolean wasCursed = a.cursed;
+            boolean wasHardened = a.glyphHardened;
+            boolean hadCursedGlyph = a.hasCurseGlyph();
+            boolean hadGoodGlyph = a.hasGoodGlyph();
 
-		} else if (item instanceof Armor){
-			Armor a = (Armor) item;
-			boolean wasCursed = a.cursed;
-			boolean wasHardened = a.glyphHardened;
-			boolean hadCursedGlyph = a.hasCurseGlyph();
-			boolean hadGoodGlyph = a.hasGoodGlyph();
+            item = a.upgrade();
 
-			item = a.upgrade();
+            if (a.cursedKnown && hadCursedGlyph && !a.hasCurseGlyph()) {
+                removeCurse(Dungeon.hero);
+            } else if (a.cursedKnown && wasCursed && !a.cursed) {
+                weakenCurse(Dungeon.hero);
+            }
+            if (wasHardened && !a.glyphHardened) {
+                GLog.w(Messages.get(Armor.class, "hardening_gone"));
+            } else if (hadGoodGlyph && !a.hasGoodGlyph()) {
+                GLog.w(Messages.get(Armor.class, "incompatible"));
+            }
+        } else if (item instanceof Wand || item instanceof Ring) {
+            boolean wasCursed = item.cursed;
 
-			if (a.cursedKnown && hadCursedGlyph && !a.hasCurseGlyph()){
-				removeCurse( Dungeon.hero );
-			} else if (a.cursedKnown && wasCursed && !a.cursed){
-				weakenCurse( Dungeon.hero );
-			}
-			if (wasHardened && !a.glyphHardened){
-				GLog.w( Messages.get(Armor.class, "hardening_gone") );
-			} else if (hadGoodGlyph && !a.hasGoodGlyph()){
-				GLog.w( Messages.get(Armor.class, "incompatible") );
-			}
+            item = item.upgrade();
 
-		} else if (item instanceof Wand || item instanceof Ring) {
-			boolean wasCursed = item.cursed;
+            if (item.cursedKnown && wasCursed && !item.cursed) {
+                removeCurse(Dungeon.hero);
+            }
+        } else {
+            item = item.upgrade();
+        }
 
-			item = item.upgrade();
+        Badges.validateItemLevelAquired(item);
+        Statistics.upgradesUsed++;
+        Badges.validateMageUnlock();
 
-			if (item.cursedKnown && wasCursed && !item.cursed){
-				removeCurse( Dungeon.hero );
-			}
+        Catalog.countUse(item.getClass());
 
-		} else {
-			item = item.upgrade();
-		}
+        return item;
+    }
 
-		Badges.validateItemLevelAquired( item );
-		Statistics.upgradesUsed++;
-		Badges.validateMageUnlock();
+    public static void upgrade(Hero hero) {
+        hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.2f, 3);
+    }
 
-		Catalog.countUse(item.getClass());
+    public static void weakenCurse(Hero hero) {
+        GLog.p(Messages.get(ScrollOfUpgrade.class, "weaken_curse"));
+        hero.sprite.emitter().start(ShadowParticle.UP, 0.05f, 5);
+    }
 
-		return item;
-	}
-	
-	public static void upgrade( Hero hero ) {
-		hero.sprite.emitter().start( Speck.factory( Speck.UP ), 0.2f, 3 );
-	}
+    public static void removeCurse(Hero hero) {
+        GLog.p(Messages.get(ScrollOfUpgrade.class, "remove_curse"));
+        hero.sprite.emitter().start(ShadowParticle.UP, 0.05f, 10);
+        Badges.validateClericUnlock();
+    }
 
-	public static void weakenCurse( Hero hero ){
-		GLog.p( Messages.get(ScrollOfUpgrade.class, "weaken_curse") );
-		hero.sprite.emitter().start( ShadowParticle.UP, 0.05f, 5 );
-	}
+    @Override
+    public int value() {
+        return isKnown() ? 50 * quantity : super.value();
+    }
 
-	public static void removeCurse( Hero hero ){
-		GLog.p( Messages.get(ScrollOfUpgrade.class, "remove_curse") );
-		hero.sprite.emitter().start( ShadowParticle.UP, 0.05f, 10 );
-		Badges.validateClericUnlock();
-	}
-	
-	@Override
-	public int value() {
-		return isKnown() ? 50 * quantity : super.value();
-	}
-
-	@Override
-	public int energyVal() {
-		return isKnown() ? 10 * quantity : super.energyVal();
-	}
+    @Override
+    public int energyVal() {
+        return isKnown() ? 10 * quantity : super.energyVal();
+    }
 }

@@ -38,215 +38,207 @@ import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class Golem extends Mob {
-	
-	{
-		spriteClass = GolemSprite.class;
-		
-		HP = HT = 120;
-		defenseSkill = 15;
-		
-		EXP = 12;
-		maxLvl = 22;
 
-		loot = Random.oneOf(Generator.Category.WEAPON, Generator.Category.ARMOR);
-		lootChance = 0.2f; //initially, see lootChance()
+    {
+        spriteClass = GolemSprite.class;
 
-		properties.add(Property.INORGANIC);
-		properties.add(Property.LARGE);
+        HP = HT = 120;
+        defenseSkill = 15;
 
-		WANDERING = new Wandering();
-		HUNTING = new Hunting();
-	}
+        EXP = 12;
+        maxLvl = 22;
 
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 25, 30 );
-	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 28;
-	}
-	
-	@Override
-	public int drRoll() {
-		return super.drRoll() + Random.NormalIntRange(0, 12);
-	}
+        loot = Random.oneOf(Generator.Category.WEAPON, Generator.Category.ARMOR);
+        lootChance = 0.2f; //initially, see lootChance()
 
-	@Override
-	public float lootChance() {
-		//each drop makes future drops 1/3 as likely
-		// so loot chance looks like: 1/5, 1/15, 1/45, 1/135, etc.
-		return super.lootChance() * (float)Math.pow(1/3f, Dungeon.LimitedDrops.GOLEM_EQUIP.count);
-	}
+        properties.add(Property.INORGANIC);
+        properties.add(Property.LARGE);
 
-	@Override
-	public void rollToDropLoot() {
-		Imp.Quest.process( this );
-		super.rollToDropLoot();
-	}
+        WANDERING = new Wandering();
+        HUNTING = new Hunting();
+    }
 
-	public Item createLoot() {
-		Dungeon.LimitedDrops.GOLEM_EQUIP.count++;
-		//uses probability tables for demon halls
-		if (loot == Generator.Category.WEAPON){
-			return Generator.randomWeapon(5, true);
-		} else {
-			return Generator.randomArmor(5);
-		}
-	}
+    @Override
+    public int damageRoll() {
+        return Random.NormalIntRange(25, 30);
+    }
 
-	private boolean teleporting = false;
-	private int selfTeleCooldown = 0;
-	private int enemyTeleCooldown = 0;
+    @Override
+    public int attackSkill(Char target) {
+        return 28;
+    }
 
-	private static final String TELEPORTING = "teleporting";
-	private static final String SELF_COOLDOWN = "self_cooldown";
-	private static final String ENEMY_COOLDOWN = "enemy_cooldown";
+    @Override
+    public int drRoll() {
+        return super.drRoll() + Random.NormalIntRange(0, 12);
+    }
 
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(TELEPORTING, teleporting);
-		bundle.put(SELF_COOLDOWN, selfTeleCooldown);
-		bundle.put(ENEMY_COOLDOWN, enemyTeleCooldown);
-	}
+    @Override
+    public float lootChance() {
+        //each drop makes future drops 1/3 as likely
+        // so loot chance looks like: 1/5, 1/15, 1/45, 1/135, etc.
+        return super.lootChance() * (float) Math.pow(1 / 3f, Dungeon.LimitedDrops.GOLEM_EQUIP.count);
+    }
 
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		teleporting = bundle.getBoolean( TELEPORTING );
-		selfTeleCooldown = bundle.getInt( SELF_COOLDOWN );
-		enemyTeleCooldown = bundle.getInt( ENEMY_COOLDOWN );
-	}
+    @Override
+    public void rollToDropLoot() {
+        Imp.Quest.process(this);
+        super.rollToDropLoot();
+    }
 
-	@Override
-	protected boolean act() {
-		selfTeleCooldown--;
-		enemyTeleCooldown--;
-		if (teleporting){
-			((GolemSprite)sprite).teleParticles(false);
-			if (Actor.findChar(target) == null && Dungeon.level.openSpace[target]) {
-				ScrollOfTeleportation.appear(this, target);
-				selfTeleCooldown = 30;
-			} else {
-				target = Dungeon.level.randomDestination(this);
-			}
-			teleporting = false;
-			spend(TICK);
-			return true;
-		}
-		return super.act();
-	}
+    public Item createLoot() {
+        Dungeon.LimitedDrops.GOLEM_EQUIP.count++;
+        //uses probability tables for demon halls
+        if (loot == Generator.Category.WEAPON) {
+            return Generator.randomWeapon(5, true);
+        } else {
+            return Generator.randomArmor(5);
+        }
+    }
 
-	public void onZapComplete(){
-		teleportEnemy();
-		next();
-	}
+    private boolean teleporting = false;
+    private int selfTeleCooldown = 0;
+    private int enemyTeleCooldown = 0;
 
-	public void teleportEnemy(){
-		spend(TICK);
+    private static final String TELEPORTING = "teleporting";
+    private static final String SELF_COOLDOWN = "self_cooldown";
+    private static final String ENEMY_COOLDOWN = "enemy_cooldown";
 
-		int bestPos = enemy.pos;
-		for (int i : PathFinder.NEIGHBOURS8){
-			if (Dungeon.level.passable[pos + i]
-				&& Actor.findChar(pos+i) == null
-				&& Dungeon.level.trueDistance(pos+i, enemy.pos) > Dungeon.level.trueDistance(bestPos, enemy.pos)){
-				bestPos = pos+i;
-			}
-		}
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(TELEPORTING, teleporting);
+        bundle.put(SELF_COOLDOWN, selfTeleCooldown);
+        bundle.put(ENEMY_COOLDOWN, enemyTeleCooldown);
+    }
 
-		if (enemy.buff(MagicImmune.class) != null){
-			bestPos = enemy.pos;
-		}
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        teleporting = bundle.getBoolean(TELEPORTING);
+        selfTeleCooldown = bundle.getInt(SELF_COOLDOWN);
+        enemyTeleCooldown = bundle.getInt(ENEMY_COOLDOWN);
+    }
 
-		if (bestPos != enemy.pos){
-			ScrollOfTeleportation.appear(enemy, bestPos);
-			if (enemy instanceof Hero){
-				((Hero) enemy).interrupt();
-				Dungeon.observe();
-				GameScene.updateFog();
-			}
-		}
+    @Override
+    protected boolean act() {
+        selfTeleCooldown--;
+        enemyTeleCooldown--;
+        if (teleporting) {
+            ((GolemSprite) sprite).teleParticles(false);
+            if (Actor.findChar(target) == null && Dungeon.level.openSpace[target]) {
+                ScrollOfTeleportation.appear(this, target);
+                selfTeleCooldown = 30;
+            } else {
+                target = Dungeon.level.randomDestination(this);
+            }
+            teleporting = false;
+            spend(TICK);
+            return true;
+        }
+        return super.act();
+    }
 
-		enemyTeleCooldown = 20;
-	}
+    public void onZapComplete() {
+        teleportEnemy();
+        next();
+    }
 
-	private boolean canTele(int target){
-		if (enemyTeleCooldown > 0) return false;
-		PathFinder.buildDistanceMap(target, BArray.not(Dungeon.level.solid, null), Dungeon.level.distance(pos, target)+1);
-		//zaps can go around blocking terrain, but not through it
-		if (PathFinder.distance[pos] == Integer.MAX_VALUE){
-			return false;
-		}
-		return true;
-	}
+    public void teleportEnemy() {
+        spend(TICK);
 
-	private class Wandering extends Mob.Wandering{
+        int bestPos = enemy.pos;
+        for (int i : PathFinder.NEIGHBOURS8) {
+            if (Dungeon.level.passable[pos + i]
+                    && Actor.findChar(pos + i) == null
+                    && Dungeon.level.trueDistance(pos + i, enemy.pos) > Dungeon.level.trueDistance(bestPos, enemy.pos)) {
+                bestPos = pos + i;
+            }
+        }
 
-		@Override
-		protected boolean continueWandering() {
-			enemySeen = false;
+        if (enemy.buff(MagicImmune.class) != null) {
+            bestPos = enemy.pos;
+        }
 
-			int oldPos = pos;
-			if (target != -1 && getCloser( target )) {
-				spend( 1 / speed() );
-				return moveSprite( oldPos, pos );
-			} else if (!Dungeon.bossLevel() && target != -1 && target != pos && selfTeleCooldown <= 0) {
-				((GolemSprite)sprite).teleParticles(true);
-				teleporting = true;
-				spend( 2*TICK );
-			} else {
-				target = randomDestination();
-				spend( TICK );
-			}
+        if (bestPos != enemy.pos) {
+            ScrollOfTeleportation.appear(enemy, bestPos);
+            if (enemy instanceof Hero) {
+                ((Hero) enemy).interrupt();
+                Dungeon.observe();
+                GameScene.updateFog();
+            }
+        }
 
-			return true;
-		}
-	}
+        enemyTeleCooldown = 20;
+    }
 
-	private class Hunting extends Mob.Hunting{
+    private boolean canTele(int target) {
+        if (enemyTeleCooldown > 0) return false;
+        PathFinder.buildDistanceMap(target, BArray.not(Dungeon.level.solid, null), Dungeon.level.distance(pos, target) + 1);
+        //zaps can go around blocking terrain, but not through it
+        return PathFinder.distance[pos] != Integer.MAX_VALUE;
+    }
 
-		@Override
-		public boolean act(boolean enemyInFOV, boolean justAlerted) {
-			if (!enemyInFOV || canAttack(enemy)) {
-				return super.act(enemyInFOV, justAlerted);
-			} else {
-				enemySeen = true;
-				target = enemy.pos;
+    private class Wandering extends Mob.Wandering {
 
-				int oldPos = pos;
+        @Override
+        protected boolean continueWandering() {
+            enemySeen = false;
 
-				if (distance(enemy) >= 1 && Random.Int(100/distance(enemy)) == 0
-						&& !Char.hasProp(enemy, Property.IMMOVABLE) && canTele(target)){
-					if (sprite != null && (sprite.visible || enemy.sprite.visible)) {
-						sprite.zap( enemy.pos );
-						return false;
-					} else {
-						teleportEnemy();
-						return true;
-					}
+            int oldPos = pos;
+            if (target != -1 && getCloser(target)) {
+                spend(1 / speed());
+                return moveSprite(oldPos, pos);
+            } else if (!Dungeon.bossLevel() && target != -1 && target != pos && selfTeleCooldown <= 0) {
+                ((GolemSprite) sprite).teleParticles(true);
+                teleporting = true;
+                spend(2 * TICK);
+            } else {
+                target = randomDestination();
+                spend(TICK);
+            }
 
-				} else if (getCloser( target )) {
-					spend( 1 / speed() );
-					return moveSprite( oldPos,  pos );
+            return true;
+        }
+    }
 
-				} else if (!Char.hasProp(enemy, Property.IMMOVABLE) && canTele(target)) {
-					if (sprite != null && (sprite.visible || enemy.sprite.visible)) {
-						sprite.zap( enemy.pos );
-						return false;
-					} else {
-						teleportEnemy();
-						return true;
-					}
+    private class Hunting extends Mob.Hunting {
 
-				} else {
-					spend( TICK );
-					return true;
-				}
+        @Override
+        public boolean act(boolean enemyInFOV, boolean justAlerted) {
+            if (!enemyInFOV || canAttack(enemy)) {
+                return super.act(enemyInFOV, justAlerted);
+            } else {
+                enemySeen = true;
+                target = enemy.pos;
 
-			}
-		}
-	}
+                int oldPos = pos;
 
+                if (distance(enemy) >= 1 && Random.Int(100 / distance(enemy)) == 0
+                        && !Char.hasProp(enemy, Property.IMMOVABLE) && canTele(target)) {
+                    if (sprite != null && (sprite.visible || enemy.sprite.visible)) {
+                        sprite.zap(enemy.pos);
+                        return false;
+                    } else {
+                        teleportEnemy();
+                        return true;
+                    }
+                } else if (getCloser(target)) {
+                    spend(1 / speed());
+                    return moveSprite(oldPos, pos);
+                } else if (!Char.hasProp(enemy, Property.IMMOVABLE) && canTele(target)) {
+                    if (sprite != null && (sprite.visible || enemy.sprite.visible)) {
+                        sprite.zap(enemy.pos);
+                        return false;
+                    } else {
+                        teleportEnemy();
+                        return true;
+                    }
+                } else {
+                    spend(TICK);
+                    return true;
+                }
+            }
+        }
+    }
 }

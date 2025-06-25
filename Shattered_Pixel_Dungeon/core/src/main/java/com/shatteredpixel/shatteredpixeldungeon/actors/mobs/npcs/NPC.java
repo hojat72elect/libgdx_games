@@ -27,25 +27,24 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 
 public abstract class NPC extends Mob {
 
-	{
-		HP = HT = 1;
-		EXP = 0;
+    {
+        HP = HT = 1;
+        EXP = 0;
 
-		alignment = Alignment.NEUTRAL;
-		state = PASSIVE;
-	}
+        alignment = Alignment.NEUTRAL;
+        state = PASSIVE;
+    }
 
-	@Override
-	protected boolean act() {
-		if (Dungeon.level.heroFOV[pos]){
-			Bestiary.setSeen(getClass());
-		}
+    @Override
+    protected boolean act() {
+        if (Dungeon.level.heroFOV[pos]) {
+            Bestiary.setSeen(getClass());
+        }
 
-		return super.act();
-	}
+        return super.act();
+    }
 
-	@Override
-	public void beckon( int cell ) {
-	}
-	
+    @Override
+    public void beckon(int cell) {
+    }
 }

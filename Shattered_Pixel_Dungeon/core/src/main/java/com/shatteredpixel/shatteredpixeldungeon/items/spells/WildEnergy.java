@@ -40,63 +40,63 @@ import com.watabou.utils.Callback;
 import java.util.ArrayList;
 
 public class WildEnergy extends TargetedSpell {
-	
-	{
-		image = ItemSpriteSheet.WILD_ENERGY;
 
-		usesTargeting = true;
+    {
+        image = ItemSpriteSheet.WILD_ENERGY;
 
-		talentChance = 1/(float)Recipe.OUT_QUANTITY;
-	}
-	
-	//we rely on cursedWand to do fx instead
-	@Override
-	protected void fx(Ballistica bolt, Callback callback) {
-		CursedWand.cursedZap(this, curUser, bolt, callback);
-	}
-	
-	@Override
-	protected void affectTarget(Ballistica bolt, final Hero hero) {
-		Sample.INSTANCE.play( Assets.Sounds.LIGHTNING );
-		Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
-		ScrollOfRecharging.charge(hero);
-		SpellSprite.show(hero, SpellSprite.CHARGE);
+        usesTargeting = true;
 
-		hero.belongings.charge(1f);
-		ArtifactRecharge.chargeArtifacts(hero, 4f);
+        talentChance = 1 / (float) Recipe.OUT_QUANTITY;
+    }
 
-		Buff.affect(hero, Recharging.class, 8f);
-		Buff.affect(hero, ArtifactRecharge.class).extend( 8 ).ignoreHornOfPlenty = false;
-	}
-	
-	@Override
-	public int value() {
-		return (int)(60 * (quantity/(float)Recipe.OUT_QUANTITY));
-	}
+    //we rely on cursedWand to do fx instead
+    @Override
+    protected void fx(Ballistica bolt, Callback callback) {
+        CursedWand.cursedZap(this, curUser, bolt, callback);
+    }
 
-	@Override
-	public int energyVal() {
-		return (int)(12 * (quantity/(float)Recipe.OUT_QUANTITY));
-	}
+    @Override
+    protected void affectTarget(Ballistica bolt, final Hero hero) {
+        Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);
+        Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
+        ScrollOfRecharging.charge(hero);
+        SpellSprite.show(hero, SpellSprite.CHARGE);
 
-	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+        hero.belongings.charge(1f);
+        ArtifactRecharge.chargeArtifacts(hero, 4f);
 
-		private static final int OUT_QUANTITY = 5;
-		
-		{
-			inputs =  new Class[]{ScrollOfRecharging.class, MetalShard.class};
-			inQuantity = new int[]{1, 1};
-			
-			cost = 4;
-			
-			output = WildEnergy.class;
-			outQuantity = OUT_QUANTITY;
-		}
+        Buff.affect(hero, Recharging.class, 8f);
+        Buff.affect(hero, ArtifactRecharge.class).extend(8).ignoreHornOfPlenty = false;
+    }
 
-		@Override
-		public Item brew(ArrayList<Item> ingredients) {
-			Catalog.countUse(MetalShard.class);
-			return super.brew(ingredients);
-		}
-	}
+    @Override
+    public int value() {
+        return (int) (60 * (quantity / (float) Recipe.OUT_QUANTITY));
+    }
+
+    @Override
+    public int energyVal() {
+        return (int) (12 * (quantity / (float) Recipe.OUT_QUANTITY));
+    }
+
+    public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+
+        private static final int OUT_QUANTITY = 5;
+
+        {
+            inputs = new Class[]{ScrollOfRecharging.class, MetalShard.class};
+            inQuantity = new int[]{1, 1};
+
+            cost = 4;
+
+            output = WildEnergy.class;
+            outQuantity = OUT_QUANTITY;
+        }
+
+        @Override
+        public Item brew(ArrayList<Item> ingredients) {
+            Catalog.countUse(MetalShard.class);
+            return super.brew(ingredients);
+        }
+    }
 }

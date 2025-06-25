@@ -32,21 +32,20 @@ import com.watabou.noosa.audio.Sample;
 
 public class PotionOfInvisibility extends Potion {
 
-	{
-		icon = ItemSpriteSheet.Icons.POTION_INVIS;
-	}
+    {
+        icon = ItemSpriteSheet.Icons.POTION_INVIS;
+    }
 
-	@Override
-	public void apply( Hero hero ) {
-		identify();
-		Buff.prolong( hero, Invisibility.class, Invisibility.DURATION );
-		GLog.i( Messages.get(this, "invisible") );
-		Sample.INSTANCE.play( Assets.Sounds.MELD );
-	}
-	
-	@Override
-	public int value() {
-		return isKnown() ? 40 * quantity : super.value();
-	}
+    @Override
+    public void apply(Hero hero) {
+        identify();
+        Buff.prolong(hero, Invisibility.class, Invisibility.DURATION);
+        GLog.i(Messages.get(this, "invisible"));
+        Sample.INSTANCE.play(Assets.Sounds.MELD);
+    }
 
+    @Override
+    public int value() {
+        return isKnown() ? 40 * quantity : super.value();
+    }
 }

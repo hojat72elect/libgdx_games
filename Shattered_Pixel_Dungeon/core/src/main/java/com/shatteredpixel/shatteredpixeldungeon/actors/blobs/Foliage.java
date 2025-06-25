@@ -34,57 +34,56 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 
 public class Foliage extends Blob {
 
-	@Override
-	public Notes.Landmark landmark() {
-		return Notes.Landmark.GARDEN;
-	}
+    @Override
+    public Notes.Landmark landmark() {
+        return Notes.Landmark.GARDEN;
+    }
 
-	@Override
-	protected void evolve() {
+    @Override
+    protected void evolve() {
 
-		int[] map = Dungeon.level.map;
-		
-		boolean seen = false;
+        int[] map = Dungeon.level.map;
 
-		int cell;
-		for (int i = area.left; i < area.right; i++) {
-			for (int j = area.top; j < area.bottom; j++) {
-				cell = i + j*Dungeon.level.width();
-				if (cur[cell] > 0) {
+        boolean seen = false;
 
-					off[cell] = cur[cell];
-					volume += off[cell];
+        int cell;
+        for (int i = area.left; i < area.right; i++) {
+            for (int j = area.top; j < area.bottom; j++) {
+                cell = i + j * Dungeon.level.width();
+                if (cur[cell] > 0) {
 
-					if (map[cell] == Terrain.EMBERS) {
-						map[cell] = Terrain.GRASS;
-						GameScene.updateMap(cell);
-					}
+                    off[cell] = cur[cell];
+                    volume += off[cell];
 
-					seen = seen || Dungeon.level.visited[cell];
+                    if (map[cell] == Terrain.EMBERS) {
+                        map[cell] = Terrain.GRASS;
+                        GameScene.updateMap(cell);
+                    }
 
-				} else {
-					off[cell] = 0;
-				}
-			}
-		}
-		
-		Hero hero = Dungeon.hero;
-		if (hero.isAlive() && cur[hero.pos] > 0) {
-			Shadows s = Buff.affect( hero, Shadows.class );
-			if (s != null){
-				s.prolong();
-			}
-		}
-	}
-	
-	@Override
-	public void use( BlobEmitter emitter ) {
-		super.use( emitter );
-		emitter.start( ShaftParticle.FACTORY, 0.9f, 0 );
-	}
-	
-	@Override
-	public String tileDesc() {
-		return Messages.get(this, "desc");
-	}
+                    seen = seen || Dungeon.level.visited[cell];
+                } else {
+                    off[cell] = 0;
+                }
+            }
+        }
+
+        Hero hero = Dungeon.hero;
+        if (hero.isAlive() && cur[hero.pos] > 0) {
+            Shadows s = Buff.affect(hero, Shadows.class);
+            if (s != null) {
+                s.prolong();
+            }
+        }
+    }
+
+    @Override
+    public void use(BlobEmitter emitter) {
+        super.use(emitter);
+        emitter.start(ShaftParticle.FACTORY, 0.9f, 0);
+    }
+
+    @Override
+    public String tileDesc() {
+        return Messages.get(this, "desc");
+    }
 }

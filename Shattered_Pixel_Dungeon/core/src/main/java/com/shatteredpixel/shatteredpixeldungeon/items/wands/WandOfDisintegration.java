@@ -43,120 +43,117 @@ import java.util.ArrayList;
 
 public class WandOfDisintegration extends DamageWand {
 
-	{
-		image = ItemSpriteSheet.WAND_DISINTEGRATION;
+    {
+        image = ItemSpriteSheet.WAND_DISINTEGRATION;
 
-		collisionProperties = Ballistica.WONT_STOP;
-	}
+        collisionProperties = Ballistica.WONT_STOP;
+    }
 
+    public int min(int lvl) {
+        return 2 + lvl;
+    }
 
-	public int min(int lvl){
-		return 2+lvl;
-	}
+    public int max(int lvl) {
+        return 8 + 4 * lvl;
+    }
 
-	public int max(int lvl){
-		return 8+4*lvl;
-	}
-	
-	@Override
-	public int targetingPos(Hero user, int dst) {
-		if (!cursed || !cursedKnown) {
-			return dst;
-		} else {
-			return super.targetingPos(user, dst);
-		}
-	}
+    @Override
+    public int targetingPos(Hero user, int dst) {
+        if (!cursed || !cursedKnown) {
+            return dst;
+        } else {
+            return super.targetingPos(user, dst);
+        }
+    }
 
-	@Override
-	public void onZap(Ballistica beam) {
-		
-		boolean terrainAffected = false;
-		
-		int level = buffedLvl();
-		
-		int maxDistance = Math.min(distance(), beam.dist);
-		
-		ArrayList<Char> chars = new ArrayList<>();
+    @Override
+    public void onZap(Ballistica beam) {
 
-		Blob web = Dungeon.level.blobs.get(Web.class);
+        boolean terrainAffected = false;
 
-		int terrainPassed = 2, terrainBonus = 0;
-		for (int c : beam.subPath(1, maxDistance)) {
-			
-			Char ch;
-			if ((ch = Actor.findChar( c )) != null) {
+        int level = buffedLvl();
 
-				//we don't want to count passed terrain after the last enemy hit. That would be a lot of bonus levels.
-				//terrainPassed starts at 2, equivalent of rounding up when /3 for integer arithmetic.
-				terrainBonus += terrainPassed/3;
-				terrainPassed = terrainPassed%3;
+        int maxDistance = Math.min(distance(), beam.dist);
 
-				if (ch instanceof Mob && ((Mob) ch).state == ((Mob) ch).PASSIVE
-						&& !(Dungeon.level.mapped[c] || Dungeon.level.visited[c])){
-					//avoid harming undiscovered passive chars
-				} else {
-					chars.add(ch);
-				}
-			}
+        ArrayList<Char> chars = new ArrayList<>();
 
-			if (Dungeon.level.solid[c]) {
-				terrainPassed++;
-			}
+        Blob web = Dungeon.level.blobs.get(Web.class);
 
-			if (Dungeon.level.flamable[c]) {
+        int terrainPassed = 2, terrainBonus = 0;
+        for (int c : beam.subPath(1, maxDistance)) {
 
-				Dungeon.level.destroy( c );
-				GameScene.updateMap( c );
-				terrainAffected = true;
-				
-			}
-			
-			CellEmitter.center( c ).burst( PurpleParticle.BURST, Random.IntRange( 1, 2 ) );
-		}
-		
-		if (terrainAffected) {
-			Dungeon.observe();
-		}
-		
-		int lvl = level + (chars.size()-1) + terrainBonus;
-		for (Char ch : chars) {
-			wandProc(ch, chargesPerCast());
-			ch.damage( damageRoll(lvl), this );
-			ch.sprite.centerEmitter().burst( PurpleParticle.BURST, Random.IntRange( 1, 2 ) );
-			ch.sprite.flash();
-		}
-	}
+            Char ch;
+            if ((ch = Actor.findChar(c)) != null) {
 
-	@Override
-	public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
-		//no direct effect, see magesStaff.reachfactor
-	}
+                //we don't want to count passed terrain after the last enemy hit. That would be a lot of bonus levels.
+                //terrainPassed starts at 2, equivalent of rounding up when /3 for integer arithmetic.
+                terrainBonus += terrainPassed / 3;
+                terrainPassed = terrainPassed % 3;
 
-	private int distance() {
-		return buffedLvl()*2 + 6;
-	}
+                if (ch instanceof Mob && ((Mob) ch).state == ((Mob) ch).PASSIVE
+                        && !(Dungeon.level.mapped[c] || Dungeon.level.visited[c])) {
+                    //avoid harming undiscovered passive chars
+                } else {
+                    chars.add(ch);
+                }
+            }
 
-	@Override
-	public String upgradeStat2(int level) {
-		return Integer.toString(6 + level*2);
-	}
+            if (Dungeon.level.solid[c]) {
+                terrainPassed++;
+            }
 
-	@Override
-	public void fx(Ballistica beam, Callback callback) {
-		
-		int cell = beam.path.get(Math.min(beam.dist, distance()));
-		curUser.sprite.parent.add(new Beam.DeathRay(curUser.sprite.center(), DungeonTilemap.raisedTileCenterToWorld( cell )));
-		callback.call();
-	}
+            if (Dungeon.level.flamable[c]) {
 
-	@Override
-	public void staffFx(MagesStaff.StaffParticle particle) {
-		particle.color(0x220022);
-		particle.am = 0.6f;
-		particle.setLifespan(1f);
-		particle.acc.set(10, -10);
-		particle.setSize( 0.5f, 3f);
-		particle.shuffleXY(1f);
-	}
+                Dungeon.level.destroy(c);
+                GameScene.updateMap(c);
+                terrainAffected = true;
+            }
 
+            CellEmitter.center(c).burst(PurpleParticle.BURST, Random.IntRange(1, 2));
+        }
+
+        if (terrainAffected) {
+            Dungeon.observe();
+        }
+
+        int lvl = level + (chars.size() - 1) + terrainBonus;
+        for (Char ch : chars) {
+            wandProc(ch, chargesPerCast());
+            ch.damage(damageRoll(lvl), this);
+            ch.sprite.centerEmitter().burst(PurpleParticle.BURST, Random.IntRange(1, 2));
+            ch.sprite.flash();
+        }
+    }
+
+    @Override
+    public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
+        //no direct effect, see magesStaff.reachfactor
+    }
+
+    private int distance() {
+        return buffedLvl() * 2 + 6;
+    }
+
+    @Override
+    public String upgradeStat2(int level) {
+        return Integer.toString(6 + level * 2);
+    }
+
+    @Override
+    public void fx(Ballistica beam, Callback callback) {
+
+        int cell = beam.path.get(Math.min(beam.dist, distance()));
+        curUser.sprite.parent.add(new Beam.DeathRay(curUser.sprite.center(), DungeonTilemap.raisedTileCenterToWorld(cell)));
+        callback.call();
+    }
+
+    @Override
+    public void staffFx(MagesStaff.StaffParticle particle) {
+        particle.color(0x220022);
+        particle.am = 0.6f;
+        particle.setLifespan(1f);
+        particle.acc.set(10, -10);
+        particle.setSize(0.5f, 3f);
+        particle.shuffleXY(1f);
+    }
 }

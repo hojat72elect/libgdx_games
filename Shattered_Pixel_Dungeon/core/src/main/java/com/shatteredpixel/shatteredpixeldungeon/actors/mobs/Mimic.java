@@ -49,312 +49,311 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class Mimic extends Mob {
-	
-	private int level;
-	
-	{
-		spriteClass = MimicSprite.class;
 
-		properties.add(Property.DEMONIC);
+    private int level;
 
-		EXP = 0;
-		
-		//mimics are neutral when hidden
-		alignment = Alignment.NEUTRAL;
-		state = PASSIVE;
-	}
-	
-	public ArrayList<Item> items;
+    {
+        spriteClass = MimicSprite.class;
 
-	private boolean stealthy = false;
-	
-	private static final String LEVEL	= "level";
-	private static final String ITEMS	= "items";
-	private static final String STEALTHY= "stealthy";
-	
-	@Override
-	public void storeInBundle( Bundle bundle ) {
-		super.storeInBundle( bundle );
-		if (items != null) bundle.put( ITEMS, items );
-		bundle.put( LEVEL, level );
-		bundle.put( STEALTHY, stealthy );
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public void restoreFromBundle( Bundle bundle ) {
-		if (bundle.contains( ITEMS )) {
-			items = new ArrayList<>((Collection<Item>) ((Collection<?>) bundle.getCollection(ITEMS)));
-		}
-		level = bundle.getInt( LEVEL );
-		adjustStats(level);
-		stealthy = bundle.getBoolean(STEALTHY);
-		super.restoreFromBundle(bundle);
-		if (state != PASSIVE && alignment == Alignment.NEUTRAL){
-			alignment = Alignment.ENEMY;
-		}
-	}
+        properties.add(Property.DEMONIC);
 
-	@Override
-	public boolean add(Buff buff) {
-		if (super.add(buff)) {
-			if (buff.type == Buff.buffType.NEGATIVE && alignment == Alignment.NEUTRAL) {
-				alignment = Alignment.ENEMY;
-				stopHiding();
-				if (sprite != null) sprite.idle();
-			}
-			return true;
-		}
-		return false;
-	}
+        EXP = 0;
 
-	@Override
-	public String name() {
-		if (alignment == Alignment.NEUTRAL){
-			return Messages.get(Heap.class, "chest");
-		} else {
-			return super.name();
-		}
-	}
+        //mimics are neutral when hidden
+        alignment = Alignment.NEUTRAL;
+        state = PASSIVE;
+    }
 
-	@Override
-	public String description() {
-		if (alignment == Alignment.NEUTRAL){
-			if (MimicTooth.stealthyMimics()){
-				return Messages.get(Heap.class, "chest_desc");
-			} else {
-				return Messages.get(Heap.class, "chest_desc") + "\n\n" + Messages.get(this, "hidden_hint");
-			}
-		} else {
-			return super.description();
-		}
-	}
+    public ArrayList<Item> items;
 
-	@Override
-	protected boolean act() {
-		if (alignment == Alignment.NEUTRAL && state != PASSIVE){
-			alignment = Alignment.ENEMY;
-			if (sprite != null) sprite.idle();
-			if (Dungeon.level.heroFOV[pos]) {
-				GLog.w(Messages.get(this, "reveal") );
-				CellEmitter.get(pos).burst(Speck.factory(Speck.STAR), 10);
-				Sample.INSTANCE.play(Assets.Sounds.MIMIC);
-			}
-		}
-		return super.act();
-	}
+    private boolean stealthy = false;
 
-	@Override
-	public CharSprite sprite() {
-		MimicSprite sprite = (MimicSprite) super.sprite();
-		if (alignment == Alignment.NEUTRAL) sprite.hideMimic(this);
-		return sprite;
-	}
+    private static final String LEVEL = "level";
+    private static final String ITEMS = "items";
+    private static final String STEALTHY = "stealthy";
 
-	@Override
-	public boolean interact(Char c) {
-		if (alignment != Alignment.NEUTRAL || c != Dungeon.hero){
-			return super.interact(c);
-		}
-		stopHiding();
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        if (items != null) bundle.put(ITEMS, items);
+        bundle.put(LEVEL, level);
+        bundle.put(STEALTHY, stealthy);
+    }
 
-		Dungeon.hero.busy();
-		Dungeon.hero.sprite.operate(pos);
-		if (Dungeon.hero.invisible <= 0
-				&& Dungeon.hero.buff(Swiftthistle.TimeBubble.class) == null
-				&& Dungeon.hero.buff(TimekeepersHourglass.timeFreeze.class) == null){
-			return doAttack(Dungeon.hero);
-		} else {
-			sprite.idle();
-			alignment = Alignment.ENEMY;
-			Dungeon.hero.spendAndNext(1f);
-			return true;
-		}
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        if (bundle.contains(ITEMS)) {
+            items = new ArrayList<>((Collection<Item>) ((Collection<?>) bundle.getCollection(ITEMS)));
+        }
+        level = bundle.getInt(LEVEL);
+        adjustStats(level);
+        stealthy = bundle.getBoolean(STEALTHY);
+        super.restoreFromBundle(bundle);
+        if (state != PASSIVE && alignment == Alignment.NEUTRAL) {
+            alignment = Alignment.ENEMY;
+        }
+    }
 
-	@Override
-	public void onAttackComplete() {
-		super.onAttackComplete();
-		if (alignment == Alignment.NEUTRAL){
-			alignment = Alignment.ENEMY;
-			Dungeon.hero.spendAndNext(1f);
-		}
-	}
+    @Override
+    public boolean add(Buff buff) {
+        if (super.add(buff)) {
+            if (buff.type == Buff.buffType.NEGATIVE && alignment == Alignment.NEUTRAL) {
+                alignment = Alignment.ENEMY;
+                stopHiding();
+                if (sprite != null) sprite.idle();
+            }
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public int defenseProc(Char enemy, int damage) {
-		if (state == PASSIVE){
-			alignment = Alignment.ENEMY;
-			stopHiding();
-		}
-		return super.defenseProc(enemy, damage);
-	}
+    @Override
+    public String name() {
+        if (alignment == Alignment.NEUTRAL) {
+            return Messages.get(Heap.class, "chest");
+        } else {
+            return super.name();
+        }
+    }
 
-	@Override
-	public void damage(int dmg, Object src) {
-		if (state == PASSIVE){
-			alignment = Alignment.ENEMY;
-			stopHiding();
-		}
-		super.damage(dmg, src);
-	}
+    @Override
+    public String description() {
+        if (alignment == Alignment.NEUTRAL) {
+            if (MimicTooth.stealthyMimics()) {
+                return Messages.get(Heap.class, "chest_desc");
+            } else {
+                return Messages.get(Heap.class, "chest_desc") + "\n\n" + Messages.get(this, "hidden_hint");
+            }
+        } else {
+            return super.description();
+        }
+    }
 
-	@Override
-	public void die(Object cause) {
-		if (state == PASSIVE){
-			alignment = Alignment.ENEMY;
-			stopHiding();
-		}
-		super.die(cause);
-	}
+    @Override
+    protected boolean act() {
+        if (alignment == Alignment.NEUTRAL && state != PASSIVE) {
+            alignment = Alignment.ENEMY;
+            if (sprite != null) sprite.idle();
+            if (Dungeon.level.heroFOV[pos]) {
+                GLog.w(Messages.get(this, "reveal"));
+                CellEmitter.get(pos).burst(Speck.factory(Speck.STAR), 10);
+                Sample.INSTANCE.play(Assets.Sounds.MIMIC);
+            }
+        }
+        return super.act();
+    }
 
-	public void stopHiding(){
-		state = HUNTING;
-		if (sprite != null) sprite.idle();
-		if (Actor.chars().contains(this) && Dungeon.level.heroFOV[pos]) {
-			enemy = Dungeon.hero;
-			target = Dungeon.hero.pos;
-			GLog.w(Messages.get(this, "reveal") );
-			CellEmitter.get(pos).burst(Speck.factory(Speck.STAR), 10);
-			Sample.INSTANCE.play(Assets.Sounds.MIMIC);
-		}
-	}
+    @Override
+    public CharSprite sprite() {
+        MimicSprite sprite = (MimicSprite) super.sprite();
+        if (alignment == Alignment.NEUTRAL) sprite.hideMimic(this);
+        return sprite;
+    }
 
-	//stealthy mimics have changes to visual behaviour that make them much harder to detect
-	public boolean stealthy(){
-		return stealthy;
-	}
+    @Override
+    public boolean interact(Char c) {
+        if (alignment != Alignment.NEUTRAL || c != Dungeon.hero) {
+            return super.interact(c);
+        }
+        stopHiding();
 
-	@Override
-	public int damageRoll() {
-		if (alignment == Alignment.NEUTRAL){
-			return Random.NormalIntRange( 2 + 2*level, 2 + 2*level);
-		} else {
-			return Random.NormalIntRange( 1 + level, 2 + 2*level);
-		}
-	}
+        Dungeon.hero.busy();
+        Dungeon.hero.sprite.operate(pos);
+        if (Dungeon.hero.invisible <= 0
+                && Dungeon.hero.buff(Swiftthistle.TimeBubble.class) == null
+                && Dungeon.hero.buff(TimekeepersHourglass.timeFreeze.class) == null) {
+            return doAttack(Dungeon.hero);
+        } else {
+            sprite.idle();
+            alignment = Alignment.ENEMY;
+            Dungeon.hero.spendAndNext(1f);
+            return true;
+        }
+    }
 
-	@Override
-	public int drRoll() {
-		return super.drRoll() + Random.NormalIntRange(0, 1 + level/2);
-	}
+    @Override
+    public void onAttackComplete() {
+        super.onAttackComplete();
+        if (alignment == Alignment.NEUTRAL) {
+            alignment = Alignment.ENEMY;
+            Dungeon.hero.spendAndNext(1f);
+        }
+    }
 
-	@Override
-	public void beckon( int cell ) {
-		if (alignment != Alignment.NEUTRAL) {
-			super.beckon(cell);
-		}
-	}
+    @Override
+    public int defenseProc(Char enemy, int damage) {
+        if (state == PASSIVE) {
+            alignment = Alignment.ENEMY;
+            stopHiding();
+        }
+        return super.defenseProc(enemy, damage);
+    }
 
-	@Override
-	public int attackSkill( Char target ) {
-		if (target != null && alignment == Alignment.NEUTRAL && target.invisible <= 0){
-			return INFINITE_ACCURACY;
-		} else {
-			return 6 + level;
-		}
-	}
+    @Override
+    public void damage(int dmg, Object src) {
+        if (state == PASSIVE) {
+            alignment = Alignment.ENEMY;
+            stopHiding();
+        }
+        super.damage(dmg, src);
+    }
 
-	public void setLevel( int level ){
-		this.level = level;
-		adjustStats(level);
-	}
-	
-	public void adjustStats( int level ) {
-		HP = HT = (1 + level) * 6;
-		defenseSkill = 2 + level/2;
-		
-		enemySeen = true;
-	}
-	
-	@Override
-	public void rollToDropLoot(){
-		
-		if (items != null) {
-			for (Item item : items) {
-				Dungeon.level.drop( item, pos ).sprite.drop();
-			}
-			items = null;
-		}
-		super.rollToDropLoot();
-	}
+    @Override
+    public void die(Object cause) {
+        if (state == PASSIVE) {
+            alignment = Alignment.ENEMY;
+            stopHiding();
+        }
+        super.die(cause);
+    }
 
-	@Override
-	public float spawningWeight() {
-		return 0f;
-	}
+    public void stopHiding() {
+        state = HUNTING;
+        if (sprite != null) sprite.idle();
+        if (Actor.chars().contains(this) && Dungeon.level.heroFOV[pos]) {
+            enemy = Dungeon.hero;
+            target = Dungeon.hero.pos;
+            GLog.w(Messages.get(this, "reveal"));
+            CellEmitter.get(pos).burst(Speck.factory(Speck.STAR), 10);
+            Sample.INSTANCE.play(Assets.Sounds.MIMIC);
+        }
+    }
 
-	@Override
-	public boolean reset() {
-		if (state != PASSIVE) state = WANDERING;
-		return true;
-	}
+    //stealthy mimics have changes to visual behaviour that make them much harder to detect
+    public boolean stealthy() {
+        return stealthy;
+    }
 
-	public static Mimic spawnAt( int pos, Item... items){
-		return spawnAt(pos, Mimic.class, items);
-	}
+    @Override
+    public int damageRoll() {
+        if (alignment == Alignment.NEUTRAL) {
+            return Random.NormalIntRange(2 + 2 * level, 2 + 2 * level);
+        } else {
+            return Random.NormalIntRange(1 + level, 2 + 2 * level);
+        }
+    }
 
-	public static Mimic spawnAt( int pos, Class mimicType, Item... items){
-		return spawnAt(pos, mimicType, true, items);
-	}
+    @Override
+    public int drRoll() {
+        return super.drRoll() + Random.NormalIntRange(0, 1 + level / 2);
+    }
 
-	public static Mimic spawnAt( int pos, boolean useDecks, Item... items){
-		return spawnAt(pos, Mimic.class, useDecks, items);
-	}
+    @Override
+    public void beckon(int cell) {
+        if (alignment != Alignment.NEUTRAL) {
+            super.beckon(cell);
+        }
+    }
 
-	public static Mimic spawnAt( int pos, Class mimicType, boolean useDecks, Item... items){
-		Mimic m;
-		if (mimicType == GoldenMimic.class){
-			m = new GoldenMimic();
-		} else if (mimicType == CrystalMimic.class) {
-			m = new CrystalMimic();
-		} else if (mimicType == EbonyMimic.class) {
-			m = new EbonyMimic();
-		} else {
-			m = new Mimic();
-		}
+    @Override
+    public int attackSkill(Char target) {
+        if (target != null && alignment == Alignment.NEUTRAL && target.invisible <= 0) {
+            return INFINITE_ACCURACY;
+        } else {
+            return 6 + level;
+        }
+    }
 
-		m.items = new ArrayList<>( Arrays.asList(items) );
-		m.setLevel( Dungeon.scalingDepth() );
-		m.pos = pos;
+    public void setLevel(int level) {
+        this.level = level;
+        adjustStats(level);
+    }
 
-		//generate an extra reward for killing the mimic
-		m.generatePrize(useDecks);
+    public void adjustStats(int level) {
+        HP = HT = (1 + level) * 6;
+        defenseSkill = 2 + level / 2;
 
-		if (MimicTooth.stealthyMimics()){
-			m.stealthy = true;
-		}
+        enemySeen = true;
+    }
 
-		return m;
-	}
+    @Override
+    public void rollToDropLoot() {
 
-	protected void generatePrize( boolean useDecks ){
-		Item reward = null;
-		do {
-			switch (Random.Int(5)) {
-				case 0:
-					reward = new Gold().random();
-					break;
-				case 1:
-					reward = Generator.randomMissile(!useDecks);
-					break;
-				case 2:
-					reward = Generator.randomArmor();
-					break;
-				case 3:
-					reward = Generator.randomWeapon(!useDecks);
-					break;
-				case 4:
-					reward = useDecks ? Generator.random(Generator.Category.RING) : Generator.randomUsingDefaults(Generator.Category.RING);
-					break;
-			}
-		} while (reward == null || Challenges.isItemBlocked(reward));
-		items.add(reward);
+        if (items != null) {
+            for (Item item : items) {
+                Dungeon.level.drop(item, pos).sprite.drop();
+            }
+            items = null;
+        }
+        super.rollToDropLoot();
+    }
 
-		if (MimicTooth.stealthyMimics()){
-			//add an extra random item if player has a mimic tooth
-			items.add(Generator.randomUsingDefaults());
-		}
-	}
+    @Override
+    public float spawningWeight() {
+        return 0f;
+    }
 
+    @Override
+    public boolean reset() {
+        if (state != PASSIVE) state = WANDERING;
+        return true;
+    }
+
+    public static Mimic spawnAt(int pos, Item... items) {
+        return spawnAt(pos, Mimic.class, items);
+    }
+
+    public static Mimic spawnAt(int pos, Class mimicType, Item... items) {
+        return spawnAt(pos, mimicType, true, items);
+    }
+
+    public static Mimic spawnAt(int pos, boolean useDecks, Item... items) {
+        return spawnAt(pos, Mimic.class, useDecks, items);
+    }
+
+    public static Mimic spawnAt(int pos, Class mimicType, boolean useDecks, Item... items) {
+        Mimic m;
+        if (mimicType == GoldenMimic.class) {
+            m = new GoldenMimic();
+        } else if (mimicType == CrystalMimic.class) {
+            m = new CrystalMimic();
+        } else if (mimicType == EbonyMimic.class) {
+            m = new EbonyMimic();
+        } else {
+            m = new Mimic();
+        }
+
+        m.items = new ArrayList<>(Arrays.asList(items));
+        m.setLevel(Dungeon.scalingDepth());
+        m.pos = pos;
+
+        //generate an extra reward for killing the mimic
+        m.generatePrize(useDecks);
+
+        if (MimicTooth.stealthyMimics()) {
+            m.stealthy = true;
+        }
+
+        return m;
+    }
+
+    protected void generatePrize(boolean useDecks) {
+        Item reward = null;
+        do {
+            switch (Random.Int(5)) {
+                case 0:
+                    reward = new Gold().random();
+                    break;
+                case 1:
+                    reward = Generator.randomMissile(!useDecks);
+                    break;
+                case 2:
+                    reward = Generator.randomArmor();
+                    break;
+                case 3:
+                    reward = Generator.randomWeapon(!useDecks);
+                    break;
+                case 4:
+                    reward = useDecks ? Generator.random(Generator.Category.RING) : Generator.randomUsingDefaults(Generator.Category.RING);
+                    break;
+            }
+        } while (reward == null || Challenges.isItemBlocked(reward));
+        items.add(reward);
+
+        if (MimicTooth.stealthyMimics()) {
+            //add an extra random item if player has a mimic tooth
+            items.add(Generator.randomUsingDefaults());
+        }
+    }
 }

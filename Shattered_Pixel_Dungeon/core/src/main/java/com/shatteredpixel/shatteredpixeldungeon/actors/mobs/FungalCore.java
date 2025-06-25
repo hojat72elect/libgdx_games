@@ -26,31 +26,31 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.FungalCoreSprite;
 
 public class FungalCore extends Mob {
 
-	{
-		HP = HT = 300;
-		spriteClass = FungalCoreSprite.class;
+    {
+        HP = HT = 300;
+        spriteClass = FungalCoreSprite.class;
 
-		EXP = 20;
+        EXP = 20;
 
-		state = PASSIVE;
+        state = PASSIVE;
 
-		properties.add(Property.IMMOVABLE);
-		properties.add(Property.BOSS);
-	}
+        properties.add(Property.IMMOVABLE);
+        properties.add(Property.BOSS);
+    }
 
-	@Override
-	public boolean reset() {
-		return true;
-	}
+    @Override
+    public boolean reset() {
+        return true;
+    }
 
-	@Override
-	public float spawningWeight() {
-		return 0;
-	}
+    @Override
+    public float spawningWeight() {
+        return 0;
+    }
 
-	@Override
-	public void die(Object cause) {
-		super.die(cause);
-		Blacksmith.Quest.beatBoss();
-	}
+    @Override
+    public void die(Object cause) {
+        super.die(cause);
+        Blacksmith.Quest.beatBoss();
+    }
 }

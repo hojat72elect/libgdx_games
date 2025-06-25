@@ -50,150 +50,148 @@ import java.util.ArrayList;
 
 public class Succubus extends Mob {
 
-	private int blinkCooldown = 0;
-	
-	{
-		spriteClass = SuccubusSprite.class;
-		
-		HP = HT = 80;
-		defenseSkill = 25;
-		viewDistance = Light.DISTANCE;
-		
-		EXP = 12;
-		maxLvl = 25;
-		
-		loot = Generator.Category.SCROLL;
-		lootChance = 0.33f;
+    private int blinkCooldown = 0;
 
-		properties.add(Property.DEMONIC);
-	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 25, 30 );
-	}
-	
-	@Override
-	public int attackProc( Char enemy, int damage ) {
-		damage = super.attackProc( enemy, damage );
-		
-		if (enemy.buff(Charm.class) != null ){
-			int shield = (HP - HT) + (5 + damage);
-			if (shield > 0){
-				HP = HT;
-				if (shield < 5){
-					sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(5-shield), FloatingText.HEALING);
-				}
+    {
+        spriteClass = SuccubusSprite.class;
 
-				Buff.affect(this, Barrier.class).setShield(shield);
-				sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shield), FloatingText.SHIELDING);
-			} else {
-				HP += 5 + damage;
-				sprite.showStatusWithIcon(CharSprite.POSITIVE, "5", FloatingText.HEALING);
-			}
-			if (Dungeon.level.heroFOV[pos]) {
-				Sample.INSTANCE.play( Assets.Sounds.CHARMS );
-			}
-		} else if (Random.Int( 3 ) == 0) {
-			Charm c = Buff.affect( enemy, Charm.class, Charm.DURATION/2f );
-			c.object = id();
-			c.ignoreNextHit = true; //so that the -5 duration from succubus hit is ignored
-			if (Dungeon.level.heroFOV[enemy.pos]) {
-				enemy.sprite.centerEmitter().start(Speck.factory(Speck.HEART), 0.2f, 5);
-				Sample.INSTANCE.play(Assets.Sounds.CHARMS);
-			}
-		}
-		
-		return damage;
-	}
-	
-	@Override
-	protected boolean getCloser( int target ) {
-		if (fieldOfView[target] && Dungeon.level.distance( pos, target ) > 2 && blinkCooldown <= 0 && !rooted) {
-			
-			if (blink( target )) {
-				spend(-1 / speed());
-				return true;
-			} else {
-				return false;
-			}
-			
-		} else {
+        HP = HT = 80;
+        defenseSkill = 25;
+        viewDistance = Light.DISTANCE;
 
-			blinkCooldown--;
-			return super.getCloser( target );
-			
-		}
-	}
-	
-	private boolean blink( int target ) {
-		
-		Ballistica route = new Ballistica( pos, target, Ballistica.PROJECTILE);
-		int cell = route.collisionPos;
+        EXP = 12;
+        maxLvl = 25;
 
-		//can't occupy the same cell as another char, so move back one.
-		if (Actor.findChar( cell ) != null && cell != this.pos)
-			cell = route.path.get(route.dist-1);
+        loot = Generator.Category.SCROLL;
+        lootChance = 0.33f;
 
-		if (Dungeon.level.avoid[ cell ] || (properties().contains(Property.LARGE) && !Dungeon.level.openSpace[cell])){
-			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int n : PathFinder.NEIGHBOURS8) {
-				cell = route.collisionPos + n;
-				if (Dungeon.level.passable[cell]
-						&& Actor.findChar( cell ) == null
-						&& (!properties().contains(Property.LARGE) || Dungeon.level.openSpace[cell])) {
-					candidates.add( cell );
-				}
-			}
-			if (candidates.size() > 0)
-				cell = Random.element(candidates);
-			else {
-				blinkCooldown = Random.IntRange(4, 6);
-				return false;
-			}
-		}
-		
-		ScrollOfTeleportation.appear( this, cell );
+        properties.add(Property.DEMONIC);
+    }
 
-		blinkCooldown = Random.IntRange(4, 6);
-		return true;
-	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 40;
-	}
-	
-	@Override
-	public int drRoll() {
-		return super.drRoll() + Random.NormalIntRange(0, 10);
-	}
+    @Override
+    public int damageRoll() {
+        return Random.NormalIntRange(25, 30);
+    }
 
-	@Override
-	public Item createLoot() {
-		Class<?extends Scroll> loot;
-		do{
-			loot = (Class<? extends Scroll>) Random.oneOf(Generator.Category.SCROLL.classes);
-		} while (loot == ScrollOfIdentify.class || loot == ScrollOfUpgrade.class);
+    @Override
+    public int attackProc(Char enemy, int damage) {
+        damage = super.attackProc(enemy, damage);
 
-		return Reflection.newInstance(loot);
-	}
+        if (enemy.buff(Charm.class) != null) {
+            int shield = (HP - HT) + (5 + damage);
+            if (shield > 0) {
+                HP = HT;
+                if (shield < 5) {
+                    sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(5 - shield), FloatingText.HEALING);
+                }
 
-	{
-		immunities.add( Charm.class );
-	}
+                Buff.affect(this, Barrier.class).setShield(shield);
+                sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shield), FloatingText.SHIELDING);
+            } else {
+                HP += 5 + damage;
+                sprite.showStatusWithIcon(CharSprite.POSITIVE, "5", FloatingText.HEALING);
+            }
+            if (Dungeon.level.heroFOV[pos]) {
+                Sample.INSTANCE.play(Assets.Sounds.CHARMS);
+            }
+        } else if (Random.Int(3) == 0) {
+            Charm c = Buff.affect(enemy, Charm.class, Charm.DURATION / 2f);
+            c.object = id();
+            c.ignoreNextHit = true; //so that the -5 duration from succubus hit is ignored
+            if (Dungeon.level.heroFOV[enemy.pos]) {
+                enemy.sprite.centerEmitter().start(Speck.factory(Speck.HEART), 0.2f, 5);
+                Sample.INSTANCE.play(Assets.Sounds.CHARMS);
+            }
+        }
 
-	private static final String BLINK_CD = "blink_cd";
+        return damage;
+    }
 
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(BLINK_CD, blinkCooldown);
-	}
+    @Override
+    protected boolean getCloser(int target) {
+        if (fieldOfView[target] && Dungeon.level.distance(pos, target) > 2 && blinkCooldown <= 0 && !rooted) {
 
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		blinkCooldown = bundle.getInt(BLINK_CD);
-	}
+            if (blink(target)) {
+                spend(-1 / speed());
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+
+            blinkCooldown--;
+            return super.getCloser(target);
+        }
+    }
+
+    private boolean blink(int target) {
+
+        Ballistica route = new Ballistica(pos, target, Ballistica.PROJECTILE);
+        int cell = route.collisionPos;
+
+        //can't occupy the same cell as another char, so move back one.
+        if (Actor.findChar(cell) != null && cell != this.pos)
+            cell = route.path.get(route.dist - 1);
+
+        if (Dungeon.level.avoid[cell] || (properties().contains(Property.LARGE) && !Dungeon.level.openSpace[cell])) {
+            ArrayList<Integer> candidates = new ArrayList<>();
+            for (int n : PathFinder.NEIGHBOURS8) {
+                cell = route.collisionPos + n;
+                if (Dungeon.level.passable[cell]
+                        && Actor.findChar(cell) == null
+                        && (!properties().contains(Property.LARGE) || Dungeon.level.openSpace[cell])) {
+                    candidates.add(cell);
+                }
+            }
+            if (candidates.size() > 0)
+                cell = Random.element(candidates);
+            else {
+                blinkCooldown = Random.IntRange(4, 6);
+                return false;
+            }
+        }
+
+        ScrollOfTeleportation.appear(this, cell);
+
+        blinkCooldown = Random.IntRange(4, 6);
+        return true;
+    }
+
+    @Override
+    public int attackSkill(Char target) {
+        return 40;
+    }
+
+    @Override
+    public int drRoll() {
+        return super.drRoll() + Random.NormalIntRange(0, 10);
+    }
+
+    @Override
+    public Item createLoot() {
+        Class<? extends Scroll> loot;
+        do {
+            loot = (Class<? extends Scroll>) Random.oneOf(Generator.Category.SCROLL.classes);
+        } while (loot == ScrollOfIdentify.class || loot == ScrollOfUpgrade.class);
+
+        return Reflection.newInstance(loot);
+    }
+
+    {
+        immunities.add(Charm.class);
+    }
+
+    private static final String BLINK_CD = "blink_cd";
+
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(BLINK_CD, blinkCooldown);
+    }
+
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        blinkCooldown = bundle.getInt(BLINK_CD);
+    }
 }

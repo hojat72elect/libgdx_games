@@ -27,38 +27,35 @@ import com.watabou.noosa.Gizmo;
 
 public class GlowBlock extends Gizmo {
 
-	private CharSprite target;
+    private final CharSprite target;
 
-	public GlowBlock(CharSprite target ) {
-		super();
+    public GlowBlock(CharSprite target) {
+        super();
 
-		this.target = target;
-	}
+        this.target = target;
+    }
 
-	@Override
-	public void update() {
-		super.update();
+    @Override
+    public void update() {
+        super.update();
 
-		//wavers between 0.4f and 0.6f once per second
-		target.tint(1.33f, 1.33f, 0.83f, 0.5f + 0.1f*(float)Math.cos(Math.PI*2*Game.timeTotal));
+        //wavers between 0.4f and 0.6f once per second
+        target.tint(1.33f, 1.33f, 0.83f, 0.5f + 0.1f * (float) Math.cos(Math.PI * 2 * Game.timeTotal));
+    }
 
-	}
+    public void darken() {
 
-	public void darken() {
+        target.resetColor();
+        killAndErase();
+    }
 
-		target.resetColor();
-		killAndErase();
+    public static GlowBlock lighten(CharSprite sprite) {
 
-	}
+        GlowBlock glowBlock = new GlowBlock(sprite);
+        if (sprite.parent != null) {
+            sprite.parent.add(glowBlock);
+        }
 
-	public static GlowBlock lighten(CharSprite sprite ) {
-
-		GlowBlock glowBlock = new GlowBlock( sprite );
-		if (sprite.parent != null) {
-			sprite.parent.add(glowBlock);
-		}
-
-		return glowBlock;
-	}
-
+        return glowBlock;
+    }
 }

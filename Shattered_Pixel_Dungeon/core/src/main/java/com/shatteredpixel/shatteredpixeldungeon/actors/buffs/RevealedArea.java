@@ -29,58 +29,58 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 
-public class RevealedArea extends FlavourBuff{
+public class RevealedArea extends FlavourBuff {
 
-	{
-		type = Buff.buffType.POSITIVE;
-	}
+    {
+        type = Buff.buffType.POSITIVE;
+    }
 
-	public int pos, depth, branch;
+    public int pos, depth, branch;
 
-	@Override
-	public void detach() {
-		GameScene.updateFog(pos, 2);
-		super.detach();
-	}
+    @Override
+    public void detach() {
+        GameScene.updateFog(pos, 2);
+        super.detach();
+    }
 
-	@Override
-	public int icon() {
-		return BuffIndicator.MIND_VISION;
-	}
+    @Override
+    public int icon() {
+        return BuffIndicator.MIND_VISION;
+    }
 
-	@Override
-	public void tintIcon(Image icon) {
-		icon.hardlight(0, 1, 1);
-	}
+    @Override
+    public void tintIcon(Image icon) {
+        icon.hardlight(0, 1, 1);
+    }
 
-	@Override
-	public float iconFadePercent() {
-		float max = 5*Dungeon.hero.pointsInTalent(Talent.SEER_SHOT);
-		return Math.max(0, (max-visualcooldown()) / max);
-	}
+    @Override
+    public float iconFadePercent() {
+        float max = 5 * Dungeon.hero.pointsInTalent(Talent.SEER_SHOT);
+        return Math.max(0, (max - visualcooldown()) / max);
+    }
 
-	@Override
-	public String desc() {
-		return Messages.get(this, "desc", (int)visualcooldown());
-	}
+    @Override
+    public String desc() {
+        return Messages.get(this, "desc", (int) visualcooldown());
+    }
 
-	private static final String BRANCH = "branch";
-	private static final String DEPTH = "depth";
-	private static final String POS = "pos";
+    private static final String BRANCH = "branch";
+    private static final String DEPTH = "depth";
+    private static final String POS = "pos";
 
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(DEPTH, depth);
-		bundle.put(BRANCH, branch);
-		bundle.put(POS, pos);
-	}
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(DEPTH, depth);
+        bundle.put(BRANCH, branch);
+        bundle.put(POS, pos);
+    }
 
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		depth = bundle.getInt(DEPTH);
-		branch = bundle.getInt(BRANCH);
-		pos = bundle.getInt(POS);
-	}
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        depth = bundle.getInt(DEPTH);
+        branch = bundle.getInt(BRANCH);
+        pos = bundle.getInt(POS);
+    }
 }

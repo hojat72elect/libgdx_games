@@ -31,271 +31,269 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public enum Music {
-	
-	INSTANCE;
-	
-	private com.badlogic.gdx.audio.Music player;
-	
-	private String lastPlayed;
-	private boolean looping;
-	
-	private boolean enabled = true;
-	private float volume = 1f;
 
-	private float fadeTime = -1f;
-	private float fadeTotal = -1f;
-	private Callback onFadeOut = null;
+    INSTANCE;
 
-	String[] trackList;
-	float[] trackChances;
-	private final ArrayList<String> trackQueue = new ArrayList<>();
-	boolean shuffle = false;
-	
-	public synchronized void play( String assetName, boolean looping ) {
+    private com.badlogic.gdx.audio.Music player;
 
-		//iOS cannot play ogg, so we use an mp3 alternative instead
-		if (assetName != null && DeviceCompat.isiOS()){
-			assetName = assetName.replace(".ogg", ".mp3");
-		}
-		
-		if (isPlaying() && lastPlayed != null && lastPlayed.equals( assetName )) {
-			player.setVolume(volumeWithFade());
-			return;
-		}
-		
-		stop();
-		
-		lastPlayed = assetName;
-		trackList = null;
+    private String lastPlayed;
+    private boolean looping;
 
-		this.looping = looping;
-		this.shuffle = false;
+    private boolean enabled = true;
+    private float volume = 1f;
 
-		if (!enabled || assetName == null) {
-			return;
-		}
+    private float fadeTime = -1f;
+    private float fadeTotal = -1f;
+    private Callback onFadeOut = null;
 
-		play(assetName, null);
-	}
+    String[] trackList;
+    float[] trackChances;
+    private final ArrayList<String> trackQueue = new ArrayList<>();
+    boolean shuffle = false;
 
-	public synchronized void playTracks( String[] tracks, float[] chances, boolean shuffle){
+    public synchronized void play(String assetName, boolean looping) {
 
-		if (tracks == null || tracks.length == 0 || tracks.length != chances.length){
-			stop();
-			return;
-		}
+        //iOS cannot play ogg, so we use an mp3 alternative instead
+        if (assetName != null && DeviceCompat.isiOS()) {
+            assetName = assetName.replace(".ogg", ".mp3");
+        }
 
-		//iOS cannot play ogg, so we use an mp3 alternative instead
-		if (tracks != null && DeviceCompat.isiOS()){
-			for (int i = 0; i < tracks.length; i ++){
-				tracks[i] = tracks[i].replace(".ogg", ".mp3");
-			}
-		}
+        if (isPlaying() && lastPlayed != null && lastPlayed.equals(assetName)) {
+            player.setVolume(volumeWithFade());
+            return;
+        }
 
-		if (isPlaying() && this.trackList != null && tracks.length == trackList.length){
+        stop();
 
-			//lists are considered the same if they are identical or merely shifted
-			// e.g. the regular title theme and the victory theme are considered equivalent
-			boolean sameList = false;
-			for (int ofs = 0; ofs < tracks.length; ofs++){
-				sameList = true;
-				for (int j = 0; j < tracks.length; j++){
-					int i = (j+ofs)%tracks.length;
-					if (!tracks[i].equals(trackList[j]) || chances[i] != trackChances[j]){
-						sameList = false;
-						break;
-					}
-				}
-				if (sameList) break;
-			}
+        lastPlayed = assetName;
+        trackList = null;
 
-			if (sameList) {
-				player.setVolume(volumeWithFade());
-				return;
-			}
-		}
+        this.looping = looping;
+        this.shuffle = false;
 
-		stop();
+        if (!enabled || assetName == null) {
+            return;
+        }
 
-		lastPlayed = null;
-		trackList = tracks;
-		trackChances = chances;
-		trackQueue.clear();
+        play(assetName, null);
+    }
 
-		for (int i = 0; i < trackList.length; i++){
-			if (Random.Float() < trackChances[i]){
-				trackQueue.add(trackList[i]);
-			}
-		}
+    public synchronized void playTracks(String[] tracks, float[] chances, boolean shuffle) {
 
-		this.looping = false;
-		this.shuffle = shuffle;
+        if (tracks == null || tracks.length == 0 || tracks.length != chances.length) {
+            stop();
+            return;
+        }
 
-		if (!enabled || trackQueue.isEmpty()){
-			return;
-		}
+        //iOS cannot play ogg, so we use an mp3 alternative instead
+        if (tracks != null && DeviceCompat.isiOS()) {
+            for (int i = 0; i < tracks.length; i++) {
+                tracks[i] = tracks[i].replace(".ogg", ".mp3");
+            }
+        }
 
-		play(trackQueue.remove(0), trackLooper);
-	}
+        if (isPlaying() && this.trackList != null && tracks.length == trackList.length) {
 
-	public synchronized void fadeOut(float duration, Callback onComplete){
-		if (fadeTotal == -1f) {
-			fadeTotal = duration;
-			fadeTime = 0f;
-		} else {
-			fadeTime = (fadeTime/fadeTotal) * duration;
-			fadeTotal = duration;
-		}
-		onFadeOut = onComplete;
-	}
+            //lists are considered the same if they are identical or merely shifted
+            // e.g. the regular title theme and the victory theme are considered equivalent
+            boolean sameList = false;
+            for (int ofs = 0; ofs < tracks.length; ofs++) {
+                sameList = true;
+                for (int j = 0; j < tracks.length; j++) {
+                    int i = (j + ofs) % tracks.length;
+                    if (!tracks[i].equals(trackList[j]) || chances[i] != trackChances[j]) {
+                        sameList = false;
+                        break;
+                    }
+                }
+                if (sameList) break;
+            }
 
-	public synchronized void update(){
-		if (fadeTotal > 0f && !paused){
-			fadeTime += Game.elapsed;
+            if (sameList) {
+                player.setVolume(volumeWithFade());
+                return;
+            }
+        }
 
-			if (player != null) {
-				player.setVolume(volumeWithFade());
-			}
+        stop();
 
-			if (fadeTime >= fadeTotal) {
-				fadeTime = fadeTotal = -1f;
-				if (onFadeOut != null){
-					onFadeOut.call();
-				}
-			}
-		}
-	}
+        lastPlayed = null;
+        trackList = tracks;
+        trackChances = chances;
+        trackQueue.clear();
 
-	private com.badlogic.gdx.audio.Music.OnCompletionListener trackLooper = new com.badlogic.gdx.audio.Music.OnCompletionListener() {
-		@Override
-		public void onCompletion(com.badlogic.gdx.audio.Music music) {
-			//don't play the next track if we're currently in the middle of a fade
-			if (fadeTotal == -1f) {
-				//we do this in a separate thread to avoid graphics hitching while the music is prepared
-				if (!DeviceCompat.isDesktop()) {
-					new Thread() {
-						@Override
-						public void run() {
-							playNextTrack(music);
-						}
-					}.start();
-				} else {
-					//don't use a separate thread on desktop, causes errors and makes no performance difference
-					playNextTrack(music);
-				}
-			}
-		}
-	};
+        for (int i = 0; i < trackList.length; i++) {
+            if (Random.Float() < trackChances[i]) {
+                trackQueue.add(trackList[i]);
+            }
+        }
 
-	private synchronized void playNextTrack(com.badlogic.gdx.audio.Music music){
-		if (trackList == null || trackList.length == 0 || music != player || player.isLooping()){
-			return;
-		}
+        this.looping = false;
+        this.shuffle = shuffle;
 
-		Music.this.stop();
+        if (!enabled || trackQueue.isEmpty()) {
+            return;
+        }
 
-		if (trackQueue.isEmpty()) {
-			for (int i = 0; i < trackList.length; i++) {
-				if (Random.Float() < trackChances[i]) {
-					trackQueue.add(trackList[i]);
-				}
-			}
-			if (shuffle) Collections.shuffle(trackQueue);
-		}
+        play(trackQueue.remove(0), trackLooper);
+    }
 
-		if (!enabled || trackQueue.isEmpty()) {
-			return;
-		}
+    public synchronized void fadeOut(float duration, Callback onComplete) {
+        if (fadeTotal == -1f) {
+            fadeTotal = duration;
+            fadeTime = 0f;
+        } else {
+            fadeTime = (fadeTime / fadeTotal) * duration;
+            fadeTotal = duration;
+        }
+        onFadeOut = onComplete;
+    }
 
-		play(trackQueue.remove(0), trackLooper);
-	};
+    public synchronized void update() {
+        if (fadeTotal > 0f && !paused) {
+            fadeTime += Game.elapsed;
 
-	private synchronized void play(String track, com.badlogic.gdx.audio.Music.OnCompletionListener listener){
-		try {
-			fadeTime = fadeTotal = -1;
+            if (player != null) {
+                player.setVolume(volumeWithFade());
+            }
 
-			player = Gdx.audio.newMusic(Gdx.files.internal(track));
-			player.setLooping(looping);
-			player.setVolume(volumeWithFade());
-			if (!paused) player.play();
-			if (listener != null) {
-				player.setOnCompletionListener(listener);
-			}
-		} catch (Exception e){
-			Game.reportException(e);
-			player = null;
-		}
-	}
-	
-	public synchronized void end() {
-		lastPlayed = null;
-		trackList = null;
-		stop();
-	}
+            if (fadeTime >= fadeTotal) {
+                fadeTime = fadeTotal = -1f;
+                if (onFadeOut != null) {
+                    onFadeOut.call();
+                }
+            }
+        }
+    }
 
-	private boolean paused = false;
+    private final com.badlogic.gdx.audio.Music.OnCompletionListener trackLooper = new com.badlogic.gdx.audio.Music.OnCompletionListener() {
+        @Override
+        public void onCompletion(com.badlogic.gdx.audio.Music music) {
+            //don't play the next track if we're currently in the middle of a fade
+            if (fadeTotal == -1f) {
+                //we do this in a separate thread to avoid graphics hitching while the music is prepared
+                if (!DeviceCompat.isDesktop()) {
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            playNextTrack(music);
+                        }
+                    }.start();
+                } else {
+                    //don't use a separate thread on desktop, causes errors and makes no performance difference
+                    playNextTrack(music);
+                }
+            }
+        }
+    };
 
-	public synchronized boolean paused(){
-		return paused;
-	}
-	
-	public synchronized void pause() {
-		paused = true;
-		if (player != null) {
-			player.pause();
-		}
-	}
-	
-	public synchronized void resume() {
-		paused = false;
-		if (player != null) {
-			player.play();
-			player.setLooping(looping);
-		}
-	}
+    private synchronized void playNextTrack(com.badlogic.gdx.audio.Music music) {
+        if (trackList == null || trackList.length == 0 || music != player || player.isLooping()) {
+            return;
+        }
 
-	public synchronized void stop() {
-		if (player != null) {
-			player.dispose();
-			player = null;
-		}
-	}
-	
-	public synchronized void volume( float value ) {
-		volume = value;
-		if (player != null) {
-			player.setVolume( volumeWithFade() );
-		}
-	}
+        Music.this.stop();
 
-	private synchronized float volumeWithFade(){
-		if (fadeTotal > 0f){
-			return Math.max(0, volume * ((fadeTotal - fadeTime) / fadeTotal));
-		} else {
-			return volume;
-		}
-	}
-	
-	public synchronized boolean isPlaying() {
-		return player != null && player.isPlaying();
-	}
-	
-	public synchronized void enable( boolean value ) {
-		enabled = value;
-		if (isPlaying() && !value) {
-			stop();
-		} else
-		if (!isPlaying() && value) {
-			if (trackList != null){
-				playTracks(trackList, trackChances, shuffle);
-			} else if (lastPlayed != null) {
-				play(lastPlayed, looping);
-			}
-		}
-	}
-	
-	public synchronized boolean isEnabled() {
-		return enabled;
-	}
-	
+        if (trackQueue.isEmpty()) {
+            for (int i = 0; i < trackList.length; i++) {
+                if (Random.Float() < trackChances[i]) {
+                    trackQueue.add(trackList[i]);
+                }
+            }
+            if (shuffle) Collections.shuffle(trackQueue);
+        }
+
+        if (!enabled || trackQueue.isEmpty()) {
+            return;
+        }
+
+        play(trackQueue.remove(0), trackLooper);
+    }
+
+    private synchronized void play(String track, com.badlogic.gdx.audio.Music.OnCompletionListener listener) {
+        try {
+            fadeTime = fadeTotal = -1;
+
+            player = Gdx.audio.newMusic(Gdx.files.internal(track));
+            player.setLooping(looping);
+            player.setVolume(volumeWithFade());
+            if (!paused) player.play();
+            if (listener != null) {
+                player.setOnCompletionListener(listener);
+            }
+        } catch (Exception e) {
+            Game.reportException(e);
+            player = null;
+        }
+    }
+
+    public synchronized void end() {
+        lastPlayed = null;
+        trackList = null;
+        stop();
+    }
+
+    private boolean paused = false;
+
+    public synchronized boolean paused() {
+        return paused;
+    }
+
+    public synchronized void pause() {
+        paused = true;
+        if (player != null) {
+            player.pause();
+        }
+    }
+
+    public synchronized void resume() {
+        paused = false;
+        if (player != null) {
+            player.play();
+            player.setLooping(looping);
+        }
+    }
+
+    public synchronized void stop() {
+        if (player != null) {
+            player.dispose();
+            player = null;
+        }
+    }
+
+    public synchronized void volume(float value) {
+        volume = value;
+        if (player != null) {
+            player.setVolume(volumeWithFade());
+        }
+    }
+
+    private synchronized float volumeWithFade() {
+        if (fadeTotal > 0f) {
+            return Math.max(0, volume * ((fadeTotal - fadeTime) / fadeTotal));
+        } else {
+            return volume;
+        }
+    }
+
+    public synchronized boolean isPlaying() {
+        return player != null && player.isPlaying();
+    }
+
+    public synchronized void enable(boolean value) {
+        enabled = value;
+        if (isPlaying() && !value) {
+            stop();
+        } else if (!isPlaying() && value) {
+            if (trackList != null) {
+                playTracks(trackList, trackChances, shuffle);
+            } else if (lastPlayed != null) {
+                play(lastPlayed, looping);
+            }
+        }
+    }
+
+    public synchronized boolean isEnabled() {
+        return enabled;
+    }
 }

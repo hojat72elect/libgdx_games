@@ -29,15 +29,14 @@ import com.watabou.noosa.audio.Sample;
 
 public class BrokenStaff extends RemainsItem {
 
-	{
-		image = ItemSpriteSheet.BROKEN_STAFF;
-	}
+    {
+        image = ItemSpriteSheet.BROKEN_STAFF;
+    }
 
-	@Override
-	protected void doEffect(Hero hero) {
-		hero.belongings.charge(1f);
-		ScrollOfRecharging.charge(hero);
-		Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
-	}
-
+    @Override
+    protected void doEffect(Hero hero) {
+        hero.belongings.charge(1f);
+        ScrollOfRecharging.charge(hero);
+        Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
+    }
 }

@@ -33,40 +33,40 @@ import com.watabou.utils.Random;
 
 public class SuspiciousChestRoom extends StandardRoom {
 
-	@Override
-	public int minWidth() {
-		return Math.max(5, super.minWidth());
-	}
+    @Override
+    public int minWidth() {
+        return Math.max(5, super.minWidth());
+    }
 
-	@Override
-	public int minHeight() {
-		return Math.max(5, super.minHeight());
-	}
+    @Override
+    public int minHeight() {
+        return Math.max(5, super.minHeight());
+    }
 
-	@Override
-	public void paint(Level level) {
-		Painter.fill( level, this, Terrain.WALL );
-		Painter.fill( level, this, 1 , Terrain.EMPTY );
+    @Override
+    public void paint(Level level) {
+        Painter.fill(level, this, Terrain.WALL);
+        Painter.fill(level, this, 1, Terrain.EMPTY);
 
-		for (Door door : connected.values()) {
-			door.set( Door.Type.REGULAR );
-		}
+        for (Door door : connected.values()) {
+            door.set(Door.Type.REGULAR);
+        }
 
-		Item i = level.findPrizeItem();
+        Item i = level.findPrizeItem();
 
-		if ( i == null ){
-			i = new Gold().random();
-		}
+        if (i == null) {
+            i = new Gold().random();
+        }
 
-		int center = level.pointToCell(center());
+        int center = level.pointToCell(center());
 
-		Painter.set(level, center, Terrain.PEDESTAL);
+        Painter.set(level, center, Terrain.PEDESTAL);
 
-		float mimicChance = 1/3f * MimicTooth.mimicChanceMultiplier();
-		if (Random.Float() < mimicChance) {
-			level.mobs.add(Mimic.spawnAt(center, i));
-		} else {
-			level.drop(i, center).type = Heap.Type.CHEST;
-		}
-	}
+        float mimicChance = 1 / 3f * MimicTooth.mimicChanceMultiplier();
+        if (Random.Float() < mimicChance) {
+            level.mobs.add(Mimic.spawnAt(center, i));
+        } else {
+            level.drop(i, center).type = Heap.Type.CHEST;
+        }
+    }
 }

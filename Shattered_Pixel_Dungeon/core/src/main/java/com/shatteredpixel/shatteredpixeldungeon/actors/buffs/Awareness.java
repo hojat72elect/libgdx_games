@@ -25,17 +25,17 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 
 public class Awareness extends FlavourBuff {
-	
-	{
-		type = buffType.POSITIVE;
-	}
 
-	public static final float DURATION = 2f;
+    {
+        type = buffType.POSITIVE;
+    }
 
-	@Override
-	public void detach() {
-		super.detach();
-		Dungeon.observe();
-		GameScene.updateFog();
-	}
+    public static final float DURATION = 2f;
+
+    @Override
+    public void detach() {
+        super.detach();
+        Dungeon.observe();
+        GameScene.updateFog();
+    }
 }

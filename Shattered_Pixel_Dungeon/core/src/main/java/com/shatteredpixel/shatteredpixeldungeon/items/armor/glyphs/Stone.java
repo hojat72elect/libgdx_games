@@ -37,76 +37,75 @@ import com.watabou.utils.GameMath;
 
 public class Stone extends Armor.Glyph {
 
-	private static ItemSprite.Glowing GREY = new ItemSprite.Glowing( 0x222222 );
+    private static final ItemSprite.Glowing GREY = new ItemSprite.Glowing(0x222222);
 
-	@Override
-	public int proc(Armor armor, Char attacker, Char defender, int damage) {
-		
-		testing = true;
-		float accuracy = attacker.attackSkill(defender);
-		float evasion = defender.defenseSkill(attacker);
-		testing = false;
+    @Override
+    public int proc(Armor armor, Char attacker, Char defender, int damage) {
 
-		//FIXME this is duplicated here because these apply in hit(), not in attack/defenseskill
-		// the true solution is probably to refactor accuracy/evasion code a little bit
-		if (attacker.buff(Bless.class) != null) accuracy *= 1.25f;
-		if (attacker.buff(  Hex.class) != null) accuracy *= 0.8f;
-		if (attacker.buff( Daze.class) != null) accuracy *= 0.5f;
-		for (ChampionEnemy buff : attacker.buffs(ChampionEnemy.class)){
-			accuracy *= buff.evasionAndAccuracyFactor();
-		}
-		accuracy *= AscensionChallenge.statModifier(attacker);
-		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.hasTalent(Talent.BLESS)
-				&& attacker.alignment == Char.Alignment.ALLY){
-			// + 3%/5%
-			accuracy *= 1.01f + 0.02f*Dungeon.hero.pointsInTalent(Talent.BLESS);
-		}
+        testing = true;
+        float accuracy = attacker.attackSkill(defender);
+        float evasion = defender.defenseSkill(attacker);
+        testing = false;
 
-		if (defender.buff(Bless.class) != null) evasion *= 1.25f;
-		if (defender.buff(  Hex.class) != null) evasion *= 0.8f;
-		if (defender.buff( Daze.class) != null) evasion *= 0.5f;
-		for (ChampionEnemy buff : defender.buffs(ChampionEnemy.class)){
-			evasion *= buff.evasionAndAccuracyFactor();
-		}
-		evasion *= AscensionChallenge.statModifier(defender);
-		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.hasTalent(Talent.BLESS)
-				&& defender.alignment == Char.Alignment.ALLY){
-			// + 3%/5%
-			evasion *= 1.01f + 0.02f*Dungeon.hero.pointsInTalent(Talent.BLESS);
-		}
-		evasion *= FerretTuft.evasionMultiplier();
+        //FIXME this is duplicated here because these apply in hit(), not in attack/defenseskill
+        // the true solution is probably to refactor accuracy/evasion code a little bit
+        if (attacker.buff(Bless.class) != null) accuracy *= 1.25f;
+        if (attacker.buff(Hex.class) != null) accuracy *= 0.8f;
+        if (attacker.buff(Daze.class) != null) accuracy *= 0.5f;
+        for (ChampionEnemy buff : attacker.buffs(ChampionEnemy.class)) {
+            accuracy *= buff.evasionAndAccuracyFactor();
+        }
+        accuracy *= AscensionChallenge.statModifier(attacker);
+        if (Dungeon.hero.heroClass != HeroClass.CLERIC
+                && Dungeon.hero.hasTalent(Talent.BLESS)
+                && attacker.alignment == Char.Alignment.ALLY) {
+            // + 3%/5%
+            accuracy *= 1.01f + 0.02f * Dungeon.hero.pointsInTalent(Talent.BLESS);
+        }
 
-		// end of copy-pasta
+        if (defender.buff(Bless.class) != null) evasion *= 1.25f;
+        if (defender.buff(Hex.class) != null) evasion *= 0.8f;
+        if (defender.buff(Daze.class) != null) evasion *= 0.5f;
+        for (ChampionEnemy buff : defender.buffs(ChampionEnemy.class)) {
+            evasion *= buff.evasionAndAccuracyFactor();
+        }
+        evasion *= AscensionChallenge.statModifier(defender);
+        if (Dungeon.hero.heroClass != HeroClass.CLERIC
+                && Dungeon.hero.hasTalent(Talent.BLESS)
+                && defender.alignment == Char.Alignment.ALLY) {
+            // + 3%/5%
+            evasion *= 1.01f + 0.02f * Dungeon.hero.pointsInTalent(Talent.BLESS);
+        }
+        evasion *= FerretTuft.evasionMultiplier();
 
-		evasion *= genericProcChanceMultiplier(defender);
-		
-		float hitChance;
-		if (evasion >= accuracy){
-			hitChance = (accuracy/evasion)/2f;
-		} else {
-			hitChance = 1f - (evasion/accuracy)/2f;
-		}
-		
-		//75% of dodge chance is applied as damage reduction
-		// we clamp in case accuracy or evasion were negative
-		hitChance = GameMath.gate(0.25f, (1f + 3f*hitChance)/4f, 1f);
-		
-		damage = (int)Math.ceil(damage * hitChance);
-		
-		return damage;
-	}
-	
-	private static boolean testing = false;
-	
-	public static boolean testingEvasion(){
-		return testing;
-	}
+        // end of copy-pasta
 
-	@Override
-	public ItemSprite.Glowing glowing() {
-		return GREY;
-	}
+        evasion *= genericProcChanceMultiplier(defender);
 
+        float hitChance;
+        if (evasion >= accuracy) {
+            hitChance = (accuracy / evasion) / 2f;
+        } else {
+            hitChance = 1f - (evasion / accuracy) / 2f;
+        }
+
+        //75% of dodge chance is applied as damage reduction
+        // we clamp in case accuracy or evasion were negative
+        hitChance = GameMath.gate(0.25f, (1f + 3f * hitChance) / 4f, 1f);
+
+        damage = (int) Math.ceil(damage * hitChance);
+
+        return damage;
+    }
+
+    private static boolean testing = false;
+
+    public static boolean testingEvasion() {
+        return testing;
+    }
+
+    @Override
+    public ItemSprite.Glowing glowing() {
+        return GREY;
+    }
 }

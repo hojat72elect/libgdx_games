@@ -38,106 +38,105 @@ import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
 public class BlacksmithRoom extends StandardRoom {
-	
-	@Override
-	public int minWidth() {
-		return Math.max(super.minWidth(), 6);
-	}
-	
-	@Override
-	public int minHeight() {
-		return Math.max(super.minHeight(), 6);
-	}
-	
-	public void paint(Level level ) {
 
-		Painter.fill( level, this, Terrain.WALL );
-		Painter.fill( level, this, 1, Terrain.TRAP );
+    @Override
+    public int minWidth() {
+        return Math.max(super.minWidth(), 6);
+    }
 
-		for (Door door : connected.values()) {
-			door.set( Door.Type.REGULAR );
-			Painter.drawInside( level, this, door, 2, Terrain.EMPTY );
-		}
+    @Override
+    public int minHeight() {
+        return Math.max(super.minHeight(), 6);
+    }
 
-		Painter.fill( level, this, 2, Terrain.EMPTY_SP );
-		
-		for (int i=0; i < 2; i++) {
-			int pos;
-			do {
-				pos = level.pointToCell(random());
-			} while (level.map[pos] != Terrain.EMPTY_SP);
-			level.drop(
-				Generator.random( Random.oneOf(
-					Generator.Category.ARMOR,
-					Generator.Category.WEAPON,
-					Generator.Category.MISSILE
-				) ), pos );
-		}
-		
-		Blacksmith npc = new Blacksmith();
-		do {
-			npc.pos = level.pointToCell(random( 2 ));
-		} while (level.heaps.get( npc.pos ) != null);
-		level.mobs.add( npc );
+    public void paint(Level level) {
 
-		int entrancePos;
-		do {
-			entrancePos = level.pointToCell(random( 2 ));
-		} while (level.heaps.get( npc.pos ) != null || entrancePos == npc.pos);
+        Painter.fill(level, this, Terrain.WALL);
+        Painter.fill(level, this, 1, Terrain.TRAP);
 
-		QuestEntrance vis = new QuestEntrance();
-		vis.pos(entrancePos, level);
-		level.customTiles.add(vis);
+        for (Door door : connected.values()) {
+            door.set(Door.Type.REGULAR);
+            Painter.drawInside(level, this, door, 2, Terrain.EMPTY);
+        }
 
-		level.transitions.add(new LevelTransition(level,
-				entrancePos,
-				LevelTransition.Type.BRANCH_EXIT,
-				Dungeon.depth,
-				Dungeon.branch + 1,
-				LevelTransition.Type.BRANCH_ENTRANCE));
-		Painter.set(level, entrancePos, Terrain.EXIT);
+        Painter.fill(level, this, 2, Terrain.EMPTY_SP);
 
-		for(Point p : getPoints()) {
-			int cell = level.pointToCell(p);
-			if (level.map[cell] == Terrain.TRAP){
-				level.setTrap(new BurningTrap().reveal(), cell);
-			}
-		}
-	}
+        for (int i = 0; i < 2; i++) {
+            int pos;
+            do {
+                pos = level.pointToCell(random());
+            } while (level.map[pos] != Terrain.EMPTY_SP);
+            level.drop(
+                    Generator.random(Random.oneOf(
+                            Generator.Category.ARMOR,
+                            Generator.Category.WEAPON,
+                            Generator.Category.MISSILE
+                    )), pos);
+        }
 
-	@Override
-	public boolean canPlaceCharacter(Point p, Level l) {
-		if (l.map[l.pointToCell(p)] == Terrain.EXIT){
-			return false;
-		} else {
-			return super.canPlaceCharacter(p, l);
-		}
-	}
+        Blacksmith npc = new Blacksmith();
+        do {
+            npc.pos = level.pointToCell(random(2));
+        } while (level.heaps.get(npc.pos) != null);
+        level.mobs.add(npc);
 
-	public static class QuestEntrance extends CustomTilemap {
+        int entrancePos;
+        do {
+            entrancePos = level.pointToCell(random(2));
+        } while (level.heaps.get(npc.pos) != null || entrancePos == npc.pos);
 
-		{
-			texture = Assets.Environment.CAVES_QUEST;
+        QuestEntrance vis = new QuestEntrance();
+        vis.pos(entrancePos, level);
+        level.customTiles.add(vis);
 
-			tileW = tileH = 1;
-		}
+        level.transitions.add(new LevelTransition(level,
+                entrancePos,
+                LevelTransition.Type.BRANCH_EXIT,
+                Dungeon.depth,
+                Dungeon.branch + 1,
+                LevelTransition.Type.BRANCH_ENTRANCE));
+        Painter.set(level, entrancePos, Terrain.EXIT);
 
-		@Override
-		public Tilemap create() {
-			Tilemap v = super.create();
-			v.map( new int[]{0}, 1 );
-			return v;
-		}
+        for (Point p : getPoints()) {
+            int cell = level.pointToCell(p);
+            if (level.map[cell] == Terrain.TRAP) {
+                level.setTrap(new BurningTrap().reveal(), cell);
+            }
+        }
+    }
 
-		@Override
-		public String name(int tileX, int tileY) {
-			return Messages.get(this, "name");
-		}
+    @Override
+    public boolean canPlaceCharacter(Point p, Level l) {
+        if (l.map[l.pointToCell(p)] == Terrain.EXIT) {
+            return false;
+        } else {
+            return super.canPlaceCharacter(p, l);
+        }
+    }
 
-		@Override
-		public String desc(int tileX, int tileY) {
-			return Messages.get(this, "desc");
-		}
+    public static class QuestEntrance extends CustomTilemap {
 
-	}
+        {
+            texture = Assets.Environment.CAVES_QUEST;
+
+            tileW = tileH = 1;
+        }
+
+        @Override
+        public Tilemap create() {
+            Tilemap v = super.create();
+            v.map(new int[]{0}, 1);
+            return v;
+        }
+
+        @Override
+        public String name(int tileX, int tileY) {
+            return Messages.get(this, "name");
+        }
+
+        @Override
+        public String desc(int tileX, int tileY) {
+            return Messages.get(this, "desc");
+        }
+    }
 }

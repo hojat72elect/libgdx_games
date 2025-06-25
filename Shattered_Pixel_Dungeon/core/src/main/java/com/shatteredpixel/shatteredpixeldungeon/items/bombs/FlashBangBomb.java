@@ -45,55 +45,55 @@ import com.watabou.utils.Random;
 import java.util.ArrayList;
 
 public class FlashBangBomb extends Bomb {
-	
-	{
-		image = ItemSpriteSheet.FLASHBANG;
-	}
 
-	@Override
-	protected int explosionRange() {
-		return 2;
-	}
+    {
+        image = ItemSpriteSheet.FLASHBANG;
+    }
 
-	@Override
-	public void explode(int cell) {
-		super.explode(cell);
+    @Override
+    protected int explosionRange() {
+        return 2;
+    }
 
-		ArrayList<Char> affected = new ArrayList<>();
-		PathFinder.buildDistanceMap( cell, BArray.not( Dungeon.level.solid, null ), explosionRange() );
-		for (int i = 0; i < PathFinder.distance.length; i++) {
-			if (PathFinder.distance[i] < Integer.MAX_VALUE && Actor.findChar(i) != null) {
-				affected.add(Actor.findChar(i));
-			}
-		}
+    @Override
+    public void explode(int cell) {
+        super.explode(cell);
 
-		ArrayList<Lightning.Arc> arcs = new ArrayList<>();
-		for (Char ch : affected){
-			//25% bonus damage and 10 turns of stun
-			int damage = Math.round(Random.NormalIntRange(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth()) / 4f);
-			ch.damage(damage, new Electricity());
-			if (ch.isAlive()) Buff.prolong(ch, Paralysis.class, Paralysis.DURATION);
-			arcs.add(new Lightning.Arc(DungeonTilemap.tileCenterToWorld(cell), ch.sprite.center()));
+        ArrayList<Char> affected = new ArrayList<>();
+        PathFinder.buildDistanceMap(cell, BArray.not(Dungeon.level.solid, null), explosionRange());
+        for (int i = 0; i < PathFinder.distance.length; i++) {
+            if (PathFinder.distance[i] < Integer.MAX_VALUE && Actor.findChar(i) != null) {
+                affected.add(Actor.findChar(i));
+            }
+        }
 
-			if (ch == Dungeon.hero){
-				GameScene.flash(0x80FFFFFF);
-			}
+        ArrayList<Lightning.Arc> arcs = new ArrayList<>();
+        for (Char ch : affected) {
+            //25% bonus damage and 10 turns of stun
+            int damage = Math.round(Random.NormalIntRange(4 + Dungeon.scalingDepth(), 12 + 3 * Dungeon.scalingDepth()) / 4f);
+            ch.damage(damage, new Electricity());
+            if (ch.isAlive()) Buff.prolong(ch, Paralysis.class, Paralysis.DURATION);
+            arcs.add(new Lightning.Arc(DungeonTilemap.tileCenterToWorld(cell), ch.sprite.center()));
 
-			if (ch == Dungeon.hero && !ch.isAlive()) {
-				Badges.validateDeathFromFriendlyMagic();
-				GLog.n(Messages.get(this, "ondeath"));
-				Dungeon.fail(this);
-			}
-		}
+            if (ch == Dungeon.hero) {
+                GameScene.flash(0x80FFFFFF);
+            }
 
-		CellEmitter.center(cell).burst(SparkParticle.FACTORY, 20);
-		Dungeon.hero.sprite.parent.addToFront(new Lightning(arcs, null));
-		Sample.INSTANCE.play( Assets.Sounds.LIGHTNING );
-	}
-	
-	@Override
-	public int value() {
-		//prices of ingredients
-		return quantity * (20 + 30);
-	}
+            if (ch == Dungeon.hero && !ch.isAlive()) {
+                Badges.validateDeathFromFriendlyMagic();
+                GLog.n(Messages.get(this, "ondeath"));
+                Dungeon.fail(this);
+            }
+        }
+
+        CellEmitter.center(cell).burst(SparkParticle.FACTORY, 20);
+        Dungeon.hero.sprite.parent.addToFront(new Lightning(arcs, null));
+        Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);
+    }
+
+    @Override
+    public int value() {
+        //prices of ingredients
+        return quantity * (20 + 30);
+    }
 }

@@ -31,105 +31,105 @@ import com.watabou.utils.Bundle;
 
 public class ArtifactRecharge extends Buff {
 
-	public static final float DURATION = 30f;
+    public static final float DURATION = 30f;
 
-	{
-		type = buffType.POSITIVE;
-	}
+    {
+        type = buffType.POSITIVE;
+    }
 
-	private float left;
-	public boolean ignoreHornOfPlenty;
-	
-	@Override
-	public boolean act() {
+    private float left;
+    public boolean ignoreHornOfPlenty;
 
-		if (target instanceof Hero) {
-			float chargeAmount = Math.min(1, left);
-			if (chargeAmount > 0){
-				for (Buff b : target.buffs()) {
-					if (b instanceof Artifact.ArtifactBuff) {
-						if (b instanceof HornOfPlenty.hornRecharge && ignoreHornOfPlenty){
-							continue;
-						}
-						if (!((Artifact.ArtifactBuff) b).isCursed()) {
-							((Artifact.ArtifactBuff) b).charge((Hero) target, chargeAmount);
-						}
-					}
-				}
-			}
-		}
+    @Override
+    public boolean act() {
 
-		left--;
-		if (left < 0){ // we expire after 0 to be more consistent with wand recharging visually
-			detach();
-		} else {
-			spend(TICK);
-		}
-		
-		return true;
-	}
-	
-	public ArtifactRecharge set( float amount ){
-		if (left < amount) left = amount;
-		return this;
-	}
-	
-	public ArtifactRecharge extend(float amount ){
-		left += amount;
-		return this;
-	}
+        if (target instanceof Hero) {
+            float chargeAmount = Math.min(1, left);
+            if (chargeAmount > 0) {
+                for (Buff b : target.buffs()) {
+                    if (b instanceof Artifact.ArtifactBuff) {
+                        if (b instanceof HornOfPlenty.hornRecharge && ignoreHornOfPlenty) {
+                            continue;
+                        }
+                        if (!((Artifact.ArtifactBuff) b).isCursed()) {
+                            ((Artifact.ArtifactBuff) b).charge((Hero) target, chargeAmount);
+                        }
+                    }
+                }
+            }
+        }
 
-	public float left(){
-		return left;
-	}
-	
-	@Override
-	public int icon() {
-		return BuffIndicator.RECHARGING;
-	}
-	
-	@Override
-	public void tintIcon(Image icon) {
-		icon.hardlight(0, 1f, 0);
-	}
+        left--;
+        if (left < 0) { // we expire after 0 to be more consistent with wand recharging visually
+            detach();
+        } else {
+            spend(TICK);
+        }
 
-	@Override
-	public float iconFadePercent() {
-		return Math.max(0, (DURATION - left) / DURATION);
-	}
+        return true;
+    }
 
-	@Override
-	public String iconTextDisplay() {
-		return Integer.toString((int)left+1);
-	}
-	
-	@Override
-	public String desc() {
-		return Messages.get(this, "desc", dispTurns(left+1));
-	}
-	
-	private static final String LEFT = "left";
-	private static final String IGNORE_HORN = "ignore_horn";
-	
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put( LEFT, left );
-		bundle.put( IGNORE_HORN, ignoreHornOfPlenty );
-	}
-	
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		left = bundle.getFloat(LEFT);
-		ignoreHornOfPlenty = bundle.getBoolean(IGNORE_HORN);
-	}
+    public ArtifactRecharge set(float amount) {
+        if (left < amount) left = amount;
+        return this;
+    }
 
-	public static void chargeArtifacts( Hero hero, float turns ){
-		for (Buff b : hero.buffs()){
-			if (b instanceof Artifact.ArtifactBuff && !((Artifact.ArtifactBuff) b).isCursed()){
-				if (!((Artifact.ArtifactBuff) b).isCursed()) ((Artifact.ArtifactBuff) b).charge(hero, turns);
-			}
-		}
-	}
+    public ArtifactRecharge extend(float amount) {
+        left += amount;
+        return this;
+    }
+
+    public float left() {
+        return left;
+    }
+
+    @Override
+    public int icon() {
+        return BuffIndicator.RECHARGING;
+    }
+
+    @Override
+    public void tintIcon(Image icon) {
+        icon.hardlight(0, 1f, 0);
+    }
+
+    @Override
+    public float iconFadePercent() {
+        return Math.max(0, (DURATION - left) / DURATION);
+    }
+
+    @Override
+    public String iconTextDisplay() {
+        return Integer.toString((int) left + 1);
+    }
+
+    @Override
+    public String desc() {
+        return Messages.get(this, "desc", dispTurns(left + 1));
+    }
+
+    private static final String LEFT = "left";
+    private static final String IGNORE_HORN = "ignore_horn";
+
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(LEFT, left);
+        bundle.put(IGNORE_HORN, ignoreHornOfPlenty);
+    }
+
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        left = bundle.getFloat(LEFT);
+        ignoreHornOfPlenty = bundle.getBoolean(IGNORE_HORN);
+    }
+
+    public static void chargeArtifacts(Hero hero, float turns) {
+        for (Buff b : hero.buffs()) {
+            if (b instanceof Artifact.ArtifactBuff && !((Artifact.ArtifactBuff) b).isCursed()) {
+                if (!((Artifact.ArtifactBuff) b).isCursed()) ((Artifact.ArtifactBuff) b).charge(hero, turns);
+            }
+        }
+    }
 }

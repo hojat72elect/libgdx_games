@@ -32,28 +32,25 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 
 public class StoneOfDeepSleep extends Runestone {
-	
-	{
-		image = ItemSpriteSheet.STONE_SLEEP;
-	}
-	
-	@Override
-	protected void activate(int cell) {
 
-		if (Actor.findChar(cell) != null) {
+    {
+        image = ItemSpriteSheet.STONE_SLEEP;
+    }
 
-			Char c = Actor.findChar(cell);
+    @Override
+    protected void activate(int cell) {
 
-			if (c instanceof Mob){
+        if (Actor.findChar(cell) != null) {
 
-				Buff.affect(c, MagicalSleep.class);
-				c.sprite.centerEmitter().start( Speck.factory( Speck.NOTE ), 0.3f, 5 );
+            Char c = Actor.findChar(cell);
 
-			}
+            if (c instanceof Mob) {
 
-		}
-		
-		Sample.INSTANCE.play( Assets.Sounds.LULLABY );
-		
-	}
+                Buff.affect(c, MagicalSleep.class);
+                c.sprite.centerEmitter().start(Speck.factory(Speck.NOTE), 0.3f, 5);
+            }
+        }
+
+        Sample.INSTANCE.play(Assets.Sounds.LULLABY);
+    }
 }

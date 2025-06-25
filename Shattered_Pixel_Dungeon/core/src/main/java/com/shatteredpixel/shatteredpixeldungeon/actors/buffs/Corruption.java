@@ -28,49 +28,48 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
 public class Corruption extends AllyBuff {
 
-	{
-		type = buffType.NEGATIVE;
-		announced = true;
-	}
+    {
+        type = buffType.NEGATIVE;
+        announced = true;
+    }
 
-	private float buildToDamage = 0f;
+    private float buildToDamage = 0f;
 
-	//corrupted enemies are usually fully healed and cleansed of most debuffs
-	public static void corruptionHeal(Char target){
-		target.HP = target.HT;
-		target.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(target.HT), FloatingText.HEALING);
-		for (Buff buff : target.buffs()) {
-			if (buff.type == Buff.buffType.NEGATIVE
-					&& !(buff instanceof SoulMark)) {
-				buff.detach();
-			}
-		}
-	}
-	
-	@Override
-	public boolean act() {
-		buildToDamage += target.HT/100f;
+    //corrupted enemies are usually fully healed and cleansed of most debuffs
+    public static void corruptionHeal(Char target) {
+        target.HP = target.HT;
+        target.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(target.HT), FloatingText.HEALING);
+        for (Buff buff : target.buffs()) {
+            if (buff.type == Buff.buffType.NEGATIVE
+                    && !(buff instanceof SoulMark)) {
+                buff.detach();
+            }
+        }
+    }
 
-		int damage = (int)buildToDamage;
-		buildToDamage -= damage;
+    @Override
+    public boolean act() {
+        buildToDamage += target.HT / 100f;
 
-		if (damage > 0)
-			target.damage(damage, this);
+        int damage = (int) buildToDamage;
+        buildToDamage -= damage;
 
-		spend(TICK);
+        if (damage > 0)
+            target.damage(damage, this);
 
-		return true;
-	}
+        spend(TICK);
 
-	@Override
-	public void fx(boolean on) {
-		if (on) target.sprite.add( CharSprite.State.DARKENED );
-		else if (target.invisible == 0) target.sprite.remove( CharSprite.State.DARKENED );
-	}
+        return true;
+    }
 
-	@Override
-	public int icon() {
-		return BuffIndicator.CORRUPT;
-	}
+    @Override
+    public void fx(boolean on) {
+        if (on) target.sprite.add(CharSprite.State.DARKENED);
+        else if (target.invisible == 0) target.sprite.remove(CharSprite.State.DARKENED);
+    }
 
+    @Override
+    public int icon() {
+        return BuffIndicator.CORRUPT;
+    }
 }

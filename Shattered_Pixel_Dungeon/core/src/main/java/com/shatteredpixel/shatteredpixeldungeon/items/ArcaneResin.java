@@ -43,147 +43,144 @@ import java.util.ArrayList;
 
 public class ArcaneResin extends Item {
 
-	{
-		image = ItemSpriteSheet.ARCANE_RESIN;
+    {
+        image = ItemSpriteSheet.ARCANE_RESIN;
 
-		stackable = true;
+        stackable = true;
 
-		defaultAction = AC_APPLY;
+        defaultAction = AC_APPLY;
 
-		bones = true;
-	}
+        bones = true;
+    }
 
-	private static final String AC_APPLY = "APPLY";
+    private static final String AC_APPLY = "APPLY";
 
-	@Override
-	public ArrayList<String> actions(Hero hero ) {
-		ArrayList<String> actions = super.actions( hero );
-		actions.add( AC_APPLY );
-		return actions;
-	}
+    @Override
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_APPLY);
+        return actions;
+    }
 
-	@Override
-	public void execute( Hero hero, String action ) {
+    @Override
+    public void execute(Hero hero, String action) {
 
-		super.execute( hero, action );
+        super.execute(hero, action);
 
-		if (action.equals(AC_APPLY)) {
+        if (action.equals(AC_APPLY)) {
 
-			curUser = hero;
-			GameScene.selectItem( itemSelector );
+            curUser = hero;
+            GameScene.selectItem(itemSelector);
+        }
+    }
 
-		}
-	}
+    @Override
+    public boolean isUpgradable() {
+        return false;
+    }
 
-	@Override
-	public boolean isUpgradable() {
-		return false;
-	}
+    @Override
+    public boolean isIdentified() {
+        return true;
+    }
 
-	@Override
-	public boolean isIdentified() {
-		return true;
-	}
+    @Override
+    public int value() {
+        return 30 * quantity();
+    }
 
-	@Override
-	public int value() {
-		return 30*quantity();
-	}
+    private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
 
-	private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
+        @Override
+        public String textPrompt() {
+            return Messages.get(ArcaneResin.class, "prompt");
+        }
 
-		@Override
-		public String textPrompt() {
-			return Messages.get(ArcaneResin.class, "prompt");
-		}
+        @Override
+        public Class<? extends Bag> preferredBag() {
+            return MagicalHolster.class;
+        }
 
-		@Override
-		public Class<?extends Bag> preferredBag(){
-			return MagicalHolster.class;
-		}
+        @Override
+        public boolean itemSelectable(Item item) {
+            return item instanceof Wand && item.isIdentified();
+        }
 
-		@Override
-		public boolean itemSelectable(Item item) {
-			return item instanceof Wand && item.isIdentified();
-		}
+        @Override
+        public void onSelect(Item item) {
+            if (item != null && item instanceof Wand) {
+                Wand w = (Wand) item;
 
-		@Override
-		public void onSelect( Item item ) {
-			if (item != null && item instanceof Wand) {
-				Wand w = (Wand)item;
+                if (w.level() >= 3) {
+                    GLog.w(Messages.get(ArcaneResin.class, "level_too_high"));
+                    return;
+                }
 
-				if (w.level() >= 3){
-					GLog.w(Messages.get(ArcaneResin.class, "level_too_high"));
-					return;
-				}
+                int resinToUse = w.level() + 1;
 
-				int resinToUse = w.level()+1;
+                if (quantity() < resinToUse) {
+                    GLog.w(Messages.get(ArcaneResin.class, "not_enough"));
+                } else {
 
-				if (quantity() < resinToUse){
-					GLog.w(Messages.get(ArcaneResin.class, "not_enough"));
+                    Catalog.countUses(ArcaneResin.class, resinToUse);
+                    if (resinToUse < quantity()) {
+                        quantity(quantity() - resinToUse);
+                    } else {
+                        detachAll(Dungeon.hero.belongings.backpack);
+                    }
 
-				} else {
+                    w.resinBonus++;
+                    w.curCharges++;
+                    w.updateLevel();
+                    Item.updateQuickslot();
 
-					Catalog.countUses(ArcaneResin.class, resinToUse);
-					if (resinToUse < quantity()){
-						quantity(quantity()-resinToUse);
-					} else {
-						detachAll(Dungeon.hero.belongings.backpack);
-					}
+                    curUser.sprite.operate(curUser.pos);
+                    Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
+                    curUser.sprite.emitter().start(Speck.factory(Speck.UP), 0.2f, 3);
 
-					w.resinBonus++;
-					w.curCharges++;
-					w.updateLevel();
-					Item.updateQuickslot();
+                    curUser.spendAndNext(Actor.TICK);
+                    GLog.p(Messages.get(ArcaneResin.class, "apply"));
+                }
+            }
+        }
+    };
 
-					curUser.sprite.operate(curUser.pos);
-					Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
-					curUser.sprite.emitter().start( Speck.factory( Speck.UP ), 0.2f, 3 );
+    public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
 
-					curUser.spendAndNext(Actor.TICK);
-					GLog.p(Messages.get(ArcaneResin.class, "apply"));
-				}
-			}
-		}
-	};
+        @Override
+        public boolean testIngredients(ArrayList<Item> ingredients) {
+            return ingredients.size() == 1
+                    && ingredients.get(0) instanceof Wand
+                    && ingredients.get(0).isIdentified()
+                    && !ingredients.get(0).cursed;
+        }
 
-	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
+        @Override
+        public int cost(ArrayList<Item> ingredients) {
+            return 5;
+        }
 
-		@Override
-		public boolean testIngredients(ArrayList<Item> ingredients) {
-			return ingredients.size() == 1
-					&& ingredients.get(0) instanceof Wand
-					&& ingredients.get(0).isIdentified()
-					&& !ingredients.get(0).cursed;
-		}
+        @Override
+        public Item brew(ArrayList<Item> ingredients) {
+            Item result = sampleOutput(ingredients);
 
-		@Override
-		public int cost(ArrayList<Item> ingredients) {
-			return 5;
-		}
+            ingredients.get(0).quantity(0);
 
-		@Override
-		public Item brew(ArrayList<Item> ingredients) {
-			Item result = sampleOutput(ingredients);
+            return result;
+        }
 
-			ingredients.get(0).quantity(0);
+        @Override
+        public Item sampleOutput(ArrayList<Item> ingredients) {
+            Wand w = (Wand) ingredients.get(0);
+            int level = w.level() - w.resinBonus;
 
-			return result;
-		}
+            Item output = new ArcaneResin().quantity(2 * (level + 1));
 
-		@Override
-		public Item sampleOutput(ArrayList<Item> ingredients) {
-			Wand w = (Wand)ingredients.get(0);
-			int level = w.level() - w.resinBonus;
+            if (Dungeon.hero.heroClass != HeroClass.MAGE && Dungeon.hero.hasTalent(Talent.WAND_PRESERVATION)) {
+                output.quantity(output.quantity() + Dungeon.hero.pointsInTalent(Talent.WAND_PRESERVATION));
+            }
 
-			Item output = new ArcaneResin().quantity(2*(level+1));
-
-			if (Dungeon.hero.heroClass != HeroClass.MAGE && Dungeon.hero.hasTalent(Talent.WAND_PRESERVATION)){
-				output.quantity(output.quantity() + Dungeon.hero.pointsInTalent(Talent.WAND_PRESERVATION));
-			}
-
-			return output;
-		}
-	}
-
+            return output;
+        }
+    }
 }

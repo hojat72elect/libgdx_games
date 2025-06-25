@@ -50,137 +50,138 @@ import com.watabou.utils.Random;
 
 public class HolyLance extends TargetedClericSpell {
 
-	public static final HolyLance INSTANCE = new HolyLance();
+    public static final HolyLance INSTANCE = new HolyLance();
 
-	@Override
-	public int icon() {
-		return HeroIcon.HOLY_LANCE;
-	}
+    @Override
+    public int icon() {
+        return HeroIcon.HOLY_LANCE;
+    }
 
-	@Override
-	public String desc() {
-		int min = 15 + 15*Dungeon.hero.pointsInTalent(Talent.HOLY_LANCE);
-		int max = Math.round(27.5f + 27.5f*Dungeon.hero.pointsInTalent(Talent.HOLY_LANCE));
-		return Messages.get(this, "desc", min, max) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
-	}
+    @Override
+    public String desc() {
+        int min = 15 + 15 * Dungeon.hero.pointsInTalent(Talent.HOLY_LANCE);
+        int max = Math.round(27.5f + 27.5f * Dungeon.hero.pointsInTalent(Talent.HOLY_LANCE));
+        return Messages.get(this, "desc", min, max) + "\n\n" + Messages.get(this, "charge_cost", (int) chargeUse(Dungeon.hero));
+    }
 
-	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero)
-				&& hero.hasTalent(Talent.HOLY_LANCE)
-				&& hero.buff(LanceCooldown.class) == null;
-	}
+    @Override
+    public boolean canCast(Hero hero) {
+        return super.canCast(hero)
+                && hero.hasTalent(Talent.HOLY_LANCE)
+                && hero.buff(LanceCooldown.class) == null;
+    }
 
-	@Override
-	public float chargeUse(Hero hero) {
-		return 4;
-	}
+    @Override
+    public float chargeUse(Hero hero) {
+        return 4;
+    }
 
-	@Override
-	public int targetingFlags() {
-		return Ballistica.PROJECTILE;
-	}
+    @Override
+    public int targetingFlags() {
+        return Ballistica.PROJECTILE;
+    }
 
-	@Override
-	protected void onTargetSelected(HolyTome tome, Hero hero, Integer target) {
-		if (target == null){
-			return;
-		}
+    @Override
+    protected void onTargetSelected(HolyTome tome, Hero hero, Integer target) {
+        if (target == null) {
+            return;
+        }
 
-		Ballistica aim = new Ballistica(hero.pos, target, targetingFlags());
+        Ballistica aim = new Ballistica(hero.pos, target, targetingFlags());
 
-		if (Actor.findChar( aim.collisionPos ) == hero){
-			GLog.i( Messages.get(Wand.class, "self_target") );
-			return;
-		}
+        if (Actor.findChar(aim.collisionPos) == hero) {
+            GLog.i(Messages.get(Wand.class, "self_target"));
+            return;
+        }
 
-		if (Actor.findChar(aim.collisionPos) != null) {
-			QuickSlotButton.target(Actor.findChar(aim.collisionPos));
-		} else {
-			QuickSlotButton.target(Actor.findChar(target));
-		}
+        if (Actor.findChar(aim.collisionPos) != null) {
+            QuickSlotButton.target(Actor.findChar(aim.collisionPos));
+        } else {
+            QuickSlotButton.target(Actor.findChar(target));
+        }
 
-		hero.sprite.zap( target );
-		hero.busy();
+        hero.sprite.zap(target);
+        hero.busy();
 
-		Sample.INSTANCE.play(Assets.Sounds.ZAP);
+        Sample.INSTANCE.play(Assets.Sounds.ZAP);
 
-		Char enemy = Actor.findChar(aim.collisionPos);
-		if (enemy != null) {
-			((MissileSprite) hero.sprite.parent.recycle(MissileSprite.class)).
-					reset(hero.sprite,
-							enemy.sprite,
-							new HolyLanceVFX(),
-							new Callback() {
-								@Override
-								public void call() {
-									int min = 15 + 15*Dungeon.hero.pointsInTalent(Talent.HOLY_LANCE);
-									int max = Math.round(27.5f + 27.5f*Dungeon.hero.pointsInTalent(Talent.HOLY_LANCE));
-									if (Char.hasProp(enemy, Char.Property.UNDEAD) || Char.hasProp(enemy, Char.Property.DEMONIC)){
-										min = max;
-									}
-									enemy.damage(Random.NormalIntRange(min, max), HolyLance.this);
-									Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.8f, 1f) );
-									Sample.INSTANCE.play( Assets.Sounds.HIT_STAB, 1, Random.Float(0.8f, 1f) );
+        Char enemy = Actor.findChar(aim.collisionPos);
+        if (enemy != null) {
+            ((MissileSprite) hero.sprite.parent.recycle(MissileSprite.class)).
+                    reset(hero.sprite,
+                            enemy.sprite,
+                            new HolyLanceVFX(),
+                            new Callback() {
+                                @Override
+                                public void call() {
+                                    int min = 15 + 15 * Dungeon.hero.pointsInTalent(Talent.HOLY_LANCE);
+                                    int max = Math.round(27.5f + 27.5f * Dungeon.hero.pointsInTalent(Talent.HOLY_LANCE));
+                                    if (Char.hasProp(enemy, Char.Property.UNDEAD) || Char.hasProp(enemy, Char.Property.DEMONIC)) {
+                                        min = max;
+                                    }
+                                    enemy.damage(Random.NormalIntRange(min, max), HolyLance.this);
+                                    Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.8f, 1f));
+                                    Sample.INSTANCE.play(Assets.Sounds.HIT_STAB, 1, Random.Float(0.8f, 1f));
 
-									enemy.sprite.burst(0xFFFFFFFF, 10);
-									hero.spendAndNext(1f);
-									onSpellCast(tome, hero);
-									FlavourBuff.affect(hero, LanceCooldown.class, 30f);
-								}
-							});
-		} else {
-			((MissileSprite) hero.sprite.parent.recycle(MissileSprite.class)).
-					reset(hero.sprite,
-							target,
-							new HolyLanceVFX(),
-							new Callback() {
-								@Override
-								public void call() {
-									Splash.at(target, 0xFFFFFFFF, 10);
-									Dungeon.level.pressCell(aim.collisionPos);
-									hero.spendAndNext(1f);
-									onSpellCast(tome, hero);
-									FlavourBuff.affect(hero, LanceCooldown.class, 30f);
-								}
-							});
-		}
+                                    enemy.sprite.burst(0xFFFFFFFF, 10);
+                                    hero.spendAndNext(1f);
+                                    onSpellCast(tome, hero);
+                                    FlavourBuff.affect(hero, LanceCooldown.class, 30f);
+                                }
+                            });
+        } else {
+            ((MissileSprite) hero.sprite.parent.recycle(MissileSprite.class)).
+                    reset(hero.sprite,
+                            target,
+                            new HolyLanceVFX(),
+                            new Callback() {
+                                @Override
+                                public void call() {
+                                    Splash.at(target, 0xFFFFFFFF, 10);
+                                    Dungeon.level.pressCell(aim.collisionPos);
+                                    hero.spendAndNext(1f);
+                                    onSpellCast(tome, hero);
+                                    FlavourBuff.affect(hero, LanceCooldown.class, 30f);
+                                }
+                            });
+        }
+    }
 
-	}
+    public static class HolyLanceVFX extends Item {
 
-	public static class HolyLanceVFX extends Item {
+        {
+            image = ItemSpriteSheet.THROWING_SPIKE;
+        }
 
-		{
-			image = ItemSpriteSheet.THROWING_SPIKE;
-		}
+        @Override
+        public ItemSprite.Glowing glowing() {
+            return new ItemSprite.Glowing(0xFFFFFF, 0.1f);
+        }
 
-		@Override
-		public ItemSprite.Glowing glowing() {
-			return new ItemSprite.Glowing(0xFFFFFF, 0.1f);
-		}
+        @Override
+        public Emitter emitter() {
+            Emitter emitter = new Emitter();
+            emitter.pos(5, 5, 0, 0);
+            emitter.fillTarget = false;
+            emitter.pour(SparkParticle.FACTORY, 0.025f);
+            return emitter;
+        }
+    }
 
-		@Override
-		public Emitter emitter() {
-			Emitter emitter = new Emitter();
-			emitter.pos( 5, 5, 0, 0);
-			emitter.fillTarget = false;
-			emitter.pour(SparkParticle.FACTORY, 0.025f);
-			return emitter;
-		}
-	}
+    public static class LanceCooldown extends FlavourBuff {
 
-	public static class LanceCooldown extends FlavourBuff {
+        @Override
+        public int icon() {
+            return BuffIndicator.TIME;
+        }
 
-		@Override
-		public int icon() {
-			return BuffIndicator.TIME;
-		}
+        @Override
+        public void tintIcon(Image icon) {
+            icon.hardlight(0.67f, 0.67f, 0);
+        }
 
-		@Override
-		public void tintIcon(Image icon) {
-			icon.hardlight(0.67f, 0.67f, 0);
-		}
-
-		public float iconFadePercent() { return Math.max(0, visualcooldown() / 30); }
-	}
+        public float iconFadePercent() {
+            return Math.max(0, visualcooldown() / 30);
+        }
+    }
 }

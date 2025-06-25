@@ -36,116 +36,113 @@ import java.util.ArrayList;
 
 public class BadgesGrid extends Component {
 
-	ArrayList<BadgeButton> badgeButtons;
+    ArrayList<BadgeButton> badgeButtons;
 
-	public BadgesGrid( boolean global ){
-		super();
-		badgeButtons = new ArrayList<>();
+    public BadgesGrid(boolean global) {
+        super();
+        badgeButtons = new ArrayList<>();
 
-		for (Badges.Badge badge : Badges.filterReplacedBadges( global )) {
+        for (Badges.Badge badge : Badges.filterReplacedBadges(global)) {
 
-			if (badge.type == Badges.BadgeType.HIDDEN) {
-				continue;
-			}
+            if (badge.type == Badges.BadgeType.HIDDEN) {
+                continue;
+            }
 
-			BadgeButton button = new BadgeButton( badge, true );
-			add( button );
-			badgeButtons.add(button);
-		}
+            BadgeButton button = new BadgeButton(badge, true);
+            add(button);
+            badgeButtons.add(button);
+        }
 
-		if (global) {
+        if (global) {
 
-			ArrayList<Badges.Badge> lockedBadges = new ArrayList<>();
-			for (Badges.Badge badge : Badges.Badge.values()) {
-				if (badge.type != Badges.BadgeType.HIDDEN && !Badges.isUnlocked(badge)) {
-					lockedBadges.add(badge);
-				}
-			}
-			Badges.filterBadgesWithoutPrerequisites(lockedBadges);
+            ArrayList<Badges.Badge> lockedBadges = new ArrayList<>();
+            for (Badges.Badge badge : Badges.Badge.values()) {
+                if (badge.type != Badges.BadgeType.HIDDEN && !Badges.isUnlocked(badge)) {
+                    lockedBadges.add(badge);
+                }
+            }
+            Badges.filterBadgesWithoutPrerequisites(lockedBadges);
 
-			for (Badges.Badge badge : lockedBadges) {
-				BadgeButton button = new BadgeButton( badge, false );
-				add(button);
-				badgeButtons.add(button);
-			}
+            for (Badges.Badge badge : lockedBadges) {
+                BadgeButton button = new BadgeButton(badge, false);
+                add(button);
+                badgeButtons.add(button);
+            }
+        }
+    }
 
-		}
+    @Override
+    protected void layout() {
+        super.layout();
 
-	}
+        //determines roughly how much space each badge will get ideally, determines columns based on that
+        float badgeArea = (float) Math.sqrt(width * height / badgeButtons.size());
+        int nCols = Math.round(width / badgeArea);
 
-	@Override
-	protected void layout() {
-		super.layout();
+        int nRows = (int) Math.ceil(badgeButtons.size() / (float) nCols);
 
-		//determines roughly how much space each badge will get ideally, determines columns based on that
-		float badgeArea = (float) Math.sqrt(width * height / badgeButtons.size());
-		int nCols = Math.round(width / badgeArea);
+        float badgeWidth = width() / nCols;
+        float badgeHeight = height() / nRows;
 
-		int nRows = (int) Math.ceil(badgeButtons.size()/(float)nCols);
+        for (int i = 0; i < badgeButtons.size(); i++) {
+            int row = i / nCols;
+            int col = i % nCols;
+            BadgeButton button = badgeButtons.get(i);
+            button.setPos(
+                    left() + col * badgeWidth + (badgeWidth - button.width()) / 2,
+                    top() + row * badgeHeight + (badgeHeight - button.height()) / 2);
+            PixelScene.align(button);
+        }
+    }
 
-		float badgeWidth = width()/nCols;
-		float badgeHeight = height()/nRows;
+    private static class BadgeButton extends Button {
 
-		for (int i = 0; i < badgeButtons.size(); i++){
-			int row = i / nCols;
-			int col = i % nCols;
-			BadgeButton button = badgeButtons.get(i);
-			button.setPos(
-					left() + col * badgeWidth + (badgeWidth - button.width()) / 2,
-					top() + row * badgeHeight + (badgeHeight - button.height()) / 2);
-			PixelScene.align(button);
-		}
-	}
+        private final Badges.Badge badge;
+        private final boolean unlocked;
 
-	private static class BadgeButton extends Button {
+        private final Image icon;
 
-		private Badges.Badge badge;
-		private boolean unlocked;
+        public BadgeButton(Badges.Badge badge, boolean unlocked) {
+            super();
 
-		private Image icon;
+            this.badge = badge;
+            this.unlocked = unlocked;
 
-		public BadgeButton( Badges.Badge badge, boolean unlocked ) {
-			super();
+            icon = BadgeBanner.image(badge.image);
+            if (!unlocked) {
+                icon.brightness(0.4f);
+            }
+            add(icon);
 
-			this.badge = badge;
-			this.unlocked = unlocked;
+            setSize(icon.width(), icon.height());
+        }
 
-			icon = BadgeBanner.image(badge.image);
-			if (!unlocked) {
-				icon.brightness(0.4f);
-			}
-			add(icon);
+        @Override
+        protected void layout() {
+            super.layout();
 
-			setSize( icon.width(), icon.height() );
-		}
+            icon.x = x + (width - icon.width()) / 2;
+            icon.y = y + (height - icon.height()) / 2;
+        }
 
-		@Override
-		protected void layout() {
-			super.layout();
+        @Override
+        public void update() {
+            super.update();
 
-			icon.x = x + (width - icon.width()) / 2;
-			icon.y = y + (height - icon.height()) / 2;
-		}
+            if (unlocked && Random.Float() < Game.elapsed * 0.1) {
+                BadgeBanner.highlight(icon, badge.image);
+            }
+        }
 
-		@Override
-		public void update() {
-			super.update();
+        @Override
+        protected void onClick() {
+            Sample.INSTANCE.play(Assets.Sounds.CLICK, 0.7f, 0.7f, 1.2f);
+            Game.scene().addToFront(new WndBadge(badge, unlocked));
+        }
 
-			if (unlocked && Random.Float() < Game.elapsed * 0.1) {
-				BadgeBanner.highlight( icon, badge.image );
-			}
-		}
-
-		@Override
-		protected void onClick() {
-			Sample.INSTANCE.play( Assets.Sounds.CLICK, 0.7f, 0.7f, 1.2f );
-			Game.scene().addToFront( new WndBadge( badge, unlocked ) );
-		}
-
-		@Override
-		protected String hoverText() {
-			return badge.title();
-		}
-	}
-
+        @Override
+        protected String hoverText() {
+            return badge.title();
+        }
+    }
 }

@@ -39,137 +39,135 @@ import java.util.ArrayList;
 
 public class Wraith extends Mob {
 
-	private static final float SPAWN_DELAY	= 2f;
-	
-	protected int level;
-	
-	{
-		spriteClass = WraithSprite.class;
-		
-		HP = HT = 1;
-		EXP = 0;
+    private static final float SPAWN_DELAY = 2f;
 
-		maxLvl = -2;
-		
-		flying = true;
+    protected int level;
 
-		properties.add(Property.UNDEAD);
-		properties.add(Property.INORGANIC);
-	}
-	
-	private static final String LEVEL = "level";
-	
-	@Override
-	public void storeInBundle( Bundle bundle ) {
-		super.storeInBundle( bundle );
-		bundle.put( LEVEL, level );
-	}
-	
-	@Override
-	public void restoreFromBundle( Bundle bundle ) {
-		super.restoreFromBundle( bundle );
-		level = bundle.getInt( LEVEL );
-		adjustStats( level );
-	}
-	
-	@Override
-	public int damageRoll() {
-		return Random.NormalIntRange( 1 + level/2, 2 + level );
-	}
-	
-	@Override
-	public int attackSkill( Char target ) {
-		return 10 + level;
-	}
-	
-	public void adjustStats( int level ) {
-		this.level = level;
-		defenseSkill = attackSkill( null ) * 5;
-		enemySeen = true;
-	}
+    {
+        spriteClass = WraithSprite.class;
 
-	@Override
-	public float spawningWeight() {
-		return 0f;
-	}
+        HP = HT = 1;
+        EXP = 0;
 
-	@Override
-	public boolean reset() {
-		state = WANDERING;
-		return true;
-	}
+        maxLvl = -2;
 
-	public static void spawnAround( int pos ) {
-		spawnAround( pos, null );
-	}
-	
-	public static void spawnAround( int pos, Class<? extends Wraith> wraithClass ) {
-		for (int n : PathFinder.NEIGHBOURS4) {
-			spawnAt( pos + n, wraithClass, false );
-		}
-	}
+        flying = true;
 
-	public static Wraith spawnAt( int pos ) {
-		return spawnAt( pos, null );
-	}
+        properties.add(Property.UNDEAD);
+        properties.add(Property.INORGANIC);
+    }
 
-	public static Wraith spawnAt( int pos, Class<? extends Wraith> wraithClass ) {
-		return spawnAt( pos, wraithClass, true );
-	}
+    private static final String LEVEL = "level";
 
-	private static Wraith spawnAt( int pos, Class<? extends Wraith> wraithClass, boolean allowAdjacent ) {
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(LEVEL, level);
+    }
 
-		//if the position itself is blocked, try to place in an adjacent cell if allowed
-		if (Dungeon.level.solid[pos] || Actor.findChar( pos ) != null){
-			ArrayList<Integer> candidates = new ArrayList<>();
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        level = bundle.getInt(LEVEL);
+        adjustStats(level);
+    }
 
-			for (int i : PathFinder.NEIGHBOURS8){
-				if (!Dungeon.level.solid[pos+i] && Actor.findChar( pos+i ) == null){
-					candidates.add(pos+i);
-				}
-			}
+    @Override
+    public int damageRoll() {
+        return Random.NormalIntRange(1 + level / 2, 2 + level);
+    }
 
-			if (allowAdjacent && !candidates.isEmpty()){
-				pos = Random.element(candidates);
-			} else {
-				pos = -1;
-			}
+    @Override
+    public int attackSkill(Char target) {
+        return 10 + level;
+    }
 
-		}
+    public void adjustStats(int level) {
+        this.level = level;
+        defenseSkill = attackSkill(null) * 5;
+        enemySeen = true;
+    }
 
-		if (pos != -1) {
+    @Override
+    public float spawningWeight() {
+        return 0f;
+    }
 
-			Wraith w;
-			//if no wraith type is specified, 1/100 chance for exotic, otherwise normal
-			if (wraithClass == null){
-				float altChance = 1/100f * RatSkull.exoticChanceMultiplier();
-				if (Random.Float() < altChance){
-					w = new TormentedSpirit();
-				} else {
-					w = new Wraith();
-				}
-			} else {
-				w = Reflection.newInstance(wraithClass);
-			}
-			w.adjustStats( Dungeon.scalingDepth() );
-			w.pos = pos;
-			w.state = w.HUNTING;
-			GameScene.add( w, SPAWN_DELAY );
-			Dungeon.level.occupyCell(w);
+    @Override
+    public boolean reset() {
+        state = WANDERING;
+        return true;
+    }
 
-			w.sprite.alpha( 0 );
-			w.sprite.parent.add( new AlphaTweener( w.sprite, 1, 0.5f ) );
+    public static void spawnAround(int pos) {
+        spawnAround(pos, null);
+    }
 
-			if (w instanceof TormentedSpirit){
-				w.sprite.emitter().burst(ChallengeParticle.FACTORY, 10);
-			} else {
-				w.sprite.emitter().burst(ShadowParticle.CURSE, 5);
-			}
+    public static void spawnAround(int pos, Class<? extends Wraith> wraithClass) {
+        for (int n : PathFinder.NEIGHBOURS4) {
+            spawnAt(pos + n, wraithClass, false);
+        }
+    }
 
-			return w;
-		} else {
-			return null;
-		}
-	}
+    public static Wraith spawnAt(int pos) {
+        return spawnAt(pos, null);
+    }
 
+    public static Wraith spawnAt(int pos, Class<? extends Wraith> wraithClass) {
+        return spawnAt(pos, wraithClass, true);
+    }
+
+    private static Wraith spawnAt(int pos, Class<? extends Wraith> wraithClass, boolean allowAdjacent) {
+
+        //if the position itself is blocked, try to place in an adjacent cell if allowed
+        if (Dungeon.level.solid[pos] || Actor.findChar(pos) != null) {
+            ArrayList<Integer> candidates = new ArrayList<>();
+
+            for (int i : PathFinder.NEIGHBOURS8) {
+                if (!Dungeon.level.solid[pos + i] && Actor.findChar(pos + i) == null) {
+                    candidates.add(pos + i);
+                }
+            }
+
+            if (allowAdjacent && !candidates.isEmpty()) {
+                pos = Random.element(candidates);
+            } else {
+                pos = -1;
+            }
+        }
+
+        if (pos != -1) {
+
+            Wraith w;
+            //if no wraith type is specified, 1/100 chance for exotic, otherwise normal
+            if (wraithClass == null) {
+                float altChance = 1 / 100f * RatSkull.exoticChanceMultiplier();
+                if (Random.Float() < altChance) {
+                    w = new TormentedSpirit();
+                } else {
+                    w = new Wraith();
+                }
+            } else {
+                w = Reflection.newInstance(wraithClass);
+            }
+            w.adjustStats(Dungeon.scalingDepth());
+            w.pos = pos;
+            w.state = w.HUNTING;
+            GameScene.add(w, SPAWN_DELAY);
+            Dungeon.level.occupyCell(w);
+
+            w.sprite.alpha(0);
+            w.sprite.parent.add(new AlphaTweener(w.sprite, 1, 0.5f));
+
+            if (w instanceof TormentedSpirit) {
+                w.sprite.emitter().burst(ChallengeParticle.FACTORY, 10);
+            } else {
+                w.sprite.emitter().burst(ShadowParticle.CURSE, 5);
+            }
+
+            return w;
+        } else {
+            return null;
+        }
+    }
 }

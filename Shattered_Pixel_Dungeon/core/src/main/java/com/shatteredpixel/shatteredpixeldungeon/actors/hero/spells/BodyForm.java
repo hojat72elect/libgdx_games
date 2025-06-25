@@ -39,103 +39,101 @@ import com.watabou.utils.Bundle;
 
 public class BodyForm extends ClericSpell {
 
-	public static BodyForm INSTANCE = new BodyForm();
+    public static BodyForm INSTANCE = new BodyForm();
 
-	@Override
-	public int icon() {
-		return HeroIcon.BODY_FORM;
-	}
+    @Override
+    public int icon() {
+        return HeroIcon.BODY_FORM;
+    }
 
-	@Override
-	public String desc() {
-		return Messages.get(this, "desc", duration()) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
-	}
+    @Override
+    public String desc() {
+        return Messages.get(this, "desc", duration()) + "\n\n" + Messages.get(this, "charge_cost", (int) chargeUse(Dungeon.hero));
+    }
 
-	@Override
-	public float chargeUse(Hero hero) {
-		return 2;
-	}
+    @Override
+    public float chargeUse(Hero hero) {
+        return 2;
+    }
 
-	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.hasTalent(Talent.BODY_FORM);
-	}
+    @Override
+    public boolean canCast(Hero hero) {
+        return super.canCast(hero) && hero.hasTalent(Talent.BODY_FORM);
+    }
 
-	@Override
-	public void onCast(HolyTome tome, Hero hero) {
+    @Override
+    public void onCast(HolyTome tome, Hero hero) {
 
-		GameScene.show(new Trinity.WndItemtypeSelect(tome, this));
+        GameScene.show(new Trinity.WndItemtypeSelect(tome, this));
+    }
 
-	}
+    public static int duration() {
+        return Math.round(13.33f + 6.67f * Dungeon.hero.pointsInTalent(Talent.BODY_FORM));
+    }
 
-	public static int duration(){
-		return Math.round(13.33f + 6.67f* Dungeon.hero.pointsInTalent(Talent.BODY_FORM));
-	}
+    public static class BodyFormBuff extends FlavourBuff {
 
-	public static class BodyFormBuff extends FlavourBuff {
+        {
+            type = buffType.POSITIVE;
+        }
 
-		{
-			type = buffType.POSITIVE;
-		}
+        private Bundlable effect;
 
-		private Bundlable effect;
+        @Override
+        public int icon() {
+            return BuffIndicator.TRINITY_FORM;
+        }
 
-		@Override
-		public int icon() {
-			return BuffIndicator.TRINITY_FORM;
-		}
+        @Override
+        public void tintIcon(Image icon) {
+            icon.hardlight(1, 0, 0);
+        }
 
-		@Override
-		public void tintIcon(Image icon) {
-			icon.hardlight(1, 0, 0);
-		}
+        @Override
+        public float iconFadePercent() {
+            return Math.max(0, (duration() - visualcooldown()) / duration());
+        }
 
-		@Override
-		public float iconFadePercent() {
-			return Math.max(0, (duration() - visualcooldown()) / duration());
-		}
+        public void setEffect(Bundlable effect) {
+            this.effect = effect;
+        }
 
-		public void setEffect(Bundlable effect){
-			this.effect = effect;
-		}
+        public Weapon.Enchantment enchant() {
+            if (effect instanceof Weapon.Enchantment) {
+                return (Weapon.Enchantment) effect;
+            }
+            return null;
+        }
 
-		public Weapon.Enchantment enchant(){
-			if (effect instanceof Weapon.Enchantment){
-				return (Weapon.Enchantment) effect;
-			}
-			return null;
-		}
+        public Armor.Glyph glyph() {
+            if (effect instanceof Armor.Glyph) {
+                return (Armor.Glyph) effect;
+            }
+            return null;
+        }
 
-		public Armor.Glyph glyph(){
-			if (effect instanceof Armor.Glyph){
-				return (Armor.Glyph) effect;
-			}
-			return null;
-		}
+        @Override
+        public String desc() {
+            if (enchant() != null) {
+                return Messages.get(this, "desc", Messages.titleCase(enchant().name()), dispTurns());
+            } else if (glyph() != null) {
+                return Messages.get(this, "desc", Messages.titleCase(glyph().name()), dispTurns());
+            }
+            return super.desc();
+        }
 
-		@Override
-		public String desc() {
-			if (enchant() != null){
-				return Messages.get(this, "desc", Messages.titleCase(enchant().name()), dispTurns());
-			} else if (glyph() != null){
-				return Messages.get(this, "desc", Messages.titleCase(glyph().name()), dispTurns());
-			}
-			return super.desc();
-		}
+        private static final String EFFECT = "effect";
 
-		private static final String EFFECT = "effect";
+        @Override
+        public void storeInBundle(Bundle bundle) {
+            super.storeInBundle(bundle);
+            bundle.put(EFFECT, effect);
+        }
 
-		@Override
-		public void storeInBundle(Bundle bundle) {
-			super.storeInBundle(bundle);
-			bundle.put(EFFECT, effect);
-		}
-
-		@Override
-		public void restoreFromBundle(Bundle bundle) {
-			super.restoreFromBundle(bundle);
-			effect = bundle.get(EFFECT);
-		}
-	}
-
+        @Override
+        public void restoreFromBundle(Bundle bundle) {
+            super.restoreFromBundle(bundle);
+            effect = bundle.get(EFFECT);
+        }
+    }
 }

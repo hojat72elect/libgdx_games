@@ -37,222 +37,220 @@ import java.util.Iterator;
 
 public class Bag extends Item implements Iterable<Item> {
 
-	public static final String AC_OPEN	= "OPEN";
-	
-	{
-		image = 11;
-		
-		defaultAction = AC_OPEN;
+    public static final String AC_OPEN = "OPEN";
 
-		unique = true;
-	}
-	
-	public Char owner;
+    {
+        image = 11;
 
-	public ArrayList<Item> items = new ArrayList<>();
+        defaultAction = AC_OPEN;
 
-	public int capacity(){
-		return 20; // default container size
-	}
+        unique = true;
+    }
 
-	//if an item is being quick-used from the bag, the bag should take on its targeting properties
-	public Item quickUseItem;
+    public Char owner;
 
-	@Override
-	public int targetingPos(Hero user, int dst) {
-		if (quickUseItem != null){
-			return quickUseItem.targetingPos(user, dst);
-		} else {
-			return super.targetingPos(user, dst);
-		}
-	}
+    public ArrayList<Item> items = new ArrayList<>();
 
-	@Override
-	public void execute( Hero hero, String action ) {
-		quickUseItem = null;
+    public int capacity() {
+        return 20; // default container size
+    }
 
-		super.execute( hero, action );
+    //if an item is being quick-used from the bag, the bag should take on its targeting properties
+    public Item quickUseItem;
 
-		if (action.equals( AC_OPEN ) && !items.isEmpty()) {
-			
-			GameScene.show( new WndQuickBag( this ) );
-			
-		}
-	}
-	
-	@Override
-	public boolean collect( Bag container ) {
+    @Override
+    public int targetingPos(Hero user, int dst) {
+        if (quickUseItem != null) {
+            return quickUseItem.targetingPos(user, dst);
+        } else {
+            return super.targetingPos(user, dst);
+        }
+    }
 
-		grabItems(container);
+    @Override
+    public void execute(Hero hero, String action) {
+        quickUseItem = null;
 
-		//if there are any quickslot placeholders that match items in this bag, assign them
-		for (Item item : items) {
-			Dungeon.quickslot.replacePlaceholder(item);
-		}
+        super.execute(hero, action);
 
-		if (super.collect( container )) {
-			
-			owner = container.owner;
-			
-			Badges.validateAllBagsBought( this );
-			
-			return true;
-		} else {
-			return false;
-		}
-	}
+        if (action.equals(AC_OPEN) && !items.isEmpty()) {
 
-	@Override
-	public void onDetach( ) {
-		this.owner = null;
-		for (Item item : items) {
-			Dungeon.quickslot.clearItem(item);
-		}
-		updateQuickslot();
-	}
+            GameScene.show(new WndQuickBag(this));
+        }
+    }
 
-	public void grabItems(){
-		if (owner != null && owner instanceof Hero && this != ((Hero) owner).belongings.backpack) {
-			grabItems(((Hero) owner).belongings.backpack);
-		}
-	}
+    @Override
+    public boolean collect(Bag container) {
 
-	public void grabItems( Bag container ){
-		for (Item item : container.items.toArray( new Item[0] )) {
-			if (canHold( item )) {
-				int slot = Dungeon.quickslot.getSlot(item);
-				item.detachAll(container);
-				if (!item.collect(this)) {
-					item.collect(container);
-				}
-				if (slot != -1) {
-					Dungeon.quickslot.setSlot(slot, item);
-				}
-			}
-		}
-	}
+        grabItems(container);
 
-	@Override
-	public boolean isUpgradable() {
-		return false;
-	}
-	
-	@Override
-	public boolean isIdentified() {
-		return true;
-	}
-	
-	public void clear() {
-		items.clear();
-	}
-	
-	public void resurrect() {
-		for (Item item : items.toArray(new Item[0])){
-			if (!item.unique) items.remove(item);
-		}
-	}
-	
-	private static final String ITEMS	= "inventory";
-	
-	@Override
-	public void storeInBundle( Bundle bundle ) {
-		super.storeInBundle( bundle );
-		bundle.put( ITEMS, items );
-	}
+        //if there are any quickslot placeholders that match items in this bag, assign them
+        for (Item item : items) {
+            Dungeon.quickslot.replacePlaceholder(item);
+        }
 
-	//temp variable so that bags can load contents even with lost inventory debuff
-	private boolean loading;
+        if (super.collect(container)) {
 
-	@Override
-	public void restoreFromBundle( Bundle bundle ) {
-		super.restoreFromBundle( bundle );
+            owner = container.owner;
 
-		loading = true;
-		for (Bundlable item : bundle.getCollection( ITEMS )) {
-			if (item != null){
-				if (!((Item)item).collect( this )){
-					//force-add the item if necessary, such as if its item category changed after an update
-					items.add((Item) item);
-				}
-			}
-		}
-		loading = false;
-	}
-	
-	public boolean contains( Item item ) {
-		for (Item i : items) {
-			if (i == item) {
-				return true;
-			} else if (i instanceof Bag && ((Bag)i).contains( item )) {
-				return true;
-			}
-		}
-		return false;
-	}
+            Badges.validateAllBagsBought(this);
 
-	public boolean canHold( Item item ){
-		if (!loading && owner != null && owner.buff(LostInventory.class) != null
-			&& !item.keptThroughLostInventory()){
-			return false;
-		}
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-		if (items.contains(item) || item instanceof Bag || items.size() < capacity()){
-			return true;
-		} else if (item.stackable) {
-			for (Item i : items) {
-				if (item.isSimilar( i )) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+    @Override
+    public void onDetach() {
+        this.owner = null;
+        for (Item item : items) {
+            Dungeon.quickslot.clearItem(item);
+        }
+        updateQuickslot();
+    }
 
-	@Override
-	public Iterator<Item> iterator() {
-		return new ItemIterator();
-	}
-	
-	private class ItemIterator implements Iterator<Item> {
+    public void grabItems() {
+        if (owner != null && owner instanceof Hero && this != ((Hero) owner).belongings.backpack) {
+            grabItems(((Hero) owner).belongings.backpack);
+        }
+    }
 
-		private int index = 0;
-		private Iterator<Item> nested = null;
-		
-		@Override
-		public boolean hasNext() {
-			if (nested != null) {
-				return nested.hasNext() || index < items.size();
-			} else {
-				return index < items.size();
-			}
-		}
+    public void grabItems(Bag container) {
+        for (Item item : container.items.toArray(new Item[0])) {
+            if (canHold(item)) {
+                int slot = Dungeon.quickslot.getSlot(item);
+                item.detachAll(container);
+                if (!item.collect(this)) {
+                    item.collect(container);
+                }
+                if (slot != -1) {
+                    Dungeon.quickslot.setSlot(slot, item);
+                }
+            }
+        }
+    }
 
-		@Override
-		public Item next() {
-			if (nested != null && nested.hasNext()) {
-				
-				return nested.next();
-				
-			} else {
-				
-				nested = null;
-				
-				Item item = items.get( index++ );
-				if (item instanceof Bag) {
-					nested = ((Bag)item).iterator();
-				}
-				
-				return item;
-			}
-		}
+    @Override
+    public boolean isUpgradable() {
+        return false;
+    }
 
-		@Override
-		public void remove() {
-			if (nested != null) {
-				nested.remove();
-			} else {
-				items.remove( index );
-			}
-		}
-	}
+    @Override
+    public boolean isIdentified() {
+        return true;
+    }
+
+    public void clear() {
+        items.clear();
+    }
+
+    public void resurrect() {
+        for (Item item : items.toArray(new Item[0])) {
+            if (!item.unique) items.remove(item);
+        }
+    }
+
+    private static final String ITEMS = "inventory";
+
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(ITEMS, items);
+    }
+
+    //temp variable so that bags can load contents even with lost inventory debuff
+    private boolean loading;
+
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+
+        loading = true;
+        for (Bundlable item : bundle.getCollection(ITEMS)) {
+            if (item != null) {
+                if (!((Item) item).collect(this)) {
+                    //force-add the item if necessary, such as if its item category changed after an update
+                    items.add((Item) item);
+                }
+            }
+        }
+        loading = false;
+    }
+
+    public boolean contains(Item item) {
+        for (Item i : items) {
+            if (i == item) {
+                return true;
+            } else if (i instanceof Bag && ((Bag) i).contains(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean canHold(Item item) {
+        if (!loading && owner != null && owner.buff(LostInventory.class) != null
+                && !item.keptThroughLostInventory()) {
+            return false;
+        }
+
+        if (items.contains(item) || item instanceof Bag || items.size() < capacity()) {
+            return true;
+        } else if (item.stackable) {
+            for (Item i : items) {
+                if (item.isSimilar(i)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Iterator<Item> iterator() {
+        return new ItemIterator();
+    }
+
+    private class ItemIterator implements Iterator<Item> {
+
+        private int index = 0;
+        private Iterator<Item> nested = null;
+
+        @Override
+        public boolean hasNext() {
+            if (nested != null) {
+                return nested.hasNext() || index < items.size();
+            } else {
+                return index < items.size();
+            }
+        }
+
+        @Override
+        public Item next() {
+            if (nested != null && nested.hasNext()) {
+
+                return nested.next();
+            } else {
+
+                nested = null;
+
+                Item item = items.get(index++);
+                if (item instanceof Bag) {
+                    nested = ((Bag) item).iterator();
+                }
+
+                return item;
+            }
+        }
+
+        @Override
+        public void remove() {
+            if (nested != null) {
+                nested.remove();
+            } else {
+                items.remove(index);
+            }
+        }
+    }
 }

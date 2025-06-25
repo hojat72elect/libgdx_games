@@ -25,12 +25,11 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class PlateArmor extends Armor {
 
-	{
-		image = ItemSpriteSheet.ARMOR_PLATE;
-	}
-	
-	public PlateArmor() {
-		super( 5 );
-	}
+    {
+        image = ItemSpriteSheet.ARMOR_PLATE;
+    }
 
+    public PlateArmor() {
+        super(5);
+    }
 }

@@ -32,254 +32,253 @@ import java.util.ArrayList;
 
 public class RenderedTextBlock extends Component {
 
-	private int maxWidth = Integer.MAX_VALUE;
-	public int nLines;
+    private int maxWidth = Integer.MAX_VALUE;
+    public int nLines;
 
-	private static final RenderedText SPACE = new RenderedText();
-	private static final RenderedText NEWLINE = new RenderedText();
-	
-	protected String text;
-	protected String[] tokens = null;
-	protected ArrayList<RenderedText> words = new ArrayList<>();
-	protected boolean multiline = false;
+    private static final RenderedText SPACE = new RenderedText();
+    private static final RenderedText NEWLINE = new RenderedText();
 
-	private int size;
-	private float zoom;
-	private int color = -1;
-	
-	private int hightlightColor = Window.TITLE_COLOR;
-	private boolean highlightingEnabled = true;
+    protected String text;
+    protected String[] tokens = null;
+    protected ArrayList<RenderedText> words = new ArrayList<>();
+    protected boolean multiline = false;
 
-	public static final int LEFT_ALIGN = 1;
-	public static final int CENTER_ALIGN = 2;
-	public static final int RIGHT_ALIGN = 3;
-	private int alignment = LEFT_ALIGN;
-	
-	public RenderedTextBlock(int size){
-		this.size = size;
-	}
+    private final int size;
+    private float zoom;
+    private int color = -1;
 
-	public RenderedTextBlock(String text, int size){
-		this.size = size;
-		text(text);
-	}
+    private int hightlightColor = Window.TITLE_COLOR;
+    private boolean highlightingEnabled = true;
 
-	public void text(String text){
-		this.text = text;
+    public static final int LEFT_ALIGN = 1;
+    public static final int CENTER_ALIGN = 2;
+    public static final int RIGHT_ALIGN = 3;
+    private int alignment = LEFT_ALIGN;
 
-		if (text != null && !text.equals("")) {
-			
-			tokens = Game.platform.splitforTextBlock(text, multiline);
-			
-			build();
-		}
-	}
+    public RenderedTextBlock(int size) {
+        this.size = size;
+    }
 
-	//for manual text block splitting, a space between each word is assumed
-	public void tokens(String... words){
-		StringBuilder fullText = new StringBuilder();
-		for (String word : words) {
-			fullText.append(word);
-		}
-		text = fullText.toString();
+    public RenderedTextBlock(String text, int size) {
+        this.size = size;
+        text(text);
+    }
 
-		tokens = words;
-		build();
-	}
+    public void text(String text) {
+        this.text = text;
 
-	public void text(String text, int maxWidth){
-		this.maxWidth = maxWidth;
-		multiline = true;
-		text(text);
-	}
+        if (text != null && !text.equals("")) {
 
-	public String text(){
-		return text;
-	}
+            tokens = Game.platform.splitforTextBlock(text, multiline);
 
-	public void maxWidth(int maxWidth){
-		if (this.maxWidth != maxWidth){
-			this.maxWidth = maxWidth;
-			multiline = true;
-			text(text);
-		}
-	}
+            build();
+        }
+    }
 
-	public int maxWidth(){
-		return maxWidth;
-	}
+    //for manual text block splitting, a space between each word is assumed
+    public void tokens(String... words) {
+        StringBuilder fullText = new StringBuilder();
+        for (String word : words) {
+            fullText.append(word);
+        }
+        text = fullText.toString();
 
-	private synchronized void build(){
-		if (tokens == null) return;
-		
-		clear();
-		words = new ArrayList<>();
-		boolean highlighting = false;
-		for (String str : tokens){
+        tokens = words;
+        build();
+    }
 
-			//if highlighting is enabled, '_' or '**' is used to toggle highlighting on or off
-			// the actual symbols are not rendered
-			if ((str.equals("_") || str.equals("**")) && highlightingEnabled){
-				highlighting = !highlighting;
-			} else if (str.equals("\n")){
-				words.add(NEWLINE);
-			} else if (str.equals(" ")){
-				words.add(SPACE);
-			} else {
-				RenderedText word = new RenderedText(str, size);
-				
-				if (highlighting) word.hardlight(hightlightColor);
-				else if (color != -1) word.hardlight(color);
-				word.scale.set(zoom);
-				
-				words.add(word);
-				add(word);
-				
-				if (height < word.height()) height = word.height();
-			}
-		}
-		layout();
-	}
+    public void text(String text, int maxWidth) {
+        this.maxWidth = maxWidth;
+        multiline = true;
+        text(text);
+    }
 
-	public synchronized void zoom(float zoom){
-		this.zoom = zoom;
-		for (RenderedText word : words) {
-			if (word != null) word.scale.set(zoom);
-		}
-		layout();
-	}
+    public String text() {
+        return text;
+    }
 
-	public synchronized void hardlight(int color){
-		this.color = color;
-		for (RenderedText word : words) {
-			if (word != null) word.hardlight( color );
-		}
-	}
-	
-	public synchronized void resetColor(){
-		this.color = -1;
-		for (RenderedText word : words) {
-			if (word != null) word.resetColor();
-		}
-	}
-	
-	public synchronized void alpha(float value){
-		for (RenderedText word : words) {
-			if (word != null) word.alpha( value );
-		}
-	}
-	
-	public synchronized void setHightlighting(boolean enabled){
-		setHightlighting(enabled, Window.TITLE_COLOR);
-	}
-	
-	public synchronized void setHightlighting(boolean enabled, int color){
-		if (enabled != highlightingEnabled || color != hightlightColor) {
-			hightlightColor = color;
-			highlightingEnabled = enabled;
-			build();
-		}
-	}
+    public void maxWidth(int maxWidth) {
+        if (this.maxWidth != maxWidth) {
+            this.maxWidth = maxWidth;
+            multiline = true;
+            text(text);
+        }
+    }
 
-	public synchronized void invert(){
-		if (words != null) {
-			for (RenderedText word : words) {
-				if (word != null) {
-					word.ra = 0.77f;
-					word.ga = 0.73f;
-					word.ba = 0.62f;
-					word.rm = -0.77f;
-					word.gm = -0.73f;
-					word.bm = -0.62f;
-				}
-			}
-		}
-	}
+    public int maxWidth() {
+        return maxWidth;
+    }
 
-	public synchronized void align(int align){
-		alignment = align;
-		layout();
-	}
+    private synchronized void build() {
+        if (tokens == null) return;
 
-	@Override
-	protected synchronized void layout() {
-		super.layout();
-		float x = this.x;
-		float y = this.y;
-		float height = 0;
-		nLines = 1;
+        clear();
+        words = new ArrayList<>();
+        boolean highlighting = false;
+        for (String str : tokens) {
 
-		ArrayList<ArrayList<RenderedText>> lines = new ArrayList<>();
-		ArrayList<RenderedText> curLine = new ArrayList<>();
-		lines.add(curLine);
+            //if highlighting is enabled, '_' or '**' is used to toggle highlighting on or off
+            // the actual symbols are not rendered
+            if ((str.equals("_") || str.equals("**")) && highlightingEnabled) {
+                highlighting = !highlighting;
+            } else if (str.equals("\n")) {
+                words.add(NEWLINE);
+            } else if (str.equals(" ")) {
+                words.add(SPACE);
+            } else {
+                RenderedText word = new RenderedText(str, size);
 
-		width = 0;
-		for (int i = 0; i < words.size(); i++){
-			RenderedText word = words.get(i);
-			if (word == SPACE){
-				x += 1.667f;
-			} else if (word == NEWLINE) {
-				//newline
-				y += height+2f;
-				x = this.x;
-				nLines++;
-				curLine = new ArrayList<>();
-				lines.add(curLine);
-			} else {
-				if (word.height() > height) height = word.height();
+                if (highlighting) word.hardlight(hightlightColor);
+                else if (color != -1) word.hardlight(color);
+                word.scale.set(zoom);
 
-				float fullWidth = word.width();
-				int j = i+1;
+                words.add(word);
+                add(word);
 
-				//this is so that words split only by highlighting are still grouped in layout
-				//Chinese/Japanese always render every character separately without spaces however
-				while (Messages.lang() != Languages.CHI_SMPL && Messages.lang() != Languages.CHI_TRAD
-						&& Messages.lang() != Languages.JAPANESE
-						&& j < words.size() && words.get(j) != SPACE && words.get(j) != NEWLINE){
-					fullWidth += words.get(j).width() - 0.667f;
-					j++;
-				}
+                if (height < word.height()) height = word.height();
+            }
+        }
+        layout();
+    }
 
-				if ((x - this.x) + fullWidth - 0.001f > maxWidth && !curLine.isEmpty()){
-					y += height+2f;
-					x = this.x;
-					nLines++;
-					curLine = new ArrayList<>();
-					lines.add(curLine);
-				}
+    public synchronized void zoom(float zoom) {
+        this.zoom = zoom;
+        for (RenderedText word : words) {
+            if (word != null) word.scale.set(zoom);
+        }
+        layout();
+    }
 
-				word.x = x;
-				word.y = y;
-				PixelScene.align(word);
-				x += word.width();
-				curLine.add(word);
+    public synchronized void hardlight(int color) {
+        this.color = color;
+        for (RenderedText word : words) {
+            if (word != null) word.hardlight(color);
+        }
+    }
 
-				if ((x - this.x) > width) width = (x - this.x);
-				
-				//Note that spacing currently doesn't factor in halfwidth and fullwidth characters
-				//(e.g. Ideographic full stop)
-				x -= 0.667f;
+    public synchronized void resetColor() {
+        this.color = -1;
+        for (RenderedText word : words) {
+            if (word != null) word.resetColor();
+        }
+    }
 
-			}
-		}
-		this.height = (y - this.y) + height;
+    public synchronized void alpha(float value) {
+        for (RenderedText word : words) {
+            if (word != null) word.alpha(value);
+        }
+    }
 
-		if (alignment != LEFT_ALIGN){
-			for (ArrayList<RenderedText> line : lines){
-				if (line.size() == 0) continue;
-				float lineWidth = line.get(line.size()-1).width() + line.get(line.size()-1).x - this.x;
-				if (alignment == CENTER_ALIGN){
-					for (RenderedText text : line){
-						text.x += (width() - lineWidth)/2f;
-						PixelScene.align(text);
-					}
-				} else if (alignment == RIGHT_ALIGN) {
-					for (RenderedText text : line){
-						text.x += width() - lineWidth;
-						PixelScene.align(text);
-					}
-				}
-			}
-		}
-	}
+    public synchronized void setHightlighting(boolean enabled) {
+        setHightlighting(enabled, Window.TITLE_COLOR);
+    }
+
+    public synchronized void setHightlighting(boolean enabled, int color) {
+        if (enabled != highlightingEnabled || color != hightlightColor) {
+            hightlightColor = color;
+            highlightingEnabled = enabled;
+            build();
+        }
+    }
+
+    public synchronized void invert() {
+        if (words != null) {
+            for (RenderedText word : words) {
+                if (word != null) {
+                    word.ra = 0.77f;
+                    word.ga = 0.73f;
+                    word.ba = 0.62f;
+                    word.rm = -0.77f;
+                    word.gm = -0.73f;
+                    word.bm = -0.62f;
+                }
+            }
+        }
+    }
+
+    public synchronized void align(int align) {
+        alignment = align;
+        layout();
+    }
+
+    @Override
+    protected synchronized void layout() {
+        super.layout();
+        float x = this.x;
+        float y = this.y;
+        float height = 0;
+        nLines = 1;
+
+        ArrayList<ArrayList<RenderedText>> lines = new ArrayList<>();
+        ArrayList<RenderedText> curLine = new ArrayList<>();
+        lines.add(curLine);
+
+        width = 0;
+        for (int i = 0; i < words.size(); i++) {
+            RenderedText word = words.get(i);
+            if (word == SPACE) {
+                x += 1.667f;
+            } else if (word == NEWLINE) {
+                //newline
+                y += height + 2f;
+                x = this.x;
+                nLines++;
+                curLine = new ArrayList<>();
+                lines.add(curLine);
+            } else {
+                if (word.height() > height) height = word.height();
+
+                float fullWidth = word.width();
+                int j = i + 1;
+
+                //this is so that words split only by highlighting are still grouped in layout
+                //Chinese/Japanese always render every character separately without spaces however
+                while (Messages.lang() != Languages.CHI_SMPL && Messages.lang() != Languages.CHI_TRAD
+                        && Messages.lang() != Languages.JAPANESE
+                        && j < words.size() && words.get(j) != SPACE && words.get(j) != NEWLINE) {
+                    fullWidth += words.get(j).width() - 0.667f;
+                    j++;
+                }
+
+                if ((x - this.x) + fullWidth - 0.001f > maxWidth && !curLine.isEmpty()) {
+                    y += height + 2f;
+                    x = this.x;
+                    nLines++;
+                    curLine = new ArrayList<>();
+                    lines.add(curLine);
+                }
+
+                word.x = x;
+                word.y = y;
+                PixelScene.align(word);
+                x += word.width();
+                curLine.add(word);
+
+                if ((x - this.x) > width) width = (x - this.x);
+
+                //Note that spacing currently doesn't factor in halfwidth and fullwidth characters
+                //(e.g. Ideographic full stop)
+                x -= 0.667f;
+            }
+        }
+        this.height = (y - this.y) + height;
+
+        if (alignment != LEFT_ALIGN) {
+            for (ArrayList<RenderedText> line : lines) {
+                if (line.size() == 0) continue;
+                float lineWidth = line.get(line.size() - 1).width() + line.get(line.size() - 1).x - this.x;
+                if (alignment == CENTER_ALIGN) {
+                    for (RenderedText text : line) {
+                        text.x += (width() - lineWidth) / 2f;
+                        PixelScene.align(text);
+                    }
+                } else if (alignment == RIGHT_ALIGN) {
+                    for (RenderedText text : line) {
+                        text.x += width() - lineWidth;
+                        PixelScene.align(text);
+                    }
+                }
+            }
+        }
+    }
 }

@@ -31,102 +31,96 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
 import com.watabou.utils.Bundle;
 
 public class Regeneration extends Buff {
-	
-	{
-		//unlike other buffs, this one acts after the hero and takes priority against other effects
-		//healing is much more useful if you get some of it off before taking damage
-		actPriority = HERO_PRIO - 1;
-	}
 
-	private float partialRegen = 0f;
+    {
+        //unlike other buffs, this one acts after the hero and takes priority against other effects
+        //healing is much more useful if you get some of it off before taking damage
+        actPriority = HERO_PRIO - 1;
+    }
 
-	private static final float REGENERATION_DELAY = 10; //1HP every 10 turns
-	
-	@Override
-	public boolean act() {
-		if (target.isAlive()) {
+    private float partialRegen = 0f;
 
-			//if other trinkets ever get buffs like this should probably make the buff attaching
-			// behaviour more like wands/rings/artifacts
-			if (ChaoticCenser.averageTurnsUntilGas() != -1){
-				Buff.affect(Dungeon.hero, ChaoticCenser.CenserGasTracker.class);
-			}
+    private static final float REGENERATION_DELAY = 10; //1HP every 10 turns
 
-			if (regenOn() && target.HP < regencap() && !((Hero)target).isStarving()) {
-				boolean chaliceCursed = false;
-				int chaliceLevel = -1;
-				if (target.buff(MagicImmune.class) == null) {
-					if (Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class) != null) {
-						chaliceCursed = Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed();
-						chaliceLevel = Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).itemLevel();
-					} else if (Dungeon.hero.buff(SpiritForm.SpiritFormBuff.class) != null
-							&& Dungeon.hero.buff(SpiritForm.SpiritFormBuff.class).artifact() instanceof ChaliceOfBlood) {
-						chaliceLevel = SpiritForm.artifactLevel();
-					}
-				}
+    @Override
+    public boolean act() {
+        if (target.isAlive()) {
 
-				float delay = REGENERATION_DELAY;
-				if (chaliceLevel != -1 && target.buff(MagicImmune.class) == null) {
-					if (chaliceCursed) {
-						delay *= 1.5f;
-					} else {
-						//15% boost at +0, scaling to a 500% boost at +10
-						delay -= 1.33f + chaliceLevel*0.667f;
-						delay /= RingOfEnergy.artifactChargeMultiplier(target);
-					}
-				}
+            //if other trinkets ever get buffs like this should probably make the buff attaching
+            // behaviour more like wands/rings/artifacts
+            if (ChaoticCenser.averageTurnsUntilGas() != -1) {
+                Buff.affect(Dungeon.hero, ChaoticCenser.CenserGasTracker.class);
+            }
 
-				//salt cube is turned off while regen is disabled.
-				if (target.buff(LockedFloor.class) == null) {
-					delay /= SaltCube.healthRegenMultiplier();
-				}
+            if (regenOn() && target.HP < regencap() && !((Hero) target).isStarving()) {
+                boolean chaliceCursed = false;
+                int chaliceLevel = -1;
+                if (target.buff(MagicImmune.class) == null) {
+                    if (Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class) != null) {
+                        chaliceCursed = Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed();
+                        chaliceLevel = Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).itemLevel();
+                    } else if (Dungeon.hero.buff(SpiritForm.SpiritFormBuff.class) != null
+                            && Dungeon.hero.buff(SpiritForm.SpiritFormBuff.class).artifact() instanceof ChaliceOfBlood) {
+                        chaliceLevel = SpiritForm.artifactLevel();
+                    }
+                }
 
-				partialRegen += 1f / delay;
+                float delay = REGENERATION_DELAY;
+                if (chaliceLevel != -1 && target.buff(MagicImmune.class) == null) {
+                    if (chaliceCursed) {
+                        delay *= 1.5f;
+                    } else {
+                        //15% boost at +0, scaling to a 500% boost at +10
+                        delay -= 1.33f + chaliceLevel * 0.667f;
+                        delay /= RingOfEnergy.artifactChargeMultiplier(target);
+                    }
+                }
 
-				if (partialRegen >= 1) {
-					target.HP += 1;
-					partialRegen--;
-					if (target.HP == regencap()) {
-						((Hero) target).resting = false;
-					}
-				}
+                //salt cube is turned off while regen is disabled.
+                if (target.buff(LockedFloor.class) == null) {
+                    delay /= SaltCube.healthRegenMultiplier();
+                }
 
-			}
+                partialRegen += 1f / delay;
 
-			spend( TICK );
-			
-		} else {
-			
-			diactivate();
-			
-		}
-		
-		return true;
-	}
-	
-	public int regencap(){
-		return target.HT;
-	}
+                if (partialRegen >= 1) {
+                    target.HP += 1;
+                    partialRegen--;
+                    if (target.HP == regencap()) {
+                        ((Hero) target).resting = false;
+                    }
+                }
+            }
 
-	public static boolean regenOn(){
-		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
-		if (lock != null && !lock.regenOn()){
-			return false;
-		}
-		return true;
-	}
+            spend(TICK);
+        } else {
 
-	public static final String PARTIAL_REGEN = "partial_regen";
+            diactivate();
+        }
 
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(PARTIAL_REGEN, partialRegen);
-	}
+        return true;
+    }
 
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		partialRegen = bundle.getFloat(PARTIAL_REGEN);
-	}
+    public int regencap() {
+        return target.HT;
+    }
+
+    public static boolean regenOn() {
+        LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
+        return lock == null || lock.regenOn();
+    }
+
+    public static final String PARTIAL_REGEN = "partial_regen";
+
+    @Override
+    public void storeInBundle(Bundle bundle) {
+        super.storeInBundle(bundle);
+        bundle.put(PARTIAL_REGEN, partialRegen);
+    }
+
+    @Override
+    public void restoreFromBundle(Bundle bundle) {
+        super.restoreFromBundle(bundle);
+        partialRegen = bundle.getFloat(PARTIAL_REGEN);
+    }
 }

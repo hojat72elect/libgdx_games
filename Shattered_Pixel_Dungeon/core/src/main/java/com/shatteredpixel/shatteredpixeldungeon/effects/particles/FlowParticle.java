@@ -31,66 +31,65 @@ import com.watabou.utils.Random;
 
 public class FlowParticle extends PixelParticle {
 
-	public static final Emitter.Factory FACTORY = new Factory() {
-		@Override
-		public void emit( Emitter emitter, int index, float x, float y ) {
-			((FlowParticle)emitter.recycle( FlowParticle.class )).reset( x, y );
-		}
-	};
-	
-	public FlowParticle() {
-		super();
-		
-		lifespan = 0.6f;
-		acc.set( 0, 32 );
-		angularSpeed = Random.Float( -360, +360 );
-	}
-	
-	public void reset( float x, float y ) {
-		revive();
-		
-		left = lifespan;
-		
-		this.x = x;
-		this.y = y;
-		
-		am = 0;
-		size( 0 );
-		speed.set( 0 );
-	}
-	
-	@Override
-	public void update() {
-		super.update();
-		
-		float p = left / lifespan;
-		am = (p < 0.5f ? p : 1 - p) * 0.6f;
-		size( (1 - p) * 4 );
-	}
+    public static final Emitter.Factory FACTORY = new Factory() {
+        @Override
+        public void emit(Emitter emitter, int index, float x, float y) {
+            ((FlowParticle) emitter.recycle(FlowParticle.class)).reset(x, y);
+        }
+    };
 
-	public static class Flow extends Emitter {
-		
-		private int pos;
-		
-		public Flow( int pos ) {
-			super();
-			
-			this.pos = pos;
+    public FlowParticle() {
+        super();
 
-			PointF p = DungeonTilemap.tileToWorld( pos );
-			pos( p.x, p.y + DungeonTilemap.SIZE - 1, DungeonTilemap.SIZE, 0);
+        lifespan = 0.6f;
+        acc.set(0, 32);
+        angularSpeed = Random.Float(-360, +360);
+    }
 
-			pour(FACTORY, 0.05f);
-		}
-		
-		@Override
-		public void update() {
-			
-			if (visible = (pos < Dungeon.level.heroFOV.length && Dungeon.level.heroFOV[pos])) {
-				
-				super.update();
+    public void reset(float x, float y) {
+        revive();
 
-			}
-		}
-	}
+        left = lifespan;
+
+        this.x = x;
+        this.y = y;
+
+        am = 0;
+        size(0);
+        speed.set(0);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+
+        float p = left / lifespan;
+        am = (p < 0.5f ? p : 1 - p) * 0.6f;
+        size((1 - p) * 4);
+    }
+
+    public static class Flow extends Emitter {
+
+        private final int pos;
+
+        public Flow(int pos) {
+            super();
+
+            this.pos = pos;
+
+            PointF p = DungeonTilemap.tileToWorld(pos);
+            pos(p.x, p.y + DungeonTilemap.SIZE - 1, DungeonTilemap.SIZE, 0);
+
+            pour(FACTORY, 0.05f);
+        }
+
+        @Override
+        public void update() {
+
+            if (visible = (pos < Dungeon.level.heroFOV.length && Dungeon.level.heroFOV[pos])) {
+
+                super.update();
+            }
+        }
+    }
 }

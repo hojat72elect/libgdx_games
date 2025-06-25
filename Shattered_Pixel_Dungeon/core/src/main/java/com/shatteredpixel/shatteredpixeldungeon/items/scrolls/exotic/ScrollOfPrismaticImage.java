@@ -34,39 +34,39 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 
 public class ScrollOfPrismaticImage extends ExoticScroll {
-	
-	{
-		icon = ItemSpriteSheet.Icons.SCROLL_PRISIMG;
-	}
-	
-	@Override
-	public void doRead() {
 
-		detach(curUser.belongings.backpack);
-		boolean found = false;
-		for (Mob m : Dungeon.level.mobs.toArray(new Mob[0])){
-			if (m instanceof PrismaticImage){
-				found = true;
-				m.HP = m.HT;
-				m.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(m.HT), FloatingText.HEALING );
-			}
-		}
+    {
+        icon = ItemSpriteSheet.Icons.SCROLL_PRISIMG;
+    }
 
-		if (!found){
-			if (Stasis.getStasisAlly() instanceof PrismaticImage){
-				found = true;
-				Stasis.getStasisAlly().HP = Stasis.getStasisAlly().HT;
-			}
-		}
-		
-		if (!found) {
-			Buff.affect(curUser, PrismaticGuard.class).set( PrismaticGuard.maxHP( curUser ) );
-		}
+    @Override
+    public void doRead() {
 
-		identify();
-		
-		Sample.INSTANCE.play( Assets.Sounds.READ );
-	
-		readAnimation();
-	}
+        detach(curUser.belongings.backpack);
+        boolean found = false;
+        for (Mob m : Dungeon.level.mobs.toArray(new Mob[0])) {
+            if (m instanceof PrismaticImage) {
+                found = true;
+                m.HP = m.HT;
+                m.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(m.HT), FloatingText.HEALING);
+            }
+        }
+
+        if (!found) {
+            if (Stasis.getStasisAlly() instanceof PrismaticImage) {
+                found = true;
+                Stasis.getStasisAlly().HP = Stasis.getStasisAlly().HT;
+            }
+        }
+
+        if (!found) {
+            Buff.affect(curUser, PrismaticGuard.class).set(PrismaticGuard.maxHP(curUser));
+        }
+
+        identify();
+
+        Sample.INSTANCE.play(Assets.Sounds.READ);
+
+        readAnimation();
+    }
 }

@@ -27,37 +27,35 @@ import com.watabou.utils.Random;
 
 public class PitfallParticle extends PixelParticle.Shrinking {
 
-	public static final Emitter.Factory FACTORY4 = new Emitter.Factory() {
-		@Override
-		public void emit( Emitter emitter, int index, float x, float y ) {
-			((PitfallParticle)emitter.recycle( PitfallParticle.class )).reset( x,  y, 4 );
-		}
-	};
+    public static final Emitter.Factory FACTORY4 = new Emitter.Factory() {
+        @Override
+        public void emit(Emitter emitter, int index, float x, float y) {
+            ((PitfallParticle) emitter.recycle(PitfallParticle.class)).reset(x, y, 4);
+        }
+    };
 
-	public static final Emitter.Factory FACTORY8 = new Emitter.Factory() {
-		@Override
-		public void emit( Emitter emitter, int index, float x, float y ) {
-			((PitfallParticle)emitter.recycle( PitfallParticle.class )).reset( x,  y, 8 );
-		}
-	};
+    public static final Emitter.Factory FACTORY8 = new Emitter.Factory() {
+        @Override
+        public void emit(Emitter emitter, int index, float x, float y) {
+            ((PitfallParticle) emitter.recycle(PitfallParticle.class)).reset(x, y, 8);
+        }
+    };
 
-	public PitfallParticle(){
-		super();
+    public PitfallParticle() {
+        super();
 
-		color( 0x000000 );
-		angle = Random.Float( -30, 30 );
+        color(0x000000);
+        angle = Random.Float(-30, 30);
+    }
 
-	}
+    public void reset(float x, float y, int size) {
+        revive();
 
-	public void reset( float x, float y, int size ) {
-		revive();
+        this.x = x;
+        this.y = y;
 
-		this.x = x;
-		this.y = y;
+        left = lifespan = 1f;
 
-		left = lifespan = 1f;
-
-		this.size = size;
-	}
-
+        this.size = size;
+    }
 }

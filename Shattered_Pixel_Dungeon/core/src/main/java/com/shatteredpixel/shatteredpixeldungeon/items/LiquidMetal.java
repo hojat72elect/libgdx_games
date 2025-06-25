@@ -46,174 +46,169 @@ import java.util.ArrayList;
 //mainly due to their high quantity
 public class LiquidMetal extends Item {
 
-	{
-		image = ItemSpriteSheet.LIQUID_METAL;
+    {
+        image = ItemSpriteSheet.LIQUID_METAL;
 
-		stackable = true;
+        stackable = true;
 
-		defaultAction = AC_APPLY;
+        defaultAction = AC_APPLY;
 
-		bones = true;
-	}
+        bones = true;
+    }
 
-	private static final String AC_APPLY = "APPLY";
+    private static final String AC_APPLY = "APPLY";
 
-	@Override
-	public ArrayList<String> actions( Hero hero ) {
-		ArrayList<String> actions = super.actions( hero );
-		actions.add( AC_APPLY );
-		return actions;
-	}
+    @Override
+    public ArrayList<String> actions(Hero hero) {
+        ArrayList<String> actions = super.actions(hero);
+        actions.add(AC_APPLY);
+        return actions;
+    }
 
-	@Override
-	public void execute( Hero hero, String action ) {
+    @Override
+    public void execute(Hero hero, String action) {
 
-		super.execute( hero, action );
+        super.execute(hero, action);
 
-		if (action.equals(AC_APPLY)) {
+        if (action.equals(AC_APPLY)) {
 
-			curUser = hero;
-			GameScene.selectItem( itemSelector );
+            curUser = hero;
+            GameScene.selectItem(itemSelector);
+        }
+    }
 
-		}
-	}
+    @Override
+    protected void onThrow(int cell) {
+        if (Dungeon.level.map[cell] == Terrain.WELL || Dungeon.level.pit[cell]) {
 
-	@Override
-	protected void onThrow( int cell ) {
-		if (Dungeon.level.map[cell] == Terrain.WELL || Dungeon.level.pit[cell]) {
+            super.onThrow(cell);
+        } else {
 
-			super.onThrow( cell );
+            Dungeon.level.pressCell(cell);
+            if (Dungeon.level.heroFOV[cell]) {
+                GLog.i(Messages.get(Potion.class, "shatter"));
+                Sample.INSTANCE.play(Assets.Sounds.SHATTER);
+                Splash.at(cell, 0xBFBFBF, 5);
+            }
+        }
+    }
 
-		} else  {
+    @Override
+    public boolean isUpgradable() {
+        return false;
+    }
 
-			Dungeon.level.pressCell( cell );
-			if (Dungeon.level.heroFOV[cell]) {
-				GLog.i( Messages.get(Potion.class, "shatter") );
-				Sample.INSTANCE.play( Assets.Sounds.SHATTER );
-				Splash.at( cell, 0xBFBFBF, 5 );
-			}
+    @Override
+    public boolean isIdentified() {
+        return true;
+    }
 
-		}
-	}
+    @Override
+    public int value() {
+        return quantity;
+    }
 
-	@Override
-	public boolean isUpgradable() {
-		return false;
-	}
+    private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
 
-	@Override
-	public boolean isIdentified() {
-		return true;
-	}
+        @Override
+        public String textPrompt() {
+            return Messages.get(LiquidMetal.class, "prompt");
+        }
 
-	@Override
-	public int value() {
-		return quantity;
-	}
+        @Override
+        public Class<? extends Bag> preferredBag() {
+            return MagicalHolster.class;
+        }
 
-	private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
+        @Override
+        public boolean itemSelectable(Item item) {
+            return item instanceof MissileWeapon && !(item instanceof Dart);
+        }
 
-		@Override
-		public String textPrompt() {
-			return Messages.get(LiquidMetal.class, "prompt");
-		}
+        @Override
+        public void onSelect(Item item) {
+            if (item != null && item instanceof MissileWeapon) {
+                MissileWeapon m = (MissileWeapon) item;
 
-		@Override
-		public Class<?extends Bag> preferredBag(){
-			return MagicalHolster.class;
-		}
+                int maxToUse = 5 * (m.tier + 1);
+                maxToUse *= Math.pow(2, m.level());
 
-		@Override
-		public boolean itemSelectable(Item item) {
-			return item instanceof MissileWeapon && !(item instanceof Dart);
-		}
+                float durabilityPerMetal = 100 / (float) maxToUse;
 
-		@Override
-		public void onSelect( Item item ) {
-			if (item != null && item instanceof MissileWeapon) {
-				MissileWeapon m = (MissileWeapon)item;
+                //we remove a tiny amount here to account for rounding errors
+                float percentDurabilityLost = 0.999f - (m.durabilityLeft() / 100f);
+                maxToUse = (int) Math.ceil(maxToUse * percentDurabilityLost);
+                float durPerUse = m.durabilityPerUse() / 100f;
+                if (maxToUse == 0 ||
+                        Math.ceil(m.durabilityLeft() / m.durabilityPerUse()) >= Math.ceil(MissileWeapon.MAX_DURABILITY / m.durabilityPerUse())) {
+                    GLog.w(Messages.get(LiquidMetal.class, "already_fixed"));
+                    return;
+                } else if (maxToUse < quantity()) {
+                    Catalog.countUses(LiquidMetal.class, maxToUse);
+                    m.repair(maxToUse * durabilityPerMetal);
+                    quantity(quantity() - maxToUse);
+                    GLog.i(Messages.get(LiquidMetal.class, "apply", maxToUse));
+                } else {
+                    Catalog.countUses(LiquidMetal.class, quantity());
+                    m.repair(quantity() * durabilityPerMetal);
+                    GLog.i(Messages.get(LiquidMetal.class, "apply", quantity()));
+                    detachAll(Dungeon.hero.belongings.backpack);
+                }
 
-				int maxToUse = 5*(m.tier+1);
-				maxToUse *= Math.pow(2, m.level());
+                curUser.sprite.operate(curUser.pos);
+                Sample.INSTANCE.play(Assets.Sounds.DRINK);
+                updateQuickslot();
+                curUser.sprite.emitter().start(Speck.factory(Speck.LIGHT), 0.1f, 10);
+            }
+        }
+    };
 
-				float durabilityPerMetal = 100 / (float)maxToUse;
+    public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
 
-				//we remove a tiny amount here to account for rounding errors
-				float percentDurabilityLost = 0.999f - (m.durabilityLeft()/100f);
-				maxToUse = (int)Math.ceil(maxToUse*percentDurabilityLost);
-				float durPerUse = m.durabilityPerUse()/100f;
-				if (maxToUse == 0 ||
-						Math.ceil(m.durabilityLeft()/ m.durabilityPerUse()) >= Math.ceil(m.MAX_DURABILITY/ m.durabilityPerUse()) ){
-					GLog.w(Messages.get(LiquidMetal.class, "already_fixed"));
-					return;
-				} else if (maxToUse < quantity()) {
-					Catalog.countUses(LiquidMetal.class, maxToUse);
-					m.repair(maxToUse*durabilityPerMetal);
-					quantity(quantity()-maxToUse);
-					GLog.i(Messages.get(LiquidMetal.class, "apply", maxToUse));
+        @Override
+        public boolean testIngredients(ArrayList<Item> ingredients) {
+            for (Item i : ingredients) {
+                if (!(i instanceof MissileWeapon)) {
+                    return false;
+                }
+            }
 
-				} else {
-					Catalog.countUses(LiquidMetal.class, quantity());
-					m.repair(quantity()*durabilityPerMetal);
-					GLog.i(Messages.get(LiquidMetal.class, "apply", quantity()));
-					detachAll(Dungeon.hero.belongings.backpack);
-				}
+            return !ingredients.isEmpty();
+        }
 
-				curUser.sprite.operate(curUser.pos);
-				Sample.INSTANCE.play(Assets.Sounds.DRINK);
-				updateQuickslot();
-				curUser.sprite.emitter().start(Speck.factory(Speck.LIGHT), 0.1f, 10);
-			}
-		}
-	};
+        @Override
+        public int cost(ArrayList<Item> ingredients) {
+            int cost = 1;
+            for (Item i : ingredients) {
+                cost += i.quantity();
+            }
+            return cost;
+        }
 
-	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
+        @Override
+        public Item brew(ArrayList<Item> ingredients) {
+            Item result = sampleOutput(ingredients);
 
-		@Override
-		public boolean testIngredients(ArrayList<Item> ingredients) {
-			for (Item i : ingredients){
-				if (!(i instanceof MissileWeapon)){
-					return false;
-				}
-			}
+            for (Item i : ingredients) {
+                i.quantity(0);
+            }
 
-			return !ingredients.isEmpty();
-		}
+            return result;
+        }
 
-		@Override
-		public int cost(ArrayList<Item> ingredients) {
-			int cost = 1;
-			for (Item i : ingredients){
-				cost += i.quantity();
-			}
-			return cost;
-		}
+        @Override
+        public Item sampleOutput(ArrayList<Item> ingredients) {
+            int metalQuantity = 0;
 
-		@Override
-		public Item brew(ArrayList<Item> ingredients) {
-			Item result = sampleOutput(ingredients);
+            for (Item i : ingredients) {
+                MissileWeapon m = (MissileWeapon) i;
+                float quantity = m.quantity() - 1;
+                quantity += 0.25f + 0.0075f * m.durabilityLeft();
+                quantity *= Math.pow(2, Math.min(3, m.level()));
+                metalQuantity += Math.round((5 * (m.tier + 1)) * quantity);
+            }
 
-			for (Item i : ingredients){
-				i.quantity(0);
-			}
-
-			return result;
-		}
-
-		@Override
-		public Item sampleOutput(ArrayList<Item> ingredients) {
-			int metalQuantity = 0;
-
-			for (Item i : ingredients){
-				MissileWeapon m = (MissileWeapon) i;
-				float quantity = m.quantity()-1;
-				quantity += 0.25f + 0.0075f*m.durabilityLeft();
-				quantity *= Math.pow(2, Math.min(3, m.level()));
-				metalQuantity += Math.round((5*(m.tier+1))*quantity);
-			}
-
-			return new LiquidMetal().quantity(metalQuantity);
-		}
-	}
-
+            return new LiquidMetal().quantity(metalQuantity);
+        }
+    }
 }

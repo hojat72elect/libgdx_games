@@ -44,104 +44,102 @@ import java.util.TimeZone;
 
 public class WndDailies extends Window {
 
-	private static final int WIDTH			= 115;
-	private static final int HEIGHT			= 144;
+    private static final int WIDTH = 115;
+    private static final int HEIGHT = 144;
 
-	public WndDailies(){
+    public WndDailies() {
 
-		resize(WIDTH, HEIGHT);
+        resize(WIDTH, HEIGHT);
 
-		ScrollPane pane = new ScrollPane(new Component());
-		add(pane);
-		pane.setRect(0, 0, WIDTH, HEIGHT);
+        ScrollPane pane = new ScrollPane(new Component());
+        add(pane);
+        pane.setRect(0, 0, WIDTH, HEIGHT);
 
-		Component content = pane.content();
+        Component content = pane.content();
 
-		IconTitle title = new IconTitle(Icons.CALENDAR.get(), Messages.get(this, "title"));
-		title.imIcon.hardlight(0.5f, 1f, 2f);
-		title.setRect(0, 0, WIDTH, 0);
-		title.setPos(0, 0);
-		content.add(title);
+        IconTitle title = new IconTitle(Icons.CALENDAR.get(), Messages.get(this, "title"));
+        title.imIcon.hardlight(0.5f, 1f, 2f);
+        title.setRect(0, 0, WIDTH, 0);
+        title.setPos(0, 0);
+        content.add(title);
 
-		if (Rankings.INSTANCE.latestDailyReplay != null){
-			IconButton replayInfo = new IconButton(Icons.get(Icons.CALENDAR)){
-				@Override
-				protected void onClick() {
-					ShatteredPixelDungeon.scene().addToFront(new WndRanking(Rankings.INSTANCE.latestDailyReplay));
-				}
+        if (Rankings.INSTANCE.latestDailyReplay != null) {
+            IconButton replayInfo = new IconButton(Icons.get(Icons.CALENDAR)) {
+                @Override
+                protected void onClick() {
+                    ShatteredPixelDungeon.scene().addToFront(new WndRanking(Rankings.INSTANCE.latestDailyReplay));
+                }
 
-				@Override
-				protected void onPointerUp() {
-					super.onPointerUp();
-					icon.hardlight(1f, 0.5f, 2f);
-				}
-			};
-			replayInfo.icon().hardlight(1f, 0.5f, 2f);
-			replayInfo.setRect(WIDTH-16, 0, 16, 16);
-			add(replayInfo);
-		}
+                @Override
+                protected void onPointerUp() {
+                    super.onPointerUp();
+                    icon.hardlight(1f, 0.5f, 2f);
+                }
+            };
+            replayInfo.icon().hardlight(1f, 0.5f, 2f);
+            replayInfo.setRect(WIDTH - 16, 0, 16, 16);
+            add(replayInfo);
+        }
 
-		int top = (int)title.bottom()+3;
+        int top = (int) title.bottom() + 3;
 
-		RenderedTextBlock day = PixelScene.renderTextBlock(Messages.get(this, "date"), 7);
-		day.hardlight(TITLE_COLOR);
-		day.setPos(0, top);
-		content.add(day);
+        RenderedTextBlock day = PixelScene.renderTextBlock(Messages.get(this, "date"), 7);
+        day.hardlight(TITLE_COLOR);
+        day.setPos(0, top);
+        content.add(day);
 
-		RenderedTextBlock score = PixelScene.renderTextBlock(Messages.get(this, "score"), 7);
-		score.hardlight(TITLE_COLOR);
-		score.setPos(WIDTH - score.width(), top);
-		content.add(score);
+        RenderedTextBlock score = PixelScene.renderTextBlock(Messages.get(this, "score"), 7);
+        score.hardlight(TITLE_COLOR);
+        score.setPos(WIDTH - score.width(), top);
+        content.add(score);
 
-		top = (int) score.bottom() + 6;
+        top = (int) score.bottom() + 6;
 
-		NumberFormat num = NumberFormat.getInstance(Messages.locale());
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
-		format.setTimeZone(TimeZone.getTimeZone("UTC"));
-		Date date = new Date();
+        NumberFormat num = NumberFormat.getInstance(Messages.locale());
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date = new Date();
 
-		//reverse order so that latest dailies are on top
-		ArrayList<Long> dates = new ArrayList<>(Rankings.INSTANCE.dailyScoreHistory.keySet());
-		Collections.reverse(dates);
+        //reverse order so that latest dailies are on top
+        ArrayList<Long> dates = new ArrayList<>(Rankings.INSTANCE.dailyScoreHistory.keySet());
+        Collections.reverse(dates);
 
-		boolean first = Rankings.INSTANCE.latestDaily != null;
-		for (long l : dates) {
-			if (first) top += 2;
+        boolean first = Rankings.INSTANCE.latestDaily != null;
+        for (long l : dates) {
+            if (first) top += 2;
 
-			ColorBlock sep = new ColorBlock(WIDTH, 1, 0xFF000000);
-			sep.y = top - 3 - (first ? 2 : 0);
-			content.add(sep);
+            ColorBlock sep = new ColorBlock(WIDTH, 1, 0xFF000000);
+            sep.y = top - 3 - (first ? 2 : 0);
+            content.add(sep);
 
-			date.setTime(l);
-			day = PixelScene.renderTextBlock(format.format(date), 7);
-			day.setPos(0, top);
-			content.add(day);
+            date.setTime(l);
+            day = PixelScene.renderTextBlock(format.format(date), 7);
+            day.setPos(0, top);
+            content.add(day);
 
-			if (first){
-				IconButton latestInfo = new IconButton(Icons.INFO.get()){
-					@Override
-					protected void onClick() {
-						ShatteredPixelDungeon.scene().addToFront(new WndRanking(Rankings.INSTANCE.latestDaily));
-					}
-				};
-				latestInfo.setRect(day.right()+2, top - 5, 16, 16);
-				content.add(latestInfo);
-			}
+            if (first) {
+                IconButton latestInfo = new IconButton(Icons.INFO.get()) {
+                    @Override
+                    protected void onClick() {
+                        ShatteredPixelDungeon.scene().addToFront(new WndRanking(Rankings.INSTANCE.latestDaily));
+                    }
+                };
+                latestInfo.setRect(day.right() + 2, top - 5, 16, 16);
+                content.add(latestInfo);
+            }
 
-			score = PixelScene.renderTextBlock(num.format(Rankings.INSTANCE.dailyScoreHistory.get(l)), 7);
-			score.setPos(WIDTH - score.width(), top);
-			content.add(score);
+            score = PixelScene.renderTextBlock(num.format(Rankings.INSTANCE.dailyScoreHistory.get(l)), 7);
+            score.setPos(WIDTH - score.width(), top);
+            content.add(score);
 
-			top = (int) day.bottom() + 6;
-			if (first){
-				top += 2;
-				first = false;
-			}
-		}
+            top = (int) day.bottom() + 6;
+            if (first) {
+                top += 2;
+                first = false;
+            }
+        }
 
-		content.setRect(0, 0, WIDTH, top);
-		pane.setRect(0, 0, WIDTH, HEIGHT);
-
-	}
-
+        content.setRect(0, 0, WIDTH, top);
+        pane.setRect(0, 0, WIDTH, HEIGHT);
+    }
 }

@@ -31,84 +31,84 @@ import com.watabou.utils.Random;
 
 public class RitualRoom extends PatchRoom {
 
-	@Override
-	public int minWidth() {
-		return Math.max(super.minWidth(), 9);
-	}
+    @Override
+    public int minWidth() {
+        return Math.max(super.minWidth(), 9);
+    }
 
-	@Override
-	public int minHeight() {
-		return Math.max(super.minHeight(), 9);
-	}
+    @Override
+    public int minHeight() {
+        return Math.max(super.minHeight(), 9);
+    }
 
-	@Override
-	public float[] sizeCatProbs() {
-		return new float[]{6, 3, 1};
-	}
+    @Override
+    public float[] sizeCatProbs() {
+        return new float[]{6, 3, 1};
+    }
 
-	@Override
-	protected float fill() {
-		//fill scales from ~30% at 4x4, to ~60% at 18x18
-		// normal   ~30% to ~40%
-		// large    ~40% to ~50%
-		// giant    ~50% to ~60%
-		// however,  the inner 7x7 is overridden, so overall fill is much lower
-		int scale = Math.min(width()*height(), 18*18);
-		return 0.30f + scale/1024f;
-	}
+    @Override
+    protected float fill() {
+        //fill scales from ~30% at 4x4, to ~60% at 18x18
+        // normal   ~30% to ~40%
+        // large    ~40% to ~50%
+        // giant    ~50% to ~60%
+        // however,  the inner 7x7 is overridden, so overall fill is much lower
+        int scale = Math.min(width() * height(), 18 * 18);
+        return 0.30f + scale / 1024f;
+    }
 
-	@Override
-	protected int clustering() {
-		return 0;
-	}
+    @Override
+    protected int clustering() {
+        return 0;
+    }
 
-	@Override
-	protected boolean ensurePath() {
-		return connected.size() > 0;
-	}
+    @Override
+    protected boolean ensurePath() {
+        return connected.size() > 0;
+    }
 
-	@Override
-	protected boolean cleanEdges() {
-		return true;
-	}
+    @Override
+    protected boolean cleanEdges() {
+        return true;
+    }
 
-	@Override
-	public void paint(Level level) {
-		Painter.fill( level, this, Terrain.WALL );
-		Painter.fill( level, this, 1 , Terrain.EMPTY );
+    @Override
+    public void paint(Level level) {
+        Painter.fill(level, this, Terrain.WALL);
+        Painter.fill(level, this, 1, Terrain.EMPTY);
 
-		Point c = center();
+        Point c = center();
 
-		setupPatch(level);
-		fillPatch(level, Terrain.REGION_DECO);
+        setupPatch(level);
+        fillPatch(level, Terrain.REGION_DECO);
 
-		Painter.fill(level, c.x - 3, c.y - 3, 7, 7, Terrain.EMPTY);
+        Painter.fill(level, c.x - 3, c.y - 3, 7, 7, Terrain.EMPTY);
 
-		Painter.set(level, c.x-2, c.y-1, Terrain.STATUE);
-		Painter.set(level, c.x-1, c.y-2, Terrain.STATUE);
-		Painter.set(level, c.x+2, c.y-1, Terrain.STATUE);
-		Painter.set(level, c.x+1, c.y-2, Terrain.STATUE);
-		Painter.set(level, c.x-2, c.y+1, Terrain.STATUE);
-		Painter.set(level, c.x-1, c.y+2, Terrain.STATUE);
-		Painter.set(level, c.x+2, c.y+1, Terrain.STATUE);
-		Painter.set(level, c.x+1, c.y+2, Terrain.STATUE);
-		Painter.fill(level, c.x-1, c.y-1, 3, 3, Terrain.EMBERS);
-		Painter.set(level, c, Terrain.PEDESTAL);
+        Painter.set(level, c.x - 2, c.y - 1, Terrain.STATUE);
+        Painter.set(level, c.x - 1, c.y - 2, Terrain.STATUE);
+        Painter.set(level, c.x + 2, c.y - 1, Terrain.STATUE);
+        Painter.set(level, c.x + 1, c.y - 2, Terrain.STATUE);
+        Painter.set(level, c.x - 2, c.y + 1, Terrain.STATUE);
+        Painter.set(level, c.x - 1, c.y + 2, Terrain.STATUE);
+        Painter.set(level, c.x + 2, c.y + 1, Terrain.STATUE);
+        Painter.set(level, c.x + 1, c.y + 2, Terrain.STATUE);
+        Painter.fill(level, c.x - 1, c.y - 1, 3, 3, Terrain.EMBERS);
+        Painter.set(level, c, Terrain.PEDESTAL);
 
-		placeloot(level, c);
+        placeloot(level, c);
 
-		for (Door door : connected.values()) {
-			door.set( Door.Type.REGULAR );
-		}
-	}
+        for (Door door : connected.values()) {
+            door.set(Door.Type.REGULAR);
+        }
+    }
 
-	protected void placeloot(Level level, Point p){
-		Item prize = Random.Int(2) == 0 ? level.findPrizeItem() : null;
+    protected void placeloot(Level level, Point p) {
+        Item prize = Random.Int(2) == 0 ? level.findPrizeItem() : null;
 
-		if (prize == null){
-			prize = Generator.random( Random.oneOf(Generator.Category.POTION, Generator.Category.SCROLL));
-		}
+        if (prize == null) {
+            prize = Generator.random(Random.oneOf(Generator.Category.POTION, Generator.Category.SCROLL));
+        }
 
-		level.drop(prize, level.pointToCell(p));
-	}
+        level.drop(prize, level.pointToCell(p));
+    }
 }

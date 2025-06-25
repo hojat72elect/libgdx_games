@@ -31,75 +31,75 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 public class MagicalSleep extends Buff {
 
-	private static final float STEP = 1f;
+    private static final float STEP = 1f;
 
-	@Override
-	public boolean attachTo( Char target ) {
-		if (!target.isImmune(Sleep.class) && super.attachTo( target )) {
-			
-			target.paralysed++;
-			
-			if (target.alignment == Char.Alignment.ALLY) {
-				if (target.HP == target.HT) {
-					if (target instanceof  Hero) GLog.i(Messages.get(this, "toohealthy"));
-					detach();
-					return true;
-				} else {
-					if (target instanceof  Hero) GLog.i(Messages.get(this, "fallasleep"));
-				}
-			}
+    @Override
+    public boolean attachTo(Char target) {
+        if (!target.isImmune(Sleep.class) && super.attachTo(target)) {
 
-			if (target instanceof Mob) {
-				((Mob) target).state = ((Mob) target).SLEEPING;
-			}
+            target.paralysed++;
 
-			return true;
-		} else {
-			return false;
-		}
-	}
+            if (target.alignment == Char.Alignment.ALLY) {
+                if (target.HP == target.HT) {
+                    if (target instanceof Hero) GLog.i(Messages.get(this, "toohealthy"));
+                    detach();
+                    return true;
+                } else {
+                    if (target instanceof Hero) GLog.i(Messages.get(this, "fallasleep"));
+                }
+            }
 
-	@Override
-	public boolean act(){
-		if (target instanceof Mob && ((Mob) target).state != ((Mob) target).SLEEPING){
-			detach();
-			return true;
-		}
-		if (target.alignment == Char.Alignment.ALLY) {
-			target.HP = Math.min(target.HP+1, target.HT);
-			if (target instanceof  Hero) ((Hero) target).resting = true;
-			if (target.HP == target.HT) {
-				if (target instanceof  Hero) GLog.p(Messages.get(this, "wakeup"));
-				detach();
-			}
-		}
-		spend( STEP );
-		return true;
-	}
+            if (target instanceof Mob) {
+                ((Mob) target).state = ((Mob) target).SLEEPING;
+            }
 
-	@Override
-	public void detach() {
-		if (target.paralysed > 0) {
-			target.paralysed--;
-		}
-		if (target instanceof Hero) {
-			((Hero) target).resting = false;
-		} else if (target instanceof Mob && target.alignment == Char.Alignment.ALLY && ((Mob) target).state == ((Mob) target).SLEEPING){
-			((Mob) target).state = ((Mob) target).WANDERING;
-		}
-		super.detach();
-	}
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	@Override
-	public int icon() {
-		return BuffIndicator.MAGIC_SLEEP;
-	}
+    @Override
+    public boolean act() {
+        if (target instanceof Mob && ((Mob) target).state != ((Mob) target).SLEEPING) {
+            detach();
+            return true;
+        }
+        if (target.alignment == Char.Alignment.ALLY) {
+            target.HP = Math.min(target.HP + 1, target.HT);
+            if (target instanceof Hero) ((Hero) target).resting = true;
+            if (target.HP == target.HT) {
+                if (target instanceof Hero) GLog.p(Messages.get(this, "wakeup"));
+                detach();
+            }
+        }
+        spend(STEP);
+        return true;
+    }
 
-	@Override
-	public void fx(boolean on) {
-		if (!on && (target.paralysed <= 1) ) {
-			//in case the character has visual paralysis from another source
-			target.sprite.remove(CharSprite.State.PARALYSED);
-		}
-	}
+    @Override
+    public void detach() {
+        if (target.paralysed > 0) {
+            target.paralysed--;
+        }
+        if (target instanceof Hero) {
+            ((Hero) target).resting = false;
+        } else if (target instanceof Mob && target.alignment == Char.Alignment.ALLY && ((Mob) target).state == ((Mob) target).SLEEPING) {
+            ((Mob) target).state = ((Mob) target).WANDERING;
+        }
+        super.detach();
+    }
+
+    @Override
+    public int icon() {
+        return BuffIndicator.MAGIC_SLEEP;
+    }
+
+    @Override
+    public void fx(boolean on) {
+        if (!on && (target.paralysed <= 1)) {
+            //in case the character has visual paralysis from another source
+            target.sprite.remove(CharSprite.State.PARALYSED);
+        }
+    }
 }

@@ -27,42 +27,42 @@ import com.watabou.utils.Random;
 
 public class ChallengeParticle extends PixelParticle.Shrinking {
 
-	public static final Emitter.Factory FACTORY = new Emitter.Factory() {
-		@Override
-		public void emit( Emitter emitter, int index, float x, float y ) {
-			((ChallengeParticle)emitter.recycle( ChallengeParticle.class )).reset( x, y );
-		}
-		@Override
-		public boolean lightMode() {
-			return false;
-		}
-	};
+    public static final Emitter.Factory FACTORY = new Emitter.Factory() {
+        @Override
+        public void emit(Emitter emitter, int index, float x, float y) {
+            ((ChallengeParticle) emitter.recycle(ChallengeParticle.class)).reset(x, y);
+        }
 
-	public ChallengeParticle() {
-		super();
+        @Override
+        public boolean lightMode() {
+            return false;
+        }
+    };
 
-		lifespan = 0.6f;
+    public ChallengeParticle() {
+        super();
 
-		color( 0xFF0000 );
-	}
+        lifespan = 0.6f;
 
-	public void reset( float x, float y){
-		revive();
+        color(0xFF0000);
+    }
 
-		this.x = x;
-		this.y = y;
+    public void reset(float x, float y) {
+        revive();
 
-		left = lifespan;
-		size = 8;
+        this.x = x;
+        this.y = y;
 
-		speed.set( Random.Float( -8, +8 ), Random.Float( -16, -32 ) );
-	}
+        left = lifespan;
+        size = 8;
 
-	@Override
-	public void update() {
-		super.update();
+        speed.set(Random.Float(-8, +8), Random.Float(-16, -32));
+    }
 
-		am = 1 - left / lifespan;
-	}
+    @Override
+    public void update() {
+        super.update();
 
+        am = 1 - left / lifespan;
+    }
 }

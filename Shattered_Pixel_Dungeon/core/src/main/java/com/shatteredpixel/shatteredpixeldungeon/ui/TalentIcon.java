@@ -28,19 +28,18 @@ import com.watabou.noosa.TextureFilm;
 
 public class TalentIcon extends Image {
 
-	private static TextureFilm film;
-	private static final int SIZE = 16;
+    private static TextureFilm film;
+    private static final int SIZE = 16;
 
-	public TalentIcon(Talent talent){
-		this(talent.icon());
-	}
+    public TalentIcon(Talent talent) {
+        this(talent.icon());
+    }
 
-	public TalentIcon(int icon){
-		super( Assets.Interfaces.TALENT_ICONS );
+    public TalentIcon(int icon) {
+        super(Assets.Interfaces.TALENT_ICONS);
 
-		if (film == null) film = new TextureFilm(texture, SIZE, SIZE);
+        if (film == null) film = new TextureFilm(texture, SIZE, SIZE);
 
-		frame(film.get(icon));
-	}
-
+        frame(film.get(icon));
+    }
 }

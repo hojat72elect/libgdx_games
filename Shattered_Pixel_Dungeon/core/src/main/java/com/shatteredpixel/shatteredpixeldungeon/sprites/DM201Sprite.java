@@ -33,74 +33,73 @@ import com.watabou.utils.Callback;
 
 public class DM201Sprite extends MobSprite {
 
-	public DM201Sprite () {
-		super();
+    public DM201Sprite() {
+        super();
 
-		texture( Assets.Sprites.DM200 );
+        texture(Assets.Sprites.DM200);
 
-		TextureFilm frames = new TextureFilm( texture, 21, 18 );
+        TextureFilm frames = new TextureFilm(texture, 21, 18);
 
-		int c = 12;
+        int c = 12;
 
-		idle = new Animation( 2, true );
-		idle.frames( frames, c+0, c+1 );
+        idle = new Animation(2, true);
+        idle.frames(frames, c, c + 1);
 
-		run = idle.clone();
+        run = idle.clone();
 
-		attack = new Animation( 15, false );
-		attack.frames( frames, c+4, c+5, c+6 );
+        attack = new Animation(15, false);
+        attack.frames(frames, c + 4, c + 5, c + 6);
 
-		zap = new Animation( 15, false );
-		zap.frames( frames, c+7, c+8, c+8, c+7 );
+        zap = new Animation(15, false);
+        zap.frames(frames, c + 7, c + 8, c + 8, c + 7);
 
-		die = new Animation( 8, false );
-		die.frames( frames, c+9, c+10, c+11 );
+        die = new Animation(8, false);
+        die.frames(frames, c + 9, c + 10, c + 11);
 
-		play( idle );
-	}
+        play(idle);
+    }
 
-	@Override
-	public void place(int cell) {
-		if (parent != null) parent.bringToFront(this);
-		super.place(cell);
-	}
+    @Override
+    public void place(int cell) {
+        if (parent != null) parent.bringToFront(this);
+        super.place(cell);
+    }
 
-	@Override
-	public void die() {
-		emitter().burst( Speck.factory( Speck.WOOL ), 8 );
-		super.die();
-	}
+    @Override
+    public void die() {
+        emitter().burst(Speck.factory(Speck.WOOL), 8);
+        super.die();
+    }
 
-	public void zap( int cell ) {
+    public void zap(int cell) {
 
-		super.zap( cell );
+        super.zap(cell);
 
-		MagicMissile.boltFromChar( parent,
-				MagicMissile.CORROSION,
-				this,
-				cell,
-				new Callback() {
-					@Override
-					public void call() {
-						Sample.INSTANCE.play( Assets.Sounds.GAS );
-						((DM201)ch).onZapComplete();
-					}
-				} );
-		Sample.INSTANCE.play( Assets.Sounds.MISS, 1f, 1.5f );
-		GLog.w(Messages.get(DM201.class, "vent"));
-	}
+        MagicMissile.boltFromChar(parent,
+                MagicMissile.CORROSION,
+                this,
+                cell,
+                new Callback() {
+                    @Override
+                    public void call() {
+                        Sample.INSTANCE.play(Assets.Sounds.GAS);
+                        ((DM201) ch).onZapComplete();
+                    }
+                });
+        Sample.INSTANCE.play(Assets.Sounds.MISS, 1f, 1.5f);
+        GLog.w(Messages.get(DM201.class, "vent"));
+    }
 
-	@Override
-	public void onComplete( Animation anim ) {
-		if (anim == zap) {
-			idle();
-		}
-		super.onComplete( anim );
-	}
+    @Override
+    public void onComplete(Animation anim) {
+        if (anim == zap) {
+            idle();
+        }
+        super.onComplete(anim);
+    }
 
-	@Override
-	public int blood() {
-		return 0xFFFFFF88;
-	}
-
+    @Override
+    public int blood() {
+        return 0xFFFFFF88;
+    }
 }

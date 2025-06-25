@@ -27,42 +27,43 @@ import com.watabou.noosa.particles.PixelParticle;
 
 public class SacrificialParticle extends PixelParticle.Shrinking {
 
-	public static final Emitter.Factory FACTORY = new Factory() {
-		@Override
-		public void emit( Emitter emitter, int index, float x, float y ) {
-			((SacrificialParticle)emitter.recycle( SacrificialParticle.class )).reset( x, y );
-		}
-		@Override
-		public boolean lightMode() {
-			return true;
-		}
-	};
+    public static final Emitter.Factory FACTORY = new Factory() {
+        @Override
+        public void emit(Emitter emitter, int index, float x, float y) {
+            ((SacrificialParticle) emitter.recycle(SacrificialParticle.class)).reset(x, y);
+        }
 
-	public SacrificialParticle() {
-		super();
+        @Override
+        public boolean lightMode() {
+            return true;
+        }
+    };
 
-		color( 0x4488EE );
-		lifespan = 0.6f;
+    public SacrificialParticle() {
+        super();
 
-		acc.set( 0, -100 );
-	}
+        color(0x4488EE);
+        lifespan = 0.6f;
 
-	public void reset( float x, float y ) {
-		revive();
+        acc.set(0, -100);
+    }
 
-		this.x = x;
-		this.y = y - 4;
+    public void reset(float x, float y) {
+        revive();
 
-		left = lifespan;
+        this.x = x;
+        this.y = y - 4;
 
-		size = 4;
-		speed.set( 0 );
-	}
+        left = lifespan;
 
-	@Override
-	public void update() {
-		super.update();
-		float p = left / lifespan;
-		am = p > 0.75f ? (1 - p) * 4 : 1;
-	}
+        size = 4;
+        speed.set(0);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        float p = left / lifespan;
+        am = p > 0.75f ? (1 - p) * 4 : 1;
+    }
 }

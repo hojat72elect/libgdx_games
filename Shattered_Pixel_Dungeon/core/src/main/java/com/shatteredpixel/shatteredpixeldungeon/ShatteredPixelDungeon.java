@@ -33,151 +33,149 @@ import com.watabou.utils.PlatformSupport;
 
 public class ShatteredPixelDungeon extends Game {
 
-	//rankings from v1.2.3 and older use a different score formula, so this reference is kept
-	public static final int v1_2_3 = 628;
+    //rankings from v1.2.3 and older use a different score formula, so this reference is kept
+    public static final int v1_2_3 = 628;
 
-	//savegames from versions older than v2.3.2 are no longer supported, and data from them is ignored
-	public static final int v2_3_2 = 768;
-	public static final int v2_4_2 = 782;
-	public static final int v2_5_4 = 802;
+    //savegames from versions older than v2.3.2 are no longer supported, and data from them is ignored
+    public static final int v2_3_2 = 768;
+    public static final int v2_4_2 = 782;
+    public static final int v2_5_4 = 802;
 
-	public static final int v3_0_2 = 833;
-	public static final int v3_1_0 = 846;
-	
-	public ShatteredPixelDungeon( PlatformSupport platform ) {
-		super( sceneClass == null ? WelcomeScene.class : sceneClass, platform );
+    public static final int v3_0_2 = 833;
+    public static final int v3_1_0 = 846;
 
-		//pre-v2.5.3
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfDetectMagic.class,
-				"com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfDisarming" );
+    public ShatteredPixelDungeon(PlatformSupport platform) {
+        super(sceneClass == null ? WelcomeScene.class : sceneClass, platform);
 
-		//pre-v2.5.2
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.items.bombs.FlashBangBomb.class,
-				"com.shatteredpixel.shatteredpixeldungeon.items.bombs.ShockBomb" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.items.bombs.SmokeBomb.class,
-				"com.shatteredpixel.shatteredpixeldungeon.items.bombs.Flashbang" );
+        //pre-v2.5.3
+        com.watabou.utils.Bundle.addAlias(
+                com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfDetectMagic.class,
+                "com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfDisarming");
 
-		//pre-v2.5.0
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.actors.mobs.MobSpawner.class,
-				"com.shatteredpixel.shatteredpixeldungeon.levels.Level$Respawner" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability.class,
-				"com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AnkhInvulnerability" );
+        //pre-v2.5.2
+        com.watabou.utils.Bundle.addAlias(
+                com.shatteredpixel.shatteredpixeldungeon.items.bombs.FlashBangBomb.class,
+                "com.shatteredpixel.shatteredpixeldungeon.items.bombs.ShockBomb");
+        com.watabou.utils.Bundle.addAlias(
+                com.shatteredpixel.shatteredpixeldungeon.items.bombs.SmokeBomb.class,
+                "com.shatteredpixel.shatteredpixeldungeon.items.bombs.Flashbang");
 
-		//pre-v2.4.0
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.UnstableBrew.class,
-				"com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.items.spells.UnstableSpell.class,
-				"com.shatteredpixel.shatteredpixeldungeon.items.spells.ArcaneCatalyst" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfFeatherFall.class,
-				"com.shatteredpixel.shatteredpixeldungeon.items.spells.FeatherFall" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfFeatherFall.FeatherBuff.class,
-				"com.shatteredpixel.shatteredpixeldungeon.items.spells.FeatherFall$FeatherBuff" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.AquaBrew.class,
-				"com.shatteredpixel.shatteredpixeldungeon.items.spells.AquaBlast" );
+        //pre-v2.5.0
+        com.watabou.utils.Bundle.addAlias(
+                com.shatteredpixel.shatteredpixeldungeon.actors.mobs.MobSpawner.class,
+                "com.shatteredpixel.shatteredpixeldungeon.levels.Level$Respawner");
+        com.watabou.utils.Bundle.addAlias(
+                com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability.class,
+                "com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AnkhInvulnerability");
 
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.entrance.EntranceRoom.class,
-				"com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.EntranceRoom" );
-		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.exit.ExitRoom.class,
-				"com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.ExitRoom" );
-	}
-	
-	@Override
-	public void create() {
-		super.create();
+        //pre-v2.4.0
+        com.watabou.utils.Bundle.addAlias(
+                com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.UnstableBrew.class,
+                "com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst");
+        com.watabou.utils.Bundle.addAlias(
+                com.shatteredpixel.shatteredpixeldungeon.items.spells.UnstableSpell.class,
+                "com.shatteredpixel.shatteredpixeldungeon.items.spells.ArcaneCatalyst");
+        com.watabou.utils.Bundle.addAlias(
+                com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfFeatherFall.class,
+                "com.shatteredpixel.shatteredpixeldungeon.items.spells.FeatherFall");
+        com.watabou.utils.Bundle.addAlias(
+                com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfFeatherFall.FeatherBuff.class,
+                "com.shatteredpixel.shatteredpixeldungeon.items.spells.FeatherFall$FeatherBuff");
+        com.watabou.utils.Bundle.addAlias(
+                com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.AquaBrew.class,
+                "com.shatteredpixel.shatteredpixeldungeon.items.spells.AquaBlast");
 
-		updateSystemUI();
-		SPDAction.loadBindings();
-		
-		Music.INSTANCE.enable( SPDSettings.music() );
-		Music.INSTANCE.volume( SPDSettings.musicVol()*SPDSettings.musicVol()/100f );
-		Sample.INSTANCE.enable( SPDSettings.soundFx() );
-		Sample.INSTANCE.volume( SPDSettings.SFXVol()*SPDSettings.SFXVol()/100f );
+        com.watabou.utils.Bundle.addAlias(
+                com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.entrance.EntranceRoom.class,
+                "com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.EntranceRoom");
+        com.watabou.utils.Bundle.addAlias(
+                com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.exit.ExitRoom.class,
+                "com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.ExitRoom");
+    }
 
-		Sample.INSTANCE.load( Assets.Sounds.all );
-		
-	}
+    @Override
+    public void create() {
+        super.create();
 
-	@Override
-	public void finish() {
-		if (!DeviceCompat.isiOS()) {
-			super.finish();
-		} else {
-			//can't exit on iOS (Apple guidelines), so just go to title screen
-			switchScene(TitleScene.class);
-		}
-	}
+        updateSystemUI();
+        SPDAction.loadBindings();
 
-	public static void switchNoFade(Class<? extends PixelScene> c){
-		switchNoFade(c, null);
-	}
+        Music.INSTANCE.enable(SPDSettings.music());
+        Music.INSTANCE.volume(SPDSettings.musicVol() * SPDSettings.musicVol() / 100f);
+        Sample.INSTANCE.enable(SPDSettings.soundFx());
+        Sample.INSTANCE.volume(SPDSettings.SFXVol() * SPDSettings.SFXVol() / 100f);
 
-	public static void switchNoFade(Class<? extends PixelScene> c, SceneChangeCallback callback) {
-		PixelScene.noFade = true;
-		switchScene( c, callback );
-	}
-	
-	public static void seamlessResetScene(SceneChangeCallback callback) {
-		if (scene() instanceof PixelScene){
-			((PixelScene) scene()).saveWindows();
-			switchNoFade((Class<? extends PixelScene>) sceneClass, callback );
-		} else {
-			resetScene();
-		}
-	}
-	
-	public static void seamlessResetScene(){
-		seamlessResetScene(null);
-	}
-	
-	@Override
-	protected void switchScene() {
-		super.switchScene();
-		if (scene instanceof PixelScene){
-			((PixelScene) scene).restoreWindows();
-		}
-	}
-	
-	@Override
-	public void resize( int width, int height ) {
-		if (width == 0 || height == 0){
-			return;
-		}
+        Sample.INSTANCE.load(Assets.Sounds.all);
+    }
 
-		if (scene instanceof PixelScene &&
-				(height != Game.height || width != Game.width)) {
-			PixelScene.noFade = true;
-			((PixelScene) scene).saveWindows();
-		}
+    @Override
+    public void finish() {
+        if (!DeviceCompat.isiOS()) {
+            super.finish();
+        } else {
+            //can't exit on iOS (Apple guidelines), so just go to title screen
+            switchScene(TitleScene.class);
+        }
+    }
 
-		super.resize( width, height );
+    public static void switchNoFade(Class<? extends PixelScene> c) {
+        switchNoFade(c, null);
+    }
 
-		updateDisplaySize();
+    public static void switchNoFade(Class<? extends PixelScene> c, SceneChangeCallback callback) {
+        PixelScene.noFade = true;
+        switchScene(c, callback);
+    }
 
-	}
-	
-	@Override
-	public void destroy(){
-		super.destroy();
-		GameScene.endActorThread();
-	}
-	
-	public void updateDisplaySize(){
-		platform.updateDisplaySize();
-	}
+    public static void seamlessResetScene(SceneChangeCallback callback) {
+        if (scene() instanceof PixelScene) {
+            ((PixelScene) scene()).saveWindows();
+            switchNoFade((Class<? extends PixelScene>) sceneClass, callback);
+        } else {
+            resetScene();
+        }
+    }
 
-	public static void updateSystemUI() {
-		platform.updateSystemUI();
-	}
+    public static void seamlessResetScene() {
+        seamlessResetScene(null);
+    }
+
+    @Override
+    protected void switchScene() {
+        super.switchScene();
+        if (scene instanceof PixelScene) {
+            ((PixelScene) scene).restoreWindows();
+        }
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        if (width == 0 || height == 0) {
+            return;
+        }
+
+        if (scene instanceof PixelScene &&
+                (height != Game.height || width != Game.width)) {
+            PixelScene.noFade = true;
+            ((PixelScene) scene).saveWindows();
+        }
+
+        super.resize(width, height);
+
+        updateDisplaySize();
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        GameScene.endActorThread();
+    }
+
+    public void updateDisplaySize() {
+        platform.updateDisplaySize();
+    }
+
+    public static void updateSystemUI() {
+        platform.updateSystemUI();
+    }
 }
