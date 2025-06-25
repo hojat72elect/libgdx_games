@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.android;
 
@@ -277,9 +258,9 @@ public class AndroidPlatformSupport extends PlatformSupport {
 		packer = new PixmapPacker(pageSize, pageSize, Pixmap.Format.RGBA8888, 1, false);
 	}
 
-	private static Matcher KRMatcher = Pattern.compile("\\p{InHangul_Syllables}").matcher("");
-	private static Matcher ZHMatcher = Pattern.compile("\\p{InCJK_Unified_Ideographs}|\\p{InCJK_Symbols_and_Punctuation}|\\p{InHalfwidth_and_Fullwidth_Forms}").matcher("");
-	private static Matcher JPMatcher = Pattern.compile("\\p{InHiragana}|\\p{InKatakana}").matcher("");
+	private static final Matcher KRMatcher = Pattern.compile("\\p{InHangul_Syllables}").matcher("");
+	private static final Matcher ZHMatcher = Pattern.compile("\\p{InCJK_Unified_Ideographs}|\\p{InCJK_Symbols_and_Punctuation}|\\p{InHalfwidth_and_Fullwidth_Forms}").matcher("");
+	private static final Matcher JPMatcher = Pattern.compile("\\p{InHiragana}|\\p{InKatakana}").matcher("");
 
 	@Override
 	protected FreeTypeFontGenerator getGeneratorForString( String input ){
@@ -295,7 +276,7 @@ public class AndroidPlatformSupport extends PlatformSupport {
 	}
 
 	//splits on newline (for layout), chinese/japanese (for font choice), and '_'/'**' (for highlighting)
-	private Pattern regularsplitter = Pattern.compile(
+	private final Pattern regularsplitter = Pattern.compile(
 			"(?<=\n)|(?=\n)|(?<=_)|(?=_)|(?<=\\*\\*)|(?=\\*\\*)|" +
 					"(?<=\\p{InHiragana})|(?=\\p{InHiragana})|" +
 					"(?<=\\p{InKatakana})|(?=\\p{InKatakana})|" +
@@ -304,7 +285,7 @@ public class AndroidPlatformSupport extends PlatformSupport {
 					"(?<=\\p{InHalfwidth_and_Fullwidth_Forms})|(?=\\p{InHalfwidth_and_Fullwidth_Forms})");
 
 	//additionally splits on spaces, so that each word can be laid out individually
-	private Pattern regularsplitterMultiline = Pattern.compile(
+	private final Pattern regularsplitterMultiline = Pattern.compile(
 			"(?<= )|(?= )|(?<=\n)|(?=\n)|(?<=_)|(?=_)|(?<=\\*\\*)|(?=\\*\\*)|" +
 					"(?<=\\p{InHiragana})|(?=\\p{InHiragana})|" +
 					"(?<=\\p{InKatakana})|(?=\\p{InKatakana})|" +
@@ -313,7 +294,7 @@ public class AndroidPlatformSupport extends PlatformSupport {
 					"(?<=\\p{InHalfwidth_and_Fullwidth_Forms})|(?=\\p{InHalfwidth_and_Fullwidth_Forms})");
 	
 	//splits on each non-hangul character. Needed for weird android 6.0 font files
-	private Pattern android6KRSplitter = Pattern.compile(
+	private final Pattern android6KRSplitter = Pattern.compile(
 			"(?<= )|(?= )|(?<=\n)|(?=\n)|(?<=_)|(?=_)|(?<=\\*\\*)|(?=\\*\\*)|" +
 					"(?!\\p{InHangul_Syllables})|(?<!\\p{InHangul_Syllables})");
 	
