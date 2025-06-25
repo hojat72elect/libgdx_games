@@ -11,7 +11,6 @@ import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 public abstract class SpecialRoom extends Room {
 
@@ -182,7 +181,16 @@ public abstract class SpecialRoom extends Room {
     public static void restoreRoomsFromBundle(Bundle bundle) {
         runSpecials.clear();
         if (bundle.contains(ROOMS)) {
-            Collections.addAll(runSpecials, bundle.getClassArray(ROOMS));
+            Class<?>[] roomClasses = bundle.getClassArray(ROOMS);
+            if (roomClasses != null) {
+                for (Class<?> roomClass : roomClasses) {
+                    try {
+                        runSpecials.add((Class<? extends Room>) roomClass);
+                    } catch (ClassCastException e) {
+                        ShatteredPixelDungeon.reportException(new Exception("Error restoring room: " + roomClass.getName() + "is not a room subclass.", e));
+                    }
+                }
+            }
         } else {
             initForRun();
             ShatteredPixelDungeon.reportException(new Exception("specials array didn't exist!"));
