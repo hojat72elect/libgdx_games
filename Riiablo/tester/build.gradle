@@ -1,0 +1,13 @@
+apply plugin: 'java'
+
+project.ext.visuiVersion = '1.4.0'
+
+dependencies {
+  implementation project(':core')
+  implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+  implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+  implementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+
+  implementation "commons-cli:commons-cli:$cliVersion"
+  implementation "com.kotcrab.vis:vis-ui:$visuiVersion"
+}

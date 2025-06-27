@@ -1,0 +1,81 @@
+namespace com.riiablo.net.packet.d2gs;
+
+union ComponentP {
+  ClassP,
+  CofComponentsP,
+  CofTransformsP,
+  CofAlphasP,
+  PositionP,
+  VelocityP,
+  AngleP,
+  PlayerP,
+  DS1ObjectWrapperP,
+  WarpP,
+  MonsterP,
+  ItemP,
+}
+
+enum EntityFlags:uint8 (bit_flags) {
+  deleted,
+}
+
+table EntitySync {
+  entityId:int32;
+  type:uint8;
+  flags:EntityFlags;
+  component:[ComponentP];
+}
+
+table ClassP {
+  type:uint8;
+}
+
+table CofComponentsP {
+  component:[uint8];
+}
+
+table CofTransformsP {
+  transform:[uint8];
+}
+
+table CofAlphasP {
+  alpha:[uint8];
+}
+
+table PositionP {
+  x:float32;
+  y:float32;
+}
+
+table VelocityP {
+  x:float32;
+  y:float32;
+}
+
+table AngleP {
+  x:float32;
+  y:float32;
+}
+
+table PlayerP {
+  charClass:uint8;
+  charName:string;
+}
+
+table DS1ObjectWrapperP {
+  act:uint8;
+  type:uint8;
+  id:uint8;
+}
+
+table WarpP {
+  index:int32;
+}
+
+table MonsterP {
+  monsterId:uint16;
+}
+
+table ItemP {
+  data:[ubyte];
+}

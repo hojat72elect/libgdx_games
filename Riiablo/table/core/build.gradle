@@ -1,0 +1,3 @@
+dependencies {
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+}

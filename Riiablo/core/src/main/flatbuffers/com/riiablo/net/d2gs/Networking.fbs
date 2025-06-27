@@ -1,0 +1,31 @@
+namespace com.riiablo.net.packet.d2gs;
+
+table Connection {
+  // request
+  charClass:uint8;
+  charName:string;
+  cofComponents:[uint8];
+  cofTransforms:[uint8];
+  cofAlphas:[uint8];
+  d2s:[ubyte];
+
+  // response
+  entityId:int32;
+}
+
+table Disconnect {
+  // request
+  entityId:int32;
+
+  // response
+}
+
+table Ping {
+  // request
+  tickCount:int32;
+  sendTime:int64;
+  processTime:int64;
+
+  // response
+  ack:bool;
+}
