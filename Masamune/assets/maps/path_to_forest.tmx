@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="44" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="26">
+ <properties>
+  <property name="music" value="ROAD"/>
+ </properties>
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <tileset firstgid="4097" source="objects.tsx"/>
+ <layer id="1" name="ground" width="20" height="44">
+  <data encoding="base64" compression="zlib">
+   eJydl1FSwkAQREEr6w85ipcSLxLjl8cAqsI1RKL3AKvCj3dwt9iudHpnk8BHVwwkz9mZ2Z5lXy4WW6/O6+K189rE66fzKhaLyl/fvFy4+vu6uH4Xnmu89pGxi4wtKXx28vqNvKXXg9dP5H7766PreYjjb3X9+3nVsxriqJaR+VX0n50oNmg/g3V0/dqZp8wmru08wvrie4MHJjOOBkdVec6TG/IO8sy73NfOfhYsrgWrzTDG4sqxzDxn/tcUayoWK65Dce1j9PAcRm3kNtQyxIVetuqq0noM+oMZI7wkjpyKfr9qnyR9SbWwaoLcvbl+zVqPsTzW+kyR59ylTL6sXGkNWjfsOeUl303oxe/htddrOeRxz90i+GlHzKXL99zUXt2Sp3Yc650xNtG7zjIHEOMtzNB7WOcLzZLAa908JmqOte9ppvBM4tpgtjEz18/wf517vE9Cb495gu49zMeNxleQ983wmJC/teQPcy6ZF8Qbmzd8NlDWwJdneuDfKq1DqGviBTN7B703NoPBq4w636JaeKiznotYlueruDbIhdXnVk+qx+Vmpplj13uK9qSuc8yn+V32KagV3hyvRk9i/yae6uwzkCV48rrs92/oQ/Qfn/fCWj+KtJ4tsS7kobrPNHeoqVVPfhdekmVJ7sDEvcbBPmWxOHd63mXv7Sh3lzKt70Fy9xjZfO6Ar6mamMddZq18fuHzwobe59nTZXwAa62cfe7YlOmMxW8bXWdlxKP78yQxce4SP4i+xD1s+THXF+zQw///tWR6
+  </data>
+ </layer>
+ <layer id="2" name="decoration" width="20" height="44">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAObOAiUiEUaHKTpn6ggTgLA4MEEEsCsRQQq5Lh/jvs2MXX4wm76zj0YAPKRLpJicKwv8+MXz6FgzLzcQFSwoLWQBwYBhJAvBjNr6SkC2zh9JhA2N2gIAwojXd6gHsE0hYusISINBeDRw163nmCpFaDwvScTKP8gA3cJiN9kFOWDRZwcxCVCZQCfPnz1iDxJ64ymNh4wJcHhwKA5WVcdflgBKSW+4Tqd2IBvrKc3DKHkvoPGRDbVhrsYCDLbnLqGmIArrJkINsvyPkdW98Fli7Jbb9gAweB9hxCwoe5SS8/AWa5IKM=
+  </data>
+ </layer>
+ <layer id="3" name="decoration 2" width="20" height="44">
+  <data encoding="base64" compression="zlib">
+   eJzt07sJACAUQ9GAhW8UP/tPo7WuoZ21IGpxD4S0aSLhtOKk6lYD+Fs0Kc1ke70EwC3B+D6wq3mp+9crMADACAay
+  </data>
+ </layer>
+ <objectgroup id="4" name="object">
+  <object id="8" gid="4103" x="160" y="80" width="16" height="16">
+   <properties>
+    <property name="enemies" value="BUTTERFLY=2"/>
+   </properties>
+  </object>
+  <object id="9" gid="4104" x="88" y="46" width="16" height="16">
+   <properties>
+    <property name="enemies" value="LARVA=1"/>
+   </properties>
+  </object>
+  <object id="10" gid="4105" x="184" y="70" width="16" height="16">
+   <properties>
+    <property name="enemies" value="MUSHROOM=2"/>
+   </properties>
+  </object>
+  <object id="12" name="Player" gid="4097" x="112" y="656" width="16" height="16"/>
+  <object id="13" gid="4107" x="192" y="64" width="48" height="48"/>
+  <object id="14" gid="4107" x="224" y="80" width="48" height="48"/>
+  <object id="15" gid="4107" x="64" y="128" width="48" height="48"/>
+  <object id="16" gid="4107" x="192" y="320" width="48" height="48"/>
+  <object id="17" gid="4107" x="80" y="464" width="48" height="48"/>
+  <object id="18" gid="4107" x="144" y="624" width="48" height="48"/>
+  <object id="21" name="MAN_GREEN" gid="4116" x="224" y="592" width="16" height="16">
+   <properties>
+    <property name="path" type="object" value="22"/>
+    <property name="pathSpeed" type="float" value="0.75"/>
+   </properties>
+  </object>
+  <object id="24" gid="4104" x="221" y="82" width="16" height="16">
+   <properties>
+    <property name="enemies" value="LARVA=1"/>
+   </properties>
+  </object>
+  <object id="25" name="SNOWY" gid="4135" x="123" y="394" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="10" name="path">
+  <object id="22" name="PATH_MAN_GREEN" x="233" y="585">
+   <polygon points="0,0 43,-36 21,-35 3,-18 -45,8 -45,53 -27,53 -27,26 -10,18"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="trigger"/>
+ <objectgroup color="#ffaa00" id="6" name="portal">
+  <object id="11" name="VILLAGE" type="Portal" x="64" y="688" width="48" height="16">
+   <properties>
+    <property name="isSensor" type="bool" value="true"/>
+    <property name="targetPortalId" type="int" value="11"/>
+   </properties>
+  </object>
+  <object id="20" name="FOREST_ENTRANCE" type="Portal" x="128" y="-14.75" width="60" height="30.75">
+   <properties>
+    <property name="isSensor" type="bool" value="true"/>
+    <property name="targetPortalId" type="int" value="33"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="5" name="foreground" width="20" height="44">
+  <data encoding="base64" compression="zlib">
+   eJztkzsOgzAUBFdYiIJTBw4BAdPyPRCQExByiWwHBQWSIVakHWnkxh678AN+Q2aAnD5pYdx7IxsTnenLsVfyvDXbKv6PMeB/CHy/QhzRRkBHezpE7r2FjTdd6eeCnhDiHjT7Qvin5qw0mhcnHjGQ7Ezje+6xIVCF5/Z+AbtZHHE=
+  </data>
+ </layer>
+ <layer id="8" name="foreground2" width="20" height="44">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAB4MA3AAAE=
+  </data>
+ </layer>
+ <layer id="9" name="foreground3" width="20" height="44">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAB4MA3AAAE=
+  </data>
+ </layer>
+</map>

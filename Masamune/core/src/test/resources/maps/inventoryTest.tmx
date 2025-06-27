@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="4" height="4" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="inventoryObjects" tilewidth="16" tileheight="16" tilecount="8" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="1" type="ItemObject">
+   <properties>
+    <property name="action" propertytype="ActionType" value="ITEM_MANA_RESTORE"/>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="category" propertytype="ItemCategory" value="OTHER"/>
+    <property name="consumableType" propertytype="ConsumableType" value="COMBAT_AND_INVENTORY"/>
+    <property name="itemType" propertytype="ItemType" value="SMALL_MANA_POTION"/>
+    <property name="stats" type="class" propertytype="Stats">
+     <properties>
+      <property name="mana" type="float" value="20"/>
+     </properties>
+    </property>
+   </properties>
+   <image source="objects/small_mana_potion.png" width="9" height="11"/>
+  </tile>
+  <tile id="2" type="ItemObject">
+   <properties>
+    <property name="action" propertytype="ActionType" value="SCROLL_INFERNO"/>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="category" propertytype="ItemCategory" value="OTHER"/>
+    <property name="consumableType" propertytype="ConsumableType" value="COMBAT_ONLY"/>
+    <property name="itemType" propertytype="ItemType" value="SCROLL_INFERNO"/>
+    <property name="stats" type="class" propertytype="Stats">
+     <properties>
+      <property name="damage" type="float" value="50"/>
+     </properties>
+    </property>
+   </properties>
+   <image source="objects/scroll_inferno.png" width="16" height="16"/>
+  </tile>
+  <tile id="5" type="ItemObject">
+   <properties>
+    <property name="action" propertytype="ActionType" value="HEAL"/>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="category" propertytype="ItemCategory" value="WEAPON"/>
+    <property name="itemType" propertytype="ItemType" value="ELDER_SWORD"/>
+    <property name="stats" type="class" propertytype="Stats">
+     <properties>
+      <property name="damage" type="float" value="5"/>
+     </properties>
+    </property>
+   </properties>
+   <image source="objects/elder_sword.png" width="6" height="15"/>
+  </tile>
+  <tile id="6" type="ItemObject">
+   <properties>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="category" propertytype="ItemCategory" value="BOOTS"/>
+    <property name="itemType" propertytype="ItemType" value="BOOTS"/>
+    <property name="stats" type="class" propertytype="Stats">
+     <properties>
+      <property name="agility" type="float" value="1"/>
+     </properties>
+    </property>
+   </properties>
+   <image source="objects/boots.png" width="16" height="16"/>
+  </tile>
+  <tile id="7" type="ItemObject">
+   <properties>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="category" propertytype="ItemCategory" value="HELMET"/>
+    <property name="itemType" propertytype="ItemType" value="HELMET"/>
+    <property name="stats" type="class" propertytype="Stats">
+     <properties>
+      <property name="armor" type="float" value="1"/>
+     </properties>
+    </property>
+   </properties>
+   <image source="objects/helmet.png" width="16" height="16"/>
+  </tile>
+  <tile id="8" type="ItemObject">
+   <properties>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="category" propertytype="ItemCategory" value="ARMOR"/>
+    <property name="itemType" propertytype="ItemType" value="STUDDED_LEATHER"/>
+    <property name="stats" type="class" propertytype="Stats">
+     <properties>
+      <property name="armor" type="float" value="1"/>
+     </properties>
+    </property>
+   </properties>
+   <image source="objects/studded_leather.png" width="16" height="16"/>
+  </tile>
+  <tile id="9" type="ItemObject">
+   <properties>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="category" propertytype="ItemCategory" value="ACCESSORY"/>
+    <property name="itemType" propertytype="ItemType" value="RING"/>
+    <property name="stats" type="class" propertytype="Stats">
+     <properties>
+      <property name="armor" type="float" value="-2"/>
+      <property name="damage" type="float" value="-2"/>
+      <property name="manaMax" type="float" value="10"/>
+     </properties>
+    </property>
+   </properties>
+   <image source="objects/ring.png" width="16" height="16"/>
+  </tile>
+  <tile id="10" type="ItemObject">
+   <properties>
+    <property name="action" propertytype="ActionType" value="ITEM_HEALTH_RESTORE"/>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="consumableType" propertytype="ConsumableType" value="COMBAT_AND_INVENTORY"/>
+    <property name="itemType" propertytype="ItemType" value="SMALL_HEALTH_POTION"/>
+    <property name="stats" type="class" propertytype="Stats">
+     <properties>
+      <property name="life" type="float" value="50"/>
+      <property name="lifeMax" type="float" value="0"/>
+     </properties>
+    </property>
+   </properties>
+   <image source="objects/small_health_potion.png" width="9" height="11"/>
+  </tile>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="4" height="4">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAMAAAAQAAB
+  </data>
+ </layer>
+</map>

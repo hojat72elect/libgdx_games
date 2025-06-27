@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="4" height="4" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="combatObjects" tilewidth="50" tileheight="50" tilecount="9" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0" type="PlayerObject">
+   <properties>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="combatActions" propertytype="ActionType" value="ATTACK_SINGLE,FIREBOLT,FIREBALL,USE_ITEM,SLOW,DEMI1,DOUBLE_STRIKE,POISON_ATTACK"/>
+    <property name="objType" propertytype="MapObjectType" value="HERO"/>
+    <property name="stats" type="class" propertytype="CharStats">
+     <properties>
+      <property name="agility" type="float" value="5"/>
+      <property name="arcaneStrike" type="float" value="0"/>
+      <property name="baseLife" type="float" value="20"/>
+      <property name="baseMana" type="float" value="100"/>
+      <property name="constitution" type="float" value="0"/>
+      <property name="criticalStrike" type="float" value="0"/>
+      <property name="damage" type="float" value="5"/>
+      <property name="intelligence" type="float" value="5"/>
+      <property name="magicalEvade" type="float" value="0"/>
+      <property name="physicalEvade" type="float" value="0"/>
+      <property name="strength" type="float" value="3"/>
+     </properties>
+    </property>
+   </properties>
+   <image source="objects/hero.png" width="16" height="16"/>
+  </tile>
+  <tile id="1" type="ItemObject">
+   <properties>
+    <property name="action" propertytype="ActionType" value="ITEM_MANA_RESTORE"/>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="category" propertytype="ItemCategory" value="OTHER"/>
+    <property name="consumableType" propertytype="ConsumableType" value="COMBAT_AND_INVENTORY"/>
+    <property name="itemType" propertytype="ItemType" value="SMALL_MANA_POTION"/>
+    <property name="stats" type="class" propertytype="Stats">
+     <properties>
+      <property name="mana" type="float" value="20"/>
+     </properties>
+    </property>
+   </properties>
+   <image source="objects/small_mana_potion.png" width="9" height="11"/>
+  </tile>
+  <tile id="2" type="ItemObject">
+   <properties>
+    <property name="action" propertytype="ActionType" value="SCROLL_INFERNO"/>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="category" propertytype="ItemCategory" value="OTHER"/>
+    <property name="consumableType" propertytype="ConsumableType" value="COMBAT_ONLY"/>
+    <property name="itemType" propertytype="ItemType" value="SCROLL_INFERNO"/>
+    <property name="stats" type="class" propertytype="Stats">
+     <properties>
+      <property name="damage" type="float" value="50"/>
+     </properties>
+    </property>
+   </properties>
+   <image source="objects/scroll_inferno.png" width="16" height="16"/>
+  </tile>
+  <tile id="3" type="EnemyObject">
+   <properties>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="combatActions" propertytype="ActionType" value="ATTACK_SINGLE,FIREBOLT"/>
+    <property name="level" type="int" value="1"/>
+    <property name="objType" propertytype="MapObjectType" value="BUTTERFLY"/>
+    <property name="stats" type="class" propertytype="CharStats">
+     <properties>
+      <property name="agility" type="float" value="1"/>
+      <property name="baseLife" type="float" value="40"/>
+      <property name="baseMana" type="float" value="20"/>
+      <property name="damage" type="float" value="2"/>
+     </properties>
+    </property>
+    <property name="talons" type="int" value="50"/>
+    <property name="xp" type="int" value="100"/>
+   </properties>
+   <image source="objects/butterfly.png" width="16" height="16"/>
+  </tile>
+  <tile id="4" type="EnemyObject">
+   <properties>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="behavior" value="spider"/>
+    <property name="combatActions" propertytype="ActionType" value="ATTACK_SINGLE,TRANSFORM,POISON_ATTACK"/>
+    <property name="level" type="int" value="2"/>
+    <property name="objType" propertytype="MapObjectType" value="MUSHROOM"/>
+    <property name="stats" type="class" propertytype="CharStats">
+     <properties>
+      <property name="agility" type="float" value="10"/>
+      <property name="armor" type="float" value="5"/>
+      <property name="baseLife" type="float" value="30"/>
+      <property name="baseMana" type="float" value="10"/>
+      <property name="damage" type="float" value="4"/>
+      <property name="resistance" type="float" value="5"/>
+     </properties>
+    </property>
+    <property name="talons" type="int" value="25"/>
+    <property name="xp" type="int" value="30"/>
+   </properties>
+   <image source="objects/mushroom.png" width="16" height="16"/>
+  </tile>
+  <tile id="5" type="ItemObject">
+   <properties>
+    <property name="action" propertytype="ActionType" value="STR_BOOSTER"/>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="category" propertytype="ItemCategory" value="WEAPON"/>
+    <property name="itemType" propertytype="ItemType" value="ELDER_SWORD"/>
+    <property name="stats" type="class" propertytype="Stats">
+     <properties>
+      <property name="damage" type="float" value="5"/>
+     </properties>
+    </property>
+   </properties>
+   <image source="objects/elder_sword.png" width="6" height="15"/>
+  </tile>
+  <tile id="6" type="ItemObject">
+   <properties>
+    <property name="action" propertytype="ActionType" value="ITEM_HEALTH_RESTORE"/>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="category" propertytype="ItemCategory" value="OTHER"/>
+    <property name="consumableType" propertytype="ConsumableType" value="COMBAT_ONLY"/>
+    <property name="itemType" propertytype="ItemType" value="SMALL_HEALTH_POTION"/>
+    <property name="stats" type="class" propertytype="Stats">
+     <properties>
+      <property name="life" type="float" value="50"/>
+     </properties>
+    </property>
+   </properties>
+   <image source="objects/small_health_potion.png" width="9" height="11"/>
+  </tile>
+  <tile id="7" type="EnemyObject">
+   <properties>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="behavior" value="cyclops"/>
+    <property name="combatActions" propertytype="ActionType" value="ATTACK_SINGLE,SLOW,DEMI1,REGENERATE1,DOUBLE_STRIKE"/>
+    <property name="level" type="int" value="5"/>
+    <property name="objType" propertytype="MapObjectType" value="CYCLOPS"/>
+    <property name="stats" type="class" propertytype="CharStats">
+     <properties>
+      <property name="agility" type="float" value="4"/>
+      <property name="baseLife" type="float" value="100"/>
+      <property name="baseMana" type="float" value="100"/>
+      <property name="damage" type="float" value="13"/>
+     </properties>
+    </property>
+    <property name="talons" type="int" value="400"/>
+    <property name="xp" type="int" value="150"/>
+   </properties>
+   <image source="objects/cyclops.png" width="50" height="50"/>
+  </tile>
+  <tile id="8" type="ItemObject">
+   <properties>
+    <property name="action" propertytype="ActionType" value="REGENERATE_MANA_RING"/>
+    <property name="atlas" propertytype="AtlasAsset" value="CHARS_AND_PROPS"/>
+    <property name="category" propertytype="ItemCategory" value="ACCESSORY"/>
+    <property name="itemType" propertytype="ItemType" value="RING"/>
+    <property name="stats" type="class" propertytype="Stats">
+     <properties>
+      <property name="manaMax" type="float" value="10"/>
+     </properties>
+    </property>
+   </properties>
+   <image source="objects/ring.png" width="16" height="16"/>
+  </tile>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="4" height="4">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAMAAAAQAAB
+  </data>
+ </layer>
+</map>

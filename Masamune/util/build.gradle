@@ -1,0 +1,30 @@
+plugins {
+  id 'org.jetbrains.kotlin.plugin.serialization' version "${kotlinVersion}"
+}
+
+group = "io.github.masamune"
+version = "1.0-SNAPSHOT"
+
+dependencies {
+  implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinxSerializationVersion"
+  implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+  implementation project(':core')
+}
+
+java.sourceCompatibility = 11
+
+tasks.register('genTiledEnumsAndExtensions', JavaExec) {
+  setGroup("masamune")
+  setDescription("Generates enums and extension functions from Tiled project file.")
+
+  mainClass.set("io.github.masamune.util.TiledGeneratorKt")
+  setClasspath(sourceSets.main.runtimeClasspath)
+}
+
+tasks.register('genI18nKeys', JavaExec) {
+  setGroup("masamune")
+  setDescription("Creates an I18NKey enum for all keys in the messages.properties bundle.")
+
+  mainClass.set("io.github.masamune.util.I18NKeyGeneratorKt")
+  setClasspath(sourceSets.main.runtimeClasspath)
+}

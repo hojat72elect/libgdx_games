@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-up" width="20" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="10">
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <tileset firstgid="4097" source="objects.tsx"/>
+ <layer id="1" name="ground" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzz4WZg8CET93AxMPQCcR8X+WbQE/NQ251UNq9niITjKB7FA4X5qJxH/Khs3lAqC3m5KA9PAN3Dh/E=
+  </data>
+ </layer>
+ <objectgroup id="6" name="object">
+  <object id="9" name="Player" gid="4100" x="44" y="271" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="5" name="portal">
+  <object id="4" name="VILLAGE" type="Portal" x="0" y="240" width="16" height="48">
+   <properties>
+    <property name="isSensor" type="bool" value="true"/>
+    <property name="targetPortalId" type="int" value="5"/>
+   </properties>
+  </object>
+  <object id="5" name="VILLAGE" type="Portal" x="304" y="32" width="16" height="48">
+   <properties>
+    <property name="isSensor" type="bool" value="true"/>
+    <property name="targetPortalId" type="int" value="4"/>
+   </properties>
+  </object>
+  <object id="6" name="VILLAGE" type="Portal" x="32" y="304" width="48" height="16">
+   <properties>
+    <property name="isSensor" type="bool" value="true"/>
+    <property name="targetPortalId" type="int" value="7"/>
+   </properties>
+  </object>
+  <object id="7" name="VILLAGE" type="Portal" x="240" y="0" width="48" height="16">
+   <properties>
+    <property name="isSensor" type="bool" value="true"/>
+    <property name="targetPortalId" type="int" value="6"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="20" height="17" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="44">
+ <properties>
+  <property name="music" value="FOREST"/>
+  <property name="trigger" value="forest_masamune"/>
+ </properties>
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <tileset firstgid="4097" source="objects.tsx"/>
+ <layer id="1" name="ground" width="20" height="17">
+  <data encoding="base64" compression="zlib">
+   eJzNlMEOgyAMQDlYPG3J/nD/4nXuG/gUNeOmi/ujlVFM7VDQedjhhQLh0dJor5XqkSeN/8DA4hqUusP3OmdL7gO6LsK7xpjhc9QuD9iXE7/jRs4Xcj7gLU/EEa7Uu48re3v79WtOYQ6luhYExtM+RNaifRZzPNNUOLY+nly6VKZja7k4nyUfOpqCXK24Y4svnJVoX6/JdYW6rPA8IrmleguiLkeVkdvSd+jq7NhZ5BNb5lr6b8T6C/7tjQM8s3nK8wZdXAOS
+  </data>
+ </layer>
+ <layer id="2" name="decoration" width="20" height="17">
+  <data encoding="base64" compression="zlib">
+   eJyLZmVgiAFifECcjYFBAoglgViKDT8/EmhWFNS8I/wMDEf5sZuZyUmcubhANA53EzLTg5+hAZ9f77Kg8m+z4zeXHIDPjZQAUsIPH7jFjttMbOGHKy6IcStyesEHXIDpyBVHWkIPv1igeXFYzLzBjimGyxxKwg+fmbCwQk9nxABJoPul2CFpEl/43SLgTxiIBKqLQkvfIIAr/IgF2MqDDE7yzUM2lxi3Xcfhf1iY4yqviAXIfkGPXwCSASCR
+  </data>
+ </layer>
+ <layer id="3" name="decoration 2" width="20" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRQA0AAAVQAAE=
+  </data>
+ </layer>
+ <objectgroup id="4" name="object">
+  <object id="34" gid="4118" x="147" y="224" width="35" height="33"/>
+  <object id="35" name="Player" gid="4097" x="129" y="73" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="10" name="path">
+  <object id="36" name="cut_scene_intro_cam_path" x="32" y="32">
+   <polyline points="105,36 129,159"/>
+  </object>
+  <object id="39" name="demon_1_path_1" x="48" y="67">
+   <polyline points="-5,-24 17,77 63,123"/>
+  </object>
+  <object id="40" name="demon_2_path_1" x="247" y="115">
+   <polyline points="-32,34 -43,76"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="trigger"/>
+ <objectgroup id="11" name="cut_scene_objects">
+  <object id="37" name="spawn_demon_1" x="42" y="38">
+   <point/>
+  </object>
+  <object id="38" name="spawn_demon_2" x="215" y="143">
+   <point/>
+  </object>
+  <object id="41" name="spawn_cyclops" x="161" y="176">
+   <point/>
+  </object>
+  <object id="42" name="despawn_demon_1" x="112" y="193">
+   <point/>
+  </object>
+  <object id="43" name="despawn_demon_2" x="206" y="192">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ffaa00" id="6" name="portal">
+  <object id="33" name="FOREST_ENTRANCE" type="Portal" x="-3" y="64" width="16" height="48">
+   <properties>
+    <property name="isSensor" type="bool" value="true"/>
+    <property name="targetPortalId" type="int" value="34"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="5" name="foreground" width="20" height="17">
+  <data encoding="base64" compression="zlib">
+   eJyTZGVgkAJiEGjhZ2Bo5WfACSShavHRuIA0UE4GizwhMzn4GRpwm0q6W6lpFj7/kmsupYCY8MMVF6SYSwiwANMRK460hO5fWSAtR4bf6RF+5IQVMeZSyzwQIDf8sLmNWu6DmUup26jtPmrHAzoAAOKEDVY=
+  </data>
+ </layer>
+ <layer id="8" name="foreground2" width="20" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRQA0AAAVQAAE=
+  </data>
+ </layer>
+ <layer id="9" name="foreground3" width="20" height="17">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRQA0AAAVQAAE=
+  </data>
+ </layer>
+</map>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-up" width="20" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="23">
+ <editorsettings>
+  <export target="village..tmx" format="tmx"/>
+ </editorsettings>
+ <properties>
+  <property name="music" value="VILLAGE"/>
+  <property name="trigger" value="village_intro"/>
+ </properties>
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <tileset firstgid="4097" source="objects.tsx"/>
+ <layer id="1" name="ground" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJyVVMkNwkAMXEAbPqQUmgIaCeRFGRAJPhSRC/oAJPjQA7ZYK2biJMpjZEXrHcbjWfLIuTyg4uqd21ItqdbqTGMVO/cmHAkvwlp983mh+xUff+8MvgPdWy6cO1F9BJwJlwVoI0wIN9/waaSh3sN91raJm98QfbpXNFp8qJHvZ/H//NiXEM+casSzAqf2RWsULuET3/U+rlRnHdpq4GTfPsFP7GX/plHDVXRwytld7SNTfNYe0Yetb3ug538a+lq7gRxZvnah7PFKclT4cZyYR0tjEjV5qoze1NBjwv+4xs6tofcku7/Bm0Qdcmdohzj30BviPs7xHjgxg5jRPj72xXpvZobUXNZMkokEdjiU8Tn04n+L9X7N9xP86ZsdvenKTxF6LR7rXYxFGfAFluwW0w==
+  </data>
+ </layer>
+ <layer id="2" name="decoration" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAuuM3MwHCHGbe8OAsDgwQQSwKxFAtldkXjsQcZ3GSnzJ6hDIgNI2LBdXYEpgYAxc2NIRI/1HYnNdLlLSq7CeZHfOa68DEwuPLhlnfkYWBwAmJnHuq4qRFoThMQN6OZ58/LwBDAS5nZIfwMDKFAHAbE/UCzJqCZdx5o5wUi/XEFqHcK0JypQDwNiC8Bw+gyEF9BCit+oBoBXuqWgwMBmBkZGFiAGAB0kBq3
+  </data>
+ </layer>
+ <layer id="3" name="decoration2" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAvmM6MYM9ixq1uoIA4CwODBBBLArEUy0C7ZhSMglEAA8L81DUvmMrmgYAQATPRyz9C5WEQDdyID6CXf4TKQwBeAgYC
+  </data>
+ </layer>
+ <layer id="4" name="decoration3" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFQxHM4mNgmA3Ec4B4Lh/l5t0CmnEbiO8A8V0qmDcKRsEooBwI81PXvGAqmwcAebcG0Q==
+  </data>
+ </layer>
+ <objectgroup id="10" name="path">
+  <object id="21" name="intro_sequence_path" x="16" y="45">
+   <polyline points="80,3 65,59"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#5555ff" id="7" name="trigger">
+  <object id="7" name="villageExit" x="48" y="-13" width="80" height="44">
+   <properties>
+    <property name="isSensor" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ffaa00" id="8" name="portal">
+  <object id="11" name="PATH_TO_FOREST" type="Portal" x="64" y="-12" width="48" height="28">
+   <properties>
+    <property name="isSensor" type="bool" value="true"/>
+    <property name="targetPortalId" type="int" value="11"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="object">
+  <object id="1" name="Player" gid="4097" x="88" y="48" width="16" height="16"/>
+  <object id="3" name="Elder" gid="4099" x="176" y="112" width="16" height="16"/>
+  <object id="4" name="Merchant" gid="4101" x="288" y="240" width="16" height="16"/>
+  <object id="5" name="Smith" gid="4102" x="16" y="288" width="16" height="16"/>
+  <object id="6" name="Flower Girl" gid="4100" x="0" y="176" width="16" height="16"/>
+  <object id="13" gid="4107" x="122" y="132" width="48" height="48"/>
+ </objectgroup>
+ <layer id="5" name="foreground" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJybzczAMAeIcYHrQLkbQHwTiG/hUUcKmAE0ZyaVzEJ33x1eBoa7vJSbK8XHwCANxDJALMtHuXlRQDOigTgGiGOpYN4oGAXEAhZgemPFk+YYeRgYmICYmYd+biIXiPAzMIgCsRg/fnXTmRHlzCwqlDXULAfRyz9KykN0d6HzjwLVHAPiw0B8hDJngwErIwMDGyOCDwANmSBw
+  </data>
+ </layer>
+ <layer id="9" name="foreground2" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBge4BYvA8Nt3oF2xSgYBaNgFIwcAADnFQHQ
+  </data>
+ </layer>
+</map>

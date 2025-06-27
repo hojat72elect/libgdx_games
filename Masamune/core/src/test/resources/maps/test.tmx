@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-up" width="10" height="10" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="3">
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <tileset firstgid="4097" source="objects.tsx"/>
+ <layer id="1" name="ground" width="10" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxlj1kOgCAMRPkG4WRsei4wgRPbShsn+PHC9top2RqT3CITVYhw18i57Xd30N4DwS6P34rUsjOJk+jERQxwy+Zo/yZulvPL5mj+FC+BN2CmCPlcW+E/nOHd8rVPlj4F1ib1HfroDAGz3B/939jm39EMnukBzEgkeg==
+  </data>
+ </layer>
+ <layer id="2" name="ground_decoration" width="10" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYMAOrnPikKAhuEcHO5H91ctGnJ6zRKojFdzA4l8AgL0E7w==
+  </data>
+ </layer>
+ <objectgroup id="3" name="object">
+  <object id="1" name="Player" gid="4097" x="16" y="144" width="16" height="16"/>
+  <object id="2" gid="4098" x="16" y="128" width="48" height="48"/>
+ </objectgroup>
+ <layer id="4" name="foreground" width="10" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBiZwJuVemYJsDMwCLITVhcAVBNIQB0AVb8BLw==
+  </data>
+ </layer>
+</map>

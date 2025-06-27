@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="44" height="28" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="48">
+ <properties>
+  <property name="music" value="FOREST"/>
+  <property name="trigger" value="forest_entrance"/>
+ </properties>
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <tileset firstgid="4097" source="objects.tsx"/>
+ <layer id="1" name="ground" width="44" height="28">
+  <data encoding="base64" compression="zlib">
+   eJzVV11OwkAQ7oNdX0DFExr0Ispr0SsQMJFjFAxvtAWPgCZyDGfoTlwnM/tTjBGSL1u23dmv385f1ybL1ieMhv3f/ANOp4Qiz7Ix4DFvr7V72vr8PLs5Y4A59Xl+PrHrazv2AG/AZwDjNT9/5GvaexpnsF8O+1l2a3HXP8xF6+Vbr/kecS6U+QpQO3wbtt8O9pgDXgAfAt86wBfXv1tI68XzsVpq7yJpXLXnWRqwv7N7mfY8Jz5Nq5/+UAK/iYvQeuLVD9y70H24TNnLFz/jiJjhOYtrkIJNwC7nijFDMYLX21zWxudTITTOfjF6qPvm3/wI2hmmQnw/G4uF8ecQnw/+Fr/Y/UgXLSa7+JakTcgG3Y+tv70A5xCkfY6t/bwW8TpEektn3Jhw/HWBpDvNUS3CGrQyh1xbhuovR5FY31NscyDfKXD97Fh/KX/VAl/iCRpMhom2tVzn1t6ZxbNj05cjiSvmL8lf0PYIRuS6F2x31XcJ49Ta0/oFEbbeS9q6vrbvYLtStHJ7hbl9/5Xx26Sagtryvsn1BfQD9+xibMcgpb8pHJ4Eia/bU7q+ENM7SX7Ic0Z0fwPcnkxb/7aenEBxPFPiwgf8HaM/56v1Lz6+SXEhaOpex9YcX+7idUPq+V3f/Ytv3J4J60o8eExgDurqu12fkXT0gX9nuFyP6X19GIAml7CPhIHgi12/CSRo/uvjdAVYwDOvgHvw2wfACIBzcK/U1mnv8xsA2xn//h6yEfktkC+MS8sZ4wfn0Tfd9WQD7JapXPD3BYxlkJk=
+  </data>
+ </layer>
+ <layer id="2" name="decoration" width="44" height="28">
+  <data encoding="base64" compression="zlib">
+   eJzlWMkNwjAQNI8cvHgGUgFHFfAAOuCmF2iFdmiA8ESCNtgILJlg7LW9SQyMtA8n2Ht4mVkliRhrg5kiCWEfWAcsDenf51gFjK2D12cziHWOiLfs+HTvFxD3Mnh/joWN/yzC7zfFBnLZGuSj8n+26DcZpi2ac+pAXgPXHvlXqOrWbTLWA+uDDZo0/q4xY7eY5iwR39S/PvQq56CMiD8oIdMqG3C+/MSRw4a7Dxdg/gvi/eye8VJxvim4X65Htppoqn8+Ywy8MyHgnkP8uGtR66nnDkpcHDj8pOlfinkXc27qeY2pgclV9xvZ3RX36Na/iKp6Vlz7Wl9qfVLlR6Ulsjqr6ivLsRhLmTqdWH5rqAv8W4OOG3TzKHZ25ndR5aw0qnmezIHhB77elxRvcY7BaMIR7A4SVTfb
+  </data>
+ </layer>
+ <layer id="3" name="decoration 2" width="44" height="28">
+  <data encoding="base64" compression="zlib">
+   eJztzkENADAIBLD7oHL414EHkoVPq6AJv71Kuq4XAAAAAGwMiVEAwg==
+  </data>
+ </layer>
+ <objectgroup id="4" name="object">
+  <object id="9" gid="4104" x="246.333" y="206.333" width="16" height="16">
+   <properties>
+    <property name="enemies" value="LARVA=2"/>
+   </properties>
+  </object>
+  <object id="12" name="Player" gid="4097" x="312" y="422" width="16" height="16"/>
+  <object id="20" gid="4107" x="368" y="448" width="48" height="48"/>
+  <object id="21" gid="4107" x="248" y="443" width="48" height="48"/>
+  <object id="23" gid="4107" x="131" y="313" width="48" height="48"/>
+  <object id="24" gid="4107" x="511" y="377" width="48" height="48"/>
+  <object id="25" gid="4107" x="238" y="105" width="48" height="48"/>
+  <object id="26" gid="4105" x="317.333" y="171" width="16" height="16">
+   <properties>
+    <property name="enemies" value="MUSHROOM=3"/>
+   </properties>
+  </object>
+  <object id="27" gid="4104" x="129.333" y="308.667" width="16" height="16">
+   <properties>
+    <property name="enemies" value="LARVA=1;BUTTERFLY=1"/>
+   </properties>
+  </object>
+  <object id="28" gid="4103" x="418" y="370" width="16" height="16">
+   <properties>
+    <property name="enemies" value="BUTTERFLY=3"/>
+   </properties>
+  </object>
+  <object id="29" gid="4103" x="97" y="116" width="16" height="16">
+   <properties>
+    <property name="enemies" value="BUTTERFLY=1;MUSHROOM=1;LARVA=1"/>
+   </properties>
+  </object>
+  <object id="30" gid="4104" x="625" y="123" width="16" height="16">
+   <properties>
+    <property name="enemies" value="LARVA=1;MUSHROOM=1"/>
+   </properties>
+  </object>
+  <object id="32" gid="4113" x="70" y="399" width="16" height="16"/>
+  <object id="35" gid="4124" x="477" y="211" width="16" height="16">
+   <properties>
+    <property name="enemies" value="SLIME=1"/>
+   </properties>
+  </object>
+  <object id="36" gid="4124" x="442" y="66" width="16" height="16">
+   <properties>
+    <property name="enemies" value="SLIME=3"/>
+   </properties>
+  </object>
+  <object id="37" gid="4123" x="502" y="267" width="16" height="16">
+   <properties>
+    <property name="enemies" value="AXOLOT=2"/>
+   </properties>
+  </object>
+  <object id="38" gid="4125" x="279" y="95" width="16" height="16">
+   <properties>
+    <property name="enemies" value="SPIDER=2"/>
+   </properties>
+  </object>
+  <object id="39" gid="4123" x="202" y="71" width="16" height="16">
+   <properties>
+    <property name="enemies" value="AXOLOT=1"/>
+   </properties>
+  </object>
+  <object id="41" gid="4133" x="26" y="301" width="9" height="11">
+   <properties>
+    <property name="triggerName" value="health_pot_forest1"/>
+   </properties>
+  </object>
+  <object id="42" gid="4133" x="664" y="283" width="9" height="11">
+   <properties>
+    <property name="triggerName" value="health_pot_forest2"/>
+   </properties>
+  </object>
+  <object id="43" gid="4134" x="668" y="414" width="9" height="11">
+   <properties>
+    <property name="triggerName" value="mana_pot_forest1"/>
+   </properties>
+  </object>
+  <object id="44" name="Spirit" gid="4136" x="491" y="356" width="16" height="16">
+   <properties>
+    <property name="animation" value="idle"/>
+    <property name="animationSpeed" type="float" value="1.5"/>
+    <property name="triggerName" value="spirit_forest"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="trigger"/>
+ <objectgroup id="10" name="cut_scene_objects">
+  <object id="45" name="spirit_pos_2" x="183" y="268">
+   <point/>
+  </object>
+  <object id="46" name="spirit_pos_3" x="232" y="86">
+   <point/>
+  </object>
+  <object id="47" name="spirit_pos_4" x="16" y="88">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ffaa00" id="6" name="portal">
+  <object id="33" name="PATH_TO_FOREST" type="Portal" x="293" y="432" width="53" height="16">
+   <properties>
+    <property name="isSensor" type="bool" value="true"/>
+    <property name="targetPortalId" type="int" value="20"/>
+   </properties>
+  </object>
+  <object id="34" name="FOREST_MASAMUNE" type="Portal" x="690" y="62" width="18" height="50">
+   <properties>
+    <property name="isSensor" type="bool" value="true"/>
+    <property name="targetPortalId" type="int" value="33"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="5" name="foreground" width="44" height="28">
+  <data encoding="base64" compression="zlib">
+   eJzVVkkOwjAMzKXQG2fWbxf6ANYHAX0ByycYBJGiKGocxw5lpBFKwakzuDM1hoZzZcwFvIId2IBrcAO2lfz3Pqa4Nvten+NzEfiNZP+x+lwssccqYR/p+4dQT3T2LQV3RoaKfW3MATyCp/rX3XzQp9sNPd7BB/gU6neLfXYKZ/+n+R3CrKZ60BvWL7XB8fgQNP1SAvZZsHnkZtKQYfOIm0mc2ePCzXo/9yUwgu+MBb3HzXqp3I+dm6uLX9cKaaz1PubXdZkaU87K0cOvia2poJyVo4dfE1tTUGpm3XWOvqVm1l1z9dXwwdg9mgx9+84nlSUhnVP1LZlrFlLeUAq53kB9d5b8Lyh+rI2UTKD48Ua5Z41MGBpeDILeNg==
+  </data>
+ </layer>
+ <layer id="8" name="foreground2" width="44" height="28">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U5/gBlUBAAAAAM8AE0AAAQ==
+  </data>
+ </layer>
+ <layer id="9" name="foreground3" width="44" height="28">
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U5/gBlUBAAAAAM8AE0AAAQ==
+  </data>
+ </layer>
+</map>

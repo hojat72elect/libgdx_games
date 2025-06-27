@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-up" width="9" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="9">
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <tileset firstgid="4097" source="objects.tsx"/>
+ <objectgroup id="3" name="object">
+  <object id="3" name="Player" gid="4099" x="64" y="80" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup color="#5555ff" id="5" name="trigger">
+  <object id="4" name="rectTrigger" x="45" y="64" width="16" height="16"/>
+  <object id="5" name="circleTrigger" x="53" y="46" width="16" height="16">
+   <ellipse/>
+  </object>
+  <object id="6" name="polyTrigger" x="83" y="80">
+   <polygon points="0,0 18,0 11,-15"/>
+  </object>
+  <object id="7" name="lineTrigger" x="84" y="75">
+   <polyline points="-22,10 -1,10"/>
+  </object>
+  <object id="8" name="ellipseTrigger" x="74" y="51" width="24" height="8">
+   <ellipse/>
+  </object>
+ </objectgroup>
+</map>

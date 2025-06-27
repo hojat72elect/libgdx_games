@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-up" width="16" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="22">
+ <editorsettings>
+  <export target="village..tmx" format="tmx"/>
+ </editorsettings>
+ <properties>
+  <property name="music" value="VILLAGE"/>
+  <property name="trigger" value="village_intro"/>
+ </properties>
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <tileset firstgid="4097" source="objects.tsx"/>
+ <layer id="1" name="ground" width="16" height="9">
+  <data encoding="base64" compression="zlib">
+   eJyVUEEOgCAM22Wc1ETfrb4MEH2RJUgCi4xwaNqwNSu1hugCbIGdibbIgOd6psFlDc8NzNBLb7dxW971ndvhJ7f8l+aNPJmU+YF3BZ9cz7Uc+T1ncDzWXek9TOqv7M419GjvElVHX+ag7MvZC3RgaoU=
+  </data>
+ </layer>
+ <layer id="2" name="decoration" width="16" height="9">
+  <data encoding="base64" compression="zlib">
+   eJyTYmMgCqhxMjCoc0LYt9kZGMSB+iSgWBKIpaDmZHAi9MiyMjDIsULYaUDxdE4GDCCOxQwYiAXqjWPFrwembwkHcf5ABzA7nxDQj+wXZDcguxkULrgALr/g8jsISAPVy6DpucWO2350EA3UG4PFTmSAy24YQPcTenwBAP06DZw=
+  </data>
+ </layer>
+ <layer id="3" name="decoration2" width="16" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAdTGdlYJgBxDNZydAMBNeB+m4A8U0y9SO7AR9g4WdgYOXH7wZ8wAWo1xWHfmLsxweIsR+fvaCwn0WGfuSwv0WB+2EAAEa8EQ0=
+  </data>
+ </layer>
+ <layer id="4" name="decoration3" width="16" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4B8AAACQAAB
+  </data>
+ </layer>
+ <layer id="5" name="foreground" width="16" height="9">
+  <data encoding="base64" compression="zlib">
+   eJy7wcrAcBOIbwHxLCAmFVwH6rmBZAapgFx9MECJXhCYAdQ/k0y/gwAlfgcBSuwGAUrDj1IAAP1vELo=
+  </data>
+ </layer>
+ <layer id="9" name="foreground2" width="16" height="9">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4B8AAACQAAB
+  </data>
+ </layer>
+</map>
