@@ -2,15 +2,14 @@ package ca.hojat.sokoban
 
 import ca.hojat.sokoban.objects.Level
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Preferences
 
 object Settings {
-    var isTest: Boolean = true
-    var animationWalkIsON: Boolean = false
-    var NUM_MAPS: Int = 62
+    var isTest = true
+    var animationWalkIsON = false
+    var NUM_MAPS = 62
     var levels: Array<Level?> = emptyArray() // Each position is a level
 
-    private val preferences: Preferences = Gdx.app.getPreferences("com.nopalsoft.sokoban")
+    private val preferences = Gdx.app.getPreferences("com.nopalsoft.sokoban")
 
     fun load() {
         levels = arrayOfNulls(NUM_MAPS)
