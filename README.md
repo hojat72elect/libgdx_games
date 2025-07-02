@@ -30,3 +30,14 @@ The games that I currently have here:
     <li>Zombie Killer</li>
     <li>Zombie wars</li>
 </ol>
+
+## Credits:
+
+I'm truly thankful of everyone who has helped in developing and publishing process of these games.
+
+<ul>
+<li>Developers :</li>
+- <a href="https://www.youtube.com/@YayoArellano">Yayo Arellano</a>
+<li>playTesters</li>
+- <a href="https://itch.io/profile/vellidragon">vellidragon</a>
+</ul>
