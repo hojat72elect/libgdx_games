@@ -15,7 +15,7 @@ class SokobanGame : Game() {
     var languages: I18NBundle? = null
 
     override fun create() {
-        stage = Stage(StretchViewport(Screens.SCREEN_WIDTH.toFloat(), Screens.SCREEN_HEIGHT.toFloat()))
+        stage = Stage(StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT))
         batch = SpriteBatch()
 
         Assets.load()
