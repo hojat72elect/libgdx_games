@@ -14,11 +14,6 @@ class MainMenuScreen(game: SokobanGame) : Screens(game) {
     private var levelSelector: LevelSelector = LevelSelector(this)
 
     private var tableMenu: Table
-    private var buttonLeaderBoard: Button
-    private var buttonAchievements: Button
-    private var buttonFacebook: Button
-    private var buttonSettings: Button
-    private var buttonMore: Button
     private var buttonNextPage: Button
     private var buttonPreviousPage: Button = Button(Assets.buttonLeftDrawable, Assets.buttonLeftPressedDrawable)
 
@@ -39,33 +34,8 @@ class MainMenuScreen(game: SokobanGame) : Screens(game) {
             }
         })
 
-        buttonLeaderBoard = Button(Assets.buttonLeaderboardDrawable, Assets.buttonLeaderboardPressedDrawable)
-        buttonLeaderBoard.addListener(object : ClickListener() {
-        })
-
-        buttonAchievements = Button(Assets.buttonAchievementDrawable, Assets.buttonAchievementPressedDrawable)
-        buttonAchievements.addListener(object : ClickListener() {
-        })
-
-        buttonFacebook = Button(Assets.buttonFacebookDrawable, Assets.buttonFacebookPressedDrawable)
-        buttonFacebook.addListener(object : ClickListener() {
-        })
-
-        buttonSettings = Button(Assets.buttonSettingsDrawable, Assets.buttonSettingsPressedDrawable)
-        buttonSettings.addListener(object : ClickListener() {
-        })
-
-        buttonMore = Button(Assets.buttonMoreDrawable, Assets.buttonMorePressedDrawable)
-        buttonMore.addListener(object : ClickListener() {
-        })
-
         tableMenu = Table()
         tableMenu.defaults().size(80f).pad(7.5f)
-
-        tableMenu.add(buttonAchievements)
-        tableMenu.add(buttonFacebook)
-        tableMenu.add(buttonSettings)
-        tableMenu.add(buttonMore)
 
         tableMenu.pack()
         tableMenu.setPosition(SCREEN_WIDTH / 2f - tableMenu.width / 2f, 20f)
