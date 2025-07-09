@@ -1,17 +1,13 @@
-# Basic Flappy Bird
+# Flappy Bird Game
 
-[Try the game in your Browser](https://yayo-arellano.github.io/libgdx_basic_flappy_bird_tutorial/)
-
-This code is part of the learning libgdx video series I made (In Spanish).
-
-Learn libGDX: [Youtube Playlist](https://youtube.com/playlist?list=PLSTLViM5-REWXAqg2viEI3fBOcMhBzIus)
-
-Create a flappy bird game: [Youtube Playlist](https://youtube.com/playlist?list=PLSTLViM5-REUwPn3bqBmkMllShjm0Ku-H)
+Right now this is just a basic version of the `Flappy Bird` game; but I am interested to see how
+it's possible to add new ideas and game-plays to it.
+Will publish this to itch.io soon.
 
 # Screenshots
 
-||||
-| ---------------- | --------------------- | --------------------- |
-| ![Screenshot1](https://github.com/Yayo-Arellano/libgdx_basic_flappy_bird_tutorial/blob/master/screenshots/image1.png?raw=true) | ![Screenshot2](https://github.com/Yayo-Arellano/libgdx_basic_flappy_bird_tutorial/blob/master/screenshots/image2.png?raw=true) |![Screenshot3](https://github.com/Yayo-Arellano/libgdx_basic_flappy_bird_tutorial/blob/master/screenshots/image3.png?raw=true) |
+|                                          |                                          |                                          |
+|------------------------------------------|------------------------------------------|------------------------------------------|
+| ![Screenshot1](./screenshots/image1.png) | ![Screenshot2](./screenshots/image2.png) | ![Screenshot3](./screenshots/image3.png) |
 
 
