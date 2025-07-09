@@ -16,9 +16,9 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.nopalsoft.flappy.objetos.Bird;
-import com.nopalsoft.flappy.objetos.Counter;
-import com.nopalsoft.flappy.objetos.Pipe;
+import com.nopalsoft.flappy.game_objects.Bird;
+import com.nopalsoft.flappy.game_objects.Counter;
+import com.nopalsoft.flappy.game_objects.Pipe;
 import com.nopalsoft.flappy.screens.Screens;
 
 public class WorldGame {

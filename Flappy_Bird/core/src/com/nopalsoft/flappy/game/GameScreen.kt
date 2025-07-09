@@ -7,7 +7,7 @@ import com.nopalsoft.flappy.Assets
 import com.nopalsoft.flappy.MainFlappyBird
 import com.nopalsoft.flappy.screens.Screens
 
-class GameScreen(game: MainFlappyBird?) : Screens(game) {
+class GameScreen(game: MainFlappyBird?) : Screens(game!!) {
 
     private var state = STATE_READY
     private var oWorld = WorldGame()
@@ -74,8 +74,8 @@ class GameScreen(game: MainFlappyBird?) : Screens(game) {
     override fun draw(delta: Float) {
         renderer.render()
 
-        oCam.update()
-        spriteBatch.projectionMatrix = oCam.combined
+        camera.update()
+        spriteBatch.projectionMatrix = camera.combined
 
 
         spriteBatch.begin()

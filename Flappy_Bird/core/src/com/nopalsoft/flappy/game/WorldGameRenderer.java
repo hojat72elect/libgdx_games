@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.nopalsoft.flappy.Assets;
-import com.nopalsoft.flappy.objetos.Bird;
-import com.nopalsoft.flappy.objetos.Pipe;
+import com.nopalsoft.flappy.game_objects.Bird;
+import com.nopalsoft.flappy.game_objects.Pipe;
 import com.nopalsoft.flappy.screens.Screens;
 
 public class WorldGameRenderer {
