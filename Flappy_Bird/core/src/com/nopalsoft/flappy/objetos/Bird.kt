@@ -4,18 +4,15 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 
 class Bird(x: Float, y: Float) {
-    @JvmField
-    var state: Int
 
     @JvmField
-    var position: Vector2 = Vector2(x, y)
+    var state = STATE_NORMAL
 
     @JvmField
-    var stateTime: Float = 0f
+    var position = Vector2(x, y)
 
-    init {
-        state = STATE_NORMAL
-    }
+    @JvmField
+    var stateTime = 0f
 
     // Update object position to match with the Box2D body.
     fun update(delta: Float, body: Body) {
@@ -31,7 +28,6 @@ class Bird(x: Float, y: Float) {
     }
 
     companion object {
-
         @JvmField
         var JUMP_SPEED = 5f
 

@@ -1,29 +1,35 @@
-package com.nopalsoft.flappy.objetos;
+package com.nopalsoft.flappy.objetos
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
 
-public class Counter {
-    public static float WIDTH = .1f;
-    public static float HEIGHT = 1.85f;
+class Counter {
+    @JvmField
+    var state = STATE_NORMAL // Save the current state.
 
-    public static int STATE_NORMAL = 0;
-    public static int STATE_REMOVE = 1;
-
-    public int state; // Save the current state.
-
-    public static float SPEED_X = Pipe.SPEED_X; // It moves at same speed than pipes.
-
-    public Vector2 position;
-
-    public Counter() {
-        position = new Vector2();
-        state = STATE_NORMAL;
-    }
+    @JvmField
+    var position = Vector2()
 
     // Update object position to match with the Box2D body.
-    public void update(Body body) {
-        position.x = body.getPosition().x;
-        position.y = body.getPosition().y;
+    fun update(body: Body) {
+        position.x = body.position.x
+        position.y = body.position.y
+    }
+
+    companion object {
+        @JvmField
+        var WIDTH = .1f
+
+        @JvmField
+        var HEIGHT = 1.85f
+
+        @JvmField
+        var STATE_NORMAL = 0
+
+        @JvmField
+        var STATE_REMOVE = 1
+
+        @JvmField
+        var SPEED_X = Pipe.SPEED_X // It moves at same speed than pipes.
     }
 }
