@@ -54,9 +54,9 @@ class WorldGameRenderer(private val batcher: SpriteBatch, private val oWorld: Wo
         val obj = oWorld.bird
 
         val keyFrame: TextureRegion = if (obj!!.state == Bird.STATE_NORMAL) {
-            Assets.bird.getKeyFrame(obj.stateTime, true)
+            Assets.bird!!.getKeyFrame(obj.stateTime, true)
         } else {
-            Assets.bird.getKeyFrame(obj.stateTime, false)
+            Assets.bird!!.getKeyFrame(obj.stateTime, false)
         }
         batcher.draw(keyFrame, obj.position.x - .3f, obj.position.y - .25f, .6f, .5f)
     }

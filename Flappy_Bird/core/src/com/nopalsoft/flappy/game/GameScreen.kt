@@ -80,7 +80,7 @@ class GameScreen(game: MainFlappyBird?) : Screens(game!!) {
 
         spriteBatch.begin()
         val width = Assets.getTextWidth(oWorld.score.toString() + "")
-        Assets.font.draw(spriteBatch, oWorld.score.toString() + "", SCREEN_WIDTH / 2f - width / 2f, 700f)
+        Assets.font?.draw(spriteBatch, oWorld.score.toString() + "", SCREEN_WIDTH / 2f - width / 2f, 700f)
         spriteBatch.end()
     }
 
