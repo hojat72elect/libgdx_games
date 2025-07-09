@@ -29,28 +29,27 @@ public class WorldGameRenderer {
         this.renderBox = new Box2DDebugRenderer();
     }
 
-    public void render(float delta) {
+    public void render() {
 
         oCam.update();
         spriteBatch.setProjectionMatrix(oCam.combined);
 
         spriteBatch.begin();
         spriteBatch.disableBlending();
-        drawBackground(delta);
+        drawBackground();
         spriteBatch.enableBlending();
-        drawPipe(delta);
-        drawBird(delta);
+        drawPipe();
+        drawBird();
 
         spriteBatch.end();
 
-//        renderBox.render(oWorld.oWorldBox, oCam.combined);
     }
 
-    private void drawBackground(float delta) {
+    private void drawBackground() {
         spriteBatch.draw(Assets.background, 0, 0, WIDTH, HEIGHT);
     }
 
-    private void drawPipe(float delta) {
+    private void drawPipe() {
         for (Pipe obj : oWorld.arrPipes) {
             if (obj.type == Pipe.TYPE_DOWN)
                 spriteBatch.draw(Assets.downPipe, obj.position.x - .5f,
@@ -61,7 +60,7 @@ public class WorldGameRenderer {
         }
     }
 
-    private void drawBird(float delta) {
+    private void drawBird() {
         Bird obj = oWorld.oBird;
         TextureRegion keyFrame;
 

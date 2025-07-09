@@ -57,8 +57,8 @@ public class WorldGame {
         oWorldBox = new World(new Vector2(0, -13.0f), true);
         oWorldBox.setContactListener(new Collisions());
 
-        arrPipes = new Array<Pipe>();
-        arrBodies = new Array<Body>();
+        arrPipes = new Array<>();
+        arrBodies = new Array<>();
 
         timeToSpawnPipe = 1.5f;
 
@@ -282,16 +282,16 @@ public class WorldGame {
             Fixture b = contact.getFixtureB();
 
             if (a.getBody().getUserData() instanceof Bird)
-                beginContactBird(a, b);
+                beginContactBird(b);
             else if (b.getBody().getUserData() instanceof Bird)
-                beginContactBird(b, a);
+                beginContactBird(a);
         }
 
-        private void beginContactBird(Fixture bird, Fixture otraCosa) {
-            Object somethingElse = otraCosa.getBody().getUserData();
+        private void beginContactBird(Fixture otherFixture) {
+            Object otherObject = otherFixture.getBody().getUserData();
 
-            if (somethingElse instanceof Counter) {
-                Counter obj = (Counter) somethingElse;
+            if (otherObject instanceof Counter) {
+                Counter obj = (Counter) otherObject;
                 if (obj.state == Counter.STATE_NORMAL) {
                     obj.state = Counter.STATE_REMOVE;
                     score++;
