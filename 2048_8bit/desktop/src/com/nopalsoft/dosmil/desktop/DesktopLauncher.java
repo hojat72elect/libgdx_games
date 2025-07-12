@@ -7,12 +7,11 @@ import com.nopalsoft.dosmil.MainGame;
 public class DesktopLauncher {
 
     public static void main(String[] args) {
-        LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.title = "2048 8Bit";
-        cfg.width = 480;
-        cfg.height = 800;
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.title = "2048 8Bit";
+        config.width = 480;
+        config.height = 800;
 
-        new LwjglApplication(new MainGame(), cfg);
+        new LwjglApplication(new MainGame(), config);
     }
-
 }

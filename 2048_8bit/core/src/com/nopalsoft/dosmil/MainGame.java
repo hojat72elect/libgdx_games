@@ -13,17 +13,15 @@ public class MainGame extends Game {
     }
 
     public Stage stage;
-    public SpriteBatch batcher;
+    public SpriteBatch batch;
 
     @Override
     public void create() {
         stage = new Stage(new StretchViewport(Screens.SCREEN_WIDTH,
                 Screens.SCREEN_HEIGHT));
 
-        batcher = new SpriteBatch();
+        batch = new SpriteBatch();
         Assets.load();
-
-
         setScreen(new MainMenuScreen(this));
     }
 }

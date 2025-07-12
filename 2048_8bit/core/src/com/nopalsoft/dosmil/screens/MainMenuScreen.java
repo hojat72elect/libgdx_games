@@ -15,65 +15,64 @@ import com.nopalsoft.dosmil.game.GameScreen;
 
 public class MainMenuScreen extends Screens {
 
-    Image imgTitulo;
+    Image titleImage;
 
-    Label lbPlay;
-    Label lbHelp;
-    Label lbLeaderboard;
-    Label lbRate;
-    Label lbMore;
+    Label labelPlay;
+    Label labelHelp;
+    Label labelLeaderboard;
+    Label labelRate;
 
-    Button btMusica;
-    Button btSonido;
-    Button btFacebook;
+    Button buttonMusic;
+    Button buttonSound;
+    Button buttonFacebook;
 
     public MainMenuScreen(final MainGame game) {
         super(game);
-        imgTitulo = new Image(Assets.titulo);
-        imgTitulo.setPosition(SCREEN_WIDTH / 2f - imgTitulo.getWidth() / 2f, 580);
+        titleImage = new Image(Assets.titleAtlasRegion);
+        titleImage.setPosition(SCREEN_WIDTH / 2f - titleImage.getWidth() / 2f, 580);
 
-        lbPlay = new Label(Assets.idiomas.get("play"), Assets.labelStyleGrande);
-        lbPlay.setPosition(SCREEN_WIDTH / 2f - lbPlay.getWidth() / 2f, 450);
-        addEfectoPress(lbPlay);
-        lbPlay.addListener(new ClickListener() {
+        labelPlay = new Label(Assets.languagesBundle.get("play"), Assets.labelStyleLarge);
+        labelPlay.setPosition(SCREEN_WIDTH / 2f - labelPlay.getWidth() / 2f, 450);
+        addPressEffect(labelPlay);
+        labelPlay.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(GameScreen.class, game);
             }
         });
 
         // Help
-        lbHelp = new Label(Assets.idiomas.get("help"), Assets.labelStyleGrande);
-        lbHelp.setPosition(SCREEN_WIDTH / 2f - lbHelp.getWidth() / 2f, 350);
-        addEfectoPress(lbHelp);
-        lbHelp.addListener(new ClickListener() {
+        labelHelp = new Label(Assets.languagesBundle.get("help"), Assets.labelStyleLarge);
+        labelHelp.setPosition(SCREEN_WIDTH / 2f - labelHelp.getWidth() / 2f, 350);
+        addPressEffect(labelHelp);
+        labelHelp.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(HelpScreen.class, game);
             }
         });
 
         // Rate
-        lbRate = new Label(Assets.idiomas.get("rate"), Assets.labelStyleGrande);
-        lbRate.setPosition(SCREEN_WIDTH / 2f - lbRate.getWidth() / 2f, 250);
-        addEfectoPress(lbRate);
+        labelRate = new Label(Assets.languagesBundle.get("rate"), Assets.labelStyleLarge);
+        labelRate.setPosition(SCREEN_WIDTH / 2f - labelRate.getWidth() / 2f, 250);
+        addPressEffect(labelRate);
 
         // Leaderboard
-        lbLeaderboard = new Label(Assets.idiomas.get("leaderboard"), Assets.labelStyleGrande);
-        lbLeaderboard.setFontScale(.85f);
-        lbLeaderboard.setWidth(SCREEN_WIDTH);
-        lbLeaderboard.setPosition(SCREEN_WIDTH / 2f - lbLeaderboard.getWidth() / 2f, 150);
-        lbLeaderboard.setAlignment(Align.center);
-        lbLeaderboard.setWrap(true);
+        labelLeaderboard = new Label(Assets.languagesBundle.get("leaderboard"), Assets.labelStyleLarge);
+        labelLeaderboard.setFontScale(.85f);
+        labelLeaderboard.setWidth(SCREEN_WIDTH);
+        labelLeaderboard.setPosition(SCREEN_WIDTH / 2f - labelLeaderboard.getWidth() / 2f, 150);
+        labelLeaderboard.setAlignment(Align.center);
+        labelLeaderboard.setWrap(true);
 
-        addEfectoPress(lbLeaderboard);
+        addPressEffect(labelLeaderboard);
 
-        btMusica = new Button(Assets.styleButtonMusica);
-        btMusica.setPosition(5, 5);
-        btMusica.setChecked(!Settings.isMusicOn);
-        btMusica.addListener(new ClickListener() {
+        buttonMusic = new Button(Assets.buttonStyleMusic);
+        buttonMusic.setPosition(5, 5);
+        buttonMusic.setChecked(!Settings.isMusicOn);
+        buttonMusic.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Settings.isMusicOn = !Settings.isMusicOn;
-                btMusica.setChecked(!Settings.isMusicOn);
+                buttonMusic.setChecked(!Settings.isMusicOn);
                 if (Settings.isMusicOn)
                     Assets.playMusic();
                 else
@@ -81,30 +80,30 @@ public class MainMenuScreen extends Screens {
             }
         });
 
-        btSonido = new Button(Assets.styleButtonSonido);
-        btSonido.setPosition(75, 5);
-        btSonido.setChecked(!Settings.isSoundOn);
-        btSonido.addListener(new ClickListener() {
+        buttonSound = new Button(Assets.buttonStyleSound);
+        buttonSound.setPosition(75, 5);
+        buttonSound.setChecked(!Settings.isSoundOn);
+        buttonSound.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Settings.isSoundOn = !Settings.isSoundOn;
-                btSonido.setChecked(!Settings.isSoundOn);
+                buttonSound.setChecked(!Settings.isSoundOn);
             }
         });
 
-        btFacebook = new Button(Assets.btFacebook);
-        btFacebook.setSize(50, 50);
-        btFacebook.setPosition(SCREEN_WIDTH - btFacebook.getWidth() - 5, 10);
-        addEfectoPress(btFacebook);
+        buttonFacebook = new Button(Assets.buttonFacebook);
+        buttonFacebook.setSize(50, 50);
+        buttonFacebook.setPosition(SCREEN_WIDTH - buttonFacebook.getWidth() - 5, 10);
+        addPressEffect(buttonFacebook);
 
-        stage.addActor(imgTitulo);
-        stage.addActor(lbPlay);
-        stage.addActor(lbHelp);
-        stage.addActor(lbLeaderboard);
-        stage.addActor(lbRate);
-        stage.addActor(btMusica);
-        stage.addActor(btSonido);
-        stage.addActor(btFacebook);
+        stage.addActor(titleImage);
+        stage.addActor(labelPlay);
+        stage.addActor(labelHelp);
+        stage.addActor(labelLeaderboard);
+        stage.addActor(labelRate);
+        stage.addActor(buttonMusic);
+        stage.addActor(buttonSound);
+        stage.addActor(buttonFacebook);
     }
 
     @Override
@@ -114,9 +113,9 @@ public class MainMenuScreen extends Screens {
 
     @Override
     public void draw(float delta) {
-        batcher.begin();
-        batcher.draw(Assets.fondo, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        batcher.end();
+        batch.begin();
+        batch.draw(Assets.backgroundAtlasRegion, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.end();
     }
 
     @Override

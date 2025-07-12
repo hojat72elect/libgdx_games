@@ -8,29 +8,28 @@ public class Settings {
     public static boolean isMusicOn;
     public static boolean isSoundOn;
     public static boolean didBuyNoAds;
-    public static int numeroVecesJugadas;
+    public static int numberOfTimesPlayed;
     public static long bestScore;
 
-    private final static Preferences pref = Gdx.app
-            .getPreferences("com.tiar.dosmil");
+    private final static Preferences preferences = Gdx.app.getPreferences("com.tiar.dosmil");
 
     public static void load() {
 
-        bestScore = pref.getLong("bestScore", 0);
-        numeroVecesJugadas = pref.getInteger("numeroVecesJugadas", 0);
+        bestScore = preferences.getLong("bestScore", 0);
+        numberOfTimesPlayed = preferences.getInteger("numeroVecesJugadas", 0);
 
-        didBuyNoAds = pref.getBoolean("didBuyNoAds", false);
-        isMusicOn = pref.getBoolean("isMusicOn", true);
-        isSoundOn = pref.getBoolean("isSoundOn", true);
+        didBuyNoAds = preferences.getBoolean("didBuyNoAds", false);
+        isMusicOn = preferences.getBoolean("isMusicOn", true);
+        isSoundOn = preferences.getBoolean("isSoundOn", true);
     }
 
     public static void save() {
-        pref.putLong("bestScore", bestScore);
-        pref.putInteger("numeroVecesJugadas", numeroVecesJugadas);
-        pref.putBoolean("didBuyNoAds", didBuyNoAds);
-        pref.putBoolean("isMusicOn", isMusicOn);
-        pref.putBoolean("isSoundOn", isSoundOn);
-        pref.flush();
+        preferences.putLong("bestScore", bestScore);
+        preferences.putInteger("numeroVecesJugadas", numberOfTimesPlayed);
+        preferences.putBoolean("didBuyNoAds", didBuyNoAds);
+        preferences.putBoolean("isMusicOn", isMusicOn);
+        preferences.putBoolean("isSoundOn", isSoundOn);
+        preferences.flush();
     }
 
     public static void setBestScores(long score) {
