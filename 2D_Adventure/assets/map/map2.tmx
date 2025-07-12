@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-up" compressionlevel="0" width="32" height="96" tilewidth="16" tileheight="16" infinite="0" nextlayerid="35" nextobjectid="117">
+ <tileset firstgid="1" source="tilesets.tsx"/>
+ <layer id="28" name="bgd0" width="32" height="96">
+  <data encoding="base64" compression="zlib">
+   eAHt0MkNg1AQBNE54STYcYTYbBGyGIjJlcSXfaiW6tzSi/iPFVlESRXV1FBLHT0p9Xo+XvSmgUaaaKaFUm/lY6OdDvrQSRfdlHr5I6KgkiqqqaGWOnIKKKCAAgoooIACCiiggAIKKKCAAgoooIACCiiggAIKKKCAAgoooIACCiiggAIKKKCAAgoooIACvxX4AhJUDMk=
+  </data>
+ </layer>
+ <layer id="29" name="bgd1" width="32" height="96">
+  <data encoding="base64" compression="zlib">
+   eAHtVllu3TAMdD+LNM12xKxnCFD0NrlDtruVxMMABDGUKFmWE9QCGErUcIakjRcvS9/6e7YszPrY2rNU2y5bi4237i8k4VLsSuxa7EaMLeh7XcRZTiZ2J6B7sQexR7EnMba8LjB/zrHr86+S9ib2LvYh9inGVqQTxRkHi/3+sSwXYpdiV2LXYmypDtNiMZYfxW5F707sXuxB7FEsWkyLxaL8tXHV8nr+vFajlL+3vtbm+/XnUv0j7qwem8cIjRKH1y9ht7iD/h69az/QRR1b9FjifPopv9HGStgt7qy27mevPfSfzf/+Wfqq6U1nvVY/8/4yXTznrfS9pp63WFH/W+n5HqDv47P0VZf9dtX0UTfL9b3Uzoyjpg9Olou7rEcvFq/6MBv3e+Ra7zG1M+sB2vDgYFi9Qxwe+IxnOV4XPAyrdxqHAZv1EafPz/BnuSx3NieDQ40ZLGrIYMGLnJrPcIIjg81gwKe+BZ/BRpiXX8ui5leE97jobP+vKYbxQRvecjG8vS/trbbudTE+6MKfkKe/DG/vS/uvqI96tS/0hr7hGQaxFs/6t/kZfYtv3Wf07RwsfxS3mMweNZSwmIPFsJi933I/qvdajVGPUbzG13rPdGb1rrVG+q199OK9/szeWf++nt6+snlez5+zPL04r+fPvby1PNWxBvxMfWhaz2qy97P2s+YQ9XPMIZpMexyzbM8ckwH9r/BOjemoj+W79Y/vNvVrF96BLI/VHqWf1QZuZA09z360/h7PwD+7ljn09l/KwwxKdfh83wPej8j7fIYr6QNveRDLeJvXWrvn78kfqe/ryZz/d32dkZ1BZmYH5pjAMYFjAscEjgkcEzhNAN+KW8wj8/2nullctkb0VOPFPXyWv4aL+Oz3iu6Bg6/xZu8jPq8PPsXDEFvjW/WhFeXhPusjnqh/8EZ5uM/6iGeWflRnTT/KGxXfW39UH3vy/AM1Z8kL
+  </data>
+ </layer>
+ <layer id="30" name="bgd2" width="32" height="96">
+  <data encoding="base64" compression="zlib">
+   eAHtWstOVEEQvUvlqTHqThc8/SmNgCaKHyAzDAh8kkbAheLeMDCDwOd4ikzhoah+3MeMSCA56Z7u6qo+1dVd3Td0JouiUwHdsaI4Ao6BHnAOxPQc3iuKLnAEhORa40XRBtaBDrABbEp9ML9f9//WO6hv0O8t2N8GdgLzmIHsLDBHY1Svll3YOgKOgR7QB04A7eeyBz190nUKu2dAyg+sw9ZnJzA/YB5YABaBF4CVu/gN28xf2j6hbYvm5I6LrPUabLWANrAudoENKb0xWMcNs5a/YfuU7PN6HaK9S32ezkPY6gJHwDHQA/qAJ9uD7b6xH+M/g7WZDcSG6p8Bz1lgDpgHFoBFQPqZi8p3jA8s/0u5gY7U74+QWwNaQBtYB2JjrA9i/GN6avVhTTUO6/KvMg/eh9tYjx2KiTXUW0Cb2qrYiI4h/mewc062cs68qO7E+stY5W+5S1/OmVfXvu4By722XsPd3X/CH/6+OAdoHZq2HdLH+UrXQfNVaL4hXdyec1aKfJl8xfpT9ZyzUnSUyldmPVNziPXfR04Q35fKVw3YF7tjwEvgFVAmX4X4vEPcvgdWgZCMtfsZtr8AsXwV0mXbv8PuD+DA2J/EvpoCpoEHgPBVu6pD8tUjjBPk5Csdx+UT6H0KPDa5eQk2l4EV4A0gfHmc1MvmSztefq9C7wdH9y5s7gH7wDdAZJWr1L11q5JvDmD7p2N/Aj6dBKaAaUBta+ndd6vkG/W/9c1r2FwCloEVY19kvftulXyjsV/gj+fwFTZ3gT1gH5A+737j+YH1pOoh/uOIxwlgEpgaxKZ3v/H8UObsD9n35m1zPOeJMn7g+an/PXu2TXO8juc84fnBjvd+5/K33FlXjh9YhseG9j/LSF25e3s8xw8sw7pD+59lLurYA3LPTu1xWRtvn1zTB07S9gx4PqiHZKRd7ze8x0NvdW+fxHRzH9+prnwDGPBX2dDdpyx/1adlSK/yV7nY3cfy1/2iY2NlTC+Pi919YnuFdXj1mF49Y4RP7O6je8XTn2qL6eUzJnT3qcNd5hbSy/NWP+wgL+hbXde4DnexkXOnYT/wvGLcdX4s79Vz5Frg3QbWB3lRx9Tl7s3Ha+Nvj9of464yjZWDs4hzyqi4Cwc9izSnjJQ77Ntvrynu7Kcm1kD5i66cXKd+qmtb45z527O+ro2c8cpf5pPDP0dnjozd9zJmlPy9fS9z4PPY8rhcM4nbISF0Hg/LXkhvzA+hMU22N+WHUcY089dzapQxzfb5nLota8n8ytb/1TroPEeeV835lMqrOk8tg28no1flY2WVPRh6O8Xs2L46ezD37WRt8u/cPejlldjbiW3k1suep7G3U8xmKm5yz6Kct5M3j1Tc5Poh5+3k2W8ibjy9uW1Nxo0Xl6l5VI2blN7c/qpxk6s/JVc1blJ67/qv3rnf4r0iuMl+qbJ/bjKfYc3N+w4+LFue3tR3cG9Mk238HbxJvXe6wufD/3B+hNZP77Wh/mG081nG99qqtrzvP6wr957IY7w6z5v7Q99/VCb3nqjyuWWKt+rZHNL3OI+3d2c/gX3vzRzyp87bltdiFXr1f/xUNnZnj8VBTt6wsarfO9W2lLE7eywOKuUNh3/qzh56P1fJGx7/1J3diwP2X936bbqz58RkyF8PERseQvJee6WYHHzTUdusV9r4d6z+B4JRkb4=
+  </data>
+ </layer>
+ <layer id="31" name="bgd3" width="32" height="96">
+  <data encoding="base64" compression="zlib">
+   eAHVmnlvlUUUxl/+UqALS1sEIviBFFq6GJdogLITgSh+H5UWWohLNGyyRiAu3wehLeDvofdpTibzbu29vXGS5867zjPnzLxnzplzi2Lzy613i+I2uAP6UZ4PFMW/4AXoRxnYWhSDYAj0o3yI3B+BQ32S/zt4vwc/9Ik/6n+EObgrwSjnY2AP6EWJ8+8MHKcSnOX8HDgPelGi/A/guJfgIeePwGPQixLHfzffwCfMg0/BZ+BzMMK1UTDW+T6+ph/fgMvg2y70Kc7/03D8COdP4GfwCzjDtbPgXIf/Tzj/An+Df7rAH/U/Cd8UUD+EBx08pH4EVN6nPgAOgg8611bvtPv9Cp4L4CK4BGZp6xr1AhC3ZN69bRUj1KOgm+UPeJ6Ap+AZEH+UO8rchPcCY3ERXGo4Ju8NFsVesA/sB+LX/NNck9xtZX4C71PwrIY/lXsG2T/uyJ/OtSZy+5m99Hsf2A+qisbbckvm65zf6PCn31pVO3X37qHD+2HOpHKLWyjQ/ZaO/tfLP4jOh8Aw2AFkw3dupway3bqXG2/xT8M9s0H+Y7R/HMyCE0A2/CTcp4Bst+694PglsNy5uk6nZfeHkSNCNly23N9TrMUb51zsR1n78foXzJVYIu8A9wbBTjj0LYk3tefii3NuCZ0sd/QS2607jrw+Pgr3MXCywy3+1J6LP865wzw/Dt5eD6RzPDcPrur5pIjvFO+cBuZWfZPzW+B3ju8D2e/bINV/nHNXeH4OpPxLvLcMVkCu3OOd+0BF7ctey2YO8c3tALuA7NgguMX1Y+A4EE8Kva/5Esth3hsHEyBXdvLN7AJv3+V9cZeVm9xTH6SLO0D6cW09Vb2ftqv3o47r1ortyDAApAvrx7X1JHuvUjXuq0+s6jfquMlaoT40KXXj3qSNjTxTN+4bafv/9O78O3z74BpYAIvgOrgBNqMsw7MCXoHX4A0o+Ea3JN9pr/oyDs8EOAImwRSYBjOgVyWu/3PwzIOr4BpYAIvgOuhVGcWejoE9YAmeZbACXoHX4A0osD1NbETTPtp3kd9yFt5z4DyIxXGBr3XTRth3kd8S5TeXascFvtZNG+H9n7sV8pu3F3WMvx6i90fgcaL/XvC6zcgf57/vV9XdiIUjf9v4oxux8FG+J/smbeXvRiwc+avkbxtfVo1bvBf5q+RvGl/GtpscNx3/pvFlE874TOSP8vdK35Fbx5E/jn+v9F3FH+Xvlb6r+KP86XO9Oo/7b7n1x+tjjO3TPVqfD2O3d7S03XH/Mbf+en2MsX26R+vzWbhPgDb9eM7zzj/k1h+vj8qPzBEnz4OrIN2n1fkd2roL2vSjbP57vON9x+or8CvGT6G4W0j74X2B3D56bD/Of/NH++hYfQIZzVVVux/eF8jto0f+3PzLxa6KPat403veF8jto0f+3PzLxa6KPRVPpzzpuf1GXc+1LR1H/tz88zjk6ro+2G8Uf2w7+s+RPzf+OV5fKxsb7w+4jnsM2keP/nO0P23tX9nYaHwi4h6D9tGj/xztT1v5rYeN1NH+tJW/DW/Zeh7lz31/bTiqni1bz+P4l30jVe3Ge1X+eNl6Hud//EZiu02P2/jjufzPRse/jT+eywfUzf9u7snk8gF18ndjTyaVe4a1zPmfOvm7sSdTlf+pk38jezKW+wq+Q/Rj4l58nfxVezJb0eM24PxPmsv3eC/zTPRj4l58nfyHWTvGwQQ4AiaBeZUX+RI4/5Pm8p3/EX/0Y3Run65O/mgHUt5faec3IJ/M+Z/oI9pXE59zDvMcR13UyS/+Mt40z6P8jzljLf6XwPmTqIsq++84wHqO8qr9NM9jTvtAPnft/EnURZX9dxwQeZVHUXuqlQeJtXweXZMP5HxL9M+cP5EuloD0UiW/dF+WQ1EuRT5OrJ0fUa3rgo5jH9LjOP7Wd4xlynIoyqXIx4m18yOqdd35lpzPKD2pL5L/ADmlg8D6bhPLSEdNSqpH+4fqh8ta3EWf2sZUbqOsTvVo/zDy2y/wGDmWsT4c8+Zq2b66/y2tjS/PymYKkT/GXe6DavfDMW+ulu2r+9/S2vjyrGymIP44B9Nxiv14w5wqMnGwc8t1/1taG194tfcsiF85W+cT03GKc3cK7ulMHOz1rM6Wp/yHmGd172g+uQ8LcC8C6STaHa9nUY+5eej5pf8dej2ue0ft5GKunN2Jeszxx/nlNaiJ/LmYK2d36v7DYzmUE/ca1ET+nCzruSY53AetIfoPQBP518NV9U4ch82U332K87Af8sf4rx/yV8W/qY32Ptow3739J9t/3/P5CM/4eIhjvePzuDbE+D/1f1Ib7X20Wdqy/2T773s+P8MzPj7Osd7xeVwbIn8a/9pGxpjB8ZL9p+jjlh3bB/T9uDbE+ZfaLN/T/7Zso7y+2I902zq3b+yxsO/kfTC/k85zr3OpzfK3qbXBNsrri9dCt61z+8YeC/sKuqe1ze+k89zr3H+h/o89
+  </data>
+ </layer>
+ <layer id="32" name="bgd4" width="32" height="96">
+  <data encoding="base64" compression="zlib">
+   eAHt10EOwUAYxfFvS1lo0kpwLM6gWgmOxRkIEnUs9Tbd273U/L/kpbN7nd/MZiIYBBBAAIGUBXajiFpplNSm0J7LBPed2jmzXwQQQAABBBBAAAEEEEAAAQQQ8AsssoilslIcc1DvUTmZ+l/qbZW3qf9X8+0kolJcc1X3zdg/m0bkSj/dWCvjma3VvTH2n9V9MfZ/1N0Z+/t7wBcBBBBAAAEEEEBgGAKF3hKlMje9KWr1Nsre1H9X70N5mvqHcUv4SwQQQAABBP5H4AtLRRId
+  </data>
+ </layer>
+ <layer id="33" name="fgd" width="32" height="96">
+  <data encoding="base64" compression="zlib">
+   eAHt0MENQFAQBNBxxIniKJIS6M3WYOMgeZPM8Wf2v0QIECBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECBAgAABAgQIECDwf4FtTPbqm1xTclc7OWr7fLm/zMlabaXuH5p/aO17/LnAA3BoBAQ=
+  </data>
+ </layer>
+ <objectgroup color="#ff0000" id="7" name="collision">
+  <object id="42" x="0.333333" y="111.333" width="116.667" height="65"/>
+  <object id="43" x="155.667" y="154.5" width="42.0003" height="25.3333"/>
+  <object id="44" x="251.917" y="217.917" width="25.7276" height="25.3333"/>
+  <object id="45" x="52.6665" y="368" width="39.0003" height="24.3333"/>
+  <object id="46" x="19.4999" y="431.833" width="39.0003" height="24.3333"/>
+  <object id="47" x="63.4998" y="495.833" width="82.667" height="57.3333"/>
+  <object id="48" x="240.667" y="288.333" width="125.5" height="25.3333"/>
+  <object id="49" x="104.667" y="336.667" width="39.6667" height="25.3333"/>
+  <object id="50" x="140.667" y="336.667">
+   <polyline points="0,0 93.3333,-47 100.333,-48.3333"/>
+  </object>
+  <object id="52" x="108.667" y="176.333">
+   <polyline points="0,0 -16,15 -45.3333,20.6667 -47.3333,34 -65,47.6667 -78.6667,48.3333 -77.3333,143 -92.6667,159.667 -92,335.667 -77.6667,352.667 -77.9066,1054.33 -61.4483,1074.29 -60.6013,1135.67 -77.9397,1151.33 -78,1327.67 -93.3333,1343 -109,1344"/>
+  </object>
+  <object id="54" x="481" y="5">
+   <polyline points="0,0 -0.5,169.5 -113.5,286.5 -112,380 -98.5,395.5 15,395 29.5,379"/>
+  </object>
+  <object id="56" x="162.75" y="560.083" width="43.042" height="27.3333"/>
+  <object id="57" x="203.479" y="634.333" width="42.7087" height="25"/>
+  <object id="58" x="122.646" y="682.833" width="27.042" height="22.3333"/>
+  <object id="59" x="59.0245" y="730.53" width="27.042" height="22.3333"/>
+  <object id="60" x="64.6456" y="798" width="191.459" height="25"/>
+  <object id="61" x="350.77" y="846.5" width="57.959" height="21"/>
+  <object id="62" x="256.25" y="798.25">
+   <polyline points="0,0 96.25,48"/>
+  </object>
+  <object id="63" x="419.248" y="911.091" width="42.5045" height="24.6364"/>
+  <object id="64" x="379.111" y="970.227" width="26.5045" height="22.0909"/>
+  <object id="65" x="267.111" y="1001.32" width="43.959" height="24.8182"/>
+  <object id="66" x="141.293" y="1054.5" width="87.7772" height="40.2727"/>
+  <object id="69" x="511.5" y="560.25">
+   <polyline points="0,0 -32,0 -39.75,3 -39.75,9.25 -31.5,14 -32,451.25 -142.75,558 -239.75,557.75 -374.5,624.5 -391,626.75 -392,632.25 -383.75,636.5 -366,655.5 -111.499,655.326 -75.3329,695.15 -3,696.083"/>
+  </object>
+  <object id="70" x="76.1114" y="1472.2" width="377.694" height="40.2727"/>
+  <object id="71" x="176.237" y="1278.61" width="160.527" height="40.2727"/>
+  <object id="72" x="55.5" y="1241.25">
+   <polyline points="-20,-5.75 0.25,-6 23.75,-12 120.5,37.5"/>
+  </object>
+  <object id="73" x="336.5" y="1278.64">
+   <polyline points="0,0 8,2.94597 8,10.6055 0.75,15.6136"/>
+  </object>
+  <object id="100" x="510.667" y="1280">
+   <polygon points="0,0 -62.3333,-4.66667 -73,3.33333 -72,10.6667 -62,17.6667 -62,80 -31.6667,109 -31,223 -16,237 0.333333,237.667"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#d89000" id="11" name="item">
+  <object id="102" name="POTION_GAIN_MANA" x="156" y="1048">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#0000ff" id="12" name="portal">
+  <object id="27" name="Portal to Map 1" type="Portal" x="1.91667" y="6.91667" width="12" height="101.5">
+   <properties>
+    <property name="FlipParticleFX" type="bool" value="true"/>
+    <property name="TargetMap" value="MAP1"/>
+    <property name="TargetOffsetX" type="int" value="-1"/>
+    <property name="TargetPortalID" type="int" value="27"/>
+   </properties>
+  </object>
+  <object id="97" name="Portal to Cave Top" type="Portal" x="242.333" y="1449.25" width="46.3333" height="24.5">
+   <properties>
+    <property name="Active" type="bool" value="false"/>
+    <property name="TargetMap" value="MAP2"/>
+    <property name="TargetPortalID" type="int" value="98"/>
+   </properties>
+  </object>
+  <object id="98" name="Target for bottom Portal" type="PortalTarget" x="271.25" y="251.5" width="31.5" height="34"/>
+ </objectgroup>
+ <objectgroup id="8" name="playerSpawnLocation">
+  <object id="115" name="Start" x="41" y="108">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#0000ff" id="9" name="enemy">
+  <object id="84" name="BLUE_SLIME" x="330" y="284">
+   <point/>
+  </object>
+  <object id="85" name="DWARF" x="121.333" y="334">
+   <point/>
+  </object>
+  <object id="86" name="DWARF" x="118.667" y="794">
+   <point/>
+  </object>
+  <object id="87" name="DWARF" x="234.667" y="795.333">
+   <point/>
+  </object>
+  <object id="88" name="BLUE_SLIME" x="288.667" y="1113.33">
+   <point/>
+  </object>
+  <object id="89" name="DWARF" x="322.667" y="1113.33">
+   <point/>
+  </object>
+  <object id="90" name="DWARF" x="276.519" y="1273.83">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#00aa00" id="15" name="savePoint">
+  <object id="40" name="SAVE_POINT" x="131.167" y="491">
+   <point/>
+  </object>
+  <object id="68" name="SAVE_POINT" x="321.667" y="1273.83">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff5500" id="16" name="npc"/>
+ <objectgroup color="#339c9c" id="34" name="trigger">
+  <object id="91" name="TriggerMap2.setupBossTrigger" x="342" y="1308.67" width="103.5" height="31">
+   <properties>
+    <property name="TriggerReactOnCollision" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="111" name="TriggerMap2.setupBossPitLeft" x="24.25" y="1514.5" width="58.5" height="20.5">
+   <properties>
+    <property name="TriggerReactOnCollision" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="112" name="TriggerMap2.setupBossPitRight" x="430.25" y="1514.25" width="58.5" height="20.5">
+   <properties>
+    <property name="TriggerReactOnCollision" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="116" name="TriggerMap2.setupAfterBoss" x="76.25" y="1299.83" width="49.5" height="31">
+   <properties>
+    <property name="TriggerReactOnCollision" type="bool" value="false"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
