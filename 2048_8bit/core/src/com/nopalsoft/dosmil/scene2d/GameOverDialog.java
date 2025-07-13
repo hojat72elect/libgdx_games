@@ -91,14 +91,14 @@ public class GameOverDialog extends Group {
         buttonShareFacebook.setPosition(225, 110);
         screen.addPressEffect(buttonShareFacebook);
 
-        final Label lbMainMenu = new Label(Assets.languagesBundle.get("menu"), Assets.labelStyleLarge);
-        lbMainMenu.setWidth(getWidth() - 10);
-        lbMainMenu.setFontScale(.75f);
-        lbMainMenu.setPosition(getWidth() / 2f - lbMainMenu.getWidth() / 2f, 30);
-        lbMainMenu.setWrap(true);
-        lbMainMenu.setAlignment(Align.center);
-        screen.addPressEffect(lbMainMenu);
-        lbMainMenu.addListener(new ClickListener() {
+        final Label labelMainMenu = new Label(Assets.languagesBundle.get("menu"), Assets.labelStyleLarge);
+        labelMainMenu.setWidth(getWidth() - 10);
+        labelMainMenu.setFontScale(.75f);
+        labelMainMenu.setPosition(getWidth() / 2f - labelMainMenu.getWidth() / 2f, 30);
+        labelMainMenu.setWrap(true);
+        labelMainMenu.setAlignment(Align.center);
+        screen.addPressEffect(labelMainMenu);
+        labelMainMenu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 screen.changeScreenWithFadeOut(MainMenuScreen.class, screen.game);
@@ -112,7 +112,7 @@ public class GameOverDialog extends Group {
                 addActor(scoreTable);
                 addActor(buttonShareTwitter);
                 addActor(buttonShareFacebook);
-                addActor(lbMainMenu);
+                addActor(labelMainMenu);
             }
         })));
     }

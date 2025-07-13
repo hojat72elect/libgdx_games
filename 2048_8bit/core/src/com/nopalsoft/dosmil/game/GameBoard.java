@@ -96,8 +96,8 @@ public class GameBoard extends Group {
                         if (!objNext.justChanged && !obj.justChanged) {
                             i.remove();
                             removePiece(obj);
-                            objNext.setValor(objNext.getValor() * 2);
-                            score += objNext.getValor();
+                            objNext.setWorth(objNext.getWorth() * 2);
+                            score += objNext.getWorth();
                             objNext.justChanged = true;
                             didPieceMove = true;
                             continue;
@@ -121,8 +121,8 @@ public class GameBoard extends Group {
                         if (!objNext.justChanged && !obj.justChanged) {
                             i.remove();
                             removePiece(obj);
-                            objNext.setValor(objNext.getValor() * 2);
-                            score += objNext.getValor();
+                            objNext.setWorth(objNext.getWorth() * 2);
+                            score += objNext.getWorth();
                             objNext.justChanged = true;
                             didPieceMove = true;
                             continue;
@@ -146,8 +146,8 @@ public class GameBoard extends Group {
                         if (!objNext.justChanged && !obj.justChanged) {
                             i.remove();
                             removePiece(obj);
-                            objNext.setValor(objNext.getValor() * 2);
-                            score += objNext.getValor();
+                            objNext.setWorth(objNext.getWorth() * 2);
+                            score += objNext.getWorth();
                             objNext.justChanged = true;
                             didPieceMove = true;
                             continue;
@@ -171,8 +171,8 @@ public class GameBoard extends Group {
                         if (!objNext.justChanged && !obj.justChanged) {
                             i.remove();
                             removePiece(obj);
-                            objNext.setValor(objNext.getValor() * 2);
-                            score += objNext.getValor();
+                            objNext.setWorth(objNext.getWorth() * 2);
+                            score += objNext.getWorth();
                             objNext.justChanged = true;
                             didPieceMove = true;
                             continue;
@@ -218,7 +218,7 @@ public class GameBoard extends Group {
 
         if (obj1 == null || obj2 == null)
             return false;
-        else return obj1.getValor() == obj2.getValor();
+        else return obj1.getWorth() == obj2.getWorth();
     }
 
     /**
@@ -231,7 +231,7 @@ public class GameBoard extends Group {
 
         if (obj1 == null || obj2 == null)
             return false;
-        else return obj1.getValor() == obj2.getValor();
+        else return obj1.getWorth() == obj2.getWorth();
     }
 
     /**
@@ -306,7 +306,7 @@ public class GameBoard extends Group {
         ArrayIterator<BoardPiece> ite = new ArrayIterator<>(boardPieces);
         while (ite.hasNext()) {
             BoardPiece obj = ite.next();
-            if (obj.getValor() >= 2000)// If there is a piece worth more than 15 thousand, you win.
+            if (obj.getWorth() >= 2000)// If there is a piece worth more than 15 thousand, you win.
                 return true;
         }
         return false;

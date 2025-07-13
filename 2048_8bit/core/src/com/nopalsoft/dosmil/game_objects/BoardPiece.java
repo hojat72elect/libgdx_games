@@ -38,32 +38,33 @@ public class BoardPiece extends Actor {
     final float SIZE = 110;// Final size of the tab
     public int position;
 
-    private int valor;// I made this piece private because when I change its value I also have to change the image of this piece.
+    // The value worth of this BoardPiece
+    private int worth;// I made this piece private because when I change its value I also have to change the image of this piece.
     TextureRegion keyframe;
 
-    public BoardPiece(int position, int valor) {
+    public BoardPiece(int position, int worth) {
         this.position = position;
         setWidth(SIZE);
         setHeight(SIZE);
         setOrigin(SIZE / 2f, SIZE / 2f);
 
         setPosition(positionsMap.get(position).x, positionsMap.get(position).y);
-        setValor(valor);
+        setWorth(worth);
 
-        if (valor != 0) {// If the piece is worth 0, it is a blue square that has nothing.
+        if (worth != 0) {// If the piece is worth 0, it is a blue square that has nothing.
             setScale(.8f);
             addAction(Actions.scaleTo(1, 1, .25f));
             Gdx.app.log("Se creo pieza en ", position + "");
         }
     }
 
-    public int getValor() {
-        return valor;
+    public int getWorth() {
+        return worth;
     }
 
-    public void setValor(int valor) {
-        this.valor = valor;
-        switch (valor) {
+    public void setWorth(int worth) {
+        this.worth = worth;
+        switch (worth) {
             case 2:
                 keyframe = Assets.piece2AtlasRegion;
                 break;
