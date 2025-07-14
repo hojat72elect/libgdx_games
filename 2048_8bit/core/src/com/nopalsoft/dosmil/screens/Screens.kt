@@ -6,14 +6,12 @@ import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.input.GestureDetector.GestureListener
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.nopalsoft.dosmil.Assets
@@ -24,17 +22,11 @@ import com.nopalsoft.dosmil.Settings.save
 import com.nopalsoft.dosmil.game.GameScreen
 import kotlin.math.abs
 
-abstract class Screens(game: MainGame) : InputAdapter(), Screen, GestureListener {
-    @JvmField
-    var game: MainGame
+abstract class Screens(val game: MainGame) : InputAdapter(), Screen, GestureListener {
 
-    private var camera: OrthographicCamera
-
-    @JvmField
-    var batch: SpriteBatch?
-
-    @JvmField
-    var stage: Stage? = game.stage
+    private var camera = OrthographicCamera(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat())
+    var batch = game.batch
+    var stage = game.stage
 
     override fun render(delta: Float) {
         var delta = delta
@@ -56,10 +48,7 @@ abstract class Screens(game: MainGame) : InputAdapter(), Screen, GestureListener
 
     init {
         stage!!.clear()
-        this.batch = game.batch
-        this.game = game
 
-        camera = OrthographicCamera(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat())
         camera.position[SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f] = 0f
 
         val detector = GestureDetector(20f, .5f, 2f, .15f, this)

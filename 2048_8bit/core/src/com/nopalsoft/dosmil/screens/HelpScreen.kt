@@ -11,11 +11,11 @@ import com.nopalsoft.dosmil.Assets
 import com.nopalsoft.dosmil.MainGame
 
 class HelpScreen(game: MainGame) : Screens(game) {
-    private var labelTextHelp1: Label = Label(Assets.languagesBundle!!["helpTop"], Assets.labelStyleSmall)
-    private var labelTextHelp2: Label
-    private var imagePuzzle: Image
+    private var labelTextHelp1 = Label(Assets.languagesBundle!!["helpTop"], Assets.labelStyleSmall)
+    private var labelTextHelp2: Label = Label(Assets.languagesBundle!!["helpBottom"], Assets.labelStyleSmall)
+    private var imagePuzzle: Image = Image(Assets.puzzleSolvedAtlasRegion)
 
-    private var buttonBack: Button
+    private var buttonBack: Button = Button(Assets.buttonBack)
 
     init {
         labelTextHelp1.wrap = true
@@ -24,18 +24,16 @@ class HelpScreen(game: MainGame) : Screens(game) {
         labelTextHelp1.setPosition(SCREEN_WIDTH / 2f - labelTextHelp1.width / 2f, 660f)
         labelTextHelp1.setScale(1.2f)
 
-        imagePuzzle = Image(Assets.puzzleSolvedAtlasRegion)
         imagePuzzle.setSize(350f, 350f)
         imagePuzzle.setPosition(SCREEN_WIDTH / 2f - imagePuzzle.width / 2f, 290f)
 
-        labelTextHelp2 = Label(Assets.languagesBundle!!["helpBottom"], Assets.labelStyleSmall)
+
         labelTextHelp2.wrap = true
         labelTextHelp2.width = (SCREEN_WIDTH - 20).toFloat()
         labelTextHelp2.setAlignment(Align.center)
         labelTextHelp2.setPosition(SCREEN_WIDTH / 2f - labelTextHelp2.width / 2f, 200f)
         labelTextHelp2.setScale(1.2f)
 
-        buttonBack = Button(Assets.buttonBack)
         buttonBack.setSize(60f, 60f)
         buttonBack.setPosition(SCREEN_WIDTH / 2f - 30, 80f)
         addPressEffect(buttonBack)

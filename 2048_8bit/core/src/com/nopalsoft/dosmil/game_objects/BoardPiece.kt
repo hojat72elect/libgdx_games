@@ -8,10 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.nopalsoft.dosmil.Assets
 
-class BoardPiece(var position: Int, worth: Int) : Actor() {
+class BoardPiece(var currentPosition: Int, worth: Int) : Actor() {
     var justChanged = false
 
-    private val size = 110f // Final size of the tab
+    private val size = 110F // Final size of the tab
+
+    private val positionsMap = LinkedHashMap<Int, Vector2>()
 
     // The value worth of this BoardPiece
     var worth = 0 // I made this piece private because when I change its value I also have to change the image of this piece.
@@ -40,14 +42,34 @@ class BoardPiece(var position: Int, worth: Int) : Actor() {
         height = size
         setOrigin(size / 2f, size / 2f)
 
-        setPosition(positionsMap[position]!!.x, positionsMap[position]!!.y)
+
         this.worth = worth
 
-        if (worth != 0) { // If the piece is worth 0, it is a blue square that has nothing.
+        if (worth != 0) {
+            // If the piece is worth 0, it is a blue square that has nothing.
             setScale(.8f)
             addAction(Actions.scaleTo(1f, 1f, .25f))
-            Gdx.app.log("Se creo pieza en ", position.toString() + "")
+            Gdx.app.log("Se creo pieza en ", currentPosition.toString())
         }
+
+        positionsMap[0] = Vector2(20f, 350f)
+        positionsMap[1] = Vector2(130f, 350f)
+        positionsMap[2] = Vector2(240f, 350f)
+        positionsMap[3] = Vector2(350f, 350f)
+        positionsMap[4] = Vector2(20f, 240f)
+        positionsMap[5] = Vector2(130f, 240f)
+        positionsMap[6] = Vector2(240f, 240f)
+        positionsMap[7] = Vector2(350f, 240f)
+        positionsMap[8] = Vector2(20f, 130f)
+        positionsMap[9] = Vector2(130f, 130f)
+        positionsMap[10] = Vector2(240f, 130f)
+        positionsMap[11] = Vector2(350f, 130f)
+        positionsMap[12] = Vector2(20f, 20f)
+        positionsMap[13] = Vector2(130f, 20f)
+        positionsMap[14] = Vector2(240f, 20f)
+        positionsMap[15] = Vector2(350f, 20f)
+
+        setPosition(positionsMap[currentPosition]!!.x, positionsMap[currentPosition]!!.y)
     }
 
     override fun act(delta: Float) {
@@ -55,37 +77,14 @@ class BoardPiece(var position: Int, worth: Int) : Actor() {
         super.act(delta)
     }
 
-    fun moveToPosition(pos: Int) {
-        this.position = pos
-        Gdx.app.log("Move to ", pos.toString() + "")
-        addAction(Actions.moveTo(positionsMap[position]!!.x, positionsMap[position]!!.y, .075f))
+    fun moveToPosition(destinationPosition: Int) {
+        currentPosition = destinationPosition
+        Gdx.app.log("Move to ", destinationPosition.toString())
+        addAction(Actions.moveTo(positionsMap[currentPosition]!!.x, positionsMap[currentPosition]!!.y, .075f))
     }
 
     override fun draw(batch: Batch, parentAlpha: Float) {
         batch.draw(keyframe, x, y, originX, originY, width, height, scaleX, scaleY, rotation)
     }
 
-    companion object {
-        // Positions start counting from left to right from top to bottom.
-        val positionsMap: LinkedHashMap<Int, Vector2> = LinkedHashMap()
-
-        init {
-            positionsMap[0] = Vector2(20f, 350f)
-            positionsMap[1] = Vector2(130f, 350f)
-            positionsMap[2] = Vector2(240f, 350f)
-            positionsMap[3] = Vector2(350f, 350f)
-            positionsMap[4] = Vector2(20f, 240f)
-            positionsMap[5] = Vector2(130f, 240f)
-            positionsMap[6] = Vector2(240f, 240f)
-            positionsMap[7] = Vector2(350f, 240f)
-            positionsMap[8] = Vector2(20f, 130f)
-            positionsMap[9] = Vector2(130f, 130f)
-            positionsMap[10] = Vector2(240f, 130f)
-            positionsMap[11] = Vector2(350f, 130f)
-            positionsMap[12] = Vector2(20f, 20f)
-            positionsMap[13] = Vector2(130f, 20f)
-            positionsMap[14] = Vector2(240f, 20f)
-            positionsMap[15] = Vector2(350f, 20f)
-        }
-    }
 }

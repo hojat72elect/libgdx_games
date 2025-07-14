@@ -4,55 +4,36 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.badlogic.gdx.utils.Array
 import com.nopalsoft.dosmil.Assets
 import com.nopalsoft.dosmil.Assets.playSoundMove
 import com.nopalsoft.dosmil.game_objects.BoardPiece
 import com.nopalsoft.dosmil.screens.Screens
+import com.badlogic.gdx.utils.Array as GdxArray
 
 class GameBoard : Group() {
-    @JvmField
-    var state: Int
-    private var boardPieces: Array<BoardPiece>
 
-    @JvmField
-    var elapsedTime: Float = 0f
-
-    @JvmField
-    var score: Long = 0
-
-    @JvmField
-    var moveUp: Boolean = false
-
-    @JvmField
-    var moveDown: Boolean = false
-
-    @JvmField
-    var moveLeft: Boolean = false
-
-    @JvmField
-    var moveRight: Boolean = false
-
-    @JvmField
-    var didWin: Boolean
+    var state = STATE_RUNNING
+    private var boardPieces: GdxArray<BoardPiece> = GdxArray(16)
+    var elapsedTime = 0f
+    var score = 0L
+    var moveUp = false
+    var moveDown = false
+    var moveLeft = false
+    var moveRight = false
+    var didWin = false
 
     init {
         setSize(480f, 480f)
         setPosition(Screens.SCREEN_WIDTH / 2f - width / 2f, 200f)
         addBackground()
 
-        boardPieces = Array(16)
-
-        didWin = false
-
         // I initialize the board with all zeros
-        for (i in 0..15) {
+        for (i in 0..15)
             addActor(BoardPiece(i, 0))
-        }
+
 
         addPiece()
         addPiece()
-        state = STATE_RUNNING
     }
 
     private fun addBackground() {
@@ -97,9 +78,9 @@ class GameBoard : Group() {
                 val i: MutableIterator<BoardPiece> = boardPieces.iterator()
                 while (i.hasNext()) {
                     val obj = i.next()
-                    val nextPos = obj.position - 4
+                    val nextPos = obj.currentPosition - 4
                     // First I check if it can be put together
-                    if (canMergeUp(obj.position, nextPos)) {
+                    if (canMergeUp(obj.currentPosition, nextPos)) {
                         val objNext = getPieceAtPosition(nextPos)
                         if (!objNext!!.justChanged && !obj.justChanged) {
                             i.remove()
@@ -122,9 +103,9 @@ class GameBoard : Group() {
                 val i: MutableIterator<BoardPiece> = boardPieces.iterator()
                 while (i.hasNext()) {
                     val obj = i.next()
-                    val nextPos = obj.position + 4
+                    val nextPos = obj.currentPosition + 4
                     // First I check if it can be put together
-                    if (canMergeUp(obj.position, nextPos)) {
+                    if (canMergeUp(obj.currentPosition, nextPos)) {
                         val objNext = getPieceAtPosition(nextPos)
                         if (!objNext!!.justChanged && !obj.justChanged) {
                             i.remove()
@@ -147,9 +128,9 @@ class GameBoard : Group() {
                 val i: MutableIterator<BoardPiece> = boardPieces.iterator()
                 while (i.hasNext()) {
                     val obj = i.next()
-                    val nextPos = obj.position - 1
+                    val nextPos = obj.currentPosition - 1
                     // First I check if it can be put together
-                    if (canMergeTiles(obj.position, nextPos)) {
+                    if (canMergeTiles(obj.currentPosition, nextPos)) {
                         val objNext = getPieceAtPosition(nextPos)
                         if (!objNext!!.justChanged && !obj.justChanged) {
                             i.remove()
@@ -172,9 +153,9 @@ class GameBoard : Group() {
                 val i: MutableIterator<BoardPiece> = boardPieces.iterator()
                 while (i.hasNext()) {
                     val obj = i.next()
-                    val nextPos = obj.position + 1
+                    val nextPos = obj.currentPosition + 1
                     // First I check if it can be put together
-                    if (canMergeTiles(obj.position, nextPos)) {
+                    if (canMergeTiles(obj.currentPosition, nextPos)) {
                         val objNext = getPieceAtPosition(nextPos)
                         if (!objNext!!.justChanged && !obj.justChanged) {
                             i.remove()
@@ -245,9 +226,9 @@ class GameBoard : Group() {
      * Check if the space at this position is empty.
      */
     private fun isSpaceEmpty(pos: Int): Boolean {
-        val ite = Array.ArrayIterator(boardPieces)
+        val ite = GdxArray.ArrayIterator(boardPieces)
         while (ite.hasNext()) {
-            if (ite.next().position == pos) return false
+            if (ite.next().currentPosition == pos) return false
         }
         return true
     }
@@ -288,10 +269,10 @@ class GameBoard : Group() {
      * Get access to the  board piece at this position.
      */
     private fun getPieceAtPosition(pos: Int): BoardPiece? {
-        val ite = Array.ArrayIterator(boardPieces)
+        val ite = GdxArray.ArrayIterator(boardPieces)
         while (ite.hasNext()) {
             val obj = ite.next()
-            if (obj.position == pos) return obj
+            if (obj.currentPosition == pos) return obj
         }
         return null
     }
@@ -303,7 +284,7 @@ class GameBoard : Group() {
         get() = boardPieces.size == (16)
 
     private fun didWin(): Boolean {
-        val ite = Array.ArrayIterator(boardPieces)
+        val ite = GdxArray.ArrayIterator(boardPieces)
         while (ite.hasNext()) {
             val obj = ite.next()
             if (obj.worth >= 2000)  // If there is a piece worth more than 15 thousand, you win.

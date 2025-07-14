@@ -9,10 +9,8 @@ import com.nopalsoft.dosmil.screens.Screens
 
 class MainGame : Game() {
 
-    @JvmField
     var stage: Stage? = null
 
-    @JvmField
     var batch: SpriteBatch? = null
 
     override fun create() {

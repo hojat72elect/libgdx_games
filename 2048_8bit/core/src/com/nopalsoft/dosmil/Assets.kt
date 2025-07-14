@@ -16,98 +16,71 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.I18NBundle
 
 object Assets {
-    @JvmField
     var languagesBundle: I18NBundle? = null
 
-    var fontSmall: BitmapFont? = null
-    var fontLarge: BitmapFont? = null
+    private var fontSmall: BitmapFont? = null
+    private var fontLarge: BitmapFont? = null
 
-    @JvmField
     var backgroundAtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var backgroundBoardAtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var puzzleSolvedAtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var titleAtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var blackPixel: NinePatchDrawable? = null
 
-    @JvmField
     var scoresBackgroundAtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var buttonBack: TextureRegionDrawable? = null
 
-    @JvmField
     var buttonFacebook: TextureRegionDrawable? = null
 
-    @JvmField
     var buttonTwitter: TextureRegionDrawable? = null
 
-    @JvmField
     var emptyPieceAtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var piece2AtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var piece4AtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var piece8AtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var piece16AtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var piece32AtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var piece64AtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var piece128AtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var piece256AtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var piece512AtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var piece1024AtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var piece2048AtlasRegion: AtlasRegion? = null
 
-    @JvmField
     var labelStyleSmall: LabelStyle? = null
 
-    @JvmField
     var labelStyleLarge: LabelStyle? = null
 
-    @JvmField
     var buttonStyleMusic: ButtonStyle? = null
 
-    @JvmField
     var buttonStylePause: ButtonStyle? = null
 
-    @JvmField
     var buttonStyleSound: ButtonStyle? = null
 
-    var atlas: TextureAtlas? = null
+    private var atlas: TextureAtlas? = null
 
     private var music2: Music? = null
 
-    var move1: Sound? = null
-    var move2: Sound? = null
+    private var move1: Sound? = null
+    private var move2: Sound? = null
 
-    fun loadFont() {
+    private fun loadFont() {
         fontSmall = BitmapFont(
             Gdx.files.internal("data/font25.fnt"),
             atlas!!.findRegion("font25")
@@ -142,8 +115,8 @@ object Assets {
         loadFont()
         loadStyles()
 
-        if (MathUtils.randomBoolean()) backgroundAtlasRegion = atlas!!.findRegion("fondo")
-        else backgroundAtlasRegion = atlas!!.findRegion("fondo2")
+        backgroundAtlasRegion = if (MathUtils.randomBoolean()) atlas!!.findRegion("fondo")
+        else atlas!!.findRegion("fondo2")
         backgroundBoardAtlasRegion = atlas!!.findRegion("fondoPuntuaciones")
 
         titleAtlasRegion = atlas!!.findRegion("titulo")
@@ -185,17 +158,14 @@ object Assets {
         languagesBundle = I18NBundle.createBundle(Gdx.files.internal("strings/strings"))
     }
 
-    @JvmStatic
     fun playMusic() {
         if (Settings.isMusicOn) music2!!.play()
     }
 
-    @JvmStatic
     fun pauseMusic() {
         music2!!.stop()
     }
 
-    @JvmStatic
     fun playSoundMove() {
         if (Settings.isSoundOn) {
             if (MathUtils.randomBoolean()) move1!!.play(.3f)
