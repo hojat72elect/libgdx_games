@@ -24,18 +24,18 @@ import com.salvai.centrum.utils.GameColorPalette;
 public class GameOverScreen extends ScreenAdapter {
 
     public Stage stage;
-    private CentrumGameClass game;
+    private final CentrumGameClass game;
     private Table table;
     private Label scoreLabel;
-    private float height;
-    private float width;
+    private final float height;
+    private final float width;
     private Button nextLevelButton;
     private Button retryButton;
     private Button leftBottomButton;
     private Button homeButton;
-    private Image leftStar;
-    private Image centreStar;
-    private Image rightStar;
+    private final Image leftStar;
+    private final Image centreStar;
+    private final Image rightStar;
 
     public GameOverScreen(CentrumGameClass gameClass) {
         game = gameClass;
@@ -174,7 +174,6 @@ public class GameOverScreen extends ScreenAdapter {
                                 dispose();
                             }
                         })));
-
                     }
                 });
             }
@@ -227,7 +226,6 @@ public class GameOverScreen extends ScreenAdapter {
                 })));
             }
         });
-
     }
 
     private void levelUnlock() {

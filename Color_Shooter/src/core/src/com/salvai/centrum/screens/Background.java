@@ -11,9 +11,9 @@ import com.salvai.centrum.utils.RandomUtil;
 
 public class Background {
 
-    private Array<Star> stars;
-    private Array<Integer> starsCreationDelay;
-    private Texture starTexture;
+    private final Array<Star> stars;
+    private final Array<Integer> starsCreationDelay;
+    private final Texture starTexture;
 
     public Background(Texture starTexture) {
         this.starTexture = starTexture;
@@ -26,7 +26,7 @@ public class Background {
 
         //create first stars
         for (int i = 0; i < Constants.MAX_STARS - starsCreationDelay.size; i++)
-            stars.addAll(new Star(starTexture,true));
+            stars.addAll(new Star(starTexture, true));
     }
 
     private void update(float delta) {
@@ -43,12 +43,11 @@ public class Background {
             if (starsCreationDelay.get(i) <= 0)
                 starsCreationDelay.removeIndex(i);
         }
-
     }
 
     private void createStars() {
         for (int i = 0; i < Constants.MAX_STARS - stars.size - starsCreationDelay.size; i++)
-            stars.add(new Star(starTexture,false));
+            stars.add(new Star(starTexture, false));
     }
 
     private void updateStars() {
@@ -57,7 +56,6 @@ public class Background {
                 stars.removeValue(star, false);
                 starsCreationDelay.add(40); // new delay
             }
-
     }
 
     public void draw(float delta, Batch batch) {
@@ -66,7 +64,7 @@ public class Background {
             star.sprite.draw(batch);
     }
 
-    public void drawPause( Batch batch) {
+    public void drawPause(Batch batch) {
         for (Star star : stars)
             star.sprite.draw(batch);
     }

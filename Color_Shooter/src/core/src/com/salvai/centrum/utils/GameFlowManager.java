@@ -23,14 +23,14 @@ public class GameFlowManager {
     public boolean gameOver;
     public CentrumGameClass game;
     public Sound successSound;
-    private Sound enemyHitSound;
-    private Sound pointSound;
-    private Sound comboResetSound;
-    private Sound gameOverSound;
-    private Array<Integer> enemyCreationDelays;
+    private final Sound enemyHitSound;
+    private final Sound pointSound;
+    private final Sound comboResetSound;
+    private final Sound gameOverSound;
+    private final Array<Integer> enemyCreationDelays;
     private int difficultyScore;
     private int enemyCount;
-    private ParticleEffect particleEffect;
+    private final ParticleEffect particleEffect;
     private int ballInfoIndex;
 
     public GameFlowManager(CentrumGameClass gameClass) {
@@ -67,7 +67,6 @@ public class GameFlowManager {
         } else
             for (BallInfo ballInfo : game.getCurrentLevel().ballInfos)
                 enemyCreationDelays.add(ballInfo.time);
-
     }
 
     public void update(float delta) {
@@ -96,8 +95,6 @@ public class GameFlowManager {
             checkScoreAndGameOver(delta);
 
             updateParticleEffect();
-
-
         } else
             finishGame();
     }
@@ -114,9 +111,7 @@ public class GameFlowManager {
             if (explosion.particleEffect.isComplete()) {
                 explosions.removeValue(explosion, false);
             }
-
         }
-
     }
 
     private void checkScoreAndGameOver(float delta) {
@@ -187,7 +182,6 @@ public class GameFlowManager {
             if (!missile.inScreenBounds()) {
                 missiles.removeValue(missile, true);
             }
-
         }
     }
 
@@ -213,6 +207,4 @@ public class GameFlowManager {
             enemies.add(enemy);
         }
     }
-
-
 }

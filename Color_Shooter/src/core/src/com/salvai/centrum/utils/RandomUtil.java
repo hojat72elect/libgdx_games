@@ -29,7 +29,7 @@ public class RandomUtil {
     }
 
     public static Color getRandomColorNoWhite() {
-        return GameColorPalette.BASIC[random.nextInt(GameColorPalette.BASIC.length-1) + 1];
+        return GameColorPalette.BASIC[random.nextInt(GameColorPalette.BASIC.length - 1) + 1];
     }
 
     //BACKGROUND

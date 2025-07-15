@@ -29,7 +29,7 @@ public abstract class MovingGameObject {
 
 
     protected void setDirectionToCentreBall() {
-        velocity = new Vector2(Constants.WIDTH_CENTER,Constants.HEIGHT_CENTER).sub(position).nor();
+        velocity = new Vector2(Constants.WIDTH_CENTER, Constants.HEIGHT_CENTER).sub(position).nor();
     }
 
 

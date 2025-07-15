@@ -30,5 +30,4 @@ public class Missile extends MovingGameObject {
         shape.setPosition(shape.x + (velocity.x * delta * Constants.MISSILE_SPEED), shape.y + (velocity.y * delta * Constants.MISSILE_SPEED));
         sprite.setPosition(sprite.getX() + (velocity.x * delta * Constants.MISSILE_SPEED), sprite.getY() + (velocity.y * delta * Constants.MISSILE_SPEED));
     }
-
 }

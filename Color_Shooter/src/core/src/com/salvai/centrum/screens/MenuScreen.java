@@ -2,7 +2,6 @@ package com.salvai.centrum.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,12 +17,12 @@ import com.salvai.centrum.utils.Constants;
 
 public class MenuScreen extends ScreenAdapter {
 
-    private Stage stage;
+    private final Stage stage;
     private Table table;
-    private CentrumGameClass game;
-    private Label highScoreLabel;
-    private float height;
-    private float width;
+    private final CentrumGameClass game;
+    private final Label highScoreLabel;
+    private final float height;
+    private final float width;
 
     //buttons
     private Button playButton;
@@ -89,18 +88,12 @@ public class MenuScreen extends ScreenAdapter {
 
     private void setUpSettingButtons() {
         soundButton = new Button(game.skin, "sound");
-        if (game.soundOn)
-            soundButton.setChecked(false);
-        else
-            soundButton.setChecked(true);
+        soundButton.setChecked(!game.soundOn);
         soundButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.soundOn = !game.soundOn;
-                if (game.soundOn)
-                    soundButton.setChecked(false);
-                else
-                    soundButton.setChecked(true);
+                soundButton.setChecked(!game.soundOn);
                 game.savePreferences();
             }
         });

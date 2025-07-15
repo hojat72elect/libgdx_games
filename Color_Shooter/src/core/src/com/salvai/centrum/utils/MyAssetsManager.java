@@ -1,17 +1,11 @@
 package com.salvai.centrum.utils;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.FileHandleResolver;
-import com.badlogic.gdx.assets.loaders.ParticleEffectLoader;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
-import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.JsonReader;
 
 public class MyAssetsManager {
 
@@ -47,8 +41,7 @@ public class MyAssetsManager {
         manager.load(Constants.PARTICLE_EFFECT_FILE_NAME, ParticleEffect.class);
     }
 
-    public void loadSkin(){
+    public void loadSkin() {
         manager.load(Constants.SKIN_FILE_NAME, Skin.class, new SkinLoader.SkinParameter(Constants.SKIN_ATLAS_FILE_NAME));
     }
-
 }

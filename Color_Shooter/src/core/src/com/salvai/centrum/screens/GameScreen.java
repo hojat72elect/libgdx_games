@@ -1,12 +1,14 @@
 package com.salvai.centrum.screens;
 
+import static com.salvai.centrum.enums.GameState.RUNNING;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.salvai.centrum.CentrumGameClass;
 import com.salvai.centrum.actors.effects.Explosion;
 import com.salvai.centrum.actors.enemys.EnemyBall;
@@ -16,22 +18,18 @@ import com.salvai.centrum.enums.GameType;
 import com.salvai.centrum.input.GameInputProcessor;
 import com.salvai.centrum.utils.Constants;
 import com.salvai.centrum.utils.GameFlowManager;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-
-
-import static com.salvai.centrum.enums.GameState.RUNNING;
 
 public class GameScreen extends ScreenAdapter {
 
     public CentrumGameClass game;
     public int countdownTime;
     public GameFlowManager gameFlowManager;
-    private Stage stage;
+    private final Stage stage;
     private int fadeOutTime;
-    private Container<Label> scoreContainer;
-    private Label scoreLabel;
-    private Texture pauseTexture;
-    private boolean adVisible;
+    private final Container<Label> scoreContainer;
+    private final Label scoreLabel;
+    private final Texture pauseTexture;
+    private final boolean adVisible;
 
 
     public GameScreen(CentrumGameClass gameClass) {
@@ -55,7 +53,7 @@ public class GameScreen extends ScreenAdapter {
         scoreContainer.setTransform(true);
         scoreContainer.setSize(50, 50);
         scoreContainer.setOrigin(scoreContainer.getWidth() / 2, scoreContainer.getHeight() / 2);
-        scoreContainer.setPosition(Constants.WIDTH_CENTER - scoreContainer.getWidth() / 2, Constants.HEIGHT_CENTER -  scoreContainer.getHeight() / 2);
+        scoreContainer.setPosition(Constants.WIDTH_CENTER - scoreContainer.getWidth() / 2, Constants.HEIGHT_CENTER - scoreContainer.getHeight() / 2);
         stage.addActor(scoreContainer);
 
         pauseTexture = game.assetsManager.manager.get(Constants.PAUSE_BUTTON_IMAGE_NAME, Texture.class);
@@ -64,7 +62,6 @@ public class GameScreen extends ScreenAdapter {
         //to catch back key
         Gdx.input.setInputProcessor(new GameInputProcessor(this));
         Gdx.input.setCatchBackKey(true);
-
     }
 
     @Override
@@ -91,7 +88,7 @@ public class GameScreen extends ScreenAdapter {
         if (gameFlowManager.gameOver && gameFlowManager.explosions.size == 0) {
             if (game.levelSucceed && fadeOutTime > 1) {
                 fadeOutTime -= delta;
-                gameFlowManager.ball.sprite.setAlpha((float)fadeOutTime / 20);
+                gameFlowManager.ball.sprite.setAlpha((float) fadeOutTime / 20);
             } else {
                 game.setScreen(new GameOverScreen(game));
                 dispose();
@@ -183,6 +180,4 @@ public class GameScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
     }
-
-
 }

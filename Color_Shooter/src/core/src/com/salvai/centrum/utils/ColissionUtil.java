@@ -9,5 +9,4 @@ public class ColissionUtil {
     public static boolean circleHitsCircle(Circle circle, Circle circle2) {
         return Intersector.overlaps(circle, circle2);
     }
-
 }

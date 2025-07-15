@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Json;
 
 public class LevelReader {
 
-    private Json json;
+    private final Json json;
 
     public LevelReader() {
         json = new Json();
@@ -28,5 +28,4 @@ public class LevelReader {
                 maxScore++;
         return maxScore;
     }
-
 }

@@ -1,9 +1,6 @@
 package com.salvai.centrum;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -11,7 +8,6 @@ import android.widget.FrameLayout;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.salvai.centrum.utils.Text;
 
 
 public class AndroidLauncher extends AndroidApplication {

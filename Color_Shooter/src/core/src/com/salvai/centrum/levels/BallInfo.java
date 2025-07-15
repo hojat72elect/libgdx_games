@@ -10,5 +10,4 @@ public class BallInfo {
 
     public BallInfo() {
     }
-
 }

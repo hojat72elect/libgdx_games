@@ -12,8 +12,8 @@ import com.salvai.centrum.screens.MenuScreen;
 import com.salvai.centrum.utils.Constants;
 
 public class CatchBackKeyProcessor extends InputAdapter {
-    private CentrumGameClass game;
-    private Screen screen;
+    private final CentrumGameClass game;
+    private final Screen screen;
 
     public CatchBackKeyProcessor(CentrumGameClass game, Screen screen) {
         this.game = game;
@@ -27,7 +27,7 @@ public class CatchBackKeyProcessor extends InputAdapter {
                 ((LevelChooseScreen) screen).stage.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                            game.setScreen(new MenuScreen(game));
+                        game.setScreen(new MenuScreen(game));
                         screen.dispose();
                     }
                 })));
@@ -45,9 +45,7 @@ public class CatchBackKeyProcessor extends InputAdapter {
                         screen.dispose();
                     }
                 })));
-
             }
-
         }
         return true;
     }

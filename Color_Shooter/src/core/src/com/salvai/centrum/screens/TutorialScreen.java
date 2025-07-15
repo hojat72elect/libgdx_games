@@ -17,12 +17,12 @@ import com.salvai.centrum.utils.Constants;
 public class TutorialScreen extends ScreenAdapter {
 
 
-    private Stage stage;
+    private final Stage stage;
     private Table table;
-    private CentrumGameClass game;
-    private Label textLabel;
-    private float height;
-    private float width;
+    private final CentrumGameClass game;
+    private final Label textLabel;
+    private final float height;
+    private final float width;
 
     //buttons
     private Button playButton;
@@ -75,7 +75,6 @@ public class TutorialScreen extends ScreenAdapter {
                         dispose();
                     }
                 })));
-
             }
         });
     }
@@ -105,5 +104,4 @@ public class TutorialScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
     }
-
 }

@@ -5,7 +5,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.salvai.centrum.CentrumGameClass;
 import com.salvai.centrum.levels.LevelReader;
@@ -13,12 +12,12 @@ import com.salvai.centrum.utils.Constants;
 
 public class SplashScreen extends ScreenAdapter {
 
-    private Texture splashTexture;
-    private Sprite splashSprite;
-    private CentrumGameClass game;
+    LevelReader levelReader;
+    private final Texture splashTexture;
+    private final Sprite splashSprite;
+    private final CentrumGameClass game;
     private int countdownTime;
     private int levelLoadCount;
-    LevelReader levelReader;
 
     public SplashScreen(CentrumGameClass gameClass) {
         game = gameClass;
@@ -31,7 +30,6 @@ public class SplashScreen extends ScreenAdapter {
         countdownTime = 40;
         levelLoadCount = 1;
         levelReader = new LevelReader();
-
     }
 
     @Override
@@ -77,6 +75,4 @@ public class SplashScreen extends ScreenAdapter {
         // change the stage's viewport when teh screen size is changed
         game.viewport.update(width, height, true);
     }
-
-
 }

@@ -26,7 +26,7 @@ public class LevelChooseScreen extends ScreenAdapter {
     public Stage stage;
     float width;
     float height;
-    private Table table;
+    private final Table table;
 
     public LevelChooseScreen(CentrumGameClass gameClass) {
         game = gameClass;
@@ -79,11 +79,10 @@ public class LevelChooseScreen extends ScreenAdapter {
                         dispose();
                     }
                 })));
-
             }
         });
 
-        table.add(endlessButton).colspan(COLUMNS).pad(width * 0.01f).size(width * SIZE*3).spaceBottom(width * 0.05f);
+        table.add(endlessButton).colspan(COLUMNS).pad(width * 0.01f).size(width * SIZE * 3).spaceBottom(width * 0.05f);
         table.row();
         for (int i = 0; i < game.levels.size; i++) {
             setUpLevelButtons(i, game.levelStars[i]);
@@ -94,7 +93,7 @@ public class LevelChooseScreen extends ScreenAdapter {
 
     private void setUpLevelButtons(final int level, int levelStars) {
         if (levelStars >= 0) {
-            TextButton levelButton = new TextButton("" + (level + 1), game.skin, "level-" + ((level * 1) % COLORS));
+            TextButton levelButton = new TextButton("" + (level + 1), game.skin, "level-" + ((level) % COLORS));
             levelButton.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -110,12 +109,11 @@ public class LevelChooseScreen extends ScreenAdapter {
                             dispose();
                         }
                     })));
-
                 }
             });
             table.add(levelButton).size(width * SIZE).pad(width * 0.01f);
         } else { //locked
-            Button levelButton = new Button(game.skin, "locked-" + ((level * 1) % COLORS));
+            Button levelButton = new Button(game.skin, "locked-" + ((level) % COLORS));
             table.add(levelButton).size(width * SIZE).pad(width * 0.01f);
         }
     }
@@ -157,7 +155,6 @@ public class LevelChooseScreen extends ScreenAdapter {
                                     dispose();
                                 }
                             })));
-
                         }
                     });
                     table.add(starsButton);
