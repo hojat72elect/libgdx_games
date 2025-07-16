@@ -13,8 +13,6 @@ public class Explosion {
 
     /**
      * for center ball
-     *
-     * @param color
      */
     public Explosion(Color color, Sound sound, boolean soundOn, ParticleEffect particleEffect) {
 
@@ -33,12 +31,6 @@ public class Explosion {
 
     /**
      * for enemies
-     *
-     * @param position
-     * @param color
-     * @param sound
-     * @param soundOn
-     * @param particleEffect
      */
     public Explosion(Vector2 position, Color color, Sound sound, boolean soundOn, ParticleEffect particleEffect) {
         this.sound = sound;

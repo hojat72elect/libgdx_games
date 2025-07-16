@@ -55,10 +55,10 @@ public class GameFlowManager {
 
         //GameObjects
         ball = new Ball(Constants.WIDTH_CENTER, Constants.HEIGHT_CENTER, ballTexture);
-        missiles = new Array<Missile>();
-        enemies = new Array<EnemyBall>();
-        explosions = new Array<Explosion>();
-        enemyCreationDelays = new Array<Integer>();
+        missiles = new Array<>();
+        enemies = new Array<>();
+        explosions = new Array<>();
+        enemyCreationDelays = new Array<>();
 
 
         if (this.game.gameType == GameType.ENDLESS) {
@@ -155,7 +155,8 @@ public class GameFlowManager {
             if (enemyCreationDelays.get(i) <= 0) {
                 //create enemies
                 enemyCreationDelays.removeIndex(i);
-                BallInfo ballInfo = game.getCurrentLevel().ballInfos[ballInfoIndex];
+                BallInfo ballInfo = game.getCurrentLevel().ballInfos.get(ballInfoIndex);
+
                 enemies.add(new EnemyBall(ballInfo.x, ballInfo.y, ballInfo.speed, GameColorPalette.BASIC[ballInfo.color], game.assetsManager.manager.get(Constants.BALL_IMAGE_NAME, Texture.class)));
                 ballInfoIndex++;
             }

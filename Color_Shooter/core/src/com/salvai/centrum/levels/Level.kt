@@ -1,11 +1,14 @@
-package com.salvai.centrum.levels;
+package com.salvai.centrum.levels
 
-public class Level {
-    public BallInfo[] ballInfos;
-    public int thirdStarScore;
-    public int secondStarScore;
+import com.badlogic.gdx.utils.Array as GdxArray
 
-    public Level() {
+class Level {
+    @JvmField
+    val ballInfos = GdxArray<BallInfo>()
 
-    }
+    @JvmField
+    var thirdStarScore = 0
+
+    @JvmField
+    var secondStarScore = 0
 }

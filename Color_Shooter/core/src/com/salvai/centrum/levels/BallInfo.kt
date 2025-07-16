@@ -1,13 +1,14 @@
-package com.salvai.centrum.levels;
+package com.salvai.centrum.levels
 
-public class BallInfo {
-
-    public int x;
-    public int y;
-    public int time;
-    public int speed;
-    public int color; // index of basics color array
-
-    public BallInfo() {
-    }
-}
+data class BallInfo(
+    @JvmField
+    var x: Int = 0,
+    @JvmField
+    var y: Int = 0,
+    @JvmField
+    var time: Int = 0,
+    @JvmField
+    var speed: Int = 0,
+    @JvmField
+    var color: Int = 0 // index of basics color array
+)
