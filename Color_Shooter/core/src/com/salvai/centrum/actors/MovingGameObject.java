@@ -34,9 +34,7 @@ public abstract class MovingGameObject {
 
 
     /**
-     * returns null if no Vetocr2 Position set
-     *
-     * @return
+     * returns null if no {@Vector2} Position set
      */
     public Boolean inScreenBounds() {
         if (position == null)

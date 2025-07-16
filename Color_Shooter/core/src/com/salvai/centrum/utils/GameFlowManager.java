@@ -119,7 +119,7 @@ public class GameFlowManager {
         //Check score and game over
         for (EnemyBall enemy : enemies) {
             if (EnemyUtil.hitsCentre(enemy, ball))
-                if (enemy.color.equals(ball.color)) {
+                if (enemy.color.equals(ball.getColor())) {
                     game.score++;
                     explosions.add(new Explosion(enemy.position, enemy.color, pointSound, game.soundOn, particleEffect));
                     enemies.removeValue(enemy, true);
@@ -131,7 +131,7 @@ public class GameFlowManager {
                     for (EnemyBall enemyBall : enemies)
                         explosions.add(new Explosion(enemyBall.position, enemyBall.color, enemyHitSound, false, particleEffect));
                     //center ball
-                    explosions.add(new Explosion(ball.color, gameOverSound, game.soundOn, particleEffect));
+                    explosions.add(new Explosion(ball.getColor(), gameOverSound, game.soundOn, particleEffect));
                     enemies.clear();
                     break;
                 }
@@ -168,7 +168,7 @@ public class GameFlowManager {
             //missile hits enemy
             for (EnemyBall enemy : enemies) {
                 if (EnemyUtil.isHitByMissile(enemy, missile)) {
-                    if (enemy.color.equals(ball.color)) {
+                    if (enemy.color.equals(ball.getColor())) {
                         explosions.add(new Explosion(enemy.position, enemy.color, comboResetSound, game.soundOn, particleEffect));
                     } else
                         explosions.add(new Explosion(enemy.position, enemy.color, enemyHitSound, game.soundOn, particleEffect));
