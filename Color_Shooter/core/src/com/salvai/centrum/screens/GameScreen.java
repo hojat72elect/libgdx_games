@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.salvai.centrum.CentrumGameClass;
 import com.salvai.centrum.actors.effects.Explosion;
-import com.salvai.centrum.actors.enemys.EnemyBall;
+import com.salvai.centrum.actors.enemies.EnemyBall;
 import com.salvai.centrum.actors.player.Missile;
 import com.salvai.centrum.enums.GameState;
 import com.salvai.centrum.enums.GameType;

@@ -1,7 +1,7 @@
 package com.salvai.centrum.utils;
 
-import com.salvai.centrum.actors.enemys.Enemy;
-import com.salvai.centrum.actors.enemys.EnemyBall;
+import com.salvai.centrum.actors.enemies.Enemy;
+import com.salvai.centrum.actors.enemies.EnemyBall;
 import com.salvai.centrum.actors.player.Ball;
 import com.salvai.centrum.actors.player.Missile;
 

@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.utils.Array;
 import com.salvai.centrum.CentrumGameClass;
 import com.salvai.centrum.actors.effects.Explosion;
-import com.salvai.centrum.actors.enemys.EnemyBall;
+import com.salvai.centrum.actors.enemies.EnemyBall;
 import com.salvai.centrum.actors.player.Ball;
 import com.salvai.centrum.actors.player.Missile;
 import com.salvai.centrum.enums.GameState;

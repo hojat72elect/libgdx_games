@@ -1,4 +1,4 @@
-package com.salvai.centrum.actors.enemys;
+package com.salvai.centrum.actors.enemies;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
