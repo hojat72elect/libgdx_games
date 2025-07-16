@@ -1,5 +1,5 @@
-package com.salvai.centrum.enums;
+package com.salvai.centrum.enums
 
-public enum GameType {
+enum class GameType {
     ENDLESS, LEVEL
 }
