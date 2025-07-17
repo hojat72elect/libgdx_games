@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.Circle
 import com.salvai.centrum.utils.Constants
-import com.salvai.centrum.utils.GameColorPalette
+import com.salvai.centrum.utils.GameTheme
 
 class Ball(var x: Float, var y: Float, texture: Texture) {
     @JvmField
@@ -15,7 +15,7 @@ class Ball(var x: Float, var y: Float, texture: Texture) {
     var sprite = Sprite(texture)
 
     //set color white
-    var color = Color(GameColorPalette.BASIC[0])
+    var color = Color(GameTheme[0])
         set(value) {
             field = value
             sprite.setColor(value)

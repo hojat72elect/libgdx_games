@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Circle
 import com.badlogic.gdx.math.Vector2
 import com.salvai.centrum.actors.MovingGameObject
 import com.salvai.centrum.utils.Constants
-import com.salvai.centrum.utils.GameColorPalette
+import com.salvai.centrum.utils.GameTheme
 
 class Missile(touch: Vector2, texture: Texture) : MovingGameObject() {
     @JvmField
@@ -19,7 +19,7 @@ class Missile(touch: Vector2, texture: Texture) : MovingGameObject() {
         velocity = touch.sub(position).nor()
         shape = Circle(position.x, position.y, Constants.MISSILE_RADIUS)
         sprite.setBounds(position.x, position.y, Constants.MISSILE_RADIUS, Constants.MISSILE_RADIUS)
-        sprite.setColor(GameColorPalette.BASIC[0])
+        sprite.setColor(GameTheme[0])
     }
 
 

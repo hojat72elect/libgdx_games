@@ -25,7 +25,7 @@ public class RandomUtil {
     }
 
     public static Color getRandomColor() {
-        return GameColorPalette.BASIC[random.nextInt(GameColorPalette.BASIC.length)];
+        return ThemeKt.getGameTheme().random();
     }
 
     //BACKGROUND

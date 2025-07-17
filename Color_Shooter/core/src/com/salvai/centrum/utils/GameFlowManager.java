@@ -118,7 +118,7 @@ public class GameFlowManager {
 
         //Check score and game over
         for (EnemyBall enemy : enemies) {
-            if (EnemyUtil.hitsCentre(enemy, ball))
+            if (EnemyKt.hitsCentre(enemy, ball))
                 if (enemy.color.equals(ball.getColor())) {
                     game.score++;
                     explosions.add(new Explosion(enemy.position, enemy.color, pointSound, game.soundOn, particleEffect));
@@ -157,7 +157,7 @@ public class GameFlowManager {
                 enemyCreationDelays.removeIndex(i);
                 BallInfo ballInfo = game.getCurrentLevel().ballInfos.get(ballInfoIndex);
 
-                enemies.add(new EnemyBall(ballInfo.x, ballInfo.y, ballInfo.speed, GameColorPalette.BASIC[ballInfo.color], game.assetsManager.manager.get(Constants.BALL_IMAGE_NAME, Texture.class)));
+                enemies.add(new EnemyBall(ballInfo.x, ballInfo.y, ballInfo.speed, ThemeKt.getGameTheme().get(ballInfo.color), game.assetsManager.manager.get(Constants.BALL_IMAGE_NAME, Texture.class)));
                 ballInfoIndex++;
             }
         }
@@ -168,7 +168,7 @@ public class GameFlowManager {
         for (Missile missile : missiles) {
             //missile hits enemy
             for (EnemyBall enemy : enemies) {
-                if (EnemyUtil.isHitByMissile(enemy, missile)) {
+                if (EnemyKt.isHitByMissile(enemy, missile)) {
                     if (enemy.color.equals(ball.getColor())) {
                         explosions.add(new Explosion(enemy.position, enemy.color, comboResetSound, game.soundOn, particleEffect));
                     } else

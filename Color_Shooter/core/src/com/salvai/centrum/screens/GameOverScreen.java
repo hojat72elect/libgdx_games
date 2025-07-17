@@ -18,7 +18,7 @@ import com.salvai.centrum.CentrumGameClass;
 import com.salvai.centrum.enums.GameType;
 import com.salvai.centrum.input.CatchBackKeyProcessor;
 import com.salvai.centrum.utils.Constants;
-import com.salvai.centrum.utils.GameColorPalette;
+import com.salvai.centrum.utils.ThemeKt;
 
 
 public class GameOverScreen extends ScreenAdapter {
@@ -79,26 +79,25 @@ public class GameOverScreen extends ScreenAdapter {
     }
 
     private void assignHighscore() {
-        boolean newHighscore = false;
+
         //save highscore
         if (game.highScore < game.score) {
             game.highScore = game.score;
             game.preferences.putInteger("best", game.score);
             game.preferences.flush();
-            newHighscore = true;
         }
     }
 
     private void setStarsColor() {
         if (game.levelSucceed && game.score == game.getCurrentLevel().thirdStarScore) {
-            leftStar.setColor(GameColorPalette.BASIC[2]);
-            centreStar.setColor(GameColorPalette.BASIC[2]);
-            rightStar.setColor(GameColorPalette.BASIC[2]);
+            leftStar.setColor(ThemeKt.getGameTheme().get(2));
+            centreStar.setColor(ThemeKt.getGameTheme().get(2));
+            rightStar.setColor(ThemeKt.getGameTheme().get(2));
         } else if (game.levelSucceed && game.score >= game.getCurrentLevel().secondStarScore) {
-            leftStar.setColor(GameColorPalette.BASIC[2]);
-            centreStar.setColor(GameColorPalette.BASIC[2]);
+            leftStar.setColor(ThemeKt.getGameTheme().get(2));
+            centreStar.setColor(ThemeKt.getGameTheme().get(2));
         } else if (game.levelSucceed)
-            leftStar.setColor(GameColorPalette.BASIC[2]);
+            leftStar.setColor(ThemeKt.getGameTheme().get(2));
     }
 
     private void setUpLevelTable() {
@@ -182,20 +181,6 @@ public class GameOverScreen extends ScreenAdapter {
 
         if (game.gameType == GameType.ENDLESS) {
             leftBottomButton = new Button(game.skin, "highscore");
-            leftBottomButton.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    // TODO use local highscore
-                    // if (game.playServices.isSessionActive())
-                    //     try {
-                    //         game.playServices.showLeaderboards(Keyz.LEADERBOARD_ID);
-                    //     } catch (GameServiceException e) {
-                    //         e.printStackTrace();
-                    //     }
-                    // else
-                    //     game.playServices.logIn();
-                }
-            });
         } else {
             leftBottomButton = new Button(game.skin, "levels");
             leftBottomButton.addListener(new ClickListener() {
