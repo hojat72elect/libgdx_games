@@ -10,169 +10,146 @@ import com.badlogic.gdx.utils.Array;
 
 public class PagedScrollPane extends ScrollPane {
 
-	private boolean wasPanDragFling = false;
+    private boolean wasPanDragFling = false;
 
-	private float pageSpacing;
+    private float pageSpacing;
 
-	private Table content;
+    private Table content;
 
-	public PagedScrollPane() {
+    public PagedScrollPane() {
 
-		super(null);
+        super(null);
 
-		setup();
+        setup();
+    }
 
-	}
+    public PagedScrollPane(Skin skin) {
 
-	public PagedScrollPane(Skin skin) {
+        super(null, skin);
 
-		super(null, skin);
+        setup();
+    }
 
-		setup();
+    public PagedScrollPane(Skin skin, String styleName) {
 
-	}
+        super(null, skin, styleName);
 
-	public PagedScrollPane(Skin skin, String styleName) {
+        setup();
+    }
 
-		super(null, skin, styleName);
+    public PagedScrollPane(Actor widget, ScrollPaneStyle style) {
 
-		setup();
+        super(null, style);
 
-	}
+        setup();
+    }
 
-	public PagedScrollPane(Actor widget, ScrollPaneStyle style) {
+    private void setup() {
 
-		super(null, style);
+        content = new Table();
 
-		setup();
+        content.defaults().space(250);
 
-	}
+        super.setWidget(content);
+    }
 
-	private void setup() {
+    public void addPages(Actor... pages) {
 
-		content = new Table();
+        for (Actor page : pages) {
 
-		content.defaults().space(250);
+            content.add(page).expandY().fillY();
+        }
+    }
 
-		super.setWidget(content);
+    public void addPage(Actor page) {
 
-	}
+        content.add(page).expandY().fillY();
+    }
 
-	public void addPages(Actor... pages) {
+    @Override
+    public void act(float delta) {
 
-		for (Actor page : pages) {
+        super.act(delta);
 
-			content.add(page).expandY().fillY();
+        if (wasPanDragFling && !isPanning() && !isDragging() && !isFlinging()) {
 
-		}
+            wasPanDragFling = false;
 
-	}
+            scrollToPage();
+        } else {
 
-	public void addPage(Actor page) {
+            if (isPanning() || isDragging() || isFlinging()) {
 
-		content.add(page).expandY().fillY();
+                wasPanDragFling = true;
+            }
+        }
+    }
 
-	}
+    // @Override
+    // public void setWidget(Actor widget) {
+    //
+    // throw new UnsupportedOperationException("Use PagedScrollPane#addPage.");
+    //
+    // }
 
-	@Override
-	public void act(float delta) {
+    @Override
+    public void setWidth(float width) {
 
-		super.act(delta);
+        super.setWidth(width);
 
-		if (wasPanDragFling && !isPanning() && !isDragging() && !isFlinging()) {
+        if (content != null) {
 
-			wasPanDragFling = false;
+            for (Cell cell : content.getCells()) {
 
-			scrollToPage();
+                cell.width(width);
+            }
 
-		}
-		else {
+            content.invalidate();
+        }
+    }
 
-			if (isPanning() || isDragging() || isFlinging()) {
+    public void setPageSpacing(float pageSpacing) {
 
-				wasPanDragFling = true;
+        if (content != null) {
 
-			}
+            content.defaults().space(pageSpacing);
 
-		}
+            for (Cell cell : content.getCells()) {
 
-	}
+                cell.space(pageSpacing);
+            }
 
-	// @Override
-	// public void setWidget(Actor widget) {
-	//
-	// throw new UnsupportedOperationException("Use PagedScrollPane#addPage.");
-	//
-	// }
+            content.invalidate();
+        }
+    }
 
-	@Override
-	public void setWidth(float width) {
+    private void scrollToPage() {
 
-		super.setWidth(width);
+        final float width = getWidth();
 
-		if (content != null) {
+        final float scrollX = getScrollX();
 
-			for (Cell cell : content.getCells()) {
+        final float maxX = getMaxX();
 
-				cell.width(width);
+        if (scrollX >= maxX || scrollX <= 0)
+            return;
 
-			}
+        Array<Actor> pages = content.getChildren();
 
-			content.invalidate();
+        float pageX = 0;
 
-		}
+        float pageWidth = 0;
+        if (pages.size > 0) {
+            for (Actor a : pages) {
+                pageX = a.getX();
+                pageWidth = a.getWidth();
+                if (scrollX < (pageX + pageWidth * 0.5)) {
+                    break;
+                }
+            }
 
-	}
-
-	public void setPageSpacing(float pageSpacing) {
-
-		if (content != null) {
-
-			content.defaults().space(pageSpacing);
-
-			for (Cell cell : content.getCells()) {
-
-				cell.space(pageSpacing);
-
-			}
-
-			content.invalidate();
-
-		}
-
-	}
-
-	private void scrollToPage() {
-
-		final float width = getWidth();
-
-		final float scrollX = getScrollX();
-
-		final float maxX = getMaxX();
-
-		if (scrollX >= maxX || scrollX <= 0)
-			return;
-
-		Array<Actor> pages = content.getChildren();
-
-		float pageX = 0;
-
-		float pageWidth = 0;
-		if (pages.size > 0) {
-			for (Actor a : pages) {
-				pageX = a.getX();
-				pageWidth = a.getWidth();
-				if (scrollX < (pageX + pageWidth * 0.5)) {
-					break;
-
-				}
-
-			}
-
-			setScrollX(MathUtils.clamp(pageX - (width - pageWidth) / 2, 0, maxX));
-			// setScrollX(MathUtils.clamp(pageX, 0, maxX));
-		}
-
-	}
-
+            setScrollX(MathUtils.clamp(pageX - (width - pageWidth) / 2, 0, maxX));
+            // setScrollX(MathUtils.clamp(pageX, 0, maxX));
+        }
+    }
 }

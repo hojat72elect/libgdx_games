@@ -84,7 +84,6 @@ public class LevelScreen extends Screens {
         });
 
         return button;
-
     }
 
     @Override
@@ -96,7 +95,6 @@ public class LevelScreen extends Screens {
         batcher.disableBlending();
         batcher.draw(Assets.fondo, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         batcher.end();
-
     }
 
     @Override
@@ -111,5 +109,4 @@ public class LevelScreen extends Screens {
         }
         return false;
     }
-
 }

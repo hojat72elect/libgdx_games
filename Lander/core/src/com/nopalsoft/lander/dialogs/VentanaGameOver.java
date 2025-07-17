@@ -28,138 +28,129 @@ import com.nopalsoft.lander.screens.Screens;
  * Use la clase Window porque le tenia que poner la tachita
  */
 public class VentanaGameOver extends Window {
-	static public float fadeDuration = 0.4f;
+    static public float fadeDuration = 0.4f;
+    final int levelActual;
+    MainLander game;
+    WorldGame oWorld;
+    Label lblLevelActual;
+    Image[] estrellas;
+    ImageButton btMenu, btTryAgain;
+    InputListener ignoreTouchDown = new InputListener() {
+        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            event.cancel();
+            return false;
+        }
+    };
 
-	MainLander game;
-	WorldGame oWorld;
+    public VentanaGameOver(final MainLander game, final WorldGame oWorld, final int levelActual) {
+        super("", Assets.styleDialogGameOver);
+        this.game = game;
+        this.oWorld = oWorld;
+        this.setMovable(false);
+        this.levelActual = levelActual;
 
-	Label lblLevelActual;
-	Image[] estrellas;
+        Label paused = new Label("Gameover", Assets.styleLabelMediana);
+        lblLevelActual = new Label("Level " + (levelActual + 1), Assets.styleLabelMediana);
 
-	ImageButton btMenu, btTryAgain;
-	final int levelActual;
+        estrellas = new Image[3];
+        Table starTable = new Table();
+        starTable.defaults().pad(15);
+        if (oWorld.estrellasTomadas >= 0) {
+            for (int star = 0; star < 3; star++) {
+                // Todas son grises la primera vez
+                estrellas[star] = new Image(Assets.starOff);
+                starTable.add(estrellas[star]).width(50).height(50);
+            }
+        }
 
-	public VentanaGameOver(final MainLander game, final WorldGame oWorld, final int levelActual) {
-		super("", Assets.styleDialogGameOver);
-		this.game = game;
-		this.oWorld = oWorld;
-		this.setMovable(false);
-		this.levelActual = levelActual;
+        btMenu = new ImageButton(Assets.styleImageButtonPause);
+        btMenu.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                hide(LevelScreen.class);
+            }
+        });
 
-		Label paused = new Label("Gameover", Assets.styleLabelMediana);
-		lblLevelActual = new Label("Level " + (levelActual + 1), Assets.styleLabelMediana);
+        btTryAgain = new ImageButton(Assets.styleImageButtonPause);
+        btTryAgain.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                hide(GameScreen.class);
+            }
+        });
 
-		estrellas = new Image[3];
-		Table starTable = new Table();
-		starTable.defaults().pad(15);
-		if (oWorld.estrellasTomadas >= 0) {
-			for (int star = 0; star < 3; star++) {
-				// Todas son grises la primera vez
-				estrellas[star] = new Image(Assets.starOff);
-				starTable.add(estrellas[star]).width(50).height(50);
-			}
-		}
+        this.row().padTop(30);
+        this.add(paused).colspan(2);
 
-		btMenu = new ImageButton(Assets.styleImageButtonPause);
-		btMenu.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				hide(LevelScreen.class);
-			}
-		});
+        this.row().padTop(30);
+        this.add(lblLevelActual).colspan(2);
 
-		btTryAgain = new ImageButton(Assets.styleImageButtonPause);
-		btTryAgain.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				hide(GameScreen.class);
-			}
-		});
+        this.row().padTop(30);
+        this.add(starTable).colspan(2);
 
-		this.row().padTop(30);
-		this.add(paused).colspan(2);
+        this.row().padTop(30).expandX();
+        this.add(btMenu);
 
-		this.row().padTop(30);
-		this.add(lblLevelActual).colspan(2);
+        this.add(btTryAgain);
 
-		this.row().padTop(30);
-		this.add(starTable).colspan(2);
+        this.row().expandX();
+        this.add(new Label("Menu", Assets.styleLabelMediana));
+        this.add(new Label("Try Again", Assets.styleLabelMediana));
+    }
 
-		this.row().padTop(30).expandX();
-		this.add(btMenu);
+    public void show(Stage stage) {
 
-		this.add(btTryAgain);
+        /*
+         * Se reemplazan las estrellas grises por las tomadas =)
+         */
+        for (int i = 0; i < oWorld.estrellasTomadas; i++) {
+            estrellas[i].setDrawable(new TextureRegionDrawable(Assets.star));
+        }
 
-		this.row().expandX();
-		this.add(new Label("Menu", Assets.styleLabelMediana));
-		this.add(new Label("Try Again", Assets.styleLabelMediana));
+        this.pack();
+        setSize(Screens.SCREEN_WIDTH, 0);
 
-	}
+        SizeToAction sizeAction = Actions.action(SizeToAction.class);
+        sizeAction.setSize(Screens.SCREEN_WIDTH, 500);// ALTURA FINAL
+        sizeAction.setDuration(.25f);
 
-	public void show(Stage stage) {
+        setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, Screens.SCREEN_HEIGHT / 2f - 500 / 2f);// 500 ALTURA FINAL
+        addAction(sizeAction);
 
-		/*
-		 * Se reemplazan las estrellas grises por las tomadas =)
-		 */
-		for (int i = 0; i < oWorld.estrellasTomadas; i++) {
-			estrellas[i].setDrawable(new TextureRegionDrawable(Assets.star));
-		}
+        stage.addActor(this);
+        if (fadeDuration > 0) {
+            getColor().a = 0;
+            addAction(Actions.fadeIn(fadeDuration, Interpolation.fade));
+        }
+    }
 
-		this.pack();
-		setSize(Screens.SCREEN_WIDTH, 0);
+    public void resumeGame() {
+        hide(null);
+        if (game.getScreen() instanceof GameScreen)
+            GameScreen.state = GameScreen.STATE_RUNNING;
+    }
 
-		SizeToAction sizeAction = Actions.action(SizeToAction.class);
-		sizeAction.setSize(Screens.SCREEN_WIDTH, 500);// ALTURA FINAL
-		sizeAction.setDuration(.25f);
+    public void hide(final Class<?> newScreen) {
+        if (fadeDuration > 0) {
+            addCaptureListener(ignoreTouchDown);
 
-		setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, Screens.SCREEN_HEIGHT / 2f - 500 / 2f);// 500 ALTURA FINAL
-		addAction(sizeAction);
+            SizeToAction sizeAction = Actions.action(SizeToAction.class);
+            sizeAction.setSize(Screens.SCREEN_WIDTH, 0);// ALTURA FINAL
+            sizeAction.setDuration(.25f);
 
-		stage.addActor(this);
-		if (fadeDuration > 0) {
-			getColor().a = 0;
-			addAction(Actions.fadeIn(fadeDuration, Interpolation.fade));
-		}
+            RunnableAction run = Actions.run(new Runnable() {
+                @Override
+                public void run() {
+                    if (newScreen == LevelScreen.class) {
+                        game.setScreen(new LevelScreen(game));
+                    } else if (newScreen == GameScreen.class) {
+                        game.setScreen(new GameScreen(game, levelActual));
+                    }
+                }
+            });
 
-	}
-
-	public void resumeGame() {
-		hide(null);
-		if (game.getScreen() instanceof GameScreen)
-			GameScreen.state = GameScreen.STATE_RUNNING;
-	}
-
-	public void hide(final Class<?> newScreen) {
-		if (fadeDuration > 0) {
-			addCaptureListener(ignoreTouchDown);
-
-			SizeToAction sizeAction = Actions.action(SizeToAction.class);
-			sizeAction.setSize(Screens.SCREEN_WIDTH, 0);// ALTURA FINAL
-			sizeAction.setDuration(.25f);
-
-			RunnableAction run = Actions.run(new Runnable() {
-				@Override
-				public void run() {
-					if (newScreen == LevelScreen.class) {
-						game.setScreen(new LevelScreen(game));
-					}
-					else if (newScreen == GameScreen.class) {
-						game.setScreen(new GameScreen(game, levelActual));
-					}
-				}
-			});
-
-			addAction(sequence(Actions.parallel(fadeOut(fadeDuration, Interpolation.fade), sizeAction), Actions.removeListener(ignoreTouchDown, true), run, Actions.removeActor()));
-		}
-		else
-			remove();
-
-	}
-
-	InputListener ignoreTouchDown = new InputListener() {
-		public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-			event.cancel();
-			return false;
-		}
-	};
+            addAction(sequence(Actions.parallel(fadeOut(fadeDuration, Interpolation.fade), sizeAction), Actions.removeListener(ignoreTouchDown, true), run, Actions.removeActor()));
+        } else
+            remove();
+    }
 }

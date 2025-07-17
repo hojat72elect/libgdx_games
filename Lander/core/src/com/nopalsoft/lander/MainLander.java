@@ -7,17 +7,16 @@ import com.nopalsoft.lander.screens.MainMenuScreen;
 
 public class MainLander extends Game {
 
-	public Stage stage;
-	public SpriteBatch batcher;
+    public Stage stage;
+    public SpriteBatch batcher;
 
-	@Override
-	public void create() {
-		Assets.cargar();
-		stage = new Stage();
-		batcher = new SpriteBatch();
+    @Override
+    public void create() {
+        Assets.cargar();
+        stage = new Stage();
+        batcher = new SpriteBatch();
 
-		// setScreen(new GameScreen(this, 1));
-		setScreen(new MainMenuScreen(this));
-	}
-
+        // setScreen(new GameScreen(this, 1));
+        setScreen(new MainMenuScreen(this));
+    }
 }

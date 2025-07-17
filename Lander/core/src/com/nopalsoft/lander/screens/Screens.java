@@ -121,5 +121,4 @@ public abstract class Screens extends InputAdapter implements Screen {
 
         batcher.dispose();
     }
-
 }
