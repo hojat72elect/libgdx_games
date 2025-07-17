@@ -32,10 +32,10 @@ public class Colisiones implements ContactListener {
             beginContactNaveOtraCosa(contact.getFixtureB(), contact.getFixtureA());
 
         else if (contact.getFixtureB().getBody().getUserData() instanceof Bomba)
-            beginContactBombaOtraCosa(contact.getFixtureB(), contact.getFixtureA());
+            beginContactBombaOtraCosa(contact.getFixtureB());
 
         else if (contact.getFixtureA().getBody().getUserData() instanceof Bomba)
-            beginContactBombaOtraCosa(contact.getFixtureA(), contact.getFixtureB());
+            beginContactBombaOtraCosa(contact.getFixtureA());
     }
 
     public void beginContactNaveOtraCosa(Fixture nave, Fixture otraCosa) {
@@ -88,16 +88,9 @@ public class Colisiones implements ContactListener {
                 oNave.isLanded = true;
     }
 
-    private void beginContactBombaOtraCosa(Fixture bomba, Fixture otraCosa) {
+    private void beginContactBombaOtraCosa(Fixture bomba) {
         Body bodyBomba = bomba.getBody();
         Bomba oBomba = (Bomba) bodyBomba.getUserData();
-
-        Body bodyOtraCosa = otraCosa.getBody();
-        Object oOtraCosa = bodyOtraCosa.getUserData();
-
-        if (oOtraCosa.equals("pared")) {
-
-        }
         oBomba.cambioDireccion();
     }
 
@@ -133,37 +126,17 @@ public class Colisiones implements ContactListener {
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
-
-        if (contact.getFixtureA().getBody().getUserData() instanceof Nave)
-            preSolveNaveOtraCosa(contact.getFixtureA(), contact.getFixtureB());
-        else if (contact.getFixtureB().getBody().getUserData() instanceof Nave)
-            preSolveNaveOtraCosa(contact.getFixtureB(), contact.getFixtureA());
-    }
-
-    public void preSolveNaveOtraCosa(Fixture nave, Fixture otraCosa) {
-        Body bodyNave = nave.getBody();
-        Nave oNave = (Nave) bodyNave.getUserData();
-
-        Body bodyOtraCosa = otraCosa.getBody();
-        Object oOtraCosa = bodyOtraCosa.getUserData();
-
-        if (oOtraCosa instanceof Bomba) {
-            // nave.setRestitution(1);
-
-        }
     }
 
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
         if (contact.getFixtureA().getBody().getUserData() instanceof Nave)
-            postSolveNaveOtraCosa(contact.getFixtureA(), contact.getFixtureB());
+            postSolveNaveOtraCosa(contact.getFixtureB());
         else if (contact.getFixtureB().getBody().getUserData() instanceof Nave)
-            postSolveNaveOtraCosa(contact.getFixtureB(), contact.getFixtureA());
+            postSolveNaveOtraCosa(contact.getFixtureA());
     }
 
-    public void postSolveNaveOtraCosa(Fixture nave, Fixture otraCosa) {
-        Body bodyNave = nave.getBody();
-        Nave oNave = (Nave) bodyNave.getUserData();
+    public void postSolveNaveOtraCosa(Fixture otraCosa) {
 
         Body bodyOtraCosa = otraCosa.getBody();
         Object oOtraCosa = bodyOtraCosa.getUserData();

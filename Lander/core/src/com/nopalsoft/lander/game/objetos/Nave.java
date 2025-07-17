@@ -13,7 +13,6 @@ public class Nave {
 	final public static float HEIGHT = 1.0f;
 
 	final public static float DENSIDAD_INICIAL = .7f;
-	final private int MAX_ANGLE_DEGREES = 35;
 
 	final public static float VELOCIDAD_FLY = 2f;
 	final public static float MAX_SPEED_Y = 2;
@@ -60,8 +59,8 @@ public class Nave {
 		isFlying = false;
 
 		// Upgrades
-		velocidadFly += (.09 * Settings.nivelVelocidadY);
-		velocidadMove += (.02 * Settings.nivelRotacion);
+		velocidadFly += (.09f * Settings.nivelVelocidadY);
+		velocidadMove += (.02f * Settings.nivelRotacion);
 		vida += (5.3f * Settings.nivelVida);
 		gas += (33.3f * Settings.nivelGas);
 	}
@@ -113,6 +112,7 @@ public class Nave {
 			position.x = body.getPosition().x;
 			position.y = body.getPosition().y;
 
+			int MAX_ANGLE_DEGREES = 35;
 			float angleLimitRad = (float) Math.toRadians(MAX_ANGLE_DEGREES);
 
 			if (angleRad > angleLimitRad)
@@ -143,15 +143,15 @@ public class Nave {
 		}
 	}
 
-	public void getHurtByLaser(float daño) {
+	public void getHurtByLaser(float dano) {
 		isHurtByBomb = true;
 		stateTime = 0;
-		colision(daño);
+		colision(dano);
 	}
 
-	public void getHurtByBomb(float daño) {
+	public void getHurtByBomb(float dano) {
 		isHurtByBomb = true;
 		stateTime = 0;
-		colision(daño);
+		colision(dano);
 	}
 }

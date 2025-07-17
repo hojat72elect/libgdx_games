@@ -19,14 +19,10 @@ public abstract class Screens extends InputAdapter implements Screen {
     public static final float WORLD_SCREEN_HEIGHT = 8;
 
     public MainLander game;
-    // public IdiomasManager idiomas;
 
     public OrthographicCamera oCam;
     public SpriteBatch batcher;
     public Stage stage;
-    // public IdiomasManager idiomas;
-
-    // protected SkeletonRenderer skelrender;
 
     protected float ScreenlastStatetime;
     protected float ScreenStateTime;
@@ -34,36 +30,17 @@ public abstract class Screens extends InputAdapter implements Screen {
     public Screens(MainLander game) {
         this.stage = game.stage;
         this.stage.clear();
-        // this.idiomas = game.idiomas;
         this.batcher = game.batcher;
         this.game = game;
 
         oCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
         oCam.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
 
-        // skelrender = new SkeletonRenderer();
-
         InputMultiplexer input = new InputMultiplexer(stage, this);
         Gdx.input.setInputProcessor(input);
 
         ScreenlastStatetime = ScreenStateTime = 0;
 
-        // if (this instanceof MainMenuScreen) {
-        // Assets.fontMediano.setScale(1.2f);
-        // Assets.fontChico.setScale(.95f);
-        // }
-        // else if (this instanceof SettingScreen) {
-        // Assets.fontGrande.setScale(.65f);
-        //
-        // }
-        // else if (this instanceof ShopScreen) {
-        // Assets.fontGrande.setScale(.65f);
-        // Assets.fontChico.setScale(.85f);
-        //
-        // }
-        // if (this instanceof GameScreen) {
-        // Assets.fontNums.setScale(.8f);
-        // }
     }
 
     @Override
@@ -105,14 +82,10 @@ public abstract class Screens extends InputAdapter implements Screen {
 
     @Override
     public void pause() {
-        // Assets.music.pause();
     }
 
     @Override
     public void resume() {
-        //
-        // if (Settings.musicEnabled)
-        // Assets.music.play();
 
     }
 

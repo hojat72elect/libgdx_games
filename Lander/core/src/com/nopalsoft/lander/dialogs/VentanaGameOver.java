@@ -124,12 +124,6 @@ public class VentanaGameOver extends Window {
         }
     }
 
-    public void resumeGame() {
-        hide(null);
-        if (game.getScreen() instanceof GameScreen)
-            GameScreen.state = GameScreen.STATE_RUNNING;
-    }
-
     public void hide(final Class<?> newScreen) {
         if (fadeDuration > 0) {
             addCaptureListener(ignoreTouchDown);

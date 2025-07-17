@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 
@@ -12,34 +11,11 @@ public class PagedScrollPane extends ScrollPane {
 
     private boolean wasPanDragFling = false;
 
-    private float pageSpacing;
-
     private Table content;
 
     public PagedScrollPane() {
 
         super(null);
-
-        setup();
-    }
-
-    public PagedScrollPane(Skin skin) {
-
-        super(null, skin);
-
-        setup();
-    }
-
-    public PagedScrollPane(Skin skin, String styleName) {
-
-        super(null, skin, styleName);
-
-        setup();
-    }
-
-    public PagedScrollPane(Actor widget, ScrollPaneStyle style) {
-
-        super(null, style);
 
         setup();
     }
@@ -51,14 +27,6 @@ public class PagedScrollPane extends ScrollPane {
         content.defaults().space(250);
 
         super.setWidget(content);
-    }
-
-    public void addPages(Actor... pages) {
-
-        for (Actor page : pages) {
-
-            content.add(page).expandY().fillY();
-        }
     }
 
     public void addPage(Actor page) {
@@ -84,13 +52,6 @@ public class PagedScrollPane extends ScrollPane {
             }
         }
     }
-
-    // @Override
-    // public void setWidget(Actor widget) {
-    //
-    // throw new UnsupportedOperationException("Use PagedScrollPane#addPage.");
-    //
-    // }
 
     @Override
     public void setWidth(float width) {

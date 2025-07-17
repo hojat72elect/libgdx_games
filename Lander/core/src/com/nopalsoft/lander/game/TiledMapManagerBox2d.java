@@ -291,7 +291,7 @@ public class TiledMapManagerBox2d {
         // timeOffActual = 3;
         // }
 
-        Laser obj = new Laser(x, y, rectangle.getWidth() * m_units, rectangle.height * m_units, timeON, timeOFF, timeOffActual, direccion);
+        Laser obj = new Laser(x, y, rectangle.getWidth() * m_units, rectangle.height * m_units, timeOFF, timeOffActual, direccion);
         BodyDef bd = new BodyDef();
         bd.position.y = obj.position.y;
         bd.position.x = obj.position.x;

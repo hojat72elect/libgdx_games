@@ -13,8 +13,6 @@ import com.nopalsoft.lander.game.objetos.Laser;
 import com.nopalsoft.lander.game.objetos.Nave;
 import com.nopalsoft.lander.screens.Screens;
 
-import java.util.Iterator;
-
 public class WorldGameRenderer {
 
     final float WIDTH = Screens.WORLD_SCREEN_WIDTH;
@@ -37,10 +35,10 @@ public class WorldGameRenderer {
         this.oCam = new OrthographicCamera(WIDTH, HEIGHT);
         this.oCam.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
 
-        CAM_MAX_X = Integer.valueOf(Assets.map.getProperties().get("tamanoMapaX", String.class));
+        CAM_MAX_X = Integer.parseInt(Assets.map.getProperties().get("tamanoMapaX", String.class));
         CAM_MAX_X = CAM_MAX_X * oWorld.unitScale * 32 - (WIDTH / 2f);
 
-        CAM_MAX_Y = Integer.valueOf(Assets.map.getProperties().get("tamanoMapaY", String.class));
+        CAM_MAX_Y = Integer.parseInt(Assets.map.getProperties().get("tamanoMapaY", String.class));
         CAM_MAX_Y = CAM_MAX_Y * oWorld.unitScale * 32 - (HEIGHT / 2f);
 
         CAM_MIN_X = WIDTH / 2f;
@@ -52,7 +50,7 @@ public class WorldGameRenderer {
         this.tiledRenderer = new OrthogonalTiledMapRenderer(Assets.map, oWorld.unitScale);
     }
 
-    public void render(float delta) {
+    public void render() {
 
         oCam.position.x = oWorld.oNave.position.x;
         oCam.position.y = oWorld.oNave.position.y;
@@ -110,26 +108,19 @@ public class WorldGameRenderer {
     }
 
     public void renderGas() {
-        Iterator<Gas> i = oWorld.arrGas.iterator();
-        while (i.hasNext()) {
-            Gas obj = i.next();
+        for (Gas obj : oWorld.arrGas) {
             batcher.draw(Assets.gas, obj.position.x - .25f, obj.position.y - .25f, .5f, .5f);
         }
     }
 
     public void renderEstrella() {
-        Iterator<Estrella> i = oWorld.arrEstrellas.iterator();
-        while (i.hasNext()) {
-            Estrella obj = i.next();
+        for (Estrella obj : oWorld.arrEstrellas) {
             batcher.draw(Assets.star, obj.position.x - .25f, obj.position.y - .25f, .5f, .5f);
         }
     }
 
     public void renderLaser() {
-        Iterator<Laser> i = oWorld.arrLaser.iterator();
-        while (i.hasNext()) {
-            Laser obj = i.next();
-
+        for (Laser obj : oWorld.arrLaser) {
             if (obj.direccion == Laser.DIRECCION_HORIZONTAL) {
                 if (obj.state == Laser.STATE_FIRE)
                     batcher.draw(Assets.laser.getKeyFrame(obj.stateTime, true), obj.position.x - obj.width / 2f, obj.position.y - obj.height / 2f, obj.width, obj.height);
@@ -141,9 +132,7 @@ public class WorldGameRenderer {
     }
 
     public void renderBombas() {
-        Iterator<Bomba> i = oWorld.arrBombas.iterator();
-        while (i.hasNext()) {
-            Bomba obj = i.next();
+        for (Bomba obj : oWorld.arrBombas) {
             TextureRegion keyframe;
             if (obj.state == Bomba.STATE_EXPLOSION) {
                 keyframe = Assets.explosion.getKeyFrame(obj.stateTime, false);

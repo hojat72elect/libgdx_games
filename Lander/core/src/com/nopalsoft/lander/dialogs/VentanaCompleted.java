@@ -25,7 +25,7 @@ import com.nopalsoft.lander.screens.LevelScreen;
 import com.nopalsoft.lander.screens.Screens;
 
 /**
- * Use la clase Window porque le tenia que poner la tachita
+ * I used the Window class because I had to put the little mark on it.
  */
 public class VentanaCompleted extends Window {
     static public float fadeDuration = 0.4f;
@@ -111,7 +111,7 @@ public class VentanaCompleted extends Window {
     public void show(Stage stage) {
 
         /*
-         * Se reemplazan las estrellas grises por las tomadas =)
+         * The grey stars are replaced by the taken ones =)
          */
         for (int i = 0; i < oWorld.estrellasTomadas; i++) {
             estrellas[i].setDrawable(new TextureRegionDrawable(Assets.star));
@@ -121,10 +121,10 @@ public class VentanaCompleted extends Window {
         setSize(Screens.SCREEN_WIDTH, 0);
 
         SizeToAction sizeAction = Actions.action(SizeToAction.class);
-        sizeAction.setSize(Screens.SCREEN_WIDTH, 500);// ALTURA FINAL
+        sizeAction.setSize(Screens.SCREEN_WIDTH, 500);// FINAL HEIGHT
         sizeAction.setDuration(.25f);
 
-        setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, Screens.SCREEN_HEIGHT / 2f - 500 / 2f);// 500 ALTURA FINAL
+        setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, Screens.SCREEN_HEIGHT / 2f - 500 / 2f);// 500 FINAL HEIGHT
         addAction(sizeAction);
 
         stage.addActor(this);
@@ -134,18 +134,12 @@ public class VentanaCompleted extends Window {
         }
     }
 
-    public void resumeGame() {
-        hide(null, 0);
-        if (game.getScreen() instanceof GameScreen)
-            GameScreen.state = GameScreen.STATE_RUNNING;
-    }
-
     public void hide(final Class<?> newScreen, final int level) {
         if (fadeDuration > 0) {
             addCaptureListener(ignoreTouchDown);
 
             SizeToAction sizeAction = Actions.action(SizeToAction.class);
-            sizeAction.setSize(Screens.SCREEN_WIDTH, 0);// ALTURA FINAL
+            sizeAction.setSize(Screens.SCREEN_WIDTH, 0);// FINAL HEIGHT
             sizeAction.setDuration(.25f);
 
             RunnableAction run = Actions.run(new Runnable() {

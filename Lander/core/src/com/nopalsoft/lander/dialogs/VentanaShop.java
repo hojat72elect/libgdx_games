@@ -19,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.lander.Assets;
 import com.nopalsoft.lander.MainLander;
 import com.nopalsoft.lander.Settings;
-import com.nopalsoft.lander.game.WorldGame;
 import com.nopalsoft.lander.screens.Screens;
 
 /**
@@ -31,7 +30,6 @@ public class VentanaShop extends Window {
     final int NIVEL_MAX_UPGRADES = 15;
 
     MainLander game;
-    WorldGame oWorld;
 
     Image[] arrVida;
     Image[] arrVelocidadY;

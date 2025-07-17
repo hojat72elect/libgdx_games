@@ -160,7 +160,7 @@ public class Assets {
         upgradeOn = atlas.findRegion("upgradeOn");
         upgradeOff = atlas.findRegion("upgradeOff");
 
-        mundos = new LinkedHashMap<Integer, String>();
+        mundos = new LinkedHashMap<>();
         mundos.put(0, "data/mundos/mundo00.tmx");
         mundos.put(1, "data/mundos/mundo01.tmx");
         mundos.put(2, "data/mundos/mundo02.tmx");
@@ -173,7 +173,6 @@ public class Assets {
         mundos.put(9, "data/mundos/mundo09.tmx");
         mundos.put(10, "data/mundos/mundo10.tmx");
         mundos.put(11, "data/mundos/mundo11.tmx");
-        // mundos.put(12, "data/mundos/mundo12.tmx");
 
         Settings.load(500);
     }
@@ -183,10 +182,6 @@ public class Assets {
             map.dispose();
             map = null;
         }
-        if (isDebug)
-            map = new TmxMapLoader().load(mundos.get(numeroMundo));
-        else
-            // map=new AtlasTmxMapLoader().load(mundos[numeroMundo - 1]);
-            map = new TmxMapLoader().load(mundos.get(numeroMundo));
+        map = new TmxMapLoader().load(mundos.get(numeroMundo));
     }
 }

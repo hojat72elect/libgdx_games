@@ -84,16 +84,12 @@ public class GameScreen extends Screens {
     public void update(float delta) {
         switch (state) {
             case STATE_READY:
-                updateReady(delta);
+
                 break;
             case STATE_RUNNING:
                 updateRunning(delta);
                 break;
         }
-    }
-
-    private void updateReady(float delta) {
-
     }
 
     private void updateRunning(float delta) {
@@ -125,19 +121,11 @@ public class GameScreen extends Screens {
 
     @Override
     public void draw(float delta) {
-        renderer.render(delta);
+        renderer.render();
         oCam.update();
         batcher.setProjectionMatrix(oCam.combined);
 
         batcher.begin();
-
-        // Assets.font.draw(batcher, "Velocidad " + oWorld.oNave.velocidadResultante, 10, 60);
-        // Assets.font.draw(batcher, "Velocidad X " + oWorld.oNave.velocity.x, 10, 40);
-        // Assets.font.draw(batcher, "Velocidad Y " + oWorld.oNave.velocity.y, 10, 20);
-
-        // Assets.font.draw(batcher, "Estrellas  " + oWorld.estrellasTomadas, 300, 60);
-        // Assets.font.draw(batcher, "Vida  " + oWorld.oNave.vida, 300, 40);
-        // Assets.font.draw(batcher, "Gas  " + oWorld.oNave.gas, 300, 20);
         batcher.end();
     }
 

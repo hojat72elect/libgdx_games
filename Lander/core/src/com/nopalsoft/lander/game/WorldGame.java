@@ -11,19 +11,16 @@ import com.nopalsoft.lander.game.objetos.Gas;
 import com.nopalsoft.lander.game.objetos.Laser;
 import com.nopalsoft.lander.game.objetos.Nave;
 import com.nopalsoft.lander.game.objetos.Plataforma;
-import com.nopalsoft.lander.screens.Screens;
 
-import java.util.Iterator;
 import java.util.Random;
 
 public class WorldGame {
 
     static int STATE_RUNNING = 0;
-    static int STATE_PAUSED = 1;
+
     static int STATE_GAME_OVER = 2;
     static int STATE_NEXT_LEVEL = 3;
-    final float WIDTH = Screens.WORLD_SCREEN_WIDTH;
-    final float HEIGHT = Screens.WORLD_SCREEN_HEIGHT;
+
     final float TIME_OUT_OF_GAS = 1.5f;
     final float TIME_FOR_NEXT_LEVEL = .75f;
     public World oWorldBox;
@@ -47,12 +44,12 @@ public class WorldGame {
         oWorldBox = new World(graivity, true);
         oWorldBox.setContactListener(new Colisiones(this));
 
-        arrBodies = new Array<Body>();
-        arrPlataformas = new Array<Plataforma>();
-        arrEstrellas = new Array<Estrella>();
-        arrGas = new Array<Gas>();
-        arrLaser = new Array<Laser>();
-        arrBombas = new Array<Bomba>();
+        arrBodies = new Array<>();
+        arrPlataformas = new Array<>();
+        arrEstrellas = new Array<>();
+        arrGas = new Array<>();
+        arrLaser = new Array<>();
+        arrBombas = new Array<>();
         estrellasTomadas = 0;
 
         new TiledMapManagerBox2d(this, unitScale).createObjetosDesdeTiled(Assets.map);
@@ -65,10 +62,7 @@ public class WorldGame {
 
         oWorldBox.getBodies(arrBodies);
 
-        Iterator<Body> i = arrBodies.iterator();
-        while (i.hasNext()) {
-            Body body = i.next();
-
+        for (Body body : arrBodies) {
             if (body.getUserData() instanceof Nave) {
                 updateNave(body, delta, accelY, accelX);
             } else if (body.getUserData() instanceof Gas) {
