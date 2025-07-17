@@ -10,7 +10,7 @@ public class LifeBar extends Actor {
     public float actualLife;
 
     /**
-     * Si utilizo una tabla, el ancho y la altura se sobreescriben
+     * If I use a table, the width and height are overwritten
      */
     public LifeBar(float maxLife) {
         this.maxlife = maxLife;

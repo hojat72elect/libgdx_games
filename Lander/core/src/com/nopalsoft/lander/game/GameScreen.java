@@ -63,7 +63,7 @@ public class GameScreen extends Screens {
         marcoStats.row();
         marcoStats.add(gasBar).width(90).height(25).padLeft(35).padTop(6);
 
-        // Boton Pause
+        // Pause Button
         btPause = new ImageButton(Assets.styleImageButtonPause);
         btPause.setSize(32, 32);
         btPause.setPosition(SCREEN_WIDTH - btPause.getWidth() - 5, SCREEN_HEIGHT - btPause.getHeight() - 5);

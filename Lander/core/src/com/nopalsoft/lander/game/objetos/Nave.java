@@ -76,10 +76,10 @@ public class Nave {
 			else
 				isFlying = true;
 
-			// Le meto la velocidad
+			// I put the speed on
 			body.applyForceToCenter(velocidadMove * accelX, velocidadFly * accelY, true);
 
-			// Le meto la velocidad en x al contrario para que reduzca su velocidad
+			// I put the speed in x to the opponent so that it reduces its speed
 			body.applyForceToCenter(body.getLinearVelocity().x * -.015f, 0, true);
 
 			velocity = body.getLinearVelocity();

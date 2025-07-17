@@ -30,8 +30,6 @@ import com.nopalsoft.lander.game.objetos.Laser;
 import com.nopalsoft.lander.game.objetos.Nave;
 import com.nopalsoft.lander.game.objetos.Plataforma;
 
-import java.util.Iterator;
-
 public class TiledMapManagerBox2d {
 
     private final WorldGame oWorld;
@@ -53,61 +51,54 @@ public class TiledMapManagerBox2d {
     }
 
     public void createObjetosDesdeTiled(Map map) {
-        crearFisicos(map, "fisicos");
-        crearInteaccion(map, "interaccion");
+        crearFisicos(map);
+        crearInteaccion(map);
     }
 
-    private void crearInteaccion(Map map, String layerName) {
-        MapLayer layer = map.getLayers().get(layerName);
+    private void crearInteaccion(Map map) {
+        MapLayer layer = map.getLayers().get("interaccion");
 
         if (layer == null) {
-            logger.error("layer " + layerName + " no existe");
+            logger.error("layer " + "interaccion" + " no existe");
             return;
         }
 
         MapObjects objects = layer.getObjects();
-        Iterator<MapObject> objectIt = objects.iterator();
-        while (objectIt.hasNext()) {
-            MapObject object = objectIt.next();
-
+        for (MapObject object : objects) {
             if (object instanceof TextureMapObject) {
                 continue;
             }
 
             MapProperties properties = object.getProperties();
             String tipo = (String) properties.get("type");
-            if (tipo == null)
-                continue;
-            else if (tipo.equals("estrella")) {
-                crearEstrella(object);
-                continue;
-            } else if (tipo.equals("gas")) {
-                crearGas(object);
-                continue;
-            } else if (tipo.equals("laser")) {
-                crearLaser(object);
-                continue;
-            } else if (tipo.equals("bomba")) {
-                crearBomba(object);
-                continue;
+            switch (tipo) {
+                case "estrella":
+                    crearEstrella(object);
+                    break;
+                case "gas":
+                    crearGas(object);
+                    break;
+                case "laser":
+                    crearLaser(object);
+                    break;
+                case "bomba":
+                    crearBomba(object);
+                    break;
             }
         }
     }
 
-    private void crearFisicos(Map map, String layerName) {
-        MapLayer layer = map.getLayers().get(layerName);
+    private void crearFisicos(Map map) {
+        MapLayer layer = map.getLayers().get("fisicos");
 
         if (layer == null) {
-            logger.error("layer " + layerName + " no existe");
+            logger.error("layer " + "fisicos" + " no existe");
             return;
         }
 
         MapObjects objects = layer.getObjects();
-        Iterator<MapObject> objectIt = objects.iterator();
 
-        while (objectIt.hasNext()) {
-            MapObject object = objectIt.next();
-
+        for (MapObject object : objects) {
             if (object instanceof TextureMapObject) {
                 continue;
             }
@@ -137,7 +128,7 @@ public class TiledMapManagerBox2d {
             defaultFixture.shape = shape;
 
             BodyDef bodyDef = new BodyDef();
-            bodyDef.type = BodyDef.BodyType.StaticBody;
+            bodyDef.type = BodyType.StaticBody;
 
             Body body = oWorldBox.createBody(bodyDef);
             body.createFixture(defaultFixture);
@@ -279,17 +270,11 @@ public class TiledMapManagerBox2d {
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
 
         String direccion = object.getProperties().get("direccion").toString();
-        float timeON, timeOFF, timeOffActual;
-        // try {
-        timeON = Float.parseFloat(object.getProperties().get("tiempoPrendido").toString());
+        float timeOFF, timeOffActual;
+
         timeOFF = Float.parseFloat(object.getProperties().get("tiempoApagado").toString());
         timeOffActual = Float.parseFloat(object.getProperties().get("tiempoApagadoActual").toString());
-        // }
-        // catch (Exception xx) {
-        // timeON = 1;
-        // timeOFF = 5;
-        // timeOffActual = 3;
-        // }
+
 
         Laser obj = new Laser(x, y, rectangle.getWidth() * m_units, rectangle.height * m_units, timeOFF, timeOffActual, direccion);
         BodyDef bd = new BodyDef();

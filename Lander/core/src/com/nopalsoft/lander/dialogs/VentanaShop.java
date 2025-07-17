@@ -22,7 +22,7 @@ import com.nopalsoft.lander.Settings;
 import com.nopalsoft.lander.screens.Screens;
 
 /**
- * Use la clase Window porque le tenia que poner la tachita
+ * I used the Window class because I had to put the little mark on it.
  */
 public class VentanaShop extends Window {
     static public float fadeDuration = 0.4f;
@@ -35,8 +35,8 @@ public class VentanaShop extends Window {
     Image[] arrVelocidadY;
     Image[] arrRotacion;
     Image[] arrGas;
-    Image[] arrPower; // No upgradea nada solo sirva pa quitar dinero
-    Image[] arrOtro1; // No upgradea nada solo sirva pa quitar dinero
+    Image[] arrPower; // It doesn't upgrade anything, it only serves to take money.
+    Image[] arrOtro1; // It doesn't upgrade anything, it only serves to take money.
 
     ImageButton btUpVida, btUpVelocidadY, btUpGas, btUpRotacion, btUpPower, btUpOtro1;
 
@@ -68,7 +68,7 @@ public class VentanaShop extends Window {
         this.row().padTop(25);
         this.add(upgrades).colspan(4);
 
-        // Velocidad
+        // Speed
         Table auxTab = new Table();
         auxTab.defaults().pad(1.15f);
         for (int i = 0; i < NIVEL_MAX_UPGRADES; i++) {
@@ -81,7 +81,7 @@ public class VentanaShop extends Window {
         this.add(btUpVelocidadY);
         this.add(new Label("$100", Assets.styleLabelMediana));
 
-        // Vida
+        // Life
         auxTab = new Table();
         auxTab.defaults().pad(1.15f);
         for (int i = 0; i < NIVEL_MAX_UPGRADES; i++) {
@@ -107,7 +107,7 @@ public class VentanaShop extends Window {
         this.add(btUpGas);
         this.add(new Label("$100", Assets.styleLabelMediana));
 
-        // Rotacion
+        // Rotation
         auxTab = new Table();
         auxTab.defaults().pad(1.15f);
         for (int i = 0; i < NIVEL_MAX_UPGRADES; i++) {
@@ -133,7 +133,7 @@ public class VentanaShop extends Window {
         this.add(btUpPower);
         this.add(new Label("$100", Assets.styleLabelMediana));
 
-        // Otro1
+        // Other1
         auxTab = new Table();
         auxTab.defaults().pad(1.15f);
         for (int i = 0; i < NIVEL_MAX_UPGRADES; i++) {
@@ -224,7 +224,7 @@ public class VentanaShop extends Window {
     }
 
     private void setArrays() {
-        // Rotacion
+        // Rotation
         for (int i = 0; i < Settings.nivelRotacion; i++) {
             arrRotacion[i].setDrawable(new TextureRegionDrawable(Assets.upgradeOn));
         }
@@ -232,7 +232,7 @@ public class VentanaShop extends Window {
             btUpRotacion.setVisible(false);
         }
 
-        // VelocidadY
+        // SpeedY
         for (int i = 0; i < Settings.nivelVelocidadY; i++) {
             arrVelocidadY[i].setDrawable(new TextureRegionDrawable(Assets.upgradeOn));
         }
@@ -240,7 +240,7 @@ public class VentanaShop extends Window {
             btUpVelocidadY.setVisible(false);
         }
 
-        // Vida
+        // Life
         for (int i = 0; i < Settings.nivelVida; i++) {
             arrVida[i].setDrawable(new TextureRegionDrawable(Assets.upgradeOn));
         }
@@ -264,7 +264,7 @@ public class VentanaShop extends Window {
             btUpPower.setVisible(false);
         }
 
-        // Otro1
+        // Other1
         for (int i = 0; i < Settings.nivelOtro1; i++) {
             arrOtro1[i].setDrawable(new TextureRegionDrawable(Assets.upgradeOn));
         }
