@@ -9,10 +9,10 @@ import com.salvai.centrum.actors.player.Missile;
 public class EnemyUtil {
 
     public static boolean hitsCentre(Enemy enemy, Ball ball) {
-        return ColissionUtil.circleHitsCircle(ball.shape, ((EnemyBall) enemy).shape);
+        return CircleKt.circleHitsCircle(ball.shape, ((EnemyBall) enemy).shape);
     }
 
     public static boolean isHitByMissile(Enemy enemy, Missile missile) {
-        return ColissionUtil.circleHitsCircle(missile.shape, ((EnemyBall) enemy).shape);
+        return CircleKt.circleHitsCircle(missile.shape, ((EnemyBall) enemy).shape);
     }
 }

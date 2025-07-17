@@ -28,10 +28,6 @@ public class RandomUtil {
         return GameColorPalette.BASIC[random.nextInt(GameColorPalette.BASIC.length)];
     }
 
-    public static Color getRandomColorNoWhite() {
-        return GameColorPalette.BASIC[random.nextInt(GameColorPalette.BASIC.length - 1) + 1];
-    }
-
     //BACKGROUND
     public static int getRandomBackgroundStarYCoordinate() {
         return random.nextInt(Constants.SCREEN_HEIGHT);

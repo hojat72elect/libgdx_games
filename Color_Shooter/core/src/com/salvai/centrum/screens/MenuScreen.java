@@ -98,20 +98,6 @@ public class MenuScreen extends ScreenAdapter {
             }
         });
         highscoreButton = new Button(game.skin, "highscore");
-        // Todo save local highscore
-        // highscoreButton.addListener(new ClickListener() {
-        //     @Override
-        //     public void clicked(InputEvent event, float x, float y) {
-        //         if (game.playServices.isSessionActive())
-        //             try {
-        //                 game.playServices.showLeaderboards(Keyz.LEADERBOARD_ID);
-        //             } catch (GameServiceException e) {
-        //                 e.printStackTrace();
-        //             }
-        //         else
-        //             game.playServices.logIn();
-        //     }
-        // });
     }
 
 

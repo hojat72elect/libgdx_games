@@ -82,7 +82,6 @@ public class Background {
             sprite = new Sprite(starTexture);
             sprite.setBounds(position.x, position.y, Constants.STAR_SIZE, Constants.STAR_SIZE);
             speed = RandomUtil.getRandomStarSpeed();
-//            sprite.setColor(RandomUtil.getRandomColor());
             sprite.setColor(RandomUtil.getRandomColor());
             sprite.setAlpha(RandomUtil.getRandomAlpha());
         }
