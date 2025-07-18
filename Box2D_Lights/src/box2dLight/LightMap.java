@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import shaders.DiffuseShader;
 import shaders.DynamicShadowShader;
-import shaders.Gaussian;
+import shaders.GaussianBlur;
 import shaders.ShadowShader;
 import shaders.WithoutShadowShader;
 
@@ -174,7 +174,7 @@ class LightMap {
 
         withoutShadowShader = WithoutShadowShader.createShadowShader();
 
-        blurShader = Gaussian.createBlurShader(fboWidth, fboHeight);
+        blurShader = GaussianBlur.createShader(fboWidth, fboHeight);
     }
 
     private void disposeShaders() {
