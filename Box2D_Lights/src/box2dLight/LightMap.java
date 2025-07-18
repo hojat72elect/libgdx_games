@@ -17,23 +17,34 @@ import shaders.ShadowShader;
 import shaders.WithoutShadowShader;
 
 class LightMap {
-    private ShaderProgram shadowShader;
-    FrameBuffer frameBuffer;
+    static public final int VERT_SIZE = 16;
+    static public final int X1 = 0;
+    static public final int Y1 = 1;
+    static public final int U1 = 2;
+    static public final int V1 = 3;
+    static public final int X2 = 4;
+    static public final int Y2 = 5;
+    static public final int U2 = 6;
+    static public final int V2 = 7;
+    static public final int X3 = 8;
+    static public final int Y3 = 9;
+    static public final int U3 = 10;
+    static public final int V3 = 11;
+    static public final int X4 = 12;
+    static public final int Y4 = 13;
+    static public final int U4 = 14;
+    static public final int V4 = 15;
     private final Mesh lightMapMesh;
-
     private final FrameBuffer pingPongBuffer;
-
     private final RayHandler rayHandler;
+    private final int fboWidth, fboHeight;
+    FrameBuffer frameBuffer;
+    FrameBuffer shadowBuffer;
+    boolean lightMapDrawingDisabled;
+    private ShaderProgram shadowShader;
     private ShaderProgram withoutShadowShader;
     private ShaderProgram blurShader;
     private ShaderProgram diffuseShader;
-
-    FrameBuffer shadowBuffer;
-
-    boolean lightMapDrawingDisabled;
-
-    private final int fboWidth, fboHeight;
-
     public LightMap(RayHandler rayHandler, int fboWidth, int fboHeight) {
         this.rayHandler = rayHandler;
 
@@ -212,22 +223,4 @@ class LightMap {
         tmpMesh.setVertices(verts);
         return tmpMesh;
     }
-
-    static public final int VERT_SIZE = 16;
-    static public final int X1 = 0;
-    static public final int Y1 = 1;
-    static public final int U1 = 2;
-    static public final int V1 = 3;
-    static public final int X2 = 4;
-    static public final int Y2 = 5;
-    static public final int U2 = 6;
-    static public final int V2 = 7;
-    static public final int X3 = 8;
-    static public final int Y3 = 9;
-    static public final int U3 = 10;
-    static public final int V3 = 11;
-    static public final int X4 = 12;
-    static public final int Y4 = 13;
-    static public final int U4 = 14;
-    static public final int V4 = 15;
 }

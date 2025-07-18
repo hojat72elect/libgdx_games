@@ -27,6 +27,15 @@ public class LightData {
         this.shadow = shadow;
     }
 
+    public static Object getUserData(Fixture fixture) {
+        Object data = fixture.getUserData();
+        if (data instanceof LightData) {
+            return ((LightData) data).userData;
+        } else {
+            return data;
+        }
+    }
+
     public float getLimit(float distance, float lightHeight, float lightRange) {
         float l = 0f;
         if (lightHeight > height) {
@@ -42,14 +51,5 @@ public class LightData {
         }
 
         return l > 0 ? l : 0f;
-    }
-
-    public static Object getUserData(Fixture fixture) {
-        Object data = fixture.getUserData();
-        if (data instanceof LightData) {
-            return ((LightData) data).userData;
-        } else {
-            return data;
-        }
     }
 }

@@ -28,21 +28,17 @@ import com.badlogic.gdx.physics.box2d.Shape;
  */
 public abstract class PositionalLight extends Light {
 
-    Color tmpColor = new Color();
-
     protected final Vector2 tmpEnd = new Vector2();
     protected final Vector2 start = new Vector2();
-
     protected Body body;
     protected float bodyOffsetX;
     protected float bodyOffsetY;
     protected float bodyAngleOffset;
-
     protected float[] sin;
     protected float[] cos;
-
     protected float[] endX;
     protected float[] endY;
+    Color tmpColor = new Color();
 
     /**
      * Creates new positional light and automatically adds it to the specified
@@ -145,6 +141,13 @@ public abstract class PositionalLight extends Light {
         return tmpPosition;
     }
 
+    @Override
+    public void setPosition(Vector2 position) {
+        start.x = position.x;
+        start.y = position.y;
+        if (staticLight) dirty = true;
+    }
+
     public Body getBody() {
         return body;
     }
@@ -169,13 +172,6 @@ public abstract class PositionalLight extends Light {
     public void setPosition(float x, float y) {
         start.x = x;
         start.y = y;
-        if (staticLight) dirty = true;
-    }
-
-    @Override
-    public void setPosition(Vector2 position) {
-        start.x = position.x;
-        start.y = position.y;
         if (staticLight) dirty = true;
     }
 
@@ -537,20 +533,20 @@ public abstract class PositionalLight extends Light {
         return bodyOffsetX;
     }
 
-    public float getBodyOffsetY() {
-        return bodyOffsetY;
-    }
-
-    public float getBodyAngleOffset() {
-        return bodyAngleOffset;
-    }
-
     public void setBodyOffsetX(float bodyOffsetX) {
         this.bodyOffsetX = bodyOffsetX;
     }
 
+    public float getBodyOffsetY() {
+        return bodyOffsetY;
+    }
+
     public void setBodyOffsetY(float bodyOffsetY) {
         this.bodyOffsetY = bodyOffsetY;
+    }
+
+    public float getBodyAngleOffset() {
+        return bodyAngleOffset;
     }
 
     public void setBodyAngleOffset(float bodyAngleOffset) {

@@ -45,73 +45,99 @@ import box2dLight.RayHandlerOptions;
 
 public class Box2dLightCustomShaderTest extends InputAdapter implements ApplicationListener {
 
+    public static final float SCALE = 1.f / 16.f;
+    public static final float viewportWidth = 48;
+    public static final float viewportHeight = 32;
     static final int RAYS_PER_BALL = 64;
     static final int BALLSNUM = 8;
     static final float LIGHT_DISTANCE = 16f;
     static final float RADIUS = 1f;
-
-    public static final float SCALE = 1.f / 16.f;
-    public static final float viewportWidth = 48;
-    public static final float viewportHeight = 32;
-
+    private final static int MAX_FPS = 30;
+    public final static float TIME_STEP = 1f / MAX_FPS;
+    private final static int MIN_FPS = 15;
+    private final static float MAX_STEPS = 1f + MAX_FPS / MIN_FPS;
+//	TextureRegion textureRegion;
+    private final static float MAX_TIME_PER_FRAME = TIME_STEP * MAX_STEPS;
+    private final static int VELOCITY_ITERS = 6;
+    private final static int POSITION_ITERS = 2;
     OrthographicCamera camera;
     FitViewport viewport;
-
     SpriteBatch batch;
     BitmapFont font;
-//	TextureRegion textureRegion;
-
     /**
      * our box2D world
      **/
     World world;
-
     /**
      * our boxes
      **/
     ArrayList<Body> balls = new ArrayList<Body>(BALLSNUM);
-
     /**
      * our ground box
      **/
     Body groundBody;
-
     /**
      * our mouse joint
      **/
     MouseJoint mouseJoint = null;
-
     /**
      * a hit body
      **/
     Body hitBody = null;
-
     /**
      * pixel perfect projection for font rendering
      */
     Matrix4 normalProjection = new Matrix4();
-
     boolean showText = true;
-
     /**
      * BOX2D LIGHT STUFF
      */
     RayHandler rayHandler;
-
     ArrayList<Light> lights = new ArrayList<Light>(BALLSNUM);
-
     float sunDirection = -90f;
-
     Texture bg, bgN;
-
     TextureRegion objectReg, objectRegN;
-
     FrameBuffer normalFbo;
     Array<DeferredObject> assetArray = new Array<DeferredObject>();
     DeferredObject marble;
-
     ShaderProgram lightShader;
     ShaderProgram normalShader;
+    boolean drawNormals = false;
+    Color bgColor = new Color();
+    float physicsTimeLeft;
+    long aika;
+    int times;
+    /**
+     * we instantiate this vector and the callback here so we don't irritate the
+     * GC
+     **/
+    Vector3 testPoint = new Vector3();
+    QueryCallback callback = new QueryCallback() {
+        @Override
+        public boolean reportFixture(Fixture fixture) {
+            if (fixture.getBody() == groundBody)
+                return true;
+
+            if (fixture.testPoint(testPoint.x, testPoint.y)) {
+                hitBody = fixture.getBody();
+                return false;
+            } else
+                return true;
+        }
+    };
+    /**
+     * another temporary vector
+     **/
+    Vector2 target = new Vector2();
+    /**
+     * Type of lights to use:
+     * 0 - PointLight
+     * 1 - ConeLight
+     * 2 - ChainLight
+     * 3 - DirectionalLight
+     */
+    int lightsType = 0;
+    boolean once = true;
 
     @Override
     public void create() {
@@ -289,9 +315,6 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
         if (!shader.isCompiled()) throw new IllegalArgumentException("Error compiling shader: " + shader.getLog());
         return shader;
     }
-
-    boolean drawNormals = false;
-    Color bgColor = new Color();
 
     @Override
     public void render() {
@@ -522,18 +545,6 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
         lights.add(light);
     }
 
-    private final static int MAX_FPS = 30;
-    private final static int MIN_FPS = 15;
-    public final static float TIME_STEP = 1f / MAX_FPS;
-    private final static float MAX_STEPS = 1f + MAX_FPS / MIN_FPS;
-    private final static float MAX_TIME_PER_FRAME = TIME_STEP * MAX_STEPS;
-    private final static int VELOCITY_ITERS = 6;
-    private final static int POSITION_ITERS = 2;
-
-    float physicsTimeLeft;
-    long aika;
-    int times;
-
     private boolean fixedStep(float delta) {
         physicsTimeLeft += delta;
         if (physicsTimeLeft > MAX_TIME_PER_FRAME)
@@ -592,25 +603,6 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
         ballShape.dispose();
     }
 
-    /**
-     * we instantiate this vector and the callback here so we don't irritate the
-     * GC
-     **/
-    Vector3 testPoint = new Vector3();
-    QueryCallback callback = new QueryCallback() {
-        @Override
-        public boolean reportFixture(Fixture fixture) {
-            if (fixture.getBody() == groundBody)
-                return true;
-
-            if (fixture.testPoint(testPoint.x, testPoint.y)) {
-                hitBody = fixture.getBody();
-                return false;
-            } else
-                return true;
-        }
-    };
-
     @Override
     public boolean touchDown(int x, int y, int pointer, int newParam) {
         // translate the mouse coordinates to world coordinates
@@ -639,11 +631,6 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
 
         return false;
     }
-
-    /**
-     * another temporary vector
-     **/
-    Vector2 target = new Vector2();
 
     @Override
     public boolean touchDragged(int x, int y, int pointer) {
@@ -678,15 +665,6 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
 
         normalFbo.dispose();
     }
-
-    /**
-     * Type of lights to use:
-     * 0 - PointLight
-     * 1 - ConeLight
-     * 2 - ChainLight
-     * 3 - DirectionalLight
-     */
-    int lightsType = 0;
 
     @Override
     public boolean keyDown(int keycode) {
@@ -777,8 +755,6 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
     @Override
     public void pause() {
     }
-
-    boolean once = true;
 
     @Override
     public void resize(int width, int height) {

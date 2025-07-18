@@ -27,11 +27,13 @@ import com.badlogic.gdx.physics.box2d.Shape.Type;
  * @author kalle_h
  */
 public class DirectionalLight extends Light {
-    protected boolean flipDirection = false;
-    Color tmpColor = new Color();
-
     protected final Vector2[] start;
     protected final Vector2[] end;
+    /**
+     * Dynamic shadows variables *
+     */
+    protected final Vector2 lstart = new Vector2();
+    protected boolean flipDirection = false;
     protected float sin;
     protected float cos;
 
@@ -39,13 +41,9 @@ public class DirectionalLight extends Light {
      * The body that could be set as ignored by this light type
      **/
     protected Body body;
-
-    /**
-     * Dynamic shadows variables *
-     */
-    protected final Vector2 lstart = new Vector2();
     protected float xDisp;
     protected float yDisp;
+    Color tmpColor = new Color();
 
     /**
      * Creates directional light which source is at infinite distance,
@@ -521,20 +519,20 @@ public class DirectionalLight extends Light {
 
     /**
      * Not applicable for this light type
-     **/
-    @Deprecated
-    @Override
-    public void setIgnoreAttachedBody(boolean flag) {
-    }
-
-    /**
-     * Not applicable for this light type
      * <p>Always return {@code false}
      **/
     @Deprecated
     @Override
     public boolean getIgnoreAttachedBody() {
         return false;
+    }
+
+    /**
+     * Not applicable for this light type
+     **/
+    @Deprecated
+    @Override
+    public void setIgnoreAttachedBody(boolean flag) {
     }
 
     /**

@@ -82,9 +82,8 @@ public class RayHandler implements Disposable {
      * <p>NOTE: DO NOT MODIFY THIS LIST
      */
     final Array<Light> disabledLights = new Array<Light>(false, 16);
-
-    LightMap lightMap;
     final ShaderProgram lightShader;
+    LightMap lightMap;
     ShaderProgram customLightShader = null;
 
     boolean culling = true;
@@ -167,6 +166,49 @@ public class RayHandler implements Disposable {
 
         resizeFBO(fboWidth, fboHeight);
         lightShader = LightShader.createLightShader();
+    }
+
+    /**
+     * @return if gamma correction is enabled or not
+     */
+    public static boolean getGammaCorrection() {
+        return gammaCorrection;
+    }
+
+    /**
+     * Static setters are deprecated, use {@link RayHandlerOptions}
+     */
+    @Deprecated
+    public static void setGammaCorrection(boolean gammaCorrectionWanted) {
+
+    }
+
+    public static boolean isDiffuseLight() {
+        return isDiffuse;
+    }
+
+    /**
+     * Enables/disables usage of diffuse algorithm.
+     *
+     * <p>If set to true lights are blended using the diffuse shader. This is
+     * more realistic model than normally used as it preserve colors but might
+     * look bit darker and also it might improve performance slightly.
+     */
+    public void setDiffuseLight(boolean useDiffuse) {
+        isDiffuse = useDiffuse;
+        lightMap.createShaders();
+    }
+
+    public static float getDynamicShadowColorReduction() {
+        return dynamicShadowColorReduction;
+    }
+
+    /**
+     * Static setters are deprecated, use {@link RayHandlerOptions}
+     */
+    @Deprecated
+    public static void useDiffuseLight(boolean useDiffuse) {
+
     }
 
     /**
@@ -599,13 +641,6 @@ public class RayHandler implements Disposable {
     }
 
     /**
-     * @return if gamma correction is enabled or not
-     */
-    public static boolean getGammaCorrection() {
-        return gammaCorrection;
-    }
-
-    /**
      * Enables/disables gamma correction.
      *
      * <p><b>This need to be done before creating instance of rayHandler.</b>
@@ -617,42 +652,6 @@ public class RayHandler implements Disposable {
         gammaCorrection = gammaCorrectionWanted;
         gammaCorrectionParameter = gammaCorrection ? GAMMA_COR : 1f;
         lightMap.createShaders();
-    }
-
-    /**
-     * Enables/disables usage of diffuse algorithm.
-     *
-     * <p>If set to true lights are blended using the diffuse shader. This is
-     * more realistic model than normally used as it preserve colors but might
-     * look bit darker and also it might improve performance slightly.
-     */
-    public void setDiffuseLight(boolean useDiffuse) {
-        isDiffuse = useDiffuse;
-        lightMap.createShaders();
-    }
-
-    public static boolean isDiffuseLight() {
-        return isDiffuse;
-    }
-
-    public static float getDynamicShadowColorReduction() {
-        return dynamicShadowColorReduction;
-    }
-
-    /**
-     * Static setters are deprecated, use {@link RayHandlerOptions}
-     */
-    @Deprecated
-    public static void useDiffuseLight(boolean useDiffuse) {
-
-    }
-
-    /**
-     * Static setters are deprecated, use {@link RayHandlerOptions}
-     */
-    @Deprecated
-    public static void setGammaCorrection(boolean gammaCorrectionWanted) {
-
     }
 
     /**

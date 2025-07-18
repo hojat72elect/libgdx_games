@@ -4,10 +4,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.StringBuilder;
 
 public class Spinor {
+    private static final float COSINE_THRESHOLD = 0.001f;
     float real;
     float complex;
-
-    private static final float COSINE_THRESHOLD = 0.001f;
 
     public Spinor() {
 

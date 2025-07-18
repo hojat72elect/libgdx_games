@@ -27,35 +27,28 @@ import com.badlogic.gdx.utils.Pools;
 public class ChainLight extends Light {
 
     public static float defaultRayStartOffset = 0.001f;
-    public float rayStartOffset;
     public final FloatArray chain;
-
-    protected int rayDirection;
-    protected float bodyAngle;
-    protected float bodyAngleOffset;
-
-    protected Body body;
-
     protected final FloatArray segmentAngles = new FloatArray();
     protected final FloatArray segmentLengths = new FloatArray();
-
     protected final float[] startX;
     protected final float[] startY;
     protected final float[] endX;
     protected final float[] endY;
-
     protected final Vector2 bodyPosition = new Vector2();
     protected final Vector2 tmpEnd = new Vector2();
     protected final Vector2 tmpStart = new Vector2();
     protected final Vector2 tmpPerp = new Vector2();
     protected final Vector2 tmpVec = new Vector2();
-
     protected final Matrix3 zeroPosition = new Matrix3();
     protected final Matrix3 rotateAroundZero = new Matrix3();
     protected final Matrix3 restorePosition = new Matrix3();
-
     protected final Rectangle chainLightBounds = new Rectangle();
     protected final Rectangle rayHandlerBounds = new Rectangle();
+    public float rayStartOffset;
+    protected int rayDirection;
+    protected float bodyAngle;
+    protected float bodyAngleOffset;
+    protected Body body;
 
     /**
      * Creates chain light without vertices, they can be added any time later

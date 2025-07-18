@@ -24,16 +24,30 @@ import com.badlogic.gdx.utils.IntArray;
  */
 public abstract class Light implements Disposable {
 
+    /**
+     * Dynamic shadows variables *
+     */
+    protected static final LightData tmpData = new LightData(0f);
     static final Color DefaultColor = new Color(0.75f, 0.75f, 0.5f, 0.75f);
     static final float zeroColorBits = Color.toFloatBits(0f, 0f, 0f, 0f);
     static final float oneColorBits = Color.toFloatBits(1f, 1f, 1f, 1f);
     static final int MIN_RAYS = 3;
-
+    /**
+     * Global lights filter
+     **/
+    static private Filter globalFilterA = null;
     protected final Color color = new Color();
     protected final Vector2 tmpPosition = new Vector2();
-
+    protected final Array<Mesh> dynamicShadowMeshes = new Array<Mesh>();
+    //Should never be cleared except when the light changes position (not direction). Prevents shadows from disappearing when fixture is out of sight.
+    protected final Array<Fixture> affectedFixtures = new Array<Fixture>();
+    protected final Array<Vector2> tmpVerts = new Array<Vector2>();
+    protected final IntArray ind = new IntArray();
+    protected final Vector2 tmpStart = new Vector2();
+    protected final Vector2 tmpEnd = new Vector2();
+    protected final Vector2 tmpVec = new Vector2();
+    protected final Vector2 center = new Vector2();
     protected RayHandler rayHandler;
-
     protected boolean active = true;
     protected boolean soft = true;
     protected boolean xray = false;
@@ -41,42 +55,61 @@ public abstract class Light implements Disposable {
     protected boolean culled = false;
     protected boolean dirty = true;
     protected boolean ignoreBody = false;
-
     protected int rayNum;
     protected int vertexNum;
-
     protected float distance;
     protected float direction;
     protected float colorF;
     protected float softShadowLength = 2.5f;
-
     protected Mesh lightMesh;
     protected Mesh softShadowMesh;
-
     protected float[] segments;
     protected float[] mx;
     protected float[] my;
     protected float[] f;
     protected int m_index = 0;
-
-    /**
-     * Dynamic shadows variables *
-     */
-    protected static final LightData tmpData = new LightData(0f);
-
     protected float pseudo3dHeight = 0f;
+    /**
+     * This light specific filter
+     **/
+    private Filter filterA = null;
+    final RayCastCallback ray = new RayCastCallback() {
+        @Override
+        public float reportRayFixture(Fixture fixture, Vector2 point,
+                                      Vector2 normal, float fraction) {
 
-    protected final Array<Mesh> dynamicShadowMeshes = new Array<Mesh>();
-    //Should never be cleared except when the light changes position (not direction). Prevents shadows from disappearing when fixture is out of sight.
-    protected final Array<Fixture> affectedFixtures = new Array<Fixture>();
-    protected final Array<Vector2> tmpVerts = new Array<Vector2>();
+            if ((globalFilterA != null) && !globalContactFilter(fixture))
+                return -1;
 
-    protected final IntArray ind = new IntArray();
+            if ((filterA != null) && !contactFilter(fixture))
+                return -1;
 
-    protected final Vector2 tmpStart = new Vector2();
-    protected final Vector2 tmpEnd = new Vector2();
-    protected final Vector2 tmpVec = new Vector2();
-    protected final Vector2 center = new Vector2();
+            if (ignoreBody && fixture.getBody() == getBody())
+                return -1;
+
+            // if (fixture.isSensor())
+            // return -1;
+            mx[m_index] = point.x;
+            my[m_index] = point.y;
+            f[m_index] = fraction;
+            return fraction;
+        }
+    };
+    final QueryCallback dynamicShadowCallback = new QueryCallback() {
+
+        @Override
+        public boolean reportFixture(Fixture fixture) {
+            if (!onDynamicCallback(fixture)) {
+                return true;
+            }
+            affectedFixtures.add(fixture);
+            if (fixture.getUserData() instanceof LightData) {
+                LightData data = (LightData) fixture.getUserData();
+                data.shadowsDropped++;
+            }
+            return true;
+        }
+    };
 
     /**
      * Creates new active light and automatically adds it to the specified
@@ -101,6 +134,28 @@ public abstract class Light implements Disposable {
     }
 
     /**
+     * Sets given contact filter for ALL LIGHTS
+     */
+    static public void setGlobalContactFilter(Filter filter) {
+        globalFilterA = filter;
+    }
+
+    /**
+     * Creates new contact filter for ALL LIGHTS with give parameters
+     *
+     * @param categoryBits - see {@link Filter#categoryBits}
+     * @param groupIndex   - see {@link Filter#groupIndex}
+     * @param maskBits     - see {@link Filter#maskBits}
+     */
+    static public void setGlobalContactFilter(short categoryBits, short groupIndex,
+                                              short maskBits) {
+        globalFilterA = new Filter();
+        globalFilterA.categoryBits = categoryBits;
+        globalFilterA.groupIndex = groupIndex;
+        globalFilterA.maskBits = maskBits;
+    }
+
+    /**
      * Updates this light
      */
     abstract void update();
@@ -118,18 +173,6 @@ public abstract class Light implements Disposable {
             m.render(rayHandler.lightShader, GL20.GL_TRIANGLE_STRIP);
         }
     }
-
-    /**
-     * Sets light distance
-     *
-     * <p>NOTE: MIN value should be capped to 0.1f meter
-     */
-    public abstract void setDistance(float dist);
-
-    /**
-     * Sets light direction
-     */
-    public abstract void setDirection(float directionDegree);
 
     /**
      * Attaches light to specified body
@@ -154,13 +197,6 @@ public abstract class Light implements Disposable {
     public abstract void setPosition(float x, float y);
 
     /**
-     * Sets light starting position
-     *
-     * @see #setPosition(float, float)
-     */
-    public abstract void setPosition(Vector2 position);
-
-    /**
      * @return horizontal starting position of light in world coordinates
      */
     public abstract float getX();
@@ -179,22 +215,11 @@ public abstract class Light implements Disposable {
     }
 
     /**
-     * Sets light color
+     * Sets light starting position
      *
-     * <p>NOTE: you can also use colorless light with shadows, e.g. (0,0,0,1)
-     *
-     * @param newColor RGB set the color and Alpha set intensity
-     * @see #setColor(float, float, float, float)
+     * @see #setPosition(float, float)
      */
-    public void setColor(Color newColor) {
-        if (newColor != null) {
-            color.set(newColor);
-        } else {
-            color.set(DefaultColor);
-        }
-        colorF = color.toFloatBits();
-        if (staticLight) dirty = true;
-    }
+    public abstract void setPosition(Vector2 position);
 
     /**
      * Sets light color
@@ -371,11 +396,36 @@ public abstract class Light implements Disposable {
     }
 
     /**
+     * Sets light color
+     *
+     * <p>NOTE: you can also use colorless light with shadows, e.g. (0,0,0,1)
+     *
+     * @param newColor RGB set the color and Alpha set intensity
+     * @see #setColor(float, float, float, float)
+     */
+    public void setColor(Color newColor) {
+        if (newColor != null) {
+            color.set(newColor);
+        } else {
+            color.set(DefaultColor);
+        }
+        colorF = color.toFloatBits();
+        if (staticLight) dirty = true;
+    }
+
+    /**
      * @return rays distance of this light (without gamma correction)
      */
     public float getDistance() {
         return distance / RayHandler.gammaCorrectionParameter;
     }
+
+    /**
+     * Sets light distance
+     *
+     * <p>NOTE: MIN value should be capped to 0.1f meter
+     */
+    public abstract void setDistance(float dist);
 
     /**
      * @return direction in degrees (0 if not applicable)
@@ -385,6 +435,11 @@ public abstract class Light implements Disposable {
     }
 
     /**
+     * Sets light direction
+     */
+    public abstract void setDirection(float directionDegree);
+
+    /**
      * Checks if given point is inside of this light area
      *
      * @param x - horizontal position of point in world coordinates
@@ -392,6 +447,13 @@ public abstract class Light implements Disposable {
      */
     public boolean contains(float x, float y) {
         return false;
+    }
+
+    /**
+     * @return if the attached body fixtures will be ignored during raycasting
+     */
+    public boolean getIgnoreAttachedBody() {
+        return ignoreBody;
     }
 
     /**
@@ -405,15 +467,15 @@ public abstract class Light implements Disposable {
         ignoreBody = flag;
     }
 
-    /**
-     * @return if the attached body fixtures will be ignored during raycasting
-     */
-    public boolean getIgnoreAttachedBody() {
-        return ignoreBody;
-    }
-
     public void setHeight(float height) {
         this.pseudo3dHeight = height;
+    }
+
+    /**
+     * @return number of rays set for this light
+     */
+    public int getRayNum() {
+        return rayNum;
     }
 
     /**
@@ -431,45 +493,6 @@ public abstract class Light implements Disposable {
         my = new float[vertexNum];
         f = new float[vertexNum];
     }
-
-    /**
-     * @return number of rays set for this light
-     */
-    public int getRayNum() {
-        return rayNum;
-    }
-
-    /**
-     * Global lights filter
-     **/
-    static private Filter globalFilterA = null;
-    /**
-     * This light specific filter
-     **/
-    private Filter filterA = null;
-
-    final RayCastCallback ray = new RayCastCallback() {
-        @Override
-        public float reportRayFixture(Fixture fixture, Vector2 point,
-                                      Vector2 normal, float fraction) {
-
-            if ((globalFilterA != null) && !globalContactFilter(fixture))
-                return -1;
-
-            if ((filterA != null) && !contactFilter(fixture))
-                return -1;
-
-            if (ignoreBody && fixture.getBody() == getBody())
-                return -1;
-
-            // if (fixture.isSensor())
-            // return -1;
-            mx[m_index] = point.x;
-            my[m_index] = point.y;
-            f[m_index] = fraction;
-            return fraction;
-        }
-    };
 
     boolean contactFilter(Fixture fixtureB) {
         Filter filterB = fixtureB.getFilterData();
@@ -515,28 +538,6 @@ public abstract class Light implements Disposable {
                 (globalFilterA.categoryBits & filterB.maskBits) != 0;
     }
 
-    /**
-     * Sets given contact filter for ALL LIGHTS
-     */
-    static public void setGlobalContactFilter(Filter filter) {
-        globalFilterA = filter;
-    }
-
-    /**
-     * Creates new contact filter for ALL LIGHTS with give parameters
-     *
-     * @param categoryBits - see {@link Filter#categoryBits}
-     * @param groupIndex   - see {@link Filter#groupIndex}
-     * @param maskBits     - see {@link Filter#maskBits}
-     */
-    static public void setGlobalContactFilter(short categoryBits, short groupIndex,
-                                              short maskBits) {
-        globalFilterA = new Filter();
-        globalFilterA.categoryBits = categoryBits;
-        globalFilterA.groupIndex = groupIndex;
-        globalFilterA.maskBits = maskBits;
-    }
-
     protected boolean onDynamicCallback(Fixture fixture) {
 
         if ((globalFilterA != null) && !globalContactFilter(fixture)) {
@@ -553,20 +554,4 @@ public abstract class Light implements Disposable {
         //We only add the affectedFixtures once
         return !affectedFixtures.contains(fixture, true);
     }
-
-    final QueryCallback dynamicShadowCallback = new QueryCallback() {
-
-        @Override
-        public boolean reportFixture(Fixture fixture) {
-            if (!onDynamicCallback(fixture)) {
-                return true;
-            }
-            affectedFixtures.add(fixture);
-            if (fixture.getUserData() instanceof LightData) {
-                LightData data = (LightData) fixture.getUserData();
-                data.shadowsDropped++;
-            }
-            return true;
-        }
-    };
 }
