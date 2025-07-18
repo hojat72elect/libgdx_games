@@ -512,7 +512,7 @@ public abstract class PositionalLight extends Light {
                 segments[size++] = f2;
             }
 
-            Mesh mesh = null;
+            Mesh mesh;
             if (meshInd >= dynamicShadowMeshes.size) {
                 mesh = new Mesh(
                         Mesh.VertexDataType.VertexArray, false, RayHandler.MAX_SHADOW_VERTICES, 0,

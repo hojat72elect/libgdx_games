@@ -49,7 +49,7 @@ public class Box2dLightTest extends InputAdapter implements ApplicationListener 
     private final static int MAX_FPS = 30;
     public final static float TIME_STEP = 1f / MAX_FPS;
     private final static int MIN_FPS = 15;
-    private final static float MAX_STEPS = 1f + MAX_FPS / MIN_FPS;
+    private final static float MAX_STEPS = 1f + (float) MAX_FPS / MIN_FPS;
     private final static float MAX_TIME_PER_FRAME = TIME_STEP * MAX_STEPS;
     private final static int VELOCITY_ITERS = 6;
     private final static int POSITION_ITERS = 2;
@@ -65,7 +65,7 @@ public class Box2dLightTest extends InputAdapter implements ApplicationListener 
     /**
      * our boxes
      **/
-    ArrayList<Body> balls = new ArrayList<Body>(BALLSNUM);
+    ArrayList<Body> balls = new ArrayList<>(BALLSNUM);
     /**
      * our ground box
      **/
@@ -87,7 +87,7 @@ public class Box2dLightTest extends InputAdapter implements ApplicationListener 
      * BOX2D LIGHT STUFF
      */
     RayHandler rayHandler;
-    ArrayList<Light> lights = new ArrayList<Light>(BALLSNUM);
+    ArrayList<Light> lights = new ArrayList<>(BALLSNUM);
     float sunDirection = -90f;
     float physicsTimeLeft;
     long aika;
@@ -146,7 +146,7 @@ public class Box2dLightTest extends InputAdapter implements ApplicationListener 
         normalProjection.setToOrtho2D(
                 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        /** BOX2D LIGHT STUFF BEGIN */
+        // BOX2D LIGHT STUFF BEGIN
         RayHandlerOptions options = new RayHandlerOptions();
         options.setDiffuse(true);
         options.setGammaCorrection(true);
@@ -155,14 +155,14 @@ public class Box2dLightTest extends InputAdapter implements ApplicationListener 
         rayHandler.setBlurNum(3);
 
         initPointLights();
-        /** BOX2D LIGHT STUFF END */
+        // BOX2D LIGHT STUFF END
 
     }
 
     @Override
     public void render() {
 
-        /** Rotate directional light like sun :) */
+        // Rotate directional light like sun :)
         if (lightsType == 3) {
             sunDirection += Gdx.graphics.getDeltaTime() * 4f;
             lights.get(0).setDirection(sunDirection);
@@ -195,12 +195,12 @@ public class Box2dLightTest extends InputAdapter implements ApplicationListener 
         }
         batch.end();
 
-        /** BOX2D LIGHT STUFF BEGIN */
+        // BOX2D LIGHT STUFF BEGIN
         rayHandler.setCombinedMatrix(camera);
 
         if (stepped) rayHandler.update();
         rayHandler.render();
-        /** BOX2D LIGHT STUFF END */
+        // BOX2D LIGHT STUFF END
 
         long time = System.nanoTime();
 
@@ -208,7 +208,7 @@ public class Box2dLightTest extends InputAdapter implements ApplicationListener 
                 testPoint.y);
         aika += System.nanoTime() - time;
 
-        /** FONT */
+        // FONT
         if (showText) {
             batch.setProjectionMatrix(normalProjection);
             batch.begin();
@@ -256,7 +256,7 @@ public class Box2dLightTest extends InputAdapter implements ApplicationListener 
     }
 
     void clearLights() {
-        if (lights.size() > 0) {
+        if (!lights.isEmpty()) {
             for (Light light : lights) {
                 light.remove();
             }

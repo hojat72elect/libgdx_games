@@ -74,14 +74,14 @@ public class RayHandler implements Disposable {
      *
      * <p>NOTE: DO NOT MODIFY THIS LIST
      */
-    final Array<Light> lightList = new Array<Light>(false, 16);
+    final Array<Light> lightList = new Array<>(false, 16);
 
     /**
      * This Array contain all the disabled lights.
      *
      * <p>NOTE: DO NOT MODIFY THIS LIST
      */
-    final Array<Light> disabledLights = new Array<Light>(false, 16);
+    final Array<Light> disabledLights = new Array<>(false, 16);
     final ShaderProgram lightShader;
     LightMap lightMap;
     ShaderProgram customLightShader = null;

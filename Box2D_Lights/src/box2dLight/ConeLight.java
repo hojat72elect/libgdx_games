@@ -87,7 +87,7 @@ public class ConeLight extends PositionalLight {
      */
     public void setDistance(float dist) {
         dist *= RayHandler.gammaCorrectionParameter;
-        this.distance = dist < 0.01f ? 0.01f : dist;
+        this.distance = Math.max(dist, 0.01f);
         dirty = true;
     }
 

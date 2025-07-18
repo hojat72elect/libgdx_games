@@ -37,7 +37,7 @@ public class LightData {
     }
 
     public float getLimit(float distance, float lightHeight, float lightRange) {
-        float l = 0f;
+        float l;
         if (lightHeight > height) {
             l = distance * height / (lightHeight - height);
             float diff = lightRange - distance;

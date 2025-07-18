@@ -38,10 +38,10 @@ public abstract class Light implements Disposable {
     static private Filter globalFilterA = null;
     protected final Color color = new Color();
     protected final Vector2 tmpPosition = new Vector2();
-    protected final Array<Mesh> dynamicShadowMeshes = new Array<Mesh>();
+    protected final Array<Mesh> dynamicShadowMeshes = new Array<>();
     //Should never be cleared except when the light changes position (not direction). Prevents shadows from disappearing when fixture is out of sight.
-    protected final Array<Fixture> affectedFixtures = new Array<Fixture>();
-    protected final Array<Vector2> tmpVerts = new Array<Vector2>();
+    protected final Array<Fixture> affectedFixtures = new Array<>();
+    protected final Array<Vector2> tmpVerts = new Array<>();
     protected final IntArray ind = new IntArray();
     protected final Vector2 tmpStart = new Vector2();
     protected final Vector2 tmpEnd = new Vector2();
@@ -87,28 +87,22 @@ public abstract class Light implements Disposable {
             if (ignoreBody && fixture.getBody() == getBody())
                 return -1;
 
-            // if (fixture.isSensor())
-            // return -1;
             mx[m_index] = point.x;
             my[m_index] = point.y;
             f[m_index] = fraction;
             return fraction;
         }
     };
-    final QueryCallback dynamicShadowCallback = new QueryCallback() {
-
-        @Override
-        public boolean reportFixture(Fixture fixture) {
-            if (!onDynamicCallback(fixture)) {
-                return true;
-            }
-            affectedFixtures.add(fixture);
-            if (fixture.getUserData() instanceof LightData) {
-                LightData data = (LightData) fixture.getUserData();
-                data.shadowsDropped++;
-            }
+    final QueryCallback dynamicShadowCallback = fixture -> {
+        if (!onDynamicCallback(fixture)) {
             return true;
         }
+        affectedFixtures.add(fixture);
+        if (fixture.getUserData() instanceof LightData) {
+            LightData data = (LightData) fixture.getUserData();
+            data.shadowsDropped++;
+        }
+        return true;
     };
 
     /**

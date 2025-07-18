@@ -55,7 +55,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
     private final static int MAX_FPS = 30;
     public final static float TIME_STEP = 1f / MAX_FPS;
     private final static int MIN_FPS = 15;
-    private final static float MAX_STEPS = 1f + MAX_FPS / MIN_FPS;
+    private final static float MAX_STEPS = 1f + (float) MAX_FPS / MIN_FPS;
 //	TextureRegion textureRegion;
     private final static float MAX_TIME_PER_FRAME = TIME_STEP * MAX_STEPS;
     private final static int VELOCITY_ITERS = 6;
@@ -71,7 +71,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
     /**
      * our boxes
      **/
-    ArrayList<Body> balls = new ArrayList<Body>(BALLSNUM);
+    ArrayList<Body> balls = new ArrayList<>(BALLSNUM);
     /**
      * our ground box
      **/
@@ -93,12 +93,12 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
      * BOX2D LIGHT STUFF
      */
     RayHandler rayHandler;
-    ArrayList<Light> lights = new ArrayList<Light>(BALLSNUM);
+    ArrayList<Light> lights = new ArrayList<>(BALLSNUM);
     float sunDirection = -90f;
     Texture bg, bgN;
     TextureRegion objectReg, objectRegN;
     FrameBuffer normalFbo;
-    Array<DeferredObject> assetArray = new Array<DeferredObject>();
+    Array<DeferredObject> assetArray = new Array<>();
     DeferredObject marble;
     ShaderProgram lightShader;
     ShaderProgram normalShader;
@@ -170,7 +170,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
 
         normalProjection.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        /** BOX2D LIGHT STUFF BEGIN */
+        // BOX2D LIGHT STUFF BEGIN
         normalShader = createNormalShader();
 
         lightShader = createLightShader();
@@ -178,9 +178,6 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
         options.setDiffuse(true);
         options.setGammaCorrection(true);
         rayHandler = new RayHandler(world, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), options) {
-            @Override
-            protected void updateLightShader() {
-            }
 
             @Override
             protected void updateLightShaderPerLight(Light light) {
@@ -196,7 +193,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
         rayHandler.setBlurNum(0);
 
         initPointLights();
-        /** BOX2D LIGHT STUFF END */
+        // BOX2D LIGHT STUFF END
 
 
         objectReg = new TextureRegion(new Texture(Gdx.files.internal("test/data/object-deferred.png")));
@@ -319,7 +316,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
     @Override
     public void render() {
 
-        /** Rotate directional light like sun :) */
+        // Rotate directional light like sun :)
         if (lightsType == 3) {
             sunDirection += Gdx.graphics.getDeltaTime() * 4f;
             lights.get(0).setDirection(sunDirection);
@@ -364,7 +361,6 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
             marble.rotation = angle;
             normalShader.setUniformf("u_rot", MathUtils.degreesToRadians * marble.rotation);
             marble.drawNormal(batch);
-            // TODO same as above
             batch.flush();
         }
         batch.end();
@@ -408,14 +404,14 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
         }
         batch.end();
 
-        /** BOX2D LIGHT STUFF BEGIN */
+        // BOX2D LIGHT STUFF BEGIN
         if (!drawNormals) {
             rayHandler.setCombinedMatrix(camera);
             if (stepped) rayHandler.update();
             normals.bind(1);
             rayHandler.render();
         }
-        /** BOX2D LIGHT STUFF END */
+      // BOX2D LIGHT STUFF END
 
         long time = System.nanoTime();
 
@@ -423,7 +419,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
                 testPoint.y);
         aika += System.nanoTime() - time;
 
-        /** FONT */
+        // FONT
         if (showText) {
             batch.setProjectionMatrix(normalProjection);
             batch.begin();
@@ -474,7 +470,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
     }
 
     void clearLights() {
-        if (lights.size() > 0) {
+        if (!lights.isEmpty()) {
             for (Light light : lights) {
                 light.remove();
             }

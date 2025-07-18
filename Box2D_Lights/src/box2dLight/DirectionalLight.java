@@ -103,7 +103,7 @@ public class DirectionalLight extends Light {
         if (rayHandler.pseudo3d) {
             float width = (rayHandler.x2 - rayHandler.x1);
             float height = (rayHandler.y2 - rayHandler.y1);
-            float sizeOfScreen = width > height ? width : height;
+            float sizeOfScreen = Math.max(width, height);
             xDisp = -sizeOfScreen * cos;
             yDisp = -sizeOfScreen * sin;
 
@@ -118,7 +118,7 @@ public class DirectionalLight extends Light {
 
         final float width = (rayHandler.x2 - rayHandler.x1);
         final float height = (rayHandler.y2 - rayHandler.y1);
-        final float sizeOfScreen = width > height ? width : height;
+        final float sizeOfScreen = Math.max(width, height);
 
         float xAxelOffSet = sizeOfScreen * cos;
         float yAxelOffSet = sizeOfScreen * sin;
@@ -396,7 +396,7 @@ public class DirectionalLight extends Light {
                 segments[shadowSize++] = f;
             }
 
-            Mesh shadowMesh = null;
+            Mesh shadowMesh;
             if (meshInd >= dynamicShadowMeshes.size) {
                 shadowMesh = new Mesh(
                         VertexDataType.VertexArray, false, 128, 0,

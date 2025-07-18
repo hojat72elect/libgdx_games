@@ -3,28 +3,28 @@ package box2dLight;
 import com.badlogic.gdx.Gdx;
 
 /**
- * Helper class that stores source and destination factors for blending
+ * Helper class that stores source and destination factors for blending.
  */
 public class BlendFunc {
 
-    final int default_sfactor;
-    final int default_dfactor;
-    int sfactor;
-    int dfactor;
+    final int defaultSourceFactor;
+    final int defaultDestinationFactor;
+    int sourceFactor;
+    int destinationFactor;
 
-    public BlendFunc(int sfactor, int dfactor) {
-        this.default_sfactor = sfactor;
-        this.default_dfactor = dfactor;
-        this.sfactor = sfactor;
-        this.dfactor = dfactor;
+    public BlendFunc(int sourceFactor, int destinationFactor) {
+        this.defaultSourceFactor = sourceFactor;
+        this.defaultDestinationFactor = destinationFactor;
+        this.sourceFactor = sourceFactor;
+        this.destinationFactor = destinationFactor;
     }
 
     /**
      * Sets source and destination blending factors
      */
-    public void set(int sfactor, int dfactor) {
-        this.sfactor = sfactor;
-        this.dfactor = dfactor;
+    public void set(int sourceFactor, int destinationFactor) {
+        this.sourceFactor = sourceFactor;
+        this.destinationFactor = destinationFactor;
     }
 
     /**
@@ -32,15 +32,15 @@ public class BlendFunc {
      * that were set on instance creation
      */
     public void reset() {
-        sfactor = default_sfactor;
-        dfactor = default_dfactor;
+        sourceFactor = defaultSourceFactor;
+        destinationFactor = defaultDestinationFactor;
     }
 
     /**
      * Calls glBlendFunc with own source and destination factors
      */
     public void apply() {
-        Gdx.gl20.glBlendFunc(sfactor, dfactor);
+        Gdx.gl20.glBlendFunc(sourceFactor, destinationFactor);
     }
 }
 
