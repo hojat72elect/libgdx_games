@@ -49,14 +49,13 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
     public static final float viewportWidth = 48;
     public static final float viewportHeight = 32;
     static final int RAYS_PER_BALL = 64;
-    static final int BALLSNUM = 8;
+    static final int BALLS_NUM = 8;
     static final float LIGHT_DISTANCE = 16f;
     static final float RADIUS = 1f;
     private final static int MAX_FPS = 30;
     public final static float TIME_STEP = 1f / MAX_FPS;
     private final static int MIN_FPS = 15;
     private final static float MAX_STEPS = 1f + (float) MAX_FPS / MIN_FPS;
-//	TextureRegion textureRegion;
     private final static float MAX_TIME_PER_FRAME = TIME_STEP * MAX_STEPS;
     private final static int VELOCITY_ITERS = 6;
     private final static int POSITION_ITERS = 2;
@@ -71,7 +70,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
     /**
      * our boxes
      **/
-    ArrayList<Body> balls = new ArrayList<>(BALLSNUM);
+    ArrayList<Body> balls = new ArrayList<>(BALLS_NUM);
     /**
      * our ground box
      **/
@@ -93,7 +92,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
      * BOX2D LIGHT STUFF
      */
     RayHandler rayHandler;
-    ArrayList<Light> lights = new ArrayList<>(BALLSNUM);
+    ArrayList<Light> lights = new ArrayList<>(BALLS_NUM);
     float sunDirection = -90f;
     Texture bg, bgN;
     TextureRegion objectReg, objectRegN;
@@ -218,29 +217,29 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
     private ShaderProgram createLightShader() {
         // Shader adapted from https://github.com/mattdesl/lwjgl-basics/wiki/ShaderLesson6
         final String vertexShader =
-                "attribute vec4 vertex_positions;\n" //
-                        + "attribute vec4 quad_colors;\n" //
+                "attribute vec4 vertex_positions;\n"
+                        + "attribute vec4 quad_colors;\n"
                         + "attribute float s;\n"
-                        + "uniform mat4 u_projTrans;\n" //
-                        + "varying vec4 v_color;\n" //
-                        + "void main()\n" //
-                        + "{\n" //
-                        + "   v_color = s * quad_colors;\n" //
-                        + "   gl_Position =  u_projTrans * vertex_positions;\n" //
+                        + "uniform mat4 u_projTrans;\n"
+                        + "varying vec4 v_color;\n"
+                        + "void main()\n"
+                        + "{\n"
+                        + "   v_color = s * quad_colors;\n"
+                        + "   gl_Position =  u_projTrans * vertex_positions;\n"
                         + "}\n";
-        //
-        final String fragmentShader = "#ifdef GL_ES\n" //
-                + "precision lowp float;\n" //
+
+        final String fragmentShader = "#ifdef GL_ES\n"
+                + "precision lowp float;\n"
                 + "#define MED mediump\n"
                 + "#else\n"
                 + "#define MED \n"
-                + "#endif\n" //
-                + "varying vec4 v_color;\n" //
-                + "uniform sampler2D u_normals;\n" //
-                + "uniform vec3 u_lightpos;\n" //
-                + "uniform vec2 u_resolution;\n" //
-                + "uniform float u_intensity = 1.0;\n" //
-                + "void main()\n"//
+                + "#endif\n"
+                + "varying vec4 v_color;\n"
+                + "uniform sampler2D u_normals;\n"
+                + "uniform vec3 u_lightpos;\n"
+                + "uniform vec2 u_resolution;\n"
+                + "uniform float u_intensity = 1.0;\n"
+                + "void main()\n"
                 + "{\n"
                 + "  vec2 screenPos = gl_FragCoord.xy / u_resolution.xy;\n"
                 + "  vec3 NormalMap = texture2D(u_normals, screenPos).rgb; "
@@ -251,7 +250,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
                 + "  vec3 L = normalize(LightDir);\n"
 
                 + "  float maxProd = max(dot(N, L), 0.0);\n"
-                + "  gl_FragColor = v_color * maxProd * u_intensity;\n" //
+                + "  gl_FragColor = v_color * maxProd * u_intensity;\n"
                 + "}";
 
         ShaderProgram.pedantic = false;
@@ -270,42 +269,43 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
     }
 
     private ShaderProgram createNormalShader() {
-        String vertexShader = "attribute vec4 " + ShaderProgram.POSITION_ATTRIBUTE + ";\n" //
-                + "attribute vec4 " + ShaderProgram.COLOR_ATTRIBUTE + ";\n" //
-                + "attribute vec2 " + ShaderProgram.TEXCOORD_ATTRIBUTE + "0;\n" //
-                + "uniform mat4 u_projTrans;\n" //
-                + "uniform float u_rot;\n" //
-                + "varying vec4 v_color;\n" //
-                + "varying vec2 v_texCoords;\n" //
-                + "varying mat2 v_rot;\n" //
-                + "\n" //
-                + "void main()\n" //
-                + "{\n" //
-                + "   vec2 rad = vec2(-sin(u_rot), cos(u_rot));\n" //
-                + "   v_rot = mat2(rad.y, -rad.x, rad.x, rad.y);\n" //
-                + "   v_color = " + ShaderProgram.COLOR_ATTRIBUTE + ";\n" //
-                + "   v_color.a = v_color.a * (255.0/254.0);\n" //
-                + "   v_texCoords = " + ShaderProgram.TEXCOORD_ATTRIBUTE + "0;\n" //
-                + "   gl_Position =  u_projTrans * " + ShaderProgram.POSITION_ATTRIBUTE + ";\n" //
+        String vertexShader = "attribute vec4 " + ShaderProgram.POSITION_ATTRIBUTE + ";\n"
+                + "attribute vec4 " + ShaderProgram.COLOR_ATTRIBUTE + ";\n"
+                + "attribute vec2 " + ShaderProgram.TEXCOORD_ATTRIBUTE + "0;\n"
+                + "uniform mat4 u_projTrans;\n"
+                + "uniform float u_rot;\n"
+                + "varying vec4 v_color;\n"
+                + "varying vec2 v_texCoords;\n"
+                + "varying mat2 v_rot;\n"
+                + "\n"
+                + "void main()\n"
+                + "{\n"
+                + "   vec2 rad = vec2(-sin(u_rot), cos(u_rot));\n"
+                + "   v_rot = mat2(rad.y, -rad.x, rad.x, rad.y);\n"
+                + "   v_color = " + ShaderProgram.COLOR_ATTRIBUTE + ";\n"
+                + "   v_color.a = v_color.a * (255.0/254.0);\n"
+                + "   v_texCoords = " + ShaderProgram.TEXCOORD_ATTRIBUTE + "0;\n"
+                + "   gl_Position =  u_projTrans * " + ShaderProgram.POSITION_ATTRIBUTE + ";\n"
                 + "}\n";
-        String fragmentShader = "#ifdef GL_ES\n" //
-                + "#define LOWP lowp\n" //
-                + "precision mediump float;\n" //
-                + "#else\n" //
-                + "#define LOWP \n" //
-                + "#endif\n" //
-                + "varying LOWP vec4 v_color;\n" //
-                + "varying vec2 v_texCoords;\n" //
-                + "varying mat2 v_rot;\n" //
-                + "uniform sampler2D u_texture;\n" //
-                + "void main()\n"//
-                + "{\n" //
-                + "  vec4 normal = texture2D(u_texture, v_texCoords).rgba;\n" //
+
+        String fragmentShader = "#ifdef GL_ES\n"
+                + "#define LOWP lowp\n"
+                + "precision mediump float;\n"
+                + "#else\n"
+                + "#define LOWP \n"
+                + "#endif\n"
+                + "varying LOWP vec4 v_color;\n"
+                + "varying vec2 v_texCoords;\n"
+                + "varying mat2 v_rot;\n"
+                + "uniform sampler2D u_texture;\n"
+                + "void main()\n"
+                + "{\n"
+                + "  vec4 normal = texture2D(u_texture, v_texCoords).rgba;\n"
                 // got to translate normal vector to -1, 1 range
-                + "  vec2 rotated = v_rot * (normal.xy * 2.0 - 1.0);\n" //
+                + "  vec2 rotated = v_rot * (normal.xy * 2.0 - 1.0);\n"
                 // and back to 0, 1
-                + "  rotated = (rotated.xy / 2.0 + 0.5 );\n" //
-                + "  gl_FragColor = vec4(rotated.xy, normal.z, normal.a);\n" //
+                + "  rotated = (rotated.xy / 2.0 + 0.5 );\n"
+                + "  gl_FragColor = vec4(rotated.xy, normal.z, normal.a);\n"
                 + "}";
 
         ShaderProgram shader = new ShaderProgram(vertexShader, fragmentShader);
@@ -352,7 +352,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
             // TODO this is baaaad, maybe modify SpriteBatch to add rotation in the attributes? Flushing after each defeats the point of batch
             batch.flush();
         }
-        for (int i = 0; i < BALLSNUM; i++) {
+        for (int i = 0; i < BALLS_NUM; i++) {
             Body ball = balls.get(i);
             Vector2 position = ball.getPosition();
             float angle = MathUtils.radiansToDegrees * ball.getAngle();
@@ -392,7 +392,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
             for (DeferredObject deferredObject : assetArray) {
                 deferredObject.draw(batch);
             }
-            for (int i = 0; i < BALLSNUM; i++) {
+            for (int i = 0; i < BALLS_NUM; i++) {
                 Body ball = balls.get(i);
                 Vector2 position = ball.getPosition();
                 float angle = MathUtils.radiansToDegrees * ball.getAngle();
@@ -411,7 +411,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
             normals.bind(1);
             rayHandler.render();
         }
-      // BOX2D LIGHT STUFF END
+        // BOX2D LIGHT STUFF END
 
         long time = System.nanoTime();
 
@@ -481,7 +481,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
 
     void initPointLights() {
         clearLights();
-        for (int i = 0; i < BALLSNUM; i++) {
+        for (int i = 0; i < BALLS_NUM; i++) {
             PointLight light = new PointLight(
                     rayHandler, RAYS_PER_BALL, null, LIGHT_DISTANCE, 0f, 0f);
             light.attachToBody(balls.get(i), RADIUS / 2f, RADIUS / 2f);
@@ -496,7 +496,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
 
     void initConeLights() {
         clearLights();
-        for (int i = 0; i < BALLSNUM; i++) {
+        for (int i = 0; i < BALLS_NUM; i++) {
             ConeLight light = new ConeLight(
                     rayHandler, RAYS_PER_BALL, null, LIGHT_DISTANCE,
                     0, 0, 0f, MathUtils.random(15f, 40f));
@@ -514,7 +514,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
 
     void initChainLights() {
         clearLights();
-        for (int i = 0; i < BALLSNUM; i++) {
+        for (int i = 0; i < BALLS_NUM; i++) {
             ChainLight light = new ChainLight(
                     rayHandler, RAYS_PER_BALL, null, LIGHT_DISTANCE, 1,
                     new float[]{-5, 0, 0, 3, 5, 0});
@@ -586,7 +586,7 @@ public class Box2dLightCustomShaderTest extends InputAdapter implements Applicat
         BodyDef boxBodyDef = new BodyDef();
         boxBodyDef.type = BodyType.DynamicBody;
 
-        for (int i = 0; i < BALLSNUM; i++) {
+        for (int i = 0; i < BALLS_NUM; i++) {
             // Create the BodyDef, set a random position above the
             // ground and create a new body
             boxBodyDef.position.x = 1 + (float) (Math.random() * (viewportWidth - 2));

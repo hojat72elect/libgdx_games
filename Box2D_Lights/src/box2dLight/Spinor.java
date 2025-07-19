@@ -62,8 +62,8 @@ public class Spinor {
 
     public Spinor add(float angle) {
         angle /= 2;
-        real += Math.cos(angle);
-        complex += Math.sin(angle);
+        real += (float) Math.cos(angle);
+        complex += (float) Math.sin(angle);
         return this;
     }
 
@@ -75,8 +75,8 @@ public class Spinor {
 
     public Spinor sub(float angle) {
         angle /= 2;
-        real -= Math.cos(angle);
-        complex -= Math.sin(angle);
+        real -= (float) Math.cos(angle);
+        complex -= (float) Math.sin(angle);
         return this;
     }
 

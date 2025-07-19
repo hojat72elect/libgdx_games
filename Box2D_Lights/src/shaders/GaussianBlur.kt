@@ -7,8 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram
 object GaussianBlur {
     @JvmStatic
     fun createShader(width: Int, height: Int): ShaderProgram {
-        val FBO_W = width.toString()
-        val FBO_H = height.toString()
+
         val rgb = if (RayHandler.isDiffuseLight()) ".rgb" else ""
         val vertexShader = ("attribute vec4 a_position;\n"
                 + "uniform vec2  dir;\n"
@@ -19,10 +18,10 @@ object GaussianBlur {
                 + "varying vec2 v_texCoords3;\n"
                 + "varying vec2 v_texCoords4;\n"
                 + "#define FBO_W "
-                + FBO_W
+                + width.toString()
                 + ".0\n"
                 + "#define FBO_H "
-                + FBO_H
+                + height.toString()
                 + ".0\n"
                 + "const vec2 futher = vec2(3.2307692308 / FBO_W, 3.2307692308 / FBO_H );\n" //
                 + "const vec2 closer = vec2(1.3846153846 / FBO_W, 1.3846153846 / FBO_H );\n" //
