@@ -1,11 +1,12 @@
-package shaders;
+package shaders
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.glutils.ShaderProgram
 
-public final class ShadowShader {
-    static public ShaderProgram createShadowShader() {
-        final String vertexShader = "attribute vec4 a_position;\n"
+object ShadowShader {
+    @JvmStatic
+    fun createShadowShader(): ShaderProgram {
+        val vertexShader = ("attribute vec4 a_position;\n"
                 + "attribute vec2 a_texCoord;\n"
                 + "varying vec2 v_texCoords;\n"
                 + "\n"
@@ -13,8 +14,8 @@ public final class ShadowShader {
                 + "{\n"
                 + "   v_texCoords = a_texCoord;\n"
                 + "   gl_Position = a_position;\n"
-                + "}\n";
-        final String fragmentShader = "#ifdef GL_ES\n"
+                + "}\n")
+        val fragmentShader = ("#ifdef GL_ES\n"
                 + "precision lowp float;\n"
                 + "#define MED mediump\n"
                 + "#else\n"
@@ -28,18 +29,22 @@ public final class ShadowShader {
                 + "vec4 c = texture2D(u_texture, v_texCoords);\n"
                 + "gl_FragColor.rgb = c.rgb * c.a + ambient.rgb;\n"
                 + "gl_FragColor.a = ambient.a - c.a;\n"
-                + "}\n";
-        ShaderProgram.pedantic = false;
-        ShaderProgram shadowShader = new ShaderProgram(vertexShader,
-                fragmentShader);
-        if (!shadowShader.isCompiled()) {
-            shadowShader = new ShaderProgram("#version 330 core\n" + vertexShader,
-                    "#version 330 core\n" + fragmentShader);
-            if (!shadowShader.isCompiled()) {
-                Gdx.app.log("ERROR", shadowShader.getLog());
+                + "}\n")
+        ShaderProgram.pedantic = false
+        var shadowShader = ShaderProgram(
+            vertexShader,
+            fragmentShader
+        )
+        if (!shadowShader.isCompiled) {
+            shadowShader = ShaderProgram(
+                "#version 330 core\n$vertexShader",
+                "#version 330 core\n$fragmentShader"
+            )
+            if (!shadowShader.isCompiled) {
+                Gdx.app.log("ERROR", shadowShader.log)
             }
         }
 
-        return shadowShader;
+        return shadowShader
     }
 }

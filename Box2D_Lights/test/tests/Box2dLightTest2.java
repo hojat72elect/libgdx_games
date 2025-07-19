@@ -42,7 +42,7 @@ import box2dLight.RayHandlerOptions;
 public class Box2dLightTest2 extends InputAdapter implements ApplicationListener {
 
     static final int RAYS_PER_BALL = 128;
-    static final int BALLSNUM = 5;
+    static final int BALLS_NUM = 5;
     static final float LIGHT_DISTANCE = 16f;
     static final float RADIUS = 1f;
 
@@ -67,7 +67,7 @@ public class Box2dLightTest2 extends InputAdapter implements ApplicationListener
     /**
      * our boxes
      **/
-    ArrayList<Body> balls = new ArrayList<>(BALLSNUM);
+    ArrayList<Body> balls = new ArrayList<>(BALLS_NUM);
     /**
      * our ground box
      **/
@@ -89,7 +89,7 @@ public class Box2dLightTest2 extends InputAdapter implements ApplicationListener
      * BOX2D LIGHT STUFF
      */
     RayHandler rayHandler;
-    ArrayList<Light> lights = new ArrayList<>(BALLSNUM);
+    ArrayList<Light> lights = new ArrayList<>(BALLS_NUM);
     float sunDirection = -90f;
     float physicsTimeLeft;
     long aika;
@@ -185,7 +185,7 @@ public class Box2dLightTest2 extends InputAdapter implements ApplicationListener
         {
             batch.draw(bg, -viewportWidth / 2f, 0, viewportWidth, viewportHeight);
             batch.enableBlending();
-            for (int i = 0; i < BALLSNUM; i++) {
+            for (int i = 0; i < BALLS_NUM; i++) {
                 Body ball = balls.get(i);
                 Vector2 position = ball.getPosition();
                 float angle = MathUtils.radiansToDegrees * ball.getAngle();
@@ -272,7 +272,7 @@ public class Box2dLightTest2 extends InputAdapter implements ApplicationListener
 
     void initPointLights() {
         clearLights();
-        for (int i = 0; i < BALLSNUM; i++) {
+        for (int i = 0; i < BALLS_NUM; i++) {
             PointLight light = new PointLight(
                     rayHandler, RAYS_PER_BALL, null, LIGHT_DISTANCE, 0f, 0f);
             light.attachToBody(balls.get(i), RADIUS / 2f, RADIUS / 2f);
@@ -288,7 +288,7 @@ public class Box2dLightTest2 extends InputAdapter implements ApplicationListener
 
     void initConeLights() {
         clearLights();
-        for (int i = 0; i < BALLSNUM; i++) {
+        for (int i = 0; i < BALLS_NUM; i++) {
             ConeLight light = new ConeLight(
                     rayHandler, RAYS_PER_BALL, null, LIGHT_DISTANCE,
                     0, 0, 0f, MathUtils.random(15f, 40f));
@@ -306,7 +306,7 @@ public class Box2dLightTest2 extends InputAdapter implements ApplicationListener
 
     void initChainLights() {
         clearLights();
-        for (int i = 0; i < BALLSNUM; i++) {
+        for (int i = 0; i < BALLS_NUM; i++) {
             ChainLight light = new ChainLight(
                     rayHandler, RAYS_PER_BALL, null, LIGHT_DISTANCE, 1,
                     new float[]{-5, 0, 0, 3, 5, 0});
@@ -378,7 +378,7 @@ public class Box2dLightTest2 extends InputAdapter implements ApplicationListener
         BodyDef boxBodyDef = new BodyDef();
         boxBodyDef.type = BodyType.DynamicBody;
 
-        for (int i = 0; i < BALLSNUM; i++) {
+        for (int i = 0; i < BALLS_NUM; i++) {
             // Create the BodyDef, set a random position above the
             // ground and create a new body
             boxBodyDef.position.x = -20 + (float) (Math.random() * 40);
