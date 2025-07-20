@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.donttap.Assets;
-import com.nopalsoft.donttap.MainDoNot;
+import com.nopalsoft.donttap.DoNotTapGame;
 import com.nopalsoft.donttap.Settings;
 import com.nopalsoft.donttap.game.GameScreen;
 import com.nopalsoft.donttap.game.WorldGame;
@@ -22,7 +22,7 @@ import com.nopalsoft.donttap.screens.Screens;
 public class VentanaGameOver extends Group {
     static public float fadeDuration = 0.25f;
     GameScreen screen;
-    MainDoNot game;
+    DoNotTapGame game;
 
     WorldGame oWorld;
 
@@ -116,18 +116,18 @@ public class VentanaGameOver extends Group {
         btShareTwitter = new Button(Assets.btTwitter);
         btShareTwitter.setSize(55, 55);
         btShareTwitter.setPosition(140, 160);
-        screen.addEfectoPress(btShareTwitter);
+        screen.addPressEffect(btShareTwitter);
 
         btShareFacebook = new Button(Assets.btFacebook);
         btShareFacebook.setSize(55, 55);
         btShareFacebook.setPosition(235, 160);
-        screen.addEfectoPress(btShareFacebook);
+        screen.addPressEffect(btShareFacebook);
 
         final TextButton btTryAgain = new TextButton("Try again",
                 Assets.textButtonStyleChico);
         btTryAgain
                 .setPosition(getWidth() / 2f - btTryAgain.getWidth() / 2f, 90);
-        screen.addEfectoPress(btTryAgain);
+        screen.addPressEffect(btTryAgain);
         btTryAgain.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -140,7 +140,7 @@ public class VentanaGameOver extends Group {
                 Assets.textButtonStyleChico);
         btMainMenu
                 .setPosition(getWidth() / 2f - btMainMenu.getWidth() / 2f, 15);
-        screen.addEfectoPress(btMainMenu);
+        screen.addPressEffect(btMainMenu);
         btMainMenu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

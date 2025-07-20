@@ -98,14 +98,6 @@ public class Assets {
     public static void playTapSound() {
         if (!Settings.isSoundEnabled)
             return;
-
-        // if (MathUtils.randomBoolean())
-        // soundTap1.play();
-        // else
         soundTap2.play();
-
-        // int sonido = MathUtils.random(pianoSounds.length - 1);
-        // pianoSounds[1].play();
-
     }
 }

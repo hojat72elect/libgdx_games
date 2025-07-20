@@ -11,7 +11,7 @@ public class AndroidLauncher extends AndroidApplication implements FloatFormatte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-        initialize(new MainDoNot(this), config);
+        initialize(new DoNotTapGame(this), config);
     }
 
     @Override

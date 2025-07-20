@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.badlogic.gdx.utils.Pools;
-import com.nopalsoft.donttap.objetos.Tiles;
+import com.nopalsoft.donttap.game_objects.Tiles;
 import com.nopalsoft.donttap.screens.Screens;
 
 import java.util.Iterator;

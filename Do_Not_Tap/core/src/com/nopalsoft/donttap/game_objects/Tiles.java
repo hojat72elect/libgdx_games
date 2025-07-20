@@ -1,4 +1,4 @@
-package com.nopalsoft.donttap.objetos;
+package com.nopalsoft.donttap.game_objects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

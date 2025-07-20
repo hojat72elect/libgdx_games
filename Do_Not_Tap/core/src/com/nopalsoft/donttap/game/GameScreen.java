@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.donttap.Assets;
-import com.nopalsoft.donttap.MainDoNot;
+import com.nopalsoft.donttap.DoNotTapGame;
 import com.nopalsoft.donttap.Settings;
 import com.nopalsoft.donttap.dialogs.VentanaGameOver;
 import com.nopalsoft.donttap.dialogs.VentanaGamePaused;
@@ -33,7 +33,7 @@ public class GameScreen extends Screens {
     Label lbTime, lbTilesScore, lbBestScore;
     Table tbMarcadores;
 
-    public GameScreen(MainDoNot game, int mode) {
+    public GameScreen(DoNotTapGame game, int mode) {
         super(game);
         this.mode = mode;
         stageGame = new Stage(new StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT));

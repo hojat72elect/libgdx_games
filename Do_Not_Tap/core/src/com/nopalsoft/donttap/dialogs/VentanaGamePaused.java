@@ -57,7 +57,7 @@ public class VentanaGamePaused extends Group {
         final TextButton btResume = new TextButton("Resume",
                 Assets.textButtonStyleChico);
         btResume.setPosition(getWidth() / 2f - btResume.getWidth() / 2f, 120);
-        screen.addEfectoPress(btResume);
+        screen.addPressEffect(btResume);
         btResume.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -70,7 +70,7 @@ public class VentanaGamePaused extends Group {
                 Assets.textButtonStyleChico);
         btMainMenu
                 .setPosition(getWidth() / 2f - btMainMenu.getWidth() / 2f, 20);
-        screen.addEfectoPress(btMainMenu);
+        screen.addPressEffect(btMainMenu);
         btMainMenu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

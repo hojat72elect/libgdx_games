@@ -16,35 +16,31 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.nopalsoft.donttap.Assets;
-import com.nopalsoft.donttap.MainDoNot;
+import com.nopalsoft.donttap.DoNotTapGame;
 import com.nopalsoft.donttap.Settings;
 import com.nopalsoft.donttap.game.GameScreen;
-
-import java.util.Random;
 
 public abstract class Screens extends InputAdapter implements Screen {
     public static final int SCREEN_WIDTH = 480;
     public static final int SCREEN_HEIGHT = 800;
 
     public static final float WORLD_WIDTH = 480;
-    public static final float WORLD_HEIGHT = 800 - 80;// El menos 80 es la barra de marcadores
+    public static final float WORLD_HEIGHT = 800 - 80;// Minus 80 is the bookmarks bar
 
-    public MainDoNot game;
+    public DoNotTapGame game;
 
-    public OrthographicCamera oCam;
-    public SpriteBatch batcher;
+    public OrthographicCamera camera;
+    public SpriteBatch batch;
     public Stage stage;
 
-    Random oRan;
-
-    public Screens(final MainDoNot game) {
+    public Screens(final DoNotTapGame game) {
         this.stage = game.stage;
         this.stage.clear();
-        this.batcher = game.batcher;
+        this.batch = game.batcher;
         this.game = game;
 
-        oCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
-        oCam.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
+        camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
+        camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
 
         InputMultiplexer input = new InputMultiplexer(this, stage);
         Gdx.input.setInputProcessor(input);
@@ -56,29 +52,25 @@ public abstract class Screens extends InputAdapter implements Screen {
             delta = .1f;
 
         update(delta);
-
-        // Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
         draw(delta);
 
         stage.act(delta);
         stage.draw();
-
-//		stage.setDebugAll(true);
     }
 
     Image blackFadeOut;
 
     public void changeScreenWithFadeOut(final Class<?> newScreen,
-                                        final MainDoNot game) {
+                                        final DoNotTapGame game) {
         changeScreenWithFadeOut(newScreen, game, -1);
     }
 
     public void changeScreenWithFadeOut(final Class<?> newScreen,
-                                        final MainDoNot game, final int mode) {
+                                        final DoNotTapGame game, final int mode) {
         blackFadeOut = new Image(Assets.pixelNegro);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         blackFadeOut.getColor().a = 0;
@@ -92,14 +84,12 @@ public abstract class Screens extends InputAdapter implements Screen {
                             game.setScreen(new GameScreen(game, mode));
                         else if (newScreen == MainMenuScreen.class)
                             game.setScreen(new MainMenuScreen(game));
-                        // El blackFadeOut se remueve del stage cuando se le da new Screens(game) "Revisar el constructor de la clase Screens" por lo que no hay necesidad de hacer
-                        // blackFadeout.remove();
                     }
                 })));
         stage.addActor(blackFadeOut);
     }
 
-    public void addEfectoPress(final Actor actor) {
+    public void addPressEffect(final Actor actor) {
         actor.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
@@ -176,20 +166,15 @@ public abstract class Screens extends InputAdapter implements Screen {
 
     @Override
     public void pause() {
-        // Assets.music.pause();
-
     }
 
     @Override
     public void resume() {
-        // if (Settings.isMusicOn)
-        // Assets.music.play();
-
     }
 
     @Override
     public void dispose() {
         stage.dispose();
-        batcher.dispose();
+        batch.dispose();
     }
 }

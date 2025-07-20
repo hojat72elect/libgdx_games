@@ -5,65 +5,61 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.donttap.Assets;
-import com.nopalsoft.donttap.MainDoNot;
+import com.nopalsoft.donttap.DoNotTapGame;
 
 public class MainMenuScreen extends Screens {
 
-    Label lbLeaderboard;
+    TextButton buttonPlay, buttonRate, buttonLeaderboards;
+    Button buttonFacebook;
 
-    TextButton btPlay, btRate, btLeaderboards;
-    Button btFacebook;
-
-    public MainMenuScreen(final MainDoNot game) {
+    public MainMenuScreen(final DoNotTapGame game) {
         super(game);
         addBackGround();
 
-        Image titulo = new Image(Assets.titulo);
-        titulo.setPosition(SCREEN_WIDTH / 2f - titulo.getWidth() / 2f, 620);
+        Image titleImage = new Image(Assets.titulo);
+        titleImage.setPosition(SCREEN_WIDTH / 2f - titleImage.getWidth() / 2f, 620);
 
         Table menu = new Table();
         menu.setSize(350, 400);
-        // menu.debug();
         menu.setPosition(SCREEN_WIDTH / 2f - menu.getWidth() / 2f, 130);
         menu.defaults().center().expand();
 
-        btPlay = new TextButton("Play", Assets.textButtonStyleChico);
-        addEfectoPress(btPlay);
-        btPlay.addListener(new ClickListener() {
+        buttonPlay = new TextButton("Play", Assets.textButtonStyleChico);
+        addPressEffect(buttonPlay);
+        buttonPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(SelectScreenScreen.class, game);
             }
         });
 
-        btRate = new TextButton("Rate", Assets.textButtonStyleChico);
-        addEfectoPress(btRate);
+        buttonRate = new TextButton("Rate", Assets.textButtonStyleChico);
+        addPressEffect(buttonRate);
 
-        btLeaderboards = new TextButton("Leaderboards",
+        buttonLeaderboards = new TextButton("Leaderboards",
                 Assets.textButtonStyleChico);
-        addEfectoPress(btLeaderboards);
+        addPressEffect(buttonLeaderboards);
 
-        btFacebook = new Button(Assets.btFacebook);
-        btFacebook.setSize(55, 55);
-        btFacebook.setPosition(SCREEN_WIDTH - 67, 7);
-        addEfectoPress(btFacebook);
+        buttonFacebook = new Button(Assets.btFacebook);
+        buttonFacebook.setSize(55, 55);
+        buttonFacebook.setPosition(SCREEN_WIDTH - 67, 7);
+        addPressEffect(buttonFacebook);
 
-        menu.add(btPlay);
-
-        menu.row();
-        menu.add(btRate);
+        menu.add(buttonPlay);
 
         menu.row();
-        menu.add(btLeaderboards);
+        menu.add(buttonRate);
 
-        stage.addActor(titulo);
+        menu.row();
+        menu.add(buttonLeaderboards);
+
+        stage.addActor(titleImage);
         stage.addActor(menu);
-        stage.addActor(btFacebook);
+        stage.addActor(buttonFacebook);
     }
 
     @Override

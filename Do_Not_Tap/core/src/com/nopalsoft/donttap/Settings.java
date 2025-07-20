@@ -6,7 +6,7 @@ import com.badlogic.gdx.Preferences;
 public class Settings {
 
     public static int numeroVecesJugadas = 0;
-    public static float bestTimeClassicMode = 100100;// Default en segundos
+    public static float bestTimeClassicMode = 100100;// Default in seconds
     public static int bestScoreTimeMode = 0;
     public static int bestScoreEndlessMode = 0;
     public static boolean isSoundEnabled = true;

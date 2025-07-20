@@ -10,38 +10,37 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.donttap.Assets;
-import com.nopalsoft.donttap.MainDoNot;
+import com.nopalsoft.donttap.DoNotTapGame;
 import com.nopalsoft.donttap.dialogs.VentanaHelp;
 import com.nopalsoft.donttap.game.GameScreen;
 
 public class SelectScreenScreen extends Screens {
 
-    Label lbSelectGameMode;
-    TextButton btClassic, btEndless, btTime, btHelp;
+    Label labelSelectGameMode;
+    TextButton buttonClassic, buttonEndless, buttonTime, buttonHelp;
 
-    Button btBack;
+    Button buttonBack;
 
-    public SelectScreenScreen(final MainDoNot game) {
+    public SelectScreenScreen(final DoNotTapGame game) {
         super(game);
         addBackGround();
 
-        lbSelectGameMode = new Label("Select game mode", Assets.labelStyleBlack);
-        lbSelectGameMode.setWidth(300);
-        lbSelectGameMode.setFontScale(1.3f);
-        lbSelectGameMode.setWrap(true);
-        lbSelectGameMode.setPosition(
-                SCREEN_WIDTH / 2f - lbSelectGameMode.getWidth() / 2f, 650);
-        lbSelectGameMode.setAlignment(Align.center);
+        labelSelectGameMode = new Label("Select game mode", Assets.labelStyleBlack);
+        labelSelectGameMode.setWidth(300);
+        labelSelectGameMode.setFontScale(1.3f);
+        labelSelectGameMode.setWrap(true);
+        labelSelectGameMode.setPosition(
+                SCREEN_WIDTH / 2f - labelSelectGameMode.getWidth() / 2f, 650);
+        labelSelectGameMode.setAlignment(Align.center);
 
         Table menu = new Table();
         menu.setSize(200, 540);
-        // menu.debug();
         menu.setPosition(SCREEN_WIDTH / 2f - menu.getWidth() / 2f, 60);
         menu.defaults().center().expand();
 
-        btClassic = new TextButton("Classic", Assets.textButtonStyleChico);
-        addEfectoPress(btClassic);
-        btClassic.addListener(new ClickListener() {
+        buttonClassic = new TextButton("Classic", Assets.textButtonStyleChico);
+        addPressEffect(buttonClassic);
+        buttonClassic.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(GameScreen.class, game,
@@ -49,9 +48,9 @@ public class SelectScreenScreen extends Screens {
             }
         });
 
-        btTime = new TextButton("Time trial", Assets.textButtonStyleChico);
-        addEfectoPress(btTime);
-        btTime.addListener(new ClickListener() {
+        buttonTime = new TextButton("Time trial", Assets.textButtonStyleChico);
+        addPressEffect(buttonTime);
+        buttonTime.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(GameScreen.class, game,
@@ -59,9 +58,9 @@ public class SelectScreenScreen extends Screens {
             }
         });
 
-        btEndless = new TextButton("Endless", Assets.textButtonStyleChico);
-        addEfectoPress(btEndless);
-        btEndless.addListener(new ClickListener() {
+        buttonEndless = new TextButton("Endless", Assets.textButtonStyleChico);
+        addPressEffect(buttonEndless);
+        buttonEndless.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(GameScreen.class, game,
@@ -69,20 +68,20 @@ public class SelectScreenScreen extends Screens {
             }
         });
 
-        btHelp = new TextButton("?", Assets.textButtonStyleChico);
-        addEfectoPress(btHelp);
-        btHelp.addListener(new ClickListener() {
+        buttonHelp = new TextButton("?", Assets.textButtonStyleChico);
+        addPressEffect(buttonHelp);
+        buttonHelp.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 new VentanaHelp(SelectScreenScreen.this).show(stage);
             }
         });
 
-        btBack = new Button(new ButtonStyle(Assets.btAtras, null, null));
-        btBack.setSize(55, 55);
-        btBack.setPosition(5, 5);
-        addEfectoPress(btBack);
-        btBack.addListener(new ClickListener() {
+        buttonBack = new Button(new ButtonStyle(Assets.btAtras, null, null));
+        buttonBack.setSize(55, 55);
+        buttonBack.setPosition(5, 5);
+        addPressEffect(buttonBack);
+        buttonBack.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(MainMenuScreen.class, game);
@@ -90,20 +89,20 @@ public class SelectScreenScreen extends Screens {
             }
         });
 
-        menu.add(btClassic);
+        menu.add(buttonClassic);
 
         menu.row();
-        menu.add(btTime);
+        menu.add(buttonTime);
 
         menu.row();
-        menu.add(btEndless);
+        menu.add(buttonEndless);
 
         menu.row();
-        menu.add(btHelp).width(45);
+        menu.add(buttonHelp).width(45);
 
-        stage.addActor(lbSelectGameMode);
+        stage.addActor(labelSelectGameMode);
         stage.addActor(menu);
-        stage.addActor(btBack);
+        stage.addActor(buttonBack);
     }
 
     @Override

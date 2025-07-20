@@ -2,7 +2,7 @@ package com.nopalsoft.donttap.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.nopalsoft.donttap.MainDoNot;
+import com.nopalsoft.donttap.DoNotTapGame;
 import com.nopalsoft.donttap.handlers.FloatFormatter;
 
 public class DesktopLauncher {
@@ -11,7 +11,7 @@ public class DesktopLauncher {
         cfg.title = "Do not tap the wrong tile";
         cfg.width = 480;
         cfg.height = 800;
-        new LwjglApplication(new MainDoNot(formatter), cfg);
+        new LwjglApplication(new DoNotTapGame(formatter), cfg);
     }
 
     static FloatFormatter formatter = new FloatFormatter() {

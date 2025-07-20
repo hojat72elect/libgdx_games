@@ -8,11 +8,11 @@ import com.nopalsoft.donttap.handlers.FloatFormatter;
 import com.nopalsoft.donttap.screens.MainMenuScreen;
 import com.nopalsoft.donttap.screens.Screens;
 
-public class MainDoNot extends Game {
+public class DoNotTapGame extends Game {
 
     public final FloatFormatter formatter;
 
-    public MainDoNot(FloatFormatter formatter) {
+    public DoNotTapGame(FloatFormatter formatter) {
 
         this.formatter = formatter;
     }

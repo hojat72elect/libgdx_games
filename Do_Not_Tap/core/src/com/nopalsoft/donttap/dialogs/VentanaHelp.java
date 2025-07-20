@@ -75,7 +75,7 @@ public class VentanaHelp extends Group {
         final TextButton btOk = new TextButton("OK",
                 Assets.textButtonStyleChico);
         btOk.setPosition(getWidth() / 2f - btOk.getWidth() / 2f, 5);
-        screen.addEfectoPress(btOk);
+        screen.addPressEffect(btOk);
         btOk.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
