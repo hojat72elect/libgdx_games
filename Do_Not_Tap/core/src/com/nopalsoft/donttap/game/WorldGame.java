@@ -10,8 +10,6 @@ import com.badlogic.gdx.utils.Pools;
 import com.nopalsoft.donttap.game_objects.Tile;
 import com.nopalsoft.donttap.screens.Screens;
 
-import java.util.Iterator;
-
 public class WorldGame extends Table {
     static public final int STATE_READY = 0;
     static public final int STATE_RUNNING = 1;
@@ -20,12 +18,12 @@ public class WorldGame extends Table {
     static public final int STATE_GAME_WIN = 4;
     public int state;
 
-    public float TIME_TO_SPWAN_ROW = .4f;
-    float timeToSpwanRow = 0;
+    public float TIME_TO_SPAWN_ROW = .4f;
+    float timeToSpawnRow = 0;
 
-    static public final int MODE_CLASSIC = 0;// Reccore 50 tiles en el menor tiempo
-    static public final int MODE_TIME = 1;// Recorre por 1 minuto
-    static public final int MODE_ENDLESS = 2;// No dejes que ningun tile se pase
+    static public final int MODE_CLASSIC = 0;// Record 50 tiles in the shortest time
+    static public final int MODE_TIME = 1;// Walk for 1 minute
+    static public final int MODE_ENDLESS = 2;// Don't let any tile go by
     public int mode;
 
     final float WIDTH = Screens.WORLD_WIDTH;
@@ -63,7 +61,7 @@ public class WorldGame extends Table {
             case MODE_ENDLESS:
                 score = 0;
                 time = 0;
-                timeToSpwanRow = TIME_TO_SPWAN_ROW;
+                timeToSpawnRow = TIME_TO_SPAWN_ROW;
                 break;
         }
     }
@@ -134,13 +132,13 @@ public class WorldGame extends Table {
                 time += delta;
             }
             if (mode == MODE_ENDLESS) {
-                timeToSpwanRow += delta;
-                if (timeToSpwanRow >= TIME_TO_SPWAN_ROW) {
-                    timeToSpwanRow -= TIME_TO_SPWAN_ROW;
+                timeToSpawnRow += delta;
+                if (timeToSpawnRow >= TIME_TO_SPAWN_ROW) {
+                    timeToSpawnRow -= TIME_TO_SPAWN_ROW;
 
-                    TIME_TO_SPWAN_ROW -= (delta / 8f);
-                    if (TIME_TO_SPWAN_ROW <= .2f)
-                        TIME_TO_SPWAN_ROW = .2f;
+                    TIME_TO_SPAWN_ROW -= (delta / 8f);
+                    if (TIME_TO_SPAWN_ROW <= .2f)
+                        TIME_TO_SPAWN_ROW = .2f;
                     addRow();
                 }
             }
@@ -191,9 +189,7 @@ public class WorldGame extends Table {
     }
 
     private boolean checkIsGameover() {
-        Iterator<Tile> ite = arrTiles.iterator();
-        while (ite.hasNext()) {
-            Tile obj = ite.next();
+        for (Tile obj : arrTiles) {
             if (obj.type == Tile.TYPE_BAD && obj.state == Tile.STATE_TAP)
                 return true;
 
@@ -220,8 +216,8 @@ public class WorldGame extends Table {
                     return true;
                 break;
 
-            default:
             case MODE_ENDLESS:
+            default:
                 return false;
         }
         return false;

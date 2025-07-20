@@ -14,11 +14,11 @@ import com.nopalsoft.donttap.game.GameScreen;
 import com.nopalsoft.donttap.screens.MainMenuScreen;
 import com.nopalsoft.donttap.screens.Screens;
 
-public class VentanaGamePaused extends Group {
+public class GamePausedDialog extends Group {
     static public float fadeDuration = 0.25f;
     GameScreen screen;
 
-    public VentanaGamePaused(final GameScreen gameScreen) {
+    public GamePausedDialog(final GameScreen gameScreen) {
         screen = gameScreen;
         setSize(420, 300);
         setOrigin(getWidth() / 2f, getHeight() / 2f);
@@ -39,20 +39,17 @@ public class VentanaGamePaused extends Group {
         switch (screen.mode) {
             case GameScreen.MODE_CLASSIC:
                 txtMode = "Classic";
-
                 break;
             case GameScreen.MODE_TIME:
-                txtMode = "Time trial";
-
-            default:
             case GameScreen.MODE_ENDLESS:
+            default:
                 txtMode = "Endless";
                 break;
         }
 
-        Label lbMode = new Label(txtMode, Assets.labelStyleBlack);
-        lbMode.setAlignment(Align.center);
-        lbMode.setPosition(getWidth() / 2f - lbMode.getWidth() / 2f, 210);
+        Label labelMode = new Label(txtMode, Assets.labelStyleBlack);
+        labelMode.setAlignment(Align.center);
+        labelMode.setPosition(getWidth() / 2f - labelMode.getWidth() / 2f, 210);
 
         final TextButton btResume = new TextButton("Resume",
                 Assets.textButtonStyleChico);
@@ -66,12 +63,12 @@ public class VentanaGamePaused extends Group {
             }
         });
 
-        final TextButton btMainMenu = new TextButton("Main menu",
+        final TextButton buttonMainMenu = new TextButton("Main menu",
                 Assets.textButtonStyleChico);
-        btMainMenu
-                .setPosition(getWidth() / 2f - btMainMenu.getWidth() / 2f, 20);
-        screen.addPressEffect(btMainMenu);
-        btMainMenu.addListener(new ClickListener() {
+        buttonMainMenu
+                .setPosition(getWidth() / 2f - buttonMainMenu.getWidth() / 2f, 20);
+        screen.addPressEffect(buttonMainMenu);
+        buttonMainMenu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 screen.changeScreenWithFadeOut(MainMenuScreen.class,
@@ -80,14 +77,14 @@ public class VentanaGamePaused extends Group {
         });
 
         addActor(lbPaused);
-        addActor(lbMode);
+        addActor(labelMode);
         addAction(Actions.sequence(Actions.alpha(1f, fadeDuration),
                 Actions.run(new Runnable() {
 
                     @Override
                     public void run() {
                         addActor(btResume);
-                        addActor(btMainMenu);
+                        addActor(buttonMainMenu);
                     }
                 })));
     }

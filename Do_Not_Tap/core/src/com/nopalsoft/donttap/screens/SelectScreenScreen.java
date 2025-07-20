@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.donttap.Assets;
 import com.nopalsoft.donttap.DoNotTapGame;
-import com.nopalsoft.donttap.dialogs.VentanaHelp;
+import com.nopalsoft.donttap.dialogs.HelpDialog;
 import com.nopalsoft.donttap.game.GameScreen;
 
 public class SelectScreenScreen extends Screens {
@@ -73,7 +73,7 @@ public class SelectScreenScreen extends Screens {
         buttonHelp.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                new VentanaHelp(SelectScreenScreen.this).show(stage);
+                new HelpDialog(SelectScreenScreen.this).show(stage);
             }
         });
 

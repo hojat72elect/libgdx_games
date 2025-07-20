@@ -14,11 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.donttap.Assets;
 import com.nopalsoft.donttap.screens.Screens;
 
-public class VentanaHelp extends Group {
+public class HelpDialog extends Group {
     static public float fadeDuration = 0.25f;
     Screens screen;
 
-    public VentanaHelp(Screens screen) {
+    public HelpDialog(Screens screen) {
         this.screen = screen;
 
         setSize(430, 460);
@@ -30,53 +30,52 @@ public class VentanaHelp extends Group {
         addActor(background);
         getColor().a = 0;
 
-        Table tbHelp = new Table();
-        tbHelp.setFillParent(true);
-        // tbHelp.debug();
+        Table tableHelp = new Table();
+        tableHelp.setFillParent(true);
 
         ScrollPaneStyle scrollStyle = new ScrollPaneStyle(null, null, null,
                 null, Assets.fondoPuntuaciones);
-        final ScrollPane scroll = new ScrollPane(tbHelp, scrollStyle);
+        final ScrollPane scroll = new ScrollPane(tableHelp, scrollStyle);
         scroll.setSize(getWidth(), getHeight() - 50);
         scroll.setPosition(0, 50);
 
-        Label lbClassic = new Label("Classic:", Assets.labelStyleBlack);
-        lbClassic.setWrap(true);
+        Label labelClassic = new Label("Classic:", Assets.labelStyleBlack);
+        labelClassic.setWrap(true);
 
-        Label lbTime = new Label("Time trial:", Assets.labelStyleBlack);
-        lbTime.setWrap(true);
+        Label labelTime = new Label("Time trial:", Assets.labelStyleBlack);
+        labelTime.setWrap(true);
 
-        Label lbEndless = new Label("Endless:", Assets.labelStyleBlack);
-        lbEndless.setWrap(true);
+        Label labelEndless = new Label("Endless:", Assets.labelStyleBlack);
+        labelEndless.setWrap(true);
 
         Label lbHelpClassic = new Label("Tap 100 tiles as fast as you can",
                 Assets.labelStyleChico);
         lbHelpClassic.setWrap(true);
 
-        Label lbHelpTime = new Label("Tap as fast as you can for 1 minute",
+        Label labelHelpTime = new Label("Tap as fast as you can for 1 minute",
                 Assets.labelStyleChico);
-        lbHelpTime.setWrap(true);
+        labelHelpTime.setWrap(true);
 
-        Label lbHelpEndless = new Label("How many tiles can you tap?",
+        Label labelHelpEndless = new Label("How many tiles can you tap?",
                 Assets.labelStyleChico);
-        lbHelpEndless.setWrap(true);
+        labelHelpEndless.setWrap(true);
 
-        tbHelp.add(lbClassic).left().padLeft(5).width(135);
-        tbHelp.add(lbHelpClassic).left().expandX().fill();
+        tableHelp.add(labelClassic).left().padLeft(5).width(135);
+        tableHelp.add(lbHelpClassic).left().expandX().fill();
 
-        tbHelp.row().padTop(15);
-        tbHelp.add(lbTime).left().padLeft(5).width(135);
-        tbHelp.add(lbHelpTime).left().expandX().fill();
+        tableHelp.row().padTop(15);
+        tableHelp.add(labelTime).left().padLeft(5).width(135);
+        tableHelp.add(labelHelpTime).left().expandX().fill();
 
-        tbHelp.row().padTop(15);
-        tbHelp.add(lbEndless).left().padLeft(5).width(135);
-        tbHelp.add(lbHelpEndless).left().expandX().fill();
+        tableHelp.row().padTop(15);
+        tableHelp.add(labelEndless).left().padLeft(5).width(135);
+        tableHelp.add(labelHelpEndless).left().expandX().fill();
 
-        final TextButton btOk = new TextButton("OK",
+        final TextButton buttonOk = new TextButton("OK",
                 Assets.textButtonStyleChico);
-        btOk.setPosition(getWidth() / 2f - btOk.getWidth() / 2f, 5);
-        screen.addPressEffect(btOk);
-        btOk.addListener(new ClickListener() {
+        buttonOk.setPosition(getWidth() / 2f - buttonOk.getWidth() / 2f, 5);
+        screen.addPressEffect(buttonOk);
+        buttonOk.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 hide();
@@ -89,7 +88,7 @@ public class VentanaHelp extends Group {
                     @Override
                     public void run() {
                         addActor(scroll);
-                        addActor(btOk);
+                        addActor(buttonOk);
                     }
                 })));
     }

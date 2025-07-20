@@ -189,13 +189,11 @@ public class Tile extends Actor implements Poolable {
 
         float time = .1f;
         if (worldGame.mode == WorldGame.MODE_ENDLESS)
-            time = worldGame.TIME_TO_SPWAN_ROW;
+            time = worldGame.TIME_TO_SPAWN_ROW;
         addAction(Actions.moveTo(mapPositions.get(tablePosition).x, mapPositions.get(tablePosition).y, time));
     }
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
-
     }
 }

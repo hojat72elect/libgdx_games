@@ -19,14 +19,14 @@ import com.nopalsoft.donttap.game.WorldGame;
 import com.nopalsoft.donttap.screens.MainMenuScreen;
 import com.nopalsoft.donttap.screens.Screens;
 
-public class VentanaGameOver extends Group {
+public class GameOverDialog extends Group {
     static public float fadeDuration = 0.25f;
     GameScreen screen;
     DoNotTapGame game;
 
     WorldGame oWorld;
 
-    public VentanaGameOver(final GameScreen gameScreen) {
+    public GameOverDialog(final GameScreen gameScreen) {
         screen = gameScreen;
         game = screen.game;
         oWorld = screen.oWorld;

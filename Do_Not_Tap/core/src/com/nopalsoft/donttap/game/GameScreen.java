@@ -12,8 +12,8 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.donttap.Assets;
 import com.nopalsoft.donttap.DoNotTapGame;
 import com.nopalsoft.donttap.Settings;
-import com.nopalsoft.donttap.dialogs.VentanaGameOver;
-import com.nopalsoft.donttap.dialogs.VentanaGamePaused;
+import com.nopalsoft.donttap.dialogs.GameOverDialog;
+import com.nopalsoft.donttap.dialogs.GamePausedDialog;
 import com.nopalsoft.donttap.screens.Screens;
 
 public class GameScreen extends Screens {
@@ -22,9 +22,9 @@ public class GameScreen extends Screens {
     static final int STATE_GAME_OVER = 4;
     public int state;
 
-    static public final int MODE_CLASSIC = 0;// Reccore 50 tiles en el menor tiempo
-    static public final int MODE_TIME = 1;// Recorre por 1 minuto
-    static public final int MODE_ENDLESS = 2;// No dejes que ningun tile se pase
+    static public final int MODE_CLASSIC = 0;// Record 50 tiles in the shortest time
+    static public final int MODE_TIME = 1;// Walk for 1 minute
+    static public final int MODE_ENDLESS = 2;// Don't let any tile go by
     public int mode;
 
     final private Stage stageGame;
@@ -43,7 +43,7 @@ public class GameScreen extends Screens {
 
         initMarcadores();
 
-        // Tengo que agregar a los eventos el stageGame
+        // I need to add the stageGame to the events.
         InputMultiplexer input = new InputMultiplexer(this, stage, stageGame);
         Gdx.input.setInputProcessor(input);
 
@@ -117,7 +117,7 @@ public class GameScreen extends Screens {
         lbTilesScore.setText("Tiles\n" + oWorld.score);
     }
 
-    // La diferencia si se gana es que se suben las puntuaciones;
+    // The difference if you win is that your scores go up;
     private void setWin() {
         switch (mode) {
             case MODE_CLASSIC:
@@ -140,7 +140,7 @@ public class GameScreen extends Screens {
 
     private void setGameover() {
         state = STATE_GAME_OVER;
-        VentanaGameOver ventana = new VentanaGameOver(this);
+        GameOverDialog ventana = new GameOverDialog(this);
         ventana.show(stage);
     }
 
@@ -151,7 +151,7 @@ public class GameScreen extends Screens {
     public void setPaused() {
         if (state == STATE_RUNNING) {
             state = STATE_PAUSED;
-            VentanaGamePaused oPaused = new VentanaGamePaused(this);
+            GamePausedDialog oPaused = new GamePausedDialog(this);
             oPaused.show(stage);
         }
     }
@@ -159,7 +159,6 @@ public class GameScreen extends Screens {
     @Override
     public void draw(float delta) {
         stageGame.draw();
-//		stageGame.setDebugAll(true);
     }
 
     @Override
