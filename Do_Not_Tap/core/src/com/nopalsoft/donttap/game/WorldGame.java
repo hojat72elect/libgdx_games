@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.badlogic.gdx.utils.Pools;
-import com.nopalsoft.donttap.game_objects.Tiles;
+import com.nopalsoft.donttap.game_objects.Tile;
 import com.nopalsoft.donttap.screens.Screens;
 
 import java.util.Iterator;
@@ -31,7 +31,7 @@ public class WorldGame extends Table {
     final float WIDTH = Screens.WORLD_WIDTH;
     final float HEIGHT = Screens.WORLD_HEIGHT;
 
-    Array<Tiles> arrTiles;
+    Array<Tile> arrTiles;
 
     public float time;
     public int score;
@@ -42,7 +42,7 @@ public class WorldGame extends Table {
         setPosition(0, 0);
         debug();
 
-        arrTiles = new Array<Tiles>();
+        arrTiles = new Array<>();
         addRow(true);
         addRow();
         addRow();
@@ -81,7 +81,7 @@ public class WorldGame extends Table {
         // Agrego toda una fila en Y= -1
         // para despues bajar todos los tiles 1 renglon
         for (int col = 0; col < 4; col++) {
-            Tiles obj = Pools.obtain(Tiles.class);
+            Tile obj = Pools.obtain(Tile.class);
 
             obj.init(this, col, tileCanStep == col, isFirstRow);
 
@@ -94,7 +94,7 @@ public class WorldGame extends Table {
 
     public void moveRowsDown() {
         for (int col = 23; col >= 0; col--) {
-            Tiles obj = getPiezaEnPos(col);
+            Tile obj = getTileAtPosition(col);
             if (obj != null)
                 obj.moveDown();
         }
@@ -102,7 +102,7 @@ public class WorldGame extends Table {
 
     public void moveRowsUp() {
         for (int col = 0; col < 24; col++) {
-            Tiles obj = getPiezaEnPos(col);
+            Tile obj = getTileAtPosition(col);
             if (obj != null)
                 obj.moveUp();
         }
@@ -114,11 +114,9 @@ public class WorldGame extends Table {
 
         if (state == STATE_GAME_OVER_1) {
             int moveActions = 0;
-            Iterator<Tiles> i = arrTiles.iterator();
-            while (i.hasNext()) {
-                Iterator<Action> itAc = i.next().getActions().iterator();
-                while (itAc.hasNext()) {
-                    if (itAc.next() instanceof MoveToAction)
+            for (Tile arrTile : arrTiles) {
+                for (Action action : arrTile.getActions()) {
+                    if (action instanceof MoveToAction)
                         moveActions++;
                 }
             }
@@ -160,10 +158,10 @@ public class WorldGame extends Table {
     // Actualizo los tiles que ya se pueden tocar
     private void updatesTiles() {
         for (int col = 0; col < 24; col++) {
-            Tiles obj = getPiezaEnPos(col);
+            Tile obj = getTileAtPosition(col);
             if (obj != null) {
-                if (obj.state == Tiles.STATE_TAP) {
-                    Tiles previosObj = findPreviosTapTile(col - 1);
+                if (obj.state == Tile.STATE_TAP) {
+                    Tile previosObj = findPreviosTapTile(col - 1);
                     if (previosObj != null)
                         previosObj.canBeTap = true;
                 }
@@ -171,11 +169,11 @@ public class WorldGame extends Table {
         }
     }
 
-    private Tiles findPreviosTapTile(int posActual) {
+    private Tile findPreviosTapTile(int posActual) {
         for (int col = posActual; col >= 0; col--) {
-            Tiles obj = getPiezaEnPos(col);
+            Tile obj = getTileAtPosition(col);
             if (obj != null) {
-                if (obj.tipo == Tiles.TIPO_BUENO)
+                if (obj.type == Tile.TYPE_GOOD)
                     return obj;
             }
         }
@@ -183,10 +181,8 @@ public class WorldGame extends Table {
     }
 
     private void deleteOld() {
-        Iterator<Tiles> ite = arrTiles.iterator();
-        while (ite.hasNext()) {
-            Tiles obj = ite.next();
-            if (obj.posicionTabla < 0 || obj.posicionTabla > 23) {
+        for (Tile obj : arrTiles) {
+            if (obj.tablePosition < 0 || obj.tablePosition > 23) {
                 removeActor(obj);
                 arrTiles.removeValue(obj, true);
                 Pools.free(obj);
@@ -195,15 +191,15 @@ public class WorldGame extends Table {
     }
 
     private boolean checkIsGameover() {
-        Iterator<Tiles> ite = arrTiles.iterator();
+        Iterator<Tile> ite = arrTiles.iterator();
         while (ite.hasNext()) {
-            Tiles obj = ite.next();
-            if (obj.tipo == Tiles.TIPO_MALO && obj.state == Tiles.STATE_TAP)
+            Tile obj = ite.next();
+            if (obj.type == Tile.TYPE_BAD && obj.state == Tile.STATE_TAP)
                 return true;
 
-            if (obj.posicionTabla > 19 && obj.getY() < -90
-                    && obj.tipo == Tiles.TIPO_BUENO
-                    && obj.state == Tiles.STATE_NORMAL) {
+            if (obj.tablePosition > 19 && obj.getY() < -90
+                    && obj.type == Tile.TYPE_GOOD
+                    && obj.state == Tile.STATE_NORMAL) {
                 moveRowsUp();
                 return true;
             }
@@ -231,11 +227,11 @@ public class WorldGame extends Table {
         return false;
     }
 
-    private Tiles getPiezaEnPos(int posicionTabla) {
-        ArrayIterator<Tiles> ite = new ArrayIterator<Tiles>(arrTiles);
+    private Tile getTileAtPosition(int tablePosition) {
+        ArrayIterator<Tile> ite = new ArrayIterator<>(arrTiles);
         while (ite.hasNext()) {
-            Tiles obj = ite.next();
-            if (obj.posicionTabla == posicionTabla)
+            Tile obj = ite.next();
+            if (obj.tablePosition == tablePosition)
                 return obj;
         }
         return null;

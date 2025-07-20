@@ -14,7 +14,7 @@ import com.nopalsoft.donttap.game.WorldGame;
 
 import java.util.LinkedHashMap;
 
-public class Tiles extends Actor implements Poolable {
+public class Tile extends Actor implements Poolable {
     public static final int STATE_NORMAL = 0;
     public static final int STATE_TAP = 1;
     public int state;
@@ -22,61 +22,61 @@ public class Tiles extends Actor implements Poolable {
     public static float WIDTH = 120;
     public static float HEIGHT = 180;
 
-    static public final int TIPO_MALO = 0;
-    static public final int TIPO_BUENO = 1;
+    static public final int TYPE_BAD = 0;
+    static public final int TYPE_GOOD = 1;
 
-    public int tipo;
-    public boolean canBeTap;// no se puede tocar hasta que se toca el de mas abajo
+    public int type;
+    public boolean canBeTap;// You can't touch it until you touch the one below it
 
-    final static LinkedHashMap<Integer, Vector2> mapPosiciones = new LinkedHashMap<Integer, Vector2>();
+    final static LinkedHashMap<Integer, Vector2> mapPositions = new LinkedHashMap<>();
 
     static {
-        // Los que tienen en -1 son los que estan mas abajo donde no se ven
-        mapPosiciones.put(0, new Vector2(0, 720));
-        mapPosiciones.put(1, new Vector2(120, 720));
-        mapPosiciones.put(2, new Vector2(240, 720));
-        mapPosiciones.put(3, new Vector2(360, 720));
-        mapPosiciones.put(4, new Vector2(0, 540));
-        mapPosiciones.put(5, new Vector2(120, 540));
-        mapPosiciones.put(6, new Vector2(240, 540));
-        mapPosiciones.put(7, new Vector2(360, 540));
-        mapPosiciones.put(8, new Vector2(0, 360));
-        mapPosiciones.put(9, new Vector2(120, 360));
-        mapPosiciones.put(10, new Vector2(240, 360));
-        mapPosiciones.put(11, new Vector2(360, 360));
-        mapPosiciones.put(12, new Vector2(0, 180));
-        mapPosiciones.put(13, new Vector2(120, 180));
-        mapPosiciones.put(14, new Vector2(240, 180));
-        mapPosiciones.put(15, new Vector2(360, 180));
-        mapPosiciones.put(16, new Vector2(0, 0));
-        mapPosiciones.put(17, new Vector2(120, 0));
-        mapPosiciones.put(18, new Vector2(240, 0));
-        mapPosiciones.put(19, new Vector2(360, 0));
-        mapPosiciones.put(20, new Vector2(0, -180));
-        mapPosiciones.put(21, new Vector2(120, -180));
-        mapPosiciones.put(22, new Vector2(240, -180));
-        mapPosiciones.put(23, new Vector2(360, -180));
+        // The ones that have -1 are the ones that are further down where they cannot be seen.
+        mapPositions.put(0, new Vector2(0, 720));
+        mapPositions.put(1, new Vector2(120, 720));
+        mapPositions.put(2, new Vector2(240, 720));
+        mapPositions.put(3, new Vector2(360, 720));
+        mapPositions.put(4, new Vector2(0, 540));
+        mapPositions.put(5, new Vector2(120, 540));
+        mapPositions.put(6, new Vector2(240, 540));
+        mapPositions.put(7, new Vector2(360, 540));
+        mapPositions.put(8, new Vector2(0, 360));
+        mapPositions.put(9, new Vector2(120, 360));
+        mapPositions.put(10, new Vector2(240, 360));
+        mapPositions.put(11, new Vector2(360, 360));
+        mapPositions.put(12, new Vector2(0, 180));
+        mapPositions.put(13, new Vector2(120, 180));
+        mapPositions.put(14, new Vector2(240, 180));
+        mapPositions.put(15, new Vector2(360, 180));
+        mapPositions.put(16, new Vector2(0, 0));
+        mapPositions.put(17, new Vector2(120, 0));
+        mapPositions.put(18, new Vector2(240, 0));
+        mapPositions.put(19, new Vector2(360, 0));
+        mapPositions.put(20, new Vector2(0, -180));
+        mapPositions.put(21, new Vector2(120, -180));
+        mapPositions.put(22, new Vector2(240, -180));
+        mapPositions.put(23, new Vector2(360, -180));
     }
 
-    public int posicionTabla;
+    public int tablePosition;
     TextureRegion keyframe;
-    WorldGame oWorld;
+    WorldGame worldGame;
 
-    public Tiles() {
+    public Tile() {
         setSize(WIDTH, HEIGHT);
         setOrigin(WIDTH / 2f, HEIGHT / 2f);
         addListener(inputListener);
     }
 
-    public void init(WorldGame oWorld, int posicionTabla, boolean canStep, boolean isFirstRow) {
-        this.posicionTabla = posicionTabla;
-        this.oWorld = oWorld;
-        setPosition(mapPosiciones.get(posicionTabla).x, mapPosiciones.get(posicionTabla).y);
+    public void init(WorldGame oWorld, int tablePosition, boolean canStep, boolean isFirstRow) {
+        this.tablePosition = tablePosition;
+        this.worldGame = oWorld;
+        setPosition(mapPositions.get(tablePosition).x, mapPositions.get(tablePosition).y);
 
         clearActions();
         getColor().a = 1;
         if (!canStep) {
-            tipo = TIPO_MALO;
+            type = TYPE_BAD;
             keyframe = Assets.tileBlanco;
         } else {
             switch (MathUtils.random(4)) {
@@ -97,13 +97,13 @@ public class Tiles extends Actor implements Poolable {
                     keyframe = Assets.tileNaranja;
                     break;
             }
-            tipo = TIPO_BUENO;
+            type = TYPE_GOOD;
             addAction(Actions.forever(Actions.sequence(Actions.alpha(.6f, .5f), Actions.alpha(1, .35f))));
         }
 
         if (isFirstRow && canStep) {
             canBeTap = true;
-            state = Tiles.STATE_TAP;
+            state = Tile.STATE_TAP;
         } else {
             setScale(1f);
             canBeTap = false;
@@ -118,7 +118,7 @@ public class Tiles extends Actor implements Poolable {
 
         if (state == STATE_TAP) {
             TextureRegion step;
-            if (tipo == TIPO_BUENO)
+            if (type == TYPE_GOOD)
                 step = Assets.step1;
             else
                 step = Assets.wrong;
@@ -130,28 +130,28 @@ public class Tiles extends Actor implements Poolable {
 
     InputListener inputListener = new InputListener() {
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            if (oWorld.state == WorldGame.STATE_READY) {
-                oWorld.state = WorldGame.STATE_RUNNING;
+            if (worldGame.state == WorldGame.STATE_READY) {
+                worldGame.state = WorldGame.STATE_RUNNING;
             }
 
-            if (oWorld.state == WorldGame.STATE_RUNNING) {
-                if (state == STATE_NORMAL && canBeTap || tipo == TIPO_MALO) {
+            if (worldGame.state == WorldGame.STATE_RUNNING) {
+                if (state == STATE_NORMAL && canBeTap || type == TYPE_BAD) {
                     state = STATE_TAP;
 
-                    switch (oWorld.mode) {
+                    switch (worldGame.mode) {
                         case WorldGame.MODE_CLASSIC:
-                            oWorld.addRow();
-                            if (tipo == TIPO_BUENO) {
-                                oWorld.score--;
+                            worldGame.addRow();
+                            if (type == TYPE_GOOD) {
+                                worldGame.score--;
                                 Assets.playTapSound();
                             } else {
                                 Assets.soundWrong.play();
                             }
                             break;
                         case WorldGame.MODE_TIME:
-                            oWorld.addRow();
-                            if (tipo == TIPO_BUENO) {
-                                oWorld.score++;
+                            worldGame.addRow();
+                            if (type == TYPE_GOOD) {
+                                worldGame.score++;
                                 Assets.playTapSound();
                             } else {
                                 Assets.soundWrong.play();
@@ -159,8 +159,8 @@ public class Tiles extends Actor implements Poolable {
                             break;
 
                         case WorldGame.MODE_ENDLESS:
-                            if (tipo == TIPO_BUENO) {
-                                oWorld.score++;
+                            if (type == TYPE_GOOD) {
+                                worldGame.score++;
                                 Assets.playTapSound();
                             } else {
                                 Assets.soundWrong.play();
@@ -174,23 +174,23 @@ public class Tiles extends Actor implements Poolable {
     };
 
     public void moveUp() {
-        posicionTabla -= 4;
-        if (posicionTabla < 0) {
+        tablePosition -= 4;
+        if (tablePosition < 0) {
             return;
         }
-        addAction(Actions.moveTo(mapPosiciones.get(posicionTabla).x, mapPosiciones.get(posicionTabla).y, .75f));
+        addAction(Actions.moveTo(mapPositions.get(tablePosition).x, mapPositions.get(tablePosition).y, .75f));
     }
 
     public void moveDown() {
-        posicionTabla += 4;
-        if (posicionTabla > 23) {
+        tablePosition += 4;
+        if (tablePosition > 23) {
             return;
         }
 
         float time = .1f;
-        if (oWorld.mode == WorldGame.MODE_ENDLESS)
-            time = oWorld.TIME_TO_SPWAN_ROW;
-        addAction(Actions.moveTo(mapPosiciones.get(posicionTabla).x, mapPosiciones.get(posicionTabla).y, time));
+        if (worldGame.mode == WorldGame.MODE_ENDLESS)
+            time = worldGame.TIME_TO_SPWAN_ROW;
+        addAction(Actions.moveTo(mapPositions.get(tablePosition).x, mapPositions.get(tablePosition).y, time));
     }
 
     @Override
