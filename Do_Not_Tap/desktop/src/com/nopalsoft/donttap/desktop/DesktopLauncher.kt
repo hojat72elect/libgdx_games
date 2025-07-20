@@ -1,23 +1,15 @@
-package com.nopalsoft.donttap.desktop;
+package com.nopalsoft.donttap.desktop
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.nopalsoft.donttap.DoNotTapGame;
-import com.nopalsoft.donttap.handlers.FloatFormatter;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
+import com.nopalsoft.donttap.DoNotTapGame
+import com.nopalsoft.donttap.handlers.FloatFormatter
 
-public class DesktopLauncher {
-    public static void main(String[] arg) {
-        LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.title = "Do not tap the wrong tile";
-        cfg.width = 480;
-        cfg.height = 800;
-        new LwjglApplication(new DoNotTapGame(formatter), cfg);
-    }
-
-    static FloatFormatter formatter = new FloatFormatter() {
-        @Override
-        public String format(String format, float number) {
-            return String.format(format, number);
-        }
-    };
+fun main() {
+    val formatter = FloatFormatter { format, number -> String.format(format, number) }
+    val config = LwjglApplicationConfiguration()
+    config.title = "Do not tap the wrong tile"
+    config.width = 480
+    config.height = 800
+    LwjglApplication(DoNotTapGame(formatter), config)
 }
