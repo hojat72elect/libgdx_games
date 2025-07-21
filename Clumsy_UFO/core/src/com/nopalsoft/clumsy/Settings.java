@@ -5,25 +5,24 @@ import com.badlogic.gdx.Preferences;
 
 public class Settings {
 
-    private final static String prefName = "com.nopalsoft.clumsyufo";
-    private final static Preferences pref = Gdx.app.getPreferences(prefName);
+    private final static Preferences preferences = Gdx.app.getPreferences("com.nopalsoft.clumsyufo");
     public static boolean didBuyNoAds = false;
     public static int bestScoreArcade = 0;
     public static int bestScoreClassic = 0;
-    public static int numVecesJugadas = 0;
+    public static int numberOfTimesPlayed = 0;
 
     public static void load() {
-        bestScoreArcade = pref.getInteger("bestScoreArcade", 0);
-        bestScoreClassic = pref.getInteger("bestScoreClassic", 0);
-        numVecesJugadas = pref.getInteger("numVecesJugadas", 0);
-        didBuyNoAds = pref.getBoolean("didBuyNoAds", false);
+        bestScoreArcade = preferences.getInteger("bestScoreArcade", 0);
+        bestScoreClassic = preferences.getInteger("bestScoreClassic", 0);
+        numberOfTimesPlayed = preferences.getInteger("numVecesJugadas", 0);
+        didBuyNoAds = preferences.getBoolean("didBuyNoAds", false);
     }
 
-    public static void guardar() {
-        pref.putInteger("bestScoreArcade", bestScoreArcade);
-        pref.putInteger("bestScoreClassic", bestScoreClassic);
-        pref.putInteger("numVecesJugadas", numVecesJugadas);
-        pref.putBoolean("didBuyNoAds", didBuyNoAds);
-        pref.flush();
+    public static void save() {
+        preferences.putInteger("bestScoreArcade", bestScoreArcade);
+        preferences.putInteger("bestScoreClassic", bestScoreClassic);
+        preferences.putInteger("numVecesJugadas", numberOfTimesPlayed);
+        preferences.putBoolean("didBuyNoAds", didBuyNoAds);
+        preferences.flush();
     }
 }

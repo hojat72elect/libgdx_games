@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.clumsy.Assets;
-import com.nopalsoft.clumsy.MainClumsy;
+import com.nopalsoft.clumsy.ClumsyUfoGame;
 import com.nopalsoft.clumsy.Settings;
 import com.nopalsoft.clumsy.game.arcade.GameScreenArcade;
 import com.nopalsoft.clumsy.objects.Ufo;
@@ -48,18 +48,18 @@ public class GameScreenClassic extends Screens {
     Button btShareFacebook, btShareTwitter;
     float timeIncGameOver;
 
-    public GameScreenClassic(final MainClumsy game) {
+    public GameScreenClassic(final ClumsyUfoGame game) {
         super(game);
-        Settings.numVecesJugadas++;
+        Settings.numberOfTimesPlayed++;
         oWorld = new WorldGameClassic();
-        renderer = new WorldGameRenderer(batcher, oWorld);
+        renderer = new WorldGameRenderer(batch, oWorld);
         state = STATE_READY;
         comenzarIncrementarPuntuacionGameOver = false;
         timeIncGameOver = 0;
 
-        flashazo = new Image(Assets.blanco);
+        flashazo = new Image(Assets.whiteDrawable);
         flashazo.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        flashazo.addAction(Actions.sequence(Actions.fadeOut(Ufo.TIEMPO_HURT),
+        flashazo.addAction(Actions.sequence(Actions.fadeOut(Ufo.HURT_DURATION),
                 Actions.run(new Runnable() {
                     @Override
                     public void run() {
@@ -91,7 +91,7 @@ public class GameScreenClassic extends Screens {
     private void inicializarGameOver() {
         medallsFondo = new Group();
         medallsFondo.setSize(400, 200);
-        Image background = new Image(Assets.medallsFondo);
+        Image background = new Image(Assets.medalsBackground);
         background.setSize(medallsFondo.getWidth(), medallsFondo.getHeight());
         medallsFondo.setPosition(SCREEN_WIDTH / 2f - 200, -201);
         medallsFondo.addActor(background);
@@ -118,7 +118,7 @@ public class GameScreenClassic extends Screens {
                 })));
 
         btPlayClassic = new Button(new TextureRegionDrawable(
-                Assets.btPlayClassic));
+                Assets.buttonPlayClassic));
         btPlayClassic.setSize(160, 95);
         btPlayClassic.setPosition(75, 280);
         btPlayClassic.addListener(new InputListener() {
@@ -141,7 +141,7 @@ public class GameScreenClassic extends Screens {
         });
 
         btPlayArcade = new Button(
-                new TextureRegionDrawable(Assets.btPlayArcade));
+                new TextureRegionDrawable(Assets.buttonPlayArcade));
         btPlayArcade.setSize(160, 95);
         btPlayArcade.setPosition(250, 280);
         btPlayArcade.addListener(new InputListener() {
@@ -163,7 +163,7 @@ public class GameScreenClassic extends Screens {
             }
         });
 
-        btScore = new Button(new TextureRegionDrawable(Assets.btLeaderboard));
+        btScore = new Button(new TextureRegionDrawable(Assets.buttonLeaderboard));
         btScore.setSize(160, 95);
         btScore.setPosition(130, 180);
         btScore.addListener(new InputListener() {
@@ -182,7 +182,7 @@ public class GameScreenClassic extends Screens {
         });
 
         btShareFacebook = new Button(new TextureRegionDrawable(
-                Assets.btFacebook));
+                Assets.buttonFacebook));
         btShareFacebook.setSize(45, 45);
         btShareFacebook.setPosition(295, 230);
         btShareFacebook.addListener(new InputListener() {
@@ -200,7 +200,7 @@ public class GameScreenClassic extends Screens {
             }
         });
 
-        btShareTwitter = new Button(new TextureRegionDrawable(Assets.btTwitter));
+        btShareTwitter = new Button(new TextureRegionDrawable(Assets.buttonTwitter));
         btShareTwitter.setSize(45, 45);
         btShareTwitter.setPosition(295, 181f);
         btShareTwitter.addListener(new InputListener() {
@@ -220,7 +220,7 @@ public class GameScreenClassic extends Screens {
             }
         });
 
-        btRate = new Button(new TextureRegionDrawable(Assets.btRate));
+        btRate = new Button(new TextureRegionDrawable(Assets.buttonRate));
         btRate.setSize(60, 60);
         btRate.addListener(new InputListener() {
             @Override
@@ -237,7 +237,7 @@ public class GameScreenClassic extends Screens {
             }
         });
 
-        btNoAds = new Button(new TextureRegionDrawable(Assets.btNoAds));
+        btNoAds = new Button(new TextureRegionDrawable(Assets.buttonNoAds));
         if (Settings.didBuyNoAds)
             btNoAds.setVisible(false);
         btNoAds.setSize(60, 60);
@@ -256,7 +256,7 @@ public class GameScreenClassic extends Screens {
             }
         });
 
-        btRestorePurchases = new Button(new TextureRegionDrawable(Assets.btRestorePurchases));
+        btRestorePurchases = new Button(new TextureRegionDrawable(Assets.buttonRestorePurchases));
         btRestorePurchases.setSize(60, 60);
         btRestorePurchases.addListener(new InputListener() {
             @Override
@@ -399,24 +399,24 @@ public class GameScreenClassic extends Screens {
         if (state == STATE_PAUSED || state == STATE_GAME_OVER)
             delta = 0;
 
-        batcher.begin();
-        batcher.draw(Assets.fondo, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        batcher.end();
+        batch.begin();
+        batch.draw(Assets.background0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.end();
 
         renderer.render();
-        Assets.parallaxFondo.render(delta);
+        Assets.parallaxBackground.render(delta);
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
-        batcher.begin();
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
 
         if (state == STATE_READY)
             drawReady(delta);
 
         if (state != STATE_GAME_OVER)
-            drawPuntuacionGrande(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f + 250,
+            drawScore(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f + 250,
                     oWorld.score);
-        batcher.end();
+        batch.end();
     }
 
     @Override
@@ -424,17 +424,17 @@ public class GameScreenClassic extends Screens {
         super.render(delta);
 
         if (state == STATE_GAME_OVER) {
-            batcher.begin();
+            batch.begin();
             drawGameover();
-            batcher.end();
+            batch.end();
         }
     }
 
     private void drawGameover() {
-        drawPuntuacionChicoOrigenDerecha(
+        drawSmallScoreRightAligned(
                 medallsFondo.getX() + medallsFondo.getWidth() - 30,
                 medallsFondo.getY() + 40, Settings.bestScoreClassic);
-        drawPuntuacionChicoOrigenDerecha(
+        drawSmallScoreRightAligned(
                 medallsFondo.getX() + medallsFondo.getWidth() - 30,
                 medallsFondo.getY() + 110, numIncGameOver);
     }

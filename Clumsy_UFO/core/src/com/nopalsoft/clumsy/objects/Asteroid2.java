@@ -7,13 +7,13 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.nopalsoft.clumsy.game.arcade.WorldGameArcade;
 
-public class Meteoro1 extends Meteoro {
+public class Asteroid2 extends Asteroid0 {
 
-    float VEL_ROTACION = 360;
-    float VEL_X = -2.5f;
+    float ROTATION_SPEED = 250;
+    float X_SPEED = -2.25f;
 
     @Override
-    public void init(WorldGameArcade oWorld, float x, float y) {
+    public void init(WorldGameArcade worldGameArcade, float x, float y) {
         position.set(x, y);
         stateTime = 0;
         state = STATE_NORMAL;
@@ -23,21 +23,21 @@ public class Meteoro1 extends Meteoro {
         bd.position.y = y;
         bd.type = BodyType.KinematicBody;
 
-        Body oBody = oWorld.oWorldBox.createBody(bd);
+        Body body = worldGameArcade.oWorldBox.createBody(bd);
 
         CircleShape shape = new CircleShape();
-        shape.setRadius(.045f);
+        shape.setRadius(.075f);
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.density = 8;
-        fixture.restitution = 0;
-        fixture.friction = 0;
-        oBody.createFixture(fixture);
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.density = 8;
+        fixtureDefinition.restitution = 0;
+        fixtureDefinition.friction = 0;
+        body.createFixture(fixtureDefinition);
 
-        oBody.setUserData(this);
-        oBody.setLinearVelocity(VEL_X, 0);
-        oBody.setAngularVelocity((float) Math.toRadians(VEL_ROTACION));
+        body.setUserData(this);
+        body.setLinearVelocity(X_SPEED, 0);
+        body.setAngularVelocity((float) Math.toRadians(ROTATION_SPEED));
 
         shape.dispose();
     }

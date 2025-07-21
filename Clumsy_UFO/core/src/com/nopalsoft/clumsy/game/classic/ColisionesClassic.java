@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.nopalsoft.clumsy.Assets;
-import com.nopalsoft.clumsy.objects.Contador;
+import com.nopalsoft.clumsy.objects.ScoreKeeper;
 import com.nopalsoft.clumsy.objects.Ufo;
 
 public class ColisionesClassic implements ContactListener {
@@ -32,10 +32,10 @@ public class ColisionesClassic implements ContactListener {
         Ufo oUfo = (Ufo) bird.getBody().getUserData();
         Object oOtraCosa = otraCosa.getBody().getUserData();
 
-        if (oOtraCosa instanceof Contador) {
-            Contador obj = (Contador) oOtraCosa;
-            if (obj.state == Contador.STATE_NORMAL) {
-                obj.state = Contador.STATE_DESTROY;
+        if (oOtraCosa instanceof ScoreKeeper) {
+            ScoreKeeper obj = (ScoreKeeper) oOtraCosa;
+            if (obj.state == ScoreKeeper.STATE_NORMAL) {
+                obj.state = ScoreKeeper.STATE_DESTROY;
                 oWorld.score++;
                 Assets.playSound(Assets.point);
             }

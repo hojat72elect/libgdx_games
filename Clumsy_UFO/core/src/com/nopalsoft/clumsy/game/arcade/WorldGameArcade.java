@@ -16,14 +16,14 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.nopalsoft.clumsy.Assets;
-import com.nopalsoft.clumsy.objects.Contador;
-import com.nopalsoft.clumsy.objects.Meteoro;
-import com.nopalsoft.clumsy.objects.Meteoro1;
-import com.nopalsoft.clumsy.objects.Meteoro2;
-import com.nopalsoft.clumsy.objects.Meteoro3;
-import com.nopalsoft.clumsy.objects.Meteoro4;
-import com.nopalsoft.clumsy.objects.Meteoro5;
-import com.nopalsoft.clumsy.objects.Meteoro6;
+import com.nopalsoft.clumsy.objects.Asteroid0;
+import com.nopalsoft.clumsy.objects.Asteroid1;
+import com.nopalsoft.clumsy.objects.Asteroid2;
+import com.nopalsoft.clumsy.objects.Asteroid3;
+import com.nopalsoft.clumsy.objects.Asteroid4;
+import com.nopalsoft.clumsy.objects.Asteroid5;
+import com.nopalsoft.clumsy.objects.Asteroid6;
+import com.nopalsoft.clumsy.objects.ScoreKeeper;
 import com.nopalsoft.clumsy.objects.Tail;
 import com.nopalsoft.clumsy.objects.Ufo;
 import com.nopalsoft.clumsy.screens.Screens;
@@ -45,40 +45,40 @@ public class WorldGameArcade {
             return new Tail();
         }
     };
-    private final Pool<Meteoro1> meteoro1Pool = new Pool<Meteoro1>() {
+    private final Pool<Asteroid1> meteoro1Pool = new Pool<Asteroid1>() {
         @Override
-        protected Meteoro1 newObject() {
-            return new Meteoro1();
+        protected Asteroid1 newObject() {
+            return new Asteroid1();
         }
     };
-    private final Pool<Meteoro2> meteoro2Pool = new Pool<Meteoro2>() {
+    private final Pool<Asteroid2> meteoro2Pool = new Pool<Asteroid2>() {
         @Override
-        protected Meteoro2 newObject() {
-            return new Meteoro2();
+        protected Asteroid2 newObject() {
+            return new Asteroid2();
         }
     };
-    private final Pool<Meteoro3> meteoro3Pool = new Pool<Meteoro3>() {
+    private final Pool<Asteroid3> meteoro3Pool = new Pool<Asteroid3>() {
         @Override
-        protected Meteoro3 newObject() {
-            return new Meteoro3();
+        protected Asteroid3 newObject() {
+            return new Asteroid3();
         }
     };
-    private final Pool<Meteoro4> meteoro4Pool = new Pool<Meteoro4>() {
+    private final Pool<Asteroid4> meteoro4Pool = new Pool<Asteroid4>() {
         @Override
-        protected Meteoro4 newObject() {
-            return new Meteoro4();
+        protected Asteroid4 newObject() {
+            return new Asteroid4();
         }
     };
-    private final Pool<Meteoro5> meteoro5Pool = new Pool<Meteoro5>() {
+    private final Pool<Asteroid5> meteoro5Pool = new Pool<Asteroid5>() {
         @Override
-        protected Meteoro5 newObject() {
-            return new Meteoro5();
+        protected Asteroid5 newObject() {
+            return new Asteroid5();
         }
     };
-    private final Pool<Meteoro6> meteoro6Pool = new Pool<Meteoro6>() {
+    private final Pool<Asteroid6> meteoro6Pool = new Pool<Asteroid6>() {
         @Override
-        protected Meteoro6 newObject() {
-            return new Meteoro6();
+        protected Asteroid6 newObject() {
+            return new Asteroid6();
         }
     };
     public World oWorldBox;
@@ -87,7 +87,7 @@ public class WorldGameArcade {
     float timeToSpawnMeteor;
     float timeToSpawnArcoiris;
     Ufo oUfo;
-    Array<Meteoro> arrMeteoros;
+    Array<Asteroid0> arrMeteoros;
     Array<Body> arrBodies;
     Array<Tail> arrTail;
     Random oRan;
@@ -184,7 +184,7 @@ public class WorldGameArcade {
     }
 
     private void agregarMetoro() {
-        Meteoro obj;
+        Asteroid0 obj;
 
         switch (oRan.nextInt(6)) {
 
@@ -231,7 +231,7 @@ public class WorldGameArcade {
         for (Body body : arrBodies) {
             if (body.getUserData() instanceof Ufo) {
                 updateGato(body, delta, jump);
-            } else if (body.getUserData() instanceof Meteoro) {
+            } else if (body.getUserData() instanceof Asteroid0) {
                 updateMetoro(body, delta);
             }
         }
@@ -273,13 +273,13 @@ public class WorldGameArcade {
 
                 if (body.getUserData() instanceof Ufo) {
                     Ufo obj = (Ufo) body.getUserData();
-                    if (obj.state == Ufo.STATE_DEAD && obj.stateTime >= Ufo.TIEMPO_MUERTO) {
+                    if (obj.state == Ufo.STATE_DEAD && obj.stateTime >= Ufo.DEATH_DURATION) {
                         oWorldBox.destroyBody(body);
                         state = STATE_GAMEOVER;
                     }
-                } else if (body.getUserData() instanceof Meteoro) {
-                    Meteoro obj = (Meteoro) body.getUserData();
-                    if (obj.state == Meteoro.STATE_DESTROY) {
+                } else if (body.getUserData() instanceof Asteroid0) {
+                    Asteroid0 obj = (Asteroid0) body.getUserData();
+                    if (obj.state == Asteroid0.STATE_DESTROY) {
                         oWorldBox.destroyBody(body);
                     }
                 }
@@ -293,7 +293,7 @@ public class WorldGameArcade {
         obj.update(delta, body);
 
         if (jump && obj.state == Ufo.STATE_NORMAL) {
-            body.setLinearVelocity(0, Ufo.VELOCIDAD_JUMP);
+            body.setLinearVelocity(0, Ufo.JUMP_SPEED);
             Assets.playSound(Assets.wing);
         } else
             body.setLinearVelocity(0, body.getLinearVelocity().y);
@@ -301,12 +301,12 @@ public class WorldGameArcade {
 
     private void updateMetoro(Body body, float delta) {
         if (oUfo.state == Ufo.STATE_NORMAL) {
-            Meteoro obj = (Meteoro) body.getUserData();
+            Asteroid0 obj = (Asteroid0) body.getUserData();
             if (obj != null) {
 
                 obj.update(delta, body);
                 if (obj.position.x <= -5)
-                    obj.state = Meteoro.STATE_DESTROY;
+                    obj.state = Asteroid0.STATE_DESTROY;
             }
         } else
             body.setLinearVelocity(0, 0);
@@ -329,10 +329,10 @@ public class WorldGameArcade {
             Ufo oUfo = (Ufo) bird.getBody().getUserData();
             Object oOtraCosa = otraCosa.getBody().getUserData();
 
-            if (oOtraCosa instanceof Contador) {
-                Contador obj = (Contador) oOtraCosa;
-                if (obj.state == Contador.STATE_NORMAL) {
-                    obj.state = Contador.STATE_DESTROY;
+            if (oOtraCosa instanceof ScoreKeeper) {
+                ScoreKeeper obj = (ScoreKeeper) oOtraCosa;
+                if (obj.state == ScoreKeeper.STATE_NORMAL) {
+                    obj.state = ScoreKeeper.STATE_DESTROY;
                     Assets.playSound(Assets.point);
                 }
             } else {

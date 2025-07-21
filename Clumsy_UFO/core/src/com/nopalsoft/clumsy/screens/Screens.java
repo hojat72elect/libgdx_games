@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.nopalsoft.clumsy.Assets;
-import com.nopalsoft.clumsy.MainClumsy;
+import com.nopalsoft.clumsy.ClumsyUfoGame;
 import com.nopalsoft.clumsy.Settings;
 import com.nopalsoft.clumsy.game.arcade.GameScreenArcade;
 import com.nopalsoft.clumsy.game.classic.GameScreenClassic;
@@ -26,36 +26,37 @@ public abstract class Screens extends InputAdapter implements Screen {
     public static final int WORLD_SCREEN_WIDTH = 4;
     public static final int WORLD_SCREEN_HEIGHT = 8;
 
-    public MainClumsy game;
+    public ClumsyUfoGame game;
 
-    public OrthographicCamera oCam;
-    public SpriteBatch batcher;
+    public OrthographicCamera camera;
+    public SpriteBatch batch;
     public Stage stage;
 
-    Random oRan;
+    Random random;
     Image blackFadeOut;
 
-    public Screens(MainClumsy game) {
+    public Screens(ClumsyUfoGame game) {
         this.stage = game.stage;
         this.stage.clear();
-        this.batcher = game.batcher;
+        this.batch = game.batch;
         this.game = game;
 
-        oCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
-        oCam.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
+        camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
+        camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
 
         InputMultiplexer input = new InputMultiplexer(this, stage);
         Gdx.input.setInputProcessor(input);
 
-        oRan = new Random();
-        int ale = oRan.nextInt(3);
+        random = new Random();
+        int ale = random.nextInt(3);
 
         if (ale == 0)
-            Assets.fondo = Assets.fondo1;
+            Assets.background0 = Assets.background1;
         else if (ale == 1)
-            Assets.fondo = Assets.fondo2;
-        else if (ale == 2)
-            Assets.fondo = Assets.fondo3;
+            Assets.background0 = Assets.background2;
+        else {
+            Assets.background0 = Assets.background3;
+        }
     }
 
     @Override
@@ -75,8 +76,8 @@ public abstract class Screens extends InputAdapter implements Screen {
     }
 
     public void changeScreenWithFadeOut(final Class<?> newScreen,
-                                        final MainClumsy game) {
-        blackFadeOut = new Image(Assets.negro);
+                                        final ClumsyUfoGame game) {
+        blackFadeOut = new Image(Assets.blackDrawable);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         blackFadeOut.getColor().a = 0;
         blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f),
@@ -89,18 +90,13 @@ public abstract class Screens extends InputAdapter implements Screen {
                             game.setScreen(new MainMenuScreen(game));
                         else if (newScreen == GameScreenArcade.class)
                             game.setScreen(new GameScreenArcade(game));
-
-                        // El blackFadeOut se remueve del stage cuando se le da
-                        // new Screens(game)
-                        // "Revisar el constructor de la clase Screens" por lo
-                        // que no hay necesidad de hacer blackFadeout.remove();
                     }
                 })));
         stage.addActor(blackFadeOut);
     }
 
-    public void drawPuntuacionGrande(float x, float y, int puntuacion) {
-        String score = String.valueOf(puntuacion);
+    public void drawScore(float x, float y, int scoreNumericalValue) {
+        String score = String.valueOf(scoreNumericalValue);
 
         int len = score.length();
         float charWidth = 42;
@@ -111,34 +107,34 @@ public abstract class Screens extends InputAdapter implements Screen {
             char character = score.charAt(i);
 
             if (character == '0') {
-                keyFrame = Assets.num0Grande;
+                keyFrame = Assets.num0Large;
             } else if (character == '1') {
-                keyFrame = Assets.num1Grande;
+                keyFrame = Assets.num1Large;
             } else if (character == '2') {
-                keyFrame = Assets.num2Grande;
+                keyFrame = Assets.num2Large;
             } else if (character == '3') {
-                keyFrame = Assets.num3Grande;
+                keyFrame = Assets.num3Large;
             } else if (character == '4') {
-                keyFrame = Assets.num4Grande;
+                keyFrame = Assets.num4Large;
             } else if (character == '5') {
-                keyFrame = Assets.num5Grande;
+                keyFrame = Assets.num5Large;
             } else if (character == '6') {
-                keyFrame = Assets.num6Grande;
+                keyFrame = Assets.num6Large;
             } else if (character == '7') {
-                keyFrame = Assets.num7Grande;
+                keyFrame = Assets.num7Large;
             } else if (character == '8') {
-                keyFrame = Assets.num8Grande;
+                keyFrame = Assets.num8Large;
             } else {// 9
-                keyFrame = Assets.num9Grande;
+                keyFrame = Assets.num9Large;
             }
 
-            batcher.draw(keyFrame, x + ((charWidth - 1f) * i) - textWidth / 2f,
+            batch.draw(keyFrame, x + ((charWidth - 1f) * i) - textWidth / 2f,
                     y, charWidth, 64);
         }
     }
 
-    public void drawPuntuacionGrandeSinCentrar(float x, float y, int puntuacion) {
-        String score = String.valueOf(puntuacion);
+    public void drawScoreCentered(float x, float y, int scoreNumericalValue) {
+        String score = String.valueOf(scoreNumericalValue);
 
         int len = score.length();
         float charWidth = 42;
@@ -149,35 +145,35 @@ public abstract class Screens extends InputAdapter implements Screen {
             char character = score.charAt(i);
 
             if (character == '0') {
-                keyFrame = Assets.num0Grande;
+                keyFrame = Assets.num0Large;
             } else if (character == '1') {
-                keyFrame = Assets.num1Grande;
+                keyFrame = Assets.num1Large;
             } else if (character == '2') {
-                keyFrame = Assets.num2Grande;
+                keyFrame = Assets.num2Large;
             } else if (character == '3') {
-                keyFrame = Assets.num3Grande;
+                keyFrame = Assets.num3Large;
             } else if (character == '4') {
-                keyFrame = Assets.num4Grande;
+                keyFrame = Assets.num4Large;
             } else if (character == '5') {
-                keyFrame = Assets.num5Grande;
+                keyFrame = Assets.num5Large;
             } else if (character == '6') {
-                keyFrame = Assets.num6Grande;
+                keyFrame = Assets.num6Large;
             } else if (character == '7') {
-                keyFrame = Assets.num7Grande;
+                keyFrame = Assets.num7Large;
             } else if (character == '8') {
-                keyFrame = Assets.num8Grande;
-            } else {// 9
-                keyFrame = Assets.num9Grande;
+                keyFrame = Assets.num8Large;
+            } else {
+                keyFrame = Assets.num9Large;
             }
 
-            batcher.draw(keyFrame, x + textWidth, y, charWidth, 64);
+            batch.draw(keyFrame, x + textWidth, y, charWidth, 64);
             textWidth += charWidth;
         }
     }
 
-    public void drawPuntuacionChicoOrigenDerecha(float x, float y,
-                                                 int puntuacion) {
-        String score = String.valueOf(puntuacion);
+    public void drawSmallScoreRightAligned(float x, float y,
+                                           int scoreNumericalValue) {
+        String score = String.valueOf(scoreNumericalValue);
 
         int len = score.length();
         float charWidth;
@@ -189,29 +185,29 @@ public abstract class Screens extends InputAdapter implements Screen {
             char character = score.charAt(i);
 
             if (character == '0') {
-                keyFrame = Assets.num0Chico;
+                keyFrame = Assets.num0Small;
             } else if (character == '1') {
-                keyFrame = Assets.num1Chico;
+                keyFrame = Assets.num1Small;
                 charWidth = 11f;
             } else if (character == '2') {
-                keyFrame = Assets.num2Chico;
+                keyFrame = Assets.num2Small;
             } else if (character == '3') {
-                keyFrame = Assets.num3Chico;
+                keyFrame = Assets.num3Small;
             } else if (character == '4') {
-                keyFrame = Assets.num4Chico;
+                keyFrame = Assets.num4Small;
             } else if (character == '5') {
-                keyFrame = Assets.num5Chico;
+                keyFrame = Assets.num5Small;
             } else if (character == '6') {
-                keyFrame = Assets.num6Chico;
+                keyFrame = Assets.num6Small;
             } else if (character == '7') {
-                keyFrame = Assets.num7Chico;
+                keyFrame = Assets.num7Small;
             } else if (character == '8') {
-                keyFrame = Assets.num8Chico;
-            } else {// 9
-                keyFrame = Assets.num9Chico;
+                keyFrame = Assets.num8Small;
+            } else {
+                keyFrame = Assets.num9Small;
             }
             textWidth += charWidth;
-            batcher.draw(keyFrame, x - textWidth, y, charWidth, 32);
+            batch.draw(keyFrame, x - textWidth, y, charWidth, 32);
         }
     }
 
@@ -230,22 +226,20 @@ public abstract class Screens extends InputAdapter implements Screen {
 
     @Override
     public void hide() {
-        Settings.guardar();
+        Settings.save();
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void dispose() {
         stage.dispose();
-        batcher.dispose();
+        batch.dispose();
     }
 }

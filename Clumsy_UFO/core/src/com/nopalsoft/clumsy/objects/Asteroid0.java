@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Pool.Poolable;
 import com.nopalsoft.clumsy.game.arcade.WorldGameArcade;
 
-public abstract class Meteoro implements Poolable {
+public abstract class Asteroid0 implements Poolable {
 
     public static int STATE_NORMAL = 0;
     public static int STATE_DESTROY = 1;
@@ -16,11 +16,11 @@ public abstract class Meteoro implements Poolable {
 
     public float angleDeg;
 
-    public Meteoro() {
+    public Asteroid0() {
         position = new Vector2();
     }
 
-    public abstract void init(WorldGameArcade oWorld, float x, float y);
+    public abstract void init(WorldGameArcade worldGameArcade, float x, float y);
 
     public abstract void update(float delta, Body body);
 

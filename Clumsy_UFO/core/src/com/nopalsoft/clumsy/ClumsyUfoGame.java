@@ -8,19 +8,18 @@ import com.nopalsoft.clumsy.screens.MainMenuScreen;
 import com.nopalsoft.clumsy.screens.Screens;
 
 
-public class MainClumsy extends Game {
+public class ClumsyUfoGame extends Game {
 
     public Stage stage;
-    public SpriteBatch batcher;
+    public SpriteBatch batch;
 
-    public MainClumsy() {
+    public ClumsyUfoGame() {
     }
 
     @Override
     public void create() {
-        stage = new Stage(new StretchViewport(Screens.SCREEN_WIDTH,
-                Screens.SCREEN_HEIGHT));
-        batcher = new SpriteBatch();
+        stage = new Stage(new StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT));
+        batch = new SpriteBatch();
         Assets.load();
 
         setScreen(new MainMenuScreen(this));

@@ -18,21 +18,21 @@ public class Assets {
 
     public static Animation<TextureRegion> bird;
 
-    public static AtlasRegion btPlayArcade;
-    public static AtlasRegion btPlayClassic;
-    public static AtlasRegion btLeaderboard;
+    public static AtlasRegion buttonPlayArcade;
+    public static AtlasRegion buttonPlayClassic;
+    public static AtlasRegion buttonLeaderboard;
 
-    public static AtlasRegion btFacebook;
-    public static AtlasRegion btTwitter;
-    public static AtlasRegion arcoiris;
+    public static AtlasRegion buttonFacebook;
+    public static AtlasRegion buttonTwitter;
+    public static AtlasRegion rainbowLight;
 
-    public static NinePatchDrawable blanco;
-    public static NinePatchDrawable negro;
+    public static NinePatchDrawable whiteDrawable;
+    public static NinePatchDrawable blackDrawable;
 
-    public static AtlasRegion btRate;
-    public static AtlasRegion btNoAds;
-    public static AtlasRegion btAchievements;
-    public static AtlasRegion btRestorePurchases;
+    public static AtlasRegion buttonRate;
+    public static AtlasRegion buttonNoAds;
+    public static AtlasRegion buttonAchievements;
+    public static AtlasRegion buttonRestorePurchases;
 
     public static AtlasRegion meteor1;
     public static AtlasRegion meteor2;
@@ -41,40 +41,40 @@ public class Assets {
     public static AtlasRegion meteor5;
     public static AtlasRegion meteor6;
 
-    public static AtlasRegion num0Grande;
-    public static AtlasRegion num1Grande;
-    public static AtlasRegion num2Grande;
-    public static AtlasRegion num3Grande;
-    public static AtlasRegion num4Grande;
-    public static AtlasRegion num5Grande;
-    public static AtlasRegion num6Grande;
-    public static AtlasRegion num7Grande;
-    public static AtlasRegion num8Grande;
-    public static AtlasRegion num9Grande;
+    public static AtlasRegion num0Large;
+    public static AtlasRegion num1Large;
+    public static AtlasRegion num2Large;
+    public static AtlasRegion num3Large;
+    public static AtlasRegion num4Large;
+    public static AtlasRegion num5Large;
+    public static AtlasRegion num6Large;
+    public static AtlasRegion num7Large;
+    public static AtlasRegion num8Large;
+    public static AtlasRegion num9Large;
 
-    public static AtlasRegion num0Chico;
-    public static AtlasRegion num1Chico;
-    public static AtlasRegion num2Chico;
-    public static AtlasRegion num3Chico;
-    public static AtlasRegion num4Chico;
-    public static AtlasRegion num5Chico;
-    public static AtlasRegion num6Chico;
-    public static AtlasRegion num7Chico;
-    public static AtlasRegion num8Chico;
-    public static AtlasRegion num9Chico;
+    public static AtlasRegion num0Small;
+    public static AtlasRegion num1Small;
+    public static AtlasRegion num2Small;
+    public static AtlasRegion num3Small;
+    public static AtlasRegion num4Small;
+    public static AtlasRegion num5Small;
+    public static AtlasRegion num6Small;
+    public static AtlasRegion num7Small;
+    public static AtlasRegion num8Small;
+    public static AtlasRegion num9Small;
 
-    public static AtlasRegion tituloApp;
-    public static AtlasRegion tuboArriba;
-    public static AtlasRegion tuboAbajo;
+    public static AtlasRegion appTitle;
+    public static AtlasRegion upperTube;
+    public static AtlasRegion lowerTube;
 
-    public static ParallaxBackground parallaxFondo;
+    public static ParallaxBackground parallaxBackground;
 
-    public static AtlasRegion fondo;
-    public static AtlasRegion fondo1;
-    public static AtlasRegion fondo2;
-    public static AtlasRegion fondo3;
+    public static AtlasRegion background0;
+    public static AtlasRegion background1;
+    public static AtlasRegion background2;
+    public static AtlasRegion background3;
 
-    public static AtlasRegion medallsFondo;
+    public static AtlasRegion medalsBackground;
 
     public static AtlasRegion med1;
     public static AtlasRegion med2;
@@ -105,57 +105,55 @@ public class Assets {
         AtlasRegion b4 = atlas.findRegion("nave4");
         bird = new Animation<TextureRegion>(.1f, b1, b2, b3, b4);
 
-        arcoiris = atlas.findRegion("luzA");
+        rainbowLight = atlas.findRegion("luzA");
 
-        tituloApp = atlas.findRegion("titulo");
+        appTitle = atlas.findRegion("titulo");
 
-        tuboArriba = atlas.findRegion("tubosEspacioArriba");
-        tuboAbajo = atlas.findRegion("tubosEspacio");
+        upperTube = atlas.findRegion("tubosEspacioArriba");
+        lowerTube = atlas.findRegion("tubosEspacio");
 
         gameover = atlas.findRegion("gameover");
         getReady = atlas.findRegion("getready");
         tapCat = atlas.findRegion("tap");
 
-        btPlayArcade = atlas.findRegion("btArcade");
-        btPlayClassic = atlas.findRegion("btClassic");
-        btLeaderboard = atlas.findRegion("btLeaderboard");
-        btRate = atlas.findRegion("btRate");
-        btNoAds = atlas.findRegion("btNoAds");
-        btAchievements = atlas.findRegion("btAchievements");
-        btRestorePurchases = atlas.findRegion("btRestore");
+        buttonPlayArcade = atlas.findRegion("btArcade");
+        buttonPlayClassic = atlas.findRegion("btClassic");
+        buttonLeaderboard = atlas.findRegion("btLeaderboard");
+        buttonRate = atlas.findRegion("btRate");
+        buttonNoAds = atlas.findRegion("btNoAds");
+        buttonAchievements = atlas.findRegion("btAchievements");
+        buttonRestorePurchases = atlas.findRegion("btRestore");
 
-        // TODO: Add btRestore to flappy penis. Workaround initialize with another button
-        if (btRestorePurchases == null) btRestorePurchases = atlas.findRegion("btNoAds");
+        if (buttonRestorePurchases == null) buttonRestorePurchases = atlas.findRegion("btNoAds");
 
+        buttonFacebook = atlas.findRegion("btFacebook");
+        buttonTwitter = atlas.findRegion("btTwitter");
 
-        btFacebook = atlas.findRegion("btFacebook");
-        btTwitter = atlas.findRegion("btTwitter");
+        background1 = atlas.findRegion("fondo1");
+        background2 = atlas.findRegion("fondo1");
+        background3 = atlas.findRegion("fondo1");
 
-        fondo1 = atlas.findRegion("fondo1");
-        fondo2 = atlas.findRegion("fondo1");
-        fondo3 = atlas.findRegion("fondo1");
+        num0Large = atlas.findRegion("num0");
+        num1Large = atlas.findRegion("num1");
+        num2Large = atlas.findRegion("num2");
+        num3Large = atlas.findRegion("num3");
+        num4Large = atlas.findRegion("num4");
+        num5Large = atlas.findRegion("num5");
+        num6Large = atlas.findRegion("num6");
+        num7Large = atlas.findRegion("num7");
+        num8Large = atlas.findRegion("num8");
+        num9Large = atlas.findRegion("num9");
 
-        num0Grande = atlas.findRegion("num0");
-        num1Grande = atlas.findRegion("num1");
-        num2Grande = atlas.findRegion("num2");
-        num3Grande = atlas.findRegion("num3");
-        num4Grande = atlas.findRegion("num4");
-        num5Grande = atlas.findRegion("num5");
-        num6Grande = atlas.findRegion("num6");
-        num7Grande = atlas.findRegion("num7");
-        num8Grande = atlas.findRegion("num8");
-        num9Grande = atlas.findRegion("num9");
-
-        num0Chico = atlas.findRegion("0");
-        num1Chico = atlas.findRegion("1");
-        num2Chico = atlas.findRegion("2");
-        num3Chico = atlas.findRegion("3");
-        num4Chico = atlas.findRegion("4");
-        num5Chico = atlas.findRegion("5");
-        num6Chico = atlas.findRegion("6");
-        num7Chico = atlas.findRegion("7");
-        num8Chico = atlas.findRegion("8");
-        num9Chico = atlas.findRegion("9");
+        num0Small = atlas.findRegion("0");
+        num1Small = atlas.findRegion("1");
+        num2Small = atlas.findRegion("2");
+        num3Small = atlas.findRegion("3");
+        num4Small = atlas.findRegion("4");
+        num5Small = atlas.findRegion("5");
+        num6Small = atlas.findRegion("6");
+        num7Small = atlas.findRegion("7");
+        num8Small = atlas.findRegion("8");
+        num9Small = atlas.findRegion("9");
 
         meteor1 = atlas.findRegion("meteoro1");
         meteor2 = atlas.findRegion("meteoro2");
@@ -164,10 +162,10 @@ public class Assets {
         meteor5 = atlas.findRegion("meteoro5");
         meteor6 = atlas.findRegion("meteoro6");
 
-        blanco = new NinePatchDrawable(new NinePatch(atlas.findRegion("luz"), 1, 1, 0, 0));
-        negro = new NinePatchDrawable(new NinePatch(atlas.findRegion("oscuridad"), 1, 1, 0, 0));
+        whiteDrawable = new NinePatchDrawable(new NinePatch(atlas.findRegion("luz"), 1, 1, 0, 0));
+        blackDrawable = new NinePatchDrawable(new NinePatch(atlas.findRegion("oscuridad"), 1, 1, 0, 0));
 
-        medallsFondo = atlas.findRegion("medallsFondo");
+        medalsBackground = atlas.findRegion("medallsFondo");
         med1 = atlas.findRegion("monedaOro");
         med2 = atlas.findRegion("monedaPlata");
         med3 = atlas.findRegion("monedaBronce");
@@ -178,7 +176,7 @@ public class Assets {
                 336, 140);
         ParallaxLayer[] as = new ParallaxLayer[]{floor};
 
-        parallaxFondo = new ParallaxBackground(as, 480, 800, new Vector2(10, 0));
+        parallaxBackground = new ParallaxBackground(as, 480, 800, new Vector2(10, 0));
 
         die = Gdx.audio.newSound(Gdx.files.internal(path + "/sonidos/sfx_die.mp3"));
         hit = Gdx.audio.newSound(Gdx.files.internal(path + "/sonidos/sfx_hit.mp3"));

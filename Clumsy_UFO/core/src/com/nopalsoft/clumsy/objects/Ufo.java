@@ -6,9 +6,9 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 public class Ufo {
 
-    public static final float TIEMPO_HURT = .5f;
-    public static final float TIEMPO_MUERTO = .75f;
-    public static float VELOCIDAD_JUMP = 5;
+    public static final float HURT_DURATION = .5f;
+    public static final float DEATH_DURATION = .75f;
+    public static float JUMP_SPEED = 5;
     public static int STATE_NORMAL = 0;
     public static int STATE_HURT = 1;
     public static int STATE_DEAD = 2;

@@ -5,13 +5,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.nopalsoft.clumsy.Assets;
-import com.nopalsoft.clumsy.objects.Meteoro;
-import com.nopalsoft.clumsy.objects.Meteoro1;
-import com.nopalsoft.clumsy.objects.Meteoro2;
-import com.nopalsoft.clumsy.objects.Meteoro3;
-import com.nopalsoft.clumsy.objects.Meteoro4;
-import com.nopalsoft.clumsy.objects.Meteoro5;
-import com.nopalsoft.clumsy.objects.Meteoro6;
+import com.nopalsoft.clumsy.objects.Asteroid0;
+import com.nopalsoft.clumsy.objects.Asteroid1;
+import com.nopalsoft.clumsy.objects.Asteroid2;
+import com.nopalsoft.clumsy.objects.Asteroid3;
+import com.nopalsoft.clumsy.objects.Asteroid4;
+import com.nopalsoft.clumsy.objects.Asteroid5;
+import com.nopalsoft.clumsy.objects.Asteroid6;
 import com.nopalsoft.clumsy.objects.Tail;
 import com.nopalsoft.clumsy.objects.Ufo;
 import com.nopalsoft.clumsy.screens.Screens;
@@ -52,7 +52,7 @@ public class WorldGameRendererArcade {
 
     private void drawArcoiris() {
         for (Tail obj : oWorld.arrTail) {
-            batcher.draw(Assets.arcoiris, obj.position.x - .15f, obj.position.y - .12f, .3f, .24f);
+            batcher.draw(Assets.rainbowLight, obj.position.x - .15f, obj.position.y - .12f, .3f, .24f);
         }
     }
 
@@ -70,23 +70,23 @@ public class WorldGameRendererArcade {
     }
 
     private void drawMeteoro() {
-        for (Meteoro obj : oWorld.arrMeteoros) {
-            if (obj instanceof Meteoro1) {
+        for (Asteroid0 obj : oWorld.arrMeteoros) {
+            if (obj instanceof Asteroid1) {
                 batcher.draw(Assets.meteor1, obj.position.x - .07f, obj.position.y - .07f, .07f, .07f, .14f, .14f, 1,
                         1, obj.angleDeg);
-            } else if (obj instanceof Meteoro2) {
+            } else if (obj instanceof Asteroid2) {
                 batcher.draw(Assets.meteor2, obj.position.x - .11f, obj.position.y - .11f, .11f, .11f, .22f, .22f, 1,
                         1, obj.angleDeg);
-            } else if (obj instanceof Meteoro3) {
+            } else if (obj instanceof Asteroid3) {
                 batcher.draw(Assets.meteor3, obj.position.x - .14f, obj.position.y - .13f, .14f, .13f, .18f, .26f, 1,
                         1, obj.angleDeg);
-            } else if (obj instanceof Meteoro4) {
+            } else if (obj instanceof Asteroid4) {
                 batcher.draw(Assets.meteor4, obj.position.x - .15f, obj.position.y - .15f, .15f, .15f, .3f, .3f, 1, 1,
                         obj.angleDeg);
-            } else if (obj instanceof Meteoro5) {
+            } else if (obj instanceof Asteroid5) {
                 batcher.draw(Assets.meteor5, obj.position.x - .24f, obj.position.y - .21f, .24f, .21f, .48f, .42f, 1,
                         1, obj.angleDeg);
-            } else if (obj instanceof Meteoro6) {
+            } else if (obj instanceof Asteroid6) {
                 batcher.draw(Assets.meteor6, obj.position.x - .28f, obj.position.y - .27f, .28f, .27f, .56f, .54f, 1,
                         1, obj.angleDeg);
             }

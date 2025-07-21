@@ -12,8 +12,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 import com.nopalsoft.clumsy.Assets;
-import com.nopalsoft.clumsy.objects.Contador;
 import com.nopalsoft.clumsy.objects.Pipes;
+import com.nopalsoft.clumsy.objects.ScoreKeeper;
 import com.nopalsoft.clumsy.objects.Tail;
 import com.nopalsoft.clumsy.objects.Ufo;
 import com.nopalsoft.clumsy.screens.Screens;
@@ -144,7 +144,7 @@ public class WorldGameClassic {
         float x = WIDTH + 3;
         float y = oRan.nextFloat() * (2.5f) + .5f;
 
-        Pipes obj = new Pipes(x, y, Pipes.TIPO_ABAJO);
+        Pipes obj = new Pipes(x, y, Pipes.LOWER_PIPE);
 
         BodyDef bd = new BodyDef();
         bd.position.x = obj.position.x;
@@ -168,7 +168,7 @@ public class WorldGameClassic {
         arrTuberias.add(obj);
 
         // Tuberia arriba
-        obj = new Pipes(x, y + 1.7f + Pipes.HEIGHT, Pipes.TIPO_ARRIBA);
+        obj = new Pipes(x, y + 1.7f + Pipes.HEIGHT, Pipes.UPPER_PIPE);
         bd.position.x = obj.position.x;
         bd.position.y = obj.position.y;
         oBody = oWorldBox.createBody(bd);
@@ -181,16 +181,16 @@ public class WorldGameClassic {
         // Cuandro entre las tuberias
         BodyDef bd2 = new BodyDef();
         bd2.position.x = obj.position.x;
-        bd2.position.y = obj.position.y - Contador.HEIGHT / 2f - Pipes.HEIGHT / 2f - .035f;
+        bd2.position.y = obj.position.y - ScoreKeeper.HEIGHT / 2f - Pipes.HEIGHT / 2f - .035f;
         bd2.type = BodyType.KinematicBody;
         oBody = oWorldBox.createBody(bd2);
 
         PolygonShape shape2 = new PolygonShape();
-        shape2.setAsBox(Contador.WIDTH / 2f, Contador.HEIGHT / 2f);
+        shape2.setAsBox(ScoreKeeper.WIDTH / 2f, ScoreKeeper.HEIGHT / 2f);
         fixture.isSensor = true;
         fixture.shape = shape2;
         oBody.createFixture(fixture);
-        oBody.setUserData(new Contador());
+        oBody.setUserData(new ScoreKeeper());
         oBody.setFixedRotation(true);
 
         // Fin Cuadro entre las tuberias
@@ -218,7 +218,7 @@ public class WorldGameClassic {
                 updateGato(body, delta, jump);
             } else if (body.getUserData() instanceof Pipes) {
                 updatePlataforma(body, delta);
-            } else if (body.getUserData() instanceof Contador) {
+            } else if (body.getUserData() instanceof ScoreKeeper) {
                 updateContador(body);
             }
         }
@@ -256,7 +256,7 @@ public class WorldGameClassic {
 
                 if (body.getUserData() instanceof Ufo) {
                     Ufo obj = (Ufo) body.getUserData();
-                    if (obj.state == Ufo.STATE_DEAD && obj.stateTime >= Ufo.TIEMPO_MUERTO) {
+                    if (obj.state == Ufo.STATE_DEAD && obj.stateTime >= Ufo.DEATH_DURATION) {
                         oWorldBox.destroyBody(body);
                         state = STATE_GAMEOVER;
                     }
@@ -266,9 +266,9 @@ public class WorldGameClassic {
                         arrTuberias.removeValue(obj, true);
                         oWorldBox.destroyBody(body);
                     }
-                } else if (body.getUserData() instanceof Contador) {
-                    Contador obj = (Contador) body.getUserData();
-                    if (obj.state == Contador.STATE_DESTROY) {
+                } else if (body.getUserData() instanceof ScoreKeeper) {
+                    ScoreKeeper obj = (ScoreKeeper) body.getUserData();
+                    if (obj.state == ScoreKeeper.STATE_DESTROY) {
                         oWorldBox.destroyBody(body);
                     }
                 }
@@ -282,7 +282,7 @@ public class WorldGameClassic {
         obj.update(delta, body);
 
         if (jump && obj.state == Ufo.STATE_NORMAL) {
-            body.setLinearVelocity(0, Ufo.VELOCIDAD_JUMP);
+            body.setLinearVelocity(0, Ufo.JUMP_SPEED);
             Assets.playSound(Assets.wing);
         } else
             body.setLinearVelocity(0, body.getLinearVelocity().y);
@@ -297,7 +297,7 @@ public class WorldGameClassic {
                 if (obj.position.y <= -5)
                     obj.state = Pipes.STATE_DESTROY;
 
-                body.setLinearVelocity(Pipes.VELOCIDAD_X, 0);
+                body.setLinearVelocity(Pipes.SPEED_X, 0);
             }
         } else
             body.setLinearVelocity(0, 0);
@@ -305,12 +305,12 @@ public class WorldGameClassic {
 
     private void updateContador(Body body) {
         if (oUfo.state == Ufo.STATE_NORMAL) {
-            Contador obj = (Contador) body.getUserData();
+            ScoreKeeper obj = (ScoreKeeper) body.getUserData();
 
             if (obj.position.x <= -5)
-                obj.state = Contador.STATE_DESTROY;
+                obj.state = ScoreKeeper.STATE_DESTROY;
 
-            body.setLinearVelocity(Contador.VELOCIDAD_X, 0);
+            body.setLinearVelocity(ScoreKeeper.SPEED_X, 0);
         } else
             body.setLinearVelocity(0, 0);
     }

@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool.Poolable;
 
 public class Tail implements Poolable {
-    public static float VELOCIDADX = -5f;
+    public static float SPEED_X = -5f;
     public final Vector2 position;
 
     public Tail() {
@@ -12,7 +12,7 @@ public class Tail implements Poolable {
     }
 
     public void update(float delta) {
-        position.x += VELOCIDADX * delta;
+        position.x += SPEED_X * delta;
     }
 
     public void init(float x, float y) {
@@ -21,7 +21,5 @@ public class Tail implements Poolable {
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
-
     }
 }

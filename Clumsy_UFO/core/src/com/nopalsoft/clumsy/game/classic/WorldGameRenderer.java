@@ -15,43 +15,43 @@ public class WorldGameRenderer {
     final float WIDTH = Screens.WORLD_SCREEN_WIDTH;
     final float HEIGHT = Screens.WORLD_SCREEN_HEIGHT;
 
-    SpriteBatch batcher;
-    WorldGameClassic oWorld;
-    OrthographicCamera OrthoCam;
+    SpriteBatch batch;
+    WorldGameClassic worldGameClassic;
+    OrthographicCamera camera;
 
     Box2DDebugRenderer renderBox;
 
-    public WorldGameRenderer(SpriteBatch batcher, WorldGameClassic oWorld) {
+    public WorldGameRenderer(SpriteBatch batch, WorldGameClassic worldGameClassic) {
 
-        this.OrthoCam = new OrthographicCamera(WIDTH, HEIGHT);
-        this.OrthoCam.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
-        this.batcher = batcher;
-        this.oWorld = oWorld;
+        this.camera = new OrthographicCamera(WIDTH, HEIGHT);
+        this.camera.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
+        this.batch = batch;
+        this.worldGameClassic = worldGameClassic;
         this.renderBox = new Box2DDebugRenderer();
     }
 
     public void render() {
 
-        OrthoCam.update();
-        batcher.setProjectionMatrix(OrthoCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
 
-        batcher.begin();
-        batcher.disableBlending();
-        batcher.enableBlending();
+        batch.begin();
+        batch.disableBlending();
+        batch.enableBlending();
         drawTuberia();
         drawArcoiris();
         drawBird();
-        batcher.end();
+        batch.end();
     }
 
     private void drawArcoiris() {
-        for (Tail obj : oWorld.arrTail) {
-            batcher.draw(Assets.arcoiris, obj.position.x - .15f, obj.position.y - .12f, .3f, .24f);
+        for (Tail obj : worldGameClassic.arrTail) {
+            batch.draw(Assets.rainbowLight, obj.position.x - .15f, obj.position.y - .12f, .3f, .24f);
         }
     }
 
     private void drawBird() {
-        Ufo obj = oWorld.oUfo;
+        Ufo obj = worldGameClassic.oUfo;
         TextureRegion keyFrame;
 
         if (obj.state == Ufo.STATE_NORMAL) {
@@ -59,16 +59,16 @@ public class WorldGameRenderer {
         } else {
             keyFrame = Assets.bird.getKeyFrame(obj.stateTime, false);
         }
-        batcher.draw(keyFrame, obj.position.x - .25f, obj.position.y - .2f, .25f, .2f, .5f, .4f, 1, 1,
+        batch.draw(keyFrame, obj.position.x - .25f, obj.position.y - .2f, .25f, .2f, .5f, .4f, 1, 1,
                 (float) Math.toDegrees(obj.angleRad));
     }
 
     private void drawTuberia() {
-        for (Pipes obj : oWorld.arrTuberias) {
-            if (obj.tipo == Pipes.TIPO_ABAJO)
-                batcher.draw(Assets.tuboAbajo, obj.position.x - .35f, obj.position.y - 2f, .7f, 4);
+        for (Pipes obj : worldGameClassic.arrTuberias) {
+            if (obj.type == Pipes.LOWER_PIPE)
+                batch.draw(Assets.lowerTube, obj.position.x - .35f, obj.position.y - 2f, .7f, 4);
             else
-                batcher.draw(Assets.tuboArriba, obj.position.x - .35f, obj.position.y - 2f, .7f, 4);
+                batch.draw(Assets.upperTube, obj.position.x - .35f, obj.position.y - 2f, .7f, 4);
         }
     }
 }

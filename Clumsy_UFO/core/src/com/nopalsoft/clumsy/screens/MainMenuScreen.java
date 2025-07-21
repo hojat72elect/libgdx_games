@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.clumsy.Assets;
-import com.nopalsoft.clumsy.MainClumsy;
+import com.nopalsoft.clumsy.ClumsyUfoGame;
 import com.nopalsoft.clumsy.Settings;
 import com.nopalsoft.clumsy.game.arcade.GameScreenArcade;
 import com.nopalsoft.clumsy.game.classic.GameScreenClassic;
@@ -17,117 +17,117 @@ import com.nopalsoft.clumsy.objects.Ufo;
 
 public class MainMenuScreen extends Screens {
 
-    Ufo oBird;
+    Ufo player;
 
-    Image titulo;
+    Image titleImage;
 
-    Button btPlayClassic, btPlayArcade, btScore;
-    Button btRate, btRestorePurchases, btNoAds;
+    Button buttonPlayClassic, buttonPlayArcade, buttonScore;
+    Button buttonRate, buttonRestorePurchases, buttonNoAds;
 
-    public MainMenuScreen(final MainClumsy game) {
+    public MainMenuScreen(final ClumsyUfoGame game) {
         super(game);
-        oBird = new Ufo(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f + 50);
+        player = new Ufo(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f + 50);
 
-        titulo = new Image(Assets.tituloApp);
-        titulo.setSize(321, 156);
-        titulo.setPosition(SCREEN_WIDTH / 2f - 321 / 2f, 500);
+        titleImage = new Image(Assets.appTitle);
+        titleImage.setSize(321, 156);
+        titleImage.setPosition(SCREEN_WIDTH / 2f - 321 / 2f, 500);
 
-        btPlayClassic = new Button(new TextureRegionDrawable(Assets.btPlayClassic));
-        btPlayClassic.setSize(160, 95);
-        btPlayClassic.setPosition(75, 280);
-        btPlayClassic.addListener(new InputListener() {
+        buttonPlayClassic = new Button(new TextureRegionDrawable(Assets.buttonPlayClassic));
+        buttonPlayClassic.setSize(160, 95);
+        buttonPlayClassic.setPosition(75, 280);
+        buttonPlayClassic.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                btPlayClassic.setPosition(75, 277);
+                buttonPlayClassic.setPosition(75, 277);
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                btPlayClassic.setPosition(75, 280);
+                buttonPlayClassic.setPosition(75, 280);
                 Assets.playSound(Assets.swooshing);
                 changeScreenWithFadeOut(GameScreenClassic.class, game);
             }
         });
 
-        btPlayArcade = new Button(new TextureRegionDrawable(Assets.btPlayArcade));
-        btPlayArcade.setSize(160, 95);
-        btPlayArcade.setPosition(250, 280);
-        btPlayArcade.addListener(new InputListener() {
+        buttonPlayArcade = new Button(new TextureRegionDrawable(Assets.buttonPlayArcade));
+        buttonPlayArcade.setSize(160, 95);
+        buttonPlayArcade.setPosition(250, 280);
+        buttonPlayArcade.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                btPlayArcade.setPosition(250, 277);
+                buttonPlayArcade.setPosition(250, 277);
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                btPlayArcade.setPosition(250, 280);
+                buttonPlayArcade.setPosition(250, 280);
                 Assets.playSound(Assets.swooshing);
                 changeScreenWithFadeOut(GameScreenArcade.class, game);
             }
         });
 
-        btScore = new Button(new TextureRegionDrawable(Assets.btLeaderboard));
-        btScore.setSize(160, 95);
-        btScore.setPosition(160, 180);
-        btScore.addListener(new InputListener() {
+        buttonScore = new Button(new TextureRegionDrawable(Assets.buttonLeaderboard));
+        buttonScore.setSize(160, 95);
+        buttonScore.setPosition(160, 180);
+        buttonScore.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                btScore.setPosition(160, 177);
+                buttonScore.setPosition(160, 177);
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                btScore.setPosition(160, 180);
+                buttonScore.setPosition(160, 180);
             }
         });
 
-        btRate = new Button(new TextureRegionDrawable(Assets.btRate));
-        btRate.setSize(60, 60);
-        btRate.addListener(new InputListener() {
+        buttonRate = new Button(new TextureRegionDrawable(Assets.buttonRate));
+        buttonRate.setSize(60, 60);
+        buttonRate.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                btRate.setPosition(btRate.getX(), btRate.getY() - 3);
+                buttonRate.setPosition(buttonRate.getX(), buttonRate.getY() - 3);
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                btRate.setPosition(btRate.getX(), btRate.getY() + 3);
+                buttonRate.setPosition(buttonRate.getX(), buttonRate.getY() + 3);
             }
         });
 
-        btNoAds = new Button(new TextureRegionDrawable(Assets.btNoAds));
+        buttonNoAds = new Button(new TextureRegionDrawable(Assets.buttonNoAds));
         if (Settings.didBuyNoAds)
-            btNoAds.setVisible(false);
-        btNoAds.setSize(60, 60);
-        btNoAds.addListener(new InputListener() {
+            buttonNoAds.setVisible(false);
+        buttonNoAds.setSize(60, 60);
+        buttonNoAds.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                btNoAds.setPosition(btNoAds.getX(), btNoAds.getY() - 3);
+                buttonNoAds.setPosition(buttonNoAds.getX(), buttonNoAds.getY() - 3);
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                btNoAds.setPosition(btNoAds.getX(), btNoAds.getY() + 3);
+                buttonNoAds.setPosition(buttonNoAds.getX(), buttonNoAds.getY() + 3);
             }
         });
 
-        btRestorePurchases = new Button(new TextureRegionDrawable(Assets.btRestorePurchases));
-        btRestorePurchases.setSize(60, 60);
-        btRestorePurchases.addListener(new InputListener() {
+        buttonRestorePurchases = new Button(new TextureRegionDrawable(Assets.buttonRestorePurchases));
+        buttonRestorePurchases.setSize(60, 60);
+        buttonRestorePurchases.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                btRestorePurchases.setPosition(btRestorePurchases.getX(), btRestorePurchases.getY() - 3);
+                buttonRestorePurchases.setPosition(buttonRestorePurchases.getX(), buttonRestorePurchases.getY() - 3);
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                btRestorePurchases.setPosition(btRestorePurchases.getX(), btRestorePurchases.getY() + 3);
+                buttonRestorePurchases.setPosition(buttonRestorePurchases.getX(), buttonRestorePurchases.getY() + 3);
             }
         });
 
@@ -135,44 +135,44 @@ public class MainMenuScreen extends Screens {
         bottomMenu.setPosition(1, 1);
         bottomMenu.defaults().padRight(2.5f);
 
-        bottomMenu.add(btRate);
-        bottomMenu.add(btRestorePurchases);
-        bottomMenu.add(btNoAds);
+        bottomMenu.add(buttonRate);
+        bottomMenu.add(buttonRestorePurchases);
+        bottomMenu.add(buttonNoAds);
         bottomMenu.pack();
 
         stage.addActor(bottomMenu);
 
-        stage.addActor(btScore);
-        stage.addActor(btPlayClassic);
-        stage.addActor(btPlayArcade);
-        stage.addActor(titulo);
+        stage.addActor(buttonScore);
+        stage.addActor(buttonPlayClassic);
+        stage.addActor(buttonPlayArcade);
+        stage.addActor(titleImage);
     }
 
     @Override
     public void draw(float delta) {
 
-        batcher.begin();
-        batcher.draw(Assets.fondo, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        batcher.end();
+        batch.begin();
+        batch.draw(Assets.background0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.end();
 
-        Assets.parallaxFondo.render(delta);
+        Assets.parallaxBackground.render(delta);
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
 
-        batcher.enableBlending();
-        batcher.begin();
+        batch.enableBlending();
+        batch.begin();
 
-        oBird.update(delta, null);
-        batcher.draw(Assets.bird.getKeyFrame(oBird.stateTime, true), oBird.position.x - 27, oBird.position.y - 20, 58,
+        player.update(delta, null);
+        batch.draw(Assets.bird.getKeyFrame(player.stateTime, true), player.position.x - 27, player.position.y - 20, 58,
                 40);
-        batcher.end();
+        batch.end();
     }
 
     @Override
     public void update(float delta) {
         if (Settings.didBuyNoAds)
-            btNoAds.setVisible(false);
+            buttonNoAds.setVisible(false);
     }
 
     @Override
