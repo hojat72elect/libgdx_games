@@ -1,317 +1,313 @@
-package com.nopalsoft.clumsy.game.classic;
+package com.nopalsoft.clumsy.game.classic
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pool;
-import com.nopalsoft.clumsy.Assets;
-import com.nopalsoft.clumsy.objects.Pipes;
-import com.nopalsoft.clumsy.objects.ScoreKeeper;
-import com.nopalsoft.clumsy.objects.Tail;
-import com.nopalsoft.clumsy.objects.Ufo;
-import com.nopalsoft.clumsy.screens.Screens;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.physics.box2d.BodyDef
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
+import com.badlogic.gdx.physics.box2d.CircleShape
+import com.badlogic.gdx.physics.box2d.EdgeShape
+import com.badlogic.gdx.physics.box2d.FixtureDef
+import com.badlogic.gdx.physics.box2d.PolygonShape
+import com.badlogic.gdx.physics.box2d.World
+import com.badlogic.gdx.utils.Array
+import com.badlogic.gdx.utils.Pool
+import com.nopalsoft.clumsy.Assets
+import com.nopalsoft.clumsy.objects.Pipes
+import com.nopalsoft.clumsy.objects.ScoreKeeper
+import com.nopalsoft.clumsy.objects.Tail
+import com.nopalsoft.clumsy.objects.Ufo
+import com.nopalsoft.clumsy.screens.Screens
+import java.util.Random
 
-import java.util.Iterator;
-import java.util.Random;
-
-public class WorldGameClassic {
-
-    static final int STATE_RUNNING = 0;
-    static final int STATE_GAMEOVER = 1;
-    final float WIDTH = Screens.WORLD_SCREEN_WIDTH;
-    final float HEIGHT = Screens.WORLD_SCREEN_HEIGHT;
-    final float TIME_TO_SPAWN_PIPE = 1.35f;// Time between pipes, change this to increase or decrase gap between pipes.
-    final float TIME_TO_SPAWN_ARCOIRIS = .005f;
-    private final Pool<Tail> arcoirisPool = new Pool<Tail>() {
-        @Override
-        protected Tail newObject() {
-            return new Tail();
+class WorldGameClassic {
+    val WIDTH: Float = Screens.WORLD_SCREEN_WIDTH.toFloat()
+    val HEIGHT: Float = Screens.WORLD_SCREEN_HEIGHT.toFloat()
+    val TIME_TO_SPAWN_PIPE: Float = 1.35f // Time between pipes, change this to increase or decrase gap between pipes.
+    val TIME_TO_SPAWN_ARCOIRIS: Float = .005f
+    private val arcoirisPool: Pool<Tail> = object : Pool<Tail>() {
+        override fun newObject(): Tail {
+            return Tail()
         }
-    };
-    public int state;
-    public World oWorldBox;
-    public int score;
-    float timeToSpawnPipe;
-    float timeToSpawnArcoiris;
-    Ufo oUfo;
-    Array<Pipes> arrTuberias;
-    Array<Body> arrBodies;
-    Array<Tail> arrTail;
-    Random oRan;
-
-
-    public WorldGameClassic() {
-        oWorldBox = new World(new Vector2(0, -13.0f), true);
-        oWorldBox.setContactListener(new ClassicGameCollisionHandler(this));
-
-        arrTuberias = new Array<>();
-        arrBodies = new Array<>();
-        arrTail = new Array<>();
-
-        timeToSpawnPipe = 1.5f;
-
-        createGato();
-        createPiso();
-        crearTecho();
-
-        state = STATE_RUNNING;
-
-        oRan = new Random();
     }
 
-    private void crearTecho() {
-        BodyDef bd = new BodyDef();
-        bd.position.x = 0;
-        bd.position.y = HEIGHT;
-        bd.type = BodyType.StaticBody;
-        Body oBody = oWorldBox.createBody(bd);
+    @JvmField
+    var state: Int
+    var oWorldBox: World
 
-        EdgeShape shape = new EdgeShape();
-        shape.set(0, 0, WIDTH, 0);
+    @JvmField
+    var score: Int = 0
+    var timeToSpawnPipe: Float
+    var timeToSpawnArcoiris: Float = 0f
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.density = 0f;
-        fixture.restitution = 0;
-        fixture.friction = 0;
+    @JvmField
+    var oUfo: Ufo? = null
+    var arrTuberias: Array<Pipes?>
+    var arrBodies: Array<Body>
+    var arrTail: Array<Tail?>
+    var oRan: Random
 
-        oBody.createFixture(fixture);
 
-        oBody.setFixedRotation(true);
+    init {
+        oWorldBox = World(Vector2(0f, -13.0f), true)
+        oWorldBox.setContactListener(ClassicGameCollisionHandler(this))
 
-        shape.dispose();
+        arrTuberias = Array<Pipes?>()
+        arrBodies = Array<Body>()
+        arrTail = Array<Tail?>()
+
+        timeToSpawnPipe = 1.5f
+
+        createGato()
+        createPiso()
+        crearTecho()
+
+        state = STATE_RUNNING
+
+        oRan = Random()
     }
 
-    private void createPiso() {
+    private fun crearTecho() {
+        val bd = BodyDef()
+        bd.position.x = 0f
+        bd.position.y = HEIGHT
+        bd.type = BodyType.StaticBody
+        val oBody = oWorldBox.createBody(bd)
 
-        BodyDef bd = new BodyDef();
-        bd.position.x = 0;
-        bd.position.y = 1.4f;
-        bd.type = BodyType.StaticBody;
-        Body oBody = oWorldBox.createBody(bd);
+        val shape = EdgeShape()
+        shape.set(0f, 0f, WIDTH, 0f)
 
-        EdgeShape shape = new EdgeShape();
-        shape.set(0, 0, WIDTH, 0);
+        val fixture = FixtureDef()
+        fixture.shape = shape
+        fixture.density = 0f
+        fixture.restitution = 0f
+        fixture.friction = 0f
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.density = 0f;
-        fixture.restitution = 0;
-        fixture.friction = 0;
+        oBody.createFixture(fixture)
 
-        oBody.createFixture(fixture);
+        oBody.isFixedRotation = true
 
-        oBody.setFixedRotation(true);
-
-        shape.dispose();
+        shape.dispose()
     }
 
-    private void createGato() {
-        oUfo = new Ufo(WIDTH / 3.2f, HEIGHT / 2f);
+    private fun createPiso() {
+        val bd = BodyDef()
+        bd.position.x = 0f
+        bd.position.y = 1.4f
+        bd.type = BodyType.StaticBody
+        val oBody = oWorldBox.createBody(bd)
 
-        BodyDef bd = new BodyDef();
-        bd.position.x = oUfo.position.x;
-        bd.position.y = oUfo.position.y;
-        bd.type = BodyType.DynamicBody;
+        val shape = EdgeShape()
+        shape.set(0f, 0f, WIDTH, 0f)
 
-        Body oBody = oWorldBox.createBody(bd);
+        val fixture = FixtureDef()
+        fixture.shape = shape
+        fixture.density = 0f
+        fixture.restitution = 0f
+        fixture.friction = 0f
 
-        CircleShape shape = new CircleShape();
-        shape.setRadius(.19f);
+        oBody.createFixture(fixture)
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.density = 8;
-        fixture.restitution = 0;
-        fixture.friction = 0;
-        oBody.createFixture(fixture);
+        oBody.isFixedRotation = true
 
-        oBody.setFixedRotation(true);
-        oBody.setUserData(oUfo);
-        oBody.setBullet(true);
-
-        shape.dispose();
+        shape.dispose()
     }
 
-    private void agregarTuberias() {
-        float x = WIDTH + 3;
-        float y = oRan.nextFloat() * (2.5f) + .5f;
+    private fun createGato() {
+        oUfo = Ufo(WIDTH / 3.2f, HEIGHT / 2f)
 
-        Pipes obj = new Pipes(x, y, Pipes.LOWER_PIPE);
+        val bd = BodyDef()
+        bd.position.x = oUfo!!.position.x
+        bd.position.y = oUfo!!.position.y
+        bd.type = BodyType.DynamicBody
 
-        BodyDef bd = new BodyDef();
-        bd.position.x = obj.position.x;
-        bd.position.y = obj.position.y;
-        bd.type = BodyType.KinematicBody;
-        Body oBody = oWorldBox.createBody(bd);
+        val oBody = oWorldBox.createBody(bd)
 
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(Pipes.WIDTH / 2f, Pipes.HEIGHT / 2f);
+        val shape = CircleShape()
+        shape.radius = .19f
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.density = 0f;
-        fixture.restitution = 0;
-        fixture.friction = 0;
+        val fixture = FixtureDef()
+        fixture.shape = shape
+        fixture.density = 8f
+        fixture.restitution = 0f
+        fixture.friction = 0f
+        oBody.createFixture(fixture)
 
-        oBody.createFixture(fixture);
-        oBody.setFixedRotation(true);
-        oBody.setUserData(obj);
+        oBody.isFixedRotation = true
+        oBody.userData = oUfo
+        oBody.isBullet = true
 
-        arrTuberias.add(obj);
+        shape.dispose()
+    }
+
+    private fun agregarTuberias() {
+        val x = WIDTH + 3
+        val y = oRan.nextFloat() * (2.5f) + .5f
+
+        var obj = Pipes(x, y, Pipes.LOWER_PIPE)
+
+        val bd = BodyDef()
+        bd.position.x = obj.position.x
+        bd.position.y = obj.position.y
+        bd.type = BodyType.KinematicBody
+        var oBody = oWorldBox.createBody(bd)
+
+        val shape = PolygonShape()
+        shape.setAsBox(Pipes.WIDTH / 2f, Pipes.HEIGHT / 2f)
+
+        val fixture = FixtureDef()
+        fixture.shape = shape
+        fixture.density = 0f
+        fixture.restitution = 0f
+        fixture.friction = 0f
+
+        oBody.createFixture(fixture)
+        oBody.isFixedRotation = true
+        oBody.userData = obj
+
+        arrTuberias.add(obj)
 
         // Tuberia arriba
-        obj = new Pipes(x, y + 1.7f + Pipes.HEIGHT, Pipes.UPPER_PIPE);
-        bd.position.x = obj.position.x;
-        bd.position.y = obj.position.y;
-        oBody = oWorldBox.createBody(bd);
-        oBody.createFixture(fixture);
-        oBody.setUserData(obj);
-        oBody.setFixedRotation(true);
+        obj = Pipes(x, y + 1.7f + Pipes.HEIGHT, Pipes.UPPER_PIPE)
+        bd.position.x = obj.position.x
+        bd.position.y = obj.position.y
+        oBody = oWorldBox.createBody(bd)
+        oBody.createFixture(fixture)
+        oBody.userData = obj
+        oBody.isFixedRotation = true
 
-        arrTuberias.add(obj);
+        arrTuberias.add(obj)
 
         // Cuandro entre las tuberias
-        BodyDef bd2 = new BodyDef();
-        bd2.position.x = obj.position.x;
-        bd2.position.y = obj.position.y - ScoreKeeper.HEIGHT / 2f - Pipes.HEIGHT / 2f - .035f;
-        bd2.type = BodyType.KinematicBody;
-        oBody = oWorldBox.createBody(bd2);
+        val bd2 = BodyDef()
+        bd2.position.x = obj.position.x
+        bd2.position.y = obj.position.y - ScoreKeeper.HEIGHT / 2f - Pipes.HEIGHT / 2f - .035f
+        bd2.type = BodyType.KinematicBody
+        oBody = oWorldBox.createBody(bd2)
 
-        PolygonShape shape2 = new PolygonShape();
-        shape2.setAsBox(ScoreKeeper.WIDTH / 2f, ScoreKeeper.HEIGHT / 2f);
-        fixture.isSensor = true;
-        fixture.shape = shape2;
-        oBody.createFixture(fixture);
-        oBody.setUserData(new ScoreKeeper());
-        oBody.setFixedRotation(true);
+        val shape2 = PolygonShape()
+        shape2.setAsBox(ScoreKeeper.WIDTH / 2f, ScoreKeeper.HEIGHT / 2f)
+        fixture.isSensor = true
+        fixture.shape = shape2
+        oBody.createFixture(fixture)
+        oBody.userData = ScoreKeeper()
+        oBody.isFixedRotation = true
 
         // Fin Cuadro entre las tuberias
-
-        shape.dispose();
-        shape2.dispose();
+        shape.dispose()
+        shape2.dispose()
     }
 
-    public void update(float delta, boolean jump) {
-        oWorldBox.step(delta, 8, 4); // para hacer mas lento el juego 1/300f
+    fun update(delta: Float, jump: Boolean) {
+        oWorldBox.step(delta, 8, 4) // para hacer mas lento el juego 1/300f
 
-        eliminarObjetos();
+        eliminarObjetos()
 
-        timeToSpawnPipe += delta;
+        timeToSpawnPipe += delta
 
         if (timeToSpawnPipe >= TIME_TO_SPAWN_PIPE) {
-            timeToSpawnPipe -= TIME_TO_SPAWN_PIPE;
-            agregarTuberias();
+            timeToSpawnPipe -= TIME_TO_SPAWN_PIPE
+            agregarTuberias()
         }
 
-        oWorldBox.getBodies(arrBodies);
+        oWorldBox.getBodies(arrBodies)
 
-        for (Body body : arrBodies) {
-            if (body.getUserData() instanceof Ufo) {
-                updateGato(body, delta, jump);
-            } else if (body.getUserData() instanceof Pipes) {
-                updatePlataforma(body, delta);
-            } else if (body.getUserData() instanceof ScoreKeeper) {
-                updateContador(body);
+        for (body in arrBodies) {
+            if (body.userData is Ufo) {
+                updateGato(body, delta, jump)
+            } else if (body.userData is Pipes) {
+                updatePlataforma(body, delta)
+            } else if (body.userData is ScoreKeeper) {
+                updateContador(body)
             }
         }
 
-        updateArcoiris(delta);
+        updateArcoiris(delta)
     }
 
-    private void updateArcoiris(float delta) {
-        timeToSpawnArcoiris += delta;
+    private fun updateArcoiris(delta: Float) {
+        timeToSpawnArcoiris += delta
 
         if (timeToSpawnArcoiris >= TIME_TO_SPAWN_ARCOIRIS) {
-            timeToSpawnArcoiris -= TIME_TO_SPAWN_ARCOIRIS;
-            Tail oArco = arcoirisPool.obtain();
-            oArco.init(oUfo.position.x, oUfo.position.y);
-            arrTail.add(oArco);
+            timeToSpawnArcoiris -= TIME_TO_SPAWN_ARCOIRIS
+            val oArco = arcoirisPool.obtain()
+            oArco.init(oUfo!!.position.x, oUfo!!.position.y)
+            arrTail.add(oArco)
         }
 
-        Iterator<Tail> i = arrTail.iterator();
+        val i: MutableIterator<Tail> = arrTail.iterator() as MutableIterator<Tail>
         while (i.hasNext()) {
-            Tail obj = i.next();
-            obj.update(delta);
+            val obj = i.next()
+            obj.update(delta)
 
             if (obj.position.x < -3) {
-                i.remove();
-                arcoirisPool.free(obj);
+                i.remove()
+                arcoirisPool.free(obj)
             }
         }
     }
 
-    private void eliminarObjetos() {
-        oWorldBox.getBodies(arrBodies);
+    private fun eliminarObjetos() {
+        oWorldBox.getBodies(arrBodies)
 
-        for (Body body : arrBodies) {
-            if (!oWorldBox.isLocked()) {
-
-                if (body.getUserData() instanceof Ufo) {
-                    Ufo obj = (Ufo) body.getUserData();
+        for (body in arrBodies) {
+            if (!oWorldBox.isLocked) {
+                if (body.userData is Ufo) {
+                    val obj = body.userData as Ufo
                     if (obj.state == Ufo.STATE_DEAD && obj.stateTime >= Ufo.DEATH_DURATION) {
-                        oWorldBox.destroyBody(body);
-                        state = STATE_GAMEOVER;
+                        oWorldBox.destroyBody(body)
+                        state = STATE_GAMEOVER
                     }
-                } else if (body.getUserData() instanceof Pipes) {
-                    Pipes obj = (Pipes) body.getUserData();
+                } else if (body.userData is Pipes) {
+                    val obj = body.userData as Pipes
                     if (obj.state == Pipes.STATE_DESTROY) {
-                        arrTuberias.removeValue(obj, true);
-                        oWorldBox.destroyBody(body);
+                        arrTuberias.removeValue(obj, true)
+                        oWorldBox.destroyBody(body)
                     }
-                } else if (body.getUserData() instanceof ScoreKeeper) {
-                    ScoreKeeper obj = (ScoreKeeper) body.getUserData();
+                } else if (body.userData is ScoreKeeper) {
+                    val obj = body.userData as ScoreKeeper
                     if (obj.state == ScoreKeeper.STATE_DESTROY) {
-                        oWorldBox.destroyBody(body);
+                        oWorldBox.destroyBody(body)
                     }
                 }
             }
         }
     }
 
-    private void updateGato(Body body, float delta, boolean jump) {
-        Ufo obj = (Ufo) body.getUserData();
+    private fun updateGato(body: Body, delta: Float, jump: Boolean) {
+        val obj = body.userData as Ufo
 
-        obj.update(delta, body);
+        obj.update(delta, body)
 
         if (jump && obj.state == Ufo.STATE_NORMAL) {
-            body.setLinearVelocity(0, Ufo.JUMP_SPEED);
-            Assets.playSound(Assets.wing);
-        } else
-            body.setLinearVelocity(0, body.getLinearVelocity().y);
+            body.setLinearVelocity(0f, Ufo.JUMP_SPEED)
+            Assets.playSound(Assets.wing)
+        } else body.setLinearVelocity(0f, body.getLinearVelocity().y)
     }
 
-    private void updatePlataforma(Body body, float delta) {
-        if (oUfo.state == Ufo.STATE_NORMAL) {
-            Pipes obj = (Pipes) body.getUserData();
+    private fun updatePlataforma(body: Body, delta: Float) {
+        if (oUfo!!.state == Ufo.STATE_NORMAL) {
+            val obj = body.userData as Pipes?
             if (obj != null) {
+                obj.update(delta, body)
+                if (obj.position.y <= -5) obj.state = Pipes.STATE_DESTROY
 
-                obj.update(delta, body);
-                if (obj.position.y <= -5)
-                    obj.state = Pipes.STATE_DESTROY;
-
-                body.setLinearVelocity(Pipes.SPEED_X, 0);
+                body.setLinearVelocity(Pipes.SPEED_X, 0f)
             }
-        } else
-            body.setLinearVelocity(0, 0);
+        } else body.setLinearVelocity(0f, 0f)
     }
 
-    private void updateContador(Body body) {
-        if (oUfo.state == Ufo.STATE_NORMAL) {
-            ScoreKeeper obj = (ScoreKeeper) body.getUserData();
+    private fun updateContador(body: Body) {
+        if (oUfo!!.state == Ufo.STATE_NORMAL) {
+            val obj = body.userData as ScoreKeeper
 
-            if (obj.position.x <= -5)
-                obj.state = ScoreKeeper.STATE_DESTROY;
+            if (obj.position.x <= -5) obj.state = ScoreKeeper.STATE_DESTROY
 
-            body.setLinearVelocity(ScoreKeeper.SPEED_X, 0);
-        } else
-            body.setLinearVelocity(0, 0);
+            body.setLinearVelocity(ScoreKeeper.SPEED_X, 0f)
+        } else body.setLinearVelocity(0f, 0f)
+    }
+
+    companion object {
+        const val STATE_RUNNING: Int = 0
+        const val STATE_GAMEOVER: Int = 1
     }
 }

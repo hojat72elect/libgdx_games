@@ -1,66 +1,50 @@
-package com.nopalsoft.clumsy.game.classic;
+package com.nopalsoft.clumsy.game.classic
 
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.Manifold;
-import com.nopalsoft.clumsy.Assets;
-import com.nopalsoft.clumsy.objects.ScoreKeeper;
-import com.nopalsoft.clumsy.objects.Ufo;
+import com.badlogic.gdx.physics.box2d.Contact
+import com.badlogic.gdx.physics.box2d.ContactImpulse
+import com.badlogic.gdx.physics.box2d.ContactListener
+import com.badlogic.gdx.physics.box2d.Fixture
+import com.badlogic.gdx.physics.box2d.Manifold
+import com.nopalsoft.clumsy.Assets
+import com.nopalsoft.clumsy.objects.ScoreKeeper
+import com.nopalsoft.clumsy.objects.Ufo
 
-public class ClassicGameCollisionHandler implements ContactListener {
+class ClassicGameCollisionHandler(var oWorld: WorldGameClassic) : ContactListener {
+    override fun beginContact(contact: Contact) {
+        val a = contact.fixtureA
+        val b = contact.fixtureB
 
-    WorldGameClassic oWorld;
-
-    public ClassicGameCollisionHandler(WorldGameClassic oWorld) {
-        this.oWorld = oWorld;
+        if (a.body.userData is Ufo) beginContactBirdOtraCosa(a, b)
+        else if (b.body.userData is Ufo) beginContactBirdOtraCosa(b, a)
     }
 
-    @Override
-    public void beginContact(Contact contact) {
-        Fixture a = contact.getFixtureA();
-        Fixture b = contact.getFixtureB();
+    private fun beginContactBirdOtraCosa(bird: Fixture, otraCosa: Fixture) {
+        val oUfo = bird.body.userData as Ufo
+        val oOtraCosa = otraCosa.body.userData
 
-        if (a.getBody().getUserData() instanceof Ufo)
-            beginContactBirdOtraCosa(a, b);
-        else if (b.getBody().getUserData() instanceof Ufo)
-            beginContactBirdOtraCosa(b, a);
-    }
-
-    private void beginContactBirdOtraCosa(Fixture bird, Fixture otraCosa) {
-        Ufo oUfo = (Ufo) bird.getBody().getUserData();
-        Object oOtraCosa = otraCosa.getBody().getUserData();
-
-        if (oOtraCosa instanceof ScoreKeeper) {
-            ScoreKeeper obj = (ScoreKeeper) oOtraCosa;
+        if (oOtraCosa is ScoreKeeper) {
+            val obj = oOtraCosa
             if (obj.state == ScoreKeeper.STATE_NORMAL) {
-                obj.state = ScoreKeeper.STATE_DESTROY;
-                oWorld.score++;
-                Assets.playSound(Assets.point);
+                obj.state = ScoreKeeper.STATE_DESTROY
+                oWorld.score++
+                Assets.playSound(Assets.point)
             }
         } else {
             if (oUfo.state == Ufo.STATE_NORMAL) {
-                oUfo.getHurt();
-                Assets.playSound(Assets.hit);
+                oUfo.hurt
+                Assets.playSound(Assets.hit)
             }
         }
     }
 
-    @Override
-    public void endContact(Contact contact) {
-
+    override fun endContact(contact: Contact?) {
     }
 
-    @Override
-    public void preSolve(Contact contact, Manifold oldManifold) {
+    override fun preSolve(contact: Contact?, oldManifold: Manifold?) {
         // TODO Auto-generated method stub
-
     }
 
-    @Override
-    public void postSolve(Contact contact, ContactImpulse impulse) {
+    override fun postSolve(contact: Contact?, impulse: ContactImpulse?) {
         // TODO Auto-generated method stub
-
     }
 }
