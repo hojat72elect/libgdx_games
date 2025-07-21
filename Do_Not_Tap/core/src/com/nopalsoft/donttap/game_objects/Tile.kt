@@ -89,7 +89,7 @@ class Tile : Actor(), Poolable {
                                 worldGame!!.score--
                                 Assets.playTapSound()
                             } else {
-                                Assets.soundWrong.play()
+                                Assets.soundWrong?.play()
                             }
                         }
 
@@ -99,7 +99,7 @@ class Tile : Actor(), Poolable {
                                 worldGame!!.score++
                                 Assets.playTapSound()
                             } else {
-                                Assets.soundWrong.play()
+                                Assets.soundWrong?.play()
                             }
                         }
 
@@ -107,7 +107,7 @@ class Tile : Actor(), Poolable {
                             worldGame!!.score++
                             Assets.playTapSound()
                         } else {
-                            Assets.soundWrong.play()
+                            Assets.soundWrong?.play()
                         }
                     }
                 }
