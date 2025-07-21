@@ -1,30 +1,35 @@
-package com.nopalsoft.clumsy.objects;
+package com.nopalsoft.clumsy.objects
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.utils.Pool.Poolable;
-import com.nopalsoft.clumsy.game.arcade.WorldGameArcade;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.utils.Pool.Poolable
+import com.nopalsoft.clumsy.game.arcade.WorldGameArcade
 
-public abstract class Asteroid0 implements Poolable {
+abstract class Asteroid0 : Poolable {
+    @JvmField
+    var state = 0
 
-    public static int STATE_NORMAL = 0;
-    public static int STATE_DESTROY = 1;
-    public int state;
+    @JvmField
+    var position = Vector2()
 
-    public Vector2 position;
-    public float stateTime;
+    @JvmField
+    var stateTime = 0f
 
-    public float angleDeg;
+    @JvmField
+    var angleDeg = 0f
 
-    public Asteroid0() {
-        position = new Vector2();
+    abstract fun init(worldGameArcade: WorldGameArcade, x: Float, y: Float)
+
+    abstract fun update(delta: Float, body: Body)
+
+    override fun reset() {
     }
 
-    public abstract void init(WorldGameArcade worldGameArcade, float x, float y);
+    companion object {
+        @JvmField
+        var STATE_NORMAL = 0
 
-    public abstract void update(float delta, Body body);
-
-    @Override
-    public void reset() {
+        @JvmField
+        var STATE_DESTROY = 1
     }
 }
