@@ -1,16 +1,17 @@
-package com.nopalsoft.clumsy.desktop;
+package com.nopalsoft.clumsy.desktop
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.nopalsoft.clumsy.ClumsyUfoGame;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
+import com.nopalsoft.clumsy.ClumsyUfoGame
 
-public class DesktopLauncher {
-    public static void main(String[] args) {
-        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.title = "Clumsy Ufo";
-        config.width = 480;
-        config.height = 800;
+object DesktopLauncher {
+    @JvmStatic
+    fun main(args: Array<String>) {
+        val config = LwjglApplicationConfiguration()
+        config.title = "Clumsy Ufo"
+        config.width = 480
+        config.height = 800
 
-        new LwjglApplication(new ClumsyUfoGame(), config);
+        LwjglApplication(ClumsyUfoGame(), config)
     }
 }
