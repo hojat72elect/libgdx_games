@@ -1,59 +1,72 @@
-package com.nopalsoft.clumsy.objects;
+package com.nopalsoft.clumsy.objects
 
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
 
-public class Ufo {
+class Ufo(x: Float, y: Float) {
+    @JvmField
+    var position: Vector2
 
-    public static final float HURT_DURATION = .5f;
-    public static final float DEATH_DURATION = .75f;
-    public static float JUMP_SPEED = 5;
-    public static int STATE_NORMAL = 0;
-    public static int STATE_HURT = 1;
-    public static int STATE_DEAD = 2;
-    public Vector2 position;
+    @JvmField
+    var state: Int
 
-    public int state;
-    public float stateTime;
+    @JvmField
+    var stateTime: Float = 0f
 
-    public float angleRad;
+    @JvmField
+    var angleRad: Float = 0f
 
-    public Ufo(float x, float y) {
-        position = new Vector2(x, y);
-        state = STATE_NORMAL;
+    init {
+        position = Vector2(x, y)
+        state = STATE_NORMAL
     }
 
-    public void update(float delta, Body body) {
-
+    fun update(delta: Float, body: Body?) {
         if (body != null) {
-            position.x = body.getPosition().x;
-            position.y = body.getPosition().y;
+            position.x = body.getPosition().x
+            position.y = body.getPosition().y
 
-            Vector2 velocity = body.getLinearVelocity();
+            val velocity = body.getLinearVelocity()
 
-            angleRad = MathUtils.atan2(-.1f, velocity.y);
-            float angleLimitRad;
+            angleRad = MathUtils.atan2(-.1f, velocity.y)
+            val angleLimitRad: Float
 
-            int MAX_ANGLE_DEGREES = 15;
-            angleLimitRad = (float) Math.toRadians(MAX_ANGLE_DEGREES);
+            val MAX_ANGLE_DEGREES = 15
+            angleLimitRad = Math.toRadians(MAX_ANGLE_DEGREES.toDouble()).toFloat()
 
-            if (angleRad > angleLimitRad)
-                angleRad = angleLimitRad;
-            else if (angleRad < -angleLimitRad)
-                angleRad = -angleLimitRad;
+            if (angleRad > angleLimitRad) angleRad = angleLimitRad
+            else if (angleRad < -angleLimitRad) angleRad = -angleLimitRad
         }
 
-        stateTime += delta;
+        stateTime += delta
     }
 
-    public void getHurt() {
-        state = STATE_HURT;
-        stateTime = 0;
+    val hurt: Unit
+        get() {
+            state = STATE_HURT
+            stateTime = 0f
+        }
+
+    fun die() {
+        state = STATE_DEAD
+        stateTime = 0f
     }
 
-    public void die() {
-        state = STATE_DEAD;
-        stateTime = 0;
+    companion object {
+        const val HURT_DURATION: Float = .5f
+        const val DEATH_DURATION: Float = .75f
+
+        @JvmField
+        var JUMP_SPEED: Float = 5f
+
+        @JvmField
+        var STATE_NORMAL: Int = 0
+
+        @JvmField
+        var STATE_HURT: Int = 1
+
+        @JvmField
+        var STATE_DEAD: Int = 2
     }
 }

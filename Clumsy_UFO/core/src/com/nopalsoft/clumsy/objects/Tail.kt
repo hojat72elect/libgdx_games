@@ -1,25 +1,28 @@
-package com.nopalsoft.clumsy.objects;
+package com.nopalsoft.clumsy.objects
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Pool.Poolable;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.utils.Pool.Poolable
 
-public class Tail implements Poolable {
-    public static float SPEED_X = -5f;
-    public final Vector2 position;
+class Tail : Poolable {
+    @JvmField
+    val position: Vector2
 
-    public Tail() {
-        position = new Vector2();
+    init {
+        position = Vector2()
     }
 
-    public void update(float delta) {
-        position.x += SPEED_X * delta;
+    fun update(delta: Float) {
+        position.x += SPEED_X * delta
     }
 
-    public void init(float x, float y) {
-        position.set(x, y);
+    fun init(x: Float, y: Float) {
+        position.set(x, y)
     }
 
-    @Override
-    public void reset() {
+    override fun reset() {
+    }
+
+    companion object {
+        var SPEED_X: Float = -5f
     }
 }

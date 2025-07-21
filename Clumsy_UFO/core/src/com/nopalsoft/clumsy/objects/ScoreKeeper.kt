@@ -1,31 +1,42 @@
-package com.nopalsoft.clumsy.objects;
+package com.nopalsoft.clumsy.objects
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
 
-public class ScoreKeeper {
-    public static float WIDTH = .1f;
-    public static float HEIGHT = 1.65f;
+class ScoreKeeper {
+    @JvmField
+    var position: Vector2
+    var stateTime: Float
 
-    public static int STATE_NORMAL = 0;
-    public static int STATE_DESTROY = 1;
+    @JvmField
+    var state: Int
 
-    public static float SPEED_X = Pipes.SPEED_X;
-
-    public Vector2 position;
-    public float stateTime;
-
-    public int state;
-
-    public ScoreKeeper() {
-        position = new Vector2();
-        stateTime = 0;
-        state = STATE_NORMAL;
+    init {
+        position = Vector2()
+        stateTime = 0f
+        state = STATE_NORMAL
     }
 
-    public void update(float delta, Body body) {
-        position.x = body.getPosition().x;
-        position.y = body.getPosition().y;
-        stateTime += delta;
+    fun update(delta: Float, body: Body) {
+        position.x = body.getPosition().x
+        position.y = body.getPosition().y
+        stateTime += delta
+    }
+
+    companion object {
+        @JvmField
+        var WIDTH: Float = .1f
+
+        @JvmField
+        var HEIGHT: Float = 1.65f
+
+        @JvmField
+        var STATE_NORMAL: Int = 0
+
+        @JvmField
+        var STATE_DESTROY: Int = 1
+
+        @JvmField
+        var SPEED_X: Float = Pipes.SPEED_X
     }
 }

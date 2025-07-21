@@ -1,36 +1,51 @@
-package com.nopalsoft.clumsy.objects;
+package com.nopalsoft.clumsy.objects
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
 
-public class Pipes {
-    public static int UPPER_PIPE = 0;
-    public static int LOWER_PIPE = 1;
+class Pipes(x: Float, y: Float, type: Int) {
+    @JvmField
+    var position: Vector2
+    var stateTime: Float
 
-    public static float WIDTH = .7f;
-    public static float HEIGHT = 4f;
+    @JvmField
+    var state: Int
 
-    public static int STATE_NORMAL = 0;
-    public static int STATE_DESTROY = 1;
+    @JvmField
+    var type: Int
 
-    public static float SPEED_X = -2f;
-
-    public Vector2 position;
-    public float stateTime;
-
-    public int state;
-    public int type;
-
-    public Pipes(float x, float y, int type) {
-        position = new Vector2(x, y);
-        stateTime = 0;
-        state = STATE_NORMAL;
-        this.type = type;
+    init {
+        position = Vector2(x, y)
+        stateTime = 0f
+        state = STATE_NORMAL
+        this.type = type
     }
 
-    public void update(float delta, Body body) {
-        position.x = body.getPosition().x;
-        position.y = body.getPosition().y;
-        stateTime += delta;
+    fun update(delta: Float, body: Body) {
+        position.x = body.getPosition().x
+        position.y = body.getPosition().y
+        stateTime += delta
+    }
+
+    companion object {
+        @JvmField
+        var UPPER_PIPE: Int = 0
+
+        @JvmField
+        var LOWER_PIPE: Int = 1
+
+        @JvmField
+        var WIDTH: Float = .7f
+
+        @JvmField
+        var HEIGHT: Float = 4f
+
+        var STATE_NORMAL: Int = 0
+
+        @JvmField
+        var STATE_DESTROY: Int = 1
+
+        @JvmField
+        var SPEED_X: Float = -2f
     }
 }
