@@ -1,359 +1,330 @@
-package com.nopalsoft.clumsy.game.arcade;
+package com.nopalsoft.clumsy.game.arcade
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pool;
-import com.nopalsoft.clumsy.Assets;
-import com.nopalsoft.clumsy.objects.Asteroid0;
-import com.nopalsoft.clumsy.objects.Asteroid1;
-import com.nopalsoft.clumsy.objects.Asteroid2;
-import com.nopalsoft.clumsy.objects.Asteroid3;
-import com.nopalsoft.clumsy.objects.Asteroid4;
-import com.nopalsoft.clumsy.objects.Asteroid5;
-import com.nopalsoft.clumsy.objects.Asteroid6;
-import com.nopalsoft.clumsy.objects.ScoreKeeper;
-import com.nopalsoft.clumsy.objects.Tail;
-import com.nopalsoft.clumsy.objects.Ufo;
-import com.nopalsoft.clumsy.screens.Screens;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.physics.box2d.BodyDef
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
+import com.badlogic.gdx.physics.box2d.CircleShape
+import com.badlogic.gdx.physics.box2d.Contact
+import com.badlogic.gdx.physics.box2d.ContactImpulse
+import com.badlogic.gdx.physics.box2d.ContactListener
+import com.badlogic.gdx.physics.box2d.EdgeShape
+import com.badlogic.gdx.physics.box2d.Fixture
+import com.badlogic.gdx.physics.box2d.FixtureDef
+import com.badlogic.gdx.physics.box2d.Manifold
+import com.badlogic.gdx.physics.box2d.World
+import com.badlogic.gdx.utils.Array
+import com.badlogic.gdx.utils.Pool
+import com.nopalsoft.clumsy.Assets
+import com.nopalsoft.clumsy.objects.Asteroid0
+import com.nopalsoft.clumsy.objects.Asteroid1
+import com.nopalsoft.clumsy.objects.Asteroid2
+import com.nopalsoft.clumsy.objects.Asteroid3
+import com.nopalsoft.clumsy.objects.Asteroid4
+import com.nopalsoft.clumsy.objects.Asteroid5
+import com.nopalsoft.clumsy.objects.Asteroid6
+import com.nopalsoft.clumsy.objects.ScoreKeeper
+import com.nopalsoft.clumsy.objects.Tail
+import com.nopalsoft.clumsy.objects.Ufo
+import com.nopalsoft.clumsy.screens.Screens
+import java.util.Random
 
-import java.util.Iterator;
-import java.util.Random;
-
-public class WorldGameArcade {
-
-    static final int STATE_RUNNING = 0;
-    static final int STATE_GAMEOVER = 1;
-    final float WIDTH = Screens.WORLD_SCREEN_WIDTH;
-    final float HEIGHT = Screens.WORLD_SCREEN_HEIGHT;
-    final float TIME_TO_SPAWN_METEOR = .17f;// Time between pipes, change this to increase or decrase gap between pipes.
-    final float TIME_TO_SPAWN_ARCOIRIS = .005f;
-    private final Pool<Tail> arcoirisPool = new Pool<Tail>() {
-        @Override
-        protected Tail newObject() {
-            return new Tail();
+class WorldGameArcade {
+    val WIDTH: Float = Screens.WORLD_SCREEN_WIDTH.toFloat()
+    val HEIGHT: Float = Screens.WORLD_SCREEN_HEIGHT.toFloat()
+    val TIME_TO_SPAWN_METEOR: Float = .17f // Time between pipes, change this to increase or decrase gap between pipes.
+    val TIME_TO_SPAWN_ARCOIRIS: Float = .005f
+    private val arcoirisPool: Pool<Tail> = object : Pool<Tail>() {
+        override fun newObject(): Tail {
+            return Tail()
         }
-    };
-    private final Pool<Asteroid1> meteoro1Pool = new Pool<Asteroid1>() {
-        @Override
-        protected Asteroid1 newObject() {
-            return new Asteroid1();
+    }
+    private val meteoro1Pool: Pool<Asteroid1> = object : Pool<Asteroid1>() {
+        override fun newObject(): Asteroid1 {
+            return Asteroid1()
         }
-    };
-    private final Pool<Asteroid2> meteoro2Pool = new Pool<Asteroid2>() {
-        @Override
-        protected Asteroid2 newObject() {
-            return new Asteroid2();
+    }
+    private val meteoro2Pool: Pool<Asteroid2> = object : Pool<Asteroid2>() {
+        override fun newObject(): Asteroid2 {
+            return Asteroid2()
         }
-    };
-    private final Pool<Asteroid3> meteoro3Pool = new Pool<Asteroid3>() {
-        @Override
-        protected Asteroid3 newObject() {
-            return new Asteroid3();
+    }
+    private val meteoro3Pool: Pool<Asteroid3> = object : Pool<Asteroid3>() {
+        override fun newObject(): Asteroid3 {
+            return Asteroid3()
         }
-    };
-    private final Pool<Asteroid4> meteoro4Pool = new Pool<Asteroid4>() {
-        @Override
-        protected Asteroid4 newObject() {
-            return new Asteroid4();
+    }
+    private val meteoro4Pool: Pool<Asteroid4> = object : Pool<Asteroid4>() {
+        override fun newObject(): Asteroid4 {
+            return Asteroid4()
         }
-    };
-    private final Pool<Asteroid5> meteoro5Pool = new Pool<Asteroid5>() {
-        @Override
-        protected Asteroid5 newObject() {
-            return new Asteroid5();
+    }
+    private val meteoro5Pool: Pool<Asteroid5> = object : Pool<Asteroid5>() {
+        override fun newObject(): Asteroid5 {
+            return Asteroid5()
         }
-    };
-    private final Pool<Asteroid6> meteoro6Pool = new Pool<Asteroid6>() {
-        @Override
-        protected Asteroid6 newObject() {
-            return new Asteroid6();
+    }
+    private val meteoro6Pool: Pool<Asteroid6> = object : Pool<Asteroid6>() {
+        override fun newObject(): Asteroid6 {
+            return Asteroid6()
         }
-    };
-    public World oWorldBox;
-    public float score;
-    public int state;
-    float timeToSpawnMeteor;
-    float timeToSpawnArcoiris;
-    Ufo oUfo;
-    Array<Asteroid0> arrMeteoros;
-    Array<Body> arrBodies;
-    Array<Tail> arrTail;
-    Random oRan;
+    }
+    var oWorldBox: World
+    var score: Float = 0f
+    var state: Int
+    var timeToSpawnMeteor: Float = 0f
+    var timeToSpawnArcoiris: Float = 0f
 
-    public WorldGameArcade() {
-        oWorldBox = new World(new Vector2(0, -12.8f), true);
-        oWorldBox.setContactListener(new ColisionesArcade());
+    @JvmField
+    var oUfo: Ufo? = null
 
-        arrMeteoros = new Array<>();
-        arrBodies = new Array<>();
-        arrTail = new Array<>();
+    @JvmField
+    var arrMeteoros: Array<Asteroid0?>
+    var arrBodies: Array<Body>
 
-        createGato();
-        createPiso();
-        crearTecho();
+    @JvmField
+    var arrTail: Array<Tail?>
+    var oRan: Random
 
-        state = STATE_RUNNING;
+    init {
+        oWorldBox = World(Vector2(0f, -12.8f), true)
+        oWorldBox.setContactListener(ColisionesArcade())
 
-        oRan = new Random();
+        arrMeteoros = Array<Asteroid0?>()
+        arrBodies = Array<Body>()
+        arrTail = Array<Tail?>()
+
+        createGato()
+        createPiso()
+        crearTecho()
+
+        state = STATE_RUNNING
+
+        oRan = Random()
     }
 
-    private void crearTecho() {
-        BodyDef bd = new BodyDef();
-        bd.position.x = 0;
-        bd.position.y = HEIGHT;
-        bd.type = BodyType.StaticBody;
-        Body oBody = oWorldBox.createBody(bd);
+    private fun crearTecho() {
+        val bd = BodyDef()
+        bd.position.x = 0f
+        bd.position.y = HEIGHT
+        bd.type = BodyType.StaticBody
+        val oBody = oWorldBox.createBody(bd)
 
-        EdgeShape shape = new EdgeShape();
-        shape.set(0, 0, WIDTH, 0);
+        val shape = EdgeShape()
+        shape.set(0f, 0f, WIDTH, 0f)
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.density = 0f;
-        fixture.restitution = 0;
-        fixture.friction = 0;
+        val fixture = FixtureDef()
+        fixture.shape = shape
+        fixture.density = 0f
+        fixture.restitution = 0f
+        fixture.friction = 0f
 
-        oBody.createFixture(fixture);
+        oBody.createFixture(fixture)
 
-        oBody.setFixedRotation(true);
+        oBody.isFixedRotation = true
 
-        shape.dispose();
+        shape.dispose()
     }
 
-    private void createPiso() {
+    private fun createPiso() {
+        val bd = BodyDef()
+        bd.position.x = 0f
+        bd.position.y = 1.4f
+        bd.type = BodyType.StaticBody
+        val oBody = oWorldBox.createBody(bd)
 
-        BodyDef bd = new BodyDef();
-        bd.position.x = 0;
-        bd.position.y = 1.4f;
-        bd.type = BodyType.StaticBody;
-        Body oBody = oWorldBox.createBody(bd);
+        val shape = EdgeShape()
+        shape.set(0f, 0f, WIDTH, 0f)
 
-        EdgeShape shape = new EdgeShape();
-        shape.set(0, 0, WIDTH, 0);
+        val fixture = FixtureDef()
+        fixture.shape = shape
+        fixture.density = 0f
+        fixture.restitution = 0f
+        fixture.friction = 0f
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.density = 0f;
-        fixture.restitution = 0;
-        fixture.friction = 0;
+        oBody.createFixture(fixture)
 
-        oBody.createFixture(fixture);
+        oBody.isFixedRotation = true
 
-        oBody.setFixedRotation(true);
-
-        shape.dispose();
+        shape.dispose()
     }
 
-    private void createGato() {
-        oUfo = new Ufo(WIDTH / 3.2f, HEIGHT / 2f);
+    private fun createGato() {
+        oUfo = Ufo(WIDTH / 3.2f, HEIGHT / 2f)
 
-        BodyDef bd = new BodyDef();
-        bd.position.x = oUfo.position.x;
-        bd.position.y = oUfo.position.y;
-        bd.type = BodyType.DynamicBody;
+        val bd = BodyDef()
+        bd.position.x = oUfo!!.position.x
+        bd.position.y = oUfo!!.position.y
+        bd.type = BodyType.DynamicBody
 
-        Body oBody = oWorldBox.createBody(bd);
+        val oBody = oWorldBox.createBody(bd)
 
-        CircleShape shape = new CircleShape();
-        shape.setRadius(.19f);
+        val shape = CircleShape()
+        shape.radius = .19f
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.density = 8;
-        fixture.restitution = 0;
-        fixture.friction = 0;
-        oBody.createFixture(fixture);
+        val fixture = FixtureDef()
+        fixture.shape = shape
+        fixture.density = 8f
+        fixture.restitution = 0f
+        fixture.friction = 0f
+        oBody.createFixture(fixture)
 
-        oBody.setFixedRotation(true);
-        oBody.setUserData(oUfo);
-        oBody.setBullet(true);
+        oBody.isFixedRotation = true
+        oBody.userData = oUfo
+        oBody.isBullet = true
 
-        shape.dispose();
+        shape.dispose()
     }
 
-    private void agregarMetoro() {
-        Asteroid0 obj;
+    private fun agregarMetoro() {
+        val obj: Asteroid0
 
-        switch (oRan.nextInt(6)) {
-
-            case 0:
-                obj = meteoro1Pool.obtain();
-                break;
-
-            case 1:
-                obj = meteoro2Pool.obtain();
-                break;
-            case 2:
-                obj = meteoro3Pool.obtain();
-                break;
-            case 3:
-                obj = meteoro4Pool.obtain();
-                break;
-            case 4:
-                obj = meteoro5Pool.obtain();
-                break;
-            case 5:
-            default:
-                obj = meteoro6Pool.obtain();
-                break;
+        when (oRan.nextInt(6)) {
+            0 -> obj = meteoro1Pool.obtain()
+            1 -> obj = meteoro2Pool.obtain()
+            2 -> obj = meteoro3Pool.obtain()
+            3 -> obj = meteoro4Pool.obtain()
+            4 -> obj = meteoro5Pool.obtain()
+            5 -> obj = meteoro6Pool.obtain()
+            else -> obj = meteoro6Pool.obtain()
         }
 
-        obj.init(this, 5, oRan.nextInt(9));
-        arrMeteoros.add(obj);
+        obj.init(this, 5f, oRan.nextInt(9).toFloat())
+        arrMeteoros.add(obj)
     }
 
-    public void update(float delta, boolean jump) {
-        oWorldBox.step(delta, 8, 4); // para hacer mas lento el juego 1/300f
+    fun update(delta: Float, jump: Boolean) {
+        oWorldBox.step(delta, 8, 4) // para hacer mas lento el juego 1/300f
 
-        cleanupGameObjects();
+        cleanupGameObjects()
 
-        timeToSpawnMeteor += delta;
+        timeToSpawnMeteor += delta
 
         if (timeToSpawnMeteor >= TIME_TO_SPAWN_METEOR) {
-            timeToSpawnMeteor -= TIME_TO_SPAWN_METEOR;
-            agregarMetoro();
+            timeToSpawnMeteor -= TIME_TO_SPAWN_METEOR
+            agregarMetoro()
         }
 
-        oWorldBox.getBodies(arrBodies);
+        oWorldBox.getBodies(arrBodies)
 
-        for (Body body : arrBodies) {
-            if (body.getUserData() instanceof Ufo) {
-                updateUfo(body, delta, jump);
-            } else if (body.getUserData() instanceof Asteroid0) {
-                updateMetoro(body, delta);
+        for (body in arrBodies) {
+            if (body.userData is Ufo) {
+                updateUfo(body, delta, jump)
+            } else if (body.userData is Asteroid0) {
+                updateMetoro(body, delta)
             }
         }
 
-        updateRainbowTail(delta);
+        updateRainbowTail(delta)
 
-        if (oUfo.state == Ufo.STATE_NORMAL) {
-            score += delta * 5;
+        if (oUfo!!.state == Ufo.STATE_NORMAL) {
+            score += delta * 5
         }
     }
 
-    private void updateRainbowTail(float delta) {
-        timeToSpawnArcoiris += delta;
+    private fun updateRainbowTail(delta: Float) {
+        timeToSpawnArcoiris += delta
 
         if (timeToSpawnArcoiris >= TIME_TO_SPAWN_ARCOIRIS) {
-            timeToSpawnArcoiris -= TIME_TO_SPAWN_ARCOIRIS;
-            Tail tail = arcoirisPool.obtain();
-            tail.init(oUfo.position.x, oUfo.position.y);
-            arrTail.add(tail);
+            timeToSpawnArcoiris -= TIME_TO_SPAWN_ARCOIRIS
+            val tail = arcoirisPool.obtain()
+            tail.init(oUfo!!.position.x, oUfo!!.position.y)
+            arrTail.add(tail)
         }
 
-        Iterator<Tail> i = arrTail.iterator();
+        val i: MutableIterator<Tail> = arrTail.iterator() as MutableIterator<Tail>
         while (i.hasNext()) {
-            Tail obj = i.next();
-            obj.update(delta);
+            val obj = i.next()
+            obj.update(delta)
 
             if (obj.position.x < -3) {
-                i.remove();
-                arcoirisPool.free(obj);
+                i.remove()
+                arcoirisPool.free(obj)
             }
         }
     }
 
-    private void cleanupGameObjects() {
-        oWorldBox.getBodies(arrBodies);
+    private fun cleanupGameObjects() {
+        oWorldBox.getBodies(arrBodies)
 
-        for (Body body : arrBodies) {
-            if (!oWorldBox.isLocked()) {
-
-                if (body.getUserData() instanceof Ufo) {
-                    Ufo obj = (Ufo) body.getUserData();
+        for (body in arrBodies) {
+            if (!oWorldBox.isLocked) {
+                if (body.userData is Ufo) {
+                    val obj = body.userData as Ufo
                     if (obj.state == Ufo.STATE_DEAD && obj.stateTime >= Ufo.DEATH_DURATION) {
-                        oWorldBox.destroyBody(body);
-                        state = STATE_GAMEOVER;
+                        oWorldBox.destroyBody(body)
+                        state = STATE_GAMEOVER
                     }
-                } else if (body.getUserData() instanceof Asteroid0) {
-                    Asteroid0 obj = (Asteroid0) body.getUserData();
+                } else if (body.userData is Asteroid0) {
+                    val obj = body.userData as Asteroid0
                     if (obj.state == Asteroid0.STATE_DESTROY) {
-                        oWorldBox.destroyBody(body);
+                        oWorldBox.destroyBody(body)
                     }
                 }
             }
         }
     }
 
-    private void updateUfo(Body body, float delta, boolean jump) {
-        Ufo obj = (Ufo) body.getUserData();
+    private fun updateUfo(body: Body, delta: Float, jump: Boolean) {
+        val obj = body.userData as Ufo
 
-        obj.update(delta, body);
+        obj.update(delta, body)
 
         if (jump && obj.state == Ufo.STATE_NORMAL) {
-            body.setLinearVelocity(0, Ufo.JUMP_SPEED);
-            Assets.playSound(Assets.wing);
-        } else
-            body.setLinearVelocity(0, body.getLinearVelocity().y);
+            body.setLinearVelocity(0f, Ufo.JUMP_SPEED)
+            Assets.playSound(Assets.wing)
+        } else body.setLinearVelocity(0f, body.getLinearVelocity().y)
     }
 
-    private void updateMetoro(Body body, float delta) {
-        if (oUfo.state == Ufo.STATE_NORMAL) {
-            Asteroid0 obj = (Asteroid0) body.getUserData();
+    private fun updateMetoro(body: Body, delta: Float) {
+        if (oUfo!!.state == Ufo.STATE_NORMAL) {
+            val obj = body.userData as Asteroid0?
             if (obj != null) {
-
-                obj.update(delta, body);
-                if (obj.position.x <= -5)
-                    obj.state = Asteroid0.STATE_DESTROY;
+                obj.update(delta, body)
+                if (obj.position.x <= -5) obj.state = Asteroid0.STATE_DESTROY
             }
-        } else
-            body.setLinearVelocity(0, 0);
+        } else body.setLinearVelocity(0f, 0f)
     }
 
-    static class ColisionesArcade implements ContactListener {
+    internal class ColisionesArcade : ContactListener {
+        override fun beginContact(contact: Contact) {
+            val a = contact.fixtureA
+            val b = contact.fixtureB
 
-        @Override
-        public void beginContact(Contact contact) {
-            Fixture a = contact.getFixtureA();
-            Fixture b = contact.getFixtureB();
-
-            if (a.getBody().getUserData() instanceof Ufo)
-                handlePlayerCollisions(a, b);
-            else if (b.getBody().getUserData() instanceof Ufo)
-                handlePlayerCollisions(b, a);
+            if (a.body.userData is Ufo) handlePlayerCollisions(a, b)
+            else if (b.body.userData is Ufo) handlePlayerCollisions(b, a)
         }
 
-        private void handlePlayerCollisions(Fixture playerFixture, Fixture otherFixture) {
-            Ufo oUfo = (Ufo) playerFixture.getBody().getUserData();
-            Object otherObject = otherFixture.getBody().getUserData();
+        private fun handlePlayerCollisions(playerFixture: Fixture, otherFixture: Fixture) {
+            val oUfo = playerFixture.body.userData as Ufo
+            val otherObject = otherFixture.body.userData
 
-            if (otherObject instanceof ScoreKeeper) {
-                ScoreKeeper obj = (ScoreKeeper) otherObject;
+            if (otherObject is ScoreKeeper) {
+                val obj = otherObject
                 if (obj.state == ScoreKeeper.STATE_NORMAL) {
-                    obj.state = ScoreKeeper.STATE_DESTROY;
-                    Assets.playSound(Assets.point);
+                    obj.state = ScoreKeeper.STATE_DESTROY
+                    Assets.playSound(Assets.point)
                 }
             } else {
                 if (oUfo.state == Ufo.STATE_NORMAL) {
-                    oUfo.getHurt();
-                    Assets.playSound(Assets.hit);
+                    oUfo.hurt
+                    Assets.playSound(Assets.hit)
                 }
             }
         }
 
-        @Override
-        public void endContact(Contact contact) {
-
+        override fun endContact(contact: Contact?) {
         }
 
-        @Override
-        public void preSolve(Contact contact, Manifold oldManifold) {
+        override fun preSolve(contact: Contact?, oldManifold: Manifold?) {
         }
 
-        @Override
-        public void postSolve(Contact contact, ContactImpulse impulse) {
+        override fun postSolve(contact: Contact?, impulse: ContactImpulse?) {
         }
+    }
+
+    companion object {
+        const val STATE_RUNNING: Int = 0
+        const val STATE_GAMEOVER: Int = 1
     }
 }

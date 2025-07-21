@@ -1,16 +1,14 @@
-package com.nopalsoft.clumsy.parallax;
+package com.nopalsoft.clumsy.parallax
 
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.Camera
+import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.math.Vector2
 
-public class ParallaxBackground {
-
-    private final ParallaxLayer[] layers;
-    private final Camera camera;
-    private final SpriteBatch batch;
-    private final Vector2 speed = new Vector2();
+class ParallaxBackground(private val layers: Array<ParallaxLayer>, width: Float, height: Float, speed: Vector2?) {
+    private val camera: Camera
+    private val batch: SpriteBatch
+    private val speed = Vector2()
 
     /**
      * @param layers The  background layers
@@ -18,40 +16,41 @@ public class ParallaxBackground {
      * @param height The screenHeight
      * @param speed  A Vector2 attribute to point out the x and y speed
      */
-    public ParallaxBackground(ParallaxLayer[] layers, float width, float height, Vector2 speed) {
-        this.layers = layers;
-        this.speed.set(speed);
-        camera = new OrthographicCamera(width, height);
-        batch = new SpriteBatch();
+    init {
+        this.speed.set(speed)
+        camera = OrthographicCamera(width, height)
+        batch = SpriteBatch()
     }
 
-    public void render(float delta) {
-        this.camera.position.add(speed.x * delta, speed.y * delta, 0);
-        batch.setProjectionMatrix(camera.projection);
-        batch.begin();
+    fun render(delta: Float) {
+        this.camera.position.add(speed.x * delta, speed.y * delta, 0f)
+        batch.setProjectionMatrix(camera.projection)
+        batch.begin()
 
-        for (ParallaxLayer layer : layers) {
+        for (layer in layers) {
+            var currentX = -camera.position.x * layer.parallaxRatio.x % (layer.region.getRegionWidth() + layer.padding.x)
 
-            float currentX = -camera.position.x * layer.parallaxRatio.x % (layer.region.getRegionWidth() + layer.padding.x);
-
-            if (speed.x < 0)
-                currentX -= (layer.region.getRegionWidth() + layer.padding.x);
+            if (speed.x < 0) currentX -= (layer.region.getRegionWidth() + layer.padding.x)
 
             do {
-                float currentY = -camera.position.y * layer.parallaxRatio.y % (layer.region.getRegionHeight() + layer.padding.y);
+                var currentY = -camera.position.y * layer.parallaxRatio.y % (layer.region.getRegionHeight() + layer.padding.y)
 
-                if (speed.y < 0)
-                    currentY -= (layer.region.getRegionHeight() + layer.padding.y);
+                if (speed.y < 0) currentY -= (layer.region.getRegionHeight() + layer.padding.y)
                 do {
+                    batch.draw(
+                        layer.region,
+                        -this.camera.viewportWidth / 2.0f + currentX + layer.startPosition.x,
+                        -this.camera.viewportHeight / 2.0f + currentY + layer.startPosition.y,
+                        layer.width,
+                        layer.height
+                    )
+                    currentY += (layer.region.getRegionHeight() + layer.padding.y)
+                } while (currentY < camera.viewportHeight)
 
-                    batch.draw(layer.region, -this.camera.viewportWidth / 2.0f + currentX + layer.startPosition.x, -this.camera.viewportHeight / 2.0f + currentY + layer.startPosition.y, layer.width, layer.height);
-                    currentY += (layer.region.getRegionHeight() + layer.padding.y);
-                } while (currentY < camera.viewportHeight);
-
-                currentX += (layer.region.getRegionWidth() + layer.padding.x);
-            } while (currentX < camera.viewportWidth);
+                currentX += (layer.region.getRegionWidth() + layer.padding.x)
+            } while (currentX < camera.viewportWidth)
         }
 
-        batch.end();
+        batch.end()
     }
 }

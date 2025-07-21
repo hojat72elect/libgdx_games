@@ -1,48 +1,48 @@
-package com.nopalsoft.clumsy.parallax;
+package com.nopalsoft.clumsy.parallax
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.math.Vector2
 
-public class ParallaxLayer {
-    public TextureRegion region;
-    public Vector2 parallaxRatio;
-    public Vector2 startPosition;
-    public Vector2 padding;
-    public float width, height;
+class ParallaxLayer {
+    var region: TextureRegion?
+    var parallaxRatio: Vector2?
+    var startPosition: Vector2?
+    var padding: Vector2?
+    var width: Float
+    var height: Float
 
-    public ParallaxLayer(TextureRegion region, Vector2 parallaxRatio, Vector2 padding) {
-        this(region, parallaxRatio, new Vector2(0, 0), padding);
-        this.width = region.getRegionWidth();
-        this.height = region.getRegionHeight();
+    constructor(region: TextureRegion, parallaxRatio: Vector2?, padding: Vector2?) : this(region, parallaxRatio, Vector2(0f, 0f), padding) {
+        this.width = region.getRegionWidth().toFloat()
+        this.height = region.getRegionHeight().toFloat()
     }
 
     /**
      * @param region        the TextureRegion to draw , this can be any width/height
-     * @param parallaxRatio the relative speed of x,y {@link ParallaxBackground#ParallaxBackground(ParallaxLayer[], float, float, Vector2)}
+     * @param parallaxRatio the relative speed of x,y [ParallaxBackground.ParallaxBackground]
      * @param startPosition the init position of x,y
      * @param padding       the padding of the region at x,y
      */
-    public ParallaxLayer(TextureRegion region, Vector2 parallaxRatio, Vector2 startPosition, Vector2 padding) {
-        this.region = region;
-        this.parallaxRatio = parallaxRatio;
-        this.startPosition = startPosition;
-        this.padding = padding;
-        this.width = region.getRegionWidth();
-        this.height = region.getRegionHeight();
+    constructor(region: TextureRegion, parallaxRatio: Vector2?, startPosition: Vector2?, padding: Vector2?) {
+        this.region = region
+        this.parallaxRatio = parallaxRatio
+        this.startPosition = startPosition
+        this.padding = padding
+        this.width = region.getRegionWidth().toFloat()
+        this.height = region.getRegionHeight().toFloat()
     }
 
     /**
      * @param region        the TextureRegion to draw , this can be any width/height
-     * @param parallaxRatio the relative speed of x,y {@link ParallaxBackground#ParallaxBackground(ParallaxLayer[], float, float, Vector2)}
+     * @param parallaxRatio the relative speed of x,y [ParallaxBackground.ParallaxBackground]
      * @param startPosition the init position of x,y
      * @param padding       the padding of the region at x,y
      */
-    public ParallaxLayer(TextureRegion region, Vector2 parallaxRatio, Vector2 startPosition, Vector2 padding, float width, float height) {
-        this.region = region;
-        this.parallaxRatio = parallaxRatio;
-        this.startPosition = startPosition;
-        this.padding = padding;
-        this.width = width;
-        this.height = height;
+    constructor(region: TextureRegion?, parallaxRatio: Vector2?, startPosition: Vector2?, padding: Vector2?, width: Float, height: Float) {
+        this.region = region
+        this.parallaxRatio = parallaxRatio
+        this.startPosition = startPosition
+        this.padding = padding
+        this.width = width
+        this.height = height
     }
 }
