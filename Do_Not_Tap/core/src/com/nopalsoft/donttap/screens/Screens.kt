@@ -28,7 +28,7 @@ abstract class Screens(game: DoNotTapGame) : InputAdapter(), Screen {
     var batch: SpriteBatch
 
     @JvmField
-    var stage: Stage
+    var stage: Stage = game.stage
 
     override fun render(delta: Float) {
         var delta = delta
@@ -48,7 +48,6 @@ abstract class Screens(game: DoNotTapGame) : InputAdapter(), Screen {
     var blackFadeOut: Image? = null
 
     init {
-        this.stage = game.stage
         this.stage.clear()
         this.batch = game.batch
         this.game = game
@@ -65,19 +64,19 @@ abstract class Screens(game: DoNotTapGame) : InputAdapter(), Screen {
         newScreen: Class<*>?,
         game: DoNotTapGame, mode: Int = -1
     ) {
-        blackFadeOut = Image(Assets.pixelNegro)
+        blackFadeOut = Image(Assets.blackPixel)
         blackFadeOut!!.setSize(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat())
         blackFadeOut!!.getColor().a = 0f
         blackFadeOut!!.addAction(
             Actions.sequence(
                 Actions.fadeIn(.5f),
-                Actions.run(object : Runnable {
-                    override fun run() {
-                        if (newScreen == SelectScreen::class.java) game.setScreen(SelectScreen(game))
-                        else if (newScreen == GameScreen::class.java) game.setScreen(GameScreen(game, mode))
-                        else if (newScreen == MainMenuScreen::class.java) game.setScreen(MainMenuScreen(game))
+                Actions.run {
+                    when (newScreen) {
+                        SelectScreen::class.java -> game.setScreen(SelectScreen(game))
+                        GameScreen::class.java -> game.setScreen(GameScreen(game, mode))
+                        MainMenuScreen::class.java -> game.setScreen(MainMenuScreen(game))
                     }
-                })
+                }
             )
         )
         stage.addActor(blackFadeOut)
@@ -111,19 +110,19 @@ abstract class Screens(game: DoNotTapGame) : InputAdapter(), Screen {
         for (col in 0..3) {
             val tileColorPos = MathUtils.random(3)
             for (ren in 0..3) {
-                var img = Image(Assets.tileBlanco)
+                var img = Image(Assets.whiteTile)
 
                 if (tileColorPos == ren) {
                     val colorTile = MathUtils.random(4)
                     when (colorTile) {
-                        0 -> img = Image(Assets.tileAmarillo)
-                        1 -> img = Image(Assets.tileAzul)
-                        2 -> img = Image(Assets.tileRojo)
-                        3 -> img = Image(Assets.tileMorado)
-                        4 -> img = Image(Assets.tileNaranja)
+                        0 -> img = Image(Assets.yellowTile)
+                        1 -> img = Image(Assets.blueTile)
+                        2 -> img = Image(Assets.redTile)
+                        3 -> img = Image(Assets.purpleTile)
+                        4 -> img = Image(Assets.orangeTile)
                     }
                 }
-                tabBackground.add<Image?>(img)
+                tabBackground.add(img)
             }
             tabBackground.row()
         }
@@ -157,11 +156,10 @@ abstract class Screens(game: DoNotTapGame) : InputAdapter(), Screen {
     }
 
     companion object {
-        const val SCREEN_WIDTH: Int = 480
-        const val SCREEN_HEIGHT: Int = 800
+        const val SCREEN_WIDTH = 480
+        const val SCREEN_HEIGHT = 800
 
-        const val WORLD_WIDTH: Float = 480f
-        val WORLD_HEIGHT: Float = (800 - 80 // Minus 80 is the bookmarks bar
-                ).toFloat()
+        const val WORLD_WIDTH = 480f
+        const val WORLD_HEIGHT = 720F
     }
 }

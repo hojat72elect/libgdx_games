@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import com.nopalsoft.donttap.Assets
-import com.nopalsoft.donttap.DoNotTapGame
 import com.nopalsoft.donttap.Settings
 import com.nopalsoft.donttap.game.GameScreen
 import com.nopalsoft.donttap.game.WorldGame
@@ -20,19 +19,17 @@ import com.nopalsoft.donttap.screens.MainMenuScreen
 import com.nopalsoft.donttap.screens.Screens
 
 class GameOverDialog(var screen: GameScreen) : Group() {
-    var game: DoNotTapGame?
+    var game = screen.game
 
-    var oWorld: WorldGame
+    var oWorld: WorldGame = screen.worldGame
 
     init {
-        game = screen.game
-        oWorld = screen.oWorld
 
         setSize(430f, 460f)
         setOrigin(getWidth() / 2f, getHeight() / 2f)
         setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 160f)
 
-        val background = Image(Assets.fondoPuntuaciones)
+        val background = Image(Assets.scoresBackgroundDrawable)
         background.setSize(getWidth(), getHeight())
         addActor(background)
         getColor().a = 0f
@@ -56,8 +53,8 @@ class GameOverDialog(var screen: GameScreen) : Group() {
                 txtMode = "Classic"
                 txtScore = "Time"
                 txtNumScore = game!!.formatter!!.format("%.1f", oWorld.time) + "s"
-                if (Settings.bestTimeClassicMode >= 100100) txtBestNumScore = "X"
-                else txtBestNumScore = game!!.formatter!!.format("%.1f", Settings.bestTimeClassicMode) + "s"
+                txtBestNumScore = if (Settings.bestTimeClassicMode >= 100100) "X"
+                else game!!.formatter!!.format("%.1f", Settings.bestTimeClassicMode) + "s"
             }
 
             GameScreen.MODE_TIME -> {
@@ -118,23 +115,20 @@ class GameOverDialog(var screen: GameScreen) : Group() {
         scoreTable.add<Label?>(lbBestScore).left()
         scoreTable.add<Label?>(lblNumBestScore).right().expand()
 
-        // Facebook Twitter
-        val btShareFacebook: Button
-        val btShareTwitter: Button
-
-        btShareTwitter = Button(Assets.btTwitter)
+        val btShareTwitter = Button(Assets.buttonTwitter)
         btShareTwitter.setSize(55f, 55f)
         btShareTwitter.setPosition(140f, 160f)
         screen.addPressEffect(btShareTwitter)
 
-        btShareFacebook = Button(Assets.btFacebook)
+        // Facebook Twitter
+        val btShareFacebook = Button(Assets.buttonFacebook)
         btShareFacebook.setSize(55f, 55f)
         btShareFacebook.setPosition(235f, 160f)
         screen.addPressEffect(btShareFacebook)
 
         val btTryAgain = TextButton(
             "Try again",
-            Assets.textButtonStyleChico
+            Assets.textButtonStyleSmall
         )
         btTryAgain
             .setPosition(getWidth() / 2f - btTryAgain.getWidth() / 2f, 90f)
@@ -150,7 +144,7 @@ class GameOverDialog(var screen: GameScreen) : Group() {
 
         val btMainMenu = TextButton(
             "Main menu",
-            Assets.textButtonStyleChico
+            Assets.textButtonStyleSmall
         )
         btMainMenu
             .setPosition(getWidth() / 2f - btMainMenu.getWidth() / 2f, 15f)
@@ -170,23 +164,21 @@ class GameOverDialog(var screen: GameScreen) : Group() {
         addAction(
             Actions.sequence(
                 Actions.alpha(1f, fadeDuration),
-                Actions.run(object : Runnable {
-                    override fun run() {
-                        addActor(btShareTwitter)
-                        addActor(btShareFacebook)
-                        addActor(btTryAgain)
-                        addActor(btMainMenu)
+                Actions.run {
+                    addActor(btShareTwitter)
+                    addActor(btShareFacebook)
+                    addActor(btTryAgain)
+                    addActor(btMainMenu)
 
-                        btShareFacebook.remove()
-                        btShareTwitter.remove()
-                    }
-                })
+                    btShareFacebook.remove()
+                    btShareTwitter.remove()
+                }
             )
         )
     }
 
     fun show(stage: Stage) {
-        val dim = Image(Assets.pixelNegro)
+        val dim = Image(Assets.blackPixel)
         dim.setFillParent(true)
         dim.getColor().a = 0f
         dim.addAction(Actions.alpha(.7f, fadeDuration - .5f))

@@ -12,11 +12,8 @@ class WorldGame(var mode: Int) : Table() {
     @JvmField
     var state: Int
 
-    var TIME_TO_SPAWN_ROW: Float = .4f
-    var timeToSpawnRow: Float = 0f
-
-    val WIDTH: Float = Screens.WORLD_WIDTH
-    val HEIGHT: Float = Screens.WORLD_HEIGHT
+    var timeStep = .4f
+    var timeToSpawnRow = 0f
 
     var arrTiles: Array<Tile>
 
@@ -27,7 +24,7 @@ class WorldGame(var mode: Int) : Table() {
     var score: Int = 0
 
     init {
-        setSize(WIDTH, HEIGHT)
+        setSize(Screens.WORLD_WIDTH, Screens.WORLD_HEIGHT)
         setPosition(0f, 0f)
         debug()
 
@@ -53,7 +50,7 @@ class WorldGame(var mode: Int) : Table() {
             MODE_ENDLESS -> {
                 score = 0
                 time = 0f
-                timeToSpawnRow = TIME_TO_SPAWN_ROW
+                timeToSpawnRow = timeStep
             }
         }
     }
@@ -66,10 +63,9 @@ class WorldGame(var mode: Int) : Table() {
     fun addRow(isFirstRow: Boolean) {
         val tileCanStep = MathUtils.random(3)
 
-        // Agrego toda una fila en Y= -1
-        // para despues bajar todos los tiles 1 renglon
+        // I add an entire row at Y= -1 and then move all the tiles down 1 row.
         for (col in 0..3) {
-            val obj = Pools.obtain<Tile>(Tile::class.java)
+            val obj = Pools.obtain(Tile::class.java)
 
             obj.init(this, col, tileCanStep == col, isFirstRow)
 
@@ -83,14 +79,14 @@ class WorldGame(var mode: Int) : Table() {
     fun moveRowsDown() {
         for (col in 23 downTo 0) {
             val obj = getTileAtPosition(col)
-            if (obj != null) obj.moveDown()
+            obj?.moveDown()
         }
     }
 
     fun moveRowsUp() {
         for (col in 0..23) {
             val obj = getTileAtPosition(col)
-            if (obj != null) obj.moveUp()
+            obj?.moveUp()
         }
     }
 
@@ -117,11 +113,11 @@ class WorldGame(var mode: Int) : Table() {
             }
             if (mode == MODE_ENDLESS) {
                 timeToSpawnRow += delta
-                if (timeToSpawnRow >= TIME_TO_SPAWN_ROW) {
-                    timeToSpawnRow -= TIME_TO_SPAWN_ROW
+                if (timeToSpawnRow >= timeStep) {
+                    timeToSpawnRow -= timeStep
 
-                    TIME_TO_SPAWN_ROW -= (delta / 8f)
-                    if (TIME_TO_SPAWN_ROW <= .2f) TIME_TO_SPAWN_ROW = .2f
+                    timeStep -= (delta / 8f)
+                    if (timeStep <= .2f) timeStep = .2f
                     addRow()
                 }
             }
@@ -200,13 +196,13 @@ class WorldGame(var mode: Int) : Table() {
     }
 
     companion object {
-        const val STATE_READY: Int = 0
-        const val STATE_RUNNING: Int = 1
-        const val STATE_GAME_OVER_1: Int = 2
-        const val STATE_GAME_OVER_2: Int = 3
-        const val STATE_GAME_WIN: Int = 4
-        const val MODE_CLASSIC: Int = 0 // Record 50 tiles in the shortest time
-        const val MODE_TIME: Int = 1 // Walk for 1 minute
-        const val MODE_ENDLESS: Int = 2 // Don't let any tile go by
+        const val STATE_READY = 0
+        const val STATE_RUNNING = 1
+        const val STATE_GAME_OVER_1 = 2
+        const val STATE_GAME_OVER_2 = 3
+        const val STATE_GAME_WIN = 4
+        const val MODE_CLASSIC = 0 // Record 50 tiles in the shortest time
+        const val MODE_TIME = 1 // Walk for 1 minute
+        const val MODE_ENDLESS = 2 // Don't let any tile go by
     }
 }

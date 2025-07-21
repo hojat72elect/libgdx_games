@@ -13,75 +13,66 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 
 object Assets {
+
     var font: BitmapFont? = null
+
     var pianoSounds: Array<Sound?>? = null
 
-    @JvmField
-    var pixelNegro: NinePatchDrawable? = null
+    var blackPixel: NinePatchDrawable? = null
+    var scoresBackgroundDrawable: NinePatchDrawable? = null
 
-    @JvmField
-    var fondoPuntuaciones: NinePatchDrawable? = null
-
-    var tileAmarillo: AtlasRegion? = null
-    var tileAzul: AtlasRegion? = null
-    var tileMorado: AtlasRegion? = null
-    var tileNaranja: AtlasRegion? = null
-    var tileBlanco: AtlasRegion? = null
-    var tileRojo: AtlasRegion? = null
+    var yellowTile: AtlasRegion? = null
+    var blueTile: AtlasRegion? = null
+    var purpleTile: AtlasRegion? = null
+    var orangeTile: AtlasRegion? = null
+    var whiteTile: AtlasRegion? = null
+    var redTile: AtlasRegion? = null
     var wrong: AtlasRegion? = null
     var step1: AtlasRegion? = null
+    var title: AtlasRegion? = null
 
-    var titulo: AtlasRegion? = null
-
-    @JvmField
-    var labelStyleChico: LabelStyle? = null
-
-    @JvmField
+    var labelStyleSmall: LabelStyle? = null
     var labelStyleBlack: LabelStyle? = null
 
-    @JvmField
-    var textButtonStyleChico: TextButtonStyle? = null
+    var textButtonStyleSmall: TextButtonStyle? = null
 
-    @JvmField
-    var btFacebook: TextureRegionDrawable? = null
+    var buttonFacebook: TextureRegionDrawable? = null
+    var buttonTwitter: TextureRegionDrawable? = null
+    var buttonBack: TextureRegionDrawable? = null
 
-    @JvmField
-    var btTwitter: TextureRegionDrawable? = null
-    var btAtras: TextureRegionDrawable? = null
-
-    private fun cargarEstilos(atlas: TextureAtlas) {
-        labelStyleChico = LabelStyle(font, Color.WHITE)
+    private fun loadStyles(atlas: TextureAtlas) {
+        labelStyleSmall = LabelStyle(font, Color.WHITE)
         labelStyleBlack = LabelStyle(font, Color.GRAY)
 
-        fondoPuntuaciones = NinePatchDrawable(atlas.createPatch("fondoPuntuaciones"))
+        scoresBackgroundDrawable = NinePatchDrawable(atlas.createPatch("fondoPuntuaciones"))
 
-        textButtonStyleChico = TextButtonStyle(fondoPuntuaciones, null, null, font)
-        textButtonStyleChico!!.fontColor = Color.WHITE
+        textButtonStyleSmall = TextButtonStyle(scoresBackgroundDrawable, null, null, font)
+        textButtonStyleSmall!!.fontColor = Color.WHITE
     }
 
     fun load() {
         val atlas = TextureAtlas(Gdx.files.internal("data/atlasMap.txt"))
 
-        titulo = atlas.findRegion("titulo")
+        title = atlas.findRegion("titulo")
 
         font = BitmapFont(Gdx.files.internal("data/font.fnt"), atlas.findRegion("font"))
 
-        pixelNegro = NinePatchDrawable(NinePatch(atlas.findRegion("pixelNegro"), 1, 1, 0, 0))
+        blackPixel = NinePatchDrawable(NinePatch(atlas.findRegion("pixelNegro"), 1, 1, 0, 0))
 
-        cargarEstilos(atlas)
+        loadStyles(atlas)
 
-        tileAmarillo = atlas.findRegion("amarillo")
-        tileAzul = atlas.findRegion("azul")
-        tileRojo = atlas.findRegion("rojo")
-        tileBlanco = atlas.findRegion("blanco")
-        tileMorado = atlas.findRegion("morado")
-        tileNaranja = atlas.findRegion("naranja")
+        yellowTile = atlas.findRegion("amarillo")
+        blueTile = atlas.findRegion("azul")
+        redTile = atlas.findRegion("rojo")
+        whiteTile = atlas.findRegion("blanco")
+        purpleTile = atlas.findRegion("morado")
+        orangeTile = atlas.findRegion("naranja")
         wrong = atlas.findRegion("wrong")
         step1 = atlas.findRegion("step")
 
-        btTwitter = TextureRegionDrawable(atlas.findRegion("btTwitter"))
-        btFacebook = TextureRegionDrawable(atlas.findRegion("btFacebook"))
-        btAtras = TextureRegionDrawable(atlas.findRegion("btAtras"))
+        buttonTwitter = TextureRegionDrawable(atlas.findRegion("btTwitter"))
+        buttonFacebook = TextureRegionDrawable(atlas.findRegion("btFacebook"))
+        buttonBack = TextureRegionDrawable(atlas.findRegion("btAtras"))
 
         loadSounds()
 
@@ -89,10 +80,10 @@ object Assets {
     }
 
     private fun loadSounds() {
-        pianoSounds = arrayOfNulls<Sound>(26)
-        val ruta = "data/Sounds/piano"
+        pianoSounds = arrayOfNulls(26)
+        val directory = "data/Sounds/piano"
         for (i in pianoSounds!!.indices) {
-            val sonido = Gdx.audio.newSound(Gdx.files.internal(ruta + i + ".mp3"))
+            val sonido = Gdx.audio.newSound(Gdx.files.internal("$directory$i.mp3"))
             pianoSounds?.set(i, sonido)
         }
 

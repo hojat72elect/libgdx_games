@@ -40,7 +40,7 @@ class SelectScreen(game: DoNotTapGame) : Screens(game) {
         menu.setPosition(SCREEN_WIDTH / 2f - menu.getWidth() / 2f, 60f)
         menu.defaults().center().expand()
 
-        buttonClassic = TextButton("Classic", Assets.textButtonStyleChico)
+        buttonClassic = TextButton("Classic", Assets.textButtonStyleSmall)
         addPressEffect(buttonClassic)
         buttonClassic.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -51,7 +51,7 @@ class SelectScreen(game: DoNotTapGame) : Screens(game) {
             }
         })
 
-        buttonTime = TextButton("Time trial", Assets.textButtonStyleChico)
+        buttonTime = TextButton("Time trial", Assets.textButtonStyleSmall)
         addPressEffect(buttonTime)
         buttonTime.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -62,7 +62,7 @@ class SelectScreen(game: DoNotTapGame) : Screens(game) {
             }
         })
 
-        buttonEndless = TextButton("Endless", Assets.textButtonStyleChico)
+        buttonEndless = TextButton("Endless", Assets.textButtonStyleSmall)
         addPressEffect(buttonEndless)
         buttonEndless.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -73,7 +73,7 @@ class SelectScreen(game: DoNotTapGame) : Screens(game) {
             }
         })
 
-        buttonHelp = TextButton("?", Assets.textButtonStyleChico)
+        buttonHelp = TextButton("?", Assets.textButtonStyleSmall)
         addPressEffect(buttonHelp)
         buttonHelp.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -81,7 +81,7 @@ class SelectScreen(game: DoNotTapGame) : Screens(game) {
             }
         })
 
-        buttonBack = Button(ButtonStyle(Assets.btAtras, null, null))
+        buttonBack = Button(ButtonStyle(Assets.buttonBack, null, null))
         buttonBack.setSize(55f, 55f)
         buttonBack.setPosition(5f, 5f)
         addPressEffect(buttonBack)

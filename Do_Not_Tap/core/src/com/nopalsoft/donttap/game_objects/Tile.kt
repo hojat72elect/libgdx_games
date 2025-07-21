@@ -36,14 +36,14 @@ class Tile : Actor(), Poolable {
         getColor().a = 1f
         if (!canStep) {
             type = TYPE_BAD
-            keyframe = Assets.tileBlanco
+            keyframe = Assets.whiteTile
         } else {
             when (MathUtils.random(4)) {
-                0 -> keyframe = Assets.tileRojo
-                1 -> keyframe = Assets.tileAmarillo
-                2 -> keyframe = Assets.tileAzul
-                3 -> keyframe = Assets.tileMorado
-                4 -> keyframe = Assets.tileNaranja
+                0 -> keyframe = Assets.redTile
+                1 -> keyframe = Assets.yellowTile
+                2 -> keyframe = Assets.blueTile
+                3 -> keyframe = Assets.purpleTile
+                4 -> keyframe = Assets.orangeTile
             }
             type = TYPE_GOOD
             addAction(Actions.forever(Actions.sequence(Actions.alpha(.6f, .5f), Actions.alpha(1f, .35f))))
@@ -137,7 +137,7 @@ class Tile : Actor(), Poolable {
         }
 
         var time = .1f
-        if (worldGame!!.mode == WorldGame.MODE_ENDLESS) time = worldGame!!.TIME_TO_SPAWN_ROW
+        if (worldGame!!.mode == WorldGame.MODE_ENDLESS) time = worldGame!!.timeStep
         addAction(Actions.moveTo(mapPositions.get(tablePosition)!!.x, mapPositions.get(tablePosition)!!.y, time))
     }
 

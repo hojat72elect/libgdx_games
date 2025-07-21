@@ -16,13 +16,12 @@ import com.nopalsoft.donttap.dialogs.GameOverDialog
 import com.nopalsoft.donttap.dialogs.GamePausedDialog
 import com.nopalsoft.donttap.screens.Screens
 
-class GameScreen(game: DoNotTapGame, @JvmField var mode: Int) : Screens(game) {
+class GameScreen(game: DoNotTapGame, var mode: Int) : Screens(game) {
     var state: Int
 
-    private val stageGame: Stage
+    private val stageGame = Stage(StretchViewport(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat()))
 
-    @JvmField
-    var oWorld: WorldGame
+    var worldGame = WorldGame(mode)
 
     var lbTime: Label? = null
     var lbTilesScore: Label? = null
@@ -30,27 +29,24 @@ class GameScreen(game: DoNotTapGame, @JvmField var mode: Int) : Screens(game) {
     var tbMarcadores: Table? = null
 
     init {
-        stageGame = Stage(StretchViewport(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat()))
+        stageGame.addActor(worldGame)
 
-        oWorld = WorldGame(mode)
-        stageGame.addActor(oWorld)
-
-        initMarcadores()
+        initializeScoreboard()
 
         // I need to add the stageGame to the events.
         val input = InputMultiplexer(this, stage, stageGame)
         Gdx.input.inputProcessor = input
 
         state = STATE_RUNNING
-        Settings.numeroVecesJugadas++
+        Settings.numberOfTimesPlayed++
     }
 
-    private fun initMarcadores() {
+    private fun initializeScoreboard() {
         tbMarcadores = Table()
         tbMarcadores!!.setSize(SCREEN_WIDTH.toFloat(), 80f)
         tbMarcadores!!.setPosition(0f, SCREEN_HEIGHT - tbMarcadores!!.getHeight())
 
-        val background = Image(Assets.tileBlanco)
+        val background = Image(Assets.whiteTile)
         background.setSize(tbMarcadores!!.getWidth(), tbMarcadores!!.getHeight())
         background.setPosition(0f, 0f)
         tbMarcadores!!.addActor(background)
@@ -71,7 +67,7 @@ class GameScreen(game: DoNotTapGame, @JvmField var mode: Int) : Screens(game) {
             MODE_CLASSIC -> {
                 var text = game?.formatter!!.format("%.1f", Settings.bestTimeClassicMode)
                 if (Settings.bestTimeClassicMode >= 100100) text = "X"
-                lbBestScore!!.setText("Best\n" + text)
+                lbBestScore!!.setText("Best\n$text")
             }
 
             MODE_TIME -> lbBestScore!!.setText("Best\n" + Settings.bestScoreTimeMode)
@@ -90,24 +86,24 @@ class GameScreen(game: DoNotTapGame, @JvmField var mode: Int) : Screens(game) {
         if (state == STATE_RUNNING) {
             stageGame.act(delta)
 
-            if (oWorld.state == WorldGame.STATE_GAME_OVER_2) {
+            if (worldGame.state == WorldGame.STATE_GAME_OVER_2) {
                 if (mode == MODE_ENDLESS) setWin()
                 else setGameover()
-            } else if (oWorld.state == WorldGame.STATE_GAME_WIN) {
+            } else if (worldGame.state == WorldGame.STATE_GAME_WIN) {
                 setWin()
             }
         }
 
-        lbTime!!.setText("Time\n" + game?.formatter!!.format("%.1f", oWorld.time))
-        lbTilesScore!!.setText("Tiles\n" + oWorld.score)
+        lbTime!!.setText("Time\n" + game?.formatter!!.format("%.1f", worldGame.time))
+        lbTilesScore!!.setText("Tiles\n" + worldGame.score)
     }
 
     // The difference if you win is that your scores go up;
     private fun setWin() {
         when (mode) {
-            MODE_CLASSIC -> if (Settings.bestTimeClassicMode > oWorld.time) Settings.bestTimeClassicMode = oWorld.time
-            MODE_TIME -> if (Settings.bestScoreTimeMode < oWorld.score) Settings.bestScoreTimeMode = oWorld.score
-            MODE_ENDLESS -> if (Settings.bestScoreEndlessMode < oWorld.score) Settings.bestScoreEndlessMode = oWorld.score
+            MODE_CLASSIC -> if (Settings.bestTimeClassicMode > worldGame.time) Settings.bestTimeClassicMode = worldGame.time
+            MODE_TIME -> if (Settings.bestScoreTimeMode < worldGame.score) Settings.bestScoreTimeMode = worldGame.score
+            MODE_ENDLESS -> if (Settings.bestScoreEndlessMode < worldGame.score) Settings.bestScoreEndlessMode = worldGame.score
         }
 
         setGameover()
@@ -151,9 +147,11 @@ class GameScreen(game: DoNotTapGame, @JvmField var mode: Int) : Screens(game) {
     }
 
     override fun keyDown(keycode: Int): Boolean {
-        if (keycode == Input.Keys.S) oWorld.moveRowsDown()
-        else if (keycode == Input.Keys.W) oWorld.moveRowsUp()
-        else if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) setPaused()
+        when (keycode) {
+            Input.Keys.S -> worldGame.moveRowsDown()
+            Input.Keys.W -> worldGame.moveRowsUp()
+            Input.Keys.ESCAPE, Input.Keys.BACK -> setPaused()
+        }
         return super.keyDown(keycode)
     }
 

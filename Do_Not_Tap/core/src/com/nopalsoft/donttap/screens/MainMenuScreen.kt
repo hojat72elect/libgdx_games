@@ -20,7 +20,7 @@ class MainMenuScreen(game: DoNotTapGame) : Screens(game) {
     init {
         addBackGround()
 
-        val titleImage = Image(Assets.titulo)
+        val titleImage = Image(Assets.title)
         titleImage.setPosition(SCREEN_WIDTH / 2f - titleImage.getWidth() / 2f, 620f)
 
         val menu = Table()
@@ -28,7 +28,7 @@ class MainMenuScreen(game: DoNotTapGame) : Screens(game) {
         menu.setPosition(SCREEN_WIDTH / 2f - menu.getWidth() / 2f, 130f)
         menu.defaults().center().expand()
 
-        buttonPlay = TextButton("Play", Assets.textButtonStyleChico)
+        buttonPlay = TextButton("Play", Assets.textButtonStyleSmall)
         addPressEffect(buttonPlay)
         buttonPlay.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -36,16 +36,16 @@ class MainMenuScreen(game: DoNotTapGame) : Screens(game) {
             }
         })
 
-        buttonRate = TextButton("Rate", Assets.textButtonStyleChico)
+        buttonRate = TextButton("Rate", Assets.textButtonStyleSmall)
         addPressEffect(buttonRate)
 
         buttonLeaderboards = TextButton(
             "Leaderboards",
-            Assets.textButtonStyleChico
+            Assets.textButtonStyleSmall
         )
         addPressEffect(buttonLeaderboards)
 
-        buttonFacebook = Button(Assets.btFacebook)
+        buttonFacebook = Button(Assets.buttonFacebook)
         buttonFacebook.setSize(55f, 55f)
         buttonFacebook.setPosition((SCREEN_WIDTH - 67).toFloat(), 7f)
         addPressEffect(buttonFacebook)

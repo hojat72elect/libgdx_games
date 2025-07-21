@@ -14,19 +14,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.nopalsoft.donttap.Assets
 import com.nopalsoft.donttap.screens.Screens
 
-class HelpDialog(screen: Screens) : Group() {
-    var screen: Screens?
+class HelpDialog(var screen: Screens) : Group() {
 
     var dim: Image? = null
 
     init {
-        this.screen = screen
 
         setSize(430f, 460f)
         setOrigin(getWidth() / 2f, getHeight() / 2f)
         setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 200f)
 
-        val background = Image(Assets.fondoPuntuaciones)
+        val background = Image(Assets.scoresBackgroundDrawable)
         background.setSize(getWidth(), getHeight())
         addActor(background)
         getColor().a = 0f
@@ -36,7 +34,7 @@ class HelpDialog(screen: Screens) : Group() {
 
         val scrollStyle = ScrollPaneStyle(
             null, null, null,
-            null, Assets.fondoPuntuaciones
+            null, Assets.scoresBackgroundDrawable
         )
         val scroll = ScrollPane(tableHelp, scrollStyle)
         scroll.setSize(getWidth(), getHeight() - 50)
@@ -53,19 +51,19 @@ class HelpDialog(screen: Screens) : Group() {
 
         val lbHelpClassic = Label(
             "Tap 100 tiles as fast as you can",
-            Assets.labelStyleChico
+            Assets.labelStyleSmall
         )
         lbHelpClassic.setWrap(true)
 
         val labelHelpTime = Label(
             "Tap as fast as you can for 1 minute",
-            Assets.labelStyleChico
+            Assets.labelStyleSmall
         )
         labelHelpTime.setWrap(true)
 
         val labelHelpEndless = Label(
             "How many tiles can you tap?",
-            Assets.labelStyleChico
+            Assets.labelStyleSmall
         )
         labelHelpEndless.setWrap(true)
 
@@ -82,7 +80,7 @@ class HelpDialog(screen: Screens) : Group() {
 
         val buttonOk = TextButton(
             "OK",
-            Assets.textButtonStyleChico
+            Assets.textButtonStyleSmall
         )
         buttonOk.setPosition(getWidth() / 2f - buttonOk.getWidth() / 2f, 5f)
         screen.addPressEffect(buttonOk)
@@ -95,18 +93,16 @@ class HelpDialog(screen: Screens) : Group() {
         addAction(
             Actions.sequence(
                 Actions.alpha(1f, fadeDuration),
-                Actions.run(object : Runnable {
-                    override fun run() {
-                        addActor(scroll)
-                        addActor(buttonOk)
-                    }
-                })
+                Actions.run {
+                    addActor(scroll)
+                    addActor(buttonOk)
+                }
             )
         )
     }
 
     fun show(stage: Stage) {
-        dim = Image(Assets.pixelNegro)
+        dim = Image(Assets.blackPixel)
         dim!!.setFillParent(true)
         dim!!.getColor().a = 0f
         dim!!.addAction(Actions.alpha(.7f, fadeDuration - .5f))

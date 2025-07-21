@@ -3,26 +3,20 @@ package com.nopalsoft.donttap
 import com.badlogic.gdx.Gdx
 
 object Settings {
-    @JvmField
-    var numeroVecesJugadas = 0
+    var numberOfTimesPlayed = 0
 
-    @JvmField
     var bestTimeClassicMode = 100100F // Default in seconds
 
-    @JvmField
     var bestScoreTimeMode = 0
 
-    @JvmField
     var bestScoreEndlessMode = 0
 
-    @JvmField
     var isSoundEnabled = true
 
     private val preferences = Gdx.app.getPreferences("com.nopalsoft.donttap")
 
-    @JvmStatic
     fun save() {
-        preferences.putInteger("numeroVecesJugadas", numeroVecesJugadas)
+        preferences.putInteger("numeroVecesJugadas", numberOfTimesPlayed)
         preferences.putFloat("bestTimeClassicMode", bestTimeClassicMode)
         preferences.putInteger("bestScoreTimeMode", bestScoreTimeMode)
         preferences.putInteger("bestScoreEndlessMode", bestScoreEndlessMode)
@@ -30,9 +24,8 @@ object Settings {
         preferences.flush()
     }
 
-    @JvmStatic
     fun load() {
-        numeroVecesJugadas = preferences.getInteger("numeroVecesJugadas", 0)
+        numberOfTimesPlayed = preferences.getInteger("numeroVecesJugadas", 0)
         bestTimeClassicMode = preferences.getFloat("bestTimeClassicMode", 100100f)
         bestScoreTimeMode = preferences.getInteger("bestScoreTimeMode", 0)
         bestScoreEndlessMode = preferences.getInteger("bestScoreEndlessMode", 0)

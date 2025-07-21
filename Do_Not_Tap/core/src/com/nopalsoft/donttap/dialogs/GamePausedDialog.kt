@@ -22,7 +22,7 @@ class GamePausedDialog(var screen: GameScreen) : Group() {
         setOrigin(getWidth() / 2f, getHeight() / 2f)
         setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 260f)
 
-        val background = Image(Assets.fondoPuntuaciones)
+        val background = Image(Assets.scoresBackgroundDrawable)
         background.setSize(getWidth(), getHeight())
         addActor(background)
         getColor().a = 0f
@@ -32,12 +32,10 @@ class GamePausedDialog(var screen: GameScreen) : Group() {
         lbPaused.setFontScale(1.15f)
         lbPaused.setPosition(getWidth() / 2f - lbPaused.getWidth() / 2f, 250f)
 
-        val txtMode: String?
-
-        when (screen.mode) {
-            GameScreen.MODE_CLASSIC -> txtMode = "Classic"
-            GameScreen.MODE_TIME, GameScreen.MODE_ENDLESS -> txtMode = "Endless"
-            else -> txtMode = "Endless"
+        val txtMode = when (screen.mode) {
+            GameScreen.MODE_CLASSIC -> "Classic"
+            GameScreen.MODE_TIME, GameScreen.MODE_ENDLESS -> "Endless"
+            else -> "Endless"
         }
 
         val labelMode = Label(txtMode, Assets.labelStyleBlack)
@@ -46,7 +44,7 @@ class GamePausedDialog(var screen: GameScreen) : Group() {
 
         val btResume = TextButton(
             "Resume",
-            Assets.textButtonStyleChico
+            Assets.textButtonStyleSmall
         )
         btResume.setPosition(getWidth() / 2f - btResume.getWidth() / 2f, 120f)
         screen.addPressEffect(btResume)
@@ -59,7 +57,7 @@ class GamePausedDialog(var screen: GameScreen) : Group() {
 
         val buttonMainMenu = TextButton(
             "Main menu",
-            Assets.textButtonStyleChico
+            Assets.textButtonStyleSmall
         )
         buttonMainMenu
             .setPosition(getWidth() / 2f - buttonMainMenu.getWidth() / 2f, 20f)
@@ -78,18 +76,16 @@ class GamePausedDialog(var screen: GameScreen) : Group() {
         addAction(
             Actions.sequence(
                 Actions.alpha(1f, fadeDuration),
-                Actions.run(object : Runnable {
-                    override fun run() {
-                        addActor(btResume)
-                        addActor(buttonMainMenu)
-                    }
-                })
+                Actions.run {
+                    addActor(btResume)
+                    addActor(buttonMainMenu)
+                }
             )
         )
     }
 
     fun show(stage: Stage) {
-        dim = Image(Assets.pixelNegro)
+        dim = Image(Assets.blackPixel)
         dim!!.setFillParent(true)
         dim!!.getColor().a = 0f
         dim!!.addAction(Actions.alpha(.7f, fadeDuration - .5f))
