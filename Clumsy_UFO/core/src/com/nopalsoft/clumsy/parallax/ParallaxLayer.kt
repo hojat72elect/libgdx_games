@@ -18,7 +18,7 @@ class ParallaxLayer {
 
     /**
      * @param region        the TextureRegion to draw , this can be any width/height
-     * @param parallaxRatio the relative speed of x,y [ParallaxBackground.ParallaxBackground]
+     * @param parallaxRatio the relative speed of x,y [ParallaxBackground]
      * @param startPosition the init position of x,y
      * @param padding       the padding of the region at x,y
      */
@@ -33,7 +33,7 @@ class ParallaxLayer {
 
     /**
      * @param region        the TextureRegion to draw , this can be any width/height
-     * @param parallaxRatio the relative speed of x,y [ParallaxBackground.ParallaxBackground]
+     * @param parallaxRatio the relative speed of x,y [ParallaxBackground]
      * @param startPosition the init position of x,y
      * @param padding       the padding of the region at x,y
      */

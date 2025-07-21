@@ -97,7 +97,7 @@ object Assets {
             path = "data_flappy_penis"
         }
 
-        val atlas = TextureAtlas(Gdx.files.internal(path + "/atlasMap.txt"))
+        val atlas = TextureAtlas(Gdx.files.internal("$path/atlasMap.txt"))
 
         val b1 = atlas.findRegion("nave1")
         val b2 = atlas.findRegion("nave2")
@@ -180,11 +180,11 @@ object Assets {
 
         parallaxBackground = ParallaxBackground(parallaxLayers, 480f, 800f, Vector2(10f, 0f))
 
-        die = Gdx.audio.newSound(Gdx.files.internal(path + "/sonidos/sfx_die.mp3"))
-        hit = Gdx.audio.newSound(Gdx.files.internal(path + "/sonidos/sfx_hit.mp3"))
-        point = Gdx.audio.newSound(Gdx.files.internal(path + "/sonidos/sfx_point.mp3"))
-        swooshing = Gdx.audio.newSound(Gdx.files.internal(path + "/sonidos/sfx_swooshing.mp3"))
-        wing = Gdx.audio.newSound(Gdx.files.internal(path + "/sonidos/sfx_wing.mp3"))
+        die = Gdx.audio.newSound(Gdx.files.internal("$path/sonidos/sfx_die.mp3"))
+        hit = Gdx.audio.newSound(Gdx.files.internal("$path/sonidos/sfx_hit.mp3"))
+        point = Gdx.audio.newSound(Gdx.files.internal("$path/sonidos/sfx_point.mp3"))
+        swooshing = Gdx.audio.newSound(Gdx.files.internal("$path/sonidos/sfx_swooshing.mp3"))
+        wing = Gdx.audio.newSound(Gdx.files.internal("$path/sonidos/sfx_wing.mp3"))
 
         Settings.load()
     }

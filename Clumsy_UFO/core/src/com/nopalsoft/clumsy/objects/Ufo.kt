@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body
 
 class Ufo(x: Float, y: Float) {
     @JvmField
-    var position: Vector2
+    var position: Vector2 = Vector2(x, y)
 
     @JvmField
     var state: Int
@@ -18,7 +18,6 @@ class Ufo(x: Float, y: Float) {
     var angleRad: Float = 0f
 
     init {
-        position = Vector2(x, y)
         state = STATE_NORMAL
     }
 
@@ -32,8 +31,8 @@ class Ufo(x: Float, y: Float) {
             angleRad = MathUtils.atan2(-.1f, velocity.y)
             val angleLimitRad: Float
 
-            val MAX_ANGLE_DEGREES = 15
-            angleLimitRad = Math.toRadians(MAX_ANGLE_DEGREES.toDouble()).toFloat()
+            val maxAngleDegrees = 15
+            angleLimitRad = Math.toRadians(maxAngleDegrees.toDouble()).toFloat()
 
             if (angleRad > angleLimitRad) angleRad = angleLimitRad
             else if (angleRad < -angleLimitRad) angleRad = -angleLimitRad

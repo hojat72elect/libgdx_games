@@ -16,9 +16,9 @@ import com.nopalsoft.clumsy.game.classic.ClassicGameScreen
 import com.nopalsoft.clumsy.objects.Ufo
 
 class MainMenuScreen(game: ClumsyUfoGame) : Screens(game) {
-    var player: Ufo
+    var player: Ufo = Ufo(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f + 50)
 
-    var titleImage: Image
+    var titleImage: Image = Image(Assets.appTitle)
 
     var buttonPlayClassic: Button
     var buttonPlayArcade: Button
@@ -28,9 +28,6 @@ class MainMenuScreen(game: ClumsyUfoGame) : Screens(game) {
     var buttonNoAds: Button
 
     init {
-        player = Ufo(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f + 50)
-
-        titleImage = Image(Assets.appTitle)
         titleImage.setSize(321f, 156f)
         titleImage.setPosition(SCREEN_WIDTH / 2f - 321 / 2f, 500f)
 
@@ -45,7 +42,7 @@ class MainMenuScreen(game: ClumsyUfoGame) : Screens(game) {
 
             override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
                 buttonPlayClassic.setPosition(75f, 280f)
-                Assets.playSound(Assets.swooshing)
+                Assets.playSound(Assets.swooshing!!)
                 changeScreenWithFadeOut(ClassicGameScreen::class.java, game)
             }
         })
@@ -61,7 +58,7 @@ class MainMenuScreen(game: ClumsyUfoGame) : Screens(game) {
 
             override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
                 buttonPlayArcade.setPosition(250f, 280f)
-                Assets.playSound(Assets.swooshing)
+                Assets.playSound(Assets.swooshing!!)
                 changeScreenWithFadeOut(GameScreenArcade::class.java, game)
             }
         })
@@ -142,17 +139,17 @@ class MainMenuScreen(game: ClumsyUfoGame) : Screens(game) {
         batch.draw(Assets.background0, 0f, 0f, SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat())
         batch.end()
 
-        Assets.parallaxBackground.render(delta)
+        Assets.parallaxBackground?.render(delta)
 
-        camera.update()
-        batch.setProjectionMatrix(camera.combined)
+        camera?.update()
+        batch.setProjectionMatrix(camera!!.combined)
 
         batch.enableBlending()
         batch.begin()
 
         player.update(delta, null)
         batch.draw(
-            Assets.bird.getKeyFrame(player.stateTime, true), player.position.x - 27, player.position.y - 20, 58f,
+            Assets.bird?.getKeyFrame(player.stateTime, true), player.position.x - 27, player.position.y - 20, 58f,
             40f
         )
         batch.end()

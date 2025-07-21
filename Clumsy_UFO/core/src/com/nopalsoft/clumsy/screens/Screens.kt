@@ -23,15 +23,14 @@ abstract class Screens(game: ClumsyUfoGame) : InputAdapter(), Screen {
 
     var camera: OrthographicCamera?
     var batch: SpriteBatch
-    var stage: Stage
+    var stage: Stage = game.stage!!
 
     var random: Random?
     var blackFadeOut: Image? = null
 
     init {
-        this.stage = game.stage
         this.stage.clear()
-        this.batch = game.batch
+        this.batch = game.batch!!
         this.game = game
 
         camera = OrthographicCamera(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat())
@@ -43,10 +42,12 @@ abstract class Screens(game: ClumsyUfoGame) : InputAdapter(), Screen {
         random = Random()
         val ale = random!!.nextInt(3)
 
-        if (ale == 0) Assets.background0 = Assets.background1
-        else if (ale == 1) Assets.background0 = Assets.background2
-        else {
-            Assets.background0 = Assets.background3
+        when (ale) {
+            0 -> Assets.background0 = Assets.background1
+            1 -> Assets.background0 = Assets.background2
+            else -> {
+                Assets.background0 = Assets.background3
+            }
         }
     }
 
@@ -75,13 +76,13 @@ abstract class Screens(game: ClumsyUfoGame) : InputAdapter(), Screen {
         blackFadeOut!!.addAction(
             Actions.sequence(
                 Actions.fadeIn(.5f),
-                Actions.run(object : Runnable {
-                    override fun run() {
-                        if (newScreen == ClassicGameScreen::class.java) game.setScreen(ClassicGameScreen(game))
-                        else if (newScreen == MainMenuScreen::class.java) game.setScreen(MainMenuScreen(game))
-                        else if (newScreen == GameScreenArcade::class.java) game.setScreen(GameScreenArcade(game))
+                Actions.run {
+                    when (newScreen) {
+                        ClassicGameScreen::class.java -> game.setScreen(ClassicGameScreen(game))
+                        MainMenuScreen::class.java -> game.setScreen(MainMenuScreen(game))
+                        GameScreenArcade::class.java -> game.setScreen(GameScreenArcade(game))
                     }
-                })
+                }
             )
         )
         stage.addActor(blackFadeOut)
@@ -96,28 +97,48 @@ abstract class Screens(game: ClumsyUfoGame) : InputAdapter(), Screen {
         for (i in 0..<len) {
             val keyFrame: AtlasRegion?
 
-            val character = score.get(i)
+            val character = score[i]
 
-            if (character == '0') {
-                keyFrame = Assets.num0Large
-            } else if (character == '1') {
-                keyFrame = Assets.num1Large
-            } else if (character == '2') {
-                keyFrame = Assets.num2Large
-            } else if (character == '3') {
-                keyFrame = Assets.num3Large
-            } else if (character == '4') {
-                keyFrame = Assets.num4Large
-            } else if (character == '5') {
-                keyFrame = Assets.num5Large
-            } else if (character == '6') {
-                keyFrame = Assets.num6Large
-            } else if (character == '7') {
-                keyFrame = Assets.num7Large
-            } else if (character == '8') {
-                keyFrame = Assets.num8Large
-            } else { // 9
-                keyFrame = Assets.num9Large
+            when (character) {
+                '0' -> {
+                    keyFrame = Assets.num0Large
+                }
+
+                '1' -> {
+                    keyFrame = Assets.num1Large
+                }
+
+                '2' -> {
+                    keyFrame = Assets.num2Large
+                }
+
+                '3' -> {
+                    keyFrame = Assets.num3Large
+                }
+
+                '4' -> {
+                    keyFrame = Assets.num4Large
+                }
+
+                '5' -> {
+                    keyFrame = Assets.num5Large
+                }
+
+                '6' -> {
+                    keyFrame = Assets.num6Large
+                }
+
+                '7' -> {
+                    keyFrame = Assets.num7Large
+                }
+
+                '8' -> {
+                    keyFrame = Assets.num8Large
+                }
+
+                else -> { // 9
+                    keyFrame = Assets.num9Large
+                }
             }
 
             batch.draw(
@@ -136,28 +157,48 @@ abstract class Screens(game: ClumsyUfoGame) : InputAdapter(), Screen {
         for (i in 0..<len) {
             val keyFrame: AtlasRegion?
 
-            val character = score.get(i)
+            val character = score[i]
 
-            if (character == '0') {
-                keyFrame = Assets.num0Large
-            } else if (character == '1') {
-                keyFrame = Assets.num1Large
-            } else if (character == '2') {
-                keyFrame = Assets.num2Large
-            } else if (character == '3') {
-                keyFrame = Assets.num3Large
-            } else if (character == '4') {
-                keyFrame = Assets.num4Large
-            } else if (character == '5') {
-                keyFrame = Assets.num5Large
-            } else if (character == '6') {
-                keyFrame = Assets.num6Large
-            } else if (character == '7') {
-                keyFrame = Assets.num7Large
-            } else if (character == '8') {
-                keyFrame = Assets.num8Large
-            } else {
-                keyFrame = Assets.num9Large
+            when (character) {
+                '0' -> {
+                    keyFrame = Assets.num0Large
+                }
+
+                '1' -> {
+                    keyFrame = Assets.num1Large
+                }
+
+                '2' -> {
+                    keyFrame = Assets.num2Large
+                }
+
+                '3' -> {
+                    keyFrame = Assets.num3Large
+                }
+
+                '4' -> {
+                    keyFrame = Assets.num4Large
+                }
+
+                '5' -> {
+                    keyFrame = Assets.num5Large
+                }
+
+                '6' -> {
+                    keyFrame = Assets.num6Large
+                }
+
+                '7' -> {
+                    keyFrame = Assets.num7Large
+                }
+
+                '8' -> {
+                    keyFrame = Assets.num8Large
+                }
+
+                else -> {
+                    keyFrame = Assets.num9Large
+                }
             }
 
             batch.draw(keyFrame, x + textWidth, y, charWidth, 64f)
@@ -178,29 +219,49 @@ abstract class Screens(game: ClumsyUfoGame) : InputAdapter(), Screen {
             val keyFrame: AtlasRegion?
 
             charWidth = 22f
-            val character = score.get(i)
+            val character = score[i]
 
-            if (character == '0') {
-                keyFrame = Assets.num0Small
-            } else if (character == '1') {
-                keyFrame = Assets.num1Small
-                charWidth = 11f
-            } else if (character == '2') {
-                keyFrame = Assets.num2Small
-            } else if (character == '3') {
-                keyFrame = Assets.num3Small
-            } else if (character == '4') {
-                keyFrame = Assets.num4Small
-            } else if (character == '5') {
-                keyFrame = Assets.num5Small
-            } else if (character == '6') {
-                keyFrame = Assets.num6Small
-            } else if (character == '7') {
-                keyFrame = Assets.num7Small
-            } else if (character == '8') {
-                keyFrame = Assets.num8Small
-            } else {
-                keyFrame = Assets.num9Small
+            when (character) {
+                '0' -> {
+                    keyFrame = Assets.num0Small
+                }
+
+                '1' -> {
+                    keyFrame = Assets.num1Small
+                    charWidth = 11f
+                }
+
+                '2' -> {
+                    keyFrame = Assets.num2Small
+                }
+
+                '3' -> {
+                    keyFrame = Assets.num3Small
+                }
+
+                '4' -> {
+                    keyFrame = Assets.num4Small
+                }
+
+                '5' -> {
+                    keyFrame = Assets.num5Small
+                }
+
+                '6' -> {
+                    keyFrame = Assets.num6Small
+                }
+
+                '7' -> {
+                    keyFrame = Assets.num7Small
+                }
+
+                '8' -> {
+                    keyFrame = Assets.num8Small
+                }
+
+                else -> {
+                    keyFrame = Assets.num9Small
+                }
             }
             textWidth += charWidth
             batch.draw(keyFrame, x - textWidth, y, charWidth, 32f)

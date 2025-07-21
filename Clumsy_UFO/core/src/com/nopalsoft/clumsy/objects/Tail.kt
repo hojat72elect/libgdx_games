@@ -5,11 +5,7 @@ import com.badlogic.gdx.utils.Pool.Poolable
 
 class Tail : Poolable {
     @JvmField
-    val position: Vector2
-
-    init {
-        position = Vector2()
-    }
+    val position: Vector2 = Vector2()
 
     fun update(delta: Float) {
         position.x += SPEED_X * delta
