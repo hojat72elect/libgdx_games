@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.clumsy.Assets;
 import com.nopalsoft.clumsy.ClumsyUfoGame;
 import com.nopalsoft.clumsy.Settings;
-import com.nopalsoft.clumsy.game.classic.GameScreenClassic;
+import com.nopalsoft.clumsy.game.classic.ClassicGameScreen;
 import com.nopalsoft.clumsy.objects.Ufo;
 import com.nopalsoft.clumsy.screens.MainMenuScreen;
 import com.nopalsoft.clumsy.screens.Screens;
@@ -136,7 +136,7 @@ public class GameScreenArcade extends Screens {
                 fadeOutButtons();
                 state = STATE_TRY_AGAIN;
                 Assets.playSound(Assets.swooshing);
-                changeScreenWithFadeOut(GameScreenClassic.class, game);
+                changeScreenWithFadeOut(ClassicGameScreen.class, game);
             }
         });
 
@@ -441,7 +441,6 @@ public class GameScreenArcade extends Screens {
     }
 
     private void drawReady(float delta) {
-        // if (oWorld.oUfo != null)
         oWorld.oUfo.update(delta, null);
     }
 

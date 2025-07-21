@@ -21,7 +21,7 @@ import com.nopalsoft.clumsy.objects.Ufo;
 import com.nopalsoft.clumsy.screens.MainMenuScreen;
 import com.nopalsoft.clumsy.screens.Screens;
 
-public class GameScreenClassic extends Screens {
+public class ClassicGameScreen extends Screens {
     static final int STATE_READY = 1;
     static final int STATE_RUNNING = 2;
     static final int STATE_PAUSED = 3;
@@ -35,20 +35,20 @@ public class GameScreenClassic extends Screens {
     WorldGameClassic oWorld;
     WorldGameRenderer renderer;
     boolean salto;
-    Image flashazo;
-    /* Game Over */
-    Group medallsFondo;
-    Image gameOver;
-    /* Ready */
-    Image getReady;
-    Image tapCat;
-    Button btPlayClassic, btPlayArcade, btScore;
-    Button btRate, btRestorePurchases, btNoAds;
-    Table bottomMenu;// rate,ads,restore purchses
-    Button btShareFacebook, btShareTwitter;
+    Image hurtFlashImage;
+
+    Group GameOverBackground;
+    Image gameOverImage;
+
+    Image getReadyImage;
+    Image tapCatImage;
+    Button buttonPlayClassic, buttonPlayArcade, buttonScore;
+    Button buttonRate, buttonRestorePurchases, buttonNoAds;
+    Table bottomMenu;
+    Button buttonShareFacebook, buttonShareTwitter;
     float timeIncGameOver;
 
-    public GameScreenClassic(final ClumsyUfoGame game) {
+    public ClassicGameScreen(final ClumsyUfoGame game) {
         super(game);
         Settings.numberOfTimesPlayed++;
         oWorld = new WorldGameClassic();
@@ -57,105 +57,105 @@ public class GameScreenClassic extends Screens {
         comenzarIncrementarPuntuacionGameOver = false;
         timeIncGameOver = 0;
 
-        flashazo = new Image(Assets.whiteDrawable);
-        flashazo.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        flashazo.addAction(Actions.sequence(Actions.fadeOut(Ufo.HURT_DURATION),
+        hurtFlashImage = new Image(Assets.whiteDrawable);
+        hurtFlashImage.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        hurtFlashImage.addAction(Actions.sequence(Actions.fadeOut(Ufo.HURT_DURATION),
                 Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                        flashazo.remove();
+                        hurtFlashImage.remove();
                     }
                 })));
 
-        inicializarGameOver();
-        inicializarReady();
+        initializeGameOverScreen();
+        setupReadyScreen();
     }
 
-    private void inicializarReady() {
-        getReady = new Image(Assets.getReady);
-        getReady.setSize(320, 100);
-        getReady.setPosition(SCREEN_WIDTH / 2f - 160, SCREEN_HEIGHT / 2f + 50);
-        getReady.getColor().a = 0;
-        getReady.addAction(Actions.fadeIn(.4f));
+    private void setupReadyScreen() {
+        getReadyImage = new Image(Assets.getReady);
+        getReadyImage.setSize(320, 100);
+        getReadyImage.setPosition(SCREEN_WIDTH / 2f - 160, SCREEN_HEIGHT / 2f + 50);
+        getReadyImage.getColor().a = 0;
+        getReadyImage.addAction(Actions.fadeIn(.4f));
 
-        tapCat = new Image(Assets.tapCat);
-        tapCat.setSize(150, 140);
-        tapCat.setPosition(SCREEN_WIDTH / 2f - 75, SCREEN_HEIGHT / 2f - 100);
-        tapCat.getColor().a = 0;
-        tapCat.addAction(Actions.fadeIn(.4f));
+        tapCatImage = new Image(Assets.tapCat);
+        tapCatImage.setSize(150, 140);
+        tapCatImage.setPosition(SCREEN_WIDTH / 2f - 75, SCREEN_HEIGHT / 2f - 100);
+        tapCatImage.getColor().a = 0;
+        tapCatImage.addAction(Actions.fadeIn(.4f));
 
-        stage.addActor(getReady);
-        stage.addActor(tapCat);
+        stage.addActor(getReadyImage);
+        stage.addActor(tapCatImage);
     }
 
-    private void inicializarGameOver() {
-        medallsFondo = new Group();
-        medallsFondo.setSize(400, 200);
+    private void initializeGameOverScreen() {
+        GameOverBackground = new Group();
+        GameOverBackground.setSize(400, 200);
         Image background = new Image(Assets.medalsBackground);
-        background.setSize(medallsFondo.getWidth(), medallsFondo.getHeight());
-        medallsFondo.setPosition(SCREEN_WIDTH / 2f - 200, -201);
-        medallsFondo.addActor(background);
+        background.setSize(GameOverBackground.getWidth(), GameOverBackground.getHeight());
+        GameOverBackground.setPosition(SCREEN_WIDTH / 2f - 200, -201);
+        GameOverBackground.addActor(background);
 
         MoveToAction action = Actions.action(MoveToAction.class);
         action.setInterpolation(Interpolation.sine);
         action.setPosition(SCREEN_WIDTH / 2f - 200, 385);
         action.setDuration(.25f);
-        medallsFondo.addAction(Actions.sequence(action, Actions.delay(.1f),
+        GameOverBackground.addAction(Actions.sequence(action, Actions.delay(.1f),
                 Actions.run(new Runnable() {
 
                     @Override
                     public void run() {
                         comenzarIncrementarPuntuacionGameOver = true;
                         if (numIncGameOver == oWorld.score) {
-                            stage.addActor(btPlayClassic);
-                            stage.addActor(btPlayArcade);
-                            stage.addActor(btScore);
-                            stage.addActor(btShareFacebook);
-                            stage.addActor(btShareTwitter);
+                            stage.addActor(buttonPlayClassic);
+                            stage.addActor(buttonPlayArcade);
+                            stage.addActor(buttonScore);
+                            stage.addActor(buttonShareFacebook);
+                            stage.addActor(buttonShareTwitter);
                             stage.addActor(bottomMenu);
                         }
                     }
                 })));
 
-        btPlayClassic = new Button(new TextureRegionDrawable(
+        buttonPlayClassic = new Button(new TextureRegionDrawable(
                 Assets.buttonPlayClassic));
-        btPlayClassic.setSize(160, 95);
-        btPlayClassic.setPosition(75, 280);
-        btPlayClassic.addListener(new InputListener() {
+        buttonPlayClassic.setSize(160, 95);
+        buttonPlayClassic.setPosition(75, 280);
+        buttonPlayClassic.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
                                      int pointer, int button) {
-                btPlayClassic.setPosition(75, 277);
+                buttonPlayClassic.setPosition(75, 277);
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y,
                                 int pointer, int button) {
-                btPlayClassic.setPosition(75, 280);
+                buttonPlayClassic.setPosition(75, 280);
                 fadeOutButtons();
                 state = STATE_TRY_AGAIN;
                 Assets.playSound(Assets.swooshing);
-                changeScreenWithFadeOut(GameScreenClassic.class, game);
+                changeScreenWithFadeOut(ClassicGameScreen.class, game);
             }
         });
 
-        btPlayArcade = new Button(
+        buttonPlayArcade = new Button(
                 new TextureRegionDrawable(Assets.buttonPlayArcade));
-        btPlayArcade.setSize(160, 95);
-        btPlayArcade.setPosition(250, 280);
-        btPlayArcade.addListener(new InputListener() {
+        buttonPlayArcade.setSize(160, 95);
+        buttonPlayArcade.setPosition(250, 280);
+        buttonPlayArcade.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
                                      int pointer, int button) {
-                btPlayArcade.setPosition(250, 277);
+                buttonPlayArcade.setPosition(250, 277);
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y,
                                 int pointer, int button) {
-                btPlayArcade.setPosition(250, 280);
+                buttonPlayArcade.setPosition(250, 280);
                 fadeOutButtons();
                 state = STATE_TRY_AGAIN;
                 Assets.playSound(Assets.swooshing);
@@ -163,115 +163,115 @@ public class GameScreenClassic extends Screens {
             }
         });
 
-        btScore = new Button(new TextureRegionDrawable(Assets.buttonLeaderboard));
-        btScore.setSize(160, 95);
-        btScore.setPosition(130, 180);
-        btScore.addListener(new InputListener() {
+        buttonScore = new Button(new TextureRegionDrawable(Assets.buttonLeaderboard));
+        buttonScore.setSize(160, 95);
+        buttonScore.setPosition(130, 180);
+        buttonScore.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
                                      int pointer, int button) {
-                btScore.setPosition(btScore.getX(), btScore.getY() - 3);
+                buttonScore.setPosition(buttonScore.getX(), buttonScore.getY() - 3);
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y,
                                 int pointer, int button) {
-                btScore.setPosition(btScore.getX(), btScore.getY() + 3);
+                buttonScore.setPosition(buttonScore.getX(), buttonScore.getY() + 3);
             }
         });
 
-        btShareFacebook = new Button(new TextureRegionDrawable(
+        buttonShareFacebook = new Button(new TextureRegionDrawable(
                 Assets.buttonFacebook));
-        btShareFacebook.setSize(45, 45);
-        btShareFacebook.setPosition(295, 230);
-        btShareFacebook.addListener(new InputListener() {
+        buttonShareFacebook.setSize(45, 45);
+        buttonShareFacebook.setPosition(295, 230);
+        buttonShareFacebook.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
                                      int pointer, int button) {
-                btShareFacebook.setPosition(295, 227);
+                buttonShareFacebook.setPosition(295, 227);
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y,
                                 int pointer, int button) {
-                btShareFacebook.setPosition(295, 230);
+                buttonShareFacebook.setPosition(295, 230);
             }
         });
 
-        btShareTwitter = new Button(new TextureRegionDrawable(Assets.buttonTwitter));
-        btShareTwitter.setSize(45, 45);
-        btShareTwitter.setPosition(295, 181f);
-        btShareTwitter.addListener(new InputListener() {
+        buttonShareTwitter = new Button(new TextureRegionDrawable(Assets.buttonTwitter));
+        buttonShareTwitter.setSize(45, 45);
+        buttonShareTwitter.setPosition(295, 181f);
+        buttonShareTwitter.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
                                      int pointer, int button) {
-                btShareTwitter.setPosition(btShareTwitter.getX(),
-                        btShareTwitter.getY() - 3);
+                buttonShareTwitter.setPosition(buttonShareTwitter.getX(),
+                        buttonShareTwitter.getY() - 3);
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y,
                                 int pointer, int button) {
-                btShareTwitter.setPosition(btShareTwitter.getX(),
-                        btShareTwitter.getY() + 3);
+                buttonShareTwitter.setPosition(buttonShareTwitter.getX(),
+                        buttonShareTwitter.getY() + 3);
             }
         });
 
-        btRate = new Button(new TextureRegionDrawable(Assets.buttonRate));
-        btRate.setSize(60, 60);
-        btRate.addListener(new InputListener() {
+        buttonRate = new Button(new TextureRegionDrawable(Assets.buttonRate));
+        buttonRate.setSize(60, 60);
+        buttonRate.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
                                      int pointer, int button) {
-                btRate.setPosition(btRate.getX(), btRate.getY() - 3);
+                buttonRate.setPosition(buttonRate.getX(), buttonRate.getY() - 3);
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y,
                                 int pointer, int button) {
-                btRate.setPosition(btRate.getX(), btRate.getY() + 3);
+                buttonRate.setPosition(buttonRate.getX(), buttonRate.getY() + 3);
             }
         });
 
-        btNoAds = new Button(new TextureRegionDrawable(Assets.buttonNoAds));
+        buttonNoAds = new Button(new TextureRegionDrawable(Assets.buttonNoAds));
         if (Settings.didBuyNoAds)
-            btNoAds.setVisible(false);
-        btNoAds.setSize(60, 60);
-        btNoAds.addListener(new InputListener() {
+            buttonNoAds.setVisible(false);
+        buttonNoAds.setSize(60, 60);
+        buttonNoAds.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
                                      int pointer, int button) {
-                btNoAds.setPosition(btNoAds.getX(), btNoAds.getY() - 3);
+                buttonNoAds.setPosition(buttonNoAds.getX(), buttonNoAds.getY() - 3);
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y,
                                 int pointer, int button) {
-                btNoAds.setPosition(btNoAds.getX(), btNoAds.getY() + 3);
+                buttonNoAds.setPosition(buttonNoAds.getX(), buttonNoAds.getY() + 3);
             }
         });
 
-        btRestorePurchases = new Button(new TextureRegionDrawable(Assets.buttonRestorePurchases));
-        btRestorePurchases.setSize(60, 60);
-        btRestorePurchases.addListener(new InputListener() {
+        buttonRestorePurchases = new Button(new TextureRegionDrawable(Assets.buttonRestorePurchases));
+        buttonRestorePurchases.setSize(60, 60);
+        buttonRestorePurchases.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y,
                                      int pointer, int button) {
-                btRestorePurchases.setPosition(btRestorePurchases.getX(),
-                        btRestorePurchases.getY() - 3);
+                buttonRestorePurchases.setPosition(buttonRestorePurchases.getX(),
+                        buttonRestorePurchases.getY() - 3);
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y,
                                 int pointer, int button) {
-                btRestorePurchases.setPosition(btRestorePurchases.getX(),
-                        btRestorePurchases.getY() + 3);
+                buttonRestorePurchases.setPosition(buttonRestorePurchases.getX(),
+                        buttonRestorePurchases.getY() + 3);
             }
         });
 
@@ -279,24 +279,24 @@ public class GameScreenClassic extends Screens {
         bottomMenu.setPosition(1, 1);
         bottomMenu.defaults().padRight(2.5f);
 
-        bottomMenu.add(btRate);
-        bottomMenu.add(btRestorePurchases);
-        bottomMenu.add(btNoAds);
+        bottomMenu.add(buttonRate);
+        bottomMenu.add(buttonRestorePurchases);
+        bottomMenu.add(buttonNoAds);
         bottomMenu.pack();
 
-        gameOver = new Image(Assets.gameover);
-        gameOver.setSize(320, 100);
-        gameOver.setPosition(SCREEN_WIDTH / 2f - 160, 600);
+        gameOverImage = new Image(Assets.gameover);
+        gameOverImage.setSize(320, 100);
+        gameOverImage.setPosition(SCREEN_WIDTH / 2f - 160, 600);
     }
 
     private void fadeOutButtons() {
-        medallsFondo.addAction(Actions.fadeOut(.2f));
-        btPlayClassic.addAction(Actions.fadeOut(.2f));
-        btPlayArcade.addAction(Actions.fadeOut(.2f));
-        btScore.addAction(Actions.fadeOut(.2f));
-        gameOver.addAction(Actions.fadeOut(.2f));
-        btShareFacebook.addAction(Actions.fadeOut(.2f));
-        btShareTwitter.addAction(Actions.fadeOut(.2f));
+        GameOverBackground.addAction(Actions.fadeOut(.2f));
+        buttonPlayClassic.addAction(Actions.fadeOut(.2f));
+        buttonPlayArcade.addAction(Actions.fadeOut(.2f));
+        buttonScore.addAction(Actions.fadeOut(.2f));
+        gameOverImage.addAction(Actions.fadeOut(.2f));
+        buttonShareFacebook.addAction(Actions.fadeOut(.2f));
+        buttonShareTwitter.addAction(Actions.fadeOut(.2f));
         bottomMenu.addAction(Actions.fadeOut(.2f));
     }
 
@@ -304,7 +304,7 @@ public class GameScreenClassic extends Screens {
     public void update(float delta) {
 
         if (Settings.didBuyNoAds)
-            btNoAds.setVisible(false);
+            buttonNoAds.setVisible(false);
 
         switch (state) {
             case STATE_READY:
@@ -323,8 +323,8 @@ public class GameScreenClassic extends Screens {
 
     private void updateReady() {
         if (Gdx.input.justTouched()) {
-            getReady.remove();
-            tapCat.remove();
+            getReadyImage.remove();
+            tapCatImage.remove();
             state = STATE_RUNNING;
         }
     }
@@ -339,11 +339,11 @@ public class GameScreenClassic extends Screens {
             numIncGameOver++;
 
             if (numIncGameOver == oWorld.score) {
-                stage.addActor(btPlayClassic);
-                stage.addActor(btScore);
-                stage.addActor(btPlayArcade);
-                stage.addActor(btShareFacebook);
-                stage.addActor(btShareTwitter);
+                stage.addActor(buttonPlayClassic);
+                stage.addActor(buttonScore);
+                stage.addActor(buttonPlayArcade);
+                stage.addActor(buttonShareFacebook);
+                stage.addActor(buttonShareTwitter);
                 stage.addActor(bottomMenu);
 
                 if (oWorld.score >= 10) {
@@ -360,7 +360,7 @@ public class GameScreenClassic extends Screens {
                     Image medalla = new Image(med);
                     medalla.setSize(90, 90);
                     medalla.setPosition(45, 47);
-                    medallsFondo.addActor(medalla);
+                    GameOverBackground.addActor(medalla);
                 }
             }
         }
@@ -374,7 +374,7 @@ public class GameScreenClassic extends Screens {
         oWorld.update(delta, salto);
 
         if (oWorld.oUfo.state == Ufo.STATE_HURT) {
-            stage.addActor(flashazo);
+            stage.addActor(hurtFlashImage);
             oWorld.oUfo.die();
         }
 
@@ -389,8 +389,8 @@ public class GameScreenClassic extends Screens {
         state = STATE_GAME_OVER;
         if (Settings.bestScoreClassic < oWorld.score)
             Settings.bestScoreClassic = oWorld.score;
-        stage.addActor(medallsFondo);
-        stage.addActor(gameOver);
+        stage.addActor(GameOverBackground);
+        stage.addActor(gameOverImage);
     }
 
     @Override
@@ -432,11 +432,11 @@ public class GameScreenClassic extends Screens {
 
     private void drawGameover() {
         drawSmallScoreRightAligned(
-                medallsFondo.getX() + medallsFondo.getWidth() - 30,
-                medallsFondo.getY() + 40, Settings.bestScoreClassic);
+                GameOverBackground.getX() + GameOverBackground.getWidth() - 30,
+                GameOverBackground.getY() + 40, Settings.bestScoreClassic);
         drawSmallScoreRightAligned(
-                medallsFondo.getX() + medallsFondo.getWidth() - 30,
-                medallsFondo.getY() + 110, numIncGameOver);
+                GameOverBackground.getX() + GameOverBackground.getWidth() - 30,
+                GameOverBackground.getY() + 110, numIncGameOver);
     }
 
     private void drawReady(float delta) {

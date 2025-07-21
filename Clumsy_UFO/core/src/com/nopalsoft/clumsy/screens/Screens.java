@@ -15,7 +15,7 @@ import com.nopalsoft.clumsy.Assets;
 import com.nopalsoft.clumsy.ClumsyUfoGame;
 import com.nopalsoft.clumsy.Settings;
 import com.nopalsoft.clumsy.game.arcade.GameScreenArcade;
-import com.nopalsoft.clumsy.game.classic.GameScreenClassic;
+import com.nopalsoft.clumsy.game.classic.ClassicGameScreen;
 
 import java.util.Random;
 
@@ -84,8 +84,8 @@ public abstract class Screens extends InputAdapter implements Screen {
                 Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                        if (newScreen == GameScreenClassic.class)
-                            game.setScreen(new GameScreenClassic(game));
+                        if (newScreen == ClassicGameScreen.class)
+                            game.setScreen(new ClassicGameScreen(game));
                         else if (newScreen == MainMenuScreen.class)
                             game.setScreen(new MainMenuScreen(game));
                         else if (newScreen == GameScreenArcade.class)

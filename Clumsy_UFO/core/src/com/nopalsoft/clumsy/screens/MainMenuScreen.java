@@ -12,7 +12,7 @@ import com.nopalsoft.clumsy.Assets;
 import com.nopalsoft.clumsy.ClumsyUfoGame;
 import com.nopalsoft.clumsy.Settings;
 import com.nopalsoft.clumsy.game.arcade.GameScreenArcade;
-import com.nopalsoft.clumsy.game.classic.GameScreenClassic;
+import com.nopalsoft.clumsy.game.classic.ClassicGameScreen;
 import com.nopalsoft.clumsy.objects.Ufo;
 
 public class MainMenuScreen extends Screens {
@@ -46,7 +46,7 @@ public class MainMenuScreen extends Screens {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 buttonPlayClassic.setPosition(75, 280);
                 Assets.playSound(Assets.swooshing);
-                changeScreenWithFadeOut(GameScreenClassic.class, game);
+                changeScreenWithFadeOut(ClassicGameScreen.class, game);
             }
         });
 

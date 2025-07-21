@@ -49,7 +49,7 @@ public class WorldGameClassic {
 
     public WorldGameClassic() {
         oWorldBox = new World(new Vector2(0, -13.0f), true);
-        oWorldBox.setContactListener(new ColisionesClassic(this));
+        oWorldBox.setContactListener(new ClassicGameCollisionHandler(this));
 
         arrTuberias = new Array<>();
         arrBodies = new Array<>();

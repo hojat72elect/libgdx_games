@@ -23,14 +23,14 @@ public class WorldGameRendererArcade {
 
     SpriteBatch batcher;
     WorldGameArcade oWorld;
-    OrthographicCamera OrthoCam;
+    OrthographicCamera camera;
 
     Box2DDebugRenderer renderBox;
 
     public WorldGameRendererArcade(SpriteBatch batcher, WorldGameArcade oWorld) {
 
-        this.OrthoCam = new OrthographicCamera(WIDTH, HEIGHT);
-        this.OrthoCam.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
+        this.camera = new OrthographicCamera(WIDTH, HEIGHT);
+        this.camera.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
         this.batcher = batcher;
         this.oWorld = oWorld;
         this.renderBox = new Box2DDebugRenderer();
@@ -38,19 +38,19 @@ public class WorldGameRendererArcade {
 
     public void render() {
 
-        OrthoCam.update();
-        batcher.setProjectionMatrix(OrthoCam.combined);
+        camera.update();
+        batcher.setProjectionMatrix(camera.combined);
 
         batcher.begin();
         batcher.disableBlending();
         batcher.enableBlending();
-        drawMeteoro();
-        drawArcoiris();
+        drawAsteroids();
+        drawRainbowTail();
         drawBird();
         batcher.end();
     }
 
-    private void drawArcoiris() {
+    private void drawRainbowTail() {
         for (Tail obj : oWorld.arrTail) {
             batcher.draw(Assets.rainbowLight, obj.position.x - .15f, obj.position.y - .12f, .3f, .24f);
         }
@@ -69,7 +69,7 @@ public class WorldGameRendererArcade {
                 (float) Math.toDegrees(obj.angleRad));
     }
 
-    private void drawMeteoro() {
+    private void drawAsteroids() {
         for (Asteroid0 obj : oWorld.arrMeteoros) {
             if (obj instanceof Asteroid1) {
                 batcher.draw(Assets.meteor1, obj.position.x - .07f, obj.position.y - .07f, .07f, .07f, .14f, .14f, 1,

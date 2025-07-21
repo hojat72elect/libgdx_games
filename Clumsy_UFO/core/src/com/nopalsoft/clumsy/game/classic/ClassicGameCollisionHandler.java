@@ -9,11 +9,11 @@ import com.nopalsoft.clumsy.Assets;
 import com.nopalsoft.clumsy.objects.ScoreKeeper;
 import com.nopalsoft.clumsy.objects.Ufo;
 
-public class ColisionesClassic implements ContactListener {
+public class ClassicGameCollisionHandler implements ContactListener {
 
     WorldGameClassic oWorld;
 
-    public ColisionesClassic(WorldGameClassic oWorld) {
+    public ClassicGameCollisionHandler(WorldGameClassic oWorld) {
         this.oWorld = oWorld;
     }
 

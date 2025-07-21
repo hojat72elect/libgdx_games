@@ -217,7 +217,7 @@ public class WorldGameArcade {
     public void update(float delta, boolean jump) {
         oWorldBox.step(delta, 8, 4); // para hacer mas lento el juego 1/300f
 
-        eliminarObjetos();
+        cleanupGameObjects();
 
         timeToSpawnMeteor += delta;
 
@@ -230,27 +230,27 @@ public class WorldGameArcade {
 
         for (Body body : arrBodies) {
             if (body.getUserData() instanceof Ufo) {
-                updateGato(body, delta, jump);
+                updateUfo(body, delta, jump);
             } else if (body.getUserData() instanceof Asteroid0) {
                 updateMetoro(body, delta);
             }
         }
 
-        updateArcoiris(delta);
+        updateRainbowTail(delta);
 
         if (oUfo.state == Ufo.STATE_NORMAL) {
             score += delta * 5;
         }
     }
 
-    private void updateArcoiris(float delta) {
+    private void updateRainbowTail(float delta) {
         timeToSpawnArcoiris += delta;
 
         if (timeToSpawnArcoiris >= TIME_TO_SPAWN_ARCOIRIS) {
             timeToSpawnArcoiris -= TIME_TO_SPAWN_ARCOIRIS;
-            Tail oArco = arcoirisPool.obtain();
-            oArco.init(oUfo.position.x, oUfo.position.y);
-            arrTail.add(oArco);
+            Tail tail = arcoirisPool.obtain();
+            tail.init(oUfo.position.x, oUfo.position.y);
+            arrTail.add(tail);
         }
 
         Iterator<Tail> i = arrTail.iterator();
@@ -265,7 +265,7 @@ public class WorldGameArcade {
         }
     }
 
-    private void eliminarObjetos() {
+    private void cleanupGameObjects() {
         oWorldBox.getBodies(arrBodies);
 
         for (Body body : arrBodies) {
@@ -287,7 +287,7 @@ public class WorldGameArcade {
         }
     }
 
-    private void updateGato(Body body, float delta, boolean jump) {
+    private void updateUfo(Body body, float delta, boolean jump) {
         Ufo obj = (Ufo) body.getUserData();
 
         obj.update(delta, body);
@@ -320,17 +320,17 @@ public class WorldGameArcade {
             Fixture b = contact.getFixtureB();
 
             if (a.getBody().getUserData() instanceof Ufo)
-                beginContactBirdOtraCosa(a, b);
+                handlePlayerCollisions(a, b);
             else if (b.getBody().getUserData() instanceof Ufo)
-                beginContactBirdOtraCosa(b, a);
+                handlePlayerCollisions(b, a);
         }
 
-        private void beginContactBirdOtraCosa(Fixture bird, Fixture otraCosa) {
-            Ufo oUfo = (Ufo) bird.getBody().getUserData();
-            Object oOtraCosa = otraCosa.getBody().getUserData();
+        private void handlePlayerCollisions(Fixture playerFixture, Fixture otherFixture) {
+            Ufo oUfo = (Ufo) playerFixture.getBody().getUserData();
+            Object otherObject = otherFixture.getBody().getUserData();
 
-            if (oOtraCosa instanceof ScoreKeeper) {
-                ScoreKeeper obj = (ScoreKeeper) oOtraCosa;
+            if (otherObject instanceof ScoreKeeper) {
+                ScoreKeeper obj = (ScoreKeeper) otherObject;
                 if (obj.state == ScoreKeeper.STATE_NORMAL) {
                     obj.state = ScoreKeeper.STATE_DESTROY;
                     Assets.playSound(Assets.point);
@@ -350,14 +350,10 @@ public class WorldGameArcade {
 
         @Override
         public void preSolve(Contact contact, Manifold oldManifold) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void postSolve(Contact contact, ContactImpulse impulse) {
-            // TODO Auto-generated method stub
-
         }
     }
 }
