@@ -29,32 +29,24 @@ public class GameScreenClassic extends Screens {
     static final int STATE_TRY_AGAIN = 5;
 
     static int state;
-
+    final float TIME_INC_GAMEOVER = .035f;
+    public int numIncGameOver;
+    public boolean comenzarIncrementarPuntuacionGameOver;
     WorldGameClassic oWorld;
     WorldGameRenderer renderer;
-
     boolean salto;
-
     Image flashazo;
-
     /* Game Over */
     Group medallsFondo;
     Image gameOver;
-
     /* Ready */
     Image getReady;
     Image tapCat;
-
     Button btPlayClassic, btPlayArcade, btScore;
     Button btRate, btRestorePurchases, btNoAds;
     Table bottomMenu;// rate,ads,restore purchses
-
     Button btShareFacebook, btShareTwitter;
-
-    final float TIME_INC_GAMEOVER = .035f;
     float timeIncGameOver;
-    public int numIncGameOver;
-    public boolean comenzarIncrementarPuntuacionGameOver;
 
     public GameScreenClassic(final MainClumsy game) {
         super(game);
@@ -316,7 +308,7 @@ public class GameScreenClassic extends Screens {
 
         switch (state) {
             case STATE_READY:
-                updateReady(delta);
+                updateReady();
                 break;
             case STATE_RUNNING:
                 updateRunning(delta);
@@ -329,7 +321,7 @@ public class GameScreenClassic extends Screens {
         }
     }
 
-    private void updateReady(float delta) {
+    private void updateReady() {
         if (Gdx.input.justTouched()) {
             getReady.remove();
             tapCat.remove();
@@ -411,7 +403,7 @@ public class GameScreenClassic extends Screens {
         batcher.draw(Assets.fondo, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         batcher.end();
 
-        renderer.render(delta);
+        renderer.render();
         Assets.parallaxFondo.render(delta);
 
         oCam.update();
@@ -433,12 +425,12 @@ public class GameScreenClassic extends Screens {
 
         if (state == STATE_GAME_OVER) {
             batcher.begin();
-            drawGameover(delta);
+            drawGameover();
             batcher.end();
         }
     }
 
-    private void drawGameover(float delta) {
+    private void drawGameover() {
         drawPuntuacionChicoOrigenDerecha(
                 medallsFondo.getX() + medallsFondo.getWidth() - 30,
                 medallsFondo.getY() + 40, Settings.bestScoreClassic);
@@ -448,7 +440,6 @@ public class GameScreenClassic extends Screens {
     }
 
     private void drawReady(float delta) {
-        // if (oWorld.oUfo != null)
         oWorld.oUfo.update(delta, null);
     }
 

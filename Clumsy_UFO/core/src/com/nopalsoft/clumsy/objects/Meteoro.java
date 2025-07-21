@@ -7,8 +7,6 @@ import com.nopalsoft.clumsy.game.arcade.WorldGameArcade;
 
 public abstract class Meteoro implements Poolable {
 
-    public static float VELOCIDAD_X = -1f;
-
     public static int STATE_NORMAL = 0;
     public static int STATE_DESTROY = 1;
     public int state;
@@ -28,7 +26,5 @@ public abstract class Meteoro implements Poolable {
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
-
     }
 }

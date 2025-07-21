@@ -5,19 +5,12 @@ import com.badlogic.gdx.Preferences;
 
 public class Settings {
 
-    /**
-     * Se modifica esta variable para modificar cada cuantos juegos se muestra el interstitial
-     */
-    public static int MOSTRAR_ADD_CADA_N_INTENTOS = 10;
-
+    private final static String prefName = "com.nopalsoft.clumsyufo";
+    private final static Preferences pref = Gdx.app.getPreferences(prefName);
     public static boolean didBuyNoAds = false;
-
     public static int bestScoreArcade = 0;
     public static int bestScoreClassic = 0;
     public static int numVecesJugadas = 0;
-
-    private final static String prefName = "com.nopalsoft.clumsyufo";
-    private final static Preferences pref = Gdx.app.getPreferences(prefName);
 
     public static void load() {
         bestScoreArcade = pref.getInteger("bestScoreArcade", 0);

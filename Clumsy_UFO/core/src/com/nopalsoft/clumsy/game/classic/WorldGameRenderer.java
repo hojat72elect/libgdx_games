@@ -10,8 +10,6 @@ import com.nopalsoft.clumsy.objects.Tail;
 import com.nopalsoft.clumsy.objects.Ufo;
 import com.nopalsoft.clumsy.screens.Screens;
 
-import java.util.Iterator;
-
 public class WorldGameRenderer {
 
     final float WIDTH = Screens.WORLD_SCREEN_WIDTH;
@@ -32,33 +30,27 @@ public class WorldGameRenderer {
         this.renderBox = new Box2DDebugRenderer();
     }
 
-    public void render(float delta) {
+    public void render() {
 
         OrthoCam.update();
         batcher.setProjectionMatrix(OrthoCam.combined);
 
         batcher.begin();
         batcher.disableBlending();
-        renderBackground(delta);
         batcher.enableBlending();
-        drawTuberia(delta);
+        drawTuberia();
         drawArcoiris();
-        drawBird(delta);
-
+        drawBird();
         batcher.end();
-
-        // renderBox.render(oWorld.oWorldBox, OrthoCam.combined);
     }
 
     private void drawArcoiris() {
-        Iterator<Tail> i = oWorld.arrTail.iterator();
-        while (i.hasNext()) {
-            Tail obj = i.next();
+        for (Tail obj : oWorld.arrTail) {
             batcher.draw(Assets.arcoiris, obj.position.x - .15f, obj.position.y - .12f, .3f, .24f);
         }
     }
 
-    private void drawBird(float delta) {
+    private void drawBird() {
         Ufo obj = oWorld.oUfo;
         TextureRegion keyFrame;
 
@@ -71,19 +63,12 @@ public class WorldGameRenderer {
                 (float) Math.toDegrees(obj.angleRad));
     }
 
-    private void drawTuberia(float delta) {
-        Iterator<Pipes> i = oWorld.arrTuberias.iterator();
-        while (i.hasNext()) {
-            Pipes obj = i.next();
+    private void drawTuberia() {
+        for (Pipes obj : oWorld.arrTuberias) {
             if (obj.tipo == Pipes.TIPO_ABAJO)
                 batcher.draw(Assets.tuboAbajo, obj.position.x - .35f, obj.position.y - 2f, .7f, 4);
             else
                 batcher.draw(Assets.tuboArriba, obj.position.x - .35f, obj.position.y - 2f, .7f, 4);
         }
-    }
-
-    private void renderBackground(float delta) {
-        // batcher.draw(Assets.fondo, 0, 0, WIDTH, HEIGHT);
-
     }
 }

@@ -10,11 +10,11 @@ import com.nopalsoft.clumsy.screens.Screens;
 
 public class MainClumsy extends Game {
 
-    public MainClumsy() {
-    }
-
     public Stage stage;
     public SpriteBatch batcher;
+
+    public MainClumsy() {
+    }
 
     @Override
     public void create() {

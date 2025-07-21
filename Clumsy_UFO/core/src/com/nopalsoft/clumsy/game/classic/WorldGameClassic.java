@@ -23,36 +23,27 @@ import java.util.Random;
 
 public class WorldGameClassic {
 
-    final float WIDTH = Screens.WORLD_SCREEN_WIDTH;
-    final float HEIGHT = Screens.WORLD_SCREEN_HEIGHT;
-
     static final int STATE_RUNNING = 0;
     static final int STATE_GAMEOVER = 1;
-    public int state;
-
+    final float WIDTH = Screens.WORLD_SCREEN_WIDTH;
+    final float HEIGHT = Screens.WORLD_SCREEN_HEIGHT;
     final float TIME_TO_SPAWN_PIPE = 1.35f;// Time between pipes, change this to increase or decrase gap between pipes.
-    float timeToSpawnPipe;
-
     final float TIME_TO_SPAWN_ARCOIRIS = .005f;
-    float timeToSpawnArcoiris;
-
-    public World oWorldBox;
-
-    public int score;
-
-    Ufo oUfo;
-    Array<Pipes> arrTuberias;
-    Array<Body> arrBodies;
-
-    Array<Tail> arrTail;
-
     private final Pool<Tail> arcoirisPool = new Pool<Tail>() {
         @Override
         protected Tail newObject() {
             return new Tail();
         }
     };
-
+    public int state;
+    public World oWorldBox;
+    public int score;
+    float timeToSpawnPipe;
+    float timeToSpawnArcoiris;
+    Ufo oUfo;
+    Array<Pipes> arrTuberias;
+    Array<Body> arrBodies;
+    Array<Tail> arrTail;
     Random oRan;
 
 
@@ -60,9 +51,9 @@ public class WorldGameClassic {
         oWorldBox = new World(new Vector2(0, -13.0f), true);
         oWorldBox.setContactListener(new ColisionesClassic(this));
 
-        arrTuberias = new Array<Pipes>();
-        arrBodies = new Array<Body>();
-        arrTail = new Array<Tail>();
+        arrTuberias = new Array<>();
+        arrBodies = new Array<>();
+        arrTail = new Array<>();
 
         timeToSpawnPipe = 1.5f;
 
@@ -221,17 +212,14 @@ public class WorldGameClassic {
         }
 
         oWorldBox.getBodies(arrBodies);
-        Iterator<Body> i = arrBodies.iterator();
 
-        while (i.hasNext()) {
-            Body body = i.next();
-
+        for (Body body : arrBodies) {
             if (body.getUserData() instanceof Ufo) {
                 updateGato(body, delta, jump);
             } else if (body.getUserData() instanceof Pipes) {
                 updatePlataforma(body, delta);
             } else if (body.getUserData() instanceof Contador) {
-                updateContador(body, delta);
+                updateContador(body);
             }
         }
 
@@ -262,11 +250,8 @@ public class WorldGameClassic {
 
     private void eliminarObjetos() {
         oWorldBox.getBodies(arrBodies);
-        Iterator<Body> i = arrBodies.iterator();
 
-        while (i.hasNext()) {
-            Body body = i.next();
-
+        for (Body body : arrBodies) {
             if (!oWorldBox.isLocked()) {
 
                 if (body.getUserData() instanceof Ufo) {
@@ -274,20 +259,17 @@ public class WorldGameClassic {
                     if (obj.state == Ufo.STATE_DEAD && obj.stateTime >= Ufo.TIEMPO_MUERTO) {
                         oWorldBox.destroyBody(body);
                         state = STATE_GAMEOVER;
-                        continue;
                     }
                 } else if (body.getUserData() instanceof Pipes) {
                     Pipes obj = (Pipes) body.getUserData();
                     if (obj.state == Pipes.STATE_DESTROY) {
                         arrTuberias.removeValue(obj, true);
                         oWorldBox.destroyBody(body);
-                        continue;
                     }
                 } else if (body.getUserData() instanceof Contador) {
                     Contador obj = (Contador) body.getUserData();
                     if (obj.state == Contador.STATE_DESTROY) {
                         oWorldBox.destroyBody(body);
-                        continue;
                     }
                 }
             }
@@ -321,7 +303,7 @@ public class WorldGameClassic {
             body.setLinearVelocity(0, 0);
     }
 
-    private void updateContador(Body body, float delta) {
+    private void updateContador(Body body) {
         if (oUfo.state == Ufo.STATE_NORMAL) {
             Contador obj = (Contador) body.getUserData();
 

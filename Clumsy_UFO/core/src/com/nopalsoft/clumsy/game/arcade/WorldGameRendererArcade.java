@@ -16,8 +16,6 @@ import com.nopalsoft.clumsy.objects.Tail;
 import com.nopalsoft.clumsy.objects.Ufo;
 import com.nopalsoft.clumsy.screens.Screens;
 
-import java.util.Iterator;
-
 public class WorldGameRendererArcade {
 
     final float WIDTH = Screens.WORLD_SCREEN_WIDTH;
@@ -38,33 +36,27 @@ public class WorldGameRendererArcade {
         this.renderBox = new Box2DDebugRenderer();
     }
 
-    public void render(float delta) {
+    public void render() {
 
         OrthoCam.update();
         batcher.setProjectionMatrix(OrthoCam.combined);
 
         batcher.begin();
         batcher.disableBlending();
-        renderBackground(delta);
         batcher.enableBlending();
-        drawMeteoro(delta);
+        drawMeteoro();
         drawArcoiris();
-        drawBird(delta);
-
+        drawBird();
         batcher.end();
-
-        // renderBox.render(oWorld.oWorldBox, OrthoCam.combined);
     }
 
     private void drawArcoiris() {
-        Iterator<Tail> i = oWorld.arrTail.iterator();
-        while (i.hasNext()) {
-            Tail obj = i.next();
+        for (Tail obj : oWorld.arrTail) {
             batcher.draw(Assets.arcoiris, obj.position.x - .15f, obj.position.y - .12f, .3f, .24f);
         }
     }
 
-    private void drawBird(float delta) {
+    private void drawBird() {
         Ufo obj = oWorld.oUfo;
         TextureRegion keyFrame;
 
@@ -77,11 +69,8 @@ public class WorldGameRendererArcade {
                 (float) Math.toDegrees(obj.angleRad));
     }
 
-    private void drawMeteoro(float delta) {
-        Iterator<Meteoro> i = oWorld.arrMeteoros.iterator();
-        while (i.hasNext()) {
-            Meteoro obj = i.next();
-
+    private void drawMeteoro() {
+        for (Meteoro obj : oWorld.arrMeteoros) {
             if (obj instanceof Meteoro1) {
                 batcher.draw(Assets.meteor1, obj.position.x - .07f, obj.position.y - .07f, .07f, .07f, .14f, .14f, 1,
                         1, obj.angleDeg);
@@ -102,10 +91,5 @@ public class WorldGameRendererArcade {
                         1, obj.angleDeg);
             }
         }
-    }
-
-    private void renderBackground(float delta) {
-        // batcher.draw(Assets.fondo, 0, 0, WIDTH, HEIGHT);
-
     }
 }

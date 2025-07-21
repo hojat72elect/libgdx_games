@@ -33,6 +33,7 @@ public abstract class Screens extends InputAdapter implements Screen {
     public Stage stage;
 
     Random oRan;
+    Image blackFadeOut;
 
     public Screens(MainClumsy game) {
         this.stage = game.stage;
@@ -72,8 +73,6 @@ public abstract class Screens extends InputAdapter implements Screen {
         stage.act(delta);
         stage.draw();
     }
-
-    Image blackFadeOut;
 
     public void changeScreenWithFadeOut(final Class<?> newScreen,
                                         final MainClumsy game) {
@@ -181,7 +180,7 @@ public abstract class Screens extends InputAdapter implements Screen {
         String score = String.valueOf(puntuacion);
 
         int len = score.length();
-        float charWidth = 22;
+        float charWidth;
         float textWidth = 0;
         for (int i = len - 1; i >= 0; i--) {
             AtlasRegion keyFrame;

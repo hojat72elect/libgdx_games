@@ -6,16 +6,12 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 public class Ufo {
 
+    public static final float TIEMPO_HURT = .5f;
+    public static final float TIEMPO_MUERTO = .75f;
     public static float VELOCIDAD_JUMP = 5;
-    final private int MAX_ANGLE_DEGREES = 15;// 90
-
     public static int STATE_NORMAL = 0;
     public static int STATE_HURT = 1;
     public static int STATE_DEAD = 2;
-
-    public static final float TIEMPO_HURT = .5f;
-    public static final float TIEMPO_MUERTO = .75f;
-
     public Vector2 position;
 
     public int state;
@@ -39,17 +35,13 @@ public class Ufo {
             angleRad = MathUtils.atan2(-.1f, velocity.y);
             float angleLimitRad;
 
-            // if (state == STATE_NORMAL)
+            int MAX_ANGLE_DEGREES = 15;
             angleLimitRad = (float) Math.toRadians(MAX_ANGLE_DEGREES);
-            // else
-            // angleLimitRad = (float) Math.toRadians(90);
 
             if (angleRad > angleLimitRad)
                 angleRad = angleLimitRad;
             else if (angleRad < -angleLimitRad)
                 angleRad = -angleLimitRad;
-
-            // Gdx.app.log("Angulo", "Angulo " + Math.toDegrees(angleRad) + " Velocidad y " + velocity.y);
         }
 
         stateTime += delta;

@@ -33,87 +33,72 @@ import java.util.Random;
 
 public class WorldGameArcade {
 
-    final float WIDTH = Screens.WORLD_SCREEN_WIDTH;
-    final float HEIGHT = Screens.WORLD_SCREEN_HEIGHT;
-
     static final int STATE_RUNNING = 0;
     static final int STATE_GAMEOVER = 1;
-
+    final float WIDTH = Screens.WORLD_SCREEN_WIDTH;
+    final float HEIGHT = Screens.WORLD_SCREEN_HEIGHT;
     final float TIME_TO_SPAWN_METEOR = .17f;// Time between pipes, change this to increase or decrase gap between pipes.
-    float timeToSpawnMeteor;
-
     final float TIME_TO_SPAWN_ARCOIRIS = .005f;
-    float timeToSpawnArcoiris;
-
-    public World oWorldBox;
-
-    public float score;
-
-    Ufo oUfo;
-    Array<Meteoro> arrMeteoros;
-    Array<Body> arrBodies;
-    Array<Tail> arrTail;
-
     private final Pool<Tail> arcoirisPool = new Pool<Tail>() {
         @Override
         protected Tail newObject() {
             return new Tail();
         }
     };
-
     private final Pool<Meteoro1> meteoro1Pool = new Pool<Meteoro1>() {
         @Override
         protected Meteoro1 newObject() {
             return new Meteoro1();
         }
     };
-
     private final Pool<Meteoro2> meteoro2Pool = new Pool<Meteoro2>() {
         @Override
         protected Meteoro2 newObject() {
             return new Meteoro2();
         }
     };
-
     private final Pool<Meteoro3> meteoro3Pool = new Pool<Meteoro3>() {
         @Override
         protected Meteoro3 newObject() {
             return new Meteoro3();
         }
     };
-
     private final Pool<Meteoro4> meteoro4Pool = new Pool<Meteoro4>() {
         @Override
         protected Meteoro4 newObject() {
             return new Meteoro4();
         }
     };
-
     private final Pool<Meteoro5> meteoro5Pool = new Pool<Meteoro5>() {
         @Override
         protected Meteoro5 newObject() {
             return new Meteoro5();
         }
     };
-
     private final Pool<Meteoro6> meteoro6Pool = new Pool<Meteoro6>() {
         @Override
         protected Meteoro6 newObject() {
             return new Meteoro6();
         }
     };
-
-    Random oRan;
-
+    public World oWorldBox;
+    public float score;
     public int state;
+    float timeToSpawnMeteor;
+    float timeToSpawnArcoiris;
+    Ufo oUfo;
+    Array<Meteoro> arrMeteoros;
+    Array<Body> arrBodies;
+    Array<Tail> arrTail;
+    Random oRan;
 
     public WorldGameArcade() {
         oWorldBox = new World(new Vector2(0, -12.8f), true);
         oWorldBox.setContactListener(new ColisionesArcade());
 
-        arrMeteoros = new Array<Meteoro>();
-        arrBodies = new Array<Body>();
-        arrTail = new Array<Tail>();
+        arrMeteoros = new Array<>();
+        arrBodies = new Array<>();
+        arrTail = new Array<>();
 
         createGato();
         createPiso();
@@ -219,8 +204,8 @@ public class WorldGameArcade {
             case 4:
                 obj = meteoro5Pool.obtain();
                 break;
-            default:
             case 5:
+            default:
                 obj = meteoro6Pool.obtain();
                 break;
         }
@@ -242,11 +227,8 @@ public class WorldGameArcade {
         }
 
         oWorldBox.getBodies(arrBodies);
-        Iterator<Body> i = arrBodies.iterator();
 
-        while (i.hasNext()) {
-            Body body = i.next();
-
+        for (Body body : arrBodies) {
             if (body.getUserData() instanceof Ufo) {
                 updateGato(body, delta, jump);
             } else if (body.getUserData() instanceof Meteoro) {
@@ -285,11 +267,8 @@ public class WorldGameArcade {
 
     private void eliminarObjetos() {
         oWorldBox.getBodies(arrBodies);
-        Iterator<Body> i = arrBodies.iterator();
 
-        while (i.hasNext()) {
-            Body body = i.next();
-
+        for (Body body : arrBodies) {
             if (!oWorldBox.isLocked()) {
 
                 if (body.getUserData() instanceof Ufo) {
@@ -297,13 +276,11 @@ public class WorldGameArcade {
                     if (obj.state == Ufo.STATE_DEAD && obj.stateTime >= Ufo.TIEMPO_MUERTO) {
                         oWorldBox.destroyBody(body);
                         state = STATE_GAMEOVER;
-                        continue;
                     }
                 } else if (body.getUserData() instanceof Meteoro) {
                     Meteoro obj = (Meteoro) body.getUserData();
                     if (obj.state == Meteoro.STATE_DESTROY) {
                         oWorldBox.destroyBody(body);
-                        continue;
                     }
                 }
             }
@@ -335,7 +312,7 @@ public class WorldGameArcade {
             body.setLinearVelocity(0, 0);
     }
 
-    class ColisionesArcade implements ContactListener {
+    static class ColisionesArcade implements ContactListener {
 
         @Override
         public void beginContact(Contact contact) {
