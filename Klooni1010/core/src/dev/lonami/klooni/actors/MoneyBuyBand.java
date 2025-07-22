@@ -1,20 +1,3 @@
-/*
-    1010! Klooni, a free customizable puzzle game for Android and Desktop
-    Copyright (C) 2017-2019  Lonami Exo @ lonami.dev
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package dev.lonami.klooni.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -34,29 +17,23 @@ public class MoneyBuyBand extends Table {
 
     //region Members
 
+    // Milliseconds
+    private final static long SHOW_ONE_CHARACTER_EVERY = 30;
+    private final static long TEMP_TEXT_DELAY = 2 * 1000;
     private final Label infoLabel;
     private final SoftButton confirmButton, cancelButton;
-
+    // Used to interpolate between strings
+    private final StringBuilder shownText;
     private String infoText;
     private boolean showingTemp;
-
     // The theme card that is going to be bought next. We can't
     // only save the Theme because we need to tell the ThemeCard
     // that it was bought so it can reflect the new theme status.
     private ShopCard toBuy;
-
-    // Used to interpolate between strings
-    private final StringBuilder shownText;
-
     // When the next text update will take place
     private long nextTextUpdate;
-
     // When the temporary text should be reverted next
     private long nextTempRevertUpdate;
-
-    // Milliseconds
-    private final static long SHOW_ONE_CHARACTER_EVERY = 30;
-    private final static long TEMP_TEXT_DELAY = 2 * 1000;
 
     //endregion
 

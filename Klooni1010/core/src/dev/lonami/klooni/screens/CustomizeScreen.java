@@ -1,20 +1,3 @@
-/*
-    1010! Klooni, a free customizable puzzle game for Android and Desktop
-    Copyright (C) 2017-2019  Lonami Exo @ lonami.dev
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package dev.lonami.klooni.screens;
 
 
@@ -49,29 +32,24 @@ class CustomizeScreen implements Screen {
 
     //region Members
 
+    // As the examples show on the LibGdx wiki
+    private static final float MIN_DELTA = 1 / 30f;
+    private static final float DRAG_LIMIT_SQ = 20 * 20;
     private final Klooni game;
     private final Stage stage;
-
     private final Screen lastScreen;
-
     private final Table table;
     private final SoftButton toggleShopButton;
     private final VerticalGroup shopGroup; // Showing available themes or effects
     private final ScrollPane shopScroll;
     private final MoneyBuyBand buyBand;
-
     private boolean showingEffectsShop;
-    private int showcaseIndex;
-
-    private float shopDragStartX, shopDragStartY;
 
     //endregion
 
     //region Static members
-
-    // As the examples show on the LibGdx wiki
-    private static final float MIN_DELTA = 1 / 30f;
-    private static final float DRAG_LIMIT_SQ = 20 * 20;
+    private int showcaseIndex;
+    private float shopDragStartX, shopDragStartY;
 
     //endregion
 

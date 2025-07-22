@@ -1,20 +1,3 @@
-/*
-    1010! Klooni, a free customizable puzzle game for Android and Desktop
-    Copyright (C) 2017-2019  Lonami Exo @ lonami.dev
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package dev.lonami.klooni.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -34,28 +17,23 @@ public class TimeScorer extends BaseScorer implements BinSerializable {
 
     //region Members
 
+    private static final long START_TIME = 30 * 1000000000L;
+    // 2 seconds every 10 points: (2/10)*10^9 to get the nanoseconds
+    private static final double SCORE_TO_NANOS = 0.2e+09d;
+    private static final double NANOS_TO_SECONDS = 1e-09d;
     private final Label timeLeftLabel;
-
     private long startTime;
     private int highScore;
-
-    // Indicates where we would die in time. Score adds to this, so we take
-    // longer to die. To get the "score" we simply calculate `deadTime - startTime`
-    private long deadTime;
-
-    // We need to know when the game was paused to "stop" counting
-    private long pauseTime;
-    private int pausedTimeLeft;
 
     //endregion
 
     //region Static variables
-
-    private static final long START_TIME = 30 * 1000000000L;
-
-    // 2 seconds every 10 points: (2/10)*10^9 to get the nanoseconds
-    private static final double SCORE_TO_NANOS = 0.2e+09d;
-    private static final double NANOS_TO_SECONDS = 1e-09d;
+    // Indicates where we would die in time. Score adds to this, so we take
+    // longer to die. To get the "score" we simply calculate `deadTime - startTime`
+    private long deadTime;
+    // We need to know when the game was paused to "stop" counting
+    private long pauseTime;
+    private int pausedTimeLeft;
 
     //endregion
 

@@ -1,20 +1,3 @@
-/*
-    1010! Klooni, a free customizable puzzle game for Android and Desktop
-    Copyright (C) 2017-2019  Lonami Exo @ lonami.dev
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package dev.lonami.klooni;
 
 import com.badlogic.gdx.Gdx;
@@ -35,40 +18,38 @@ public class Theme {
 
     //region Members
 
-    private String displayName;
-    private String name;
-    private int price;
-
+    // Used to determine the best foreground color (black or white) given a background color
+    // Formula took from http://alienryderflex.com/hsp.html
+    // Not used yet, but may be useful
+    private final static double BRIGHTNESS_CUTOFF = 0.5;
+    public static Skin skin;
+    // Save the button styles so the changes here get reflected
+    private final ImageButton.ImageButtonStyle[] buttonStyles;
     public Color background;
     public Color foreground;
-    private Color emptyCell;
-
     public Color currentScore;
     public Color highScore;
     public Color bonus;
     public Color bandColor;
     public Color textColor;
-
-    private Color[] cells;
-
-    public static Skin skin;
-
     public Texture cellTexture;
-
-    // Save the button styles so the changes here get reflected
-    private final ImageButton.ImageButtonStyle[] buttonStyles;
+    private String displayName;
+    private String name;
+    private int price;
+    private Color emptyCell;
 
     //endregion
 
     //region Constructor
-
-    private Theme() {
-        buttonStyles = new ImageButton.ImageButtonStyle[4];
-    }
+    private Color[] cells;
 
     //endregion
 
     //region Static methods
+
+    private Theme() {
+        buttonStyles = new ImageButton.ImageButtonStyle[4];
+    }
 
     static boolean exists(final String name) {
         return Gdx.files.internal("themes/" + name + ".theme").exists();
@@ -101,11 +82,6 @@ public class Theme {
         return new Theme().update(handle);
     }
 
-    // Used to determine the best foreground color (black or white) given a background color
-    // Formula took from http://alienryderflex.com/hsp.html
-    // Not used yet, but may be useful
-    private final static double BRIGHTNESS_CUTOFF = 0.5;
-
     public static boolean shouldUseWhite(Color color) {
         double brightness = Math.sqrt(
                 color.r * color.r * .299 +
@@ -119,10 +95,24 @@ public class Theme {
 
     //region Theme updating
 
+    // A 1x1 blank pixel map to be tinted and used in multiple places
+    public static Texture getBlankTexture() {
+        final Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.WHITE);
+        pixmap.fill();
+        final Texture result = new Texture(pixmap);
+        pixmap.dispose();
+        return result;
+    }
+
     // Updates the theme with all the values from the specified file or name
     public Theme update(final String name) {
         return update(Gdx.files.internal("themes/" + name + ".theme"));
     }
+
+    //endregion
+
+    //region Applying the theme
 
     private Theme update(final FileHandle handle) {
         if (skin == null) {
@@ -173,10 +163,6 @@ public class Theme {
         return this;
     }
 
-    //endregion
-
-    //region Applying the theme
-
     public String getName() {
         return name;
     }
@@ -201,23 +187,13 @@ public class Theme {
         Gdx.gl.glClearColor(background.r, background.g, background.b, background.a);
     }
 
-    public void updateStyle(ImageButton.ImageButtonStyle style, int styleIndex) {
-        style.imageUp = buttonStyles[styleIndex].imageUp;
-        style.imageDown = buttonStyles[styleIndex].imageDown;
-    }
-
     //endregion
 
     //region Styling utilities
 
-    // A 1x1 blank pixel map to be tinted and used in multiple places
-    public static Texture getBlankTexture() {
-        final Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(Color.WHITE);
-        pixmap.fill();
-        final Texture result = new Texture(pixmap);
-        pixmap.dispose();
-        return result;
+    public void updateStyle(ImageButton.ImageButtonStyle style, int styleIndex) {
+        style.imageUp = buttonStyles[styleIndex].imageUp;
+        style.imageDown = buttonStyles[styleIndex].imageDown;
     }
 
     //endregion

@@ -1,20 +1,3 @@
-/*
-    1010! Klooni, a free customizable puzzle game for Android and Desktop
-    Copyright (C) 2017-2019  Lonami Exo @ lonami.dev
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package dev.lonami.klooni.screens;
 
 import com.badlogic.gdx.Gdx;
@@ -31,28 +14,25 @@ public class TransitionScreen implements Screen {
 
     //region Members
 
-    // Rendering
-    private FrameBuffer frameBuffer;
-    private TextureRegion bufferTexture;
+    // Time it takes to fade out and in, 0.15s (0.3s total)
+    private static final float FADE_INVERSE_DELAY = 1f / 0.15f;
     private final SpriteBatch spriteBatch;
-    private float fadedElapsed;
-    private boolean fadingOut;
-    private int width, height;
-
     // From, to, and game to change the screen after the transition finishes
     private final Screen fromScreen, toScreen;
     private final Klooni game;
-
     // Should the previous screen be disposed afterwards? Not desirable
     // if it was stored somewhere else, for example, to return to it later
     private final boolean disposeAfter;
+    // Rendering
+    private FrameBuffer frameBuffer;
+    private TextureRegion bufferTexture;
+    private float fadedElapsed;
+    private boolean fadingOut;
 
     //endregion
 
     //region Static variables
-
-    // Time it takes to fade out and in, 0.15s (0.3s total)
-    private static final float FADE_INVERSE_DELAY = 1f / 0.15f;
+    private int width, height;
 
     //endregion
 

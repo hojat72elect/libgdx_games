@@ -1,20 +1,3 @@
-/*
-    1010! Klooni, a free customizable puzzle game for Android and Desktop
-    Copyright (C) 2017-2019  Lonami Exo @ lonami.dev
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package dev.lonami.klooni.effects;
 
 import com.badlogic.gdx.Gdx;
@@ -54,34 +37,11 @@ public class ExplodeEffectFactory implements IEffectFactory {
 
 
     private class ExplodeEffect implements IEffect {
-        private Color color;
-        boolean dead;
-
         private final static float EXPLOSION_X_RANGE = 0.25f;
         private final static float EXPLOSION_Y_RANGE = 0.30f;
         private final static float GRAVITY_PERCENTAGE = -0.60f;
-
-        private class Shard {
-            final Vector2 pos, vel, acc;
-            final float size;
-
-            Shard(final Vector2 pos, final float size) {
-                final float xRange = Gdx.graphics.getWidth() * EXPLOSION_X_RANGE;
-                final float yRange = Gdx.graphics.getHeight() * EXPLOSION_Y_RANGE;
-                vel = new Vector2(MathUtils.random(-xRange, +xRange), MathUtils.random(-yRange * 0.2f, +yRange));
-                acc = new Vector2(0f, Gdx.graphics.getHeight() * GRAVITY_PERCENTAGE);
-
-                this.size = size * MathUtils.random(0.40f, 0.60f);
-                this.pos = pos.cpy().add(this.size * 0.5f, this.size * 0.5f);
-            }
-
-            void draw(final Batch batch, final float dt) {
-                vel.add(acc.x * dt, acc.y * dt).scl(0.99f);
-                pos.add(vel.x * dt, vel.y * dt);
-                Cell.draw(color, batch, pos.x, pos.y, size);
-            }
-        }
-
+        boolean dead;
+        private Color color;
         private Shard[] shards;
 
         @Override
@@ -106,6 +66,27 @@ public class ExplodeEffectFactory implements IEffectFactory {
         @Override
         public boolean isDone() {
             return dead;
+        }
+
+        private class Shard {
+            final Vector2 pos, vel, acc;
+            final float size;
+
+            Shard(final Vector2 pos, final float size) {
+                final float xRange = Gdx.graphics.getWidth() * EXPLOSION_X_RANGE;
+                final float yRange = Gdx.graphics.getHeight() * EXPLOSION_Y_RANGE;
+                vel = new Vector2(MathUtils.random(-xRange, +xRange), MathUtils.random(-yRange * 0.2f, +yRange));
+                acc = new Vector2(0f, Gdx.graphics.getHeight() * GRAVITY_PERCENTAGE);
+
+                this.size = size * MathUtils.random(0.40f, 0.60f);
+                this.pos = pos.cpy().add(this.size * 0.5f, this.size * 0.5f);
+            }
+
+            void draw(final Batch batch, final float dt) {
+                vel.add(acc.x * dt, acc.y * dt).scl(0.99f);
+                pos.add(vel.x * dt, vel.y * dt);
+                Cell.draw(color, batch, pos.x, pos.y, size);
+            }
         }
     }
 }

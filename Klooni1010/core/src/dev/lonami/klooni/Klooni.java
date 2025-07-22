@@ -1,20 +1,3 @@
-/*
-    1010! Klooni, a free customizable puzzle game for Android and Desktop
-    Copyright (C) 2017-2019  Lonami Exo @ lonami.dev
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package dev.lonami.klooni;
 
 import com.badlogic.gdx.Application;
@@ -43,10 +26,6 @@ public class Klooni extends Game {
 
     //region Members
 
-    // FIXME theme should NOT be static as it might load textures which will expose it to the race condition iff GDX got initialized before or not
-    public static Theme theme;
-    public IEffectFactory effect;
-
     // ordered list of effects. index 0 will get default if VanishEffectFactory is removed from list
     public final static IEffectFactory[] EFFECTS = {
             new VanishEffectFactory(),
@@ -55,22 +34,21 @@ public class Klooni extends Game {
             new SpinEffectFactory(),
             new ExplodeEffectFactory(),
     };
-
-    private Map<String, Sound> effectSounds;
-    public Skin skin;
-
-    public final ShareChallenge shareChallenge;
-
-    public static boolean onDesktop;
-
-    private final static float SCORE_TO_MONEY = 1f / 100f;
-
     public static final int GAME_HEIGHT = 680;
     public static final int GAME_WIDTH = 408;
+    private final static float SCORE_TO_MONEY = 1f / 100f;
+    // FIXME theme should NOT be static as it might load textures which will expose it to the race condition iff GDX got initialized before or not
+    public static Theme theme;
+    public static boolean onDesktop;
+    private static Preferences prefs;
+    public final ShareChallenge shareChallenge;
+    public IEffectFactory effect;
+    public Skin skin;
 
     //endregion
 
     //region Creation
+    private Map<String, Sound> effectSounds;
 
     // TODO Possibly implement a 'ShareChallenge'
     //      for other platforms instead passing null
@@ -78,100 +56,30 @@ public class Klooni extends Game {
         this.shareChallenge = shareChallenge;
     }
 
-    @Override
-    public void create() {
-        onDesktop = Gdx.app.getType().equals(Application.ApplicationType.Desktop);
-        prefs = Gdx.app.getPreferences("dev.lonami.klooni.game");
-
-        // Load the best match for the skin (depending on the device screen dimensions)
-        skin = SkinLoader.loadSkin();
-
-        // Use only one instance for the theme, so anyone using it uses the most up-to-date
-        Theme.skin = skin; // Not the best idea
-        final String themeName = prefs.getString("themeName", "default");
-        if (Theme.exists(themeName))
-            theme = Theme.getTheme(themeName);
-        else
-            theme = Theme.getTheme("default");
-
-        Gdx.input.setCatchBackKey(true); // To show the pause menu
-        setScreen(new MainMenuScreen(this));
-        String effectName = prefs.getString("effectName", "vanish");
-        effectSounds = new HashMap<String, Sound>(EFFECTS.length);
-        effect = EFFECTS[0];
-        for (IEffectFactory e : EFFECTS) {
-            loadEffectSound(e.getName());
-            if (e.getName().equals(effectName)) {
-                effect = e;
-            }
-        }
-    }
-
     //endregion
 
     //region Screen
-
-    // TransitionScreen will also dispose by default the previous screen
-    public void transitionTo(Screen screen) {
-        transitionTo(screen, true);
-    }
-
-    public void transitionTo(Screen screen, boolean disposeAfter) {
-        setScreen(new TransitionScreen(this, getScreen(), screen, disposeAfter));
-    }
-
-    //endregion
-
-    //region Disposing
-
-    @Override
-    public void dispose() {
-        super.dispose();
-        skin.dispose();
-        theme.dispose();
-        if (effectSounds != null) {
-            for (Sound s : effectSounds.values()) {
-                s.dispose();
-            }
-            effectSounds = null;
-        }
-    }
-
-    //endregion
-
-    // region Effects
-
-    private void loadEffectSound(final String effectName) {
-        FileHandle soundFile = Gdx.files.internal("sound/effect_" + effectName + ".mp3");
-        if (!soundFile.exists())
-            soundFile = Gdx.files.internal("sound/effect_vanish.mp3");
-
-        effectSounds.put(effectName, Gdx.audio.newSound(soundFile));
-    }
-
-    public void playEffectSound() {
-        effectSounds.get(effect.getName())
-                .play(MathUtils.random(0.7f, 1f), MathUtils.random(0.8f, 1.2f), 0);
-    }
-
-    // endregion
-
-    //region Settings
-
-    private static Preferences prefs;
 
     // Score related
     public static int getMaxScore() {
         return prefs.getInteger("maxScore", 0);
     }
 
+    public static void setMaxScore(int score) {
+        prefs.putInteger("maxScore", score).flush();
+    }
+
+    //endregion
+
+    //region Disposing
+
     public static int getMaxTimeScore() {
         return prefs.getInteger("maxTimeScore", 0);
     }
 
-    public static void setMaxScore(int score) {
-        prefs.putInteger("maxScore", score).flush();
-    }
+    //endregion
+
+    // region Effects
 
     public static void setMaxTimeScore(int maxTimeScore) {
         prefs.putInteger("maxTimeScore", maxTimeScore).flush();
@@ -181,6 +89,10 @@ public class Klooni extends Game {
     public static boolean soundsEnabled() {
         return !prefs.getBoolean("muteSound", false);
     }
+
+    // endregion
+
+    //region Settings
 
     public static boolean toggleSound() {
         final boolean result = soundsEnabled();
@@ -265,27 +177,91 @@ public class Klooni extends Game {
         return true;
     }
 
-    public void updateEffect(IEffectFactory newEffect) {
-        prefs.putString("effectName", newEffect.getName()).flush();
-        // Create a new effect, since the one passed through the parameter may dispose later
-        effect = newEffect;
-    }
-
     // Money related
     public static void addMoneyFromScore(int score) {
         setMoney(getRealMoney() + score * SCORE_TO_MONEY);
-    }
-
-    private static void setMoney(float money) {
-        prefs.putFloat("money", money).flush();
     }
 
     public static int getMoney() {
         return (int) getRealMoney();
     }
 
+    private static void setMoney(float money) {
+        prefs.putFloat("money", money).flush();
+    }
+
     private static float getRealMoney() {
         return prefs.getFloat("money");
+    }
+
+    @Override
+    public void create() {
+        onDesktop = Gdx.app.getType().equals(Application.ApplicationType.Desktop);
+        prefs = Gdx.app.getPreferences("dev.lonami.klooni.game");
+
+        // Load the best match for the skin (depending on the device screen dimensions)
+        skin = SkinLoader.loadSkin();
+
+        // Use only one instance for the theme, so anyone using it uses the most up-to-date
+        Theme.skin = skin; // Not the best idea
+        final String themeName = prefs.getString("themeName", "default");
+        if (Theme.exists(themeName))
+            theme = Theme.getTheme(themeName);
+        else
+            theme = Theme.getTheme("default");
+
+        Gdx.input.setCatchBackKey(true); // To show the pause menu
+        setScreen(new MainMenuScreen(this));
+        String effectName = prefs.getString("effectName", "vanish");
+        effectSounds = new HashMap<String, Sound>(EFFECTS.length);
+        effect = EFFECTS[0];
+        for (IEffectFactory e : EFFECTS) {
+            loadEffectSound(e.getName());
+            if (e.getName().equals(effectName)) {
+                effect = e;
+            }
+        }
+    }
+
+    // TransitionScreen will also dispose by default the previous screen
+    public void transitionTo(Screen screen) {
+        transitionTo(screen, true);
+    }
+
+    public void transitionTo(Screen screen, boolean disposeAfter) {
+        setScreen(new TransitionScreen(this, getScreen(), screen, disposeAfter));
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        skin.dispose();
+        theme.dispose();
+        if (effectSounds != null) {
+            for (Sound s : effectSounds.values()) {
+                s.dispose();
+            }
+            effectSounds = null;
+        }
+    }
+
+    private void loadEffectSound(final String effectName) {
+        FileHandle soundFile = Gdx.files.internal("sound/effect_" + effectName + ".mp3");
+        if (!soundFile.exists())
+            soundFile = Gdx.files.internal("sound/effect_vanish.mp3");
+
+        effectSounds.put(effectName, Gdx.audio.newSound(soundFile));
+    }
+
+    public void playEffectSound() {
+        effectSounds.get(effect.getName())
+                .play(MathUtils.random(0.7f, 1f), MathUtils.random(0.8f, 1.2f), 0);
+    }
+
+    public void updateEffect(IEffectFactory newEffect) {
+        prefs.putString("effectName", newEffect.getName()).flush();
+        // Create a new effect, since the one passed through the parameter may dispose later
+        effect = newEffect;
     }
 
     //endregion

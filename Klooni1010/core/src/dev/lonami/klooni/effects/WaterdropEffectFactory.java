@@ -1,20 +1,3 @@
-/*
-    1010! Klooni, a free customizable puzzle game for Android and Desktop
-    Copyright (C) 2017-2019  Lonami Exo @ lonami.dev
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package dev.lonami.klooni.effects;
 
 import com.badlogic.gdx.Gdx;
@@ -65,19 +48,16 @@ public class WaterdropEffectFactory implements IEffectFactory {
 
 
     private class WaterdropEffect implements IEffect {
-        private Vector2 pos;
-        private boolean dead;
-
-        private Color cellColor;
-        private Color dropColor;
-        private float cellSize;
-
-        private final float fallAcceleration;
-        private float fallSpeed;
-
         private static final float FALL_ACCELERATION = 500.0f;
         private static final float FALL_VARIATION = 50.0f;
         private static final float COLOR_SPEED = 7.5f;
+        private final float fallAcceleration;
+        private Vector2 pos;
+        private boolean dead;
+        private Color cellColor;
+        private Color dropColor;
+        private float cellSize;
+        private float fallSpeed;
 
         WaterdropEffect() {
             fallAcceleration = FALL_ACCELERATION + MathUtils.random(-FALL_VARIATION, FALL_VARIATION);

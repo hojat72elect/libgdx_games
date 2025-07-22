@@ -1,20 +1,3 @@
-/*
-    1010! Klooni, a free customizable puzzle game for Android and Desktop
-    Copyright (C) 2017-2019  Lonami Exo @ lonami.dev
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package dev.lonami.klooni.effects;
 
 import com.badlogic.gdx.Gdx;
@@ -54,15 +37,13 @@ public class SpinEffectFactory implements IEffectFactory {
 
 
     private class SpinEffect implements IEffect {
+        private static final float LIFETIME = 2.0f;
+        private static final float INV_LIFETIME = 1.0f / LIFETIME;
+        private static final float TOTAL_ROTATION = 600;
         private float age;
         private Vector2 pos;
         private float size;
         private Color color;
-
-        private static final float LIFETIME = 2.0f;
-        private static final float INV_LIFETIME = 1.0f / LIFETIME;
-
-        private static final float TOTAL_ROTATION = 600;
 
         @Override
         public void setInfo(Cell deadCell, Vector2 culprit) {

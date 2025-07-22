@@ -1,20 +1,3 @@
-/*
-    1010! Klooni, a free customizable puzzle game for Android and Desktop
-    Copyright (C) 2017-2019  Lonami Exo @ lonami.dev
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package dev.lonami.klooni.screens;
 
 import com.badlogic.gdx.Gdx;
@@ -47,41 +30,32 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
 
     //region Members
 
+    final static int GAME_MODE_SCORE = 0;
+    final static int GAME_MODE_TIME = 1;
+    private final static int BOARD_SIZE = 10;
+    private final static int HOLDER_PIECE_COUNT = 3;
+    private final static String SAVE_DAT_FILENAME = ".klooni.sav";
     private final Klooni game;
     private final BaseScorer scorer;
     private final BonusParticleHandler bonusParticleHandler;
-
     private final Board board;
     private final PieceHolder holder;
-
     private final SpriteBatch batch;
+
+    //endregion
+
+    //region Static members
     private final Sound gameOverSound;
-
     private final PauseMenuStage pauseMenu;
-
     // TODO Perhaps make an abstract base class for the game screen and game modes
     // by implementing different "isGameOver" etc. logic instead using an integer?
     private final int gameMode;
-
     private boolean gameOverDone;
-
     // The last score that was saved when adding the money.
     // We use this so we don't add the same old score to the money twice,
     // but rather subtract it from the current score and then update it
     // with the current score to get the "increase" of money score.
     private int savedMoneyScore;
-
-    //endregion
-
-    //region Static members
-
-    private final static int BOARD_SIZE = 10;
-    private final static int HOLDER_PIECE_COUNT = 3;
-
-    final static int GAME_MODE_SCORE = 0;
-    final static int GAME_MODE_TIME = 1;
-
-    private final static String SAVE_DAT_FILENAME = ".klooni.sav";
 
     //endregion
 
@@ -133,6 +107,20 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
 
     //region Private methods
 
+    private static void deleteSave() {
+        final FileHandle handle = Gdx.files.local(SAVE_DAT_FILENAME);
+        if (handle.exists())
+            handle.delete();
+    }
+
+    static boolean hasSavedData() {
+        return Gdx.files.local(SAVE_DAT_FILENAME).exists();
+    }
+
+    //endregion
+
+    //region Screen
+
     // If no piece can be put, then it is considered to be game over
     private boolean isGameOver() {
         for (Piece piece : holder.getAvailablePieces())
@@ -158,10 +146,6 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
         }
     }
 
-    //endregion
-
-    //region Screen
-
     @Override
     public void show() {
         if (pauseMenu.isShown()) // Will happen if we go to the customize menu
@@ -181,6 +165,10 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
     public void pause() {
         save();
     }
+
+    //endregion
+
+    //region Input
 
     @Override
     public void render(float delta) {
@@ -214,10 +202,6 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
         pauseMenu.dispose();
     }
 
-    //endregion
-
-    //region Input
-
     @Override
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.P || keycode == Input.Keys.BACK) // Pause
@@ -225,6 +209,10 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
 
         return false;
     }
+
+    //endregion
+
+    //region Unused methods
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -255,10 +243,6 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
         return true;
     }
 
-    //endregion
-
-    //region Unused methods
-
     @Override
     public void resize(int width, int height) {
     }
@@ -285,6 +269,10 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
         return false;
     }
 
+    //endregion
+
+    //region Saving and loading
+
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
         return false;
@@ -294,10 +282,6 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
     public boolean scrolled(int amount) {
         return false;
     }
-
-    //endregion
-
-    //region Saving and loading
 
     private void saveMoney() {
         // Calculate new money since the previous saving
@@ -321,16 +305,6 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
             // Should never happen but what else could be done if the game wasn't saved?
             e.printStackTrace();
         }
-    }
-
-    private static void deleteSave() {
-        final FileHandle handle = Gdx.files.local(SAVE_DAT_FILENAME);
-        if (handle.exists())
-            handle.delete();
-    }
-
-    static boolean hasSavedData() {
-        return Gdx.files.local(SAVE_DAT_FILENAME).exists();
     }
 
     private boolean tryLoad() {
