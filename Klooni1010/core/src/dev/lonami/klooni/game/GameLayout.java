@@ -14,22 +14,12 @@ import dev.lonami.klooni.actors.ShopCard;
 // For example, the boardHeight on the left and the piece holder on the right
 public class GameLayout {
 
-    //region Members
-
     private float screenWidth, marginWidth, availableWidth;
     private float screenHeight, logoHeight, scoreHeight, boardHeight, pieceHolderHeight, shopCardHeight;
-
-    //endregion
-
-    //region Constructor
 
     public GameLayout() {
         calculate();
     }
-
-    //endregion
-
-    //region Private methods
 
     private void calculate() {
         screenWidth = Gdx.graphics.getWidth();
@@ -47,10 +37,6 @@ public class GameLayout {
 
         shopCardHeight = screenHeight * 0.15f;
     }
-
-    //endregion
-
-    //region Update layout methods
 
     // These methods take any of the custom objects used in the game
     // and positions them accordingly on the screen, by using relative
@@ -128,6 +114,4 @@ public class GameLayout {
                 shopCardHeight, -card.cellSize,
                 availableWidth - shopCardHeight, shopCardHeight);
     }
-
-    //endregion
 }

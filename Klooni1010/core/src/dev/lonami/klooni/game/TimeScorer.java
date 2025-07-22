@@ -15,8 +15,6 @@ import dev.lonami.klooni.serializer.BinSerializable;
 
 public class TimeScorer extends BaseScorer implements BinSerializable {
 
-    //region Members
-
     private static final long START_TIME = 30 * 1000000000L;
     // 2 seconds every 10 points: (2/10)*10^9 to get the nanoseconds
     private static final double SCORE_TO_NANOS = 0.2e+09d;
@@ -25,19 +23,12 @@ public class TimeScorer extends BaseScorer implements BinSerializable {
     private long startTime;
     private int highScore;
 
-    //endregion
-
-    //region Static variables
     // Indicates where we would die in time. Score adds to this, so we take
     // longer to die. To get the "score" we simply calculate `deadTime - startTime`
     private long deadTime;
     // We need to know when the game was paused to "stop" counting
     private long pauseTime;
     private int pausedTimeLeft;
-
-    //endregion
-
-    //region Constructor
 
     // The board size is required when calculating the score
     public TimeScorer(final Klooni game, GameLayout layout) {
@@ -56,10 +47,6 @@ public class TimeScorer extends BaseScorer implements BinSerializable {
         pausedTimeLeft = -1;
     }
 
-    //endregion
-
-    //region Private methods
-
     private int nanosToSeconds(long nano) {
         return MathUtils.ceil((float) (nano * NANOS_TO_SECONDS));
     }
@@ -71,10 +58,6 @@ public class TimeScorer extends BaseScorer implements BinSerializable {
     private int getTimeLeft() {
         return Math.max(nanosToSeconds(deadTime - TimeUtils.nanoTime()), 0);
     }
-
-    //endregion
-
-    //region Public methods
 
     @Override
     public int addBoardScore(int stripsCleared, int boardSize) {
@@ -136,10 +119,6 @@ public class TimeScorer extends BaseScorer implements BinSerializable {
         timeLeftLabel.draw(batch, 1f);
     }
 
-    //endregion
-
-    //region Serialization
-
     @Override
     public void write(DataOutputStream out) throws IOException {
         // current/dead offset ("how long until we die"), highScore
@@ -155,6 +134,4 @@ public class TimeScorer extends BaseScorer implements BinSerializable {
         deadTime = startTime + deadOffset;
         highScore = in.readInt();
     }
-
-    //endregion
 }

@@ -24,8 +24,6 @@ import dev.lonami.klooni.game.GameLayout;
 // which can be overlaid on top of another screen
 class PauseMenuStage extends Stage {
 
-    //region Members
-
     private final ShapeRenderer shapeRenderer;
     private final Klooni game;
     private final Band band;
@@ -42,14 +40,8 @@ class PauseMenuStage extends Stage {
     private InputProcessor lastInputProcessor;
     private boolean shown;
 
-    //endregion
-
-    //region Constructor
     private boolean hiding;
 
-    //endregion
-
-    //region Private methods
     private final ChangeListener playChangeListener = new ChangeListener() {
         @Override
         public void changed(ChangeEvent event, Actor actor) {
@@ -126,10 +118,6 @@ class PauseMenuStage extends Stage {
         scorer.resume();
     }
 
-    //endregion
-
-    //region Package local methods
-
     // Shows the pause menu, indicating whether it's game over or not
     void show() {
         scorer.pause();
@@ -146,7 +134,7 @@ class PauseMenuStage extends Stage {
     }
 
     void showGameOver(final String gameOverReason, final boolean timeMode) {
-        // Allow the players to exit the game (issue #23)
+        // Allow the players to exit the game
         customButton.removeListener(customChangeListener);
         customButton.updateImage("power_off_texture");
         customButton.addListener(new ChangeListener() {
@@ -180,10 +168,6 @@ class PauseMenuStage extends Stage {
         return hiding;
     }
 
-    //endregion
-
-    //region Public methods
-
     @Override
     public void draw() {
         if (shown) {
@@ -208,6 +192,4 @@ class PauseMenuStage extends Stage {
 
         return super.keyUp(keyCode);
     }
-
-    //endregion
 }

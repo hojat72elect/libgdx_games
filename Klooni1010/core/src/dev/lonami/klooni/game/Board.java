@@ -18,8 +18,6 @@ import dev.lonami.klooni.serializer.BinSerializable;
 // and functions to determine when it is game over given a PieceHolder
 public class Board implements BinSerializable {
 
-    //region Members
-
     public final int cellCount;
     public final Vector2 pos = new Vector2();
     private final Array<IEffect> effects = new Array<IEffect>(); // Particle effects once they vanish
@@ -27,10 +25,6 @@ public class Board implements BinSerializable {
     private final Vector2 lastPutPiecePos = new Vector2();
     public float cellSize;
     private Cell[][] cells;
-
-    //endregion
-
-    //region Constructor
 
     public Board(final GameLayout layout, int cellCount) {
         this.cellCount = cellCount;
@@ -57,10 +51,6 @@ public class Board implements BinSerializable {
             }
         }
     }
-
-    //endregion
-
-    //region Private methods
 
     // True if the given cell coordinates are inside the bounds of the board
     private boolean inBounds(int x, int y) {
@@ -98,10 +88,6 @@ public class Board implements BinSerializable {
 
         return true;
     }
-
-    //endregion
-
-    //region Public methods
 
     public void draw(final Batch batch) {
         batch.setTransformMatrix(batch.getTransformMatrix().translate(pos.x, pos.y, 0));
@@ -233,10 +219,6 @@ public class Board implements BinSerializable {
         return effects.size == 0;
     }
 
-    //endregion
-
-    //region Serialization
-
     @Override
     public void write(DataOutputStream out) throws IOException {
         // Cell count, cells in row-major order
@@ -258,6 +240,4 @@ public class Board implements BinSerializable {
             for (int j = 0; j < cellCount; ++j)
                 cells[i][j].read(in);
     }
-
-    //endregion
 }

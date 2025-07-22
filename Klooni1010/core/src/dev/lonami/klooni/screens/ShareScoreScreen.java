@@ -1,6 +1,5 @@
 package dev.lonami.klooni.screens;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,8 +12,6 @@ import dev.lonami.klooni.Klooni;
 // Screen where the user can customize the look and feel of the game
 class ShareScoreScreen implements Screen {
 
-    //region Members
-
     private final Klooni game;
     private final Label infoLabel;
     private final SpriteBatch spriteBatch;
@@ -23,10 +20,6 @@ class ShareScoreScreen implements Screen {
     private final boolean timeMode;
 
     private final Screen lastScreen;
-
-    //endregion
-
-    //region Constructor
 
     ShareScoreScreen(final Klooni game, final Screen lastScreen,
                      final int score, final boolean timeMode) {
@@ -50,17 +43,9 @@ class ShareScoreScreen implements Screen {
         spriteBatch = new SpriteBatch();
     }
 
-    //endregion
-
-    //region Private methods
-
     private void goBack() {
         game.transitionTo(lastScreen);
     }
-
-    //endregion
-
-    //region Public methods
 
     @Override
     public void show() {
@@ -78,10 +63,6 @@ class ShareScoreScreen implements Screen {
         infoLabel.draw(spriteBatch, 1);
         spriteBatch.end();
     }
-
-    //endregion
-
-    //region Empty methods
 
     @Override
     public void resize(int width, int height) {
@@ -103,5 +84,4 @@ class ShareScoreScreen implements Screen {
     public void hide() {
     }
 
-    //endregion
 }

@@ -14,17 +14,11 @@ import dev.lonami.klooni.interfaces.IEffectFactory;
 // Card-like actor used to display information about a given theme
 public class EffectCard extends ShopCard {
 
-    //region Members
-
     private final IEffectFactory effect;
     private final Board board;
     private final Texture background;
     // We want to create an effect from the beginning
     private boolean needCreateEffect = true;
-
-    //endregion
-
-    //region Constructor
 
     public EffectCard(final Klooni game, final GameLayout layout, final IEffectFactory effect) {
         super(game, layout, effect.getDisplay(), Klooni.theme.background);
@@ -51,10 +45,6 @@ public class EffectCard extends ShopCard {
                 break; // Should not fail, but if it does, don't break
         }
     }
-
-    //endregion
-
-    //region Public methods
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -134,6 +124,4 @@ public class EffectCard extends ShopCard {
             use();
         }
     }
-
-    //endregion
 }

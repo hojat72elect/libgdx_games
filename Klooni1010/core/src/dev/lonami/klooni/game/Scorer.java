@@ -12,23 +12,13 @@ import dev.lonami.klooni.serializer.BinSerializable;
 // The maximum score is NOT saved automatically.
 public class Scorer extends BaseScorer implements BinSerializable {
 
-    //region Members
-
     private int highScore;
-
-    //endregion
-
-    //region Constructor
 
     // The board size is required when calculating the score
     public Scorer(final Klooni game, GameLayout layout) {
         super(game, layout, Klooni.getMaxScore());
         highScore = Klooni.getMaxScore();
     }
-
-    //endregion
-
-    //region Public methods
 
     public void saveScore() {
         if (isNewRecord()) {
@@ -46,13 +36,8 @@ public class Scorer extends BaseScorer implements BinSerializable {
         return false;
     }
 
-    //endregion
-
-    //region Serialization
-
     @Override
     public void write(DataOutputStream out) throws IOException {
-        // currentScore, highScore
         out.writeInt(currentScore);
         out.writeInt(highScore);
     }
@@ -62,6 +47,4 @@ public class Scorer extends BaseScorer implements BinSerializable {
         currentScore = in.readInt();
         highScore = in.readInt();
     }
-
-    //endregion
 }

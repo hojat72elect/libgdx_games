@@ -17,8 +17,6 @@ import dev.lonami.klooni.Klooni;
 // with any rotation.
 public class Piece {
 
-    //region Members
-
     public final int colorIndex;
     public final int cellCols, cellRows;
     final Vector2 pos;
@@ -27,10 +25,6 @@ public class Piece {
 
     // Default arbitrary value
     float cellSize = 10f;
-
-    //endregion
-
-    //region Constructors
 
     // Rectangle-shaped constructor
     //
@@ -90,10 +84,6 @@ public class Piece {
         }
     }
 
-    //endregion
-
-    //region Static methods
-
     // Generates a random piece with always the same color for the generated shape
     public static Piece random() {
         // 9 pieces [0…8]; 4 possible rotations [0…3]
@@ -128,10 +118,6 @@ public class Piece {
         }
         throw new RuntimeException("Random function is broken.");
     }
-
-    //endregion
-
-    //region Package local methods
 
     static Piece read(DataInputStream in) throws IOException {
         return fromIndex(in.readInt(), in.readInt());
@@ -168,10 +154,6 @@ public class Piece {
         return area;
     }
 
-    //endregion
-
-    //region Serialization
-
     // Calculates the gravity center of the piece shape
     Vector2 calculateGravityCenter() {
         int filledCount = 0;
@@ -190,10 +172,8 @@ public class Piece {
     }
 
     void write(DataOutputStream out) throws IOException {
-        // colorIndex, rotation
         out.writeInt(colorIndex);
         out.writeInt(rotation);
     }
 
-    //endregion
 }

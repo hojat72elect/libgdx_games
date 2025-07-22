@@ -16,20 +16,11 @@ import dev.lonami.klooni.actors.SoftButton;
 // Main menu screen, presenting some options (play, customize…)
 public class MainMenuScreen extends InputListener implements Screen {
 
-    //region Members
-
     // As the examples show on the LibGdx wiki
     private static final float minDelta = 1 / 30f;
     private final Klooni game;
 
-    //endregion
-
-    //region Static members
     private final Stage stage;
-
-    //endregion
-
-    //region Constructor
 
     public MainMenuScreen(Klooni game) {
         this.game = game;
@@ -86,10 +77,6 @@ public class MainMenuScreen extends InputListener implements Screen {
         table.add(paletteButton).space(16);
     }
 
-    //endregion
-
-    //region Screen
-
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
@@ -117,10 +104,6 @@ public class MainMenuScreen extends InputListener implements Screen {
         stage.dispose();
     }
 
-    //endregion
-
-    //region Unused methods
-
     @Override
     public void pause() {
     }
@@ -132,6 +115,4 @@ public class MainMenuScreen extends InputListener implements Screen {
     @Override
     public void hide() {
     }
-
-    //endregion
 }

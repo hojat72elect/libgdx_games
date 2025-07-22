@@ -28,8 +28,6 @@ import dev.lonami.klooni.serializer.BinSerializer;
 // Main game screen. Here the board, piece holder and score are shown
 class GameScreen implements Screen, InputProcessor, BinSerializable {
 
-    //region Members
-
     final static int GAME_MODE_SCORE = 0;
     final static int GAME_MODE_TIME = 1;
     private final static int BOARD_SIZE = 10;
@@ -42,13 +40,9 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
     private final PieceHolder holder;
     private final SpriteBatch batch;
 
-    //endregion
-
-    //region Static members
     private final Sound gameOverSound;
     private final PauseMenuStage pauseMenu;
-    // TODO Perhaps make an abstract base class for the game screen and game modes
-    // by implementing different "isGameOver" etc. logic instead using an integer?
+
     private final int gameMode;
     private boolean gameOverDone;
     // The last score that was saved when adding the money.
@@ -56,10 +50,6 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
     // but rather subtract it from the current score and then update it
     // with the current score to get the "increase" of money score.
     private int savedMoneyScore;
-
-    //endregion
-
-    //region Constructor
 
     // Load any previously saved file by default
     GameScreen(final Klooni game, final int gameMode) {
@@ -103,10 +93,6 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
         }
     }
 
-    //endregion
-
-    //region Private methods
-
     private static void deleteSave() {
         final FileHandle handle = Gdx.files.local(SAVE_DAT_FILENAME);
         if (handle.exists())
@@ -116,10 +102,6 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
     static boolean hasSavedData() {
         return Gdx.files.local(SAVE_DAT_FILENAME).exists();
     }
-
-    //endregion
-
-    //region Screen
 
     // If no piece can be put, then it is considered to be game over
     private boolean isGameOver() {
@@ -166,18 +148,12 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
         save();
     }
 
-    //endregion
-
-    //region Input
-
     @Override
     public void render(float delta) {
         Klooni.theme.glClearBackground();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if (scorer.isGameOver() && !pauseMenu.isShown()) {
-            // TODO A bit hardcoded (timeOver = scorer instanceof TimeScorer)
-            // Perhaps have a better mode to pass the required texture to overlay
             doGameOver(scorer.gameOverReason());
         }
 
@@ -209,10 +185,6 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
 
         return false;
     }
-
-    //endregion
-
-    //region Unused methods
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -268,10 +240,6 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         return false;
     }
-
-    //endregion
-
-    //region Saving and loading
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
@@ -344,6 +312,4 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
         holder.read(in);
         scorer.read(in);
     }
-
-    //endregion
 }

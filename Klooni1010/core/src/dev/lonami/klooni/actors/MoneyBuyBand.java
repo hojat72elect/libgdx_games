@@ -15,8 +15,6 @@ import dev.lonami.klooni.Theme;
 
 public class MoneyBuyBand extends Table {
 
-    //region Members
-
     // Milliseconds
     private final static long SHOW_ONE_CHARACTER_EVERY = 30;
     private final static long TEMP_TEXT_DELAY = 2 * 1000;
@@ -34,10 +32,6 @@ public class MoneyBuyBand extends Table {
     private long nextTextUpdate;
     // When the temporary text should be reverted next
     private long nextTempRevertUpdate;
-
-    //endregion
-
-    //region Constructor
 
     public MoneyBuyBand(final Klooni game) {
         infoText = "";
@@ -77,10 +71,6 @@ public class MoneyBuyBand extends Table {
         setBackground(new TextureRegionDrawable(new TextureRegion(Theme.getBlankTexture())));
         showCurrentMoney();
     }
-
-    //endregion
-
-    //region Private methods
 
     private void showCurrentMoney() {
         setText("money: " + Klooni.getMoney());
@@ -145,10 +135,6 @@ public class MoneyBuyBand extends Table {
         }
     }
 
-    //endregion
-
-    //region Public methods
-
     // Asks the user to buy the given theme or effect,
     // or shows that they don't have enough money to buy it
     public void askBuy(final ShopCard toBuy) {
@@ -179,6 +165,4 @@ public class MoneyBuyBand extends Table {
         infoLabel.setColor(Klooni.theme.textColor);
         super.draw(batch, parentAlpha);
     }
-
-    //endregion
 }

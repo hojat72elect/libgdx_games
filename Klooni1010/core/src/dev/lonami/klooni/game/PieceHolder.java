@@ -20,8 +20,6 @@ import dev.lonami.klooni.serializer.BinSerializable;
 // Pieces can be picked up from it and dropped on a board.
 public class PieceHolder implements BinSerializable {
 
-    //region Members
-
     private static final float DRAG_SPEED = 0.5f; // Interpolation value ((pos -> new) / frame)
     final Rectangle area;
     private final Piece[] pieces;
@@ -38,15 +36,8 @@ public class PieceHolder implements BinSerializable {
     private final Board board;
     public boolean enabled;
 
-    //endregion
-
-    //region Static members
     // Currently held piece index (picked by the user)
     private int heldPiece;
-
-    //endregion
-
-    //region Constructor
 
     public PieceHolder(final GameLayout layout, final Board board,
                        final int pieceCount, final float pickedCellSize) {
@@ -70,10 +61,6 @@ public class PieceHolder implements BinSerializable {
         // TODO So, how would pieces handle a layout update?
         takeMore();
     }
-
-    //endregion
-
-    //region Private methods
 
     // Determines whether all the pieces have been put (and the "hand" is finished)
     private boolean handFinished() {
@@ -126,10 +113,6 @@ public class PieceHolder implements BinSerializable {
             piece.cellSize = 0f;
         }
     }
-
-    //endregion
-
-    //region Public methods
 
     // Picks the piece below the finger/mouse, returning true if any was picked
     public boolean pickPiece() {
@@ -257,10 +240,6 @@ public class PieceHolder implements BinSerializable {
         }
     }
 
-    //endregion
-
-    //region Serialization
-
     @Override
     public void write(DataOutputStream out) throws IOException {
         // Piece count, false if piece == null, true + piece if piece != null
@@ -288,11 +267,7 @@ public class PieceHolder implements BinSerializable {
         updatePiecesStartLocation();
     }
 
-    //endregion
-
-    //region Sub-classes
-
-    public class DropResult {
+    public static class DropResult {
 
         public final boolean dropped;
         public final boolean onBoard;
@@ -313,6 +288,4 @@ public class PieceHolder implements BinSerializable {
             this.pieceCenter = pieceCenter;
         }
     }
-
-    //endregion
 }

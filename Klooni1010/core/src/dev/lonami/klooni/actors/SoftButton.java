@@ -10,14 +10,9 @@ import dev.lonami.klooni.Theme;
 // Small wrapper to use themed image buttons more easily
 public class SoftButton extends ImageButton {
 
-    //region Members
 
     private final int styleIndex;
     public Drawable image;
-
-    //endregion
-
-    //region Constructor
 
     public SoftButton(final int styleIndex, final String imageName) {
         super(Klooni.theme.getStyle(styleIndex));
@@ -25,10 +20,6 @@ public class SoftButton extends ImageButton {
         this.styleIndex = styleIndex;
         updateImage(imageName);
     }
-
-    //endregion
-
-    //region Public methods
 
     public void updateImage(final String imageName) {
         image = Theme.skin.getDrawable(imageName);
@@ -47,6 +38,4 @@ public class SoftButton extends ImageButton {
         getImage().setColor(Klooni.theme.foreground);
         super.draw(batch, parentAlpha);
     }
-
-    //endregion
 }
