@@ -164,7 +164,7 @@ internal class CustomizeScreen(private val game: Klooni, private val lastScreen:
         table.layout()
         for (a in shopGroup.getChildren()) {
             val c = a as ShopCard
-            if (c.isUsed()) {
+            if (c.isUsed) {
                 shopScroll.scrollTo(
                     c.getX(), c.getY() + c.getHeight(),
                     c.getWidth(), c.getHeight()
@@ -194,7 +194,7 @@ internal class CustomizeScreen(private val game: Klooni, private val lastScreen:
                 y -= shopDragStartY
                 val distSq = x * x + y * y
                 if (distSq < DRAG_LIMIT_SQ) {
-                    if (card.isBought()) card.use()
+                    if (card.isBought) card.use()
                     else buyBand.askBuy(card)
 
                     for (a in shopGroup.getChildren()) {

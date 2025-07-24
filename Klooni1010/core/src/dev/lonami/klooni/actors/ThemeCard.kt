@@ -17,19 +17,19 @@ class ThemeCard(
     game: Klooni,
     layout: GameLayout,
     private val theme: Theme
-) : ShopCard(game, layout, theme.displayName, theme.background) {
+) : ShopCard(game, layout, theme.displayName, theme.background!!) {
     private val background = getBlankTexture()
 
     init {
         usedItemUpdated()
     }
 
-    override fun draw(batch: Batch, parentAlpha: Float) {
+    override fun draw(batch: Batch?, parentAlpha: Float) {
         val x = getX()
         val y = getY()
 
-        batch.color = theme.background
-        batch.draw(background, x, y, getWidth(), getHeight())
+        batch?.color = theme.background
+        batch?.draw(background, x, y, getWidth(), getHeight())
 
         // Avoid drawing on the borders by adding +1 cell padding
         for (i in colorsUsed.indices) {
@@ -55,17 +55,13 @@ class ThemeCard(
         usedItemUpdated()
     }
 
-    override fun isBought(): Boolean {
-        return isThemeBought(theme)
-    }
+    override val isBought = isThemeBought(theme)
 
-    override fun isUsed(): Boolean {
-        return Klooni.theme!!.name == theme.name
-    }
 
-    override fun getPrice(): Float {
-        return theme.price.toFloat()
-    }
+    override val isUsed = Klooni.theme!!.name == theme.name
+
+
+    override val price = theme.price.toFloat()
 
     override fun performBuy() {
         if (buyTheme(theme)) {
