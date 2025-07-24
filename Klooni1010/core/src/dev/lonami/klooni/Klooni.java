@@ -86,12 +86,12 @@ public class Klooni extends Game {
     }
 
     public static boolean isThemeBought(Theme theme) {
-        if (theme.getPrice() == 0)
+        if (theme.price == 0)
             return true;
 
         String[] themes = prefs.getString("boughtThemes", "").split(":");
         for (String t : themes)
-            if (t.equals(theme.getName()))
+            if (t.equals(theme.name))
                 return true;
 
         return false;
@@ -99,16 +99,16 @@ public class Klooni extends Game {
 
     public static boolean buyTheme(Theme theme) {
         final float money = getRealMoney();
-        if (theme.getPrice() > money)
+        if (theme.price > money)
             return false;
 
-        setMoney(money - theme.getPrice());
+        setMoney(money - theme.price);
 
         String bought = prefs.getString("boughtThemes", "");
         if (bought.isEmpty())
-            bought = theme.getName();
+            bought = theme.name;
         else
-            bought += ":" + theme.getName();
+            bought += ":" + theme.name;
 
         prefs.putString("boughtThemes", bought);
 
@@ -116,8 +116,8 @@ public class Klooni extends Game {
     }
 
     public static void updateTheme(Theme newTheme) {
-        prefs.putString("themeName", newTheme.getName()).flush();
-        theme.update(newTheme.getName());
+        prefs.putString("themeName", newTheme.name).flush();
+        theme.update(newTheme.name);
     }
 
     public static boolean isEffectBought(EffectFactory effect) {

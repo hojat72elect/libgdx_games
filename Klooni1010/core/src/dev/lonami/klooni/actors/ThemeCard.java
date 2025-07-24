@@ -20,7 +20,7 @@ public class ThemeCard extends ShopCard {
     private final Texture background;
 
     public ThemeCard(final Klooni game, final GameLayout layout, final Theme theme) {
-        super(game, layout, theme.getDisplay(), theme.background);
+        super(game, layout, theme.displayName, theme.background);
         background = Theme.getBlankTexture();
 
         this.theme = theme;
@@ -47,12 +47,12 @@ public class ThemeCard extends ShopCard {
 
     @Override
     public void usedItemUpdated() {
-        if (Klooni.theme.getName().equals(theme.getName()))
+        if (Klooni.theme.name.equals(theme.name))
             priceLabel.setText("currently used");
         else if (Klooni.isThemeBought(theme))
             priceLabel.setText("bought");
         else
-            priceLabel.setText("buy for " + theme.getPrice());
+            priceLabel.setText("buy for " + theme.price);
     }
 
     @Override
@@ -68,12 +68,12 @@ public class ThemeCard extends ShopCard {
 
     @Override
     public boolean isUsed() {
-        return Klooni.theme.getName().equals(theme.getName());
+        return Klooni.theme.name.equals(theme.name);
     }
 
     @Override
     public float getPrice() {
-        return theme.getPrice();
+        return theme.price;
     }
 
     @Override
