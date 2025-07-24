@@ -11,12 +11,13 @@ import com.badlogic.gdx.utils.JsonReader
 import dev.lonami.klooni.SkinLoader.loadPng
 import kotlin.math.sqrt
 
-// Represents a Theme for the current game.
-// These are loaded from external files, so more
-// can be easily added
-class Theme private constructor() {
+/**
+ * Represents a Theme for the current game.
+ * These are loaded from external files, so more can be easily added.
+ */
+class Theme() {
     // Save the button styles so the changes here get reflected
-    private val buttonStyles: Array<ImageButtonStyle?>
+    private val buttonStyles: Array<ImageButtonStyle?> = arrayOfNulls(4)
 
     @JvmField
     var background: Color? = null
@@ -55,13 +56,9 @@ class Theme private constructor() {
 
     private lateinit var cells: Array<Color?>
 
-    init {
-        buttonStyles = arrayOfNulls<ImageButtonStyle>(4)
-    }
-
     // Updates the theme with all the values from the specified file or name
     fun update(name: String?): Theme {
-        return update(Gdx.files.internal("themes/" + name + ".theme"))
+        return update(Gdx.files.internal("themes/$name.theme"))
     }
 
     private fun update(handle: FileHandle): Theme {
@@ -102,20 +99,19 @@ class Theme private constructor() {
         emptyCell = Color(colors.getString("empty_cell").toLong(16).toInt())
 
         val cellColors = colors.get("cells")
-        cells = arrayOfNulls<Color>(cellColors.size)
+        cells = arrayOfNulls(cellColors.size)
         for (i in cells.indices) {
             cells[i] = Color(cellColors.getString(i).toLong(16).toInt())
         }
 
         val cellTextureFile = json.getString("cell_texture")
-        cellTexture = loadPng("cells/" + cellTextureFile)
+        cellTexture = loadPng("cells/$cellTextureFile")
 
         return this
     }
 
-    fun getStyle(button: Int): ImageButtonStyle? {
-        return buttonStyles[button]
-    }
+    fun getStyle(button: Int) = buttonStyles[button]
+
 
     fun getCellColor(colorIndex: Int): Color? {
         return if (colorIndex < 0) emptyCell else cells[colorIndex]
@@ -144,17 +140,16 @@ class Theme private constructor() {
         var skin: Skin? = null
 
         @JvmStatic
-        fun exists(name: String?): Boolean {
-            return Gdx.files.internal("themes/" + name + ".theme").exists()
+        fun exists(name: String): Boolean {
+            return Gdx.files.internal("themes/$name.theme").exists()
         }
-
 
         // Gets all the available themes on the available on the internal game storage
         @JvmStatic
-        fun getThemes(): com.badlogic.gdx.utils.Array<Theme?> {
+        fun getThemes(): com.badlogic.gdx.utils.Array<Theme> {
             val themes: Array<String?> = Gdx.files.internal("themes/theme.list").readString().split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
 
-            val result = com.badlogic.gdx.utils.Array<Theme?>(themes.size)
+            val result = com.badlogic.gdx.utils.Array<Theme>(themes.size)
             for (i in themes.indices) {
                 val file = Gdx.files.internal("themes/" + themes[i] + ".theme")
                 if (file.exists()) result.add(fromFile(file))
@@ -170,7 +165,7 @@ class Theme private constructor() {
         }
 
         @JvmStatic
-        fun getTheme(name: String?): Theme {
+        fun getTheme(name: String): Theme {
             return Theme().update(name)
         }
 
