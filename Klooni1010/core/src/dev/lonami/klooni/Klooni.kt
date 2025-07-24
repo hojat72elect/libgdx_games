@@ -58,7 +58,7 @@ class Klooni(@JvmField val shareChallenge: ShareChallenge?) : Game() {
     // TransitionScreen will also dispose by default the previous screen
     @JvmOverloads
     fun transitionTo(screen: Screen?, disposeAfter: Boolean = true) {
-        setScreen(TransitionScreen(this, getScreen(), screen, disposeAfter))
+        setScreen(TransitionScreen(this, getScreen(), screen!!, disposeAfter))
     }
 
     override fun dispose() {
