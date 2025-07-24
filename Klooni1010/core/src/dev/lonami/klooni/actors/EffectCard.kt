@@ -14,18 +14,15 @@ import dev.lonami.klooni.interfaces.EffectFactory
 
 // Card-like actor used to display information about a given theme
 class EffectCard(game: Klooni, layout: GameLayout, private val effect: EffectFactory) : ShopCard(game, layout, effect.display, Klooni.theme!!.background!!) {
-    private val board: Board
-    private val background: Texture
+
+    // Let the board have room for 3 cells, so cellSize * 3
+    private val board = Board(Rectangle(0f, 0f, cellSize * 3, cellSize * 3), 3)
+    private val background: Texture = getBlankTexture()
 
     // We want to create an effect from the beginning
     private var needCreateEffect = true
 
     init {
-        background = getBlankTexture()
-
-        // Let the board have room for 3 cells, so cellSize * 3
-        board = Board(Rectangle(0f, 0f, cellSize * 3, cellSize * 3), 3)
-
         setRandomPiece()
         usedItemUpdated()
     }
@@ -92,18 +89,13 @@ class EffectCard(game: Klooni, layout: GameLayout, private val effect: EffectFac
         usedItemUpdated()
     }
 
-    override val isBought: Boolean
-        get() = isEffectBought(effect)
+    override val isBought = isEffectBought(effect)
 
-    override val isUsed: Boolean
-        get() = game!!.effect!!.name == effect.name
+    override val isUsed = game.effect!!.name == effect.name
 
-    override val price: Float
-        get() = effect.price.toFloat()
+    override val price = effect.price.toFloat()
 
     override fun performBuy() {
-        if (buyEffect(effect)) {
-            use()
-        }
+        if (buyEffect(effect)) use()
     }
 }
