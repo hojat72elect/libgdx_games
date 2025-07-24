@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
+import org.jetbrains.annotations.NotNull;
+
 import dev.lonami.klooni.game.Cell;
 import dev.lonami.klooni.interfaces.Effect;
 import dev.lonami.klooni.interfaces.EffectFactory;
@@ -14,11 +16,13 @@ import dev.lonami.klooni.interfaces.EffectFactory;
 
 public class SpinEffectFactory implements EffectFactory {
     @Override
+    @NotNull
     public String getName() {
         return "spin";
     }
 
     @Override
+    @NotNull
     public String getDisplay() {
         return "Spin";
     }
@@ -29,14 +33,15 @@ public class SpinEffectFactory implements EffectFactory {
     }
 
     @Override
-    public Effect create(Cell deadCell, Vector2 culprit) {
+    @NotNull
+    public Effect create(@NotNull Cell deadCell, @NotNull Vector2 culprit) {
         Effect effect = new SpinEffect();
         effect.setInfo(deadCell, culprit);
         return effect;
     }
 
 
-    private class SpinEffect implements Effect {
+    private static class SpinEffect implements Effect {
         private static final float LIFETIME = 2.0f;
         private static final float INV_LIFETIME = 1.0f / LIFETIME;
         private static final float TOTAL_ROTATION = 600;
@@ -46,7 +51,7 @@ public class SpinEffectFactory implements EffectFactory {
         private Color color;
 
         @Override
-        public void setInfo(Cell deadCell, Vector2 culprit) {
+        public void setInfo(Cell deadCell, @NotNull Vector2 culprit) {
             age = 0;
             pos = deadCell.pos.cpy();
             size = deadCell.size;
@@ -65,7 +70,7 @@ public class SpinEffectFactory implements EffectFactory {
             final Matrix4 rotated = batch.getTransformMatrix();
 
             final float disp =
-                    +0.5f * (size - currentSize) // the smaller, the more we need to "push" to center
+                    0.5f * (size - currentSize) // the smaller, the more we need to "push" to center
                             + currentSize * 0.5f; // center the cell for rotation
 
             rotated.translate(pos.x + disp, pos.y + disp, 0);

@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
+import org.jetbrains.annotations.NotNull;
+
 import dev.lonami.klooni.game.Cell;
 import dev.lonami.klooni.interfaces.Effect;
 import dev.lonami.klooni.interfaces.EffectFactory;
@@ -14,11 +16,13 @@ import dev.lonami.klooni.interfaces.EffectFactory;
 
 public class VanishEffectFactory implements EffectFactory {
     @Override
+    @NotNull
     public String getName() {
         return "vanish";
     }
 
     @Override
+    @NotNull
     public String getDisplay() {
         return "Vanish";
     }
@@ -29,14 +33,15 @@ public class VanishEffectFactory implements EffectFactory {
     }
 
     @Override
-    public Effect create(Cell deadCell, Vector2 culprit) {
+    @NotNull
+    public Effect create(@NotNull Cell deadCell, @NotNull Vector2 culprit) {
         Effect effect = new VanishEffect();
         effect.setInfo(deadCell, culprit);
         return effect;
     }
 
 
-    private class VanishEffect implements Effect {
+    private static class VanishEffect implements Effect {
         private final static float MINIMUM_SIZE = 0.3f;
         private Cell cell;
         private Color vanishColor;
@@ -49,7 +54,7 @@ public class VanishEffectFactory implements EffectFactory {
         }
 
         @Override
-        public void setInfo(Cell deadCell, Vector2 culprit) {
+        public void setInfo(@NotNull Cell deadCell, Vector2 culprit) {
             cell = deadCell;
 
             vanishSize = cell.size;
@@ -69,7 +74,7 @@ public class VanishEffectFactory implements EffectFactory {
         }
 
         @Override
-        public void draw(Batch batch) {
+        public void draw(@NotNull Batch batch) {
             vanishElapsed += Gdx.graphics.getDeltaTime();
 
             // vanishElapsed might be < 0 (delay), so clamp to 0

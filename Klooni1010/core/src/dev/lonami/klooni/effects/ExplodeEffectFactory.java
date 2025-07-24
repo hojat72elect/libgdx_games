@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
+import org.jetbrains.annotations.NotNull;
+
 import dev.lonami.klooni.game.Cell;
 import dev.lonami.klooni.interfaces.Effect;
 import dev.lonami.klooni.interfaces.EffectFactory;
@@ -14,11 +16,13 @@ import dev.lonami.klooni.interfaces.EffectFactory;
 
 public class ExplodeEffectFactory implements EffectFactory {
     @Override
+    @NotNull
     public String getName() {
         return "explode";
     }
 
     @Override
+    @NotNull
     public String getDisplay() {
         return "Explode";
     }
@@ -29,14 +33,15 @@ public class ExplodeEffectFactory implements EffectFactory {
     }
 
     @Override
-    public Effect create(Cell deadCell, Vector2 culprit) {
+    @NotNull
+    public Effect create(@NotNull Cell deadCell, @NotNull Vector2 culprit) {
         Effect effect = new ExplodeEffect();
         effect.setInfo(deadCell, culprit);
         return effect;
     }
 
 
-    private class ExplodeEffect implements Effect {
+    private static class ExplodeEffect implements Effect {
         private final static float EXPLOSION_X_RANGE = 0.25f;
         private final static float EXPLOSION_Y_RANGE = 0.30f;
         private final static float GRAVITY_PERCENTAGE = -0.60f;
@@ -45,7 +50,7 @@ public class ExplodeEffectFactory implements EffectFactory {
         private Shard[] shards;
 
         @Override
-        public void setInfo(Cell deadCell, Vector2 culprit) {
+        public void setInfo(Cell deadCell, @NotNull Vector2 culprit) {
             color = deadCell.getColorCopy();
 
             shards = new Shard[MathUtils.random(4, 6)];
