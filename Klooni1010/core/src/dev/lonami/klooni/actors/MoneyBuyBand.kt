@@ -21,7 +21,7 @@ class MoneyBuyBand(game: Klooni) : Table() {
     private val cancelButton: SoftButton
 
     // Used to interpolate between strings
-    private val shownText: StringBuilder
+    private val shownText = StringBuilder()
     private var infoText = ""
     private var showingTemp = false
 
@@ -31,13 +31,12 @@ class MoneyBuyBand(game: Klooni) : Table() {
     private var toBuy: ShopCard? = null
 
     // When the next text update will take place
-    private var nextTextUpdate: Long = 0
+    private var nextTextUpdate = 0L
 
     // When the temporary text should be reverted next
-    private var nextTempRevertUpdate: Long = 0
+    private var nextTempRevertUpdate = 0L
 
     init {
-        shownText = StringBuilder()
 
         val labelStyle = LabelStyle()
         labelStyle.font = game.skin!!.getFont("font_small")
@@ -112,8 +111,8 @@ class MoneyBuyBand(game: Klooni) : Table() {
             for (i in 0..<limit) {
                 // As soon as we found a character which differs, we can interpolate
                 // to the new string by updating that single character
-                if (shownText.get(i) != infoText.get(i)) {
-                    shownText.setCharAt(i, infoText.get(i))
+                if (shownText.get(i) != infoText[i]) {
+                    shownText.setCharAt(i, infoText[i])
                     infoLabel.setText(shownText)
                     return
                 }
@@ -128,7 +127,7 @@ class MoneyBuyBand(game: Klooni) : Table() {
                 // It can't be equal length or we wouldn't be here,
                 // so avoid checking shown.length() < info.length().
                 // We need to append the next character that we want to show
-                shownText.append(infoText.get(shownText.length))
+                shownText.append(infoText[shownText.length])
             }
             infoLabel.setText(shownText)
         }
@@ -166,7 +165,7 @@ class MoneyBuyBand(game: Klooni) : Table() {
 
     companion object {
         // Milliseconds
-        private const val SHOW_ONE_CHARACTER_EVERY: Long = 30
-        private val TEMP_TEXT_DELAY = (2 * 1000).toLong()
+        private const val SHOW_ONE_CHARACTER_EVERY = 30L
+        private const val TEMP_TEXT_DELAY = 2_000L
     }
 }
