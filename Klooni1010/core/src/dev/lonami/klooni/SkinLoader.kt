@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 
 object SkinLoader {
     private val multipliers = floatArrayOf(0.75f, 1.0f, 1.25f, 1.5f, 2.0f, 4.0f)
-    private val ids = arrayOf<String?>(
+    private val ids = arrayOf(
         "play", "play_saved", "star", "stopwatch", "palette", "home", "replay",
         "share", "sound_on", "sound_off", "snap_on", "snap_off", "issues", "credits",
         "web", "back", "ok", "cancel", "power_off", "effects"
@@ -18,11 +18,11 @@ object SkinLoader {
 
     // FIXME this static code is exposed to a race condition and will fail if called class gets loaded before execution of Klooni.create
     init {
-        val desired = Gdx.graphics.height.toFloat() / Klooni.GAME_HEIGHT.toFloat()
+        val desired = (Gdx.graphics.height / Klooni.GAME_HEIGHT).toFloat()
         // Use the height to determine the best match
         // We cannot use a size which is over the device height,
         // so use the closest smaller one
-        var i: Int = multipliers.size - 1
+        var i = multipliers.size - 1
         while (i > 0) {
             if (multipliers[i] < desired) break
             --i
@@ -71,7 +71,7 @@ object SkinLoader {
     }
 
     @JvmStatic
-    fun loadPng(name: String?): Texture {
+    fun loadPng(name: String): Texture {
         val filename = "ui/x$bestMultiplier/$name"
         return Texture(Gdx.files.internal(filename))
     }
