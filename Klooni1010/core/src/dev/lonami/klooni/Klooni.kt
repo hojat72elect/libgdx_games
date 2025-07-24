@@ -39,13 +39,13 @@ class Klooni(@JvmField val shareChallenge: ShareChallenge?) : Game() {
         // Use only one instance for the theme, so anyone using it uses the most up-to-date
         Theme.skin = skin // Not the best idea
         val themeName: String = prefs!!.getString("themeName", "default")
-        if (exists(themeName)) theme = getTheme(themeName)
-        else theme = getTheme("default")
+        theme = if (exists(themeName)) getTheme(themeName)
+        else getTheme("default")
 
         Gdx.input.isCatchBackKey = true // To show the pause menu
         setScreen(MainMenuScreen(this))
         val effectName: String = prefs!!.getString("effectName", "vanish")
-        effectSounds = HashMap<String?, Sound>(EFFECTS.size)
+        effectSounds = HashMap(EFFECTS.size)
         effect = EFFECTS[0]
         for (e in EFFECTS) {
             loadEffectSound(e.name)
@@ -74,14 +74,14 @@ class Klooni(@JvmField val shareChallenge: ShareChallenge?) : Game() {
     }
 
     private fun loadEffectSound(effectName: String?) {
-        var soundFile = Gdx.files.internal("sound/effect_" + effectName + ".mp3")
+        var soundFile = Gdx.files.internal("sound/effect_$effectName.mp3")
         if (!soundFile.exists()) soundFile = Gdx.files.internal("sound/effect_vanish.mp3")
 
         effectSounds!!.put(effectName, Gdx.audio.newSound(soundFile))
     }
 
     fun playEffectSound() {
-        effectSounds!!.get(effect!!.name)!!
+        effectSounds!![effect!!.name]!!
             .play(MathUtils.random(0.7f, 1f), MathUtils.random(0.8f, 1.2f), 0f)
     }
 
@@ -103,7 +103,7 @@ class Klooni(@JvmField val shareChallenge: ShareChallenge?) : Game() {
         )
         const val GAME_HEIGHT: Int = 680
         const val GAME_WIDTH: Int = 408
-        private val SCORE_TO_MONEY = 1f / 100f
+        private const val SCORE_TO_MONEY = 1f / 100f
 
         // FIXME theme should NOT be static as it might load textures which will expose it to the race condition iff GDX got initialized before or not
         @JvmField
