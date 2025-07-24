@@ -8,11 +8,11 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 import dev.lonami.klooni.game.Cell;
-import dev.lonami.klooni.interfaces.IEffect;
-import dev.lonami.klooni.interfaces.IEffectFactory;
+import dev.lonami.klooni.interfaces.Effect;
+import dev.lonami.klooni.interfaces.EffectFactory;
 
 
-public class EvaporateEffectFactory implements IEffectFactory {
+public class EvaporateEffectFactory implements EffectFactory {
     @Override
     public String getName() {
         return "evaporate";
@@ -29,14 +29,14 @@ public class EvaporateEffectFactory implements IEffectFactory {
     }
 
     @Override
-    public IEffect create(Cell deadCell, Vector2 culprit) {
-        IEffect effect = new EvaporateEffect();
+    public Effect create(Cell deadCell, Vector2 culprit) {
+        Effect effect = new EvaporateEffect();
         effect.setInfo(deadCell, culprit);
         return effect;
     }
 
 
-    private class EvaporateEffect implements IEffect {
+    private class EvaporateEffect implements Effect {
         private static final float UP_SPEED = 100.0f;
         private static final float LIFETIME = 3.0f;
         private static final float INV_LIFETIME = 1.0f / 3.0f;

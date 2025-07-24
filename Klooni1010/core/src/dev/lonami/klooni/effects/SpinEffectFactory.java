@@ -8,11 +8,11 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
 import dev.lonami.klooni.game.Cell;
-import dev.lonami.klooni.interfaces.IEffect;
-import dev.lonami.klooni.interfaces.IEffectFactory;
+import dev.lonami.klooni.interfaces.Effect;
+import dev.lonami.klooni.interfaces.EffectFactory;
 
 
-public class SpinEffectFactory implements IEffectFactory {
+public class SpinEffectFactory implements EffectFactory {
     @Override
     public String getName() {
         return "spin";
@@ -29,14 +29,14 @@ public class SpinEffectFactory implements IEffectFactory {
     }
 
     @Override
-    public IEffect create(Cell deadCell, Vector2 culprit) {
-        IEffect effect = new SpinEffect();
+    public Effect create(Cell deadCell, Vector2 culprit) {
+        Effect effect = new SpinEffect();
         effect.setInfo(deadCell, culprit);
         return effect;
     }
 
 
-    private class SpinEffect implements IEffect {
+    private class SpinEffect implements Effect {
         private static final float LIFETIME = 2.0f;
         private static final float INV_LIFETIME = 1.0f / LIFETIME;
         private static final float TOTAL_ROTATION = 600;

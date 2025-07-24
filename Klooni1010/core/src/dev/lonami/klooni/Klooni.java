@@ -18,14 +18,14 @@ import dev.lonami.klooni.effects.ExplodeEffectFactory;
 import dev.lonami.klooni.effects.SpinEffectFactory;
 import dev.lonami.klooni.effects.VanishEffectFactory;
 import dev.lonami.klooni.effects.WaterdropEffectFactory;
-import dev.lonami.klooni.interfaces.IEffectFactory;
+import dev.lonami.klooni.interfaces.EffectFactory;
 import dev.lonami.klooni.screens.MainMenuScreen;
 import dev.lonami.klooni.screens.TransitionScreen;
 
 public class Klooni extends Game {
 
     // ordered list of effects. index 0 will get default if VanishEffectFactory is removed from list
-    public final static IEffectFactory[] EFFECTS = {
+    public final static EffectFactory[] EFFECTS = {
             new VanishEffectFactory(),
             new WaterdropEffectFactory(),
             new EvaporateEffectFactory(),
@@ -40,7 +40,7 @@ public class Klooni extends Game {
     public static boolean onDesktop;
     private static Preferences prefs;
     public final ShareChallenge shareChallenge;
-    public IEffectFactory effect;
+    public EffectFactory effect;
     public Skin skin;
 
     private Map<String, Sound> effectSounds;
@@ -120,7 +120,7 @@ public class Klooni extends Game {
         theme.update(newTheme.getName());
     }
 
-    public static boolean isEffectBought(IEffectFactory effect) {
+    public static boolean isEffectBought(EffectFactory effect) {
         if (effect.getPrice() == 0)
             return true;
 
@@ -132,7 +132,7 @@ public class Klooni extends Game {
         return false;
     }
 
-    public static boolean buyEffect(IEffectFactory effect) {
+    public static boolean buyEffect(EffectFactory effect) {
         final float money = getRealMoney();
         if (effect.getPrice() > money)
             return false;
@@ -187,7 +187,7 @@ public class Klooni extends Game {
         String effectName = prefs.getString("effectName", "vanish");
         effectSounds = new HashMap<String, Sound>(EFFECTS.length);
         effect = EFFECTS[0];
-        for (IEffectFactory e : EFFECTS) {
+        for (EffectFactory e : EFFECTS) {
             loadEffectSound(e.getName());
             if (e.getName().equals(effectName)) {
                 effect = e;
@@ -230,7 +230,7 @@ public class Klooni extends Game {
                 .play(MathUtils.random(0.7f, 1f), MathUtils.random(0.8f, 1.2f), 0);
     }
 
-    public void updateEffect(IEffectFactory newEffect) {
+    public void updateEffect(EffectFactory newEffect) {
         prefs.putString("effectName", newEffect.getName()).flush();
         // Create a new effect, since the one passed through the parameter may dispose later
         effect = newEffect;

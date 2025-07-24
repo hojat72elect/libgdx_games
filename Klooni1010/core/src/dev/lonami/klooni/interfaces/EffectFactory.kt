@@ -9,9 +9,9 @@ import dev.lonami.klooni.game.Cell
  *
  * It tells the name and the price of the effect and will create it, when needed.
  *
- * @see IEffect
+ * @see Effect
  */
-interface IEffectFactory {
+interface EffectFactory {
 
     val name: String
 
@@ -19,5 +19,5 @@ interface IEffectFactory {
 
     val price: Int
 
-    fun create(deadCell: Cell, culprit: Vector2): IEffect
+    fun create(deadCell: Cell, culprit: Vector2): Effect
 }

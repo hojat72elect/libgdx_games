@@ -10,8 +10,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import dev.lonami.klooni.interfaces.IEffect;
-import dev.lonami.klooni.interfaces.IEffectFactory;
+import dev.lonami.klooni.interfaces.Effect;
+import dev.lonami.klooni.interfaces.EffectFactory;
 import dev.lonami.klooni.serializer.BinSerializable;
 
 // Represents the on screen board, with all the put cells
@@ -20,7 +20,7 @@ public class Board implements BinSerializable {
 
     public final int cellCount;
     public final Vector2 pos = new Vector2();
-    private final Array<IEffect> effects = new Array<IEffect>(); // Particle effects once they vanish
+    private final Array<Effect> effects = new Array<Effect>(); // Particle effects once they vanish
     // Used to animate cleared cells vanishing
     private final Vector2 lastPutPiecePos = new Vector2();
     public float cellSize;
@@ -150,7 +150,7 @@ public class Board implements BinSerializable {
     //
     // If the piece is put on the top left corner, all the cells will be cleared.
     // If we first cleared the columns, then the rows wouldn't have been cleared.
-    public int clearComplete(final IEffectFactory effect) {
+    public int clearComplete(final EffectFactory effect) {
         int clearCount = 0;
         boolean[] clearedRows = new boolean[cellCount];
         boolean[] clearedCols = new boolean[cellCount];
@@ -202,7 +202,7 @@ public class Board implements BinSerializable {
         return clearCount;
     }
 
-    public void clearAll(final int clearFromX, final int clearFromY, final IEffectFactory effect) {
+    public void clearAll(final int clearFromX, final int clearFromY, final EffectFactory effect) {
         final Vector2 culprit = cells[clearFromY][clearFromX].pos;
 
         for (int i = 0; i < cellCount; ++i) {

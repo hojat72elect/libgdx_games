@@ -9,18 +9,18 @@ import dev.lonami.klooni.Theme;
 import dev.lonami.klooni.game.Board;
 import dev.lonami.klooni.game.GameLayout;
 import dev.lonami.klooni.game.Piece;
-import dev.lonami.klooni.interfaces.IEffectFactory;
+import dev.lonami.klooni.interfaces.EffectFactory;
 
 // Card-like actor used to display information about a given theme
 public class EffectCard extends ShopCard {
 
-    private final IEffectFactory effect;
+    private final EffectFactory effect;
     private final Board board;
     private final Texture background;
     // We want to create an effect from the beginning
     private boolean needCreateEffect = true;
 
-    public EffectCard(final Klooni game, final GameLayout layout, final IEffectFactory effect) {
+    public EffectCard(final Klooni game, final GameLayout layout, final EffectFactory effect) {
         super(game, layout, effect.getDisplay(), Klooni.theme.background);
         background = Theme.getBlankTexture();
         this.effect = effect;

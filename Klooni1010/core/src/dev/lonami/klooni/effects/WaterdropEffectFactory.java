@@ -10,11 +10,11 @@ import com.badlogic.gdx.math.Vector3;
 
 import dev.lonami.klooni.SkinLoader;
 import dev.lonami.klooni.game.Cell;
-import dev.lonami.klooni.interfaces.IEffect;
-import dev.lonami.klooni.interfaces.IEffectFactory;
+import dev.lonami.klooni.interfaces.Effect;
+import dev.lonami.klooni.interfaces.EffectFactory;
 
 
-public class WaterdropEffectFactory implements IEffectFactory {
+public class WaterdropEffectFactory implements EffectFactory {
     private Texture dropTexture;
 
 
@@ -39,15 +39,15 @@ public class WaterdropEffectFactory implements IEffectFactory {
     }
 
     @Override
-    public IEffect create(Cell deadCell, Vector2 culprit) {
+    public Effect create(Cell deadCell, Vector2 culprit) {
         init();
-        IEffect effect = new WaterdropEffect();
+        Effect effect = new WaterdropEffect();
         effect.setInfo(deadCell, culprit);
         return effect;
     }
 
 
-    private class WaterdropEffect implements IEffect {
+    private class WaterdropEffect implements Effect {
         private static final float FALL_ACCELERATION = 500.0f;
         private static final float FALL_VARIATION = 50.0f;
         private static final float COLOR_SPEED = 7.5f;

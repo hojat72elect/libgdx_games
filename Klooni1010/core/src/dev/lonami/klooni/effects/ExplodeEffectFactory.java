@@ -8,11 +8,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import dev.lonami.klooni.game.Cell;
-import dev.lonami.klooni.interfaces.IEffect;
-import dev.lonami.klooni.interfaces.IEffectFactory;
+import dev.lonami.klooni.interfaces.Effect;
+import dev.lonami.klooni.interfaces.EffectFactory;
 
 
-public class ExplodeEffectFactory implements IEffectFactory {
+public class ExplodeEffectFactory implements EffectFactory {
     @Override
     public String getName() {
         return "explode";
@@ -29,14 +29,14 @@ public class ExplodeEffectFactory implements IEffectFactory {
     }
 
     @Override
-    public IEffect create(Cell deadCell, Vector2 culprit) {
-        IEffect effect = new ExplodeEffect();
+    public Effect create(Cell deadCell, Vector2 culprit) {
+        Effect effect = new ExplodeEffect();
         effect.setInfo(deadCell, culprit);
         return effect;
     }
 
 
-    private class ExplodeEffect implements IEffect {
+    private class ExplodeEffect implements Effect {
         private final static float EXPLOSION_X_RANGE = 0.25f;
         private final static float EXPLOSION_Y_RANGE = 0.30f;
         private final static float GRAVITY_PERCENTAGE = -0.60f;

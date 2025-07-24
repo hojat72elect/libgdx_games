@@ -8,11 +8,11 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 import dev.lonami.klooni.game.Cell;
-import dev.lonami.klooni.interfaces.IEffect;
-import dev.lonami.klooni.interfaces.IEffectFactory;
+import dev.lonami.klooni.interfaces.Effect;
+import dev.lonami.klooni.interfaces.EffectFactory;
 
 
-public class VanishEffectFactory implements IEffectFactory {
+public class VanishEffectFactory implements EffectFactory {
     @Override
     public String getName() {
         return "vanish";
@@ -29,14 +29,14 @@ public class VanishEffectFactory implements IEffectFactory {
     }
 
     @Override
-    public IEffect create(Cell deadCell, Vector2 culprit) {
-        IEffect effect = new VanishEffect();
+    public Effect create(Cell deadCell, Vector2 culprit) {
+        Effect effect = new VanishEffect();
         effect.setInfo(deadCell, culprit);
         return effect;
     }
 
 
-    private class VanishEffect implements IEffect {
+    private class VanishEffect implements Effect {
         private final static float MINIMUM_SIZE = 0.3f;
         private Cell cell;
         private Color vanishColor;
