@@ -61,14 +61,14 @@ public class Cell implements BinSerializable {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(DataOutputStream output) throws IOException {
         // Only the color index is saved
-        out.writeInt(colorIndex);
+        output.writeInt(colorIndex);
     }
 
     @Override
-    public void read(DataInputStream in) throws IOException {
-        colorIndex = in.readInt();
+    public void read(DataInputStream input) throws IOException {
+        colorIndex = input.readInt();
     }
 
 }

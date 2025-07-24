@@ -294,22 +294,22 @@ class GameScreen implements Screen, InputProcessor, BinSerializable {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(DataOutputStream output) throws IOException {
         // gameMode, board, holder, scorer
-        out.writeInt(gameMode);
-        board.write(out);
-        holder.write(out);
-        scorer.write(out);
+        output.writeInt(gameMode);
+        board.write(output);
+        holder.write(output);
+        scorer.write(output);
     }
 
     @Override
-    public void read(DataInputStream in) throws IOException {
-        int savedGameMode = in.readInt();
+    public void read(DataInputStream input) throws IOException {
+        int savedGameMode = input.readInt();
         if (savedGameMode != gameMode)
             throw new IOException("A different game mode was saved. Cannot load the save data.");
 
-        board.read(in);
-        holder.read(in);
-        scorer.read(in);
+        board.read(input);
+        holder.read(input);
+        scorer.read(input);
     }
 }

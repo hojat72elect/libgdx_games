@@ -37,14 +37,14 @@ public class Scorer extends BaseScorer implements BinSerializable {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
-        out.writeInt(currentScore);
-        out.writeInt(highScore);
+    public void write(DataOutputStream output) throws IOException {
+        output.writeInt(currentScore);
+        output.writeInt(highScore);
     }
 
     @Override
-    public void read(DataInputStream in) throws IOException {
-        currentScore = in.readInt();
-        highScore = in.readInt();
+    public void read(DataInputStream input) throws IOException {
+        currentScore = input.readInt();
+        highScore = input.readInt();
     }
 }

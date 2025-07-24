@@ -241,29 +241,29 @@ public class PieceHolder implements BinSerializable {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(DataOutputStream output) throws IOException {
         // Piece count, false if piece == null, true + piece if piece != null
-        out.writeInt(count);
+        output.writeInt(count);
         for (int i = 0; i < count; ++i) {
             if (pieces[i] == null) {
-                out.writeBoolean(false);
+                output.writeBoolean(false);
             } else {
-                out.writeBoolean(true);
-                pieces[i].write(out);
+                output.writeBoolean(true);
+                pieces[i].write(output);
             }
         }
     }
 
     @Override
-    public void read(DataInputStream in) throws IOException {
+    public void read(DataInputStream input) throws IOException {
         // If the saved piece count does not match the current piece count,
         // then an IOException is thrown since the data saved was invalid
-        final int savedPieceCount = in.readInt();
+        final int savedPieceCount = input.readInt();
         if (savedPieceCount != count)
             throw new IOException("Invalid piece count saved.");
 
         for (int i = 0; i < count; i++)
-            pieces[i] = in.readBoolean() ? Piece.read(in) : null;
+            pieces[i] = input.readBoolean() ? Piece.read(input) : null;
         updatePiecesStartLocation();
     }
 

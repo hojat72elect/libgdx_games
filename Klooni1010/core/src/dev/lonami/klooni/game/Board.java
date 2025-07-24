@@ -220,24 +220,24 @@ public class Board implements BinSerializable {
     }
 
     @Override
-    public void write(DataOutputStream out) throws IOException {
+    public void write(DataOutputStream output) throws IOException {
         // Cell count, cells in row-major order
-        out.writeInt(cellCount);
+        output.writeInt(cellCount);
         for (int i = 0; i < cellCount; ++i)
             for (int j = 0; j < cellCount; ++j)
-                cells[i][j].write(out);
+                cells[i][j].write(output);
     }
 
     @Override
-    public void read(DataInputStream in) throws IOException {
+    public void read(DataInputStream input) throws IOException {
         // If the saved cell count does not match the current cell count,
         // then an IOException is thrown since the data saved was invalid
-        final int savedCellCount = in.readInt();
+        final int savedCellCount = input.readInt();
         if (savedCellCount != cellCount)
             throw new IOException("Invalid cellCount saved.");
 
         for (int i = 0; i < cellCount; ++i)
             for (int j = 0; j < cellCount; ++j)
-                cells[i][j].read(in);
+                cells[i][j].read(input);
     }
 }
