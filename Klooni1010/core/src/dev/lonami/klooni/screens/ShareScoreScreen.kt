@@ -16,12 +16,12 @@ internal class ShareScoreScreen(
     private val score: Int,
     private val timeMode: Boolean
 ) : Screen {
-    val labelStyle = LabelStyle(game.skin.getFont("font_small"), Klooni.theme.textColor)
+    val labelStyle = LabelStyle(game.skin?.getFont("font_small"), Klooni.theme?.textColor)
     private val infoLabel = Label("Generating image...", labelStyle)
     private val spriteBatch = SpriteBatch()
 
     init {
-        infoLabel.setColor(Klooni.theme.textColor)
+        infoLabel.setColor(Klooni.theme?.textColor)
         infoLabel.setAlignment(Align.center)
         infoLabel.layout()
         infoLabel.setPosition(
@@ -35,13 +35,13 @@ internal class ShareScoreScreen(
     }
 
     override fun show() {
-        val ok = game.shareChallenge.saveChallengeImage(score, timeMode)
+        val ok = game.shareChallenge!!.saveChallengeImage(score, timeMode)
         game.shareChallenge.shareScreenshot(ok)
         goBack()
     }
 
     override fun render(delta: Float) {
-        Klooni.theme.glClearBackground()
+        Klooni.theme?.glClearBackground()
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         spriteBatch.begin()

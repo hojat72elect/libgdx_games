@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array as GdxArray
 
 class BonusParticleHandler(game: Klooni) {
     private val particles = GdxArray<BonusParticle>()
-    private val labelStyle = LabelStyle(game.skin.getFont("font_bonus"), Klooni.theme.textColor)
+    private val labelStyle = LabelStyle(game.skin?.getFont("font_bonus"), Klooni.theme?.textColor)
 
     fun addBonus(pos: Vector2, score: Int) {
         particles.add(BonusParticle(pos, score, labelStyle))
