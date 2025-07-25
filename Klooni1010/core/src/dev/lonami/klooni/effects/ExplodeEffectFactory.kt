@@ -12,14 +12,10 @@ import dev.lonami.klooni.interfaces.Effect
 import dev.lonami.klooni.interfaces.EffectFactory
 
 class ExplodeEffectFactory : EffectFactory {
-    override val name: String
-        get() = "explode"
 
-    override val display: String
-        get() = "Explode"
-
-    override val price: Int
-        get() = 200
+    override val name = "explode"
+    override val display = "Explode"
+    override val price = 200
 
     override fun create(deadCell: Cell, culprit: Vector2): Effect {
         val effect: Effect = ExplodeEffect()
@@ -76,7 +72,7 @@ class ExplodeEffectFactory : EffectFactory {
         companion object {
             private const val EXPLOSION_X_RANGE = 0.25f
             private const val EXPLOSION_Y_RANGE = 0.30f
-            private val GRAVITY_PERCENTAGE = -0.60f
+            private const val GRAVITY_PERCENTAGE = -0.60f
         }
     }
 }
