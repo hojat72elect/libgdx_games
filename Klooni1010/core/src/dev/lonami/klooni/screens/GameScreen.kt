@@ -121,7 +121,7 @@ internal class GameScreen @JvmOverloads constructor(game: Klooni, gameMode: Int,
         Klooni.theme!!.glClearBackground()
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-        if (scorer.isGameOver() && !pauseMenu.isShown) {
+        if (scorer.isGameOver && !pauseMenu.isShown) {
             doGameOver(scorer.gameOverReason())
         }
 
@@ -209,7 +209,7 @@ internal class GameScreen @JvmOverloads constructor(game: Klooni, gameMode: Int,
 
     private fun saveMoney() {
         // Calculate new money since the previous saving
-        val nowScore = scorer.getCurrentScore()
+        val nowScore = scorer.currentScore
         val newMoneyScore = nowScore - savedMoneyScore
         savedMoneyScore = nowScore
         addMoneyFromScore(newMoneyScore)
@@ -219,7 +219,7 @@ internal class GameScreen @JvmOverloads constructor(game: Klooni, gameMode: Int,
         // Only save if the game is not over and the game mode is not the time mode. It
         // makes no sense to save the time game mode since it's supposed to be something quick.
         // Don't save either if the score is 0, which means the player did nothing.
-        if (gameOverDone || gameMode != GAME_MODE_SCORE || scorer.getCurrentScore() == 0) return
+        if (gameOverDone || gameMode != GAME_MODE_SCORE || scorer.currentScore == 0) return
 
         val handle = Gdx.files.local(SAVE_DAT_FILENAME)
         try {
@@ -237,7 +237,7 @@ internal class GameScreen @JvmOverloads constructor(game: Klooni, gameMode: Int,
                 deserialize(this, handle.read())
                 // No cheating! We need to load the previous money
                 // or it would seem like we earned it on this game
-                savedMoneyScore = scorer.getCurrentScore()
+                savedMoneyScore = scorer.currentScore
 
                 // After it's been loaded, delete the save file
                 deleteSave()

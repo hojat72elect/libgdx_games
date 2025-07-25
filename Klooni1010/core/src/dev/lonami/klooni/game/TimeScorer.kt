@@ -64,9 +64,7 @@ class TimeScorer(game: Klooni, layout: GameLayout) : BaseScorer(game, layout, ge
         return nanosToSeconds(extraTime)
     }
 
-    override fun isGameOver(): Boolean {
-        return TimeUtils.nanoTime() > deadTime
-    }
+    override val isGameOver = TimeUtils.nanoTime() > deadTime
 
     override fun gameOverReason(): String {
         return "time is up"
@@ -74,13 +72,11 @@ class TimeScorer(game: Klooni, layout: GameLayout) : BaseScorer(game, layout, ge
 
     override fun saveScore() {
         if (isNewRecord) {
-            setMaxTimeScore(getCurrentScore())
+            setMaxTimeScore(currentScore)
         }
     }
 
-    override fun isNewRecord(): Boolean {
-        return getCurrentScore() > highScore
-    }
+    override val isNewRecord = currentScore > highScore
 
     override fun pause() {
         pauseTime = TimeUtils.nanoTime()

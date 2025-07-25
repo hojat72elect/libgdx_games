@@ -21,9 +21,9 @@ class Scorer(game: Klooni, layout: GameLayout) : BaseScorer(game, layout, Klooni
         if (isNewRecord) Klooni.setMaxScore(currentScore)
     }
 
-    override fun isNewRecord() = currentScore > highScore
+    override val isNewRecord = currentScore > highScore
 
-    override fun isGameOver() = false
+    override val isGameOver = false
 
     @Throws(IOException::class)
     override fun write(output: DataOutputStream) {

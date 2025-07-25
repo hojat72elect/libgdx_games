@@ -47,7 +47,7 @@ class Band(game: Klooni, layout: GameLayout, private val scorer: BaseScorer) : A
         batch.draw(bandTexture, pos.x, pos.y, getWidth(), getHeight())
 
         scoreLabel.setBounds(x + scoreBounds.x, y + scoreBounds.y, scoreBounds.width, scoreBounds.height)
-        scoreLabel.setText(scorer.getCurrentScore().toString())
+        scoreLabel.setText(scorer.currentScore.toString())
         scoreLabel.setColor(Klooni.theme!!.textColor)
         scoreLabel.draw(batch, parentAlpha)
 

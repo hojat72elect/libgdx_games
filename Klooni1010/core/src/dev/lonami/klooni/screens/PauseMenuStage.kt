@@ -142,7 +142,7 @@ internal class PauseMenuStage(layout: GameLayout, private val game: Klooni, priv
                     // Don't dispose because then it needs to take us to the previous screen
                     game.transitionTo(
                         ShareScoreScreen(
-                            game, game.getScreen(), scorer.getCurrentScore(), timeMode
+                            game, game.getScreen(), scorer.currentScore, timeMode
                         ), false
                     )
                 }
