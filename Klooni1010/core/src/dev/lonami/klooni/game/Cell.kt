@@ -14,20 +14,13 @@ import java.io.IOException
 // Instances will use the cell texture provided by the currently used skin.
 class Cell internal constructor(x: Float, y: Float, cellSize: Float) : BinSerializable {
     @JvmField
-    val pos: Vector2
+    val pos = Vector2(x, y)
 
     @JvmField
-    val size: Float
+    val size = cellSize
 
     // Negative index indicates that the cell is empty
-    private var colorIndex: Int
-
-    init {
-        pos = Vector2(x, y)
-        size = cellSize
-
-        colorIndex = -1
-    }
+    private var colorIndex = -1
 
     // Sets the cell to be non-empty and of the specified color index
     fun set(ci: Int) {
@@ -60,8 +53,11 @@ class Cell internal constructor(x: Float, y: Float, cellSize: Float) : BinSerial
         // Default texture (don't call overloaded version to avoid overhead)
         @JvmStatic
         fun draw(
-            color: Color?, batch: Batch,
-            x: Float, y: Float, size: Float
+            color: Color?,
+            batch: Batch,
+            x: Float,
+            y: Float,
+            size: Float
         ) {
             batch.color = color
             batch.draw(Klooni.theme!!.cellTexture, x, y, size, size)
@@ -69,8 +65,12 @@ class Cell internal constructor(x: Float, y: Float, cellSize: Float) : BinSerial
 
         // Custom texture
         fun draw(
-            texture: Texture?, color: Color?, batch: Batch,
-            x: Float, y: Float, size: Float
+            texture: Texture?,
+            color: Color?,
+            batch: Batch,
+            x: Float,
+            y: Float,
+            size: Float
         ) {
             batch.color = color
             batch.draw(texture, x, y, size, size)
