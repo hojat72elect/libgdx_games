@@ -11,14 +11,11 @@ import dev.lonami.klooni.interfaces.Effect
 import dev.lonami.klooni.interfaces.EffectFactory
 
 class SpinEffectFactory : EffectFactory {
-    override val name: String
-        get() = "spin"
+    override val name = "spin"
 
-    override val display: String
-        get() = "Spin"
+    override val display = "Spin"
 
-    override val price: Int
-        get() = 200
+    override val price = 200
 
     override fun create(deadCell: Cell, culprit: Vector2): Effect {
         val effect: Effect = SpinEffect()
@@ -68,7 +65,7 @@ class SpinEffectFactory : EffectFactory {
 
         companion object {
             private const val LIFETIME = 2.0f
-            private val INV_LIFETIME = 1.0f / LIFETIME
+            private const val INV_LIFETIME = 1.0f / LIFETIME
             private const val TOTAL_ROTATION = 600f
         }
     }
