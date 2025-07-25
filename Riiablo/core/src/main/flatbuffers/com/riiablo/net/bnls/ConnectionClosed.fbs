@@ -1,5 +1,0 @@
-namespace com.riiablo.net.packet.bnls;
-
-table ConnectionClosed {
-  reason:string;
-}

@@ -1,5 +1,0 @@
-namespace com.riiablo.net.packet.mcp;
-
-table ConnectionClosed {
-  reason:string;
-}
