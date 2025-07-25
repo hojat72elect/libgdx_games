@@ -14,42 +14,23 @@ import kotlin.math.min
  * For example, the boardHeight on the left and the piece holder on the right.
  */
 class GameLayout {
-    private var screenWidth = 0f
-    private var marginWidth = 0f
-    private var availableWidth = 0f
-    private var screenHeight = 0f
-    private var logoHeight = 0f
-    private var scoreHeight = 0f
-    private var boardHeight = 0f
-    private var pieceHolderHeight = 0f
-    private var shopCardHeight = 0f
+    private var screenWidth = Gdx.graphics.width.toFloat()
+    private var marginWidth = screenWidth * 0.05f
+    private var availableWidth = screenWidth - marginWidth * 2f
+    private var screenHeight = Gdx.graphics.height.toFloat()
+    private var logoHeight = screenHeight * 0.10f
+    private var scoreHeight = screenHeight * 0.15f
+    private var boardHeight = screenHeight * 0.50f
+    private var pieceHolderHeight = screenHeight * 0.25f
+    private var shopCardHeight = screenHeight * 0.15f
 
-    init {
-        calculate()
-    }
-
-    private fun calculate() {
-        screenWidth = Gdx.graphics.width.toFloat()
-        screenHeight = Gdx.graphics.height.toFloat()
-
-        // Widths
-        marginWidth = screenWidth * 0.05f
-        availableWidth = screenWidth - marginWidth * 2f
-
-        // Heights
-        logoHeight = screenHeight * 0.10f
-        scoreHeight = screenHeight * 0.15f
-        boardHeight = screenHeight * 0.50f
-        pieceHolderHeight = screenHeight * 0.25f
-
-        shopCardHeight = screenHeight * 0.15f
-    }
-
-    // These methods take any of the custom objects used in the game
-    // and positions them accordingly on the screen, by using relative
-    // coordinates. Since these objects are not actors and we cannot
-    // add them to a table (and would probably be harder), this approach
-    // was used. Note that all these are using Y-up coordinates.
+    /**
+     * These methods take any of the custom objects used in the game
+     *  and positions them accordingly on the screen, by using relative
+     *  coordinates. Since these objects are not actors and we cannot
+     *  add them to a table (and would probably be harder), this approach
+     *  was used. Note that all these are using Y-up coordinates.
+     */
     fun update(scorer: BaseScorer) {
         val cupSize = min(scoreHeight, scorer.cupTexture.height.toFloat())
         val area = Rectangle(
