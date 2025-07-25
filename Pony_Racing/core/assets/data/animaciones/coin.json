@@ -1,0 +1,263 @@
+{
+  "bones": [
+    {
+      "name": "root"
+    },
+    {
+      "name": "bone1",
+      "parent": "root",
+      "x": 1.15,
+      "y": 46.27
+    }
+  ],
+  "slots": [
+    {
+      "name": "moneda",
+      "bone": "root",
+      "attachment": "moneda"
+    },
+    {
+      "name": "monedamas1",
+      "bone": "bone1",
+      "attachment": "monedamas1"
+    }
+  ],
+  "skins": {
+    "default": {
+      "moneda": {
+        "moneda": {
+          "width": 59,
+          "height": 58
+        },
+        "moneda2": {
+          "width": 59,
+          "height": 58
+        },
+        "moneda3": {
+          "width": 59,
+          "height": 58
+        },
+        "moneda4": {
+          "width": 59,
+          "height": 58
+        },
+        "moneda5": {
+          "width": 59,
+          "height": 58
+        }
+      },
+      "monedamas1": {
+        "monedamas1": {
+          "width": 59,
+          "height": 58
+        }
+      }
+    }
+  },
+  "animations": {
+    "normal": {
+      "bones": {
+        "root": {
+          "translate": [
+            {
+              "time": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "time": 0.8,
+              "x": 0,
+              "y": 4
+            },
+            {
+              "time": 1.6,
+              "x": 0,
+              "y": 0
+            }
+          ]
+        }
+      },
+      "slots": {
+        "moneda": {
+          "attachment": [
+            {
+              "time": 0,
+              "name": "moneda"
+            },
+            {
+              "time": 0.2,
+              "name": "moneda2"
+            },
+            {
+              "time": 0.4,
+              "name": "moneda3"
+            },
+            {
+              "time": 0.6333,
+              "name": "moneda4"
+            },
+            {
+              "time": 0.8,
+              "name": "moneda5"
+            },
+            {
+              "time": 0.9666,
+              "name": "moneda4"
+            },
+            {
+              "time": 1.1333,
+              "name": "moneda3"
+            },
+            {
+              "time": 1.3333,
+              "name": "moneda2"
+            }
+          ]
+        }
+      }
+    },
+    "plus1": {
+      "bones": {
+        "root": {
+          "translate": [
+            {
+              "time": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "time": 0.2848,
+              "x": 0,
+              "y": 15.13
+            }
+          ],
+          "scale": [
+            {
+              "time": 0,
+              "x": 1,
+              "y": 1
+            },
+            {
+              "time": 0.0666,
+              "x": 0.831,
+              "y": 1
+            },
+            {
+              "time": 0.1393,
+              "x": 0.613,
+              "y": 1
+            },
+            {
+              "time": 0.2121,
+              "x": 0.249,
+              "y": 1
+            },
+            {
+              "time": 0.2848,
+              "x": 0.171,
+              "y": 1
+            }
+          ]
+        },
+        "bone1": {
+          "translate": [
+            {
+              "time": 0,
+              "x": 0,
+              "y": 0
+            },
+            {
+              "time": 1.1666,
+              "x": 0,
+              "y": 5
+            }
+          ],
+          "scale": [
+            {
+              "time": 0,
+              "x": 0.944,
+              "y": 1
+            },
+            {
+              "time": 0.0666,
+              "x": 1.254,
+              "y": 1
+            },
+            {
+              "time": 0.1333,
+              "x": 1.612,
+              "y": 1
+            },
+            {
+              "time": 0.2,
+              "x": 3.115,
+              "y": 1
+            },
+            {
+              "time": 0.2333,
+              "x": 4.204,
+              "y": 1
+            },
+            {
+              "time": 0.2666,
+              "x": 4.949,
+              "y": 1
+            },
+            {
+              "time": 0.4666,
+              "x": 4.492,
+              "y": 1
+            },
+            {
+              "time": 0.6666,
+              "x": 6.664,
+              "y": 1
+            }
+          ]
+        }
+      },
+      "slots": {
+        "moneda": {
+          "attachment": [
+            {
+              "time": 0,
+              "name": "moneda"
+            },
+            {
+              "time": 0.0666,
+              "name": "moneda2"
+            },
+            {
+              "time": 0.1393,
+              "name": "moneda3"
+            },
+            {
+              "time": 0.2121,
+              "name": "moneda2"
+            },
+            {
+              "time": 0.2848,
+              "name": "moneda5"
+            },
+            {
+              "time": 0.3,
+              "name": null
+            }
+          ]
+        },
+        "monedamas1": {
+          "color": [
+            {
+              "time": 0.6666,
+              "color": "ffffffff"
+            },
+            {
+              "time": 1.1666,
+              "color": "ffffff00"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
