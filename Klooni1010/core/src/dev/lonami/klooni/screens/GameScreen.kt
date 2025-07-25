@@ -25,18 +25,16 @@ import java.io.DataOutputStream
 import java.io.IOException
 
 // Main game screen. Here the board, piece holder and score are shown
-internal class GameScreen @JvmOverloads constructor(game: Klooni, gameMode: Int, loadSave: Boolean = true) : Screen, InputProcessor, BinSerializable {
-    private val game: Klooni
+internal class GameScreen @JvmOverloads constructor(private val game: Klooni, private val gameMode: Int, loadSave: Boolean = true) : Screen, InputProcessor, BinSerializable {
     private val scorer: BaseScorer
     private val bonusParticleHandler: BonusParticleHandler
     private val board: Board
     private val holder: PieceHolder
-    private val batch: SpriteBatch
+    private val batch: SpriteBatch = SpriteBatch()
 
     private val gameOverSound: Sound
     private val pauseMenu: PauseMenuStage
 
-    private val gameMode: Int
     private var gameOverDone = false
 
     // The last score that was saved when adding the money.
@@ -47,15 +45,12 @@ internal class GameScreen @JvmOverloads constructor(game: Klooni, gameMode: Int,
 
     // Load any previously saved file by default
     init {
-        batch = SpriteBatch()
-        this.game = game
-        this.gameMode = gameMode
 
         val layout = GameLayout()
-        when (gameMode) {
-            GAME_MODE_SCORE -> scorer = Scorer(game, layout)
-            GAME_MODE_TIME -> scorer = TimeScorer(game, layout)
-            else -> throw RuntimeException("Unknown game mode given: " + gameMode)
+        scorer = when (gameMode) {
+            GAME_MODE_SCORE -> Scorer(game, layout)
+            GAME_MODE_TIME -> TimeScorer(game, layout)
+            else -> throw RuntimeException("Unknown game mode given: $gameMode")
         }
 
         board = Board(layout, BOARD_SIZE)
@@ -162,7 +157,7 @@ internal class GameScreen @JvmOverloads constructor(game: Klooni, gameMode: Int,
 
         if (result.onBoard) {
             scorer.addPieceScore(result.area)
-            val bonus = scorer.addBoardScore(board.clearComplete(game.effect), board.cellCount)
+            val bonus = scorer.addBoardScore(board.clearComplete(game.effect!!), board.cellCount)
             if (bonus > 0) {
                 bonusParticleHandler.addBonus(result.pieceCenter, bonus)
                 if (soundsEnabled()) {
@@ -242,7 +237,7 @@ internal class GameScreen @JvmOverloads constructor(game: Klooni, gameMode: Int,
                 // After it's been loaded, delete the save file
                 deleteSave()
                 return true
-            } catch (ignored: IOException) {
+            } catch (_: IOException) {
             }
         }
         return false

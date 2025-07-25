@@ -50,7 +50,7 @@ class EffectCard(game: Klooni, layout: GameLayout, private val effect: EffectFac
         board.pos.set(x + cellSize * 1, y + cellSize * 1)
 
         // Draw only if effects are done, i.e. not showcasing
-        if (board.effectsDone()) board.draw(batch)
+        if (board.effectsDone()) board.draw(batch!!)
 
         super.draw(batch, parentAlpha)
     }
@@ -74,7 +74,7 @@ class EffectCard(game: Klooni, layout: GameLayout, private val effect: EffectFac
             }
         }
 
-        board.draw(batch)
+        board.draw(batch!!)
         return true
     }
 
