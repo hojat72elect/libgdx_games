@@ -35,7 +35,7 @@ class ThemeCard(
         for (i in colorsUsed.indices) {
             for (j in colorsUsed[i]!!.indices) {
                 Cell.draw(
-                    theme.cellTexture, theme.getCellColor(colorsUsed[i]!![j]), batch,
+                    theme.cellTexture, theme.getCellColor(colorsUsed[i]!![j]), batch!!,
                     x + cellSize * (j + 1), y + cellSize * (i + 1), cellSize
                 )
             }
