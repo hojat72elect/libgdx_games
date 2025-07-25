@@ -74,8 +74,7 @@ class VanishEffectFactory : EffectFactory {
             draw(vanishColor, batch, cell!!.pos.x + centerOffset, cell!!.pos.y + centerOffset, vanishSize)
         }
 
-        override val isDone: Boolean
-            get() = vanishSize < MINIMUM_SIZE
+        override val isDone = vanishSize < MINIMUM_SIZE
 
         companion object {
             private const val MINIMUM_SIZE = 0.3f
