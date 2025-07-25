@@ -76,7 +76,7 @@ internal class GameScreen @JvmOverloads constructor(private val game: Klooni, pr
     private val isGameOver: Boolean
         // If no piece can be put, then it is considered to be game over
         get() {
-            for (piece in holder.getAvailablePieces()) if (board.canPutPiece(piece)) return false
+            for (piece in holder.availablePieces) if (board.canPutPiece(piece!!)) return false
 
             return true
         }
@@ -159,7 +159,7 @@ internal class GameScreen @JvmOverloads constructor(private val game: Klooni, pr
             scorer.addPieceScore(result.area)
             val bonus = scorer.addBoardScore(board.clearComplete(game.effect!!), board.cellCount)
             if (bonus > 0) {
-                bonusParticleHandler.addBonus(result.pieceCenter, bonus)
+                bonusParticleHandler.addBonus(result.pieceCenter!!, bonus)
                 if (soundsEnabled()) {
                     game.playEffectSound()
                 }
