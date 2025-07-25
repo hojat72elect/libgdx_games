@@ -1,4 +1,5 @@
 apply plugin: "java"
+apply plugin: 'kotlin'
 
 sourceSets.main.java.srcDirs = ["src/"]
 sourceSets.main.resources.srcDirs = ["../android/assets"]
@@ -37,3 +38,21 @@ task dist(type: Jar) {
 dist.dependsOn classes
 
 eclipse.project.name = appName + "-desktop"
+buildscript {
+    ext.kotlin_version = '2.2.0'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+kotlin {
+    jvmToolchain(11)
+}
