@@ -1,1 +1,0 @@
-An open-source tri peaks solitaire game with multiple layout options. 

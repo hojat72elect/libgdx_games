@@ -1,3 +1,0 @@
-Version 1.2.3:
-    - Reordered in-game menu.
-    - Added basic save data validation.
