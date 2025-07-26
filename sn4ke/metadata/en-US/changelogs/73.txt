@@ -1,5 +1,0 @@
-Version 8.2
-- Upgrade gradle to 8.0.2
-
-Version 8.1
-- First release on F-Droid
