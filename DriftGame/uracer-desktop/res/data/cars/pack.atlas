@@ -1,0 +1,26 @@
+
+pack.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+selector
+  rotate: false
+  xy: 258, 204
+  size: 78, 91
+  orig: 78, 91
+  offset: 0, 0
+  index: -1
+skid-marks-front
+  rotate: false
+  xy: 0, 0
+  size: 129, 295
+  orig: 129, 295
+  offset: 0, 0
+  index: -1
+skid-marks-rear
+  rotate: false
+  xy: 129, 0
+  size: 129, 295
+  orig: 129, 295
+  offset: 0, 0
+  index: -1
