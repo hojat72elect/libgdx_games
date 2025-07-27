@@ -7,7 +7,6 @@ import com.nopalsoft.ponyrace.game.WorldTiled;
 
 public class Wood extends GameObject {
     public static final float TIEMPO_NORMAL = 8f;
-    public static final float TIEMPO_EXPLOSION = .3f;
     public final float TIEMPO_HURT;
     public float lastStatetime;
     public float stateTime;
@@ -16,7 +15,7 @@ public class Wood extends GameObject {
     public Tipo tipo;
     public Pony ponyTirador;// El pony que tiro este wood
     public Wood(float x, float y, Pony ponyTirador, WorldTiled oWorld) {
-        super(x, y, 0);
+        super(x, y);
         stateTime = 0;
         lastStatetime = stateTime;
         state = State.normal;

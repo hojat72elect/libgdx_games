@@ -8,7 +8,7 @@ public class Fogata extends GameObject {
     public float stateTime;
 
     public Fogata(float x, float y, Random oRan) {
-        super(x, y, 0);
+        super(x, y);
         stateTime = oRan.nextFloat() * 5f;
         lastStatetime = stateTime;
     }

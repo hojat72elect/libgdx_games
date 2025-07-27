@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.ponyrace.MainPonyRace;
 import com.nopalsoft.ponyrace.Settings;
@@ -16,8 +15,9 @@ import com.nopalsoft.ponyrace.menuobjetos.BotonNube;
 
 public class MainMenuScreen extends Screens {
 
-    ImageButton btInfo, btFacebook, btSonido, btMusica;
-    TextButton btAyuda;
+    ImageButton btFacebook;
+    ImageButton btSonido;
+    ImageButton btMusica;
     BotonNube btJugar2, btMore, btLeaderBoard;
 
     public MainMenuScreen(MainPonyRace game) {

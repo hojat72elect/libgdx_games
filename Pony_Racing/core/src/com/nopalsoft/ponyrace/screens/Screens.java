@@ -21,7 +21,6 @@ public abstract class Screens extends InputAdapter implements Screen {
 
     public static final int WORLD_SCREEN_WIDTH = 80;
     public static final int WORLD_SCREEN_HEIGHT = 48;
-    public static final int WORLD_SCREEN_PROFUNDIDAD = 10;
 
     public MainPonyRace game;
     public Stage stage;
@@ -81,12 +80,6 @@ public abstract class Screens extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         draw(delta);
-
-        // if(Gdx.input.justTouched())
-        // if (Settings.musicEnabled && !Assets.music.isPlaying())
-        // Assets.music.play();
-        // loger.log();
-
     }
 
     public abstract void update(float delta);

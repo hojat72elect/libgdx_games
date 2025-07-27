@@ -9,7 +9,7 @@ public class Pluma extends GameObject {
 
 
     public Pluma(float x, float y, Random oRan) {
-        super(x, y, 0);
+        super(x, y);
         stateTime = oRan.nextFloat() * 5f;
         lastStatetime = stateTime;
         state = State.normal;
@@ -18,10 +18,6 @@ public class Pluma extends GameObject {
     public void update(float delta) {
         lastStatetime = stateTime;
         stateTime += delta;
-    }
-
-    public void hitPony() {
-        state = State.tomada;
     }
 
     public enum State {

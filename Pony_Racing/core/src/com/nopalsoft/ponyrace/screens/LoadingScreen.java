@@ -74,14 +74,12 @@ public class LoadingScreen extends Screens {
         batcher.begin();
         oAssets.fontChco.setColor(Color.WHITE);
         glyphLayout.setText(oAssets.fontChco, "%");
-        oAssets.fontChco.draw(batcher, cargaActual + "%", (SCREEN_WIDTH / 2)
-                - (glyphLayout.width / 2), SCREEN_HEIGHT / 2 - glyphLayout.height / 2);
+        oAssets.fontChco.draw(batcher, cargaActual + "%", (SCREEN_WIDTH / 2F)
+                - (glyphLayout.width / 2), SCREEN_HEIGHT / 2F - glyphLayout.height / 2);
         batcher.end();
     }
 
     @Override
     public void show() {
-        // TODO Auto-generated method stub
-
     }
 }

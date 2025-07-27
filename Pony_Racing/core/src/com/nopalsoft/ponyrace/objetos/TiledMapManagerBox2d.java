@@ -28,7 +28,6 @@ import com.badlogic.gdx.utils.Logger;
 import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.game.WorldTiled;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 public class TiledMapManagerBox2d {
@@ -70,30 +69,29 @@ public class TiledMapManagerBox2d {
         }
 
         MapObjects objects = layer.getObjects();
-        Iterator<MapObject> objectIt = objects.iterator();
-        while (objectIt.hasNext()) {
-            MapObject object = objectIt.next();
-
+        for (MapObject object : objects) {
             if (object instanceof TextureMapObject) {
                 continue;
             }
 
             MapProperties properties = object.getProperties();
             String tipo = (String) properties.get("type");
-            if (tipo == null)
-                continue;
-            else if (tipo.equals("moneda")) {
-                crearMoneda(object);
-                continue;
-            } else if (tipo.equals("dulce")) {
-                crearDulce(object);
-                continue;
-            } else if (tipo.equals("chile")) {
-                crearChile(object);
-                continue;
-            } else if (tipo.equals("globo")) {
-                crearGlobo(object);
-                continue;
+
+            if (tipo != null) {
+                switch (tipo) {
+                    case "moneda":
+                        crearMoneda(object);
+                        break;
+                    case "dulce":
+                        crearDulce(object);
+                        break;
+                    case "chile":
+                        crearChile(object);
+                        break;
+                    case "globo":
+                        crearGlobo(object);
+                        break;
+                }
             }
         }
     }
@@ -107,11 +105,8 @@ public class TiledMapManagerBox2d {
         }
 
         MapObjects objects = layer.getObjects();
-        Iterator<MapObject> objectIt = objects.iterator();
 
-        while (objectIt.hasNext()) {
-            MapObject object = objectIt.next();
-
+        for (MapObject object : objects) {
             if (object instanceof TextureMapObject) {
                 continue;
             }

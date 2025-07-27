@@ -17,7 +17,7 @@ public class Bomba extends GameObject {
     public Skeleton skelBomb;
 
     public Bomba(float x, float y, WorldTiled oWorld) {
-        super(x, y, 0);
+        super(x, y);
         stateTime = 0;
         lastStatetime = stateTime;
         state = State.normal;

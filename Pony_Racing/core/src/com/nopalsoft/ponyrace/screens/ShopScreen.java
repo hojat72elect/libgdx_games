@@ -19,8 +19,6 @@ import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.menuobjetos.BotonNube;
 import com.nopalsoft.ponyrace.shopSubMenus.PonysSubMenu;
 
-import java.util.Iterator;
-
 public class ShopScreen extends Screens {
 
     final int PRECIO_10_BOMBS = 250;
@@ -138,16 +136,12 @@ public class ShopScreen extends Screens {
         ScrollPane scroll = new ScrollPane(contenedor);
         scroll.setSize(463, 420);
         scroll.setPosition(169, 10);
-        // scroll.getStyle().vScrollKnob = oAssets.miniNubeScroll;
-        // scroll.getStyle().vScroll = oAssets.barraScroll;
         scroll.setScrollingDisabled(true, false);
 
         stage.addActor(scroll);
         stage.addActor(btBack);
         stage.addActor(menuLateral);
 
-        // menuLateral.debug();
-        // contenedor.debug();
         crearTodosLosBotones();
 
         setItems();
@@ -158,10 +152,9 @@ public class ShopScreen extends Screens {
     }
 
     private void crearTodosLosBotones() {
-        /**
+        /*
          * BOTONES DEL MENU LATERAL
          */
-
         TextButtonStyle btStyleMenu = new TextButtonStyle(oAssets.btMenuLeftUp,
                 oAssets.btMenuLeftDown, oAssets.btMenuLeftDown, oAssets.fontGde);
 
@@ -225,7 +218,7 @@ public class ShopScreen extends Screens {
 
         menuLateral.top();
 
-        /**
+        /*
          * BOTONES DE LAS OPCIONES DE COMPRA
          */
         TextButtonStyle btStyle = new TextButtonStyle(oAssets.btNubeUpTienda,
@@ -238,8 +231,6 @@ public class ShopScreen extends Screens {
                 if (Settings.numeroMonedasActual - PRECIO_10_BOMBS >= 0) {
                     Settings.numeroMonedasActual -= PRECIO_10_BOMBS;
                     Settings.numeroBombas += 10;
-                } else {
-                    showDialogGetCoins();
                 }
             }
         });
@@ -251,8 +242,6 @@ public class ShopScreen extends Screens {
                 if (Settings.numeroMonedasActual - PRECIO_20_BOMBS >= 0) {
                     Settings.numeroMonedasActual -= PRECIO_20_BOMBS;
                     Settings.numeroBombas += 20;
-                } else {
-                    showDialogGetCoins();
                 }
             }
         });
@@ -264,8 +253,6 @@ public class ShopScreen extends Screens {
                 if (Settings.numeroMonedasActual - PRECIO_50_BOMBS >= 0) {
                     Settings.numeroMonedasActual -= PRECIO_50_BOMBS;
                     Settings.numeroBombas += 50;
-                } else {
-                    showDialogGetCoins();
                 }
             }
         });
@@ -277,8 +264,6 @@ public class ShopScreen extends Screens {
                 if (Settings.numeroMonedasActual - PRECIO_100_BOMBS >= 0) {
                     Settings.numeroMonedasActual -= PRECIO_100_BOMBS;
                     Settings.numeroBombas += 100;
-                } else {
-                    showDialogGetCoins();
                 }
             }
         });
@@ -290,8 +275,6 @@ public class ShopScreen extends Screens {
                 if (Settings.numeroMonedasActual - PRECIO_10_WOOD >= 0) {
                     Settings.numeroMonedasActual -= PRECIO_10_WOOD;
                     Settings.numeroWoods += 10;
-                } else {
-                    showDialogGetCoins();
                 }
             }
         });
@@ -303,8 +286,6 @@ public class ShopScreen extends Screens {
                 if (Settings.numeroMonedasActual - PRECIO_20_WOOD >= 0) {
                     Settings.numeroMonedasActual -= PRECIO_20_WOOD;
                     Settings.numeroWoods += 20;
-                } else {
-                    showDialogGetCoins();
                 }
             }
         });
@@ -316,8 +297,6 @@ public class ShopScreen extends Screens {
                 if (Settings.numeroMonedasActual - PRECIO_50_WOOD >= 0) {
                     Settings.numeroMonedasActual -= PRECIO_50_WOOD;
                     Settings.numeroWoods += 50;
-                } else {
-                    showDialogGetCoins();
                 }
             }
         });
@@ -329,16 +308,13 @@ public class ShopScreen extends Screens {
                 if (Settings.numeroMonedasActual - PRECIO_100_WOOD >= 0) {
                     Settings.numeroMonedasActual -= PRECIO_100_WOOD;
                     Settings.numeroWoods += 100;
-                } else {
-                    showDialogGetCoins();
                 }
             }
         });
 
-        /**
+        /*
          * BOTONES DE LAS OPCIONES DE UPGRADES
          */
-
         btUpgradeBomb = new TextButton("Upgrade", btStyle);
         btUpgradeBomb.addListener(new ClickListener() {
             @Override
@@ -350,8 +326,6 @@ public class ShopScreen extends Screens {
                         deleteTableDentroDentroUp(dentroUpBombas);
                     costUpBomb = checkPriceBomb();
                     setLabelPrices();
-                } else {
-                    showDialogGetCoins();
                 }
             }
         });
@@ -367,8 +341,6 @@ public class ShopScreen extends Screens {
                         deleteTableDentroDentroUp(dentroUpWood);
                     costUpWood = checkPriceWood();
                     setLabelPrices();
-                } else {
-                    showDialogGetCoins();
                 }
             }
         });
@@ -384,8 +356,6 @@ public class ShopScreen extends Screens {
                         deleteTableDentroDentroUp(dentroUpBallon);
                     costUpBallon = checkPriceBallon();
                     setLabelPrices();
-                } else {
-                    showDialogGetCoins();
                 }
             }
         });
@@ -401,8 +371,6 @@ public class ShopScreen extends Screens {
                         deleteTableDentroDentroUp(dentroUpChocolate);
                     costUpChocolate = checkPriceChocolate();
                     setLabelPrices();
-                } else {
-                    showDialogGetCoins();
                 }
             }
         });
@@ -418,8 +386,6 @@ public class ShopScreen extends Screens {
                         deleteTableDentroDentroUp(dentroUpChili);
                     costUpChili = checkPriceChili();
                     setLabelPrices();
-                } else {
-                    showDialogGetCoins();
                 }
             }
         });
@@ -435,8 +401,6 @@ public class ShopScreen extends Screens {
                         deleteTableDentroDentroUp(dentroUpCoin);
                     costUpCoin = checkPriceCoin();
                     setLabelPrices();
-                } else {
-                    showDialogGetCoins();
                 }
             }
         });
@@ -452,16 +416,13 @@ public class ShopScreen extends Screens {
                         deleteTableDentroDentroUp(dentroUpTime);
                     costUpTime = checkPriceTime();
                     setLabelPrices();
-                } else {
-                    showDialogGetCoins();
                 }
             }
         });
 
-        /**
+        /*
          * BOTONES OPCIONES COINS
          */
-
         final String btFaceText;
         if (Settings.seDioLike)
             btFaceText = "Visit us";
@@ -502,9 +463,8 @@ public class ShopScreen extends Screens {
     }
 
     private void deleteTableDentroDentroUp(Table tabDelete) {
-        Iterator<Actor> ite = contenedor.getChildren().iterator();
-        while (ite.hasNext()) {
-            Table obj = (Table) ite.next();
+        for (Actor actor : contenedor.getChildren()) {
+            Table obj = (Table) actor;
 
             obj.removeActor(tabDelete);
         }
@@ -892,8 +852,6 @@ public class ShopScreen extends Screens {
         stage.act(delta);
         stage.draw();
 
-        // Table.drawDebug(stage);
-
     }
 
     private void renderTitle(float delta) {
@@ -902,11 +860,6 @@ public class ShopScreen extends Screens {
         oAssets.skeletonTiendaTitle.updateWorldTransform();
         oAssets.skeletonTiendaTitle.update(delta);
         skelrender.draw(batcher, oAssets.skeletonTiendaTitle);
-    }
-
-    private void showDialogGetCoins() {
-        // unCheckOtherMenuButtons(coins);
-        // setCoins();
     }
 
     private int checkPriceBomb() {
@@ -1037,8 +990,6 @@ public class ShopScreen extends Screens {
 
     @Override
     public void show() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override

@@ -8,7 +8,7 @@ public class BloodStone extends GameObject {
     public Tipo tipo;
 
     public BloodStone(float x, float y, Tipo tipo, Random oRan) {
-        super(x, y, 0);
+        super(x, y);
         stateTime = oRan.nextFloat() * 5f;
         lastStatetime = stateTime;
         this.tipo = tipo;

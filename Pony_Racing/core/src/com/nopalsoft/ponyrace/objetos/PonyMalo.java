@@ -7,12 +7,9 @@ import com.nopalsoft.ponyrace.game.WorldTiled;
 
 public class PonyMalo extends Pony {
 
-    private final float TIEMPO_DISPARO = 3f;
     private final Vector3 pastPosition;
     public boolean tocoBandera;
     public boolean hasToJump;
-    public float posFinalX;
-    public boolean terminoCarrera;
     float timeSamePosition;
     private float probababilidad = .5f;
     private float stateTiempoDisparo;
@@ -73,6 +70,7 @@ public class PonyMalo extends Pony {
 
         // A veces disparan en medio de un salto y la banana queda en el objeto saltar, entonces los otros ponis q tocan el cuadrito tocan la banana y se atoran
         // por eso pongo !hasToJump || !isJumping.. aun asi el problema continuaaa =(
+        float TIEMPO_DISPARO = 3f;
         if (stateTiempoDisparo >= TIEMPO_DISPARO && (!hasToJump || !isJumping)) {
             stateTiempoDisparo -= TIEMPO_DISPARO;
             if (oRan.nextInt(10) < 2 && !pasoLaMeta) {

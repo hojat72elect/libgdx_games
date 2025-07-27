@@ -10,7 +10,7 @@ public class Moneda extends GameObject {
     public State state;
     public Skeleton monedaSkeleton;
     public Moneda(float x, float y, WorldTiled oWorld) {
-        super(x, y, 0);
+        super(x, y);
         stateTime = oWorld.oRan.nextFloat() * 5f;
         lastStatetime = stateTime;
         state = State.normal;

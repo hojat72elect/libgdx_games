@@ -25,7 +25,6 @@ public class Pony {
     public final float TIEMPO_IS_DULCE;
     public final Vector3 position;
     public final Vector3 aceleration;
-    private final int MAX_ANGLE_DEGREES = 18;
     public int state;
     public float angleRad;
     public boolean canRotate;// Solo cuando toca el piso inclinado puede rotar
@@ -171,6 +170,7 @@ public class Pony {
         position.x = obj.getPosition().x;
         position.y = obj.getPosition().y;
 
+        int MAX_ANGLE_DEGREES = 18;
         float angleLimitRad = (float) Math.toRadians(MAX_ANGLE_DEGREES);
         angleRad = obj.getAngle();
 
@@ -214,9 +214,6 @@ public class Pony {
         else if (isHurt) {
             isHurt = false;
             stateTime = 0;
-            // if (this instanceof PonyMalo)// A veces se lastimaban y se atoraban, por eso cuando terminan de estar heridos le pongo que salten en putiza
-            // ((PonyMalo) this).hasToJump = true;
-
         }
 
         if (isChile && animState.getCurrent(0).getAnimation().getName().equals("Running"))

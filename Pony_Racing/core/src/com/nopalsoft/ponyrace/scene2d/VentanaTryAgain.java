@@ -87,9 +87,4 @@ public class VentanaTryAgain extends Ventana {
         lbTimeLeftNum.setText(gameScreen.stringTiempoLeft);
         super.act(delta);
     }
-
-    @Override
-    protected void endResize() {
-
-    }
 }

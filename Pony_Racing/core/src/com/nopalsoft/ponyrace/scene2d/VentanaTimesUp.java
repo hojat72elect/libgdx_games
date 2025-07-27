@@ -74,9 +74,4 @@ public class VentanaTimesUp extends Ventana {
         addActor(btMainMenu);
         addActor(timeUp);
     }
-
-    @Override
-    protected void endResize() {
-
-    }
 }

@@ -13,7 +13,7 @@ public class GameObject {
         this.bounds = new Polygon(vertices);
     }
 
-    public GameObject(float x, float y, float z) {
+    public GameObject(float x, float y) {
         this.position = new Vector3(x, y, 0);
         this.bounds = new Polygon(new float[]{0, 0, 0, 0, 0, 0});
     }

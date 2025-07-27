@@ -10,7 +10,7 @@ public class Dulce extends GameObject {
     public State state;
     public Skeleton objSkeleton;
     public Dulce(float x, float y, WorldTiled oWorld) {
-        super(x, y, 0);
+        super(x, y);
         stateTime = oWorld.oRan.nextFloat() * 5f;
         lastStatetime = stateTime;
         state = State.normal;
