@@ -1,20 +1,20 @@
-package com.nopalsoft.ponyrace.desktop;
+package com.nopalsoft.ponyrace.desktop
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.nopalsoft.ponyrace.MainPonyRace;
-import com.nopalsoft.ponyrace.handlers.FloatFormatter;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
+import com.nopalsoft.ponyrace.MainPonyRace
+import com.nopalsoft.ponyrace.handlers.FloatFormatter
 
+object DesktopLauncher {
 
-public class DesktopLauncher {
-    public static void main(String[] args) {
-        LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.title = "Pony Racing";
-        cfg.width = 800;
-        cfg.height = 480;
-        new LwjglApplication(new MainPonyRace(formatter), cfg);
+    @JvmStatic
+    fun main(args: Array<String>) {
+        val cfg = LwjglApplicationConfiguration()
+        cfg.title = "Pony Racing"
+        cfg.width = 800
+        cfg.height = 480
+        LwjglApplication(MainPonyRace(formatter), cfg)
     }
 
-    static FloatFormatter formatter = String::format;
-
+    var formatter: FloatFormatter = FloatFormatter { format: String?, args: Float -> String.format(format!!, args) }
 }
