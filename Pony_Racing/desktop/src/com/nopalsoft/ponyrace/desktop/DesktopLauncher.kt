@@ -8,7 +8,7 @@ import com.nopalsoft.ponyrace.handlers.FloatFormatter
 
 val formatter = FloatFormatter { format: String, args: Float -> String.format(format, args) }
 
-fun main(args: Array<String>) {
+fun main() {
     val cfg = LwjglApplicationConfiguration()
     cfg.title = "Pony Racing"
     cfg.width = 800
