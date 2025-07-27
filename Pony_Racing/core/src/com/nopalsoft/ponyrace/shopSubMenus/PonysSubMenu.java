@@ -69,12 +69,12 @@ public class PonysSubMenu {
         TextButtonStyle btStyle = new TextButtonStyle(oAssets.btNubeUpTienda, oAssets.btNubeDownTienda, null, oAssets.fontChco);
 
         btUnlockCloud = new TextButton(USE, btStyle);
-        if (Settings.skinSeleccionada.equals(NOMBRE_SKIN_CLOUD))
+        if (Settings.selectedSkin.equals(NOMBRE_SKIN_CLOUD))
             btUnlockCloud.setVisible(false);
         btUnlockCloud.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Settings.skinSeleccionada = NOMBRE_SKIN_CLOUD;
+                Settings.selectedSkin = NOMBRE_SKIN_CLOUD;
                 setVisibleButtonsBut(btUnlockCloud);
             }
         });
@@ -84,13 +84,13 @@ public class PonysSubMenu {
         if (isCientificoUnlocked)
             textBoton = USE;
         btUnlockCientifico = new TextButton(textBoton, btStyle);
-        if (Settings.skinSeleccionada.equals(NOMBRE_SKIN_CIENTIFICO))
+        if (Settings.selectedSkin.equals(NOMBRE_SKIN_CIENTIFICO))
             btUnlockCientifico.setVisible(false);
         btUnlockCientifico.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (isCientificoUnlocked) {
-                    Settings.skinSeleccionada = NOMBRE_SKIN_CIENTIFICO;
+                    Settings.selectedSkin = NOMBRE_SKIN_CIENTIFICO;
                     setVisibleButtonsBut(btUnlockCientifico);
                 } else if (Settings.numeroMonedasActual - PRECIO_DESBLOQUEAR_PONY > 0) {
                     Settings.numeroMonedasActual -= PRECIO_DESBLOQUEAR_PONY;
@@ -107,13 +107,13 @@ public class PonysSubMenu {
         if (isEnemigoUnlocked)
             textBoton = USE;
         btUnlockEnemigo = new TextButton(textBoton, btStyle);
-        if (Settings.skinSeleccionada.equals(NOMBRE_SKIN_ENEMIGO))
+        if (Settings.selectedSkin.equals(NOMBRE_SKIN_ENEMIGO))
             btUnlockEnemigo.setVisible(false);
         btUnlockEnemigo.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (isEnemigoUnlocked) {
-                    Settings.skinSeleccionada = NOMBRE_SKIN_ENEMIGO;
+                    Settings.selectedSkin = NOMBRE_SKIN_ENEMIGO;
                     setVisibleButtonsBut(btUnlockEnemigo);
                 } else if (Settings.numeroMonedasActual - PRECIO_DESBLOQUEAR_PONY > 0) {
                     Settings.numeroMonedasActual -= PRECIO_DESBLOQUEAR_PONY;
@@ -130,13 +130,13 @@ public class PonysSubMenu {
         if (isNatylolUnlocked)
             textBoton = USE;
         btUnlockNatylol = new TextButton(textBoton, btStyle);
-        if (Settings.skinSeleccionada.equals(NOMBRE_SKIN_NATYLOL))
+        if (Settings.selectedSkin.equals(NOMBRE_SKIN_NATYLOL))
             btUnlockNatylol.setVisible(false);
         btUnlockNatylol.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (isNatylolUnlocked) {
-                    Settings.skinSeleccionada = NOMBRE_SKIN_NATYLOL;
+                    Settings.selectedSkin = NOMBRE_SKIN_NATYLOL;
                     setVisibleButtonsBut(btUnlockNatylol);
                 } else if (Settings.numeroMonedasActual - PRECIO_DESBLOQUEAR_PONY > 0) {
                     Settings.numeroMonedasActual -= PRECIO_DESBLOQUEAR_PONY;
@@ -153,13 +153,13 @@ public class PonysSubMenu {
         if (isIgnisUnlocked)
             textBoton = USE;
         btUnlockIgnis = new TextButton(textBoton, btStyle);
-        if (Settings.skinSeleccionada.equals(NOMBRE_SKIN_IGNIS))
+        if (Settings.selectedSkin.equals(NOMBRE_SKIN_IGNIS))
             btUnlockIgnis.setVisible(false);
         btUnlockIgnis.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (isIgnisUnlocked) {
-                    Settings.skinSeleccionada = NOMBRE_SKIN_IGNIS;
+                    Settings.selectedSkin = NOMBRE_SKIN_IGNIS;
                     setVisibleButtonsBut(btUnlockIgnis);
                 } else if (Settings.numeroMonedasActual - PRECIO_DESBLOQUEAR_PONY > 0) {
                     Settings.numeroMonedasActual -= PRECIO_DESBLOQUEAR_PONY;
@@ -176,13 +176,13 @@ public class PonysSubMenu {
         if (isLalbaUnlocked)
             textBoton = USE;
         btUnlockLalba = new TextButton(textBoton, btStyle);
-        if (Settings.skinSeleccionada.equals(NOMBRE_SKIN_LALBA))
+        if (Settings.selectedSkin.equals(NOMBRE_SKIN_LALBA))
             btUnlockLalba.setVisible(false);
         btUnlockLalba.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (isLalbaUnlocked) {
-                    Settings.skinSeleccionada = NOMBRE_SKIN_LALBA;
+                    Settings.selectedSkin = NOMBRE_SKIN_LALBA;
                     setVisibleButtonsBut(btUnlockLalba);
                 } else if (Settings.numeroMonedasActual - PRECIO_DESBLOQUEAR_PONY > 0) {
                     Settings.numeroMonedasActual -= PRECIO_DESBLOQUEAR_PONY;

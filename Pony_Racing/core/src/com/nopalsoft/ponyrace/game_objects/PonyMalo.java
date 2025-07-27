@@ -18,17 +18,17 @@ public class PonyMalo extends Pony {
         super(x, y, nombreSkin, oWorld);
         hasToJump = false;
 
-        switch (Settings.dificultadActual) {
-            case Settings.DIFICULTAD_EASY:
+        switch (Settings.difficultyLevel) {
+            case Settings.DIFFICULTY_EASY:
                 probababilidad = .35f;
                 break;
-            case Settings.DIFICULTAD_NORMAL:
+            case Settings.DIFFICULTY_NORMAL:
                 probababilidad = .5f;
                 break;
-            case Settings.DIFICULTAD_HARD:
+            case Settings.DIFFICULTY_HARD:
                 probababilidad = .7f;
                 break;
-            case Settings.DIFICULTAD_SUPERHARD:
+            case Settings.DIFFICULTY_VERY_HARD:
                 probababilidad = 1f;
                 break;
         }

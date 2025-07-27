@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.Array;
 import com.nopalsoft.ponyrace.MainPonyRace;
 import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.game_objects.BloodStone;
-import com.nopalsoft.ponyrace.game_objects.Bomba;
+import com.nopalsoft.ponyrace.game_objects.Bomb;
 import com.nopalsoft.ponyrace.game_objects.Candy;
 import com.nopalsoft.ponyrace.game_objects.Chile;
 import com.nopalsoft.ponyrace.game_objects.Flag;
@@ -47,7 +47,7 @@ public class WorldTiled {
     public Array<PonyMalo> arrPonysMalos;
     public Array<Pluma> arrPlumas;
     public Array<BloodStone> arrBloodStone;
-    public Array<Bomba> arrBombas;
+    public Array<Bomb> arrBombas;
     public Array<Wood> arrWoods;
     public Array<Moneda> arrMonedas;
     public Array<Chile> arrChiles;
@@ -126,17 +126,17 @@ public class WorldTiled {
         tamanoMapaY = Integer.parseInt(game.oAssets.tiledMap.getProperties().get("tamanoMapaY", String.class));
         tamanoMapaY = tamanoMapaY * 16 * m_units;
 
-        switch (Settings.dificultadActual) {
-            case Settings.DIFICULTAD_EASY:
+        switch (Settings.difficultyLevel) {
+            case Settings.DIFFICULTY_EASY:
                 tiempoLeft = Integer.parseInt(game.oAssets.tiledMap.getProperties().get("tiempoEasy", String.class));
                 break;
-            case Settings.DIFICULTAD_NORMAL:
+            case Settings.DIFFICULTY_NORMAL:
                 tiempoLeft = Integer.parseInt(game.oAssets.tiledMap.getProperties().get("tiempoNormal", String.class));
                 break;
-            case Settings.DIFICULTAD_HARD:
+            case Settings.DIFFICULTY_HARD:
                 tiempoLeft = Integer.parseInt(game.oAssets.tiledMap.getProperties().get("tiempoHard", String.class));
                 break;
-            case Settings.DIFICULTAD_SUPERHARD:
+            case Settings.DIFFICULTY_VERY_HARD:
                 tiempoLeft = Integer.parseInt(game.oAssets.tiledMap.getProperties().get("tiempoSuperHard", String.class));
                 break;
         }
@@ -165,10 +165,10 @@ public class WorldTiled {
                     arrPlumas.removeValue(objPluma, true);
                     oWorldBox.destroyBody(obj);
                 }
-            } else if (obj.getUserData() != null && obj.getUserData() instanceof Bomba) {
-                Bomba oBomb = ((Bomba) obj.getUserData());
+            } else if (obj.getUserData() != null && obj.getUserData() instanceof Bomb) {
+                Bomb oBomb = ((Bomb) obj.getUserData());
                 oBomb.update(delta, obj);
-                if (oBomb.state == Bomba.State.explode && !oWorldBox.isLocked() && oBomb.stateTime >= Bomba.TIEMPO_EXPLOSION) {
+                if (oBomb.state == Bomb.State.explode && !oWorldBox.isLocked() && oBomb.stateTime >= Bomb.TIEMPO_EXPLOSION) {
                     arrBombas.removeValue(oBomb, true);
                     arrBodys.removeValue(obj, true);
                     oWorldBox.destroyBody(obj);
@@ -176,7 +176,7 @@ public class WorldTiled {
             } else if (obj.getUserData() != null && obj.getUserData() instanceof Wood) {
                 Wood oWood = ((Wood) obj.getUserData());
                 oWood.update(delta, obj);
-                if (oWood.state == Wood.State.hit && !oWorldBox.isLocked() && oWood.stateTime >= Bomba.TIEMPO_EXPLOSION) {
+                if (oWood.state == Wood.State.hit && !oWorldBox.isLocked() && oWood.stateTime >= Bomb.TIEMPO_EXPLOSION) {
                     arrWoods.removeValue(oWood, true);
                     arrBodys.removeValue(obj, true);
                     oWorldBox.destroyBody(obj);
@@ -373,11 +373,11 @@ public class WorldTiled {
         oBody.setFixedRotation(true);
         oBody.setLinearVelocity(velocidad);
 
-        Bomba oBomba = new Bomba(oPonyBomba.position.x, oPonyBomba.position.y, this);
+        Bomb oBomb = new Bomb(oPonyBomba.position.x, oPonyBomba.position.y, this);
 
-        arrBombas.add(oBomba);
+        arrBombas.add(oBomb);
         arrBodys.add(oBody);
-        oBody.setUserData(oBomba);
+        oBody.setUserData(oBomb);
 
         circulo.dispose();
     }
@@ -587,8 +587,8 @@ public class WorldTiled {
                 if (otraCosaDataBody.equals("regresoHoyo")) {
                     ponyDataBody.regresoHoyo.set(ponyDataBody.position.x, ponyDataBody.position.y);
                 } else if (fixOtraCosa.getUserData() != null && fixOtraCosa.getUserData().equals("nucleoBomba")) {
-                    ((Bomba) otraCosaDataBody).explode(fixOtraCosa.getBody());
-                    ponyDataBody.getHurt(((Bomba) otraCosaDataBody).TIEMPO_HURT);
+                    ((Bomb) otraCosaDataBody).explode(fixOtraCosa.getBody());
+                    ponyDataBody.getHurt(((Bomb) otraCosaDataBody).TIEMPO_HURT);
                 } else if (fixOtraCosa.getUserData() != null && fixOtraCosa.getUserData().equals("nucleoWood")) {
                     Wood oWood = (Wood) otraCosaDataBody;
                     if (oWood.state == Wood.State.normal) {
@@ -601,7 +601,7 @@ public class WorldTiled {
 
                         int valorMoneda;
                         if (random.nextBoolean()) {
-                            switch (Settings.nivelCoin) {
+                            switch (Settings.coinLevel) {
 
                                 default:
                                 case 0:
@@ -646,7 +646,7 @@ public class WorldTiled {
                     if (oGlobo.state == Globo.State.normal) {
                         oGlobo.hitPony();
                         if (!isMalo) {
-                            switch (Settings.nivelChocolate) {
+                            switch (Settings.chocolateLevel) {
                                 default:
                                 case 0:
                                     tiempoLeft += 5;
@@ -742,8 +742,8 @@ public class WorldTiled {
 
             if (fixPony.getUserData() != null && fixPony.getUserData().equals("cuerpo") && fixOtraCosa.getUserData() != null
                     && fixOtraCosa.getUserData().equals("sensorBomba")) {
-                if (((Bomba) otraCosaData).state == Bomba.State.explode) {
-                    oPonyMalo.getHurt(((Bomba) otraCosaData).TIEMPO_HURT);
+                if (((Bomb) otraCosaData).state == Bomb.State.explode) {
+                    oPonyMalo.getHurt(((Bomb) otraCosaData).TIEMPO_HURT);
                 }
             }
         }

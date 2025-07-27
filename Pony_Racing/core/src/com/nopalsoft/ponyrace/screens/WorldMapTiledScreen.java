@@ -204,31 +204,31 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
      * llegar al inicio le da la vuelta y se pone en superHard
      */
     public void changeDificutad(int cambio) {
-        if (Settings.dificultadActual + cambio > Settings.DIFICULTAD_SUPERHARD)
-            Settings.dificultadActual = Settings.DIFICULTAD_EASY;
-        else if (Settings.dificultadActual + cambio < Settings.DIFICULTAD_EASY)
-            Settings.dificultadActual = Settings.DIFICULTAD_SUPERHARD;
+        if (Settings.difficultyLevel + cambio > Settings.DIFFICULTY_VERY_HARD)
+            Settings.difficultyLevel = Settings.DIFFICULTY_EASY;
+        else if (Settings.difficultyLevel + cambio < Settings.DIFFICULTY_EASY)
+            Settings.difficultyLevel = Settings.DIFFICULTY_VERY_HARD;
         else
-            Settings.dificultadActual += cambio;
+            Settings.difficultyLevel += cambio;
 
         lblSetDificultad();
     }
 
     public void lblSetDificultad() {
-        switch (Settings.dificultadActual) {
-            case Settings.DIFICULTAD_EASY:
+        switch (Settings.difficultyLevel) {
+            case Settings.DIFFICULTY_EASY:
                 lblDificultadActual.setText("Easy");
                 lblDificultadActual.getStyle().fontColor = Color.GREEN;
                 break;
-            case Settings.DIFICULTAD_NORMAL:
+            case Settings.DIFFICULTY_NORMAL:
                 lblDificultadActual.setText("Normal");
                 lblDificultadActual.getStyle().fontColor = Color.YELLOW;
                 break;
-            case Settings.DIFICULTAD_HARD:
+            case Settings.DIFFICULTY_HARD:
                 lblDificultadActual.setText("Hard");
                 lblDificultadActual.getStyle().fontColor = Color.ORANGE;
                 break;
-            case Settings.DIFICULTAD_SUPERHARD:
+            case Settings.DIFFICULTY_VERY_HARD:
                 lblDificultadActual.setText("20% Cooler");
                 lblDificultadActual.getStyle().fontColor = Color.RED;
                 break;
@@ -273,7 +273,7 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
 
     private void renderRenderMap(float delta) {
 
-        for (int i = 0; i < Settings.mundosDesbloqueados; i++) {
+        for (int i = 0; i < Settings.numberOfGameLevelsUnlocked; i++) {
             float x = arrMundos.get(i).position.x;
             float y = arrMundos.get(i).position.y;
 
@@ -347,7 +347,7 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
 
         for (Mundos obj : arrMundos) {
             if (obj.bounds.contains(touchPoint.x, touchPoint.y)) {
-                if (Settings.mundosDesbloqueados >= obj.level)
+                if (Settings.numberOfGameLevelsUnlocked >= obj.level)
                     changeToGameTiledScreen(obj.level);
                 return true;
             }

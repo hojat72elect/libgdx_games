@@ -548,7 +548,7 @@ public class Assets extends AssetManager {
     }
 
     public void playMusicMenus() {
-        if (Settings.isMusicaON) {
+        if (Settings.isMusicOn) {
             if (!musicaMenus.isPlaying())
                 musicaMenus.play();
         } else {
@@ -557,7 +557,7 @@ public class Assets extends AssetManager {
     }
 
     public void platMusicInGame() {
-        if (Settings.isMusicaON) {
+        if (Settings.isMusicOn) {
             if (!musicaTiled.isPlaying())
                 musicaTiled.play();
         } else {
@@ -573,12 +573,12 @@ public class Assets extends AssetManager {
     }
 
     public void playSound(Sound sound, float volumen) {
-        if (Settings.isSonidoON)
+        if (Settings.isSoundOn)
             sound.play(volumen);
     }
 
     public void playSound(Sound sound) {
-        if (Settings.isSonidoON)
+        if (Settings.isSoundOn)
             sound.play(1);
     }
 }

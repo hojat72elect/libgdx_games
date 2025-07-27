@@ -24,7 +24,7 @@ public class Wood extends GameObject {
         else
             tipo = Tipo.tachuela;
 
-        switch (Settings.nivelWood) {
+        switch (Settings.woodLevel) {
             default:
             case 0:
                 TIEMPO_HURT = 2;

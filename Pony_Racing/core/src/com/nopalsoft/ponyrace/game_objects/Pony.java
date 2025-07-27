@@ -63,7 +63,7 @@ public class Pony {
     public Pony(float x, float y, String nombreSkin, WorldTiled oWorld) {
         this.oRan = oWorld.random;
 
-        switch (Settings.nivelChili) {
+        switch (Settings.chiliLevel) {
             default:
             case 0:
                 TIEMPO_IS_CHILE = 3;
@@ -85,7 +85,7 @@ public class Pony {
                 break;
         }
 
-        switch (Settings.nivelChocolate) {
+        switch (Settings.chocolateLevel) {
             default:
             case 0:
                 TIEMPO_IS_DULCE = 3;

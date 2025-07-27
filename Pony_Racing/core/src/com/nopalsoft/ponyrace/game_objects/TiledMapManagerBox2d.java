@@ -143,19 +143,19 @@ public class TiledMapManagerBox2d {
                 Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
                 float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
                 float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
-                oWorld.arrBloodStone.add(new BloodStone(x, y, BloodStone.Type.chica, oWorld.random));
+                oWorld.arrBloodStone.add(new BloodStone(x, y, BloodStone.Type.SMALL, oWorld.random));
                 continue;
             } else if (tipo.equals("gemaMediana")) {
                 Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
                 float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
                 float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
-                oWorld.arrBloodStone.add(new BloodStone(x, y, BloodStone.Type.mediana, oWorld.random));
+                oWorld.arrBloodStone.add(new BloodStone(x, y, BloodStone.Type.MEDIUM, oWorld.random));
                 continue;
             } else if (tipo.equals("gemaGrande")) {
                 Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
                 float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
                 float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
-                oWorld.arrBloodStone.add(new BloodStone(x, y, BloodStone.Type.grande, oWorld.random));
+                oWorld.arrBloodStone.add(new BloodStone(x, y, BloodStone.Type.LARGE, oWorld.random));
                 continue;
             }
 
@@ -284,11 +284,11 @@ public class TiledMapManagerBox2d {
         String nombreSkin;
 
         if (tipo.equals("pony")) {
-            nombreSkin = Settings.skinSeleccionada;
+            nombreSkin = Settings.selectedSkin;
             oPony = new PonyPlayer(x, y, nombreSkin, oWorld);
         } else {// Ponis malos
 
-            if (Settings.skinSeleccionada.equals(nombrePonys.get(contadorPonisCreados)))
+            if (Settings.selectedSkin.equals(nombrePonys.get(contadorPonisCreados)))
                 contadorPonisCreados++;
             nombreSkin = nombrePonys.get(contadorPonisCreados);
 

@@ -10,7 +10,7 @@ import com.esotericsoftware.spine.SkeletonRenderer;
 import com.nopalsoft.ponyrace.Assets;
 import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.game_objects.BloodStone;
-import com.nopalsoft.ponyrace.game_objects.Bomba;
+import com.nopalsoft.ponyrace.game_objects.Bomb;
 import com.nopalsoft.ponyrace.game_objects.Candy;
 import com.nopalsoft.ponyrace.game_objects.Chile;
 import com.nopalsoft.ponyrace.game_objects.Fogata;
@@ -116,14 +116,14 @@ public class WorldTiledRenderer {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 3))
                 continue;
 
-            if (obj.type == BloodStone.Type.chica) {
+            if (obj.type == BloodStone.Type.SMALL) {
                 oWorld.game.oAssets.bloodStoneAnim.apply(oWorld.game.oAssets.bloodStoneSkeleton, obj.lastStateTime, obj.stateTime, true, null);
                 oWorld.game.oAssets.bloodStoneSkeleton.setX(obj.position.x);
                 oWorld.game.oAssets.bloodStoneSkeleton.setY(obj.position.y - .12f);
                 oWorld.game.oAssets.bloodStoneSkeleton.updateWorldTransform();
                 oWorld.game.oAssets.bloodStoneSkeleton.update(delta);
                 skelrender.draw(batch, oWorld.game.oAssets.bloodStoneSkeleton);
-            } else if (obj.type == BloodStone.Type.mediana) {
+            } else if (obj.type == BloodStone.Type.MEDIUM) {
                 oWorld.game.oAssets.bloodStone2Anim.apply(oWorld.game.oAssets.bloodStone2Skeleton, obj.lastStateTime, obj.stateTime, true, null);
                 oWorld.game.oAssets.bloodStone2Skeleton.setX(obj.position.x);
                 oWorld.game.oAssets.bloodStone2Skeleton.setY(obj.position.y - .12f);
@@ -184,11 +184,11 @@ public class WorldTiledRenderer {
 
     private void renderBombas(float delta) {
 
-        for (Bomba obj : oWorld.arrBombas) {
+        for (Bomb obj : oWorld.arrBombas) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, .5f))
                 continue;
 
-            if (obj.state == Bomba.State.normal) {
+            if (obj.state == Bomb.State.normal) {
                 oWorld.game.oAssets.bombAnim.apply(obj.skelBomb, obj.lastStatetime, obj.stateTime, true, null);
             } else {
                 oWorld.game.oAssets.bombExAnim.apply(obj.skelBomb, obj.lastStatetime, obj.stateTime, true, null);

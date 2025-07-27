@@ -46,17 +46,17 @@ public class Achievements {
             if (obj.nivel == nivelTiled)
                 mundoCompletado = obj;
         }
-        switch (Settings.dificultadActual) {
-            case Settings.DIFICULTAD_EASY:
+        switch (Settings.difficultyLevel) {
+            case Settings.DIFFICULTY_EASY:
                 mundoCompletado.easy = true;
                 break;
-            case Settings.DIFICULTAD_NORMAL:
+            case Settings.DIFFICULTY_NORMAL:
                 mundoCompletado.normal = true;
                 break;
-            case Settings.DIFICULTAD_HARD:
+            case Settings.DIFFICULTY_HARD:
                 mundoCompletado.hard = true;
                 break;
-            case Settings.DIFICULTAD_SUPERHARD:
+            case Settings.DIFFICULTY_VERY_HARD:
                 mundoCompletado.superHard = true;
                 break;
         }
@@ -112,7 +112,7 @@ public class Achievements {
                 mundoCompletado = obj;
         }
 
-        if (timeLeft >= 15 && (Settings.dificultadActual == Settings.DIFICULTAD_HARD || Settings.dificultadActual == Settings.DIFICULTAD_SUPERHARD)) {
+        if (timeLeft >= 15 && (Settings.difficultyLevel == Settings.DIFFICULTY_HARD || Settings.difficultyLevel == Settings.DIFFICULTY_VERY_HARD)) {
             mundoCompletado.did15Sec = true;
         }
 

@@ -7,9 +7,9 @@ public class BloodStone extends GameObject {
     public float stateTime;
     public Type type;
 
-    public BloodStone(float x, float y, Type type, Random oRan) {
+    public BloodStone(float x, float y, Type type, Random random) {
         super(x, y);
-        stateTime = oRan.nextFloat() * 5f;
+        stateTime = random.nextFloat() * 5f;
         lastStateTime = stateTime;
         this.type = type;
     }
@@ -20,6 +20,6 @@ public class BloodStone extends GameObject {
     }
 
     public enum Type {
-        chica, mediana, grande
+        SMALL, MEDIUM, LARGE
     }
 }

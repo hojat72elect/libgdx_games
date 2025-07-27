@@ -102,7 +102,7 @@ public class GameScreenTileds extends Screens {
         }
         drawStatsEndRace = false;
 
-        switch (Settings.nivelTime) {
+        switch (Settings.timeLevel) {
             default:
             case 0:
                 MULTIPLICADOR_MONEDAS_TIME_LEFT = 0;
@@ -127,7 +127,7 @@ public class GameScreenTileds extends Screens {
         vtPause = new VentanaPause(this);
         vtRate = new VentanaRate(this);
 
-        if (!Settings.seCalificoApp && Settings.statTimesPlayed % 5 == 0) {
+        if (!Settings.wasAppRated && Settings.statTimesPlayed % 5 == 0) {
 
             vtRate.show(stage);
         }
@@ -264,11 +264,11 @@ public class GameScreenTileds extends Screens {
         } else if (oWorld.state == WorldTiled.State.nextLevel) {// Solo se pone cuando ganas en primer lugar
             setNextLevel();
 
-            if (nivelTiled == Settings.mundosDesbloqueados)
-                Settings.mundosDesbloqueados++;
+            if (nivelTiled == Settings.numberOfGameLevelsUnlocked)
+                Settings.numberOfGameLevelsUnlocked++;
 
-            if (Settings.mundosDesbloqueados > Assets.mundoMaximo)
-                Settings.mundosDesbloqueados = Assets.mundoMaximo;
+            if (Settings.numberOfGameLevelsUnlocked > Assets.mundoMaximo)
+                Settings.numberOfGameLevelsUnlocked = Assets.mundoMaximo;
         } else if (oWorld.state == WorldTiled.State.tryAgain) {
             setTryAgain();
         }
@@ -319,7 +319,7 @@ public class GameScreenTileds extends Screens {
 
     private void giveCoinsAfterfinish(float delta) {
         time_left_coin += delta;
-        if (Settings.nivelTime > 0 && Settings.dificultadActual >= Settings.DIFICULTAD_NORMAL && oWorld.tiempoLeft > 0
+        if (Settings.timeLevel > 0 && Settings.difficultyLevel >= Settings.DIFFICULTY_NORMAL && oWorld.tiempoLeft > 0
                 && time_left_coin >= GET_COIN_FOR_TIME_LEFT) {
             time_left_coin -= GET_COIN_FOR_TIME_LEFT;
             oWorld.tiempoLeft--;
@@ -540,7 +540,7 @@ public class GameScreenTileds extends Screens {
                     @Override
                     public void run() {
                         GameScreenTileds.this.game.setScreen(new LoadingScreen(game, GameScreenTileds.class, nivelTiled));
-                        if (Settings.dificultadActual == Settings.DIFICULTAD_SUPERHARD & state == State.nextLevel)
+                        if (Settings.difficultyLevel == Settings.DIFFICULTY_VERY_HARD & state == State.nextLevel)
                             Settings.sumarMonedas((int) (MULTIPLICADOR_MONEDAS_TIME_LEFT * oWorld.tiempoLeft));
                     }
                 })));
@@ -555,7 +555,7 @@ public class GameScreenTileds extends Screens {
                     @Override
                     public void run() {
                         GameScreenTileds.this.game.setScreen(new LoadingScreen(game, WorldMapTiledScreen.class));
-                        if (Settings.dificultadActual == Settings.DIFICULTAD_SUPERHARD)
+                        if (Settings.difficultyLevel == Settings.DIFFICULTY_VERY_HARD)
                             Settings.sumarMonedas((int) (MULTIPLICADOR_MONEDAS_TIME_LEFT * oWorld.tiempoLeft));
 
                         dispose();
@@ -565,21 +565,21 @@ public class GameScreenTileds extends Screens {
         });
 
         btSonido = new ImageButton(oAssets.btSonidoOff, null, oAssets.btSonidoON);
-        btSonido.setChecked(Settings.isSonidoON);
+        btSonido.setChecked(Settings.isSoundOn);
         btSonido.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Settings.isSonidoON = !Settings.isSonidoON;
+                Settings.isSoundOn = !Settings.isSoundOn;
                 super.clicked(event, x, y);
             }
         });
 
         btMusica = new ImageButton(oAssets.btMusicaOff, null, oAssets.btMusicaON);
-        btMusica.setChecked(Settings.isMusicaON);
+        btMusica.setChecked(Settings.isMusicOn);
         btMusica.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Settings.isMusicaON = !Settings.isMusicaON;
+                Settings.isMusicOn = !Settings.isMusicOn;
                 oAssets.platMusicInGame();
                 super.clicked(event, x, y);
             }

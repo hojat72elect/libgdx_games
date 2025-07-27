@@ -8,107 +8,106 @@ public class Settings {
     public static final int MONEDAS_REGALO_SHARE_FACEBOOK = 1000;
 
     /**
-     * No use enums porque con la forma implementada para cambiar la dificultad era mas facil usar enteros
+     * I didn't use enums because with the way implemented to change the difficulty it was easier to use integers.
      */
-    public static final int DIFICULTAD_EASY = 0;
-    public static final int DIFICULTAD_NORMAL = 1;
-    public static final int DIFICULTAD_HARD = 2;
-    public static final int DIFICULTAD_SUPERHARD = 3;
-    private final static Preferences pref = Gdx.app
-            .getPreferences("com.nopalsoft.ponyRace.settings");
-    public static boolean isEnabledSecretWorld = false; // Esta variable siempre es falsa al inicio y no se guarda
-    public static boolean isSonidoON = false;
-    public static boolean isMusicaON = false;
-    public static int mundosDesbloqueados;
-    public static boolean seDioLike = false;
-    public static boolean seCalificoApp = false;
-    //
-    public static String skinSeleccionada;
-    public static int numeroBombas = 0;// Bombas para usar in game
-    public static int numeroWoods = 0;// Troncos disponibles para usar in game
-    public static int numeroMonedasActual = 0;// Monedas disponibles para gastar
-    public static int statMonedasTotal;// Estadisticas de las monedas totales.
+    public static final int DIFFICULTY_EASY = 0;
+    public static final int DIFFICULTY_NORMAL = 1;
+    public static final int DIFFICULTY_HARD = 2;
+    public static final int DIFFICULTY_VERY_HARD = 3;
+
+    private final static Preferences pref = Gdx.app.getPreferences("com.nopalsoft.ponyRace.settings");
+    public static boolean isEnabledSecretWorld = false; // This variable is always false at startup and is not saved.
+    public static boolean isSoundOn = false;
+    public static boolean isMusicOn = false;
+    public static int numberOfGameLevelsUnlocked;
+    public static boolean wasAppLiked = false;
+    public static boolean wasAppRated = false;
+
+    public static String selectedSkin;
+    public static int numeroBombas = 0;// Bombs to use in game
+    public static int numeroWoods = 0;// Logs available for use in game
+    public static int numeroMonedasActual = 0;// Coins available to spend
+    public static int totalCoinsCollected;// Total coin statistics.
     public static int statTimesPlayed;
-    public static int dificultadActual = DIFICULTAD_NORMAL;
-    public static int nivelChocolate = 0;
-    public static int nivelBallon = 0;
-    public static int nivelChili = 0;
-    public static int nivelBomb = 0;
-    public static int nivelWood = 0;
-    public static int nivelCoin = 0;
-    public static int nivelTime = 0;
+    public static int difficultyLevel = DIFFICULTY_NORMAL;
+    public static int chocolateLevel = 0;
+    public static int balloonLevel = 0;
+    public static int chiliLevel = 0;
+    public static int bombLevel = 0;
+    public static int woodLevel = 0;
+    public static int coinLevel = 0;
+    public static int timeLevel = 0;
     public static boolean isBackGroundEnabled = true;
 
     public static void cargar() {
-        isSonidoON = pref.getBoolean("isSonidoON", true);
-        isMusicaON = pref.getBoolean("isMusicaON", true);
+        isSoundOn = pref.getBoolean("isSonidoON", true);
+        isMusicOn = pref.getBoolean("isMusicaON", true);
 
-        seDioLike = pref.getBoolean("seDioLike", false);
-        seCalificoApp = pref.getBoolean("seCalificoApp", false);
+        wasAppLiked = pref.getBoolean("seDioLike", false);
+        wasAppRated = pref.getBoolean("seCalificoApp", false);
 
-        skinSeleccionada = pref.getString("skinSeleccionada", "Cloud");
-        mundosDesbloqueados = pref.getInteger("mundosDesbloqueados", 1);
+        selectedSkin = pref.getString("skinSeleccionada", "Cloud");
+        numberOfGameLevelsUnlocked = pref.getInteger("mundosDesbloqueados", 1);
 
-        // Itemes usables en juego Mondeas bombas
+        // Usable items in the game Bomb coins
         numeroBombas = pref.getInteger("numeroBombas", 25);
         numeroWoods = pref.getInteger("numeroWoods", 25);
         numeroMonedasActual = pref.getInteger("numeroMonedasActual", 500);
 
-        // Estadistias de las monedas
-        statMonedasTotal = pref.getInteger("statMonedasTotal", 0);
+        // Coin Statistics
+        totalCoinsCollected = pref.getInteger("statMonedasTotal", 0);
         statTimesPlayed = pref.getInteger("statTimesPlayed", 0);
 
-        // Niveles de las cosas
-        nivelChocolate = pref.getInteger("nivelChocolate", 0);
-        nivelBallon = pref.getInteger("nivelBallon", 0);
-        nivelChili = pref.getInteger("nivelChili", 0);
-        nivelBomb = pref.getInteger("nivelBomb", 0);
-        nivelWood = pref.getInteger("nivelWood", 0);
-        nivelCoin = pref.getInteger("nivelCoin", 0);
-        nivelTime = pref.getInteger("nivelTime", 0);
+        // Levels of things
+        chocolateLevel = pref.getInteger("nivelChocolate", 0);
+        balloonLevel = pref.getInteger("nivelBallon", 0);
+        chiliLevel = pref.getInteger("nivelChili", 0);
+        bombLevel = pref.getInteger("nivelBomb", 0);
+        woodLevel = pref.getInteger("nivelWood", 0);
+        coinLevel = pref.getInteger("nivelCoin", 0);
+        timeLevel = pref.getInteger("nivelTime", 0);
 
-        dificultadActual = pref.getInteger("dificultadActual",
-                DIFICULTAD_NORMAL);
+        difficultyLevel = pref.getInteger("dificultadActual",
+                DIFFICULTY_NORMAL);
     }
 
     public static void guardar() {
-        pref.putBoolean("isSonidoON", isSonidoON);
-        pref.putBoolean("isMusicaON", isMusicaON);
+        pref.putBoolean("isSonidoON", isSoundOn);
+        pref.putBoolean("isMusicaON", isMusicOn);
 
-        pref.putBoolean("seDioLike", seDioLike);
-        pref.putBoolean("seCalificoApp", seCalificoApp);
+        pref.putBoolean("seDioLike", wasAppLiked);
+        pref.putBoolean("seCalificoApp", wasAppRated);
 
-        pref.putString("skinSeleccionada", skinSeleccionada);
-        pref.putInteger("mundosDesbloqueados", mundosDesbloqueados);
+        pref.putString("skinSeleccionada", selectedSkin);
+        pref.putInteger("mundosDesbloqueados", numberOfGameLevelsUnlocked);
 
         pref.putInteger("numeroBombas", numeroBombas);
         pref.putInteger("numeroWoods", numeroWoods);
         pref.putInteger("numeroMonedasActual", numeroMonedasActual);
 
-        pref.putInteger("statMonedasTotal", statMonedasTotal);
+        pref.putInteger("statMonedasTotal", totalCoinsCollected);
         pref.putInteger("statTimesPlayed", statTimesPlayed);
 
-        pref.putInteger("nivelChocolate", nivelChocolate);
-        pref.putInteger("nivelBallon", nivelBallon);
-        pref.putInteger("nivelChili", nivelChili);
-        pref.putInteger("nivelBomb", nivelBomb);
-        pref.putInteger("nivelWood", nivelWood);
-        pref.putInteger("nivelCoin", nivelCoin);
-        pref.putInteger("nivelTime", nivelTime);
+        pref.putInteger("nivelChocolate", chocolateLevel);
+        pref.putInteger("nivelBallon", balloonLevel);
+        pref.putInteger("nivelChili", chiliLevel);
+        pref.putInteger("nivelBomb", bombLevel);
+        pref.putInteger("nivelWood", woodLevel);
+        pref.putInteger("nivelCoin", coinLevel);
+        pref.putInteger("nivelTime", timeLevel);
 
-        pref.putInteger("dificultadActual", dificultadActual);
+        pref.putInteger("dificultadActual", difficultyLevel);
         pref.flush();
     }
 
     /**
-     * Suma numMonedas al total de monedas para gastar y a las estadisticas de las monedas recolectadas para los achivments
+     * Adds numberOfCoins to the total coins to spend and to the statistics for coins collected for achievements.
      *
-     * @param numMonedas = Numero de monedas a incrementar.
+     * @param numberOfCoins Number of coins to increase.
      */
-    public static void sumarMonedas(int numMonedas) {
-        numeroMonedasActual += numMonedas;
-        // Estas se incrementan de 1 en 1 sin importar que se alla tomado una moneda que vale x2 o x3. Para que sea mas facil implementar
-        // Los google game services.
-        statMonedasTotal += numMonedas;
+    public static void sumarMonedas(int numberOfCoins) {
+        numeroMonedasActual += numberOfCoins;
+        // These increase by 1 regardless of whether a coin worth x2 or x3 has been taken. To make it easier to implement Google Game Services.
+        totalCoinsCollected += numberOfCoins;
     }
 }

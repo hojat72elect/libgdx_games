@@ -6,7 +6,7 @@ import com.esotericsoftware.spine.Skeleton;
 import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.game.WorldTiled;
 
-public class Bomba extends GameObject {
+public class Bomb extends GameObject {
     public static final float TIEMPO_NORMAL = 1.5f;
     public static final float TIEMPO_EXPLOSION = .3f;
     public final float TIEMPO_HURT;
@@ -16,15 +16,15 @@ public class Bomba extends GameObject {
     public State state;
     public Skeleton skelBomb;
 
-    public Bomba(float x, float y, WorldTiled oWorld) {
+    public Bomb(float x, float y, WorldTiled world) {
         super(x, y);
         stateTime = 0;
         lastStatetime = stateTime;
         state = State.normal;
-        skelBomb = new Skeleton(oWorld.game.oAssets.skeletonBombData);
+        skelBomb = new Skeleton(world.game.oAssets.skeletonBombData);
         skelBomb.setToSetupPose();
 
-        switch (Settings.nivelBomb) {
+        switch (Settings.bombLevel) {
             default:
             case 0:
                 TIEMPO_HURT = 2;

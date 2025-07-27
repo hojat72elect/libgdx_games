@@ -96,11 +96,11 @@ public class MainMenuScreen extends Screens {
         btSonido = new ImageButton(oAssets.btSonidoOff, null, oAssets.btSonidoON);
         btSonido.setSize(60, 60);
         btSonido.setPosition(5, 5);
-        btSonido.setChecked(Settings.isSonidoON);
+        btSonido.setChecked(Settings.isSoundOn);
         btSonido.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Settings.isSonidoON = !Settings.isSonidoON;
+                Settings.isSoundOn = !Settings.isSoundOn;
                 super.clicked(event, x, y);
             }
         });
@@ -108,11 +108,11 @@ public class MainMenuScreen extends Screens {
         btMusica = new ImageButton(oAssets.btMusicaOff, null, oAssets.btMusicaON);
         btMusica.setSize(60, 60);
         btMusica.setPosition(70, 2);
-        btMusica.setChecked(Settings.isMusicaON);
+        btMusica.setChecked(Settings.isMusicOn);
         btMusica.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Settings.isMusicaON = !Settings.isMusicaON;
+                Settings.isMusicOn = !Settings.isMusicOn;
                 oAssets.playMusicMenus();
                 super.clicked(event, x, y);
             }

@@ -321,8 +321,8 @@ public class ShopScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 if (Settings.numeroMonedasActual - costUpBomb >= 0) {
                     Settings.numeroMonedasActual -= costUpBomb;
-                    Settings.nivelBomb++;
-                    if (Settings.nivelBomb >= 5)
+                    Settings.bombLevel++;
+                    if (Settings.bombLevel >= 5)
                         deleteTableDentroDentroUp(dentroUpBombas);
                     costUpBomb = checkPriceBomb();
                     setLabelPrices();
@@ -336,8 +336,8 @@ public class ShopScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 if (Settings.numeroMonedasActual - costUpWood >= 0) {
                     Settings.numeroMonedasActual -= costUpWood;
-                    Settings.nivelWood++;
-                    if (Settings.nivelWood >= 5)
+                    Settings.woodLevel++;
+                    if (Settings.woodLevel >= 5)
                         deleteTableDentroDentroUp(dentroUpWood);
                     costUpWood = checkPriceWood();
                     setLabelPrices();
@@ -351,8 +351,8 @@ public class ShopScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 if (Settings.numeroMonedasActual - costUpBallon >= 0) {
                     Settings.numeroMonedasActual -= costUpBallon;
-                    Settings.nivelBallon++;
-                    if (Settings.nivelBallon >= 5)
+                    Settings.balloonLevel++;
+                    if (Settings.balloonLevel >= 5)
                         deleteTableDentroDentroUp(dentroUpBallon);
                     costUpBallon = checkPriceBallon();
                     setLabelPrices();
@@ -366,8 +366,8 @@ public class ShopScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 if (Settings.numeroMonedasActual - costUpChocolate >= 0) {
                     Settings.numeroMonedasActual -= costUpChocolate;
-                    Settings.nivelChocolate++;
-                    if (Settings.nivelChocolate >= 5)
+                    Settings.chocolateLevel++;
+                    if (Settings.chocolateLevel >= 5)
                         deleteTableDentroDentroUp(dentroUpChocolate);
                     costUpChocolate = checkPriceChocolate();
                     setLabelPrices();
@@ -381,8 +381,8 @@ public class ShopScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 if (Settings.numeroMonedasActual - costUpChili >= 0) {
                     Settings.numeroMonedasActual -= costUpChili;
-                    Settings.nivelChili++;
-                    if (Settings.nivelChili >= 5)
+                    Settings.chiliLevel++;
+                    if (Settings.chiliLevel >= 5)
                         deleteTableDentroDentroUp(dentroUpChili);
                     costUpChili = checkPriceChili();
                     setLabelPrices();
@@ -396,8 +396,8 @@ public class ShopScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 if (Settings.numeroMonedasActual - costUpCoin >= 0) {
                     Settings.numeroMonedasActual -= costUpCoin;
-                    Settings.nivelCoin++;
-                    if (Settings.nivelCoin >= 5)
+                    Settings.coinLevel++;
+                    if (Settings.coinLevel >= 5)
                         deleteTableDentroDentroUp(dentroUpCoin);
                     costUpCoin = checkPriceCoin();
                     setLabelPrices();
@@ -411,8 +411,8 @@ public class ShopScreen extends Screens {
             public void clicked(InputEvent event, float x, float y) {
                 if (Settings.numeroMonedasActual - costUpTime >= 0) {
                     Settings.numeroMonedasActual -= costUpTime;
-                    Settings.nivelTime++;
-                    if (Settings.nivelTime >= 5)
+                    Settings.timeLevel++;
+                    if (Settings.timeLevel >= 5)
                         deleteTableDentroDentroUp(dentroUpTime);
                     costUpTime = checkPriceTime();
                     setLabelPrices();
@@ -424,7 +424,7 @@ public class ShopScreen extends Screens {
          * BOTONES OPCIONES COINS
          */
         final String btFaceText;
-        if (Settings.seDioLike)
+        if (Settings.wasAppLiked)
             btFaceText = "Visit us";
         else
             btFaceText = "Like us";
@@ -437,8 +437,8 @@ public class ShopScreen extends Screens {
                         Actions.run(new Runnable() {
                             @Override
                             public void run() {
-                                if (!Settings.seDioLike) {
-                                    Settings.seDioLike = true;
+                                if (!Settings.wasAppLiked) {
+                                    Settings.wasAppLiked = true;
                                     Settings.sumarMonedas(Settings.MONEDAS_REGALO_FACEBOOK);
                                     Settings.guardar();
                                     btLikeUsFacebook.setText("Visit us");
@@ -472,49 +472,49 @@ public class ShopScreen extends Screens {
 
     private void setLabelPrices() {
         // Bomb
-        if (Settings.nivelBomb >= 5) {
+        if (Settings.bombLevel >= 5) {
             lblPrecioUpBomb.setText("");
         } else {
             lblPrecioUpBomb.setText(costUpBomb + "");
         }
 
         // WOOD
-        if (Settings.nivelWood >= 5) {
+        if (Settings.woodLevel >= 5) {
             lblPrecioUpWood.setText("");
         } else {
             lblPrecioUpWood.setText(costUpWood + "");
         }
 
         // Chocolate
-        if (Settings.nivelChocolate >= 5) {
+        if (Settings.chocolateLevel >= 5) {
             lblPrecioUpChocolate.setText("");
         } else {
             lblPrecioUpChocolate.setText(costUpChocolate + "");
         }
 
         // Ballon
-        if (Settings.nivelBallon >= 5) {
+        if (Settings.balloonLevel >= 5) {
             lblPrecioBallon.setText("");
         } else {
             lblPrecioBallon.setText(costUpBallon + "");
         }
 
         // Chili
-        if (Settings.nivelChili >= 5) {
+        if (Settings.chiliLevel >= 5) {
             lblPrecioUpChili.setText("");
         } else {
             lblPrecioUpChili.setText(costUpChili + "");
         }
 
         // Coin
-        if (Settings.nivelCoin >= 5) {
+        if (Settings.coinLevel >= 5) {
             lblPrecioCoin.setText("");
         } else {
             lblPrecioCoin.setText(costUpCoin + "");
         }
 
         // time
-        if (Settings.nivelTime >= 5) {
+        if (Settings.timeLevel >= 5) {
             lblPrecioTime.setText("");
         } else {
             lblPrecioTime.setText(costUpTime + "");
@@ -656,7 +656,7 @@ public class ShopScreen extends Screens {
         dentroUpBombas.add(lblPrecioUpBomb).left();
         dentroUpBombas.row().colspan(2);
         dentroUpBombas.add(btUpgradeBomb).size(120, 70);
-        if (Settings.nivelBomb < 5)
+        if (Settings.bombLevel < 5)
             tbDentro.add(dentroUpBombas);
         contenedor.add(tbDentro).expandX().fill();
         contenedor.row().padTop(15);
@@ -674,7 +674,7 @@ public class ShopScreen extends Screens {
         dentroUpWood.add(lblPrecioUpWood).left();
         dentroUpWood.row().colspan(2);
         dentroUpWood.add(btUpgradeWood).size(120, 70);
-        if (Settings.nivelWood < 5)
+        if (Settings.woodLevel < 5)
             tbDentro.add(dentroUpWood);
         contenedor.add(tbDentro).expandX().fill();
         contenedor.row().padTop(15);
@@ -691,7 +691,7 @@ public class ShopScreen extends Screens {
         dentroUpChocolate.add(lblPrecioUpChocolate).left();
         dentroUpChocolate.row().colspan(2);
         dentroUpChocolate.add(btUpgradeChocolate).size(120, 70);
-        if (Settings.nivelChocolate < 5)
+        if (Settings.chocolateLevel < 5)
             tbDentro.add(dentroUpChocolate);
         contenedor.add(tbDentro).expandX().fill();
         contenedor.row().padTop(15);
@@ -708,7 +708,7 @@ public class ShopScreen extends Screens {
         dentroUpBallon.add(lblPrecioBallon).left();
         dentroUpBallon.row().colspan(2);
         dentroUpBallon.add(btUpgradeBallon).size(120, 70);
-        if (Settings.nivelBallon < 5)
+        if (Settings.balloonLevel < 5)
             tbDentro.add(dentroUpBallon);
         contenedor.add(tbDentro).expandX().fill();
         contenedor.row().padTop(15);
@@ -725,7 +725,7 @@ public class ShopScreen extends Screens {
         dentroUpChili.add(lblPrecioUpChili).left();
         dentroUpChili.row().colspan(2);
         dentroUpChili.add(btUpgradeChili).size(120, 70);
-        if (Settings.nivelChili < 5)
+        if (Settings.chiliLevel < 5)
             tbDentro.add(dentroUpChili);
         contenedor.add(tbDentro).expandX().fill();
         contenedor.row().padTop(15);
@@ -742,7 +742,7 @@ public class ShopScreen extends Screens {
         dentroUpCoin.add(lblPrecioCoin).left();
         dentroUpCoin.row().colspan(2);
         dentroUpCoin.add(btUpgradeCoin).size(120, 70);
-        if (Settings.nivelCoin < 5)
+        if (Settings.coinLevel < 5)
             tbDentro.add(dentroUpCoin);
         contenedor.add(tbDentro).expandX().fill();
         contenedor.row().padTop(15);
@@ -760,7 +760,7 @@ public class ShopScreen extends Screens {
         dentroUpTime.add(lblPrecioTime).left();
         dentroUpTime.row().colspan(2);
         dentroUpTime.add(btUpgradeTime).size(120, 70);
-        if (Settings.nivelTime < 5)
+        if (Settings.timeLevel < 5)
             tbDentro.add(dentroUpTime);
         contenedor.add(tbDentro).expandX().fill();
         contenedor.row().padTop(15);
@@ -821,30 +821,30 @@ public class ShopScreen extends Screens {
 
         batcher.draw(oAssets.bombaTienda, 635, 405, 30, 30);
         oAssets.fontChco.draw(batcher, Settings.numeroBombas + " lvl "
-                + Settings.nivelBomb + "/5", 660, 425);
+                + Settings.bombLevel + "/5", 660, 425);
 
         batcher.draw(oAssets.bananaSpikeTienda, 635, 355, 30, 30);
         oAssets.fontChco.draw(batcher, Settings.numeroWoods + " lvl "
-                + Settings.nivelWood + "/5", 660, 375);
+                + Settings.woodLevel + "/5", 660, 375);
 
         batcher.draw(oAssets.chocolateTienda, 635, 305, 30, 30);
-        oAssets.fontChco.draw(batcher, "lvl " + Settings.nivelChocolate + "/5",
+        oAssets.fontChco.draw(batcher, "lvl " + Settings.chocolateLevel + "/5",
                 670, 325);
         // //
         batcher.draw(oAssets.globoTienda, 635, 255, 30, 30);
-        oAssets.fontChco.draw(batcher, "lvl " + Settings.nivelBallon + "/5",
+        oAssets.fontChco.draw(batcher, "lvl " + Settings.balloonLevel + "/5",
                 670, 275);
         //
         batcher.draw(oAssets.chileTienda, 635, 205, 30, 30);
-        oAssets.fontChco.draw(batcher, "lvl " + Settings.nivelChili + "/5",
+        oAssets.fontChco.draw(batcher, "lvl " + Settings.chiliLevel + "/5",
                 670, 225);
 
         batcher.draw(oAssets.monedaTienda, 635, 155, 30, 30);
-        oAssets.fontChco.draw(batcher, "lvl " + Settings.nivelCoin + "/5", 670,
+        oAssets.fontChco.draw(batcher, "lvl " + Settings.coinLevel + "/5", 670,
                 175);
 
         batcher.draw(oAssets.cronometroTienda, 635, 105, 30, 30);
-        oAssets.fontChco.draw(batcher, "lvl " + Settings.nivelTime + "/5", 670,
+        oAssets.fontChco.draw(batcher, "lvl " + Settings.timeLevel + "/5", 670,
                 125);
 
         batcher.end();
@@ -863,7 +863,7 @@ public class ShopScreen extends Screens {
     }
 
     private int checkPriceBomb() {
-        switch (Settings.nivelBomb + 1) {
+        switch (Settings.bombLevel + 1) {
             case 1:
                 return UPGRADE_PRICE_BOMBS_LEVEL1;
             case 2:
@@ -881,7 +881,7 @@ public class ShopScreen extends Screens {
     }
 
     private int checkPriceWood() {
-        switch (Settings.nivelWood + 1) {
+        switch (Settings.woodLevel + 1) {
             case 1:
                 return UPGRADE_PRICE_WOOD_LEVEL1;
             case 2:
@@ -899,7 +899,7 @@ public class ShopScreen extends Screens {
     }
 
     private int checkPriceChocolate() {
-        switch (Settings.nivelChocolate + 1) {
+        switch (Settings.chocolateLevel + 1) {
             case 1:
                 return UPGRADE_PRICE_CHOCOLATE_LEVEL1;
             case 2:
@@ -917,7 +917,7 @@ public class ShopScreen extends Screens {
     }
 
     private int checkPriceBallon() {
-        switch (Settings.nivelBallon + 1) {
+        switch (Settings.balloonLevel + 1) {
             case 1:
                 return UPGRADE_PRICE_BALLON_LEVEL1;
             case 2:
@@ -935,7 +935,7 @@ public class ShopScreen extends Screens {
     }
 
     private int checkPriceChili() {
-        switch (Settings.nivelChili + 1) {
+        switch (Settings.chiliLevel + 1) {
             case 1:
                 return UPGRADE_PRICE_CHILI_LEVEL1;
             case 2:
@@ -953,7 +953,7 @@ public class ShopScreen extends Screens {
     }
 
     private int checkPriceCoin() {
-        switch (Settings.nivelCoin + 1) {
+        switch (Settings.coinLevel + 1) {
             case 1:
                 return UPGRADE_PRICE_COIN_LEVEL1;
             case 2:
@@ -971,7 +971,7 @@ public class ShopScreen extends Screens {
     }
 
     private int checkPriceTime() {
-        switch (Settings.nivelTime + 1) {
+        switch (Settings.timeLevel + 1) {
             case 1:
                 return UPGRADE_PRICE_TIME_LEVEL1;
             case 2:
