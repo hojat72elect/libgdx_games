@@ -100,12 +100,6 @@ public class Settings {
         pref.flush();
     }
 
-    public static void borrarDatosGuardados() {
-        pref.clear();
-        pref.flush();
-        cargar();
-    }
-
     /**
      * Suma numMonedas al total de monedas para gastar y a las estadisticas de las monedas recolectadas para los achivments
      *

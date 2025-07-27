@@ -26,7 +26,7 @@ public class MainPonyRace extends Game {
     public void create() {
         Settings.cargar();
         oAssets = new Assets();
-        achievements = new com.nopalsoft.ponyrace.Achievements(this);
+        achievements = new com.nopalsoft.ponyrace.Achievements();
         stage = new Stage(new StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT));
         batcher = new SpriteBatch();
         this.setScreen(new LoadingScreen(this, MainMenuScreen.class, 1));

@@ -14,7 +14,7 @@ public class Achievements {
     private final Preferences prefAchiv = Gdx.app.getPreferences("com.nopalsoft.ponyracing.achievements");
     MundosCompletados[] arrMundos;
 
-    public Achievements(MainPonyRace game) {
+    public Achievements() {
 
         int len = Assets.mundoMaximo;
         arrMundos = new MundosCompletados[len];
@@ -42,8 +42,7 @@ public class Achievements {
 
         MundosCompletados mundoCompletado = null;
         int len = arrMundos.length;
-        for (int i = 0; i < len; i++) {
-            MundosCompletados obj = arrMundos[i];
+        for (MundosCompletados obj : arrMundos) {
             if (obj.nivel == nivelTiled)
                 mundoCompletado = obj;
         }
@@ -108,8 +107,7 @@ public class Achievements {
 
         MundosCompletados mundoCompletado = null;
         int len = arrMundos.length;
-        for (int i = 0; i < len; i++) {
-            MundosCompletados obj = arrMundos[i];
+        for (MundosCompletados obj : arrMundos) {
             if (obj.nivel == nivelTiled)
                 mundoCompletado = obj;
         }
@@ -138,7 +136,7 @@ public class Achievements {
     }
 
 
-    class MundosCompletados {
+    static class MundosCompletados {
         final int nivel;
         public boolean easy, normal, hard, superHard, did15Sec;
 

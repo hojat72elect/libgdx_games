@@ -34,11 +34,11 @@ public class PonysSubMenu {
     Assets oAssets;
     TextButton btUnlockCloud, btUnlockCientifico, btUnlockEnemigo, btUnlockNatylol, btUnlockIgnis, btUnlockLalba;
     Table dentroCloud, dentroCientifico, dentroEnemigo, dentroNatylol, dentroIgnis, dentroLalba;
-    private boolean isCientificoUnlocked = false;
-    private boolean isEnemigoUnlocked = false;
-    private boolean isNatylolUnlocked = false;
-    private boolean isIgnisUnlocked = false;
-    private boolean isLalbaUnlocked = false;
+    private boolean isCientificoUnlocked;
+    private boolean isEnemigoUnlocked;
+    private boolean isNatylolUnlocked;
+    private boolean isIgnisUnlocked;
+    private boolean isLalbaUnlocked;
 
     public PonysSubMenu(ShopScreen shop, Table contenedor) {
         this.contenedor = contenedor;
@@ -212,19 +212,13 @@ public class PonysSubMenu {
     private void setVisibleButtonsBut(TextButton setInvisible) {
 
         // Voy a iterar a dentro del contenedor, luego dentro de tablaDentro y luego de dentro cloud para poner los botones visibles
-        Iterator<Actor> ite1 = contenedor.getChildren().iterator();
-        while (ite1.hasNext()) {
-            Table tbDentro = (Table) ite1.next();
+        for (Actor actor : contenedor.getChildren()) {
+            Table tbDentro = (Table) actor;
 
-            Iterator<Actor> ite2 = tbDentro.getChildren().iterator();
-            while (ite2.hasNext()) {
-                Actor dentroTbdentro = ite2.next();
-
+            for (Actor dentroTbdentro : tbDentro.getChildren()) {
                 if (dentroTbdentro instanceof Table) {
-                    Iterator<Actor> ite3 = ((Table) dentroTbdentro).getChildren().iterator();
 
-                    while (ite3.hasNext()) {
-                        Actor obj = ite3.next();
+                    for (Actor obj : ((Table) dentroTbdentro).getChildren()) {
                         if (obj instanceof TextButton) {
                             obj.setVisible(true);
                         }

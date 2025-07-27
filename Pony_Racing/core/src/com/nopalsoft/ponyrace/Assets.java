@@ -55,8 +55,6 @@ public class Assets extends AssetManager {
      */
 
     public AtlasRegion fondoMainMenu;
-    public AtlasRegion fondoSettings;
-    public AtlasRegion fondoAbout;
     public NinePatchDrawable btnFacebook;
     public Skeleton skeletonMenuTitle;
     public Animation animationMenuTitle;
@@ -125,8 +123,6 @@ public class Assets extends AssetManager {
     public Animation dulceTomadaAnim;
     public Skeleton fondoSkeleton;
     public Animation fondoAnim;
-    public Skeleton fuegoSkeleton;
-    public Animation fuegoAnim;
     public Skeleton fogataSkeleton;
     public Animation fogataAnim;
     public Skeleton plumaSkeleton;
@@ -180,9 +176,10 @@ public class Assets extends AssetManager {
     String rutaTiled;
     String rutaMusica;
     String atlasTiledStuff = "data/animaciones/animacionesJuego.txt";
+
     public Assets() {
 
-        nombrePonys = new LinkedHashMap<Integer, String>(6);
+        nombrePonys = new LinkedHashMap<>(6);
         nombrePonys.put(0, "Cloud");
         nombrePonys.put(1, "Natylol");
         nombrePonys.put(2, "Ignis");
@@ -402,9 +399,6 @@ public class Assets extends AssetManager {
         } else if (nivelTiled == 12) {
             rutaTiled = "data/" + carpeta + "/mundo12.tmx";
             rutaMusica = "data/musica/02.mp3";
-        } else if (nivelTiled == 12) {
-            rutaTiled = "data/" + carpeta + "/mundo12.tmx";
-            rutaMusica = "data/musica/03.mp3";
         } else if (nivelTiled == 13) {
             rutaTiled = "data/" + carpeta + "/mundo13.tmx";
             rutaMusica = "data/musica/04.mp3";
@@ -496,35 +490,10 @@ public class Assets extends AssetManager {
         youLose = atlas.findRegion("imagenes/podio/youlose");
         timeUp = atlas.findRegion("imagenes/podio/timeup");
 
-        // json.setScale(.003f);
-        // SkeletonData fuegoSkeletonData = json.readSkeletonData(Gdx.files.internal("data/animaciones/bombs.json"));
-        // fuegoAnim = fuegoSkeletonData.findAnimation("firedancing");
-        // fuegoSkeleton = new Skeleton(fuegoSkeletonData);
-
         json.setScale(.01f);
         SkeletonData fondoSkeletonData = json.readSkeletonData(Gdx.files.internal("data/animaciones/background.json"));
         fondoAnim = fondoSkeletonData.findAnimation("animation");
         fondoSkeleton = new Skeleton(fondoSkeletonData);
-
-        //
-        // json.setScale(.011f);
-        // SkeletonData fogataSkeletonData = json.readSkeletonData(Gdx.files.internal("data/animaciones/fogata.json"));
-        // fogataAnim = fogataSkeletonData.findAnimation("fogata");
-        // fogataSkeleton = new Skeleton(fogataSkeletonData);
-        //
-        // json.setScale(.005f);
-        // SkeletonData plumaSkeletonData = json.readSkeletonData(Gdx.files.internal("data/animaciones/feather.json"));
-        // plumaAnim = plumaSkeletonData.findAnimation("pluma");
-        // plumaSkeleton = new Skeleton(plumaSkeletonData);
-        //
-        // json.setScale(.011f);
-        // SkeletonData bloodStoneSkeletonData = json.readSkeletonData(Gdx.files.internal("data/animaciones/bloodstone.json"));
-        // bloodStoneAnim = bloodStoneSkeletonData.findAnimation("animation");
-        // bloodStoneSkeleton = new Skeleton(bloodStoneSkeletonData);
-        //
-        // SkeletonData bloodStone2SkeletonData = json.readSkeletonData(Gdx.files.internal("data/animaciones/bloodstones.json"));
-        // bloodStone2Anim = bloodStone2SkeletonData.findAnimation("glow1");
-        // bloodStone2Skeleton = new Skeleton(bloodStone2SkeletonData);
 
         fondo = atlas.findRegion("imagenes/fondo");
 
@@ -535,8 +504,6 @@ public class Assets extends AssetManager {
 
         btJumpDown = new NinePatchDrawable(new NinePatch(atlas.findRegion("Interfaz/saltoalpresionar")));
         btJumpUp = new NinePatchDrawable(new NinePatch(atlas.findRegion("Interfaz/saltosinpresionar")));
-        // btTroncoUp = new NinePatchDrawable(new NinePatch(atlas.findRegion("Interfaz/botontroncosinpresionar")));
-        // btTroncoDown = new NinePatchDrawable(new NinePatch(atlas.findRegion("Interfaz/botontroncopresionado")));
 
         btTroncoUp = new NinePatchDrawable(new NinePatch(atlas.findRegion("Interfaz/btPlatanoTachuelas")));
         btTroncoDown = new NinePatchDrawable(new NinePatch(atlas.findRegion("Interfaz/btPlatanoTachuelasPresionado")));
