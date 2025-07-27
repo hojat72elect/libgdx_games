@@ -34,9 +34,9 @@ import com.esotericsoftware.spine.attachments.Attachment;
 import com.esotericsoftware.spine.attachments.BoundingBoxAttachment;
 
 public class SkeletonBounds {
-    private float minX, minY, maxX, maxY;
     private final Array<BoundingBoxAttachment> boundingBoxes = new Array();
     private final Array<FloatArray> polygons = new Array();
+    private float minX, minY, maxX, maxY;
 
     public void update(Skeleton skeleton, boolean updateAabb) {
         Array<BoundingBoxAttachment> boundingBoxes = this.boundingBoxes;

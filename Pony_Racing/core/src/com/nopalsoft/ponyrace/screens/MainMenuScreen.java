@@ -83,7 +83,7 @@ public class MainMenuScreen extends Screens {
                 btLeaderBoard.addAction(Actions.sequence(Actions.delay(.2f), btLeaderBoard.accionInicial, Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                            game.setScreen(new LoadingScreen(game, LeaderboardChooseScreen.class));
+                        game.setScreen(new LoadingScreen(game, LeaderboardChooseScreen.class));
                     }
                 })));
             }

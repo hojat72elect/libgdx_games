@@ -32,26 +32,154 @@ public class Assets extends AssetManager {
     public static boolean drawDebugLines = false;
 
     public static int mundoMaximo = 17;
-
-    String atlasComun = "data/atlasComun.txt";
     public Music musicaMenus;
     public Music musicaTiled;
     public com.badlogic.gdx.graphics.g2d.Animation<TextureRegion> nube;
-
     public NinePatchDrawable btSonidoON;
     public NinePatchDrawable btSonidoOff;
     public NinePatchDrawable btMusicaON;
     public NinePatchDrawable btMusicaOff;
-
     public LinkedHashMap<Integer, String> nombrePonys;
-
     public Skin skin;
     public NinePatchDrawable btSignInUp;
     public NinePatchDrawable btSignInDown;
-
     public NinePatchDrawable btShareFacebookUp;
     public NinePatchDrawable btShareFacebookDown;
+    /**
+     * ######################################### FONTS ###########################################
+     */
+    public BitmapFont fontGde;
+    public BitmapFont fontChco;
+    /**
+     * ######################################### MENUS ###########################################
+     */
 
+    public AtlasRegion fondoMainMenu;
+    public AtlasRegion fondoSettings;
+    public AtlasRegion fondoAbout;
+    public NinePatchDrawable btnFacebook;
+    public Skeleton skeletonMenuTitle;
+    public Animation animationMenuTitle;
+    /**
+     * ################################################################## TIENDA #############################################################
+     */
+
+    public Skeleton skeletonTiendaTitle;
+    public Animation animationTiendaTitle;
+    public AtlasRegion fondoTienda;
+    public AtlasRegion monedaTienda;
+    public AtlasRegion bananaSpikeTienda;
+    public AtlasRegion bombaTienda;
+    public AtlasRegion chocolateTienda;
+    public AtlasRegion globoTienda;
+    public AtlasRegion chileTienda;
+    public AtlasRegion cronometroTienda;
+    public NinePatchDrawable btNubeUpTienda;
+    public NinePatchDrawable btNubeDownTienda;
+    public NinePatchDrawable miniNubeScroll;
+    public NinePatchDrawable barraScroll;
+    public NinePatchDrawable btMenuLeftUp;
+    public NinePatchDrawable btMenuLeftDown;
+    public TextureRegionDrawable perfilCloud;
+    public TextureRegionDrawable perfilNatylol;
+    public TextureRegionDrawable perfilIgnis;
+    public TextureRegionDrawable perfilcientifico;
+    public TextureRegionDrawable perfilLAlba;
+    public TextureRegionDrawable perfilenemigo;
+    /**
+     * new struf
+     */
+    public TiledMap tiledWorldMap;
+    public Skeleton bolaSkeleton;
+    public Animation bolaAnim;
+    public Skeleton rayoSkeleton;
+    public Animation rayoAnim;
+    public Skeleton humoVolcanSkeleton;
+    public Animation humoVolvanAnimation;
+    public NinePatchDrawable btDerUp;
+    public NinePatchDrawable btDerDown;
+    public NinePatchDrawable btIzqUp;
+
+    /**
+     * ################################################################## WORLD MAP #############################################################
+     */
+    public NinePatchDrawable btIzqDown;
+    // fin new stuff
+    public AtlasRegion fondo;// Lo estoy cargando en atlasComun para ahorrar espacio OMG! ajaj
+    public TiledMap tiledMap;
+    public SkeletonData ponySkeletonData;
+    public SkeletonData skeletonBombData;
+    public Animation bombAnim;
+    public Animation bombExAnim;
+    public SkeletonData skeletonMonedaData;
+    public Animation monedaAnim;
+    public Animation monedaTomadaAnim;
+    public SkeletonData chileSkeletonData;
+    public Animation chileAnim;
+    public Animation chileTomadaAnim;
+    public SkeletonData globoSkeletonData;
+    public Animation globoAnim;
+    public Animation globoTomadaAnim;
+    public SkeletonData dulceSkeletonData;
+    public Animation dulceAnim;
+    public Animation dulceTomadaAnim;
+    public Skeleton fondoSkeleton;
+    public Animation fondoAnim;
+    public Skeleton fuegoSkeleton;
+    public Animation fuegoAnim;
+    public Skeleton fogataSkeleton;
+    public Animation fogataAnim;
+    public Skeleton plumaSkeleton;
+    public Animation plumaAnim;
+    public Skeleton bloodStoneSkeleton;
+    public Animation bloodStoneAnim;
+    public Skeleton bloodStone2Skeleton;
+    public Animation bloodStone2Anim;
+    public AtlasRegion medallaPrimerLugar;
+    public AtlasRegion medallaSegundoLugar;
+    public AtlasRegion medallaTercerLugar;
+    public AtlasRegion congratulations;
+    public AtlasRegion youLose;
+    public AtlasRegion timeUp;
+    public NinePatchDrawable padIzq;
+    public NinePatchDrawable padDer;
+    public NinePatchDrawable btBombaUp;
+    public NinePatchDrawable btBombaDown;
+    public NinePatchDrawable btTroncoUp;
+    public NinePatchDrawable btTroncoDown;
+    public NinePatchDrawable btJumpUp;
+    public NinePatchDrawable btJumpDown;
+    public NinePatchDrawable btPauseUp;
+    public NinePatchDrawable fondoVentanas;
+    public AtlasRegion indicador;
+    public AtlasRegion indicadorCloud;
+    public AtlasRegion indicadorCientifico;
+    public AtlasRegion indicadorMinion;
+    public AtlasRegion indicadorNatylol;
+    public AtlasRegion indicadorLighthingAlba;
+    public AtlasRegion indicadorIgnis;
+    public AtlasRegion lugaresMarco;
+    public AtlasRegion moneda;
+    public AtlasRegion perfilRegionCloud;
+    public AtlasRegion perfilRegionNatylol;
+    public AtlasRegion perfilRegionIgnis;
+    public AtlasRegion perfilRegionCientifico;
+    public AtlasRegion perfilRegionLAlba;
+    public AtlasRegion perfilRegionEnemigo;
+    public AtlasRegion tronco;
+    public AtlasRegion tachuelas;
+    public AtlasRegion platano;
+    public Sound pickCoin;
+    public Sound jump;
+    String atlasComun = "data/atlasComun.txt";
+    String atlasMenusRuta = "data/menus/atlasMenus.txt";
+    String atlasWorldTiledScreenRuta = "data/worldMap/worldmap.tmx";
+    /**
+     * ########################################################################## GameScreenTiled #################################################################################
+     */
+    String rutaTiled;
+    String rutaMusica;
+    String atlasTiledStuff = "data/animaciones/animacionesJuego.txt";
     public Assets() {
 
         nombrePonys = new LinkedHashMap<Integer, String>(6);
@@ -109,12 +237,6 @@ public class Assets extends AssetManager {
         btShareFacebookDown = new NinePatchDrawable(new NinePatch(atlas.createPatch("btShareFacebookDown")));
     }
 
-    /**
-     * ######################################### FONTS ###########################################
-     */
-    public BitmapFont fontGde;
-    public BitmapFont fontChco;
-
     public void cargarFont() {
 
         Texture texturaFont = new Texture(Gdx.files.internal("data/fonts/fontMenus2.png"));
@@ -128,21 +250,6 @@ public class Assets extends AssetManager {
         fontChco.setUseIntegerPositions(false);
         fontChco.setFixedWidthGlyphs("0123456789");
     }
-
-    /**
-     * ######################################### MENUS ###########################################
-     */
-
-    public AtlasRegion fondoMainMenu;
-    public AtlasRegion fondoSettings;
-    public AtlasRegion fondoAbout;
-    public NinePatchDrawable btnFacebook;
-
-    public Skeleton skeletonMenuTitle;
-    public Animation animationMenuTitle;
-
-    String atlasMenusRuta = "data/menus/atlasMenus.txt";
-    String atlasWorldTiledScreenRuta = "data/worldMap/worldmap.tmx";
 
     public void loadMenus() {
 
@@ -186,38 +293,6 @@ public class Assets extends AssetManager {
         System.gc();
     }
 
-    /**
-     * ################################################################## TIENDA #############################################################
-     */
-
-    public Skeleton skeletonTiendaTitle;
-    public Animation animationTiendaTitle;
-
-    public AtlasRegion fondoTienda;
-    public AtlasRegion monedaTienda;
-    public AtlasRegion bananaSpikeTienda;
-    public AtlasRegion bombaTienda;
-    public AtlasRegion chocolateTienda;
-    public AtlasRegion globoTienda;
-    public AtlasRegion chileTienda;
-
-    public AtlasRegion cronometroTienda;
-    public NinePatchDrawable btNubeUpTienda;
-    public NinePatchDrawable btNubeDownTienda;
-
-    public NinePatchDrawable miniNubeScroll;
-    public NinePatchDrawable barraScroll;
-
-    public NinePatchDrawable btMenuLeftUp;
-    public NinePatchDrawable btMenuLeftDown;
-
-    public TextureRegionDrawable perfilCloud;
-    public TextureRegionDrawable perfilNatylol;
-    public TextureRegionDrawable perfilIgnis;
-    public TextureRegionDrawable perfilcientifico;
-    public TextureRegionDrawable perfilLAlba;
-    public TextureRegionDrawable perfilenemigo;
-
     public void cargarTienda(TextureAtlas atlas) {
         cargarComun();
         fondoTienda = atlas.findRegion("fondoTienda");
@@ -253,30 +328,6 @@ public class Assets extends AssetManager {
         skeletonTiendaTitle = new Skeleton(skeletonData);
     }
 
-    /**
-     * ################################################################## WORLD MAP #############################################################
-     */
-
-    /**
-     * new struf
-     */
-    public TiledMap tiledWorldMap;
-    // fin new stuff
-
-    public Skeleton bolaSkeleton;
-    public Animation bolaAnim;
-
-    public Skeleton rayoSkeleton;
-    public Animation rayoAnim;
-
-    public Skeleton humoVolcanSkeleton;
-    public Animation humoVolvanAnimation;
-
-    public NinePatchDrawable btDerUp;
-    public NinePatchDrawable btDerDown;
-    public NinePatchDrawable btIzqUp;
-    public NinePatchDrawable btIzqDown;
-
     public void cargarWorldMap(TextureAtlas atlas) {
         cargarComun();
         SkeletonJson json = new SkeletonJson(atlas);
@@ -304,102 +355,6 @@ public class Assets extends AssetManager {
         btIzqUp = new NinePatchDrawable(new NinePatch(atlas.findRegion("izqSinPresionar")));
         btIzqDown = new NinePatchDrawable(new NinePatch(atlas.findRegion("izqPresionado")));
     }
-
-    /**
-     * ########################################################################## GameScreenTiled #################################################################################
-     */
-    String rutaTiled;
-    String rutaMusica;
-    String atlasTiledStuff = "data/animaciones/animacionesJuego.txt";
-
-    public AtlasRegion fondo;// Lo estoy cargando en atlasComun para ahorrar espacio OMG! ajaj
-
-    public TiledMap tiledMap;
-    public SkeletonData ponySkeletonData;
-
-    public SkeletonData skeletonBombData;
-    public Animation bombAnim;
-    public Animation bombExAnim;
-
-    public SkeletonData skeletonMonedaData;
-    public Animation monedaAnim;
-    public Animation monedaTomadaAnim;
-
-    public SkeletonData chileSkeletonData;
-    public Animation chileAnim;
-    public Animation chileTomadaAnim;
-
-    public SkeletonData globoSkeletonData;
-    public Animation globoAnim;
-    public Animation globoTomadaAnim;
-
-    public SkeletonData dulceSkeletonData;
-    public Animation dulceAnim;
-    public Animation dulceTomadaAnim;
-
-    public Skeleton fondoSkeleton;
-    public Animation fondoAnim;
-
-    public Skeleton fuegoSkeleton;
-    public Animation fuegoAnim;
-
-    public Skeleton fogataSkeleton;
-    public Animation fogataAnim;
-
-    public Skeleton plumaSkeleton;
-    public Animation plumaAnim;
-
-    public Skeleton bloodStoneSkeleton;
-    public Animation bloodStoneAnim;
-
-    public Skeleton bloodStone2Skeleton;
-    public Animation bloodStone2Anim;
-
-    public AtlasRegion medallaPrimerLugar;
-    public AtlasRegion medallaSegundoLugar;
-    public AtlasRegion medallaTercerLugar;
-    public AtlasRegion congratulations;
-    public AtlasRegion youLose;
-    public AtlasRegion timeUp;
-
-    public NinePatchDrawable padIzq;
-    public NinePatchDrawable padDer;
-    public NinePatchDrawable btBombaUp;
-    public NinePatchDrawable btBombaDown;
-
-    public NinePatchDrawable btTroncoUp;
-    public NinePatchDrawable btTroncoDown;
-
-    public NinePatchDrawable btJumpUp;
-    public NinePatchDrawable btJumpDown;
-
-    public NinePatchDrawable btPauseUp;
-
-    public NinePatchDrawable fondoVentanas;
-
-    public AtlasRegion indicador;
-    public AtlasRegion indicadorCloud;
-    public AtlasRegion indicadorCientifico;
-    public AtlasRegion indicadorMinion;
-    public AtlasRegion indicadorNatylol;
-    public AtlasRegion indicadorLighthingAlba;
-    public AtlasRegion indicadorIgnis;
-    public AtlasRegion lugaresMarco;
-    public AtlasRegion moneda;
-
-    public AtlasRegion perfilRegionCloud;
-    public AtlasRegion perfilRegionNatylol;
-    public AtlasRegion perfilRegionIgnis;
-    public AtlasRegion perfilRegionCientifico;
-    public AtlasRegion perfilRegionLAlba;
-    public AtlasRegion perfilRegionEnemigo;
-
-    public AtlasRegion tronco;
-    public AtlasRegion tachuelas;
-    public AtlasRegion platano;
-
-    public Sound pickCoin;
-    public Sound jump;
 
     /**
      * Primero se llama el load, cuando se termina de cargar se llama cargar

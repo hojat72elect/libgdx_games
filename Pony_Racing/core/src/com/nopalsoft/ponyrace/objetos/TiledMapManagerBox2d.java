@@ -41,6 +41,7 @@ public class TiledMapManagerBox2d {
     private final Logger logger;
     private final FixtureDef defaultFixture;
     private final LinkedHashMap<Integer, String> nombrePonys;
+    int contadorPonisCreados = 0;
 
     public TiledMapManagerBox2d(WorldTiled oWorld, float unitsPerPixel) {
         this.oWorld = oWorld;
@@ -277,8 +278,6 @@ public class TiledMapManagerBox2d {
         chain.createChain(worldVertices);
         return chain;
     }
-
-    int contadorPonisCreados = 0;
 
     private void crearPony(MapObject object, String tipo) {
         Rectangle rectangle = ((RectangleMapObject) object).getRectangle();

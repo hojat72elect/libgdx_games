@@ -19,31 +19,26 @@ import com.nopalsoft.ponyrace.screens.ShopScreen;
 import java.util.Iterator;
 
 public class PonysSubMenu {
-    Table contenedor;
-    Assets oAssets;
-
     final String NOMBRE_SKIN_CLOUD = "Cloud";
     final String NOMBRE_SKIN_CIENTIFICO = "cientifico";
     final String NOMBRE_SKIN_ENEMIGO = "enemigo";
     final String NOMBRE_SKIN_NATYLOL = "Natylol";
     final String NOMBRE_SKIN_IGNIS = "Ignis";
     final String NOMBRE_SKIN_LALBA = "LAlba";
-
     final int PRECIO_DESBLOQUEAR_PONY = 5000;
     final String BUY = "Buy";
     final String USE = "Use";
-
+    private final String prefName = "com.nopalsoft.ponyRace.ponysSubMenu";
+    private final Preferences prefAchiv = Gdx.app.getPreferences(prefName);
+    Table contenedor;
+    Assets oAssets;
+    TextButton btUnlockCloud, btUnlockCientifico, btUnlockEnemigo, btUnlockNatylol, btUnlockIgnis, btUnlockLalba;
+    Table dentroCloud, dentroCientifico, dentroEnemigo, dentroNatylol, dentroIgnis, dentroLalba;
     private boolean isCientificoUnlocked = false;
     private boolean isEnemigoUnlocked = false;
     private boolean isNatylolUnlocked = false;
     private boolean isIgnisUnlocked = false;
     private boolean isLalbaUnlocked = false;
-
-    TextButton btUnlockCloud, btUnlockCientifico, btUnlockEnemigo, btUnlockNatylol, btUnlockIgnis, btUnlockLalba;
-    Table dentroCloud, dentroCientifico, dentroEnemigo, dentroNatylol, dentroIgnis, dentroLalba;
-
-    private final String prefName = "com.nopalsoft.ponyRace.ponysSubMenu";
-    private final Preferences prefAchiv = Gdx.app.getPreferences(prefName);
 
     public PonysSubMenu(ShopScreen shop, Table contenedor) {
         this.contenedor = contenedor;

@@ -70,13 +70,12 @@ public class RegionAttachment extends Attachment {
     static public final int URY = 5;
     static public final int BRX = 6;
     static public final int BRY = 7;
-
-    private TextureRegion region;
-    private String path;
-    private float x, y, scaleX = 1, scaleY = 1, rotation, width, height;
     private final float[] vertices = new float[20];
     private final float[] offset = new float[8];
     private final Color color = new Color(1, 1, 1, 1);
+    private TextureRegion region;
+    private String path;
+    private float x, y, scaleX = 1, scaleY = 1, rotation, width, height;
 
     public RegionAttachment(String name) {
         super(name);
@@ -133,6 +132,11 @@ public class RegionAttachment extends Attachment {
         offset[BRY] = localYCos + localX2Sin;
     }
 
+    public TextureRegion getRegion() {
+        if (region == null) throw new IllegalStateException("Region has not been set: " + this);
+        return region;
+    }
+
     public void setRegion(TextureRegion region) {
         if (region == null) throw new IllegalArgumentException("region cannot be null.");
         this.region = region;
@@ -157,11 +161,6 @@ public class RegionAttachment extends Attachment {
             vertices[V1] = region.getV2();
         }
         updateOffset();
-    }
-
-    public TextureRegion getRegion() {
-        if (region == null) throw new IllegalStateException("Region has not been set: " + this);
-        return region;
     }
 
     public void updateWorldVertices(Slot slot, boolean premultipliedAlpha) {

@@ -28,13 +28,13 @@ public class WorldTiledRenderer {
 
     final float WIDTH = Screens.WORLD_SCREEN_WIDTH / 10f;
     final float HEIGHT = Screens.WORLD_SCREEN_HEIGHT / 10f;
-
-    WorldTiled oWorld;
     public OrthographicCamera OrthoCam;
-    SpriteBatch batch;
     public OrthogonalTiledMapRenderer tiledRender;
+    WorldTiled oWorld;
+    SpriteBatch batch;
     Box2DDebugRenderer renderBox;
     SkeletonRenderer skelrender;
+    float fondoLastTime, fondoStateTime;
 
     public WorldTiledRenderer(SpriteBatch batch, WorldTiled oWorld) {
         this.OrthoCam = new OrthographicCamera(WIDTH, HEIGHT);
@@ -46,8 +46,6 @@ public class WorldTiledRenderer {
         renderBox = new Box2DDebugRenderer();
         skelrender = new SkeletonRenderer();
     }
-
-    float fondoLastTime, fondoStateTime;
 
     public void render(float delta, float screenlastStatetime, float screenStateTime) {
         OrthoCam.position.x = oWorld.oPony.position.x;

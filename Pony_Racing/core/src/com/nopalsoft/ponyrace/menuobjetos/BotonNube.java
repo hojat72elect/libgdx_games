@@ -10,15 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class BotonNube extends Actor {
 
+    public IniciarAnimacion accionInicial;
+    public boolean wasSelected;
     Animation<TextureRegion> animation;
     BitmapFont font;
     String texto;
-    public IniciarAnimacion accionInicial;
-
     float stateTime;
-
-    public boolean wasSelected;
-
     GlyphLayout glyphLayout;
 
     public BotonNube(Animation<TextureRegion> animation, String texto, BitmapFont font) {

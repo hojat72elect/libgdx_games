@@ -62,17 +62,17 @@ public class SlotData {
     }
 
     /**
-     * @param attachmentName May be null.
-     */
-    public void setAttachmentName(String attachmentName) {
-        this.attachmentName = attachmentName;
-    }
-
-    /**
      * @return May be null.
      */
     public String getAttachmentName() {
         return attachmentName;
+    }
+
+    /**
+     * @param attachmentName May be null.
+     */
+    public void setAttachmentName(String attachmentName) {
+        this.attachmentName = attachmentName;
     }
 
     public boolean getAdditiveBlending() {

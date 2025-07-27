@@ -14,28 +14,22 @@ public class Settings {
     public static final int DIFICULTAD_NORMAL = 1;
     public static final int DIFICULTAD_HARD = 2;
     public static final int DIFICULTAD_SUPERHARD = 3;
-
+    private final static Preferences pref = Gdx.app
+            .getPreferences("com.nopalsoft.ponyRace.settings");
     public static boolean isEnabledSecretWorld = false; // Esta variable siempre es falsa al inicio y no se guarda
-
     public static boolean isSonidoON = false;
     public static boolean isMusicaON = false;
-
     public static int mundosDesbloqueados;
-
     public static boolean seDioLike = false;
     public static boolean seCalificoApp = false;
-
     //
     public static String skinSeleccionada;
     public static int numeroBombas = 0;// Bombas para usar in game
     public static int numeroWoods = 0;// Troncos disponibles para usar in game
     public static int numeroMonedasActual = 0;// Monedas disponibles para gastar
-
     public static int statMonedasTotal;// Estadisticas de las monedas totales.
     public static int statTimesPlayed;
-
     public static int dificultadActual = DIFICULTAD_NORMAL;
-
     public static int nivelChocolate = 0;
     public static int nivelBallon = 0;
     public static int nivelChili = 0;
@@ -43,10 +37,7 @@ public class Settings {
     public static int nivelWood = 0;
     public static int nivelCoin = 0;
     public static int nivelTime = 0;
-
     public static boolean isBackGroundEnabled = true;
-    private final static Preferences pref = Gdx.app
-            .getPreferences("com.nopalsoft.ponyRace.settings");
 
     public static void cargar() {
         isSonidoON = pref.getBoolean("isSonidoON", true);

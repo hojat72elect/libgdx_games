@@ -55,8 +55,8 @@ public class SkeletonRendererDebug {
     static private final Color aabbColor = new Color(0, 1, 0, 0.5f);
 
     private final ShapeRenderer renderer;
-    private boolean drawBones = true, drawRegionAttachments = true, drawBoundingBoxes = true;
     private final SkeletonBounds bounds = new SkeletonBounds();
+    private boolean drawBones = true, drawRegionAttachments = true, drawBoundingBoxes = true;
     private float scale = 1;
 
     public SkeletonRendererDebug() {

@@ -7,18 +7,15 @@ import com.nopalsoft.ponyrace.game.WorldTiled;
 
 public class PonyMalo extends Pony {
 
+    private final float TIEMPO_DISPARO = 3f;
+    private final Vector3 pastPosition;
     public boolean tocoBandera;
     public boolean hasToJump;
-
     public float posFinalX;
     public boolean terminoCarrera;
-
-    private float probababilidad = .5f;
-
-    private final float TIEMPO_DISPARO = 3f;
-    private float stateTiempoDisparo;
-    private final Vector3 pastPosition;
     float timeSamePosition;
+    private float probababilidad = .5f;
+    private float stateTiempoDisparo;
 
     public PonyMalo(float x, float y, String nombreSkin, WorldTiled oWorld) {
         super(x, y, nombreSkin, oWorld);

@@ -7,21 +7,13 @@ import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.game.WorldTiled;
 
 public class Bomba extends GameObject {
-    public enum State {
-        normal,
-        explode
-    }
-
-    public final float TIEMPO_HURT;
     public static final float TIEMPO_NORMAL = 1.5f;
     public static final float TIEMPO_EXPLOSION = .3f;
+    public final float TIEMPO_HURT;
     public float lastStatetime;
     public float stateTime;
-
     public float angulo;
-
     public State state;
-
     public Skeleton skelBomb;
 
     public Bomba(float x, float y, WorldTiled oWorld) {
@@ -75,5 +67,10 @@ public class Bomba extends GameObject {
             stateTime = 0;
             obj.setLinearVelocity(0, 0);
         }
+    }
+
+    public enum State {
+        normal,
+        explode
     }
 }

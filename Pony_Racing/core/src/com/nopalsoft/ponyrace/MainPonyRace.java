@@ -12,16 +12,15 @@ import com.nopalsoft.ponyrace.screens.Screens;
 public class MainPonyRace extends Game {
 
     final public FloatFormatter formatter;
+    public Assets oAssets;
+    public Stage stage;
+    public SpriteBatch batcher;
+    public com.nopalsoft.ponyrace.Achievements achievements;
 
     public MainPonyRace(FloatFormatter formatter) {
 
         this.formatter = formatter;
     }
-
-    public Assets oAssets;
-    public Stage stage;
-    public SpriteBatch batcher;
-    public com.nopalsoft.ponyrace.Achievements achievements;
 
     @Override
     public void create() {

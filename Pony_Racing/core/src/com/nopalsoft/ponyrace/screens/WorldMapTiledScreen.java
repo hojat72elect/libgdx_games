@@ -347,19 +347,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
         return false;
     }
 
-    protected class Mundos {
-        public Vector2 position;
-        public Rectangle bounds;
-        public int level;
-
-        public Mundos(Vector2 position, Rectangle bounds, int level) {
-            super();
-            this.position = position;
-            this.bounds = bounds;
-            this.level = level;
-        }
-    }
-
     @Override
     // Este es el touchDown del gestureListener =)
     public boolean touchDown(float x, float y, int pointer, int button) {
@@ -431,5 +418,18 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
     @Override
     public void pinchStop() {
 
+    }
+
+    protected class Mundos {
+        public Vector2 position;
+        public Rectangle bounds;
+        public int level;
+
+        public Mundos(Vector2 position, Rectangle bounds, int level) {
+            super();
+            this.position = position;
+            this.bounds = bounds;
+            this.level = level;
+        }
     }
 }

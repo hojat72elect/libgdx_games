@@ -38,24 +38,14 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class WorldTiled {
-    public MainPonyRace game;
-
-    public float WORLD_STEP = 1 / 300f;
-
     final float WIDTH = Screens.WORLD_SCREEN_WIDTH / 10f;
     final float HEIGHT = Screens.WORLD_SCREEN_HEIGHT / 10f;
-
-    // Next level significa que se paso el nivel.
-    enum State {
-        running, timeUp, tryAgain, nextLevel
-    }
-
+    public MainPonyRace game;
+    public float WORLD_STEP = 1 / 300f;
     public Vector2 finJuego;
     public int nivelTiled;
-
     public World oWorldBox;
     public float m_units = 1 / 100.0f;
-    Vector2 gravedad = new Vector2(0, -9.5f);
     public Array<Body> arrBodys;
     public PonyPlayer oPony;
     public Array<Fogata> arrFogatas;
@@ -69,16 +59,23 @@ public class WorldTiled {
     public Array<Globo> arrGlobos;
     public Array<Dulce> arrDulces;
     public Random oRan;
-
-    Array<Pony> arrPosiciones;// Arreglo para ordenar los jugadores
-
     public float tamanoMapaX;
     public float tamanoMapaY;
-    State state;
-
     public float tiempoLeft;// El tiempo que le queda.
-
     public float tiempoLap;
+    Vector2 gravedad = new Vector2(0, -9.5f);
+    Array<Pony> arrPosiciones;// Arreglo para ordenar los jugadores
+    State state;
+    Comparator<Pony> checadorPosiciones = new Comparator<Pony>() {
+        @Override
+        public int compare(Pony arg0, Pony arg1) {
+            if (arg0.position.x < arg1.position.x)
+                return 1;
+            return -1;
+        }
+    };
+    Vector2 impulso = new Vector2();
+    int verl;
 
     public WorldTiled(MainPonyRace game, int nivelTiled) {
         this.game = game;
@@ -119,15 +116,6 @@ public class WorldTiled {
         checarPosicionCarrera();
         inicializarVariablesDesdeMapas();
     }
-
-    Comparator<Pony> checadorPosiciones = new Comparator<Pony>() {
-        @Override
-        public int compare(Pony arg0, Pony arg1) {
-            if (arg0.position.x < arg1.position.x)
-                return 1;
-            return -1;
-        }
-    };
 
     private void checarPosicionCarrera() {
 
@@ -255,8 +243,6 @@ public class WorldTiled {
         checarPosicionCarrera();
         checarGameOver(delta);
     }
-
-    Vector2 impulso = new Vector2();
 
     private void updatePonys(float delta, Body obj, float accelX, boolean jump) {
         boolean isMalo;
@@ -521,7 +507,10 @@ public class WorldTiled {
         }
     }
 
-    int verl;
+    // Next level significa que se paso el nivel.
+    enum State {
+        running, timeUp, tryAgain, nextLevel
+    }
 
     public class plataformasContact implements ContactListener {
 

@@ -40,13 +40,12 @@ public class AnimationState {
     private final Array<TrackEntry> tracks = new Array();
     private final Array<Event> events = new Array();
     private final Array<AnimationStateListener> listeners = new Array();
-    private float timeScale = 1;
-
     private final Pool<TrackEntry> trackEntryPool = new Pool() {
         protected Object newObject() {
             return new TrackEntry();
         }
     };
+    private float timeScale = 1;
 
     public AnimationState(AnimationStateData data) {
         if (data == null) throw new IllegalArgumentException("data cannot be null.");
@@ -316,6 +315,30 @@ public class AnimationState {
         return buffer.toString();
     }
 
+    public interface AnimationStateListener {
+        /**
+         * Invoked when the current animation triggers an event.
+         */
+        void event(int trackIndex, Event event);
+
+        /**
+         * Invoked when the current animation has completed.
+         *
+         * @param loopCount The number of times the animation reached the end.
+         */
+        void complete(int trackIndex, int loopCount);
+
+        /**
+         * Invoked just after the current animation is set.
+         */
+        void start(int trackIndex);
+
+        /**
+         * Invoked just before the current animation is replaced.
+         */
+        void end(int trackIndex);
+    }
+
     static public class TrackEntry implements Poolable {
         TrackEntry next, previous;
         Animation animation;
@@ -425,30 +448,6 @@ public class AnimationState {
         public String toString() {
             return animation == null ? "<none>" : animation.name;
         }
-    }
-
-    public interface AnimationStateListener {
-        /**
-         * Invoked when the current animation triggers an event.
-         */
-        void event(int trackIndex, Event event);
-
-        /**
-         * Invoked when the current animation has completed.
-         *
-         * @param loopCount The number of times the animation reached the end.
-         */
-        void complete(int trackIndex, int loopCount);
-
-        /**
-         * Invoked just after the current animation is set.
-         */
-        void start(int trackIndex);
-
-        /**
-         * Invoked just before the current animation is replaced.
-         */
-        void end(int trackIndex);
     }
 
     static public abstract class AnimationStateAdapter implements AnimationStateListener {

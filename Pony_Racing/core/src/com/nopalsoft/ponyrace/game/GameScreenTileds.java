@@ -29,42 +29,39 @@ import com.nopalsoft.ponyrace.screens.WorldMapTiledScreen;
 
 public class GameScreenTileds extends Screens {
 
-    public enum State {
-        ready, running, paused, timeUp, nextLevel, tryAgain
-    }
-
     // Variables para descontar las monedas 1 por 1 cuando terminas la carrera y te dan monedas
     public final float GET_COIN_FOR_TIME_LEFT = .065f;
-    public float time_left_coin = 0;
     public final int MULTIPLICADOR_MONEDAS_TIME_LEFT;
-    // fin
-
+    public float time_left_coin = 0;
     public WorldTiled oWorld;
-    WorldTiledRenderer renderer;
-
-    Vector3 touchPoint;
-    State state;
-    boolean jump, fireBomb, fireWood;
+    // fin
     public int nivelTiled;
-
-    Button btIzq, btDer, btJump;
-    TextButton btFireBomb, btFireWood;
-
-    Button btPausa;
-
     // int monedasRecolectadas;
     public StringBuilder stringMonedasRecolectadas;
     public StringBuilder stringTiempoLeft;
     public StringBuilder lapTime;
-
+    WorldTiledRenderer renderer;
+    Vector3 touchPoint;
+    State state;
+    boolean jump, fireBomb, fireWood;
+    Button btIzq, btDer, btJump;
+    TextButton btFireBomb, btFireWood;
+    Button btPausa;
     String stringMundoActual;
-
     float accelX;
-
     boolean drawStatsEndRace;
-
     VentanaRate vtRate;
     VentanaPause vtPause;
+    int tamanoBoton = 105;
+    AtlasRegion pixelNegro;
+    float duration = 1.5f;
+    float curFade = 0;
+    BotonNube btMainMenu;
+    BotonNube btContinue;
+    BotonNube btTryAgain;
+    BotonNube btNextLevel;
+    ImageButton btSonido;
+    ImageButton btMusica;
 
     public GameScreenTileds(MainPonyRace game, int nivelTiled) {
         super(game);
@@ -138,8 +135,6 @@ public class GameScreenTileds extends Screens {
             vtRate.show(stage);
         }
     }
-
-    int tamanoBoton = 105;
 
     public void setBotonesInterfaz() {
         stage.clear();
@@ -459,10 +454,6 @@ public class GameScreenTileds extends Screens {
             oAssets.fontChco.draw(batcher, "FPS=" + Gdx.graphics.getFramesPerSecond(), 0, 190);
     }
 
-    AtlasRegion pixelNegro;
-    float duration = 1.5f;
-    float curFade = 0;
-
     private void setTimeUp() {
         state = State.timeUp;
         ScreenStateTime = 0;
@@ -511,13 +502,6 @@ public class GameScreenTileds extends Screens {
         stage.clear();
         vtPause.show(stage);
     }
-
-    BotonNube btMainMenu;
-    BotonNube btContinue;
-    BotonNube btTryAgain;
-    BotonNube btNextLevel;
-    ImageButton btSonido;
-    ImageButton btMusica;
 
     private void inicializarBotonesMenusInGame() {
         btMainMenu = new BotonNube(oAssets.nube, "Menu", oAssets.fontChco);
@@ -696,5 +680,9 @@ public class GameScreenTileds extends Screens {
     public void pause() {
         setPause();
         super.pause();
+    }
+
+    public enum State {
+        ready, running, paused, timeUp, nextLevel, tryAgain
     }
 }

@@ -36,9 +36,9 @@ public class Skeleton {
     final SkeletonData data;
     final Array<Bone> bones;
     final Array<Slot> slots;
+    final Color color;
     Array<Slot> drawOrder;
     Skin skin;
-    final Color color;
     float time;
     boolean flipX, flipY;
     float x, y;

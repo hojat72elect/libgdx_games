@@ -47,6 +47,31 @@ public class Animation {
         this.duration = duration;
     }
 
+    /**
+     * @param target After the first and before the last value.
+     * @return index of first value greater than the target.
+     */
+    static int binarySearch(float[] values, float target, int step) {
+        int low = 0;
+        int high = values.length / step - 2;
+        if (high == 0) return step;
+        int current = high >>> 1;
+        while (true) {
+            if (values[(current + 1) * step] <= target)
+                low = current + 1;
+            else
+                high = current;
+            if (low == high) return (low + 1) * step;
+            current = (low + high) >>> 1;
+        }
+    }
+
+    static int linearSearch(float[] values, float target, int step) {
+        for (int i = 0, last = values.length - step; i <= last; i += step)
+            if (values[i] > target) return i;
+        return -1;
+    }
+
     public Array<Timeline> getTimelines() {
         return timelines;
     }
@@ -107,31 +132,6 @@ public class Animation {
 
     public String toString() {
         return name;
-    }
-
-    /**
-     * @param target After the first and before the last value.
-     * @return index of first value greater than the target.
-     */
-    static int binarySearch(float[] values, float target, int step) {
-        int low = 0;
-        int high = values.length / step - 2;
-        if (high == 0) return step;
-        int current = high >>> 1;
-        while (true) {
-            if (values[(current + 1) * step] <= target)
-                low = current + 1;
-            else
-                high = current;
-            if (low == high) return (low + 1) * step;
-            current = (low + high) >>> 1;
-        }
-    }
-
-    static int linearSearch(float[] values, float target, int step) {
-        for (int i = 0, last = values.length - step; i <= last; i += step)
-            if (values[i] > target) return i;
-        return -1;
     }
 
     public interface Timeline {
@@ -239,21 +239,20 @@ public class Animation {
     static public class RotateTimeline extends CurveTimeline {
         static private final int PREV_FRAME_TIME = -2;
         static private final int FRAME_VALUE = 1;
-
-        int boneIndex;
         private final float[] frames; // time, angle, ...
+        int boneIndex;
 
         public RotateTimeline(int frameCount) {
             super(frameCount);
             frames = new float[frameCount * 2];
         }
 
-        public void setBoneIndex(int boneIndex) {
-            this.boneIndex = boneIndex;
-        }
-
         public int getBoneIndex() {
             return boneIndex;
+        }
+
+        public void setBoneIndex(int boneIndex) {
+            this.boneIndex = boneIndex;
         }
 
         public float[] getFrames() {
@@ -310,21 +309,20 @@ public class Animation {
         static final int PREV_FRAME_TIME = -3;
         static final int FRAME_X = 1;
         static final int FRAME_Y = 2;
-
-        int boneIndex;
         final float[] frames; // time, x, y, ...
+        int boneIndex;
 
         public TranslateTimeline(int frameCount) {
             super(frameCount);
             frames = new float[frameCount * 3];
         }
 
-        public void setBoneIndex(int boneIndex) {
-            this.boneIndex = boneIndex;
-        }
-
         public int getBoneIndex() {
             return boneIndex;
+        }
+
+        public void setBoneIndex(int boneIndex) {
+            this.boneIndex = boneIndex;
         }
 
         public float[] getFrames() {
@@ -403,21 +401,20 @@ public class Animation {
         static private final int FRAME_G = 2;
         static private final int FRAME_B = 3;
         static private final int FRAME_A = 4;
-
-        int slotIndex;
         private final float[] frames; // time, r, g, b, a, ...
+        int slotIndex;
 
         public ColorTimeline(int frameCount) {
             super(frameCount);
             frames = new float[frameCount * 5];
         }
 
-        public void setSlotIndex(int slotIndex) {
-            this.slotIndex = slotIndex;
-        }
-
         public int getSlotIndex() {
             return slotIndex;
+        }
+
+        public void setSlotIndex(int slotIndex) {
+            this.slotIndex = slotIndex;
         }
 
         public float[] getFrames() {
@@ -474,9 +471,9 @@ public class Animation {
     }
 
     static public class AttachmentTimeline implements Timeline {
-        int slotIndex;
         private final float[] frames; // time, ...
         private final String[] attachmentNames;
+        int slotIndex;
 
         public AttachmentTimeline(int frameCount) {
             frames = new float[frameCount];
@@ -652,20 +649,20 @@ public class Animation {
             frameVertices = new float[frameCount][];
         }
 
-        public void setSlotIndex(int slotIndex) {
-            this.slotIndex = slotIndex;
-        }
-
         public int getSlotIndex() {
             return slotIndex;
         }
 
-        public void setMeshAttachment(MeshAttachment attachment) {
-            this.meshAttachment = attachment;
+        public void setSlotIndex(int slotIndex) {
+            this.slotIndex = slotIndex;
         }
 
         public MeshAttachment getMeshAttachment() {
             return meshAttachment;
+        }
+
+        public void setMeshAttachment(MeshAttachment attachment) {
+            this.meshAttachment = attachment;
         }
 
         public float[] getFrames() {

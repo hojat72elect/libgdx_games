@@ -18,26 +18,19 @@ public class Pony {
     static public final int STATE_WALK_LEFT = 1;
     static public final int STATE_WALK_RIGHT = 2;
     static public final int STATE_STAND = 3;
-
-    private final int MAX_ANGLE_DEGREES = 18;
-
     public static final float VEL_JUMP = 3.5f;
     public static final float VEL_RUN = 2.0f;
     public static float TIEMPO_IS_HURT = 0f;
     public final float TIEMPO_IS_CHILE;
     public final float TIEMPO_IS_DULCE;
-
-    public int state;
-
-    public float angleRad;
-    public boolean canRotate;// Solo cuando toca el piso inclinado puede rotar
-
-    public AnimationState animState;
-    public Skeleton ponySkel;
-
     public final Vector3 position;
     public final Vector3 aceleration;
-
+    private final int MAX_ANGLE_DEGREES = 18;
+    public int state;
+    public float angleRad;
+    public boolean canRotate;// Solo cuando toca el piso inclinado puede rotar
+    public AnimationState animState;
+    public Skeleton ponySkel;
     public boolean isJumping;
     public boolean isDoubleJump;
     public boolean isHurt;

@@ -3,15 +3,10 @@ package com.nopalsoft.ponyrace.objetos;
 import java.util.Random;
 
 public class Pluma extends GameObject {
-    public enum State {
-        normal, tomada
-    }
-
     public float lastStatetime;
     public float stateTime;
-
-
     public State state;
+
 
     public Pluma(float x, float y, Random oRan) {
         super(x, y, 0);
@@ -27,5 +22,9 @@ public class Pluma extends GameObject {
 
     public void hitPony() {
         state = State.tomada;
+    }
+
+    public enum State {
+        normal, tomada
     }
 }

@@ -35,11 +35,11 @@ import com.esotericsoftware.spine.attachments.Attachment;
 public class Slot {
     final SlotData data;
     final Bone bone;
-    private final Skeleton skeleton;
     final Color color;
+    private final Skeleton skeleton;
+    private final FloatArray attachmentVertices = new FloatArray();
     Attachment attachment;
     private float attachmentTime;
-    private final FloatArray attachmentVertices = new FloatArray();
 
     Slot() {
         data = null;
@@ -109,15 +109,15 @@ public class Slot {
         attachmentVertices.clear();
     }
 
-    public void setAttachmentTime(float time) {
-        attachmentTime = skeleton.time - time;
-    }
-
     /**
      * Returns the time since the attachment was set.
      */
     public float getAttachmentTime() {
         return skeleton.time - attachmentTime;
+    }
+
+    public void setAttachmentTime(float time) {
+        attachmentTime = skeleton.time - time;
     }
 
     public FloatArray getAttachmentVertices() {

@@ -5,15 +5,13 @@ import com.badlogic.gdx.Preferences;
 
 public class Achievements {
 
-    private final Preferences prefAchiv = Gdx.app.getPreferences("com.nopalsoft.ponyracing.achievements");
-
     final String EASY;
     final String _18plus;
     final String BIG_LEAGES;
     final String _20_COOLER;
     final String FASTER_THAN_THE_MAKER;
     final String I_WORK_OUT;
-
+    private final Preferences prefAchiv = Gdx.app.getPreferences("com.nopalsoft.ponyracing.achievements");
     MundosCompletados[] arrMundos;
 
     public Achievements(MainPonyRace game) {
@@ -33,11 +31,11 @@ public class Achievements {
 
 
         EASY = "easy";
-            _18plus = "18plus";
-            BIG_LEAGES = "bigleagues";
-            _20_COOLER = "20Cooler";
-            FASTER_THAN_THE_MAKER = "iworkout";
-            I_WORK_OUT = "fasterThanTheMaker";
+        _18plus = "18plus";
+        BIG_LEAGES = "bigleagues";
+        _20_COOLER = "20Cooler";
+        FASTER_THAN_THE_MAKER = "iworkout";
+        I_WORK_OUT = "fasterThanTheMaker";
     }
 
     public void checkWorldComplete(int nivelTiled) {

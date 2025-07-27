@@ -40,13 +40,12 @@ import com.esotericsoftware.spine.Slot;
  * Attachment that displays a texture region.
  */
 public class MeshAttachment extends Attachment {
+    private final Color color = new Color(1, 1, 1, 1);
     private TextureRegion region;
     private String path;
     private float[] vertices;
     private short[] triangles;
     private float[] worldVertices;
-    private final Color color = new Color(1, 1, 1, 1);
-
     // Nonessential.
     private int[] edges;
     private float width, height;
@@ -56,14 +55,14 @@ public class MeshAttachment extends Attachment {
         super(name);
     }
 
-    public void setRegion(TextureRegion region) {
-        if (region == null) throw new IllegalArgumentException("region cannot be null.");
-        this.region = region;
-    }
-
     public TextureRegion getRegion() {
         if (region == null) throw new IllegalStateException("Region has not been set: " + this);
         return region;
+    }
+
+    public void setRegion(TextureRegion region) {
+        if (region == null) throw new IllegalArgumentException("region cannot be null.");
+        this.region = region;
     }
 
     public void updateWorldVertices(Slot slot, boolean premultipliedAlpha) {
