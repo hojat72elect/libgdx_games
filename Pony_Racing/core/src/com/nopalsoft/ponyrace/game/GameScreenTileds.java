@@ -53,9 +53,6 @@ public class GameScreenTileds extends Screens {
     VentanaRate vtRate;
     VentanaPause vtPause;
     int tamanoBoton = 105;
-    AtlasRegion pixelNegro;
-    float duration = 1.5f;
-    float curFade = 0;
     BotonNube btMainMenu;
     BotonNube btContinue;
     BotonNube btTryAgain;
@@ -230,7 +227,7 @@ public class GameScreenTileds extends Screens {
         switch (state) {
             default:
             case ready:
-                updateReady(delta);
+                updateReady();
                 break;
             case running:
                 updateRunning(delta);
@@ -249,7 +246,7 @@ public class GameScreenTileds extends Screens {
         }
     }
 
-    private void updateReady(float delta) {
+    private void updateReady() {
         if (Gdx.input.isTouched() && !vtRate.isVisible())
             state = State.running;
     }
@@ -360,19 +357,16 @@ public class GameScreenTileds extends Screens {
         batcher.begin();
         switch (state) {
             case ready:
-                presentReady(delta);
+                presentReady();
                 break;
             case running:
-                presentRunning(delta);
+                presentRunning();
                 break;
 
             case tryAgain:
-                break;
-            case nextLevel:
-                break;
             case paused:
-                break;
             case timeUp:
+            case nextLevel:
                 break;
         }
 
@@ -382,12 +376,12 @@ public class GameScreenTileds extends Screens {
         stage.draw();
     }
 
-    private void presentReady(float delta) {
+    private void presentReady() {
         glyphLayout.setText(oAssets.fontGde, "Touch the screen to start");
         oAssets.fontGde.draw(batcher, "Touch the screen to start", SCREEN_WIDTH / 2f - glyphLayout.width / 2f, SCREEN_HEIGHT / 2f - glyphLayout.height / 2f);
     }
 
-    private void presentRunning(float delta) {
+    private void presentRunning() {
 
         int alturaIndicador = 440;
         batcher.draw(oAssets.indicador, 150f, alturaIndicador, 500, 15);
@@ -400,24 +394,31 @@ public class GameScreenTileds extends Screens {
             AtlasRegion textura;
             AtlasRegion perfil;
 
-            if (oPony.nombreSkin.equals("Cloud")) {
-                textura = oAssets.indicadorCloud;
-                perfil = oAssets.perfilRegionCloud;
-            } else if (oPony.nombreSkin.equals("Natylol")) {
-                textura = oAssets.indicadorNatylol;
-                perfil = oAssets.perfilRegionNatylol;
-            } else if (oPony.nombreSkin.equals("Ignis")) {
-                textura = oAssets.indicadorIgnis;
-                perfil = oAssets.perfilRegionIgnis;
-            } else if (oPony.nombreSkin.equals("cientifico")) {
-                textura = oAssets.indicadorCientifico;
-                perfil = oAssets.perfilRegionCientifico;
-            } else if (oPony.nombreSkin.equals("LAlba")) {
-                textura = oAssets.indicadorLighthingAlba;
-                perfil = oAssets.perfilRegionLAlba;
-            } else {
-                textura = oAssets.indicadorMinion;
-                perfil = oAssets.perfilRegionEnemigo;
+            switch (oPony.nombreSkin) {
+                case "Cloud":
+                    textura = oAssets.indicadorCloud;
+                    perfil = oAssets.perfilRegionCloud;
+                    break;
+                case "Natylol":
+                    textura = oAssets.indicadorNatylol;
+                    perfil = oAssets.perfilRegionNatylol;
+                    break;
+                case "Ignis":
+                    textura = oAssets.indicadorIgnis;
+                    perfil = oAssets.perfilRegionIgnis;
+                    break;
+                case "cientifico":
+                    textura = oAssets.indicadorCientifico;
+                    perfil = oAssets.perfilRegionCientifico;
+                    break;
+                case "LAlba":
+                    textura = oAssets.indicadorLighthingAlba;
+                    perfil = oAssets.perfilRegionLAlba;
+                    break;
+                default:
+                    textura = oAssets.indicadorMinion;
+                    perfil = oAssets.perfilRegionEnemigo;
+                    break;
             }
 
             float posocion = 500 / oWorld.tamanoMapaX * oPony.position.x + 140;
@@ -615,9 +616,6 @@ public class GameScreenTileds extends Screens {
     @Override
     public void hide() {
         super.hide();
-
-        // El Ad se mostrara cada 5 veces
-        int tiempoAds = 6;
     }
 
     @Override
@@ -669,9 +667,6 @@ public class GameScreenTileds extends Screens {
         this.guiCam.unproject(touchPoint.set(screenX, screenY, 0));
         Gdx.app.log("X", touchPoint.x + "");
         Gdx.app.log("Y", touchPoint.y + "");
-
-        if (oWorld == null)
-            return false;
 
         return false;
     }

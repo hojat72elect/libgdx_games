@@ -31,17 +31,12 @@ import com.nopalsoft.ponyrace.objetos.PonyMalo;
 import com.nopalsoft.ponyrace.objetos.PonyPlayer;
 import com.nopalsoft.ponyrace.objetos.TiledMapManagerBox2d;
 import com.nopalsoft.ponyrace.objetos.Wood;
-import com.nopalsoft.ponyrace.screens.Screens;
 
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.Random;
 
 public class WorldTiled {
-    final float WIDTH = Screens.WORLD_SCREEN_WIDTH / 10f;
-    final float HEIGHT = Screens.WORLD_SCREEN_HEIGHT / 10f;
     public MainPonyRace game;
-    public float WORLD_STEP = 1 / 300f;
     public Vector2 finJuego;
     public int nivelTiled;
     public World oWorldBox;
@@ -75,7 +70,6 @@ public class WorldTiled {
         }
     };
     Vector2 impulso = new Vector2();
-    int verl;
 
     public WorldTiled(MainPonyRace game, int nivelTiled) {
         this.game = game;
@@ -86,32 +80,29 @@ public class WorldTiled {
         state = State.running;
         oRan = new Random();
 
-        arrFogatas = new Array<Fogata>();
-        arrPonysMalos = new Array<PonyMalo>();
-        arrPlumas = new Array<Pluma>();
-        arrBloodStone = new Array<BloodStone>();
-        arrBombas = new Array<Bomba>();
-        arrMonedas = new Array<Moneda>();
-        arrChiles = new Array<Chile>();
-        arrGlobos = new Array<Globo>();
-        arrDulces = new Array<Dulce>();
-        arrWoods = new Array<Wood>();
+        arrFogatas = new Array<>();
+        arrPonysMalos = new Array<>();
+        arrPlumas = new Array<>();
+        arrBloodStone = new Array<>();
+        arrBombas = new Array<>();
+        arrMonedas = new Array<>();
+        arrChiles = new Array<>();
+        arrGlobos = new Array<>();
+        arrDulces = new Array<>();
+        arrWoods = new Array<>();
 
         new TiledMapManagerBox2d(this, m_units).createObjetosDesdeTiled(game.oAssets.tiledMap);
 
-        arrBodys = new Array<Body>();
+        arrBodys = new Array<>();
 
         oWorldBox.getBodies(arrBodys);
 
         // ------
-        arrPosiciones = new Array<Pony>();
-        Iterator<PonyMalo> ite = arrPonysMalos.iterator();
-        while (ite.hasNext()) {
-            PonyMalo obj = ite.next();
+        arrPosiciones = new Array<>();
+        for (PonyMalo obj : arrPonysMalos) {
             arrPosiciones.add(obj);
         }
         arrPosiciones.add(oPony);
-        // ---
 
         checarPosicionCarrera();
         inicializarVariablesDesdeMapas();
@@ -122,9 +113,7 @@ public class WorldTiled {
         arrPosiciones.sort(checadorPosiciones);
 
         int posicion = 1;
-        Iterator<Pony> ite = arrPosiciones.iterator();
-        while (ite.hasNext()) {
-            Pony obj = ite.next();
+        for (Pony obj : arrPosiciones) {
             obj.lugarEnLaCarrera = posicion;
             posicion++;
         }
@@ -165,9 +154,7 @@ public class WorldTiled {
         oPony.fireBomb = fireBomb;
         oPony.fireWood = fireWood;
 
-        Iterator<Body> ite = arrBodys.iterator();
-        while (ite.hasNext()) {
-            Body obj = ite.next();
+        for (Body obj : arrBodys) {
             if (obj.getUserData() != null && obj.getUserData() instanceof Pony) {
 
                 updatePonys(delta, obj, accelX, jump);
@@ -234,7 +221,7 @@ public class WorldTiled {
             }
         }
 
-        /**
+        /*
          * Las cosas que se actualizan aqui no tienen Box2d para nada
          */
         updateFogatas(delta);
@@ -250,20 +237,20 @@ public class WorldTiled {
 
         Pony ponyDataBody = (Pony) obj.getUserData();
 
-        /**
+        /*
          * PAra disparar
          */
         if (ponyDataBody.fireBomb) {
-            lanzarBomba(delta, ponyDataBody);
+            lanzarBomba(ponyDataBody);
             ponyDataBody.fireBomb = false;
         } else if (ponyDataBody.fireWood) {
-            fireWood(delta, ponyDataBody);
+            fireWood(ponyDataBody);
             ponyDataBody.fireWood = false;
         }
-        /**
+
+        /*
          * En disparar
          */
-
         if (ponyDataBody.cayoEnHoyo) {
             obj.setTransform(ponyDataBody.regresoHoyo.x, ponyDataBody.regresoHoyo.y, 0);
             ponyDataBody.cayoEnHoyo = false;
@@ -319,22 +306,18 @@ public class WorldTiled {
     }
 
     private void updateFogatas(float delta) {
-        Iterator<Fogata> ite = arrFogatas.iterator();
-        while (ite.hasNext()) {
-            Fogata obj = ite.next();
+        for (Fogata obj : arrFogatas) {
             obj.update(delta);
         }
     }
 
     private void updateBloodStone(float delta) {
-        Iterator<BloodStone> ite = arrBloodStone.iterator();
-        while (ite.hasNext()) {
-            BloodStone obj = ite.next();
+        for (BloodStone obj : arrBloodStone) {
             obj.update(delta);
         }
     }
 
-    private void lanzarBomba(float delta, Pony oPonyBomba) {
+    private void lanzarBomba(Pony oPonyBomba) {
         if (oPonyBomba instanceof PonyPlayer) {
             if (Settings.numeroBombas <= 0)
                 return;
@@ -347,11 +330,6 @@ public class WorldTiled {
             velX = -4;
         else
             velX = 4;
-
-        // velX *= delta;
-
-        // Gdx.app.log("Velocidad Bombe", velX + "");
-        // Gdx.app.log("Velocidad Y", 250 * delta+"");
 
         Vector2 velocidad = new Vector2(velX, 5);
         BodyDef bd = new BodyDef();
@@ -404,7 +382,7 @@ public class WorldTiled {
         circulo.dispose();
     }
 
-    private void fireWood(float delta, Pony oPonyWood) {
+    private void fireWood(Pony oPonyWood) {
         if (oPonyWood instanceof PonyPlayer) {
             if (Settings.numeroWoods <= 0)
                 return;
@@ -417,11 +395,6 @@ public class WorldTiled {
             pos = .5f;
         else
             pos = -.5f;
-
-        // velX *= delta;
-
-        // Gdx.app.log("Velocidad Bombe", velX + "");
-        // Gdx.app.log("Velocidad Y", 250 * delta+"");
 
         BodyDef bd = new BodyDef();
         bd.position.y = oPonyWood.position.y;
@@ -517,7 +490,7 @@ public class WorldTiled {
         Array<Contact> arrContacs;
 
         public plataformasContact() {
-            arrContacs = new Array<Contact>();
+            arrContacs = new Array<>();
         }
 
         @Override
@@ -529,9 +502,9 @@ public class WorldTiled {
             Object Bdata = b.getBody().getUserData();
 
             if (Adata instanceof Pony)
-                beginContactPony(a, b, contact);
+                beginContactPony(a, b);
             else if (Bdata instanceof Pony)
-                beginContactPony(b, a, contact);
+                beginContactPony(b, a);
         }
 
         @Override
@@ -572,15 +545,8 @@ public class WorldTiled {
 
         /**
          * Checa las colisiones que hay en un pony, puede ser pony IA o pony Jugador
-         *
-         * @param fixPony
-         * @param fixOtraCosa
-         * @param contact
          */
-        public void beginContactPony(Fixture fixPony, Fixture fixOtraCosa, Contact contact) {
-            // Los ponys no colisionan entre ellos NUNCA pero para poder aplicar lo de el chile tuve que quitar esto
-            // if (fixOtraCosa.getBody().getUserData() instanceof Pony)
-            // return;
+        public void beginContactPony(Fixture fixPony, Fixture fixOtraCosa) {
 
             Pony ponyDataBody;
             boolean isMalo;
@@ -644,21 +610,17 @@ public class WorldTiled {
                                     break;
 
                                 case 1:
-                                    valorMoneda = 2;
-
-                                    break;
                                 case 2:
                                     valorMoneda = 2;
 
                                     break;
-                                case 3:
-                                    valorMoneda = 3;
 
-                                    break;
+                                case 3:
                                 case 4:
                                     valorMoneda = 3;
 
                                     break;
+
                                 case 5:
                                     valorMoneda = 5;
 
@@ -716,7 +678,7 @@ public class WorldTiled {
                         ponyDataBody.dulcesRecolectados++;
                     }
                 }
-                /**
+                /*
                  * COSAS PONYS MALOS SOLAMENTE
                  */
                 {
@@ -752,7 +714,7 @@ public class WorldTiled {
                         }
                     }
                 }
-                /**
+                /*
                  * FIN COSAS PONYS MALOS
                  */
             }
