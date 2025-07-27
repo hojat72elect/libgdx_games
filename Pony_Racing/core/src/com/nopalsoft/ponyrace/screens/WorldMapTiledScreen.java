@@ -35,7 +35,6 @@ import com.nopalsoft.ponyrace.game.GameScreenTileds;
 import com.nopalsoft.ponyrace.menuobjetos.BotonNube;
 
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.Random;
 
 public class WorldMapTiledScreen extends Screens implements GestureListener {
@@ -75,21 +74,20 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
         CAM_MIN_X = SCREEN_WIDTH * unitScale / 2f;
         CAM_MIN_Y = SCREEN_HEIGHT * unitScale / 2f;
 
-        CAM_MAX_X = Integer.valueOf(game.oAssets.tiledWorldMap.getProperties().get("tamanoMapaX", String.class));
+        CAM_MAX_X = Integer.parseInt(game.oAssets.tiledWorldMap.getProperties().get("tamanoMapaX", String.class));
         CAM_MAX_X -= SCREEN_WIDTH * unitScale / 2f;
 
-        CAM_MAX_Y = Integer.valueOf(game.oAssets.tiledWorldMap.getProperties().get("tamanoMapaY", String.class));
+        CAM_MAX_Y = Integer.parseInt(game.oAssets.tiledWorldMap.getProperties().get("tamanoMapaY", String.class));
         CAM_MAX_Y -= SCREEN_HEIGHT * unitScale / 2f;
 
         float x = (oRan.nextFloat() * SCREEN_WIDTH * unitScale - 2) + 2;
         float y = (oRan.nextFloat() * SCREEN_HEIGHT * unitScale / 2) + SCREEN_HEIGHT * unitScale / 2 - 1f;
 
-        // Settings.isEnabledSecretWorld = true;
         secretWorldBounds = new Rectangle(x - 1f, y, 2f, 2f);
         secretWorld = new Vector2(x, y);
 
         touchPoint = new Vector3();
-        arrMundos = new Array<Mundos>();
+        arrMundos = new Array<>();
 
         inicializarNiveles();
 
@@ -175,11 +173,9 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
         }
 
         MapObjects objects = layer.getObjects();
-        Iterator<MapObject> objectIt = objects.iterator();
-        while (objectIt.hasNext()) {
-            MapObject object = objectIt.next();
+        for (MapObject object : objects) {
             MapProperties properties = object.getProperties();
-            int level = Integer.valueOf(properties.get("level", String.class));
+            int level = Integer.parseInt(properties.get("level", String.class));
 
             Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
             float x = (rectangle.x + rectangle.width * 0.5f) * unitScale;
@@ -206,8 +202,6 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
     /**
      * Cambia la dificultad si recibe +1 se increment la dificultad y en caso de llegar al final pues le da la vuelta y se regresa al facil. Si recibe un -1 se decrementa la difucltad y en caso de
      * llegar al inicio le da la vuelta y se pone en superHard
-     *
-     * @param cambio
      */
     public void changeDificutad(int cambio) {
         if (Settings.dificultadActual + cambio > Settings.DIFICULTAD_SUPERHARD)
@@ -323,9 +317,7 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
 
         render.begin(ShapeType.Line);
 
-        Iterator<Mundos> it = arrMundos.iterator();
-        while (it.hasNext()) {
-            Mundos obj = it.next();
+        for (Mundos obj : arrMundos) {
             render.rect(obj.bounds.x, obj.bounds.y, obj.bounds.width, obj.bounds.height);
         }
         if (Settings.isEnabledSecretWorld) {
@@ -353,10 +345,7 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
         guiCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
         Gdx.app.log("Touch", "X=" + touchPoint.x + " Y=" + touchPoint.y);
 
-        Iterator<Mundos> it = arrMundos.iterator();
-        while (it.hasNext()) {
-            Mundos obj = it.next();
-
+        for (Mundos obj : arrMundos) {
             if (obj.bounds.contains(touchPoint.x, touchPoint.y)) {
                 if (Settings.mundosDesbloqueados >= obj.level)
                     changeToGameTiledScreen(obj.level);
@@ -420,7 +409,7 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
 
     }
 
-    protected class Mundos {
+    protected static class Mundos {
         public Vector2 position;
         public Rectangle bounds;
         public int level;
