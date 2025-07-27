@@ -1,21 +1,21 @@
-package com.nopalsoft.ponyrace.objetos;
+package com.nopalsoft.ponyrace.game_objects;
 
 import com.esotericsoftware.spine.Skeleton;
 import com.nopalsoft.ponyrace.game.WorldTiled;
 
-public class Moneda extends GameObject {
+public class Globo extends GameObject {
     public static float TIEMPO_TOMADA;
     public float lastStatetime;
     public float stateTime;
     public State state;
-    public Skeleton monedaSkeleton;
-    public Moneda(float x, float y, WorldTiled oWorld) {
+    public Skeleton objSkeleton;
+    public Globo(float x, float y, WorldTiled oWorld) {
         super(x, y);
-        stateTime = oWorld.oRan.nextFloat() * 5f;
+        stateTime = oWorld.random.nextFloat() * 5f;
         lastStatetime = stateTime;
         state = State.normal;
-        monedaSkeleton = new Skeleton(oWorld.game.oAssets.skeletonMonedaData);
-        TIEMPO_TOMADA = oWorld.game.oAssets.monedaTomadaAnim.getDuration();
+        objSkeleton = new Skeleton(oWorld.game.oAssets.globoSkeletonData);
+        TIEMPO_TOMADA = oWorld.game.oAssets.globoTomadaAnim.getDuration();
     }
 
     public void update(float delta) {

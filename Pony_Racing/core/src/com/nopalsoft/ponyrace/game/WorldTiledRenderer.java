@@ -9,16 +9,16 @@ import com.esotericsoftware.spine.Animation;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.nopalsoft.ponyrace.Assets;
 import com.nopalsoft.ponyrace.Settings;
-import com.nopalsoft.ponyrace.objetos.BloodStone;
-import com.nopalsoft.ponyrace.objetos.Bomba;
-import com.nopalsoft.ponyrace.objetos.Chile;
-import com.nopalsoft.ponyrace.objetos.Dulce;
-import com.nopalsoft.ponyrace.objetos.Fogata;
-import com.nopalsoft.ponyrace.objetos.Globo;
-import com.nopalsoft.ponyrace.objetos.Moneda;
-import com.nopalsoft.ponyrace.objetos.Pluma;
-import com.nopalsoft.ponyrace.objetos.Pony;
-import com.nopalsoft.ponyrace.objetos.Wood;
+import com.nopalsoft.ponyrace.game_objects.BloodStone;
+import com.nopalsoft.ponyrace.game_objects.Bomba;
+import com.nopalsoft.ponyrace.game_objects.Candy;
+import com.nopalsoft.ponyrace.game_objects.Chile;
+import com.nopalsoft.ponyrace.game_objects.Fogata;
+import com.nopalsoft.ponyrace.game_objects.Globo;
+import com.nopalsoft.ponyrace.game_objects.Moneda;
+import com.nopalsoft.ponyrace.game_objects.Pluma;
+import com.nopalsoft.ponyrace.game_objects.Pony;
+import com.nopalsoft.ponyrace.game_objects.Wood;
 import com.nopalsoft.ponyrace.screens.Screens;
 
 public class WorldTiledRenderer {
@@ -116,15 +116,15 @@ public class WorldTiledRenderer {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 3))
                 continue;
 
-            if (obj.tipo == BloodStone.Tipo.chica) {
-                oWorld.game.oAssets.bloodStoneAnim.apply(oWorld.game.oAssets.bloodStoneSkeleton, obj.lastStatetime, obj.stateTime, true, null);
+            if (obj.type == BloodStone.Type.chica) {
+                oWorld.game.oAssets.bloodStoneAnim.apply(oWorld.game.oAssets.bloodStoneSkeleton, obj.lastStateTime, obj.stateTime, true, null);
                 oWorld.game.oAssets.bloodStoneSkeleton.setX(obj.position.x);
                 oWorld.game.oAssets.bloodStoneSkeleton.setY(obj.position.y - .12f);
                 oWorld.game.oAssets.bloodStoneSkeleton.updateWorldTransform();
                 oWorld.game.oAssets.bloodStoneSkeleton.update(delta);
                 skelrender.draw(batch, oWorld.game.oAssets.bloodStoneSkeleton);
-            } else if (obj.tipo == BloodStone.Tipo.mediana) {
-                oWorld.game.oAssets.bloodStone2Anim.apply(oWorld.game.oAssets.bloodStone2Skeleton, obj.lastStatetime, obj.stateTime, true, null);
+            } else if (obj.type == BloodStone.Type.mediana) {
+                oWorld.game.oAssets.bloodStone2Anim.apply(oWorld.game.oAssets.bloodStone2Skeleton, obj.lastStateTime, obj.stateTime, true, null);
                 oWorld.game.oAssets.bloodStone2Skeleton.setX(obj.position.x);
                 oWorld.game.oAssets.bloodStone2Skeleton.setY(obj.position.y - .12f);
                 oWorld.game.oAssets.bloodStone2Skeleton.updateWorldTransform();
@@ -280,22 +280,22 @@ public class WorldTiledRenderer {
     }
 
     private void renderDulces(float delta) {
-        for (Dulce obj : oWorld.arrDulces) {
+        for (Candy obj : oWorld.arrDulces) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1))
                 continue;
 
             Animation anim;
-            if (obj.state == Dulce.State.normal)
+            if (obj.state == Candy.State.NORMAL)
                 anim = oWorld.game.oAssets.dulceAnim;
             else
                 anim = oWorld.game.oAssets.dulceTomadaAnim;
 
-            anim.apply(obj.objSkeleton, obj.lastStatetime, obj.stateTime, true, null);
-            obj.objSkeleton.setX(obj.position.x);
-            obj.objSkeleton.setY(obj.position.y - .4f);
-            obj.objSkeleton.updateWorldTransform();
-            obj.objSkeleton.update(delta);
-            skelrender.draw(batch, obj.objSkeleton);
+            anim.apply(obj.skeleton, obj.lastStateTime, obj.stateTime, true, null);
+            obj.skeleton.setX(obj.position.x);
+            obj.skeleton.setY(obj.position.y - .4f);
+            obj.skeleton.updateWorldTransform();
+            obj.skeleton.update(delta);
+            skelrender.draw(batch, obj.skeleton);
         }
     }
 

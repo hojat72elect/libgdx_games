@@ -1,4 +1,4 @@
-package com.nopalsoft.ponyrace.objetos;
+package com.nopalsoft.ponyrace.game_objects;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -61,7 +61,7 @@ public class Pony {
     public boolean fireWood;
 
     public Pony(float x, float y, String nombreSkin, WorldTiled oWorld) {
-        this.oRan = oWorld.oRan;
+        this.oRan = oWorld.random;
 
         switch (Settings.nivelChili) {
             default:

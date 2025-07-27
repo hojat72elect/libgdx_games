@@ -1,4 +1,4 @@
-package com.nopalsoft.ponyrace.objetos;
+package com.nopalsoft.ponyrace.game_objects;
 
 import com.nopalsoft.ponyrace.game.WorldTiled;
 

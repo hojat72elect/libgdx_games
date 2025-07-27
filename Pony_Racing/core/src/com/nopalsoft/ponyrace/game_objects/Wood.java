@@ -1,30 +1,30 @@
-package com.nopalsoft.ponyrace.objetos;
+package com.nopalsoft.ponyrace.game_objects;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.esotericsoftware.spine.Skeleton;
 import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.game.WorldTiled;
 
-public class Bomba extends GameObject {
-    public static final float TIEMPO_NORMAL = 1.5f;
-    public static final float TIEMPO_EXPLOSION = .3f;
+public class Wood extends GameObject {
+    public static final float TIEMPO_NORMAL = 8f;
     public final float TIEMPO_HURT;
     public float lastStatetime;
     public float stateTime;
     public float angulo;
     public State state;
-    public Skeleton skelBomb;
-
-    public Bomba(float x, float y, WorldTiled oWorld) {
+    public Tipo tipo;
+    public Pony ponyTirador;// El pony que tiro este wood
+    public Wood(float x, float y, Pony ponyTirador, WorldTiled oWorld) {
         super(x, y);
         stateTime = 0;
         lastStatetime = stateTime;
         state = State.normal;
-        skelBomb = new Skeleton(oWorld.game.oAssets.skeletonBombData);
-        skelBomb.setToSetupPose();
+        if (oWorld.random.nextBoolean())
+            tipo = Tipo.platano;
+        else
+            tipo = Tipo.tachuela;
 
-        switch (Settings.nivelBomb) {
+        switch (Settings.nivelWood) {
             default:
             case 0:
                 TIEMPO_HURT = 2;
@@ -45,6 +45,7 @@ public class Bomba extends GameObject {
                 TIEMPO_HURT = 3.5f;
                 break;
         }
+        this.ponyTirador = ponyTirador;
     }
 
     public void update(float delta, Body obj) {
@@ -56,21 +57,24 @@ public class Bomba extends GameObject {
         angulo = MathUtils.radiansToDegrees * obj.getAngle();
 
         if (state == State.normal && stateTime >= TIEMPO_NORMAL) {
-            state = State.explode;
+            state = State.hit;
             stateTime = 0;
         }
     }
 
-    public void explode(Body obj) {
+    public void hitByPony(Body obj) {
         if (state == State.normal) {
-            state = State.explode;
+            state = State.hit;
             stateTime = 0;
             obj.setLinearVelocity(0, 0);
         }
     }
 
+    public enum Tipo {
+        platano, tachuela
+    }
+
     public enum State {
-        normal,
-        explode
+        normal, hit
     }
 }

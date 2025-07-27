@@ -1,30 +1,30 @@
-package com.nopalsoft.ponyrace.objetos;
+package com.nopalsoft.ponyrace.game_objects;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.esotericsoftware.spine.Skeleton;
 import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.game.WorldTiled;
 
-public class Wood extends GameObject {
-    public static final float TIEMPO_NORMAL = 8f;
+public class Bomba extends GameObject {
+    public static final float TIEMPO_NORMAL = 1.5f;
+    public static final float TIEMPO_EXPLOSION = .3f;
     public final float TIEMPO_HURT;
     public float lastStatetime;
     public float stateTime;
     public float angulo;
     public State state;
-    public Tipo tipo;
-    public Pony ponyTirador;// El pony que tiro este wood
-    public Wood(float x, float y, Pony ponyTirador, WorldTiled oWorld) {
+    public Skeleton skelBomb;
+
+    public Bomba(float x, float y, WorldTiled oWorld) {
         super(x, y);
         stateTime = 0;
         lastStatetime = stateTime;
         state = State.normal;
-        if (oWorld.oRan.nextBoolean())
-            tipo = Tipo.platano;
-        else
-            tipo = Tipo.tachuela;
+        skelBomb = new Skeleton(oWorld.game.oAssets.skeletonBombData);
+        skelBomb.setToSetupPose();
 
-        switch (Settings.nivelWood) {
+        switch (Settings.nivelBomb) {
             default:
             case 0:
                 TIEMPO_HURT = 2;
@@ -45,7 +45,6 @@ public class Wood extends GameObject {
                 TIEMPO_HURT = 3.5f;
                 break;
         }
-        this.ponyTirador = ponyTirador;
     }
 
     public void update(float delta, Body obj) {
@@ -57,24 +56,21 @@ public class Wood extends GameObject {
         angulo = MathUtils.radiansToDegrees * obj.getAngle();
 
         if (state == State.normal && stateTime >= TIEMPO_NORMAL) {
-            state = State.hit;
+            state = State.explode;
             stateTime = 0;
         }
     }
 
-    public void hitByPony(Body obj) {
+    public void explode(Body obj) {
         if (state == State.normal) {
-            state = State.hit;
+            state = State.explode;
             stateTime = 0;
             obj.setLinearVelocity(0, 0);
         }
     }
 
-    public enum Tipo {
-        platano, tachuela
-    }
-
     public enum State {
-        normal, hit
+        normal,
+        explode
     }
 }

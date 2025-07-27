@@ -1,17 +1,18 @@
-package com.nopalsoft.ponyrace.objetos;
+package com.nopalsoft.ponyrace.game_objects;
 
 import java.util.Random;
 
-public class BloodStone extends GameObject {
+public class Pluma extends GameObject {
     public float lastStatetime;
     public float stateTime;
-    public Tipo tipo;
+    public State state;
 
-    public BloodStone(float x, float y, Tipo tipo, Random oRan) {
+
+    public Pluma(float x, float y, Random oRan) {
         super(x, y);
         stateTime = oRan.nextFloat() * 5f;
         lastStatetime = stateTime;
-        this.tipo = tipo;
+        state = State.normal;
     }
 
     public void update(float delta) {
@@ -19,7 +20,7 @@ public class BloodStone extends GameObject {
         stateTime += delta;
     }
 
-    public enum Tipo {
-        chica, mediana, grande
+    public enum State {
+        normal, tomada
     }
 }

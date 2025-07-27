@@ -16,21 +16,21 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.nopalsoft.ponyrace.MainPonyRace;
 import com.nopalsoft.ponyrace.Settings;
-import com.nopalsoft.ponyrace.objetos.Bandera1;
-import com.nopalsoft.ponyrace.objetos.BloodStone;
-import com.nopalsoft.ponyrace.objetos.Bomba;
-import com.nopalsoft.ponyrace.objetos.Chile;
-import com.nopalsoft.ponyrace.objetos.Dulce;
-import com.nopalsoft.ponyrace.objetos.Fogata;
-import com.nopalsoft.ponyrace.objetos.Globo;
-import com.nopalsoft.ponyrace.objetos.Moneda;
-import com.nopalsoft.ponyrace.objetos.Pisable;
-import com.nopalsoft.ponyrace.objetos.Pluma;
-import com.nopalsoft.ponyrace.objetos.Pony;
-import com.nopalsoft.ponyrace.objetos.PonyMalo;
-import com.nopalsoft.ponyrace.objetos.PonyPlayer;
-import com.nopalsoft.ponyrace.objetos.TiledMapManagerBox2d;
-import com.nopalsoft.ponyrace.objetos.Wood;
+import com.nopalsoft.ponyrace.game_objects.BloodStone;
+import com.nopalsoft.ponyrace.game_objects.Bomba;
+import com.nopalsoft.ponyrace.game_objects.Candy;
+import com.nopalsoft.ponyrace.game_objects.Chile;
+import com.nopalsoft.ponyrace.game_objects.Flag;
+import com.nopalsoft.ponyrace.game_objects.Fogata;
+import com.nopalsoft.ponyrace.game_objects.Globo;
+import com.nopalsoft.ponyrace.game_objects.Moneda;
+import com.nopalsoft.ponyrace.game_objects.Pisable;
+import com.nopalsoft.ponyrace.game_objects.Pluma;
+import com.nopalsoft.ponyrace.game_objects.Pony;
+import com.nopalsoft.ponyrace.game_objects.PonyMalo;
+import com.nopalsoft.ponyrace.game_objects.PonyPlayer;
+import com.nopalsoft.ponyrace.game_objects.TiledMapManagerBox2d;
+import com.nopalsoft.ponyrace.game_objects.Wood;
 
 import java.util.Comparator;
 import java.util.Random;
@@ -52,8 +52,8 @@ public class WorldTiled {
     public Array<Moneda> arrMonedas;
     public Array<Chile> arrChiles;
     public Array<Globo> arrGlobos;
-    public Array<Dulce> arrDulces;
-    public Random oRan;
+    public Array<Candy> arrDulces;
+    public Random random;
     public float tamanoMapaX;
     public float tamanoMapaY;
     public float tiempoLeft;// El tiempo que le queda.
@@ -78,7 +78,7 @@ public class WorldTiled {
         oWorldBox = new World(gravedad, sleep);
         oWorldBox.setContactListener(new plataformasContact());
         state = State.running;
-        oRan = new Random();
+        random = new Random();
 
         arrFogatas = new Array<>();
         arrPonysMalos = new Array<>();
@@ -205,17 +205,17 @@ public class WorldTiled {
                     arrBodys.removeValue(obj, true);
                     oWorldBox.destroyBody(obj);
                 }
-            } else if (obj.getUserData() != null && obj.getUserData() instanceof Dulce) {
-                Dulce objMo = ((Dulce) obj.getUserData());
+            } else if (obj.getUserData() != null && obj.getUserData() instanceof Candy) {
+                Candy objMo = ((Candy) obj.getUserData());
                 objMo.update(delta);
-                if (objMo.state == Dulce.State.tomada && !oWorldBox.isLocked() && objMo.stateTime >= Dulce.TIEMPO_TOMADA) {
+                if (objMo.state == Candy.State.ACTIVE && !oWorldBox.isLocked() && objMo.stateTime >= Candy.PICK_UP_DURATION) {
                     arrDulces.removeValue(objMo, true);
                     arrBodys.removeValue(obj, true);
                     oWorldBox.destroyBody(obj);
                 }
-            } else if (obj.getUserData() != null && obj.getUserData() instanceof Bandera1) {
-                Bandera1 objBa = ((Bandera1) obj.getUserData());
-                if (objBa.state == Bandera1.State.tomada && !oWorldBox.isLocked()) {
+            } else if (obj.getUserData() != null && obj.getUserData() instanceof Flag) {
+                Flag objBa = ((Flag) obj.getUserData());
+                if (objBa.state == Flag.State.ACTIVE && !oWorldBox.isLocked()) {
                     oWorldBox.destroyBody(obj);
                 }
             }
@@ -600,7 +600,7 @@ public class WorldTiled {
                     if (oMoneda.state == Moneda.State.normal) {
 
                         int valorMoneda;
-                        if (oRan.nextBoolean()) {
+                        if (random.nextBoolean()) {
                             switch (Settings.nivelCoin) {
 
                                 default:
@@ -670,10 +670,10 @@ public class WorldTiled {
                             ponyDataBody.globosRecolectados++;
                         }
                     }
-                } else if (otraCosaDataBody instanceof Dulce) {
-                    Dulce oDulce = ((Dulce) otraCosaDataBody);
-                    if (oDulce.state == Dulce.State.normal) {
-                        oDulce.hitPony();
+                } else if (otraCosaDataBody instanceof Candy) {
+                    Candy oCandy = ((Candy) otraCosaDataBody);
+                    if (oCandy.state == Candy.State.NORMAL) {
+                        oCandy.hitPony();
                         ponyDataBody.tocoDulce();
                         ponyDataBody.dulcesRecolectados++;
                     }
@@ -698,17 +698,17 @@ public class WorldTiled {
                             ((PonyMalo) ponyDataBody).hitCaminarOtraDireccion(Pony.STATE_STAND);
                         } else if (otraCosaDataBody.equals("bandera")) {
                             ((PonyMalo) ponyDataBody).tocoBandera = true;
-                        } else if (otraCosaDataBody instanceof Bandera1) {
-                            Bandera1 oBan = (Bandera1) otraCosaDataBody;
+                        } else if (otraCosaDataBody instanceof Flag) {
+                            Flag oBan = (Flag) otraCosaDataBody;
                             PonyMalo oPon = (PonyMalo) ponyDataBody;
 
                             if (oBan.permitirSalto()) {
 
-                                if (oBan.tipoAccion == Bandera1.TipoAccion.saltoIzq)
+                                if (oBan.actionType == Flag.ActionType.JUMP_LEFT)
                                     oPon.hitSimpleJump(Pony.STATE_WALK_LEFT);
-                                else if (oBan.tipoAccion == Bandera1.TipoAccion.saltoDer)
+                                else if (oBan.actionType == Flag.ActionType.JUMP_RIGHT)
                                     oPon.hitSimpleJump(Pony.STATE_WALK_RIGHT);
-                                else if (oBan.tipoAccion == Bandera1.TipoAccion.salto)
+                                else if (oBan.actionType == Flag.ActionType.JUMP)
                                     oPon.hitSimpleJump(Pony.STATE_STAND);
                             }
                         }

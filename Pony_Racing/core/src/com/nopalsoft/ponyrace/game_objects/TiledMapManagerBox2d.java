@@ -1,4 +1,4 @@
-package com.nopalsoft.ponyrace.objetos;
+package com.nopalsoft.ponyrace.game_objects;
 
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapLayer;
@@ -143,19 +143,19 @@ public class TiledMapManagerBox2d {
                 Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
                 float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
                 float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
-                oWorld.arrBloodStone.add(new BloodStone(x, y, BloodStone.Tipo.chica, oWorld.oRan));
+                oWorld.arrBloodStone.add(new BloodStone(x, y, BloodStone.Type.chica, oWorld.random));
                 continue;
             } else if (tipo.equals("gemaMediana")) {
                 Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
                 float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
                 float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
-                oWorld.arrBloodStone.add(new BloodStone(x, y, BloodStone.Tipo.mediana, oWorld.oRan));
+                oWorld.arrBloodStone.add(new BloodStone(x, y, BloodStone.Type.mediana, oWorld.random));
                 continue;
             } else if (tipo.equals("gemaGrande")) {
                 Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
                 float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
                 float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
-                oWorld.arrBloodStone.add(new BloodStone(x, y, BloodStone.Tipo.grande, oWorld.oRan));
+                oWorld.arrBloodStone.add(new BloodStone(x, y, BloodStone.Type.grande, oWorld.random));
                 continue;
             }
 
@@ -188,13 +188,13 @@ public class TiledMapManagerBox2d {
 
             if (tipo.equals("bandera1")) {
                 if (properties.get("jump").equals("left"))
-                    body.setUserData(new Bandera1(oWorld,
-                            Bandera1.TipoAccion.saltoIzq));
+                    body.setUserData(new Flag(oWorld,
+                            Flag.ActionType.JUMP_LEFT));
                 else if (properties.get("jump").equals("right"))
-                    body.setUserData(new Bandera1(oWorld,
-                            Bandera1.TipoAccion.saltoDer));
+                    body.setUserData(new Flag(oWorld,
+                            Flag.ActionType.JUMP_RIGHT));
                 else if (properties.get("jump").equals("stand"))
-                    body.setUserData(new Bandera1(oWorld, Bandera1.TipoAccion.salto));
+                    body.setUserData(new Flag(oWorld, Flag.ActionType.JUMP));
             } else
                 body.setUserData(tipo);
 
@@ -389,7 +389,7 @@ public class TiledMapManagerBox2d {
         Polygon as = new Polygon(vertices);
         Fogata oFogata;
         oFogata = new Fogata(as.getBoundingRectangle().width / 2f * m_units + as.getBoundingRectangle().x * m_units + xLost,
-                as.getBoundingRectangle().height / 2f * m_units + as.getBoundingRectangle().y * m_units + yLost - .15f, oWorld.oRan);
+                as.getBoundingRectangle().height / 2f * m_units + as.getBoundingRectangle().y * m_units + yLost - .15f, oWorld.random);
 
         polygon.set(worldVertices);
 
@@ -415,7 +415,7 @@ public class TiledMapManagerBox2d {
         float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
 
-        Pluma obj = new Pluma(x, y, oWorld.oRan);
+        Pluma obj = new Pluma(x, y, oWorld.random);
         BodyDef bd = new BodyDef();
         bd.position.y = obj.position.y;
         bd.position.x = obj.position.x;
@@ -535,7 +535,7 @@ public class TiledMapManagerBox2d {
         float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
 
-        Dulce obj = new Dulce(x, y, oWorld);
+        Candy obj = new Candy(x, y, oWorld);
         BodyDef bd = new BodyDef();
         bd.position.y = obj.position.y;
         bd.position.x = obj.position.x;
