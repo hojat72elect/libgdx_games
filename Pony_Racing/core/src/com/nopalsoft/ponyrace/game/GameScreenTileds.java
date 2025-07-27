@@ -349,7 +349,7 @@ public class GameScreenTileds extends Screens {
         if (renderer == null)
             return;
 
-        renderer.render(delta, ScreenlastStatetime, ScreenStateTime);
+        renderer.render(delta);
         guiCam.update();
         batcher.setProjectionMatrix(guiCam.combined);
 

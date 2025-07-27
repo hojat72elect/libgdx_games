@@ -18,11 +18,8 @@ import com.nopalsoft.ponyrace.objetos.Globo;
 import com.nopalsoft.ponyrace.objetos.Moneda;
 import com.nopalsoft.ponyrace.objetos.Pluma;
 import com.nopalsoft.ponyrace.objetos.Pony;
-import com.nopalsoft.ponyrace.objetos.PonyMalo;
 import com.nopalsoft.ponyrace.objetos.Wood;
 import com.nopalsoft.ponyrace.screens.Screens;
-
-import java.util.Iterator;
 
 public class WorldTiledRenderer {
 
@@ -47,12 +44,9 @@ public class WorldTiledRenderer {
         skelrender = new SkeletonRenderer();
     }
 
-    public void render(float delta, float screenlastStatetime, float screenStateTime) {
+    public void render(float delta) {
         OrthoCam.position.x = oWorld.oPony.position.x;
         OrthoCam.position.y = oWorld.oPony.position.y;
-
-        // Gdx.app.log("POSITION Y", OrthoCam.position.y + "");
-        // Gdx.app.log("POSITION X", OrthoCam.position.x + "");
 
         float xMin, xMax, yMin, yMax;
 
@@ -94,7 +88,7 @@ public class WorldTiledRenderer {
             skelrender.draw(batch, oWorld.game.oAssets.fondoSkeleton);
             batch.end();
         }
-        renderBackGround(delta);
+        renderBackGround();
 
         batch.begin();
         batch.enableBlending();
@@ -105,7 +99,7 @@ public class WorldTiledRenderer {
         renderPluma(delta);
         renderPony(delta);
         renderBombas(delta);
-        renderWoods(delta);
+        renderWoods();
         renderMonedas(delta);
         renderChiles(delta);
         renderGlobos(delta);
@@ -118,9 +112,7 @@ public class WorldTiledRenderer {
     }
 
     private void renderBloodStone(float delta) {
-        Iterator<BloodStone> ite = oWorld.arrBloodStone.iterator();
-        while (ite.hasNext()) {
-            BloodStone obj = ite.next();
+        for (BloodStone obj : oWorld.arrBloodStone) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 3))
                 continue;
 
@@ -142,7 +134,7 @@ public class WorldTiledRenderer {
         }
     }
 
-    private void renderBackGround(float delta) {
+    private void renderBackGround() {
 
         tiledRender.setView(OrthoCam);
         tiledRender.render();
@@ -170,10 +162,7 @@ public class WorldTiledRenderer {
     }
 
     private void renderPonyMalo(float delta) {
-        Iterator<PonyMalo> ite = oWorld.arrPonysMalos.iterator();
-        while (ite.hasNext()) {
-            Pony obj = ite.next();
-
+        for (Pony obj : oWorld.arrPonysMalos) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1f))
                 continue;
 
@@ -195,9 +184,7 @@ public class WorldTiledRenderer {
 
     private void renderBombas(float delta) {
 
-        Iterator<Bomba> ite = oWorld.arrBombas.iterator();
-        while (ite.hasNext()) {
-            Bomba obj = ite.next();
+        for (Bomba obj : oWorld.arrBombas) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, .5f))
                 continue;
 
@@ -215,11 +202,9 @@ public class WorldTiledRenderer {
         }
     }
 
-    private void renderWoods(float delta) {
+    private void renderWoods() {
 
-        Iterator<Wood> ite = oWorld.arrWoods.iterator();
-        while (ite.hasNext()) {
-            Wood obj = ite.next();
+        for (Wood obj : oWorld.arrWoods) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, .5f))
                 continue;
 
@@ -235,9 +220,7 @@ public class WorldTiledRenderer {
     }
 
     private void renderMonedas(float delta) {
-        Iterator<Moneda> ite = oWorld.arrMonedas.iterator();
-        while (ite.hasNext()) {
-            Moneda obj = ite.next();
+        for (Moneda obj : oWorld.arrMonedas) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1))
                 continue;
 
@@ -257,9 +240,7 @@ public class WorldTiledRenderer {
     }
 
     private void renderChiles(float delta) {
-        Iterator<Chile> ite = oWorld.arrChiles.iterator();
-        while (ite.hasNext()) {
-            Chile obj = ite.next();
+        for (Chile obj : oWorld.arrChiles) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1))
                 continue;
 
@@ -279,9 +260,7 @@ public class WorldTiledRenderer {
     }
 
     private void renderGlobos(float delta) {
-        Iterator<Globo> ite = oWorld.arrGlobos.iterator();
-        while (ite.hasNext()) {
-            Globo obj = ite.next();
+        for (Globo obj : oWorld.arrGlobos) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1))
                 continue;
 
@@ -301,9 +280,7 @@ public class WorldTiledRenderer {
     }
 
     private void renderDulces(float delta) {
-        Iterator<Dulce> ite = oWorld.arrDulces.iterator();
-        while (ite.hasNext()) {
-            Dulce obj = ite.next();
+        for (Dulce obj : oWorld.arrDulces) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1))
                 continue;
 
@@ -323,9 +300,7 @@ public class WorldTiledRenderer {
     }
 
     private void renderPluma(float delta) {
-        Iterator<Pluma> ite = oWorld.arrPlumas.iterator();
-        while (ite.hasNext()) {
-            Pluma obj = ite.next();
+        for (Pluma obj : oWorld.arrPlumas) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1))
                 continue;
             oWorld.game.oAssets.plumaAnim.apply(oWorld.game.oAssets.plumaSkeleton, obj.lastStatetime, obj.stateTime, true, null);
@@ -339,9 +314,7 @@ public class WorldTiledRenderer {
 
     private void renderFuegos(float delta) {
 
-        Iterator<Fogata> ite = oWorld.arrFogatas.iterator();
-        while (ite.hasNext()) {
-            Fogata obj = ite.next();
+        for (Fogata obj : oWorld.arrFogatas) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1))
                 continue;
             oWorld.game.oAssets.fogataAnim.apply(oWorld.game.oAssets.fogataSkeleton, obj.lastStatetime, obj.stateTime, true, null);

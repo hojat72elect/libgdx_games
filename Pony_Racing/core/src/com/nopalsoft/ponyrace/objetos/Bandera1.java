@@ -8,6 +8,7 @@ public class Bandera1 {
     public State state;
     public TipoAccion tipoAccion;
     Random oRan;
+
     public Bandera1(WorldTiled oWorld, TipoAccion tipoAccion) {
         oRan = oWorld.oRan;
         state = State.normal;
