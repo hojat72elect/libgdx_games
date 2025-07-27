@@ -29,14 +29,14 @@ import com.nopalsoft.ponyrace.screens.WorldMapTiledScreen;
 
 public class GameScreenTileds extends Screens {
 
-    // Variables para descontar las monedas 1 por 1 cuando terminas la carrera y te dan monedas
+    // Variables to deduct coins 1 by 1 when you finish the race and get coins
     public final float GET_COIN_FOR_TIME_LEFT = .065f;
     public final int MULTIPLICADOR_MONEDAS_TIME_LEFT;
     public float time_left_coin = 0;
     public WorldTiled oWorld;
-    // fin
+    // finish
     public int nivelTiled;
-    // int monedasRecolectadas;
+
     public StringBuilder stringMonedasRecolectadas;
     public StringBuilder stringTiempoLeft;
     public StringBuilder lapTime;
@@ -441,11 +441,11 @@ public class GameScreenTileds extends Screens {
 
         // El mundo actual
         glyphLayout.setText(oAssets.fontChco, stringMundoActual);
-        oAssets.fontChco.draw(batcher, stringMundoActual, SCREEN_WIDTH / 2 - glyphLayout.width / 2, alturaIndicador - 5);
+        oAssets.fontChco.draw(batcher, stringMundoActual, SCREEN_WIDTH / 2F - glyphLayout.width / 2, alturaIndicador - 5);
 
         // El tiempo que queda
         glyphLayout.setText(oAssets.fontChco, stringTiempoLeft);
-        oAssets.fontChco.draw(batcher, stringTiempoLeft, SCREEN_WIDTH / 2 - glyphLayout.width / 2, alturaIndicador - 32);
+        oAssets.fontChco.draw(batcher, stringTiempoLeft, SCREEN_WIDTH / 2F - glyphLayout.width / 2, alturaIndicador - 32);
 
         // fin
         oAssets.fontChco.draw(batcher, lapTime, 0, 225);
@@ -623,9 +623,9 @@ public class GameScreenTileds extends Screens {
     @Override
     public boolean keyDown(int keycode) {
         if (Keys.DPAD_DOWN == keycode)
-            renderer.OrthoCam.position.y -= .1;
+            renderer.OrthoCam.position.y -= 0.1F;
         else if (Keys.DPAD_UP == keycode) {
-            renderer.OrthoCam.position.y += .1;
+            renderer.OrthoCam.position.y += 0.1F;
             jump = true;
         } else if (Keys.DPAD_LEFT == keycode)
             renderer.OrthoCam.position.x -= 3;
