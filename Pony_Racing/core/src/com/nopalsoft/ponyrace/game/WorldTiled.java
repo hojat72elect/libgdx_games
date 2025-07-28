@@ -1,42 +1,18 @@
 package com.nopalsoft.ponyrace.game;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.nopalsoft.ponyrace.MainPonyRace;
+import com.nopalsoft.ponyrace.PonyRacingGame;
 import com.nopalsoft.ponyrace.Settings;
-import com.nopalsoft.ponyrace.game_objects.BloodStone;
-import com.nopalsoft.ponyrace.game_objects.Bomb;
-import com.nopalsoft.ponyrace.game_objects.Candy;
-import com.nopalsoft.ponyrace.game_objects.Chile;
-import com.nopalsoft.ponyrace.game_objects.Flag;
-import com.nopalsoft.ponyrace.game_objects.Fogata;
-import com.nopalsoft.ponyrace.game_objects.Globo;
-import com.nopalsoft.ponyrace.game_objects.Moneda;
-import com.nopalsoft.ponyrace.game_objects.Pisable;
-import com.nopalsoft.ponyrace.game_objects.Pluma;
-import com.nopalsoft.ponyrace.game_objects.Pony;
-import com.nopalsoft.ponyrace.game_objects.PonyMalo;
-import com.nopalsoft.ponyrace.game_objects.PonyPlayer;
-import com.nopalsoft.ponyrace.game_objects.TiledMapManagerBox2d;
-import com.nopalsoft.ponyrace.game_objects.Wood;
+import com.nopalsoft.ponyrace.game_objects.*;
 
 import java.util.Comparator;
 import java.util.Random;
 
 public class WorldTiled {
-    public MainPonyRace game;
+    public PonyRacingGame game;
     public Vector2 finJuego;
     public int nivelTiled;
     public World oWorldBox;
@@ -71,7 +47,7 @@ public class WorldTiled {
     };
     Vector2 impulso = new Vector2();
 
-    public WorldTiled(MainPonyRace game, int nivelTiled) {
+    public WorldTiled(PonyRacingGame game, int nivelTiled) {
         this.game = game;
         this.nivelTiled = nivelTiled;
         boolean sleep = true;
@@ -91,7 +67,7 @@ public class WorldTiled {
         arrDulces = new Array<>();
         arrWoods = new Array<>();
 
-        new TiledMapManagerBox2d(this, m_units).createObjetosDesdeTiled(game.oAssets.tiledMap);
+        new TiledMapManagerBox2d(this, m_units).createObjetosDesdeTiled(game.assetsHandler.tiledMap);
 
         arrBodys = new Array<>();
 
@@ -120,24 +96,24 @@ public class WorldTiled {
     }
 
     public void inicializarVariablesDesdeMapas() {
-        tamanoMapaX = Integer.parseInt(game.oAssets.tiledMap.getProperties().get("tamanoMapaX", String.class));
+        tamanoMapaX = Integer.parseInt(game.assetsHandler.tiledMap.getProperties().get("tamanoMapaX", String.class));
         tamanoMapaX = tamanoMapaX * 16 * m_units;
 
-        tamanoMapaY = Integer.parseInt(game.oAssets.tiledMap.getProperties().get("tamanoMapaY", String.class));
+        tamanoMapaY = Integer.parseInt(game.assetsHandler.tiledMap.getProperties().get("tamanoMapaY", String.class));
         tamanoMapaY = tamanoMapaY * 16 * m_units;
 
         switch (Settings.difficultyLevel) {
             case Settings.DIFFICULTY_EASY:
-                tiempoLeft = Integer.parseInt(game.oAssets.tiledMap.getProperties().get("tiempoEasy", String.class));
+                tiempoLeft = Integer.parseInt(game.assetsHandler.tiledMap.getProperties().get("tiempoEasy", String.class));
                 break;
             case Settings.DIFFICULTY_NORMAL:
-                tiempoLeft = Integer.parseInt(game.oAssets.tiledMap.getProperties().get("tiempoNormal", String.class));
+                tiempoLeft = Integer.parseInt(game.assetsHandler.tiledMap.getProperties().get("tiempoNormal", String.class));
                 break;
             case Settings.DIFFICULTY_HARD:
-                tiempoLeft = Integer.parseInt(game.oAssets.tiledMap.getProperties().get("tiempoHard", String.class));
+                tiempoLeft = Integer.parseInt(game.assetsHandler.tiledMap.getProperties().get("tiempoHard", String.class));
                 break;
             case Settings.DIFFICULTY_VERY_HARD:
-                tiempoLeft = Integer.parseInt(game.oAssets.tiledMap.getProperties().get("tiempoSuperHard", String.class));
+                tiempoLeft = Integer.parseInt(game.assetsHandler.tiledMap.getProperties().get("tiempoSuperHard", String.class));
                 break;
         }
     }
@@ -293,9 +269,9 @@ public class WorldTiled {
 
             if (isMalo) {
                 ((PonyMalo) ponyDataBody).hasToJump = false;
-                game.oAssets.playSound(game.oAssets.jump, .4f);
+                game.assetsHandler.playSound(game.assetsHandler.jump, .4f);
             } else
-                game.oAssets.playSound(game.oAssets.jump);
+                game.assetsHandler.playSound(game.assetsHandler.jump);
         }
 
         float velChange = accelX - vel.x;
@@ -471,8 +447,8 @@ public class WorldTiled {
         } else {
             if (oPony.lugarEnLaCarrera == 1) {
                 if (state != State.nextLevel) {// Solo lo checa 1 vez
-                    game.achievements.checkWorldComplete(nivelTiled);
-                    game.achievements.checkVictoryMoreThan15Secs(nivelTiled, tiempoLeft);
+                    game.achievementsHandler.checkWorldComplete(nivelTiled);
+                    game.achievementsHandler.checkVictoryMoreThan15Secs(nivelTiled, tiempoLeft);
                 }
                 state = State.nextLevel;
             } else
@@ -631,7 +607,7 @@ public class WorldTiled {
                         }
                         Settings.sumarMonedas(valorMoneda);
                         ponyDataBody.monedasRecolectadas += valorMoneda;
-                        game.oAssets.playSound(game.oAssets.pickCoin);
+                        game.assetsHandler.playSound(game.assetsHandler.pickCoin);
                         oMoneda.hitPony();
                     }
                 } else if (otraCosaDataBody instanceof Chile) {

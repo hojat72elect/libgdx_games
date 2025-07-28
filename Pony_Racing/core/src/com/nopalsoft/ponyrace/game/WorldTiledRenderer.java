@@ -9,22 +9,13 @@ import com.esotericsoftware.spine.Animation;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.nopalsoft.ponyrace.Assets;
 import com.nopalsoft.ponyrace.Settings;
-import com.nopalsoft.ponyrace.game_objects.BloodStone;
-import com.nopalsoft.ponyrace.game_objects.Bomb;
-import com.nopalsoft.ponyrace.game_objects.Candy;
-import com.nopalsoft.ponyrace.game_objects.Chile;
-import com.nopalsoft.ponyrace.game_objects.Fogata;
-import com.nopalsoft.ponyrace.game_objects.Globo;
-import com.nopalsoft.ponyrace.game_objects.Moneda;
-import com.nopalsoft.ponyrace.game_objects.Pluma;
-import com.nopalsoft.ponyrace.game_objects.Pony;
-import com.nopalsoft.ponyrace.game_objects.Wood;
-import com.nopalsoft.ponyrace.screens.Screens;
+import com.nopalsoft.ponyrace.game_objects.*;
+import com.nopalsoft.ponyrace.screens.BaseScreen;
 
 public class WorldTiledRenderer {
 
-    final float WIDTH = Screens.WORLD_SCREEN_WIDTH / 10f;
-    final float HEIGHT = Screens.WORLD_SCREEN_HEIGHT / 10f;
+    final float WIDTH = BaseScreen.WORLD_WIDTH / 10f;
+    final float HEIGHT = BaseScreen.WORLD_HEIGHT / 10f;
     public OrthographicCamera OrthoCam;
     public OrthogonalTiledMapRenderer tiledRender;
     WorldTiled oWorld;
@@ -39,7 +30,7 @@ public class WorldTiledRenderer {
 
         this.batch = batch;
         this.oWorld = oWorld;
-        tiledRender = new OrthogonalTiledMapRenderer(oWorld.game.oAssets.tiledMap, oWorld.m_units);
+        tiledRender = new OrthogonalTiledMapRenderer(oWorld.game.assetsHandler.tiledMap, oWorld.m_units);
         renderBox = new Box2DDebugRenderer();
         skelrender = new SkeletonRenderer();
     }
@@ -80,12 +71,12 @@ public class WorldTiledRenderer {
                 }
             }
             batch.begin();
-            oWorld.game.oAssets.fondoAnim.apply(oWorld.game.oAssets.fondoSkeleton, fondoLastTime, fondoStateTime, true, null);
-            oWorld.game.oAssets.fondoSkeleton.setX(OrthoCam.position.x);
-            oWorld.game.oAssets.fondoSkeleton.setY(1.55f);
-            oWorld.game.oAssets.fondoSkeleton.updateWorldTransform();
-            oWorld.game.oAssets.fondoSkeleton.update(delta);
-            skelrender.draw(batch, oWorld.game.oAssets.fondoSkeleton);
+            oWorld.game.assetsHandler.fondoAnim.apply(oWorld.game.assetsHandler.fondoSkeleton, fondoLastTime, fondoStateTime, true, null);
+            oWorld.game.assetsHandler.fondoSkeleton.setX(OrthoCam.position.x);
+            oWorld.game.assetsHandler.fondoSkeleton.setY(1.55f);
+            oWorld.game.assetsHandler.fondoSkeleton.updateWorldTransform();
+            oWorld.game.assetsHandler.fondoSkeleton.update(delta);
+            skelrender.draw(batch, oWorld.game.assetsHandler.fondoSkeleton);
             batch.end();
         }
         renderBackGround();
@@ -117,19 +108,19 @@ public class WorldTiledRenderer {
                 continue;
 
             if (obj.type == BloodStone.Type.SMALL) {
-                oWorld.game.oAssets.bloodStoneAnim.apply(oWorld.game.oAssets.bloodStoneSkeleton, obj.lastStateTime, obj.stateTime, true, null);
-                oWorld.game.oAssets.bloodStoneSkeleton.setX(obj.position.x);
-                oWorld.game.oAssets.bloodStoneSkeleton.setY(obj.position.y - .12f);
-                oWorld.game.oAssets.bloodStoneSkeleton.updateWorldTransform();
-                oWorld.game.oAssets.bloodStoneSkeleton.update(delta);
-                skelrender.draw(batch, oWorld.game.oAssets.bloodStoneSkeleton);
+                oWorld.game.assetsHandler.bloodStoneAnim.apply(oWorld.game.assetsHandler.bloodStoneSkeleton, obj.lastStateTime, obj.stateTime, true, null);
+                oWorld.game.assetsHandler.bloodStoneSkeleton.setX(obj.position.x);
+                oWorld.game.assetsHandler.bloodStoneSkeleton.setY(obj.position.y - .12f);
+                oWorld.game.assetsHandler.bloodStoneSkeleton.updateWorldTransform();
+                oWorld.game.assetsHandler.bloodStoneSkeleton.update(delta);
+                skelrender.draw(batch, oWorld.game.assetsHandler.bloodStoneSkeleton);
             } else if (obj.type == BloodStone.Type.MEDIUM) {
-                oWorld.game.oAssets.bloodStone2Anim.apply(oWorld.game.oAssets.bloodStone2Skeleton, obj.lastStateTime, obj.stateTime, true, null);
-                oWorld.game.oAssets.bloodStone2Skeleton.setX(obj.position.x);
-                oWorld.game.oAssets.bloodStone2Skeleton.setY(obj.position.y - .12f);
-                oWorld.game.oAssets.bloodStone2Skeleton.updateWorldTransform();
-                oWorld.game.oAssets.bloodStone2Skeleton.update(delta);
-                skelrender.draw(batch, oWorld.game.oAssets.bloodStone2Skeleton);
+                oWorld.game.assetsHandler.bloodStone2Anim.apply(oWorld.game.assetsHandler.bloodStone2Skeleton, obj.lastStateTime, obj.stateTime, true, null);
+                oWorld.game.assetsHandler.bloodStone2Skeleton.setX(obj.position.x);
+                oWorld.game.assetsHandler.bloodStone2Skeleton.setY(obj.position.y - .12f);
+                oWorld.game.assetsHandler.bloodStone2Skeleton.updateWorldTransform();
+                oWorld.game.assetsHandler.bloodStone2Skeleton.update(delta);
+                skelrender.draw(batch, oWorld.game.assetsHandler.bloodStone2Skeleton);
             }
         }
     }
@@ -189,9 +180,9 @@ public class WorldTiledRenderer {
                 continue;
 
             if (obj.state == Bomb.State.normal) {
-                oWorld.game.oAssets.bombAnim.apply(obj.skelBomb, obj.lastStatetime, obj.stateTime, true, null);
+                oWorld.game.assetsHandler.bombAnim.apply(obj.skelBomb, obj.lastStatetime, obj.stateTime, true, null);
             } else {
-                oWorld.game.oAssets.bombExAnim.apply(obj.skelBomb, obj.lastStatetime, obj.stateTime, true, null);
+                oWorld.game.assetsHandler.bombExAnim.apply(obj.skelBomb, obj.lastStatetime, obj.stateTime, true, null);
             }
             obj.skelBomb.setX(obj.position.x + .025f);
             obj.skelBomb.setY(obj.position.y - .15f);
@@ -211,9 +202,9 @@ public class WorldTiledRenderer {
             TextureRegion keyFrame;
 
             if (obj.tipo == Wood.Tipo.platano)
-                keyFrame = oWorld.game.oAssets.platano;
+                keyFrame = oWorld.game.assetsHandler.platano;
             else
-                keyFrame = oWorld.game.oAssets.tachuelas;
+                keyFrame = oWorld.game.assetsHandler.tachuelas;
 
             batch.draw(keyFrame, obj.position.x - .25f, obj.position.y - .1f, .5f, .25f);
         }
@@ -226,9 +217,9 @@ public class WorldTiledRenderer {
 
             Animation anim;
             if (obj.state == Moneda.State.normal)
-                anim = oWorld.game.oAssets.monedaAnim;
+                anim = oWorld.game.assetsHandler.monedaAnim;
             else
-                anim = oWorld.game.oAssets.monedaTomadaAnim;
+                anim = oWorld.game.assetsHandler.monedaTomadaAnim;
 
             anim.apply(obj.monedaSkeleton, obj.lastStatetime, obj.stateTime, true, null);
             obj.monedaSkeleton.setX(obj.position.x);
@@ -246,9 +237,9 @@ public class WorldTiledRenderer {
 
             Animation anim;
             if (obj.state == Chile.State.normal)
-                anim = oWorld.game.oAssets.chileAnim;
+                anim = oWorld.game.assetsHandler.chileAnim;
             else
-                anim = oWorld.game.oAssets.chileTomadaAnim;
+                anim = oWorld.game.assetsHandler.chileTomadaAnim;
 
             anim.apply(obj.objSkeleton, obj.lastStatetime, obj.stateTime, true, null);
             obj.objSkeleton.setX(obj.position.x);
@@ -266,9 +257,9 @@ public class WorldTiledRenderer {
 
             Animation anim;
             if (obj.state == Globo.State.normal)
-                anim = oWorld.game.oAssets.globoAnim;
+                anim = oWorld.game.assetsHandler.globoAnim;
             else
-                anim = oWorld.game.oAssets.globoTomadaAnim;
+                anim = oWorld.game.assetsHandler.globoTomadaAnim;
 
             anim.apply(obj.objSkeleton, obj.lastStatetime, obj.stateTime, true, null);
             obj.objSkeleton.setX(obj.position.x);
@@ -286,9 +277,9 @@ public class WorldTiledRenderer {
 
             Animation anim;
             if (obj.state == Candy.State.NORMAL)
-                anim = oWorld.game.oAssets.dulceAnim;
+                anim = oWorld.game.assetsHandler.dulceAnim;
             else
-                anim = oWorld.game.oAssets.dulceTomadaAnim;
+                anim = oWorld.game.assetsHandler.dulceTomadaAnim;
 
             anim.apply(obj.skeleton, obj.lastStateTime, obj.stateTime, true, null);
             obj.skeleton.setX(obj.position.x);
@@ -303,12 +294,12 @@ public class WorldTiledRenderer {
         for (Pluma obj : oWorld.arrPlumas) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1))
                 continue;
-            oWorld.game.oAssets.plumaAnim.apply(oWorld.game.oAssets.plumaSkeleton, obj.lastStatetime, obj.stateTime, true, null);
-            oWorld.game.oAssets.plumaSkeleton.setX(obj.position.x);
-            oWorld.game.oAssets.plumaSkeleton.setY(obj.position.y - .2f);
-            oWorld.game.oAssets.plumaSkeleton.updateWorldTransform();
-            oWorld.game.oAssets.plumaSkeleton.update(delta);
-            skelrender.draw(batch, oWorld.game.oAssets.plumaSkeleton);
+            oWorld.game.assetsHandler.plumaAnim.apply(oWorld.game.assetsHandler.plumaSkeleton, obj.lastStatetime, obj.stateTime, true, null);
+            oWorld.game.assetsHandler.plumaSkeleton.setX(obj.position.x);
+            oWorld.game.assetsHandler.plumaSkeleton.setY(obj.position.y - .2f);
+            oWorld.game.assetsHandler.plumaSkeleton.updateWorldTransform();
+            oWorld.game.assetsHandler.plumaSkeleton.update(delta);
+            skelrender.draw(batch, oWorld.game.assetsHandler.plumaSkeleton);
         }
     }
 
@@ -317,12 +308,12 @@ public class WorldTiledRenderer {
         for (Fogata obj : oWorld.arrFogatas) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1))
                 continue;
-            oWorld.game.oAssets.fogataAnim.apply(oWorld.game.oAssets.fogataSkeleton, obj.lastStatetime, obj.stateTime, true, null);
-            oWorld.game.oAssets.fogataSkeleton.setX(obj.position.x);
-            oWorld.game.oAssets.fogataSkeleton.setY(obj.position.y);
-            oWorld.game.oAssets.fogataSkeleton.updateWorldTransform();
-            oWorld.game.oAssets.fogataSkeleton.update(delta);
-            skelrender.draw(batch, oWorld.game.oAssets.fogataSkeleton);
+            oWorld.game.assetsHandler.fogataAnim.apply(oWorld.game.assetsHandler.fogataSkeleton, obj.lastStatetime, obj.stateTime, true, null);
+            oWorld.game.assetsHandler.fogataSkeleton.setX(obj.position.x);
+            oWorld.game.assetsHandler.fogataSkeleton.setY(obj.position.y);
+            oWorld.game.assetsHandler.fogataSkeleton.updateWorldTransform();
+            oWorld.game.assetsHandler.fogataSkeleton.update(delta);
+            skelrender.draw(batch, oWorld.game.assetsHandler.fogataSkeleton);
         }
     }
 }

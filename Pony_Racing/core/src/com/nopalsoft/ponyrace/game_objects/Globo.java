@@ -14,8 +14,8 @@ public class Globo extends GameObject {
         stateTime = oWorld.random.nextFloat() * 5f;
         lastStatetime = stateTime;
         state = State.normal;
-        objSkeleton = new Skeleton(oWorld.game.oAssets.globoSkeletonData);
-        TIEMPO_TOMADA = oWorld.game.oAssets.globoTomadaAnim.getDuration();
+        objSkeleton = new Skeleton(oWorld.game.assetsHandler.globoSkeletonData);
+        TIEMPO_TOMADA = oWorld.game.assetsHandler.globoTomadaAnim.getDuration();
     }
 
     public void update(float delta) {

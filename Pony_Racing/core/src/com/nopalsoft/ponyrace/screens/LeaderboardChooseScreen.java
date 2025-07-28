@@ -7,15 +7,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.nopalsoft.ponyrace.MainPonyRace;
+import com.nopalsoft.ponyrace.PonyRacingGame;
 import com.nopalsoft.ponyrace.menuobjetos.BotonNube;
 
-public class LeaderboardChooseScreen extends Screens {
+public class LeaderboardChooseScreen extends BaseScreen {
 
     BotonNube btLeaderBoard, btAchievements, btBack;
     TextButton btSignOut;
 
-    public LeaderboardChooseScreen(MainPonyRace game) {
+    public LeaderboardChooseScreen(PonyRacingGame game) {
         super(game);
 
         cargarBotones();

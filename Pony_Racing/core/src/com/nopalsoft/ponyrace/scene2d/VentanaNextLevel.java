@@ -14,8 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.game.GameScreenTileds;
+import com.nopalsoft.ponyrace.screens.BaseScreen;
 import com.nopalsoft.ponyrace.screens.LoadingScreen;
-import com.nopalsoft.ponyrace.screens.Screens;
 import com.nopalsoft.ponyrace.screens.WorldMapTiledScreen;
 
 public class VentanaNextLevel extends Ventana {
@@ -24,7 +24,7 @@ public class VentanaNextLevel extends Ventana {
 
     Label lbCoinsNum, lbTimeLeftNum;
 
-    public VentanaNextLevel(Screens currentScreen) {
+    public VentanaNextLevel(BaseScreen currentScreen) {
         super(currentScreen);
         setSize(600, 370);
         setY(50);

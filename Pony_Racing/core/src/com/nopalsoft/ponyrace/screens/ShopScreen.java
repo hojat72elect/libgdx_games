@@ -5,21 +5,17 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.nopalsoft.ponyrace.MainPonyRace;
+import com.nopalsoft.ponyrace.PonyRacingGame;
 import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.menuobjetos.BotonNube;
 import com.nopalsoft.ponyrace.shopSubMenus.PonysSubMenu;
 
-public class ShopScreen extends Screens {
+public class ShopScreen extends BaseScreen {
 
     final int PRECIO_10_BOMBS = 250;
     final int PRECIO_20_BOMBS = 400;
@@ -94,7 +90,7 @@ public class ShopScreen extends Screens {
     TextButton btLikeUsFacebook;
     TextButton items, upgrades, coins, ponys, itemsInt2;
 
-    public ShopScreen(MainPonyRace game) {
+    public ShopScreen(PonyRacingGame game) {
         super(game);
 
         costUpBomb = checkPriceBomb();

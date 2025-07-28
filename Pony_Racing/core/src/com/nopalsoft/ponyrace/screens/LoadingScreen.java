@@ -1,26 +1,26 @@
 package com.nopalsoft.ponyrace.screens;
 
 import com.badlogic.gdx.graphics.Color;
-import com.nopalsoft.ponyrace.MainPonyRace;
+import com.nopalsoft.ponyrace.PonyRacingGame;
 import com.nopalsoft.ponyrace.game.GameScreenTileds;
 
-public class LoadingScreen extends Screens {
+public class LoadingScreen extends BaseScreen {
     Class<?> clase;
 
     int cargaActual;
     int nivelTiled;
 
-    public LoadingScreen(MainPonyRace game, Class<?> clase, int nivelTiled) {
+    public LoadingScreen(PonyRacingGame game, Class<?> clase, int nivelTiled) {
         super(game);
         create(game, clase, nivelTiled);
     }
 
-    public LoadingScreen(MainPonyRace game, Class<?> clase) {
+    public LoadingScreen(PonyRacingGame game, Class<?> clase) {
         super(game);
         create(game, clase, -100);
     }
 
-    public void create(MainPonyRace game, Class<?> clase, int nivelTiled) {
+    public void create(PonyRacingGame game, Class<?> clase, int nivelTiled) {
         this.clase = clase;
         this.game = game;
         cargaActual = 0;
@@ -61,7 +61,7 @@ public class LoadingScreen extends Screens {
             }
         } else {
 
-            cargaActual = (int) (game.oAssets.getProgress() * 100);
+            cargaActual = (int) (game.assetsHandler.getProgress() * 100);
         }
     }
 

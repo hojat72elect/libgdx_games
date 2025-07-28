@@ -13,21 +13,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.ponyrace.Assets;
-import com.nopalsoft.ponyrace.MainPonyRace;
+import com.nopalsoft.ponyrace.PonyRacingGame;
 import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.game_objects.Pony;
 import com.nopalsoft.ponyrace.menuobjetos.BotonNube;
-import com.nopalsoft.ponyrace.scene2d.Ventana;
-import com.nopalsoft.ponyrace.scene2d.VentanaNextLevel;
-import com.nopalsoft.ponyrace.scene2d.VentanaPause;
-import com.nopalsoft.ponyrace.scene2d.VentanaRate;
-import com.nopalsoft.ponyrace.scene2d.VentanaTimesUp;
-import com.nopalsoft.ponyrace.scene2d.VentanaTryAgain;
+import com.nopalsoft.ponyrace.scene2d.*;
+import com.nopalsoft.ponyrace.screens.BaseScreen;
 import com.nopalsoft.ponyrace.screens.LoadingScreen;
-import com.nopalsoft.ponyrace.screens.Screens;
 import com.nopalsoft.ponyrace.screens.WorldMapTiledScreen;
 
-public class GameScreenTileds extends Screens {
+public class GameScreenTileds extends BaseScreen {
 
     // Variables to deduct coins 1 by 1 when you finish the race and get coins
     public final float GET_COIN_FOR_TIME_LEFT = .065f;
@@ -60,7 +55,7 @@ public class GameScreenTileds extends Screens {
     ImageButton btSonido;
     ImageButton btMusica;
 
-    public GameScreenTileds(MainPonyRace game, int nivelTiled) {
+    public GameScreenTileds(PonyRacingGame game, int nivelTiled) {
         super(game);
         Settings.statTimesPlayed++;
 
@@ -333,7 +328,7 @@ public class GameScreenTileds extends Screens {
             stringTiempoLeft.append((int) oWorld.tiempoLeft);
 
             Settings.sumarMonedas(MULTIPLICADOR_MONEDAS_TIME_LEFT);
-            game.oAssets.playSound(game.oAssets.pickCoin);
+            game.assetsHandler.playSound(game.assetsHandler.pickCoin);
         }
     }
 
@@ -610,7 +605,7 @@ public class GameScreenTileds extends Screens {
         renderer.tiledRender.dispose();
         renderer = null;
         oWorld = null;
-        game.oAssets.unloadGameScreenTiled();
+        game.assetsHandler.unloadGameScreenTiled();
     }
 
     @Override

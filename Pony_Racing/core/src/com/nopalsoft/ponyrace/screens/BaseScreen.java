@@ -11,18 +11,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.nopalsoft.ponyrace.Assets;
-import com.nopalsoft.ponyrace.MainPonyRace;
+import com.nopalsoft.ponyrace.PonyRacingGame;
 import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.game.GameScreenTileds;
 
-public abstract class Screens extends InputAdapter implements Screen {
+public abstract class BaseScreen extends InputAdapter implements Screen {
     public static final int SCREEN_WIDTH = 800;
     public static final int SCREEN_HEIGHT = 480;
 
-    public static final int WORLD_SCREEN_WIDTH = 80;
-    public static final int WORLD_SCREEN_HEIGHT = 48;
+    public static final int WORLD_WIDTH = 80;
+    public static final int WORLD_HEIGHT = 48;
 
-    public MainPonyRace game;
+    public PonyRacingGame game;
     public Stage stage;
     public SpriteBatch batcher;
 
@@ -35,11 +35,11 @@ public abstract class Screens extends InputAdapter implements Screen {
     protected float ScreenlastStatetime;
     protected float ScreenStateTime;
 
-    public Screens(MainPonyRace game) {
-        oAssets = game.oAssets;
+    public BaseScreen(PonyRacingGame game) {
+        oAssets = game.assetsHandler;
         stage = game.stage;
         stage.clear();
-        batcher = game.batcher;
+        batcher = game.batch;
         glyphLayout = new GlyphLayout();
         InputMultiplexer input = new InputMultiplexer(stage, this);
         Gdx.input.setInputProcessor(input);

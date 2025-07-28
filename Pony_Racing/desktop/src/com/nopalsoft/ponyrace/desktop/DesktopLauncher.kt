@@ -2,7 +2,7 @@ package com.nopalsoft.ponyrace.desktop
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
-import com.nopalsoft.ponyrace.MainPonyRace
+import com.nopalsoft.ponyrace.PonyRacingGame
 import com.nopalsoft.ponyrace.handlers.FloatFormatter
 
 
@@ -13,5 +13,5 @@ fun main() {
     cfg.title = "Pony Racing"
     cfg.width = 800
     cfg.height = 480
-    LwjglApplication(MainPonyRace(formatter), cfg)
+    LwjglApplication(PonyRacingGame(formatter), cfg)
 }

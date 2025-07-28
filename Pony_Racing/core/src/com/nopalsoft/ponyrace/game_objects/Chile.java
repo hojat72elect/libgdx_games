@@ -15,8 +15,8 @@ public class Chile extends GameObject {
         stateTime = oWorld.random.nextFloat() * 5f;
         lastStatetime = stateTime;
         state = State.normal;
-        objSkeleton = new Skeleton(oWorld.game.oAssets.chileSkeletonData);
-        TIEMPO_TOMADA = oWorld.game.oAssets.chileTomadaAnim.getDuration();
+        objSkeleton = new Skeleton(oWorld.game.assetsHandler.chileSkeletonData);
+        TIEMPO_TOMADA = oWorld.game.assetsHandler.chileTomadaAnim.getDuration();
     }
 
     public void update(float delta) {

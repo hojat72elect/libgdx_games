@@ -42,7 +42,7 @@ public class PonysSubMenu {
 
     public PonysSubMenu(ShopScreen shop, Table contenedor) {
         this.contenedor = contenedor;
-        oAssets = shop.game.oAssets;
+        oAssets = shop.game.assetsHandler;
 
         isCientificoUnlocked = prefAchiv.getBoolean("isCientificoUnlocked", false);
         isEnemigoUnlocked = prefAchiv.getBoolean("isEnemigoUnlocked", false);

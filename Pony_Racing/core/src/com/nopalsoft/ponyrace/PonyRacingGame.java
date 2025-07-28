@@ -5,19 +5,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.ponyrace.handlers.FloatFormatter;
+import com.nopalsoft.ponyrace.screens.BaseScreen;
 import com.nopalsoft.ponyrace.screens.LoadingScreen;
 import com.nopalsoft.ponyrace.screens.MainMenuScreen;
-import com.nopalsoft.ponyrace.screens.Screens;
 
-public class MainPonyRace extends Game {
+public class PonyRacingGame extends Game {
 
     final public FloatFormatter formatter;
-    public Assets oAssets;
+    public Assets assetsHandler;
     public Stage stage;
-    public SpriteBatch batcher;
-    public com.nopalsoft.ponyrace.Achievements achievements;
+    public SpriteBatch batch;
+    public Achievements achievementsHandler;
 
-    public MainPonyRace(FloatFormatter formatter) {
+    public PonyRacingGame(FloatFormatter formatter) {
 
         this.formatter = formatter;
     }
@@ -25,10 +25,10 @@ public class MainPonyRace extends Game {
     @Override
     public void create() {
         Settings.cargar();
-        oAssets = new Assets();
-        achievements = new com.nopalsoft.ponyrace.Achievements();
-        stage = new Stage(new StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT));
-        batcher = new SpriteBatch();
+        assetsHandler = new Assets();
+        achievementsHandler = new com.nopalsoft.ponyrace.Achievements();
+        stage = new Stage(new StretchViewport(BaseScreen.SCREEN_WIDTH, BaseScreen.SCREEN_HEIGHT));
+        batch = new SpriteBatch();
         this.setScreen(new LoadingScreen(this, MainMenuScreen.class, 1));
     }
 
@@ -36,10 +36,10 @@ public class MainPonyRace extends Game {
     public void dispose() {
         getScreen().dispose();
         stage.dispose();
-        batcher.dispose();
-        oAssets.fontChco.dispose();
-        oAssets.fontGde.dispose();
-        oAssets.dispose();
+        batch.dispose();
+        assetsHandler.fontChco.dispose();
+        assetsHandler.fontGde.dispose();
+        assetsHandler.dispose();
         super.dispose();
     }
 }

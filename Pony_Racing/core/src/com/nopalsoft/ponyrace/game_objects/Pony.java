@@ -121,7 +121,7 @@ public class Pony {
         isHurt = false;
         pasoLaMeta = false;
         tocoElPisoDespuesCaerHoyo = true;
-        ponySkel = new Skeleton(oWorld.game.oAssets.ponySkeletonData);
+        ponySkel = new Skeleton(oWorld.game.assetsHandler.ponySkeletonData);
         ponySkel.setSkin(nombreSkin);
         ponySkel.setToSetupPose();
 

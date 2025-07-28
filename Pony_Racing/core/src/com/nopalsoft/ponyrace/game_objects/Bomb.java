@@ -21,7 +21,7 @@ public class Bomb extends GameObject {
         stateTime = 0;
         lastStatetime = stateTime;
         state = State.normal;
-        skelBomb = new Skeleton(world.game.oAssets.skeletonBombData);
+        skelBomb = new Skeleton(world.game.assetsHandler.skeletonBombData);
         skelBomb.setToSetupPose();
 
         switch (Settings.bombLevel) {

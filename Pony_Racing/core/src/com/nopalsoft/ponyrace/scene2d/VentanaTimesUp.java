@@ -6,15 +6,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.ponyrace.game.GameScreenTileds;
 import com.nopalsoft.ponyrace.menuobjetos.BotonNube;
+import com.nopalsoft.ponyrace.screens.BaseScreen;
 import com.nopalsoft.ponyrace.screens.LoadingScreen;
-import com.nopalsoft.ponyrace.screens.Screens;
 import com.nopalsoft.ponyrace.screens.WorldMapTiledScreen;
 
 public class VentanaTimesUp extends Ventana {
 
     GameScreenTileds gameScreen;
 
-    public VentanaTimesUp(Screens currentScreen) {
+    public VentanaTimesUp(BaseScreen currentScreen) {
         super(currentScreen);
         setSize(450, 300);
         setY(90);

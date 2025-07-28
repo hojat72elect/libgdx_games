@@ -14,8 +14,8 @@ public class Moneda extends GameObject {
         stateTime = oWorld.random.nextFloat() * 5f;
         lastStatetime = stateTime;
         state = State.normal;
-        monedaSkeleton = new Skeleton(oWorld.game.oAssets.skeletonMonedaData);
-        TIEMPO_TOMADA = oWorld.game.oAssets.monedaTomadaAnim.getDuration();
+        monedaSkeleton = new Skeleton(oWorld.game.assetsHandler.skeletonMonedaData);
+        TIEMPO_TOMADA = oWorld.game.assetsHandler.monedaTomadaAnim.getDuration();
     }
 
     public void update(float delta) {

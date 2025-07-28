@@ -7,11 +7,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.nopalsoft.ponyrace.screens.Screens;
+import com.nopalsoft.ponyrace.screens.BaseScreen;
 
 public class VentanaRate extends Ventana {
 
-    public VentanaRate(Screens currentScreen) {
+    public VentanaRate(BaseScreen currentScreen) {
         super(currentScreen);
         setSize(450, 280);
         setY(90);
@@ -23,13 +23,13 @@ public class VentanaRate extends Ventana {
 
         Label lbContenido = new Label(
                 "Hello, thank you for playing Pony racing.\nHelp us to support this game. Just rate us at the app store.",
-                game.oAssets.skin);
+                game.assetsHandler.skin);
         lbContenido.setSize(getWidth() - 20, 170);
         lbContenido.setPosition(getWidth() / 2f - lbContenido.getWidth() / 2f,
                 70);
         lbContenido.setWrap(true);
 
-        TextButton btRate = new TextButton("Rate", game.oAssets.skin);
+        TextButton btRate = new TextButton("Rate", game.assetsHandler.skin);
         btRate.getLabel().setWrap(true);
         btRate.addListener(new ClickListener() {
             @Override
@@ -38,7 +38,7 @@ public class VentanaRate extends Ventana {
             }
         });
 
-        TextButton btNotNow = new TextButton("Not now", game.oAssets.skin);
+        TextButton btNotNow = new TextButton("Not now", game.assetsHandler.skin);
         btNotNow.getLabel().setWrap(true);
         btNotNow.addListener(new ClickListener() {
             @Override

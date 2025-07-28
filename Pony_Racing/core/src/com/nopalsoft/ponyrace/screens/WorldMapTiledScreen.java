@@ -29,7 +29,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.nopalsoft.ponyrace.Assets;
-import com.nopalsoft.ponyrace.MainPonyRace;
+import com.nopalsoft.ponyrace.PonyRacingGame;
 import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.game.GameScreenTileds;
 import com.nopalsoft.ponyrace.menuobjetos.BotonNube;
@@ -37,7 +37,7 @@ import com.nopalsoft.ponyrace.menuobjetos.BotonNube;
 import java.util.Comparator;
 import java.util.Random;
 
-public class WorldMapTiledScreen extends Screens implements GestureListener {
+public class WorldMapTiledScreen extends BaseScreen implements GestureListener {
 
     OrthogonalTiledMapRenderer tiledRender;
     float unitScale = 1 / 32f;
@@ -64,20 +64,20 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
     Rectangle secretWorldBounds;
     Vector2 secretWorld;
 
-    public WorldMapTiledScreen(final MainPonyRace game) {
+    public WorldMapTiledScreen(final PonyRacingGame game) {
         super(game);
         oRan = new Random();
-        tiledRender = new OrthogonalTiledMapRenderer(game.oAssets.tiledWorldMap, unitScale);
+        tiledRender = new OrthogonalTiledMapRenderer(game.assetsHandler.tiledWorldMap, unitScale);
         guiCam = new OrthographicCamera(SCREEN_WIDTH * unitScale, SCREEN_HEIGHT * unitScale);
         guiCam.position.set(SCREEN_WIDTH * unitScale / 2f, SCREEN_HEIGHT * unitScale / 2f, 0);
 
         CAM_MIN_X = SCREEN_WIDTH * unitScale / 2f;
         CAM_MIN_Y = SCREEN_HEIGHT * unitScale / 2f;
 
-        CAM_MAX_X = Integer.parseInt(game.oAssets.tiledWorldMap.getProperties().get("tamanoMapaX", String.class));
+        CAM_MAX_X = Integer.parseInt(game.assetsHandler.tiledWorldMap.getProperties().get("tamanoMapaX", String.class));
         CAM_MAX_X -= SCREEN_WIDTH * unitScale / 2f;
 
-        CAM_MAX_Y = Integer.parseInt(game.oAssets.tiledWorldMap.getProperties().get("tamanoMapaY", String.class));
+        CAM_MAX_Y = Integer.parseInt(game.assetsHandler.tiledWorldMap.getProperties().get("tamanoMapaY", String.class));
         CAM_MAX_Y -= SCREEN_HEIGHT * unitScale / 2f;
 
         float x = (oRan.nextFloat() * SCREEN_WIDTH * unitScale - 2) + 2;
@@ -166,7 +166,7 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
     }
 
     private void inicializarNiveles() {
-        MapLayer layer = game.oAssets.tiledWorldMap.getLayers().get("animaciones");
+        MapLayer layer = game.assetsHandler.tiledWorldMap.getLayers().get("animaciones");
         if (layer == null) {
             Gdx.app.log("", "layer animaciones no existe");
             return;
@@ -236,7 +236,7 @@ public class WorldMapTiledScreen extends Screens implements GestureListener {
     }
 
     public void changeToGameTiledScreen(int level) {
-        game.oAssets.unLoadMenus();
+        game.assetsHandler.unLoadMenus();
         game.setScreen(new LoadingScreen(game, GameScreenTileds.class, level));
     }
 

@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.nopalsoft.ponyrace.game.GameScreenTileds;
 import com.nopalsoft.ponyrace.game.WorldTiled;
-import com.nopalsoft.ponyrace.screens.Screens;
+import com.nopalsoft.ponyrace.screens.BaseScreen;
 
 public class VentanaTryAgain extends Ventana {
 
@@ -16,7 +16,7 @@ public class VentanaTryAgain extends Ventana {
 
     Label lbCoinsNum, lbTimeLeftNum;
 
-    public VentanaTryAgain(Screens currentScreen) {
+    public VentanaTryAgain(BaseScreen currentScreen) {
         super(currentScreen);
         setSize(460, 320);
         setY(60);

@@ -15,8 +15,8 @@ public class Candy extends GameObject {
         stateTime = oWorld.random.nextFloat() * 5f;
         lastStateTime = stateTime;
         state = State.NORMAL;
-        skeleton = new Skeleton(oWorld.game.oAssets.dulceSkeletonData);
-        PICK_UP_DURATION = oWorld.game.oAssets.dulceTomadaAnim.getDuration();
+        skeleton = new Skeleton(oWorld.game.assetsHandler.dulceSkeletonData);
+        PICK_UP_DURATION = oWorld.game.assetsHandler.dulceTomadaAnim.getDuration();
     }
 
     public void update(float delta) {
