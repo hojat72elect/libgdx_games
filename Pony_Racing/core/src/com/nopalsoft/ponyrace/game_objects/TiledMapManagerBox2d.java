@@ -292,7 +292,7 @@ public class TiledMapManagerBox2d {
                 contadorPonisCreados++;
             nombreSkin = nombrePonys.get(contadorPonisCreados);
 
-            oPony = new PonyMalo(x, y, nombreSkin, oWorld);
+            oPony = new OpponentPony(x, y, nombreSkin, oWorld);
         }
         contadorPonisCreados++; // Se comenta esta linea si se quieren poner muchos ponys. PAra debugear
 
@@ -364,7 +364,7 @@ public class TiledMapManagerBox2d {
         if (tipo.equals("pony")) {
             oWorld.oPony = (PonyPlayer) oPony;
         } else {// ponis malos
-            oWorld.arrPonysMalos.add((PonyMalo) oPony);
+            oWorld.arrPonysMalos.add((OpponentPony) oPony);
         }
 
         pies.dispose();
@@ -475,7 +475,7 @@ public class TiledMapManagerBox2d {
         float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
 
-        Chile obj = new Chile(x, y, oWorld);
+        Chili obj = new Chili(x, y, oWorld);
         BodyDef bd = new BodyDef();
         bd.position.y = obj.position.y;
         bd.position.x = obj.position.x;
@@ -505,7 +505,7 @@ public class TiledMapManagerBox2d {
         float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
 
-        Globo obj = new Globo(x, y, oWorld);
+        Balloons obj = new Balloons(x, y, oWorld);
         BodyDef bd = new BodyDef();
         bd.position.y = obj.position.y;
         bd.position.x = obj.position.x;

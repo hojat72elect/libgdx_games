@@ -3,24 +3,25 @@ package com.nopalsoft.ponyrace.game_objects;
 import com.esotericsoftware.spine.Skeleton;
 import com.nopalsoft.ponyrace.game.TileMapHandler;
 
-public class Coin extends BaseGameObject {
-    public static float TIEMPO_TOMADA;
-    public float lastStatetime;
+public class Chili extends BaseGameObject {
+    public static float HURT_DURATION = 2f;
+    public static float HIT_ANIMATION_DURATION;
+    public float lastStateTime;
     public float stateTime;
     public State state;
-    public Skeleton coinSkeleton;
+    public Skeleton chiliSkeleton;
 
-    public Coin(float x, float y, TileMapHandler tileMapHandler) {
+    public Chili(float x, float y, TileMapHandler tileMapHandler) {
         super(x, y);
         stateTime = tileMapHandler.random.nextFloat() * 5f;
-        lastStatetime = stateTime;
+        lastStateTime = stateTime;
         state = State.IDLE;
-        coinSkeleton = new Skeleton(tileMapHandler.game.assetsHandler.skeletonMonedaData);
-        TIEMPO_TOMADA = tileMapHandler.game.assetsHandler.monedaTomadaAnim.getDuration();
+        chiliSkeleton = new Skeleton(tileMapHandler.game.assetsHandler.chileSkeletonData);
+        HIT_ANIMATION_DURATION = tileMapHandler.game.assetsHandler.chileTomadaAnim.getDuration();
     }
 
     public void update(float delta) {
-        lastStatetime = stateTime;
+        lastStateTime = stateTime;
         stateTime += delta;
     }
 

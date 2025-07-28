@@ -43,7 +43,7 @@ public class Pony {
     public float stateTime;
     public float chileTime;
     public float dulceTime;
-    public Random oRan;
+    public Random random;
 
     public String nombreSkin;
 
@@ -61,13 +61,10 @@ public class Pony {
     public boolean fireWood;
 
     public Pony(float x, float y, String nombreSkin, TileMapHandler oWorld) {
-        this.oRan = oWorld.random;
+        this.random = oWorld.random;
 
         switch (Settings.chiliLevel) {
-            default:
-            case 0:
-                TIEMPO_IS_CHILE = 3;
-                break;
+
             case 1:
                 TIEMPO_IS_CHILE = 3.5f;
                 break;
@@ -83,13 +80,13 @@ public class Pony {
             case 5:
                 TIEMPO_IS_CHILE = 11f;
                 break;
+            case 0:
+            default:
+                TIEMPO_IS_CHILE = 3;
+                break;
         }
 
         switch (Settings.chocolateLevel) {
-            default:
-            case 0:
-                TIEMPO_IS_DULCE = 3;
-                break;
             case 1:
                 TIEMPO_IS_DULCE = 3.5f;
                 break;
@@ -104,6 +101,10 @@ public class Pony {
                 break;
             case 5:
                 TIEMPO_IS_DULCE = 9f;
+                break;
+            case 0:
+            default:
+                TIEMPO_IS_DULCE = 3;
                 break;
         }
 

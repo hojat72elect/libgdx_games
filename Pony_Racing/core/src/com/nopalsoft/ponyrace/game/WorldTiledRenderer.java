@@ -9,13 +9,13 @@ import com.esotericsoftware.spine.Animation;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.nopalsoft.ponyrace.AssetsHandler;
 import com.nopalsoft.ponyrace.Settings;
+import com.nopalsoft.ponyrace.game_objects.Balloons;
 import com.nopalsoft.ponyrace.game_objects.BloodStone;
 import com.nopalsoft.ponyrace.game_objects.Bomb;
 import com.nopalsoft.ponyrace.game_objects.Bonfire;
 import com.nopalsoft.ponyrace.game_objects.Candy;
-import com.nopalsoft.ponyrace.game_objects.Chile;
+import com.nopalsoft.ponyrace.game_objects.Chili;
 import com.nopalsoft.ponyrace.game_objects.Coin;
-import com.nopalsoft.ponyrace.game_objects.Globo;
 import com.nopalsoft.ponyrace.game_objects.Pony;
 import com.nopalsoft.ponyrace.game_objects.Wing;
 import com.nopalsoft.ponyrace.game_objects.Wood;
@@ -225,57 +225,57 @@ public class WorldTiledRenderer {
                 continue;
 
             Animation anim;
-            if (obj.state == Coin.State.normal)
+            if (obj.state == Coin.State.IDLE)
                 anim = oWorld.game.assetsHandler.monedaAnim;
             else
                 anim = oWorld.game.assetsHandler.monedaTomadaAnim;
 
-            anim.apply(obj.monedaSkeleton, obj.lastStatetime, obj.stateTime, true, null);
-            obj.monedaSkeleton.setX(obj.position.x);
-            obj.monedaSkeleton.setY(obj.position.y);
-            obj.monedaSkeleton.updateWorldTransform();
-            obj.monedaSkeleton.update(delta);
-            skelrender.draw(batch, obj.monedaSkeleton);
+            anim.apply(obj.coinSkeleton, obj.lastStatetime, obj.stateTime, true, null);
+            obj.coinSkeleton.setX(obj.position.x);
+            obj.coinSkeleton.setY(obj.position.y);
+            obj.coinSkeleton.updateWorldTransform();
+            obj.coinSkeleton.update(delta);
+            skelrender.draw(batch, obj.coinSkeleton);
         }
     }
 
     private void renderChiles(float delta) {
-        for (Chile obj : oWorld.arrChiles) {
+        for (Chili obj : oWorld.arrChiles) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1))
                 continue;
 
             Animation anim;
-            if (obj.state == Chile.State.normal)
+            if (obj.state == Chili.State.IDLE)
                 anim = oWorld.game.assetsHandler.chileAnim;
             else
                 anim = oWorld.game.assetsHandler.chileTomadaAnim;
 
-            anim.apply(obj.objSkeleton, obj.lastStatetime, obj.stateTime, true, null);
-            obj.objSkeleton.setX(obj.position.x);
-            obj.objSkeleton.setY(obj.position.y - .05f);
-            obj.objSkeleton.updateWorldTransform();
-            obj.objSkeleton.update(delta);
-            skelrender.draw(batch, obj.objSkeleton);
+            anim.apply(obj.chiliSkeleton, obj.lastStateTime, obj.stateTime, true, null);
+            obj.chiliSkeleton.setX(obj.position.x);
+            obj.chiliSkeleton.setY(obj.position.y - .05f);
+            obj.chiliSkeleton.updateWorldTransform();
+            obj.chiliSkeleton.update(delta);
+            skelrender.draw(batch, obj.chiliSkeleton);
         }
     }
 
     private void renderGlobos(float delta) {
-        for (Globo obj : oWorld.arrGlobos) {
+        for (Balloons obj : oWorld.arrGlobos) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1))
                 continue;
 
             Animation anim;
-            if (obj.state == Globo.State.normal)
+            if (obj.state == Balloons.State.IDLE)
                 anim = oWorld.game.assetsHandler.globoAnim;
             else
                 anim = oWorld.game.assetsHandler.globoTomadaAnim;
 
-            anim.apply(obj.objSkeleton, obj.lastStatetime, obj.stateTime, true, null);
-            obj.objSkeleton.setX(obj.position.x);
-            obj.objSkeleton.setY(obj.position.y - .36f);
-            obj.objSkeleton.updateWorldTransform();
-            obj.objSkeleton.update(delta);
-            skelrender.draw(batch, obj.objSkeleton);
+            anim.apply(obj.balloonsSkeleton, obj.lastStateTime, obj.stateTime, true, null);
+            obj.balloonsSkeleton.setX(obj.position.x);
+            obj.balloonsSkeleton.setY(obj.position.y - .36f);
+            obj.balloonsSkeleton.updateWorldTransform();
+            obj.balloonsSkeleton.update(delta);
+            skelrender.draw(batch, obj.balloonsSkeleton);
         }
     }
 

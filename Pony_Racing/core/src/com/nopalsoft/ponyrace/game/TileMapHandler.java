@@ -16,17 +16,17 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.nopalsoft.ponyrace.PonyRacingGame;
 import com.nopalsoft.ponyrace.Settings;
+import com.nopalsoft.ponyrace.game_objects.Balloons;
 import com.nopalsoft.ponyrace.game_objects.BloodStone;
 import com.nopalsoft.ponyrace.game_objects.Bomb;
 import com.nopalsoft.ponyrace.game_objects.Bonfire;
 import com.nopalsoft.ponyrace.game_objects.Candy;
-import com.nopalsoft.ponyrace.game_objects.Chile;
+import com.nopalsoft.ponyrace.game_objects.Chili;
 import com.nopalsoft.ponyrace.game_objects.Coin;
 import com.nopalsoft.ponyrace.game_objects.Flag;
-import com.nopalsoft.ponyrace.game_objects.Globo;
+import com.nopalsoft.ponyrace.game_objects.OpponentPony;
 import com.nopalsoft.ponyrace.game_objects.Pisable;
 import com.nopalsoft.ponyrace.game_objects.Pony;
-import com.nopalsoft.ponyrace.game_objects.PonyMalo;
 import com.nopalsoft.ponyrace.game_objects.PonyPlayer;
 import com.nopalsoft.ponyrace.game_objects.TiledMapManagerBox2d;
 import com.nopalsoft.ponyrace.game_objects.Wing;
@@ -44,14 +44,14 @@ public class TileMapHandler {
     public Array<Body> arrBodys;
     public PonyPlayer oPony;
     public Array<Bonfire> arrFogatas;
-    public Array<PonyMalo> arrPonysMalos;
+    public Array<OpponentPony> arrPonysMalos;
     public Array<Wing> arrPlumas;
     public Array<BloodStone> arrBloodStone;
     public Array<Bomb> arrBombas;
     public Array<Wood> arrWoods;
     public Array<Coin> arrMonedas;
-    public Array<Chile> arrChiles;
-    public Array<Globo> arrGlobos;
+    public Array<Chili> arrChiles;
+    public Array<Balloons> arrGlobos;
     public Array<Candy> arrDulces;
     public Random random;
     public float tamanoMapaX;
@@ -99,7 +99,7 @@ public class TileMapHandler {
 
         // ------
         arrPosiciones = new Array<>();
-        for (PonyMalo obj : arrPonysMalos) {
+        for (OpponentPony obj : arrPonysMalos) {
             arrPosiciones.add(obj);
         }
         arrPosiciones.add(oPony);
@@ -184,23 +184,23 @@ public class TileMapHandler {
             } else if (obj.getUserData() != null && obj.getUserData() instanceof Coin) {
                 Coin objMo = ((Coin) obj.getUserData());
                 objMo.update(delta);
-                if (objMo.state == Coin.State.tomada && !oWorldBox.isLocked() && objMo.stateTime >= Coin.TIEMPO_TOMADA) {
+                if (objMo.state == Coin.State.TAKEN && !oWorldBox.isLocked() && objMo.stateTime >= Coin.TIEMPO_TOMADA) {
                     arrMonedas.removeValue(objMo, true);
                     arrBodys.removeValue(obj, true);
                     oWorldBox.destroyBody(obj);
                 }
-            } else if (obj.getUserData() != null && obj.getUserData() instanceof Chile) {
-                Chile objMo = ((Chile) obj.getUserData());
+            } else if (obj.getUserData() != null && obj.getUserData() instanceof Chili) {
+                Chili objMo = ((Chili) obj.getUserData());
                 objMo.update(delta);
-                if (objMo.state == Chile.State.tomada && !oWorldBox.isLocked() && objMo.stateTime >= Chile.TIEMPO_TOMADA) {
+                if (objMo.state == Chili.State.TAKEN && !oWorldBox.isLocked() && objMo.stateTime >= Chili.HIT_ANIMATION_DURATION) {
                     arrChiles.removeValue(objMo, true);
                     arrBodys.removeValue(obj, true);
                     oWorldBox.destroyBody(obj);
                 }
-            } else if (obj.getUserData() != null && obj.getUserData() instanceof Globo) {
-                Globo objMo = ((Globo) obj.getUserData());
+            } else if (obj.getUserData() != null && obj.getUserData() instanceof Balloons) {
+                Balloons objMo = ((Balloons) obj.getUserData());
                 objMo.update(delta);
-                if (objMo.state == Globo.State.tomada && !oWorldBox.isLocked() && objMo.stateTime >= Globo.TIEMPO_TOMADA) {
+                if (objMo.state == Balloons.State.TAKEN && !oWorldBox.isLocked() && objMo.stateTime >= Balloons.TAKEN_ANIMATION_DURATION) {
                     arrGlobos.removeValue(objMo, true);
                     arrBodys.removeValue(obj, true);
                     oWorldBox.destroyBody(obj);
@@ -233,7 +233,7 @@ public class TileMapHandler {
 
     private void updatePonys(float delta, Body obj, float accelX, boolean jump) {
         boolean isMalo;
-        isMalo = obj.getUserData() instanceof PonyMalo;
+        isMalo = obj.getUserData() instanceof OpponentPony;
 
         Pony ponyDataBody = (Pony) obj.getUserData();
 
@@ -265,7 +265,7 @@ public class TileMapHandler {
                 accelX = 0;
 
             if (isMalo)// /esto solo puede pasar si es malo
-                jump = ((PonyMalo) ponyDataBody).hasToJump;
+                jump = ((OpponentPony) ponyDataBody).hasToJump;
 
             if (!ponyDataBody.tocoElPisoDespuesCaerHoyo)
                 accelX = 0;
@@ -292,7 +292,7 @@ public class TileMapHandler {
             ponyDataBody.jump();
 
             if (isMalo) {
-                ((PonyMalo) ponyDataBody).hasToJump = false;
+                ((OpponentPony) ponyDataBody).hasToJump = false;
                 game.assetsHandler.playSound(game.assetsHandler.jump, .4f);
             } else
                 game.assetsHandler.playSound(game.assetsHandler.jump);
@@ -518,9 +518,9 @@ public class TileMapHandler {
             Object Adata = a.getBody().getUserData();
             Object Bdata = b.getBody().getUserData();
 
-            if (Adata instanceof PonyMalo)
+            if (Adata instanceof OpponentPony)
                 endContactPonyMalo(a, b);
-            else if (Bdata instanceof PonyMalo)
+            else if (Bdata instanceof OpponentPony)
                 endContactPonyMalo(b, a);
         }
 
@@ -551,8 +551,8 @@ public class TileMapHandler {
             Pony ponyDataBody;
             boolean isMalo;
 
-            if (fixPony.getBody().getUserData() instanceof PonyMalo) {
-                ponyDataBody = (PonyMalo) fixPony.getBody().getUserData();
+            if (fixPony.getBody().getUserData() instanceof OpponentPony) {
+                ponyDataBody = (OpponentPony) fixPony.getBody().getUserData();
                 isMalo = true;
             } else {
                 ponyDataBody = (PonyPlayer) fixPony.getBody().getUserData();
@@ -575,11 +575,11 @@ public class TileMapHandler {
                 if (fixPony.getUserData() != null && fixOtraCosa.getUserData() != null) {
                     if (ponyDataBody.isChile) {
                         if (fixPony.getUserData().equals("cuerpoSensor") && fixOtraCosa.getUserData().equals("cuerpo")) {
-                            ((Pony) otraCosaDataBody).getHurt(Chile.TIEMPO_HURT);
+                            ((Pony) otraCosaDataBody).getHurt(Chili.HURT_DURATION);
                         }
                     } else if (fixOtraCosa.getUserData().equals("cuerpoSensor") && ((Pony) (otraCosaDataBody)).isChile) {
                         if (fixPony.getUserData().equals("cuerpo")) {
-                            ponyDataBody.getHurt(Chile.TIEMPO_HURT);
+                            ponyDataBody.getHurt(Chili.HURT_DURATION);
                         }
                     }
                 }
@@ -597,7 +597,7 @@ public class TileMapHandler {
                     }
                 } else if (otraCosaDataBody instanceof Coin && !isMalo) {
                     Coin oCoin = ((Coin) otraCosaDataBody);
-                    if (oCoin.state == Coin.State.normal) {
+                    if (oCoin.state == Coin.State.IDLE) {
 
                         int valorMoneda;
                         if (random.nextBoolean()) {
@@ -634,17 +634,17 @@ public class TileMapHandler {
                         game.assetsHandler.playSound(game.assetsHandler.pickCoin);
                         oCoin.hitPony();
                     }
-                } else if (otraCosaDataBody instanceof Chile) {
-                    Chile oChile = ((Chile) otraCosaDataBody);
-                    if (oChile.state == Chile.State.normal) {
-                        oChile.hitPony();
+                } else if (otraCosaDataBody instanceof Chili) {
+                    Chili oChili = ((Chili) otraCosaDataBody);
+                    if (oChili.state == Chili.State.IDLE) {
+                        oChili.hitPony();
                         ponyDataBody.tocoChile();
                         ponyDataBody.chilesRecolectados++;
                     }
-                } else if (otraCosaDataBody instanceof Globo) {
-                    Globo oGlobo = ((Globo) otraCosaDataBody);
-                    if (oGlobo.state == Globo.State.normal) {
-                        oGlobo.hitPony();
+                } else if (otraCosaDataBody instanceof Balloons) {
+                    Balloons oBalloons = ((Balloons) otraCosaDataBody);
+                    if (oBalloons.state == Balloons.State.IDLE) {
+                        oBalloons.hitPony();
                         if (!isMalo) {
                             switch (Settings.chocolateLevel) {
                                 default:
@@ -685,22 +685,22 @@ public class TileMapHandler {
                     if (isMalo) {
 
                         if (otraCosaDataBody.equals("saltoDerecha")) {
-                            ((PonyMalo) ponyDataBody).hitSimpleJump(Pony.STATE_WALK_RIGHT);
+                            ((OpponentPony) ponyDataBody).hitSimpleJump(Pony.STATE_WALK_RIGHT);
                         } else if (otraCosaDataBody.equals("saltoIzquierda")) {
-                            ((PonyMalo) ponyDataBody).hitSimpleJump(Pony.STATE_WALK_LEFT);
+                            ((OpponentPony) ponyDataBody).hitSimpleJump(Pony.STATE_WALK_LEFT);
                         } else if (otraCosaDataBody.equals("salto")) {
-                            ((PonyMalo) ponyDataBody).hitSimpleJump(Pony.STATE_STAND);
+                            ((OpponentPony) ponyDataBody).hitSimpleJump(Pony.STATE_STAND);
                         } else if (otraCosaDataBody.equals("caminarIzquierda")) {
-                            ((PonyMalo) ponyDataBody).hitCaminarOtraDireccion(Pony.STATE_WALK_LEFT);
+                            ((OpponentPony) ponyDataBody).hitCaminarOtraDireccion(Pony.STATE_WALK_LEFT);
                         } else if (otraCosaDataBody.equals("caminarDerecha")) {
-                            ((PonyMalo) ponyDataBody).hitCaminarOtraDireccion(Pony.STATE_WALK_RIGHT);
+                            ((OpponentPony) ponyDataBody).hitCaminarOtraDireccion(Pony.STATE_WALK_RIGHT);
                         } else if (otraCosaDataBody.equals("caer")) {
-                            ((PonyMalo) ponyDataBody).hitCaminarOtraDireccion(Pony.STATE_STAND);
+                            ((OpponentPony) ponyDataBody).hitCaminarOtraDireccion(Pony.STATE_STAND);
                         } else if (otraCosaDataBody.equals("bandera")) {
-                            ((PonyMalo) ponyDataBody).tocoBandera = true;
+                            ((OpponentPony) ponyDataBody).didTouchFlag = true;
                         } else if (otraCosaDataBody instanceof Flag) {
                             Flag oBan = (Flag) otraCosaDataBody;
-                            PonyMalo oPon = (PonyMalo) ponyDataBody;
+                            OpponentPony oPon = (OpponentPony) ponyDataBody;
 
                             if (oBan.permitirSalto()) {
 
@@ -738,12 +738,12 @@ public class TileMapHandler {
 
         public void endContactPonyMalo(Fixture fixPony, Fixture fixOtraCosa) {
             Object otraCosaData = fixOtraCosa.getBody().getUserData();
-            PonyMalo oPonyMalo = (PonyMalo) fixPony.getBody().getUserData();
+            OpponentPony oOpponentPony = (OpponentPony) fixPony.getBody().getUserData();
 
             if (fixPony.getUserData() != null && fixPony.getUserData().equals("cuerpo") && fixOtraCosa.getUserData() != null
                     && fixOtraCosa.getUserData().equals("sensorBomba")) {
                 if (((Bomb) otraCosaData).state == Bomb.State.explode) {
-                    oPonyMalo.getHurt(((Bomb) otraCosaData).TIEMPO_HURT);
+                    oOpponentPony.getHurt(((Bomb) otraCosaData).TIEMPO_HURT);
                 }
             }
         }

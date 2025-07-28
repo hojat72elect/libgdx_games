@@ -5,75 +5,75 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.game.TileMapHandler;
 
-public class PonyMalo extends Pony {
+public class OpponentPony extends Pony {
 
     private final Vector3 pastPosition;
-    public boolean tocoBandera;
+    public boolean didTouchFlag;
     public boolean hasToJump;
     float timeSamePosition;
-    private float probababilidad = .5f;
-    private float stateTiempoDisparo;
+    private float jumpSuccessProbability = .5f;
+    private float timeSinceLastShot;
 
-    public PonyMalo(float x, float y, String nombreSkin, TileMapHandler oWorld) {
-        super(x, y, nombreSkin, oWorld);
+    public OpponentPony(float x, float y, String skinName, TileMapHandler tileMapHandler) {
+        super(x, y, skinName, tileMapHandler);
         hasToJump = false;
 
         switch (Settings.difficultyLevel) {
             case Settings.DIFFICULTY_EASY:
-                probababilidad = .35f;
+                jumpSuccessProbability = .35f;
                 break;
             case Settings.DIFFICULTY_NORMAL:
-                probababilidad = .5f;
+                jumpSuccessProbability = .5f;
                 break;
             case Settings.DIFFICULTY_HARD:
-                probababilidad = .7f;
+                jumpSuccessProbability = .7f;
                 break;
             case Settings.DIFFICULTY_VERY_HARD:
-                probababilidad = 1f;
+                jumpSuccessProbability = 1f;
                 break;
         }
         pastPosition = new Vector3();
     }
 
-    public void hitSimpleJump(int nuevaDireccion) {
-        if (tocoBandera) {
-            float pro = oRan.nextFloat();
+    public void hitSimpleJump(int newPosition) {
+        if (didTouchFlag) {
+            float pro = random.nextFloat();
             // Gdx.app.log("PROBABILIDAD", pro + "");
-            if (pro < probababilidad) {
+            if (pro < jumpSuccessProbability) {
                 hasToJump = true;
-                state = nuevaDireccion;
+                state = newPosition;
             }
         } else {
             hasToJump = true;
-            state = nuevaDireccion;
+            state = newPosition;
         }
 
-        tocoBandera = false;
+        didTouchFlag = false;
     }
 
     public void hitCaminarOtraDireccion(int nuevaDireccion) {
-        if (tocoBandera) {
-            float pro = oRan.nextFloat();
+        if (didTouchFlag) {
+            float pro = random.nextFloat();
             // Gdx.app.log("PROBABILIDAD", pro + "");
-            if (pro < probababilidad) {
+            if (pro < jumpSuccessProbability) {
                 state = nuevaDireccion;
             }
         } else {
             state = nuevaDireccion;
         }
-        tocoBandera = false;
+        didTouchFlag = false;
     }
 
     @Override
     public void update(float delta, Body obj, float accelX) {
-        stateTiempoDisparo += delta;
+        timeSinceLastShot += delta;
 
         // A veces disparan en medio de un salto y la banana queda en el objeto saltar, entonces los otros ponis q tocan el cuadrito tocan la banana y se atoran
         // por eso pongo !hasToJump || !isJumping.. aun asi el problema continuaaa =(
         float TIEMPO_DISPARO = 3f;
-        if (stateTiempoDisparo >= TIEMPO_DISPARO && (!hasToJump || !isJumping)) {
-            stateTiempoDisparo -= TIEMPO_DISPARO;
-            if (oRan.nextInt(10) < 2 && !pasoLaMeta) {
+        if (timeSinceLastShot >= TIEMPO_DISPARO && (!hasToJump || !isJumping)) {
+            timeSinceLastShot -= TIEMPO_DISPARO;
+            if (random.nextInt(10) < 2 && !pasoLaMeta) {
                 fireWood = true;
             }
         }
