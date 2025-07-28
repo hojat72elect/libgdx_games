@@ -43,13 +43,9 @@ public class GameStage extends Stage implements ContactListener {
 
     private static final int VIEWPORT_WIDTH = Constants.APP_WIDTH;
     private static final int VIEWPORT_HEIGHT = Constants.APP_HEIGHT;
-    private final float TIME_STEP = 1 / 300f;
     private World world;
-    private Ground ground;
     private Runner runner;
     private float accumulator = 0f;
-
-    private OrthographicCamera camera;
 
     private Rectangle screenLeftSide;
     private Rectangle screenRightSide;
@@ -60,8 +56,6 @@ public class GameStage extends Stage implements ContactListener {
     private StartButton startButton;
     private LeaderboardButton leaderboardButton;
     private AboutButton aboutButton;
-    private ShareButton shareButton;
-    private AchievementsButton achievementsButton;
 
     private Score score;
     private float totalTimePassed;
@@ -180,7 +174,7 @@ public class GameStage extends Stage implements ContactListener {
         Rectangle shareButtonBounds = new Rectangle(getCamera().viewportWidth / 64,
                 getCamera().viewportHeight / 2, getCamera().viewportHeight / 10,
                 getCamera().viewportHeight / 10);
-        shareButton = new ShareButton(shareButtonBounds, new GameShareButtonListener());
+        ShareButton shareButton = new ShareButton(shareButtonBounds, new GameShareButtonListener());
         addActor(shareButton);
     }
 
@@ -188,7 +182,7 @@ public class GameStage extends Stage implements ContactListener {
         Rectangle achievementsButtonBounds = new Rectangle(getCamera().viewportWidth * 23 / 25,
                 getCamera().viewportHeight / 2, getCamera().viewportHeight / 10,
                 getCamera().viewportHeight / 10);
-        achievementsButton = new AchievementsButton(achievementsButtonBounds,
+        AchievementsButton achievementsButton = new AchievementsButton(achievementsButtonBounds,
                 new GameAchievementsButtonListener());
         addActor(achievementsButton);
     }
@@ -205,7 +199,7 @@ public class GameStage extends Stage implements ContactListener {
     }
 
     private void setUpGround() {
-        ground = new Ground(WorldUtils.createGround(world));
+        Ground ground = new Ground(WorldUtils.createGround(world));
         addActor(ground);
     }
 
@@ -224,7 +218,7 @@ public class GameStage extends Stage implements ContactListener {
     }
 
     private void setUpCamera() {
-        camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+        OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0f);
         camera.update();
     }
@@ -281,7 +275,7 @@ public class GameStage extends Stage implements ContactListener {
             updateDifficulty();
         }
 
-        Array<Body> bodies = new Array<Body>(world.getBodyCount());
+        Array<Body> bodies = new Array<>(world.getBodyCount());
         world.getBodies(bodies);
 
         for (Body body : bodies) {
@@ -292,12 +286,10 @@ public class GameStage extends Stage implements ContactListener {
         accumulator += delta;
 
         while (accumulator >= delta) {
+            float TIME_STEP = 1 / 300f;
             world.step(TIME_STEP, 6, 2);
             accumulator -= TIME_STEP;
         }
-
-        //TODO: Implement interpolation
-
     }
 
     private void update(Body body) {
@@ -355,19 +347,13 @@ public class GameStage extends Stage implements ContactListener {
     }
 
     private boolean menuControlTouched(float x, float y) {
-        boolean touched = false;
-
-        switch (GameManager.getInstance().getGameState()) {
-            case OVER:
-                touched = startButton.getBounds().contains(x, y)
-                        || leaderboardButton.getBounds().contains(x, y)
-                        || aboutButton.getBounds().contains(x, y);
-                break;
-            case RUNNING:
-            case PAUSED:
-                touched = pauseButton.getBounds().contains(x, y);
-                break;
-        }
+        boolean touched = switch (GameManager.getInstance().getGameState()) {
+            case OVER -> startButton.getBounds().contains(x, y)
+                    || leaderboardButton.getBounds().contains(x, y)
+                    || aboutButton.getBounds().contains(x, y);
+            case RUNNING, PAUSED -> pauseButton.getBounds().contains(x, y);
+            default -> false;
+        };
 
         return touched || soundButton.getBounds().contains(x, y)
                 || musicButton.getBounds().contains(x, y);
@@ -383,9 +369,6 @@ public class GameStage extends Stage implements ContactListener {
 
     /**
      * Helper function to get the actual coordinates in my world
-     *
-     * @param x
-     * @param y
      */
     private void translateScreenToWorldCoordinates(int x, int y) {
         getCamera().unproject(touchPoint.set(x, y, 0));
@@ -403,11 +386,7 @@ public class GameStage extends Stage implements ContactListener {
                 return;
             }
             runner.hit();
-            displayAd();
-            GameManager.getInstance().submitScore(score.getScore());
             onGameOver();
-            GameManager.getInstance().addGamePlayed();
-            GameManager.getInstance().addJumpCount(runner.getJumpCount());
         } else if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) ||
                 (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))) {
             runner.landed();
@@ -430,13 +409,7 @@ public class GameStage extends Stage implements ContactListener {
 
             runner.onDifficultyChange(GameManager.getInstance().getDifficulty());
             score.setMultiplier(GameManager.getInstance().getDifficulty().getScoreMultiplier());
-
-            displayAd();
         }
-    }
-
-    private void displayAd() {
-        GameManager.getInstance().displayAd();
     }
 
     @Override
@@ -504,12 +477,11 @@ public class GameStage extends Stage implements ContactListener {
         }
     }
 
-    private class GameLeaderboardButtonListener
-            implements LeaderboardButton.LeaderboardButtonListener {
+    private static class GameLeaderboardButtonListener implements LeaderboardButton.LeaderboardButtonListener {
 
         @Override
         public void onLeaderboard() {
-            GameManager.getInstance().displayLeaderboard();
+
         }
     }
 
@@ -528,20 +500,19 @@ public class GameStage extends Stage implements ContactListener {
         }
     }
 
-    private class GameShareButtonListener implements ShareButton.ShareButtonListener {
+    private static class GameShareButtonListener implements ShareButton.ShareButtonListener {
 
         @Override
         public void onShare() {
-            GameManager.getInstance().share();
+
         }
     }
 
-    private class GameAchievementsButtonListener
-            implements AchievementsButton.AchievementsButtonListener {
+    private static class GameAchievementsButtonListener implements AchievementsButton.AchievementsButtonListener {
 
         @Override
         public void onAchievements() {
-            GameManager.getInstance().displayAchievements();
+
         }
     }
 }
