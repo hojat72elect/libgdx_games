@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.screens;
 
 import com.badlogic.gdx.Gdx;
@@ -53,5 +52,4 @@ public class GameScreen implements Screen {
     public void dispose() {
 
     }
-
 }

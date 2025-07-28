@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.box2d;
 
 import com.badlogic.gdx.math.Vector2;
@@ -41,5 +40,4 @@ public class RunnerUserData extends UserData {
     public float getHitAngularImpulse() {
         return Constants.RUNNER_HIT_ANGULAR_IMPULSE;
     }
-
 }

@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.actors.menu;
 
 import com.badlogic.gdx.math.Rectangle;
@@ -7,10 +6,6 @@ import com.gamestudio24.martianrun.utils.Constants;
 import com.gamestudio24.martianrun.utils.GameManager;
 
 public class StartButton extends GameButton {
-
-    public interface StartButtonListener {
-        void onStart();
-    }
 
     private final StartButtonListener listener;
 
@@ -37,4 +32,7 @@ public class StartButton extends GameButton {
         listener.onStart();
     }
 
+    public interface StartButtonListener {
+        void onStart();
+    }
 }

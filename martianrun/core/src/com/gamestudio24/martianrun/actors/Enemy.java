@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.actors;
 
 import com.badlogic.gdx.Gdx;

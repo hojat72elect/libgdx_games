@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.actors.menu;
 
 import com.badlogic.gdx.math.Rectangle;
@@ -26,5 +25,4 @@ public class AchievementsButton extends GameButton {
     public void touched() {
         listener.onAchievements();
     }
-
 }

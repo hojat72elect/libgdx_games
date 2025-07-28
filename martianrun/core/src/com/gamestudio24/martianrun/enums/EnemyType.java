@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.enums;
 
 import com.gamestudio24.martianrun.utils.Constants;

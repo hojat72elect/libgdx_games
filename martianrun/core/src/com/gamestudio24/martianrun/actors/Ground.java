@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -14,9 +13,9 @@ import com.gamestudio24.martianrun.utils.GameManager;
 public class Ground extends GameActor {
 
     private final TextureRegion textureRegion;
+    private final int speed = 10;
     private Rectangle textureRegionBounds1;
     private Rectangle textureRegionBounds2;
-    private final int speed = 10;
 
     public Ground(Body body) {
         super(body);
@@ -70,5 +69,4 @@ public class Ground extends GameActor {
         textureRegionBounds2 = new Rectangle(textureRegionBounds1.x + screenRectangle.width, 0, screenRectangle.width,
                 screenRectangle.height);
     }
-
 }

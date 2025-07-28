@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.utils;
 
 import com.badlogic.gdx.physics.box2d.Body;
@@ -36,5 +35,4 @@ public class BodyUtils {
 
         return userData != null && userData.getUserDataType() == UserDataType.GROUND;
     }
-
 }

@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.utils;
 
 import com.badlogic.gdx.Gdx;
@@ -9,18 +8,23 @@ import com.badlogic.gdx.audio.Sound;
 public class AudioUtils {
 
     private static final AudioUtils ourInstance = new AudioUtils();
+    private static final String MUSIC_ON_PREFERENCE = "music_on";
+    private static final String SOUND_ON_PREFERENCE = "sound_on";
     private static Music music;
     private static Sound jumpSound;
     private static Sound hitSound;
-
-    private static final String MUSIC_ON_PREFERENCE = "music_on";
-    private static final String SOUND_ON_PREFERENCE = "sound_on";
 
     private AudioUtils() {
     }
 
     public static AudioUtils getInstance() {
         return ourInstance;
+    }
+
+    public static void dispose() {
+        music.dispose();
+        jumpSound.dispose();
+        hitSound.dispose();
     }
 
     public Music getMusic() {
@@ -69,12 +73,6 @@ public class AudioUtils {
         Preferences preferences = getPreferences();
         preferences.putBoolean(key, value);
         preferences.flush();
-    }
-
-    public static void dispose() {
-        music.dispose();
-        jumpSound.dispose();
-        hitSound.dispose();
     }
 
     public void pauseMusic() {

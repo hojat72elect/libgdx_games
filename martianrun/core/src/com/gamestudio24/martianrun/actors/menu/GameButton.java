@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.actors.menu;
 
 import com.badlogic.gdx.math.Rectangle;

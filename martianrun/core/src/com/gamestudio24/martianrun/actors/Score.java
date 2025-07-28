@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -11,10 +10,10 @@ import com.gamestudio24.martianrun.utils.GameManager;
 
 public class Score extends Actor {
 
-    private float score;
-    private int multiplier;
     private final Rectangle bounds;
     private final BitmapFont font;
+    private float score;
+    private int multiplier;
 
     public Score(Rectangle bounds) {
         this.bounds = bounds;
@@ -50,5 +49,4 @@ public class Score extends Actor {
     public void setMultiplier(int multiplier) {
         this.multiplier = multiplier;
     }
-
 }

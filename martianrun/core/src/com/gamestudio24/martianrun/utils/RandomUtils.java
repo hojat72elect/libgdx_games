@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.utils;
 
 import com.gamestudio24.martianrun.enums.EnemyType;
@@ -34,5 +33,4 @@ public class RandomUtils {
             return values[RND.nextInt(values.length)];
         }
     }
-
 }

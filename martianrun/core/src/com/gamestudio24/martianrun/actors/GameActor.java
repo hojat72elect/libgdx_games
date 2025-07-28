@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.actors;
 
 import com.badlogic.gdx.math.Rectangle;
@@ -35,7 +34,6 @@ public abstract class GameActor extends Actor {
             // This means the world destroyed the body (enemy or runner went out of bounds)
             remove();
         }
-
     }
 
     public abstract UserData getUserData();
@@ -50,5 +48,4 @@ public abstract class GameActor extends Actor {
     protected float transformToScreen(float n) {
         return Constants.WORLD_TO_SCREEN * n;
     }
-
 }

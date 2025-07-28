@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.actors.menu;
 
 import com.badlogic.gdx.math.Rectangle;
@@ -21,5 +20,4 @@ public class MusicButton extends GameButton {
         AudioUtils.getInstance().toggleMusic();
         AudioUtils.getInstance().playMusic();
     }
-
 }

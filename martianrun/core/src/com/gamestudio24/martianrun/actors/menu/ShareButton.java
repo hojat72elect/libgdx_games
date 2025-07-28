@@ -1,14 +1,9 @@
-
 package com.gamestudio24.martianrun.actors.menu;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.gamestudio24.martianrun.utils.Constants;
 
 public class ShareButton extends GameButton {
-
-    public interface ShareButtonListener {
-        void onShare();
-    }
 
     private final ShareButtonListener listener;
 
@@ -27,4 +22,7 @@ public class ShareButton extends GameButton {
         listener.onShare();
     }
 
+    public interface ShareButtonListener {
+        void onShare();
+    }
 }

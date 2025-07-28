@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.actors.menu;
 
 import com.badlogic.gdx.math.Rectangle;
@@ -7,12 +6,6 @@ import com.gamestudio24.martianrun.utils.Constants;
 import com.gamestudio24.martianrun.utils.GameManager;
 
 public class PauseButton extends GameButton {
-
-    public interface PauseButtonListener {
-        void onPause();
-
-        void onResume();
-    }
 
     private final PauseButtonListener listener;
 
@@ -43,4 +36,9 @@ public class PauseButton extends GameButton {
         }
     }
 
+    public interface PauseButtonListener {
+        void onPause();
+
+        void onResume();
+    }
 }

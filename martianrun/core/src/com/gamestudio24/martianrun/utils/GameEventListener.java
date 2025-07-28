@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.utils;
 
 /**
@@ -114,5 +113,4 @@ public interface GameEventListener {
      * @return "500 Jump Street" achievement ID
      */
     String get500JumpStreetAchievementId();
-
 }

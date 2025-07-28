@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.box2d;
 
 import com.gamestudio24.martianrun.enums.UserDataType;
@@ -37,5 +36,4 @@ public abstract class UserData {
     public void setHeight(float height) {
         this.height = height;
     }
-
 }

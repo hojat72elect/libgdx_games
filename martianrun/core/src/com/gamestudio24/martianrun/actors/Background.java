@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -13,9 +12,9 @@ import com.gamestudio24.martianrun.utils.GameManager;
 public class Background extends Actor {
 
     private final TextureRegion textureRegion;
+    private final int speed = 100;
     private Rectangle textureRegionBounds1;
     private Rectangle textureRegionBounds2;
-    private final int speed = 100;
 
     public Background() {
         textureRegion = AssetsManager.getTextureRegion(Constants.BACKGROUND_ASSETS_ID);
@@ -59,5 +58,4 @@ public class Background extends Actor {
         textureRegionBounds1 = textureRegionBounds2;
         textureRegionBounds2 = new Rectangle(Constants.APP_WIDTH, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
     }
-
 }

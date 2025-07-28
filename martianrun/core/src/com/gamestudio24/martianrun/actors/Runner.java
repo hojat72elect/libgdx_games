@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.actors;
 
 import com.badlogic.gdx.Gdx;
@@ -17,18 +16,16 @@ import com.gamestudio24.martianrun.utils.GameManager;
 
 public class Runner extends GameActor {
 
-    private boolean dodging;
-    private boolean jumping;
-    private boolean hit;
     private final Animation runningAnimation;
     private final TextureRegion jumpingTexture;
     private final TextureRegion dodgingTexture;
     private final TextureRegion hitTexture;
-    private float stateTime;
-
     private final Sound jumpSound;
     private final Sound hitSound;
-
+    private boolean dodging;
+    private boolean jumping;
+    private boolean hit;
+    private float stateTime;
     private int jumpCount;
 
     public Runner(Body body) {
@@ -81,7 +78,6 @@ public class Runner extends GameActor {
             AudioUtils.getInstance().playSound(jumpSound);
             jumpCount++;
         }
-
     }
 
     public void landed() {

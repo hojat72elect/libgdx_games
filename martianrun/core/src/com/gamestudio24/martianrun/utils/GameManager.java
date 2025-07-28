@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.utils;
 
 import com.badlogic.gdx.Gdx;
@@ -13,9 +12,8 @@ import com.gamestudio24.martianrun.enums.GameState;
  * all game events for the platform running the game
  */
 public class GameManager implements GameEventListener {
-    private static final GameManager ourInstance = new GameManager();
-
     public static final String PREFERENCES_NAME = "preferences";
+    private static final GameManager ourInstance = new GameManager();
     private static final String MAX_SCORE_PREFERENCE = "max_score";
     private static final String ACHIEVEMENT_COUNT_PREFERENCE_SUFFIX = "_count";
     private static final String ACHIEVEMENT_UNLOCKED_PREFERENCE_SUFFIX = "_unlocked";
@@ -24,12 +22,12 @@ public class GameManager implements GameEventListener {
     private Difficulty difficulty;
     private GameEventListener gameEventListener;
 
-    public static GameManager getInstance() {
-        return ourInstance;
-    }
-
     private GameManager() {
         gameState = GameState.OVER;
+    }
+
+    public static GameManager getInstance() {
+        return ourInstance;
     }
 
     public GameState getGameState() {
@@ -218,7 +216,6 @@ public class GameManager implements GameEventListener {
         }
 
         incrementAchievement(getCuriosityAchievementId(), 1);
-
     }
 
     public void addJumpCount(int count) {
@@ -240,7 +237,6 @@ public class GameManager implements GameEventListener {
         }
 
         incrementAchievement(get500JumpStreetAchievementId(), count);
-
     }
 
     public void setAchievementUnlocked(String id) {

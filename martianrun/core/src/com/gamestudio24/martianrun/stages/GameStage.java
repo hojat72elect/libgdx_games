@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.stages;
 
 import com.badlogic.gdx.Gdx;
@@ -44,12 +43,10 @@ public class GameStage extends Stage implements ContactListener {
 
     private static final int VIEWPORT_WIDTH = Constants.APP_WIDTH;
     private static final int VIEWPORT_HEIGHT = Constants.APP_HEIGHT;
-
+    private final float TIME_STEP = 1 / 300f;
     private World world;
     private Ground ground;
     private Runner runner;
-
-    private final float TIME_STEP = 1 / 300f;
     private float accumulator = 0f;
 
     private OrthographicCamera camera;
@@ -415,7 +412,6 @@ public class GameStage extends Stage implements ContactListener {
                 (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))) {
             runner.landed();
         }
-
     }
 
     private void updateDifficulty() {
@@ -437,7 +433,6 @@ public class GameStage extends Stage implements ContactListener {
 
             displayAd();
         }
-
     }
 
     private void displayAd() {
@@ -456,79 +451,6 @@ public class GameStage extends Stage implements ContactListener {
 
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
-
-    }
-
-    private class GamePauseButtonListener implements PauseButton.PauseButtonListener {
-
-        @Override
-        public void onPause() {
-            onGamePaused();
-        }
-
-        @Override
-        public void onResume() {
-            onGameResumed();
-        }
-
-    }
-
-    private class GameStartButtonListener implements StartButton.StartButtonListener {
-
-        @Override
-        public void onStart() {
-            clear();
-            setUpStageBase();
-            setUpCharacters();
-            setUpPause();
-            setUpTutorial();
-            onGameResumed();
-        }
-
-    }
-
-    private class GameLeaderboardButtonListener
-            implements LeaderboardButton.LeaderboardButtonListener {
-
-        @Override
-        public void onLeaderboard() {
-            GameManager.getInstance().displayLeaderboard();
-        }
-
-    }
-
-    private class GameAboutButtonListener implements AboutButton.AboutButtonListener {
-
-        @Override
-        public void onAbout() {
-            if (GameManager.getInstance().getGameState() == GameState.OVER) {
-                onGameAbout();
-            } else {
-                clear();
-                setUpStageBase();
-                setUpGameLabel();
-                onGameOver();
-            }
-        }
-
-    }
-
-    private class GameShareButtonListener implements ShareButton.ShareButtonListener {
-
-        @Override
-        public void onShare() {
-            GameManager.getInstance().share();
-        }
-
-    }
-
-    private class GameAchievementsButtonListener
-            implements AchievementsButton.AchievementsButtonListener {
-
-        @Override
-        public void onAchievements() {
-            GameManager.getInstance().displayAchievements();
-        }
 
     }
 
@@ -556,4 +478,70 @@ public class GameStage extends Stage implements ContactListener {
         setUpAbout();
     }
 
+    private class GamePauseButtonListener implements PauseButton.PauseButtonListener {
+
+        @Override
+        public void onPause() {
+            onGamePaused();
+        }
+
+        @Override
+        public void onResume() {
+            onGameResumed();
+        }
+    }
+
+    private class GameStartButtonListener implements StartButton.StartButtonListener {
+
+        @Override
+        public void onStart() {
+            clear();
+            setUpStageBase();
+            setUpCharacters();
+            setUpPause();
+            setUpTutorial();
+            onGameResumed();
+        }
+    }
+
+    private class GameLeaderboardButtonListener
+            implements LeaderboardButton.LeaderboardButtonListener {
+
+        @Override
+        public void onLeaderboard() {
+            GameManager.getInstance().displayLeaderboard();
+        }
+    }
+
+    private class GameAboutButtonListener implements AboutButton.AboutButtonListener {
+
+        @Override
+        public void onAbout() {
+            if (GameManager.getInstance().getGameState() == GameState.OVER) {
+                onGameAbout();
+            } else {
+                clear();
+                setUpStageBase();
+                setUpGameLabel();
+                onGameOver();
+            }
+        }
+    }
+
+    private class GameShareButtonListener implements ShareButton.ShareButtonListener {
+
+        @Override
+        public void onShare() {
+            GameManager.getInstance().share();
+        }
+    }
+
+    private class GameAchievementsButtonListener
+            implements AchievementsButton.AchievementsButtonListener {
+
+        @Override
+        public void onAchievements() {
+            GameManager.getInstance().displayAchievements();
+        }
+    }
 }

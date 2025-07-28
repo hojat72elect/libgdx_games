@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.utils;
 
 import com.badlogic.gdx.Gdx;
@@ -79,7 +78,6 @@ public class AssetsManager {
         smallestFont = generator.generateFont(parameter);
         smallestFont.setColor(.21f, .22f, .21f, 1f);
         generator.dispose();
-
     }
 
     public static TextureRegion getTextureRegion(String key) {
@@ -100,7 +98,6 @@ public class AssetsManager {
         }
 
         return new Animation(0.1f, runningFrames);
-
     }
 
     public static TextureAtlas getTextureAtlas() {

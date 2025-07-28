@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.enums;
 
 import com.badlogic.gdx.math.Vector2;
@@ -54,5 +53,4 @@ public enum Difficulty {
     public int getScoreMultiplier() {
         return scoreMultiplier;
     }
-
 }

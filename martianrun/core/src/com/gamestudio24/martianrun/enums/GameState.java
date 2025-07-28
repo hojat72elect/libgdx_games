@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.enums;
 
 public enum GameState {
@@ -7,5 +6,4 @@ public enum GameState {
     PAUSED,
     OVER,
     ABOUT
-
 }

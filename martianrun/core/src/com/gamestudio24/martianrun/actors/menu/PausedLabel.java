@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.actors.menu;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -30,5 +29,4 @@ public class PausedLabel extends Actor {
                     BitmapFont.HAlignment.CENTER);
         }
     }
-
 }

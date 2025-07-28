@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.actors.menu;
 
 import com.badlogic.gdx.math.Rectangle;
@@ -19,5 +18,4 @@ public class SoundButton extends GameButton {
     public void touched() {
         AudioUtils.getInstance().toggleSound();
     }
-
 }

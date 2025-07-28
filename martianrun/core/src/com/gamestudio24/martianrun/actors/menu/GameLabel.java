@@ -1,4 +1,3 @@
-
 package com.gamestudio24.martianrun.actors.menu;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -25,5 +24,4 @@ public class GameLabel extends Actor {
         super.draw(batch, parentAlpha);
         font.drawWrapped(batch, Constants.GAME_NAME, bounds.x, bounds.y, bounds.width, BitmapFont.HAlignment.CENTER);
     }
-
 }
