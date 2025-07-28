@@ -28,10 +28,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import com.nopalsoft.ponyrace.Assets;
+import com.nopalsoft.ponyrace.AssetsHandler;
 import com.nopalsoft.ponyrace.PonyRacingGame;
 import com.nopalsoft.ponyrace.Settings;
-import com.nopalsoft.ponyrace.game.GameScreenTileds;
+import com.nopalsoft.ponyrace.game.GameScreen;
 import com.nopalsoft.ponyrace.menuobjetos.BotonNube;
 
 import java.util.Comparator;
@@ -68,8 +68,8 @@ public class WorldMapTiledScreen extends BaseScreen implements GestureListener {
         super(game);
         oRan = new Random();
         tiledRender = new OrthogonalTiledMapRenderer(game.assetsHandler.tiledWorldMap, unitScale);
-        guiCam = new OrthographicCamera(SCREEN_WIDTH * unitScale, SCREEN_HEIGHT * unitScale);
-        guiCam.position.set(SCREEN_WIDTH * unitScale / 2f, SCREEN_HEIGHT * unitScale / 2f, 0);
+        camera = new OrthographicCamera(SCREEN_WIDTH * unitScale, SCREEN_HEIGHT * unitScale);
+        camera.position.set(SCREEN_WIDTH * unitScale / 2f, SCREEN_HEIGHT * unitScale / 2f, 0);
 
         CAM_MIN_X = SCREEN_WIDTH * unitScale / 2f;
         CAM_MIN_Y = SCREEN_HEIGHT * unitScale / 2f;
@@ -91,7 +91,7 @@ public class WorldMapTiledScreen extends BaseScreen implements GestureListener {
 
         inicializarNiveles();
 
-        btBack = new BotonNube(oAssets.nube, "Back", oAssets.fontGde);
+        btBack = new BotonNube(assetsHandler.nube, "Back", assetsHandler.fontGde);
         btBack.setSize(150, 100);
         btBack.setPosition(645, 5);
         btBack.addListener(new ClickListener() {
@@ -107,7 +107,7 @@ public class WorldMapTiledScreen extends BaseScreen implements GestureListener {
             }
         });
 
-        btTienda = new BotonNube(oAssets.nube, "Shop", oAssets.fontGde);
+        btTienda = new BotonNube(assetsHandler.nube, "Shop", assetsHandler.fontGde);
         btTienda.setSize(150, 100);
         btTienda.setPosition(5, 5);
 
@@ -124,7 +124,7 @@ public class WorldMapTiledScreen extends BaseScreen implements GestureListener {
             }
         });
 
-        btDiffUp = new Button(oAssets.btDerUp, oAssets.btDerDown);
+        btDiffUp = new Button(assetsHandler.btDerUp, assetsHandler.btDerDown);
         btDiffUp.addListener(new ClickListener() {
 
             public void clicked(InputEvent event, float x, float y) {
@@ -132,7 +132,7 @@ public class WorldMapTiledScreen extends BaseScreen implements GestureListener {
             }
         });
 
-        btDiffDown = new ImageButton(oAssets.btIzqUp, oAssets.btIzqDown);
+        btDiffDown = new ImageButton(assetsHandler.btIzqUp, assetsHandler.btIzqDown);
         btDiffDown.addListener(new ClickListener() {
 
             public void clicked(InputEvent event, float x, float y) {
@@ -140,7 +140,7 @@ public class WorldMapTiledScreen extends BaseScreen implements GestureListener {
             }
         });
 
-        LabelStyle lblEstilo = new LabelStyle(oAssets.fontChco, Color.WHITE);
+        LabelStyle lblEstilo = new LabelStyle(assetsHandler.fontChco, Color.WHITE);
         lblDificultadActual = new Label("", lblEstilo);
         lblDificultadActual.setAlignment(Align.center);
 
@@ -237,34 +237,34 @@ public class WorldMapTiledScreen extends BaseScreen implements GestureListener {
 
     public void changeToGameTiledScreen(int level) {
         game.assetsHandler.unLoadMenus();
-        game.setScreen(new LoadingScreen(game, GameScreenTileds.class, level));
+        game.setScreen(new LoadingScreen(game, GameScreen.class, level));
     }
 
     @Override
     public void draw(float delta) {
 
-        if (guiCam.position.x < CAM_MIN_X)
-            guiCam.position.x = CAM_MIN_X;
-        if (guiCam.position.y < CAM_MIN_Y)
-            guiCam.position.y = CAM_MIN_Y;
-        if (guiCam.position.x > CAM_MAX_X)
-            guiCam.position.x = CAM_MAX_X;
-        if (guiCam.position.y > CAM_MAX_Y)
-            guiCam.position.y = CAM_MAX_Y;
+        if (camera.position.x < CAM_MIN_X)
+            camera.position.x = CAM_MIN_X;
+        if (camera.position.y < CAM_MIN_Y)
+            camera.position.y = CAM_MIN_Y;
+        if (camera.position.x > CAM_MAX_X)
+            camera.position.x = CAM_MAX_X;
+        if (camera.position.y > CAM_MAX_Y)
+            camera.position.y = CAM_MAX_Y;
 
-        guiCam.update();
-        tiledRender.setView(guiCam);
+        camera.update();
+        tiledRender.setView(camera);
         tiledRender.render();
 
-        batcher.setProjectionMatrix(guiCam.combined);
-        batcher.enableBlending();
-        batcher.begin();
+        batch.setProjectionMatrix(camera.combined);
+        batch.enableBlending();
+        batch.begin();
 
         renderRenderMap(delta);
 
-        batcher.end();
+        batch.end();
 
-        if (Assets.drawDebugLines)
+        if (AssetsHandler.drawDebugLines)
             renderShapes();
 
         stage.act(delta);
@@ -277,32 +277,32 @@ public class WorldMapTiledScreen extends BaseScreen implements GestureListener {
             float x = arrMundos.get(i).position.x;
             float y = arrMundos.get(i).position.y;
 
-            oAssets.bolaAnim.apply(oAssets.bolaSkeleton, ScreenlastStatetime, ScreenStateTime, true, null);
-            oAssets.bolaSkeleton.setX(x);
-            oAssets.bolaSkeleton.setY(y - .5f);
-            oAssets.bolaSkeleton.updateWorldTransform();
-            oAssets.bolaSkeleton.update(delta);
-            skelrender.draw(batcher, oAssets.bolaSkeleton);
+            assetsHandler.bolaAnim.apply(assetsHandler.bolaSkeleton, screenLastStateTime, ScreenStateTime, true, null);
+            assetsHandler.bolaSkeleton.setX(x);
+            assetsHandler.bolaSkeleton.setY(y - .5f);
+            assetsHandler.bolaSkeleton.updateWorldTransform();
+            assetsHandler.bolaSkeleton.update(delta);
+            skeletonRenderer.draw(batch, assetsHandler.bolaSkeleton);
 
-            oAssets.fontChco.getData().setScale(.0125f);
-            oAssets.fontChco.draw(batcher, arrMundos.get(i).level + "", x - .25f, y + .2f);
-            oAssets.fontChco.getData().setScale(.6f);
+            assetsHandler.fontChco.getData().setScale(.0125f);
+            assetsHandler.fontChco.draw(batch, arrMundos.get(i).level + "", x - .25f, y + .2f);
+            assetsHandler.fontChco.getData().setScale(.6f);
         }
         if (Settings.isEnabledSecretWorld) {
-            oAssets.rayoAnim.apply(oAssets.rayoSkeleton, ScreenlastStatetime, ScreenStateTime, true, null);
-            oAssets.rayoSkeleton.setX(secretWorld.x);
-            oAssets.rayoSkeleton.setY(secretWorld.y);
-            oAssets.rayoSkeleton.updateWorldTransform();
-            oAssets.rayoSkeleton.update(delta);
-            skelrender.draw(batcher, oAssets.rayoSkeleton);
+            assetsHandler.rayoAnim.apply(assetsHandler.rayoSkeleton, screenLastStateTime, ScreenStateTime, true, null);
+            assetsHandler.rayoSkeleton.setX(secretWorld.x);
+            assetsHandler.rayoSkeleton.setY(secretWorld.y);
+            assetsHandler.rayoSkeleton.updateWorldTransform();
+            assetsHandler.rayoSkeleton.update(delta);
+            skeletonRenderer.draw(batch, assetsHandler.rayoSkeleton);
         }
 
-        oAssets.humoVolvanAnimation.apply(oAssets.humoVolcanSkeleton, ScreenlastStatetime, ScreenStateTime, true, null);
-        oAssets.humoVolcanSkeleton.setX(15);
-        oAssets.humoVolcanSkeleton.setY(10.5f);
-        oAssets.humoVolcanSkeleton.updateWorldTransform();
-        oAssets.humoVolcanSkeleton.update(delta);
-        skelrender.draw(batcher, oAssets.humoVolcanSkeleton);
+        assetsHandler.humoVolvanAnimation.apply(assetsHandler.humoVolcanSkeleton, screenLastStateTime, ScreenStateTime, true, null);
+        assetsHandler.humoVolcanSkeleton.setX(15);
+        assetsHandler.humoVolcanSkeleton.setY(10.5f);
+        assetsHandler.humoVolcanSkeleton.updateWorldTransform();
+        assetsHandler.humoVolcanSkeleton.update(delta);
+        skeletonRenderer.draw(batch, assetsHandler.humoVolcanSkeleton);
     }
 
     @Override
@@ -313,7 +313,7 @@ public class WorldMapTiledScreen extends BaseScreen implements GestureListener {
 
     private void renderShapes() {
         ShapeRenderer render = new ShapeRenderer();
-        render.setProjectionMatrix(guiCam.combined);// testing propuses
+        render.setProjectionMatrix(camera.combined);// testing propuses
 
         render.begin(ShapeType.Line);
 
@@ -342,7 +342,7 @@ public class WorldMapTiledScreen extends BaseScreen implements GestureListener {
     @Override
     // Este es el touchDown del gestureListener =)
     public boolean touchDown(float x, float y, int pointer, int button) {
-        guiCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+        camera.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
         Gdx.app.log("Touch", "X=" + touchPoint.x + " Y=" + touchPoint.y);
 
         for (Mundos obj : arrMundos) {
@@ -382,7 +382,7 @@ public class WorldMapTiledScreen extends BaseScreen implements GestureListener {
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
         float speed = .035f;
-        guiCam.position.add(-deltaX * speed, deltaY * speed, 0);
+        camera.position.add(-deltaX * speed, deltaY * speed, 0);
         return false;
     }
 

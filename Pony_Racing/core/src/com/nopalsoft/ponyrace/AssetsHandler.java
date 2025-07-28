@@ -26,7 +26,7 @@ import com.esotericsoftware.spine.SkeletonJson;
 import java.util.LinkedHashMap;
 import java.util.Random;
 
-public class Assets extends AssetManager {
+public class AssetsHandler extends AssetManager {
 
     public static boolean usarPacked = true;
     public static boolean drawDebugLines = false;
@@ -177,7 +177,7 @@ public class Assets extends AssetManager {
     String rutaMusica;
     String atlasTiledStuff = "data/animaciones/animacionesJuego.txt";
 
-    public Assets() {
+    public AssetsHandler() {
 
         nombrePonys = new LinkedHashMap<>(6);
         nombrePonys.put(0, "Cloud");

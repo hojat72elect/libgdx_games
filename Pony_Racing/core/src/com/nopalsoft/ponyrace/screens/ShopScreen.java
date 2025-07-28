@@ -5,8 +5,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -101,7 +105,7 @@ public class ShopScreen extends BaseScreen {
         costUpCoin = checkPriceCoin();
         costUpTime = checkPriceTime();
 
-        btBack = new BotonNube(oAssets.nube, "Back", oAssets.fontGde);
+        btBack = new BotonNube(assetsHandler.nube, "Back", assetsHandler.fontGde);
         btBack.setSize(150, 100);
         btBack.setPosition(645, 5);
 
@@ -143,16 +147,16 @@ public class ShopScreen extends BaseScreen {
         setItems();
         items.setChecked(true);
 
-        oAssets.skeletonTiendaTitle.setX(400);
-        oAssets.skeletonTiendaTitle.setY(450);
+        assetsHandler.skeletonTiendaTitle.setX(400);
+        assetsHandler.skeletonTiendaTitle.setY(450);
     }
 
     private void crearTodosLosBotones() {
         /*
          * BOTONES DEL MENU LATERAL
          */
-        TextButtonStyle btStyleMenu = new TextButtonStyle(oAssets.btMenuLeftUp,
-                oAssets.btMenuLeftDown, oAssets.btMenuLeftDown, oAssets.fontGde);
+        TextButtonStyle btStyleMenu = new TextButtonStyle(assetsHandler.btMenuLeftUp,
+                assetsHandler.btMenuLeftDown, assetsHandler.btMenuLeftDown, assetsHandler.fontGde);
 
         items = new TextButton("Items", btStyleMenu);
         items.addListener(new ClickListener() {
@@ -217,8 +221,8 @@ public class ShopScreen extends BaseScreen {
         /*
          * BOTONES DE LAS OPCIONES DE COMPRA
          */
-        TextButtonStyle btStyle = new TextButtonStyle(oAssets.btNubeUpTienda,
-                oAssets.btNubeDownTienda, null, oAssets.fontChco);
+        TextButtonStyle btStyle = new TextButtonStyle(assetsHandler.btNubeUpTienda,
+                assetsHandler.btNubeDownTienda, null, assetsHandler.fontChco);
 
         btBuy10Bomb = new TextButton("Buy", btStyle);
         btBuy10Bomb.addListener(new ClickListener() {
@@ -444,7 +448,7 @@ public class ShopScreen extends BaseScreen {
             }
         });
 
-        LabelStyle lblStyle = new LabelStyle(oAssets.fontChco, Color.WHITE);
+        LabelStyle lblStyle = new LabelStyle(assetsHandler.fontChco, Color.WHITE);
 
         lblPrecioUpBomb = new Label("", lblStyle);
         lblPrecioUpWood = new Label("", lblStyle);
@@ -520,16 +524,16 @@ public class ShopScreen extends BaseScreen {
     private void setItems() {
         contenedor.clear();
 
-        LabelStyle lblStyle = new LabelStyle(oAssets.fontChco, Color.WHITE);
+        LabelStyle lblStyle = new LabelStyle(assetsHandler.fontChco, Color.WHITE);
 
         Table tbDentro = new Table();
 
         // 10 Bombas
-        tbDentro.add(new Image(oAssets.bombaTienda)).size(35, 38);
+        tbDentro.add(new Image(assetsHandler.bombaTienda)).size(35, 38);
         Label cantidad = new Label("x10", lblStyle);
         tbDentro.add(cantidad).width(80);
         tbDentro.add().width(30);
-        tbDentro.add(new Image(oAssets.monedaTienda));
+        tbDentro.add(new Image(assetsHandler.monedaTienda));
         Label precio = new Label(PRECIO_10_BOMBS + "", lblStyle);
         tbDentro.add(precio).width(80);
         tbDentro.add().width(30);
@@ -539,11 +543,11 @@ public class ShopScreen extends BaseScreen {
 
         // 20 Bombas
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.bombaTienda)).size(35, 38);
+        tbDentro.add(new Image(assetsHandler.bombaTienda)).size(35, 38);
         cantidad = new Label("x20", lblStyle);
         tbDentro.add(cantidad).width(80);
         tbDentro.add().width(30);
-        tbDentro.add(new Image(oAssets.monedaTienda));
+        tbDentro.add(new Image(assetsHandler.monedaTienda));
         precio = new Label(PRECIO_20_BOMBS + "", lblStyle);
         tbDentro.add(precio).width(80);
         tbDentro.add().width(30);
@@ -553,11 +557,11 @@ public class ShopScreen extends BaseScreen {
 
         // 50 Bombas
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.bombaTienda)).size(35, 38);
+        tbDentro.add(new Image(assetsHandler.bombaTienda)).size(35, 38);
         cantidad = new Label("x50", lblStyle);
         tbDentro.add(cantidad).width(80);
         tbDentro.add().width(30);
-        tbDentro.add(new Image(oAssets.monedaTienda));
+        tbDentro.add(new Image(assetsHandler.monedaTienda));
         precio = new Label(PRECIO_50_BOMBS + "", lblStyle);
         tbDentro.add(precio).width(80);
         tbDentro.add().width(30);
@@ -567,11 +571,11 @@ public class ShopScreen extends BaseScreen {
 
         // 100 Bombas
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.bombaTienda)).size(35, 38);
+        tbDentro.add(new Image(assetsHandler.bombaTienda)).size(35, 38);
         cantidad = new Label("x100", lblStyle);
         tbDentro.add(cantidad).width(80);
         tbDentro.add().width(30);
-        tbDentro.add(new Image(oAssets.monedaTienda));
+        tbDentro.add(new Image(assetsHandler.monedaTienda));
         precio = new Label(PRECIO_100_BOMBS + "", lblStyle);
         tbDentro.add(precio).width(80);
         tbDentro.add().width(30);
@@ -581,11 +585,11 @@ public class ShopScreen extends BaseScreen {
 
         // 10 Madera
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.bananaSpikeTienda)).size(35, 38);
+        tbDentro.add(new Image(assetsHandler.bananaSpikeTienda)).size(35, 38);
         cantidad = new Label("x10", lblStyle);
         tbDentro.add(cantidad).width(80);
         tbDentro.add().width(30);
-        tbDentro.add(new Image(oAssets.monedaTienda));
+        tbDentro.add(new Image(assetsHandler.monedaTienda));
         precio = new Label(PRECIO_10_WOOD + "", lblStyle);
         tbDentro.add(precio).width(80);
         tbDentro.add().width(30);
@@ -595,11 +599,11 @@ public class ShopScreen extends BaseScreen {
 
         // 20 Madera
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.bananaSpikeTienda)).size(35, 38);
+        tbDentro.add(new Image(assetsHandler.bananaSpikeTienda)).size(35, 38);
         cantidad = new Label("x20", lblStyle);
         tbDentro.add(cantidad).width(80);
         tbDentro.add().width(30);
-        tbDentro.add(new Image(oAssets.monedaTienda));
+        tbDentro.add(new Image(assetsHandler.monedaTienda));
         precio = new Label(PRECIO_20_WOOD + "", lblStyle);
         tbDentro.add(precio).width(80);
         tbDentro.add().width(30);
@@ -609,11 +613,11 @@ public class ShopScreen extends BaseScreen {
 
         // 50 Madera
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.bananaSpikeTienda)).size(35, 38);
+        tbDentro.add(new Image(assetsHandler.bananaSpikeTienda)).size(35, 38);
         cantidad = new Label("x50", lblStyle);
         tbDentro.add(cantidad).width(80);
         tbDentro.add().width(30);
-        tbDentro.add(new Image(oAssets.monedaTienda));
+        tbDentro.add(new Image(assetsHandler.monedaTienda));
         precio = new Label(PRECIO_50_WOOD + "", lblStyle);
         tbDentro.add(precio).width(80);
         tbDentro.add().width(30);
@@ -623,11 +627,11 @@ public class ShopScreen extends BaseScreen {
 
         // 100 Bombas
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.bananaSpikeTienda)).size(35, 38);
+        tbDentro.add(new Image(assetsHandler.bananaSpikeTienda)).size(35, 38);
         cantidad = new Label("x100", lblStyle);
         tbDentro.add(cantidad).width(80);
         tbDentro.add().width(30);
-        tbDentro.add(new Image(oAssets.monedaTienda));
+        tbDentro.add(new Image(assetsHandler.monedaTienda));
         precio = new Label(PRECIO_100_WOOD + "", lblStyle);
         tbDentro.add(precio).width(80);
         tbDentro.add().width(30);
@@ -638,17 +642,17 @@ public class ShopScreen extends BaseScreen {
 
     private void setUpdrades() {
         contenedor.clear();
-        LabelStyle lblStyle = new LabelStyle(oAssets.fontChco, Color.WHITE);
+        LabelStyle lblStyle = new LabelStyle(assetsHandler.fontChco, Color.WHITE);
 
         // Upgrade Bombas
         Table tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.bombaTienda)).size(35, 38).padLeft(10)
+        tbDentro.add(new Image(assetsHandler.bombaTienda)).size(35, 38).padLeft(10)
                 .padRight(10);
         Label descripcion = new Label("Bomb Efect Last Longer", lblStyle);
         descripcion.setWrap(true);
         tbDentro.add(descripcion).expandX().fill();
         dentroUpBombas = new Table();
-        dentroUpBombas.add(new Image(oAssets.monedaTienda));
+        dentroUpBombas.add(new Image(assetsHandler.monedaTienda));
         dentroUpBombas.add(lblPrecioUpBomb).left();
         dentroUpBombas.row().colspan(2);
         dentroUpBombas.add(btUpgradeBomb).size(120, 70);
@@ -659,14 +663,14 @@ public class ShopScreen extends BaseScreen {
 
         // Upgrade Wood
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.bananaSpikeTienda)).size(35, 38)
+        tbDentro.add(new Image(assetsHandler.bananaSpikeTienda)).size(35, 38)
                 .padLeft(10).padRight(10);
         descripcion = new Label("Bananas and spikes effects last longer",
                 lblStyle);
         descripcion.setWrap(true);
         tbDentro.add(descripcion).expandX().fill();
         dentroUpWood = new Table();
-        dentroUpWood.add(new Image(oAssets.monedaTienda));
+        dentroUpWood.add(new Image(assetsHandler.monedaTienda));
         dentroUpWood.add(lblPrecioUpWood).left();
         dentroUpWood.row().colspan(2);
         dentroUpWood.add(btUpgradeWood).size(120, 70);
@@ -677,13 +681,13 @@ public class ShopScreen extends BaseScreen {
 
         // Upgrade Chocolate
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.chocolateTienda)).size(35, 38)
+        tbDentro.add(new Image(assetsHandler.chocolateTienda)).size(35, 38)
                 .padLeft(10).padRight(10);
         descripcion = new Label("Chocolate efect last longer", lblStyle);
         descripcion.setWrap(true);
         tbDentro.add(descripcion).expandX().fill();
         dentroUpChocolate = new Table();
-        dentroUpChocolate.add(new Image(oAssets.monedaTienda));
+        dentroUpChocolate.add(new Image(assetsHandler.monedaTienda));
         dentroUpChocolate.add(lblPrecioUpChocolate).left();
         dentroUpChocolate.row().colspan(2);
         dentroUpChocolate.add(btUpgradeChocolate).size(120, 70);
@@ -694,13 +698,13 @@ public class ShopScreen extends BaseScreen {
 
         // Upgrade Ballon
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.globoTienda)).size(35, 45).padLeft(10)
+        tbDentro.add(new Image(assetsHandler.globoTienda)).size(35, 45).padLeft(10)
                 .padRight(10);
         descripcion = new Label("Ballons reward extra time", lblStyle);
         descripcion.setWrap(true);
         tbDentro.add(descripcion).expandX().fill();
         dentroUpBallon = new Table();
-        dentroUpBallon.add(new Image(oAssets.monedaTienda));
+        dentroUpBallon.add(new Image(assetsHandler.monedaTienda));
         dentroUpBallon.add(lblPrecioBallon).left();
         dentroUpBallon.row().colspan(2);
         dentroUpBallon.add(btUpgradeBallon).size(120, 70);
@@ -711,13 +715,13 @@ public class ShopScreen extends BaseScreen {
 
         // Upgrade Chili
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.chileTienda)).size(35, 38).padLeft(10)
+        tbDentro.add(new Image(assetsHandler.chileTienda)).size(35, 38).padLeft(10)
                 .padRight(10);
         descripcion = new Label("Chili pepper effect last longer", lblStyle);
         descripcion.setWrap(true);
         tbDentro.add(descripcion).expandX().fill();
         dentroUpChili = new Table();
-        dentroUpChili.add(new Image(oAssets.monedaTienda));
+        dentroUpChili.add(new Image(assetsHandler.monedaTienda));
         dentroUpChili.add(lblPrecioUpChili).left();
         dentroUpChili.row().colspan(2);
         dentroUpChili.add(btUpgradeChili).size(120, 70);
@@ -728,13 +732,13 @@ public class ShopScreen extends BaseScreen {
 
         // UPGRADE COIN
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.monedaTienda)).size(35, 38).padLeft(10)
+        tbDentro.add(new Image(assetsHandler.monedaTienda)).size(35, 38).padLeft(10)
                 .padRight(10);
         descripcion = new Label("Bitcoins earn extra bits", lblStyle);
         descripcion.setWrap(true);
         tbDentro.add(descripcion).expandX().fill();
         dentroUpCoin = new Table();
-        dentroUpCoin.add(new Image(oAssets.monedaTienda));
+        dentroUpCoin.add(new Image(assetsHandler.monedaTienda));
         dentroUpCoin.add(lblPrecioCoin).left();
         dentroUpCoin.row().colspan(2);
         dentroUpCoin.add(btUpgradeCoin).size(120, 70);
@@ -745,14 +749,14 @@ public class ShopScreen extends BaseScreen {
 
         // UPGRADE TIME
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.cronometroTienda)).size(35, 38)
+        tbDentro.add(new Image(assetsHandler.cronometroTienda)).size(35, 38)
                 .padLeft(10).padRight(10);
         descripcion = new Label("Time left in stopwatch earn extra bits",
                 lblStyle);
         descripcion.setWrap(true);
         tbDentro.add(descripcion).expandX().fill();
         dentroUpTime = new Table();
-        dentroUpTime.add(new Image(oAssets.monedaTienda));
+        dentroUpTime.add(new Image(assetsHandler.monedaTienda));
         dentroUpTime.add(lblPrecioTime).left();
         dentroUpTime.row().colspan(2);
         dentroUpTime.add(btUpgradeTime).size(120, 70);
@@ -766,13 +770,13 @@ public class ShopScreen extends BaseScreen {
         contenedor.clear();
 
         contenedor.clear();
-        LabelStyle lblStyle = new LabelStyle(oAssets.fontChco, Color.WHITE);
+        LabelStyle lblStyle = new LabelStyle(assetsHandler.fontChco, Color.WHITE);
 
         // Upgrade Bombas
         Table tbDentro = new Table();
 
 
-        tbDentro.add(new Image(oAssets.btnFacebook)).size(40, 40)
+        tbDentro.add(new Image(assetsHandler.btnFacebook)).size(40, 40)
                 .padLeft(10).padRight(10);
         Label descripcion = new Label(
                 "Like us on facebook and get 3500 bit coins", lblStyle);
@@ -801,49 +805,49 @@ public class ShopScreen extends BaseScreen {
     @Override
     public void draw(float delta) {
 
-        guiCam.update();
-        batcher.setProjectionMatrix(guiCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
 
-        batcher.disableBlending();
-        batcher.begin();
-        batcher.draw(oAssets.fondoTienda, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.disableBlending();
+        batch.begin();
+        batch.draw(assetsHandler.fondoTienda, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-        batcher.enableBlending();
-        batcher.draw(oAssets.monedaTienda, 5, 440, 35, 35);
-        oAssets.fontGde.draw(batcher, Settings.numeroMonedasActual + "", 45,
+        batch.enableBlending();
+        batch.draw(assetsHandler.monedaTienda, 5, 440, 35, 35);
+        assetsHandler.fontGde.draw(batch, Settings.numeroMonedasActual + "", 45,
                 470);
 
         renderTitle(delta);
 
-        batcher.draw(oAssets.bombaTienda, 635, 405, 30, 30);
-        oAssets.fontChco.draw(batcher, Settings.numeroBombas + " lvl "
+        batch.draw(assetsHandler.bombaTienda, 635, 405, 30, 30);
+        assetsHandler.fontChco.draw(batch, Settings.numeroBombas + " lvl "
                 + Settings.bombLevel + "/5", 660, 425);
 
-        batcher.draw(oAssets.bananaSpikeTienda, 635, 355, 30, 30);
-        oAssets.fontChco.draw(batcher, Settings.numeroWoods + " lvl "
+        batch.draw(assetsHandler.bananaSpikeTienda, 635, 355, 30, 30);
+        assetsHandler.fontChco.draw(batch, Settings.numeroWoods + " lvl "
                 + Settings.woodLevel + "/5", 660, 375);
 
-        batcher.draw(oAssets.chocolateTienda, 635, 305, 30, 30);
-        oAssets.fontChco.draw(batcher, "lvl " + Settings.chocolateLevel + "/5",
+        batch.draw(assetsHandler.chocolateTienda, 635, 305, 30, 30);
+        assetsHandler.fontChco.draw(batch, "lvl " + Settings.chocolateLevel + "/5",
                 670, 325);
         // //
-        batcher.draw(oAssets.globoTienda, 635, 255, 30, 30);
-        oAssets.fontChco.draw(batcher, "lvl " + Settings.balloonLevel + "/5",
+        batch.draw(assetsHandler.globoTienda, 635, 255, 30, 30);
+        assetsHandler.fontChco.draw(batch, "lvl " + Settings.balloonLevel + "/5",
                 670, 275);
         //
-        batcher.draw(oAssets.chileTienda, 635, 205, 30, 30);
-        oAssets.fontChco.draw(batcher, "lvl " + Settings.chiliLevel + "/5",
+        batch.draw(assetsHandler.chileTienda, 635, 205, 30, 30);
+        assetsHandler.fontChco.draw(batch, "lvl " + Settings.chiliLevel + "/5",
                 670, 225);
 
-        batcher.draw(oAssets.monedaTienda, 635, 155, 30, 30);
-        oAssets.fontChco.draw(batcher, "lvl " + Settings.coinLevel + "/5", 670,
+        batch.draw(assetsHandler.monedaTienda, 635, 155, 30, 30);
+        assetsHandler.fontChco.draw(batch, "lvl " + Settings.coinLevel + "/5", 670,
                 175);
 
-        batcher.draw(oAssets.cronometroTienda, 635, 105, 30, 30);
-        oAssets.fontChco.draw(batcher, "lvl " + Settings.timeLevel + "/5", 670,
+        batch.draw(assetsHandler.cronometroTienda, 635, 105, 30, 30);
+        assetsHandler.fontChco.draw(batch, "lvl " + Settings.timeLevel + "/5", 670,
                 125);
 
-        batcher.end();
+        batch.end();
 
         stage.act(delta);
         stage.draw();
@@ -851,11 +855,11 @@ public class ShopScreen extends BaseScreen {
     }
 
     private void renderTitle(float delta) {
-        oAssets.animationTiendaTitle.apply(oAssets.skeletonTiendaTitle,
-                ScreenlastStatetime, ScreenStateTime, true, null);
-        oAssets.skeletonTiendaTitle.updateWorldTransform();
-        oAssets.skeletonTiendaTitle.update(delta);
-        skelrender.draw(batcher, oAssets.skeletonTiendaTitle);
+        assetsHandler.animationTiendaTitle.apply(assetsHandler.skeletonTiendaTitle,
+                screenLastStateTime, ScreenStateTime, true, null);
+        assetsHandler.skeletonTiendaTitle.updateWorldTransform();
+        assetsHandler.skeletonTiendaTitle.update(delta);
+        skeletonRenderer.draw(batch, assetsHandler.skeletonTiendaTitle);
     }
 
     private int checkPriceBomb() {

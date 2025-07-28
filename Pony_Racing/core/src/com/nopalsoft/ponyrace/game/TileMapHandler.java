@@ -1,17 +1,41 @@
 package com.nopalsoft.ponyrace.game;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.nopalsoft.ponyrace.PonyRacingGame;
 import com.nopalsoft.ponyrace.Settings;
-import com.nopalsoft.ponyrace.game_objects.*;
+import com.nopalsoft.ponyrace.game_objects.BloodStone;
+import com.nopalsoft.ponyrace.game_objects.Bomb;
+import com.nopalsoft.ponyrace.game_objects.Bonfire;
+import com.nopalsoft.ponyrace.game_objects.Candy;
+import com.nopalsoft.ponyrace.game_objects.Chile;
+import com.nopalsoft.ponyrace.game_objects.Coin;
+import com.nopalsoft.ponyrace.game_objects.Flag;
+import com.nopalsoft.ponyrace.game_objects.Globo;
+import com.nopalsoft.ponyrace.game_objects.Pisable;
+import com.nopalsoft.ponyrace.game_objects.Pony;
+import com.nopalsoft.ponyrace.game_objects.PonyMalo;
+import com.nopalsoft.ponyrace.game_objects.PonyPlayer;
+import com.nopalsoft.ponyrace.game_objects.TiledMapManagerBox2d;
+import com.nopalsoft.ponyrace.game_objects.Wing;
+import com.nopalsoft.ponyrace.game_objects.Wood;
 
 import java.util.Comparator;
 import java.util.Random;
 
-public class WorldTiled {
+public class TileMapHandler {
     public PonyRacingGame game;
     public Vector2 finJuego;
     public int nivelTiled;
@@ -19,13 +43,13 @@ public class WorldTiled {
     public float m_units = 1 / 100.0f;
     public Array<Body> arrBodys;
     public PonyPlayer oPony;
-    public Array<Fogata> arrFogatas;
+    public Array<Bonfire> arrFogatas;
     public Array<PonyMalo> arrPonysMalos;
-    public Array<Pluma> arrPlumas;
+    public Array<Wing> arrPlumas;
     public Array<BloodStone> arrBloodStone;
     public Array<Bomb> arrBombas;
     public Array<Wood> arrWoods;
-    public Array<Moneda> arrMonedas;
+    public Array<Coin> arrMonedas;
     public Array<Chile> arrChiles;
     public Array<Globo> arrGlobos;
     public Array<Candy> arrDulces;
@@ -47,7 +71,7 @@ public class WorldTiled {
     };
     Vector2 impulso = new Vector2();
 
-    public WorldTiled(PonyRacingGame game, int nivelTiled) {
+    public TileMapHandler(PonyRacingGame game, int nivelTiled) {
         this.game = game;
         this.nivelTiled = nivelTiled;
         boolean sleep = true;
@@ -134,11 +158,11 @@ public class WorldTiled {
             if (obj.getUserData() != null && obj.getUserData() instanceof Pony) {
 
                 updatePonys(delta, obj, accelX, jump);
-            } else if (obj.getUserData() != null && obj.getUserData() instanceof Pluma) {
-                Pluma objPluma = ((Pluma) obj.getUserData());
-                objPluma.update(delta);
-                if (objPluma.state == Pluma.State.tomada && !oWorldBox.isLocked()) {
-                    arrPlumas.removeValue(objPluma, true);
+            } else if (obj.getUserData() != null && obj.getUserData() instanceof Wing) {
+                Wing objWing = ((Wing) obj.getUserData());
+                objWing.update(delta);
+                if (objWing.state == Wing.State.ACTIVE && !oWorldBox.isLocked()) {
+                    arrPlumas.removeValue(objWing, true);
                     oWorldBox.destroyBody(obj);
                 }
             } else if (obj.getUserData() != null && obj.getUserData() instanceof Bomb) {
@@ -157,10 +181,10 @@ public class WorldTiled {
                     arrBodys.removeValue(obj, true);
                     oWorldBox.destroyBody(obj);
                 }
-            } else if (obj.getUserData() != null && obj.getUserData() instanceof Moneda) {
-                Moneda objMo = ((Moneda) obj.getUserData());
+            } else if (obj.getUserData() != null && obj.getUserData() instanceof Coin) {
+                Coin objMo = ((Coin) obj.getUserData());
                 objMo.update(delta);
-                if (objMo.state == Moneda.State.tomada && !oWorldBox.isLocked() && objMo.stateTime >= Moneda.TIEMPO_TOMADA) {
+                if (objMo.state == Coin.State.tomada && !oWorldBox.isLocked() && objMo.stateTime >= Coin.TIEMPO_TOMADA) {
                     arrMonedas.removeValue(objMo, true);
                     arrBodys.removeValue(obj, true);
                     oWorldBox.destroyBody(obj);
@@ -282,7 +306,7 @@ public class WorldTiled {
     }
 
     private void updateFogatas(float delta) {
-        for (Fogata obj : arrFogatas) {
+        for (Bonfire obj : arrFogatas) {
             obj.update(delta);
         }
     }
@@ -571,9 +595,9 @@ public class WorldTiled {
                         oWood.hitByPony(fixOtraCosa.getBody());
                         ponyDataBody.getHurt(((Wood) otraCosaDataBody).TIEMPO_HURT);
                     }
-                } else if (otraCosaDataBody instanceof Moneda && !isMalo) {
-                    Moneda oMoneda = ((Moneda) otraCosaDataBody);
-                    if (oMoneda.state == Moneda.State.normal) {
+                } else if (otraCosaDataBody instanceof Coin && !isMalo) {
+                    Coin oCoin = ((Coin) otraCosaDataBody);
+                    if (oCoin.state == Coin.State.normal) {
 
                         int valorMoneda;
                         if (random.nextBoolean()) {
@@ -608,7 +632,7 @@ public class WorldTiled {
                         Settings.sumarMonedas(valorMoneda);
                         ponyDataBody.monedasRecolectadas += valorMoneda;
                         game.assetsHandler.playSound(game.assetsHandler.pickCoin);
-                        oMoneda.hitPony();
+                        oCoin.hitPony();
                     }
                 } else if (otraCosaDataBody instanceof Chile) {
                     Chile oChile = ((Chile) otraCosaDataBody);

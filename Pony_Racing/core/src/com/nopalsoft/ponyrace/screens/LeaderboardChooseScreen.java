@@ -30,8 +30,8 @@ public class LeaderboardChooseScreen extends BaseScreen {
     }
 
     private void cargarBotones() {
-        btLeaderBoard = new BotonNube(oAssets.nube, "LeaderBoards",
-                oAssets.fontChco);
+        btLeaderBoard = new BotonNube(assetsHandler.nube, "LeaderBoards",
+                assetsHandler.fontChco);
         btLeaderBoard.setSize(290, 140);
         btLeaderBoard.addListener(new ClickListener() {
 
@@ -42,8 +42,8 @@ public class LeaderboardChooseScreen extends BaseScreen {
             }
         });
 
-        btAchievements = new BotonNube(oAssets.nube, "Achievements",
-                oAssets.fontChco);
+        btAchievements = new BotonNube(assetsHandler.nube, "Achievements",
+                assetsHandler.fontChco);
         btAchievements.setSize(290, 140);
         btAchievements.addListener(new ClickListener() {
 
@@ -54,7 +54,7 @@ public class LeaderboardChooseScreen extends BaseScreen {
             }
         });
 
-        btBack = new BotonNube(oAssets.nube, "Back", oAssets.fontGde);
+        btBack = new BotonNube(assetsHandler.nube, "Back", assetsHandler.fontGde);
         btBack.setSize(150, 100);
         btBack.setPosition(645, 5);
         btBack.addListener(new ClickListener() {
@@ -74,9 +74,9 @@ public class LeaderboardChooseScreen extends BaseScreen {
             }
         });
 
-        TextButtonStyle stilo = new TextButtonStyle(oAssets.btSignInUp,
-                oAssets.btSignInDown, null,
-                oAssets.skin.getFont("default-font"));
+        TextButtonStyle stilo = new TextButtonStyle(assetsHandler.btSignInUp,
+                assetsHandler.btSignInDown, null,
+                assetsHandler.skin.getFont("default-font"));
         btSignOut = new TextButton("Sign out", stilo);
         btSignOut.setPosition(5, 5);
         btSignOut.addListener(new ClickListener() {
@@ -101,13 +101,13 @@ public class LeaderboardChooseScreen extends BaseScreen {
     @Override
     public void draw(float delta) {
 
-        guiCam.update();
-        batcher.setProjectionMatrix(guiCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
 
-        batcher.disableBlending();
-        batcher.begin();
-        batcher.draw(oAssets.fondoMainMenu, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        batcher.end();
+        batch.disableBlending();
+        batch.begin();
+        batch.draw(assetsHandler.fondoMainMenu, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.end();
 
         stage.act(delta);
         stage.draw();

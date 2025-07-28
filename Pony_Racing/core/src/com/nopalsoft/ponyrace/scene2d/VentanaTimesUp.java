@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.nopalsoft.ponyrace.game.GameScreenTileds;
+import com.nopalsoft.ponyrace.game.GameScreen;
 import com.nopalsoft.ponyrace.menuobjetos.BotonNube;
 import com.nopalsoft.ponyrace.screens.BaseScreen;
 import com.nopalsoft.ponyrace.screens.LoadingScreen;
@@ -12,7 +12,7 @@ import com.nopalsoft.ponyrace.screens.WorldMapTiledScreen;
 
 public class VentanaTimesUp extends Ventana {
 
-    GameScreenTileds gameScreen;
+    GameScreen gameScreen;
 
     public VentanaTimesUp(BaseScreen currentScreen) {
         super(currentScreen);
@@ -20,14 +20,14 @@ public class VentanaTimesUp extends Ventana {
         setY(90);
         setBackGround();
 
-        gameScreen = (GameScreenTileds) currentScreen;
+        gameScreen = (GameScreen) currentScreen;
 
-        Image timeUp = new Image(oAssets.timeUp);
+        Image timeUp = new Image(oAssetsHandler.timeUp);
         timeUp.setPosition(getWidth() / 2f - timeUp.getWidth() / 2f, 250);
         addActor(timeUp);
 
-        final BotonNube btTryAgain = new BotonNube(oAssets.nube, "Try again",
-                oAssets.fontChco);
+        final BotonNube btTryAgain = new BotonNube(oAssetsHandler.nube, "Try again",
+                oAssetsHandler.fontChco);
         btTryAgain.setSize(150, 100);
         btTryAgain.setPosition(getWidth() / 2f - btTryAgain.getWidth() / 2f,
                 150);
@@ -40,15 +40,15 @@ public class VentanaTimesUp extends Ventana {
                             public void run() {
                                 hide();
                                 game.setScreen(new LoadingScreen(game,
-                                        GameScreenTileds.class,
+                                        GameScreen.class,
                                         gameScreen.nivelTiled));
                             }
                         })));
             }
         });
 
-        final BotonNube btMainMenu = new BotonNube(oAssets.nube, "Menu",
-                oAssets.fontChco);
+        final BotonNube btMainMenu = new BotonNube(oAssetsHandler.nube, "Menu",
+                oAssetsHandler.fontChco);
         btMainMenu.setSize(150, 100);
         btMainMenu
                 .setPosition(getWidth() / 2f - btMainMenu.getWidth() / 2f, 30);

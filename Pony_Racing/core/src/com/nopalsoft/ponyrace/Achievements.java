@@ -16,7 +16,7 @@ public class Achievements {
 
     public Achievements() {
 
-        int len = Assets.mundoMaximo;
+        int len = AssetsHandler.mundoMaximo;
         arrMundos = new MundosCompletados[len];
 
         for (int i = 0; i < len; i++) {

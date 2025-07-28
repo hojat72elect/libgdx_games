@@ -3,7 +3,7 @@ package com.nopalsoft.ponyrace.game_objects;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.nopalsoft.ponyrace.Settings;
-import com.nopalsoft.ponyrace.game.WorldTiled;
+import com.nopalsoft.ponyrace.game.TileMapHandler;
 
 public class PonyMalo extends Pony {
 
@@ -14,7 +14,7 @@ public class PonyMalo extends Pony {
     private float probababilidad = .5f;
     private float stateTiempoDisparo;
 
-    public PonyMalo(float x, float y, String nombreSkin, WorldTiled oWorld) {
+    public PonyMalo(float x, float y, String nombreSkin, TileMapHandler oWorld) {
         super(x, y, nombreSkin, oWorld);
         hasToJump = false;
 

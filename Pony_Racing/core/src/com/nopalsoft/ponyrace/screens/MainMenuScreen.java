@@ -43,12 +43,12 @@ public class MainMenuScreen extends BaseScreen {
         stage.addActor(btSonido);
         stage.addActor(btMusica);
 
-        oAssets.skeletonMenuTitle.setX(400);
-        oAssets.skeletonMenuTitle.setY(370);
+        assetsHandler.skeletonMenuTitle.setX(400);
+        assetsHandler.skeletonMenuTitle.setY(370);
     }
 
     public void cargarBotones() {
-        btJugar2 = new BotonNube(oAssets.nube, "Play", oAssets.fontGde);
+        btJugar2 = new BotonNube(assetsHandler.nube, "Play", assetsHandler.fontGde);
         btJugar2.setSize(200, 130);
 
         btJugar2.addListener(new ClickListener() {
@@ -64,7 +64,7 @@ public class MainMenuScreen extends BaseScreen {
             }
         });
 
-        btMore = new BotonNube(oAssets.nube, "More", oAssets.fontGde);
+        btMore = new BotonNube(assetsHandler.nube, "More", assetsHandler.fontGde);
         btMore.setSize(200, 130);
         btMore.addListener(new ClickListener() {
 
@@ -74,7 +74,7 @@ public class MainMenuScreen extends BaseScreen {
             }
         });
 
-        btLeaderBoard = new BotonNube(oAssets.nube, "LeaderBoards", oAssets.fontChco);
+        btLeaderBoard = new BotonNube(assetsHandler.nube, "LeaderBoards", assetsHandler.fontChco);
         btLeaderBoard.setSize(290, 140);
         btLeaderBoard.addListener(new ClickListener() {
 
@@ -89,11 +89,11 @@ public class MainMenuScreen extends BaseScreen {
             }
         });
 
-        btFacebook = new ImageButton(oAssets.btnFacebook);
+        btFacebook = new ImageButton(assetsHandler.btnFacebook);
         btFacebook.setSize(50, 50);
         btFacebook.setPosition(750, 0);
 
-        btSonido = new ImageButton(oAssets.btSonidoOff, null, oAssets.btSonidoON);
+        btSonido = new ImageButton(assetsHandler.btSonidoOff, null, assetsHandler.btSonidoON);
         btSonido.setSize(60, 60);
         btSonido.setPosition(5, 5);
         btSonido.setChecked(Settings.isSoundOn);
@@ -105,7 +105,7 @@ public class MainMenuScreen extends BaseScreen {
             }
         });
 
-        btMusica = new ImageButton(oAssets.btMusicaOff, null, oAssets.btMusicaON);
+        btMusica = new ImageButton(assetsHandler.btMusicaOff, null, assetsHandler.btMusicaON);
         btMusica.setSize(60, 60);
         btMusica.setPosition(70, 2);
         btMusica.setChecked(Settings.isMusicOn);
@@ -113,7 +113,7 @@ public class MainMenuScreen extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Settings.isMusicOn = !Settings.isMusicOn;
-                oAssets.playMusicMenus();
+                assetsHandler.playMusicMenus();
                 super.clicked(event, x, y);
             }
         });
@@ -127,16 +127,16 @@ public class MainMenuScreen extends BaseScreen {
     @Override
     public void draw(float delta) {
 
-        guiCam.update();
-        batcher.setProjectionMatrix(guiCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
 
-        batcher.disableBlending();
-        batcher.begin();
-        batcher.draw(oAssets.fondoMainMenu, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        batch.disableBlending();
+        batch.begin();
+        batch.draw(assetsHandler.fondoMainMenu, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-        batcher.enableBlending();
+        batch.enableBlending();
         renderFlagTitle(delta);
-        batcher.end();
+        batch.end();
 
         stage.act(delta);
         stage.draw();
@@ -145,10 +145,10 @@ public class MainMenuScreen extends BaseScreen {
     }
 
     private void renderFlagTitle(float delta) {
-        oAssets.animationMenuTitle.apply(oAssets.skeletonMenuTitle, ScreenlastStatetime, ScreenStateTime, true, null);
-        oAssets.skeletonMenuTitle.updateWorldTransform();
-        oAssets.skeletonMenuTitle.update(delta);
-        skelrender.draw(batcher, oAssets.skeletonMenuTitle);
+        assetsHandler.animationMenuTitle.apply(assetsHandler.skeletonMenuTitle, screenLastStateTime, ScreenStateTime, true, null);
+        assetsHandler.skeletonMenuTitle.updateWorldTransform();
+        assetsHandler.skeletonMenuTitle.update(delta);
+        skeletonRenderer.draw(batch, assetsHandler.skeletonMenuTitle);
     }
 
     @Override

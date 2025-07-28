@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.nopalsoft.ponyrace.Assets;
+import com.nopalsoft.ponyrace.AssetsHandler;
 import com.nopalsoft.ponyrace.PonyRacingGame;
 import com.nopalsoft.ponyrace.screens.BaseScreen;
 
@@ -12,18 +12,18 @@ public class Ventana extends Group {
     public static final float DURACION_ANIMATION = .3f;
     BaseScreen screen;
     PonyRacingGame game;
-    Assets oAssets;
+    AssetsHandler oAssetsHandler;
 
     private boolean isVisible = false;
 
     public Ventana(BaseScreen currentScreen) {
         screen = currentScreen;
         game = currentScreen.game;
-        oAssets = game.assetsHandler;
+        oAssetsHandler = game.assetsHandler;
     }
 
     public void setBackGround() {
-        Image img = new Image(oAssets.fondoVentanas);
+        Image img = new Image(oAssetsHandler.fondoVentanas);
         img.setSize(getWidth(), getHeight());
         addActor(img);
     }

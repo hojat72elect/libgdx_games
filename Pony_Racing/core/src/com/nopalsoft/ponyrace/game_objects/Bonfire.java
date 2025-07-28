@@ -2,19 +2,19 @@ package com.nopalsoft.ponyrace.game_objects;
 
 import java.util.Random;
 
-public class Fogata extends GameObject {
+public class Bonfire extends BaseGameObject {
 
-    public float lastStatetime;
+    public float lastStateTime;
     public float stateTime;
 
-    public Fogata(float x, float y, Random oRan) {
+    public Bonfire(float x, float y, Random oRan) {
         super(x, y);
         stateTime = oRan.nextFloat() * 5f;
-        lastStatetime = stateTime;
+        lastStateTime = stateTime;
     }
 
     public void update(float delta) {
-        lastStatetime = stateTime;
+        lastStateTime = stateTime;
         stateTime += delta;
     }
 }

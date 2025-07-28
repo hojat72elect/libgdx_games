@@ -7,9 +7,18 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.esotericsoftware.spine.Animation;
 import com.esotericsoftware.spine.SkeletonRenderer;
-import com.nopalsoft.ponyrace.Assets;
+import com.nopalsoft.ponyrace.AssetsHandler;
 import com.nopalsoft.ponyrace.Settings;
-import com.nopalsoft.ponyrace.game_objects.*;
+import com.nopalsoft.ponyrace.game_objects.BloodStone;
+import com.nopalsoft.ponyrace.game_objects.Bomb;
+import com.nopalsoft.ponyrace.game_objects.Bonfire;
+import com.nopalsoft.ponyrace.game_objects.Candy;
+import com.nopalsoft.ponyrace.game_objects.Chile;
+import com.nopalsoft.ponyrace.game_objects.Coin;
+import com.nopalsoft.ponyrace.game_objects.Globo;
+import com.nopalsoft.ponyrace.game_objects.Pony;
+import com.nopalsoft.ponyrace.game_objects.Wing;
+import com.nopalsoft.ponyrace.game_objects.Wood;
 import com.nopalsoft.ponyrace.screens.BaseScreen;
 
 public class WorldTiledRenderer {
@@ -18,13 +27,13 @@ public class WorldTiledRenderer {
     final float HEIGHT = BaseScreen.WORLD_HEIGHT / 10f;
     public OrthographicCamera OrthoCam;
     public OrthogonalTiledMapRenderer tiledRender;
-    WorldTiled oWorld;
+    TileMapHandler oWorld;
     SpriteBatch batch;
     Box2DDebugRenderer renderBox;
     SkeletonRenderer skelrender;
     float fondoLastTime, fondoStateTime;
 
-    public WorldTiledRenderer(SpriteBatch batch, WorldTiled oWorld) {
+    public WorldTiledRenderer(SpriteBatch batch, TileMapHandler oWorld) {
         this.OrthoCam = new OrthographicCamera(WIDTH, HEIGHT);
         this.OrthoCam.position.set(4, 2.4f, 0);
 
@@ -98,7 +107,7 @@ public class WorldTiledRenderer {
 
         batch.end();
 
-        if (Assets.drawDebugLines)
+        if (AssetsHandler.drawDebugLines)
             renderBox.render(oWorld.oWorldBox, OrthoCam.combined);
     }
 
@@ -211,12 +220,12 @@ public class WorldTiledRenderer {
     }
 
     private void renderMonedas(float delta) {
-        for (Moneda obj : oWorld.arrMonedas) {
+        for (Coin obj : oWorld.arrMonedas) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1))
                 continue;
 
             Animation anim;
-            if (obj.state == Moneda.State.normal)
+            if (obj.state == Coin.State.normal)
                 anim = oWorld.game.assetsHandler.monedaAnim;
             else
                 anim = oWorld.game.assetsHandler.monedaTomadaAnim;
@@ -291,10 +300,10 @@ public class WorldTiledRenderer {
     }
 
     private void renderPluma(float delta) {
-        for (Pluma obj : oWorld.arrPlumas) {
+        for (Wing obj : oWorld.arrPlumas) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1))
                 continue;
-            oWorld.game.assetsHandler.plumaAnim.apply(oWorld.game.assetsHandler.plumaSkeleton, obj.lastStatetime, obj.stateTime, true, null);
+            oWorld.game.assetsHandler.plumaAnim.apply(oWorld.game.assetsHandler.plumaSkeleton, obj.lastStateTime, obj.stateTime, true, null);
             oWorld.game.assetsHandler.plumaSkeleton.setX(obj.position.x);
             oWorld.game.assetsHandler.plumaSkeleton.setY(obj.position.y - .2f);
             oWorld.game.assetsHandler.plumaSkeleton.updateWorldTransform();
@@ -305,10 +314,10 @@ public class WorldTiledRenderer {
 
     private void renderFuegos(float delta) {
 
-        for (Fogata obj : oWorld.arrFogatas) {
+        for (Bonfire obj : oWorld.arrFogatas) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1))
                 continue;
-            oWorld.game.assetsHandler.fogataAnim.apply(oWorld.game.assetsHandler.fogataSkeleton, obj.lastStatetime, obj.stateTime, true, null);
+            oWorld.game.assetsHandler.fogataAnim.apply(oWorld.game.assetsHandler.fogataSkeleton, obj.lastStateTime, obj.stateTime, true, null);
             oWorld.game.assetsHandler.fogataSkeleton.setX(obj.position.x);
             oWorld.game.assetsHandler.fogataSkeleton.setY(obj.position.y);
             oWorld.game.assetsHandler.fogataSkeleton.updateWorldTransform();

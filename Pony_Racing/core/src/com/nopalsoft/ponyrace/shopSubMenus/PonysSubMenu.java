@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.nopalsoft.ponyrace.Assets;
+import com.nopalsoft.ponyrace.AssetsHandler;
 import com.nopalsoft.ponyrace.Settings;
 import com.nopalsoft.ponyrace.screens.ShopScreen;
 
@@ -31,7 +31,7 @@ public class PonysSubMenu {
     private final String prefName = "com.nopalsoft.ponyRace.ponysSubMenu";
     private final Preferences prefAchiv = Gdx.app.getPreferences(prefName);
     Table contenedor;
-    Assets oAssets;
+    AssetsHandler oAssetsHandler;
     TextButton btUnlockCloud, btUnlockCientifico, btUnlockEnemigo, btUnlockNatylol, btUnlockIgnis, btUnlockLalba;
     Table dentroCloud, dentroCientifico, dentroEnemigo, dentroNatylol, dentroIgnis, dentroLalba;
     private boolean isCientificoUnlocked;
@@ -42,7 +42,7 @@ public class PonysSubMenu {
 
     public PonysSubMenu(ShopScreen shop, Table contenedor) {
         this.contenedor = contenedor;
-        oAssets = shop.game.assetsHandler;
+        oAssetsHandler = shop.game.assetsHandler;
 
         isCientificoUnlocked = prefAchiv.getBoolean("isCientificoUnlocked", false);
         isEnemigoUnlocked = prefAchiv.getBoolean("isEnemigoUnlocked", false);
@@ -66,7 +66,7 @@ public class PonysSubMenu {
     }
 
     private void inicializarBotones() {
-        TextButtonStyle btStyle = new TextButtonStyle(oAssets.btNubeUpTienda, oAssets.btNubeDownTienda, null, oAssets.fontChco);
+        TextButtonStyle btStyle = new TextButtonStyle(oAssetsHandler.btNubeUpTienda, oAssetsHandler.btNubeDownTienda, null, oAssetsHandler.fontChco);
 
         btUnlockCloud = new TextButton(USE, btStyle);
         if (Settings.selectedSkin.equals(NOMBRE_SKIN_CLOUD))
@@ -230,11 +230,11 @@ public class PonysSubMenu {
     }
 
     private void setPonys() {
-        LabelStyle lblStyle = new LabelStyle(oAssets.fontChco, Color.WHITE);
+        LabelStyle lblStyle = new LabelStyle(oAssetsHandler.fontChco, Color.WHITE);
 
         // Cloud
         Table tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.perfilCloud)).size(65, 60).padLeft(10).padRight(10);
+        tbDentro.add(new Image(oAssetsHandler.perfilCloud)).size(65, 60).padLeft(10).padRight(10);
         Label descripcion = new Label("Play using cloud pony", lblStyle);
         descripcion.setWrap(true);
         tbDentro.add(descripcion).expand().fill();
@@ -247,13 +247,13 @@ public class PonysSubMenu {
 
         // Cientifico
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.perfilcientifico)).size(65, 60).padLeft(10).padRight(10);
+        tbDentro.add(new Image(oAssetsHandler.perfilcientifico)).size(65, 60).padLeft(10).padRight(10);
         descripcion = new Label("Play using scientisg pony", lblStyle);
         descripcion.setWrap(true);
         tbDentro.add(descripcion).expandX().fill();
         dentroCientifico = new Table();
         if (!isCientificoUnlocked) {
-            dentroCientifico.add(new Image(oAssets.monedaTienda));
+            dentroCientifico.add(new Image(oAssetsHandler.monedaTienda));
             Label precio = new Label(PRECIO_DESBLOQUEAR_PONY + "", lblStyle);
             dentroCientifico.add(precio).left();
             dentroCientifico.row().colspan(2);
@@ -265,13 +265,13 @@ public class PonysSubMenu {
 
         // Enemigo
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.perfilenemigo)).size(65, 60).padLeft(10).padRight(10);
+        tbDentro.add(new Image(oAssetsHandler.perfilenemigo)).size(65, 60).padLeft(10).padRight(10);
         descripcion = new Label("Play using Enemy pony", lblStyle);
         descripcion.setWrap(true);
         tbDentro.add(descripcion).expandX().fill();
         dentroEnemigo = new Table();
         if (!isEnemigoUnlocked) {
-            dentroEnemigo.add(new Image(oAssets.monedaTienda));
+            dentroEnemigo.add(new Image(oAssetsHandler.monedaTienda));
             Label precio = new Label(PRECIO_DESBLOQUEAR_PONY + "", lblStyle);
             dentroEnemigo.add(precio).left();
             dentroEnemigo.row().colspan(2);
@@ -283,13 +283,13 @@ public class PonysSubMenu {
 
         // Natylol
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.perfilNatylol)).size(65, 60).padLeft(10).padRight(10);
+        tbDentro.add(new Image(oAssetsHandler.perfilNatylol)).size(65, 60).padLeft(10).padRight(10);
         descripcion = new Label("Play using Natylol pony", lblStyle);
         descripcion.setWrap(true);
         tbDentro.add(descripcion).expandX().fill();
         dentroNatylol = new Table();
         if (!isNatylolUnlocked) {
-            dentroNatylol.add(new Image(oAssets.monedaTienda));
+            dentroNatylol.add(new Image(oAssetsHandler.monedaTienda));
             Label precio = new Label(PRECIO_DESBLOQUEAR_PONY + "", lblStyle);
             dentroNatylol.add(precio).left();
             dentroNatylol.row().colspan(2);
@@ -301,13 +301,13 @@ public class PonysSubMenu {
 
         // Ignis
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.perfilIgnis)).size(65, 60).padLeft(10).padRight(10);
+        tbDentro.add(new Image(oAssetsHandler.perfilIgnis)).size(65, 60).padLeft(10).padRight(10);
         descripcion = new Label("Play using Ignis pony", lblStyle);
         descripcion.setWrap(true);
         tbDentro.add(descripcion).expandX().fill();
         dentroIgnis = new Table();
         if (!isIgnisUnlocked) {
-            dentroIgnis.add(new Image(oAssets.monedaTienda));
+            dentroIgnis.add(new Image(oAssetsHandler.monedaTienda));
             Label precio = new Label(PRECIO_DESBLOQUEAR_PONY + "", lblStyle);
             dentroIgnis.add(precio).left();
             dentroIgnis.row().colspan(2);
@@ -319,13 +319,13 @@ public class PonysSubMenu {
 
         // Lalba
         tbDentro = new Table();
-        tbDentro.add(new Image(oAssets.perfilLAlba)).size(65, 60).padLeft(10).padRight(10);
+        tbDentro.add(new Image(oAssetsHandler.perfilLAlba)).size(65, 60).padLeft(10).padRight(10);
         descripcion = new Label("Play using Lalba pony", lblStyle);
         descripcion.setWrap(true);
         tbDentro.add(descripcion).expandX().fill();
         dentroLalba = new Table();
         if (!isLalbaUnlocked) {
-            dentroLalba.add(new Image(oAssets.monedaTienda));
+            dentroLalba.add(new Image(oAssetsHandler.monedaTienda));
             Label precio = new Label(PRECIO_DESBLOQUEAR_PONY + "", lblStyle);
             dentroLalba.add(precio).left();
             dentroLalba.row().colspan(2);

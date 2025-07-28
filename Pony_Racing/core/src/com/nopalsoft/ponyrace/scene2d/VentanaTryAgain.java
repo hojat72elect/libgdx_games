@@ -5,14 +5,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.nopalsoft.ponyrace.game.GameScreenTileds;
-import com.nopalsoft.ponyrace.game.WorldTiled;
+import com.nopalsoft.ponyrace.game.GameScreen;
+import com.nopalsoft.ponyrace.game.TileMapHandler;
 import com.nopalsoft.ponyrace.screens.BaseScreen;
 
 public class VentanaTryAgain extends Ventana {
 
-    GameScreenTileds gameScreen;
-    WorldTiled oWorld;
+    GameScreen gameScreen;
+    TileMapHandler oWorld;
 
     Label lbCoinsNum, lbTimeLeftNum;
 
@@ -22,14 +22,14 @@ public class VentanaTryAgain extends Ventana {
         setY(60);
         setBackGround();
 
-        gameScreen = (GameScreenTileds) currentScreen;
-        oWorld = gameScreen.oWorld;
+        gameScreen = (GameScreen) currentScreen;
+        oWorld = gameScreen.world;
 
         Image medalla = null;
         if (oWorld.oPony.lugarEnLaCarrera == 2)
-            medalla = new Image(oAssets.medallaSegundoLugar);
+            medalla = new Image(oAssetsHandler.medallaSegundoLugar);
         else if (oWorld.oPony.lugarEnLaCarrera == 3)
-            medalla = new Image(oAssets.medallaTercerLugar);
+            medalla = new Image(oAssetsHandler.medallaTercerLugar);
 
         Table content = new Table();
         content.setSize(320, 180);
@@ -39,7 +39,7 @@ public class VentanaTryAgain extends Ventana {
             medalla.setPosition(15, getHeight() / 2f - medalla.getHeight() / 2f);
             addActor(medalla);
         } else {
-            Image youLose = new Image(oAssets.youLose);
+            Image youLose = new Image(oAssetsHandler.youLose);
             youLose.setPosition(getWidth() / 2f - youLose.getWidth() / 2f, 250);
             addActor(youLose);
 
@@ -49,22 +49,22 @@ public class VentanaTryAgain extends Ventana {
         // content.debug();
 
         Label lbLapTime = new Label("Lap time", new LabelStyle(
-                oAssets.fontChco, Color.WHITE));
+                oAssetsHandler.fontChco, Color.WHITE));
 
         Label lbLapTimeNum = new Label(gameScreen.lapTime, new LabelStyle(
-                oAssets.fontChco, Color.WHITE));
+                oAssetsHandler.fontChco, Color.WHITE));
 
         Label lbTimeLeft = new Label("Time left", new LabelStyle(
-                oAssets.fontChco, Color.WHITE));
+                oAssetsHandler.fontChco, Color.WHITE));
 
-        lbTimeLeftNum = new Label("", new LabelStyle(oAssets.fontChco,
+        lbTimeLeftNum = new Label("", new LabelStyle(oAssetsHandler.fontChco,
                 Color.WHITE));
 
-        Label lbCoins = new Label("Coins", new LabelStyle(oAssets.fontChco,
+        Label lbCoins = new Label("Coins", new LabelStyle(oAssetsHandler.fontChco,
                 Color.WHITE));
 
         lbCoinsNum = new Label("",
-                new LabelStyle(oAssets.fontChco, Color.WHITE));
+                new LabelStyle(oAssetsHandler.fontChco, Color.WHITE));
 
         content.row();
         content.add(lbLapTime).left();

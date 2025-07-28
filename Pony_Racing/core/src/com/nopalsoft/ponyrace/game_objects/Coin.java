@@ -1,15 +1,16 @@
 package com.nopalsoft.ponyrace.game_objects;
 
 import com.esotericsoftware.spine.Skeleton;
-import com.nopalsoft.ponyrace.game.WorldTiled;
+import com.nopalsoft.ponyrace.game.TileMapHandler;
 
-public class Moneda extends GameObject {
+public class Coin extends BaseGameObject {
     public static float TIEMPO_TOMADA;
     public float lastStatetime;
     public float stateTime;
     public State state;
     public Skeleton monedaSkeleton;
-    public Moneda(float x, float y, WorldTiled oWorld) {
+
+    public Coin(float x, float y, TileMapHandler oWorld) {
         super(x, y);
         stateTime = oWorld.random.nextFloat() * 5f;
         lastStatetime = stateTime;

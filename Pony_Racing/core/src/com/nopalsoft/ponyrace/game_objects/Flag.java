@@ -1,6 +1,6 @@
 package com.nopalsoft.ponyrace.game_objects;
 
-import com.nopalsoft.ponyrace.game.WorldTiled;
+import com.nopalsoft.ponyrace.game.TileMapHandler;
 
 import java.util.Random;
 
@@ -9,7 +9,7 @@ public class Flag {
     public ActionType actionType;
     Random random;
 
-    public Flag(WorldTiled world, ActionType actionType) {
+    public Flag(TileMapHandler world, ActionType actionType) {
         random = world.random;
         state = State.NORMAL;
         this.actionType = actionType;

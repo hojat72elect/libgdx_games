@@ -18,7 +18,7 @@ public class VentanaRate extends Ventana {
         setBackGround();
 
         Label lbTitle = new Label("Support this game", new LabelStyle(
-                oAssets.fontGde, Color.WHITE));
+                oAssetsHandler.fontGde, Color.WHITE));
         lbTitle.setPosition(getWidth() / 2f - lbTitle.getWidth() / 2f, 235);
 
         Label lbContenido = new Label(

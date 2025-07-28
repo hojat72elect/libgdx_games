@@ -12,7 +12,7 @@ import com.nopalsoft.ponyrace.screens.MainMenuScreen;
 public class PonyRacingGame extends Game {
 
     final public FloatFormatter formatter;
-    public Assets assetsHandler;
+    public AssetsHandler assetsHandler;
     public Stage stage;
     public SpriteBatch batch;
     public Achievements achievementsHandler;
@@ -25,7 +25,7 @@ public class PonyRacingGame extends Game {
     @Override
     public void create() {
         Settings.cargar();
-        assetsHandler = new Assets();
+        assetsHandler = new AssetsHandler();
         achievementsHandler = new com.nopalsoft.ponyrace.Achievements();
         stage = new Stage(new StretchViewport(BaseScreen.SCREEN_WIDTH, BaseScreen.SCREEN_HEIGHT));
         batch = new SpriteBatch();

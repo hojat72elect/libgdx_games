@@ -2,7 +2,7 @@ package com.nopalsoft.ponyrace.screens;
 
 import com.badlogic.gdx.graphics.Color;
 import com.nopalsoft.ponyrace.PonyRacingGame;
-import com.nopalsoft.ponyrace.game.GameScreenTileds;
+import com.nopalsoft.ponyrace.game.GameScreen;
 
 public class LoadingScreen extends BaseScreen {
     Class<?> clase;
@@ -27,37 +27,37 @@ public class LoadingScreen extends BaseScreen {
         this.nivelTiled = nivelTiled;
 
         if (clase == MainMenuScreen.class) {
-            oAssets.loadMenus();
+            assetsHandler.loadMenus();
         } else if (clase == LeaderboardChooseScreen.class) {
-            oAssets.loadMenus();
+            assetsHandler.loadMenus();
         } else if (clase == WorldMapTiledScreen.class) {
-            oAssets.loadMenus();
+            assetsHandler.loadMenus();
         } else if (clase == ShopScreen.class) {
-            oAssets.loadMenus();
-        } else if (clase == GameScreenTileds.class) {
-            oAssets.loadGameScreenTiled(nivelTiled);
+            assetsHandler.loadMenus();
+        } else if (clase == GameScreen.class) {
+            assetsHandler.loadGameScreenTiled(nivelTiled);
         }
     }
 
     @Override
     public void update(float delta) {
-        if (oAssets.update()) {
+        if (assetsHandler.update()) {
 
             if (clase == MainMenuScreen.class) {
-                oAssets.cargarMenus();
+                assetsHandler.cargarMenus();
                 game.setScreen(new MainMenuScreen(game));
             } else if (clase == LeaderboardChooseScreen.class) {
-                oAssets.cargarMenus();
+                assetsHandler.cargarMenus();
                 game.setScreen(new LeaderboardChooseScreen(game));
             } else if (clase == WorldMapTiledScreen.class) {
-                oAssets.cargarMenus();
+                assetsHandler.cargarMenus();
                 game.setScreen(new WorldMapTiledScreen(game));
             } else if (clase == ShopScreen.class) {
-                oAssets.cargarMenus();
+                assetsHandler.cargarMenus();
                 game.setScreen(new ShopScreen(game));
-            } else if (clase == GameScreenTileds.class) {
-                oAssets.cargarGameScreenTiled();
-                game.setScreen(new GameScreenTileds(game, nivelTiled));
+            } else if (clase == GameScreen.class) {
+                assetsHandler.cargarGameScreenTiled();
+                game.setScreen(new GameScreen(game, nivelTiled));
             }
         } else {
 
@@ -68,15 +68,15 @@ public class LoadingScreen extends BaseScreen {
     @Override
     public void draw(float delta) {
 
-        guiCam.update();
-        batcher.setProjectionMatrix(guiCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
 
-        batcher.begin();
-        oAssets.fontChco.setColor(Color.WHITE);
-        glyphLayout.setText(oAssets.fontChco, "%");
-        oAssets.fontChco.draw(batcher, cargaActual + "%", (SCREEN_WIDTH / 2F)
+        batch.begin();
+        assetsHandler.fontChco.setColor(Color.WHITE);
+        glyphLayout.setText(assetsHandler.fontChco, "%");
+        assetsHandler.fontChco.draw(batch, cargaActual + "%", (SCREEN_WIDTH / 2F)
                 - (glyphLayout.width / 2), SCREEN_HEIGHT / 2F - glyphLayout.height / 2);
-        batcher.end();
+        batch.end();
     }
 
     @Override

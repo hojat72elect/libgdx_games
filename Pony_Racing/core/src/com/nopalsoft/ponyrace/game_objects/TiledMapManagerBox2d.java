@@ -1,16 +1,32 @@
 package com.nopalsoft.ponyrace.game_objects;
 
-import com.badlogic.gdx.maps.*;
-import com.badlogic.gdx.maps.objects.*;
+import com.badlogic.gdx.maps.Map;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.objects.CircleMapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
+import com.badlogic.gdx.maps.objects.PolylineMapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.ChainShape;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Logger;
 import com.nopalsoft.ponyrace.Settings;
-import com.nopalsoft.ponyrace.game.WorldTiled;
+import com.nopalsoft.ponyrace.game.TileMapHandler;
 
 import java.util.LinkedHashMap;
 
@@ -18,7 +34,7 @@ public class TiledMapManagerBox2d {
 
     public final static short CONTACT_CORREDORES = -1;
 
-    private final WorldTiled oWorld;
+    private final TileMapHandler oWorld;
     private final World oWorldBox;
     private final float m_units;
     private final Logger logger;
@@ -26,7 +42,7 @@ public class TiledMapManagerBox2d {
     private final LinkedHashMap<Integer, String> nombrePonys;
     int contadorPonisCreados = 0;
 
-    public TiledMapManagerBox2d(WorldTiled oWorld, float unitsPerPixel) {
+    public TiledMapManagerBox2d(TileMapHandler oWorld, float unitsPerPixel) {
         this.oWorld = oWorld;
         oWorldBox = oWorld.oWorldBox;
         m_units = unitsPerPixel;
@@ -371,8 +387,8 @@ public class TiledMapManagerBox2d {
         }
 
         Polygon as = new Polygon(vertices);
-        Fogata oFogata;
-        oFogata = new Fogata(as.getBoundingRectangle().width / 2f * m_units + as.getBoundingRectangle().x * m_units + xLost,
+        Bonfire oBonfire;
+        oBonfire = new Bonfire(as.getBoundingRectangle().width / 2f * m_units + as.getBoundingRectangle().x * m_units + xLost,
                 as.getBoundingRectangle().height / 2f * m_units + as.getBoundingRectangle().y * m_units + yLost - .15f, oWorld.random);
 
         polygon.set(worldVertices);
@@ -388,9 +404,9 @@ public class TiledMapManagerBox2d {
 
         Body body = oWorldBox.createBody(bodyDef);
         body.createFixture(fixture);
-        body.setUserData(oFogata);
+        body.setUserData(oBonfire);
 
-        oWorld.arrFogatas.add(oFogata);
+        oWorld.arrFogatas.add(oBonfire);
         polygon.dispose();
     }
 
@@ -399,7 +415,7 @@ public class TiledMapManagerBox2d {
         float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
 
-        Pluma obj = new Pluma(x, y, oWorld.random);
+        Wing obj = new Wing(x, y, oWorld.random);
         BodyDef bd = new BodyDef();
         bd.position.y = obj.position.y;
         bd.position.x = obj.position.x;
@@ -429,7 +445,7 @@ public class TiledMapManagerBox2d {
         float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
 
-        Moneda obj = new Moneda(x, y, oWorld);
+        Coin obj = new Coin(x, y, oWorld);
         BodyDef bd = new BodyDef();
         bd.position.y = obj.position.y;
         bd.position.x = obj.position.x;

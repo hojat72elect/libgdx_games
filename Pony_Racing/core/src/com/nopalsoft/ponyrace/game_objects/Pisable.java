@@ -1,6 +1,6 @@
 package com.nopalsoft.ponyrace.game_objects;
 
-public class Pisable extends GameObject {
+public class Pisable extends BaseGameObject {
 
     public final float ancho, alto;
 

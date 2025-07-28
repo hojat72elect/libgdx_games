@@ -3,9 +3,9 @@ package com.nopalsoft.ponyrace.game_objects;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.nopalsoft.ponyrace.Settings;
-import com.nopalsoft.ponyrace.game.WorldTiled;
+import com.nopalsoft.ponyrace.game.TileMapHandler;
 
-public class Wood extends GameObject {
+public class Wood extends BaseGameObject {
     public static final float TIEMPO_NORMAL = 8f;
     public final float TIEMPO_HURT;
     public float lastStatetime;
@@ -14,7 +14,8 @@ public class Wood extends GameObject {
     public State state;
     public Tipo tipo;
     public Pony ponyTirador;// El pony que tiro este wood
-    public Wood(float x, float y, Pony ponyTirador, WorldTiled oWorld) {
+
+    public Wood(float x, float y, Pony ponyTirador, TileMapHandler oWorld) {
         super(x, y);
         stateTime = 0;
         lastStatetime = stateTime;

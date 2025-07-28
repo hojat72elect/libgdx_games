@@ -4,9 +4,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.esotericsoftware.spine.Skeleton;
 import com.nopalsoft.ponyrace.Settings;
-import com.nopalsoft.ponyrace.game.WorldTiled;
+import com.nopalsoft.ponyrace.game.TileMapHandler;
 
-public class Bomb extends GameObject {
+public class Bomb extends BaseGameObject {
     public static final float TIEMPO_NORMAL = 1.5f;
     public static final float TIEMPO_EXPLOSION = .3f;
     public final float TIEMPO_HURT;
@@ -16,7 +16,7 @@ public class Bomb extends GameObject {
     public State state;
     public Skeleton skelBomb;
 
-    public Bomb(float x, float y, WorldTiled world) {
+    public Bomb(float x, float y, TileMapHandler world) {
         super(x, y);
         stateTime = 0;
         lastStatetime = stateTime;

@@ -9,7 +9,7 @@ import com.esotericsoftware.spine.AnimationStateData;
 import com.esotericsoftware.spine.Event;
 import com.esotericsoftware.spine.Skeleton;
 import com.nopalsoft.ponyrace.Settings;
-import com.nopalsoft.ponyrace.game.WorldTiled;
+import com.nopalsoft.ponyrace.game.TileMapHandler;
 
 import java.util.Random;
 
@@ -60,7 +60,7 @@ public class Pony {
     public boolean fireBomb;
     public boolean fireWood;
 
-    public Pony(float x, float y, String nombreSkin, WorldTiled oWorld) {
+    public Pony(float x, float y, String nombreSkin, TileMapHandler oWorld) {
         this.oRan = oWorld.random;
 
         switch (Settings.chiliLevel) {

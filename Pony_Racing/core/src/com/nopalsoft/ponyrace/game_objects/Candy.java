@@ -1,16 +1,16 @@
 package com.nopalsoft.ponyrace.game_objects;
 
 import com.esotericsoftware.spine.Skeleton;
-import com.nopalsoft.ponyrace.game.WorldTiled;
+import com.nopalsoft.ponyrace.game.TileMapHandler;
 
-public class Candy extends GameObject {
+public class Candy extends BaseGameObject {
     public static float PICK_UP_DURATION; // if you don't pick them up before this time ends, they will be deleted
     public float lastStateTime;
     public float stateTime;
     public State state;
     public Skeleton skeleton;
 
-    public Candy(float x, float y, WorldTiled oWorld) {
+    public Candy(float x, float y, TileMapHandler oWorld) {
         super(x, y);
         stateTime = oWorld.random.nextFloat() * 5f;
         lastStateTime = stateTime;

@@ -2,25 +2,25 @@ package com.nopalsoft.ponyrace.game_objects;
 
 import java.util.Random;
 
-public class Pluma extends GameObject {
-    public float lastStatetime;
+public class Wing extends BaseGameObject {
+    public float lastStateTime;
     public float stateTime;
     public State state;
 
 
-    public Pluma(float x, float y, Random oRan) {
+    public Wing(float x, float y, Random oRan) {
         super(x, y);
         stateTime = oRan.nextFloat() * 5f;
-        lastStatetime = stateTime;
-        state = State.normal;
+        lastStateTime = stateTime;
+        state = State.IDLE;
     }
 
     public void update(float delta) {
-        lastStatetime = stateTime;
+        lastStateTime = stateTime;
         stateTime += delta;
     }
 
     public enum State {
-        normal, tomada
+        IDLE, ACTIVE
     }
 }

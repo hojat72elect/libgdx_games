@@ -2,7 +2,7 @@ package com.nopalsoft.ponyrace.game_objects;
 
 import java.util.Random;
 
-public class BloodStone extends GameObject {
+public class BloodStone extends BaseGameObject {
     public float lastStateTime;
     public float stateTime;
     public Type type;

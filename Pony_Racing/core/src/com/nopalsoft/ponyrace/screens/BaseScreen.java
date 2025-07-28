@@ -10,10 +10,10 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.esotericsoftware.spine.SkeletonRenderer;
-import com.nopalsoft.ponyrace.Assets;
+import com.nopalsoft.ponyrace.AssetsHandler;
 import com.nopalsoft.ponyrace.PonyRacingGame;
 import com.nopalsoft.ponyrace.Settings;
-import com.nopalsoft.ponyrace.game.GameScreenTileds;
+import com.nopalsoft.ponyrace.game.GameScreen;
 
 public abstract class BaseScreen extends InputAdapter implements Screen {
     public static final int SCREEN_WIDTH = 800;
@@ -24,55 +24,53 @@ public abstract class BaseScreen extends InputAdapter implements Screen {
 
     public PonyRacingGame game;
     public Stage stage;
-    public SpriteBatch batcher;
+    public SpriteBatch batch;
 
-    public OrthographicCamera guiCam;
+    public OrthographicCamera camera;
 
-    public SkeletonRenderer skelrender;
+    public SkeletonRenderer skeletonRenderer;
     protected GlyphLayout glyphLayout;
 
-    protected Assets oAssets;
-    protected float ScreenlastStatetime;
+    protected AssetsHandler assetsHandler;
+    protected float screenLastStateTime;
     protected float ScreenStateTime;
 
     public BaseScreen(PonyRacingGame game) {
-        oAssets = game.assetsHandler;
+        assetsHandler = game.assetsHandler;
         stage = game.stage;
         stage.clear();
-        batcher = game.batch;
+        batch = game.batch;
         glyphLayout = new GlyphLayout();
         InputMultiplexer input = new InputMultiplexer(stage, this);
         Gdx.input.setInputProcessor(input);
         this.game = game;
-        guiCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
-        guiCam.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
+        camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
+        camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
 
-        skelrender = new SkeletonRenderer();
+        skeletonRenderer = new SkeletonRenderer();
 
-        ScreenlastStatetime = ScreenStateTime = 0;
+        screenLastStateTime = ScreenStateTime = 0;
         if (this instanceof MainMenuScreen) {
-            oAssets.fontGde.getData().setScale(1f);
-            oAssets.fontChco.getData().setScale(.65f);
-        } else if (this instanceof GameScreenTileds) {
-            oAssets.fontGde.getData().setScale(.625f);
-            oAssets.fontChco.getData().setScale(.55f);
+            assetsHandler.fontGde.getData().setScale(1f);
+            assetsHandler.fontChco.getData().setScale(.65f);
+        } else if (this instanceof GameScreen) {
+            assetsHandler.fontGde.getData().setScale(.625f);
+            assetsHandler.fontChco.getData().setScale(.55f);
         } else if (this instanceof WorldMapTiledScreen) {
-            oAssets.fontGde.getData().setScale(.8f);
-            oAssets.fontChco.getData().setScale(.6f);
+            assetsHandler.fontGde.getData().setScale(.8f);
+            assetsHandler.fontChco.getData().setScale(.6f);
         } else if (this instanceof LeaderboardChooseScreen) {
-            oAssets.fontGde.getData().setScale(.8f);
-            oAssets.fontChco.getData().setScale(.65f);
+            assetsHandler.fontGde.getData().setScale(.8f);
+            assetsHandler.fontChco.getData().setScale(.65f);
         } else if (this instanceof ShopScreen) {
-            oAssets.fontGde.getData().setScale(.68f);
-            oAssets.fontChco.getData().setScale(.45f);
+            assetsHandler.fontGde.getData().setScale(.68f);
+            assetsHandler.fontChco.getData().setScale(.45f);
         }
-
-        // windowReady.debug();
     }
 
     @Override
     public void render(float delta) {
-        ScreenlastStatetime = ScreenStateTime;
+        screenLastStateTime = ScreenStateTime;
         ScreenStateTime += delta;
 
         update(delta);
@@ -101,19 +99,18 @@ public abstract class BaseScreen extends InputAdapter implements Screen {
 
     @Override
     public void pause() {
-        oAssets.pauseMusic();
+        assetsHandler.pauseMusic();
     }
 
     @Override
     public void resume() {
-        if (this instanceof GameScreenTileds)
-            oAssets.platMusicInGame();
+        if (this instanceof GameScreen)
+            assetsHandler.platMusicInGame();
         else
-            oAssets.playMusicMenus();
+            assetsHandler.playMusicMenus();
     }
 
     @Override
     public void dispose() {
-
     }
 }
