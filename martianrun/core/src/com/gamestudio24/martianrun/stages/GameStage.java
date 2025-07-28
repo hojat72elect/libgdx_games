@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2014. William Mora
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package com.gamestudio24.martianrun.stages;
 
@@ -20,16 +5,40 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.gamestudio24.martianrun.actors.*;
-import com.gamestudio24.martianrun.actors.menu.*;
+import com.gamestudio24.martianrun.actors.Background;
+import com.gamestudio24.martianrun.actors.Enemy;
+import com.gamestudio24.martianrun.actors.Ground;
+import com.gamestudio24.martianrun.actors.Runner;
+import com.gamestudio24.martianrun.actors.Score;
+import com.gamestudio24.martianrun.actors.menu.AboutButton;
+import com.gamestudio24.martianrun.actors.menu.AboutLabel;
+import com.gamestudio24.martianrun.actors.menu.AchievementsButton;
+import com.gamestudio24.martianrun.actors.menu.GameLabel;
+import com.gamestudio24.martianrun.actors.menu.LeaderboardButton;
+import com.gamestudio24.martianrun.actors.menu.MusicButton;
+import com.gamestudio24.martianrun.actors.menu.PauseButton;
+import com.gamestudio24.martianrun.actors.menu.PausedLabel;
+import com.gamestudio24.martianrun.actors.menu.ShareButton;
+import com.gamestudio24.martianrun.actors.menu.SoundButton;
+import com.gamestudio24.martianrun.actors.menu.StartButton;
+import com.gamestudio24.martianrun.actors.menu.Tutorial;
 import com.gamestudio24.martianrun.enums.Difficulty;
 import com.gamestudio24.martianrun.enums.GameState;
-import com.gamestudio24.martianrun.utils.*;
+import com.gamestudio24.martianrun.utils.AudioUtils;
+import com.gamestudio24.martianrun.utils.BodyUtils;
+import com.gamestudio24.martianrun.utils.Constants;
+import com.gamestudio24.martianrun.utils.GameManager;
+import com.gamestudio24.martianrun.utils.WorldUtils;
 
 public class GameStage extends Stage implements ContactListener {
 

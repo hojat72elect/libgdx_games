@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2014. William Mora
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package com.gamestudio24.martianrun.enums;
 
@@ -33,12 +18,12 @@ public enum EnemyType {
     FLYING_WIDE(2f, 1f, Constants.ENEMY_X, Constants.FLYING_ENEMY_Y, Constants.ENEMY_DENSITY,
             Constants.FLYING_WIDE_ENEMY_ASSETS_ID);
 
-    private float width;
-    private float height;
-    private float x;
-    private float y;
-    private float density;
-    private String animationAssetsId;
+    private final float width;
+    private final float height;
+    private final float x;
+    private final float y;
+    private final float density;
+    private final String animationAssetsId;
 
     EnemyType(float width, float height, float x, float y, float density, String animationAssetsId) {
         this.width = width;
