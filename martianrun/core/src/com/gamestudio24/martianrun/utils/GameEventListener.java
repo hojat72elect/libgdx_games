@@ -18,8 +18,6 @@ public interface GameEventListener {
 
     /**
      * Submits a given score. Used every time the game is over
-     *
-     * @param score
      */
     void submitScore(int score);
 
@@ -55,7 +53,7 @@ public interface GameEventListener {
      */
     void incrementAchievement(String id, int steps);
 
-    /**
+    /*
      * The following are getters for specific achievement IDs used in this game
      */
 
