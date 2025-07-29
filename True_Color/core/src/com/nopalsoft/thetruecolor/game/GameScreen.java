@@ -152,7 +152,7 @@ public class GameScreen extends Screens {
 
             if ((oPalabra.color == oPalabra.texto && seleccion) || (oPalabra.color != oPalabra.texto && !seleccion)) {
                 score++;
-                Achievements.unlockScoreAchievements(score);
+                Achievements.unlockScoreAchievements();
 
                 if (score < 10) {
                     timeInicialPorPalabra -= .14f;// 1.8seg menos
@@ -267,7 +267,6 @@ public class GameScreen extends Screens {
             stage.addActor(lblScore);
             stage.addActor(tbMenu);
             Settings.setNewScore(score);
-            game.facebookHandler.facebookSubmitScore(score);
             game.gameServiceHandler.submitScore(score);
 
             game.reqHandler.showAdBanner();
@@ -277,12 +276,7 @@ public class GameScreen extends Screens {
                 game.reqHandler.showInterstitial();
             }
 
-
-            if (!game.facebookHandler.facebookIsSignedIn() && (Settings.numVecesJugadas == 5 || Settings.numVecesJugadas == 10)) {
-                new VentanaFacebook(this).show(stage);
-            }
-
-            Achievements.unlockTimesPlayedAchievements(Settings.numVecesJugadas);
+            Achievements.unlockTimesPlayedAchievements();
             Settings.save();
         }
     }

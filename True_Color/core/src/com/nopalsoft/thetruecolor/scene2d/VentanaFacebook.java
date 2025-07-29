@@ -33,17 +33,7 @@ public class VentanaFacebook extends Ventana {
         screen.addEfectoPress(btFacebookLogin);
         btFacebookLogin.getLabel().setFontScale(.75f);
 
-        btFacebookLogin.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.facebookHandler.facebookIsSignedIn()) {
-                    game.facebookHandler.facebookSignOut();
-                } else {
-                    game.facebookHandler.facebookSignIn();
-                }
-                hide();
-            }
-        });
+
 
         addActor(lbText);
         addActor(btFacebookLogin);
@@ -54,8 +44,6 @@ public class VentanaFacebook extends Ventana {
         super.show(stage);
 
         String textButton = idiomas.get("login");
-        if (game.facebookHandler.facebookIsSignedIn())
-            textButton = idiomas.get("logout");
 
         btFacebookLogin.setText(textButton);
         btFacebookLogin.pack();

@@ -114,9 +114,6 @@ public class MainMenuScreen extends Screens {
         if (game.arrPerson != null)
             updateLeaderboard();
 
-        if (game.facebookHandler.facebookIsSignedIn())
-            game.facebookHandler.facebookGetScores();
-
         if (game.gameServiceHandler.isSignedIn())
             game.gameServiceHandler.getScores();
     }

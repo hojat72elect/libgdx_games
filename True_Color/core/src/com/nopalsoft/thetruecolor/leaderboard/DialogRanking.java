@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.MainTheTrueColor;
-import com.nopalsoft.thetruecolor.handlers.AmazonGameServicesHandler;
 import com.nopalsoft.thetruecolor.scene2d.VentanaAmazon;
 import com.nopalsoft.thetruecolor.scene2d.VentanaFacebook;
 import com.nopalsoft.thetruecolor.scene2d.VentanaGoogle;
@@ -65,9 +64,7 @@ public class DialogRanking extends Group {
         });
 
         TextureRegionDrawable btLoginKeyFrame = Assets.btGoogle;
-        if (game.gameServiceHandler instanceof AmazonGameServicesHandler) {
-            btLoginKeyFrame = Assets.btAmazon;
-        }
+
 
         btGoogle = new Button(btLoginKeyFrame);
 
@@ -75,11 +72,7 @@ public class DialogRanking extends Group {
         btGoogle.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler instanceof AmazonGameServicesHandler) {
-                    ventanaAmazon.show(getStage());
-                } else {
                     ventanaGoogle.show(getStage());
-                }
             }
         });
 
