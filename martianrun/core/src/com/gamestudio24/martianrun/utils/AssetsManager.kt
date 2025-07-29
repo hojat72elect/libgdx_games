@@ -126,7 +126,7 @@ object AssetsManager {
         return animationsMap.get(key)
     }
 
-    private fun createAnimation(textureAtlas: TextureAtlas, regionNames: Array<String?>): Animation {
+    private fun createAnimation(textureAtlas: TextureAtlas, regionNames: Array<String>): Animation {
         val runningFrames = arrayOfNulls<TextureRegion>(regionNames.size)
 
         for (i in regionNames.indices) {
