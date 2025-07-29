@@ -16,7 +16,7 @@ public class Enemy extends GameActor {
 
     public Enemy(Body body) {
         super(body);
-        animation = AssetsManager.getAnimation(getUserData().getAnimationAssetId());
+        animation = AssetsManager.getAnimation(getUserData().animationAssetId);
         stateTime = 0f;
     }
 
@@ -28,7 +28,7 @@ public class Enemy extends GameActor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        body.setLinearVelocity(getUserData().getLinearVelocity());
+        body.setLinearVelocity(getUserData().linearVelocity);
     }
 
     @Override
