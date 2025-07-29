@@ -16,80 +16,78 @@ import com.nopalsoft.thetruecolor.Settings;
 import com.nopalsoft.thetruecolor.game.GameScreen;
 import com.nopalsoft.thetruecolor.leaderboard.DialogRanking;
 import com.nopalsoft.thetruecolor.leaderboard.Person;
-import com.nopalsoft.thetruecolor.scene2d.BaseDialogHelpSettings;
-import com.nopalsoft.thetruecolor.scene2d.BaseDialogHelpSettings.Languages;
+import com.nopalsoft.thetruecolor.scene2d.DialogHelpSettings;
+import com.nopalsoft.thetruecolor.scene2d.DialogHelpSettings.Languages;
 
-public class MainMenuScreen extends Screens {
+public class MainMenuScreen extends BaseScreen {
 
-    Image titulo;
+    Image titleImage;
     DialogRanking dialogRanking;
 
-    ImageButton btJugar;
+    ImageButton startButton;
 
-    Table menuUI;
-    Button btRate, btLeaderboard, btAchievement, btHelp;
+    Table menuUITable;
+    Button buttonRate, buttonLeaderboard, buttonAchievement, buttonHelp;
 
-    BaseDialogHelpSettings ventanaHelp;
+    DialogHelpSettings helpDialog;
 
     public MainMenuScreen(final MainTheTrueColor game) {
         super(game);
 
-        titulo = new Image(Assets.titleDrawable);
-        titulo.setPosition(SCREEN_WIDTH / 2f - titulo.getWidth() / 2f, 610);
+        titleImage = new Image(Assets.titleDrawable);
+        titleImage.setPosition(SCREEN_WIDTH / 2f - titleImage.getWidth() / 2f, 610);
 
-        ventanaHelp = new BaseDialogHelpSettings(this);
+        helpDialog = new DialogHelpSettings(this);
         dialogRanking = new DialogRanking(this);
 
-        btJugar = new ImageButton(new ImageButtonStyle(Assets.buttonPlayDrawable, null, null, Assets.playDrawable, null, null));
-        addPressEffect(btJugar);
-        btJugar.getImageCell().padLeft(10).size(47, 54);// Centro la imagen play con el pad, y le pongo el tamano
-        btJugar.setSize(288, 72);
-        btJugar.setPosition(SCREEN_WIDTH / 2f - btJugar.getWidth() / 2f, 120);
-        btJugar.addListener(new ClickListener() {
+        startButton = new ImageButton(new ImageButtonStyle(Assets.buttonPlayDrawable, null, null, Assets.playDrawable, null, null));
+        addPressEffect(startButton);
+        startButton.getImageCell().padLeft(10).size(47, 54);// Centro la imagen play con el pad, y le pongo el tamano
+        startButton.setSize(288, 72);
+        startButton.setPosition(SCREEN_WIDTH / 2f - startButton.getWidth() / 2f, 120);
+        startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(GameScreen.class, game);
             }
         });
 
-        btRate = new Button(Assets.buttonRateDrawable);
-        addPressEffect(btRate);
+        buttonRate = new Button(Assets.buttonRateDrawable);
+        addPressEffect(buttonRate);
 
+        buttonLeaderboard = new Button(Assets.buttonLeaderBoardDrawable);
+        addPressEffect(buttonLeaderboard);
 
-        btLeaderboard = new Button(Assets.buttonLeaderBoardDrawable);
-        addPressEffect(btLeaderboard);
+        buttonAchievement = new Button(Assets.buttonAchievementDrawable);
+        addPressEffect(buttonAchievement);
 
-        btAchievement = new Button(Assets.buttonAchievementDrawable);
-        addPressEffect(btAchievement);
-
-
-        btHelp = new Button(Assets.buttonHelpDrawable);
-        addPressEffect(btHelp);
-        btHelp.addListener(new ClickListener() {
+        buttonHelp = new Button(Assets.buttonHelpDrawable);
+        addPressEffect(buttonHelp);
+        buttonHelp.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ventanaHelp.show(stage);
+                helpDialog.show(stage);
             }
         });
 
-        menuUI = new Table();
-        menuUI.setSize(SCREEN_WIDTH, 70);
-        menuUI.setPosition(0, 35);
-        menuUI.defaults().size(70).expand();
+        menuUITable = new Table();
+        menuUITable.setSize(SCREEN_WIDTH, 70);
+        menuUITable.setPosition(0, 35);
+        menuUITable.defaults().size(70).expand();
 
         if (Gdx.app.getType() != ApplicationType.WebGL) {
-            menuUI.add(btRate);
-            menuUI.add(btLeaderboard);
-            menuUI.add(btAchievement);
+            menuUITable.add(buttonRate);
+            menuUITable.add(buttonLeaderboard);
+            menuUITable.add(buttonAchievement);
         }
-        menuUI.add(btHelp);
+        menuUITable.add(buttonHelp);
 
-        stage.addActor(titulo);
+        stage.addActor(titleImage);
         stage.addActor(dialogRanking);
-        stage.addActor(btJugar);
-        stage.addActor(menuUI);
+        stage.addActor(startButton);
+        stage.addActor(menuUITable);
 
-        if (game.arrPerson != null)
+        if (game.persons != null)
             updateLeaderboard();
 
     }
@@ -109,8 +107,8 @@ public class MainMenuScreen extends Screens {
 
     public void updateLeaderboard() {
         dialogRanking.clearLeaderboard();
-        game.arrPerson.sort();// Acomoda de mayor a menor
-        for (Person obj : game.arrPerson) {
+        game.persons.sort();// Arrange from largest to smallest
+        for (Person obj : game.persons) {
             dialogRanking.addPerson(obj);
         }
     }
@@ -131,7 +129,7 @@ public class MainMenuScreen extends Screens {
             Assets.loadAssetsWithSettings();
             game.setScreen(new MainMenuScreen(game));
         } else if (keycode == Keys.T) {
-            Settings.selectedLanguage = Languages.CHINESE_TAIWAN;
+            Settings.selectedLanguage = Languages.CHINESE;
             Settings.save();
             Assets.loadAssetsWithSettings();
             game.setScreen(new MainMenuScreen(game));

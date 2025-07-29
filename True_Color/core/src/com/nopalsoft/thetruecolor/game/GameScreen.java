@@ -19,10 +19,10 @@ import com.nopalsoft.thetruecolor.Settings;
 import com.nopalsoft.thetruecolor.game_objects.ColoredWord;
 import com.nopalsoft.thetruecolor.scene2d.CountDown;
 import com.nopalsoft.thetruecolor.scene2d.ProgressbarTimer;
+import com.nopalsoft.thetruecolor.screens.BaseScreen;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
-import com.nopalsoft.thetruecolor.screens.Screens;
 
-public class GameScreen extends Screens {
+public class GameScreen extends BaseScreen {
     public static int STATE_READY = 0;
     public static int STATE_RUNNING = 1;
     public static int STATE_GAMEOVER = 2;
@@ -131,7 +131,7 @@ public class GameScreen extends Screens {
         word.initialize();
 
         wordTimer.remove();
-        wordTimer.init(word.getColorActualPalabra(), initialTimePerWord);
+        wordTimer.initialize(word.getColorActualPalabra(), initialTimePerWord);
         stage.addActor(wordTimer);
         stage.addActor(word.wordLabel);
     }
@@ -173,7 +173,7 @@ public class GameScreen extends Screens {
             labelScore.setText(previousScore + "");
         }
 
-        if (wordTimer.timeIsOver) {
+        if (wordTimer.isTimeOver) {
             setGameover();
         }
     }
@@ -208,7 +208,7 @@ public class GameScreen extends Screens {
             buttonFalse.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
             buttonTrue.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
 
-            wordTimer.timeIsOver = true;
+            wordTimer.isTimeOver = true;
             wordTimer.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
 
             word.wordLabel.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
@@ -258,7 +258,7 @@ public class GameScreen extends Screens {
             Settings.setNewScore(score);
 
 
-            Settings.numVecesJugadas++;
+            Settings.numberOfTimesPlayed++;
 
             Achievements.unlockTimesPlayedAchievements();
             Settings.save();

@@ -6,26 +6,26 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nopalsoft.thetruecolor.leaderboard.Person;
+import com.nopalsoft.thetruecolor.screens.BaseScreen;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
-import com.nopalsoft.thetruecolor.screens.Screens;
 
 public class MainTheTrueColor extends Game {
-    public Array<Person> arrPerson;
+    public Array<Person> persons;
 
     public MainTheTrueColor() {}
 
     public Stage stage;
-    public SpriteBatch batcher;
+    public SpriteBatch batch;
 
     @Override
     public void create() {
 
-        stage = new Stage(new StretchViewport(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT));
-        batcher = new SpriteBatch();
+        stage = new Stage(new StretchViewport(BaseScreen.SCREEN_WIDTH, BaseScreen.SCREEN_HEIGHT));
+        batch = new SpriteBatch();
 
         Settings.load();
         Assets.load();
-        com.nopalsoft.thetruecolor.Achievements.init();
+        Achievements.initialize();
         setScreen(new MainMenuScreen(this));
     }
 }

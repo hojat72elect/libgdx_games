@@ -6,8 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.Settings;
-import com.nopalsoft.thetruecolor.scene2d.BaseDialogHelpSettings.Languages;
-import com.nopalsoft.thetruecolor.screens.Screens;
+import com.nopalsoft.thetruecolor.scene2d.DialogHelpSettings.Languages;
+import com.nopalsoft.thetruecolor.screens.BaseScreen;
 
 public class ColoredWord {
     public static final int COLOR_BLUE = 0;
@@ -74,7 +74,7 @@ public class ColoredWord {
         else
             wordLabel.setFontScale(1);
         wordLabel.pack();
-        wordLabel.setPosition(Screens.SCREEN_WIDTH / 2f - wordLabel.getWidth() / 2f, 450);
+        wordLabel.setPosition(BaseScreen.SCREEN_WIDTH / 2f - wordLabel.getWidth() / 2f, 450);
     }
 
     /**

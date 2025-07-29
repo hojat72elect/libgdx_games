@@ -18,7 +18,7 @@ import com.nopalsoft.thetruecolor.MainTheTrueColor;
 import com.nopalsoft.thetruecolor.Settings;
 import com.nopalsoft.thetruecolor.game.GameScreen;
 
-public abstract class Screens extends InputAdapter implements Screen {
+public abstract class BaseScreen extends InputAdapter implements Screen {
     public static final int SCREEN_WIDTH = 480;
     public static final int SCREEN_HEIGHT = 800;
 
@@ -28,10 +28,10 @@ public abstract class Screens extends InputAdapter implements Screen {
     public SpriteBatch batch;
     public Stage stage;
 
-    public Screens(final MainTheTrueColor game) {
+    public BaseScreen(final MainTheTrueColor game) {
         this.stage = game.stage;
         this.stage.clear();
-        this.batch = game.batcher;
+        this.batch = game.batch;
         this.game = game;
 
         camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);

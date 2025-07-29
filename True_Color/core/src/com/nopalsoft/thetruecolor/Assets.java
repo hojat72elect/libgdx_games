@@ -147,7 +147,7 @@ public class Assets {
             case PORTUGUESE:
                 locale = new Locale("pt");
                 break;
-            case CHINESE_TAIWAN:
+            case CHINESE:
                 locale = new Locale("zh", "TW");
                 break;
             case DEFAULT:

@@ -15,11 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.MainTheTrueColor;
-import com.nopalsoft.thetruecolor.scene2d.BaseDialogAmazon;
-import com.nopalsoft.thetruecolor.scene2d.BaseDialogFacebook;
-import com.nopalsoft.thetruecolor.scene2d.BaseDialogGoogle;
+import com.nopalsoft.thetruecolor.scene2d.DialogAmazon;
+import com.nopalsoft.thetruecolor.scene2d.DialogFacebook;
+import com.nopalsoft.thetruecolor.scene2d.DialogGoogle;
+import com.nopalsoft.thetruecolor.screens.BaseScreen;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
-import com.nopalsoft.thetruecolor.screens.Screens;
 
 
 public class DialogRanking extends Group {
@@ -34,24 +34,24 @@ public class DialogRanking extends Group {
     Button buttonFacebook;
     Button buttonGoogle;
 
-    BaseDialogFacebook ventanaFacebook;
-    BaseDialogGoogle ventanaGoogle;
-    BaseDialogAmazon ventanaAmazon;
+    DialogFacebook ventanaFacebook;
+    DialogGoogle ventanaGoogle;
+    DialogAmazon ventanaAmazon;
 
     Table contenedor;
 
     public DialogRanking(MainMenuScreen screen) {
         menuScreen = screen;
         game = screen.game;
-        setBounds(Screens.SCREEN_WIDTH / 2f - WIDTH / 2f, 210, WIDTH, HEIGHT);
+        setBounds(BaseScreen.SCREEN_WIDTH / 2f - WIDTH / 2f, 210, WIDTH, HEIGHT);
         setBackground(Assets.rankingDialogDrawable);
 
         rankingTitle = new Label(Assets.languagesBundle.get("ranking"), new Label.LabelStyle(Assets.fontSmall, Color.WHITE));
         rankingTitle.setPosition(15, 328);
 
-        ventanaFacebook = new BaseDialogFacebook(screen);
-        ventanaGoogle = new BaseDialogGoogle(screen);
-        ventanaAmazon = new BaseDialogAmazon(screen);
+        ventanaFacebook = new DialogFacebook(screen);
+        ventanaGoogle = new DialogGoogle(screen);
+        ventanaAmazon = new DialogAmazon(screen);
 
         buttonFacebook = new Button(Assets.buttonFacebookDrawable);
 

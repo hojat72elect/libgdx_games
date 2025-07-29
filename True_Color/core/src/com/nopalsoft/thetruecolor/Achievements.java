@@ -2,11 +2,11 @@ package com.nopalsoft.thetruecolor;
 
 public class Achievements {
 
-    static String begginer, intermediate, advanced, expert, god, iLikeThisGame, iLoveThisGame;
+    static String beginner, intermediate, advanced, expert, god, iLikeThisGame, iLoveThisGame;
 
-    public static void init() {
+    public static void initialize() {
 
-            begginer = "BeginnerID";
+        beginner = "BeginnerID";
             intermediate = "IntermediateID";
             advanced = "AdvancedID";
             expert = "expertID";

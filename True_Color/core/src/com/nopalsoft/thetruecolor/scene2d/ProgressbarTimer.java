@@ -12,38 +12,38 @@ public class ProgressbarTimer extends Table {
 
     private float totalTime;
     private float actualTime;
-    Image barra;
+    Image progressBarImage;
 
-    Color oColor;
+    Color progressBarColor;
 
-    public boolean timeIsOver;
+    public boolean isTimeOver;
 
     public ProgressbarTimer(float x, float y) {
         this.setBounds(x, y, WIDTH, HEIGHT);
-        barra = new Image(Assets.barTimerDrawable);
-        addActor(barra);
+        progressBarImage = new Image(Assets.barTimerDrawable);
+        addActor(progressBarImage);
     }
 
-    public void init(Color color, float totalTime) {
-        oColor = color;
+    public void initialize(Color color, float totalTime) {
+        progressBarColor = color;
         this.totalTime = totalTime;
         actualTime = 0;
-        barra.setSize(0, 30);
-        barra.setColor(oColor);
-        timeIsOver = false;
+        progressBarImage.setSize(0, 30);
+        progressBarImage.setColor(progressBarColor);
+        isTimeOver = false;
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
 
-        if (!timeIsOver) {
+        if (!isTimeOver) {
             actualTime += Gdx.graphics.getRawDeltaTime();
             if (actualTime >= totalTime) {
-                timeIsOver = true;
+                isTimeOver = true;
                 actualTime = totalTime;
             }
-            barra.setWidth(WIDTH * (actualTime / totalTime));
+            progressBarImage.setWidth(WIDTH * (actualTime / totalTime));
         }
     }
 }

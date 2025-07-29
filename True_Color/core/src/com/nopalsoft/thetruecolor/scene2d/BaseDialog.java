@@ -11,33 +11,33 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.MainTheTrueColor;
-import com.nopalsoft.thetruecolor.screens.Screens;
+import com.nopalsoft.thetruecolor.screens.BaseScreen;
 
 public class BaseDialog extends Group {
     public static final float ANIMATION_DURATION = .3f;
 
     private final Image dimImage;
-    protected Screens screen;
-    protected I18NBundle idiomas;
+    protected BaseScreen screen;
+    protected I18NBundle languages;
     protected MainTheTrueColor game;
 
-    public BaseDialog(Screens currentScreen, float width, float height, float positionY) {
+    public BaseDialog(BaseScreen currentScreen, float width, float height, float positionY) {
         screen = currentScreen;
         game = currentScreen.game;
-        idiomas = Assets.languagesBundle;
+        languages = Assets.languagesBundle;
         setSize(width, height);
         setY(positionY);
 
         dimImage = new Image(Assets.blackPixelDrawable);
-        dimImage.setSize(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
+        dimImage.setSize(BaseScreen.SCREEN_WIDTH, BaseScreen.SCREEN_HEIGHT);
 
         setBackGround(Assets.dialogDrawable);
     }
 
-    protected void setCloseButton(float positionX, float positionY, float size) {
+    protected void setCloseButton(float positionY) {
         Button btClose = new Button(Assets.buttonFalseDrawable);
-        btClose.setSize(size, size);
-        btClose.setPosition(positionX, positionY);
+        btClose.setSize(50F, 50F);
+        btClose.setPosition(400F, positionY);
         screen.addPressEffect(btClose);
         btClose.addListener(new ClickListener() {
             @Override
@@ -57,7 +57,7 @@ public class BaseDialog extends Group {
     public void show(Stage stage) {
 
         setOrigin(getWidth() / 2f, getHeight() / 2f);
-        setX(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f);
+        setX(BaseScreen.SCREEN_WIDTH / 2f - getWidth() / 2f);
 
         setScale(.5f);
         addAction(Actions.scaleTo(1, 1, ANIMATION_DURATION));
