@@ -8,8 +8,8 @@ object BodyUtils {
     fun bodyInBounds(body: Body): Boolean {
         val userData = body.userData as UserData
 
-        return when (userData.getUserDataType()) {
-            UserDataType.RUNNER, UserDataType.ENEMY -> body.getPosition().x + userData.getWidth() / 2 > 0
+        return when (userData.userDataType) {
+            UserDataType.RUNNER, UserDataType.ENEMY -> body.getPosition().x + userData.width / 2 > 0
             else -> true
         }
     }
@@ -17,18 +17,18 @@ object BodyUtils {
     fun bodyIsEnemy(body: Body): Boolean {
         val userData = body.userData as UserData?
 
-        return userData != null && userData.getUserDataType() == UserDataType.ENEMY
+        return userData != null && userData.userDataType == UserDataType.ENEMY
     }
 
     fun bodyIsRunner(body: Body): Boolean {
         val userData = body.userData as UserData?
 
-        return userData != null && userData.getUserDataType() == UserDataType.RUNNER
+        return userData != null && userData.userDataType == UserDataType.RUNNER
     }
 
     fun bodyIsGround(body: Body): Boolean {
         val userData = body.userData as UserData?
 
-        return userData != null && userData.getUserDataType() == UserDataType.GROUND
+        return userData != null && userData.userDataType == UserDataType.GROUND
     }
 }
