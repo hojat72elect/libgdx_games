@@ -8,10 +8,6 @@ public abstract class UserData {
     protected float width;
     protected float height;
 
-    public UserData() {
-
-    }
-
     public UserData(float width, float height) {
         this.width = width;
         this.height = height;
