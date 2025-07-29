@@ -231,7 +231,7 @@ class GameStage : Stage(
     }
 
     private fun setUpGround() {
-        val ground = Ground(WorldUtils.createGround(world))
+        val ground = Ground(WorldUtils.createGround(world!!))
         addActor(ground)
     }
 
@@ -245,7 +245,7 @@ class GameStage : Stage(
         if (runner != null) {
             runner!!.remove()
         }
-        runner = Runner(WorldUtils.createRunner(world))
+        runner = Runner(WorldUtils.createRunner(world!!))
         addActor(runner)
     }
 
@@ -351,7 +351,7 @@ class GameStage : Stage(
     }
 
     private fun createEnemy() {
-        val enemy = Enemy(WorldUtils.createEnemy(world))
+        val enemy = Enemy(WorldUtils.createEnemy(world!!))
         enemy.getUserData().linearVelocity = GameManager.getInstance().difficulty.enemyLinearVelocity
         addActor(enemy)
     }

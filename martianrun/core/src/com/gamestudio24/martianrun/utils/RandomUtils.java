@@ -10,7 +10,7 @@ public class RandomUtils {
      * @return a random {@link com.gamestudio24.martianrun.enums.EnemyType}
      */
     public static EnemyType getRandomEnemyType() {
-        RandomEnum<EnemyType> randomEnum = new RandomEnum<EnemyType>(EnemyType.class);
+        RandomEnum<EnemyType> randomEnum = new RandomEnum<>(EnemyType.class);
         return randomEnum.random();
     }
 
