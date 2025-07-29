@@ -352,7 +352,7 @@ class GameStage : Stage(
 
     private fun createEnemy() {
         val enemy = Enemy(WorldUtils.createEnemy(world!!))
-        enemy.getUserData().linearVelocity = GameManager.instance.difficulty?.enemyLinearVelocity
+        enemy.getUserData()!!.linearVelocity = GameManager.instance.difficulty?.enemyLinearVelocity
         addActor(enemy)
     }
 
