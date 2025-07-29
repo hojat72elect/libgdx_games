@@ -22,7 +22,7 @@ public class StartButton extends GameButton {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (GameManager.getInstance().getGameState() != GameState.OVER) {
+        if (GameManager.getInstance().gameState != GameState.OVER) {
             remove();
         }
     }

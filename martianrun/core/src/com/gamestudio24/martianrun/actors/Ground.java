@@ -35,7 +35,7 @@ public class Ground extends GameActor {
     public void act(float delta) {
         super.act(delta);
 
-        if (GameManager.getInstance().getGameState() != GameState.RUNNING) {
+        if (GameManager.getInstance().gameState != GameState.RUNNING) {
             return;
         }
 

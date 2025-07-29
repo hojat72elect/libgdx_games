@@ -24,7 +24,7 @@ public class PausedLabel extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        if (GameManager.getInstance().getGameState() == GameState.PAUSED) {
+        if (GameManager.getInstance().gameState == GameState.PAUSED) {
             font.drawWrapped(batch, Constants.PAUSED_LABEL, bounds.x, bounds.y, bounds.width,
                     BitmapFont.HAlignment.CENTER);
         }

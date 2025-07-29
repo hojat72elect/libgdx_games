@@ -24,7 +24,7 @@ public abstract class GameActor extends Actor {
     public void act(float delta) {
         super.act(delta);
 
-        if (GameManager.getInstance().getGameState() == GameState.PAUSED) {
+        if (GameManager.getInstance().gameState == GameState.PAUSED) {
             return;
         }
 

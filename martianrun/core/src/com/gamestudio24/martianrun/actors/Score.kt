@@ -24,7 +24,7 @@ class Score(private val bounds: Rectangle) : Actor() {
 
     override fun act(delta: Float) {
         super.act(delta)
-        if (GameManager.getInstance().gameState != GameState.RUNNING) {
+        if (GameManager.instance.gameState != GameState.RUNNING) {
             return
         }
         score += multiplier * delta

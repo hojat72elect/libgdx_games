@@ -16,20 +16,20 @@ public class PauseButton extends GameButton {
 
     @Override
     protected String getRegionName() {
-        return GameManager.getInstance().getGameState() == GameState.PAUSED ? Constants.PLAY_REGION_NAME : Constants.PAUSE_REGION_NAME;
+        return GameManager.getInstance().gameState == GameState.PAUSED ? Constants.PLAY_REGION_NAME : Constants.PAUSE_REGION_NAME;
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (GameManager.getInstance().getGameState() == GameState.OVER) {
+        if (GameManager.getInstance().gameState == GameState.OVER) {
             remove();
         }
     }
 
     @Override
     public void touched() {
-        if (GameManager.getInstance().getGameState() == GameState.PAUSED) {
+        if (GameManager.getInstance().gameState == GameState.PAUSED) {
             listener.onResume();
         } else {
             listener.onPause();

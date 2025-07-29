@@ -50,7 +50,7 @@ class Runner(body: Body) : GameActor(body) {
             batch.draw(jumpingTexture, x, y, width, screenRectangle.height)
         } else {
             // Running
-            if (GameManager.getInstance().gameState == GameState.RUNNING) {
+            if (GameManager.instance.gameState == GameState.RUNNING) {
                 stateTime += Gdx.graphics.deltaTime
             }
             batch.draw(runningAnimation!!.getKeyFrame(stateTime, true), x, y, width, screenRectangle.height)

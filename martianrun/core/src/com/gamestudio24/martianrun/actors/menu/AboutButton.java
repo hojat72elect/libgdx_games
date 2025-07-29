@@ -20,7 +20,7 @@ public class AboutButton extends GameButton {
 
     @Override
     protected String getRegionName() {
-        return GameManager.getInstance().getGameState() == GameState.ABOUT ? Constants.CLOSE_REGION_NAME :
+        return GameManager.getInstance().gameState == GameState.ABOUT ? Constants.CLOSE_REGION_NAME :
                 Constants.ABOUT_REGION_NAME;
     }
 

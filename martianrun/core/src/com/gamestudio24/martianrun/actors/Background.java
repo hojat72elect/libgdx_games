@@ -18,14 +18,14 @@ public class Background extends Actor {
 
     public Background() {
         textureRegion = AssetsManager.getTextureRegion(Constants.BACKGROUND_ASSETS_ID);
-        textureRegionBounds1 = new Rectangle(-Constants.APP_WIDTH / 2, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
-        textureRegionBounds2 = new Rectangle(Constants.APP_WIDTH / 2, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
+        textureRegionBounds1 = new Rectangle(-Constants.APP_WIDTH / 2F, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
+        textureRegionBounds2 = new Rectangle(Constants.APP_WIDTH / 2F, 0, Constants.APP_WIDTH, Constants.APP_HEIGHT);
     }
 
     @Override
     public void act(float delta) {
 
-        if (GameManager.getInstance().getGameState() != GameState.RUNNING) {
+        if (GameManager.getInstance().gameState != GameState.RUNNING) {
             return;
         }
 

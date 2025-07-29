@@ -317,9 +317,9 @@ class GameStage : Stage(
     override fun act(delta: Float) {
         super.act(delta)
 
-        if (GameManager.getInstance().gameState == GameState.PAUSED) return
+        if (GameManager.instance.gameState == GameState.PAUSED) return
 
-        if (GameManager.getInstance().gameState == GameState.RUNNING) {
+        if (GameManager.instance.gameState == GameState.RUNNING) {
             totalTimePassed += delta
             updateDifficulty()
         }
@@ -352,7 +352,7 @@ class GameStage : Stage(
 
     private fun createEnemy() {
         val enemy = Enemy(WorldUtils.createEnemy(world!!))
-        enemy.getUserData().linearVelocity = GameManager.getInstance().difficulty.enemyLinearVelocity
+        enemy.getUserData().linearVelocity = GameManager.instance.difficulty?.enemyLinearVelocity
         addActor(enemy)
     }
 
@@ -366,7 +366,7 @@ class GameStage : Stage(
             return super.touchDown(x, y, pointer, button)
         }
 
-        if (GameManager.getInstance().gameState != GameState.RUNNING) {
+        if (GameManager.instance.gameState != GameState.RUNNING) {
             return super.touchDown(x, y, pointer, button)
         }
 
@@ -380,7 +380,7 @@ class GameStage : Stage(
     }
 
     override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
-        if (GameManager.getInstance().gameState != GameState.RUNNING) {
+        if (GameManager.instance.gameState != GameState.RUNNING) {
             return super.touchUp(screenX, screenY, pointer, button)
         }
 
@@ -392,7 +392,7 @@ class GameStage : Stage(
     }
 
     private fun menuControlTouched(x: Float, y: Float): Boolean {
-        val touched = when (GameManager.getInstance().gameState) {
+        val touched = when (GameManager.instance.gameState) {
             GameState.OVER -> (startButton!!.getBounds().contains(x, y)
                     || leaderboardButton!!.getBounds().contains(x, y)
                     || aboutButton!!.getBounds().contains(x, y))
@@ -440,19 +440,19 @@ class GameStage : Stage(
     }
 
     private fun updateDifficulty() {
-        if (GameManager.getInstance().isMaxDifficulty) {
+        if (GameManager.instance.isMaxDifficulty) {
             return
         }
 
-        val currentDifficulty = GameManager.getInstance().difficulty
+        val currentDifficulty = GameManager.instance.difficulty
 
-        if (totalTimePassed > GameManager.getInstance().difficulty.level * 5) {
-            val nextDifficulty = currentDifficulty.level + 1
+        if (totalTimePassed > GameManager.instance.difficulty!!.level * 5) {
+            val nextDifficulty = currentDifficulty!!.level + 1
             val difficultyName = "DIFFICULTY_$nextDifficulty"
-            GameManager.getInstance().difficulty = Difficulty.valueOf(difficultyName)
+            GameManager.instance.difficulty = Difficulty.valueOf(difficultyName)
 
-            runner!!.onDifficultyChange(GameManager.getInstance().difficulty)
-            score!!.setMultiplier(GameManager.getInstance().difficulty.scoreMultiplier)
+            runner!!.onDifficultyChange(GameManager.instance.difficulty!!)
+            score!!.setMultiplier(GameManager.instance.difficulty!!.scoreMultiplier)
         }
     }
 
@@ -466,22 +466,22 @@ class GameStage : Stage(
     }
 
     private fun onGamePaused() {
-        GameManager.getInstance().gameState = GameState.PAUSED
+        GameManager.instance.gameState = GameState.PAUSED
     }
 
     private fun onGameResumed() {
-        GameManager.getInstance().gameState = GameState.RUNNING
+        GameManager.instance.gameState = GameState.RUNNING
     }
 
     private fun onGameOver() {
-        GameManager.getInstance().gameState = GameState.OVER
-        GameManager.getInstance().resetDifficulty()
+        GameManager.instance.gameState = GameState.OVER
+        GameManager.instance.resetDifficulty()
         totalTimePassed = 0f
         setUpMainMenu()
     }
 
     private fun onGameAbout() {
-        GameManager.getInstance().gameState = GameState.ABOUT
+        GameManager.instance.gameState = GameState.ABOUT
         clear()
         setUpStageBase()
         setUpGameLabel()
@@ -517,7 +517,7 @@ class GameStage : Stage(
 
     private inner class GameAboutButtonListener : AboutButtonListener {
         override fun onAbout() {
-            if (GameManager.getInstance().gameState == GameState.OVER) {
+            if (GameManager.instance.gameState == GameState.OVER) {
                 onGameAbout()
             } else {
                 clear()
