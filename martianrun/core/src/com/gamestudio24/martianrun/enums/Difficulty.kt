@@ -6,8 +6,8 @@ import com.gamestudio24.martianrun.utils.Constants
 enum class Difficulty(
     val level: Int,
     obstacleLinearVelocity: Vector2,
-    @JvmField val runnerGravityScale: Float,
-    @JvmField val runnerJumpingLinearImpulse: Vector2,
+    val runnerGravityScale: Float,
+    val runnerJumpingLinearImpulse: Vector2,
     val scoreMultiplier: Int
 ) {
     DIFFICULTY_1(1, Constants.ENEMY_LINEAR_VELOCITY, Constants.RUNNER_GRAVITY_SCALE, Constants.RUNNER_JUMPING_LINEAR_IMPULSE, 5),

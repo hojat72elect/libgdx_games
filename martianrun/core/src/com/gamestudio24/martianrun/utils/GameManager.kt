@@ -8,7 +8,6 @@ import com.gamestudio24.martianrun.enums.GameState
  * and [GameState] of the game.
  */
 class GameManager private constructor() {
-    @JvmField
     var gameState = GameState.OVER
     var difficulty: Difficulty? = null
 
@@ -19,9 +18,7 @@ class GameManager private constructor() {
     }
 
     companion object {
-        const val PREFERENCES_NAME: String = "preferences"
-
-        @JvmStatic
-        val instance: GameManager = GameManager()
+        const val PREFERENCES_NAME = "preferences"
+        val instance = GameManager()
     }
 }

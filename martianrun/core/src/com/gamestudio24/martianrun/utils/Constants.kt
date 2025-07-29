@@ -27,7 +27,6 @@ object Constants {
     const val RUNNER_DODGE_X: Float = 2f
     const val RUNNER_DODGE_Y: Float = 1.5f
 
-    @JvmField
     val RUNNER_JUMPING_LINEAR_IMPULSE: Vector2 = Vector2(0f, 13f)
     const val RUNNER_HIT_ANGULAR_IMPULSE: Float = 10f
 
@@ -37,7 +36,6 @@ object Constants {
     const val RUNNING_LONG_ENEMY_Y: Float = 2f
     const val FLYING_ENEMY_Y: Float = 3f
 
-    @JvmField
     val ENEMY_LINEAR_VELOCITY: Vector2 = Vector2(-10f, 0f)
 
     const val BACKGROUND_ASSETS_ID: String = "background"

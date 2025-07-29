@@ -2,7 +2,7 @@ package com.gamestudio24.martianrun.enums
 
 import com.gamestudio24.martianrun.utils.Constants
 
-enum class EnemyType(@JvmField val width: Float, @JvmField val height: Float, @JvmField val x: Float, @JvmField val y: Float, @JvmField val density: Float, animationAssetsId: String) {
+enum class EnemyType(val width: Float, val height: Float, val x: Float, val y: Float, val density: Float, animationAssetsId: String) {
     RUNNING_SMALL(
         1f, 1f, Constants.ENEMY_X, Constants.RUNNING_SHORT_ENEMY_Y, Constants.ENEMY_DENSITY,
         Constants.RUNNING_SMALL_ENEMY_ASSETS_ID

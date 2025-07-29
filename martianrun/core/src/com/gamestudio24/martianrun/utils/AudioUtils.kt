@@ -72,7 +72,6 @@ class AudioUtils private constructor() {
     val hitSound = Companion.hitSound
 
     companion object {
-        @JvmStatic
         val instance: AudioUtils = AudioUtils()
         private const val MUSIC_ON_PREFERENCE = "music_on"
         private const val SOUND_ON_PREFERENCE = "sound_on"

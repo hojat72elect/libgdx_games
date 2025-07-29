@@ -116,12 +116,10 @@ object AssetsManager {
         generator.dispose()
     }
 
-    @JvmStatic
     fun getTextureRegion(key: String?): TextureRegion? {
         return texturesMap.get(key)
     }
 
-    @JvmStatic
     fun getAnimation(key: String?): Animation? {
         return animationsMap.get(key)
     }
@@ -137,22 +135,18 @@ object AssetsManager {
         return Animation(0.1f, *runningFrames)
     }
 
-    @JvmStatic
     fun getTextureAtlas(): TextureAtlas {
         return textureAtlas!!
     }
 
-    @JvmStatic
     fun getSmallFont(): BitmapFont {
         return smallFont!!
     }
 
-    @JvmStatic
     fun getLargeFont(): BitmapFont {
         return largeFont!!
     }
 
-    @JvmStatic
     fun getSmallestFont(): BitmapFont {
         return smallestFont!!
     }
