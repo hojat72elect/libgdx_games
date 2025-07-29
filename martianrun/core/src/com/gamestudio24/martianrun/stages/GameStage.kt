@@ -393,16 +393,16 @@ class GameStage : Stage(
 
     private fun menuControlTouched(x: Float, y: Float): Boolean {
         val touched = when (GameManager.instance.gameState) {
-            GameState.OVER -> (startButton!!.getBounds().contains(x, y)
-                    || leaderboardButton!!.getBounds().contains(x, y)
-                    || aboutButton!!.getBounds().contains(x, y))
+            GameState.OVER -> (startButton!!.bounds.contains(x, y)
+                    || leaderboardButton!!.bounds.contains(x, y)
+                    || aboutButton!!.bounds.contains(x, y))
 
-            GameState.RUNNING, GameState.PAUSED -> pauseButton!!.getBounds().contains(x, y)
+            GameState.RUNNING, GameState.PAUSED -> pauseButton!!.bounds.contains(x, y)
             else -> false
         }
 
-        return touched || soundButton!!.getBounds().contains(x, y)
-                || musicButton!!.getBounds().contains(x, y)
+        return touched || soundButton!!.bounds.contains(x, y)
+                || musicButton!!.bounds.contains(x, y)
     }
 
     private fun rightSideTouched(x: Float, y: Float): Boolean {
