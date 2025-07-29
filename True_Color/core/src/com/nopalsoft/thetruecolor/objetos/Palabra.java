@@ -14,10 +14,6 @@ public class Palabra {
     public static final int COLOR_CYAN = 1;
     public static final int COLOR_GREEN = 2;
     public static final int COLOR_YELLOW = 3;
-    public static final int COLOR_PINK = 4;
-    public static final int COLOR_BROWN = 5;
-    public static final int COLOR_PURPLE = 6;
-    public static final int COLOR_RED = 7;
 
     /**
      * El color de la palabra
@@ -68,8 +64,8 @@ public class Palabra {
             case 6:
                 textColor = "purple";
                 break;
-            default:
             case 7:
+            default:
                 textColor = "red";
                 break;
         }
@@ -87,8 +83,6 @@ public class Palabra {
 
     /**
      * Es el color de la palabra
-     *
-     * @return
      */
     public Color getColorActualPalabra() {
         return getColor(color);
@@ -118,8 +112,8 @@ public class Palabra {
             case 6:
                 color = Color.PURPLE;
                 break;
-            default:
             case 7:
+            default:
                 color = Color.RED;
                 break;
         }

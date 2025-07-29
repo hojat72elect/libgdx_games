@@ -64,10 +64,8 @@ public class Assets {
 
     public static TextButtonStyle txtButtonStyle;
 
-    private static TextureAtlas atlas;
-
     public static void load() {
-        atlas = new TextureAtlas(Gdx.files.internal("data/atlasMap.txt"));
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("data/atlasMap.txt"));
 
         fontChico = new BitmapFont(Gdx.files.internal("data/font32.fnt"), atlas.findRegion("font32"));
         fontChico.getData().markupEnabled = true;

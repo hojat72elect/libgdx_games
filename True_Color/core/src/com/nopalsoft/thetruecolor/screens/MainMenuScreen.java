@@ -144,4 +144,24 @@ public class MainMenuScreen extends Screens {
 
         return super.keyDown(keycode);
     }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
 }

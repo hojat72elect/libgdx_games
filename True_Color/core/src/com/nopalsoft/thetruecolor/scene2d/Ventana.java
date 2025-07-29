@@ -21,8 +21,6 @@ public class Ventana extends Group {
     protected I18NBundle idiomas;
     protected MainTheTrueColor game;
 
-    private boolean isShown = false;
-
     public Ventana(Screens currentScreen, float width, float height, float positionY) {
         screen = currentScreen;
         game = currentScreen.game;
@@ -67,18 +65,12 @@ public class Ventana extends Group {
         dim.getColor().a = 0;
         dim.addAction(Actions.alpha(.7f, DURACION_ANIMATION));
 
-        isShown = true;
         stage.addActor(dim);
         stage.addActor(this);
 
     }
 
-    public boolean isShown() {
-        return isShown;
-    }
-
     public void hide() {
-        isShown = false;
         addAction(Actions.sequence(Actions.scaleTo(.5f, .5f, DURACION_ANIMATION), Actions.removeActor()));
         dim.addAction(Actions.sequence(Actions.alpha(0, DURACION_ANIMATION), Actions.removeActor()));
     }

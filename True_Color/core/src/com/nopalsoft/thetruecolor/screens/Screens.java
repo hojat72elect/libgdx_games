@@ -18,8 +18,6 @@ import com.nopalsoft.thetruecolor.MainTheTrueColor;
 import com.nopalsoft.thetruecolor.Settings;
 import com.nopalsoft.thetruecolor.game.GameScreen;
 
-import java.util.Random;
-
 public abstract class Screens extends InputAdapter implements Screen {
     public static final int SCREEN_WIDTH = 480;
     public static final int SCREEN_HEIGHT = 800;
@@ -29,8 +27,6 @@ public abstract class Screens extends InputAdapter implements Screen {
     public OrthographicCamera oCam;
     public SpriteBatch batcher;
     public Stage stage;
-
-    Random oRan;
 
     public Screens(final MainTheTrueColor game) {
         this.stage = game.stage;
@@ -73,11 +69,6 @@ public abstract class Screens extends InputAdapter implements Screen {
                     game.setScreen(new GameScreen(game));
                 else if (newScreen == MainMenuScreen.class)
                     game.setScreen(new MainMenuScreen(game));
-                // else if (newScreen == HelpScreen.class)
-                // game.setScreen(new HelpScreen(game));
-
-                // El blackFadeOut se remueve del stage cuando se le da new Screens(game) "Revisar el constructor de la clase Screens" por lo que no hay necesidad de hacer
-                // blackFadeout.remove();
             }
         })));
         stage.addActor(blackFadeOut);
@@ -109,30 +100,8 @@ public abstract class Screens extends InputAdapter implements Screen {
     }
 
     @Override
-    public void show() {
-    }
-
-    @Override
     public void hide() {
         Settings.save();
     }
 
-    @Override
-    public void pause() {
-
-        // Assets.pauseMusic();
-
-    }
-
-    @Override
-    public void resume() {
-        // Assets.playMusic();
-
-    }
-
-    @Override
-    public void dispose() {
-        // stage.dispose();
-        // batcher.dispose();
-    }
 }

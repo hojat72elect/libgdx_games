@@ -19,7 +19,6 @@ import com.nopalsoft.thetruecolor.Settings;
 import com.nopalsoft.thetruecolor.objetos.Palabra;
 import com.nopalsoft.thetruecolor.scene2d.CountDown;
 import com.nopalsoft.thetruecolor.scene2d.ProgressbarTimer;
-import com.nopalsoft.thetruecolor.scene2d.VentanaFacebook;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
 import com.nopalsoft.thetruecolor.screens.Screens;
 
@@ -273,5 +272,25 @@ public class GameScreen extends Screens {
             return true;
         }
         return super.keyDown(keycode);
+    }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void dispose() {
+
     }
 }
