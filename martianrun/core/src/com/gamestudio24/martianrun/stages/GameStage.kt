@@ -78,7 +78,7 @@ class GameStage : Stage(
         setUpMainMenu()
         setUpTouchControlAreas()
         Gdx.input.inputProcessor = this
-        AudioUtils.getInstance().init()
+        AudioUtils.instance.init()
         onGameOver()
     }
 

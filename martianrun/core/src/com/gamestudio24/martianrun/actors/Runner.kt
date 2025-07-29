@@ -20,8 +20,8 @@ class Runner(body: Body) : GameActor(body) {
     private val jumpingTexture: TextureRegion? = getTextureRegion(Constants.RUNNER_JUMPING_ASSETS_ID)
     private val dodgingTexture: TextureRegion? = getTextureRegion(Constants.RUNNER_DODGING_ASSETS_ID)
     private val hitTexture: TextureRegion? = getTextureRegion(Constants.RUNNER_HIT_ASSETS_ID)
-    private val jumpSound: Sound? = AudioUtils.getInstance().jumpSound
-    private val hitSound: Sound? = AudioUtils.getInstance().hitSound
+    private val jumpSound = AudioUtils.instance.jumpSound
+    private val hitSound: Sound? = AudioUtils.instance.hitSound
     var isDodging: Boolean = false
         private set
     private var jumping = false
@@ -65,7 +65,7 @@ class Runner(body: Body) : GameActor(body) {
         if (!(jumping || this.isDodging || this.isHit)) {
             body.applyLinearImpulse(getUserData()!!.jumpingLinearImpulse, body.getWorldCenter(), true)
             jumping = true
-            AudioUtils.getInstance().playSound(jumpSound)
+            AudioUtils.instance.playSound(jumpSound)
             jumpCount++
         }
     }
@@ -92,7 +92,7 @@ class Runner(body: Body) : GameActor(body) {
     fun hit() {
         body.applyAngularImpulse(getUserData()!!.hitAngularImpulse, true)
         this.isHit = true
-        AudioUtils.getInstance().playSound(hitSound)
+        AudioUtils.instance.playSound(hitSound)
     }
 
     fun onDifficultyChange(newDifficulty: Difficulty) {
