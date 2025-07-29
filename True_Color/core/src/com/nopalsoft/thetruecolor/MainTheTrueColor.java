@@ -1,15 +1,10 @@
 package com.nopalsoft.thetruecolor;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.nopalsoft.thetruecolor.handlers.HandlerGWT;
-import com.nopalsoft.thetruecolor.handlers.HandlerGWT.OnTextureLoaded;
 import com.nopalsoft.thetruecolor.leaderboard.Person;
 import com.nopalsoft.thetruecolor.leaderboard.Person.TipoCuenta;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
@@ -20,10 +15,8 @@ import java.util.Iterator;
 public class MainTheTrueColor extends Game {
     public Array<Person> arrPerson;
 
-    public final HandlerGWT handlerGWT;
+    public MainTheTrueColor() {
 
-    public MainTheTrueColor(HandlerGWT handlerGWT) {
-        this.handlerGWT = handlerGWT;
     }
 
     public Stage stage;
@@ -66,13 +59,8 @@ public class MainTheTrueColor extends Game {
     }
 
     private void getPersonPhoto(final Person oPerson) {
-        // (FIXME: Profile images should not be hardcoded here)
-        handlerGWT.getTextureFromFacebook("https://picsum.photos/200", new OnTextureLoaded() {
-            @Override
-            public void onTextureLoaded(Texture texture) {
-                oPerson.setPicture(new TextureRegionDrawable(new TextureRegion(texture)));
-            }
-        });
+
+
     }
 
     /**
