@@ -33,18 +33,6 @@ public class VentanaGoogle extends Ventana {
         screen.addEfectoPress(btGoogleLogin);
         btGoogleLogin.getLabel().setFontScale(.75f);
 
-        btGoogleLogin.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn()) {
-                    game.gameServiceHandler.signOut();
-                } else {
-                    game.gameServiceHandler.signIn();
-                }
-                hide();
-            }
-        });
-
         addActor(lbText);
         addActor(btGoogleLogin);
     }
@@ -54,8 +42,6 @@ public class VentanaGoogle extends Ventana {
         super.show(stage);
 
         String textButton = idiomas.get("login");
-        if (game.gameServiceHandler.isSignedIn())
-            textButton = idiomas.get("logout");
 
         btGoogleLogin.setText(textButton);
         btGoogleLogin.pack();

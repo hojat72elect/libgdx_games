@@ -8,9 +8,8 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.PixmapTextureData;
 import com.nopalsoft.thetruecolor.MainTheTrueColor;
-import com.nopalsoft.thetruecolor.handlers.GoogleGameServicesHandler;
 import com.nopalsoft.thetruecolor.handlers.HandlerGWT;
-import com.nopalsoft.thetruecolor.handlers.RequestHandler;
+
 
 public class DesktopLauncher {
     public static MainTheTrueColor game;
@@ -19,106 +18,9 @@ public class DesktopLauncher {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = 480;
         config.height = 800;
-        game = new MainTheTrueColor(handler, gameHandler, handlerGWT);
+        game = new MainTheTrueColor( handlerGWT);
         new LwjglApplication(game, config);
     }
-
-    static RequestHandler handler = new RequestHandler() {
-
-        @Override
-        public void showRater() {
-
-        }
-
-        @Override
-        public void showMoreGames() {
-
-        }
-
-        @Override
-        public void showInterstitial() {
-
-        }
-
-        @Override
-        public void showAdBanner() {
-
-        }
-
-        @Override
-        public void shareOnTwitter(String mensaje) {
-
-        }
-
-        @Override
-        public void removeAds() {
-
-        }
-
-        @Override
-        public void hideAdBanner() {
-
-        }
-
-        @Override
-        public void shareAPK() {
-
-        }
-
-        @Override
-        public void loadInterstitial() {
-
-        }
-    };
-
-    static GoogleGameServicesHandler gameHandler = new GoogleGameServicesHandler() {
-
-        @Override
-        public void unlockAchievement(String achievementId) {
-
-        }
-
-        @Override
-        public void unlockStepAchievement(float steps, String achievementID) {
-
-        }
-
-        @Override
-        public void submitScore(long score) {
-
-        }
-
-        @Override
-        public void signOut() {
-
-        }
-
-        @Override
-        public void signIn() {
-
-        }
-
-        @Override
-        public boolean isSignedIn() {
-
-            return false;
-        }
-
-        @Override
-        public void getLeaderboard() {
-
-        }
-
-        @Override
-        public void getAchievements() {
-
-        }
-
-        @Override
-        public void getScores() {
-
-        }
-    };
 
     static HandlerGWT handlerGWT = new HandlerGWT() {
         @Override

@@ -54,36 +54,14 @@ public class MainMenuScreen extends Screens {
 
         btRate = new Button(Assets.btRate);
         addEfectoPress(btRate);
-        btRate.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.showRater();
-            }
-        });
+
 
         btLeaderboard = new Button(Assets.btLeaderboard);
         addEfectoPress(btLeaderboard);
-        btLeaderboard.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn())
-                    game.gameServiceHandler.getLeaderboard();
-                else
-                    game.gameServiceHandler.signIn();
-            }
-        });
 
         btAchievement = new Button(Assets.btAchievement);
         addEfectoPress(btAchievement);
-        btAchievement.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn())
-                    game.gameServiceHandler.getAchievements();
-                else
-                    game.gameServiceHandler.signIn();
-            }
-        });
+
 
         btHelp = new Button(Assets.btHelp);
         addEfectoPress(btHelp);
@@ -114,8 +92,6 @@ public class MainMenuScreen extends Screens {
         if (game.arrPerson != null)
             updateLeaderboard();
 
-        if (game.gameServiceHandler.isSignedIn())
-            game.gameServiceHandler.getScores();
     }
 
     @Override

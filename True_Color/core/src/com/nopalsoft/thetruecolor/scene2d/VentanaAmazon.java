@@ -34,15 +34,7 @@ public class VentanaAmazon extends Ventana {
         btAmazonLogin.getLabel().setFontScale(.75f);
 
         btAmazonLogin.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn()) {
-                    game.gameServiceHandler.signOut();
-                } else {
-                    game.gameServiceHandler.signIn();
-                }
-                hide();
-            }
+
         });
 
         addActor(lbText);
@@ -54,8 +46,6 @@ public class VentanaAmazon extends Ventana {
         super.show(stage);
 
         String textButton = idiomas.get("login");
-        if (game.gameServiceHandler.isSignedIn())
-            textButton = idiomas.get("logout");
 
         btAmazonLogin.setText(textButton);
         btAmazonLogin.pack();

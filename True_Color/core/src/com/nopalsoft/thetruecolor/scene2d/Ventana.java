@@ -71,7 +71,6 @@ public class Ventana extends Group {
         stage.addActor(dim);
         stage.addActor(this);
 
-        game.reqHandler.showAdBanner();
     }
 
     public boolean isShown() {
@@ -80,7 +79,6 @@ public class Ventana extends Group {
 
     public void hide() {
         isShown = false;
-        game.reqHandler.hideAdBanner();
         addAction(Actions.sequence(Actions.scaleTo(.5f, .5f, DURACION_ANIMATION), Actions.removeActor()));
         dim.addAction(Actions.sequence(Actions.alpha(0, DURACION_ANIMATION), Actions.removeActor()));
     }

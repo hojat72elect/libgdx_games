@@ -107,14 +107,6 @@ public class GameScreen extends Screens {
 
         btShare = new Button(Assets.btShare);
         addEfectoPress(btShare);
-        btShare.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (!btShare.isDisabled()) {
-                    game.reqHandler.shareAPK();
-                }
-            }
-        });
 
         tbMenu = new Table();
         tbMenu.setSize(SCREEN_WIDTH, 90);
@@ -124,7 +116,6 @@ public class GameScreen extends Screens {
         tbMenu.add(btBack);
         tbMenu.add(btTryAgain);
 
-        // TODO fix que no se puede porque truena la app y no la aceptan en la tienda
         if (Gdx.app.getType() != ApplicationType.iOS) {
             tbMenu.add(btShare);
         }
@@ -135,7 +126,6 @@ public class GameScreen extends Screens {
 
         setReady();
 
-        game.reqHandler.loadInterstitial();
     }
 
     public void createNewPalabra() {
@@ -267,24 +257,13 @@ public class GameScreen extends Screens {
             stage.addActor(lblScore);
             stage.addActor(tbMenu);
             Settings.setNewScore(score);
-            game.gameServiceHandler.submitScore(score);
 
-            game.reqHandler.showAdBanner();
 
             Settings.numVecesJugadas++;
-            if (Settings.numVecesJugadas % 7f == 0 || score > 80) {
-                game.reqHandler.showInterstitial();
-            }
 
             Achievements.unlockTimesPlayedAchievements();
             Settings.save();
         }
-    }
-
-    @Override
-    public void hide() {
-        super.hide();
-        game.reqHandler.hideAdBanner();
     }
 
     @Override

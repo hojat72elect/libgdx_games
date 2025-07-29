@@ -8,10 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.nopalsoft.thetruecolor.handlers.GameServicesHandler;
 import com.nopalsoft.thetruecolor.handlers.HandlerGWT;
 import com.nopalsoft.thetruecolor.handlers.HandlerGWT.OnTextureLoaded;
-import com.nopalsoft.thetruecolor.handlers.RequestHandler;
 import com.nopalsoft.thetruecolor.leaderboard.Person;
 import com.nopalsoft.thetruecolor.leaderboard.Person.TipoCuenta;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
@@ -22,15 +20,9 @@ import java.util.Iterator;
 public class MainTheTrueColor extends Game {
     public Array<Person> arrPerson;
 
-    public final GameServicesHandler gameServiceHandler;
-    public final RequestHandler reqHandler;
     public final HandlerGWT handlerGWT;
 
-    public MainTheTrueColor(RequestHandler reqHandler,
-                            GameServicesHandler gameServiceHandler,
-                            HandlerGWT handlerGWT) {
-        this.reqHandler = reqHandler;
-        this.gameServiceHandler = gameServiceHandler;
+    public MainTheTrueColor(HandlerGWT handlerGWT) {
         this.handlerGWT = handlerGWT;
     }
 
