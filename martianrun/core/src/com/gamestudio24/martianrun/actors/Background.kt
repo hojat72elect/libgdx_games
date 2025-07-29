@@ -1,7 +1,6 @@
 package com.gamestudio24.martianrun.actors
 
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.gamestudio24.martianrun.enums.GameState
@@ -10,13 +9,12 @@ import com.gamestudio24.martianrun.utils.Constants
 import com.gamestudio24.martianrun.utils.GameManager.Companion.instance
 
 class Background : Actor() {
-    private val textureRegion: TextureRegion?
+    private val textureRegion = getTextureRegion(Constants.BACKGROUND_ASSETS_ID)
     private val speed = 100
     private var textureRegionBounds1: Rectangle
     private var textureRegionBounds2: Rectangle
 
     init {
-        textureRegion = getTextureRegion(Constants.BACKGROUND_ASSETS_ID)
         textureRegionBounds1 = Rectangle(-Constants.APP_WIDTH / 2f, 0f, Constants.APP_WIDTH.toFloat(), Constants.APP_HEIGHT.toFloat())
         textureRegionBounds2 = Rectangle(Constants.APP_WIDTH / 2f, 0f, Constants.APP_WIDTH.toFloat(), Constants.APP_HEIGHT.toFloat())
     }

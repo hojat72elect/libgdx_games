@@ -2,7 +2,6 @@ package com.gamestudio24.martianrun.actors.menu
 
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.BitmapFont
-import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
@@ -13,11 +12,10 @@ import com.gamestudio24.martianrun.utils.AssetsManager.getTextureRegion
 import com.gamestudio24.martianrun.utils.GameManager
 
 class Tutorial(private val bounds: Rectangle, assetsId: String?, private val text: String?) : Actor() {
-    private val textureRegion: TextureRegion?
+    private val textureRegion = getTextureRegion(assetsId)
     private val font: BitmapFont
 
     init {
-        textureRegion = getTextureRegion(assetsId)
         val sequenceAction = SequenceAction()
         sequenceAction.addAction(Actions.delay(4f))
         sequenceAction.addAction(Actions.removeActor())

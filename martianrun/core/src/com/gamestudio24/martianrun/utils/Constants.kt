@@ -19,8 +19,7 @@ object Constants {
 
     const val RUNNER_X: Float = 2f
 
-    @JvmField
-    val RUNNER_Y: Float = GROUND_Y + GROUND_HEIGHT
+    const val RUNNER_Y: Float = GROUND_Y + GROUND_HEIGHT
     const val RUNNER_WIDTH: Float = 1f
     const val RUNNER_HEIGHT: Float = 2f
     const val RUNNER_GRAVITY_SCALE: Float = 3f
@@ -33,7 +32,7 @@ object Constants {
     const val RUNNER_HIT_ANGULAR_IMPULSE: Float = 10f
 
     const val ENEMY_X: Float = 25f
-    val ENEMY_DENSITY: Float = RUNNER_DENSITY
+    const val ENEMY_DENSITY: Float = RUNNER_DENSITY
     const val RUNNING_SHORT_ENEMY_Y: Float = 1.5f
     const val RUNNING_LONG_ENEMY_Y: Float = 2f
     const val FLYING_ENEMY_Y: Float = 3f
@@ -93,10 +92,7 @@ object Constants {
 
     const val FONT_NAME: String = "roboto_bold.ttf"
 
-    @JvmField
-    val ABOUT_TEXT: String = "Developed by: @gamestudio24\nPowered by: " +
+    const val ABOUT_TEXT: String = "Developed by: @gamestudio24\nPowered by: " +
             "@libgdx\nGraphics: @kenneywings\nMusic: @kmacleod"
-    val SHARE_MESSAGE_PREFIX: String = "Check out " + GAME_NAME + " %s"
-    const val SHARE_TITLE: String = "Share!"
     const val PAUSED_LABEL: String = "Paused"
 }

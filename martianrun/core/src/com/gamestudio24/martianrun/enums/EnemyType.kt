@@ -28,9 +28,5 @@ enum class EnemyType(@JvmField val width: Float, @JvmField val height: Float, @J
         Constants.FLYING_WIDE_ENEMY_ASSETS_ID
     );
 
-    val animationAssetId: String?
-
-    init {
-        this.animationAssetId = animationAssetsId
-    }
+    val animationAssetId = animationAssetsId
 }

@@ -8,17 +8,10 @@ import com.gamestudio24.martianrun.enums.GameState
 import com.gamestudio24.martianrun.utils.Constants
 import com.gamestudio24.martianrun.utils.GameManager.Companion.instance
 
-abstract class GameActor(@JvmField protected var body: Body) : Actor() {
-    @JvmField
-    protected var userData: UserData
+abstract class GameActor(protected var body: Body) : Actor() {
 
-    @JvmField
-    protected var screenRectangle: Rectangle
-
-    init {
-        this.userData = body.userData as UserData
-        screenRectangle = Rectangle()
-    }
+    protected var userData = body.userData as UserData
+    protected var screenRectangle = Rectangle()
 
     override fun act(delta: Float) {
         super.act(delta)
