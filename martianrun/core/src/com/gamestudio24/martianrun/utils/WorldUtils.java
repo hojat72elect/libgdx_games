@@ -47,13 +47,13 @@ public class WorldUtils {
         EnemyType enemyType = RandomUtils.getRandomEnemyType();
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.KinematicBody;
-        bodyDef.position.set(new Vector2(enemyType.getX(), enemyType.getY()));
+        bodyDef.position.set(new Vector2(enemyType.x, enemyType.y));
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(enemyType.getWidth() / 2, enemyType.getHeight() / 2);
+        shape.setAsBox(enemyType.width / 2, enemyType.height / 2);
         Body body = world.createBody(bodyDef);
-        body.createFixture(shape, enemyType.getDensity());
+        body.createFixture(shape, enemyType.density);
         body.resetMassData();
-        EnemyUserData userData = new EnemyUserData(enemyType.getWidth(), enemyType.getHeight(),
+        EnemyUserData userData = new EnemyUserData(enemyType.width, enemyType.height,
                 enemyType.getAnimationAssetId());
         body.setUserData(userData);
         shape.dispose();

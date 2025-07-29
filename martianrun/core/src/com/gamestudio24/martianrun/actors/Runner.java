@@ -114,8 +114,8 @@ public class Runner extends GameActor {
     }
 
     public void onDifficultyChange(Difficulty newDifficulty) {
-        setGravityScale(newDifficulty.getRunnerGravityScale());
-        getUserData().setJumpingLinearImpulse(newDifficulty.getRunnerJumpingLinearImpulse());
+        setGravityScale(newDifficulty.runnerGravityScale);
+        getUserData().setJumpingLinearImpulse(newDifficulty.runnerJumpingLinearImpulse);
     }
 
     public void setGravityScale(float gravityScale) {
