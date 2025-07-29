@@ -24,18 +24,18 @@ public abstract class Screens extends InputAdapter implements Screen {
 
     public MainTheTrueColor game;
 
-    public OrthographicCamera oCam;
-    public SpriteBatch batcher;
+    public OrthographicCamera camera;
+    public SpriteBatch batch;
     public Stage stage;
 
     public Screens(final MainTheTrueColor game) {
         this.stage = game.stage;
         this.stage.clear();
-        this.batcher = game.batcher;
+        this.batch = game.batcher;
         this.game = game;
 
-        oCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
-        oCam.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
+        camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
+        camera.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
 
         InputMultiplexer input = new InputMultiplexer(this, stage);
         Gdx.input.setInputProcessor(input);
@@ -48,8 +48,8 @@ public abstract class Screens extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
         draw(delta);
 
         stage.act(delta);
@@ -59,7 +59,7 @@ public abstract class Screens extends InputAdapter implements Screen {
     Image blackFadeOut;
 
     public void changeScreenWithFadeOut(final Class<?> newScreen, final MainTheTrueColor game) {
-        blackFadeOut = new Image(Assets.pixelNegro);
+        blackFadeOut = new Image(Assets.blackPixelDrawable);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         blackFadeOut.getColor().a = 0;
         blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run(new Runnable() {
@@ -74,7 +74,7 @@ public abstract class Screens extends InputAdapter implements Screen {
         stage.addActor(blackFadeOut);
     }
 
-    public void addEfectoPress(final Actor actor) {
+    public void addPressEffect(final Actor actor) {
         actor.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

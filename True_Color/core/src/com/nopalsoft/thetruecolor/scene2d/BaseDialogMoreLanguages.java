@@ -9,26 +9,26 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.screens.Screens;
 
-public class VentanaMoreLanguages extends Ventana {
+public class BaseDialogMoreLanguages extends BaseDialog {
     static final float WIDTH = 440;
     static final float HEIGHT = 250;
 
     Label lbText;
     TextButton btTransalate;
 
-    public VentanaMoreLanguages(Screens currentScreen) {
+    public BaseDialogMoreLanguages(Screens currentScreen) {
         super(currentScreen, WIDTH, HEIGHT, 300);
 
         setCloseButton(400, 210, 50);
 
-        lbText = new Label(Assets.idiomas.get("translateDescription"), new Label.LabelStyle(Assets.fontChico, Color.BLACK));
+        lbText = new Label(Assets.languagesBundle.get("translateDescription"), new Label.LabelStyle(Assets.fontSmall, Color.BLACK));
         lbText.setWidth(getWidth() - 20);
         lbText.setFontScale(.75f);
         lbText.setWrap(true);
         lbText.setPosition(getWidth() / 2f - lbText.getWidth() / 2f, getHeight() / 2f - lbText.getHeight() / 2f + 30);
 
-        btTransalate = new TextButton(Assets.idiomas.get("translate"), Assets.txtButtonStyle);
-        screen.addEfectoPress(btTransalate);
+        btTransalate = new TextButton(Assets.languagesBundle.get("translate"), Assets.textButtonStyle);
+        screen.addPressEffect(btTransalate);
         btTransalate.getLabel().setFontScale(.75f);
 
         btTransalate.addListener(new ClickListener() {

@@ -2,7 +2,7 @@ package com.nopalsoft.thetruecolor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.nopalsoft.thetruecolor.scene2d.VentanaHelpSettings.Languages;
+import com.nopalsoft.thetruecolor.scene2d.BaseDialogHelpSettings.Languages;
 
 public class Settings {
 

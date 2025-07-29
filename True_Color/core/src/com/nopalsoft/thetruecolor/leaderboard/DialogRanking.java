@@ -15,9 +15,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.MainTheTrueColor;
-import com.nopalsoft.thetruecolor.scene2d.VentanaAmazon;
-import com.nopalsoft.thetruecolor.scene2d.VentanaFacebook;
-import com.nopalsoft.thetruecolor.scene2d.VentanaGoogle;
+import com.nopalsoft.thetruecolor.scene2d.BaseDialogAmazon;
+import com.nopalsoft.thetruecolor.scene2d.BaseDialogFacebook;
+import com.nopalsoft.thetruecolor.scene2d.BaseDialogGoogle;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
 import com.nopalsoft.thetruecolor.screens.Screens;
 
@@ -31,12 +31,12 @@ public class DialogRanking extends Group {
 
     Label rankingTitle;
 
-    Button btFacebook;
-    Button btGoogle;
+    Button buttonFacebook;
+    Button buttonGoogle;
 
-    VentanaFacebook ventanaFacebook;
-    VentanaGoogle ventanaGoogle;
-    VentanaAmazon ventanaAmazon;
+    BaseDialogFacebook ventanaFacebook;
+    BaseDialogGoogle ventanaGoogle;
+    BaseDialogAmazon ventanaAmazon;
 
     Table contenedor;
 
@@ -44,32 +44,32 @@ public class DialogRanking extends Group {
         menuScreen = screen;
         game = screen.game;
         setBounds(Screens.SCREEN_WIDTH / 2f - WIDTH / 2f, 210, WIDTH, HEIGHT);
-        setBackground(Assets.dialogRanking);
+        setBackground(Assets.rankingDialogDrawable);
 
-        rankingTitle = new Label(Assets.idiomas.get("ranking"), new Label.LabelStyle(Assets.fontChico, Color.WHITE));
+        rankingTitle = new Label(Assets.languagesBundle.get("ranking"), new Label.LabelStyle(Assets.fontSmall, Color.WHITE));
         rankingTitle.setPosition(15, 328);
 
-        ventanaFacebook = new VentanaFacebook(screen);
-        ventanaGoogle = new VentanaGoogle(screen);
-        ventanaAmazon = new VentanaAmazon(screen);
+        ventanaFacebook = new BaseDialogFacebook(screen);
+        ventanaGoogle = new BaseDialogGoogle(screen);
+        ventanaAmazon = new BaseDialogAmazon(screen);
 
-        btFacebook = new Button(Assets.btFacebook);
+        buttonFacebook = new Button(Assets.buttonFacebookDrawable);
 
-        menuScreen.addEfectoPress(btFacebook);
-        btFacebook.addListener(new ClickListener() {
+        menuScreen.addPressEffect(buttonFacebook);
+        buttonFacebook.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ventanaFacebook.show(getStage());
             }
         });
 
-        TextureRegionDrawable btLoginKeyFrame = Assets.btGoogle;
+        TextureRegionDrawable btLoginKeyFrame = Assets.buttonGoogleDrawable;
 
 
-        btGoogle = new Button(btLoginKeyFrame);
+        buttonGoogle = new Button(btLoginKeyFrame);
 
-        menuScreen.addEfectoPress(btGoogle);
-        btGoogle.addListener(new ClickListener() {
+        menuScreen.addPressEffect(buttonGoogle);
+        buttonGoogle.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                     ventanaGoogle.show(getStage());
@@ -80,10 +80,10 @@ public class DialogRanking extends Group {
         tbSocial.setSize(130, 50);
         tbSocial.setPosition(255, 328);
         tbSocial.defaults().expandX().size(50).right();
-        tbSocial.add(btFacebook);
+        tbSocial.add(buttonFacebook);
 
         if (Gdx.app.getType() != ApplicationType.WebGL && Gdx.app.getType() != ApplicationType.iOS) {
-            tbSocial.add(btGoogle);
+            tbSocial.add(buttonGoogle);
         }
 
         addActor(rankingTitle);

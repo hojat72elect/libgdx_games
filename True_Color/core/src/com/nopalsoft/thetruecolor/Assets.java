@@ -14,108 +14,114 @@ import java.util.Locale;
 
 public class Assets {
 
-    public static I18NBundle idiomas;
+    public static I18NBundle languagesBundle;
 
-    public static BitmapFont fontChico;
-    public static BitmapFont fontExtraGrande;
+    public static BitmapFont fontSmall;
+    public static BitmapFont fontLarge;
 
-    public static TextureRegionDrawable titulo;
+
     public static AtlasRegion header;
 
-    public static NinePatchDrawable pixelNegro;
-    public static NinePatchDrawable barTimer;
-    public static NinePatchDrawable dialogRanking;
-    public static NinePatchDrawable dialogVentana;
+    public static NinePatchDrawable blackPixelDrawable;
 
-    public static TextureRegionDrawable photoFrame;
-    public static TextureRegionDrawable btFacebook;
-    public static NinePatchDrawable btFacebookText;
-    public static TextureRegionDrawable btGoogle;
-    public static NinePatchDrawable btGoogleText;
-    public static TextureRegionDrawable btAmazon;
+    public static NinePatchDrawable barTimerDrawable;
 
-    public static TextureRegionDrawable one;
-    public static TextureRegionDrawable two;
-    public static TextureRegionDrawable three;
+    public static NinePatchDrawable rankingDialogDrawable;
+    public static NinePatchDrawable dialogDrawable;
 
-    public static TextureRegionDrawable btRate;
-    public static TextureRegionDrawable btAchievement;
-    public static TextureRegionDrawable btLeaderboard;
-    public static TextureRegionDrawable btHelp;
-    public static TextureRegionDrawable btTrue;
-    public static TextureRegionDrawable btFalse;
-    public static TextureRegionDrawable btBack;
-    public static TextureRegionDrawable btTryAgain;
-    public static TextureRegionDrawable btShare;
+    public static NinePatchDrawable buttonFacebookTextDrawable;
+    public static NinePatchDrawable buttonGoogleTextDrawable;
+    public static NinePatchDrawable buttonPlayDrawable;
+    public static NinePatchDrawable buttonEnabledDrawable;
+    public static NinePatchDrawable buttonDisabledDrawable;
 
-    public static NinePatchDrawable btJugar;
-    public static NinePatchDrawable btEnabled;
-    public static NinePatchDrawable btDisabled;
-    public static TextureRegionDrawable play;
+    public static TextureRegionDrawable titleDrawable;
 
-    public static TextureRegionDrawable flagChinese_TW;
-    public static TextureRegionDrawable flagRussian;
-    public static TextureRegionDrawable flagSpanish;
-    public static TextureRegionDrawable flagEnglish;
-    public static TextureRegionDrawable flagFench;
-    public static TextureRegionDrawable flagJapanese;
-    public static TextureRegionDrawable flagPortugese;
-    public static TextureRegionDrawable flagMore;
+    public static TextureRegionDrawable photoFrameDrawable;
 
-    public static TextButtonStyle txtButtonStyle;
+    public static TextureRegionDrawable buttonFacebookDrawable;
+    public static TextureRegionDrawable buttonGoogleDrawable;
+    public static TextureRegionDrawable buttonAmazonDrawable;
+
+    public static TextureRegionDrawable oneDrawable;
+    public static TextureRegionDrawable twoDrawable;
+    public static TextureRegionDrawable threeDrawable;
+
+    public static TextureRegionDrawable buttonRateDrawable;
+    public static TextureRegionDrawable buttonAchievementDrawable;
+    public static TextureRegionDrawable buttonLeaderBoardDrawable;
+    public static TextureRegionDrawable buttonHelpDrawable;
+    public static TextureRegionDrawable buttonTrueDrawable;
+    public static TextureRegionDrawable buttonFalseDrawable;
+    public static TextureRegionDrawable buttonBackDrawable;
+    public static TextureRegionDrawable buttonTryAgainDrawable;
+    public static TextureRegionDrawable buttonShareDrawable;
+
+    public static TextureRegionDrawable playDrawable;
+
+    public static TextureRegionDrawable flagChineseDrawable;
+    public static TextureRegionDrawable flagRussianDrawable;
+    public static TextureRegionDrawable flagSpanishDrawable;
+    public static TextureRegionDrawable flagEnglishDrawable;
+    public static TextureRegionDrawable flagFrenchDrawable;
+    public static TextureRegionDrawable flagJapaneseDrawable;
+    public static TextureRegionDrawable flagPortugueseDrawable;
+    public static TextureRegionDrawable flagMoreDrawable;
+
+    public static TextButtonStyle textButtonStyle;
 
     public static void load() {
         TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("data/atlasMap.txt"));
 
-        fontChico = new BitmapFont(Gdx.files.internal("data/font32.fnt"), atlas.findRegion("font32"));
-        fontChico.getData().markupEnabled = true;
+        fontSmall = new BitmapFont(Gdx.files.internal("data/font32.fnt"), atlas.findRegion("font32"));
+        fontSmall.getData().markupEnabled = true;
 
-        fontExtraGrande = new BitmapFont(Gdx.files.internal("data/font100.fnt"), atlas.findRegion("font100"));
+        fontLarge = new BitmapFont(Gdx.files.internal("data/font100.fnt"), atlas.findRegion("font100"));
 
-        titulo = new TextureRegionDrawable(atlas.findRegion("titulo"));
+        titleDrawable = new TextureRegionDrawable(atlas.findRegion("titulo"));
         header = atlas.findRegion("header");
 
-        pixelNegro = new NinePatchDrawable(new NinePatch(atlas.findRegion("pixelNegro"), 1, 1, 0, 0));
-        barTimer = new NinePatchDrawable(new NinePatch(atlas.findRegion("barTimer"), 4, 4, 5, 4));
-        dialogRanking = new NinePatchDrawable(new NinePatch(atlas.findRegion("dialogRanking"), 40, 40, 63, 30));
-        dialogVentana = new NinePatchDrawable(new NinePatch(atlas.findRegion("dialogVentana"), 33, 33, 33, 33));
+        blackPixelDrawable = new NinePatchDrawable(new NinePatch(atlas.findRegion("pixelNegro"), 1, 1, 0, 0));
+        barTimerDrawable = new NinePatchDrawable(new NinePatch(atlas.findRegion("barTimer"), 4, 4, 5, 4));
+        rankingDialogDrawable = new NinePatchDrawable(new NinePatch(atlas.findRegion("dialogRanking"), 40, 40, 63, 30));
+        dialogDrawable = new NinePatchDrawable(new NinePatch(atlas.findRegion("dialogVentana"), 33, 33, 33, 33));
 
-        btJugar = new NinePatchDrawable(new NinePatch(atlas.findRegion("btJugar"), 30, 30, 25, 25));
-        btEnabled = new NinePatchDrawable(new NinePatch(atlas.findRegion("btEnabled"), 9, 9, 7, 7));
-        btDisabled = new NinePatchDrawable(new NinePatch(atlas.findRegion("btDisabled"), 9, 9, 7, 7));
-        play = new TextureRegionDrawable(atlas.findRegion("play"));
+        buttonPlayDrawable = new NinePatchDrawable(new NinePatch(atlas.findRegion("btJugar"), 30, 30, 25, 25));
+        buttonEnabledDrawable = new NinePatchDrawable(new NinePatch(atlas.findRegion("btEnabled"), 9, 9, 7, 7));
+        buttonDisabledDrawable = new NinePatchDrawable(new NinePatch(atlas.findRegion("btDisabled"), 9, 9, 7, 7));
+        playDrawable = new TextureRegionDrawable(atlas.findRegion("play"));
 
-        btFacebook = new TextureRegionDrawable(atlas.findRegion("btFacebook"));
-        btFacebookText = new NinePatchDrawable(new NinePatch(atlas.findRegion("btFacebookText"), 55, 20, 0, 0));
-        btGoogle = new TextureRegionDrawable(atlas.findRegion("btGoogle"));
-        btGoogleText = new NinePatchDrawable(new NinePatch(atlas.findRegion("btGoogleText"), 60, 20, 0, 0));
-        btAmazon = new TextureRegionDrawable(atlas.findRegion("btAmazon"));
-        photoFrame = new TextureRegionDrawable(atlas.findRegion("photoFrame"));
+        buttonFacebookDrawable = new TextureRegionDrawable(atlas.findRegion("btFacebook"));
+        buttonFacebookTextDrawable = new NinePatchDrawable(new NinePatch(atlas.findRegion("btFacebookText"), 55, 20, 0, 0));
+        buttonGoogleDrawable = new TextureRegionDrawable(atlas.findRegion("btGoogle"));
+        buttonGoogleTextDrawable = new NinePatchDrawable(new NinePatch(atlas.findRegion("btGoogleText"), 60, 20, 0, 0));
+        buttonAmazonDrawable = new TextureRegionDrawable(atlas.findRegion("btAmazon"));
+        photoFrameDrawable = new TextureRegionDrawable(atlas.findRegion("photoFrame"));
 
-        one = new TextureRegionDrawable(atlas.findRegion("one"));
-        two = new TextureRegionDrawable(atlas.findRegion("two"));
-        three = new TextureRegionDrawable(atlas.findRegion("three"));
+        oneDrawable = new TextureRegionDrawable(atlas.findRegion("one"));
+        twoDrawable = new TextureRegionDrawable(atlas.findRegion("two"));
+        threeDrawable = new TextureRegionDrawable(atlas.findRegion("three"));
 
-        btRate = new TextureRegionDrawable(atlas.findRegion("btRate"));
-        btAchievement = new TextureRegionDrawable(atlas.findRegion("btAchievement"));
-        btLeaderboard = new TextureRegionDrawable(atlas.findRegion("btLeaderboard"));
-        btHelp = new TextureRegionDrawable(atlas.findRegion("btHelp"));
-        btTrue = new TextureRegionDrawable(atlas.findRegion("btTrue"));
-        btFalse = new TextureRegionDrawable(atlas.findRegion("btFalse"));
-        btBack = new TextureRegionDrawable(atlas.findRegion("btBack"));
-        btTryAgain = new TextureRegionDrawable(atlas.findRegion("btTryAgain"));
-        btShare = new TextureRegionDrawable(atlas.findRegion("btShare"));
+        buttonRateDrawable = new TextureRegionDrawable(atlas.findRegion("btRate"));
+        buttonAchievementDrawable = new TextureRegionDrawable(atlas.findRegion("btAchievement"));
+        buttonLeaderBoardDrawable = new TextureRegionDrawable(atlas.findRegion("btLeaderboard"));
+        buttonHelpDrawable = new TextureRegionDrawable(atlas.findRegion("btHelp"));
+        buttonTrueDrawable = new TextureRegionDrawable(atlas.findRegion("btTrue"));
+        buttonFalseDrawable = new TextureRegionDrawable(atlas.findRegion("btFalse"));
+        buttonBackDrawable = new TextureRegionDrawable(atlas.findRegion("btBack"));
+        buttonTryAgainDrawable = new TextureRegionDrawable(atlas.findRegion("btTryAgain"));
+        buttonShareDrawable = new TextureRegionDrawable(atlas.findRegion("btShare"));
 
-        txtButtonStyle = new TextButtonStyle(btDisabled, btEnabled, btEnabled, fontChico);
+        textButtonStyle = new TextButtonStyle(buttonDisabledDrawable, buttonEnabledDrawable, buttonEnabledDrawable, fontSmall);
 
-        flagChinese_TW = new TextureRegionDrawable(atlas.findRegion("flags/flag_twd"));
-        flagEnglish = new TextureRegionDrawable(atlas.findRegion("flags/flag_gbp"));
-        flagSpanish = new TextureRegionDrawable(atlas.findRegion("flags/flag_esp"));
-        flagRussian = new TextureRegionDrawable(atlas.findRegion("flags/flag_rub"));
-        flagFench = new TextureRegionDrawable(atlas.findRegion("flags/flag_frf"));
-        flagJapanese = new TextureRegionDrawable(atlas.findRegion("flags/flag_jpy"));
-        flagPortugese = new TextureRegionDrawable(atlas.findRegion("flags/flag_pte"));
-        flagMore = new TextureRegionDrawable(atlas.findRegion("flags/flag_more"));
+        flagChineseDrawable = new TextureRegionDrawable(atlas.findRegion("flags/flag_twd"));
+        flagEnglishDrawable = new TextureRegionDrawable(atlas.findRegion("flags/flag_gbp"));
+        flagSpanishDrawable = new TextureRegionDrawable(atlas.findRegion("flags/flag_esp"));
+        flagRussianDrawable = new TextureRegionDrawable(atlas.findRegion("flags/flag_rub"));
+        flagFrenchDrawable = new TextureRegionDrawable(atlas.findRegion("flags/flag_frf"));
+        flagJapaneseDrawable = new TextureRegionDrawable(atlas.findRegion("flags/flag_jpy"));
+        flagPortugueseDrawable = new TextureRegionDrawable(atlas.findRegion("flags/flag_pte"));
+        flagMoreDrawable = new TextureRegionDrawable(atlas.findRegion("flags/flag_more"));
 
         loadAssetsWithSettings();
     }
@@ -150,6 +156,6 @@ public class Assets {
                 break;
         }
 
-        idiomas = I18NBundle.createBundle(Gdx.files.internal("strings/strings"), locale);
+        languagesBundle = I18NBundle.createBundle(Gdx.files.internal("strings/strings"), locale);
     }
 }

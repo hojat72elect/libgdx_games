@@ -12,93 +12,86 @@ public class Person extends Group implements Comparable<Person> {
     final float WIDTH = DialogRanking.WIDTH - 5;
     final float HEIGHT = 75;
 
-    public enum TipoCuenta {
+    public enum AccountType {
         GOOGLE_PLAY, FACEBOOK, AMAZON
     }
 
-    public TipoCuenta tipoCuenta;
+    public AccountType accountType;
 
     final public String id;
     public String name;
     public long score;
 
-    Label lbNombre;
-    Label lbScore;
+    Label labelName;
+    Label labelScore;
 
-    public Person(TipoCuenta tipoCuenta, String id, String name, long oScore) {
+    public Person(AccountType accountType, String id, String name, long score) {
         setBounds(0, 0, WIDTH, HEIGHT);
 
-        this.tipoCuenta = tipoCuenta;
+        this.accountType = accountType;
         this.id = id;
         this.name = name;
-        this.score = oScore;
+        this.score = score;
 
-        TextureRegionDrawable keyCuenta;
-        switch (tipoCuenta) {
+        TextureRegionDrawable accountIconDrawable;
+        switch (accountType) {
             case AMAZON:
-                keyCuenta = Assets.btAmazon;
+                accountIconDrawable = Assets.buttonAmazonDrawable;
                 break;
             case FACEBOOK:
-                keyCuenta = Assets.btFacebook;
+                accountIconDrawable = Assets.buttonFacebookDrawable;
                 break;
             case GOOGLE_PLAY:
             default:
-                keyCuenta = Assets.btGoogle;
+                accountIconDrawable = Assets.buttonGoogleDrawable;
                 break;
         }
 
-        Image imagenCuenta = new Image(keyCuenta);
+        Image imagenCuenta = new Image(accountIconDrawable);
         imagenCuenta.setSize(30, 30);
         imagenCuenta.setPosition(10, HEIGHT / 2f - imagenCuenta.getHeight() / 2f);
 
-        lbNombre = new Label(name, new LabelStyle(Assets.fontChico, Color.BLACK));
-        lbNombre.setFontScale(.7f);
-        lbNombre.setPosition(140, 36);
+        labelName = new Label(name, new LabelStyle(Assets.fontSmall, Color.BLACK));
+        labelName.setFontScale(.7f);
+        labelName.setPosition(140, 36);
 
-        lbScore = new Label(formatScore(), new LabelStyle(Assets.fontChico, Color.RED));
-        lbScore.setPosition(140, 5);
+        labelScore = new Label(formatScore(), new LabelStyle(Assets.fontSmall, Color.RED));
+        labelScore.setPosition(140, 5);
 
         addActor(imagenCuenta);
-        addActor(lbNombre);
-        addActor(lbScore);
+        addActor(labelName);
+        addActor(labelScore);
 
-        // Separador
-        Image img = new Image(Assets.header);
-        img.setPosition(0, 0);
-        img.setSize(WIDTH, 5);
-        addActor(img);
+        // Separator
+        Image image = new Image(Assets.header);
+        image.setPosition(0, 0);
+        image.setSize(WIDTH, 5);
+        addActor(image);
     }
 
-    // Sacado de http://stackoverflow.com/a/15329259/3479489
+    // Taken from http://stackoverflow.com/a/15329259/3479489
     public String formatScore() {
-        String str = String.valueOf(score);
-        int floatPos = str.contains(".") ? str.length() - str.indexOf(".") : 0;
-        int nGroups = (str.length() - floatPos - 1 - (str.contains("-") ? 1 : 0)) / 3;
+        String scoreString = String.valueOf(score);
+        int floatPos = scoreString.contains(".") ? scoreString.length() - scoreString.indexOf(".") : 0;
+        int nGroups = (scoreString.length() - floatPos - 1 - (scoreString.contains("-") ? 1 : 0)) / 3;
         for (int i = 0; i < nGroups; i++) {
-            int commaPos = str.length() - i * 4 - 3 - floatPos;
-            str = str.substring(0, commaPos) + "," + str.substring(commaPos);
+            int commaPos = scoreString.length() - i * 4 - 3 - floatPos;
+            scoreString = scoreString.substring(0, commaPos) + "," + scoreString.substring(commaPos);
         }
-        return str;
+        return scoreString;
     }
 
     @Override
-    public int compareTo(Person o) {
-        return Long.compare(o.score, score);
+    public int compareTo(Person otherPerson) {
+        return Long.compare(otherPerson.score, score);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Person) {
-            Person objPerson = (Person) obj;
-            return id.equals(objPerson.id) && tipoCuenta == objPerson.tipoCuenta;
+    public boolean equals(Object otherObject) {
+        if (otherObject instanceof Person) {
+            Person objPerson = (Person) otherObject;
+            return id.equals(objPerson.id) && accountType == objPerson.accountType;
         } else
             return false;
-    }
-
-    public void updateDatos(String _name, long _score) {
-        name = _name;
-        score = _score;
-        lbNombre.setText(name);
-        lbScore.setText(formatScore());
     }
 }

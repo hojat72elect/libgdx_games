@@ -20,7 +20,7 @@ public class ProgressbarTimer extends Table {
 
     public ProgressbarTimer(float x, float y) {
         this.setBounds(x, y, WIDTH, HEIGHT);
-        barra = new Image(Assets.barTimer);
+        barra = new Image(Assets.barTimerDrawable);
         addActor(barra);
     }
 

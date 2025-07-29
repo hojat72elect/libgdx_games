@@ -16,7 +16,7 @@ import com.nopalsoft.thetruecolor.Achievements;
 import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.MainTheTrueColor;
 import com.nopalsoft.thetruecolor.Settings;
-import com.nopalsoft.thetruecolor.objetos.Palabra;
+import com.nopalsoft.thetruecolor.game_objects.ColoredWord;
 import com.nopalsoft.thetruecolor.scene2d.CountDown;
 import com.nopalsoft.thetruecolor.scene2d.ProgressbarTimer;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
@@ -28,133 +28,133 @@ public class GameScreen extends Screens {
     public static int STATE_GAMEOVER = 2;
     int state;
 
-    public static float TIME_MINIMO_POR_PALABRA = .62f;
-    public static float TIME_INICIAL_POR_PALABRA = 5;
-    float timeInicialPorPalabra;
+    public static float MINIMUM_TIME_PER_WORD = .62f;
+    public static float INITIAL_TIME_PER_WORD = 5;
+    float initialTimePerWord;
 
-    Button btTrue, btFalse;
+    Button buttonTrue, buttonFalse;
 
-    Table tbMenu;
-    Button btBack, btTryAgain, btShare;
+    Table tableMenu;
+    Button buttonBack, buttonTryAgain, buttonShare;
 
-    Label lbScore;
+    Label labelScore;
 
     int score;
-    int scoreAnterior;
+    int previousScore;
 
-    Palabra oPalabra;
-    ProgressbarTimer timerPalabra;
+    ColoredWord word;
+    ProgressbarTimer wordTimer;
 
     public GameScreen(final MainTheTrueColor game) {
         super(game);
 
-        oPalabra = new Palabra();
+        word = new ColoredWord();
 
-        lbScore = new Label("0", new LabelStyle(Assets.fontChico, Color.WHITE));
-        lbScore.setColor(Color.RED);
-        lbScore.setPosition(10, 735);
+        labelScore = new Label("0", new LabelStyle(Assets.fontSmall, Color.WHITE));
+        labelScore.setColor(Color.RED);
+        labelScore.setPosition(10, 735);
 
-        timeInicialPorPalabra = TIME_INICIAL_POR_PALABRA;
+        initialTimePerWord = INITIAL_TIME_PER_WORD;
 
-        timerPalabra = new ProgressbarTimer(SCREEN_WIDTH / 2f - ProgressbarTimer.WIDTH / 2f, 300);
+        wordTimer = new ProgressbarTimer(SCREEN_WIDTH / 2f - ProgressbarTimer.WIDTH / 2f, 300);
 
         int buttonSize = 90;
 
-        btTrue = new Button(Assets.btTrue);
-        addEfectoPress(btTrue);
-        btTrue.setSize(buttonSize, buttonSize);
-        btTrue.setPosition(240 + 80, 60);
-        btTrue.addListener(new ClickListener() {
+        buttonTrue = new Button(Assets.buttonTrueDrawable);
+        addPressEffect(buttonTrue);
+        buttonTrue.setSize(buttonSize, buttonSize);
+        buttonTrue.setPosition(240 + 80, 60);
+        buttonTrue.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 checarPalabra(true);
             }
         });
 
-        btFalse = new Button(Assets.btFalse);
-        addEfectoPress(btFalse);
-        btFalse.setSize(buttonSize, buttonSize);
-        btFalse.setPosition(240 - 170, 60);
-        btFalse.addListener(new ClickListener() {
+        buttonFalse = new Button(Assets.buttonFalseDrawable);
+        addPressEffect(buttonFalse);
+        buttonFalse.setSize(buttonSize, buttonSize);
+        buttonFalse.setPosition(240 - 170, 60);
+        buttonFalse.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 checarPalabra(false);
             }
         });
 
-        btBack = new Button(Assets.btBack);
-        addEfectoPress(btBack);
-        btBack.addListener(new ClickListener() {
+        buttonBack = new Button(Assets.buttonBackDrawable);
+        addPressEffect(buttonBack);
+        buttonBack.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (!btBack.isDisabled()) {
+                if (!buttonBack.isDisabled()) {
                     changeScreenWithFadeOut(MainMenuScreen.class, game);
                 }
             }
         });
 
-        btTryAgain = new Button(Assets.btTryAgain);
-        addEfectoPress(btTryAgain);
-        btTryAgain.addListener(new ClickListener() {
+        buttonTryAgain = new Button(Assets.buttonTryAgainDrawable);
+        addPressEffect(buttonTryAgain);
+        buttonTryAgain.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (!btTryAgain.isDisabled()) {
+                if (!buttonTryAgain.isDisabled()) {
                     changeScreenWithFadeOut(GameScreen.class, game);
                 }
             }
         });
 
-        btShare = new Button(Assets.btShare);
-        addEfectoPress(btShare);
+        buttonShare = new Button(Assets.buttonShareDrawable);
+        addPressEffect(buttonShare);
 
-        tbMenu = new Table();
-        tbMenu.setSize(SCREEN_WIDTH, 90);
-        tbMenu.setPosition(0, 60);
-        tbMenu.defaults().expandX().size(90);
+        tableMenu = new Table();
+        tableMenu.setSize(SCREEN_WIDTH, 90);
+        tableMenu.setPosition(0, 60);
+        tableMenu.defaults().expandX().size(90);
 
-        tbMenu.add(btBack);
-        tbMenu.add(btTryAgain);
+        tableMenu.add(buttonBack);
+        tableMenu.add(buttonTryAgain);
 
         if (Gdx.app.getType() != ApplicationType.iOS) {
-            tbMenu.add(btShare);
+            tableMenu.add(buttonShare);
         }
 
-        stage.addActor(btTrue);
-        stage.addActor(btFalse);
-        stage.addActor(lbScore);
+        stage.addActor(buttonTrue);
+        stage.addActor(buttonFalse);
+        stage.addActor(labelScore);
 
         setReady();
 
     }
 
     public void createNewPalabra() {
-        oPalabra.init();
+        word.initialize();
 
-        timerPalabra.remove();
-        timerPalabra.init(oPalabra.getColorActualPalabra(), timeInicialPorPalabra);
-        stage.addActor(timerPalabra);
-        stage.addActor(oPalabra.imagen);
+        wordTimer.remove();
+        wordTimer.init(word.getColorActualPalabra(), initialTimePerWord);
+        stage.addActor(wordTimer);
+        stage.addActor(word.wordLabel);
     }
 
     private void checarPalabra(boolean seleccion) {
         if (state == STATE_RUNNING) {
 
-            if ((oPalabra.color == oPalabra.texto && seleccion) || (oPalabra.color != oPalabra.texto && !seleccion)) {
+            if ((word.color == word.wordText && seleccion) || (word.color != word.wordText && !seleccion)) {
                 score++;
                 Achievements.unlockScoreAchievements();
 
                 if (score < 10) {
-                    timeInicialPorPalabra -= .14f;// 1.8seg menos
+                    initialTimePerWord -= .14f;// 1.8seg menos
                 } else if (score < 40) {
-                    timeInicialPorPalabra -= .05f;// 1.5seg menos
+                    initialTimePerWord -= .05f;// 1.5seg menos
                 } else if (score < 70) {
-                    timeInicialPorPalabra -= .015f;// .54seg menos
+                    initialTimePerWord -= .015f;// .54seg menos
                 } else {
-                    timeInicialPorPalabra -= .0075f;
+                    initialTimePerWord -= .0075f;
                 }
 
-                if (timeInicialPorPalabra < TIME_MINIMO_POR_PALABRA) {
-                    timeInicialPorPalabra = TIME_MINIMO_POR_PALABRA;
+                if (initialTimePerWord < MINIMUM_TIME_PER_WORD) {
+                    initialTimePerWord = MINIMUM_TIME_PER_WORD;
                 }
                 createNewPalabra();
             } else {
@@ -166,25 +166,25 @@ public class GameScreen extends Screens {
     @Override
     public void update(float delta) {
 
-        if (score > scoreAnterior) {
-            scoreAnterior = score;
+        if (score > previousScore) {
+            previousScore = score;
 
-            lbScore.setColor(Palabra.getRandomColor());
-            lbScore.setText(scoreAnterior + "");
+            labelScore.setColor(ColoredWord.getRandomColor());
+            labelScore.setText(previousScore + "");
         }
 
-        if (timerPalabra.timeIsOver) {
+        if (wordTimer.timeIsOver) {
             setGameover();
         }
     }
 
     @Override
     public void draw(float delta) {
-        batcher.begin();
-        batcher.draw(Assets.header, 0, 780, 480, 20);
-        batcher.draw(Assets.header, 0, 0, 480, 20);
+        batch.begin();
+        batch.draw(Assets.header, 0, 780, 480, 20);
+        batch.draw(Assets.header, 0, 0, 480, 20);
 
-        batcher.end();
+        batch.end();
     }
 
     private void setReady() {
@@ -205,15 +205,15 @@ public class GameScreen extends Screens {
 
             float animationTime = .8f;
 
-            btFalse.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
-            btTrue.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
+            buttonFalse.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
+            buttonTrue.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
 
-            timerPalabra.timeIsOver = true;
-            timerPalabra.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
+            wordTimer.timeIsOver = true;
+            wordTimer.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
 
-            oPalabra.imagen.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
+            word.wordLabel.addAction(Actions.sequence(Actions.alpha(0, animationTime), Actions.removeActor()));
 
-            String scoreText = Assets.idiomas.get("score");
+            String scoreText = Assets.languagesBundle.get("score");
 
             StringBuilder scoreTextColor = new StringBuilder();
 
@@ -228,7 +228,7 @@ public class GameScreen extends Screens {
             }
             scoreTextColor.append(apend[scoreText.length()]);
 
-            Label lblScore = new Label(scoreTextColor + "\n" + score, new LabelStyle(Assets.fontChico, Color.WHITE));
+            Label lblScore = new Label(scoreTextColor + "\n" + score, new LabelStyle(Assets.fontSmall, Color.WHITE));
             lblScore.setAlignment(Align.center);
             lblScore.setFontScale(2.5f);
             lblScore.pack();
@@ -237,24 +237,24 @@ public class GameScreen extends Screens {
 
             lblScore.addAction(Actions.sequence(Actions.delay(1), Actions.alpha(1, animationTime)));
 
-            tbMenu.getColor().a = 0;
+            tableMenu.getColor().a = 0;
 
-            btBack.setDisabled(true);
-            btTryAgain.setDisabled(true);
-            btShare.setDisabled(true);
+            buttonBack.setDisabled(true);
+            buttonTryAgain.setDisabled(true);
+            buttonShare.setDisabled(true);
 
-            tbMenu.addAction(Actions.sequence(Actions.delay(1), Actions.alpha(1, animationTime), Actions.run(new Runnable() {
+            tableMenu.addAction(Actions.sequence(Actions.delay(1), Actions.alpha(1, animationTime), Actions.run(new Runnable() {
 
                 @Override
                 public void run() {
-                    btBack.setDisabled(false);
-                    btTryAgain.setDisabled(false);
-                    btShare.setDisabled(false);
+                    buttonBack.setDisabled(false);
+                    buttonTryAgain.setDisabled(false);
+                    buttonShare.setDisabled(false);
                 }
             })));
 
             stage.addActor(lblScore);
-            stage.addActor(tbMenu);
+            stage.addActor(tableMenu);
             Settings.setNewScore(score);
 
 

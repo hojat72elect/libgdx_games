@@ -22,17 +22,17 @@ public class CountDown extends Group {
         setBounds(0, 0, Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
         gameScreen = screen;
 
-        lbText = new Label(Assets.idiomas.get("verdaderoFalse"), new LabelStyle(Assets.fontChico, Color.BLACK));
+        lbText = new Label(Assets.languagesBundle.get("verdaderoFalse"), new LabelStyle(Assets.fontSmall, Color.BLACK));
         lbText.setFontScale(1.2f);
         lbText.setPosition(getWidth() / 2f - lbText.getWidth() * lbText.getFontScaleX() / 2f, 300);
 
-        one = new Image(Assets.one);
+        one = new Image(Assets.oneDrawable);
         one.setPosition(getWidth() / 2f - one.getWidth() / 2f, 500);
 
-        two = new Image(Assets.two);
+        two = new Image(Assets.twoDrawable);
         two.setPosition(getWidth() / 2f - two.getWidth() / 2f, 500);
 
-        three = new Image(Assets.three);
+        three = new Image(Assets.threeDrawable);
         three.setPosition(getWidth() / 2f - three.getWidth() / 2f, 500);
 
         Runnable runAfterThree = new Runnable() {

@@ -16,8 +16,8 @@ import com.nopalsoft.thetruecolor.Settings;
 import com.nopalsoft.thetruecolor.game.GameScreen;
 import com.nopalsoft.thetruecolor.leaderboard.DialogRanking;
 import com.nopalsoft.thetruecolor.leaderboard.Person;
-import com.nopalsoft.thetruecolor.scene2d.VentanaHelpSettings;
-import com.nopalsoft.thetruecolor.scene2d.VentanaHelpSettings.Languages;
+import com.nopalsoft.thetruecolor.scene2d.BaseDialogHelpSettings;
+import com.nopalsoft.thetruecolor.scene2d.BaseDialogHelpSettings.Languages;
 
 public class MainMenuScreen extends Screens {
 
@@ -29,19 +29,19 @@ public class MainMenuScreen extends Screens {
     Table menuUI;
     Button btRate, btLeaderboard, btAchievement, btHelp;
 
-    VentanaHelpSettings ventanaHelp;
+    BaseDialogHelpSettings ventanaHelp;
 
     public MainMenuScreen(final MainTheTrueColor game) {
         super(game);
 
-        titulo = new Image(Assets.titulo);
+        titulo = new Image(Assets.titleDrawable);
         titulo.setPosition(SCREEN_WIDTH / 2f - titulo.getWidth() / 2f, 610);
 
-        ventanaHelp = new VentanaHelpSettings(this);
+        ventanaHelp = new BaseDialogHelpSettings(this);
         dialogRanking = new DialogRanking(this);
 
-        btJugar = new ImageButton(new ImageButtonStyle(Assets.btJugar, null, null, Assets.play, null, null));
-        addEfectoPress(btJugar);
+        btJugar = new ImageButton(new ImageButtonStyle(Assets.buttonPlayDrawable, null, null, Assets.playDrawable, null, null));
+        addPressEffect(btJugar);
         btJugar.getImageCell().padLeft(10).size(47, 54);// Centro la imagen play con el pad, y le pongo el tamano
         btJugar.setSize(288, 72);
         btJugar.setPosition(SCREEN_WIDTH / 2f - btJugar.getWidth() / 2f, 120);
@@ -52,19 +52,19 @@ public class MainMenuScreen extends Screens {
             }
         });
 
-        btRate = new Button(Assets.btRate);
-        addEfectoPress(btRate);
+        btRate = new Button(Assets.buttonRateDrawable);
+        addPressEffect(btRate);
 
 
-        btLeaderboard = new Button(Assets.btLeaderboard);
-        addEfectoPress(btLeaderboard);
+        btLeaderboard = new Button(Assets.buttonLeaderBoardDrawable);
+        addPressEffect(btLeaderboard);
 
-        btAchievement = new Button(Assets.btAchievement);
-        addEfectoPress(btAchievement);
+        btAchievement = new Button(Assets.buttonAchievementDrawable);
+        addPressEffect(btAchievement);
 
 
-        btHelp = new Button(Assets.btHelp);
-        addEfectoPress(btHelp);
+        btHelp = new Button(Assets.buttonHelpDrawable);
+        addPressEffect(btHelp);
         btHelp.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -101,10 +101,10 @@ public class MainMenuScreen extends Screens {
 
     @Override
     public void draw(float delta) {
-        batcher.begin();
-        batcher.draw(Assets.header, 0, 780, 480, 20);
-        batcher.draw(Assets.header, 0, 0, 480, 20);
-        batcher.end();
+        batch.begin();
+        batch.draw(Assets.header, 0, 780, 480, 20);
+        batch.draw(Assets.header, 0, 0, 480, 20);
+        batch.end();
     }
 
     public void updateLeaderboard() {

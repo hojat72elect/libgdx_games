@@ -14,7 +14,7 @@ import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.Settings;
 import com.nopalsoft.thetruecolor.screens.Screens;
 
-public class VentanaHelpSettings extends Ventana {
+public class BaseDialogHelpSettings extends BaseDialog {
     static final float WIDTH = 440;
     static final float HEIGHT = 600;
 
@@ -27,19 +27,19 @@ public class VentanaHelpSettings extends Ventana {
     TextButton btDefault, btEnglish, btSpanish, btChineseTaiwan, btRussian, btFrench, btJapanese, btPortugese;
     TextButton btMore;
 
-    VentanaMoreLanguages vtnaMoreLanguages;
+    BaseDialogMoreLanguages vtnaMoreLanguages;
 
-    public VentanaHelpSettings(final Screens currentScreen) {
+    public BaseDialogHelpSettings(final Screens currentScreen) {
         super(currentScreen, WIDTH, HEIGHT, 80);
         setCloseButton(400, 560, 50);
 
-        Label lbIdioma = new Label(Assets.idiomas.get("language"), new LabelStyle(Assets.fontChico, Color.BLACK));
+        Label lbIdioma = new Label(Assets.languagesBundle.get("language"), new LabelStyle(Assets.fontSmall, Color.BLACK));
         lbIdioma.setPosition(getWidth() / 2f - lbIdioma.getWidth() / 2f, 555);
         addActor(lbIdioma);
 
-        vtnaMoreLanguages = new VentanaMoreLanguages(currentScreen);
+        vtnaMoreLanguages = new BaseDialogMoreLanguages(currentScreen);
 
-        btMore = crearBotton(Assets.idiomas.get("more"), null, Assets.flagMore);
+        btMore = crearBotton(Assets.languagesBundle.get("more"), null, Assets.flagMoreDrawable);
         btMore.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -50,20 +50,20 @@ public class VentanaHelpSettings extends Ventana {
 
         btDefault = crearBotton("Default", Languages.DEFAULT, null);
 
-        btEnglish = crearBotton("English", Languages.ENGLISH, Assets.flagEnglish);
+        btEnglish = crearBotton("English", Languages.ENGLISH, Assets.flagEnglishDrawable);
 
-        btSpanish = crearBotton("Espa\u00F1ol", Languages.SPANISH, Assets.flagSpanish);
+        btSpanish = crearBotton("Espa\u00F1ol", Languages.SPANISH, Assets.flagSpanishDrawable);
 
-        btChineseTaiwan = crearBotton("\u4E2D\u6587", Languages.CHINESE_TAIWAN, Assets.flagChinese_TW);
+        btChineseTaiwan = crearBotton("\u4E2D\u6587", Languages.CHINESE_TAIWAN, Assets.flagChineseDrawable);
 
-        btRussian = crearBotton("\u0420\u0443\u0441\u0441\u043a\u0438\u0439", Languages.RUSSIAN, Assets.flagRussian);
+        btRussian = crearBotton("\u0420\u0443\u0441\u0441\u043a\u0438\u0439", Languages.RUSSIAN, Assets.flagRussianDrawable);
         btRussian.getLabel().setFontScale(.7f);
 
-        btFrench = crearBotton("Fran\u00e7ais", Languages.FRENCH, Assets.flagFench);
+        btFrench = crearBotton("Fran\u00e7ais", Languages.FRENCH, Assets.flagFrenchDrawable);
 
-        btJapanese = crearBotton("\u65e5\u672c\u8a9e", Languages.JAPANESE, Assets.flagJapanese);
+        btJapanese = crearBotton("\u65e5\u672c\u8a9e", Languages.JAPANESE, Assets.flagJapaneseDrawable);
 
-        btPortugese = crearBotton("Portugu\u00eas", Languages.PORTUGUESE, Assets.flagPortugese);
+        btPortugese = crearBotton("Portugu\u00eas", Languages.PORTUGUESE, Assets.flagPortugueseDrawable);
 
         switch (Settings.selectedLanguage) {
             case DEFAULT:
@@ -128,28 +128,28 @@ public class VentanaHelpSettings extends Ventana {
     private void fillTableColores() {
         tbColores.clear();
 
-        Image iBlue = new Image(Assets.barTimer);
+        Image iBlue = new Image(Assets.barTimerDrawable);
         iBlue.setColor(Color.BLUE);
 
-        Image iCyan = new Image(Assets.barTimer);
+        Image iCyan = new Image(Assets.barTimerDrawable);
         iCyan.setColor(Color.CYAN);
 
-        Image iGreen = new Image(Assets.barTimer);
+        Image iGreen = new Image(Assets.barTimerDrawable);
         iGreen.setColor(Color.GREEN);
 
-        Image iYellow = new Image(Assets.barTimer);
+        Image iYellow = new Image(Assets.barTimerDrawable);
         iYellow.setColor(Color.YELLOW);
 
-        Image iPink = new Image(Assets.barTimer);
+        Image iPink = new Image(Assets.barTimerDrawable);
         iPink.setColor(Color.PINK);
 
-        Image iBrown = new Image(Assets.barTimer);
+        Image iBrown = new Image(Assets.barTimerDrawable);
         iBrown.setColor(new Color(.6f, .3f, 0, 1));
 
-        Image iPurple = new Image(Assets.barTimer);
+        Image iPurple = new Image(Assets.barTimerDrawable);
         iPurple.setColor(Color.PURPLE);
 
-        Image iRed = new Image(Assets.barTimer);
+        Image iRed = new Image(Assets.barTimerDrawable);
         iRed.setColor(Color.RED);
 
         tbColores.defaults().expandX().padTop(5).padBottom(5);
@@ -183,7 +183,7 @@ public class VentanaHelpSettings extends Ventana {
     }
 
     private Label getNewLabelWithColor(String text, Color color) {
-        LabelStyle lbStyleColores = new LabelStyle(Assets.fontChico, color);
+        LabelStyle lbStyleColores = new LabelStyle(Assets.fontSmall, color);
         Label label = new Label(text, lbStyleColores);
         if (Settings.selectedLanguage == Languages.RUSSIAN) {
             label.setFontScale(.7f);
@@ -192,7 +192,7 @@ public class VentanaHelpSettings extends Ventana {
     }
 
     private TextButton crearBotton(String texto, Languages language, TextureRegionDrawable flag) {
-        TextButton btAux = new TextButton(texto, Assets.txtButtonStyle);
+        TextButton btAux = new TextButton(texto, Assets.textButtonStyle);
         if (flag != null) {
             btAux.add(new Image(flag));
         }
@@ -210,7 +210,7 @@ public class VentanaHelpSettings extends Ventana {
                 Settings.selectedLanguage = language;
                 Settings.save();
                 Assets.loadAssetsWithSettings();
-                idiomas = Assets.idiomas;
+                idiomas = Assets.languagesBundle;
                 fillTableColores();
             }
         };

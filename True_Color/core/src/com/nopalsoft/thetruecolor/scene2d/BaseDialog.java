@@ -13,32 +13,32 @@ import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.MainTheTrueColor;
 import com.nopalsoft.thetruecolor.screens.Screens;
 
-public class Ventana extends Group {
-    public static final float DURACION_ANIMATION = .3f;
+public class BaseDialog extends Group {
+    public static final float ANIMATION_DURATION = .3f;
 
-    private final Image dim;
+    private final Image dimImage;
     protected Screens screen;
     protected I18NBundle idiomas;
     protected MainTheTrueColor game;
 
-    public Ventana(Screens currentScreen, float width, float height, float positionY) {
+    public BaseDialog(Screens currentScreen, float width, float height, float positionY) {
         screen = currentScreen;
         game = currentScreen.game;
-        idiomas = Assets.idiomas;
+        idiomas = Assets.languagesBundle;
         setSize(width, height);
         setY(positionY);
 
-        dim = new Image(Assets.pixelNegro);
-        dim.setSize(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
+        dimImage = new Image(Assets.blackPixelDrawable);
+        dimImage.setSize(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
 
-        setBackGround(Assets.dialogVentana);
+        setBackGround(Assets.dialogDrawable);
     }
 
     protected void setCloseButton(float positionX, float positionY, float size) {
-        Button btClose = new Button(Assets.btFalse);
+        Button btClose = new Button(Assets.buttonFalseDrawable);
         btClose.setSize(size, size);
         btClose.setPosition(positionX, positionY);
-        screen.addEfectoPress(btClose);
+        screen.addPressEffect(btClose);
         btClose.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -60,18 +60,18 @@ public class Ventana extends Group {
         setX(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f);
 
         setScale(.5f);
-        addAction(Actions.scaleTo(1, 1, DURACION_ANIMATION));
+        addAction(Actions.scaleTo(1, 1, ANIMATION_DURATION));
 
-        dim.getColor().a = 0;
-        dim.addAction(Actions.alpha(.7f, DURACION_ANIMATION));
+        dimImage.getColor().a = 0;
+        dimImage.addAction(Actions.alpha(.7f, ANIMATION_DURATION));
 
-        stage.addActor(dim);
+        stage.addActor(dimImage);
         stage.addActor(this);
 
     }
 
     public void hide() {
-        addAction(Actions.sequence(Actions.scaleTo(.5f, .5f, DURACION_ANIMATION), Actions.removeActor()));
-        dim.addAction(Actions.sequence(Actions.alpha(0, DURACION_ANIMATION), Actions.removeActor()));
+        addAction(Actions.sequence(Actions.scaleTo(.5f, .5f, ANIMATION_DURATION), Actions.removeActor()));
+        dimImage.addAction(Actions.sequence(Actions.alpha(0, ANIMATION_DURATION), Actions.removeActor()));
     }
 }

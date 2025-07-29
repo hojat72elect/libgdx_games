@@ -1,4 +1,4 @@
-package com.nopalsoft.thetruecolor.objetos;
+package com.nopalsoft.thetruecolor.game_objects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
@@ -6,43 +6,39 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.nopalsoft.thetruecolor.Assets;
 import com.nopalsoft.thetruecolor.Settings;
-import com.nopalsoft.thetruecolor.scene2d.VentanaHelpSettings.Languages;
+import com.nopalsoft.thetruecolor.scene2d.BaseDialogHelpSettings.Languages;
 import com.nopalsoft.thetruecolor.screens.Screens;
 
-public class Palabra {
+public class ColoredWord {
     public static final int COLOR_BLUE = 0;
     public static final int COLOR_CYAN = 1;
     public static final int COLOR_GREEN = 2;
     public static final int COLOR_YELLOW = 3;
 
-    /**
-     * El color de la palabra
-     */
+    // The color of the word
     public int color;
 
-    /**
-     * Lo que dice la palabra comparar con la tabla de arriba
-     */
-    public int texto;
+    // What the word compare says with the table above
+    public int wordText;
 
-    public Label imagen;
+    public Label wordLabel;
 
-    public Palabra() {
-        imagen = new Label("", new LabelStyle(Assets.fontExtraGrande, Color.WHITE));
+    public ColoredWord() {
+        wordLabel = new Label("", new LabelStyle(Assets.fontLarge, Color.WHITE));
     }
 
-    public void init() {
+    public void initialize() {
         color = MathUtils.random(0, 7);
 
-        // 35% posibilidades que lo que dice la pabrar y su color son iguales
+        // 35% chance that what the word says and its color are the same
         if (MathUtils.randomBoolean(.35f)) {
-            texto = color;
+            wordText = color;
         } else {
-            texto = MathUtils.random(0, 7);
+            wordText = MathUtils.random(0, 7);
         }
 
         String textColor;
-        switch (texto) {
+        switch (wordText) {
             case COLOR_BLUE:
                 textColor = "blue";
                 break;
@@ -70,27 +66,27 @@ public class Palabra {
                 break;
         }
 
-        imagen.remove();
-        imagen.setText(Assets.idiomas.get(textColor));
-        imagen.setColor(getColorActualPalabra());
+        wordLabel.remove();
+        wordLabel.setText(Assets.languagesBundle.get(textColor));
+        wordLabel.setColor(getColorActualPalabra());
         if (Settings.selectedLanguage == Languages.RUSSIAN)
-            imagen.setFontScale(.68f);
+            wordLabel.setFontScale(.68f);
         else
-            imagen.setFontScale(1);
-        imagen.pack();
-        imagen.setPosition(Screens.SCREEN_WIDTH / 2f - imagen.getWidth() / 2f, 450);
+            wordLabel.setFontScale(1);
+        wordLabel.pack();
+        wordLabel.setPosition(Screens.SCREEN_WIDTH / 2f - wordLabel.getWidth() / 2f, 450);
     }
 
     /**
-     * Es el color de la palabra
+     * It is the color of the word
      */
     public Color getColorActualPalabra() {
         return getColor(color);
     }
 
-    public static Color getColor(int colorPalabra) {
+    public static Color getColor(int colorId) {
         Color color;
-        switch (colorPalabra) {
+        switch (colorId) {
             case 0:
                 color = Color.BLUE;
                 break;
@@ -107,7 +103,7 @@ public class Palabra {
                 color = Color.PINK;
                 break;
             case 5:
-                color = new Color(.6f, .3f, 0, 1);// Cafe
+                color = new Color(.6f, .3f, 0, 1);// Brown
                 break;
             case 6:
                 color = Color.PURPLE;
