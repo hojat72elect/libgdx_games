@@ -42,10 +42,10 @@ object WorldUtils {
     }
 
     fun createEnemy(world: World): Body {
-        val enemyType = RandomUtils.getRandomEnemyType()
+        val enemyType = RandomUtils.randomEnemyType
         val bodyDef = BodyDef()
         bodyDef.type = BodyDef.BodyType.KinematicBody
-        bodyDef.position.set(Vector2(enemyType.x, enemyType.y))
+        bodyDef.position.set(Vector2(enemyType!!.x, enemyType.y))
         val shape = PolygonShape()
         shape.setAsBox(enemyType.width / 2, enemyType.height / 2)
         val body = world.createBody(bodyDef)
