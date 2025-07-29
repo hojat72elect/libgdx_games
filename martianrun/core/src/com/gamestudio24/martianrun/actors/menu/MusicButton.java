@@ -1,5 +1,6 @@
 package com.gamestudio24.martianrun.actors.menu;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Rectangle;
 import com.gamestudio24.martianrun.utils.AudioUtils;
 
@@ -14,8 +15,11 @@ public class MusicButton extends GameButton {
     }
 
     public void touched() {
-        if (AudioUtils.getInstance().getMusic().isPlaying()) {
-            AudioUtils.getInstance().pauseMusic();
+        Music music = AudioUtils.getInstance().getMusic();
+        if (music != null) {
+            if (music.isPlaying()) {
+                AudioUtils.getInstance().pauseMusic();
+            }
         }
         AudioUtils.getInstance().toggleMusic();
         AudioUtils.getInstance().playMusic();
