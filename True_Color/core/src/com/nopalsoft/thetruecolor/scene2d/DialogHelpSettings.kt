@@ -81,7 +81,7 @@ class DialogHelpSettings(currentScreen: BaseScreen) : BaseDialog(currentScreen, 
         }
 
 
-        val btGroup = ButtonGroup<TextButton?>(buttonDefault, buttonEnglish, buttonSpanish, buttonChinese, buttonRussian, buttonFrench, buttonJapanese, buttonPortuguese)
+        val btGroup = ButtonGroup(buttonDefault, buttonEnglish, buttonSpanish, buttonChinese, buttonRussian, buttonFrench, buttonJapanese, buttonPortuguese)
         btGroup.setMaxCheckCount(1)
 
         val languagesTable = Table()
@@ -142,32 +142,32 @@ class DialogHelpSettings(currentScreen: BaseScreen) : BaseDialog(currentScreen, 
 
         colorsTable.defaults().expandX().padTop(5f).padBottom(5f)
 
-        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("blue"), Color.BLUE))
-        colorsTable.add<Image?>(imageBlue).size(40f).left()
+        colorsTable.add(getNewLabelWithColor(languages?.get("blue"), Color.BLUE))
+        colorsTable.add(imageBlue).size(40f).left()
 
-        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("cyan"), Color.CYAN))
-        colorsTable.add<Image?>(imageCyan).size(40f).left()
-
-        colorsTable.row()
-        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("green"), Color.GREEN))
-        colorsTable.add<Image?>(imageGreen).size(40f).left()
-
-        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("yellow"), Color.YELLOW))
-        colorsTable.add<Image?>(imageYellow).size(40f).left()
+        colorsTable.add(getNewLabelWithColor(languages?.get("cyan"), Color.CYAN))
+        colorsTable.add(imageCyan).size(40f).left()
 
         colorsTable.row()
-        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("pink"), Color.PINK))
-        colorsTable.add<Image?>(imagePink).size(40f).left()
+        colorsTable.add(getNewLabelWithColor(languages?.get("green"), Color.GREEN))
+        colorsTable.add(imageGreen).size(40f).left()
 
-        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("brown"), Color(.6f, .3f, 0f, 1f)))
-        colorsTable.add<Image?>(imageBrown).size(40f).left()
+        colorsTable.add(getNewLabelWithColor(languages?.get("yellow"), Color.YELLOW))
+        colorsTable.add(imageYellow).size(40f).left()
 
         colorsTable.row()
-        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("purple"), Color.PURPLE))
-        colorsTable.add<Image?>(imagePurple).size(40f).left()
+        colorsTable.add(getNewLabelWithColor(languages?.get("pink"), Color.PINK))
+        colorsTable.add(imagePink).size(40f).left()
 
-        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("red"), Color.RED))
-        colorsTable.add<Image?>(imageRed).size(40f).left()
+        colorsTable.add(getNewLabelWithColor(languages?.get("brown"), Color(.6f, .3f, 0f, 1f)))
+        colorsTable.add(imageBrown).size(40f).left()
+
+        colorsTable.row()
+        colorsTable.add(getNewLabelWithColor(languages?.get("purple"), Color.PURPLE))
+        colorsTable.add(imagePurple).size(40f).left()
+
+        colorsTable.add(getNewLabelWithColor(languages?.get("red"), Color.RED))
+        colorsTable.add(imageRed).size(40f).left()
     }
 
     private fun getNewLabelWithColor(text: String?, color: Color?): Label {
@@ -182,7 +182,7 @@ class DialogHelpSettings(currentScreen: BaseScreen) : BaseDialog(currentScreen, 
     private fun createButton(texto: String?, language: Languages?, flag: TextureRegionDrawable?): TextButton {
         val buttonAuxiliary = TextButton(texto, Assets.textButtonStyle)
         if (flag != null) {
-            buttonAuxiliary.add<Image?>(Image(flag))
+            buttonAuxiliary.add(Image(flag))
         }
         if (language != null) {
             buttonAuxiliary.addListener(addClickListener(language))

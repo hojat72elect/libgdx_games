@@ -122,7 +122,6 @@ object Assets {
             Languages.PORTUGUESE -> locale = Locale("pt")
             Languages.CHINESE -> locale = Locale("zh", "TW")
             Languages.DEFAULT -> locale = Locale.getDefault()
-            else -> locale = Locale.getDefault()
         }
 
         languagesBundle = I18NBundle.createBundle(Gdx.files.internal("strings/strings"), locale)

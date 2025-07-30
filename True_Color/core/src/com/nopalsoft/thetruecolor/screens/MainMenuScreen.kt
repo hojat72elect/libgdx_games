@@ -21,7 +21,7 @@ import com.nopalsoft.thetruecolor.scene2d.DialogHelpSettings
 import com.nopalsoft.thetruecolor.scene2d.DialogHelpSettings.Languages
 
 class MainMenuScreen(game: TrueColorGame) : BaseScreen(game) {
-    var titleImage: Image?
+    var titleImage = Image(Assets.titleDrawable)
     var dialogRanking: DialogRanking
 
     var startButton: ImageButton
@@ -35,8 +35,7 @@ class MainMenuScreen(game: TrueColorGame) : BaseScreen(game) {
     var helpDialog: DialogHelpSettings
 
     init {
-        titleImage = Image(Assets.titleDrawable)
-        titleImage!!.setPosition(SCREEN_WIDTH / 2f - titleImage!!.getWidth() / 2f, 610f)
+        titleImage.setPosition(SCREEN_WIDTH / 2f - titleImage.getWidth() / 2f, 610f)
 
         helpDialog = DialogHelpSettings(this)
         dialogRanking = DialogRanking(this)

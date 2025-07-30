@@ -36,28 +36,22 @@ class CountDown(screen: GameScreen) : Group() {
         imageThree = Image(Assets.threeDrawable)
         imageThree.setPosition(getWidth() / 2f - imageThree.getWidth() / 2f, 500f)
 
-        val runAfterThree: Runnable = object : Runnable {
-            override fun run() {
-                imageThree.remove()
-                addActor(imageTwo)
-            }
+        val runAfterThree = Runnable {
+            imageThree.remove()
+            addActor(imageTwo)
         }
         imageThree.addAction(Actions.sequence(Actions.fadeOut(countDownDuration), Actions.run(runAfterThree)))
 
-        val runAfterTwo: Runnable = object : Runnable {
-            override fun run() {
-                imageTwo.remove()
-                addActor(imageOne)
-            }
+        val runAfterTwo = Runnable {
+            imageTwo.remove()
+            addActor(imageOne)
         }
         imageTwo.addAction(Actions.sequence(Actions.fadeOut(countDownDuration), Actions.run(runAfterTwo)))
 
-        val runAfterOne: Runnable = object : Runnable {
-            override fun run() {
-                imageOne.remove()
-                gameScreen.setRunning()
-                remove()
-            }
+        val runAfterOne = Runnable {
+            imageOne.remove()
+            gameScreen.setRunning()
+            remove()
         }
         imageOne.addAction(Actions.sequence(Actions.fadeOut(countDownDuration), Actions.run(runAfterOne)))
 

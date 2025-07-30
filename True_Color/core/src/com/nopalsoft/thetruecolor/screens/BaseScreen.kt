@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.nopalsoft.thetruecolor.Assets
@@ -23,7 +22,7 @@ abstract class BaseScreen(game: TrueColorGame) : InputAdapter(), Screen {
     var game: TrueColorGame?
     var camera: OrthographicCamera
     var batch: SpriteBatch?
-    var stage: Stage?
+    var stage = game.stage
 
     override fun render(delta: Float) {
         update(delta)
@@ -42,7 +41,6 @@ abstract class BaseScreen(game: TrueColorGame) : InputAdapter(), Screen {
     var blackFadeOut: Image? = null
 
     init {
-        this.stage = game.stage
         this.stage!!.clear()
         this.batch = game.batch
         this.game = game
@@ -58,12 +56,10 @@ abstract class BaseScreen(game: TrueColorGame) : InputAdapter(), Screen {
         blackFadeOut = Image(Assets.blackPixelDrawable)
         blackFadeOut!!.setSize(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat())
         blackFadeOut!!.getColor().a = 0f
-        blackFadeOut!!.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run(object : Runnable {
-            override fun run() {
-                if (newScreen == GameScreen::class.java) game.setScreen(GameScreen(game))
-                else if (newScreen == MainMenuScreen::class.java) game.setScreen(MainMenuScreen(game))
-            }
-        })))
+        blackFadeOut!!.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run {
+            if (newScreen == GameScreen::class.java) game.setScreen(GameScreen(game))
+            else if (newScreen == MainMenuScreen::class.java) game.setScreen(MainMenuScreen(game))
+        }))
         stage!!.addActor(blackFadeOut)
     }
 

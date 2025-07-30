@@ -10,17 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
 import com.badlogic.gdx.utils.I18NBundle
 import com.nopalsoft.thetruecolor.Assets
-import com.nopalsoft.thetruecolor.TrueColorGame
 import com.nopalsoft.thetruecolor.screens.BaseScreen
 
 open class BaseDialog(protected var screen: BaseScreen, width: Float, height: Float, positionY: Float) : Group() {
     private val dimImage: Image
-    protected var languages: I18NBundle?
-    protected var game: TrueColorGame?
+    protected var languages: I18NBundle? = Assets.languagesBundle
 
     init {
-        game = screen.game
-        languages = Assets.languagesBundle
         setSize(width, height)
         setY(positionY)
 
