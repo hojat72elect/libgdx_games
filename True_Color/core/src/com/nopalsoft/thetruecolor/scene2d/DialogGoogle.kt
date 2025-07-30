@@ -16,7 +16,7 @@ class DialogGoogle(currentScreen: BaseScreen) : BaseDialog(currentScreen, WIDTH,
     init {
         setCloseButton(210f)
 
-        labelText = Label(languages.get("loginToGoogle"), LabelStyle(Assets.fontSmall, Color.BLACK))
+        labelText = Label(languages?.get("loginToGoogle"), LabelStyle(Assets.fontSmall, Color.BLACK))
         labelText.setWidth(getWidth() - 20)
         labelText.setFontScale(.75f)
         labelText.setWrap(true)
@@ -33,7 +33,7 @@ class DialogGoogle(currentScreen: BaseScreen) : BaseDialog(currentScreen, WIDTH,
     override fun show(stage: Stage) {
         super.show(stage)
 
-        val textButton = languages.get("login")
+        val textButton = languages?.get("login")
 
         buttonGoogleLogin.setText(textButton)
         buttonGoogleLogin.pack()

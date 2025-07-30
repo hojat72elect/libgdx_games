@@ -65,7 +65,7 @@ class MainMenuScreen(game: TrueColorGame) : BaseScreen(game) {
         addPressEffect(buttonHelp)
         buttonHelp.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                helpDialog.show(stage)
+                helpDialog.show(stage!!)
             }
         })
 

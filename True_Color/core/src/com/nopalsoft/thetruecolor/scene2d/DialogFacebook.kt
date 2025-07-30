@@ -16,7 +16,7 @@ class DialogFacebook(currentScreen: BaseScreen) : BaseDialog(currentScreen, WIDT
     init {
         setCloseButton(210f)
 
-        labelText = Label(languages.get("loginToFacebook"), LabelStyle(Assets.fontSmall, Color.BLACK))
+        labelText = Label(languages?.get("loginToFacebook"), LabelStyle(Assets.fontSmall, Color.BLACK))
         labelText.setWidth(getWidth() - 20)
         labelText.setFontScale(.75f)
         labelText.setWrap(true)
@@ -33,7 +33,7 @@ class DialogFacebook(currentScreen: BaseScreen) : BaseDialog(currentScreen, WIDT
     override fun show(stage: Stage) {
         super.show(stage)
 
-        val textButton = languages.get("login")
+        val textButton = languages?.get("login")
 
         buttonFacebookLogin.setText(textButton)
         buttonFacebookLogin.pack()

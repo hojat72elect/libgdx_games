@@ -48,7 +48,7 @@ class DialogHelpSettings(currentScreen: BaseScreen) : BaseDialog(currentScreen, 
         buttonMore.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 buttonMore.setChecked(false)
-                dialogMoreLanguages.show(currentScreen.stage)
+                dialogMoreLanguages.show(currentScreen.stage!!)
             }
         })
 
@@ -142,31 +142,31 @@ class DialogHelpSettings(currentScreen: BaseScreen) : BaseDialog(currentScreen, 
 
         colorsTable.defaults().expandX().padTop(5f).padBottom(5f)
 
-        colorsTable.add<Label?>(getNewLabelWithColor(languages.get("blue"), Color.BLUE))
+        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("blue"), Color.BLUE))
         colorsTable.add<Image?>(imageBlue).size(40f).left()
 
-        colorsTable.add<Label?>(getNewLabelWithColor(languages.get("cyan"), Color.CYAN))
+        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("cyan"), Color.CYAN))
         colorsTable.add<Image?>(imageCyan).size(40f).left()
 
         colorsTable.row()
-        colorsTable.add<Label?>(getNewLabelWithColor(languages.get("green"), Color.GREEN))
+        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("green"), Color.GREEN))
         colorsTable.add<Image?>(imageGreen).size(40f).left()
 
-        colorsTable.add<Label?>(getNewLabelWithColor(languages.get("yellow"), Color.YELLOW))
+        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("yellow"), Color.YELLOW))
         colorsTable.add<Image?>(imageYellow).size(40f).left()
 
         colorsTable.row()
-        colorsTable.add<Label?>(getNewLabelWithColor(languages.get("pink"), Color.PINK))
+        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("pink"), Color.PINK))
         colorsTable.add<Image?>(imagePink).size(40f).left()
 
-        colorsTable.add<Label?>(getNewLabelWithColor(languages.get("brown"), Color(.6f, .3f, 0f, 1f)))
+        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("brown"), Color(.6f, .3f, 0f, 1f)))
         colorsTable.add<Image?>(imageBrown).size(40f).left()
 
         colorsTable.row()
-        colorsTable.add<Label?>(getNewLabelWithColor(languages.get("purple"), Color.PURPLE))
+        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("purple"), Color.PURPLE))
         colorsTable.add<Image?>(imagePurple).size(40f).left()
 
-        colorsTable.add<Label?>(getNewLabelWithColor(languages.get("red"), Color.RED))
+        colorsTable.add<Label?>(getNewLabelWithColor(languages?.get("red"), Color.RED))
         colorsTable.add<Image?>(imageRed).size(40f).left()
     }
 
