@@ -13,15 +13,15 @@ import com.nopalsoft.zombiekiller.Achievements;
 import com.nopalsoft.zombiekiller.Assets;
 import com.nopalsoft.zombiekiller.MainZombie;
 import com.nopalsoft.zombiekiller.Settings;
-import com.nopalsoft.zombiekiller.scene2d.ControlesNoPad;
+import com.nopalsoft.zombiekiller.scene2d.TouchPadControls;
 import com.nopalsoft.zombiekiller.scene2d.NumGemsBar;
 import com.nopalsoft.zombiekiller.scene2d.OverlayTutorial;
 import com.nopalsoft.zombiekiller.scene2d.ProgressBarUI;
 import com.nopalsoft.zombiekiller.scene2d.SkullBar;
-import com.nopalsoft.zombiekiller.scene2d.VentanaGameover;
-import com.nopalsoft.zombiekiller.scene2d.VentanaNextLevel;
-import com.nopalsoft.zombiekiller.scene2d.VentanaPause;
-import com.nopalsoft.zombiekiller.scene2d.VentanaRate;
+import com.nopalsoft.zombiekiller.scene2d.DialogGameover;
+import com.nopalsoft.zombiekiller.scene2d.DialogNextLevel;
+import com.nopalsoft.zombiekiller.scene2d.DialogPause;
+import com.nopalsoft.zombiekiller.scene2d.DialogRate;
 import com.nopalsoft.zombiekiller.screens.Screens;
 
 public class GameScreen extends Screens {
@@ -32,7 +32,7 @@ public class GameScreen extends Screens {
     public WorldGame oWorld;
     public Button btJump, btFire;
     public Touchpad pad;
-    public ControlesNoPad controlesNoPad;
+    public TouchPadControls touchPadControls;
     public int level;
     int state;
     WorldGameRenderer2 renderer;
@@ -40,8 +40,8 @@ public class GameScreen extends Screens {
     boolean didJump;
     boolean isFiring;
     Button btPause;
-    VentanaGameover ventanaGameover;
-    VentanaPause ventanaPause;
+    DialogGameover ventanaGameover;
+    DialogPause ventanaPause;
     OverlayTutorial overlayTutorial;
     Label lbLevel;
 
@@ -87,8 +87,8 @@ public class GameScreen extends Screens {
         state = STATE_RUNNING;
         Settings.numeroVecesJugadas++;
 
-        ventanaGameover = new VentanaGameover(this);
-        ventanaPause = new VentanaPause(this);
+        ventanaGameover = new DialogGameover(this);
+        ventanaPause = new DialogPause(this);
 
         oWorld = new WorldGame();
         renderer = new WorldGameRenderer2(batcher, oWorld);
@@ -140,9 +140,9 @@ public class GameScreen extends Screens {
         pad.setSize(Settings.padSize, Settings.padSize);
         pad.getColor().a = .5f;
 
-        controlesNoPad = new ControlesNoPad();
-        controlesNoPad.setPosition(Settings.padPositionX, Settings.padPositionY);
-        controlesNoPad.getColor().a = .5f;
+        touchPadControls = new TouchPadControls();
+        touchPadControls.setPosition(Settings.padPositionX, Settings.padPositionY);
+        touchPadControls.getColor().a = .5f;
 
         if (Gdx.app.getType() == ApplicationType.Android || Gdx.app.getType() == ApplicationType.iOS) {
             stage.addActor(btFire);
@@ -151,7 +151,7 @@ public class GameScreen extends Screens {
             if (Settings.isPadEnabled)
                 stage.addActor(pad);
             else
-                stage.addActor(controlesNoPad);
+                stage.addActor(touchPadControls);
         }
         stage.addActor(btPause);
         stage.addActor(lifeBar);
@@ -167,7 +167,7 @@ public class GameScreen extends Screens {
 
         if (Settings.numeroVecesJugadas % 7 == 0 && !Settings.didRate) {
             setPaused();
-            new VentanaRate(this).show(stage);
+            new DialogRate(this).show(stage);
         }
     }
 
@@ -186,18 +186,18 @@ public class GameScreen extends Screens {
         float sensibility = .6f;
 
         if (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.LEFT) || pad.getKnobPercentX() < -sensibility
-                || controlesNoPad.isMovingLeft)
+                || touchPadControls.isMovingLeft)
             accelX = -1;
         else if (Gdx.input.isKeyPressed(Keys.D) || Gdx.input.isKeyPressed(Keys.RIGHT) || pad.getKnobPercentX() > sensibility
-                || controlesNoPad.isMovingRight)
+                || touchPadControls.isMovingRight)
             accelX = 1;
         else
             accelX = 0;
 
-        if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.UP) || pad.getKnobPercentY() > sensibility || controlesNoPad.isMovingUp)
+        if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.UP) || pad.getKnobPercentY() > sensibility || touchPadControls.isMovingUp)
             accelY = 1;
         else if (Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DOWN) || pad.getKnobPercentY() < -sensibility
-                || controlesNoPad.isMovingDown)
+                || touchPadControls.isMovingDown)
             accelY = -1;
         else
             accelY = 0;
@@ -232,7 +232,7 @@ public class GameScreen extends Screens {
 
         Achievements.unlockCollectedSkulls();
 
-        new VentanaNextLevel(this).show(stage);
+        new DialogNextLevel(this).show(stage);
     }
 
     private void setPaused() {

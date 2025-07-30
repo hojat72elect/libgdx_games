@@ -16,7 +16,7 @@ import com.nopalsoft.zombiekiller.game_objects.Bullet;
 import com.nopalsoft.zombiekiller.game_objects.Crate;
 import com.nopalsoft.zombiekiller.game_objects.Hero;
 import com.nopalsoft.zombiekiller.game_objects.ItemGem;
-import com.nopalsoft.zombiekiller.game_objects.ItemHearth;
+import com.nopalsoft.zombiekiller.game_objects.ItemHeart;
 import com.nopalsoft.zombiekiller.game_objects.ItemMeat;
 import com.nopalsoft.zombiekiller.game_objects.ItemShield;
 import com.nopalsoft.zombiekiller.game_objects.ItemSkull;
@@ -193,7 +193,7 @@ public class WorldGameRenderer2 {
         for (Items obj : oWorld.arrItems) {
             if (obj instanceof ItemGem) {
                 keyframe = Assets.itemGem;
-            } else if (obj instanceof ItemHearth) {
+            } else if (obj instanceof ItemHeart) {
                 keyframe = Assets.itemHeart;
             } else if (obj instanceof ItemMeat) {
                 keyframe = Assets.itemMeat;

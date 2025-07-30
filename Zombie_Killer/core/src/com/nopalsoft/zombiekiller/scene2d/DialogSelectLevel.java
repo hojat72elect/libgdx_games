@@ -15,12 +15,12 @@ import com.nopalsoft.zombiekiller.Settings;
 import com.nopalsoft.zombiekiller.game.GameScreen;
 import com.nopalsoft.zombiekiller.screens.Screens;
 
-public class VentanaSelectLevel extends Ventana {
+public class DialogSelectLevel extends Dialog {
 
     Table contenedor;
     int totalSkulls;// Cada nivel necesita (nivel * 2) skulls para ser accecible.
 
-    public VentanaSelectLevel(Screens currentScreen) {
+    public DialogSelectLevel(Screens currentScreen) {
         super(currentScreen, 650, 450, 20, Assets.backgroundBigWindow);
         setCloseButton(570, 320, 65);
 
@@ -91,7 +91,7 @@ public class VentanaSelectLevel extends Ventana {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (button.isDisabled()) {
-                    new VentanaWarning(screen, idiomas.format("warning_level_window", skullsToNextLevel)).show(screen.stage);
+                    new DialogWarning(screen, idiomas.format("warning_level_window", skullsToNextLevel)).show(screen.stage);
                 } else {
                     hide();
                     screen.changeScreenWithFadeOut(GameScreen.class, level, game);

@@ -24,13 +24,13 @@ import com.nopalsoft.zombiekiller.game_objects.Bullet;
 import com.nopalsoft.zombiekiller.game_objects.Crate;
 import com.nopalsoft.zombiekiller.game_objects.Hero;
 import com.nopalsoft.zombiekiller.game_objects.ItemGem;
-import com.nopalsoft.zombiekiller.game_objects.ItemHearth;
+import com.nopalsoft.zombiekiller.game_objects.ItemHeart;
 import com.nopalsoft.zombiekiller.game_objects.ItemMeat;
 import com.nopalsoft.zombiekiller.game_objects.ItemShield;
 import com.nopalsoft.zombiekiller.game_objects.ItemSkull;
 import com.nopalsoft.zombiekiller.game_objects.ItemStar;
 import com.nopalsoft.zombiekiller.game_objects.Items;
-import com.nopalsoft.zombiekiller.game_objects.Pisable;
+import com.nopalsoft.zombiekiller.game_objects.Platform;
 import com.nopalsoft.zombiekiller.game_objects.Saw;
 import com.nopalsoft.zombiekiller.game_objects.Zombie;
 
@@ -201,7 +201,7 @@ public class WorldGame {
                 obj = new ItemGem(x, y);
                 break;
             case 1:
-                obj = new ItemHearth(x, y);
+                obj = new ItemHeart(x, y);
                 break;
             case 2:
                 obj = new ItemShield(x, y);
@@ -389,7 +389,7 @@ public class WorldGame {
 
             if (oOtraCosa.equals("ladder")) {
                 oHero.isOnStairs = true;
-            } else if (oOtraCosa.equals("suelo") || oOtraCosa instanceof Pisable) {
+            } else if (oOtraCosa.equals("suelo") || oOtraCosa instanceof Platform) {
                 if (fixHero.getUserData().equals("pies"))
                     oHero.canJump = true;
             } else if (oOtraCosa instanceof Crate) {
@@ -412,7 +412,7 @@ public class WorldGame {
 
                     Assets.playSound(Assets.gem, .075f);
                 }
-            } else if (oOtraCosa instanceof ItemHearth) {
+            } else if (oOtraCosa instanceof ItemHeart) {
                 Items obj = (Items) oOtraCosa;
                 if (oHero.state != Hero.STATE_DEAD && obj.state == Items.STATE_NORMAL) {
                     obj.taken();
@@ -553,8 +553,8 @@ public class WorldGame {
         private void preSolveHero(Fixture fixHero, Fixture otraCosa, Contact contact) {
             Object oOtraCosa = otraCosa.getBody().getUserData();
 
-            if (oOtraCosa instanceof Pisable) {
-                Pisable obj = (Pisable) oOtraCosa;
+            if (oOtraCosa instanceof Platform) {
+                Platform obj = (Platform) oOtraCosa;
 
                 if (oHero.isClimbing) {
                     contact.setEnabled(false);
@@ -577,8 +577,8 @@ public class WorldGame {
         private void preSolveZombie(Fixture fixZombie, Fixture otraCosa, Contact contact) {
             Object oOtraCosa = otraCosa.getBody().getUserData();
             Zombie oZombie = (Zombie) fixZombie.getBody().getUserData();
-            if (oOtraCosa instanceof Pisable) {
-                Pisable obj = (Pisable) oOtraCosa;
+            if (oOtraCosa instanceof Platform) {
+                Platform obj = (Platform) oOtraCosa;
 
                 float ponyY = fixZombie.getBody().getPosition().y - .30f;
                 float pisY = obj.position.y + obj.height / 2f;

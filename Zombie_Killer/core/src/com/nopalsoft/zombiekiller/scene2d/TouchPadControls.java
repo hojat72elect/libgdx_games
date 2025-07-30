@@ -8,13 +8,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.zombiekiller.Assets;
 import com.nopalsoft.zombiekiller.Settings;
 
-public class ControlesNoPad extends Table {
+public class TouchPadControls extends Table {
 
     public boolean isMovingUp, isMovingDown, isMovingLeft, isMovingRight;
     public float widthButtons;
     Button btUp, btDown, btLeft, btRight;
 
-    public ControlesNoPad() {
+    public TouchPadControls() {
         init();
     }
 

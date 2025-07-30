@@ -27,13 +27,13 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Logger;
 import com.nopalsoft.zombiekiller.game_objects.Crate;
 import com.nopalsoft.zombiekiller.game_objects.ItemGem;
-import com.nopalsoft.zombiekiller.game_objects.ItemHearth;
+import com.nopalsoft.zombiekiller.game_objects.ItemHeart;
 import com.nopalsoft.zombiekiller.game_objects.ItemMeat;
 import com.nopalsoft.zombiekiller.game_objects.ItemShield;
 import com.nopalsoft.zombiekiller.game_objects.ItemSkull;
 import com.nopalsoft.zombiekiller.game_objects.ItemStar;
 import com.nopalsoft.zombiekiller.game_objects.Items;
-import com.nopalsoft.zombiekiller.game_objects.Pisable;
+import com.nopalsoft.zombiekiller.game_objects.Platform;
 import com.nopalsoft.zombiekiller.game_objects.Saw;
 import com.nopalsoft.zombiekiller.game_objects.Zombie;
 
@@ -197,7 +197,7 @@ public class TiledMapManagerBox2d {
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
         float height = (rectangle.height * m_units * 0.5f);
         float width = (rectangle.width * m_units * 0.5f);
-        body.setUserData(new Pisable(x, y, width, height));
+        body.setUserData(new Platform(x, y, width, height));
     }
 
     private void createLadder(MapObject object, String tipo) {
@@ -289,7 +289,7 @@ public class TiledMapManagerBox2d {
                 obj = new ItemGem(x, y);
                 break;
             case "heart":
-                obj = new ItemHearth(x, y);
+                obj = new ItemHeart(x, y);
                 Gdx.app.log("Heart", "");
                 break;
             case "skull":

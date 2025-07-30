@@ -13,7 +13,7 @@ import com.nopalsoft.zombiekiller.Assets;
 import com.nopalsoft.zombiekiller.MainZombie;
 import com.nopalsoft.zombiekiller.screens.Screens;
 
-public class Ventana extends Group {
+public class Dialog extends Group {
     public static final float DURACION_ANIMATION = .3f;
     protected Screens screen;
     protected I18NBundle idiomas;
@@ -21,7 +21,7 @@ public class Ventana extends Group {
 
     private boolean isVisible = false;
 
-    public Ventana(Screens currentScreen, float width, float height, float positionY, TextureRegionDrawable imageBackgroun) {
+    public Dialog(Screens currentScreen, float width, float height, float positionY, TextureRegionDrawable imageBackgroun) {
         screen = currentScreen;
         game = currentScreen.game;
         idiomas = game.idiomas;

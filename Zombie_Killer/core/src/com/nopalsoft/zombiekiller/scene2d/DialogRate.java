@@ -9,11 +9,11 @@ import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.zombiekiller.Assets;
 import com.nopalsoft.zombiekiller.screens.Screens;
 
-public class VentanaRate extends Ventana {
+public class DialogRate extends Dialog {
 
     TextButton btYes, btLater;
 
-    public VentanaRate(Screens currentScreen) {
+    public DialogRate(Screens currentScreen) {
         super(currentScreen, 400, 310, 100, Assets.backgroundSmallWindow);
 
         Label lbShop = new Label(idiomas.get("support_this_game"), Assets.labelStyleGrande);

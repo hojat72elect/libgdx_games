@@ -20,7 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.zombiekiller.Assets;
 import com.nopalsoft.zombiekiller.MainZombie;
 import com.nopalsoft.zombiekiller.Settings;
-import com.nopalsoft.zombiekiller.scene2d.ControlesNoPad;
+import com.nopalsoft.zombiekiller.scene2d.TouchPadControls;
 
 public class SettingsScreen extends Screens {
 
@@ -31,7 +31,7 @@ public class SettingsScreen extends Screens {
     public static final Vector2 DEFAULT_POSITION_BUTTON_JUMP = new Vector2(560, 20);
     public static final Vector2 DEFAULT_POSITION_BUTTON_FIRE = new Vector2(680, 20);
 
-    ControlesNoPad controlesNoPad;
+    TouchPadControls touchPadControls;
     Touchpad pad;
     Image btJump, btFire;
     Vector3 dragPoint;
@@ -65,14 +65,14 @@ public class SettingsScreen extends Screens {
                 btEnablePad.setChecked(Settings.isPadEnabled);
 
                 pad.remove();
-                controlesNoPad.remove();
+                touchPadControls.remove();
 
                 if (Settings.isPadEnabled) {
                     pad.setPosition(Settings.padPositionX, Settings.padPositionY);
                     stage.addActor(pad);
                 } else {
-                    controlesNoPad.setPosition(Settings.padPositionX, Settings.padPositionY);
-                    stage.addActor(controlesNoPad);
+                    touchPadControls.setPosition(Settings.padPositionX, Settings.padPositionY);
+                    stage.addActor(touchPadControls);
                 }
             }
         };
@@ -93,7 +93,7 @@ public class SettingsScreen extends Screens {
                 float size = DEFAULT_SIZE_PAD * sliderPadSize.getValue();
                 pad.setSize(size, size);
                 Settings.padSize = size;
-                controlesNoPad.setNewSize(size);
+                touchPadControls.setNewSize(size);
             }
         });
 
@@ -119,12 +119,12 @@ public class SettingsScreen extends Screens {
                 btFire.setSize(DEFAULT_SIZE_BUTTONS, DEFAULT_SIZE_BUTTONS);
                 btJump.setSize(DEFAULT_SIZE_BUTTONS, DEFAULT_SIZE_BUTTONS);
                 pad.setSize(DEFAULT_SIZE_PAD, DEFAULT_SIZE_PAD);
-                controlesNoPad.setNewSize(DEFAULT_SIZE_PAD);
+                touchPadControls.setNewSize(DEFAULT_SIZE_PAD);
                 sliderButtonSize.setValue(1);
                 sliderPadSize.setValue(1);
 
                 pad.setPosition(DEFAULT_POSITION_PAD.x, DEFAULT_POSITION_PAD.y);
-                controlesNoPad.setPosition(DEFAULT_POSITION_PAD.x, DEFAULT_POSITION_PAD.y);
+                touchPadControls.setPosition(DEFAULT_POSITION_PAD.x, DEFAULT_POSITION_PAD.y);
                 btFire.setPosition(DEFAULT_POSITION_BUTTON_FIRE.x, DEFAULT_POSITION_BUTTON_FIRE.y);
                 btJump.setPosition(DEFAULT_POSITION_BUTTON_JUMP.x, DEFAULT_POSITION_BUTTON_JUMP.y);
 
@@ -151,19 +151,19 @@ public class SettingsScreen extends Screens {
 
         tbSizes.pack();
 
-        controlesNoPad = new ControlesNoPad();
-        controlesNoPad.setPosition(Settings.padPositionX, Settings.padPositionY);
-        controlesNoPad.getColor().a = .5f;
-        controlesNoPad.addListener(new DragListener() {
+        touchPadControls = new TouchPadControls();
+        touchPadControls.setPosition(Settings.padPositionX, Settings.padPositionY);
+        touchPadControls.getColor().a = .5f;
+        touchPadControls.addListener(new DragListener() {
             @Override
             public void drag(InputEvent event, float x, float y, int pointer) {
                 stage.getCamera().unproject(dragPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
-                controlesNoPad.setPosition(dragPoint.x - controlesNoPad.getWidth() / 2f, dragPoint.y - controlesNoPad.getHeight() / 2f);
+                touchPadControls.setPosition(dragPoint.x - touchPadControls.getWidth() / 2f, dragPoint.y - touchPadControls.getHeight() / 2f);
             }
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
-                Settings.saveNewPadSettings(controlesNoPad.getX(), controlesNoPad.getY(), controlesNoPad.widthButtons);
+                Settings.saveNewPadSettings(touchPadControls.getX(), touchPadControls.getY(), touchPadControls.widthButtons);
             }
         });
 
@@ -234,7 +234,7 @@ public class SettingsScreen extends Screens {
         if (Settings.isPadEnabled)
             stage.addActor(pad);
         else
-            stage.addActor(controlesNoPad);
+            stage.addActor(touchPadControls);
         stage.addActor(btJump);
         stage.addActor(btFire);
         stage.addActor(tbSizes);

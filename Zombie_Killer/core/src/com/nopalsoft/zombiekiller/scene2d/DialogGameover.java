@@ -10,22 +10,22 @@ import com.nopalsoft.zombiekiller.Assets;
 import com.nopalsoft.zombiekiller.game.GameScreen;
 import com.nopalsoft.zombiekiller.screens.MainMenuScreen;
 import com.nopalsoft.zombiekiller.screens.Screens;
+import com.nopalsoft.zombiekiller.shop.DialogShop;
 
-public class VentanaPause extends Ventana {
+public class DialogGameover extends Dialog {
 
-    GameScreen gameScreen;
-
-    Button btMenu, btTryAgain;
+    Button btMenu, btShop, btTryAgain;
 
     int buttonSize = 55;
 
-    public VentanaPause(Screens currentScreen) {
+    DialogShop ventanaShop;
+
+    public DialogGameover(Screens currentScreen) {
         super(currentScreen, 350, 310, 100, Assets.backgroundSmallWindow);
-        setCloseButton(305, 265, 45);
 
-        gameScreen = (GameScreen) currentScreen;
+        ventanaShop = new DialogShop(screen);
 
-        Label lbShop = new Label(idiomas.get("pause"), Assets.labelStyleGrande);
+        Label lbShop = new Label(idiomas.get("game_over"), Assets.labelStyleGrande);
         lbShop.setFontScale(1.5f);
         lbShop.setAlignment(Align.center);
         lbShop.setPosition(getWidth() / 2f - lbShop.getWidth() / 2f, 210);
@@ -41,7 +41,7 @@ public class VentanaPause extends Ventana {
         content.defaults().expandX().uniform();
 
         content.add(btMenu);
-
+        content.add(btShop);
         content.add(btTryAgain);
 
         addActor(content);
@@ -50,6 +50,7 @@ public class VentanaPause extends Ventana {
     private void initButtons() {
         btMenu = new Button(Assets.btMenu);
         btMenu.setSize(buttonSize, buttonSize);
+
         screen.addEfectoPress(btMenu);
         btMenu.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
@@ -58,14 +59,22 @@ public class VentanaPause extends Ventana {
             }
         });
 
+        btShop = new Button(Assets.btShop);
+        btShop.setSize(buttonSize, buttonSize);
+        screen.addEfectoPress(btShop);
+        btShop.addListener(new ClickListener() {
+            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
+                ventanaShop.show(screen.stage);
+            }
+        });
+
         btTryAgain = new Button(Assets.btTryAgain);
         btTryAgain.setSize(buttonSize, buttonSize);
-
         screen.addEfectoPress(btTryAgain);
         btTryAgain.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 hide();
-                screen.changeScreenWithFadeOut(GameScreen.class, gameScreen.level, game);
+                screen.changeScreenWithFadeOut(GameScreen.class, ((GameScreen) screen).level, game);
             }
         });
     }
@@ -73,11 +82,5 @@ public class VentanaPause extends Ventana {
     @Override
     public void show(Stage stage) {
         super.show(stage);
-    }
-
-    @Override
-    public void hide() {
-        gameScreen.setRunning();
-        super.hide();
     }
 }

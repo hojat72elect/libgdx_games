@@ -13,8 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.zombiekiller.Assets;
 import com.nopalsoft.zombiekiller.MainZombie;
 import com.nopalsoft.zombiekiller.Settings;
-import com.nopalsoft.zombiekiller.scene2d.VentanaSelectLevel;
-import com.nopalsoft.zombiekiller.shop.VentanaShop;
+import com.nopalsoft.zombiekiller.scene2d.DialogSelectLevel;
+import com.nopalsoft.zombiekiller.shop.DialogShop;
 
 public class MainMenuScreen extends Screens {
 
@@ -29,8 +29,8 @@ public class MainMenuScreen extends Screens {
     Button btMusica;
     Button btSonido;
 
-    VentanaShop ventanaShop;
-    VentanaSelectLevel ventanaSelectLevel;
+    DialogShop ventanaShop;
+    DialogSelectLevel ventanaSelectLevel;
 
     Image titulo;
 
@@ -42,8 +42,8 @@ public class MainMenuScreen extends Screens {
         if (Settings.isMusicOn)
             music.play();
 
-        ventanaShop = new VentanaShop(this);
-        ventanaSelectLevel = new VentanaSelectLevel(this);
+        ventanaShop = new DialogShop(this);
+        ventanaSelectLevel = new DialogSelectLevel(this);
 
         titulo = new Image(Assets.zombieKillerTitulo);
         titulo.setPosition(SCREEN_WIDTH / 2f - titulo.getWidth() / 2f - 30, SCREEN_HEIGHT);

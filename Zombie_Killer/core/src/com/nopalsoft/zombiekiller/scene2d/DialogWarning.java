@@ -5,9 +5,9 @@ import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.zombiekiller.Assets;
 import com.nopalsoft.zombiekiller.screens.Screens;
 
-public class VentanaWarning extends Ventana {
+public class DialogWarning extends Dialog {
 
-    public VentanaWarning(Screens currentScreen, String text) {
+    public DialogWarning(Screens currentScreen, String text) {
         super(currentScreen, 350, 200, 150, Assets.backgroundSmallWindow);
         setCloseButton(305, 155, 45);
 

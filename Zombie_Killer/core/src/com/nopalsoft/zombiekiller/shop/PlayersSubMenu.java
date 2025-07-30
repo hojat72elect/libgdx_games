@@ -19,7 +19,7 @@ import com.nopalsoft.zombiekiller.Settings;
 import com.nopalsoft.zombiekiller.game_objects.Hero;
 import com.nopalsoft.zombiekiller.scene2d.AnimatedSpriteActor;
 
-public class PersonajesSubMenu {
+public class PlayersSubMenu {
 
     private final static Preferences pref = Gdx.app.getPreferences("com.nopalsoft.zombiekiller.shop");
     final int PRECIO_HERO_RAMBO = 1000;
@@ -35,7 +35,7 @@ public class PersonajesSubMenu {
     String textBuy;
     String textSelect;
 
-    public PersonajesSubMenu(Table contenedor, MainZombie game) {
+    public PlayersSubMenu(Table contenedor, MainZombie game) {
         idiomas = game.idiomas;
         this.contenedor = contenedor;
         contenedor.clear();

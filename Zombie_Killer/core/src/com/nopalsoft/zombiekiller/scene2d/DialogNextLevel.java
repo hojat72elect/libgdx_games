@@ -12,24 +12,24 @@ import com.nopalsoft.zombiekiller.Assets;
 import com.nopalsoft.zombiekiller.game.GameScreen;
 import com.nopalsoft.zombiekiller.game.WorldGame;
 import com.nopalsoft.zombiekiller.screens.Screens;
-import com.nopalsoft.zombiekiller.shop.VentanaShop;
+import com.nopalsoft.zombiekiller.shop.DialogShop;
 
-public class VentanaNextLevel extends Ventana {
+public class DialogNextLevel extends Dialog {
 
     WorldGame oWorld;
 
     Button btLevels, btShop, btTryAgain;
     int buttonSize = 55;
-    VentanaShop ventanaShop;
-    VentanaSelectLevel ventanaSelectLevel;
+    DialogShop ventanaShop;
+    DialogSelectLevel ventanaSelectLevel;
 
     int skulls;
 
-    public VentanaNextLevel(Screens currentScreen) {
+    public DialogNextLevel(Screens currentScreen) {
         super(currentScreen, 380, 390, 50, Assets.backgroundSmallWindow);
         oWorld = ((GameScreen) currentScreen).oWorld;
-        ventanaShop = new VentanaShop(screen);
-        ventanaSelectLevel = new VentanaSelectLevel(screen);
+        ventanaShop = new DialogShop(screen);
+        ventanaSelectLevel = new DialogSelectLevel(screen);
 
         skulls = oWorld.skulls;
 

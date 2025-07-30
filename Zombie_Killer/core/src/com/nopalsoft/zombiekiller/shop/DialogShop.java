@@ -10,10 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.zombiekiller.Assets;
 import com.nopalsoft.zombiekiller.Settings;
-import com.nopalsoft.zombiekiller.scene2d.Ventana;
+import com.nopalsoft.zombiekiller.scene2d.Dialog;
 import com.nopalsoft.zombiekiller.screens.Screens;
 
-public class VentanaShop extends Ventana {
+public class DialogShop extends Dialog {
 
     Button btPersonajes, btMejoras, btGems, btNoAds;
 
@@ -24,7 +24,7 @@ public class VentanaShop extends Ventana {
 
     Label lbCoins;
 
-    public VentanaShop(Screens currentScreen) {
+    public DialogShop(Screens currentScreen) {
         super(currentScreen, 650, 450, 20, Assets.backgroundBigWindow);
         setCloseButton(570, 320, 65);
 
@@ -90,7 +90,7 @@ public class VentanaShop extends Ventana {
         screen.addEfectoPress(btPersonajes);
         btPersonajes.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                new PersonajesSubMenu(contenedor, game);
+                new PlayersSubMenu(contenedor, game);
             }
         });
 
