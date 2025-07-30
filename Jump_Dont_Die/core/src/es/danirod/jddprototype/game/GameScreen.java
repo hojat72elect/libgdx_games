@@ -33,49 +33,68 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.danirod.jddprototype.game.entities.EntityFactory;
 import es.danirod.jddprototype.game.entities.FloorEntity;
 import es.danirod.jddprototype.game.entities.PlayerEntity;
 import es.danirod.jddprototype.game.entities.SpikeEntity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This is the main screen for the game. All the fun happen here.
  */
 public class GameScreen extends BaseScreen {
 
-    /** Stage instance for Scene2D rendering. */
-    private Stage stage;
+    /**
+     * Stage instance for Scene2D rendering.
+     */
+    private final Stage stage;
 
-    /** World instance for Box2D engine. */
-    private World world;
+    /**
+     * World instance for Box2D engine.
+     */
+    private final World world;
 
-    /** Player entity. */
+    /**
+     * Player entity.
+     */
     private PlayerEntity player;
 
-    /** List of floors attached to this level. */
-    private List<FloorEntity> floorList = new ArrayList<FloorEntity>();
+    /**
+     * List of floors attached to this level.
+     */
+    private final List<FloorEntity> floorList = new ArrayList<FloorEntity>();
 
-    /** List of spikes attached to this level. */
-    private List<SpikeEntity> spikeList = new ArrayList<SpikeEntity>();
+    /**
+     * List of spikes attached to this level.
+     */
+    private final List<SpikeEntity> spikeList = new ArrayList<SpikeEntity>();
 
-    /** Jump sound that has to play when the player jumps. */
-    private Sound jumpSound;
+    /**
+     * Jump sound that has to play when the player jumps.
+     */
+    private final Sound jumpSound;
 
-    /** Die sound that has to play when the player collides with a spike. */
-    private Sound dieSound;
+    /**
+     * Die sound that has to play when the player collides with a spike.
+     */
+    private final Sound dieSound;
 
-    /** Background music that has to play on the background all the time. */
-    private Music backgroundMusic;
+    /**
+     * Background music that has to play on the background all the time.
+     */
+    private final Music backgroundMusic;
 
-    /** Initial position of the camera. Required for reseting the viewport. */
-    private Vector3 position;
+    /**
+     * Initial position of the camera. Required for reseting the viewport.
+     */
+    private final Vector3 position;
 
     /**
      * Create the screen. Since this constructor cannot be invoked before libGDX is fully started,
      * it is safe to do critical code here such as loading assets and setting up the stage.
+     *
      * @param game
      */
     public GameScreen(es.danirod.jddprototype.game.MainGame game) {
@@ -295,7 +314,12 @@ public class GameScreen extends BaseScreen {
         }
 
         // Here two lonely methods that I don't use but have to override anyway.
-        @Override public void preSolve(Contact contact, Manifold oldManifold) { }
-        @Override public void postSolve(Contact contact, ContactImpulse impulse) { }
+        @Override
+        public void preSolve(Contact contact, Manifold oldManifold) {
+        }
+
+        @Override
+        public void postSolve(Contact contact, ContactImpulse impulse) {
+        }
     }
 }

@@ -1,21 +1,3 @@
-/*
- * This file is part of Jump Don't Die
- * Copyright (C) 2015 Dani Rodríguez <danirod@outlook.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package es.danirod.jddprototype.game;
 
 import com.badlogic.gdx.Game;
@@ -31,15 +13,16 @@ import com.badlogic.gdx.graphics.Texture;
  */
 public class MainGame extends Game {
 
-    /** This is the asset manager we use to centralize the assets. */
-    private AssetManager manager;
-
     /**
      * These are the screens that we use in this game. I invite you to use a better system than
      * just public variables. For instance, you could create an ArrayList or maybe use some
      * structure such as a map where you can associate a number or a string to a screen.
      */
     public BaseScreen loadingScreen, menuScreen, gameScreen, gameOverScreen, creditsScreen;
+    /**
+     * This is the asset manager we use to centralize the assets.
+     */
+    private AssetManager manager;
 
     @Override
     public void create() {
@@ -78,5 +61,4 @@ public class MainGame extends Game {
     public AssetManager getManager() {
         return manager;
     }
-
 }

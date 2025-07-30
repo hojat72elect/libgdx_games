@@ -1,21 +1,3 @@
-/*
- * This file is part of Jump Don't Die
- * Copyright (C) 2015 Dani Rodríguez <danirod@outlook.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package es.danirod.jddprototype.game.entities;
 
 import com.badlogic.gdx.Gdx;
@@ -36,17 +18,25 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public class PlayerEntity extends Actor {
 
-    /** The player texture. */
-    private Texture texture;
+    /**
+     * The player texture.
+     */
+    private final Texture texture;
 
-    /** The world instance this player is in. */
-    private World world;
+    /**
+     * The world instance this player is in.
+     */
+    private final World world;
 
-    /** The body for this player. */
-    private Body body;
+    /**
+     * The body for this player.
+     */
+    private final Body body;
 
-    /** The fixture for this player. */
-    private Fixture fixture;
+    /**
+     * The fixture for this player.
+     */
+    private final Fixture fixture;
 
     /**
      * Is the player alive? If he touches a spike, is not alive. The player will only move and
@@ -96,7 +86,7 @@ public class PlayerEntity extends Actor {
         // position of the actor on the screen is as accurate as possible to the current position
         // of the Box2D body.
         setPosition((body.getPosition().x - 0.5f) * es.danirod.jddprototype.game.Constants.PIXELS_IN_METER,
-                    (body.getPosition().y - 0.5f) * es.danirod.jddprototype.game.Constants.PIXELS_IN_METER);
+                (body.getPosition().y - 0.5f) * es.danirod.jddprototype.game.Constants.PIXELS_IN_METER);
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
     }
 

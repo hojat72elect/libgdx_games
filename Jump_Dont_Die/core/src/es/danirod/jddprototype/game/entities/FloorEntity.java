@@ -1,21 +1,3 @@
-/*
- * This file is part of Jump Don't Die
- * Copyright (C) 2015 Dani Rodríguez <danirod@outlook.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package es.danirod.jddprototype.game.entities;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -36,17 +18,28 @@ import es.danirod.jddprototype.game.Constants;
  */
 public class FloorEntity extends Actor {
 
-    /** The textures we use to display the floor, proving that you can use multiple textures. */
-    private Texture floor, overfloor;
+    /**
+     * The textures we use to display the floor, proving that you can use multiple textures.
+     */
+    private final Texture floor;
+    private final Texture overfloor;
 
-    /** The world instance this floor has to live in. */
-    private World world;
+    /**
+     * The world instance this floor has to live in.
+     */
+    private final World world;
 
-    /** The bodies for the floor. You see here the main body for the floor, and the left border. */
-    private Body body, leftBody;
+    /**
+     * The bodies for the floor. You see here the main body for the floor, and the left border.
+     */
+    private final Body body;
+    private final Body leftBody;
 
-    /** The fixtures assigned to both bodies. This gives bodies shape. */
-    private Fixture fixture, leftFixture;
+    /**
+     * The fixtures assigned to both bodies. This gives bodies shape.
+     */
+    private final Fixture fixture;
+    private final Fixture leftFixture;
 
     /**
      * Create a new floor
@@ -54,9 +47,9 @@ public class FloorEntity extends Actor {
      * @param world
      * @param floor
      * @param overfloor
-     * @param x  left border for the floor (meters)
-     * @param width  how wide the floor is (meters)
-     * @param y  top border for the floor (meters)
+     * @param x         left border for the floor (meters)
+     * @param width     how wide the floor is (meters)
+     * @param y         top border for the floor (meters)
      */
     public FloorEntity(World world, Texture floor, Texture overfloor, float x, float width, float y) {
         this.world = world;

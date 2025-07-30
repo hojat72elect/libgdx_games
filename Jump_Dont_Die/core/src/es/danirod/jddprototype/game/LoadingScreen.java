@@ -1,21 +1,3 @@
-/*
- * This file is part of Jump Don't Die
- * Copyright (C) 2015 Dani Rodríguez <danirod@outlook.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package es.danirod.jddprototype.game;
 
 import com.badlogic.gdx.Gdx;
@@ -33,14 +15,20 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  */
 public class LoadingScreen extends BaseScreen {
 
-    /** Labels are also Actors. We will use Scene2D UI. */
-    private Stage stage;
+    /**
+     * Labels are also Actors. We will use Scene2D UI.
+     */
+    private final Stage stage;
 
-    /** This is the skin file (see GameOverScreen for more information on this). */
-    private Skin skin;
+    /**
+     * This is the skin file (see GameOverScreen for more information on this).
+     */
+    private final Skin skin;
 
-    /** This is the label that we use to display some text on the screen. */
-    private Label loading;
+    /**
+     * This is the label that we use to display some text on the screen.
+     */
+    private final Label loading;
 
     public LoadingScreen(es.danirod.jddprototype.game.MainGame game) {
         super(game);

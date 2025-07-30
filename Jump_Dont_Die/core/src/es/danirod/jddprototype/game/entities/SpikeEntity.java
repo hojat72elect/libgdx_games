@@ -1,21 +1,3 @@
-/*
- * This file is part of Jump Don't Die
- * Copyright (C) 2015 Dani Rodríguez <danirod@outlook.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package es.danirod.jddprototype.game.entities;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -37,25 +19,33 @@ import es.danirod.jddprototype.game.Constants;
  */
 public class SpikeEntity extends Actor {
 
-    /** Spike texture. */
-    private Texture texture;
+    /**
+     * Spike texture.
+     */
+    private final Texture texture;
 
-    /** The world this spike is in. */
-    private World world;
+    /**
+     * The world this spike is in.
+     */
+    private final World world;
 
-    /** The body assigned to this spike. */
-    private Body body;
+    /**
+     * The body assigned to this spike.
+     */
+    private final Body body;
 
-    /** The fixture assigned to this spike. */
-    private Fixture fixture;
+    /**
+     * The fixture assigned to this spike.
+     */
+    private final Fixture fixture;
 
     /**
      * Create some spike
      *
      * @param world
      * @param texture
-     * @param x  horizontal position for the center of the spike (meters)
-     * @param y  vertical position for the base of the spike (meters)
+     * @param x       horizontal position for the center of the spike (meters)
+     * @param y       vertical position for the base of the spike (meters)
      */
     public SpikeEntity(World world, Texture texture, float x, float y) {
         this.world = world;
@@ -91,5 +81,4 @@ public class SpikeEntity extends Actor {
         body.destroyFixture(fixture);
         world.destroyBody(body);
     }
-
 }

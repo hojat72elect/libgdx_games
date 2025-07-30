@@ -1,21 +1,3 @@
-/*
- * This file is part of Jump Don't Die
- * Copyright (C) 2015 Dani Rodríguez <danirod@outlook.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package es.danirod.jddprototype.game;
 
 import com.badlogic.gdx.Gdx;
@@ -35,17 +17,26 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  */
 public class GameOverScreen extends BaseScreen {
 
-    /** The stage where all the buttons are added. */
-    private Stage stage;
+    /**
+     * The stage where all the buttons are added.
+     */
+    private final Stage stage;
 
-    /** The skin that we use to set the style of the buttons. */
-    private Skin skin;
+    /**
+     * The skin that we use to set the style of the buttons.
+     */
+    private final Skin skin;
 
-    /** The GAME OVER image you see on top of the screen. */
-    private Image gameover;
+    /**
+     * The GAME OVER image you see on top of the screen.
+     */
+    private final Image gameover;
 
-    /** The buttons for retrying or for going back to menu. */
-    private TextButton retry, menu;
+    /**
+     * The buttons for retrying or for going back to menu.
+     */
+    private final TextButton retry;
+    private final TextButton menu;
 
     public GameOverScreen(final es.danirod.jddprototype.game.MainGame game) {
         super(game);

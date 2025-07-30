@@ -1,21 +1,3 @@
-/*
- * This file is part of Jump Don't Die
- * Copyright (C) 2015 Dani Rodríguez <danirod@outlook.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package es.danirod.jddprototype.scene2d;
 
 import com.badlogic.gdx.Gdx;
@@ -24,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+
 import es.danirod.jddprototype.game.BaseScreen;
 import es.danirod.jddprototype.game.MainGame;
 
@@ -32,20 +15,31 @@ import es.danirod.jddprototype.game.MainGame;
  */
 public class Scene2DScreen extends BaseScreen {
 
-    /** The Scene2D stage where all the actors are added. */
+    /**
+     * The Scene2D stage where all the actors are added.
+     */
     private Stage stage;
 
-    /** The actor that represents the player. */
+    /**
+     * The actor that represents the player.
+     */
     private PlayerActor player;
 
-    /** The actor that represent spikes. */
+    /**
+     * The actor that represent spikes.
+     */
     private es.danirod.jddprototype.scene2d.SpikeActor spikes;
 
-    /** Textures used in this screen. */
-    private Texture playerTexture, spikeTexture;
+    /**
+     * Textures used in this screen.
+     */
+    private final Texture playerTexture;
+    private final Texture spikeTexture;
 
-    /** Regions used in this screen. */
-    private TextureRegion spikeRegion;
+    /**
+     * Regions used in this screen.
+     */
+    private final TextureRegion spikeRegion;
 
     public Scene2DScreen(MainGame game) {
         super(game);
@@ -91,7 +85,7 @@ public class Scene2DScreen extends BaseScreen {
      * method. There is a collision if the bounding boxes that represent both actors overlap.
      */
     private void checkCollisions() {
-        if (player.isAlive() &&  (player.getX() + player.getWidth()) > spikes.getX()) {
+        if (player.isAlive() && (player.getX() + player.getWidth()) > spikes.getX()) {
             System.out.println("A collision has happened.");
             player.setAlive(false);
         }
