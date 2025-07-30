@@ -7,10 +7,10 @@ import com.salvai.whatcolor.global.loadPatternData
 
 class PatternData() {
     lateinit var patternType: String
-    lateinit var  colors: Array<Array<String>>
+    lateinit var colors: Array<Array<String>>
 
     constructor(file: FileHandle) : this() {
-        val  loadPatternData = loadPatternData(file)
+        val loadPatternData = loadPatternData(file)
         this.patternType = loadPatternData.patternType
         this.colors = loadPatternData.colors
     }

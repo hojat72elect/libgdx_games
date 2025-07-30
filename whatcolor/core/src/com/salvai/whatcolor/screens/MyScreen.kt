@@ -11,13 +11,13 @@ import com.salvai.whatcolor.input.CatchBackKeyProcessor
 abstract class MyScreen(var game: WhatColor) : ScreenAdapter() {
 
     init {
-        Gdx.input.setCatchBackKey(true);
+        Gdx.input.isCatchBackKey = true
         setUpInputMultiplexer()
     }
 
     fun changeScreen(screen: MyScreen) {
-            game.screen = screen
-            dispose()
+        game.screen = screen
+        dispose()
     }
 
     fun setupScreen() {

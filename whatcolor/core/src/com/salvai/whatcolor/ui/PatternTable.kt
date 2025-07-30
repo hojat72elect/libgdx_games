@@ -6,7 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.salvai.whatcolor.actors.Pattern
 import com.salvai.whatcolor.enums.PatternTableState
-import com.salvai.whatcolor.global.*
+import com.salvai.whatcolor.global.MENU_ANIMATION_TIME
+import com.salvai.whatcolor.global.PATTERN_SCREEN_SIZE
+import com.salvai.whatcolor.global.ROTATION
+import com.salvai.whatcolor.global.SCREEN_HEIGHT
+import com.salvai.whatcolor.global.SCREEN_WIDTH
+import com.salvai.whatcolor.global.TABLE_ANIMATION_TIME
 import kotlin.random.Random
 
 
@@ -16,8 +21,8 @@ class PatternTable(pattern: Pattern) : Table() {
 
     init {
         isTransform = true
-        setSize(PATTERN_SCREEN_SIZE,PATTERN_SCREEN_SIZE)
-        setPosition(SCREEN_WIDTH * 0.5f - this.width * 0.5f, SCREEN_HEIGHT - this.height *1.5f)
+        setSize(PATTERN_SCREEN_SIZE, PATTERN_SCREEN_SIZE)
+        setPosition(SCREEN_WIDTH * 0.5f - this.width * 0.5f, SCREEN_HEIGHT - this.height * 1.5f)
         setOrigin(width * 0.5f, height * 0.5f)
         fillTable(pattern)
     }

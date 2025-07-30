@@ -6,7 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.salvai.whatcolor.WhatColor
 import com.salvai.whatcolor.enums.GameState
-import com.salvai.whatcolor.global.*
+import com.salvai.whatcolor.global.BUTTON_HEIGHT
+import com.salvai.whatcolor.global.BUTTON_SPACE
+import com.salvai.whatcolor.global.PATTERN_SCREEN_SIZE
+import com.salvai.whatcolor.global.SCREEN_HEIGHT
+import com.salvai.whatcolor.global.SCREEN_WIDTH
 
 class MenuTable(game: WhatColor) : Table(game.skin) {
 
@@ -17,7 +21,7 @@ class MenuTable(game: WhatColor) : Table(game.skin) {
         val settingsButton: TextButton
 
         isTransform = true
-        setBounds((SCREEN_WIDTH - PATTERN_SCREEN_SIZE)*0.5f, SCREEN_HEIGHT * .1f, PATTERN_SCREEN_SIZE, SCREEN_HEIGHT * .4f)
+        setBounds((SCREEN_WIDTH - PATTERN_SCREEN_SIZE) * 0.5f, SCREEN_HEIGHT * .1f, PATTERN_SCREEN_SIZE, SCREEN_HEIGHT * .4f)
         setOrigin(width * 0.5f, height * 0.5f)
         defaults().growX().space(BUTTON_SPACE).height(BUTTON_HEIGHT)
 

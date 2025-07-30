@@ -6,7 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.salvai.whatcolor.WhatColor
 import com.salvai.whatcolor.actors.Pattern
 import com.salvai.whatcolor.enums.GameState
-import com.salvai.whatcolor.global.*
+import com.salvai.whatcolor.global.BONUS
+import com.salvai.whatcolor.global.PATTERN_SIZE
+import com.salvai.whatcolor.global.POINTS_TO_UNLOCK_NEXT_LEVEL
+import com.salvai.whatcolor.global.SHOW_TIME
+import com.salvai.whatcolor.global.TIME
 import com.salvai.whatcolor.screens.GameScreen
 import com.salvai.whatcolor.ui.PatternTable
 
@@ -113,7 +117,13 @@ class GameFlowManager(val game: WhatColor, val gameScreen: GameScreen) {
     fun nextPattern() {
         score = score.inc()
 
-        gameScreen.timeBarAndScoreLabelTable.scoreContainer.addAction(Actions.sequence(Actions.scaleBy(0.5f, 0.5f, 0.1f, Interpolation.circle), Actions.run { gameScreen.timeBarAndScoreLabelTable.scoreLabel.setText("" + score) }, Actions.scaleBy(-0.5f, -0.5f, 0.1f, Interpolation.circle)))
+        gameScreen.timeBarAndScoreLabelTable.scoreContainer.addAction(
+            Actions.sequence(
+                Actions.scaleBy(0.5f, 0.5f, 0.1f, Interpolation.circle),
+                Actions.run { gameScreen.timeBarAndScoreLabelTable.scoreLabel.setText("" + score) },
+                Actions.scaleBy(-0.5f, -0.5f, 0.1f, Interpolation.circle)
+            )
+        )
 
         if (time + BONUS <= TIME)
             time += BONUS

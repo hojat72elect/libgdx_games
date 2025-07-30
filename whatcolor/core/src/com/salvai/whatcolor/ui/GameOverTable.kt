@@ -8,7 +8,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import com.salvai.whatcolor.WhatColor
 import com.salvai.whatcolor.enums.GameState
-import com.salvai.whatcolor.global.*
+import com.salvai.whatcolor.global.BUTTON_HEIGHT
+import com.salvai.whatcolor.global.BUTTON_SPACE
+import com.salvai.whatcolor.global.PATTERN_SCREEN_SIZE
+import com.salvai.whatcolor.global.PATTERN_SIZE
+import com.salvai.whatcolor.global.POINTS_TO_UNLOCK_NEXT_LEVEL
+import com.salvai.whatcolor.global.SCREEN_HEIGHT
+import com.salvai.whatcolor.global.SCREEN_WIDTH
+import com.salvai.whatcolor.global.SECTION_SIZE
 
 class GameOverTable(val game: WhatColor) : Table() {
 

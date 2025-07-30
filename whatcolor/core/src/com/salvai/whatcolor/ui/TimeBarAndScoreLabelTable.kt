@@ -23,7 +23,7 @@ class TimeBarAndScoreLabelTable(game: WhatColor) : Table(game.skin) {
     }
     var scoreContainer = Container<Label>(scoreLabel).apply {
         isTransform = true
-        setSize(PATTERN_SCREEN_SIZE,50f)
+        setSize(PATTERN_SCREEN_SIZE, 50f)
         setOrigin(width * 0.5f, height * 0.5f)
     }
 
@@ -41,11 +41,11 @@ class TimeBarAndScoreLabelTable(game: WhatColor) : Table(game.skin) {
     }
 
     fun show() {
-        addAction(Actions.moveBy(0f, -height , MENU_ANIMATION_TIME, Interpolation.circle))
+        addAction(Actions.moveBy(0f, -height, MENU_ANIMATION_TIME, Interpolation.circle))
     }
 
     fun hide() {
-        addAction(Actions.moveBy(0f, height , MENU_ANIMATION_TIME, Interpolation.circle))
+        addAction(Actions.moveBy(0f, height, MENU_ANIMATION_TIME, Interpolation.circle))
     }
 
 }

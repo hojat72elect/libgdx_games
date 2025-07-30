@@ -18,6 +18,7 @@ class CatchBackKeyProcessor(val game: WhatColor) : InputAdapter() {
                     game.gameFlowManager.gameScreen.showMenu(true)
                     game.gameFlowManager.gameScreen.hideGameOverTable()
                 }
+
                 GameState.SETTINGS -> game.gameFlowManager.gameScreen.hideSettingsTable()
                 GameState.MENU -> Gdx.app.exit()
                 else -> {

@@ -13,7 +13,11 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import com.salvai.whatcolor.actors.Pattern
 import com.salvai.whatcolor.actors.PatternData
 import com.salvai.whatcolor.enums.GameState
-import com.salvai.whatcolor.global.*
+import com.salvai.whatcolor.global.EDIT_LEVELS
+import com.salvai.whatcolor.global.GAME_NAME
+import com.salvai.whatcolor.global.PATTERN_SIZE
+import com.salvai.whatcolor.global.SCREEN_HEIGHT
+import com.salvai.whatcolor.global.SCREEN_WIDTH
 import com.salvai.whatcolor.screens.SplashScreen
 import com.salvai.whatcolor.utils.GameFlowManager
 import com.salvai.whatcolor.utils.MyAssetsManager

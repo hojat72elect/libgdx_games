@@ -8,8 +8,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.I18NBundle
 import com.salvai.whatcolor.WhatColor
 import com.salvai.whatcolor.enums.GameState
-import com.salvai.whatcolor.global.*
-import com.salvai.whatcolor.ui.*
+import com.salvai.whatcolor.global.BLOCK_IMAGE
+import com.salvai.whatcolor.global.MENU_ANIMATION_TIME
+import com.salvai.whatcolor.global.SCREEN_HEIGHT
+import com.salvai.whatcolor.global.SCREEN_WIDTH
+import com.salvai.whatcolor.global.SKIN_NAME
+import com.salvai.whatcolor.global.createAllPatterns
+import com.salvai.whatcolor.global.getAllPaterns
+import com.salvai.whatcolor.ui.Chooser
+import com.salvai.whatcolor.ui.GameOverTable
+import com.salvai.whatcolor.ui.LevelTable
+import com.salvai.whatcolor.ui.MenuTable
+import com.salvai.whatcolor.ui.SettingsTable
+import com.salvai.whatcolor.ui.TimeBarAndScoreLabelTable
 import com.salvai.whatcolor.utils.GameFlowManager
 
 
@@ -19,9 +30,9 @@ class GameScreen(game: WhatColor) : MyScreen(game) {
     private var levelScrollPane: ScrollPane
     private var menuTable: MenuTable
     private var settingsTable: SettingsTable
-    val timeBarAndScoreLabelTable : TimeBarAndScoreLabelTable
+    val timeBarAndScoreLabelTable: TimeBarAndScoreLabelTable
     val gameOverTable: GameOverTable
-    val   chooser:Chooser
+    val chooser: Chooser
 
 
     init {

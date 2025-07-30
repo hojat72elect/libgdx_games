@@ -13,7 +13,7 @@ import com.salvai.whatcolor.enums.PatternTableState
 import com.salvai.whatcolor.global.MENU_ANIMATION_TIME
 import com.salvai.whatcolor.global.PATTERN_SCREEN_SIZE
 import com.salvai.whatcolor.global.SCREEN_WIDTH
-import java.util.*
+import java.util.Random
 
 class Chooser(val game: WhatColor) : Table(game.skin) {
 
