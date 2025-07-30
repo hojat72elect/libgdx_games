@@ -6,22 +6,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.nopalsoft.zombiekiller.handlers.GameServicesHandler;
-import com.nopalsoft.zombiekiller.handlers.RequestHandler;
+
 import com.nopalsoft.zombiekiller.screens.MainMenuScreen;
 import com.nopalsoft.zombiekiller.screens.Screens;
 
 public class MainZombie extends Game {
-    public final GameServicesHandler gameServiceHandler;
-    public final RequestHandler reqHandler;
 
     public I18NBundle idiomas;
     public Stage stage;
     public SpriteBatch batcher;
-    public MainZombie(RequestHandler reqHandler, GameServicesHandler gameServiceHandler) {
-        this.reqHandler = reqHandler;
-        this.gameServiceHandler = gameServiceHandler;
-    }
+    public MainZombie() {}
 
     @Override
     public void create() {

@@ -108,10 +108,5 @@ public class VentanaShop extends Ventana {
         btNoAds.setSize(buttonSize, buttonSize);
         btNoAds.setPosition(100, 75);
         screen.addEfectoPress(btNoAds);
-        btNoAds.addListener(new ClickListener() {
-            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                game.reqHandler.showMoreGames();
-            }
-        });
     }
 }

@@ -40,7 +40,6 @@ public class MainMenuScreen extends Screens {
         ventanaSelectLevel = new VentanaSelectLevel(this);
 
         titulo = new Image(Assets.zombieKillerTitulo);
-        // titulo.setSize(504, 249);
         titulo.setPosition(SCREEN_WIDTH / 2f - titulo.getWidth() / 2f - 30, SCREEN_HEIGHT);
         titulo.setOrigin(titulo.getWidth() / 2f, titulo.getHeight() / 2f);
         titulo.setScale(.85f);
@@ -68,26 +67,12 @@ public class MainMenuScreen extends Screens {
         btLeaderboard = new Button(Assets.btLeaderboard);
         addEfectoPress(btLeaderboard);
         btLeaderboard.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn()) {
-                    game.gameServiceHandler.getLeaderboard();
-                } else
-                    game.gameServiceHandler.signIn();
-            }
+
         });
 
         btAchievement = new Button(Assets.btAchievement);
         addEfectoPress(btAchievement);
-        btAchievement.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn()) {
-                    game.gameServiceHandler.getAchievements();
-                } else
-                    game.gameServiceHandler.signIn();
-            }
-        });
+
 
         btSettings = new Button(Assets.btSettings);
         addEfectoPress(btSettings);
@@ -121,12 +106,7 @@ public class MainMenuScreen extends Screens {
         btTwitter.setSize(50, 50);
         addEfectoPress(btTwitter);
         btTwitter.setPosition(SCREEN_WIDTH - 55, SCREEN_HEIGHT - 120);
-        btTwitter.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.shareOnTwitter("");
-            }
-        });
+
 
         btMusica = new Button(Assets.styleButtonMusic);
         btMusica.setSize(50, 50);

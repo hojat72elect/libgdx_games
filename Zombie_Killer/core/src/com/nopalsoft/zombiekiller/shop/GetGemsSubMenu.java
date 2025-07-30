@@ -51,45 +51,23 @@ public class GetGemsSubMenu {
 
         btBuy5milCoins = new TextButton(textBuy, Assets.styleTextButtonBuy);
         addEfectoPress(btBuy5milCoins);
-        btBuy5milCoins.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.buy5milCoins();
-            }
-        });
+
 
         btBuy15MilCoins = new TextButton(textBuy, Assets.styleTextButtonBuy);
         addEfectoPress(btBuy15MilCoins);
-        btBuy15MilCoins.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.buy15milCoins();
-            }
-        });
+
 
         btBuy30MilCoins = new TextButton(textBuy, Assets.styleTextButtonBuy);
         addEfectoPress(btBuy30MilCoins);
-        btBuy30MilCoins.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.buy30milCoins();
-            }
-        });
 
         btBuy50MilCoins = new TextButton(textBuy, Assets.styleTextButtonBuy);
         addEfectoPress(btBuy50MilCoins);
-        btBuy50MilCoins.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.buy50milCoins();
-            }
-        });
+
 
         String faceLikeDescription = idiomas.format("facebook_like_description", monedasLikeFacebook);
         String faceInviteDescription = idiomas.format("facebook_invite_description", Settings.NUM_GEMS_INVITE_FACEBOOK);
 
 
-        // contenedor.row();
         contenedor.add(agregarPersonajeTabla(monedasLikeFacebook, Assets.btFacebook, faceLikeDescription, btLikeFacebook)).expandX().fill();
         contenedor.row();
 

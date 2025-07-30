@@ -253,10 +253,8 @@ public class GameScreen extends Screens {
 
     @Override
     public void hide() {
-        if (Settings.numeroVecesJugadas % 6 == 0)
-            game.reqHandler.showInterstitial();
+
         Settings.zombiesKilled += oWorld.totalZombiesKilled;
-        game.gameServiceHandler.submitScore(Settings.zombiesKilled);
         Achievements.unlockKilledZombies();
         super.hide();
     }
@@ -267,10 +265,6 @@ public class GameScreen extends Screens {
 
     @Override
     public boolean keyUp(int keycode) {
-        // if (keycode == Keys.A || keycode == Keys.D)
-        // accelX = 0;
-        // if (keycode == Keys.W || keycode == Keys.S)
-        // accelY = 0;
         return super.keyUp(keycode);
     }
 
