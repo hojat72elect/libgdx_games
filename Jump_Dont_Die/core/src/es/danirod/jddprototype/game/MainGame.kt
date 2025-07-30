@@ -1,48 +1,57 @@
-package es.danirod.jddprototype.game;
+package es.danirod.jddprototype.game
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Game
+import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.audio.Music
+import com.badlogic.gdx.audio.Sound
+import com.badlogic.gdx.graphics.Texture
 
 /**
  * This is our main game. This is the class that we pass to the Application in Android launcher
  * as well as in desktop launcher. Because we want to create a screen-based game, we use Game
  * class, which has methods for creating multiple screens.
  */
-public class MainGame extends Game {
-
+class MainGame : Game() {
     /**
      * These are the screens that we use in this game. I invite you to use a better system than
      * just public variables. For instance, you could create an ArrayList or maybe use some
      * structure such as a map where you can associate a number or a string to a screen.
      */
-    public BaseScreen loadingScreen, menuScreen, gameScreen, gameOverScreen, creditsScreen;
+    var loadingScreen: BaseScreen? = null
+
+    @JvmField
+    var menuScreen: BaseScreen? = null
+
+    @JvmField
+    var gameScreen: BaseScreen? = null
+
+    @JvmField
+    var gameOverScreen: BaseScreen? = null
+    var creditsScreen: BaseScreen? = null
+
     /**
      * This is the asset manager we use to centralize the assets.
      */
-    private AssetManager manager;
+    private var manager: AssetManager? = null
 
-    @Override
-    public void create() {
+    override fun create() {
         // Initialize the asset manager. We add every aset to the manager so that it can be loaded
         // inside the LoadingScreen screen. Remember to put the name of the asset in the first
         // argument, then the type of the asset in the second argument.
-        manager = new AssetManager();
-        manager.load("floor.png", Texture.class);
-        manager.load("gameover.png", Texture.class);
-        manager.load("overfloor.png", Texture.class);
-        manager.load("logo.png", Texture.class);
-        manager.load("spike.png", Texture.class);
-        manager.load("player.png", Texture.class);
-        manager.load("audio/die.ogg", Sound.class);
-        manager.load("audio/jump.ogg", Sound.class);
-        manager.load("audio/song.ogg", Music.class);
+        manager = AssetManager()
+        manager!!.load<Texture?>("floor.png", Texture::class.java)
+        manager!!.load<Texture?>("gameover.png", Texture::class.java)
+        manager!!.load<Texture?>("overfloor.png", Texture::class.java)
+        manager!!.load<Texture?>("logo.png", Texture::class.java)
+        manager!!.load<Texture?>("spike.png", Texture::class.java)
+        manager!!.load<Texture?>("player.png", Texture::class.java)
+        manager!!.load<Sound?>("audio/die.ogg", Sound::class.java)
+        manager!!.load<Sound?>("audio/jump.ogg", Sound::class.java)
+        manager!!.load<Music?>("audio/song.ogg", Music::class.java)
 
         // Enter the loading screen to load the assets.
-        loadingScreen = new LoadingScreen(this);
-        setScreen(loadingScreen);
+        loadingScreen = LoadingScreen(this)
+        setScreen(loadingScreen)
     }
 
     /**
@@ -50,15 +59,15 @@ public class MainGame extends Game {
      * as a second-step loader. You can load the rest of the screens here and jump to the main
      * screen now that everything is loaded.
      */
-    public void finishLoading() {
-        menuScreen = new es.danirod.jddprototype.game.MenuScreen(this);
-        gameScreen = new GameScreen(this);
-        gameOverScreen = new GameOverScreen(this);
-        creditsScreen = new CreditsScreen(this);
-        setScreen(menuScreen);
+    fun finishLoading() {
+        menuScreen = MenuScreen(this)
+        gameScreen = GameScreen(this)
+        gameOverScreen = GameOverScreen(this)
+        creditsScreen = CreditsScreen(this)
+        setScreen(menuScreen)
     }
 
-    public AssetManager getManager() {
-        return manager;
+    fun getManager(): AssetManager {
+        return manager!!
     }
 }
