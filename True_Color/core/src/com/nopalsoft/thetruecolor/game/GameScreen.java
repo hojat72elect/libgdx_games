@@ -67,7 +67,7 @@ public class GameScreen extends BaseScreen {
         buttonTrue.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                checarPalabra(true);
+                checkWord(true);
             }
         });
 
@@ -78,7 +78,7 @@ public class GameScreen extends BaseScreen {
         buttonFalse.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                checarPalabra(false);
+                checkWord(false);
             }
         });
 
@@ -136,19 +136,19 @@ public class GameScreen extends BaseScreen {
         stage.addActor(word.wordLabel);
     }
 
-    private void checarPalabra(boolean seleccion) {
+    private void checkWord(boolean isSelectionCorrect) {
         if (state == STATE_RUNNING) {
 
-            if ((word.color == word.wordText && seleccion) || (word.color != word.wordText && !seleccion)) {
+            if ((word.color == word.wordText && isSelectionCorrect) || (word.color != word.wordText && !isSelectionCorrect)) {
                 score++;
                 Achievements.unlockScoreAchievements();
 
                 if (score < 10) {
-                    initialTimePerWord -= .14f;// 1.8seg menos
+                    initialTimePerWord -= .14f;
                 } else if (score < 40) {
-                    initialTimePerWord -= .05f;// 1.5seg menos
+                    initialTimePerWord -= .05f;
                 } else if (score < 70) {
-                    initialTimePerWord -= .015f;// .54seg menos
+                    initialTimePerWord -= .015f;
                 } else {
                     initialTimePerWord -= .0075f;
                 }
@@ -217,7 +217,7 @@ public class GameScreen extends BaseScreen {
 
             StringBuilder scoreTextColor = new StringBuilder();
 
-            // HOT FIX PARA PONER ENTRE LAS LETRAS COLORES OBVIAMENTE ESTA MAL PERO nO SE ME OCURRIO OTRA COSA
+            // HOT FIX TO PUT COLORS BETWEEN THE LETTERS IS OBVIOUSLY WRONG BUT I COULDN'T THINK OF ANYTHING ELSE
             String[] apend = {"[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
                     "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
                     "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]", "[ORANGE]", "[RED]", "[BLUE]",
@@ -228,14 +228,14 @@ public class GameScreen extends BaseScreen {
             }
             scoreTextColor.append(apend[scoreText.length()]);
 
-            Label lblScore = new Label(scoreTextColor + "\n" + score, new LabelStyle(Assets.fontSmall, Color.WHITE));
-            lblScore.setAlignment(Align.center);
-            lblScore.setFontScale(2.5f);
-            lblScore.pack();
-            lblScore.setPosition(SCREEN_WIDTH / 2f - lblScore.getWidth() / 2f, 380);
-            lblScore.getColor().a = 0;
+            Label labelScore = new Label(scoreTextColor + "\n" + score, new LabelStyle(Assets.fontSmall, Color.WHITE));
+            labelScore.setAlignment(Align.center);
+            labelScore.setFontScale(2.5f);
+            labelScore.pack();
+            labelScore.setPosition(SCREEN_WIDTH / 2f - labelScore.getWidth() / 2f, 380);
+            labelScore.getColor().a = 0;
 
-            lblScore.addAction(Actions.sequence(Actions.delay(1), Actions.alpha(1, animationTime)));
+            labelScore.addAction(Actions.sequence(Actions.delay(1), Actions.alpha(1, animationTime)));
 
             tableMenu.getColor().a = 0;
 
@@ -253,7 +253,7 @@ public class GameScreen extends BaseScreen {
                 }
             })));
 
-            stage.addActor(lblScore);
+            stage.addActor(labelScore);
             stage.addActor(tableMenu);
             Settings.setNewScore(score);
 
