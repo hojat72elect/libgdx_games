@@ -9,8 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.nopalsoft.thetruecolor.Assets
 
 class Person(accountType: AccountType, personId: String, personName: String?, personScore: Long) : Group(), Comparable<Person> {
-    val WIDTH: Float = DialogRanking.WIDTH - 5
-    val HEIGHT: Float = 75f
+
 
     enum class AccountType {
         GOOGLE_PLAY, FACEBOOK, AMAZON
@@ -32,13 +31,10 @@ class Person(accountType: AccountType, personId: String, personName: String?, pe
         this.personId = personId
         this.personName = personName
         this.personScore = personScore
-
-        val accountIconDrawable: TextureRegionDrawable?
-        when (accountType) {
-            AccountType.AMAZON -> accountIconDrawable = Assets.buttonAmazonDrawable
-            AccountType.FACEBOOK -> accountIconDrawable = Assets.buttonFacebookDrawable
-            AccountType.GOOGLE_PLAY -> accountIconDrawable = Assets.buttonGoogleDrawable
-            else -> accountIconDrawable = Assets.buttonGoogleDrawable
+        val accountIconDrawable: TextureRegionDrawable? = when (accountType) {
+            AccountType.AMAZON -> Assets.buttonAmazonDrawable
+            AccountType.FACEBOOK -> Assets.buttonFacebookDrawable
+            AccountType.GOOGLE_PLAY -> Assets.buttonGoogleDrawable
         }
 
         val imagenCuenta = Image(accountIconDrawable)
@@ -75,14 +71,19 @@ class Person(accountType: AccountType, personId: String, personName: String?, pe
         return scoreString
     }
 
-    override fun compareTo(otherPerson: Person): Int {
-        return java.lang.Long.compare(otherPerson.personScore, personScore)
+    override fun compareTo(other: Person): Int {
+        return other.personScore.compareTo(personScore)
     }
 
-    override fun equals(otherObject: Any?): Boolean {
-        if (otherObject is Person) {
-            val objPerson = otherObject
+    override fun equals(other: Any?): Boolean {
+        if (other is Person) {
+            val objPerson = other
             return personId == objPerson.personId && accountType == objPerson.accountType
         } else return false
+    }
+
+    companion object {
+        const val WIDTH = DialogRanking.WIDTH - 5F
+        const val HEIGHT = 75F
     }
 }
