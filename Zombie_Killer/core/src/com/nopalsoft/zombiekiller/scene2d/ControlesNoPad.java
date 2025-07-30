@@ -11,11 +11,10 @@ import com.nopalsoft.zombiekiller.game.GameScreen;
 
 public class ControlesNoPad extends Table {
 
-    GameScreen gameScreen;
-
-    Button btUp, btDown, btLeft, btRight;
     public boolean isMovingUp, isMovingDown, isMovingLeft, isMovingRight;
     public float widthButtons;
+    GameScreen gameScreen;
+    Button btUp, btDown, btLeft, btRight;
 
     public ControlesNoPad() {
         init();

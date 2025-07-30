@@ -38,21 +38,26 @@ import com.nopalsoft.zombiekiller.screens.Screens;
 import java.util.Iterator;
 
 public class WorldGame {
-    final float WIDTH = Screens.WORLD_WIDTH;
-    final float HEIGHT = Screens.WORLD_HEIGHT;
-
     static final int STATE_RUNNING = 0;
     static final int STATE_GAMEOVER = 1;
     static final int STATE_NEXT_LEVEL = 2;
+    final float WIDTH = Screens.WORLD_WIDTH;
+    final float HEIGHT = Screens.WORLD_HEIGHT;
     public int state;
-
-    float TIME_TO_FIRE_AGAIN = .3f;
-    float timeToFireAgain;
+    public int tiledWidth;
+    public int tiledHeight;
 
     /**
      * Por el momento hice una prueba con 110 tiles de width y todo funciona bien, no se pasa el background
      */
-
+    public World oWorldBox;
+    public int gems;
+    public int skulls;
+    public int TOTAL_ZOMBIES_LEVEL;
+    public int totalZombiesKilled;
+    public int bonus;// Si se matan todos los zombies, las gemas recolectadas x2
+    float TIME_TO_FIRE_AGAIN = .3f;
+    float timeToFireAgain;
     /**
      * Mis tiles son de 32px, asi que la unidad seria 1/32 con una camara ortograpicha de 10x15 para ver 10 tiles de ancho y 15 de alto. El probema es que mi camara es de 8x4.8f por eso tengo que
      * cambiar la escala, con 1/32 solo veria 8 tiles a lo ancho y de altura 4.8 por como esta configurada la camara.
@@ -60,18 +65,6 @@ public class WorldGame {
      * con 1/96 veo 24 tiles a lo ancho
      */
     float unitScale = 1 / 76f;
-    public int tiledWidth;
-    public int tiledHeight;
-
-    public World oWorldBox;
-    public int gems;
-    public int skulls;
-
-    public int TOTAL_ZOMBIES_LEVEL;
-    public int totalZombiesKilled;
-
-    public int bonus;// Si se matan todos los zombies, las gemas recolectadas x2
-
     Hero oHero;
 
     Array<Zombie> arrZombies;

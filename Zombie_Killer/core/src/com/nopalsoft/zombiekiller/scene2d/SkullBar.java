@@ -6,10 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.zombiekiller.Assets;
 
 public class SkullBar extends Table {
+    public int numOfSkulls;
     float WIDTH = 180;
     float HEIGHT = 60;
-
-    public int numOfSkulls;
     Image[] arrSkulls;
 
     public SkullBar(float x, float y) {

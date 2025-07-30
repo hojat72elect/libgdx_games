@@ -6,10 +6,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 public class Crate {
     public final static int STATE_NORMAL = 0;
     public final static int STATE_DESTROY = 1;
-    public int state;
-
     public final float SIZE;
-
+    public int state;
     public Vector2 position;
     public float angleDeg;
 

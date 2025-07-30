@@ -12,14 +12,12 @@ public class Settings {
 
     public final static boolean isTest = false;
     public final static int NUM_MAPS = 41;
-
+    private final static Preferences pref = Gdx.app.getPreferences("com.nopalsoft.zombiekiller");
     public static boolean isMusicOn;
     public static boolean isSoundOn;
-
     public static boolean didBuyNoAds;
     public static boolean didLikeFacebook;
     public static boolean didRate;
-
     public static boolean isPadEnabled;
     public static float padSize;
     public static float padPositionX;
@@ -29,20 +27,15 @@ public class Settings {
     public static float buttonFirePositionY;
     public static float buttonJumpPositionX;
     public static float buttonJumpPositionY;
-
     public static int numeroVecesJugadas;
     public static int skinSeleccionada;
     public static int gemsTotal;
     public static long zombiesKilled;
-
     public static int LEVEL_WEAPON;
     public static int LEVEL_CHANCE_DROP;
     public static int LEVEL_LIFE;
     public static int LEVEL_SHIELD;
-
     public static int[] arrSkullsMundo;// Cada posicion es un mundo
-
-    private final static Preferences pref = Gdx.app.getPreferences("com.nopalsoft.zombiekiller");
 
     public static void save() {
 

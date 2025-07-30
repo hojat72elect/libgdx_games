@@ -5,10 +5,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 public class Saw {
     public final static int STATE_NORMAL = 0;
-    public int state;
-
     public final float SIZE;
-
+    public int state;
     public Vector2 position;
     public float angleDeg;
 

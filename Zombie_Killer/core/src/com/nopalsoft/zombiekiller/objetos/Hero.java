@@ -9,42 +9,34 @@ public class Hero {
     public final static int STATE_NORMAL = 0;
     public final static int STATE_HURT = 1;
     public final static int STATE_DEAD = 2;
-    public int state;
-
     public final static int TIPO_FORCE = 0;
     public final static int TIPO_RAMBO = 1;
     public final static int TIPO_SOLDIER = 2;
     public final static int TIPO_SWAT = 3;
     public final static int TIPO_VADER = 4;
-    public final int tipo;
-
-    public static float VELOCIDAD_JUMP = 5;
-    public static float VELOCIDAD_WALK = 1.5f;
-
     public final static float DURATION_DEAD = Assets.heroForceDie.animationDuration + .2f;
     public final static float DURATION_HURT = .5f;
     public final static float DURATION_IS_FIRING = Assets.heroForceShoot.animationDuration + .1f;
-
+    public static float VELOCIDAD_JUMP = 5;
+    public static float VELOCIDAD_WALK = 1.5f;
+    public final int tipo;
+    public final int MAX_VIDAS = Settings.LEVEL_LIFE + 3;
+    public final int MAX_SHIELD = Settings.LEVEL_SHIELD + 1;
+    public int state;
     public Vector2 position;
     public float stateTime;
-
     public boolean isFacingLeft;
     public boolean isWalking;
     public boolean isFiring;
     public boolean isClimbing;
     public boolean canJump;
     public Body bodyCrate;// Cuerpo del crate im standing
-
     /**
      * Verdadero si toca las escaleras
      */
     public boolean isOnStairs;
-
     public int vidas;
-    public final int MAX_VIDAS = Settings.LEVEL_LIFE + 3;
-
     public int shield;
-    public final int MAX_SHIELD = Settings.LEVEL_SHIELD + 1;
 
     public Hero(float x, float y, int tipo) {
         position = new Vector2(x, y);

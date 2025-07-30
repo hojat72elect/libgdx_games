@@ -18,15 +18,13 @@ public class MainZombie extends Game {
     public final FacebookHandler facebookHandler;
 
     public I18NBundle idiomas;
-
+    public Stage stage;
+    public SpriteBatch batcher;
     public MainZombie(RequestHandler reqHandler, GameServicesHandler gameServiceHandler, FacebookHandler facebookHandler) {
         this.reqHandler = reqHandler;
         this.gameServiceHandler = gameServiceHandler;
         this.facebookHandler = facebookHandler;
     }
-
-    public Stage stage;
-    public SpriteBatch batcher;
 
     @Override
     public void create() {

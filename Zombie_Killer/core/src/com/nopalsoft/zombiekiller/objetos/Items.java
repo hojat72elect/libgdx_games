@@ -7,11 +7,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 public class Items {
     public final static int STATE_NORMAL = 0;
     public final static int STATE_TAKEN = 1;
-    public int state;
-
     public final float DRAW_WIDTH;
     public final float DRAW_HEIGHT;
-
+    public int state;
     public Vector2 position;
     public float angleDeg;
 

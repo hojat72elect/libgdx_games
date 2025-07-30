@@ -23,24 +23,19 @@ import java.util.Iterator;
 
 public class PersonajesSubMenu {
 
+    private final static Preferences pref = Gdx.app.getPreferences("com.nopalsoft.zombiekiller.shop");
     final int PRECIO_HERO_RAMBO = 1000;
     final int PRECIO_HERO_SOLDIER = 1500;
     final int PRECIO_HERO_ELITE = 2000;
     final int PRECIO_HERO_VADER = 2500;
-
     boolean didBuyRambo, didBuySoldier, didBuyElite, didBuyVader;
-
     Label lbPrecioRambo, lbPrecioSoldier, lbPrecioElite, lbPrecioVader;
     TextButton btBuySWAT, btBuyRambo, btBuySoldier, btBuyElite, btBuyVader;
     Array<TextButton> arrBotones;
-
     Table contenedor;
     I18NBundle idiomas;
-
     String textBuy;
     String textSelect;
-
-    private final static Preferences pref = Gdx.app.getPreferences("com.nopalsoft.zombiekiller.shop");
 
     public PersonajesSubMenu(Table contenedor, MainZombie game) {
         idiomas = game.idiomas;

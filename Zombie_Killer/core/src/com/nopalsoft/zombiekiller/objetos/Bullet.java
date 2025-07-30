@@ -11,21 +11,17 @@ public class Bullet {
     public final static int STATE_NORMAL = 1;
     public final static int STATE_HIT = 2;
     public final static int STATE_DESTROY = 3;
-    public int state;
-
     public final static int LEVEL_0 = 0;
     public final static int LEVEL_1 = 1;
     public final static int LEVEL_2 = 2;
     public final static int LEVEL_3 = 3;
     public final static int LEVEL_4_AND_UP = 4;
-    public final int tipo;
-
-    public static float VELOCIDAD = 5;
-
     public final static float DURATION_MUZZLE = Assets.muzzle.animationDuration;
+    public static float VELOCIDAD = 5;
+    public final int tipo;
     public final float FORCE_IMPACT;
     public final int DAMAGE;
-
+    public int state;
     public Vector2 position;
     public float stateTime;
 

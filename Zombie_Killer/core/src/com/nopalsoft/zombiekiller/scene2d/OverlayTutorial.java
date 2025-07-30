@@ -12,8 +12,8 @@ import com.nopalsoft.zombiekiller.screens.Screens;
 
 public class OverlayTutorial extends Group {
 
+    public boolean isVisible;
     LabelDialog currentDialog;
-
     LabelDialog helpPad;
     LabelDialog helpJump;
     LabelDialog helpFire;
@@ -22,8 +22,6 @@ public class OverlayTutorial extends Group {
     LabelDialog helpCollectSkulls;
     LabelDialog helpCollectGems;
     GameScreen gameScreen;
-
-    public boolean isVisible;
     int numDialogShown = 0;
 
     I18NBundle idiomas;

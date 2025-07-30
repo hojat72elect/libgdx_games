@@ -29,26 +29,20 @@ public class GameScreen extends Screens {
     static final int STATE_GAME_OVER = 1;
     static final int STATE_NEXT_LEVEL = 2;
     static final int STATE_PAUSED = 3;
-    int state;
-
     public WorldGame oWorld;
-    WorldGameRenderer2 renderer;
-
     public Button btJump, btFire;
     public Touchpad pad;
     public ControlesNoPad controlesNoPad;
-
+    public int level;
+    int state;
+    WorldGameRenderer2 renderer;
     float accelX, accelY;
     boolean didJump;
     boolean isFiring;
-
     Button btPause;
-
     VentanaGameover ventanaGameover;
     VentanaPause ventanaPause;
-
     OverlayTutorial overlayTutorial;
-    public int level;
     Label lbLevel;
 
     ProgressBarUI lifeBar;
