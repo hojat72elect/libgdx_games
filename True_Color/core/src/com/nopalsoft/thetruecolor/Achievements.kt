@@ -9,7 +9,6 @@ object Achievements {
     var iLikeThisGame: String? = null
     var iLoveThisGame: String? = null
 
-    @JvmStatic
     fun initialize() {
         beginner = "BeginnerID"
         intermediate = "IntermediateID"

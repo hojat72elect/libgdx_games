@@ -19,15 +19,10 @@ import com.nopalsoft.thetruecolor.TrueColorGame
 import com.nopalsoft.thetruecolor.game.GameScreen
 
 abstract class BaseScreen(game: TrueColorGame) : InputAdapter(), Screen {
-    @JvmField
+
     var game: TrueColorGame?
-
     var camera: OrthographicCamera
-
-    @JvmField
     var batch: SpriteBatch?
-
-    @JvmField
     var stage: Stage?
 
     override fun render(delta: Float) {

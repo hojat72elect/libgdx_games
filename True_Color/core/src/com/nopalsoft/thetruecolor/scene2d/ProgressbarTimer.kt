@@ -13,7 +13,6 @@ class ProgressbarTimer(x: Float, y: Float) : Table() {
 
     var progressBarColor: Color? = null
 
-    @JvmField
     var isTimeOver: Boolean = false
 
     init {
@@ -45,7 +44,6 @@ class ProgressbarTimer(x: Float, y: Float) : Table() {
     }
 
     companion object {
-        @JvmField
         var WIDTH: Float = 450f
         var HEIGHT: Float = 30f
     }

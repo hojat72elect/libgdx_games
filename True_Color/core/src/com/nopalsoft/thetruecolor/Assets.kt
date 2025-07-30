@@ -13,120 +13,46 @@ import com.nopalsoft.thetruecolor.scene2d.DialogHelpSettings.Languages
 import java.util.Locale
 
 object Assets {
-    @JvmField
     var languagesBundle: I18NBundle? = null
-
-    @JvmField
     var fontSmall: BitmapFont? = null
-
-    @JvmField
     var fontLarge: BitmapFont? = null
-
-
-    @JvmField
     var header: AtlasRegion? = null
-
-    @JvmField
     var blackPixelDrawable: NinePatchDrawable? = null
-
-    @JvmField
     var barTimerDrawable: NinePatchDrawable? = null
-
-    @JvmField
     var rankingDialogDrawable: NinePatchDrawable? = null
-
-    @JvmField
     var dialogDrawable: NinePatchDrawable? = null
-
-    @JvmField
     var buttonFacebookTextDrawable: NinePatchDrawable? = null
-
-    @JvmField
     var buttonGoogleTextDrawable: NinePatchDrawable? = null
-
-    @JvmField
     var buttonPlayDrawable: NinePatchDrawable? = null
     var buttonEnabledDrawable: NinePatchDrawable? = null
     var buttonDisabledDrawable: NinePatchDrawable? = null
-
-    @JvmField
     var titleDrawable: TextureRegionDrawable? = null
 
     var photoFrameDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonFacebookDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonGoogleDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonAmazonDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var oneDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var twoDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var threeDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonRateDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonAchievementDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonLeaderBoardDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonHelpDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonTrueDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonFalseDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonBackDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonTryAgainDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var buttonShareDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var playDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var flagChineseDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var flagRussianDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var flagSpanishDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var flagEnglishDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var flagFrenchDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var flagJapaneseDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var flagPortugueseDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var flagMoreDrawable: TextureRegionDrawable? = null
-
-    @JvmField
     var textButtonStyle: TextButtonStyle? = null
 
     fun load() {
@@ -185,7 +111,6 @@ object Assets {
         loadAssetsWithSettings()
     }
 
-    @JvmStatic
     fun loadAssetsWithSettings() {
         val locale: Locale
         when (Settings.selectedLanguage) {

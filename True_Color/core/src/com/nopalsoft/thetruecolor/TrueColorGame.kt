@@ -11,13 +11,8 @@ import com.nopalsoft.thetruecolor.screens.BaseScreen
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen
 
 class TrueColorGame : Game() {
-    @JvmField
     var persons: Array<Person?>? = null
-
-    @JvmField
     var stage: Stage? = null
-
-    @JvmField
     var batch: SpriteBatch? = null
 
     override fun create() {

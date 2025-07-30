@@ -11,14 +11,10 @@ import com.nopalsoft.thetruecolor.screens.BaseScreen
 
 class ColoredWord {
     // The color of the word
-    @JvmField
     var color: Int = 0
 
     // What the word compare says with the table above
-    @JvmField
     var wordText: Int = 0
-
-    @JvmField
     var wordLabel: Label
 
     init {
@@ -85,7 +81,6 @@ class ColoredWord {
             return color
         }
 
-        @JvmStatic
         val randomColor: Color
             get() = getColor(MathUtils.random(7))
     }
