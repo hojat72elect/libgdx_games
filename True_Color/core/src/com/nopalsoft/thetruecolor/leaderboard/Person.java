@@ -18,20 +18,20 @@ public class Person extends Group implements Comparable<Person> {
 
     public AccountType accountType;
 
-    final public String id;
-    public String name;
-    public long score;
+    final public String personId;
+    public String personName;
+    public long personScore;
 
     Label labelName;
     Label labelScore;
 
-    public Person(AccountType accountType, String id, String name, long score) {
+    public Person(AccountType accountType, String personId, String personName, long personScore) {
         setBounds(0, 0, WIDTH, HEIGHT);
 
         this.accountType = accountType;
-        this.id = id;
-        this.name = name;
-        this.score = score;
+        this.personId = personId;
+        this.personName = personName;
+        this.personScore = personScore;
 
         TextureRegionDrawable accountIconDrawable;
         switch (accountType) {
@@ -51,7 +51,7 @@ public class Person extends Group implements Comparable<Person> {
         imagenCuenta.setSize(30, 30);
         imagenCuenta.setPosition(10, HEIGHT / 2f - imagenCuenta.getHeight() / 2f);
 
-        labelName = new Label(name, new LabelStyle(Assets.fontSmall, Color.BLACK));
+        labelName = new Label(personName, new LabelStyle(Assets.fontSmall, Color.BLACK));
         labelName.setFontScale(.7f);
         labelName.setPosition(140, 36);
 
@@ -71,7 +71,7 @@ public class Person extends Group implements Comparable<Person> {
 
     // Taken from http://stackoverflow.com/a/15329259/3479489
     public String formatScore() {
-        String scoreString = String.valueOf(score);
+        String scoreString = String.valueOf(personScore);
         int floatPos = scoreString.contains(".") ? scoreString.length() - scoreString.indexOf(".") : 0;
         int nGroups = (scoreString.length() - floatPos - 1 - (scoreString.contains("-") ? 1 : 0)) / 3;
         for (int i = 0; i < nGroups; i++) {
@@ -83,14 +83,14 @@ public class Person extends Group implements Comparable<Person> {
 
     @Override
     public int compareTo(Person otherPerson) {
-        return Long.compare(otherPerson.score, score);
+        return Long.compare(otherPerson.personScore, personScore);
     }
 
     @Override
     public boolean equals(Object otherObject) {
         if (otherObject instanceof Person) {
             Person objPerson = (Person) otherObject;
-            return id.equals(objPerson.id) && accountType == objPerson.accountType;
+            return personId.equals(objPerson.personId) && accountType == objPerson.accountType;
         } else
             return false;
     }
