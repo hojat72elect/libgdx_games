@@ -37,18 +37,15 @@ class GameScreen(game: TrueColorGame) : BaseScreen(game) {
     var buttonTryAgain: Button
     var buttonShare: Button
 
-    var labelScore: Label
+    var labelScore: Label = Label("0", LabelStyle(Assets.fontSmall, Color.WHITE))
 
     var score: Int = 0
     var previousScore: Int = 0
 
-    var word: ColoredWord
+    var word: ColoredWord = ColoredWord()
     var wordTimer: ProgressbarTimer
 
     init {
-        word = ColoredWord()
-
-        labelScore = Label("0", LabelStyle(Assets.fontSmall, Color.WHITE))
         labelScore.setColor(Color.RED)
         labelScore.setPosition(10f, 735f)
 
@@ -134,14 +131,14 @@ class GameScreen(game: TrueColorGame) : BaseScreen(game) {
             if ((word.color == word.wordText && isSelectionCorrect) || (word.color != word.wordText && !isSelectionCorrect)) {
                 score++
 
-                if (score < 10) {
-                    initialTimePerWord -= .14f
+                initialTimePerWord -= if (score < 10) {
+                    .14f
                 } else if (score < 40) {
-                    initialTimePerWord -= .05f
+                    .05f
                 } else if (score < 70) {
-                    initialTimePerWord -= .015f
+                    .015f
                 } else {
-                    initialTimePerWord -= .0075f
+                    .0075f
                 }
 
                 if (initialTimePerWord < MINIMUM_TIME_PER_WORD) {
@@ -214,7 +211,7 @@ class GameScreen(game: TrueColorGame) : BaseScreen(game) {
             )
             for (i in 0..<scoreText.length) {
                 scoreTextColor.append(apend[i])
-                scoreTextColor.append(scoreText.get(i))
+                scoreTextColor.append(scoreText[i])
             }
             scoreTextColor.append(apend[scoreText.length])
 
@@ -233,13 +230,11 @@ class GameScreen(game: TrueColorGame) : BaseScreen(game) {
             buttonTryAgain.setDisabled(true)
             buttonShare.setDisabled(true)
 
-            tableMenu.addAction(Actions.sequence(Actions.delay(1f), Actions.alpha(1f, animationTime), Actions.run(object : Runnable {
-                override fun run() {
-                    buttonBack.setDisabled(false)
-                    buttonTryAgain.setDisabled(false)
-                    buttonShare.setDisabled(false)
-                }
-            })))
+            tableMenu.addAction(Actions.sequence(Actions.delay(1f), Actions.alpha(1f, animationTime), Actions.run {
+                buttonBack.setDisabled(false)
+                buttonTryAgain.setDisabled(false)
+                buttonShare.setDisabled(false)
+            }))
 
             stage!!.addActor(labelScore)
             stage!!.addActor(tableMenu)

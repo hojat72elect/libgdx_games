@@ -14,15 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
 import com.nopalsoft.thetruecolor.Assets
-import com.nopalsoft.thetruecolor.TrueColorGame
 import com.nopalsoft.thetruecolor.scene2d.DialogAmazon
 import com.nopalsoft.thetruecolor.scene2d.DialogFacebook
 import com.nopalsoft.thetruecolor.scene2d.DialogGoogle
 import com.nopalsoft.thetruecolor.screens.BaseScreen
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen
 
-class DialogRanking(var menuScreen: MainMenuScreen) : Group() {
-    var game: TrueColorGame?
+class DialogRanking(menuScreen: MainMenuScreen) : Group() {
 
     var rankingTitle: Label?
 
@@ -36,7 +34,6 @@ class DialogRanking(var menuScreen: MainMenuScreen) : Group() {
     var contenedor: Table
 
     init {
-        game = menuScreen.game
         setBounds(BaseScreen.SCREEN_WIDTH / 2f - WIDTH / 2f, 210f, WIDTH, HEIGHT)
         setBackground(Assets.rankingDialogDrawable)
 

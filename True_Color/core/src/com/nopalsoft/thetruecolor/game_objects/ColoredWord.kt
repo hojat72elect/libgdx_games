@@ -15,33 +15,27 @@ class ColoredWord {
 
     // What the word compare says with the table above
     var wordText: Int = 0
-    var wordLabel: Label
-
-    init {
-        wordLabel = Label("", LabelStyle(Assets.fontLarge, Color.WHITE))
-    }
+    var wordLabel: Label = Label("", LabelStyle(Assets.fontLarge, Color.WHITE))
 
     fun initialize() {
         color = MathUtils.random(0, 7)
 
         // 35% chance that what the word says and its color are the same
-        if (MathUtils.randomBoolean(.35f)) {
-            wordText = color
+        wordText = if (MathUtils.randomBoolean(.35f)) {
+            color
         } else {
-            wordText = MathUtils.random(0, 7)
+            MathUtils.random(0, 7)
         }
-
-        val textColor: String?
-        when (wordText) {
-            COLOR_BLUE -> textColor = "blue"
-            COLOR_CYAN -> textColor = "cyan"
-            COLOR_GREEN -> textColor = "green"
-            COLOR_YELLOW -> textColor = "yellow"
-            4 -> textColor = "pink"
-            5 -> textColor = "brown"
-            6 -> textColor = "purple"
-            7 -> textColor = "red"
-            else -> textColor = "red"
+        val textColor = when (wordText) {
+            COLOR_BLUE -> "blue"
+            COLOR_CYAN -> "cyan"
+            COLOR_GREEN -> "green"
+            COLOR_YELLOW -> "yellow"
+            4 -> "pink"
+            5 -> "brown"
+            6 -> "purple"
+            7 -> "red"
+            else -> "red"
         }
 
         wordLabel.remove()
