@@ -300,7 +300,7 @@ public class Assets {
         itemCollection = atlas.findRegion("UI/itemCollection");
         backgroundProgressBar = new TextureRegionDrawable(atlas.findRegion("backgroundProgressBar"));
 
-        /**
+        /*
          * Bullets
          */
         bullet1 = loadAnimationBullet(atlas, "Bullet/bullet1");
@@ -308,8 +308,9 @@ public class Assets {
         bullet3 = loadAnimationBullet(atlas, "Bullet/bullet3");
         bullet4 = loadAnimationBullet(atlas, "Bullet/bullet4");
         bullet5 = loadAnimationBullet(atlas, "Bullet/bullet5");
-        muzzle = loadAnimationMuzzle(atlas, "Bullet/");
-        /**
+        muzzle = loadAnimationMuzzle(atlas);
+
+        /*
          * Items
          */
         itemGem = atlas.findRegion("gem");
@@ -325,7 +326,7 @@ public class Assets {
         redBar = atlas.findRegion("redBar");
         whiteBar = atlas.findRegion("whiteBar");
 
-        /**
+        /*
          * HeroForce
          */
         heroForceClimb = loadAnimationClimb(atlas, "HeroForce/");
@@ -335,7 +336,7 @@ public class Assets {
         heroForceShoot = loadAnimationShoot(atlas, "HeroForce/");
         heroForceWalk = loadAnimationWalk(atlas, "HeroForce/");
 
-        /**
+        /*
          * HeroRambo
          */
         heroRamboClimb = loadAnimationClimb(atlas, "HeroRambo/");
@@ -345,7 +346,7 @@ public class Assets {
         heroRamboShoot = loadAnimationShoot(atlas, "HeroRambo/");
         heroRamboWalk = loadAnimationWalk(atlas, "HeroRambo/");
 
-        /**
+        /*
          * HeroSoldier
          */
         heroSoldierClimb = loadAnimationClimb(atlas, "HeroSoldier/");
@@ -355,7 +356,7 @@ public class Assets {
         heroSoldierShoot = loadAnimationShoot(atlas, "HeroSoldier/");
         heroSoldierWalk = loadAnimationWalk(atlas, "HeroSoldier/");
 
-        /**
+        /*
          * HeroSwat
          */
         heroSwatClimb = loadAnimationClimb(atlas, "HeroSwat/");
@@ -365,7 +366,7 @@ public class Assets {
         heroSwatShoot = loadAnimationShoot(atlas, "HeroSwat/");
         heroSwatWalk = loadAnimationWalk(atlas, "HeroSwat/");
 
-        /**
+        /*
          * HeroVader
          */
         heroVaderClimb = loadAnimationClimb(atlas, "HeroVader/");
@@ -375,7 +376,7 @@ public class Assets {
         heroVaderShoot = loadAnimationShoot(atlas, "HeroVader/");
         heroVaderWalk = loadAnimationWalk(atlas, "HeroVader/");
 
-        /**
+        /*
          * Zombie kid
          */
         zombieKidWalk = loadAnimationWalk(atlas, "ZombieKid/");
@@ -384,7 +385,7 @@ public class Assets {
         zombieKidDie = loadAnimationDie(atlas, "ZombieKid/");
         zombieKidHurt = atlas.createSprite("ZombieKid/die1");
 
-        /**
+        /*
          * Zombie pan
          */
         zombiePanWalk = loadAnimationWalk(atlas, "ZombiePan/");
@@ -393,7 +394,7 @@ public class Assets {
         zombiePanDie = loadAnimationDie(atlas, "ZombiePan/");
         zombiePanHurt = atlas.createSprite("ZombiePan/die1");
 
-        /**
+        /*
          * Zombie Cuasy
          */
         zombieCuasyWalk = loadAnimationWalk(atlas, "ZombieCuasy/");
@@ -402,7 +403,7 @@ public class Assets {
         zombieCuasyDie = loadAnimationDie(atlas, "ZombieCuasy/");
         zombieCuasyHurt = atlas.createSprite("ZombieCuasy/die1");
 
-        /**
+        /*
          * Zombie Frank
          */
         zombieFrankWalk = loadAnimationWalk(atlas, "ZombieFrank/");
@@ -411,7 +412,7 @@ public class Assets {
         zombieFrankDie = loadAnimationDie(atlas, "ZombieFrank/");
         zombieFrankHurt = atlas.createSprite("ZombieFrank/die1");
 
-        /**
+        /*
          * Zombie mummy
          */
         zombieMummyWalk = loadAnimationWalk(atlas, "ZombieMummy/");
@@ -439,15 +440,13 @@ public class Assets {
         shield = Gdx.audio.newSound(Gdx.files.internal("data/sounds/pick.mp3"));
         hearth = Gdx.audio.newSound(Gdx.files.internal("data/sounds/hearth.mp3"));
 
-        // 2
-
     }
 
     private static AnimationSprite loadAnimationWalk(TextureAtlas atlas, String ruta) {
-        Array<Sprite> arrSprites = new Array<Sprite>();
+        Array<Sprite> arrSprites = new Array<>();
 
         int i = 1;
-        Sprite obj = null;
+        Sprite obj;
         do {
             obj = atlas.createSprite(ruta + "walk" + i);
             i++;
@@ -460,10 +459,10 @@ public class Assets {
     }
 
     private static AnimationSprite loadAnimationIdle(TextureAtlas atlas, String ruta) {
-        Array<Sprite> arrSprites = new Array<Sprite>();
+        Array<Sprite> arrSprites = new Array<>();
 
         int i = 1;
-        Sprite obj = null;
+        Sprite obj;
         do {
             obj = atlas.createSprite(ruta + "idle" + i);
             i++;
@@ -476,10 +475,10 @@ public class Assets {
     }
 
     private static AnimationSprite loadAnimationRise(TextureAtlas atlas, String ruta) {
-        Array<Sprite> arrSprites = new Array<Sprite>();
+        Array<Sprite> arrSprites = new Array<>();
 
         int i = 1;
-        Sprite obj = null;
+        Sprite obj;
         do {
             obj = atlas.createSprite(ruta + "rise" + i);
             i++;
@@ -492,10 +491,10 @@ public class Assets {
     }
 
     private static AnimationSprite loadAnimationDie(TextureAtlas atlas, String ruta) {
-        Array<Sprite> arrSprites = new Array<Sprite>();
+        Array<Sprite> arrSprites = new Array<>();
 
         int i = 1;
-        Sprite obj = null;
+        Sprite obj;
         do {
             obj = atlas.createSprite(ruta + "die" + i);
             i++;
@@ -508,10 +507,10 @@ public class Assets {
     }
 
     private static AnimationSprite loadAnimationClimb(TextureAtlas atlas, String ruta) {
-        Array<Sprite> arrSprites = new Array<Sprite>();
+        Array<Sprite> arrSprites = new Array<>();
 
         int i = 1;
-        Sprite obj = null;
+        Sprite obj;
         do {
             obj = atlas.createSprite(ruta + "climb" + i);
             i++;
@@ -524,10 +523,10 @@ public class Assets {
     }
 
     private static AnimationSprite loadAnimationShoot(TextureAtlas atlas, String ruta) {
-        Array<Sprite> arrSprites = new Array<Sprite>();
+        Array<Sprite> arrSprites = new Array<>();
 
         int i = 1;
-        Sprite obj = null;
+        Sprite obj;
         do {
             obj = atlas.createSprite(ruta + "shoot" + i);
             i++;
@@ -539,13 +538,13 @@ public class Assets {
         return new AnimationSprite(time, arrSprites);
     }
 
-    private static AnimationSprite loadAnimationMuzzle(TextureAtlas atlas, String ruta) {
-        Array<Sprite> arrSprites = new Array<Sprite>();
+    private static AnimationSprite loadAnimationMuzzle(TextureAtlas atlas) {
+        Array<Sprite> arrSprites = new Array<>();
 
         int i = 1;
-        Sprite obj = null;
+        Sprite obj;
         do {
-            obj = atlas.createSprite(ruta + "muzzle" + i);
+            obj = atlas.createSprite("Bullet/" + "muzzle" + i);
             i++;
             if (obj != null)
                 arrSprites.add(obj);
@@ -556,10 +555,10 @@ public class Assets {
     }
 
     private static AnimationSprite loadAnimationBullet(TextureAtlas atlas, String ruta) {
-        Array<Sprite> arrSprites = new Array<Sprite>();
+        Array<Sprite> arrSprites = new Array<>();
 
         int i = 1;
-        Sprite obj = null;
+        Sprite obj;
         do {
             obj = atlas.createSprite(ruta + i);
             i++;
