@@ -1,11 +1,10 @@
-package com.nopalsoft.zombiekiller.objetos;
+package com.nopalsoft.zombiekiller.game_objects;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
 public class Crate {
     public final static int STATE_NORMAL = 0;
-    public final static int STATE_DESTROY = 1;
     public final float SIZE;
     public int state;
     public Vector2 position;

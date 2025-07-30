@@ -174,19 +174,14 @@ public class GameScreen extends Screens {
     @Override
     public void update(float delta) {
 
-        switch (state) {
-            case STATE_RUNNING:
-                updateRunning(delta);
-                break;
+        if (state == STATE_RUNNING) {
+            updateRunning(delta);
         }
     }
 
     private void updateRunning(float delta) {
         if (overlayTutorial.isVisible)
             return;
-
-        // Gdx.app.log("Knob X", pad.getKnobPercentX() + "");
-        // Gdx.app.log("Knob Y", pad.getKnobPercentY() + "");
 
         float sensibility = .6f;
 
@@ -235,10 +230,6 @@ public class GameScreen extends Screens {
         state = STATE_NEXT_LEVEL;
         Settings.saveLevel(level, oWorld.skulls);
 
-        int totalSkulls = 0;
-        for (int i = 0; i < Settings.arrSkullsMundo.length; i++) {
-            totalSkulls += Settings.arrSkullsMundo[i];
-        }
         Achievements.unlockCollectedSkulls();
 
         new VentanaNextLevel(this).show(stage);
@@ -270,13 +261,11 @@ public class GameScreen extends Screens {
 
     @Override
     public void draw(float delta) {
-        renderer.render(delta);
+        renderer.render();
 
         oCam.update();
         batcher.setProjectionMatrix(oCam.combined);
-
         batcher.begin();
-        // Assets.fontGrande.draw(batcher, Gdx.graphics.getFramesPerSecond() + "", 10, 200);
         batcher.end();
     }
 

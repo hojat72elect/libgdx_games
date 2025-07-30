@@ -20,29 +20,24 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.nopalsoft.zombiekiller.Assets;
 import com.nopalsoft.zombiekiller.Settings;
-import com.nopalsoft.zombiekiller.objetos.Bullet;
-import com.nopalsoft.zombiekiller.objetos.Crate;
-import com.nopalsoft.zombiekiller.objetos.Hero;
-import com.nopalsoft.zombiekiller.objetos.ItemGem;
-import com.nopalsoft.zombiekiller.objetos.ItemHearth;
-import com.nopalsoft.zombiekiller.objetos.ItemMeat;
-import com.nopalsoft.zombiekiller.objetos.ItemShield;
-import com.nopalsoft.zombiekiller.objetos.ItemSkull;
-import com.nopalsoft.zombiekiller.objetos.ItemStar;
-import com.nopalsoft.zombiekiller.objetos.Items;
-import com.nopalsoft.zombiekiller.objetos.Pisable;
-import com.nopalsoft.zombiekiller.objetos.Saw;
-import com.nopalsoft.zombiekiller.objetos.Zombie;
-import com.nopalsoft.zombiekiller.screens.Screens;
-
-import java.util.Iterator;
+import com.nopalsoft.zombiekiller.game_objects.Bullet;
+import com.nopalsoft.zombiekiller.game_objects.Crate;
+import com.nopalsoft.zombiekiller.game_objects.Hero;
+import com.nopalsoft.zombiekiller.game_objects.ItemGem;
+import com.nopalsoft.zombiekiller.game_objects.ItemHearth;
+import com.nopalsoft.zombiekiller.game_objects.ItemMeat;
+import com.nopalsoft.zombiekiller.game_objects.ItemShield;
+import com.nopalsoft.zombiekiller.game_objects.ItemSkull;
+import com.nopalsoft.zombiekiller.game_objects.ItemStar;
+import com.nopalsoft.zombiekiller.game_objects.Items;
+import com.nopalsoft.zombiekiller.game_objects.Pisable;
+import com.nopalsoft.zombiekiller.game_objects.Saw;
+import com.nopalsoft.zombiekiller.game_objects.Zombie;
 
 public class WorldGame {
     static final int STATE_RUNNING = 0;
     static final int STATE_GAMEOVER = 1;
     static final int STATE_NEXT_LEVEL = 2;
-    final float WIDTH = Screens.WORLD_WIDTH;
-    final float HEIGHT = Screens.WORLD_HEIGHT;
     public int state;
     public int tiledWidth;
     public int tiledHeight;
@@ -78,12 +73,12 @@ public class WorldGame {
         oWorldBox = new World(new Vector2(0, -9.8f), true);
         oWorldBox.setContactListener(new Colisiones());
 
-        arrItems = new Array<Items>();
-        arrZombies = new Array<Zombie>();
-        arrBullets = new Array<Bullet>();
-        arrCrates = new Array<Crate>();
-        arrSaws = new Array<Saw>();
-        arrBodies = new Array<Body>();
+        arrItems = new Array<>();
+        arrZombies = new Array<>();
+        arrBullets = new Array<>();
+        arrCrates = new Array<>();
+        arrSaws = new Array<>();
+        arrBodies = new Array<>();
 
         new TiledMapManagerBox2d(this, unitScale).createObjetosDesdeTiled(Assets.map);
         tiledWidth = ((TiledMapTileLayer) Assets.map.getLayers().get("1")).getWidth();
@@ -161,9 +156,9 @@ public class WorldGame {
         Bullet obj;
 
         if (isFacingLeft) {
-            obj = new Bullet(oHero.position.x - .42f, oHero.position.y - .14f, oHero.isFacingLeft);
+            obj = new Bullet(oHero.position.x - .42f, oHero.position.y - .14f, true);
         } else {
-            obj = new Bullet(oHero.position.x + .42f, oHero.position.y - .14f, oHero.isFacingLeft);
+            obj = new Bullet(oHero.position.x + .42f, oHero.position.y - .14f, false);
         }
 
         if (!oHero.isWalking)
@@ -198,7 +193,7 @@ public class WorldGame {
     }
 
     private void createItemFromZombie(float x, float y) {
-        Items obj = null;
+        Items obj;
         int tipo = MathUtils.random(4);
 
         switch (tipo) {
@@ -247,11 +242,8 @@ public class WorldGame {
         createBullet(isFiring, delta);
 
         oWorldBox.getBodies(arrBodies);
-        Iterator<Body> i = arrBodies.iterator();
 
-        while (i.hasNext()) {
-            Body body = i.next();
-
+        for (Body body : arrBodies) {
             if (body.getUserData() instanceof Hero) {
                 updateHeroPlayer(delta, body, didJump, accelX, accelY);
             } else if (body.getUserData() instanceof Zombie) {
@@ -339,11 +331,8 @@ public class WorldGame {
 
     private void eliminarObjetos() {
         oWorldBox.getBodies(arrBodies);
-        Iterator<Body> i = arrBodies.iterator();
 
-        while (i.hasNext()) {
-            Body body = i.next();
-
+        for (Body body : arrBodies) {
             if (!oWorldBox.isLocked()) {
 
                 if (body.getUserData() instanceof Items) {
@@ -351,7 +340,6 @@ public class WorldGame {
                     if (obj.state == Items.STATE_TAKEN) {
                         arrItems.removeValue(obj, true);
                         oWorldBox.destroyBody(body);
-                        continue;
                     }
                 } else if (body.getUserData() instanceof Zombie) {
                     Zombie obj = (Zombie) body.getUserData();
@@ -366,14 +354,12 @@ public class WorldGame {
 
                         if (MathUtils.random(50) <= ((Settings.LEVEL_CHANCE_DROP + 1) * 2))
                             createItemFromZombie(x, y);
-                        continue;
                     }
                 } else if (body.getUserData() instanceof Bullet) {
                     Bullet obj = (Bullet) body.getUserData();
                     if (obj.state == Bullet.STATE_DESTROY) {
                         arrBullets.removeValue(obj, true);
                         oWorldBox.destroyBody(body);
-                        continue;
                     }
                 }
             }
@@ -502,8 +488,6 @@ public class WorldGame {
                 if (oBullet.state == Bullet.STATE_NORMAL || oBullet.state == Bullet.STATE_MUZZLE) {
                     Zombie obj = (Zombie) oOtraCosa;
                     if (obj.state != Zombie.STATE_RISE && obj.state != Zombie.STATE_DEAD) {
-                        // if (obj.state != Zombie.STATE_DEAD)
-                        // Assets.zombieHit.play();
 
                         obj.getHurt(oBullet.DAMAGE);
                         oBullet.hit();

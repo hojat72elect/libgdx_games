@@ -1,4 +1,4 @@
-package com.nopalsoft.zombiekiller.objetos;
+package com.nopalsoft.zombiekiller.game_objects;
 
 public class ItemHearth extends Items {
 

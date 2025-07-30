@@ -1,4 +1,4 @@
-package com.nopalsoft.zombiekiller.objetos;
+package com.nopalsoft.zombiekiller.game_objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
@@ -87,8 +87,7 @@ public class Bullet {
             if (stateTime >= DURATION_MUZZLE) {
                 if (state == STATE_MUZZLE)
                     state = STATE_NORMAL;
-                else if (state == STATE_HIT)
-                    state = STATE_DESTROY;
+                else state = STATE_DESTROY;
                 stateTime = 0;
             }
             return;

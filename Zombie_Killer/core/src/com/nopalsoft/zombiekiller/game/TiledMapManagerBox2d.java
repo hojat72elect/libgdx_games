@@ -25,17 +25,17 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Logger;
-import com.nopalsoft.zombiekiller.objetos.Crate;
-import com.nopalsoft.zombiekiller.objetos.ItemGem;
-import com.nopalsoft.zombiekiller.objetos.ItemHearth;
-import com.nopalsoft.zombiekiller.objetos.ItemMeat;
-import com.nopalsoft.zombiekiller.objetos.ItemShield;
-import com.nopalsoft.zombiekiller.objetos.ItemSkull;
-import com.nopalsoft.zombiekiller.objetos.ItemStar;
-import com.nopalsoft.zombiekiller.objetos.Items;
-import com.nopalsoft.zombiekiller.objetos.Pisable;
-import com.nopalsoft.zombiekiller.objetos.Saw;
-import com.nopalsoft.zombiekiller.objetos.Zombie;
+import com.nopalsoft.zombiekiller.game_objects.Crate;
+import com.nopalsoft.zombiekiller.game_objects.ItemGem;
+import com.nopalsoft.zombiekiller.game_objects.ItemHearth;
+import com.nopalsoft.zombiekiller.game_objects.ItemMeat;
+import com.nopalsoft.zombiekiller.game_objects.ItemShield;
+import com.nopalsoft.zombiekiller.game_objects.ItemSkull;
+import com.nopalsoft.zombiekiller.game_objects.ItemStar;
+import com.nopalsoft.zombiekiller.game_objects.Items;
+import com.nopalsoft.zombiekiller.game_objects.Pisable;
+import com.nopalsoft.zombiekiller.game_objects.Saw;
+import com.nopalsoft.zombiekiller.game_objects.Zombie;
 
 import java.util.Iterator;
 
@@ -60,15 +60,15 @@ public class TiledMapManagerBox2d {
     }
 
     public void createObjetosDesdeTiled(Map map) {
-        crearFisicos(map, "fisicos");
-        crearMalos(map, "malos");
+        crearFisicos(map);
+        crearMalos(map);
     }
 
-    private void crearFisicos(Map map, String layerName) {
-        MapLayer layer = map.getLayers().get(layerName);
+    private void crearFisicos(Map map) {
+        MapLayer layer = map.getLayers().get("fisicos");
 
         if (layer == null) {
-            logger.error("layer " + layerName + " no existe");
+            logger.error("layer " + "fisicos" + " no existe");
             return;
         }
 
@@ -117,7 +117,7 @@ public class TiledMapManagerBox2d {
                 }
             }
 
-            /**
+            /*
              * Normalmente si no ninguno es el piso
              */
             Shape shape;
@@ -152,37 +152,31 @@ public class TiledMapManagerBox2d {
             throw new GdxRuntimeException("#### DEBE HABER 3 SKULLS ####");
     }
 
-    private void crearMalos(Map map, String layerName) {
-        MapLayer layer = map.getLayers().get(layerName);
+    private void crearMalos(Map map) {
+        MapLayer layer = map.getLayers().get("malos");
 
         if (layer == null) {
-            logger.error("layer " + layerName + " no existe");
+            logger.error("layer " + "malos" + " no existe");
             return;
         }
 
         MapObjects objects = layer.getObjects();
-        Iterator<MapObject> objectIt = objects.iterator();
 
-        while (objectIt.hasNext()) {
-            MapObject object = objectIt.next();
-
+        for (MapObject object : objects) {
             if (object instanceof TextureMapObject) {
                 continue;
             }
 
             MapProperties properties = object.getProperties();
             String tipo = (String) properties.get("type");
-            if (tipo == null)
-                continue;
-            else if (tipo.equals("zombieCuasy") || tipo.equals("zombieFrank") || tipo.equals("zombieMummy") || tipo.equals("zombieKid")
+            if (tipo.equals("zombieCuasy") || tipo.equals("zombieFrank") || tipo.equals("zombieMummy") || tipo.equals("zombieKid")
                     || tipo.equals("zombiePan")) {
                 if (object instanceof RectangleMapObject) {
                     crearZombieMalo(object, tipo);
                     oWorld.TOTAL_ZOMBIES_LEVEL++;
-                    continue;
                 }
             } else {
-                throw new GdxRuntimeException("Error en layer " + layerName + ", objeto:" + tipo);
+                throw new GdxRuntimeException("Error en layer " + "malos" + ", objeto:" + tipo);
             }
         }
     }
@@ -290,19 +284,26 @@ public class TiledMapManagerBox2d {
         float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
 
-        if (tipo.equals("gem")) {
-            obj = new ItemGem(x, y);
-        } else if (tipo.equals("heart")) {
-            obj = new ItemHearth(x, y);
-            Gdx.app.log("Heart", "");
-        } else if (tipo.equals("skull")) {
-            obj = new ItemSkull(x, y);
-        } else if (tipo.equals("meat")) {
-            obj = new ItemMeat(x, y);
-        } else if (tipo.equals("shield")) {
-            obj = new ItemShield(x, y);
-        } else if (tipo.equals("star")) {
-            obj = new ItemStar(x, y);
+        switch (tipo) {
+            case "gem":
+                obj = new ItemGem(x, y);
+                break;
+            case "heart":
+                obj = new ItemHearth(x, y);
+                Gdx.app.log("Heart", "");
+                break;
+            case "skull":
+                obj = new ItemSkull(x, y);
+                break;
+            case "meat":
+                obj = new ItemMeat(x, y);
+                break;
+            case "shield":
+                obj = new ItemShield(x, y);
+                break;
+            case "star":
+                obj = new ItemStar(x, y);
+                break;
         }
 
         BodyDef bd = new BodyDef();
@@ -332,16 +333,22 @@ public class TiledMapManagerBox2d {
         float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
 
-        if (tipo.equals("zombieCuasy")) {
-            obj = new Zombie(x, y, Zombie.TIPO_CUASY);
-        } else if (tipo.equals("zombieFrank")) {
-            obj = new Zombie(x, y, Zombie.TIPO_FRANK);
-        } else if (tipo.equals("zombieKid")) {
-            obj = new Zombie(x, y, Zombie.TIPO_KID);
-        } else if (tipo.equals("zombieMummy")) {
-            obj = new Zombie(x, y, Zombie.TIPO_MUMMY);
-        } else if (tipo.equals("zombiePan")) {
-            obj = new Zombie(x, y, Zombie.TIPO_PAN);
+        switch (tipo) {
+            case "zombieCuasy":
+                obj = new Zombie(x, y, Zombie.TIPO_CUASY);
+                break;
+            case "zombieFrank":
+                obj = new Zombie(x, y, Zombie.TIPO_FRANK);
+                break;
+            case "zombieKid":
+                obj = new Zombie(x, y, Zombie.TIPO_KID);
+                break;
+            case "zombieMummy":
+                obj = new Zombie(x, y, Zombie.TIPO_MUMMY);
+                break;
+            case "zombiePan":
+                obj = new Zombie(x, y, Zombie.TIPO_PAN);
+                break;
         }
 
         BodyDef bd = new BodyDef();

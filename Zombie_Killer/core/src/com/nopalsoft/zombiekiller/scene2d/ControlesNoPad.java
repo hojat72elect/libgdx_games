@@ -7,13 +7,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.zombiekiller.Assets;
 import com.nopalsoft.zombiekiller.Settings;
-import com.nopalsoft.zombiekiller.game.GameScreen;
 
 public class ControlesNoPad extends Table {
 
     public boolean isMovingUp, isMovingDown, isMovingLeft, isMovingRight;
     public float widthButtons;
-    GameScreen gameScreen;
     Button btUp, btDown, btLeft, btRight;
 
     public ControlesNoPad() {

@@ -20,7 +20,7 @@ import com.nopalsoft.zombiekiller.Assets;
 import com.nopalsoft.zombiekiller.MainZombie;
 import com.nopalsoft.zombiekiller.Settings;
 import com.nopalsoft.zombiekiller.game.GameScreen;
-import com.nopalsoft.zombiekiller.objetos.Hero;
+import com.nopalsoft.zombiekiller.game_objects.Hero;
 import com.nopalsoft.zombiekiller.scene2d.AnimatedSpriteActor;
 
 public abstract class Screens extends InputAdapter implements Screen {
@@ -112,8 +112,6 @@ public abstract class Screens extends InputAdapter implements Screen {
         AnimationSprite heroRun = null;
         switch (Settings.skinSeleccionada) {
             case Hero.TIPO_FORCE:
-                heroRun = Assets.heroRamboWalk;
-                break;
             case Hero.TIPO_RAMBO:
                 heroRun = Assets.heroRamboWalk;
                 break;

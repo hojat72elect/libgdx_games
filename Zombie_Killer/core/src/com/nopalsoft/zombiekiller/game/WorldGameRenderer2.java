@@ -12,21 +12,19 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.nopalsoft.zombiekiller.AnimationSprite;
 import com.nopalsoft.zombiekiller.Assets;
-import com.nopalsoft.zombiekiller.objetos.Bullet;
-import com.nopalsoft.zombiekiller.objetos.Crate;
-import com.nopalsoft.zombiekiller.objetos.Hero;
-import com.nopalsoft.zombiekiller.objetos.ItemGem;
-import com.nopalsoft.zombiekiller.objetos.ItemHearth;
-import com.nopalsoft.zombiekiller.objetos.ItemMeat;
-import com.nopalsoft.zombiekiller.objetos.ItemShield;
-import com.nopalsoft.zombiekiller.objetos.ItemSkull;
-import com.nopalsoft.zombiekiller.objetos.ItemStar;
-import com.nopalsoft.zombiekiller.objetos.Items;
-import com.nopalsoft.zombiekiller.objetos.Saw;
-import com.nopalsoft.zombiekiller.objetos.Zombie;
+import com.nopalsoft.zombiekiller.game_objects.Bullet;
+import com.nopalsoft.zombiekiller.game_objects.Crate;
+import com.nopalsoft.zombiekiller.game_objects.Hero;
+import com.nopalsoft.zombiekiller.game_objects.ItemGem;
+import com.nopalsoft.zombiekiller.game_objects.ItemHearth;
+import com.nopalsoft.zombiekiller.game_objects.ItemMeat;
+import com.nopalsoft.zombiekiller.game_objects.ItemShield;
+import com.nopalsoft.zombiekiller.game_objects.ItemSkull;
+import com.nopalsoft.zombiekiller.game_objects.ItemStar;
+import com.nopalsoft.zombiekiller.game_objects.Items;
+import com.nopalsoft.zombiekiller.game_objects.Saw;
+import com.nopalsoft.zombiekiller.game_objects.Zombie;
 import com.nopalsoft.zombiekiller.screens.Screens;
-
-import java.util.Iterator;
 
 public class WorldGameRenderer2 {
 
@@ -60,7 +58,7 @@ public class WorldGameRenderer2 {
         this.renderBox = new Box2DDebugRenderer();
         tiledRender = new OrthogonalTiledMapRenderer(Assets.map, oWorld.unitScale);
 
-        /**
+        /*
          * Entre mas chico el numero se renderean primero.
          */
         map1 = (TiledMapTileLayer) tiledRender.getMap().getLayers().get("1");
@@ -77,7 +75,7 @@ public class WorldGameRenderer2 {
         showMoon = MathUtils.randomBoolean();
     }
 
-    public void render(float delta) {
+    public void render() {
         oCam.position.x = oWorld.oHero.position.x;
         oCam.position.y = oWorld.oHero.position.y;
 
@@ -96,12 +94,12 @@ public class WorldGameRenderer2 {
         batcher.setProjectionMatrix(oCam.combined);
         batcher.begin();
         batcher.disableBlending();
-        drawBackGround(delta);
+        drawBackGround();
         batcher.end();
 
         batcher.setProjectionMatrix(oCam.calculateParallaxMatrix(0.5f, 1));
         batcher.begin();
-        drawParallaxBackground(delta);
+        drawParallaxBackground();
         batcher.end();
 
         if (showMoon) {
@@ -128,21 +126,17 @@ public class WorldGameRenderer2 {
 
         drawTiledInfront();
 
-        // renderBox.render(oWorld.oWorldBox, oCam.combined);
     }
 
-    private void drawBackGround(float delta) {
+    private void drawBackGround() {
         batcher.draw(Assets.backBackground, oCam.position.x - 4f, oCam.position.y - 2.4f, 8.0f, 4.8f);
     }
 
-    private void drawParallaxBackground(float delta) {
+    private void drawParallaxBackground() {
         for (int i = 0; i < 2; i += 1) {
             batcher.draw(Assets.background, (-xMin / 2f) + (i * 16), 0, 8.0f, 4.8f);
             batcher.draw(Assets.background, (-xMin / 2f) + ((i + 1) * 16), 0, -8.0f, 4.8f);
         }
-
-        // batcher.draw(Assets.background, (-xMin / 2f), 0, 8.0f, 4.8f);
-        // batcher.draw(Assets.background, (-xMin / 2f) + 16, 0, -8.0f, 4.8f);
     }
 
     private void drawMoon() {
@@ -177,9 +171,7 @@ public class WorldGameRenderer2 {
 
     private void drawCrates() {
 
-        Iterator<Crate> i = oWorld.arrCrates.iterator();
-        while (i.hasNext()) {
-            Crate obj = i.next();
+        for (Crate obj : oWorld.arrCrates) {
             float halfSize = obj.SIZE / 2f;
             batcher.draw(Assets.crate, obj.position.x - halfSize, obj.position.y - halfSize, halfSize, halfSize, obj.SIZE, obj.SIZE, 1, 1,
                     obj.angleDeg);
@@ -188,10 +180,7 @@ public class WorldGameRenderer2 {
 
     private void drawSaw() {
 
-        Iterator<Saw> i = oWorld.arrSaws.iterator();
-        while (i.hasNext()) {
-            Saw obj = i.next();
-
+        for (Saw obj : oWorld.arrSaws) {
             float halfSize = (obj.SIZE + .2f) / 2f;
             batcher.draw(Assets.saw, obj.position.x - halfSize, obj.position.y - halfSize, halfSize, halfSize, obj.SIZE + .2f, obj.SIZE + .2f, 1, 1,
                     obj.angleDeg);
@@ -201,10 +190,7 @@ public class WorldGameRenderer2 {
     private void drawItems() {
         TextureRegion keyframe = null;
 
-        Iterator<Items> i = oWorld.arrItems.iterator();
-        while (i.hasNext()) {
-            Items obj = i.next();
-
+        for (Items obj : oWorld.arrItems) {
             if (obj instanceof ItemGem) {
                 keyframe = Assets.itemGem;
             } else if (obj instanceof ItemHearth) {
@@ -225,10 +211,8 @@ public class WorldGameRenderer2 {
 
     private void drawZombie() {
 
-        Iterator<Zombie> i = oWorld.arrZombies.iterator();
-        while (i.hasNext()) {
+        for (Zombie obj : oWorld.arrZombies) {
 
-            Zombie obj = i.next();
             AnimationSprite animWalk = null;
             AnimationSprite animIdle = null;
             AnimationSprite animRise = null;
@@ -314,10 +298,7 @@ public class WorldGameRenderer2 {
     }
 
     private void drawBullets() {
-        Iterator<Bullet> i = oWorld.arrBullets.iterator();
-        while (i.hasNext()) {
-            Bullet obj = i.next();
-
+        for (Bullet obj : oWorld.arrBullets) {
             AnimationSprite animBullet = null;
 
             switch (obj.tipo) {
@@ -474,7 +455,7 @@ public class WorldGameRenderer2 {
         }
     }
 
-    class ParallaxCamera extends OrthographicCamera {
+    static class ParallaxCamera extends OrthographicCamera {
         Matrix4 parallaxView = new Matrix4();
         Matrix4 parallaxCombined = new Matrix4();
         Vector3 tmp = new Vector3();

@@ -1,4 +1,4 @@
-package com.nopalsoft.zombiekiller.objetos;
+package com.nopalsoft.zombiekiller.game_objects;
 
 import com.badlogic.gdx.math.Vector2;
 

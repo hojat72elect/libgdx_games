@@ -18,7 +18,13 @@ import com.nopalsoft.zombiekiller.shop.VentanaShop;
 
 public class MainMenuScreen extends Screens {
 
-    Button btPlay, btLeaderboard, btAchievement, btFacebook, btTwitter, btHelp, btSettings, btShop;
+    Button btPlay;
+    Button btLeaderboard;
+    Button btAchievement;
+    Button btFacebook;
+    Button btTwitter;
+    Button btSettings;
+    Button btShop;
 
     Button btMusica;
     Button btSonido;

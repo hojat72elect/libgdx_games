@@ -98,14 +98,6 @@ public class UpgradesSubMenu {
         setArrays();
     }
 
-    /**
-     * @param titulo
-     * @param lblPrecio
-     * @param imagen
-     * @param descripcion
-     * @param boton
-     * @return
-     */
     private Table agregarPersonajeTabla(String titulo, Label lblPrecio, AtlasRegion imagen, String descripcion, Image[] arrLevel, TextButton boton) {
 
         Image moneda = new Image(Assets.itemGem);
@@ -127,8 +119,6 @@ public class UpgradesSubMenu {
         tbDescrip.add(lblDescripcion).expand().fill().padLeft(5);
 
         Table tbContent = new Table();
-        // tbContent.debug();
-        // tbContent.setBackground(Assets.storeTableBackground, false);
         tbContent.pad(0);
         tbContent.setBackground(Assets.storeTableBackground);
         tbContent.defaults().padLeft(20).padRight(20);
@@ -254,8 +244,9 @@ public class UpgradesSubMenu {
 
             case 4:
                 return precioNivel5;
-            default:
+
             case 5:
+            default:
                 return precioNivel6;
         }
     }

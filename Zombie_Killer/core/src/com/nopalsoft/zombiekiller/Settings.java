@@ -2,7 +2,7 @@ package com.nopalsoft.zombiekiller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.nopalsoft.zombiekiller.objetos.Hero;
+import com.nopalsoft.zombiekiller.game_objects.Hero;
 import com.nopalsoft.zombiekiller.screens.SettingsScreen;
 
 public class Settings {
