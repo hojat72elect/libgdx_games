@@ -12,10 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.nopalsoft.thetruecolor.Achievements;
 import com.nopalsoft.thetruecolor.Assets;
-import com.nopalsoft.thetruecolor.MainTheTrueColor;
 import com.nopalsoft.thetruecolor.Settings;
+import com.nopalsoft.thetruecolor.TrueColorGame;
 import com.nopalsoft.thetruecolor.game_objects.ColoredWord;
 import com.nopalsoft.thetruecolor.scene2d.CountDown;
 import com.nopalsoft.thetruecolor.scene2d.ProgressbarTimer;
@@ -45,7 +44,7 @@ public class GameScreen extends BaseScreen {
     ColoredWord word;
     ProgressbarTimer wordTimer;
 
-    public GameScreen(final MainTheTrueColor game) {
+    public GameScreen(final TrueColorGame game) {
         super(game);
 
         word = new ColoredWord();
@@ -141,7 +140,6 @@ public class GameScreen extends BaseScreen {
 
             if ((word.color == word.wordText && isSelectionCorrect) || (word.color != word.wordText && !isSelectionCorrect)) {
                 score++;
-                Achievements.unlockScoreAchievements();
 
                 if (score < 10) {
                     initialTimePerWord -= .14f;
@@ -256,11 +254,7 @@ public class GameScreen extends BaseScreen {
             stage.addActor(labelScore);
             stage.addActor(tableMenu);
             Settings.setNewScore(score);
-
-
             Settings.numberOfTimesPlayed++;
-
-            Achievements.unlockTimesPlayedAchievements();
             Settings.save();
         }
     }

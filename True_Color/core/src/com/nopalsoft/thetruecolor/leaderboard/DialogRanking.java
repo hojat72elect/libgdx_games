@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.nopalsoft.thetruecolor.Assets;
-import com.nopalsoft.thetruecolor.MainTheTrueColor;
+import com.nopalsoft.thetruecolor.TrueColorGame;
 import com.nopalsoft.thetruecolor.scene2d.DialogAmazon;
 import com.nopalsoft.thetruecolor.scene2d.DialogFacebook;
 import com.nopalsoft.thetruecolor.scene2d.DialogGoogle;
@@ -27,7 +27,7 @@ public class DialogRanking extends Group {
     public static final float HEIGHT = 385;
 
     MainMenuScreen menuScreen;
-    MainTheTrueColor game;
+    TrueColorGame game;
 
     Label rankingTitle;
 

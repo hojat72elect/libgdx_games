@@ -9,10 +9,11 @@ import com.nopalsoft.thetruecolor.leaderboard.Person;
 import com.nopalsoft.thetruecolor.screens.BaseScreen;
 import com.nopalsoft.thetruecolor.screens.MainMenuScreen;
 
-public class MainTheTrueColor extends Game {
+public class TrueColorGame extends Game {
     public Array<Person> persons;
 
-    public MainTheTrueColor() {}
+    public TrueColorGame() {
+    }
 
     public Stage stage;
     public SpriteBatch batch;

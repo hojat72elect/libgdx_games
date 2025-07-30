@@ -14,21 +14,21 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.nopalsoft.thetruecolor.Assets;
-import com.nopalsoft.thetruecolor.MainTheTrueColor;
 import com.nopalsoft.thetruecolor.Settings;
+import com.nopalsoft.thetruecolor.TrueColorGame;
 import com.nopalsoft.thetruecolor.game.GameScreen;
 
 public abstract class BaseScreen extends InputAdapter implements Screen {
     public static final int SCREEN_WIDTH = 480;
     public static final int SCREEN_HEIGHT = 800;
 
-    public MainTheTrueColor game;
+    public TrueColorGame game;
 
     public OrthographicCamera camera;
     public SpriteBatch batch;
     public Stage stage;
 
-    public BaseScreen(final MainTheTrueColor game) {
+    public BaseScreen(final TrueColorGame game) {
         this.stage = game.stage;
         this.stage.clear();
         this.batch = game.batch;
@@ -58,7 +58,7 @@ public abstract class BaseScreen extends InputAdapter implements Screen {
 
     Image blackFadeOut;
 
-    public void changeScreenWithFadeOut(final Class<?> newScreen, final MainTheTrueColor game) {
+    public void changeScreenWithFadeOut(final Class<?> newScreen, final TrueColorGame game) {
         blackFadeOut = new Image(Assets.blackPixelDrawable);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         blackFadeOut.getColor().a = 0;

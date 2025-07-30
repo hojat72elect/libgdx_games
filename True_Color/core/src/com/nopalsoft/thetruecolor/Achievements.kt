@@ -20,11 +20,4 @@ object Achievements {
         iLoveThisGame = "ILoveThisGameId"
     }
 
-    @JvmStatic
-    fun unlockScoreAchievements() {
-    }
-
-    @JvmStatic
-    fun unlockTimesPlayedAchievements() {
-    }
 }

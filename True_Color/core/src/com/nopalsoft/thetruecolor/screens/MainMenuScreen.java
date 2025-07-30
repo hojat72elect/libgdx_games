@@ -11,8 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nopalsoft.thetruecolor.Assets;
-import com.nopalsoft.thetruecolor.MainTheTrueColor;
 import com.nopalsoft.thetruecolor.Settings;
+import com.nopalsoft.thetruecolor.TrueColorGame;
 import com.nopalsoft.thetruecolor.game.GameScreen;
 import com.nopalsoft.thetruecolor.leaderboard.DialogRanking;
 import com.nopalsoft.thetruecolor.leaderboard.Person;
@@ -31,7 +31,7 @@ public class MainMenuScreen extends BaseScreen {
 
     DialogHelpSettings helpDialog;
 
-    public MainMenuScreen(final MainTheTrueColor game) {
+    public MainMenuScreen(final TrueColorGame game) {
         super(game);
 
         titleImage = new Image(Assets.titleDrawable);

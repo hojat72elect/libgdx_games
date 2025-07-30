@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.nopalsoft.thetruecolor.Assets;
-import com.nopalsoft.thetruecolor.MainTheTrueColor;
+import com.nopalsoft.thetruecolor.TrueColorGame;
 import com.nopalsoft.thetruecolor.screens.BaseScreen;
 
 public class BaseDialog extends Group {
@@ -19,7 +19,7 @@ public class BaseDialog extends Group {
     private final Image dimImage;
     protected BaseScreen screen;
     protected I18NBundle languages;
-    protected MainTheTrueColor game;
+    protected TrueColorGame game;
 
     public BaseDialog(BaseScreen currentScreen, float width, float height, float positionY) {
         screen = currentScreen;
