@@ -1,43 +1,39 @@
-package es.danirod.jddprototype.game.entities;
+package es.danirod.jddprototype.game.entities
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-
-import es.danirod.jddprototype.game.Constants;
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.physics.box2d.BodyDef
+import com.badlogic.gdx.physics.box2d.Fixture
+import com.badlogic.gdx.physics.box2d.PolygonShape
+import com.badlogic.gdx.physics.box2d.World
+import com.badlogic.gdx.scenes.scene2d.Actor
+import es.danirod.jddprototype.game.Constants
 
 /**
  * This entity represents the floor. The player and the spikes are above the floor. You cannot go
  * below the floor. And if you hit the left border of a floor when you are supposed to jump,
  * you lose.
  */
-public class FloorEntity extends Actor {
-
-    /**
-     * The textures we use to display the floor, proving that you can use multiple textures.
-     */
-    private final Texture floor;
-    private final Texture overfloor;
-
+class FloorEntity(
     /**
      * The world instance this floor has to live in.
      */
-    private final World world;
-
+    private val world: World,
+    /**
+     * The textures we use to display the floor, proving that you can use multiple textures.
+     */
+    private val floor: Texture?, private val overfloor: Texture?, x: Float, width: Float, y: Float
+) : Actor() {
     /**
      * The bodies for the floor. You see here the main body for the floor, and the left border.
      */
-    private final Body body;
+    private val body: Body
 
     /**
      * The fixtures assigned to both bodies. This gives bodies shape.
      */
-    private final Fixture fixture;
+    private val fixture: Fixture
 
     /**
      * Create a new floor
@@ -46,51 +42,46 @@ public class FloorEntity extends Actor {
      * @param width     how wide the floor is (meters)
      * @param y         top border for the floor (meters)
      */
-    public FloorEntity(World world, Texture floor, Texture overfloor, float x, float width, float y) {
-        this.world = world;
-        this.floor = floor;
-        this.overfloor = overfloor;
-
+    init {
         // Create the floor body.
-        BodyDef def = new BodyDef();                // (1) Provide some definition.
-        def.position.set(x + width / 2, y - 0.5f);  // (2) Center the floor in the coordinates given
-        body = world.createBody(def);               // (3) Create the floor. Easy.
+        val def = BodyDef() // (1) Provide some definition.
+        def.position.set(x + width / 2, y - 0.5f) // (2) Center the floor in the coordinates given
+        body = world.createBody(def) // (3) Create the floor. Easy.
 
         // Give it a box shape.
-        PolygonShape box = new PolygonShape();      // (1) Create the polygon shape.
-        box.setAsBox(width / 2, 0.5f);              // (2) Give it some size.
-        fixture = body.createFixture(box, 1);       // (3) Create a fixture.
-        fixture.setUserData("floor");               // (4) Set the user data for the fixture.
-        box.dispose();                              // (5) Destroy the shape.
+        val box = PolygonShape() // (1) Create the polygon shape.
+        box.setAsBox(width / 2, 0.5f) // (2) Give it some size.
+        fixture = body.createFixture(box, 1f) // (3) Create a fixture.
+        fixture.setUserData("floor") // (4) Set the user data for the fixture.
+        box.dispose() // (5) Destroy the shape.
 
         // Now create the left body. This body is spiky, if you hit this body, you die. It is
         // on the left border of the floor and it is only used when you have to jump some stairs.
         // It works the same than the previous one.
-        BodyDef leftDef = new BodyDef();
-        leftDef.position.set(x, y - 0.55f);
-        Body leftBody = world.createBody(leftDef);
+        val leftDef = BodyDef()
+        leftDef.position.set(x, y - 0.55f)
+        val leftBody = world.createBody(leftDef)
 
         // As well as the fixture. Remember, use spike user data to make it act like an enemy.
-        PolygonShape leftBox = new PolygonShape();
-        leftBox.setAsBox(0.02f, 0.45f);
-        Fixture leftFixture = leftBody.createFixture(leftBox, 1);
-        leftFixture.setUserData("spike");
-        leftBox.dispose();
+        val leftBox = PolygonShape()
+        leftBox.setAsBox(0.02f, 0.45f)
+        val leftFixture = leftBody.createFixture(leftBox, 1f)
+        leftFixture.setUserData("spike")
+        leftBox.dispose()
 
         // Now place the actor in the stage by converting the coordinates given in meters to px.
-        setSize(width * Constants.PIXELS_IN_METER, Constants.PIXELS_IN_METER);
-        setPosition(x * Constants.PIXELS_IN_METER, (y - 1) * Constants.PIXELS_IN_METER);
+        setSize(width * Constants.PIXELS_IN_METER, Constants.PIXELS_IN_METER)
+        setPosition(x * Constants.PIXELS_IN_METER, (y - 1) * Constants.PIXELS_IN_METER)
     }
 
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
+    override fun draw(batch: Batch, parentAlpha: Float) {
         // Render both textures.
-        batch.draw(floor, getX(), getY(), getWidth(), getHeight());
-        batch.draw(overfloor, getX(), getY() + 0.9f * getHeight(), getWidth(), 0.1f * getHeight());
+        batch.draw(floor, getX(), getY(), getWidth(), getHeight())
+        batch.draw(overfloor, getX(), getY() + 0.9f * getHeight(), getWidth(), 0.1f * getHeight())
     }
 
-    public void detach() {
-        body.destroyFixture(fixture);
-        world.destroyBody(body);
+    fun detach() {
+        body.destroyFixture(fixture)
+        world.destroyBody(body)
     }
 }

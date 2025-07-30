@@ -1,107 +1,100 @@
-package es.danirod.jddprototype.game;
+package es.danirod.jddprototype.game
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
+import com.badlogic.gdx.utils.viewport.FitViewport
 
 /**
  * Extra screen to show the credits for the work.
  */
-public class CreditsScreen extends BaseScreen {
-
+class CreditsScreen(game: MainGame) : BaseScreen(game) {
     /**
      * The stage where all the buttons are added.
      */
-    private final Stage stage;
+    private val stage: Stage
 
     /**
      * The skin that we use to set the style of the buttons.
      */
-    private final Skin skin;
+    private val skin: Skin
 
-    public CreditsScreen(final es.danirod.jddprototype.game.MainGame game) {
-        super(game);
-
+    init {
         // Create a new stage, as usual.
-        stage = new Stage(new FitViewport(640, 360));
+        stage = Stage(FitViewport(640f, 360f))
 
         // Load the skin file. The skin file contains information about the skins. It can be
         // passed to any widget in Scene2D UI to set the style. It just works, amazing.
-        skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+        skin = Skin(Gdx.files.internal("skin/uiskin.json"))
 
         // For instance, here you see that I create a new button by telling the label of the
         // button as well as the skin file. The background image for the button is in the skin
         // file.
 
         // The back button you use to jump to the game screen.
-        TextButton back = new TextButton("Back", skin);
+        val back = TextButton("Back", skin)
 
         // The label with all the information.
-        Label credits = new Label("Jump Don't Die v1.0.2\n" +
-                "Copyright (C) 2015-2016 Dani Rodriguez\n" +
-                "This game is GNU GPL. Get the code at github.com/danirod/JumpDontDie\n\n" +
-
-                "Music: \"Long Time Coming\" Kevin MacLeod (incompetech.com)\n" +
-                "Licensed under Creative Commons: By Attribution 3.0", skin);
+        val credits = Label(
+            "Jump Don't Die v1.0.2\n" +
+                    "Copyright (C) 2015-2016 Dani Rodriguez\n" +
+                    "This game is GNU GPL. Get the code at github.com/danirod/JumpDontDie\n\n" +
+                    "Music: \"Long Time Coming\" Kevin MacLeod (incompetech.com)\n" +
+                    "Licensed under Creative Commons: By Attribution 3.0", skin
+        )
 
         // Add capture listeners. Capture listeners have one method, changed, that is executed
         // when the button is pressed or when the user interacts somehow with the widget. They are
         // cool because they let you execute some code when you press them.
-        back.addCaptureListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
+        back.addCaptureListener(object : ChangeListener() {
+            override fun changed(event: ChangeEvent?, actor: Actor?) {
                 // Take me to the game screen!
-                game.setScreen(game.menuScreen);
+                game.setScreen(game.menuScreen)
             }
-        });
+        })
 
         // Now I position things on screen. Sorry for making this the hardest part of this screen.
         // I position things on the screen so that they look centered. This is why I make the
         // buttons the same size.
-        credits.setPosition(20, 340 - credits.getHeight());
-        back.setSize(200, 80);
-        back.setPosition(40, 50);
+        credits.setPosition(20f, 340 - credits.getHeight())
+        back.setSize(200f, 80f)
+        back.setPosition(40f, 50f)
 
         // Do not forget to add actors to the stage or we wouldn't see anything.
-        stage.addActor(back);
-        stage.addActor(credits);
+        stage.addActor(back)
+        stage.addActor(credits)
     }
 
-    @Override
-    public void show() {
+    override fun show() {
         // Now this is important. If you want to be able to click the button, you have to make
         // the Input system handle input using this Stage. Stages are also InputProcessors. By
         // making the Stage the default input processor for this game, it is now possible to
         // click on buttons and even to type on input fields.
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.inputProcessor = stage
     }
 
-    @Override
-    public void hide() {
+    override fun hide() {
         // When the screen is no more visible, you have to remember to unset the input processor.
         // Otherwise, input might act weird, because even if you aren't using this screen, you are
         // still using the stage for handling input.
-        Gdx.input.setInputProcessor(null);
+        Gdx.input.inputProcessor = null
     }
 
-    @Override
-    public void dispose() {
+    override fun dispose() {
         // Dispose assets.
-        stage.dispose();
-        skin.dispose();
+        stage.dispose()
+        skin.dispose()
     }
 
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0.2f, 0.3f, 0.5f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act();
-        stage.draw();
+    override fun render(delta: Float) {
+        Gdx.gl.glClearColor(0.2f, 0.3f, 0.5f, 1f)
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+        stage.act()
+        stage.draw()
     }
 }

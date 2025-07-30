@@ -1,41 +1,38 @@
-package es.danirod.jddprototype.game;
+package es.danirod.jddprototype.game
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
+import com.badlogic.gdx.utils.viewport.FitViewport
 
 /**
  * This is the screen that you see when you lose. It has buttons to replay the game again or
  * to go back to the main menu and it is the second screen of this game that uses Scene2D UI.
  */
-public class GameOverScreen extends BaseScreen {
-
+class GameOverScreen(game: MainGame) : BaseScreen(game) {
     /**
      * The stage where all the buttons are added.
      */
-    private final Stage stage;
+    private val stage: Stage
 
     /**
      * The skin that we use to set the style of the buttons.
      */
-    private final Skin skin;
+    private val skin: Skin
 
-    public GameOverScreen(final es.danirod.jddprototype.game.MainGame game) {
-        super(game);
-
+    init {
         // Create a new stage, as usual.
-        stage = new Stage(new FitViewport(640, 360));
+        stage = Stage(FitViewport(640f, 360f))
 
         // Load the skin file. The skin file contains information about the skins. It can be
         // passed to any widget in Scene2D UI to set the style. It just works, amazing.
-        skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+        skin = Skin(Gdx.files.internal("skin/uiskin.json"))
 
         // For instance, here you see that I create a new button by telling the label of the
         // button as well as the skin file. The background image for the button is in the skin
@@ -44,8 +41,8 @@ public class GameOverScreen extends BaseScreen {
         /*
          * The buttons for retrying or for going back to menu.
          */
-        TextButton retry = new TextButton("Retry", skin);
-        TextButton menu = new TextButton("Menu", skin);
+        val retry = TextButton("Retry", skin)
+        val menu = TextButton("Menu", skin)
 
         // Also, create an image. Images are actors that only display some texture. Useful if you
         // want to display a texture in a Scene2D based screen but you don't want to rewrite code.
@@ -53,72 +50,66 @@ public class GameOverScreen extends BaseScreen {
         /*
          * The GAME OVER image you see on top of the screen.
          */
-        Image gameover = new Image(game.getManager().get("gameover.png", Texture.class));
+        val gameover = Image(game.getManager().get<Texture?>("gameover.png", Texture::class.java))
 
         // Add capture listeners. Capture listeners have one method, changed, that is executed
         // when the button is pressed or when the user interacts somehow with the widget. They are
         // cool because they let you execute some code when you press them.
-        retry.addCaptureListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
+        retry.addCaptureListener(object : ChangeListener() {
+            override fun changed(event: ChangeEvent?, actor: Actor?) {
                 // Here I go to the game screen again.
-                game.setScreen(game.gameScreen);
+                game.setScreen(game.gameScreen)
             }
-        });
+        })
 
-        menu.addCaptureListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
+        menu.addCaptureListener(object : ChangeListener() {
+            override fun changed(event: ChangeEvent?, actor: Actor?) {
                 // And here I go to the menu screen.
-                game.setScreen(game.menuScreen);
+                game.setScreen(game.menuScreen)
             }
-        });
+        })
 
         // Now I position things on screen. Sorry for making this the hardest part of this screen.
         // I position things on the screen so that they look centered. This is why I make the
         // buttons the same size.
-        gameover.setPosition(320 - gameover.getWidth() / 2, 320 - gameover.getHeight());
-        retry.setSize(200, 80);
-        menu.setSize(200, 80);
-        retry.setPosition(60, 50);
-        menu.setPosition(380, 50);
+        gameover.setPosition(320 - gameover.getWidth() / 2, 320 - gameover.getHeight())
+        retry.setSize(200f, 80f)
+        menu.setSize(200f, 80f)
+        retry.setPosition(60f, 50f)
+        menu.setPosition(380f, 50f)
 
         // Do not forget to add actors to the stage or we wouldn't see anything.
-        stage.addActor(retry);
-        stage.addActor(gameover);
-        stage.addActor(menu);
+        stage.addActor(retry)
+        stage.addActor(gameover)
+        stage.addActor(menu)
     }
 
-    @Override
-    public void show() {
+    override fun show() {
         // Now this is important. If you want to be able to click the button, you have to make
         // the Input system handle input using this Stage. Stages are also InputProcessors. By
         // making the Stage the default input processor for this game, it is now possible to
         // click on buttons and even to type on input fields.
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.inputProcessor = stage
     }
 
-    @Override
-    public void hide() {
+    override fun hide() {
         // When the screen is no more visible, you have to remember to unset the input processor.
         // Otherwise, input might act weird, because even if you aren't using this screen, you are
         // still using the stage for handling input.
-        Gdx.input.setInputProcessor(null);
+        Gdx.input.inputProcessor = null
     }
 
-    @Override
-    public void dispose() {
+    override fun dispose() {
         // Dispose assets.
-        skin.dispose();
-        stage.dispose();
+        skin.dispose()
+        stage.dispose()
     }
 
-    @Override
-    public void render(float delta) {
+    override fun render(delta: Float) {
         // Just render things.
-        Gdx.gl.glClearColor(0.4f, 0.5f, 0.8f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act();
-        stage.draw();
+        Gdx.gl.glClearColor(0.4f, 0.5f, 0.8f, 1f)
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+        stage.act()
+        stage.draw()
     }
 }

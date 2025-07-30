@@ -45,15 +45,15 @@ class LoadingScreen(game: MainGame?) : BaseScreen(game) {
         // this method will return true if it has finished loading. Else it will return false.
         // You usually want to do the code that changes to the main menu screen if it has finished
         // loading, else you update the screen to not make the user angry and keep loading.
-        if (game.getManager().update()) {
+        if (game!!.getManager().update()) {
             // I'll notify the game that all the assets are loaded so that it can load the
             // remaining set of screens and enter the main menu. This avoids Exceptions because
             // screens cannot be loaded until all the assets are loaded.
-            game.finishLoading()
+            game?.finishLoading()
         } else {
             // getProgress() returns the progress of the load in a range of [0,1]. We multiply
             // this progress per * 100 so that we can display it as a percentage.
-            val progress = (game.getManager().getProgress() * 100).toInt()
+            val progress = (game!!.getManager().getProgress() * 100).toInt()
             loading.setText("Loading... $progress%")
         }
 

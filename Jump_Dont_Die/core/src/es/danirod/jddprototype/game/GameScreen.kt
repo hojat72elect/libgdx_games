@@ -15,267 +15,249 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package es.danirod.jddprototype.game
 
-package es.danirod.jddprototype.game;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import es.danirod.jddprototype.game.entities.EntityFactory;
-import es.danirod.jddprototype.game.entities.FloorEntity;
-import es.danirod.jddprototype.game.entities.PlayerEntity;
-import es.danirod.jddprototype.game.entities.SpikeEntity;
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.audio.Music
+import com.badlogic.gdx.audio.Sound
+import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.math.Vector3
+import com.badlogic.gdx.physics.box2d.Contact
+import com.badlogic.gdx.physics.box2d.ContactImpulse
+import com.badlogic.gdx.physics.box2d.ContactListener
+import com.badlogic.gdx.physics.box2d.Manifold
+import com.badlogic.gdx.physics.box2d.World
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.utils.viewport.FitViewport
+import es.danirod.jddprototype.game.entities.EntityFactory
+import es.danirod.jddprototype.game.entities.FloorEntity
+import es.danirod.jddprototype.game.entities.PlayerEntity
+import es.danirod.jddprototype.game.entities.SpikeEntity
 
 /**
  * This is the main screen for the game. All the fun happen here.
  */
-public class GameScreen extends BaseScreen {
-
+class GameScreen(game: MainGame) : BaseScreen(game) {
     /**
      * Stage instance for Scene2D rendering.
      */
-    private final Stage stage;
+    private val stage: Stage
 
     /**
      * World instance for Box2D engine.
      */
-    private final World world;
+    private val world: World
 
     /**
      * Player entity.
      */
-    private PlayerEntity player;
+    private var player: PlayerEntity? = null
 
     /**
      * List of floors attached to this level.
      */
-    private final List<FloorEntity> floorList = new ArrayList<>();
+    private val floorList: MutableList<FloorEntity> = ArrayList<FloorEntity>()
 
     /**
      * List of spikes attached to this level.
      */
-    private final List<SpikeEntity> spikeList = new ArrayList<>();
+    private val spikeList: MutableList<SpikeEntity> = ArrayList<SpikeEntity>()
 
     /**
      * Jump sound that has to play when the player jumps.
      */
-    private final Sound jumpSound;
+    private val jumpSound: Sound
 
     /**
      * Die sound that has to play when the player collides with a spike.
      */
-    private final Sound dieSound;
+    private val dieSound: Sound
 
     /**
      * Background music that has to play on the background all the time.
      */
-    private final Music backgroundMusic;
+    private val backgroundMusic: Music
 
     /**
      * Initial position of the camera. Required for reseting the viewport.
      */
-    private final Vector3 position;
+    private val position: Vector3
 
     /**
      * Create the screen. Since this constructor cannot be invoked before libGDX is fully started,
      * it is safe to do critical code here such as loading assets and setting up the stage.
      */
-    public GameScreen(es.danirod.jddprototype.game.MainGame game) {
-        super(game);
-
+    init {
         // Create a new Scene2D stage for displaying things.
-        stage = new Stage(new FitViewport(640, 360));
-        position = new Vector3(stage.getCamera().position);
+        stage = Stage(FitViewport(640f, 360f))
+        position = Vector3(stage.camera.position)
 
         // Create a new Box2D world for managing things.
-        world = new World(new Vector2(0, -10), true);
-        world.setContactListener(new GameContactListener());
+        world = World(Vector2(0f, -10f), true)
+        world.setContactListener(GameContactListener())
 
         // Get the sound effect references that will play during the game.
-        jumpSound = game.getManager().get("audio/jump.ogg");
-        dieSound = game.getManager().get("audio/die.ogg");
-        backgroundMusic = game.getManager().get("audio/song.ogg");
+        jumpSound = game.getManager().get<Sound>("audio/jump.ogg")
+        dieSound = game.getManager().get<Sound>("audio/die.ogg")
+        backgroundMusic = game.getManager().get<Music>("audio/song.ogg")
     }
 
     /**
      * This method will be executed when this screen is about to be rendered.
      * Here, I use this method to set up the initial position for the stage.
      */
-    @Override
-    public void show() {
-        EntityFactory factory = new EntityFactory(game.getManager());
+    override fun show() {
+        val factory = EntityFactory(game!!.getManager())
 
         // Create the player. It has an initial position.
-        player = factory.createPlayer(world, new Vector2(1.5f, 1.5f));
+        player = factory.createPlayer(world, Vector2(1.5f, 1.5f))
 
         // This is the main floor. That is why is so long.
-        floorList.add(factory.createFloor(world, 0, 1000, 1));
+        floorList.add(factory.createFloor(world, 0f, 1000f, 1f))
 
         // Now generate some floors over the main floor. Needless to say, that on a real game
         // this should be better engineered. For instance, have all the information for floors
         // and spikes in a data structure or even some level file and generate them without
         // writing lines of code.
-        floorList.add(factory.createFloor(world, 15, 10, 2));
-        floorList.add(factory.createFloor(world, 30, 8, 2));
+        floorList.add(factory.createFloor(world, 15f, 10f, 2f))
+        floorList.add(factory.createFloor(world, 30f, 8f, 2f))
 
         // Generate some spikes too.
-        spikeList.add(factory.createSpikes(world, 8, 1));
-        spikeList.add(factory.createSpikes(world, 23, 2));
-        spikeList.add(factory.createSpikes(world, 35, 2));
-        spikeList.add(factory.createSpikes(world, 50, 1));
+        spikeList.add(factory.createSpikes(world, 8f, 1f))
+        spikeList.add(factory.createSpikes(world, 23f, 2f))
+        spikeList.add(factory.createSpikes(world, 35f, 2f))
+        spikeList.add(factory.createSpikes(world, 50f, 1f))
 
         // All add the floors and spikes to the stage.
-        for (FloorEntity floor : floorList)
-            stage.addActor(floor);
-        for (SpikeEntity spike : spikeList)
-            stage.addActor(spike);
+        for (floor in floorList) stage.addActor(floor)
+        for (spike in spikeList) stage.addActor(spike)
 
         // Add the player to the stage too.
-        stage.addActor(player);
+        stage.addActor(player)
 
         // Reset the camera to the left. This is required because we have translated the camera
         // during the game. We need to put the camera on the initial position so that you can
         // use it again if you replay the game.
-        stage.getCamera().position.set(position);
-        stage.getCamera().update();
+        stage.camera.position.set(position)
+        stage.camera.update()
 
         // Everything is ready, turn the volume up.
-        backgroundMusic.setVolume(0.75f);
-        backgroundMusic.play();
+        backgroundMusic.volume = 0.75f
+        backgroundMusic.play()
     }
 
     /**
      * This method will be executed when this screen is no more the active screen.
      * I use this method to destroy all the things that have been used in the stage.
      */
-    @Override
-    public void hide() {
+    override fun hide() {
         // Clear the stage. This will remove ALL actors from the stage and it is faster than
         // removing every single actor one by one. This is not shown in the video but it is
         // an improvement.
-        stage.clear();
+        stage.clear()
 
         // Detach every entity from the world they have been living in.
-        player.detach();
-        for (FloorEntity floor : floorList)
-            floor.detach();
-        for (SpikeEntity spike : spikeList)
-            spike.detach();
+        player!!.detach()
+        for (floor in floorList) floor.detach()
+        for (spike in spikeList) spike.detach()
 
         // Clear the lists.
-        floorList.clear();
-        spikeList.clear();
+        floorList.clear()
+        spikeList.clear()
     }
 
     /**
      * This method is executed whenever the game requires this screen to be rendered. This will
      * display things on the screen. This method is also used to update the game.
      */
-    @Override
-    public void render(float delta) {
+    override fun render(delta: Float) {
         // Do not forget to clean the screen.
-        Gdx.gl.glClearColor(0.4f, 0.5f, 0.8f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClearColor(0.4f, 0.5f, 0.8f, 1f)
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         // Update the stage. This will update the player speed.
-        stage.act();
+        stage.act()
 
         // Step the world. This will update the physics and update entity positions.
-        world.step(delta, 6, 2);
+        world.step(delta, 6, 2)
 
         // Make the camera follow the player. As long as the player is alive, if the player is
         // moving, make the camera move at the same speed, so that the player is always
         // centered at the same position.
-        if (player.getX() > 150 && player.isAlive()) {
-            float speed = Constants.PLAYER_SPEED * delta * Constants.PIXELS_IN_METER;
-            stage.getCamera().translate(speed, 0, 0);
+        if (player!!.getX() > 150 && player!!.isAlive) {
+            val speed = Constants.PLAYER_SPEED * delta * Constants.PIXELS_IN_METER
+            stage.camera.translate(speed, 0f, 0f)
         }
 
         // Render the screen. Remember, this is the last step!
-        stage.draw();
+        stage.draw()
     }
 
     /**
      * This method is executed when the screen can be safely disposed.
      * I use this method to dispose things that have to be manually disposed.
      */
-    @Override
-    public void dispose() {
+    override fun dispose() {
         // Dispose the stage to remove the Batch references in the graphics card.
-        stage.dispose();
+        stage.dispose()
 
         // Dispose the world to remove the Box2D native data (C++ backend, invoked by Java).
-        world.dispose();
+        world.dispose()
     }
 
     /**
      * This is the contact listener that checks the world for collisions and contacts.
      * I use this method to evaluate when things collide, such as player colliding with floor.
      */
-    private class GameContactListener implements ContactListener {
-
-        private boolean areCollided(Contact contact, Object userB) {
-            Object userDataA = contact.getFixtureA().getUserData();
-            Object userDataB = contact.getFixtureB().getUserData();
+    private inner class GameContactListener : ContactListener {
+        fun areCollided(contact: Contact, userB: Any?): Boolean {
+            val userDataA = contact.fixtureA.getUserData()
+            val userDataB = contact.fixtureB.getUserData()
 
             // This is not in the video! It is a good idea to check that user data is not null.
             // Sometimes you forget to put user data or you get collisions by entities you didn't
             // expect. Not preventing this will probably result in a NullPointerException.
             if (userDataA == null || userDataB == null) {
-                return false;
+                return false
             }
 
             // Because you never know what is A and what is B, you have to do both checks.
-            return (userDataA.equals("player") && userDataB.equals(userB)) ||
-                    (userDataA.equals(userB) && userDataB.equals("player"));
+            return (userDataA == "player" && userDataB == userB) ||
+                    (userDataA == userB && userDataB == "player")
         }
 
         /**
          * This method is executed when a contact has started: when two fixtures just collided.
          */
-        @Override
-        public void beginContact(Contact contact) {
+        override fun beginContact(contact: Contact) {
             // The player has collided with the floor.
             if (areCollided(contact, "floor")) {
-                player.setJumping(false);
+                player!!.setJumping(false)
 
                 // If the screen is still touched, you have to jump again.
-                if (Gdx.input.isTouched()) {
-                    jumpSound.play();
+                if (Gdx.input.isTouched) {
+                    jumpSound.play()
 
                     // You just can't add a force here, because while a contact is being handled
                     // the world is locked. Therefore you have to find a way to remember to make
                     // the player jump AFTER the collision has been handled. Here I update the
                     // flag value mustJump. This will make the player jump on next frame.
-                    player.setMustJump(true);
+                    player!!.setMustJump(true)
                 }
             }
 
             // The player has collided with something that hurts.
             if (areCollided(contact, "spike")) {
-
                 // Check that is alive. Sometimes you bounce, you don't want to die more than once.
-                if (player.isAlive()) {
-                    player.setAlive(false);
+
+                if (player!!.isAlive) {
+                    player!!.isAlive = false
 
                     // Sound feedback.
-                    backgroundMusic.stop();
-                    dieSound.play();
+                    backgroundMusic.stop()
+                    dieSound.play()
 
                     // Add an Action. Actions are cool because they let you add animations to your
                     // game. Here I add a sequence action so that two actions happens one after
@@ -283,17 +265,15 @@ public class GameScreen extends BaseScreen {
                     // The second actions is a run action. It executes some code. Here, we go
                     // to the game over screen when we die.
                     stage.addAction(
-                            Actions.sequence(
-                                    Actions.delay(1.5f),
-                                    Actions.run(new Runnable() {
-
-                                        @Override
-                                        public void run() {
-                                            game.setScreen(game.gameOverScreen);
-                                        }
-                                    })
-                            )
-                    );
+                        Actions.sequence(
+                            Actions.delay(1.5f),
+                            Actions.run(object : Runnable {
+                                override fun run() {
+                                    game?.setScreen(game?.gameOverScreen)
+                                }
+                            })
+                        )
+                    )
                 }
             }
         }
@@ -301,23 +281,20 @@ public class GameScreen extends BaseScreen {
         /**
          * This method is executed when a contact has finished: two fixtures are no more colliding.
          */
-        @Override
-        public void endContact(Contact contact) {
+        override fun endContact(contact: Contact) {
             // The player is jumping and it is not touching the floor.
             if (areCollided(contact, "floor")) {
-                if (player.isAlive()) {
-                    jumpSound.play();
+                if (player!!.isAlive) {
+                    jumpSound.play()
                 }
             }
         }
 
         // Here two lonely methods that I don't use but have to override anyway.
-        @Override
-        public void preSolve(Contact contact, Manifold oldManifold) {
+        override fun preSolve(contact: Contact?, oldManifold: Manifold?) {
         }
 
-        @Override
-        public void postSolve(Contact contact, ContactImpulse impulse) {
+        override fun postSolve(contact: Contact?, impulse: ContactImpulse?) {
         }
     }
 }
