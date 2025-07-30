@@ -14,23 +14,21 @@ import com.badlogic.gdx.utils.viewport.FitViewport
  * Extra screen to show the credits for the work.
  */
 class CreditsScreen(game: MainGame) : BaseScreen(game) {
+
     /**
      * The stage where all the buttons are added.
      */
-    private val stage: Stage
+    private val stage: Stage = Stage(FitViewport(640f, 360f))
 
     /**
      * The skin that we use to set the style of the buttons.
      */
-    private val skin: Skin
+
+    // Load the skin file. The skin file contains information about the skins. It can be
+    // passed to any widget in Scene2D UI to set the style. It just works, amazing.
+    private val skin: Skin = Skin(Gdx.files.internal("skin/uiskin.json"))
 
     init {
-        // Create a new stage, as usual.
-        stage = Stage(FitViewport(640f, 360f))
-
-        // Load the skin file. The skin file contains information about the skins. It can be
-        // passed to any widget in Scene2D UI to set the style. It just works, amazing.
-        skin = Skin(Gdx.files.internal("skin/uiskin.json"))
 
         // For instance, here you see that I create a new button by telling the label of the
         // button as well as the skin file. The background image for the button is in the skin

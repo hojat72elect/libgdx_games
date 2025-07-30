@@ -43,12 +43,15 @@ class GameScreen(game: MainGame) : BaseScreen(game) {
     /**
      * Stage instance for Scene2D rendering.
      */
-    private val stage: Stage
+    // Create a new Scene2D stage for displaying things.
+    private val stage: Stage = Stage(FitViewport(640f, 360f))
 
     /**
      * World instance for Box2D engine.
      */
-    private val world: World
+
+    // Create a new Box2D world for managing things.
+    private val world: World = World(Vector2(0f, -10f), true)
 
     /**
      * Player entity.
@@ -58,12 +61,12 @@ class GameScreen(game: MainGame) : BaseScreen(game) {
     /**
      * List of floors attached to this level.
      */
-    private val floorList: MutableList<FloorEntity> = ArrayList<FloorEntity>()
+    private val floorList: MutableList<FloorEntity> = ArrayList()
 
     /**
      * List of spikes attached to this level.
      */
-    private val spikeList: MutableList<SpikeEntity> = ArrayList<SpikeEntity>()
+    private val spikeList: MutableList<SpikeEntity> = ArrayList()
 
     /**
      * Jump sound that has to play when the player jumps.
@@ -83,19 +86,13 @@ class GameScreen(game: MainGame) : BaseScreen(game) {
     /**
      * Initial position of the camera. Required for reseting the viewport.
      */
-    private val position: Vector3
+    private val position: Vector3 = Vector3(stage.camera.position)
 
     /**
      * Create the screen. Since this constructor cannot be invoked before libGDX is fully started,
      * it is safe to do critical code here such as loading assets and setting up the stage.
      */
     init {
-        // Create a new Scene2D stage for displaying things.
-        stage = Stage(FitViewport(640f, 360f))
-        position = Vector3(stage.camera.position)
-
-        // Create a new Box2D world for managing things.
-        world = World(Vector2(0f, -10f), true)
         world.setContactListener(GameContactListener())
 
         // Get the sound effect references that will play during the game.
@@ -267,11 +264,7 @@ class GameScreen(game: MainGame) : BaseScreen(game) {
                     stage.addAction(
                         Actions.sequence(
                             Actions.delay(1.5f),
-                            Actions.run(object : Runnable {
-                                override fun run() {
-                                    game?.setScreen(game?.gameOverScreen)
-                                }
-                            })
+                            Actions.run { game?.setScreen(game?.gameOverScreen) }
                         )
                     )
                 }

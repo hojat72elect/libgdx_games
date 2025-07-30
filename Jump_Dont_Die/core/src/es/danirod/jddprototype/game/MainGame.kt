@@ -39,15 +39,15 @@ class MainGame : Game() {
         // inside the LoadingScreen screen. Remember to put the name of the asset in the first
         // argument, then the type of the asset in the second argument.
         manager = AssetManager()
-        manager!!.load<Texture?>("floor.png", Texture::class.java)
-        manager!!.load<Texture?>("gameover.png", Texture::class.java)
-        manager!!.load<Texture?>("overfloor.png", Texture::class.java)
-        manager!!.load<Texture?>("logo.png", Texture::class.java)
-        manager!!.load<Texture?>("spike.png", Texture::class.java)
-        manager!!.load<Texture?>("player.png", Texture::class.java)
-        manager!!.load<Sound?>("audio/die.ogg", Sound::class.java)
-        manager!!.load<Sound?>("audio/jump.ogg", Sound::class.java)
-        manager!!.load<Music?>("audio/song.ogg", Music::class.java)
+        manager!!.load("floor.png", Texture::class.java)
+        manager!!.load("gameover.png", Texture::class.java)
+        manager!!.load("overfloor.png", Texture::class.java)
+        manager!!.load("logo.png", Texture::class.java)
+        manager!!.load("spike.png", Texture::class.java)
+        manager!!.load("player.png", Texture::class.java)
+        manager!!.load("audio/die.ogg", Sound::class.java)
+        manager!!.load("audio/jump.ogg", Sound::class.java)
+        manager!!.load("audio/song.ogg", Music::class.java)
 
         // Enter the loading screen to load the assets.
         loadingScreen = LoadingScreen(this)

@@ -14,17 +14,13 @@ import es.danirod.jddprototype.game.Constants
  * This entity represents the floor. The player and the spikes are above the floor. You cannot go
  * below the floor. And if you hit the left border of a floor when you are supposed to jump,
  * you lose.
+ *
+ * @param world The world instance this floor has to live in.
  */
 class FloorEntity(
-    /**
-     * The world instance this floor has to live in.
-     */
-    private val world: World,
-    /**
-     * The textures we use to display the floor, proving that you can use multiple textures.
-     */
-    private val floor: Texture?, private val overfloor: Texture?, x: Float, width: Float, y: Float
+    private val world: World, private val floor: Texture?, private val overfloor: Texture?, x: Float, width: Float, y: Float
 ) : Actor() {
+
     /**
      * The bodies for the floor. You see here the main body for the floor, and the left border.
      */

@@ -7,13 +7,13 @@ import com.badlogic.gdx.physics.box2d.World
 
 /**
  * This class creates entities using Factory Methods.
- */
-class EntityFactory
-/**
+ *
  * Create a new entity factory using the provided asset manager.
  *
  * @param manager the asset manager used to generate things.
- */(private val manager: AssetManager) {
+ */
+class EntityFactory(private val manager: AssetManager) {
+
     /**
      * Create a player using the default texture.
      *
