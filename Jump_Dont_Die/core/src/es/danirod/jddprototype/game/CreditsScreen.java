@@ -25,16 +25,6 @@ public class CreditsScreen extends BaseScreen {
      */
     private final Skin skin;
 
-    /**
-     * The label with all the information.
-     */
-    private final Label credits;
-
-    /**
-     * The back button you use to jump to the game screen.
-     */
-    private final TextButton back;
-
     public CreditsScreen(final es.danirod.jddprototype.game.MainGame game) {
         super(game);
 
@@ -48,9 +38,12 @@ public class CreditsScreen extends BaseScreen {
         // For instance, here you see that I create a new button by telling the label of the
         // button as well as the skin file. The background image for the button is in the skin
         // file.
-        back = new TextButton("Back", skin);
 
-        credits = new Label("Jump Don't Die v1.0.2\n" +
+        // The back button you use to jump to the game screen.
+        TextButton back = new TextButton("Back", skin);
+
+        // The label with all the information.
+        Label credits = new Label("Jump Don't Die v1.0.2\n" +
                 "Copyright (C) 2015-2016 Dani Rodriguez\n" +
                 "This game is GNU GPL. Get the code at github.com/danirod/JumpDontDie\n\n" +
 

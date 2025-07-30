@@ -29,17 +29,6 @@ public class MenuScreen extends BaseScreen {
      */
     private final Skin skin;
 
-    /**
-     * The logo image you see on top of the screen.
-     */
-    private final Image logo;
-
-    /**
-     * The play button you use to jump to the game screen.
-     */
-    private final TextButton play;
-    private final TextButton credits;
-
     public MenuScreen(final MainGame game) {
         super(game);
 
@@ -53,12 +42,20 @@ public class MenuScreen extends BaseScreen {
         // For instance, here you see that I create a new button by telling the label of the
         // button as well as the skin file. The background image for the button is in the skin
         // file.
-        play = new TextButton("Play", skin);
-        credits = new TextButton("Credits", skin);
+
+        /*
+         * The play button you use to jump to the game screen.
+         */
+        TextButton play = new TextButton("Play", skin);
+        TextButton credits = new TextButton("Credits", skin);
 
         // Also, create an image. Images are actors that only display some texture. Useful if you
         // want to display a texture in a Scene2D based screen but you don't want to rewrite code.
-        logo = new Image(game.getManager().get("logo.png", Texture.class));
+
+        /*
+         * The logo image you see on top of the screen.
+         */
+        Image logo = new Image(game.getManager().get("logo.png", Texture.class));
 
         // Add capture listeners. Capture listeners have one method, changed, that is executed
         // when the button is pressed or when the user interacts somehow with the widget. They are

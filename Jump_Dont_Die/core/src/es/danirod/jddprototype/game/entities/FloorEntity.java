@@ -33,20 +33,15 @@ public class FloorEntity extends Actor {
      * The bodies for the floor. You see here the main body for the floor, and the left border.
      */
     private final Body body;
-    private final Body leftBody;
 
     /**
      * The fixtures assigned to both bodies. This gives bodies shape.
      */
     private final Fixture fixture;
-    private final Fixture leftFixture;
 
     /**
      * Create a new floor
      *
-     * @param world
-     * @param floor
-     * @param overfloor
      * @param x         left border for the floor (meters)
      * @param width     how wide the floor is (meters)
      * @param y         top border for the floor (meters)
@@ -73,12 +68,12 @@ public class FloorEntity extends Actor {
         // It works the same than the previous one.
         BodyDef leftDef = new BodyDef();
         leftDef.position.set(x, y - 0.55f);
-        leftBody = world.createBody(leftDef);
+        Body leftBody = world.createBody(leftDef);
 
         // As well as the fixture. Remember, use spike user data to make it act like an enemy.
         PolygonShape leftBox = new PolygonShape();
         leftBox.setAsBox(0.02f, 0.45f);
-        leftFixture = leftBody.createFixture(leftBox, 1);
+        Fixture leftFixture = leftBody.createFixture(leftBox, 1);
         leftFixture.setUserData("spike");
         leftBox.dispose();
 

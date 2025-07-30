@@ -42,8 +42,6 @@ public class SpikeEntity extends Actor {
     /**
      * Create some spike
      *
-     * @param world
-     * @param texture
      * @param x       horizontal position for the center of the spike (meters)
      * @param y       vertical position for the base of the spike (meters)
      */

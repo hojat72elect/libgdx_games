@@ -27,17 +27,6 @@ public class GameOverScreen extends BaseScreen {
      */
     private final Skin skin;
 
-    /**
-     * The GAME OVER image you see on top of the screen.
-     */
-    private final Image gameover;
-
-    /**
-     * The buttons for retrying or for going back to menu.
-     */
-    private final TextButton retry;
-    private final TextButton menu;
-
     public GameOverScreen(final es.danirod.jddprototype.game.MainGame game) {
         super(game);
 
@@ -51,12 +40,20 @@ public class GameOverScreen extends BaseScreen {
         // For instance, here you see that I create a new button by telling the label of the
         // button as well as the skin file. The background image for the button is in the skin
         // file.
-        retry = new TextButton("Retry", skin);
-        menu = new TextButton("Menu", skin);
+
+        /*
+         * The buttons for retrying or for going back to menu.
+         */
+        TextButton retry = new TextButton("Retry", skin);
+        TextButton menu = new TextButton("Menu", skin);
 
         // Also, create an image. Images are actors that only display some texture. Useful if you
         // want to display a texture in a Scene2D based screen but you don't want to rewrite code.
-        gameover = new Image(game.getManager().get("gameover.png", Texture.class));
+
+        /*
+         * The GAME OVER image you see on top of the screen.
+         */
+        Image gameover = new Image(game.getManager().get("gameover.png", Texture.class));
 
         // Add capture listeners. Capture listeners have one method, changed, that is executed
         // when the button is pressed or when the user interacts somehow with the widget. They are

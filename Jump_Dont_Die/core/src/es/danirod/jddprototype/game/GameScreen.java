@@ -64,12 +64,12 @@ public class GameScreen extends BaseScreen {
     /**
      * List of floors attached to this level.
      */
-    private final List<FloorEntity> floorList = new ArrayList<FloorEntity>();
+    private final List<FloorEntity> floorList = new ArrayList<>();
 
     /**
      * List of spikes attached to this level.
      */
-    private final List<SpikeEntity> spikeList = new ArrayList<SpikeEntity>();
+    private final List<SpikeEntity> spikeList = new ArrayList<>();
 
     /**
      * Jump sound that has to play when the player jumps.
@@ -94,8 +94,6 @@ public class GameScreen extends BaseScreen {
     /**
      * Create the screen. Since this constructor cannot be invoked before libGDX is fully started,
      * it is safe to do critical code here such as loading assets and setting up the stage.
-     *
-     * @param game
      */
     public GameScreen(es.danirod.jddprototype.game.MainGame game) {
         super(game);
@@ -231,7 +229,7 @@ public class GameScreen extends BaseScreen {
      */
     private class GameContactListener implements ContactListener {
 
-        private boolean areCollided(Contact contact, Object userA, Object userB) {
+        private boolean areCollided(Contact contact, Object userB) {
             Object userDataA = contact.getFixtureA().getUserData();
             Object userDataB = contact.getFixtureB().getUserData();
 
@@ -243,8 +241,8 @@ public class GameScreen extends BaseScreen {
             }
 
             // Because you never know what is A and what is B, you have to do both checks.
-            return (userDataA.equals(userA) && userDataB.equals(userB)) ||
-                    (userDataA.equals(userB) && userDataB.equals(userA));
+            return (userDataA.equals("player") && userDataB.equals(userB)) ||
+                    (userDataA.equals(userB) && userDataB.equals("player"));
         }
 
         /**
@@ -253,7 +251,7 @@ public class GameScreen extends BaseScreen {
         @Override
         public void beginContact(Contact contact) {
             // The player has collided with the floor.
-            if (areCollided(contact, "player", "floor")) {
+            if (areCollided(contact, "floor")) {
                 player.setJumping(false);
 
                 // If the screen is still touched, you have to jump again.
@@ -269,7 +267,7 @@ public class GameScreen extends BaseScreen {
             }
 
             // The player has collided with something that hurts.
-            if (areCollided(contact, "player", "spike")) {
+            if (areCollided(contact, "spike")) {
 
                 // Check that is alive. Sometimes you bounce, you don't want to die more than once.
                 if (player.isAlive()) {
@@ -306,7 +304,7 @@ public class GameScreen extends BaseScreen {
         @Override
         public void endContact(Contact contact) {
             // The player is jumping and it is not touching the floor.
-            if (areCollided(contact, "player", "floor")) {
+            if (areCollided(contact, "floor")) {
                 if (player.isAlive()) {
                     jumpSound.play();
                 }
