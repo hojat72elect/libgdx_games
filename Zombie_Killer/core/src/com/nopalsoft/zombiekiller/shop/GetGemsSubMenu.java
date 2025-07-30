@@ -45,48 +45,9 @@ public class GetGemsSubMenu {
         if (Settings.didLikeFacebook)
             btLikeFacebook = new TextButton(idiomas.get("visit_us"), Assets.styleTextButtonPurchased);
         addEfectoPress(btLikeFacebook);
-        btLikeFacebook.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (!Settings.didLikeFacebook) {
-
-                    Settings.didLikeFacebook = true;
-                    game.stage.addAction(Actions.sequence(Actions.delay(1), Actions.run(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            Settings.gemsTotal += monedasLikeFacebook;
-                            btLikeFacebook.setText(idiomas.get("visit_us"));
-                            btLikeFacebook.setStyle(Assets.styleTextButtonBuy);
-                        }
-                    })));
-                }
-                game.facebookHandler.showFacebook();
-            }
-        });
 
         btInviteFacebook = new TextButton(idiomas.get("invite"), Assets.styleTextButtonBuy);
         addEfectoPress(btInviteFacebook);
-        btInviteFacebook.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.facebookHandler.facebookIsSignedIn()) {
-
-                    Gdx.input.getTextInput(new TextInputListener() {
-                        @Override
-                        public void input(String text) {
-                            game.facebookHandler.facebookInviteFriends(text);
-                        }
-
-                        @Override
-                        public void canceled() {
-
-                        }
-                    }, idiomas.get("type_your_message"), "", "");
-                } else
-                    game.facebookHandler.facebookSignIn();
-            }
-        });
 
         btBuy5milCoins = new TextButton(textBuy, Assets.styleTextButtonBuy);
         addEfectoPress(btBuy5milCoins);

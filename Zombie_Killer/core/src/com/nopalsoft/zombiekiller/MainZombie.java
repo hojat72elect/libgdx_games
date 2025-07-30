@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.nopalsoft.zombiekiller.handlers.FacebookHandler;
 import com.nopalsoft.zombiekiller.handlers.GameServicesHandler;
 import com.nopalsoft.zombiekiller.handlers.RequestHandler;
 import com.nopalsoft.zombiekiller.screens.MainMenuScreen;
@@ -15,15 +14,13 @@ import com.nopalsoft.zombiekiller.screens.Screens;
 public class MainZombie extends Game {
     public final GameServicesHandler gameServiceHandler;
     public final RequestHandler reqHandler;
-    public final FacebookHandler facebookHandler;
 
     public I18NBundle idiomas;
     public Stage stage;
     public SpriteBatch batcher;
-    public MainZombie(RequestHandler reqHandler, GameServicesHandler gameServiceHandler, FacebookHandler facebookHandler) {
+    public MainZombie(RequestHandler reqHandler, GameServicesHandler gameServiceHandler) {
         this.reqHandler = reqHandler;
         this.gameServiceHandler = gameServiceHandler;
-        this.facebookHandler = facebookHandler;
     }
 
     @Override
@@ -33,7 +30,7 @@ public class MainZombie extends Game {
 
         batcher = new SpriteBatch();
         Assets.load();
-        Achievements.init(this);
+        Achievements.init();
 
         setScreen(new MainMenuScreen(this));
     }

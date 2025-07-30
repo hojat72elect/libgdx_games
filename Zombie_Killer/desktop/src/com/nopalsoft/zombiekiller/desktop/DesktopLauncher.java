@@ -4,7 +4,6 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.nopalsoft.zombiekiller.MainZombie;
 import com.nopalsoft.zombiekiller.Settings;
-import com.nopalsoft.zombiekiller.handlers.FacebookHandler;
 import com.nopalsoft.zombiekiller.handlers.GoogleGameServicesHandler;
 import com.nopalsoft.zombiekiller.handlers.RequestHandler;
 
@@ -13,7 +12,7 @@ public class DesktopLauncher {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = 800;
         config.height = 480;
-        new LwjglApplication(new MainZombie(handler, gameHandler, faceHandler), config);
+        new LwjglApplication(new MainZombie(handler, gameHandler), config);
     }
 
     static RequestHandler handler = new RequestHandler() {
@@ -125,44 +124,6 @@ public class DesktopLauncher {
 
         @Override
         public void getAchievements() {
-            // TODO Auto-generated method stub
-
-        }
-    };
-    static FacebookHandler faceHandler = new FacebookHandler() {
-
-        @Override
-        public void showFacebook() {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void facebookSignOut() {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void facebookSignIn() {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void facebookShareFeed(String message) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public boolean facebookIsSignedIn() {
-            // TODO Auto-generated method stub
-            return false;
-        }
-
-        @Override
-        public void facebookInviteFriends(String message) {
             // TODO Auto-generated method stub
 
         }

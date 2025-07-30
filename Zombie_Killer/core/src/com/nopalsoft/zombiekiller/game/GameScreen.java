@@ -239,7 +239,7 @@ public class GameScreen extends Screens {
         for (int i = 0; i < Settings.arrSkullsMundo.length; i++) {
             totalSkulls += Settings.arrSkullsMundo[i];
         }
-        Achievements.unlockCollectedSkulls(totalSkulls);
+        Achievements.unlockCollectedSkulls();
 
         new VentanaNextLevel(this).show(stage);
     }
@@ -257,7 +257,7 @@ public class GameScreen extends Screens {
             game.reqHandler.showInterstitial();
         Settings.zombiesKilled += oWorld.totalZombiesKilled;
         game.gameServiceHandler.submitScore(Settings.zombiesKilled);
-        Achievements.unlockKilledZombies(Settings.zombiesKilled);
+        Achievements.unlockKilledZombies();
         super.hide();
     }
 

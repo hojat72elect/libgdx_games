@@ -116,12 +116,6 @@ public class MainMenuScreen extends Screens {
         btFacebook.setSize(50, 50);
         addEfectoPress(btFacebook);
         btFacebook.setPosition(SCREEN_WIDTH - 55, SCREEN_HEIGHT - 55);
-        btFacebook.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.facebookHandler.showFacebook();
-            }
-        });
 
         btTwitter = new Button(Assets.btTwitter);
         btTwitter.setSize(50, 50);
