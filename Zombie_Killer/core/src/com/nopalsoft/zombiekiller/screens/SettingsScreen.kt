@@ -239,15 +239,10 @@ class SettingsScreen(game: MainZombie) : Screens(game) {
     companion object {
         const val DEFAULT_SIZE_PAD: Int = 170
 
-        @JvmField
+
         val DEFAULT_POSITION_PAD: Vector2 = Vector2(10f, 10f)
-
         const val DEFAULT_SIZE_BUTTONS: Int = 80
-
-        @JvmField
         val DEFAULT_POSITION_BUTTON_JUMP: Vector2 = Vector2(560f, 20f)
-
-        @JvmField
         val DEFAULT_POSITION_BUTTON_FIRE: Vector2 = Vector2(680f, 20f)
     }
 }

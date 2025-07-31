@@ -4,16 +4,11 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 
 class Saw(x: Float, y: Float, size: Float) {
-    @JvmField
+
     val SIZE: Float
     var state: Int
-
-    @JvmField
     var position: Vector2
-
-    @JvmField
     var angleDeg: Float = 0f
-
     var stateTime: Float = 0f
 
     init {

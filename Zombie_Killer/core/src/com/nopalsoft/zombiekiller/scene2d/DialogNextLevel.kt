@@ -1,7 +1,6 @@
 package com.nopalsoft.zombiekiller.scene2d
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
@@ -58,7 +57,7 @@ class DialogNextLevel(currentScreen: Screens) : Dialog(currentScreen, 380f, 390f
         tableStatistics.setPosition(0f, 130f)
 
         val labelZombiesKilled = Label(idiomas!!.get("zombies_killed"), Assets.labelStyleChico)
-        val labelZombiesKilledNum = Label(oWorld.totalZombiesKilled.toString() + "/" + oWorld.TOTAL_ZOMBIES_LEVEL, Assets.labelStyleChico)
+        val labelZombiesKilledNum = Label(oWorld.totalZombiesKilled.toString() + "/" + WorldGame.TOTAL_ZOMBIES_LEVEL, Assets.labelStyleChico)
 
         val labelGemsCollected = Label(idiomas!!.get("gems"), Assets.labelStyleChico)
         val labelGemsCollectedNum = Label(oWorld.gems.toString() + "", Assets.labelStyleChico)

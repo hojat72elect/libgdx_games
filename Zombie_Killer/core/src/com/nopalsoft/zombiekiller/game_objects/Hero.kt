@@ -6,48 +6,21 @@ import com.nopalsoft.zombiekiller.Assets
 import com.nopalsoft.zombiekiller.Settings
 
 class Hero(x: Float, y: Float, tipo: Int) {
-    @JvmField
+
     val type: Int
-
     val MAX_LIVES: Int = Settings.LEVEL_LIFE + 3
-
-    @JvmField
     val MAX_SHIELDS: Int = Settings.LEVEL_SHIELD + 1
-
-    @JvmField
     var state: Int
-
-    @JvmField
     var position: Vector2
-
-    @JvmField
     var stateTime: Float
-
-    @JvmField
     var isFacingLeft: Boolean = false
-
-    @JvmField
     var isWalking: Boolean = false
-
-    @JvmField
     var isFiring: Boolean = false
-
-    @JvmField
     var isClimbing: Boolean = false
-
-    @JvmField
     var canJump: Boolean
-
-    @JvmField
     var bodyCrate: Body? = null // Crate body standing
-
-    @JvmField
     var isOnStairs: Boolean = false // True if you touch the stairs
-
-    @JvmField
     var lives: Int
-
-    @JvmField
     var shield: Int
 
     init {
@@ -184,7 +157,7 @@ class Hero(x: Float, y: Float, tipo: Int) {
         const val TYPE_SWAT: Int = 3
         const val TYPE_VADER: Int = 4
 
-        @JvmField
+
         val DURATION_DEAD: Float = Assets.heroForceDie!!.animationDuration + .2f
         const val DURATION_HURT: Float = .5f
         val DURATION_IS_FIRING: Float = Assets.heroForceShoot!!.animationDuration + .1f

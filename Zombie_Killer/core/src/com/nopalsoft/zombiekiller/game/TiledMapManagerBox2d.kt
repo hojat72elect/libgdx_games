@@ -31,20 +31,13 @@ import com.nopalsoft.zombiekiller.game_objects.Platform
 import com.nopalsoft.zombiekiller.game_objects.Saw
 import com.nopalsoft.zombiekiller.game_objects.Zombie
 
-class TiledMapManagerBox2d(worldGame: WorldGame, unitScale: Float) {
-    private val worldGame: WorldGame?
-    private val world: World
-    private val m_units: Float
-    private val logger: Logger
-    private val defaultFixtureDefinition: FixtureDef
+class TiledMapManagerBox2d(private val worldGame: WorldGame, unitScale: Float) {
+    private val world: World = worldGame.world
+    private val units: Float = unitScale
+    private val logger: Logger = Logger("MapBodyManager", 1)
+    private val defaultFixtureDefinition: FixtureDef = FixtureDef()
 
     init {
-        this.worldGame = worldGame
-        world = worldGame.world
-        m_units = unitScale
-        logger = Logger("MapBodyManager", 1)
-
-        defaultFixtureDefinition = FixtureDef()
         defaultFixtureDefinition.density = 1.0f
         defaultFixtureDefinition.friction = .5f
         defaultFixtureDefinition.restitution = 0.0f
@@ -110,17 +103,16 @@ class TiledMapManagerBox2d(worldGame: WorldGame, unitScale: Float) {
             /*
              * Normally if not none is the floor.
              */
-            val shape: Shape?
-            if (`object` is RectangleMapObject) {
-                shape = getRectangle(`object`)
+            val shape = if (`object` is RectangleMapObject) {
+                getRectangle(`object`)
             } else if (`object` is PolygonMapObject) {
-                shape = getPolygon(`object`)
+                getPolygon(`object`)
             } else if (`object` is PolylineMapObject) {
-                shape = getPolyline(`object`)
+                getPolyline(`object`)
             } else if (`object` is CircleMapObject) {
-                shape = getCircle(`object`)
+                getCircle(`object`)
             } else {
-                logger.error("non suported shape " + `object`)
+                logger.error("non suported shape $`object`")
                 continue
             }
 
@@ -163,10 +155,10 @@ class TiledMapManagerBox2d(worldGame: WorldGame, unitScale: Float) {
             ) {
                 if (`object` is RectangleMapObject) {
                     createZombie(`object`, type)
-                    worldGame!!.TOTAL_ZOMBIES_LEVEL++
+                    WorldGame.TOTAL_ZOMBIES_LEVEL++
                 }
             } else {
-                throw GdxRuntimeException("Error en layer " + "malos" + ", objeto:" + type)
+                throw GdxRuntimeException("Error en layer malos, objeto:$type")
             }
         }
     }
@@ -174,8 +166,8 @@ class TiledMapManagerBox2d(worldGame: WorldGame, unitScale: Float) {
     private fun createPlatform(`object`: MapObject) {
         val rectangle = (`object` as RectangleMapObject).rectangle
         val polygon = PolygonShape()
-        val size = Vector2((rectangle.x + rectangle.width * 0.5f) * m_units, (rectangle.y + rectangle.height * 0.5f) * m_units)
-        polygon.setAsBox(rectangle.getWidth() * 0.5f * m_units, rectangle.height * 0.5f * m_units, size, 0.0f)
+        val size = Vector2((rectangle.x + rectangle.width * 0.5f) * units, (rectangle.y + rectangle.height * 0.5f) * units)
+        polygon.setAsBox(rectangle.getWidth() * 0.5f * units, rectangle.height * 0.5f * units, size, 0.0f)
         defaultFixtureDefinition.shape = polygon
 
         val bodyDef = BodyDef()
@@ -183,18 +175,18 @@ class TiledMapManagerBox2d(worldGame: WorldGame, unitScale: Float) {
         val body = world.createBody(bodyDef)
         body.createFixture(defaultFixtureDefinition)
 
-        val x = (rectangle.x + rectangle.width * 0.5f) * m_units
-        val y = (rectangle.y + rectangle.height * 0.5f) * m_units
-        val height = (rectangle.height * m_units * 0.5f)
-        val width = (rectangle.width * m_units * 0.5f)
+        val x = (rectangle.x + rectangle.width * 0.5f) * units
+        val y = (rectangle.y + rectangle.height * 0.5f) * units
+        val height = (rectangle.height * units * 0.5f)
+        val width = (rectangle.width * units * 0.5f)
         body.userData = Platform(x, y, width, height)
     }
 
     private fun createLadder(`object`: MapObject, tipo: String?) {
         val rectangle = (`object` as RectangleMapObject).rectangle
         val polygon = PolygonShape()
-        val size = Vector2((rectangle.x + rectangle.width * 0.5f) * m_units, (rectangle.y + rectangle.height * 0.5f) * m_units)
-        polygon.setAsBox(rectangle.getWidth() * 0.5f * m_units, rectangle.height * 0.5f * m_units, size, 0.0f)
+        val size = Vector2((rectangle.x + rectangle.width * 0.5f) * units, (rectangle.y + rectangle.height * 0.5f) * units)
+        polygon.setAsBox(rectangle.getWidth() * 0.5f * units, rectangle.height * 0.5f * units, size, 0.0f)
         defaultFixtureDefinition.shape = polygon
 
         val bodyDef = BodyDef()
@@ -212,9 +204,9 @@ class TiledMapManagerBox2d(worldGame: WorldGame, unitScale: Float) {
         val rectangle = (`object` as RectangleMapObject).rectangle
 
         val polygon = PolygonShape()
-        val width = (rectangle.width * m_units)
-        val x = (rectangle.x + rectangle.width * 0.5f) * m_units
-        val y = (rectangle.y + rectangle.height * 0.5f) * m_units
+        val width = (rectangle.width * units)
+        val x = (rectangle.x + rectangle.width * 0.5f) * units
+        val y = (rectangle.y + rectangle.height * 0.5f) * units
 
         polygon.setAsBox(width / 2f, width / 2f)
 
@@ -234,16 +226,16 @@ class TiledMapManagerBox2d(worldGame: WorldGame, unitScale: Float) {
 
         body.createFixture(fixDef)
 
-        worldGame!!.crates!!.add(obj)
+        worldGame.crates!!.add(obj)
         body.userData = obj
     }
 
     private fun createSaw(`object`: MapObject) {
         val rectangle = (`object` as RectangleMapObject).rectangle
 
-        val width = (rectangle.width * m_units)
-        val x = (rectangle.x + rectangle.width * 0.5f) * m_units
-        val y = (rectangle.y + rectangle.height * 0.5f) * m_units
+        val width = (rectangle.width * units)
+        val x = (rectangle.x + rectangle.width * 0.5f) * units
+        val y = (rectangle.y + rectangle.height * 0.5f) * units
 
         val shape = CircleShape()
         shape.radius = width / 2f
@@ -260,7 +252,7 @@ class TiledMapManagerBox2d(worldGame: WorldGame, unitScale: Float) {
 
         body.createFixture(defaultFixtureDefinition)
 
-        worldGame!!.saws!!.add(saw)
+        worldGame.saws!!.add(saw)
         body.userData = saw
         body.angularVelocity = Math.toRadians(360.0).toFloat()
 
@@ -271,8 +263,8 @@ class TiledMapManagerBox2d(worldGame: WorldGame, unitScale: Float) {
         var obj: Items? = null
 
         val rectangle = (`object` as RectangleMapObject).rectangle
-        val x = (rectangle.x + rectangle.width * 0.5f) * m_units
-        val y = (rectangle.y + rectangle.height * 0.5f) * m_units
+        val x = (rectangle.x + rectangle.width * 0.5f) * units
+        val y = (rectangle.y + rectangle.height * 0.5f) * units
 
         when (type) {
             "gem" -> obj = ItemGem(x, y)
@@ -303,7 +295,7 @@ class TiledMapManagerBox2d(worldGame: WorldGame, unitScale: Float) {
         body.createFixture(fixtureDefinition)
 
         body.userData = obj
-        worldGame!!.items.add(obj)
+        worldGame.items.add(obj)
         shape.dispose()
     }
 
@@ -311,8 +303,8 @@ class TiledMapManagerBox2d(worldGame: WorldGame, unitScale: Float) {
         var obj: Zombie? = null
 
         val rectangle = (`object` as RectangleMapObject).rectangle
-        val x = (rectangle.x + rectangle.width * 0.5f) * m_units
-        val y = (rectangle.y + rectangle.height * 0.5f) * m_units
+        val x = (rectangle.x + rectangle.width * 0.5f) * units
+        val y = (rectangle.y + rectangle.height * 0.5f) * units
 
         when (type) {
             "zombieCuasy" -> obj = Zombie(x, y, Zombie.TYPE_CUASY)
@@ -341,7 +333,7 @@ class TiledMapManagerBox2d(worldGame: WorldGame, unitScale: Float) {
 
         body.isFixedRotation = true
         body.userData = obj
-        worldGame!!.zombies.add(obj)
+        worldGame.zombies.add(obj)
 
         shape.dispose()
     }
@@ -349,16 +341,16 @@ class TiledMapManagerBox2d(worldGame: WorldGame, unitScale: Float) {
     private fun getRectangle(rectangleObject: RectangleMapObject): Shape {
         val rectangle = rectangleObject.rectangle
         val polygon = PolygonShape()
-        val size = Vector2((rectangle.x + rectangle.width * 0.5f) * m_units, (rectangle.y + rectangle.height * 0.5f) * m_units)
-        polygon.setAsBox(rectangle.getWidth() * 0.5f * m_units, rectangle.height * 0.5f * m_units, size, 0.0f)
+        val size = Vector2((rectangle.x + rectangle.width * 0.5f) * units, (rectangle.y + rectangle.height * 0.5f) * units)
+        polygon.setAsBox(rectangle.getWidth() * 0.5f * units, rectangle.height * 0.5f * units, size, 0.0f)
         return polygon
     }
 
     private fun getCircle(circleObject: CircleMapObject): Shape {
         val circle = circleObject.circle
         val circleShape = CircleShape()
-        circleShape.radius = circle.radius * m_units
-        circleShape.position = Vector2(circle.x * m_units, circle.y * m_units)
+        circleShape.radius = circle.radius * units
+        circleShape.position = Vector2(circle.x * units, circle.y * units)
         return circleShape
     }
 
@@ -366,12 +358,12 @@ class TiledMapManagerBox2d(worldGame: WorldGame, unitScale: Float) {
         val polygon = PolygonShape()
         val vertices = polygonObject.polygon.vertices
         val worldVertices = FloatArray(vertices.size)
-        val yLost = polygonObject.polygon.y * m_units
-        val xLost = polygonObject.polygon.x * m_units
+        val yLost = polygonObject.polygon.y * units
+        val xLost = polygonObject.polygon.x * units
 
         for (i in vertices.indices) {
-            if (i % 2 == 0) worldVertices[i] = vertices[i] * m_units + xLost
-            else worldVertices[i] = vertices[i] * m_units + yLost
+            if (i % 2 == 0) worldVertices[i] = vertices[i] * units + xLost
+            else worldVertices[i] = vertices[i] * units + yLost
         }
         polygon.set(worldVertices)
 
@@ -382,12 +374,12 @@ class TiledMapManagerBox2d(worldGame: WorldGame, unitScale: Float) {
         val vertices = polylineObject.polyline.vertices
 
         val worldVertices = arrayOfNulls<Vector2>(vertices.size / 2)
-        val yLost = polylineObject.polyline.y * m_units
-        val xLost = polylineObject.polyline.x * m_units
+        val yLost = polylineObject.polyline.y * units
+        val xLost = polylineObject.polyline.x * units
         for (i in 0..<vertices.size / 2) {
             worldVertices[i] = Vector2()
-            worldVertices[i]!!.x = vertices[i * 2] * m_units + xLost
-            worldVertices[i]!!.y = vertices[i * 2 + 1] * m_units + yLost
+            worldVertices[i]!!.x = vertices[i * 2] * units + xLost
+            worldVertices[i]!!.y = vertices[i * 2 + 1] * units + yLost
         }
         val chain = ChainShape()
         chain.createChain(worldVertices)

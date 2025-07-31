@@ -11,8 +11,7 @@ import com.nopalsoft.zombiekiller.game.GameScreen
 import com.nopalsoft.zombiekiller.screens.Screens
 
 class OverlayTutorial(gameScreen: GameScreen) : Group() {
-    @JvmField
-    var isVisible: Boolean = false
+    var isTutorialVisible: Boolean = false
     var currentDialog: LabelDialog? = null
     var helpPad: LabelDialog
     var helpJump: LabelDialog
@@ -89,11 +88,11 @@ class OverlayTutorial(gameScreen: GameScreen) : Group() {
 
     fun show(stage: Stage) {
         stage.addActor(this)
-        isVisible = true
+        isTutorialVisible = true
     }
 
     fun hide() {
-        isVisible = false
+        isTutorialVisible = false
         remove()
     }
 

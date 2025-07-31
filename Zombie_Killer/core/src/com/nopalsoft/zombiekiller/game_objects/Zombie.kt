@@ -5,41 +5,20 @@ import com.badlogic.gdx.physics.box2d.Body
 import com.nopalsoft.zombiekiller.Assets
 
 class Zombie(x: Float, y: Float, type: Int) {
-    @JvmField
-    val type: Int
 
-    @JvmField
+    val type: Int
     val MAX_LIFE: Int
     val TIME_TO_HURT_PLAYER: Float = 1f
-
-    @JvmField
     var state: Int
-
     var WALK_SPEED: Float = 0f
-
-    @JvmField
     var FORCE_IMPACT: Float = 0f
-
-    @JvmField
     var position: Vector2
-
-    @JvmField
     var stateTime: Float
-
-    @JvmField
     var isFacingLeft: Boolean = false
-
-    @JvmField
     var isWalking: Boolean = false
-
-    @JvmField
     var canUpdate: Boolean
     var isFollowing: Boolean
-
-    @JvmField
     var lives: Int = 0
-
-    @JvmField
     var isTouchingPlayer: Boolean = false
     var timeToHurtPlayer: Float = 0f
 
@@ -190,7 +169,7 @@ class Zombie(x: Float, y: Float, type: Int) {
 
         val RISE_DURATION: Float = Assets.zombieKidRise!!.animationDuration + .2f
 
-        @JvmField
+
         val DEAD_DURATION: Float = Assets.zombieKidDie!!.animationDuration + .2f
         const val HURT_DURATION: Float = .3f
     }

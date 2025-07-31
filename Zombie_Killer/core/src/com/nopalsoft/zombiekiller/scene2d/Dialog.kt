@@ -13,11 +13,9 @@ import com.nopalsoft.zombiekiller.Assets
 import com.nopalsoft.zombiekiller.MainZombie
 import com.nopalsoft.zombiekiller.screens.Screens
 
-open class Dialog(@JvmField protected var screen: Screens, width: Float, height: Float, positionY: Float, imageBackgroun: TextureRegionDrawable?) : Group() {
-    @JvmField
-    protected var idiomas: I18NBundle?
+open class Dialog(protected var screen: Screens, width: Float, height: Float, positionY: Float, imageBackgroun: TextureRegionDrawable?) : Group() {
 
-    @JvmField
+    protected var idiomas: I18NBundle?
     protected var game: MainZombie
 
     private var isVisible = false

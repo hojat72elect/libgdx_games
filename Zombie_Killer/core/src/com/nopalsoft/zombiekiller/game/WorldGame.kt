@@ -42,13 +42,13 @@ class WorldGame {
     /**
      * At the moment I did a test with 110 tiles width and everything works fine, the background does not go through.
      */
-    var world: World
+    var world: World = World(Vector2(0f, -9.8f), true)
     var gems: Int = 0
     var skulls: Int = 0
-    var TOTAL_ZOMBIES_LEVEL: Int = 0
+
     var totalZombiesKilled: Int = 0
     var bonus: Int = 0 // If all zombies are killed, the collected gems x2
-    var TIME_TO_FIRE_AGAIN: Float = .3f
+
     var timeToFireAgain: Float = 0f
 
     /*
@@ -67,7 +67,6 @@ class WorldGame {
     var bodies: Array<Body>
 
     init {
-        world = World(Vector2(0f, -9.8f), true)
         world.setContactListener(CollisionHandler())
 
         items = Array<Items?>()
@@ -151,12 +150,11 @@ class WorldGame {
 
     private fun createBullet() {
         val isFacingLeft = hero!!.isFacingLeft
-        val obj: Bullet?
 
-        if (isFacingLeft) {
-            obj = Bullet(hero!!.position.x - .42f, hero!!.position.y - .14f, true)
+        val obj = if (isFacingLeft) {
+            Bullet(hero!!.position.x - .42f, hero!!.position.y - .14f, true)
         } else {
-            obj = Bullet(hero!!.position.x + .42f, hero!!.position.y - .14f, false)
+            Bullet(hero!!.position.x + .42f, hero!!.position.y - .14f, false)
         }
 
         if (!hero!!.isWalking) hero!!.fire() // Puts the state on fire and the animation appears
@@ -192,11 +190,11 @@ class WorldGame {
         val obj: Items?
         val tipo = MathUtils.random(4)
 
-        when (tipo) {
-            0 -> obj = ItemGem(x, y)
-            1 -> obj = ItemHeart(x, y)
-            2 -> obj = ItemShield(x, y)
-            else -> obj = ItemMeat(x, y)
+        obj = when (tipo) {
+            0 -> ItemGem(x, y)
+            1 -> ItemHeart(x, y)
+            2 -> ItemShield(x, y)
+            else -> ItemMeat(x, y)
         }
 
         val bodyDefinition = BodyDef()
@@ -232,18 +230,30 @@ class WorldGame {
         world.getBodies(bodies)
 
         for (body in bodies) {
-            if (body.userData is Hero) {
-                updateHeroPlayer(delta, body, didJump, accelX, accelY)
-            } else if (body.userData is Zombie) {
-                updateZombieMalo(delta, body)
-            } else if (body.userData is Bullet) {
-                updateBullet(delta, body)
-            } else if (body.userData is Crate) {
-                updateCrate(delta, body)
-            } else if (body.userData is Saw) {
-                updateSaw(delta, body)
-            } else if (body.userData is Items) {
-                updateItems(delta, body)
+            when (body.userData) {
+                is Hero -> {
+                    updateHeroPlayer(delta, body, didJump, accelX, accelY)
+                }
+
+                is Zombie -> {
+                    updateZombieMalo(delta, body)
+                }
+
+                is Bullet -> {
+                    updateBullet(delta, body)
+                }
+
+                is Crate -> {
+                    updateCrate(delta, body)
+                }
+
+                is Saw -> {
+                    updateSaw(delta, body)
+                }
+
+                is Items -> {
+                    updateItems(delta, body)
+                }
             }
         }
 
@@ -419,11 +429,10 @@ class WorldGame {
                 val obj = otherObject
                 if (obj.state == Zombie.STATE_NORMAL || obj.state == Zombie.STATE_HURT) {
                     hero!!.hurt()
-                    val sound: Sound?
-                    when (hero!!.type) {
-                        Hero.TYPE_FORCE, Hero.TYPE_RAMBO -> sound = Assets.hurt1
-                        Hero.TYPE_SWAT -> sound = Assets.hurt2
-                        else -> sound = Assets.hurt3
+                    val sound: Sound? = when (hero!!.type) {
+                        Hero.TYPE_FORCE, Hero.TYPE_RAMBO -> Assets.hurt1
+                        Hero.TYPE_SWAT -> Assets.hurt2
+                        else -> Assets.hurt3
                     }
                     Assets.playSound(sound!!, 1f)
 
@@ -535,6 +544,8 @@ class WorldGame {
     }
 
     companion object {
+        var TIME_TO_FIRE_AGAIN: Float = .3f
+        var TOTAL_ZOMBIES_LEVEL = 0
         const val STATE_RUNNING: Int = 0
         const val STATE_GAMEOVER: Int = 1
         const val STATE_NEXT_LEVEL: Int = 2

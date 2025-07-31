@@ -9,19 +9,11 @@ import com.nopalsoft.zombiekiller.Assets
 import com.nopalsoft.zombiekiller.Settings
 
 class TouchPadControls : Table() {
-    @JvmField
+
     var isMovingUp: Boolean = false
-
-    @JvmField
     var isMovingDown: Boolean = false
-
-    @JvmField
     var isMovingLeft: Boolean = false
-
-    @JvmField
     var isMovingRight: Boolean = false
-
-    @JvmField
     var widthButtons: Float = 0f
     var btUp: Button? = null
     var btDown: Button? = null
@@ -29,10 +21,7 @@ class TouchPadControls : Table() {
     var btRight: Button? = null
 
     init {
-        init()
-    }
 
-    private fun init() {
         btUp = Button(Assets.btUp, Assets.btUpPress, Assets.btUpPress)
         btUp!!.addListener(object : ClickListener() {
             override fun enter(event: InputEvent?, x: Float, y: Float, pointer: Int, fromActor: Actor?) {

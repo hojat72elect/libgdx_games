@@ -5,19 +5,12 @@ import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 
 open class Items(x: Float, y: Float, drawWidth: Float, drawHeight: Float) {
-    @JvmField
+
     val DRAW_WIDTH: Float
-
-    @JvmField
     val DRAW_HEIGHT: Float
-
-    @JvmField
     var state: Int
-
-    @JvmField
     var position: Vector2
     var angleDeg: Float = 0f
-
     var stateTime: Float = 0f
 
     init {

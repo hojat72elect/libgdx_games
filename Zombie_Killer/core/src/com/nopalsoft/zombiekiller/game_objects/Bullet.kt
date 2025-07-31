@@ -7,25 +7,13 @@ import com.nopalsoft.zombiekiller.Assets
 import com.nopalsoft.zombiekiller.Settings
 
 class Bullet(x: Float, y: Float, isFacingLeft: Boolean) {
-    @JvmField
+
     val tipo: Int
-
-    @JvmField
     val FORCE_IMPACT: Float
-
-    @JvmField
     val DAMAGE: Int
-
-    @JvmField
     var state: Int
-
-    @JvmField
     var position: Vector2
-
-    @JvmField
     var stateTime: Float = 0f
-
-    @JvmField
     var isFacingLeft: Boolean
 
     init {
@@ -116,7 +104,7 @@ class Bullet(x: Float, y: Float, isFacingLeft: Boolean) {
         const val LEVEL_4_AND_UP: Int = 4
         val DURATION_MUZZLE: Float = Assets.muzzle!!.animationDuration
 
-        @JvmField
+
         var VELOCIDAD: Float = 5f
     }
 }

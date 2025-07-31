@@ -10,13 +10,8 @@ import com.nopalsoft.zombiekiller.screens.MainMenuScreen
 import com.nopalsoft.zombiekiller.screens.Screens
 
 class MainZombie : Game() {
-    @JvmField
     var idiomas: I18NBundle? = null
-
-    @JvmField
     var stage: Stage? = null
-
-    @JvmField
     var batcher: SpriteBatch? = null
     override fun create() {
         idiomas = I18NBundle.createBundle(Gdx.files.internal("strings/strings"))

@@ -160,17 +160,17 @@ class GameScreen(game: MainZombie, level: Int) : Screens(game) {
     }
 
     private fun updateRunning(delta: Float) {
-        if (overlayTutorial.isVisible) return
+        if (overlayTutorial.isTutorialVisible) return
 
         val sensibility = .6f
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || touchpad.knobPercentX < -sensibility || touchPadControls.isMovingLeft) accelerationX = -1f
-        else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || touchpad.knobPercentX > sensibility || touchPadControls.isMovingRight) accelerationX = 1f
-        else accelerationX = 0f
+        accelerationX = if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || touchpad.knobPercentX < -sensibility || touchPadControls.isMovingLeft) -1f
+        else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || touchpad.knobPercentX > sensibility || touchPadControls.isMovingRight) 1f
+        else 0f
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP) || touchpad.knobPercentY > sensibility || touchPadControls.isMovingUp) accelerationY = 1f
-        else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN) || touchpad.knobPercentY < -sensibility || touchPadControls.isMovingDown) accelerationY = -1f
-        else accelerationY = 0f
+        accelerationY = if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP) || touchpad.knobPercentY > sensibility || touchPadControls.isMovingUp) 1f
+        else if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN) || touchpad.knobPercentY < -sensibility || touchPadControls.isMovingDown) -1f
+        else 0f
 
         if (Gdx.input.isKeyPressed(Input.Keys.F)) isFiring = true
 
@@ -188,7 +188,7 @@ class GameScreen(game: MainZombie, level: Int) : Screens(game) {
         }
 
         didJump = false
-        isFiring = didJump
+        isFiring = false
     }
 
     private fun setGameover() {
