@@ -1,5 +1,7 @@
-sourceCompatibility = 15
-sourceSets.main.java.srcDirs = [ "src/" ]
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+}
+sourceSets.main.java.srcDirs = ["src/" ]
 sourceSets.main.resources.srcDirs = ["../android/assets"]
 
 project.ext.mainClassName = "com.nopalsoft.zombiedash.desktop.DesktopLauncher"
@@ -37,3 +39,12 @@ task dist(type: Jar) {
 dist.dependsOn classes
 
 eclipse.project.name = appName + "-desktop"
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+kotlin {
+    jvmToolchain(15)
+}
