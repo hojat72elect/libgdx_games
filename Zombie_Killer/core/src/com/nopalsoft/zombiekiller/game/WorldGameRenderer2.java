@@ -163,7 +163,6 @@ public class WorldGameRenderer2 {
         if (map4 != null)
             tiledRenderer.renderTileLayer(map4);
 
-        // tiledRender.render();
         tiledRenderer.getBatch().end();
     }
 
@@ -209,7 +208,7 @@ public class WorldGameRenderer2 {
 
     private void drawZombie() {
 
-        for (Zombie obj : worldGame.zombies) {
+        for (Zombie zombie : worldGame.zombies) {
 
             AnimationSprite animWalk = null;
             AnimationSprite animIdle = null;
@@ -219,8 +218,8 @@ public class WorldGameRenderer2 {
 
             float ajusteY = 0;
 
-            switch (obj.tipo) {
-                case Zombie.TIPO_CUASY:
+            switch (zombie.type) {
+                case Zombie.TYPE_CUASY:
                     animWalk = Assets.zombieCuasyWalk;
                     animIdle = Assets.zombieCuasyIdle;
                     animRise = Assets.zombieCuasyRise;
@@ -229,7 +228,7 @@ public class WorldGameRenderer2 {
                     ajusteY = -.035f;
                     break;
 
-                case Zombie.TIPO_FRANK:
+                case Zombie.TYPE_FRANK:
                     animWalk = Assets.zombieFrankWalk;
                     animIdle = Assets.zombieFrankIdle;
                     animRise = Assets.zombieFrankRise;
@@ -237,14 +236,14 @@ public class WorldGameRenderer2 {
                     zombieHurt = Assets.zombieFrankHurt;
                     ajusteY = -.033f;
                     break;
-                case Zombie.TIPO_KID:
+                case Zombie.TYPE_KID:
                     animWalk = Assets.zombieKidWalk;
                     animIdle = Assets.zombieKidIdle;
                     animRise = Assets.zombieKidRise;
                     animDie = Assets.zombieKidDie;
                     zombieHurt = Assets.zombieKidHurt;
                     break;
-                case Zombie.TIPO_MUMMY:
+                case Zombie.TYPE_MUMMY:
                     animWalk = Assets.zombieMummyWalk;
                     animIdle = Assets.zombieMummyIdle;
                     animRise = Assets.zombieMummyRise;
@@ -252,7 +251,7 @@ public class WorldGameRenderer2 {
                     zombieHurt = Assets.zombieMummyHurt;
                     ajusteY = -.035f;
                     break;
-                case Zombie.TIPO_PAN:
+                case Zombie.TYPE_PAN:
                     animWalk = Assets.zombiePanWalk;
                     animIdle = Assets.zombiePanIdle;
                     animRise = Assets.zombiePanRise;
@@ -264,34 +263,34 @@ public class WorldGameRenderer2 {
 
             Sprite spriteFrame;
 
-            if (obj.state == Zombie.STATE_NORMAL) {
-                if (obj.isWalking)
-                    spriteFrame = animWalk.getKeyFrame(obj.stateTime, true);
+            if (zombie.state == Zombie.STATE_NORMAL) {
+                if (zombie.isWalking)
+                    spriteFrame = animWalk.getKeyFrame(zombie.stateTime, true);
                 else {
-                    spriteFrame = animIdle.getKeyFrame(obj.stateTime, true);
+                    spriteFrame = animIdle.getKeyFrame(zombie.stateTime, true);
                 }
-            } else if (obj.state == Zombie.STATE_RISE) {
-                spriteFrame = animRise.getKeyFrame(obj.stateTime, false);
-            } else if (obj.state == Zombie.STATE_DEAD) {
-                spriteFrame = animDie.getKeyFrame(obj.stateTime, false);
-            } else if (obj.state == Zombie.STATE_HURT) {
+            } else if (zombie.state == Zombie.STATE_RISE) {
+                spriteFrame = animRise.getKeyFrame(zombie.stateTime, false);
+            } else if (zombie.state == Zombie.STATE_DEAD) {
+                spriteFrame = animDie.getKeyFrame(zombie.stateTime, false);
+            } else if (zombie.state == Zombie.STATE_HURT) {
                 spriteFrame = zombieHurt;
             } else
                 spriteFrame = null;
 
-            if (obj.isFacingLeft) {
-                spriteFrame.setPosition(obj.position.x + .29f, obj.position.y - .34f + ajusteY);
+            if (zombie.isFacingLeft) {
+                spriteFrame.setPosition(zombie.position.x + .29f, zombie.position.y - .34f + ajusteY);
                 spriteFrame.setSize(-.8f, .8f);
                 spriteFrame.draw(batch);
             } else {
-                spriteFrame.setPosition(obj.position.x - .29f, obj.position.y - .34f + ajusteY);
+                spriteFrame.setPosition(zombie.position.x - .29f, zombie.position.y - .34f + ajusteY);
                 spriteFrame.setSize(.8f, .8f);
                 spriteFrame.draw(batch);
             }
 
             // Life bar
-            if (obj.vidas > 0 && (obj.state == Zombie.STATE_NORMAL || obj.state == Zombie.STATE_HURT))
-                batch.draw(Assets.redBar, obj.position.x - .33f, obj.position.y + .36f, .65f * ((float) obj.vidas / obj.MAX_LIFE), .075f);
+            if (zombie.lives > 0 && (zombie.state == Zombie.STATE_NORMAL || zombie.state == Zombie.STATE_HURT))
+                batch.draw(Assets.redBar, zombie.position.x - .33f, zombie.position.y + .36f, .65f * ((float) zombie.lives / zombie.MAX_LIFE), .075f);
         }
     }
 

@@ -16,22 +16,18 @@ public class ProgressBarUI extends Table {
     AtlasRegion bar;
 
     public ProgressBarUI(AtlasRegion bar, AtlasRegion icon, float maxNum, float actualNum, float x, float y) {
-        // this.debug();
         this.setBounds(x, y, WIDTH, HEIGHT);
         this.maxNum = maxNum;
         this.actualNum = actualNum;
-        // setBackground(Assets.backgroundProgressBar, false);
         setBackground(Assets.backgroundProgressBar);
         setIcon(icon);
         this.bar = bar;
     }
 
     public ProgressBarUI(AtlasRegion bar, AtlasRegion icon, float maxNum, float x, float y) {
-        // this.debug();
         this.setBounds(x, y, WIDTH, HEIGHT);
         this.maxNum = maxNum;
         this.actualNum = maxNum;
-        // setBackground(Assets.backgroundProgressBar, false);
         setBackground(Assets.backgroundProgressBar);
         setIcon(icon);
         this.bar = bar;
@@ -47,7 +43,6 @@ public class ProgressBarUI extends Table {
 
     public void updateActualNum(float actualNum) {
         this.actualNum = actualNum;
-
         if (actualNum > maxNum)
             maxNum = actualNum;
     }

@@ -33,7 +33,6 @@ public class DialogRate extends Dialog {
         Table content = new Table();
         content.setSize(375, 90);
         content.setPosition(getWidth() / 2f - content.getWidth() / 2f, 40);
-        // content.debug();
 
         content.defaults().expandX().uniform();
 
@@ -45,7 +44,7 @@ public class DialogRate extends Dialog {
 
     private void initButtons() {
         btYes = new TextButton(idiomas.get("OK"), Assets.styleTextButtonPurchased);
-        screen.addEfectoPress(btYes);
+        screen.addPressEffect(btYes);
         btYes.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 hide();
@@ -53,7 +52,7 @@ public class DialogRate extends Dialog {
         });
 
         btLater = new TextButton(idiomas.get("not_now"), Assets.styleTextButtonPurchased);
-        screen.addEfectoPress(btLater);
+        screen.addPressEffect(btLater);
         btLater.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 hide();

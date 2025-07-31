@@ -11,13 +11,13 @@ public class DialogWarning extends Dialog {
         super(currentScreen, 350, 200, 150, Assets.backgroundSmallWindow);
         setCloseButton(305, 155, 45);
 
-        Label lbShop = new Label(text, Assets.labelStyleChico);
-        lbShop.setFontScale(1);
-        lbShop.setWrap(true);
-        lbShop.setAlignment(Align.center);
-        lbShop.setWidth(getWidth() - 20);
+        Label labelShop = new Label(text, Assets.labelStyleChico);
+        labelShop.setFontScale(1);
+        labelShop.setWrap(true);
+        labelShop.setAlignment(Align.center);
+        labelShop.setWidth(getWidth() - 20);
 
-        lbShop.setPosition(getWidth() / 2f - lbShop.getWidth() / 2f, 90);
-        addActor(lbShop);
+        labelShop.setPosition(getWidth() / 2f - labelShop.getWidth() / 2f, 90);
+        addActor(labelShop);
     }
 }

@@ -33,36 +33,35 @@ public class SettingsScreen extends Screens {
 
     TouchPadControls touchPadControls;
     Touchpad pad;
-    Image btJump, btFire;
+    Image buttonJump, buttonFire;
     Vector3 dragPoint;
 
-    Button btEnablePad;
+    Button buttonEnablePad;
     Slider sliderPadSize;
     Slider sliderButtonSize;
 
-    TextButton btDefaults;
+    TextButton buttonDefaults;
 
-    Button btMenu;
+    Button buttonMenu;
 
     public SettingsScreen(final MainZombie game) {
         super(game);
         dragPoint = new Vector3();
 
-        Table tbSizes = new Table();
-        tbSizes.setPosition(25, 275);
-        // tbSizes.debug();
+        Table tableSizes = new Table();
+        tableSizes.setPosition(25, 275);
 
         Table tbEnablePad = new Table();
 
         Label lbEnablePad = new Label("Enable Pad", Assets.labelStyleChico);
-        btEnablePad = new Button(Assets.upgradeOff, new TextureRegionDrawable(Assets.itemSkull), new TextureRegionDrawable(Assets.itemSkull));
-        btEnablePad.setChecked(Settings.isPadEnabled);
+        buttonEnablePad = new Button(Assets.upgradeOff, new TextureRegionDrawable(Assets.itemSkull), new TextureRegionDrawable(Assets.itemSkull));
+        buttonEnablePad.setChecked(Settings.isPadEnabled);
 
         ClickListener clickEnablePad = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Settings.isPadEnabled = !Settings.isPadEnabled;
-                btEnablePad.setChecked(Settings.isPadEnabled);
+                buttonEnablePad.setChecked(Settings.isPadEnabled);
 
                 pad.remove();
                 touchPadControls.remove();
@@ -77,11 +76,11 @@ public class SettingsScreen extends Screens {
             }
         };
 
-        btEnablePad.addListener(clickEnablePad);
+        buttonEnablePad.addListener(clickEnablePad);
         lbEnablePad.addListener(clickEnablePad);
 
         tbEnablePad.add(lbEnablePad);
-        tbEnablePad.add(btEnablePad).size(30).padLeft(10);
+        tbEnablePad.add(buttonEnablePad).size(30).padLeft(10);
 
         // Size pad
         Label lbPadSize = new Label("Pad size:", Assets.labelStyleChico);
@@ -105,19 +104,19 @@ public class SettingsScreen extends Screens {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 float size = DEFAULT_SIZE_BUTTONS * sliderButtonSize.getValue();
-                btJump.setSize(size, size);
-                btFire.setSize(size, size);
+                buttonJump.setSize(size, size);
+                buttonFire.setSize(size, size);
                 Settings.buttonSize = size;
             }
         });
 
-        btDefaults = new TextButton("Defaults", Assets.styleTextButtonBuy);
-        addEfectoPress(btDefaults);
-        btDefaults.addListener(new ClickListener() {
+        buttonDefaults = new TextButton("Defaults", Assets.styleTextButtonBuy);
+        addPressEffect(buttonDefaults);
+        buttonDefaults.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                btFire.setSize(DEFAULT_SIZE_BUTTONS, DEFAULT_SIZE_BUTTONS);
-                btJump.setSize(DEFAULT_SIZE_BUTTONS, DEFAULT_SIZE_BUTTONS);
+                buttonFire.setSize(DEFAULT_SIZE_BUTTONS, DEFAULT_SIZE_BUTTONS);
+                buttonJump.setSize(DEFAULT_SIZE_BUTTONS, DEFAULT_SIZE_BUTTONS);
                 pad.setSize(DEFAULT_SIZE_PAD, DEFAULT_SIZE_PAD);
                 touchPadControls.setNewSize(DEFAULT_SIZE_PAD);
                 sliderButtonSize.setValue(1);
@@ -125,31 +124,31 @@ public class SettingsScreen extends Screens {
 
                 pad.setPosition(DEFAULT_POSITION_PAD.x, DEFAULT_POSITION_PAD.y);
                 touchPadControls.setPosition(DEFAULT_POSITION_PAD.x, DEFAULT_POSITION_PAD.y);
-                btFire.setPosition(DEFAULT_POSITION_BUTTON_FIRE.x, DEFAULT_POSITION_BUTTON_FIRE.y);
-                btJump.setPosition(DEFAULT_POSITION_BUTTON_JUMP.x, DEFAULT_POSITION_BUTTON_JUMP.y);
+                buttonFire.setPosition(DEFAULT_POSITION_BUTTON_FIRE.x, DEFAULT_POSITION_BUTTON_FIRE.y);
+                buttonJump.setPosition(DEFAULT_POSITION_BUTTON_JUMP.x, DEFAULT_POSITION_BUTTON_JUMP.y);
 
                 Settings.saveNewPadSettings(pad.getX(), pad.getY(), pad.getWidth());
-                Settings.saveNewButtonFireSettings(btFire.getX(), btFire.getY(), btFire.getWidth());
-                Settings.saveNewButtonJumpSettings(btJump.getX(), btJump.getY(), btJump.getWidth());
+                Settings.saveNewButtonFireSettings(buttonFire.getX(), buttonFire.getY(), buttonFire.getWidth());
+                Settings.saveNewButtonJumpSettings(buttonJump.getX(), buttonJump.getY(), buttonJump.getWidth());
             }
         });
 
-        tbSizes.defaults().left();
+        tableSizes.defaults().left();
 
-        tbSizes.add(tbEnablePad).colspan(2);
-        tbSizes.row().padTop(20);
+        tableSizes.add(tbEnablePad).colspan(2);
+        tableSizes.row().padTop(20);
 
-        tbSizes.add(lbPadSize);
-        tbSizes.add(lbButtonsSize).padLeft(100);
+        tableSizes.add(lbPadSize);
+        tableSizes.add(lbButtonsSize).padLeft(100);
 
-        tbSizes.row().padTop(20);
-        tbSizes.add(sliderPadSize).width(200);
-        tbSizes.add(sliderButtonSize).width(200).padLeft(100);
+        tableSizes.row().padTop(20);
+        tableSizes.add(sliderPadSize).width(200);
+        tableSizes.add(sliderButtonSize).width(200).padLeft(100);
 
-        tbSizes.row().colspan(2).padTop(20);
-        tbSizes.add(btDefaults).height(50);
+        tableSizes.row().colspan(2).padTop(20);
+        tableSizes.add(buttonDefaults).height(50);
 
-        tbSizes.pack();
+        tableSizes.pack();
 
         touchPadControls = new TouchPadControls();
         touchPadControls.setPosition(Settings.padPositionX, Settings.padPositionY);
@@ -184,47 +183,47 @@ public class SettingsScreen extends Screens {
             }
         });
 
-        btJump = new Image(Assets.btUp);
-        btJump.setSize(Settings.buttonSize, Settings.buttonSize);
-        btJump.setPosition(Settings.buttonJumpPositionX, Settings.buttonJumpPositionY);
-        btJump.getColor().a = .5f;
-        addEfectoPress(btJump);
-        btJump.addListener(new DragListener() {
+        buttonJump = new Image(Assets.btUp);
+        buttonJump.setSize(Settings.buttonSize, Settings.buttonSize);
+        buttonJump.setPosition(Settings.buttonJumpPositionX, Settings.buttonJumpPositionY);
+        buttonJump.getColor().a = .5f;
+        addPressEffect(buttonJump);
+        buttonJump.addListener(new DragListener() {
             @Override
             public void drag(InputEvent event, float x, float y, int pointer) {
                 stage.getCamera().unproject(dragPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
-                btJump.setPosition(dragPoint.x - btJump.getWidth() / 2f, dragPoint.y - btJump.getHeight() / 2f);
+                buttonJump.setPosition(dragPoint.x - buttonJump.getWidth() / 2f, dragPoint.y - buttonJump.getHeight() / 2f);
             }
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
-                Settings.saveNewButtonJumpSettings(btJump.getX(), btJump.getY(), btJump.getWidth());
+                Settings.saveNewButtonJumpSettings(buttonJump.getX(), buttonJump.getY(), buttonJump.getWidth());
             }
         });
 
-        btFire = new Image(Assets.btFire);
-        btFire.setSize(Settings.buttonSize, Settings.buttonSize);
-        btFire.setPosition(Settings.buttonFirePositionX, Settings.buttonFirePositionY);
-        btFire.getColor().a = .5f;
-        addEfectoPress(btFire);
-        btFire.addListener(new DragListener() {
+        buttonFire = new Image(Assets.btFire);
+        buttonFire.setSize(Settings.buttonSize, Settings.buttonSize);
+        buttonFire.setPosition(Settings.buttonFirePositionX, Settings.buttonFirePositionY);
+        buttonFire.getColor().a = .5f;
+        addPressEffect(buttonFire);
+        buttonFire.addListener(new DragListener() {
             @Override
             public void drag(InputEvent event, float x, float y, int pointer) {
                 stage.getCamera().unproject(dragPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
-                btFire.setPosition(dragPoint.x - btFire.getWidth() / 2f, dragPoint.y - btFire.getHeight() / 2f);
+                buttonFire.setPosition(dragPoint.x - buttonFire.getWidth() / 2f, dragPoint.y - buttonFire.getHeight() / 2f);
             }
 
             @Override
             public void dragStop(InputEvent event, float x, float y, int pointer) {
-                Settings.saveNewButtonFireSettings(btFire.getX(), btFire.getY(), btFire.getWidth());
+                Settings.saveNewButtonFireSettings(buttonFire.getX(), buttonFire.getY(), buttonFire.getWidth());
             }
         });
 
-        btMenu = new Button(Assets.btMenu);
-        btMenu.setSize(45, 45);
-        btMenu.setPosition(SCREEN_WIDTH - 50, SCREEN_HEIGHT - 50);
-        addEfectoPress(btMenu);
-        btMenu.addListener(new ClickListener() {
+        buttonMenu = new Button(Assets.btMenu);
+        buttonMenu.setSize(45, 45);
+        buttonMenu.setPosition(SCREEN_WIDTH - 50, SCREEN_HEIGHT - 50);
+        addPressEffect(buttonMenu);
+        buttonMenu.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(MainMenuScreen.class, game);
@@ -235,10 +234,10 @@ public class SettingsScreen extends Screens {
             stage.addActor(pad);
         else
             stage.addActor(touchPadControls);
-        stage.addActor(btJump);
-        stage.addActor(btFire);
-        stage.addActor(tbSizes);
-        stage.addActor(btMenu);
+        stage.addActor(buttonJump);
+        stage.addActor(buttonFire);
+        stage.addActor(tableSizes);
+        stage.addActor(buttonMenu);
     }
 
     @Override

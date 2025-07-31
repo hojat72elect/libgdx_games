@@ -59,59 +59,59 @@ public class PlayersSubMenu {
         if (!didBuyVader)
             labelPriceVader = new Label(PRICE_HERO_VADER + "", Assets.labelStyleChico);
 
-        inicializarBotones();
+        createButtons();
 
-        containerTable.add(agregarPersonajeTabla(languagesBundle.get("swat"), null, Assets.heroSwatWalk, languagesBundle.get("swat_description"), buttonBuySWAT)).expandX().fill();
+        containerTable.add(createPlayerTable(languagesBundle.get("swat"), null, Assets.heroSwatWalk, languagesBundle.get("swat_description"), buttonBuySWAT)).expandX().fill();
         containerTable.row();
 
-        containerTable.add(agregarPersonajeTabla(languagesBundle.get("guerrilla"), labelPriceRambo, Assets.heroRamboWalk, languagesBundle.get("guerrilla_description"), buttonBuyRambo)).expandX().fill();
+        containerTable.add(createPlayerTable(languagesBundle.get("guerrilla"), labelPriceRambo, Assets.heroRamboWalk, languagesBundle.get("guerrilla_description"), buttonBuyRambo)).expandX().fill();
         containerTable.row();
 
-        containerTable.add(agregarPersonajeTabla(languagesBundle.get("soldier"), labelPriceSoldier, Assets.heroSoldierWalk, languagesBundle.get("soldier_description"), buttonBuySoldier)).expandX().fill();
+        containerTable.add(createPlayerTable(languagesBundle.get("soldier"), labelPriceSoldier, Assets.heroSoldierWalk, languagesBundle.get("soldier_description"), buttonBuySoldier)).expandX().fill();
         containerTable.row();
 
-        containerTable.add(agregarPersonajeTabla(languagesBundle.get("elite_force"), labelPriceElite, Assets.heroForceWalk, languagesBundle.get("elite_force_description"), buttonBuyElite)).expandX().fill();
+        containerTable.add(createPlayerTable(languagesBundle.get("elite_force"), labelPriceElite, Assets.heroForceWalk, languagesBundle.get("elite_force_description"), buttonBuyElite)).expandX().fill();
         containerTable.row();
 
-        containerTable.add(agregarPersonajeTabla(languagesBundle.get("ghost"), labelPriceVader, Assets.heroVaderWalk, languagesBundle.get("ghost_description"), buttonBuyVader)).expandX().fill();
+        containerTable.add(createPlayerTable(languagesBundle.get("ghost"), labelPriceVader, Assets.heroVaderWalk, languagesBundle.get("ghost_description"), buttonBuyVader)).expandX().fill();
         containerTable.row();
     }
 
-    private Table agregarPersonajeTabla(String titulo, Label lblPrecio, AnimationSprite imagen, String descripcion, TextButton boton) {
+    private Table createPlayerTable(String title, Label priceLabel, AnimationSprite playerAnimation, String description, TextButton button) {
 
-        Image moneda = new Image(Assets.itemGem);
-        AnimatedSpriteActor imgPersonaje = new AnimatedSpriteActor(imagen);
+        Image coinImage = new Image(Assets.itemGem);
+        AnimatedSpriteActor playerSpriteActor = new AnimatedSpriteActor(playerAnimation);
 
-        if (lblPrecio == null)
-            moneda.setVisible(false);
+        if (priceLabel == null)
+            coinImage.setVisible(false);
 
-        Table tbBarraTitulo = new Table();
-        tbBarraTitulo.add(new Label(titulo, Assets.labelStyleChico)).expandX().left();
-        tbBarraTitulo.add(moneda).right().size(20);
-        tbBarraTitulo.add(lblPrecio).right().padRight(10);
+        Table titleBarTable = new Table();
+        titleBarTable.add(new Label(title, Assets.labelStyleChico)).expandX().left();
+        titleBarTable.add(coinImage).right().size(20);
+        titleBarTable.add(priceLabel).right().padRight(10);
 
         Table tbContent = new Table();
         tbContent.pad(0);
         tbContent.setBackground(Assets.storeTableBackground);
 
         tbContent.defaults().padLeft(20).padRight(20);
-        tbContent.add(tbBarraTitulo).expandX().fill().colspan(2).padTop(20);
+        tbContent.add(titleBarTable).expandX().fill().colspan(2).padTop(20);
         tbContent.row();
-        tbContent.add(imgPersonaje).left().size(70, 70);
+        tbContent.add(playerSpriteActor).left().size(70, 70);
 
-        Label lblDescripcion = new Label(descripcion, Assets.labelStyleChico);
-        lblDescripcion.setWrap(true);
-        lblDescripcion.setFontScale(.9f);
-        tbContent.add(lblDescripcion).expand().fill().padLeft(5);
+        Label descriptionLabel = new Label(description, Assets.labelStyleChico);
+        descriptionLabel.setWrap(true);
+        descriptionLabel.setFontScale(.9f);
+        tbContent.add(descriptionLabel).expand().fill().padLeft(5);
 
         tbContent.row().colspan(2);
-        tbContent.add(boton).expandX().right().padBottom(20).size(120, 45);
+        tbContent.add(button).expandX().right().padBottom(20).size(120, 45);
         tbContent.row().colspan(2);
 
         return tbContent;
     }
 
-    private void inicializarBotones() {
+    private void createButtons() {
         buttons = new Array<>();
 
         buttonBuySWAT = new TextButton(textSelect, Assets.styleTextButtonPurchased);
@@ -256,7 +256,7 @@ public class PlayersSubMenu {
     }
 
     private void setSelected(TextButton button) {
-        // Pongo todos visibles y al final el boton seleccionado en invisible
+        // I make all visible and at the end the selected button invisible.
         for (TextButton arrBotone : buttons) {
             arrBotone.setVisible(true);
         }

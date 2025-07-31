@@ -270,21 +270,21 @@ public class WorldGame {
                 && obj.position.y > hero.position.y - .5f && !obj.canUpdate) {
             obj.canUpdate = true;
             Sound sound = null;
-            switch (obj.tipo) {
+            switch (obj.type) {
 
-                case Zombie.TIPO_CUASY:
+                case Zombie.TYPE_CUASY:
                     sound = Assets.zombieCuasy;
                     break;
-                case Zombie.TIPO_FRANK:
+                case Zombie.TYPE_FRANK:
                     sound = Assets.zombieFrank;
                     break;
-                case Zombie.TIPO_KID:
+                case Zombie.TYPE_KID:
                     sound = Assets.zombieKid;
                     break;
-                case Zombie.TIPO_MUMMY:
+                case Zombie.TYPE_MUMMY:
                     sound = Assets.zombieMummy;
                     break;
-                case Zombie.TIPO_PAN:
+                case Zombie.TYPE_PAN:
                     sound = Assets.zombiePan;
                     break;
             }
@@ -343,7 +343,7 @@ public class WorldGame {
                     }
                 } else if (body.getUserData() instanceof Zombie) {
                     Zombie obj = (Zombie) body.getUserData();
-                    if (obj.state == Zombie.STATE_DEAD && obj.stateTime >= Zombie.DURATION_DEAD) {
+                    if (obj.state == Zombie.STATE_DEAD && obj.stateTime >= Zombie.DEAD_DURATION) {
                         float x = obj.position.x;
                         float y = obj.position.y;
                         zombies.removeValue(obj, true);
@@ -492,10 +492,10 @@ public class WorldGame {
                         oBullet.hit();
 
                         float impulse = 0;
-                        switch (obj.tipo) {
-                            case Zombie.TIPO_KID:
-                            case Zombie.TIPO_MUMMY:
-                            case Zombie.TIPO_CUASY:
+                        switch (obj.type) {
+                            case Zombie.TYPE_KID:
+                            case Zombie.TYPE_MUMMY:
+                            case Zombie.TYPE_CUASY:
                                 impulse = oBullet.isFacingLeft ? -oBullet.FORCE_IMPACT : oBullet.FORCE_IMPACT;
                                 break;
                         }

@@ -51,7 +51,7 @@ public class DialogGameover extends Dialog {
         btMenu = new Button(Assets.btMenu);
         btMenu.setSize(buttonSize, buttonSize);
 
-        screen.addEfectoPress(btMenu);
+        screen.addPressEffect(btMenu);
         btMenu.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 hide();
@@ -61,7 +61,7 @@ public class DialogGameover extends Dialog {
 
         btShop = new Button(Assets.btShop);
         btShop.setSize(buttonSize, buttonSize);
-        screen.addEfectoPress(btShop);
+        screen.addPressEffect(btShop);
         btShop.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 ventanaShop.show(screen.stage);
@@ -70,7 +70,7 @@ public class DialogGameover extends Dialog {
 
         btTryAgain = new Button(Assets.btTryAgain);
         btTryAgain.setSize(buttonSize, buttonSize);
-        screen.addEfectoPress(btTryAgain);
+        screen.addPressEffect(btTryAgain);
         btTryAgain.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 hide();

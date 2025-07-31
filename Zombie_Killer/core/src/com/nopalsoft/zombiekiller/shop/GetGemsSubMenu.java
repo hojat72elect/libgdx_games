@@ -15,112 +15,112 @@ import com.nopalsoft.zombiekiller.Settings;
 
 public class GetGemsSubMenu {
 
-    int monedasLikeFacebook = 1500;
+    int facebookLikeReward = 1500;
 
-    // Comun
-    TextButton btLikeFacebook;
-    TextButton btInviteFacebook;
+    // Common
+    TextButton buttonLikeFacebook;
+    TextButton buttonInviteFacebook;
 
     // iOS
-    TextButton btBuy5milCoins, btBuy15MilCoins, btBuy30MilCoins, btBuy50MilCoins;
+    TextButton buttonBuy5kCoins, buttonBuy15k, buttonBuy30kCoins, buttonBuy50kCoins;
 
-    Table contenedor;
+    Table containerTable;
     MainZombie game;
-    I18NBundle idiomas;
+    I18NBundle languagesBundle;
     String textBuy;
 
-    public GetGemsSubMenu(final MainZombie game, Table contenedor) {
+    public GetGemsSubMenu(final MainZombie game, Table containerTable) {
         this.game = game;
-        this.contenedor = contenedor;
-        idiomas = game.idiomas;
-        contenedor.clear();
+        this.containerTable = containerTable;
+        languagesBundle = game.idiomas;
+        containerTable.clear();
 
-        textBuy = idiomas.get("buy");
+        textBuy = languagesBundle.get("buy");
 
-        btLikeFacebook = new TextButton(idiomas.get("like_us"), Assets.styleTextButtonBuy);
+        buttonLikeFacebook = new TextButton(languagesBundle.get("like_us"), Assets.styleTextButtonBuy);
         if (Settings.didLikeFacebook)
-            btLikeFacebook = new TextButton(idiomas.get("visit_us"), Assets.styleTextButtonPurchased);
-        addEfectoPress(btLikeFacebook);
+            buttonLikeFacebook = new TextButton(languagesBundle.get("visit_us"), Assets.styleTextButtonPurchased);
+        addPressEffect(buttonLikeFacebook);
 
-        btInviteFacebook = new TextButton(idiomas.get("invite"), Assets.styleTextButtonBuy);
-        addEfectoPress(btInviteFacebook);
+        buttonInviteFacebook = new TextButton(languagesBundle.get("invite"), Assets.styleTextButtonBuy);
+        addPressEffect(buttonInviteFacebook);
 
-        btBuy5milCoins = new TextButton(textBuy, Assets.styleTextButtonBuy);
-        addEfectoPress(btBuy5milCoins);
-
-
-        btBuy15MilCoins = new TextButton(textBuy, Assets.styleTextButtonBuy);
-        addEfectoPress(btBuy15MilCoins);
+        buttonBuy5kCoins = new TextButton(textBuy, Assets.styleTextButtonBuy);
+        addPressEffect(buttonBuy5kCoins);
 
 
-        btBuy30MilCoins = new TextButton(textBuy, Assets.styleTextButtonBuy);
-        addEfectoPress(btBuy30MilCoins);
-
-        btBuy50MilCoins = new TextButton(textBuy, Assets.styleTextButtonBuy);
-        addEfectoPress(btBuy50MilCoins);
+        buttonBuy15k = new TextButton(textBuy, Assets.styleTextButtonBuy);
+        addPressEffect(buttonBuy15k);
 
 
-        String faceLikeDescription = idiomas.format("facebook_like_description", monedasLikeFacebook);
-        String faceInviteDescription = idiomas.format("facebook_invite_description", Settings.NUM_GEMS_INVITE_FACEBOOK);
+        buttonBuy30kCoins = new TextButton(textBuy, Assets.styleTextButtonBuy);
+        addPressEffect(buttonBuy30kCoins);
+
+        buttonBuy50kCoins = new TextButton(textBuy, Assets.styleTextButtonBuy);
+        addPressEffect(buttonBuy50kCoins);
 
 
-        contenedor.add(agregarPersonajeTabla(monedasLikeFacebook, Assets.btFacebook, faceLikeDescription, btLikeFacebook)).expandX().fill();
-        contenedor.row();
+        String faceLikeDescription = languagesBundle.format("facebook_like_description", facebookLikeReward);
+        String faceInviteDescription = languagesBundle.format("facebook_invite_description", Settings.NUM_GEMS_INVITE_FACEBOOK);
 
-        contenedor.add(agregarPersonajeTabla(Settings.NUM_GEMS_INVITE_FACEBOOK, Assets.btFacebook, faceInviteDescription, btInviteFacebook))
+
+        containerTable.add(createPlayerTable(facebookLikeReward, Assets.btFacebook, faceLikeDescription, buttonLikeFacebook)).expandX().fill();
+        containerTable.row();
+
+        containerTable.add(createPlayerTable(Settings.NUM_GEMS_INVITE_FACEBOOK, Assets.btFacebook, faceInviteDescription, buttonInviteFacebook))
                 .expandX().fill();
-        contenedor.row();
+        containerTable.row();
 
 
-        TextureRegionDrawable moneda = new TextureRegionDrawable(Assets.itemGem);
-        // Venta de monedas
+        TextureRegionDrawable coinDrawable = new TextureRegionDrawable(Assets.itemGem);
+        // Coin sale
 
-        // Comprar 5mil
-        contenedor.add(agregarPersonajeTabla(5000, moneda, idiomas.get("coin_simple_pack"), btBuy5milCoins)).expandX().fill();
-        contenedor.row();
+        // Buy 5 thousand
+        containerTable.add(createPlayerTable(5000, coinDrawable, languagesBundle.get("coin_simple_pack"), buttonBuy5kCoins)).expandX().fill();
+        containerTable.row();
 
-        // Comprar 15mil
-        contenedor.add(agregarPersonajeTabla(15000, moneda, idiomas.get("coin_super_pack"), btBuy15MilCoins)).expandX().fill();
-        contenedor.row();
+        // Buy 15 thousand
+        containerTable.add(createPlayerTable(15000, coinDrawable, languagesBundle.get("coin_super_pack"), buttonBuy15k)).expandX().fill();
+        containerTable.row();
 
-        contenedor.add(agregarPersonajeTabla(30000, moneda, idiomas.get("coin_mega_pack"), btBuy30MilCoins)).expandX().fill();
-        contenedor.row();
+        containerTable.add(createPlayerTable(30000, coinDrawable, languagesBundle.get("coin_mega_pack"), buttonBuy30kCoins)).expandX().fill();
+        containerTable.row();
 
-        contenedor.add(agregarPersonajeTabla(50000, moneda, idiomas.get("coin_super_mega_pack"), btBuy50MilCoins)).expandX().fill();
-        contenedor.row();
+        containerTable.add(createPlayerTable(50000, coinDrawable, languagesBundle.get("coin_super_mega_pack"), buttonBuy50kCoins)).expandX().fill();
+        containerTable.row();
     }
 
-    private Table agregarPersonajeTabla(int numMonedasToGet, TextureRegionDrawable imagen, String descripcion, TextButton boton) {
+    private Table createPlayerTable(int numCoinsToAward, TextureRegionDrawable playerDrawable, String description, TextButton button) {
 
-        Image moneda = new Image(Assets.itemGem);
-        Image imgPersonaje = new Image(imagen);
+        Image coinImage = new Image(Assets.itemGem);
+        Image playerImage = new Image(playerDrawable);
 
-        Table tbBarraTitulo = new Table();
-        tbBarraTitulo.add(new Label(idiomas.format("get_num", numMonedasToGet), Assets.labelStyleChico)).left().padLeft(5);
-        tbBarraTitulo.add(moneda).left().expandX().padLeft(5).size(20);
+        Table titleBarTable = new Table();
+        titleBarTable.add(new Label(languagesBundle.format("get_num", numCoinsToAward), Assets.labelStyleChico)).left().padLeft(5);
+        titleBarTable.add(coinImage).left().expandX().padLeft(5).size(20);
 
-        Table tbDescrip = new Table();
-        tbDescrip.add(imgPersonaje).left().pad(10).size(55, 45);
-        Label lblDescripcion = new Label(descripcion, Assets.labelStyleChico);
-        lblDescripcion.setWrap(true);
-        lblDescripcion.setFontScale(.9f);
-        tbDescrip.add(lblDescripcion).expand().fill().padLeft(5);
+        Table descriptionTable = new Table();
+        descriptionTable.add(playerImage).left().pad(10).size(55, 45);
+        Label labelDescription = new Label(description, Assets.labelStyleChico);
+        labelDescription.setWrap(true);
+        labelDescription.setFontScale(.9f);
+        descriptionTable.add(labelDescription).expand().fill().padLeft(5);
 
-        Table tbContent = new Table();
-        tbContent.pad(0);
-        tbContent.defaults().padLeft(20).padRight(20);
-        tbContent.setBackground(Assets.storeTableBackground);
-        tbContent.add(tbBarraTitulo).expandX().fill().colspan(2).padTop(20);
-        tbContent.row().colspan(2);
-        tbContent.add(tbDescrip).expandX().fill();
-        tbContent.row().colspan(2);
+        Table tableContent = new Table();
+        tableContent.pad(0);
+        tableContent.defaults().padLeft(20).padRight(20);
+        tableContent.setBackground(Assets.storeTableBackground);
+        tableContent.add(titleBarTable).expandX().fill().colspan(2).padTop(20);
+        tableContent.row().colspan(2);
+        tableContent.add(descriptionTable).expandX().fill();
+        tableContent.row().colspan(2);
 
-        tbContent.add(boton).right().padBottom(20).size(120, 45);
+        tableContent.add(button).right().padBottom(20).size(120, 45);
 
-        return tbContent;
+        return tableContent;
     }
 
-    protected void addEfectoPress(final Actor actor) {
+    protected void addPressEffect(final Actor actor) {
         actor.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

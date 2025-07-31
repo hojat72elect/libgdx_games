@@ -99,7 +99,7 @@ public class DialogSelectLevel extends Dialog {
             }
         });
 
-        screen.addEfectoPress(button);
+        screen.addPressEffect(button);
 
         return button;
     }

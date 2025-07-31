@@ -12,9 +12,7 @@ public class SkullBar extends Table {
     Image[] arrSkulls;
 
     public SkullBar(float x, float y) {
-        // this.debug();
         this.setBounds(x - WIDTH / 2f, y, WIDTH, HEIGHT);
-        // setBackground(Assets.skullBarBackground, false);
         setBackground(Assets.skullBarBackground);
         arrSkulls = new Image[3];
 

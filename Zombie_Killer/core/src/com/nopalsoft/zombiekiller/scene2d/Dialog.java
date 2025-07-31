@@ -35,7 +35,7 @@ public class Dialog extends Group {
         Button btClose = new Button(Assets.btClose);
         btClose.setSize(size, size);
         btClose.setPosition(positionX, positionY);
-        screen.addEfectoPress(btClose);
+        screen.addPressEffect(btClose);
         btClose.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

@@ -260,18 +260,18 @@ public class TiledMapManagerBox2d {
 
         defaultFixtureDefinition.shape = shape;
 
-        Saw obj = new Saw(x, y, width);
+        Saw saw = new Saw(x, y, width);
 
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.x = obj.position.x;
-        bodyDef.position.y = obj.position.y;
+        bodyDef.position.x = saw.position.x;
+        bodyDef.position.y = saw.position.y;
         bodyDef.type = BodyType.KinematicBody;
         Body body = world.createBody(bodyDef);
 
         body.createFixture(defaultFixtureDefinition);
 
-        worldGame.saws.add(obj);
-        body.setUserData(obj);
+        worldGame.saws.add(saw);
+        body.setUserData(saw);
         body.setAngularVelocity((float) Math.toRadians(360));
 
         shape.dispose();
@@ -335,19 +335,19 @@ public class TiledMapManagerBox2d {
 
         switch (type) {
             case "zombieCuasy":
-                obj = new Zombie(x, y, Zombie.TIPO_CUASY);
+                obj = new Zombie(x, y, Zombie.TYPE_CUASY);
                 break;
             case "zombieFrank":
-                obj = new Zombie(x, y, Zombie.TIPO_FRANK);
+                obj = new Zombie(x, y, Zombie.TYPE_FRANK);
                 break;
             case "zombieKid":
-                obj = new Zombie(x, y, Zombie.TIPO_KID);
+                obj = new Zombie(x, y, Zombie.TYPE_KID);
                 break;
             case "zombieMummy":
-                obj = new Zombie(x, y, Zombie.TIPO_MUMMY);
+                obj = new Zombie(x, y, Zombie.TYPE_MUMMY);
                 break;
             case "zombiePan":
-                obj = new Zombie(x, y, Zombie.TIPO_PAN);
+                obj = new Zombie(x, y, Zombie.TYPE_PAN);
                 break;
         }
 

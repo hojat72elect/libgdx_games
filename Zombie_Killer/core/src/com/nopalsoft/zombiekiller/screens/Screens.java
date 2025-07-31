@@ -68,7 +68,7 @@ public abstract class Screens extends InputAdapter implements Screen {
         stage.draw();
     }
 
-    public void addEfectoPress(final Actor actor) {
+    public void addPressEffect(final Actor actor) {
         actor.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -99,8 +99,6 @@ public abstract class Screens extends InputAdapter implements Screen {
                 else if (newScreen == SettingsScreen.class)
                     game.setScreen(new SettingsScreen(game));
 
-                // El blackFadeOut se remueve del stage cuando se le da new Screens(game) "Revisar el constructor de la clase Screens" por lo que no hay necesidad de hacer
-                // blackFadeout.remove();
             }
         })));
 
@@ -125,12 +123,12 @@ public abstract class Screens extends InputAdapter implements Screen {
                 heroRun = Assets.heroVaderWalk;
                 break;
         }
-        AnimatedSpriteActor corriendo = new AnimatedSpriteActor(heroRun);
-        corriendo.setSize(70, 70);
-        corriendo.setPosition(SCREEN_WIDTH / 2f - corriendo.getWidth() / 2f, 250);
+        AnimatedSpriteActor runningAnimatedHero = new AnimatedSpriteActor(heroRun);
+        runningAnimatedHero.setSize(70, 70);
+        runningAnimatedHero.setPosition(SCREEN_WIDTH / 2f - runningAnimatedHero.getWidth() / 2f, 250);
 
         stage.addActor(blackFadeOut);
-        stage.addActor(corriendo);
+        stage.addActor(runningAnimatedHero);
         stage.addActor(lbl);
     }
 

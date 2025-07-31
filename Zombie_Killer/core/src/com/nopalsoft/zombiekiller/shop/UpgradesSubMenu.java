@@ -251,12 +251,12 @@ public class UpgradesSubMenu {
         }
     }
 
-    private void updateLabelPriceAndButton(int nivel, Label label, TextButton boton) {
-        if (nivel < MAX_LEVEL) {
-            label.setText(calcularPrecio(nivel) + "");
+    private void updateLabelPriceAndButton(int level, Label label, TextButton button) {
+        if (level < MAX_LEVEL) {
+            label.setText(calcularPrecio(level) + "");
         } else {
             label.setVisible(false);
-            boton.setVisible(false);
+            button.setVisible(false);
         }
     }
 

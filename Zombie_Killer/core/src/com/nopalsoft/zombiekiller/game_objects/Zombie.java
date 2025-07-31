@@ -5,73 +5,81 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.nopalsoft.zombiekiller.Assets;
 
 public class Zombie {
+
     public final static int STATE_RISE = 0;
     public final static int STATE_NORMAL = 1;
     public final static int STATE_HURT = 2;
     public final static int STATE_DEAD = 3;
-    public final static int TIPO_KID = 0;
-    public final static int TIPO_FRANK = 1;
-    public final static int TIPO_CUASY = 2;
-    public final static int TIPO_PAN = 3;
-    public final static int TIPO_MUMMY = 4;
-    public final static float DURATION_RISE = Assets.zombieKidRise.animationDuration + .2f;
-    public final static float DURATION_DEAD = Assets.zombieKidDie.animationDuration + .2f;
-    public final static float DURATION_HURT = .3f;
-    public final int tipo;
+
+    public final static int TYPE_KID = 0;
+    public final static int TYPE_FRANK = 1;
+    public final static int TYPE_CUASY = 2;
+    public final static int TYPE_PAN = 3;
+    public final static int TYPE_MUMMY = 4;
+
+    public final static float RISE_DURATION = Assets.zombieKidRise.animationDuration + .2f;
+    public final static float DEAD_DURATION = Assets.zombieKidDie.animationDuration + .2f;
+    public final static float HURT_DURATION = .3f;
+
+    public final int type;
     public final int MAX_LIFE;
     public final float TIME_TO_HURT_PLAYER = 1;
     public int state;
-    public float VELOCIDAD_WALK;
+
+    public float WALK_SPEED;
     public float FORCE_IMPACT;
+
     public Vector2 position;
     public float stateTime;
     public boolean isFacingLeft;
     public boolean isWalking;
     public boolean canUpdate;
     public boolean isFollowing;
-    public int vidas;
+    public int lives;
     public boolean isTouchingPlayer;
     float timeToHurtPlayer;
 
-    public Zombie(float x, float y, int tipo) {
+    public Zombie(float x, float y, int type) {
         position = new Vector2(x, y);
         state = STATE_RISE;
         stateTime = 0;
-        this.tipo = tipo;
+        this.type = type;
         canUpdate = false;
 
         isFollowing = true;
 
-        switch (tipo) {
-            case TIPO_KID:
-                vidas = 5;
+        switch (type) {
+            case TYPE_KID:
+                lives = 5;
                 FORCE_IMPACT = 2.5f;
-                VELOCIDAD_WALK = 1.1f;
+                WALK_SPEED = 1.1f;
                 break;
 
-            case TIPO_CUASY:
-                vidas = 15;
+            case TYPE_CUASY:
+                lives = 15;
                 FORCE_IMPACT = 3;
-                VELOCIDAD_WALK = .5f;
+                WALK_SPEED = .5f;
                 break;
 
-            case TIPO_MUMMY:
-                vidas = 100;
+            case TYPE_MUMMY:
+                lives = 100;
                 FORCE_IMPACT = 8;
-                VELOCIDAD_WALK = .5f;
+                WALK_SPEED = .5f;
                 break;
-            case TIPO_PAN:
-                vidas = 50;
+
+            case TYPE_PAN:
+                lives = 50;
                 FORCE_IMPACT = 4;
-                VELOCIDAD_WALK = .7f;
+                WALK_SPEED = .7f;
                 break;
-            case TIPO_FRANK:
-                vidas = 120;
+
+            case TYPE_FRANK:
+                lives = 120;
                 FORCE_IMPACT = 5;
-                VELOCIDAD_WALK = 1.3f;
+                WALK_SPEED = 1.3f;
                 break;
         }
-        MAX_LIFE = vidas;
+        MAX_LIFE = lives;
     }
 
     public void update(float delta, Body body, float accelX, Hero oHero) {
@@ -80,8 +88,7 @@ public class Zombie {
         position.y = body.getPosition().y;
         Vector2 velocity = body.getLinearVelocity();
 
-        // PAra que si no se pueden actuzliar al menos se caigan los objetos y queden al ras del suelo
-        // Entonces la tierra se ve pegada al suelo cuando state==Rise
+        // So that if they cannot be updated, at least the objects fall and remain at ground level. Then the earth looks stuck to the ground when state==Rise
         if (!canUpdate) {
             body.setLinearVelocity(0, velocity.y);
             return;
@@ -91,7 +98,7 @@ public class Zombie {
 
         if (state == STATE_RISE) {
             stateTime += delta;
-            if (stateTime >= DURATION_RISE) {
+            if (stateTime >= RISE_DURATION) {
                 state = STATE_NORMAL;
                 stateTime = 0;
             }
@@ -101,11 +108,10 @@ public class Zombie {
             return;
         } else if (state == STATE_HURT) {
             stateTime += delta;
-            if (stateTime >= DURATION_HURT) {
+            if (stateTime >= HURT_DURATION) {
                 state = STATE_NORMAL;
                 stateTime = 0;
             }
-            // body.setLinearVelocity(0, velocity.y);
             return;
         }
 
@@ -129,11 +135,11 @@ public class Zombie {
         }
 
         if (accelX == -1) {
-            velocity.x = -VELOCIDAD_WALK;
+            velocity.x = -WALK_SPEED;
             isFacingLeft = true;
             isWalking = true;
         } else if (accelX == 1) {
-            velocity.x = VELOCIDAD_WALK;
+            velocity.x = WALK_SPEED;
             isFacingLeft = false;
             isWalking = true;
         } else {
@@ -148,8 +154,8 @@ public class Zombie {
 
     public void getHurt(int damage) {
         if (state == STATE_NORMAL || state == STATE_HURT) {
-            vidas -= damage;
-            if (vidas <= 0) {
+            lives -= damage;
+            if (lives <= 0) {
                 state = STATE_DEAD;
                 stateTime = 0;
             } else {

@@ -13,15 +13,15 @@ import com.nopalsoft.zombiekiller.Achievements;
 import com.nopalsoft.zombiekiller.Assets;
 import com.nopalsoft.zombiekiller.MainZombie;
 import com.nopalsoft.zombiekiller.Settings;
-import com.nopalsoft.zombiekiller.scene2d.TouchPadControls;
-import com.nopalsoft.zombiekiller.scene2d.NumGemsBar;
-import com.nopalsoft.zombiekiller.scene2d.OverlayTutorial;
-import com.nopalsoft.zombiekiller.scene2d.ProgressBarUI;
-import com.nopalsoft.zombiekiller.scene2d.SkullBar;
 import com.nopalsoft.zombiekiller.scene2d.DialogGameover;
 import com.nopalsoft.zombiekiller.scene2d.DialogNextLevel;
 import com.nopalsoft.zombiekiller.scene2d.DialogPause;
 import com.nopalsoft.zombiekiller.scene2d.DialogRate;
+import com.nopalsoft.zombiekiller.scene2d.NumGemsBar;
+import com.nopalsoft.zombiekiller.scene2d.OverlayTutorial;
+import com.nopalsoft.zombiekiller.scene2d.ProgressBarUI;
+import com.nopalsoft.zombiekiller.scene2d.SkullBar;
+import com.nopalsoft.zombiekiller.scene2d.TouchPadControls;
 import com.nopalsoft.zombiekiller.screens.Screens;
 
 public class GameScreen extends Screens {
@@ -102,7 +102,7 @@ public class GameScreen extends Screens {
         buttonJump.setSize(Settings.buttonSize, Settings.buttonSize);
         buttonJump.setPosition(Settings.buttonJumpPositionX, Settings.buttonJumpPositionY);
         buttonJump.getColor().a = .5f;
-        addEfectoPress(buttonJump);
+        addPressEffect(buttonJump);
         buttonJump.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -115,7 +115,7 @@ public class GameScreen extends Screens {
         buttonFire.setSize(Settings.buttonSize, Settings.buttonSize);
         buttonFire.setPosition(Settings.buttonFirePositionX, Settings.buttonFirePositionY);
         buttonFire.getColor().a = .5f;
-        addEfectoPress(buttonFire);
+        addPressEffect(buttonFire);
         buttonFire.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -127,7 +127,7 @@ public class GameScreen extends Screens {
         buttonPause = new Button(Assets.btPause);
         buttonPause.setSize(45, 45);
         buttonPause.setPosition(SCREEN_WIDTH - 50, SCREEN_HEIGHT - 50);
-        addEfectoPress(buttonPause);
+        addPressEffect(buttonPause);
         buttonPause.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

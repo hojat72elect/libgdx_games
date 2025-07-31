@@ -15,98 +15,97 @@ import com.nopalsoft.zombiekiller.screens.Screens;
 
 public class DialogShop extends Dialog {
 
-    Button btPersonajes, btMejoras, btGems, btNoAds;
+    Button buttonPlay, buttonUpgrade, buttonGems, buttonNoAds;
 
     int buttonSize = 55;
 
     ScrollPane scroll;
-    Table contenedor;
+    Table containerTable;
 
-    Label lbCoins;
+    Label labelCoins;
 
     public DialogShop(Screens currentScreen) {
         super(currentScreen, 650, 450, 20, Assets.backgroundBigWindow);
         setCloseButton(570, 320, 65);
 
-        Label lbShop = new Label(idiomas.get("shop"), Assets.labelStyleGrande);
-        lbShop.setPosition(getWidth() / 2f - lbShop.getWidth() / 2f, 380);
-        lbShop.setFontScale(1.2f);
-        addActor(lbShop);
+        Label labelShop = new Label(idiomas.get("shop"), Assets.labelStyleGrande);
+        labelShop.setPosition(getWidth() / 2f - labelShop.getWidth() / 2f, 380);
+        labelShop.setFontScale(1.2f);
+        addActor(labelShop);
 
         initButtons();
 
-        Table coins = new Table();
-        coins.setPosition(getWidth() / 2f - coins.getWidth() / 2f, 365);
+        Table coinsTable = new Table();
+        coinsTable.setPosition(getWidth() / 2f - coinsTable.getWidth() / 2f, 365);
 
         Image imgGem = new Image(Assets.itemGem);
         imgGem.setSize(20, 20);
 
-        lbCoins = new Label("x0", Assets.labelStyleChico);
+        labelCoins = new Label("x0", Assets.labelStyleChico);
 
-        coins.add(imgGem).size(20);
-        coins.add(lbCoins).padLeft(5);
+        coinsTable.add(imgGem).size(20);
+        coinsTable.add(labelCoins).padLeft(5);
 
-        contenedor = new Table();
-        // contenedor.debug();
-        scroll = new ScrollPane(contenedor, Assets.styleScrollPane);
+        containerTable = new Table();
+        scroll = new ScrollPane(containerTable, Assets.styleScrollPane);
         scroll.setFadeScrollBars(false);
         scroll.setSize(380, 280);
         scroll.setPosition(175, 55);
         scroll.setVariableSizeKnobs(false);
 
-        addActor(btPersonajes);
-        addActor(btMejoras);
+        addActor(buttonPlay);
+        addActor(buttonUpgrade);
         if (Gdx.app.getType() != ApplicationType.WebGL) {// En web no se muestran todos los botones
-            addActor(btGems);
-            addActor(btNoAds);
+            addActor(buttonGems);
+            addActor(buttonNoAds);
         }
         addActor(scroll);
-        addActor(coins);
+        addActor(coinsTable);
 
-        new UpgradesSubMenu(contenedor, game);
+        new UpgradesSubMenu(containerTable, game);
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
-        lbCoins.setText("x" + Settings.gemsTotal);
+        labelCoins.setText("x" + Settings.gemsTotal);
     }
 
     private void initButtons() {
 
-        btMejoras = new Button(Assets.btFire);
-        btMejoras.setSize(buttonSize, buttonSize);
-        btMejoras.setPosition(100, 270);
-        screen.addEfectoPress(btMejoras);
-        btMejoras.addListener(new ClickListener() {
+        buttonUpgrade = new Button(Assets.btFire);
+        buttonUpgrade.setSize(buttonSize, buttonSize);
+        buttonUpgrade.setPosition(100, 270);
+        screen.addPressEffect(buttonUpgrade);
+        buttonUpgrade.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                new UpgradesSubMenu(contenedor, game);
+                new UpgradesSubMenu(containerTable, game);
             }
         });
 
-        btPersonajes = new Button(Assets.btPlayer);
-        btPersonajes.setSize(buttonSize, buttonSize);
-        btPersonajes.setPosition(100, 205);
-        screen.addEfectoPress(btPersonajes);
-        btPersonajes.addListener(new ClickListener() {
+        buttonPlay = new Button(Assets.btPlayer);
+        buttonPlay.setSize(buttonSize, buttonSize);
+        buttonPlay.setPosition(100, 205);
+        screen.addPressEffect(buttonPlay);
+        buttonPlay.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                new PlayersSubMenu(contenedor, game);
+                new PlayersSubMenu(containerTable, game);
             }
         });
 
-        btGems = new Button(Assets.btGems);
-        btGems.setSize(buttonSize, buttonSize);
-        btGems.setPosition(100, 140);
-        screen.addEfectoPress(btGems);
-        btGems.addListener(new ClickListener() {
+        buttonGems = new Button(Assets.btGems);
+        buttonGems.setSize(buttonSize, buttonSize);
+        buttonGems.setPosition(100, 140);
+        screen.addPressEffect(buttonGems);
+        buttonGems.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                new GetGemsSubMenu(screen.game, contenedor);
+                new GetGemsSubMenu(screen.game, containerTable);
             }
         });
 
-        btNoAds = new Button(Assets.btMore);
-        btNoAds.setSize(buttonSize, buttonSize);
-        btNoAds.setPosition(100, 75);
-        screen.addEfectoPress(btNoAds);
+        buttonNoAds = new Button(Assets.btMore);
+        buttonNoAds.setSize(buttonSize, buttonSize);
+        buttonNoAds.setPosition(100, 75);
+        screen.addPressEffect(buttonNoAds);
     }
 }

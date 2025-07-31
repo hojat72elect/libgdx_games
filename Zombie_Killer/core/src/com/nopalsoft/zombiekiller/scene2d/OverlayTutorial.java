@@ -24,13 +24,13 @@ public class OverlayTutorial extends Group {
     GameScreen gameScreen;
     int numDialogShown = 0;
 
-    I18NBundle idiomas;
+    I18NBundle languagesBundle;
 
     public OverlayTutorial(final GameScreen gameScreen) {
         this.gameScreen = gameScreen;
         setSize(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
         setBackground();
-        idiomas = gameScreen.game.idiomas;
+        languagesBundle = gameScreen.game.idiomas;
 
         addListener(new InputListener() {
             @Override
@@ -40,33 +40,31 @@ public class OverlayTutorial extends Group {
             }
         });
 
-        helpPad = new LabelDialog(idiomas.get("help_pad"), false);
+        helpPad = new LabelDialog(languagesBundle.get("help_pad"), false);
         helpPad.sizeBy(-50, 10);
         helpPad.setPosition(gameScreen.touchpad.getX() + gameScreen.touchpad.getWidth() / 2f, gameScreen.touchpad.getY() + gameScreen.touchpad.getHeight() / 2f);
 
-        helpJump = new LabelDialog(idiomas.get("help_jump"), false);
+        helpJump = new LabelDialog(languagesBundle.get("help_jump"), false);
         helpJump.sizeBy(0, 10);
-        helpJump.setPosition(gameScreen.buttonJump.getX() + gameScreen.buttonJump.getWidth() / 2f, gameScreen.buttonJump.getY() + gameScreen.buttonJump.getHeight()
-                / 2f);
+        helpJump.setPosition(gameScreen.buttonJump.getX() + gameScreen.buttonJump.getWidth() / 2f, gameScreen.buttonJump.getY() + gameScreen.buttonJump.getHeight() / 2f);
 
-        helpFire = new LabelDialog(idiomas.get("help_fire"), false);
+        helpFire = new LabelDialog(languagesBundle.get("help_fire"), false);
         helpFire.sizeBy(0, 10);
-        helpFire.setPosition(gameScreen.buttonFire.getX() + gameScreen.buttonFire.getWidth() / 2f, gameScreen.buttonFire.getY() + gameScreen.buttonFire.getHeight()
-                / 2f);
+        helpFire.setPosition(gameScreen.buttonFire.getX() + gameScreen.buttonFire.getWidth() / 2f, gameScreen.buttonFire.getY() + gameScreen.buttonFire.getHeight() / 2f);
 
-        helpLifeBar = new LabelDialog(idiomas.get("help_life"), true);
+        helpLifeBar = new LabelDialog(languagesBundle.get("help_life"), true);
         helpLifeBar.sizeBy(-100, 15);
         helpLifeBar.setPosition(100, 340);
 
-        helpShieldBar = new LabelDialog(idiomas.get("help_shield"), true);
+        helpShieldBar = new LabelDialog(languagesBundle.get("help_shield"), true);
         helpShieldBar.sizeBy(-50, 15);
         helpShieldBar.setPosition(100, 295);
 
-        helpCollectSkulls = new LabelDialog(idiomas.get("help_collect_skulls"), false);
+        helpCollectSkulls = new LabelDialog(languagesBundle.get("help_collect_skulls"), false);
         helpCollectSkulls.sizeBy(-300, 40);
         helpCollectSkulls.setPosition(465, 290);
 
-        helpCollectGems = new LabelDialog(idiomas.get("help_collect_gems"), false);
+        helpCollectGems = new LabelDialog(languagesBundle.get("help_collect_gems"), false);
         helpCollectGems.sizeBy(-570, 60);
         helpCollectGems.setPosition(250, 220);
 

@@ -18,21 +18,21 @@ import com.nopalsoft.zombiekiller.shop.DialogShop;
 
 public class MainMenuScreen extends Screens {
 
-    Button btPlay;
-    Button btLeaderboard;
-    Button btAchievement;
-    Button btFacebook;
-    Button btTwitter;
-    Button btSettings;
-    Button btShop;
+    Button buttonPlay;
+    Button buttonLeaderboard;
+    Button buttonAchievement;
+    Button buttonFacebook;
+    Button buttonTwitter;
+    Button buttonSettings;
+    Button buttonShop;
 
-    Button btMusica;
-    Button btSonido;
+    Button buttonMusic;
+    Button buttonSound;
 
-    DialogShop ventanaShop;
-    DialogSelectLevel ventanaSelectLevel;
+    DialogShop dialogShop;
+    DialogSelectLevel dialogSelectLevel;
 
-    Image titulo;
+    Image titleImage;
 
     public MainMenuScreen(final MainZombie game) {
         super(game);
@@ -42,47 +42,47 @@ public class MainMenuScreen extends Screens {
         if (Settings.isMusicOn)
             music.play();
 
-        ventanaShop = new DialogShop(this);
-        ventanaSelectLevel = new DialogSelectLevel(this);
+        dialogShop = new DialogShop(this);
+        dialogSelectLevel = new DialogSelectLevel(this);
 
-        titulo = new Image(Assets.zombieKillerTitulo);
-        titulo.setPosition(SCREEN_WIDTH / 2f - titulo.getWidth() / 2f - 30, SCREEN_HEIGHT);
-        titulo.setOrigin(titulo.getWidth() / 2f, titulo.getHeight() / 2f);
-        titulo.setScale(.85f);
-        titulo.addAction(Actions.parallel(Actions.moveTo(titulo.getX(), SCREEN_HEIGHT - titulo.getHeight(), .5f, Interpolation.swing),
+        titleImage = new Image(Assets.zombieKillerTitulo);
+        titleImage.setPosition(SCREEN_WIDTH / 2f - titleImage.getWidth() / 2f - 30, SCREEN_HEIGHT);
+        titleImage.setOrigin(titleImage.getWidth() / 2f, titleImage.getHeight() / 2f);
+        titleImage.setScale(.85f);
+        titleImage.addAction(Actions.parallel(Actions.moveTo(titleImage.getX(), SCREEN_HEIGHT - titleImage.getHeight(), .5f, Interpolation.swing),
                 Actions.scaleTo(1, 1, .5f)));
 
-        btPlay = new Button(Assets.btPlay);
-        addEfectoPress(btPlay);
-        btPlay.addListener(new ClickListener() {
+        buttonPlay = new Button(Assets.btPlay);
+        addPressEffect(buttonPlay);
+        buttonPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ventanaSelectLevel.show(stage);
+                dialogSelectLevel.show(stage);
             }
         });
 
-        btShop = new Button(Assets.btShop);
-        addEfectoPress(btShop);
-        btShop.addListener(new ClickListener() {
+        buttonShop = new Button(Assets.btShop);
+        addPressEffect(buttonShop);
+        buttonShop.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ventanaShop.show(stage);
+                dialogShop.show(stage);
             }
         });
 
-        btLeaderboard = new Button(Assets.btLeaderboard);
-        addEfectoPress(btLeaderboard);
-        btLeaderboard.addListener(new ClickListener() {
+        buttonLeaderboard = new Button(Assets.btLeaderboard);
+        addPressEffect(buttonLeaderboard);
+        buttonLeaderboard.addListener(new ClickListener() {
 
         });
 
-        btAchievement = new Button(Assets.btAchievement);
-        addEfectoPress(btAchievement);
+        buttonAchievement = new Button(Assets.btAchievement);
+        addPressEffect(buttonAchievement);
 
 
-        btSettings = new Button(Assets.btSettings);
-        addEfectoPress(btSettings);
-        btSettings.addListener(new ClickListener() {
+        buttonSettings = new Button(Assets.btSettings);
+        addPressEffect(buttonSettings);
+        buttonSettings.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 changeScreenWithFadeOut(SettingsScreen.class, game);
@@ -94,36 +94,36 @@ public class MainMenuScreen extends Screens {
 
         containerBt.defaults().size(100).padBottom(40).padLeft(10).padRight(10);
         containerBt.setSize(700, 100);
-        containerBt.add(btPlay);
-        containerBt.add(btShop);
-        containerBt.add(btLeaderboard);
-        containerBt.add(btAchievement);
-        containerBt.add(btSettings);
+        containerBt.add(buttonPlay);
+        containerBt.add(buttonShop);
+        containerBt.add(buttonLeaderboard);
+        containerBt.add(buttonAchievement);
+        containerBt.add(buttonSettings);
 
 
         containerBt.setPosition(SCREEN_WIDTH / 2f - containerBt.getWidth() / 2f, 0);
 
-        btFacebook = new Button(Assets.btFacebook);
-        btFacebook.setSize(50, 50);
-        addEfectoPress(btFacebook);
-        btFacebook.setPosition(SCREEN_WIDTH - 55, SCREEN_HEIGHT - 55);
+        buttonFacebook = new Button(Assets.btFacebook);
+        buttonFacebook.setSize(50, 50);
+        addPressEffect(buttonFacebook);
+        buttonFacebook.setPosition(SCREEN_WIDTH - 55, SCREEN_HEIGHT - 55);
 
-        btTwitter = new Button(Assets.btTwitter);
-        btTwitter.setSize(50, 50);
-        addEfectoPress(btTwitter);
-        btTwitter.setPosition(SCREEN_WIDTH - 55, SCREEN_HEIGHT - 120);
+        buttonTwitter = new Button(Assets.btTwitter);
+        buttonTwitter.setSize(50, 50);
+        addPressEffect(buttonTwitter);
+        buttonTwitter.setPosition(SCREEN_WIDTH - 55, SCREEN_HEIGHT - 120);
 
 
-        btMusica = new Button(Assets.styleButtonMusic);
-        btMusica.setSize(50, 50);
-        btMusica.setPosition(5, SCREEN_HEIGHT - 55);
-        btMusica.setChecked(!Settings.isMusicOn);
+        buttonMusic = new Button(Assets.styleButtonMusic);
+        buttonMusic.setSize(50, 50);
+        buttonMusic.setPosition(5, SCREEN_HEIGHT - 55);
+        buttonMusic.setChecked(!Settings.isMusicOn);
         Gdx.app.log("Musica", Settings.isMusicOn + "");
-        btMusica.addListener(new ClickListener() {
+        buttonMusic.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Settings.isMusicOn = !Settings.isMusicOn;
-                btMusica.setChecked(!Settings.isMusicOn);
+                buttonMusic.setChecked(!Settings.isMusicOn);
                 if (Settings.isMusicOn)
                     music.play();
                 else
@@ -131,26 +131,26 @@ public class MainMenuScreen extends Screens {
             }
         });
 
-        btSonido = new Button(Assets.styleButtonSound);
-        btSonido.setSize(50, 50);
-        btSonido.setPosition(5, SCREEN_HEIGHT - 120);
-        btSonido.setChecked(!Settings.isSoundOn);
-        btSonido.addListener(new ClickListener() {
+        buttonSound = new Button(Assets.styleButtonSound);
+        buttonSound.setSize(50, 50);
+        buttonSound.setPosition(5, SCREEN_HEIGHT - 120);
+        buttonSound.setChecked(!Settings.isSoundOn);
+        buttonSound.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Settings.isSoundOn = !Settings.isSoundOn;
-                btSonido.setChecked(!Settings.isSoundOn);
+                buttonSound.setChecked(!Settings.isSoundOn);
             }
         });
 
         stage.addActor(containerBt);
         if (Gdx.app.getType() != ApplicationType.WebGL) {// En web no se muestran todos los botones
-            stage.addActor(btFacebook);
-            stage.addActor(btTwitter);
+            stage.addActor(buttonFacebook);
+            stage.addActor(buttonTwitter);
         }
-        stage.addActor(btSonido);
-        stage.addActor(btMusica);
-        stage.addActor(titulo);
+        stage.addActor(buttonSound);
+        stage.addActor(buttonMusic);
+        stage.addActor(titleImage);
     }
 
     @Override
@@ -170,10 +170,10 @@ public class MainMenuScreen extends Screens {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
-            if (ventanaSelectLevel.isVisible())
-                ventanaSelectLevel.hide();
-            else if (ventanaShop.isVisible()) {
-                ventanaShop.hide();
+            if (dialogSelectLevel.isVisible())
+                dialogSelectLevel.hide();
+            else if (dialogShop.isVisible()) {
+                dialogShop.hide();
             } else
                 Gdx.app.exit();
             return true;
