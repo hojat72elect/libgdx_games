@@ -1,16 +1,8 @@
-package com.nopalsoft.zombiekiller.game_objects;
+package com.nopalsoft.zombiekiller.game_objects
 
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector2
 
-public class Platform {
-
-    public final Vector2 position;
-
-    public final float width, height;
-
-    public Platform(float x, float y, float width, float height) {
-        position = new Vector2(x, y);
-        this.width = width;
-        this.height = height;
-    }
+class Platform(x: Float, y: Float, val width: Float, @JvmField val height: Float) {
+    @JvmField
+    val position: Vector2 = Vector2(x, y)
 }

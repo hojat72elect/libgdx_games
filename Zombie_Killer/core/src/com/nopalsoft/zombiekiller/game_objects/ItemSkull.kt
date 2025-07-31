@@ -1,8 +1,3 @@
-package com.nopalsoft.zombiekiller.game_objects;
+package com.nopalsoft.zombiekiller.game_objects
 
-public class ItemSkull extends Items {
-
-    public ItemSkull(float x, float y) {
-        super(x, y, .35f, .35f);
-    }
-}
+class ItemSkull(x: Float, y: Float) : Items(x, y, .35f, .35f)
