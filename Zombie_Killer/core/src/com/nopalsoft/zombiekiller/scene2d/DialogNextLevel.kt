@@ -99,27 +99,27 @@ class DialogNextLevel(currentScreen: Screens) : Dialog(currentScreen, 380f, 390f
         btLevels = Button(Assets.btRight)
         btLevels!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
 
-        screen.addPressEffect(btLevels)
+        screen.addPressEffect(btLevels!!)
         btLevels!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                ventanaSelectLevel.show(screen.stage)
+                ventanaSelectLevel.show(screen.stage!!)
             }
         })
 
         btShop = Button(Assets.btShop)
         btShop!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
 
-        screen.addPressEffect(btShop)
+        screen.addPressEffect(btShop!!)
         btShop!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                ventanaShop.show(screen.stage)
+                ventanaShop.show(screen.stage!!)
             }
         })
 
         btTryAgain = Button(Assets.btTryAgain)
         btTryAgain!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
 
-        screen.addPressEffect(btTryAgain)
+        screen.addPressEffect(btTryAgain!!)
         btTryAgain!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 screen.changeScreenWithFadeOut(GameScreen::class.java, (screen as GameScreen).level, game)
@@ -127,7 +127,4 @@ class DialogNextLevel(currentScreen: Screens) : Dialog(currentScreen, 380f, 390f
         })
     }
 
-    override fun show(stage: Stage) {
-        super.show(stage)
-    }
 }

@@ -23,7 +23,7 @@ open class Dialog(@JvmField protected var screen: Screens, width: Float, height:
     private var isVisible = false
 
     init {
-        game = screen.game
+        game = screen.game!!
         idiomas = game.idiomas
         setSize(width, height)
         setY(positionY)

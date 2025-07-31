@@ -51,7 +51,7 @@ class DialogGameover(currentScreen: Screens) : Dialog(currentScreen, 350f, 310f,
         btMenu = Button(Assets.btMenu)
         btMenu!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
 
-        screen.addPressEffect(btMenu)
+        screen.addPressEffect(btMenu!!)
         btMenu!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()
@@ -61,16 +61,16 @@ class DialogGameover(currentScreen: Screens) : Dialog(currentScreen, 350f, 310f,
 
         btShop = Button(Assets.btShop)
         btShop!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
-        screen.addPressEffect(btShop)
+        screen.addPressEffect(btShop!!)
         btShop!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                ventanaShop.show(screen.stage)
+                ventanaShop.show(screen.stage!!)
             }
         })
 
         btTryAgain = Button(Assets.btTryAgain)
         btTryAgain!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
-        screen.addPressEffect(btTryAgain)
+        screen.addPressEffect(btTryAgain!!)
         btTryAgain!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()
@@ -79,7 +79,4 @@ class DialogGameover(currentScreen: Screens) : Dialog(currentScreen, 350f, 310f,
         })
     }
 
-    override fun show(stage: Stage) {
-        super.show(stage)
-    }
 }

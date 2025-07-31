@@ -42,7 +42,7 @@ class DialogRate(currentScreen: Screens) : Dialog(currentScreen, 400f, 310f, 100
 
     private fun initButtons() {
         btYes = TextButton(idiomas!!.get("OK"), Assets.styleTextButtonPurchased)
-        screen.addPressEffect(btYes)
+        screen.addPressEffect(btYes!!)
         btYes!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()
@@ -50,7 +50,7 @@ class DialogRate(currentScreen: Screens) : Dialog(currentScreen, 400f, 310f, 100
         })
 
         btLater = TextButton(idiomas!!.get("not_now"), Assets.styleTextButtonPurchased)
-        screen.addPressEffect(btLater)
+        screen.addPressEffect(btLater!!)
         btLater!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()

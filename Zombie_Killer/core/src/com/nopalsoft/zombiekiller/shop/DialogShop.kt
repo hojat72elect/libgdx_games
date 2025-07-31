@@ -76,7 +76,7 @@ class DialogShop(currentScreen: Screens) : Dialog(currentScreen, 650f, 450f, 20f
         buttonUpgrade = Button(Assets.btFire)
         buttonUpgrade!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
         buttonUpgrade!!.setPosition(100f, 270f)
-        screen.addPressEffect(buttonUpgrade)
+        screen.addPressEffect(buttonUpgrade!!)
         buttonUpgrade!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 UpgradesSubMenu(containerTable, game)
@@ -86,7 +86,7 @@ class DialogShop(currentScreen: Screens) : Dialog(currentScreen, 650f, 450f, 20f
         buttonPlay = Button(Assets.btPlayer)
         buttonPlay!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
         buttonPlay!!.setPosition(100f, 205f)
-        screen.addPressEffect(buttonPlay)
+        screen.addPressEffect(buttonPlay!!)
         buttonPlay!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 PlayersSubMenu(containerTable, game)
@@ -96,16 +96,16 @@ class DialogShop(currentScreen: Screens) : Dialog(currentScreen, 650f, 450f, 20f
         buttonGems = Button(Assets.btGems)
         buttonGems!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
         buttonGems!!.setPosition(100f, 140f)
-        screen.addPressEffect(buttonGems)
+        screen.addPressEffect(buttonGems!!)
         buttonGems!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                GetGemsSubMenu(screen.game, containerTable)
+                GetGemsSubMenu(screen.game!!, containerTable)
             }
         })
 
         buttonNoAds = Button(Assets.btMore)
         buttonNoAds!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
         buttonNoAds!!.setPosition(100f, 75f)
-        screen.addPressEffect(buttonNoAds)
+        screen.addPressEffect(buttonNoAds!!)
     }
 }

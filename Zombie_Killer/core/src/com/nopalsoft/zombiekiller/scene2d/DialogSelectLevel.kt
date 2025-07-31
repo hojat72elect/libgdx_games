@@ -85,7 +85,7 @@ class DialogSelectLevel(currentScreen: Screens) : Dialog(currentScreen, 650f, 45
         button.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 if (button.isDisabled()) {
-                    DialogWarning(screen, idiomas!!.format("warning_level_window", skullsToNextLevel)).show(screen.stage)
+                    DialogWarning(screen, idiomas!!.format("warning_level_window", skullsToNextLevel)).show(screen.stage!!)
                 } else {
                     hide()
                     screen.changeScreenWithFadeOut(GameScreen::class.java, level, game)
@@ -98,7 +98,4 @@ class DialogSelectLevel(currentScreen: Screens) : Dialog(currentScreen, 650f, 45
         return button
     }
 
-    override fun show(stage: Stage) {
-        super.show(stage)
-    }
 }

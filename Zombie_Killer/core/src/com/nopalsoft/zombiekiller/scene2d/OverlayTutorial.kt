@@ -30,7 +30,7 @@ class OverlayTutorial(gameScreen: GameScreen) : Group() {
         this.gameScreen = gameScreen
         setSize(Screens.SCREEN_WIDTH.toFloat(), Screens.SCREEN_HEIGHT.toFloat())
         setBackground()
-        languagesBundle = gameScreen.game.idiomas!!
+        languagesBundle = gameScreen.game!!.idiomas!!
 
         addListener(object : InputListener() {
             override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {

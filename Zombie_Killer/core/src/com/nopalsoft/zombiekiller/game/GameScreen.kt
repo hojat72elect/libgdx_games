@@ -50,8 +50,8 @@ class GameScreen(game: MainZombie, level: Int) : Screens(game) {
 
     init {
         if (music != null) {
-            music.stop()
-            music.dispose()
+            music!!.stop()
+            music!!.dispose()
             music = null
         }
 
@@ -62,9 +62,9 @@ class GameScreen(game: MainZombie, level: Int) : Screens(game) {
             3 -> music = Gdx.audio.newMusic(Gdx.files.internal("data/sounds/DST-Robotical.mp3"))
         }
 
-        music.isLooping = true
+        music!!.isLooping = true
 
-        if (Settings.isMusicOn) music.play()
+        if (Settings.isMusicOn) music!!.play()
 
         this.level = level
         Gdx.app.log("Map", level.toString() + "")
@@ -78,7 +78,7 @@ class GameScreen(game: MainZombie, level: Int) : Screens(game) {
         pauseDialog = DialogPause(this)
 
         worldGame = WorldGame()
-        renderer = WorldGameRenderer2(batcher, worldGame)
+        renderer = WorldGameRenderer2(batcher!!, worldGame)
 
         lifeBar = ProgressBarUI(Assets.redBar, Assets.itemHeart, worldGame.hero!!.lives.toFloat(), 20f, 440f)
         shieldBar = ProgressBarUI(Assets.whiteBar, Assets.itemShield, worldGame.hero!!.MAX_SHIELDS.toFloat(), worldGame.hero!!.shield.toFloat(), 20f, 395f)
@@ -129,27 +129,27 @@ class GameScreen(game: MainZombie, level: Int) : Screens(game) {
         touchPadControls.getColor().a = .5f
 
         if (Gdx.app.type == ApplicationType.Android || Gdx.app.type == ApplicationType.iOS) {
-            stage.addActor(buttonFire)
-            stage.addActor(buttonJump)
+            stage!!.addActor(buttonFire)
+            stage!!.addActor(buttonJump)
 
-            if (Settings.isPadEnabled) stage.addActor(touchpad)
-            else stage.addActor(touchPadControls)
+            if (Settings.isPadEnabled) stage!!.addActor(touchpad)
+            else stage!!.addActor(touchPadControls)
         }
-        stage.addActor(buttonPause)
-        stage.addActor(lifeBar)
-        stage.addActor(shieldBar)
-        stage.addActor(numGemsBar)
-        stage.addActor(skullBar)
-        stage.addActor(labelLevel)
+        stage!!.addActor(buttonPause)
+        stage!!.addActor(lifeBar)
+        stage!!.addActor(shieldBar)
+        stage!!.addActor(numGemsBar)
+        stage!!.addActor(skullBar)
+        stage!!.addActor(labelLevel)
 
         overlayTutorial = OverlayTutorial(this)
         if (level == 0) {
-            overlayTutorial.show(stage)
+            overlayTutorial.show(stage!!)
         }
 
         if (Settings.numeroVecesJugadas % 7 == 0 && !Settings.didRate) {
             setPaused()
-            DialogRate(this).show(stage)
+            DialogRate(this).show(stage!!)
         }
     }
 
@@ -193,7 +193,7 @@ class GameScreen(game: MainZombie, level: Int) : Screens(game) {
 
     private fun setGameover() {
         state = STATE_GAME_OVER
-        gameOverDialog.show(stage)
+        gameOverDialog.show(stage!!)
     }
 
     private fun setNextLevel() {
@@ -202,13 +202,13 @@ class GameScreen(game: MainZombie, level: Int) : Screens(game) {
 
         Achievements.unlockCollectedSkulls()
 
-        DialogNextLevel(this).show(stage)
+        DialogNextLevel(this).show(stage!!)
     }
 
     private fun setPaused() {
         if (state == STATE_RUNNING) {
             state = STATE_PAUSED
-            pauseDialog.show(stage)
+            pauseDialog.show(stage!!)
         }
     }
 
@@ -230,9 +230,9 @@ class GameScreen(game: MainZombie, level: Int) : Screens(game) {
         renderer.render()
 
         oCam.update()
-        batcher.setProjectionMatrix(oCam.combined)
-        batcher.begin()
-        batcher.end()
+        batcher!!.setProjectionMatrix(oCam.combined)
+        batcher!!.begin()
+        batcher!!.end()
     }
 
     override fun keyDown(keycode: Int): Boolean {

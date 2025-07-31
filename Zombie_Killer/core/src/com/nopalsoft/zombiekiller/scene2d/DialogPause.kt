@@ -48,7 +48,7 @@ class DialogPause(currentScreen: Screens) : Dialog(currentScreen, 350f, 310f, 10
     private fun initButtons() {
         btMenu = Button(Assets.btMenu)
         btMenu!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
-        screen.addPressEffect(btMenu)
+        screen.addPressEffect(btMenu!!)
         btMenu!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()
@@ -59,7 +59,7 @@ class DialogPause(currentScreen: Screens) : Dialog(currentScreen, 350f, 310f, 10
         btTryAgain = Button(Assets.btTryAgain)
         btTryAgain!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
 
-        screen.addPressEffect(btTryAgain)
+        screen.addPressEffect(btTryAgain!!)
         btTryAgain!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()
