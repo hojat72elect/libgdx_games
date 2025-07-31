@@ -1,134 +1,133 @@
-package com.nopalsoft.zombiekiller.scene2d;
+package com.nopalsoft.zombiekiller.scene2d
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
-import com.nopalsoft.zombiekiller.Assets;
-import com.nopalsoft.zombiekiller.game.GameScreen;
-import com.nopalsoft.zombiekiller.game.WorldGame;
-import com.nopalsoft.zombiekiller.screens.Screens;
-import com.nopalsoft.zombiekiller.shop.DialogShop;
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import com.badlogic.gdx.utils.Align
+import com.nopalsoft.zombiekiller.Assets
+import com.nopalsoft.zombiekiller.game.GameScreen
+import com.nopalsoft.zombiekiller.game.WorldGame
+import com.nopalsoft.zombiekiller.screens.Screens
+import com.nopalsoft.zombiekiller.shop.DialogShop
 
-public class DialogNextLevel extends Dialog {
+class DialogNextLevel(currentScreen: Screens) : Dialog(currentScreen, 380f, 390f, 50f, Assets.backgroundSmallWindow) {
+    var oWorld: WorldGame
 
-    WorldGame oWorld;
+    var btLevels: Button? = null
+    var btShop: Button? = null
+    var btTryAgain: Button? = null
+    var buttonSize: Int = 55
+    var ventanaShop: DialogShop
+    var ventanaSelectLevel: DialogSelectLevel
 
-    Button btLevels, btShop, btTryAgain;
-    int buttonSize = 55;
-    DialogShop ventanaShop;
-    DialogSelectLevel ventanaSelectLevel;
+    var skulls: Int
 
-    int skulls;
+    init {
+        oWorld = (currentScreen as GameScreen).worldGame
+        ventanaShop = DialogShop(screen)
+        ventanaSelectLevel = DialogSelectLevel(screen)
 
-    public DialogNextLevel(Screens currentScreen) {
-        super(currentScreen, 380, 390, 50, Assets.backgroundSmallWindow);
-        oWorld = ((GameScreen) currentScreen).worldGame;
-        ventanaShop = new DialogShop(screen);
-        ventanaSelectLevel = new DialogSelectLevel(screen);
+        skulls = oWorld.skulls
 
-        skulls = oWorld.skulls;
+        val lbShop = Label(idiomas!!.get("congratulations"), Assets.labelStyleGrande)
+        lbShop.setFontScale(1.3f)
+        lbShop.setAlignment(Align.center)
+        lbShop.setPosition(getWidth() / 2f - lbShop.getWidth() / 2f, 300f)
+        addActor(lbShop)
 
-        Label lbShop = new Label(idiomas.get("congratulations"), Assets.labelStyleGrande);
-        lbShop.setFontScale(1.3f);
-        lbShop.setAlignment(Align.center);
-        lbShop.setPosition(getWidth() / 2f - lbShop.getWidth() / 2f, 300);
-        addActor(lbShop);
+        initButtons()
 
-        initButtons();
+        val tableSkulls = Table()
+        tableSkulls.setSize(210f, 60f)
+        tableSkulls.setPosition(getWidth() / 2f - tableSkulls.getWidth() / 2f, 225f)
+        tableSkulls.defaults().expandX().uniform()
 
-        Table tableSkulls = new Table();
-        tableSkulls.setSize(210, 60);
-        tableSkulls.setPosition(getWidth() / 2f - tableSkulls.getWidth() / 2f, 225);
-        tableSkulls.defaults().expandX().uniform();
-
-        for (int i = 1; i <= 3; i++) {
-            Image imageSkull = new Image(Assets.upgradeOff);
-            if (skulls >= i)
-                imageSkull.setDrawable(new TextureRegionDrawable(Assets.itemSkull));
-            tableSkulls.add(imageSkull).size(55);
+        for (i in 1..3) {
+            val imageSkull = Image(Assets.upgradeOff)
+            if (skulls >= i) imageSkull.setDrawable(TextureRegionDrawable(Assets.itemSkull))
+            tableSkulls.add<Image?>(imageSkull).size(55f)
         }
 
-        Table tableStatistics = new Table();
-        tableStatistics.setSize(getWidth(), 95);
-        tableStatistics.setPosition(0, 130);
+        val tableStatistics = Table()
+        tableStatistics.setSize(getWidth(), 95f)
+        tableStatistics.setPosition(0f, 130f)
 
-        Label labelZombiesKilled = new Label(idiomas.get("zombies_killed"), Assets.labelStyleChico);
-        Label labelZombiesKilledNum = new Label(oWorld.totalZombiesKilled + "/" + oWorld.TOTAL_ZOMBIES_LEVEL, Assets.labelStyleChico);
+        val labelZombiesKilled = Label(idiomas!!.get("zombies_killed"), Assets.labelStyleChico)
+        val labelZombiesKilledNum = Label(oWorld.totalZombiesKilled.toString() + "/" + oWorld.TOTAL_ZOMBIES_LEVEL, Assets.labelStyleChico)
 
-        Label labelGemsCollected = new Label(idiomas.get("gems"), Assets.labelStyleChico);
-        Label labelGemsCollectedNum = new Label(oWorld.gems + "", Assets.labelStyleChico);
+        val labelGemsCollected = Label(idiomas!!.get("gems"), Assets.labelStyleChico)
+        val labelGemsCollectedNum = Label(oWorld.gems.toString() + "", Assets.labelStyleChico)
 
-        Label labelBonus = new Label(idiomas.get("bonus_gems"), Assets.labelStyleChico);
-        Label labelBonusNum = new Label(oWorld.bonus + "", Assets.labelStyleChico);
+        val labelBonus = Label(idiomas!!.get("bonus_gems"), Assets.labelStyleChico)
+        val labelBonusNum = Label(oWorld.bonus.toString() + "", Assets.labelStyleChico)
 
-        tableStatistics.defaults().pad(0, 45, 0, 45).expandX();
+        tableStatistics.defaults().pad(0f, 45f, 0f, 45f).expandX()
 
-        tableStatistics.add(labelZombiesKilled).left();
-        tableStatistics.add(labelZombiesKilledNum).right();
+        tableStatistics.add<Label?>(labelZombiesKilled).left()
+        tableStatistics.add<Label?>(labelZombiesKilledNum).right()
 
-        tableStatistics.row();
-        tableStatistics.add(labelGemsCollected).left();
-        tableStatistics.add(labelGemsCollectedNum).right();
+        tableStatistics.row()
+        tableStatistics.add<Label?>(labelGemsCollected).left()
+        tableStatistics.add<Label?>(labelGemsCollectedNum).right()
 
-        tableStatistics.row();
-        tableStatistics.add(labelBonus).left();
-        tableStatistics.add(labelBonusNum).right();
+        tableStatistics.row()
+        tableStatistics.add<Label?>(labelBonus).left()
+        tableStatistics.add<Label?>(labelBonusNum).right()
 
         // Buttons
-        Table tableButtons = new Table();
-        tableButtons.setSize(250, 90);
-        tableButtons.setPosition(getWidth() / 2f - tableButtons.getWidth() / 2f, 40);
+        val tableButtons = Table()
+        tableButtons.setSize(250f, 90f)
+        tableButtons.setPosition(getWidth() / 2f - tableButtons.getWidth() / 2f, 40f)
 
-        tableButtons.defaults().expandX().uniform();
+        tableButtons.defaults().expandX().uniform()
 
-        tableButtons.add(btShop);
-        tableButtons.add(btTryAgain);
-        tableButtons.add(btLevels);
+        tableButtons.add<Button?>(btShop)
+        tableButtons.add<Button?>(btTryAgain)
+        tableButtons.add<Button?>(btLevels)
 
-        addActor(tableButtons);
-        addActor(tableSkulls);
-        addActor(tableStatistics);
+        addActor(tableButtons)
+        addActor(tableSkulls)
+        addActor(tableStatistics)
     }
 
-    private void initButtons() {
-        btLevels = new Button(Assets.btRight);
-        btLevels.setSize(buttonSize, buttonSize);
+    private fun initButtons() {
+        btLevels = Button(Assets.btRight)
+        btLevels!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
 
-        screen.addPressEffect(btLevels);
-        btLevels.addListener(new ClickListener() {
-            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                ventanaSelectLevel.show(screen.stage);
+        screen.addPressEffect(btLevels)
+        btLevels!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                ventanaSelectLevel.show(screen.stage)
             }
-        });
+        })
 
-        btShop = new Button(Assets.btShop);
-        btShop.setSize(buttonSize, buttonSize);
+        btShop = Button(Assets.btShop)
+        btShop!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
 
-        screen.addPressEffect(btShop);
-        btShop.addListener(new ClickListener() {
-            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                ventanaShop.show(screen.stage);
+        screen.addPressEffect(btShop)
+        btShop!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                ventanaShop.show(screen.stage)
             }
-        });
+        })
 
-        btTryAgain = new Button(Assets.btTryAgain);
-        btTryAgain.setSize(buttonSize, buttonSize);
+        btTryAgain = Button(Assets.btTryAgain)
+        btTryAgain!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
 
-        screen.addPressEffect(btTryAgain);
-        btTryAgain.addListener(new ClickListener() {
-            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                screen.changeScreenWithFadeOut(GameScreen.class, ((GameScreen) screen).level, game);
+        screen.addPressEffect(btTryAgain)
+        btTryAgain!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                screen.changeScreenWithFadeOut(GameScreen::class.java, (screen as GameScreen).level, game)
             }
-        });
+        })
     }
 
-    @Override
-    public void show(Stage stage) {
-        super.show(stage);
+    override fun show(stage: Stage) {
+        super.show(stage)
     }
 }

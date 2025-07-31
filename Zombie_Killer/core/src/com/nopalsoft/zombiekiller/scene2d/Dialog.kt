@@ -1,84 +1,83 @@
-package com.nopalsoft.zombiekiller.scene2d;
+package com.nopalsoft.zombiekiller.scene2d
 
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.I18NBundle;
-import com.nopalsoft.zombiekiller.Assets;
-import com.nopalsoft.zombiekiller.MainZombie;
-import com.nopalsoft.zombiekiller.screens.Screens;
+import com.badlogic.gdx.scenes.scene2d.Group
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import com.badlogic.gdx.utils.I18NBundle
+import com.nopalsoft.zombiekiller.Assets
+import com.nopalsoft.zombiekiller.MainZombie
+import com.nopalsoft.zombiekiller.screens.Screens
 
-public class Dialog extends Group {
-    public static final float DURACION_ANIMATION = .3f;
-    protected Screens screen;
-    protected I18NBundle idiomas;
-    protected MainZombie game;
+open class Dialog(@JvmField protected var screen: Screens, width: Float, height: Float, positionY: Float, imageBackgroun: TextureRegionDrawable?) : Group() {
+    @JvmField
+    protected var idiomas: I18NBundle?
 
-    private boolean isVisible = false;
+    @JvmField
+    protected var game: MainZombie
 
-    public Dialog(Screens currentScreen, float width, float height, float positionY, TextureRegionDrawable imageBackgroun) {
-        screen = currentScreen;
-        game = currentScreen.game;
-        idiomas = game.idiomas;
-        setSize(width, height);
-        setY(positionY);
+    private var isVisible = false
 
-        setBackGround(imageBackgroun);
+    init {
+        game = screen.game
+        idiomas = game.idiomas
+        setSize(width, height)
+        setY(positionY)
+
+        setBackGround(imageBackgroun)
     }
 
-    protected void setCloseButton(float positionX, float positionY, float size) {
-        Button btClose = new Button(Assets.btClose);
-        btClose.setSize(size, size);
-        btClose.setPosition(positionX, positionY);
-        screen.addPressEffect(btClose);
-        btClose.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                hide();
+    protected fun setCloseButton(positionX: Float, positionY: Float, size: Float) {
+        val btClose = Button(Assets.btClose)
+        btClose.setSize(size, size)
+        btClose.setPosition(positionX, positionY)
+        screen.addPressEffect(btClose)
+        btClose.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                hide()
             }
-        });
-        addActor(btClose);
+        })
+        addActor(btClose)
     }
 
-    private void setBackGround(TextureRegionDrawable imageBackground) {
-        Image img = new Image(imageBackground);
-        img.setSize(getWidth(), getHeight());
-        addActor(img);
+    private fun setBackGround(imageBackground: TextureRegionDrawable?) {
+        val img = Image(imageBackground)
+        img.setSize(getWidth(), getHeight())
+        addActor(img)
     }
 
-    public void show(Stage stage) {
+    open fun show(stage: Stage) {
+        setOrigin(getWidth() / 2f, getHeight() / 2f)
+        setX(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f)
 
-        setOrigin(getWidth() / 2f, getHeight() / 2f);
-        setX(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f);
-
-        setScale(.5f);
-        addAction(Actions.sequence(Actions.scaleTo(1, 1, DURACION_ANIMATION), Actions.run(new Runnable() {
-
-            @Override
-            public void run() {
-                endResize();
+        setScale(.5f)
+        addAction(Actions.sequence(Actions.scaleTo(1f, 1f, DURACION_ANIMATION), Actions.run(object : Runnable {
+            override fun run() {
+                endResize()
             }
-        })));
+        })))
 
-        isVisible = true;
-        stage.addActor(this);
+        isVisible = true
+        stage.addActor(this)
     }
 
-    public boolean isVisible() {
-        return isVisible;
+    override fun isVisible(): Boolean {
+        return isVisible
     }
 
-    public void hide() {
-        isVisible = false;
-        remove();
+    open fun hide() {
+        isVisible = false
+        remove()
     }
 
-    protected void endResize() {
+    protected fun endResize() {
+    }
 
+    companion object {
+        const val DURACION_ANIMATION: Float = .3f
     }
 }

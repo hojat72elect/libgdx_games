@@ -1,7 +1,6 @@
 package com.nopalsoft.zombiekiller.scene2d
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -25,7 +24,7 @@ class DialogPause(currentScreen: Screens) : Dialog(currentScreen, 350f, 310f, 10
 
         gameScreen = currentScreen as GameScreen
 
-        val lbShop = Label(idiomas.get("pause"), Assets.labelStyleGrande)
+        val lbShop = Label(idiomas!!.get("pause"), Assets.labelStyleGrande)
         lbShop.setFontScale(1.5f)
         lbShop.setAlignment(Align.center)
         lbShop.setPosition(getWidth() / 2f - lbShop.getWidth() / 2f, 210f)

@@ -1,125 +1,106 @@
-package com.nopalsoft.zombiekiller.scene2d;
+package com.nopalsoft.zombiekiller.scene2d
 
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.utils.I18NBundle;
-import com.nopalsoft.zombiekiller.Assets;
-import com.nopalsoft.zombiekiller.game.GameScreen;
-import com.nopalsoft.zombiekiller.screens.Screens;
+import com.badlogic.gdx.scenes.scene2d.Group
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.InputListener
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.utils.I18NBundle
+import com.nopalsoft.zombiekiller.Assets
+import com.nopalsoft.zombiekiller.game.GameScreen
+import com.nopalsoft.zombiekiller.screens.Screens
 
-public class OverlayTutorial extends Group {
+class OverlayTutorial(gameScreen: GameScreen) : Group() {
+    @JvmField
+    var isVisible: Boolean = false
+    var currentDialog: LabelDialog? = null
+    var helpPad: LabelDialog
+    var helpJump: LabelDialog
+    var helpFire: LabelDialog
+    var helpLifeBar: LabelDialog
+    var helpShieldBar: LabelDialog
+    var helpCollectSkulls: LabelDialog
+    var helpCollectGems: LabelDialog
+    var gameScreen: GameScreen?
+    var numDialogShown: Int = 0
 
-    public boolean isVisible;
-    LabelDialog currentDialog;
-    LabelDialog helpPad;
-    LabelDialog helpJump;
-    LabelDialog helpFire;
-    LabelDialog helpLifeBar;
-    LabelDialog helpShieldBar;
-    LabelDialog helpCollectSkulls;
-    LabelDialog helpCollectGems;
-    GameScreen gameScreen;
-    int numDialogShown = 0;
+    var languagesBundle: I18NBundle
 
-    I18NBundle languagesBundle;
+    init {
+        this.gameScreen = gameScreen
+        setSize(Screens.SCREEN_WIDTH.toFloat(), Screens.SCREEN_HEIGHT.toFloat())
+        setBackground()
+        languagesBundle = gameScreen.game.idiomas
 
-    public OverlayTutorial(final GameScreen gameScreen) {
-        this.gameScreen = gameScreen;
-        setSize(Screens.SCREEN_WIDTH, Screens.SCREEN_HEIGHT);
-        setBackground();
-        languagesBundle = gameScreen.game.idiomas;
-
-        addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                showHelpDialog();
-                return true;
+        addListener(object : InputListener() {
+            override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
+                showHelpDialog()
+                return true
             }
-        });
+        })
 
-        helpPad = new LabelDialog(languagesBundle.get("help_pad"), false);
-        helpPad.sizeBy(-50, 10);
-        helpPad.setPosition(gameScreen.touchpad.getX() + gameScreen.touchpad.getWidth() / 2f, gameScreen.touchpad.getY() + gameScreen.touchpad.getHeight() / 2f);
+        helpPad = LabelDialog(languagesBundle.get("help_pad"), false)
+        helpPad.sizeBy(-50f, 10f)
+        helpPad.setPosition(gameScreen.touchpad.getX() + gameScreen.touchpad.getWidth() / 2f, gameScreen.touchpad.getY() + gameScreen.touchpad.getHeight() / 2f)
 
-        helpJump = new LabelDialog(languagesBundle.get("help_jump"), false);
-        helpJump.sizeBy(0, 10);
-        helpJump.setPosition(gameScreen.buttonJump.getX() + gameScreen.buttonJump.getWidth() / 2f, gameScreen.buttonJump.getY() + gameScreen.buttonJump.getHeight() / 2f);
+        helpJump = LabelDialog(languagesBundle.get("help_jump"), false)
+        helpJump.sizeBy(0f, 10f)
+        helpJump.setPosition(gameScreen.buttonJump.getX() + gameScreen.buttonJump.getWidth() / 2f, gameScreen.buttonJump.getY() + gameScreen.buttonJump.getHeight() / 2f)
 
-        helpFire = new LabelDialog(languagesBundle.get("help_fire"), false);
-        helpFire.sizeBy(0, 10);
-        helpFire.setPosition(gameScreen.buttonFire.getX() + gameScreen.buttonFire.getWidth() / 2f, gameScreen.buttonFire.getY() + gameScreen.buttonFire.getHeight() / 2f);
+        helpFire = LabelDialog(languagesBundle.get("help_fire"), false)
+        helpFire.sizeBy(0f, 10f)
+        helpFire.setPosition(gameScreen.buttonFire.getX() + gameScreen.buttonFire.getWidth() / 2f, gameScreen.buttonFire.getY() + gameScreen.buttonFire.getHeight() / 2f)
 
-        helpLifeBar = new LabelDialog(languagesBundle.get("help_life"), true);
-        helpLifeBar.sizeBy(-100, 15);
-        helpLifeBar.setPosition(100, 340);
+        helpLifeBar = LabelDialog(languagesBundle.get("help_life"), true)
+        helpLifeBar.sizeBy(-100f, 15f)
+        helpLifeBar.setPosition(100f, 340f)
 
-        helpShieldBar = new LabelDialog(languagesBundle.get("help_shield"), true);
-        helpShieldBar.sizeBy(-50, 15);
-        helpShieldBar.setPosition(100, 295);
+        helpShieldBar = LabelDialog(languagesBundle.get("help_shield"), true)
+        helpShieldBar.sizeBy(-50f, 15f)
+        helpShieldBar.setPosition(100f, 295f)
 
-        helpCollectSkulls = new LabelDialog(languagesBundle.get("help_collect_skulls"), false);
-        helpCollectSkulls.sizeBy(-300, 40);
-        helpCollectSkulls.setPosition(465, 290);
+        helpCollectSkulls = LabelDialog(languagesBundle.get("help_collect_skulls"), false)
+        helpCollectSkulls.sizeBy(-300f, 40f)
+        helpCollectSkulls.setPosition(465f, 290f)
 
-        helpCollectGems = new LabelDialog(languagesBundle.get("help_collect_gems"), false);
-        helpCollectGems.sizeBy(-570, 60);
-        helpCollectGems.setPosition(250, 220);
+        helpCollectGems = LabelDialog(languagesBundle.get("help_collect_gems"), false)
+        helpCollectGems.sizeBy(-570f, 60f)
+        helpCollectGems.setPosition(250f, 220f)
 
-        showHelpDialog();
+        showHelpDialog()
     }
 
-    private void showHelpDialog() {
-        if (currentDialog != null)
-            currentDialog.remove();
+    private fun showHelpDialog() {
+        if (currentDialog != null) currentDialog!!.remove()
 
-        switch (numDialogShown) {
-            case 0:
-                currentDialog = helpPad;
-                break;
-            case 1:
-                currentDialog = helpJump;
-                break;
-            case 2:
-                currentDialog = helpFire;
-                break;
-            case 3:
-                currentDialog = helpLifeBar;
-                break;
-            case 4:
-                currentDialog = helpShieldBar;
-                break;
-            case 5:
-                currentDialog = helpCollectSkulls;
-                break;
-            case 6:
-                currentDialog = helpCollectGems;
-                break;
-
-            default:
-                hide();
-                break;
+        when (numDialogShown) {
+            0 -> currentDialog = helpPad
+            1 -> currentDialog = helpJump
+            2 -> currentDialog = helpFire
+            3 -> currentDialog = helpLifeBar
+            4 -> currentDialog = helpShieldBar
+            5 -> currentDialog = helpCollectSkulls
+            6 -> currentDialog = helpCollectGems
+            else -> hide()
         }
-        numDialogShown++;
-        addActor(currentDialog);
+        numDialogShown++
+        addActor(currentDialog)
     }
 
-    public void show(Stage stage) {
-        stage.addActor(this);
-        isVisible = true;
+    fun show(stage: Stage) {
+        stage.addActor(this)
+        isVisible = true
     }
 
-    public void hide() {
-        isVisible = false;
-        remove();
+    fun hide() {
+        isVisible = false
+        remove()
     }
 
-    private void setBackground() {
-        Image img = new Image(Assets.pixelNegro);
-        img.setSize(getWidth(), getHeight());
-        img.getColor().a = .4f;
-        addActor(img);
+    private fun setBackground() {
+        val img = Image(Assets.pixelNegro)
+        img.setSize(getWidth(), getHeight())
+        img.getColor().a = .4f
+        addActor(img)
     }
 }

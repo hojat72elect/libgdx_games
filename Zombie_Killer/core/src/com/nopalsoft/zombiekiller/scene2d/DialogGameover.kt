@@ -1,86 +1,85 @@
-package com.nopalsoft.zombiekiller.scene2d;
+package com.nopalsoft.zombiekiller.scene2d
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
-import com.nopalsoft.zombiekiller.Assets;
-import com.nopalsoft.zombiekiller.game.GameScreen;
-import com.nopalsoft.zombiekiller.screens.MainMenuScreen;
-import com.nopalsoft.zombiekiller.screens.Screens;
-import com.nopalsoft.zombiekiller.shop.DialogShop;
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.utils.Align
+import com.nopalsoft.zombiekiller.Assets
+import com.nopalsoft.zombiekiller.game.GameScreen
+import com.nopalsoft.zombiekiller.screens.MainMenuScreen
+import com.nopalsoft.zombiekiller.screens.Screens
+import com.nopalsoft.zombiekiller.shop.DialogShop
 
-public class DialogGameover extends Dialog {
+class DialogGameover(currentScreen: Screens) : Dialog(currentScreen, 350f, 310f, 100f, Assets.backgroundSmallWindow) {
+    var btMenu: Button? = null
+    var btShop: Button? = null
+    var btTryAgain: Button? = null
 
-    Button btMenu, btShop, btTryAgain;
+    var buttonSize: Int = 55
 
-    int buttonSize = 55;
+    var ventanaShop: DialogShop
 
-    DialogShop ventanaShop;
+    init {
+        ventanaShop = DialogShop(screen)
 
-    public DialogGameover(Screens currentScreen) {
-        super(currentScreen, 350, 310, 100, Assets.backgroundSmallWindow);
+        val lbShop = Label(idiomas!!.get("game_over"), Assets.labelStyleGrande)
+        lbShop.setFontScale(1.5f)
+        lbShop.setAlignment(Align.center)
+        lbShop.setPosition(getWidth() / 2f - lbShop.getWidth() / 2f, 210f)
+        addActor(lbShop)
 
-        ventanaShop = new DialogShop(screen);
+        initButtons()
 
-        Label lbShop = new Label(idiomas.get("game_over"), Assets.labelStyleGrande);
-        lbShop.setFontScale(1.5f);
-        lbShop.setAlignment(Align.center);
-        lbShop.setPosition(getWidth() / 2f - lbShop.getWidth() / 2f, 210);
-        addActor(lbShop);
+        val content = Table()
+        content.setSize(250f, 90f)
+        content.setPosition(getWidth() / 2f - content.getWidth() / 2f, 80f)
 
-        initButtons();
-
-        Table content = new Table();
-        content.setSize(250, 90);
-        content.setPosition(getWidth() / 2f - content.getWidth() / 2f, 80);
         // content.debug();
+        content.defaults().expandX().uniform()
 
-        content.defaults().expandX().uniform();
+        content.add<Button?>(btMenu)
+        content.add<Button?>(btShop)
+        content.add<Button?>(btTryAgain)
 
-        content.add(btMenu);
-        content.add(btShop);
-        content.add(btTryAgain);
-
-        addActor(content);
+        addActor(content)
     }
 
-    private void initButtons() {
-        btMenu = new Button(Assets.btMenu);
-        btMenu.setSize(buttonSize, buttonSize);
+    private fun initButtons() {
+        btMenu = Button(Assets.btMenu)
+        btMenu!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
 
-        screen.addPressEffect(btMenu);
-        btMenu.addListener(new ClickListener() {
-            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                hide();
-                screen.changeScreenWithFadeOut(MainMenuScreen.class, game);
+        screen.addPressEffect(btMenu)
+        btMenu!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                hide()
+                screen.changeScreenWithFadeOut(MainMenuScreen::class.java, game)
             }
-        });
+        })
 
-        btShop = new Button(Assets.btShop);
-        btShop.setSize(buttonSize, buttonSize);
-        screen.addPressEffect(btShop);
-        btShop.addListener(new ClickListener() {
-            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                ventanaShop.show(screen.stage);
+        btShop = Button(Assets.btShop)
+        btShop!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
+        screen.addPressEffect(btShop)
+        btShop!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                ventanaShop.show(screen.stage)
             }
-        });
+        })
 
-        btTryAgain = new Button(Assets.btTryAgain);
-        btTryAgain.setSize(buttonSize, buttonSize);
-        screen.addPressEffect(btTryAgain);
-        btTryAgain.addListener(new ClickListener() {
-            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                hide();
-                screen.changeScreenWithFadeOut(GameScreen.class, ((GameScreen) screen).level, game);
+        btTryAgain = Button(Assets.btTryAgain)
+        btTryAgain!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
+        screen.addPressEffect(btTryAgain)
+        btTryAgain!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                hide()
+                screen.changeScreenWithFadeOut(GameScreen::class.java, (screen as GameScreen).level, game)
             }
-        });
+        })
     }
 
-    @Override
-    public void show(Stage stage) {
-        super.show(stage);
+    override fun show(stage: Stage) {
+        super.show(stage)
     }
 }
