@@ -1,8 +1,3 @@
-package com.nopalsoft.zombiedash.objects;
+package com.nopalsoft.zombiedash.objects
 
-public class ItemHearth extends Items {
-
-    public ItemHearth(float x, float y) {
-        super(x, y, .4f, .35f);
-    }
-}
+class ItemHearth(x: Float, y: Float) : Items(x, y, .4f, .35f)

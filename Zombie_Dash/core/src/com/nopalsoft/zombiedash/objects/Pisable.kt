@@ -1,29 +1,38 @@
-package com.nopalsoft.zombiedash.objects;
+package com.nopalsoft.zombiedash.objects
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
 
-public class Pisable {
-    public static int STATE_NORMAL = 0;
-    public static int STATE_DESTROY = 1;
-    public int state;
+open class Pisable(x: Float, y: Float, drawWidth: Float, drawHeight: Float) {
+    @JvmField
+    var state: Int
 
-    public Vector2 position;
-    public float stateTime;
+    @JvmField
+    var position: Vector2
+    var stateTime: Float
 
-    public float DRAW_WIDTH, DRAW_HEIGHT;
+    @JvmField
+    var DRAW_WIDTH: Float
+    @JvmField
+    var DRAW_HEIGHT: Float
 
-    public Pisable(float x, float y, float drawWidth, float drawHeight) {
-        position = new Vector2(x, y);
-        stateTime = 0;
-        state = STATE_NORMAL;
-        DRAW_WIDTH = drawWidth;
-        DRAW_HEIGHT = drawHeight;
+    init {
+        position = Vector2(x, y)
+        stateTime = 0f
+        state = STATE_NORMAL
+        DRAW_WIDTH = drawWidth
+        DRAW_HEIGHT = drawHeight
     }
 
-    public void update(float delta, Body body) {
-        position.x = body.getPosition().x;
-        position.y = body.getPosition().y;
-        stateTime += delta;
+    fun update(delta: Float, body: Body) {
+        position.x = body.getPosition().x
+        position.y = body.getPosition().y
+        stateTime += delta
+    }
+
+    companion object {
+        var STATE_NORMAL: Int = 0
+        @JvmField
+        var STATE_DESTROY: Int = 1
     }
 }

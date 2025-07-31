@@ -1,36 +1,42 @@
-package com.nopalsoft.zombiedash.objects;
+package com.nopalsoft.zombiedash.objects
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
 
-public class Items {
-    public final static int STATE_NORMAL = 0;
-    public final static int STATE_TAKEN = 1;
-    public final float DRAW_WIDTH;
-    public final float DRAW_HEIGHT;
-    public int state;
-    public Vector2 position;
-    public float angleDeg;
+open class Items(x: Float, y: Float, drawWidth: Float, drawHeight: Float) {
+    @JvmField
+    val DRAW_WIDTH: Float
+    @JvmField
+    val DRAW_HEIGHT: Float
+    @JvmField
+    var state: Int
+    @JvmField
+    var position: Vector2
+    var angleDeg: Float = 0f
 
-    public float stateTime;
+    var stateTime: Float = 0f
 
-    public Items(float x, float y, float drawWidth, float drawHeight) {
-        position = new Vector2(x, y);
-        state = STATE_NORMAL;
-        DRAW_HEIGHT = drawHeight;
-        DRAW_WIDTH = drawWidth;
+    init {
+        position = Vector2(x, y)
+        state = STATE_NORMAL
+        DRAW_HEIGHT = drawHeight
+        DRAW_WIDTH = drawWidth
     }
 
-    public void update(float delta, Body body) {
-
-        position.x = body.getPosition().x;
-        position.y = body.getPosition().y;
-        angleDeg = (float) Math.toDegrees(body.getAngle());
-        stateTime += delta;
+    fun update(delta: Float, body: Body) {
+        position.x = body.getPosition().x
+        position.y = body.getPosition().y
+        angleDeg = Math.toDegrees(body.getAngle().toDouble()).toFloat()
+        stateTime += delta
     }
 
-    public void taken() {
-        state = STATE_TAKEN;
-        stateTime = 0;
+    fun taken() {
+        state = STATE_TAKEN
+        stateTime = 0f
+    }
+
+    companion object {
+        const val STATE_NORMAL: Int = 0
+        const val STATE_TAKEN: Int = 1
     }
 }

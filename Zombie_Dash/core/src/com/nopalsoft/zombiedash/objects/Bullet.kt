@@ -1,57 +1,66 @@
-package com.nopalsoft.zombiedash.objects;
+package com.nopalsoft.zombiedash.objects
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.nopalsoft.zombiedash.Assets;
-import com.nopalsoft.zombiedash.Settings;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
+import com.nopalsoft.zombiedash.Assets
+import com.nopalsoft.zombiedash.Settings
 
-public class Bullet {
-    public final static int STATE_MUZZLE = 0;
-    public final static int STATE_NORMAL = 1;
-    public final static int STATE_HIT = 2;
-    public final static int STATE_DESTROY = 3;
-    public final static int LEVEL_0 = 0;
-    public final static int LEVEL_1 = 1;
-    public final static int LEVEL_2 = 2;
-    public final static int LEVEL_3 = 3;
-    public final static int LEVEL_4_AND_UP = 4;
-    public final static float DURATION_MUZZLE = Assets.muzzle.animationDuration;
-    public static float VELOCIDAD = 5;
-    public final int tipo;
-    public int state;
-    public Vector2 position;
-    public float stateTime;
+class Bullet(x: Float, y: Float) {
+    @JvmField
+    val tipo: Int
+    @JvmField
+    var state: Int
+    @JvmField
+    var position: Vector2
+    @JvmField
+    var stateTime: Float = 0f
 
-    public boolean isFacingLeft;
-    public int DAMAGE = Settings.LEVEL_WEAPON + 1;
+    @JvmField
+    var isFacingLeft: Boolean = false
+    @JvmField
+    var DAMAGE: Int = Settings.LEVEL_WEAPON + 1
 
-    public Bullet(float x, float y) {
-        position = new Vector2(x, y);
-        state = STATE_MUZZLE;
+    init {
+        position = Vector2(x, y)
+        state = STATE_MUZZLE
 
-        tipo = LEVEL_0;
+        tipo = LEVEL_0
     }
 
-    public void update(float delta, Body body) {
-        position.x = body.getPosition().x;
-        position.y = body.getPosition().y;
+    fun update(delta: Float, body: Body) {
+        position.x = body.getPosition().x
+        position.y = body.getPosition().y
 
         if (state == STATE_MUZZLE || state == STATE_HIT) {
-            stateTime += delta;
+            stateTime += delta
             if (stateTime >= DURATION_MUZZLE) {
-                if (state == STATE_MUZZLE)
-                    state = STATE_NORMAL;
-                else state = STATE_DESTROY;
-                stateTime = 0;
+                if (state == STATE_MUZZLE) state = STATE_NORMAL
+                else state = STATE_DESTROY
+                stateTime = 0f
             }
-            return;
+            return
         }
 
-        stateTime += delta;
+        stateTime += delta
     }
 
-    public void hit() {
-        state = STATE_HIT;
-        stateTime = 0;
+    fun hit() {
+        state = STATE_HIT
+        stateTime = 0f
+    }
+
+    companion object {
+        const val STATE_MUZZLE: Int = 0
+        const val STATE_NORMAL: Int = 1
+        const val STATE_HIT: Int = 2
+        const val STATE_DESTROY: Int = 3
+        const val LEVEL_0: Int = 0
+        const val LEVEL_1: Int = 1
+        const val LEVEL_2: Int = 2
+        const val LEVEL_3: Int = 3
+        const val LEVEL_4_AND_UP: Int = 4
+        val DURATION_MUZZLE: Float = Assets.muzzle.animationDuration
+        @JvmField
+        var VELOCIDAD: Float = 5f
     }
 }
