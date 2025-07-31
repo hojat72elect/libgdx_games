@@ -88,7 +88,7 @@ class Hero(x: Float, y: Float, tipo: Int) {
             velocity.y = JUMP_SPEED
             canJump = false
 
-            Assets.playSound(Assets.jump, 1f)
+            Assets.playSound(Assets.jump!!, 1f)
         }
 
         if (isOnStairs) {
@@ -185,9 +185,9 @@ class Hero(x: Float, y: Float, tipo: Int) {
         const val TYPE_VADER: Int = 4
 
         @JvmField
-        val DURATION_DEAD: Float = Assets.heroForceDie.animationDuration + .2f
+        val DURATION_DEAD: Float = Assets.heroForceDie!!.animationDuration + .2f
         const val DURATION_HURT: Float = .5f
-        val DURATION_IS_FIRING: Float = Assets.heroForceShoot.animationDuration + .1f
+        val DURATION_IS_FIRING: Float = Assets.heroForceShoot!!.animationDuration + .1f
 
         var JUMP_SPEED: Float = 5f
         var WALK_SPEED: Float = 1.5f

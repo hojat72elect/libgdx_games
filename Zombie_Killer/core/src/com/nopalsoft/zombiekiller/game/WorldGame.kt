@@ -77,9 +77,9 @@ class WorldGame {
         saws = Array<Saw?>()
         bodies = Array<Body>()
 
-        TiledMapManagerBox2d(this, unitScale).createObjectsFromTiled(Assets.map)
-        tiledWidth = (Assets.map.layers.get("1") as TiledMapTileLayer).width
-        tiledHeight = (Assets.map.layers.get("1") as TiledMapTileLayer).height
+        TiledMapManagerBox2d(this, unitScale).createObjectsFromTiled(Assets.map!!)
+        tiledWidth = (Assets.map!!.layers.get("1") as TiledMapTileLayer).width
+        tiledHeight = (Assets.map!!.layers.get("1") as TiledMapTileLayer).height
 
         if (tiledWidth * tiledHeight > 2500) {
             Gdx.app.log(
@@ -142,7 +142,7 @@ class WorldGame {
             if (timeToFireAgain >= TIME_TO_FIRE_AGAIN) {
                 timeToFireAgain -= TIME_TO_FIRE_AGAIN
                 createBullet()
-                Assets.playSound(Assets.shoot1, .75f)
+                Assets.playSound(Assets.shoot1!!, .75f)
             }
         } else {
             timeToFireAgain = TIME_TO_FIRE_AGAIN
@@ -263,7 +263,7 @@ class WorldGame {
                 Zombie.TYPE_MUMMY -> sound = Assets.zombieMummy
                 Zombie.TYPE_PAN -> sound = Assets.zombiePan
             }
-            Assets.playSound(sound, 1f)
+            Assets.playSound(sound!!, 1f)
         }
 
         obj.update(delta, body, 0f, hero!!)
@@ -373,7 +373,7 @@ class WorldGame {
                     Settings.gemsTotal++
                     gems++
 
-                    Assets.playSound(Assets.gem, .075f)
+                    Assets.playSound(Assets.gem!!, .075f)
                 }
             } else if (otherObject is ItemHeart) {
                 val obj = otherObject as Items
@@ -381,7 +381,7 @@ class WorldGame {
                     obj.taken()
                     hero!!.heart
 
-                    Assets.playSound(Assets.hearth, 1f)
+                    Assets.playSound(Assets.hearth!!, 1f)
                 }
             } else if (otherObject is ItemSkull) {
                 val obj = otherObject as Items
@@ -389,21 +389,21 @@ class WorldGame {
                     obj.taken()
                     skulls++
 
-                    Assets.playSound(Assets.skull, .3f)
+                    Assets.playSound(Assets.skull!!, .3f)
                 }
             } else if (otherObject is ItemMeat) {
                 val obj = otherObject as Items
                 if (hero!!.state != Hero.STATE_DEAD && obj.state == Items.STATE_NORMAL) {
                     obj.taken()
 
-                    Assets.playSound(Assets.hearth, 1f)
+                    Assets.playSound(Assets.hearth!!, 1f)
                 }
             } else if (otherObject is ItemShield) {
                 val obj = otherObject as Items
                 if (hero!!.state != Hero.STATE_DEAD && obj.state == Items.STATE_NORMAL) {
                     obj.taken()
                     hero!!.getShield()
-                    Assets.playSound(Assets.shield, 1f)
+                    Assets.playSound(Assets.shield!!, 1f)
                 }
             } else if (otherObject is ItemStar) {
                 val obj = otherObject as Items
@@ -425,7 +425,7 @@ class WorldGame {
                         Hero.TYPE_SWAT -> sound = Assets.hurt2
                         else -> sound = Assets.hurt3
                     }
-                    Assets.playSound(sound, 1f)
+                    Assets.playSound(sound!!, 1f)
 
                     val impulseX = if (obj.isFacingLeft) -obj.FORCE_IMPACT else obj.FORCE_IMPACT
                     val impulseY = 2.5f

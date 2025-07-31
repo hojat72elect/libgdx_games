@@ -64,22 +64,23 @@ class PlayersSubMenu(containerTable: Table, game: MainZombie) {
 
         createButtons()
 
-        containerTable.add<Table?>(createPlayerTable(languagesBundle.get("swat"), null, Assets.heroSwatWalk, languagesBundle.get("swat_description"), buttonBuySWAT)).expandX().fill()
+        containerTable.add<Table?>(createPlayerTable(languagesBundle.get("swat"), null, Assets.heroSwatWalk!!, languagesBundle.get("swat_description"), buttonBuySWAT)).expandX().fill()
         containerTable.row()
 
-        containerTable.add<Table?>(createPlayerTable(languagesBundle.get("guerrilla"), labelPriceRambo, Assets.heroRamboWalk, languagesBundle.get("guerrilla_description"), buttonBuyRambo)).expandX()
+        containerTable.add<Table?>(createPlayerTable(languagesBundle.get("guerrilla"), labelPriceRambo, Assets.heroRamboWalk!!, languagesBundle.get("guerrilla_description"), buttonBuyRambo)).expandX()
             .fill()
         containerTable.row()
 
-        containerTable.add<Table?>(createPlayerTable(languagesBundle.get("soldier"), labelPriceSoldier, Assets.heroSoldierWalk, languagesBundle.get("soldier_description"), buttonBuySoldier)).expandX()
+        containerTable.add<Table?>(createPlayerTable(languagesBundle.get("soldier"), labelPriceSoldier, Assets.heroSoldierWalk!!, languagesBundle.get("soldier_description"), buttonBuySoldier))
+            .expandX()
             .fill()
         containerTable.row()
 
-        containerTable.add<Table?>(createPlayerTable(languagesBundle.get("elite_force"), labelPriceElite, Assets.heroForceWalk, languagesBundle.get("elite_force_description"), buttonBuyElite))
+        containerTable.add<Table?>(createPlayerTable(languagesBundle.get("elite_force"), labelPriceElite, Assets.heroForceWalk!!, languagesBundle.get("elite_force_description"), buttonBuyElite))
             .expandX().fill()
         containerTable.row()
 
-        containerTable.add<Table?>(createPlayerTable(languagesBundle.get("ghost"), labelPriceVader, Assets.heroVaderWalk, languagesBundle.get("ghost_description"), buttonBuyVader)).expandX().fill()
+        containerTable.add<Table?>(createPlayerTable(languagesBundle.get("ghost"), labelPriceVader, Assets.heroVaderWalk!!, languagesBundle.get("ghost_description"), buttonBuyVader)).expandX().fill()
         containerTable.row()
     }
 
