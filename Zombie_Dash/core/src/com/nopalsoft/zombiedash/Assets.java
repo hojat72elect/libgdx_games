@@ -365,7 +365,7 @@ public class Assets {
         bullet3 = loadAnimationBullet(atlas, "Bullet/bullet3");
         bullet4 = loadAnimationBullet(atlas, "Bullet/bullet4");
         bullet5 = loadAnimationBullet(atlas, "Bullet/bullet5");
-        muzzle = loadAnimationMuzzle(atlas, "Bullet/");
+        muzzle = loadAnimationMuzzle(atlas);
 
         // Parallax stuff
         ParallaxLayer layerFondo = new ParallaxLayer(atlas.findRegion("background"), new Vector2(1.5f, 0), new Vector2(798, 0));
@@ -493,13 +493,13 @@ public class Assets {
         return new AnimationSprite(time, arrSprites);
     }
 
-    private static AnimationSprite loadAnimationMuzzle(TextureAtlas atlas, String ruta) {
+    private static AnimationSprite loadAnimationMuzzle(TextureAtlas atlas) {
         Array<Sprite> arrSprites = new Array<>();
 
         int i = 1;
         Sprite obj;
         do {
-            obj = atlas.createSprite(ruta + "muzzle" + i);
+            obj = atlas.createSprite("Bullet/" + "muzzle" + i);
             i++;
             if (obj != null)
                 arrSprites.add(obj);
