@@ -1,111 +1,111 @@
-package com.nopalsoft.zombiekiller.shop;
+package com.nopalsoft.zombiekiller.shop
 
-import com.badlogic.gdx.Application.ApplicationType;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.nopalsoft.zombiekiller.Assets;
-import com.nopalsoft.zombiekiller.Settings;
-import com.nopalsoft.zombiekiller.scene2d.Dialog;
-import com.nopalsoft.zombiekiller.screens.Screens;
+import com.badlogic.gdx.Application.ApplicationType
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.nopalsoft.zombiekiller.Assets
+import com.nopalsoft.zombiekiller.Settings
+import com.nopalsoft.zombiekiller.scene2d.Dialog
+import com.nopalsoft.zombiekiller.screens.Screens
 
-public class DialogShop extends Dialog {
+class DialogShop(currentScreen: Screens) : Dialog(currentScreen, 650f, 450f, 20f, Assets.backgroundBigWindow) {
+    var buttonPlay: Button? = null
+    var buttonUpgrade: Button? = null
+    var buttonGems: Button? = null
+    var buttonNoAds: Button? = null
 
-    Button buttonPlay, buttonUpgrade, buttonGems, buttonNoAds;
+    var buttonSize: Int = 55
 
-    int buttonSize = 55;
+    var scroll: ScrollPane
+    var containerTable: Table
 
-    ScrollPane scroll;
-    Table containerTable;
+    var labelCoins: Label
 
-    Label labelCoins;
+    init {
+        setCloseButton(570f, 320f, 65f)
 
-    public DialogShop(Screens currentScreen) {
-        super(currentScreen, 650, 450, 20, Assets.backgroundBigWindow);
-        setCloseButton(570, 320, 65);
+        val labelShop = Label(idiomas!!.get("shop"), Assets.labelStyleGrande)
+        labelShop.setPosition(getWidth() / 2f - labelShop.getWidth() / 2f, 380f)
+        labelShop.setFontScale(1.2f)
+        addActor(labelShop)
 
-        Label labelShop = new Label(idiomas.get("shop"), Assets.labelStyleGrande);
-        labelShop.setPosition(getWidth() / 2f - labelShop.getWidth() / 2f, 380);
-        labelShop.setFontScale(1.2f);
-        addActor(labelShop);
+        initButtons()
 
-        initButtons();
+        val coinsTable = Table()
+        coinsTable.setPosition(getWidth() / 2f - coinsTable.getWidth() / 2f, 365f)
 
-        Table coinsTable = new Table();
-        coinsTable.setPosition(getWidth() / 2f - coinsTable.getWidth() / 2f, 365);
+        val imgGem = Image(Assets.itemGem)
+        imgGem.setSize(20f, 20f)
 
-        Image imgGem = new Image(Assets.itemGem);
-        imgGem.setSize(20, 20);
+        labelCoins = Label("x0", Assets.labelStyleChico)
 
-        labelCoins = new Label("x0", Assets.labelStyleChico);
+        coinsTable.add<Image?>(imgGem).size(20f)
+        coinsTable.add<Label?>(labelCoins).padLeft(5f)
 
-        coinsTable.add(imgGem).size(20);
-        coinsTable.add(labelCoins).padLeft(5);
+        containerTable = Table()
+        scroll = ScrollPane(containerTable, Assets.styleScrollPane)
+        scroll.setFadeScrollBars(false)
+        scroll.setSize(380f, 280f)
+        scroll.setPosition(175f, 55f)
+        scroll.variableSizeKnobs = false
 
-        containerTable = new Table();
-        scroll = new ScrollPane(containerTable, Assets.styleScrollPane);
-        scroll.setFadeScrollBars(false);
-        scroll.setSize(380, 280);
-        scroll.setPosition(175, 55);
-        scroll.setVariableSizeKnobs(false);
-
-        addActor(buttonPlay);
-        addActor(buttonUpgrade);
-        if (Gdx.app.getType() != ApplicationType.WebGL) {// En web no se muestran todos los botones
-            addActor(buttonGems);
-            addActor(buttonNoAds);
+        addActor(buttonPlay)
+        addActor(buttonUpgrade)
+        if (Gdx.app.type != ApplicationType.WebGL) { // En web no se muestran todos los botones
+            addActor(buttonGems)
+            addActor(buttonNoAds)
         }
-        addActor(scroll);
-        addActor(coinsTable);
+        addActor(scroll)
+        addActor(coinsTable)
 
-        new UpgradesSubMenu(containerTable, game);
+        UpgradesSubMenu(containerTable, game)
     }
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-        labelCoins.setText("x" + Settings.gemsTotal);
+    override fun act(delta: Float) {
+        super.act(delta)
+        labelCoins.setText("x" + Settings.gemsTotal)
     }
 
-    private void initButtons() {
-
-        buttonUpgrade = new Button(Assets.btFire);
-        buttonUpgrade.setSize(buttonSize, buttonSize);
-        buttonUpgrade.setPosition(100, 270);
-        screen.addPressEffect(buttonUpgrade);
-        buttonUpgrade.addListener(new ClickListener() {
-            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                new UpgradesSubMenu(containerTable, game);
+    private fun initButtons() {
+        buttonUpgrade = Button(Assets.btFire)
+        buttonUpgrade!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
+        buttonUpgrade!!.setPosition(100f, 270f)
+        screen.addPressEffect(buttonUpgrade)
+        buttonUpgrade!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                UpgradesSubMenu(containerTable, game)
             }
-        });
+        })
 
-        buttonPlay = new Button(Assets.btPlayer);
-        buttonPlay.setSize(buttonSize, buttonSize);
-        buttonPlay.setPosition(100, 205);
-        screen.addPressEffect(buttonPlay);
-        buttonPlay.addListener(new ClickListener() {
-            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                new PlayersSubMenu(containerTable, game);
+        buttonPlay = Button(Assets.btPlayer)
+        buttonPlay!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
+        buttonPlay!!.setPosition(100f, 205f)
+        screen.addPressEffect(buttonPlay)
+        buttonPlay!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                PlayersSubMenu(containerTable, game)
             }
-        });
+        })
 
-        buttonGems = new Button(Assets.btGems);
-        buttonGems.setSize(buttonSize, buttonSize);
-        buttonGems.setPosition(100, 140);
-        screen.addPressEffect(buttonGems);
-        buttonGems.addListener(new ClickListener() {
-            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                new GetGemsSubMenu(screen.game, containerTable);
+        buttonGems = Button(Assets.btGems)
+        buttonGems!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
+        buttonGems!!.setPosition(100f, 140f)
+        screen.addPressEffect(buttonGems)
+        buttonGems!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                GetGemsSubMenu(screen.game, containerTable)
             }
-        });
+        })
 
-        buttonNoAds = new Button(Assets.btMore);
-        buttonNoAds.setSize(buttonSize, buttonSize);
-        buttonNoAds.setPosition(100, 75);
-        screen.addPressEffect(buttonNoAds);
+        buttonNoAds = Button(Assets.btMore)
+        buttonNoAds!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
+        buttonNoAds!!.setPosition(100f, 75f)
+        screen.addPressEffect(buttonNoAds)
     }
 }

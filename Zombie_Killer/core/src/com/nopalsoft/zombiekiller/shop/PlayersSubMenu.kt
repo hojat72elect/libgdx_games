@@ -1,281 +1,269 @@
-package com.nopalsoft.zombiekiller.shop;
+package com.nopalsoft.zombiekiller.shop
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.I18NBundle;
-import com.nopalsoft.zombiekiller.AnimationSprite;
-import com.nopalsoft.zombiekiller.Assets;
-import com.nopalsoft.zombiekiller.MainZombie;
-import com.nopalsoft.zombiekiller.Settings;
-import com.nopalsoft.zombiekiller.game_objects.Hero;
-import com.nopalsoft.zombiekiller.scene2d.AnimatedSpriteActor;
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Preferences
+import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.InputListener
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.utils.Array
+import com.badlogic.gdx.utils.I18NBundle
+import com.nopalsoft.zombiekiller.AnimationSprite
+import com.nopalsoft.zombiekiller.Assets
+import com.nopalsoft.zombiekiller.MainZombie
+import com.nopalsoft.zombiekiller.Settings
+import com.nopalsoft.zombiekiller.game_objects.Hero
+import com.nopalsoft.zombiekiller.scene2d.AnimatedSpriteActor
 
-public class PlayersSubMenu {
+class PlayersSubMenu(containerTable: Table, game: MainZombie) {
+    val PRICE_HERO_RAMBO: Int = 1000
+    val PRICE_HERO_SOLDIER: Int = 1500
+    val PRICE_HERO_ELITE: Int = 2000
+    val PRICE_HERO_VADER: Int = 2500
 
-    private final static Preferences preferences = Gdx.app.getPreferences("com.nopalsoft.zombiekiller.shop");
+    var didBuyRambo: Boolean = false
+    var didBuySoldier: Boolean = false
+    var didBuyElite: Boolean = false
+    var didBuyVader: Boolean = false
 
-    final int PRICE_HERO_RAMBO = 1000;
-    final int PRICE_HERO_SOLDIER = 1500;
-    final int PRICE_HERO_ELITE = 2000;
-    final int PRICE_HERO_VADER = 2500;
+    var labelPriceRambo: Label? = null
+    var labelPriceSoldier: Label? = null
+    var labelPriceElite: Label? = null
+    var labelPriceVader: Label? = null
+    var buttonBuySWAT: TextButton? = null
+    var buttonBuyRambo: TextButton? = null
+    var buttonBuySoldier: TextButton? = null
+    var buttonBuyElite: TextButton? = null
+    var buttonBuyVader: TextButton? = null
+    var buttons: Array<TextButton>? = null
+    var containerTable: Table?
+    var languagesBundle: I18NBundle
+    var textBuy: String?
+    var textSelect: String?
 
-    boolean didBuyRambo, didBuySoldier, didBuyElite, didBuyVader;
+    init {
+        languagesBundle = game.idiomas
+        this.containerTable = containerTable
+        containerTable.clear()
+        loadPurchases()
 
-    Label labelPriceRambo, labelPriceSoldier, labelPriceElite, labelPriceVader;
-    TextButton buttonBuySWAT, buttonBuyRambo, buttonBuySoldier, buttonBuyElite, buttonBuyVader;
-    Array<TextButton> buttons;
-    Table containerTable;
-    I18NBundle languagesBundle;
-    String textBuy;
-    String textSelect;
+        textBuy = languagesBundle.get("buy")
+        textSelect = languagesBundle.get("select")
 
-    public PlayersSubMenu(Table containerTable, MainZombie game) {
-        languagesBundle = game.idiomas;
-        this.containerTable = containerTable;
-        containerTable.clear();
-        loadPurchases();
+        if (!didBuyRambo) labelPriceRambo = Label(PRICE_HERO_RAMBO.toString() + "", Assets.labelStyleChico)
 
-        textBuy = languagesBundle.get("buy");
-        textSelect = languagesBundle.get("select");
+        if (!didBuySoldier) labelPriceSoldier = Label(PRICE_HERO_SOLDIER.toString() + "", Assets.labelStyleChico)
 
-        if (!didBuyRambo)
-            labelPriceRambo = new Label(PRICE_HERO_RAMBO + "", Assets.labelStyleChico);
+        if (!didBuyElite) labelPriceElite = Label(PRICE_HERO_ELITE.toString() + "", Assets.labelStyleChico)
 
-        if (!didBuySoldier)
-            labelPriceSoldier = new Label(PRICE_HERO_SOLDIER + "", Assets.labelStyleChico);
+        if (!didBuyVader) labelPriceVader = Label(PRICE_HERO_VADER.toString() + "", Assets.labelStyleChico)
 
-        if (!didBuyElite)
-            labelPriceElite = new Label(PRICE_HERO_ELITE + "", Assets.labelStyleChico);
+        createButtons()
 
-        if (!didBuyVader)
-            labelPriceVader = new Label(PRICE_HERO_VADER + "", Assets.labelStyleChico);
+        containerTable.add<Table?>(createPlayerTable(languagesBundle.get("swat"), null, Assets.heroSwatWalk, languagesBundle.get("swat_description"), buttonBuySWAT)).expandX().fill()
+        containerTable.row()
 
-        createButtons();
+        containerTable.add<Table?>(createPlayerTable(languagesBundle.get("guerrilla"), labelPriceRambo, Assets.heroRamboWalk, languagesBundle.get("guerrilla_description"), buttonBuyRambo)).expandX()
+            .fill()
+        containerTable.row()
 
-        containerTable.add(createPlayerTable(languagesBundle.get("swat"), null, Assets.heroSwatWalk, languagesBundle.get("swat_description"), buttonBuySWAT)).expandX().fill();
-        containerTable.row();
+        containerTable.add<Table?>(createPlayerTable(languagesBundle.get("soldier"), labelPriceSoldier, Assets.heroSoldierWalk, languagesBundle.get("soldier_description"), buttonBuySoldier)).expandX()
+            .fill()
+        containerTable.row()
 
-        containerTable.add(createPlayerTable(languagesBundle.get("guerrilla"), labelPriceRambo, Assets.heroRamboWalk, languagesBundle.get("guerrilla_description"), buttonBuyRambo)).expandX().fill();
-        containerTable.row();
+        containerTable.add<Table?>(createPlayerTable(languagesBundle.get("elite_force"), labelPriceElite, Assets.heroForceWalk, languagesBundle.get("elite_force_description"), buttonBuyElite))
+            .expandX().fill()
+        containerTable.row()
 
-        containerTable.add(createPlayerTable(languagesBundle.get("soldier"), labelPriceSoldier, Assets.heroSoldierWalk, languagesBundle.get("soldier_description"), buttonBuySoldier)).expandX().fill();
-        containerTable.row();
-
-        containerTable.add(createPlayerTable(languagesBundle.get("elite_force"), labelPriceElite, Assets.heroForceWalk, languagesBundle.get("elite_force_description"), buttonBuyElite)).expandX().fill();
-        containerTable.row();
-
-        containerTable.add(createPlayerTable(languagesBundle.get("ghost"), labelPriceVader, Assets.heroVaderWalk, languagesBundle.get("ghost_description"), buttonBuyVader)).expandX().fill();
-        containerTable.row();
+        containerTable.add<Table?>(createPlayerTable(languagesBundle.get("ghost"), labelPriceVader, Assets.heroVaderWalk, languagesBundle.get("ghost_description"), buttonBuyVader)).expandX().fill()
+        containerTable.row()
     }
 
-    private Table createPlayerTable(String title, Label priceLabel, AnimationSprite playerAnimation, String description, TextButton button) {
+    private fun createPlayerTable(title: String?, priceLabel: Label?, playerAnimation: AnimationSprite, description: String?, button: TextButton?): Table {
+        val coinImage = Image(Assets.itemGem)
+        val playerSpriteActor = AnimatedSpriteActor(playerAnimation)
 
-        Image coinImage = new Image(Assets.itemGem);
-        AnimatedSpriteActor playerSpriteActor = new AnimatedSpriteActor(playerAnimation);
+        if (priceLabel == null) coinImage.isVisible = false
 
-        if (priceLabel == null)
-            coinImage.setVisible(false);
+        val titleBarTable = Table()
+        titleBarTable.add<Label?>(Label(title, Assets.labelStyleChico)).expandX().left()
+        titleBarTable.add<Image?>(coinImage).right().size(20f)
+        titleBarTable.add<Label?>(priceLabel).right().padRight(10f)
 
-        Table titleBarTable = new Table();
-        titleBarTable.add(new Label(title, Assets.labelStyleChico)).expandX().left();
-        titleBarTable.add(coinImage).right().size(20);
-        titleBarTable.add(priceLabel).right().padRight(10);
+        val tbContent = Table()
+        tbContent.pad(0f)
+        tbContent.setBackground(Assets.storeTableBackground)
 
-        Table tbContent = new Table();
-        tbContent.pad(0);
-        tbContent.setBackground(Assets.storeTableBackground);
+        tbContent.defaults().padLeft(20f).padRight(20f)
+        tbContent.add<Table?>(titleBarTable).expandX().fill().colspan(2).padTop(20f)
+        tbContent.row()
+        tbContent.add<AnimatedSpriteActor?>(playerSpriteActor).left().size(70f, 70f)
 
-        tbContent.defaults().padLeft(20).padRight(20);
-        tbContent.add(titleBarTable).expandX().fill().colspan(2).padTop(20);
-        tbContent.row();
-        tbContent.add(playerSpriteActor).left().size(70, 70);
+        val descriptionLabel = Label(description, Assets.labelStyleChico)
+        descriptionLabel.setWrap(true)
+        descriptionLabel.setFontScale(.9f)
+        tbContent.add<Label?>(descriptionLabel).expand().fill().padLeft(5f)
 
-        Label descriptionLabel = new Label(description, Assets.labelStyleChico);
-        descriptionLabel.setWrap(true);
-        descriptionLabel.setFontScale(.9f);
-        tbContent.add(descriptionLabel).expand().fill().padLeft(5);
+        tbContent.row().colspan(2)
+        tbContent.add<TextButton?>(button).expandX().right().padBottom(20f).size(120f, 45f)
+        tbContent.row().colspan(2)
 
-        tbContent.row().colspan(2);
-        tbContent.add(button).expandX().right().padBottom(20).size(120, 45);
-        tbContent.row().colspan(2);
-
-        return tbContent;
+        return tbContent
     }
 
-    private void createButtons() {
-        buttons = new Array<>();
+    private fun createButtons() {
+        buttons = Array<TextButton>()
 
-        buttonBuySWAT = new TextButton(textSelect, Assets.styleTextButtonPurchased);
-        if (Settings.skinSeleccionada == Hero.TYPE_SWAT)
-            buttonBuySWAT.setVisible(false);
+        buttonBuySWAT = TextButton(textSelect, Assets.styleTextButtonPurchased)
+        if (Settings.skinSeleccionada == Hero.TYPE_SWAT) buttonBuySWAT!!.isVisible = false
 
-        addEfectoPress(buttonBuySWAT);
-        buttonBuySWAT.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Settings.skinSeleccionada = Hero.TYPE_SWAT;
-                setSelected(buttonBuySWAT);
+        addEfectoPress(buttonBuySWAT!!)
+        buttonBuySWAT!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                Settings.skinSeleccionada = Hero.TYPE_SWAT
+                setSelected(buttonBuySWAT!!)
             }
-        });
+        })
 
-        if (didBuyRambo)
-            buttonBuyRambo = new TextButton(textSelect, Assets.styleTextButtonPurchased);
-        else
-            buttonBuyRambo = new TextButton(textBuy, Assets.styleTextButtonBuy);
+        if (didBuyRambo) buttonBuyRambo = TextButton(textSelect, Assets.styleTextButtonPurchased)
+        else buttonBuyRambo = TextButton(textBuy, Assets.styleTextButtonBuy)
 
-        if (Settings.skinSeleccionada == Hero.TYPE_RAMBO)
-            buttonBuyRambo.setVisible(false);
+        if (Settings.skinSeleccionada == Hero.TYPE_RAMBO) buttonBuyRambo!!.isVisible = false
 
-        addEfectoPress(buttonBuyRambo);
-        buttonBuyRambo.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
+        addEfectoPress(buttonBuyRambo!!)
+        buttonBuyRambo!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 if (didBuyRambo) {
-                    Settings.skinSeleccionada = Hero.TYPE_RAMBO;
-                    setSelected(buttonBuyRambo);
+                    Settings.skinSeleccionada = Hero.TYPE_RAMBO
+                    setSelected(buttonBuyRambo!!)
                 } else if (Settings.gemsTotal >= PRICE_HERO_RAMBO) {
-                    Settings.gemsTotal -= PRICE_HERO_RAMBO;
-                    setButtonStylePurchased(buttonBuyRambo);
-                    labelPriceRambo.remove();
-                    didBuyRambo = true;
+                    Settings.gemsTotal -= PRICE_HERO_RAMBO
+                    setButtonStylePurchased(buttonBuyRambo!!)
+                    labelPriceRambo!!.remove()
+                    didBuyRambo = true
                 }
-                savePurchases();
+                savePurchases()
             }
-        });
+        })
 
-        if (didBuySoldier)
-            buttonBuySoldier = new TextButton(textSelect, Assets.styleTextButtonPurchased);
-        else
-            buttonBuySoldier = new TextButton(textBuy, Assets.styleTextButtonBuy);
+        if (didBuySoldier) buttonBuySoldier = TextButton(textSelect, Assets.styleTextButtonPurchased)
+        else buttonBuySoldier = TextButton(textBuy, Assets.styleTextButtonBuy)
 
-        if (Settings.skinSeleccionada == Hero.TYPE_SOLDIER)
-            buttonBuySoldier.setVisible(false);
+        if (Settings.skinSeleccionada == Hero.TYPE_SOLDIER) buttonBuySoldier!!.isVisible = false
 
-        addEfectoPress(buttonBuySoldier);
-        buttonBuySoldier.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
+        addEfectoPress(buttonBuySoldier!!)
+        buttonBuySoldier!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 if (didBuySoldier) {
-                    Settings.skinSeleccionada = Hero.TYPE_SOLDIER;
-                    setSelected(buttonBuySoldier);
+                    Settings.skinSeleccionada = Hero.TYPE_SOLDIER
+                    setSelected(buttonBuySoldier!!)
                 } else if (Settings.gemsTotal >= PRICE_HERO_SOLDIER) {
-                    Settings.gemsTotal -= PRICE_HERO_SOLDIER;
-                    setButtonStylePurchased(buttonBuySoldier);
-                    labelPriceSoldier.remove();
-                    didBuySoldier = true;
+                    Settings.gemsTotal -= PRICE_HERO_SOLDIER
+                    setButtonStylePurchased(buttonBuySoldier!!)
+                    labelPriceSoldier!!.remove()
+                    didBuySoldier = true
                 }
-                savePurchases();
+                savePurchases()
             }
-        });
+        })
 
-        if (didBuyElite)
-            buttonBuyElite = new TextButton(textSelect, Assets.styleTextButtonPurchased);
-        else
-            buttonBuyElite = new TextButton(textBuy, Assets.styleTextButtonBuy);
+        if (didBuyElite) buttonBuyElite = TextButton(textSelect, Assets.styleTextButtonPurchased)
+        else buttonBuyElite = TextButton(textBuy, Assets.styleTextButtonBuy)
 
-        if (Settings.skinSeleccionada == Hero.TYPE_FORCE)
-            buttonBuyElite.setVisible(false);
+        if (Settings.skinSeleccionada == Hero.TYPE_FORCE) buttonBuyElite!!.isVisible = false
 
-        addEfectoPress(buttonBuyElite);
-        buttonBuyElite.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
+        addEfectoPress(buttonBuyElite!!)
+        buttonBuyElite!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 if (didBuyElite) {
-                    Settings.skinSeleccionada = Hero.TYPE_FORCE;
-                    setSelected(buttonBuyElite);
+                    Settings.skinSeleccionada = Hero.TYPE_FORCE
+                    setSelected(buttonBuyElite!!)
                 } else if (Settings.gemsTotal >= PRICE_HERO_ELITE) {
-                    Settings.gemsTotal -= PRICE_HERO_ELITE;
-                    setButtonStylePurchased(buttonBuyElite);
-                    labelPriceElite.remove();
-                    didBuyElite = true;
+                    Settings.gemsTotal -= PRICE_HERO_ELITE
+                    setButtonStylePurchased(buttonBuyElite!!)
+                    labelPriceElite!!.remove()
+                    didBuyElite = true
                 }
-                savePurchases();
+                savePurchases()
             }
-        });
+        })
 
-        if (didBuyVader)
-            buttonBuyVader = new TextButton(textSelect, Assets.styleTextButtonPurchased);
-        else
-            buttonBuyVader = new TextButton(textBuy, Assets.styleTextButtonBuy);
+        if (didBuyVader) buttonBuyVader = TextButton(textSelect, Assets.styleTextButtonPurchased)
+        else buttonBuyVader = TextButton(textBuy, Assets.styleTextButtonBuy)
 
-        if (Settings.skinSeleccionada == Hero.TYPE_VADER)
-            buttonBuyVader.setVisible(false);
+        if (Settings.skinSeleccionada == Hero.TYPE_VADER) buttonBuyVader!!.isVisible = false
 
-        addEfectoPress(buttonBuyVader);
-        buttonBuyVader.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
+        addEfectoPress(buttonBuyVader!!)
+        buttonBuyVader!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 if (didBuyVader) {
-                    Settings.skinSeleccionada = Hero.TYPE_VADER;
-                    setSelected(buttonBuyVader);
+                    Settings.skinSeleccionada = Hero.TYPE_VADER
+                    setSelected(buttonBuyVader!!)
                 } else if (Settings.gemsTotal >= PRICE_HERO_VADER) {
-                    Settings.gemsTotal -= PRICE_HERO_VADER;
-                    setButtonStylePurchased(buttonBuyVader);
-                    labelPriceVader.remove();
-                    didBuyVader = true;
+                    Settings.gemsTotal -= PRICE_HERO_VADER
+                    setButtonStylePurchased(buttonBuyVader!!)
+                    labelPriceVader!!.remove()
+                    didBuyVader = true
                 }
-                savePurchases();
+                savePurchases()
             }
-        });
+        })
 
-        buttons.add(buttonBuySWAT);
-        buttons.add(buttonBuyRambo);
-        buttons.add(buttonBuySoldier);
-        buttons.add(buttonBuyElite);
-        buttons.add(buttonBuyVader);
+        buttons!!.add(buttonBuySWAT)
+        buttons!!.add(buttonBuyRambo)
+        buttons!!.add(buttonBuySoldier)
+        buttons!!.add(buttonBuyElite)
+        buttons!!.add(buttonBuyVader)
     }
 
-    private void loadPurchases() {
-        didBuyRambo = preferences.getBoolean("didBuyRambo", false);
-        didBuySoldier = preferences.getBoolean("didBuySoldier", false);
-        didBuyElite = preferences.getBoolean("didBuyElite", false);
-        didBuyVader = preferences.getBoolean("didBuyVader", false);
+    private fun loadPurchases() {
+        didBuyRambo = preferences.getBoolean("didBuyRambo", false)
+        didBuySoldier = preferences.getBoolean("didBuySoldier", false)
+        didBuyElite = preferences.getBoolean("didBuyElite", false)
+        didBuyVader = preferences.getBoolean("didBuyVader", false)
     }
 
-    private void savePurchases() {
-        preferences.putBoolean("didBuyRambo", didBuyRambo);
-        preferences.putBoolean("didBuySoldier", didBuySoldier);
-        preferences.putBoolean("didBuyElite", didBuyElite);
-        preferences.putBoolean("didBuyVader", didBuyVader);
-        preferences.flush();
-        Settings.save();
+    private fun savePurchases() {
+        preferences.putBoolean("didBuyRambo", didBuyRambo)
+        preferences.putBoolean("didBuySoldier", didBuySoldier)
+        preferences.putBoolean("didBuyElite", didBuyElite)
+        preferences.putBoolean("didBuyVader", didBuyVader)
+        preferences.flush()
+        Settings.save()
     }
 
-    private void setButtonStylePurchased(TextButton boton) {
-        boton.setStyle(Assets.styleTextButtonPurchased);
-        boton.setText(textSelect);
+    private fun setButtonStylePurchased(boton: TextButton) {
+        boton.setStyle(Assets.styleTextButtonPurchased)
+        boton.setText(textSelect)
     }
 
-    private void setSelected(TextButton button) {
+    private fun setSelected(button: TextButton) {
         // I make all visible and at the end the selected button invisible.
-        for (TextButton arrBotone : buttons) {
-            arrBotone.setVisible(true);
+        for (arrBotone in buttons!!) {
+            arrBotone.isVisible = true
         }
-        button.setVisible(false);
+        button.isVisible = false
     }
 
-    protected void addEfectoPress(final Actor actor) {
-        actor.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                actor.setPosition(actor.getX(), actor.getY() - 3);
-                event.stop();
-                return true;
+    protected fun addEfectoPress(actor: Actor) {
+        actor.addListener(object : InputListener() {
+            override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
+                actor.setPosition(actor.getX(), actor.getY() - 3)
+                event.stop()
+                return true
             }
 
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                actor.setPosition(actor.getX(), actor.getY() + 3);
+            override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
+                actor.setPosition(actor.getX(), actor.getY() + 3)
             }
-        });
+        })
+    }
+
+    companion object {
+        private val preferences: Preferences = Gdx.app.getPreferences("com.nopalsoft.zombiekiller.shop")
     }
 }

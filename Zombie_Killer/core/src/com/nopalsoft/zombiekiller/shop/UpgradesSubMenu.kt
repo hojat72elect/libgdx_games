@@ -1,278 +1,272 @@
-package com.nopalsoft.zombiekiller.shop;
+package com.nopalsoft.zombiekiller.shop
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.I18NBundle;
-import com.nopalsoft.zombiekiller.Assets;
-import com.nopalsoft.zombiekiller.MainZombie;
-import com.nopalsoft.zombiekiller.Settings;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
+import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.InputListener
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import com.badlogic.gdx.utils.I18NBundle
+import com.nopalsoft.zombiekiller.Assets
+import com.nopalsoft.zombiekiller.MainZombie
+import com.nopalsoft.zombiekiller.Settings
 
-public class UpgradesSubMenu {
-    public final int MAX_LEVEL = 6;
+class UpgradesSubMenu(contenedor: Table, game: MainZombie) {
+    val MAX_LEVEL: Int = 6
 
-    int precioNivel1 = 350;
-    int precioNivel2 = 1250;
-    int precioNivel3 = 2500;
-    int precioNivel4 = 3750;
-    int precioNivel5 = 4750;
-    int precioNivel6 = 5750;
+    var precioNivel1: Int = 350
+    var precioNivel2: Int = 1250
+    var precioNivel3: Int = 2500
+    var precioNivel4: Int = 3750
+    var precioNivel5: Int = 4750
+    var precioNivel6: Int = 5750
 
-    TextButton btUpgradeWeapon;
-    TextButton btUpgradeChanceDrop;
-    TextButton btUpgradeLife;
-    TextButton btUpgradeShield;
+    var btUpgradeWeapon: TextButton? = null
+    var btUpgradeChanceDrop: TextButton? = null
+    var btUpgradeLife: TextButton? = null
+    var btUpgradeShield: TextButton? = null
 
-    Label lbPrecioWeapon;
-    Label lbPrecioChanceDrop;
-    Label lbPrecioLife;
-    Label lbPrecioShield;
+    var lbPrecioWeapon: Label? = null
+    var lbPrecioChanceDrop: Label? = null
+    var lbPrecioLife: Label? = null
+    var lbPrecioShield: Label? = null
 
-    Image[] arrWeapon;
-    Image[] arrChanceDrop;
-    Image[] arrLife;
-    Image[] arrShield;
+    var arrWeapon: Array<Image?>
+    var arrChanceDrop: Array<Image?>
+    var arrLife: Array<Image?>
+    var arrShield: Array<Image?>
 
-    Table contenedor;
-    I18NBundle idiomas;
+    var contenedor: Table?
+    var idiomas: I18NBundle
 
-    String textUpgrade;
+    var textUpgrade: String?
 
-    public UpgradesSubMenu(Table contenedor, MainZombie game) {
-        this.contenedor = contenedor;
-        idiomas = game.idiomas;
-        contenedor.clear();
+    init {
+        this.contenedor = contenedor
+        idiomas = game.idiomas
+        contenedor.clear()
 
-        textUpgrade = idiomas.get("upgrade");
+        textUpgrade = idiomas.get("upgrade")
 
-        arrWeapon = new Image[MAX_LEVEL];
-        arrChanceDrop = new Image[MAX_LEVEL];
-        arrLife = new Image[MAX_LEVEL];
-        arrShield = new Image[MAX_LEVEL];
+        arrWeapon = arrayOfNulls<Image>(MAX_LEVEL)
+        arrChanceDrop = arrayOfNulls<Image>(MAX_LEVEL)
+        arrLife = arrayOfNulls<Image>(MAX_LEVEL)
+        arrShield = arrayOfNulls<Image>(MAX_LEVEL)
 
-        if (Settings.LEVEL_WEAPON < MAX_LEVEL)
-            lbPrecioWeapon = new Label(calcularPrecio(Settings.LEVEL_WEAPON) + "", Assets.labelStyleChico);
+        if (Settings.LEVEL_WEAPON < MAX_LEVEL) lbPrecioWeapon = Label(calcularPrecio(Settings.LEVEL_WEAPON).toString() + "", Assets.labelStyleChico)
 
-        if (Settings.LEVEL_CHANCE_DROP < MAX_LEVEL)
-            lbPrecioChanceDrop = new Label(calcularPrecio(Settings.LEVEL_CHANCE_DROP) + "", Assets.labelStyleChico);
+        if (Settings.LEVEL_CHANCE_DROP < MAX_LEVEL) lbPrecioChanceDrop = Label(calcularPrecio(Settings.LEVEL_CHANCE_DROP).toString() + "", Assets.labelStyleChico)
 
-        if (Settings.LEVEL_LIFE < MAX_LEVEL)
-            lbPrecioLife = new Label(calcularPrecio(Settings.LEVEL_LIFE) + "", Assets.labelStyleChico);
+        if (Settings.LEVEL_LIFE < MAX_LEVEL) lbPrecioLife = Label(calcularPrecio(Settings.LEVEL_LIFE).toString() + "", Assets.labelStyleChico)
 
-        if (Settings.LEVEL_SHIELD < MAX_LEVEL)
-            lbPrecioShield = new Label(calcularPrecio(Settings.LEVEL_SHIELD) + "", Assets.labelStyleChico);
+        if (Settings.LEVEL_SHIELD < MAX_LEVEL) lbPrecioShield = Label(calcularPrecio(Settings.LEVEL_SHIELD).toString() + "", Assets.labelStyleChico)
 
-        inicializarBotones();
+        inicializarBotones()
 
         // Upgrade weapon
         contenedor
-                .add(agregarPersonajeTabla(idiomas.get("upgrade_your_weapon"), lbPrecioWeapon, Assets.weapon,
-                        idiomas.get("upgrade_your_weapon_description"), arrWeapon, btUpgradeWeapon)).expandX().fill();
-        contenedor.row();
+            .add<Table?>(
+                agregarPersonajeTabla(
+                    idiomas.get("upgrade_your_weapon"), lbPrecioWeapon, Assets.weapon,
+                    idiomas.get("upgrade_your_weapon_description"), arrWeapon, btUpgradeWeapon
+                )
+            ).expandX().fill()
+        contenedor.row()
 
         // Life
         contenedor
-                .add(agregarPersonajeTabla(idiomas.get("upgrade_your_life"), lbPrecioLife, Assets.itemHeart,
-                        idiomas.get("upgrade_your_life_description"), arrLife, btUpgradeLife)).expandX().fill();
-        contenedor.row();
+            .add<Table?>(
+                agregarPersonajeTabla(
+                    idiomas.get("upgrade_your_life"), lbPrecioLife, Assets.itemHeart,
+                    idiomas.get("upgrade_your_life_description"), arrLife, btUpgradeLife
+                )
+            ).expandX().fill()
+        contenedor.row()
 
         // Shield
         contenedor
-                .add(agregarPersonajeTabla(idiomas.get("upgrade_your_shield"), lbPrecioShield, Assets.itemShield,
-                        idiomas.get("upgrade_your_shield_description"), arrShield, btUpgradeShield)).expandX().fill();
-        contenedor.row();
+            .add<Table?>(
+                agregarPersonajeTabla(
+                    idiomas.get("upgrade_your_shield"), lbPrecioShield, Assets.itemShield,
+                    idiomas.get("upgrade_your_shield_description"), arrShield, btUpgradeShield
+                )
+            ).expandX().fill()
+        contenedor.row()
 
         // Drop chance
         contenedor
-                .add(agregarPersonajeTabla(idiomas.get("drop_chance"), lbPrecioChanceDrop, Assets.itemCollection,
-                        idiomas.get("drop_chance_description"), arrChanceDrop, btUpgradeChanceDrop)).expandX().fill();
-        contenedor.row();
+            .add<Table?>(
+                agregarPersonajeTabla(
+                    idiomas.get("drop_chance"), lbPrecioChanceDrop, Assets.itemCollection,
+                    idiomas.get("drop_chance_description"), arrChanceDrop, btUpgradeChanceDrop
+                )
+            ).expandX().fill()
+        contenedor.row()
 
-        setArrays();
+        setArrays()
     }
 
-    private Table agregarPersonajeTabla(String titulo, Label lblPrecio, AtlasRegion imagen, String descripcion, Image[] arrLevel, TextButton boton) {
+    private fun agregarPersonajeTabla(titulo: String?, lblPrecio: Label?, imagen: AtlasRegion?, descripcion: String?, arrLevel: Array<Image?>, boton: TextButton?): Table {
+        val moneda = Image(Assets.itemGem)
+        val imgPersonaje = Image(imagen)
 
-        Image moneda = new Image(Assets.itemGem);
-        Image imgPersonaje = new Image(imagen);
+        if (lblPrecio == null) moneda.isVisible = false
 
-        if (lblPrecio == null)
-            moneda.setVisible(false);
+        val tbBarraTitulo = Table()
+        tbBarraTitulo.add<Label?>(Label(titulo, Assets.labelStyleChico)).expandX().left()
+        tbBarraTitulo.add<Image?>(moneda).right().size(20f)
+        tbBarraTitulo.add<Label?>(lblPrecio).right().padRight(10f)
 
-        Table tbBarraTitulo = new Table();
-        tbBarraTitulo.add(new Label(titulo, Assets.labelStyleChico)).expandX().left();
-        tbBarraTitulo.add(moneda).right().size(20);
-        tbBarraTitulo.add(lblPrecio).right().padRight(10);
+        val tbDescrip = Table()
+        tbDescrip.add<Image?>(imgPersonaje).left().pad(5f).size(55f, 48f)
+        val lblDescripcion = Label(descripcion, Assets.labelStyleChico)
+        lblDescripcion.setWrap(true)
+        lblDescripcion.setFontScale(.9f)
+        tbDescrip.add<Label?>(lblDescripcion).expand().fill().padLeft(5f)
 
-        Table tbDescrip = new Table();
-        tbDescrip.add(imgPersonaje).left().pad(5).size(55, 48);
-        Label lblDescripcion = new Label(descripcion, Assets.labelStyleChico);
-        lblDescripcion.setWrap(true);
-        lblDescripcion.setFontScale(.9f);
-        tbDescrip.add(lblDescripcion).expand().fill().padLeft(5);
+        val tbContent = Table()
+        tbContent.pad(0f)
+        tbContent.setBackground(Assets.storeTableBackground)
+        tbContent.defaults().padLeft(20f).padRight(20f)
 
-        Table tbContent = new Table();
-        tbContent.pad(0);
-        tbContent.setBackground(Assets.storeTableBackground);
-        tbContent.defaults().padLeft(20).padRight(20);
+        tbContent.add<Table?>(tbBarraTitulo).expandX().fill().colspan(2).padTop(20f)
+        tbContent.row().colspan(2)
+        tbContent.add<Table?>(tbDescrip).expandX().fill()
+        tbContent.row().padBottom(20f)
 
-        tbContent.add(tbBarraTitulo).expandX().fill().colspan(2).padTop(20);
-        tbContent.row().colspan(2);
-        tbContent.add(tbDescrip).expandX().fill();
-        tbContent.row().padBottom(20);
-
-        Table auxTab = new Table();
-        auxTab.defaults().padLeft(5);
-        for (int i = 0; i < MAX_LEVEL; i++) {
-            arrLevel[i] = new Image(Assets.upgradeOff);
-            auxTab.add(arrLevel[i]).width(25).height(25);
+        val auxTab = Table()
+        auxTab.defaults().padLeft(5f)
+        for (i in 0..<MAX_LEVEL) {
+            arrLevel[i] = Image(Assets.upgradeOff)
+            auxTab.add<Image?>(arrLevel[i]).width(25f).height(25f)
         }
 
-        tbContent.add(auxTab).left().expand().padRight(0);
-        tbContent.add(boton).left().size(120, 45).padLeft(0);
+        tbContent.add<Table?>(auxTab).left().expand().padRight(0f)
+        tbContent.add<TextButton?>(boton).left().size(120f, 45f).padLeft(0f)
 
-        return tbContent;
+        return tbContent
     }
 
-    private void inicializarBotones() {
-        btUpgradeWeapon = new TextButton(textUpgrade, Assets.styleTextButtonPurchased);
-        if (Settings.LEVEL_WEAPON == MAX_LEVEL)
-            btUpgradeWeapon.setVisible(false);
-        addEfectoPress(btUpgradeWeapon);
-        btUpgradeWeapon.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
+    private fun inicializarBotones() {
+        btUpgradeWeapon = TextButton(textUpgrade, Assets.styleTextButtonPurchased)
+        if (Settings.LEVEL_WEAPON == MAX_LEVEL) btUpgradeWeapon!!.isVisible = false
+        addEfectoPress(btUpgradeWeapon!!)
+        btUpgradeWeapon!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 if (Settings.gemsTotal >= calcularPrecio(Settings.LEVEL_WEAPON)) {
-                    Settings.gemsTotal -= calcularPrecio(Settings.LEVEL_WEAPON);
-                    Settings.LEVEL_WEAPON++;
-                    updateLabelPriceAndButton(Settings.LEVEL_WEAPON, lbPrecioWeapon, btUpgradeWeapon);
-                    setArrays();
+                    Settings.gemsTotal -= calcularPrecio(Settings.LEVEL_WEAPON)
+                    Settings.LEVEL_WEAPON++
+                    updateLabelPriceAndButton(Settings.LEVEL_WEAPON, lbPrecioWeapon!!, btUpgradeWeapon!!)
+                    setArrays()
                 }
             }
-        });
+        })
 
         // Chance life
-        btUpgradeLife = new TextButton(textUpgrade, Assets.styleTextButtonPurchased);
-        if (Settings.LEVEL_LIFE == MAX_LEVEL)
-            btUpgradeLife.setVisible(false);
-        addEfectoPress(btUpgradeLife);
-        btUpgradeLife.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
+        btUpgradeLife = TextButton(textUpgrade, Assets.styleTextButtonPurchased)
+        if (Settings.LEVEL_LIFE == MAX_LEVEL) btUpgradeLife!!.isVisible = false
+        addEfectoPress(btUpgradeLife!!)
+        btUpgradeLife!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 if (Settings.gemsTotal >= calcularPrecio(Settings.LEVEL_LIFE)) {
-                    Settings.gemsTotal -= calcularPrecio(Settings.LEVEL_LIFE);
-                    Settings.LEVEL_LIFE++;
-                    updateLabelPriceAndButton(Settings.LEVEL_LIFE, lbPrecioLife, btUpgradeLife);
-                    setArrays();
+                    Settings.gemsTotal -= calcularPrecio(Settings.LEVEL_LIFE)
+                    Settings.LEVEL_LIFE++
+                    updateLabelPriceAndButton(Settings.LEVEL_LIFE, lbPrecioLife!!, btUpgradeLife!!)
+                    setArrays()
                 }
             }
-        });
+        })
 
         // Chance shield
-        btUpgradeShield = new TextButton(textUpgrade, Assets.styleTextButtonPurchased);
-        if (Settings.LEVEL_SHIELD == MAX_LEVEL)
-            btUpgradeShield.setVisible(false);
-        addEfectoPress(btUpgradeShield);
-        btUpgradeShield.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
+        btUpgradeShield = TextButton(textUpgrade, Assets.styleTextButtonPurchased)
+        if (Settings.LEVEL_SHIELD == MAX_LEVEL) btUpgradeShield!!.isVisible = false
+        addEfectoPress(btUpgradeShield!!)
+        btUpgradeShield!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 if (Settings.gemsTotal >= calcularPrecio(Settings.LEVEL_SHIELD)) {
-                    Settings.gemsTotal -= calcularPrecio(Settings.LEVEL_SHIELD);
-                    Settings.LEVEL_SHIELD++;
-                    updateLabelPriceAndButton(Settings.LEVEL_SHIELD, lbPrecioShield, btUpgradeShield);
-                    setArrays();
+                    Settings.gemsTotal -= calcularPrecio(Settings.LEVEL_SHIELD)
+                    Settings.LEVEL_SHIELD++
+                    updateLabelPriceAndButton(Settings.LEVEL_SHIELD, lbPrecioShield!!, btUpgradeShield!!)
+                    setArrays()
                 }
             }
-        });
+        })
 
         // Chance drop
-        btUpgradeChanceDrop = new TextButton(textUpgrade, Assets.styleTextButtonPurchased);
-        if (Settings.LEVEL_CHANCE_DROP == MAX_LEVEL)
-            btUpgradeChanceDrop.setVisible(false);
-        addEfectoPress(btUpgradeChanceDrop);
-        btUpgradeChanceDrop.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
+        btUpgradeChanceDrop = TextButton(textUpgrade, Assets.styleTextButtonPurchased)
+        if (Settings.LEVEL_CHANCE_DROP == MAX_LEVEL) btUpgradeChanceDrop!!.isVisible = false
+        addEfectoPress(btUpgradeChanceDrop!!)
+        btUpgradeChanceDrop!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 if (Settings.gemsTotal >= calcularPrecio(Settings.LEVEL_CHANCE_DROP)) {
-                    Settings.gemsTotal -= calcularPrecio(Settings.LEVEL_CHANCE_DROP);
-                    Settings.LEVEL_CHANCE_DROP++;
-                    updateLabelPriceAndButton(Settings.LEVEL_CHANCE_DROP, lbPrecioChanceDrop, btUpgradeChanceDrop);
-                    setArrays();
+                    Settings.gemsTotal -= calcularPrecio(Settings.LEVEL_CHANCE_DROP)
+                    Settings.LEVEL_CHANCE_DROP++
+                    updateLabelPriceAndButton(Settings.LEVEL_CHANCE_DROP, lbPrecioChanceDrop!!, btUpgradeChanceDrop!!)
+                    setArrays()
                 }
             }
-        });
+        })
     }
 
-    private void setArrays() {
-        for (int i = 0; i < Settings.LEVEL_WEAPON; i++) {
-            arrWeapon[i].setDrawable(new TextureRegionDrawable(Assets.itemSkull));
+    private fun setArrays() {
+        for (i in 0..<Settings.LEVEL_WEAPON) {
+            arrWeapon[i]!!.setDrawable(TextureRegionDrawable(Assets.itemSkull))
         }
 
-        for (int i = 0; i < Settings.LEVEL_CHANCE_DROP; i++) {
-            arrChanceDrop[i].setDrawable(new TextureRegionDrawable(Assets.itemSkull));
+        for (i in 0..<Settings.LEVEL_CHANCE_DROP) {
+            arrChanceDrop[i]!!.setDrawable(TextureRegionDrawable(Assets.itemSkull))
         }
 
-        for (int i = 0; i < Settings.LEVEL_LIFE; i++) {
-            arrLife[i].setDrawable(new TextureRegionDrawable(Assets.itemSkull));
+        for (i in 0..<Settings.LEVEL_LIFE) {
+            arrLife[i]!!.setDrawable(TextureRegionDrawable(Assets.itemSkull))
         }
 
-        for (int i = 0; i < Settings.LEVEL_SHIELD; i++) {
-            arrShield[i].setDrawable(new TextureRegionDrawable(Assets.itemSkull));
-        }
-    }
-
-    private int calcularPrecio(int nivel) {
-        switch (nivel) {
-            case 0:
-                return precioNivel1;
-
-            case 1:
-                return precioNivel2;
-
-            case 2:
-                return precioNivel3;
-
-            case 3:
-                return precioNivel4;
-
-            case 4:
-                return precioNivel5;
-
-            case 5:
-            default:
-                return precioNivel6;
+        for (i in 0..<Settings.LEVEL_SHIELD) {
+            arrShield[i]!!.setDrawable(TextureRegionDrawable(Assets.itemSkull))
         }
     }
 
-    private void updateLabelPriceAndButton(int level, Label label, TextButton button) {
+    private fun calcularPrecio(nivel: Int): Int {
+        when (nivel) {
+            0 -> return precioNivel1
+
+            1 -> return precioNivel2
+
+            2 -> return precioNivel3
+
+            3 -> return precioNivel4
+
+            4 -> return precioNivel5
+
+            5 -> return precioNivel6
+            else -> return precioNivel6
+        }
+    }
+
+    private fun updateLabelPriceAndButton(level: Int, label: Label, button: TextButton) {
         if (level < MAX_LEVEL) {
-            label.setText(calcularPrecio(level) + "");
+            label.setText(calcularPrecio(level).toString() + "")
         } else {
-            label.setVisible(false);
-            button.setVisible(false);
+            label.isVisible = false
+            button.isVisible = false
         }
     }
 
-    protected void addEfectoPress(final Actor actor) {
-        actor.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                actor.setPosition(actor.getX(), actor.getY() - 3);
-                event.stop();
-                return true;
+    protected fun addEfectoPress(actor: Actor) {
+        actor.addListener(object : InputListener() {
+            override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
+                actor.setPosition(actor.getX(), actor.getY() - 3)
+                event.stop()
+                return true
             }
 
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                actor.setPosition(actor.getX(), actor.getY() + 3);
+            override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
+                actor.setPosition(actor.getX(), actor.getY() + 3)
             }
-        });
+        })
     }
 }
