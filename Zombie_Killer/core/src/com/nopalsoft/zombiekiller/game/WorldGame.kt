@@ -436,7 +436,7 @@ class WorldGame {
                     }
                     Assets.playSound(sound!!, 1f)
 
-                    val impulseX = if (obj.isFacingLeft) -obj.FORCE_IMPACT else obj.FORCE_IMPACT
+                    val impulseX = if (obj.isFacingLeft) -obj.forceImpact else obj.forceImpact
                     val impulseY = 2.5f
 
                     heroFixture.body.setLinearVelocity(impulseX, impulseY)

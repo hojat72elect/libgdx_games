@@ -9,10 +9,7 @@ import com.nopalsoft.zombiekiller.Assets
 class ProgressBarUI : Table {
     var maxNum: Float
     var actualNum: Float
-    var WIDTH: Float = 180f
-    var HEIGHT: Float = 30f
-    var BAR_WIDTH: Float = 140f
-    var BAR_HEIGHT: Float = 20f
+
     var bar: AtlasRegion?
 
     constructor(bar: AtlasRegion?, icon: AtlasRegion?, maxNum: Float, actualNum: Float, x: Float, y: Float) {
@@ -49,5 +46,12 @@ class ProgressBarUI : Table {
     override fun draw(batch: Batch, parentAlpha: Float) {
         super.draw(batch, parentAlpha)
         if (actualNum > 0) batch.draw(bar, this.getX() + 34, this.getY() + 6, BAR_WIDTH * (actualNum / maxNum), BAR_HEIGHT)
+    }
+
+    companion object {
+        const val WIDTH = 180f
+        const val HEIGHT = 30f
+        const val BAR_WIDTH = 140f
+        const val BAR_HEIGHT = 20f
     }
 }

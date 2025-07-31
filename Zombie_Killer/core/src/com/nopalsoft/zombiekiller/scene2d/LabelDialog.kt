@@ -5,10 +5,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.nopalsoft.zombiekiller.Assets
 
 class LabelDialog(text: String?, isInverted: Boolean) : Table() {
-    var label: Label
+    var label: Label = Label(text, Assets.labelStyleHelpDialog)
 
     init {
-        label = Label(text, Assets.labelStyleHelpDialog)
         label.setWrap(true)
 
         var width = 75f

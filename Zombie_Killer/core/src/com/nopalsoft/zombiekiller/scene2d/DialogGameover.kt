@@ -1,7 +1,6 @@
 package com.nopalsoft.zombiekiller.scene2d
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -20,10 +19,9 @@ class DialogGameover(currentScreen: Screens) : Dialog(currentScreen, 350f, 310f,
 
     var buttonSize: Int = 55
 
-    var ventanaShop: DialogShop
+    var ventanaShop: DialogShop = DialogShop(screen)
 
     init {
-        ventanaShop = DialogShop(screen)
 
         val lbShop = Label(idiomas!!.get("game_over"), Assets.labelStyleGrande)
         lbShop.setFontScale(1.5f)

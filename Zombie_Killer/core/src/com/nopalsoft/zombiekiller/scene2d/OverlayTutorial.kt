@@ -10,7 +10,7 @@ import com.nopalsoft.zombiekiller.Assets
 import com.nopalsoft.zombiekiller.game.GameScreen
 import com.nopalsoft.zombiekiller.screens.Screens
 
-class OverlayTutorial(gameScreen: GameScreen) : Group() {
+class OverlayTutorial(var gameScreen: GameScreen) : Group() {
     var isTutorialVisible: Boolean = false
     var currentDialog: LabelDialog? = null
     var helpPad: LabelDialog
@@ -20,13 +20,11 @@ class OverlayTutorial(gameScreen: GameScreen) : Group() {
     var helpShieldBar: LabelDialog
     var helpCollectSkulls: LabelDialog
     var helpCollectGems: LabelDialog
-    var gameScreen: GameScreen?
     var numDialogShown: Int = 0
 
     var languagesBundle: I18NBundle
 
     init {
-        this.gameScreen = gameScreen
         setSize(Screens.SCREEN_WIDTH.toFloat(), Screens.SCREEN_HEIGHT.toFloat())
         setBackground()
         languagesBundle = gameScreen.game!!.idiomas!!

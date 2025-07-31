@@ -20,10 +20,6 @@ import com.nopalsoft.zombiekiller.game_objects.Hero
 import com.nopalsoft.zombiekiller.scene2d.AnimatedSpriteActor
 
 class PlayersSubMenu(containerTable: Table, game: MainZombie) {
-    val PRICE_HERO_RAMBO: Int = 1000
-    val PRICE_HERO_SOLDIER: Int = 1500
-    val PRICE_HERO_ELITE: Int = 2000
-    val PRICE_HERO_VADER: Int = 2500
 
     var didBuyRambo: Boolean = false
     var didBuySoldier: Boolean = false
@@ -40,14 +36,11 @@ class PlayersSubMenu(containerTable: Table, game: MainZombie) {
     var buttonBuyElite: TextButton? = null
     var buttonBuyVader: TextButton? = null
     var buttons: Array<TextButton>? = null
-    var containerTable: Table?
-    var languagesBundle: I18NBundle
+    var languagesBundle: I18NBundle = game.idiomas!!
     var textBuy: String?
     var textSelect: String?
 
     init {
-        languagesBundle = game.idiomas!!
-        this.containerTable = containerTable
         containerTable.clear()
         loadPurchases()
 
@@ -91,8 +84,8 @@ class PlayersSubMenu(containerTable: Table, game: MainZombie) {
         if (priceLabel == null) coinImage.isVisible = false
 
         val titleBarTable = Table()
-        titleBarTable.add<Label?>(Label(title, Assets.labelStyleChico)).expandX().left()
-        titleBarTable.add<Image?>(coinImage).right().size(20f)
+        titleBarTable.add(Label(title, Assets.labelStyleChico)).expandX().left()
+        titleBarTable.add(coinImage).right().size(20f)
         titleBarTable.add<Label?>(priceLabel).right().padRight(10f)
 
         val tbContent = Table()
@@ -100,14 +93,14 @@ class PlayersSubMenu(containerTable: Table, game: MainZombie) {
         tbContent.setBackground(Assets.storeTableBackground)
 
         tbContent.defaults().padLeft(20f).padRight(20f)
-        tbContent.add<Table?>(titleBarTable).expandX().fill().colspan(2).padTop(20f)
+        tbContent.add(titleBarTable).expandX().fill().colspan(2).padTop(20f)
         tbContent.row()
-        tbContent.add<AnimatedSpriteActor?>(playerSpriteActor).left().size(70f, 70f)
+        tbContent.add(playerSpriteActor).left().size(70f, 70f)
 
         val descriptionLabel = Label(description, Assets.labelStyleChico)
         descriptionLabel.setWrap(true)
         descriptionLabel.setFontScale(.9f)
-        tbContent.add<Label?>(descriptionLabel).expand().fill().padLeft(5f)
+        tbContent.add(descriptionLabel).expand().fill().padLeft(5f)
 
         tbContent.row().colspan(2)
         tbContent.add<TextButton?>(button).expandX().right().padBottom(20f).size(120f, 45f)
@@ -130,8 +123,8 @@ class PlayersSubMenu(containerTable: Table, game: MainZombie) {
             }
         })
 
-        if (didBuyRambo) buttonBuyRambo = TextButton(textSelect, Assets.styleTextButtonPurchased)
-        else buttonBuyRambo = TextButton(textBuy, Assets.styleTextButtonBuy)
+        buttonBuyRambo = if (didBuyRambo) TextButton(textSelect, Assets.styleTextButtonPurchased)
+        else TextButton(textBuy, Assets.styleTextButtonBuy)
 
         if (Settings.skinSeleccionada == Hero.TYPE_RAMBO) buttonBuyRambo!!.isVisible = false
 
@@ -151,8 +144,8 @@ class PlayersSubMenu(containerTable: Table, game: MainZombie) {
             }
         })
 
-        if (didBuySoldier) buttonBuySoldier = TextButton(textSelect, Assets.styleTextButtonPurchased)
-        else buttonBuySoldier = TextButton(textBuy, Assets.styleTextButtonBuy)
+        buttonBuySoldier = if (didBuySoldier) TextButton(textSelect, Assets.styleTextButtonPurchased)
+        else TextButton(textBuy, Assets.styleTextButtonBuy)
 
         if (Settings.skinSeleccionada == Hero.TYPE_SOLDIER) buttonBuySoldier!!.isVisible = false
 
@@ -172,8 +165,8 @@ class PlayersSubMenu(containerTable: Table, game: MainZombie) {
             }
         })
 
-        if (didBuyElite) buttonBuyElite = TextButton(textSelect, Assets.styleTextButtonPurchased)
-        else buttonBuyElite = TextButton(textBuy, Assets.styleTextButtonBuy)
+        buttonBuyElite = if (didBuyElite) TextButton(textSelect, Assets.styleTextButtonPurchased)
+        else TextButton(textBuy, Assets.styleTextButtonBuy)
 
         if (Settings.skinSeleccionada == Hero.TYPE_FORCE) buttonBuyElite!!.isVisible = false
 
@@ -193,8 +186,8 @@ class PlayersSubMenu(containerTable: Table, game: MainZombie) {
             }
         })
 
-        if (didBuyVader) buttonBuyVader = TextButton(textSelect, Assets.styleTextButtonPurchased)
-        else buttonBuyVader = TextButton(textBuy, Assets.styleTextButtonBuy)
+        buttonBuyVader = if (didBuyVader) TextButton(textSelect, Assets.styleTextButtonPurchased)
+        else TextButton(textBuy, Assets.styleTextButtonBuy)
 
         if (Settings.skinSeleccionada == Hero.TYPE_VADER) buttonBuyVader!!.isVisible = false
 
@@ -250,7 +243,7 @@ class PlayersSubMenu(containerTable: Table, game: MainZombie) {
         button.isVisible = false
     }
 
-    protected fun addEfectoPress(actor: Actor) {
+    private fun addEfectoPress(actor: Actor) {
         actor.addListener(object : InputListener() {
             override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
                 actor.setPosition(actor.getX(), actor.getY() - 3)
@@ -266,5 +259,9 @@ class PlayersSubMenu(containerTable: Table, game: MainZombie) {
 
     companion object {
         private val preferences: Preferences = Gdx.app.getPreferences("com.nopalsoft.zombiekiller.shop")
+        const val PRICE_HERO_RAMBO: Int = 1000
+        const val PRICE_HERO_SOLDIER: Int = 1500
+        const val PRICE_HERO_ELITE: Int = 2000
+        const val PRICE_HERO_VADER: Int = 2500
     }
 }

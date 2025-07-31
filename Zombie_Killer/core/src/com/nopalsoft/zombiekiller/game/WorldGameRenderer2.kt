@@ -290,7 +290,7 @@ class WorldGameRenderer2(batch: SpriteBatch, worldGame: WorldGame) {
                 Assets.redBar,
                 zombie.position.x - .33f,
                 zombie.position.y + .36f,
-                .65f * (zombie.lives.toFloat() / zombie.MAX_LIFE),
+                .65f * (zombie.lives.toFloat() / zombie.maxLives),
                 .075f
             )
         }

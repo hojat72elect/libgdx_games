@@ -1,7 +1,6 @@
 package com.nopalsoft.zombiekiller.scene2d
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
@@ -39,7 +38,7 @@ class DialogSelectLevel(currentScreen: Screens) : Dialog(currentScreen, 650f, 45
             totalSkulls += Settings.arrSkullsMundo[i]
         }
 
-        if (Settings.isTest) totalSkulls += Settings.arrSkullsMundo.size * 3
+        if (Settings.IS_TEST) totalSkulls += Settings.arrSkullsMundo.size * 3
 
         var level = 0
         contenedor.defaults().pad(7f, 5f, 7f, 5f)
@@ -71,15 +70,15 @@ class DialogSelectLevel(currentScreen: Screens) : Dialog(currentScreen, 650f, 45
             if (stars >= 0) {
                 for (star in 0..2) {
                     if (stars > star) {
-                        starTable.add<Image?>(Image(Assets.itemSkull)).width(20f).height(20f)
+                        starTable.add(Image(Assets.itemSkull)).width(20f).height(20f)
                     } else {
-                        starTable.add<Image?>(Image(Assets.upgradeOff)).width(20f).height(20f)
+                        starTable.add(Image(Assets.upgradeOff)).width(20f).height(20f)
                     }
                 }
             }
 
             button.row()
-            button.add<Table?>(starTable).height(30f).padBottom(10f)
+            button.add(starTable).height(30f).padBottom(10f)
         }
 
         button.addListener(object : ClickListener() {

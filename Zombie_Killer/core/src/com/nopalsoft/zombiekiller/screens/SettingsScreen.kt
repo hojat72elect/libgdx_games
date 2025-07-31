@@ -27,7 +27,7 @@ class SettingsScreen(game: MainZombie) : Screens(game) {
     var pad: Touchpad
     var buttonJump: Image
     var buttonFire: Image
-    var dragPoint: Vector3
+    var dragPoint: Vector3 = Vector3()
 
     var buttonEnablePad: Button
     var sliderPadSize: Slider
@@ -38,7 +38,6 @@ class SettingsScreen(game: MainZombie) : Screens(game) {
     var buttonMenu: Button
 
     init {
-        dragPoint = Vector3()
 
         val tableSizes = Table()
         tableSizes.setPosition(25f, 275f)

@@ -7,11 +7,11 @@ import com.nopalsoft.zombiekiller.Assets
 class Zombie(x: Float, y: Float, type: Int) {
 
     val type: Int
-    val MAX_LIFE: Int
-    val TIME_TO_HURT_PLAYER: Float = 1f
+    val maxLives: Int
+
     var state: Int
-    var WALK_SPEED: Float = 0f
-    var FORCE_IMPACT: Float = 0f
+    var walkSpeed: Float = 0f
+    var forceImpact: Float = 0f
     var position: Vector2 = Vector2(x, y)
     var stateTime: Float
     var isFacingLeft: Boolean = false
@@ -33,35 +33,35 @@ class Zombie(x: Float, y: Float, type: Int) {
         when (type) {
             TYPE_KID -> {
                 lives = 5
-                FORCE_IMPACT = 2.5f
-                WALK_SPEED = 1.1f
+                forceImpact = 2.5f
+                walkSpeed = 1.1f
             }
 
             TYPE_CUASY -> {
                 lives = 15
-                FORCE_IMPACT = 3f
-                WALK_SPEED = .5f
+                forceImpact = 3f
+                walkSpeed = .5f
             }
 
             TYPE_MUMMY -> {
                 lives = 100
-                FORCE_IMPACT = 8f
-                WALK_SPEED = .5f
+                forceImpact = 8f
+                walkSpeed = .5f
             }
 
             TYPE_PAN -> {
                 lives = 50
-                FORCE_IMPACT = 4f
-                WALK_SPEED = .7f
+                forceImpact = 4f
+                walkSpeed = .7f
             }
 
             TYPE_FRANK -> {
                 lives = 120
-                FORCE_IMPACT = 5f
-                WALK_SPEED = 1.3f
+                forceImpact = 5f
+                walkSpeed = 1.3f
             }
         }
-        MAX_LIFE = lives
+        maxLives = lives
     }
 
     fun update(delta: Float, body: Body, accelX: Float, oHero: Hero) {
@@ -124,13 +124,13 @@ class Zombie(x: Float, y: Float, type: Int) {
 
         when (accelX) {
             -1f -> {
-                velocity.x = -WALK_SPEED
+                velocity.x = -walkSpeed
                 isFacingLeft = true
                 isWalking = true
             }
 
             1f -> {
-                velocity.x = WALK_SPEED
+                velocity.x = walkSpeed
                 isFacingLeft = false
                 isWalking = true
             }
@@ -182,8 +182,9 @@ class Zombie(x: Float, y: Float, type: Int) {
 
         val RISE_DURATION: Float = Assets.zombieKidRise!!.animationDuration + .2f
 
-
         val DEAD_DURATION: Float = Assets.zombieKidDie!!.animationDuration + .2f
         const val HURT_DURATION: Float = .3f
+
+        const val TIME_TO_HURT_PLAYER: Float = 1f
     }
 }

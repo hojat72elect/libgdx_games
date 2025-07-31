@@ -16,12 +16,11 @@ import com.nopalsoft.zombiekiller.screens.Screens
 open class Dialog(protected var screen: Screens, width: Float, height: Float, positionY: Float, imageBackgroun: TextureRegionDrawable?) : Group() {
 
     protected var idiomas: I18NBundle?
-    protected var game: MainZombie
+    protected var game: MainZombie = screen.game!!
 
     private var isVisible = false
 
     init {
-        game = screen.game!!
         idiomas = game.idiomas
         setSize(width, height)
         setY(positionY)
@@ -53,11 +52,7 @@ open class Dialog(protected var screen: Screens, width: Float, height: Float, po
         setX(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f)
 
         setScale(.5f)
-        addAction(Actions.sequence(Actions.scaleTo(1f, 1f, DURACION_ANIMATION), Actions.run(object : Runnable {
-            override fun run() {
-                endResize()
-            }
-        })))
+        addAction(Actions.sequence(Actions.scaleTo(1f, 1f, DURACION_ANIMATION), Actions.run { endResize() }))
 
         isVisible = true
         stage.addActor(this)

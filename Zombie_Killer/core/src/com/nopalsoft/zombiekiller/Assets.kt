@@ -536,7 +536,7 @@ object Assets {
         var i = 1
         var obj: Sprite?
         do {
-            obj = atlas.createSprite("Bullet/" + "muzzle" + i)
+            obj = atlas.createSprite("Bullet/muzzle$i")
             i++
             if (obj != null) arrSprites.add(obj)
         } while (obj != null)
@@ -570,14 +570,14 @@ object Assets {
             map = null
         }
 
-        if (Settings.isTest) {
+        if (Settings.IS_TEST) {
             Gdx.app.log("Inside TEst", "TEST")
             Gdx.app.debug("Inside TEst", "TEST")
-            map = TmxMapLoader().load("data/mapsTest/map" + numMap + ".tmx")
+            map = TmxMapLoader().load("data/mapsTest/map$numMap.tmx")
         } else {
             Gdx.app.log("Inside NORMAL", "NORMAL")
             Gdx.app.debug("Inside NORMAL", "NORMAL")
-            map = AtlasTmxMapLoader().load("data/maps/map" + numMap + ".tmx")
+            map = AtlasTmxMapLoader().load("data/maps/map$numMap.tmx")
         }
     }
 

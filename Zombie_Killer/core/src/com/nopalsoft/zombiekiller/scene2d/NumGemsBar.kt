@@ -9,8 +9,7 @@ import com.nopalsoft.zombiekiller.Assets
 
 class NumGemsBar(icon: AtlasRegion?, x: Float, y: Float) : Table() {
     var actualNum: Int = 0
-    var WIDTH: Float = 100f
-    var HEIGHT: Float = 30f
+
     var lbNum: Label
 
     init {
@@ -34,5 +33,10 @@ class NumGemsBar(icon: AtlasRegion?, x: Float, y: Float) : Table() {
     fun updateNumGems(gems: Int) {
         this.actualNum = gems
         lbNum.setText(actualNum.toString() + "")
+    }
+
+    companion object {
+        const val WIDTH = 100f
+        const val HEIGHT = 30f
     }
 }

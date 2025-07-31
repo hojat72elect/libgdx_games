@@ -16,7 +16,7 @@ import com.nopalsoft.zombiekiller.MainZombie
 import com.nopalsoft.zombiekiller.Settings
 
 class UpgradesSubMenu(contenedor: Table, game: MainZombie) {
-    val MAX_LEVEL: Int = 6
+    val maxLevel: Int = 6
 
     var precioNivel1: Int = 350
     var precioNivel2: Int = 1250
@@ -40,30 +40,27 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombie) {
     var arrLife: Array<Image?>
     var arrShield: Array<Image?>
 
-    var contenedor: Table?
-    var idiomas: I18NBundle
+    var idiomas: I18NBundle = game.idiomas!!
 
     var textUpgrade: String?
 
     init {
-        this.contenedor = contenedor
-        idiomas = game.idiomas!!
         contenedor.clear()
 
         textUpgrade = idiomas.get("upgrade")
 
-        arrWeapon = arrayOfNulls<Image>(MAX_LEVEL)
-        arrChanceDrop = arrayOfNulls<Image>(MAX_LEVEL)
-        arrLife = arrayOfNulls<Image>(MAX_LEVEL)
-        arrShield = arrayOfNulls<Image>(MAX_LEVEL)
+        arrWeapon = arrayOfNulls<Image>(maxLevel)
+        arrChanceDrop = arrayOfNulls<Image>(maxLevel)
+        arrLife = arrayOfNulls<Image>(maxLevel)
+        arrShield = arrayOfNulls<Image>(maxLevel)
 
-        if (Settings.LEVEL_WEAPON < MAX_LEVEL) lbPrecioWeapon = Label(calcularPrecio(Settings.LEVEL_WEAPON).toString() + "", Assets.labelStyleChico)
+        if (Settings.LEVEL_WEAPON < maxLevel) lbPrecioWeapon = Label(calcularPrecio(Settings.LEVEL_WEAPON).toString() + "", Assets.labelStyleChico)
 
-        if (Settings.LEVEL_CHANCE_DROP < MAX_LEVEL) lbPrecioChanceDrop = Label(calcularPrecio(Settings.LEVEL_CHANCE_DROP).toString() + "", Assets.labelStyleChico)
+        if (Settings.LEVEL_CHANCE_DROP < maxLevel) lbPrecioChanceDrop = Label(calcularPrecio(Settings.LEVEL_CHANCE_DROP).toString() + "", Assets.labelStyleChico)
 
-        if (Settings.LEVEL_LIFE < MAX_LEVEL) lbPrecioLife = Label(calcularPrecio(Settings.LEVEL_LIFE).toString() + "", Assets.labelStyleChico)
+        if (Settings.LEVEL_LIFE < maxLevel) lbPrecioLife = Label(calcularPrecio(Settings.LEVEL_LIFE).toString() + "", Assets.labelStyleChico)
 
-        if (Settings.LEVEL_SHIELD < MAX_LEVEL) lbPrecioShield = Label(calcularPrecio(Settings.LEVEL_SHIELD).toString() + "", Assets.labelStyleChico)
+        if (Settings.LEVEL_SHIELD < maxLevel) lbPrecioShield = Label(calcularPrecio(Settings.LEVEL_SHIELD).toString() + "", Assets.labelStyleChico)
 
         inicializarBotones()
 
@@ -117,35 +114,35 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombie) {
         if (lblPrecio == null) moneda.isVisible = false
 
         val tbBarraTitulo = Table()
-        tbBarraTitulo.add<Label?>(Label(titulo, Assets.labelStyleChico)).expandX().left()
-        tbBarraTitulo.add<Image?>(moneda).right().size(20f)
+        tbBarraTitulo.add(Label(titulo, Assets.labelStyleChico)).expandX().left()
+        tbBarraTitulo.add(moneda).right().size(20f)
         tbBarraTitulo.add<Label?>(lblPrecio).right().padRight(10f)
 
         val tbDescrip = Table()
-        tbDescrip.add<Image?>(imgPersonaje).left().pad(5f).size(55f, 48f)
+        tbDescrip.add(imgPersonaje).left().pad(5f).size(55f, 48f)
         val lblDescripcion = Label(descripcion, Assets.labelStyleChico)
         lblDescripcion.setWrap(true)
         lblDescripcion.setFontScale(.9f)
-        tbDescrip.add<Label?>(lblDescripcion).expand().fill().padLeft(5f)
+        tbDescrip.add(lblDescripcion).expand().fill().padLeft(5f)
 
         val tbContent = Table()
         tbContent.pad(0f)
         tbContent.setBackground(Assets.storeTableBackground)
         tbContent.defaults().padLeft(20f).padRight(20f)
 
-        tbContent.add<Table?>(tbBarraTitulo).expandX().fill().colspan(2).padTop(20f)
+        tbContent.add(tbBarraTitulo).expandX().fill().colspan(2).padTop(20f)
         tbContent.row().colspan(2)
-        tbContent.add<Table?>(tbDescrip).expandX().fill()
+        tbContent.add(tbDescrip).expandX().fill()
         tbContent.row().padBottom(20f)
 
         val auxTab = Table()
         auxTab.defaults().padLeft(5f)
-        for (i in 0..<MAX_LEVEL) {
+        for (i in 0..<maxLevel) {
             arrLevel[i] = Image(Assets.upgradeOff)
             auxTab.add<Image?>(arrLevel[i]).width(25f).height(25f)
         }
 
-        tbContent.add<Table?>(auxTab).left().expand().padRight(0f)
+        tbContent.add(auxTab).left().expand().padRight(0f)
         tbContent.add<TextButton?>(boton).left().size(120f, 45f).padLeft(0f)
 
         return tbContent
@@ -153,7 +150,7 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombie) {
 
     private fun inicializarBotones() {
         btUpgradeWeapon = TextButton(textUpgrade, Assets.styleTextButtonPurchased)
-        if (Settings.LEVEL_WEAPON == MAX_LEVEL) btUpgradeWeapon!!.isVisible = false
+        if (Settings.LEVEL_WEAPON == maxLevel) btUpgradeWeapon!!.isVisible = false
         addEfectoPress(btUpgradeWeapon!!)
         btUpgradeWeapon!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -168,7 +165,7 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombie) {
 
         // Chance life
         btUpgradeLife = TextButton(textUpgrade, Assets.styleTextButtonPurchased)
-        if (Settings.LEVEL_LIFE == MAX_LEVEL) btUpgradeLife!!.isVisible = false
+        if (Settings.LEVEL_LIFE == maxLevel) btUpgradeLife!!.isVisible = false
         addEfectoPress(btUpgradeLife!!)
         btUpgradeLife!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -183,7 +180,7 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombie) {
 
         // Chance shield
         btUpgradeShield = TextButton(textUpgrade, Assets.styleTextButtonPurchased)
-        if (Settings.LEVEL_SHIELD == MAX_LEVEL) btUpgradeShield!!.isVisible = false
+        if (Settings.LEVEL_SHIELD == maxLevel) btUpgradeShield!!.isVisible = false
         addEfectoPress(btUpgradeShield!!)
         btUpgradeShield!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -198,7 +195,7 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombie) {
 
         // Chance drop
         btUpgradeChanceDrop = TextButton(textUpgrade, Assets.styleTextButtonPurchased)
-        if (Settings.LEVEL_CHANCE_DROP == MAX_LEVEL) btUpgradeChanceDrop!!.isVisible = false
+        if (Settings.LEVEL_CHANCE_DROP == maxLevel) btUpgradeChanceDrop!!.isVisible = false
         addEfectoPress(btUpgradeChanceDrop!!)
         btUpgradeChanceDrop!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -231,24 +228,24 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombie) {
     }
 
     private fun calcularPrecio(nivel: Int): Int {
-        when (nivel) {
-            0 -> return precioNivel1
+        return when (nivel) {
+            0 -> precioNivel1
 
-            1 -> return precioNivel2
+            1 -> precioNivel2
 
-            2 -> return precioNivel3
+            2 -> precioNivel3
 
-            3 -> return precioNivel4
+            3 -> precioNivel4
 
-            4 -> return precioNivel5
+            4 -> precioNivel5
 
-            5 -> return precioNivel6
-            else -> return precioNivel6
+            5 -> precioNivel6
+            else -> precioNivel6
         }
     }
 
     private fun updateLabelPriceAndButton(level: Int, label: Label, button: TextButton) {
-        if (level < MAX_LEVEL) {
+        if (level < maxLevel) {
             label.setText(calcularPrecio(level).toString() + "")
         } else {
             label.isVisible = false
@@ -256,7 +253,7 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombie) {
         }
     }
 
-    protected fun addEfectoPress(actor: Actor) {
+    private fun addEfectoPress(actor: Actor) {
         actor.addListener(object : InputListener() {
             override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
                 actor.setPosition(actor.getX(), actor.getY() - 3)

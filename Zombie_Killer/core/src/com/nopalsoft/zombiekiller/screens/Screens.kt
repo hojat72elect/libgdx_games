@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
@@ -28,13 +27,12 @@ abstract class Screens(game: MainZombie) : InputAdapter(), Screen {
 
     var oCam: OrthographicCamera
     var batcher: SpriteBatch?
-    var stage: Stage?
+    var stage = game.stage
 
     protected var music: Music? = null
     var blackFadeOut: Image? = null
 
     init {
-        this.stage = game.stage
         this.stage!!.clear()
         this.batcher = game.batcher
         this.game = game
@@ -79,15 +77,17 @@ abstract class Screens(game: MainZombie) : InputAdapter(), Screen {
         blackFadeOut = Image(Assets.pixelNegro)
         blackFadeOut!!.setSize(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat())
         blackFadeOut!!.getColor().a = 0f
-        blackFadeOut!!.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run(object : Runnable {
-            override fun run() {
-                if (newScreen == GameScreen::class.java) {
+        blackFadeOut!!.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run {
+            when (newScreen) {
+                GameScreen::class.java -> {
                     Assets.loadTiledMap(level)
                     game.setScreen(GameScreen(game, level))
-                } else if (newScreen == MainMenuScreen::class.java) game.setScreen(MainMenuScreen(game))
-                else if (newScreen == SettingsScreen::class.java) game.setScreen(SettingsScreen(game))
+                }
+
+                MainMenuScreen::class.java -> game.setScreen(MainMenuScreen(game))
+                SettingsScreen::class.java -> game.setScreen(SettingsScreen(game))
             }
-        })))
+        }))
 
         val lbl = Label(game.idiomas!!.get("loading"), Assets.labelStyleGrande)
         lbl.setPosition(SCREEN_WIDTH / 2f - lbl.getWidth() / 2f, SCREEN_HEIGHT / 2f - lbl.getHeight() / 2f)

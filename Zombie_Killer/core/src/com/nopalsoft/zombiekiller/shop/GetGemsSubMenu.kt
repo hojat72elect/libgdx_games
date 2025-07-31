@@ -13,7 +13,7 @@ import com.nopalsoft.zombiekiller.Assets
 import com.nopalsoft.zombiekiller.MainZombie
 import com.nopalsoft.zombiekiller.Settings
 
-class GetGemsSubMenu(game: MainZombie, containerTable: Table) {
+class GetGemsSubMenu(var game: MainZombie, containerTable: Table) {
     var facebookLikeReward: Int = 1500
 
     // Common
@@ -26,15 +26,10 @@ class GetGemsSubMenu(game: MainZombie, containerTable: Table) {
     var buttonBuy30kCoins: TextButton?
     var buttonBuy50kCoins: TextButton?
 
-    var containerTable: Table?
-    var game: MainZombie?
-    var languagesBundle: I18NBundle
+    var languagesBundle: I18NBundle = game.idiomas!!
     var textBuy: String?
 
     init {
-        this.game = game
-        this.containerTable = containerTable
-        languagesBundle = game.idiomas!!
         containerTable.clear()
 
         textBuy = languagesBundle.get("buy")
@@ -97,23 +92,23 @@ class GetGemsSubMenu(game: MainZombie, containerTable: Table) {
         val playerImage = Image(playerDrawable)
 
         val titleBarTable = Table()
-        titleBarTable.add<Label?>(Label(languagesBundle.format("get_num", numCoinsToAward), Assets.labelStyleChico)).left().padLeft(5f)
-        titleBarTable.add<Image?>(coinImage).left().expandX().padLeft(5f).size(20f)
+        titleBarTable.add(Label(languagesBundle.format("get_num", numCoinsToAward), Assets.labelStyleChico)).left().padLeft(5f)
+        titleBarTable.add(coinImage).left().expandX().padLeft(5f).size(20f)
 
         val descriptionTable = Table()
-        descriptionTable.add<Image?>(playerImage).left().pad(10f).size(55f, 45f)
+        descriptionTable.add(playerImage).left().pad(10f).size(55f, 45f)
         val labelDescription = Label(description, Assets.labelStyleChico)
         labelDescription.setWrap(true)
         labelDescription.setFontScale(.9f)
-        descriptionTable.add<Label?>(labelDescription).expand().fill().padLeft(5f)
+        descriptionTable.add(labelDescription).expand().fill().padLeft(5f)
 
         val tableContent = Table()
         tableContent.pad(0f)
         tableContent.defaults().padLeft(20f).padRight(20f)
         tableContent.setBackground(Assets.storeTableBackground)
-        tableContent.add<Table?>(titleBarTable).expandX().fill().colspan(2).padTop(20f)
+        tableContent.add(titleBarTable).expandX().fill().colspan(2).padTop(20f)
         tableContent.row().colspan(2)
-        tableContent.add<Table?>(descriptionTable).expandX().fill()
+        tableContent.add(descriptionTable).expandX().fill()
         tableContent.row().colspan(2)
 
         tableContent.add<TextButton?>(button).right().padBottom(20f).size(120f, 45f)
@@ -121,7 +116,7 @@ class GetGemsSubMenu(game: MainZombie, containerTable: Table) {
         return tableContent
     }
 
-    protected fun addPressEffect(actor: Actor) {
+    private fun addPressEffect(actor: Actor) {
         actor.addListener(object : InputListener() {
             override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
                 actor.setPosition(actor.getX(), actor.getY() - 3)

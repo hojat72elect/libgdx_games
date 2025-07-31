@@ -8,7 +8,7 @@ import com.nopalsoft.zombiekiller.screens.SettingsScreen
 object Settings {
     const val NUM_GEMS_INVITE_FACEBOOK: Int = 50
 
-    const val isTest: Boolean = false
+    const val IS_TEST: Boolean = false
     const val NUM_MAPS: Int = 41
     private val pref: Preferences = Gdx.app.getPreferences("com.nopalsoft.zombiekiller")
     var isMusicOn: Boolean = false
@@ -64,7 +64,7 @@ object Settings {
         pref.putInteger("LEVEL_SHIELD", LEVEL_SHIELD)
 
         for (i in arrSkullsMundo.indices) {
-            pref.putInteger("arrSkullsMundo" + i, arrSkullsMundo[i])
+            pref.putInteger("arrSkullsMundo$i", arrSkullsMundo[i])
         }
         pref.flush()
     }
@@ -72,7 +72,7 @@ object Settings {
     fun load() {
         arrSkullsMundo = IntArray(NUM_MAPS)
 
-        if (isTest) {
+        if (IS_TEST) {
             pref.clear()
             pref.flush()
         }
@@ -105,10 +105,10 @@ object Settings {
         LEVEL_SHIELD = pref.getInteger("LEVEL_SHIELD", 0)
 
         for (i in 0..<NUM_MAPS) {
-            arrSkullsMundo[i] = pref.getInteger("arrSkullsMundo" + i, 0)
+            arrSkullsMundo[i] = pref.getInteger("arrSkullsMundo$i", 0)
         }
 
-        if (isTest) {
+        if (IS_TEST) {
             gemsTotal += 999999
         }
     }

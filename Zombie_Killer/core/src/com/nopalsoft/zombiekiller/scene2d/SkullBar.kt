@@ -7,8 +7,7 @@ import com.nopalsoft.zombiekiller.Assets
 
 class SkullBar(x: Float, y: Float) : Table() {
     var numOfSkulls: Int = 0
-    var WIDTH: Float = 180f
-    var HEIGHT: Float = 60f
+
     var arrSkulls: Array<Image?>
 
     init {
@@ -29,5 +28,10 @@ class SkullBar(x: Float, y: Float) : Table() {
                 arrSkulls[i]!!.setDrawable(TextureRegionDrawable(Assets.itemSkull))
             }
         }
+    }
+
+    companion object {
+        const val WIDTH: Float = 180f
+        const val HEIGHT: Float = 60f
     }
 }

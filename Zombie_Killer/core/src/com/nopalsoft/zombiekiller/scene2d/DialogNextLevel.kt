@@ -15,23 +15,18 @@ import com.nopalsoft.zombiekiller.screens.Screens
 import com.nopalsoft.zombiekiller.shop.DialogShop
 
 class DialogNextLevel(currentScreen: Screens) : Dialog(currentScreen, 380f, 390f, 50f, Assets.backgroundSmallWindow) {
-    var oWorld: WorldGame
+    var oWorld: WorldGame = (currentScreen as GameScreen).worldGame
 
     var btLevels: Button? = null
     var btShop: Button? = null
     var btTryAgain: Button? = null
     var buttonSize: Int = 55
-    var ventanaShop: DialogShop
-    var ventanaSelectLevel: DialogSelectLevel
+    var ventanaShop: DialogShop = DialogShop(screen)
+    var ventanaSelectLevel: DialogSelectLevel = DialogSelectLevel(screen)
 
-    var skulls: Int
+    var skulls: Int = oWorld.skulls
 
     init {
-        oWorld = (currentScreen as GameScreen).worldGame
-        ventanaShop = DialogShop(screen)
-        ventanaSelectLevel = DialogSelectLevel(screen)
-
-        skulls = oWorld.skulls
 
         val lbShop = Label(idiomas!!.get("congratulations"), Assets.labelStyleGrande)
         lbShop.setFontScale(1.3f)
