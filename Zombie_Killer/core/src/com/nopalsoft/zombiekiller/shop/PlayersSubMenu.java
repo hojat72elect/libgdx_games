@@ -21,77 +21,60 @@ import com.nopalsoft.zombiekiller.scene2d.AnimatedSpriteActor;
 
 public class PlayersSubMenu {
 
-    private final static Preferences pref = Gdx.app.getPreferences("com.nopalsoft.zombiekiller.shop");
-    final int PRECIO_HERO_RAMBO = 1000;
-    final int PRECIO_HERO_SOLDIER = 1500;
-    final int PRECIO_HERO_ELITE = 2000;
-    final int PRECIO_HERO_VADER = 2500;
+    private final static Preferences preferences = Gdx.app.getPreferences("com.nopalsoft.zombiekiller.shop");
+
+    final int PRICE_HERO_RAMBO = 1000;
+    final int PRICE_HERO_SOLDIER = 1500;
+    final int PRICE_HERO_ELITE = 2000;
+    final int PRICE_HERO_VADER = 2500;
+
     boolean didBuyRambo, didBuySoldier, didBuyElite, didBuyVader;
-    Label lbPrecioRambo, lbPrecioSoldier, lbPrecioElite, lbPrecioVader;
-    TextButton btBuySWAT, btBuyRambo, btBuySoldier, btBuyElite, btBuyVader;
-    Array<TextButton> arrBotones;
-    Table contenedor;
-    I18NBundle idiomas;
+
+    Label labelPriceRambo, labelPriceSoldier, labelPriceElite, labelPriceVader;
+    TextButton buttonBuySWAT, buttonBuyRambo, buttonBuySoldier, buttonBuyElite, buttonBuyVader;
+    Array<TextButton> buttons;
+    Table containerTable;
+    I18NBundle languagesBundle;
     String textBuy;
     String textSelect;
 
-    public PlayersSubMenu(Table contenedor, MainZombie game) {
-        idiomas = game.idiomas;
-        this.contenedor = contenedor;
-        contenedor.clear();
+    public PlayersSubMenu(Table containerTable, MainZombie game) {
+        languagesBundle = game.idiomas;
+        this.containerTable = containerTable;
+        containerTable.clear();
         loadPurchases();
 
-        textBuy = idiomas.get("buy");
-        textSelect = idiomas.get("select");
+        textBuy = languagesBundle.get("buy");
+        textSelect = languagesBundle.get("select");
 
         if (!didBuyRambo)
-            lbPrecioRambo = new Label(PRECIO_HERO_RAMBO + "", Assets.labelStyleChico);
+            labelPriceRambo = new Label(PRICE_HERO_RAMBO + "", Assets.labelStyleChico);
 
         if (!didBuySoldier)
-            lbPrecioSoldier = new Label(PRECIO_HERO_SOLDIER + "", Assets.labelStyleChico);
+            labelPriceSoldier = new Label(PRICE_HERO_SOLDIER + "", Assets.labelStyleChico);
 
         if (!didBuyElite)
-            lbPrecioElite = new Label(PRECIO_HERO_ELITE + "", Assets.labelStyleChico);
+            labelPriceElite = new Label(PRICE_HERO_ELITE + "", Assets.labelStyleChico);
 
         if (!didBuyVader)
-            lbPrecioVader = new Label(PRECIO_HERO_VADER + "", Assets.labelStyleChico);
+            labelPriceVader = new Label(PRICE_HERO_VADER + "", Assets.labelStyleChico);
 
         inicializarBotones();
 
-        // Usar Default
-        contenedor.add(agregarPersonajeTabla(idiomas.get("swat"), null, Assets.heroSwatWalk, idiomas.get("swat_description"), btBuySWAT)).expandX()
-                .fill();
-        contenedor.row();
+        containerTable.add(agregarPersonajeTabla(languagesBundle.get("swat"), null, Assets.heroSwatWalk, languagesBundle.get("swat_description"), buttonBuySWAT)).expandX().fill();
+        containerTable.row();
 
-        // SKIN_HERO_RAMBO
-        contenedor
-                .add(agregarPersonajeTabla(idiomas.get("guerrilla"), lbPrecioRambo, Assets.heroRamboWalk, idiomas.get("guerrilla_description"),
-                        btBuyRambo)).expandX().fill();
-        contenedor.row();
+        containerTable.add(agregarPersonajeTabla(languagesBundle.get("guerrilla"), labelPriceRambo, Assets.heroRamboWalk, languagesBundle.get("guerrilla_description"), buttonBuyRambo)).expandX().fill();
+        containerTable.row();
 
-        // SKIN_HERO_SOLDIER
-        contenedor.add(agregarPersonajeTabla(idiomas.get("soldier"),//
-                lbPrecioSoldier,//
-                Assets.heroSoldierWalk,//
-                idiomas.get("soldier_description"),//
-                btBuySoldier)).expandX().fill();
-        contenedor.row();
+        containerTable.add(agregarPersonajeTabla(languagesBundle.get("soldier"), labelPriceSoldier, Assets.heroSoldierWalk, languagesBundle.get("soldier_description"), buttonBuySoldier)).expandX().fill();
+        containerTable.row();
 
-        // SKIN_HERO_SWAT
-        contenedor.add(agregarPersonajeTabla(idiomas.get("elite_force"),//
-                lbPrecioElite,//
-                Assets.heroForceWalk,//
-                idiomas.get("elite_force_description"),//
-                btBuyElite)).expandX().fill();
-        contenedor.row();
+        containerTable.add(agregarPersonajeTabla(languagesBundle.get("elite_force"), labelPriceElite, Assets.heroForceWalk, languagesBundle.get("elite_force_description"), buttonBuyElite)).expandX().fill();
+        containerTable.row();
 
-        // SKIN_HERO_VADER
-        contenedor.add(agregarPersonajeTabla(idiomas.get("ghost"),//
-                lbPrecioVader,//
-                Assets.heroVaderWalk,//
-                idiomas.get("ghost_description"),//
-                btBuyVader)).expandX().fill();
-        contenedor.row();
+        containerTable.add(agregarPersonajeTabla(languagesBundle.get("ghost"), labelPriceVader, Assets.heroVaderWalk, languagesBundle.get("ghost_description"), buttonBuyVader)).expandX().fill();
+        containerTable.row();
     }
 
     private Table agregarPersonajeTabla(String titulo, Label lblPrecio, AnimationSprite imagen, String descripcion, TextButton boton) {
@@ -108,11 +91,9 @@ public class PlayersSubMenu {
         tbBarraTitulo.add(lblPrecio).right().padRight(10);
 
         Table tbContent = new Table();
-        // tbContent.setBackground(Assets.storeTableBackground, false);
         tbContent.pad(0);
         tbContent.setBackground(Assets.storeTableBackground);
 
-        // tbContent.debug();
         tbContent.defaults().padLeft(20).padRight(20);
         tbContent.add(tbBarraTitulo).expandX().fill().colspan(2).padTop(20);
         tbContent.row();
@@ -131,146 +112,141 @@ public class PlayersSubMenu {
     }
 
     private void inicializarBotones() {
-        arrBotones = new Array<>();
+        buttons = new Array<>();
 
-        // DEFAULT
-        btBuySWAT = new TextButton(textSelect, Assets.styleTextButtonPurchased);
+        buttonBuySWAT = new TextButton(textSelect, Assets.styleTextButtonPurchased);
         if (Settings.skinSeleccionada == Hero.TYPE_SWAT)
-            btBuySWAT.setVisible(false);
+            buttonBuySWAT.setVisible(false);
 
-        addEfectoPress(btBuySWAT);
-        btBuySWAT.addListener(new ClickListener() {
+        addEfectoPress(buttonBuySWAT);
+        buttonBuySWAT.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Settings.skinSeleccionada = Hero.TYPE_SWAT;
-                setSelected(btBuySWAT);
+                setSelected(buttonBuySWAT);
             }
         });
 
-        // SKIN_HERO_RAMBO
         if (didBuyRambo)
-            btBuyRambo = new TextButton(textSelect, Assets.styleTextButtonPurchased);
+            buttonBuyRambo = new TextButton(textSelect, Assets.styleTextButtonPurchased);
         else
-            btBuyRambo = new TextButton(textBuy, Assets.styleTextButtonBuy);
+            buttonBuyRambo = new TextButton(textBuy, Assets.styleTextButtonBuy);
 
         if (Settings.skinSeleccionada == Hero.TYPE_RAMBO)
-            btBuyRambo.setVisible(false);
+            buttonBuyRambo.setVisible(false);
 
-        addEfectoPress(btBuyRambo);
-        btBuyRambo.addListener(new ClickListener() {
+        addEfectoPress(buttonBuyRambo);
+        buttonBuyRambo.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyRambo) {
                     Settings.skinSeleccionada = Hero.TYPE_RAMBO;
-                    setSelected(btBuyRambo);
-                } else if (Settings.gemsTotal >= PRECIO_HERO_RAMBO) {
-                    Settings.gemsTotal -= PRECIO_HERO_RAMBO;
-                    setButtonStylePurchased(btBuyRambo);
-                    lbPrecioRambo.remove();
+                    setSelected(buttonBuyRambo);
+                } else if (Settings.gemsTotal >= PRICE_HERO_RAMBO) {
+                    Settings.gemsTotal -= PRICE_HERO_RAMBO;
+                    setButtonStylePurchased(buttonBuyRambo);
+                    labelPriceRambo.remove();
                     didBuyRambo = true;
                 }
                 savePurchases();
             }
         });
 
-        // SKIN_HERO_SOLDIER
         if (didBuySoldier)
-            btBuySoldier = new TextButton(textSelect, Assets.styleTextButtonPurchased);
+            buttonBuySoldier = new TextButton(textSelect, Assets.styleTextButtonPurchased);
         else
-            btBuySoldier = new TextButton(textBuy, Assets.styleTextButtonBuy);
+            buttonBuySoldier = new TextButton(textBuy, Assets.styleTextButtonBuy);
 
         if (Settings.skinSeleccionada == Hero.TYPE_SOLDIER)
-            btBuySoldier.setVisible(false);
+            buttonBuySoldier.setVisible(false);
 
-        addEfectoPress(btBuySoldier);
-        btBuySoldier.addListener(new ClickListener() {
+        addEfectoPress(buttonBuySoldier);
+        buttonBuySoldier.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuySoldier) {
                     Settings.skinSeleccionada = Hero.TYPE_SOLDIER;
-                    setSelected(btBuySoldier);
-                } else if (Settings.gemsTotal >= PRECIO_HERO_SOLDIER) {
-                    Settings.gemsTotal -= PRECIO_HERO_SOLDIER;
-                    setButtonStylePurchased(btBuySoldier);
-                    lbPrecioSoldier.remove();
+                    setSelected(buttonBuySoldier);
+                } else if (Settings.gemsTotal >= PRICE_HERO_SOLDIER) {
+                    Settings.gemsTotal -= PRICE_HERO_SOLDIER;
+                    setButtonStylePurchased(buttonBuySoldier);
+                    labelPriceSoldier.remove();
                     didBuySoldier = true;
                 }
                 savePurchases();
             }
         });
 
-        // SKIN_HERO_SWAT
         if (didBuyElite)
-            btBuyElite = new TextButton(textSelect, Assets.styleTextButtonPurchased);
+            buttonBuyElite = new TextButton(textSelect, Assets.styleTextButtonPurchased);
         else
-            btBuyElite = new TextButton(textBuy, Assets.styleTextButtonBuy);
+            buttonBuyElite = new TextButton(textBuy, Assets.styleTextButtonBuy);
 
         if (Settings.skinSeleccionada == Hero.TYPE_FORCE)
-            btBuyElite.setVisible(false);
+            buttonBuyElite.setVisible(false);
 
-        addEfectoPress(btBuyElite);
-        btBuyElite.addListener(new ClickListener() {
+        addEfectoPress(buttonBuyElite);
+        buttonBuyElite.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyElite) {
                     Settings.skinSeleccionada = Hero.TYPE_FORCE;
-                    setSelected(btBuyElite);
-                } else if (Settings.gemsTotal >= PRECIO_HERO_ELITE) {
-                    Settings.gemsTotal -= PRECIO_HERO_ELITE;
-                    setButtonStylePurchased(btBuyElite);
-                    lbPrecioElite.remove();
+                    setSelected(buttonBuyElite);
+                } else if (Settings.gemsTotal >= PRICE_HERO_ELITE) {
+                    Settings.gemsTotal -= PRICE_HERO_ELITE;
+                    setButtonStylePurchased(buttonBuyElite);
+                    labelPriceElite.remove();
                     didBuyElite = true;
                 }
                 savePurchases();
             }
         });
 
-        // SKIN_HERO_VADER
         if (didBuyVader)
-            btBuyVader = new TextButton(textSelect, Assets.styleTextButtonPurchased);
+            buttonBuyVader = new TextButton(textSelect, Assets.styleTextButtonPurchased);
         else
-            btBuyVader = new TextButton(textBuy, Assets.styleTextButtonBuy);
+            buttonBuyVader = new TextButton(textBuy, Assets.styleTextButtonBuy);
 
         if (Settings.skinSeleccionada == Hero.TYPE_VADER)
-            btBuyVader.setVisible(false);
+            buttonBuyVader.setVisible(false);
 
-        addEfectoPress(btBuyVader);
-        btBuyVader.addListener(new ClickListener() {
+        addEfectoPress(buttonBuyVader);
+        buttonBuyVader.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyVader) {
                     Settings.skinSeleccionada = Hero.TYPE_VADER;
-                    setSelected(btBuyVader);
-                } else if (Settings.gemsTotal >= PRECIO_HERO_VADER) {
-                    Settings.gemsTotal -= PRECIO_HERO_VADER;
-                    setButtonStylePurchased(btBuyVader);
-                    lbPrecioVader.remove();
+                    setSelected(buttonBuyVader);
+                } else if (Settings.gemsTotal >= PRICE_HERO_VADER) {
+                    Settings.gemsTotal -= PRICE_HERO_VADER;
+                    setButtonStylePurchased(buttonBuyVader);
+                    labelPriceVader.remove();
                     didBuyVader = true;
                 }
                 savePurchases();
             }
         });
 
-        arrBotones.add(btBuySWAT);
-        arrBotones.add(btBuyRambo);
-        arrBotones.add(btBuySoldier);
-        arrBotones.add(btBuyElite);
-        arrBotones.add(btBuyVader);
+        buttons.add(buttonBuySWAT);
+        buttons.add(buttonBuyRambo);
+        buttons.add(buttonBuySoldier);
+        buttons.add(buttonBuyElite);
+        buttons.add(buttonBuyVader);
     }
 
     private void loadPurchases() {
-        didBuyRambo = pref.getBoolean("didBuyRambo", false);
-        didBuySoldier = pref.getBoolean("didBuySoldier", false);
-        didBuyElite = pref.getBoolean("didBuyElite", false);
-        didBuyVader = pref.getBoolean("didBuyVader", false);
+        didBuyRambo = preferences.getBoolean("didBuyRambo", false);
+        didBuySoldier = preferences.getBoolean("didBuySoldier", false);
+        didBuyElite = preferences.getBoolean("didBuyElite", false);
+        didBuyVader = preferences.getBoolean("didBuyVader", false);
     }
 
     private void savePurchases() {
-        pref.putBoolean("didBuyRambo", didBuyRambo);
-        pref.putBoolean("didBuySoldier", didBuySoldier);
-        pref.putBoolean("didBuyElite", didBuyElite);
-        pref.putBoolean("didBuyVader", didBuyVader);
-        pref.flush();
+        preferences.putBoolean("didBuyRambo", didBuyRambo);
+        preferences.putBoolean("didBuySoldier", didBuySoldier);
+        preferences.putBoolean("didBuyElite", didBuyElite);
+        preferences.putBoolean("didBuyVader", didBuyVader);
+        preferences.flush();
         Settings.save();
     }
 
@@ -279,12 +255,12 @@ public class PlayersSubMenu {
         boton.setText(textSelect);
     }
 
-    private void setSelected(TextButton boton) {
+    private void setSelected(TextButton button) {
         // Pongo todos visibles y al final el boton seleccionado en invisible
-        for (TextButton arrBotone : arrBotones) {
+        for (TextButton arrBotone : buttons) {
             arrBotone.setVisible(true);
         }
-        boton.setVisible(false);
+        button.setVisible(false);
     }
 
     protected void addEfectoPress(final Actor actor) {
