@@ -8,10 +8,10 @@ import com.nopalsoft.zombiekiller.Settings
 class Hero(x: Float, y: Float, tipo: Int) {
 
     val type: Int
-    val MAX_LIVES: Int = Settings.LEVEL_LIFE + 3
-    val MAX_SHIELDS: Int = Settings.LEVEL_SHIELD + 1
+    val maxLives: Int = Settings.LEVEL_LIFE + 3
+    val maxShields: Int = Settings.LEVEL_SHIELD + 1
     var state: Int
-    var position: Vector2
+    var position: Vector2 = Vector2(x, y)
     var stateTime: Float
     var isFacingLeft: Boolean = false
     var isWalking: Boolean = false
@@ -24,14 +24,13 @@ class Hero(x: Float, y: Float, tipo: Int) {
     var shield: Int
 
     init {
-        position = Vector2(x, y)
         state = STATE_NORMAL
         stateTime = 0f
         this.type = tipo
         canJump = true
 
-        shield = MAX_SHIELDS
-        lives = MAX_LIVES
+        shield = maxShields
+        lives = maxLives
     }
 
     fun update(delta: Float, body: Body, didJump: Boolean, accelX: Float, accelY: Float) {
@@ -82,18 +81,24 @@ class Hero(x: Float, y: Float, tipo: Int) {
             isClimbing = false
         }
 
-        if (accelX == -1f) {
-            velocity.x = -WALK_SPEED
-            isFacingLeft = true
-            isWalking = true
-        } else if (accelX == 1f) {
-            velocity.x = WALK_SPEED
-            isFacingLeft = false
-            isWalking = true
-        } else {
-            if (bodyCrate != null) velocity.x = bodyCrate!!.getLinearVelocity().x
-            else velocity.x = 0f
-            isWalking = false
+        when (accelX) {
+            -1f -> {
+                velocity.x = -WALK_SPEED
+                isFacingLeft = true
+                isWalking = true
+            }
+
+            1f -> {
+                velocity.x = WALK_SPEED
+                isFacingLeft = false
+                isWalking = true
+            }
+
+            else -> {
+                if (bodyCrate != null) velocity.x = bodyCrate!!.getLinearVelocity().x
+                else velocity.x = 0f
+                isWalking = false
+            }
         }
 
         body.linearVelocity = velocity
@@ -113,23 +118,23 @@ class Hero(x: Float, y: Float, tipo: Int) {
         }
 
         lives--
-        if (lives > 0) {
-            state = STATE_HURT
+        state = if (lives > 0) {
+            STATE_HURT
         } else {
-            state = STATE_DEAD
+            STATE_DEAD
         }
         stateTime = 0f
     }
 
     fun getShield() {
         shield += 2
-        if (shield > MAX_SHIELDS) shield = MAX_SHIELDS
+        if (shield > maxShields) shield = maxShields
     }
 
     val heart: Unit
         get() {
             lives += 1
-            if (lives > MAX_LIVES) lives = MAX_LIVES
+            if (lives > maxLives) lives = maxLives
         }
 
     fun die() {

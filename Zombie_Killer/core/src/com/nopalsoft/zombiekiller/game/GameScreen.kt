@@ -81,7 +81,7 @@ class GameScreen(game: MainZombie, level: Int) : Screens(game) {
         renderer = WorldGameRenderer2(batcher!!, worldGame)
 
         lifeBar = ProgressBarUI(Assets.redBar, Assets.itemHeart, worldGame.hero!!.lives.toFloat(), 20f, 440f)
-        shieldBar = ProgressBarUI(Assets.whiteBar, Assets.itemShield, worldGame.hero!!.MAX_SHIELDS.toFloat(), worldGame.hero!!.shield.toFloat(), 20f, 395f)
+        shieldBar = ProgressBarUI(Assets.whiteBar, Assets.itemShield, worldGame.hero!!.maxShields.toFloat(), worldGame.hero!!.shield.toFloat(), 20f, 395f)
         numGemsBar = NumGemsBar(Assets.itemGem, 20f, 350f)
         skullBar = SkullBar(SCREEN_WIDTH / 2f, 415f)
 

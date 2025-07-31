@@ -3,21 +3,13 @@ package com.nopalsoft.zombiekiller.game_objects
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 
-class Crate(x: Float, y: Float, size: Float) {
+class Crate(x: Float, y: Float, val size: Float) {
 
-
-    val SIZE: Float
-    var state: Int
-    var position: Vector2
+    var state: Int = STATE_NORMAL
+    var position: Vector2 = Vector2(x, y)
     var angleDeg: Float = 0f
 
     var stateTime: Float = 0f
-
-    init {
-        position = Vector2(x, y)
-        state = STATE_NORMAL
-        SIZE = size
-    }
 
     fun update(delta: Float, body: Body) {
         position.x = body.getPosition().x

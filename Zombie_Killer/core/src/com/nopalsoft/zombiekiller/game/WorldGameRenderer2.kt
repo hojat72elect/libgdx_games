@@ -24,12 +24,10 @@ import com.nopalsoft.zombiekiller.game_objects.Zombie
 import com.nopalsoft.zombiekiller.screens.Screens
 
 class WorldGameRenderer2(batch: SpriteBatch, worldGame: WorldGame) {
-    val WIDTH: Float = Screens.WORLD_WIDTH
-    val HEIGHT: Float = Screens.WORLD_HEIGHT
 
     var batch: SpriteBatch
     var worldGame: WorldGame
-    var camera: ParallaxCamera
+    var camera: ParallaxCamera = ParallaxCamera(WIDTH, HEIGHT)
     var tiledRenderer: OrthogonalTiledMapRenderer
 
     var physicsDebugRenderer: Box2DDebugRenderer?
@@ -49,7 +47,6 @@ class WorldGameRenderer2(batch: SpriteBatch, worldGame: WorldGame) {
     var showMoon: Boolean
 
     init {
-        this.camera = ParallaxCamera(WIDTH, HEIGHT)
         this.camera.position.set(WIDTH / 2f, HEIGHT / 2f, 0f)
         this.batch = batch
         this.worldGame = worldGame
@@ -157,9 +154,9 @@ class WorldGameRenderer2(batch: SpriteBatch, worldGame: WorldGame) {
 
     private fun drawCrates() {
         for (obj in worldGame.crates!!) {
-            val halfSize = obj!!.SIZE / 2f
+            val halfSize = obj!!.size / 2f
             batch.draw(
-                Assets.crate, obj.position.x - halfSize, obj.position.y - halfSize, halfSize, halfSize, obj.SIZE, obj.SIZE, 1f, 1f,
+                Assets.crate, obj.position.x - halfSize, obj.position.y - halfSize, halfSize, halfSize, obj.size, obj.size, 1f, 1f,
                 obj.angleDeg
             )
         }
@@ -179,21 +176,33 @@ class WorldGameRenderer2(batch: SpriteBatch, worldGame: WorldGame) {
         var keyframe: TextureRegion? = null
 
         for (obj in worldGame.items) {
-            if (obj is ItemGem) {
-                keyframe = Assets.itemGem
-            } else if (obj is ItemHeart) {
-                keyframe = Assets.itemHeart
-            } else if (obj is ItemMeat) {
-                keyframe = Assets.itemMeat
-            } else if (obj is ItemSkull) {
-                keyframe = Assets.itemSkull
-            } else if (obj is ItemShield) {
-                keyframe = Assets.itemShield
-            } else if (obj is ItemStar) {
-                keyframe = Assets.itemStar
+            when (obj) {
+                is ItemGem -> {
+                    keyframe = Assets.itemGem
+                }
+
+                is ItemHeart -> {
+                    keyframe = Assets.itemHeart
+                }
+
+                is ItemMeat -> {
+                    keyframe = Assets.itemMeat
+                }
+
+                is ItemSkull -> {
+                    keyframe = Assets.itemSkull
+                }
+
+                is ItemShield -> {
+                    keyframe = Assets.itemShield
+                }
+
+                is ItemStar -> {
+                    keyframe = Assets.itemStar
+                }
             }
 
-            batch.draw(keyframe, obj!!.position.x - obj.DRAW_WIDTH / 2f, obj.position.y - obj.DRAW_HEIGHT / 2f, obj.DRAW_WIDTH, obj.DRAW_HEIGHT)
+            batch.draw(keyframe, obj!!.position.x - obj.drawWidth / 2f, obj.position.y - obj.drawHeight / 2f, obj.drawWidth, obj.drawHeight)
         }
     }
 
@@ -253,20 +262,18 @@ class WorldGameRenderer2(batch: SpriteBatch, worldGame: WorldGame) {
                 }
             }
 
-            val spriteFrame: Sprite?
-
-            if (zombie.state == Zombie.STATE_NORMAL) {
-                if (zombie.isWalking) spriteFrame = animWalk!!.getKeyFrame(zombie.stateTime, true)
+            val spriteFrame = if (zombie.state == Zombie.STATE_NORMAL) {
+                if (zombie.isWalking) animWalk!!.getKeyFrame(zombie.stateTime, true)
                 else {
-                    spriteFrame = animIdle!!.getKeyFrame(zombie.stateTime, true)
+                    animIdle!!.getKeyFrame(zombie.stateTime, true)
                 }
             } else if (zombie.state == Zombie.STATE_RISE) {
-                spriteFrame = animRise!!.getKeyFrame(zombie.stateTime, false)
+                animRise!!.getKeyFrame(zombie.stateTime, false)
             } else if (zombie.state == Zombie.STATE_DEAD) {
-                spriteFrame = animDie!!.getKeyFrame(zombie.stateTime, false)
+                animDie!!.getKeyFrame(zombie.stateTime, false)
             } else if (zombie.state == Zombie.STATE_HURT) {
-                spriteFrame = zombieHurt
-            } else spriteFrame = null
+                zombieHurt
+            } else null
 
             if (zombie.isFacingLeft) {
                 spriteFrame!!.setPosition(zombie.position.x + .29f, zombie.position.y - .34f + ajusteY)
@@ -293,7 +300,7 @@ class WorldGameRenderer2(batch: SpriteBatch, worldGame: WorldGame) {
         for (obj in worldGame.bullets) {
             var animBullet: AnimationSprite? = null
 
-            when (obj!!.tipo) {
+            when (obj!!.type) {
                 Bullet.LEVEL_0 -> animBullet = Assets.bullet1
                 Bullet.LEVEL_1 -> animBullet = Assets.bullet2
                 Bullet.LEVEL_2 -> animBullet = Assets.bullet3
@@ -402,22 +409,20 @@ class WorldGameRenderer2(batch: SpriteBatch, worldGame: WorldGame) {
             }
         }
 
-        val spriteFrame: Sprite?
-
-        if (obj.state == Hero.STATE_NORMAL) {
+        val spriteFrame = if (obj.state == Hero.STATE_NORMAL) {
             if (obj.isClimbing) {
-                spriteFrame = heroClimb!!.getKeyFrame(obj.stateTime, true)
-            } else if (obj.isWalking) spriteFrame = heroWalk!!.getKeyFrame(obj.stateTime, true)
+                heroClimb!!.getKeyFrame(obj.stateTime, true)
+            } else if (obj.isWalking) heroWalk!!.getKeyFrame(obj.stateTime, true)
             else if (obj.isFiring) {
-                spriteFrame = heroShoot!!.getKeyFrame(obj.stateTime, true)
+                heroShoot!!.getKeyFrame(obj.stateTime, true)
             } else {
-                spriteFrame = heroIdle
+                heroIdle
             }
         } else if (obj.state == Hero.STATE_DEAD) {
-            spriteFrame = heroDie!!.getKeyFrame(obj.stateTime, false)
+            heroDie!!.getKeyFrame(obj.stateTime, false)
         } else if (obj.state == Hero.STATE_HURT) {
-            spriteFrame = heroHurt
-        } else spriteFrame = null
+            heroHurt
+        } else null
 
         // If he is climbing I always draw him on the same side
         if (obj.isClimbing) {
@@ -452,5 +457,10 @@ class WorldGameRenderer2(batch: SpriteBatch, worldGame: WorldGame) {
             Matrix4.mul(parallaxCombined.`val`, parallaxView.`val`)
             return parallaxCombined
         }
+    }
+
+    companion object {
+        const val WIDTH = Screens.WORLD_WIDTH
+        const val HEIGHT = Screens.WORLD_HEIGHT
     }
 }

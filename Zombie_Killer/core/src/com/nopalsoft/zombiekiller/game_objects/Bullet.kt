@@ -8,62 +8,67 @@ import com.nopalsoft.zombiekiller.Settings
 
 class Bullet(x: Float, y: Float, isFacingLeft: Boolean) {
 
-    val tipo: Int
-    val FORCE_IMPACT: Float
-    val DAMAGE: Int
+    val type: Int
+    val forceImpact: Float
+    val damage: Int
     var state: Int
-    var position: Vector2
+    var position: Vector2 = Vector2(x, y)
     var stateTime: Float = 0f
     var isFacingLeft: Boolean
 
     init {
-        position = Vector2(x, y)
         state = STATE_MUZZLE
         this.isFacingLeft = isFacingLeft
 
         when (Settings.LEVEL_WEAPON) {
             LEVEL_0 -> {
-                FORCE_IMPACT = 0f
-                DAMAGE = 1
-                tipo = LEVEL_0
+                forceImpact = 0f
+                damage = 1
+                type = LEVEL_0
             }
 
             LEVEL_1 -> {
-                FORCE_IMPACT = .075f
-                DAMAGE = 2
-                tipo = LEVEL_1
+                forceImpact = .075f
+                damage = 2
+                type = LEVEL_1
             }
 
             LEVEL_2 -> {
-                FORCE_IMPACT = .1f
-                DAMAGE = 3
-                tipo = LEVEL_2
+                forceImpact = .1f
+                damage = 3
+                type = LEVEL_2
             }
 
             LEVEL_3 -> {
-                FORCE_IMPACT = .25f
-                DAMAGE = 4
-                tipo = LEVEL_3
+                forceImpact = .25f
+                damage = 4
+                type = LEVEL_3
             }
 
             else -> {
-                if (Settings.LEVEL_WEAPON == 4) {
-                    FORCE_IMPACT = .5f
-                    DAMAGE = 5
-                } else if (Settings.LEVEL_WEAPON == 5) {
-                    FORCE_IMPACT = .75f
-                    DAMAGE = 6
-                } else {
-                    FORCE_IMPACT = 1f
-                    DAMAGE = 7
+                when (Settings.LEVEL_WEAPON) {
+                    4 -> {
+                        forceImpact = .5f
+                        damage = 5
+                    }
+
+                    5 -> {
+                        forceImpact = .75f
+                        damage = 6
+                    }
+
+                    else -> {
+                        forceImpact = 1f
+                        damage = 7
+                    }
                 }
-                tipo = LEVEL_4_AND_UP
+                type = LEVEL_4_AND_UP
             }
         }
 
         Gdx.app.log("Weapon level", Settings.LEVEL_WEAPON.toString() + "")
-        Gdx.app.log("Damage", DAMAGE.toString() + "")
-        Gdx.app.log("Force impact ", FORCE_IMPACT.toString() + "")
+        Gdx.app.log("Damage", damage.toString() + "")
+        Gdx.app.log("Force impact ", forceImpact.toString() + "")
     }
 
     fun update(delta: Float, body: Body) {
@@ -77,8 +82,8 @@ class Bullet(x: Float, y: Float, isFacingLeft: Boolean) {
         if (state == STATE_MUZZLE || state == STATE_HIT) {
             stateTime += delta
             if (stateTime >= DURATION_MUZZLE) {
-                if (state == STATE_MUZZLE) state = STATE_NORMAL
-                else state = STATE_DESTROY
+                state = if (state == STATE_MUZZLE) STATE_NORMAL
+                else STATE_DESTROY
                 stateTime = 0f
             }
             return

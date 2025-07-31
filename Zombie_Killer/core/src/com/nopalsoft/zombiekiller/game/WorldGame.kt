@@ -453,12 +453,12 @@ class WorldGame {
                 if (oBullet.state == Bullet.STATE_NORMAL || oBullet.state == Bullet.STATE_MUZZLE) {
                     val obj = oOtraCosa
                     if (obj.state != Zombie.STATE_RISE && obj.state != Zombie.STATE_DEAD) {
-                        obj.getHurt(oBullet.DAMAGE)
+                        obj.getHurt(oBullet.damage)
                         oBullet.hit()
 
                         var impulse = 0f
                         when (obj.type) {
-                            Zombie.TYPE_KID, Zombie.TYPE_MUMMY, Zombie.TYPE_CUASY -> impulse = if (oBullet.isFacingLeft) -oBullet.FORCE_IMPACT else oBullet.FORCE_IMPACT
+                            Zombie.TYPE_KID, Zombie.TYPE_MUMMY, Zombie.TYPE_CUASY -> impulse = if (oBullet.isFacingLeft) -oBullet.forceImpact else oBullet.forceImpact
                         }
                         otraCosa.body.setLinearVelocity(impulse, .5f)
                     }
