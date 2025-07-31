@@ -7,25 +7,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.nopalsoft.zombiedash.handlers.FacebookHandler;
-import com.nopalsoft.zombiedash.handlers.GameServicesHandler;
-import com.nopalsoft.zombiedash.handlers.RequestHandler;
 import com.nopalsoft.zombiedash.screens.MainMenuScreen;
 import com.nopalsoft.zombiedash.screens.Screens;
 
 public class MainZombieDash extends Game {
-    public final GameServicesHandler gameServiceHandler;
-    public final RequestHandler reqHandler;
-    public final FacebookHandler facebookHandler;
+
 
     public I18NBundle idiomas;
     public Stage stage;
     public SpriteBatch batcher;
-    public MainZombieDash(RequestHandler reqHandler, GameServicesHandler gameServiceHandler, FacebookHandler facebookHandler) {
-        this.reqHandler = reqHandler;
-        this.gameServiceHandler = gameServiceHandler;
-        this.facebookHandler = facebookHandler;
-    }
+    public MainZombieDash() {}
 
     @Override
     public void create() {

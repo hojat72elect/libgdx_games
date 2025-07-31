@@ -83,7 +83,6 @@ public class Ventana extends Group {
 
     public void hide() {
         isVisible = false;
-        game.reqHandler.hideAdBanner();
         remove();
     }
 

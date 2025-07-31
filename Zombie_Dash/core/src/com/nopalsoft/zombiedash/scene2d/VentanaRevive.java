@@ -19,7 +19,6 @@ public class VentanaRevive extends Ventana {
 
     GameScreen gameScreen;
 
-    int buttonSize = 55;
     int priceRevive;
 
     public VentanaRevive(Screens currentScreen, int priceRevive) {
@@ -86,6 +85,5 @@ public class VentanaRevive extends Ventana {
     @Override
     public void show(Stage stage) {
         super.show(stage);
-        game.reqHandler.showAdBanner();
     }
 }

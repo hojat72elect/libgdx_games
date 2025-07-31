@@ -73,28 +73,6 @@ public class VentanaGameover extends Ventana {
         btShare.setPosition(getWidth() / 2f - btShare.getWidth() / 2f, 50);
         btShare.getStyle().fontColor = Color.WHITE;
 
-
-        btShare.addListener(new ClickListener() {
-            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                if (game.facebookHandler.facebookIsSignedIn()) {
-                    Gdx.input.getTextInput(new Input.TextInputListener() {
-                        @Override
-                        public void input(String text) {
-                            btShare.setTouchable(Touchable.disabled);
-                            btShare.getStyle().fontColor = Color.GRAY;
-                            game.facebookHandler.facebookShareFeed(text);
-                        }
-
-                        @Override
-                        public void canceled() {
-
-                        }
-                    }, idiomas.get("type_your_message"), "", "");
-                } else
-                    game.facebookHandler.facebookSignIn();
-            }
-        });
-
         addActor(lbShare);
         addActor(btShare);
     }
@@ -134,6 +112,5 @@ public class VentanaGameover extends Ventana {
     @Override
     public void show(Stage stage) {
         super.show(stage);
-        game.reqHandler.showAdBanner();
     }
 }

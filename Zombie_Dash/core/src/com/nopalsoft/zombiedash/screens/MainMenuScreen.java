@@ -17,7 +17,13 @@ import com.nopalsoft.zombiedash.shop.VentanaShop;
 
 public class MainMenuScreen extends Screens {
 
-    Button btPlay, btLeaderboard, btAchievement, btFacebook, btTwitter, btHelp, btSettings, btShop;
+    Button btPlay;
+    Button btLeaderboard;
+    Button btAchievement;
+    Button btFacebook;
+    Button btTwitter;
+    Button btSettings;
+    Button btShop;
 
     Button btMusica;
     Button btSonido;
@@ -38,14 +44,13 @@ public class MainMenuScreen extends Screens {
         ventanaShop = new VentanaShop(this);
 
         titulo = new Image(Assets.zombieDashTitulo);
-        // titulo.setSize(504, 249);
+
         titulo.setPosition(SCREEN_WIDTH / 2f - titulo.getWidth() / 2f + 10, SCREEN_HEIGHT);
         titulo.setOrigin(titulo.getWidth() / 2f, titulo.getHeight() / 2f);
         titulo.setScale(.85f);
         titulo.addAction(Actions.parallel(Actions.moveTo(titulo.getX(), 135, .5f, Interpolation.swing), Actions.scaleTo(1, 1, .5f)));
 
         Table containerBt = new Table();
-        // containerBt.debug();
         containerBt.setSize(700, 100);
         Image imgBack = new Image(Assets.containerButtons);
         imgBack.setSize(containerBt.getWidth(), containerBt.getHeight());
@@ -72,27 +77,10 @@ public class MainMenuScreen extends Screens {
 
         btLeaderboard = new Button(Assets.btLeaderboard);
         addEfectoPress(btLeaderboard);
-        btLeaderboard.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn()) {
-                    game.gameServiceHandler.getLeaderboard();
-                } else
-                    game.gameServiceHandler.signIn();
-            }
-        });
+
 
         btAchievement = new Button(Assets.btAchievement);
         addEfectoPress(btAchievement);
-        btAchievement.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.gameServiceHandler.isSignedIn()) {
-                    game.gameServiceHandler.getAchievements();
-                } else
-                    game.gameServiceHandler.signIn();
-            }
-        });
 
         btSettings = new Button(Assets.btSettings);
         addEfectoPress(btSettings);
@@ -114,23 +102,12 @@ public class MainMenuScreen extends Screens {
         btFacebook.setSize(50, 50);
         addEfectoPress(btFacebook);
         btFacebook.setPosition(SCREEN_WIDTH - 55, SCREEN_HEIGHT - 55);
-        btFacebook.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.facebookHandler.showFacebook();
-            }
-        });
 
         btTwitter = new Button(Assets.btTwitter);
         btTwitter.setSize(50, 50);
         addEfectoPress(btTwitter);
         btTwitter.setPosition(SCREEN_WIDTH - 55, SCREEN_HEIGHT - 120);
-        btTwitter.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.reqHandler.shareOnTwitter("");
-            }
-        });
+
 
         btMusica = new Button(Assets.styleButtonMusic);
         btMusica.setSize(50, 50);

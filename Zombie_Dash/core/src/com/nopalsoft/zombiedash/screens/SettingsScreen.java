@@ -140,19 +140,9 @@ public class SettingsScreen extends Screens {
         btFacebookLogin.setSize(160, 64);
 
         addEfectoPress(btFacebookLogin);
-        btFacebookLogin.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (game.facebookHandler.facebookIsSignedIn())
-                    game.facebookHandler.facebookSignOut();
-                else
-                    game.facebookHandler.facebookSignIn();
-            }
-        });
 
         Table tbFacebookStuff = new Table();
         tbFacebookStuff.setPosition(25, 350);
-        // tbFacebookStuff.debug();
 
         Label lbLoginFacebook = new Label(game.idiomas.get("facebook_login_description"), Assets.labelStyleChico);
         lbLoginFacebook.setWrap(true);
@@ -172,13 +162,7 @@ public class SettingsScreen extends Screens {
     }
 
     @Override
-    public void update(float delta) {
-
-        if (game.facebookHandler.facebookIsSignedIn())
-            btFacebookLogin.setText(game.idiomas.get("logout"));
-        else
-            btFacebookLogin.setText(game.idiomas.get("login"));
-    }
+    public void update(float delta) {}
 
     @Override
     public void draw(float delta) {

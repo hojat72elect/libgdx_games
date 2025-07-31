@@ -49,7 +49,6 @@ public class VentanaRate extends Ventana {
         btYes.addListener(new ClickListener() {
             public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
                 hide();
-                game.reqHandler.showRater();
             }
         });
 
@@ -65,6 +64,5 @@ public class VentanaRate extends Ventana {
     @Override
     public void show(Stage stage) {
         super.show(stage);
-        game.reqHandler.showAdBanner();
     }
 }

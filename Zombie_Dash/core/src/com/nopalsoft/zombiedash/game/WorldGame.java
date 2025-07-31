@@ -776,7 +776,7 @@ public class WorldGame {
 
                         if (obj.state == Zombie.STATE_DEAD) {
                             zombiesKilled++;
-                            Achievements.unlockKilledZombies(zombiesKilled);
+                            Achievements.unlockKilledZombies();
                         }
                     }
                 }

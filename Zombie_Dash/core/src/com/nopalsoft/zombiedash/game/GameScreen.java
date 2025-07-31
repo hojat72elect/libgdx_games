@@ -210,7 +210,6 @@ public class GameScreen extends Screens {
 
     public void setGameover() {
         state = STATE_GAME_OVER;
-        game.gameServiceHandler.submitScore((int) oWorld.distance);
         Settings.setBestScore((int) oWorld.distance);
         new VentanaGameover(this).show(stage);
     }
@@ -239,8 +238,6 @@ public class GameScreen extends Screens {
 
     @Override
     public void hide() {
-        if (Settings.numeroVecesJugadas % 10 == 0)
-            game.reqHandler.showInterstitial();
         super.hide();
     }
 
