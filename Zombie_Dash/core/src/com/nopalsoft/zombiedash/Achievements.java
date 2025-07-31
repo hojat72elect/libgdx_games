@@ -10,7 +10,7 @@ public class Achievements {
     static String firstStep, zombieKiller, zombieHunter, zombieSlayer, zombieDestroyer, youCanNotHitMe;
     private static boolean doneFristStep, doneZombieYouCanNotHitMe;
 
-    public static void init(MainZombieDash game) {
+    public static void init() {
 
         firstStep = "20640";
         zombieKiller = "20642";

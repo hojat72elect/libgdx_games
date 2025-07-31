@@ -33,14 +33,11 @@ import com.nopalsoft.zombiedash.objects.Spike;
 import com.nopalsoft.zombiedash.objects.Zombie;
 import com.nopalsoft.zombiedash.screens.Screens;
 
-import java.util.Iterator;
-
 public class WorldGame {
     public final static float velocidadX = -2;
     static final int STATE_RUNNING = 0;
     static final int STATE_GAMEOVER = 1;
     final float WIDTH = Screens.WORLD_WIDTH;
-    final float HEIGHT = Screens.WORLD_HEIGHT;
     public int state;
     public World oWorldBox;
     public int gems;
@@ -73,13 +70,13 @@ public class WorldGame {
         oWorldBox = new World(new Vector2(0, -9.8f), true);
         oWorldBox.setContactListener(new Colisiones());
 
-        arrBodies = new Array<Body>();
-        arrPisables = new Array<Pisable>();
-        arrZombies = new Array<Zombie>();
-        arrBullets = new Array<Bullet>();
-        arrItems = new Array<Items>();
-        arrSpikes = new Array<Spike>();
-        arrSaws = new Array<Saw>();
+        arrBodies = new Array<>();
+        arrPisables = new Array<>();
+        arrZombies = new Array<>();
+        arrBullets = new Array<>();
+        arrItems = new Array<>();
+        arrSpikes = new Array<>();
+        arrSaws = new Array<>();
 
         timeToSpawnPiso = -.15f;
 
@@ -441,11 +438,8 @@ public class WorldGame {
         }
 
         oWorldBox.getBodies(arrBodies);
-        Iterator<Body> i = arrBodies.iterator();
 
-        while (i.hasNext()) {
-            Body body = i.next();
-
+        for (Body body : arrBodies) {
             if (body.getUserData() instanceof Hero) {
                 updateHeroPlayer(delta, body, didJump, isJumpPressed);
             } else if (body.getUserData() instanceof Pisable) {
@@ -582,11 +576,8 @@ public class WorldGame {
 
     private void eliminarObjetos() {
         oWorldBox.getBodies(arrBodies);
-        Iterator<Body> i = arrBodies.iterator();
 
-        while (i.hasNext()) {
-            Body body = i.next();
-
+        for (Body body : arrBodies) {
             if (!oWorldBox.isLocked()) {
 
                 if (body.getUserData() instanceof Zombie) {
@@ -594,42 +585,36 @@ public class WorldGame {
                     if (obj.state == Zombie.STATE_DEAD && obj.stateTime >= Zombie.DURATION_DEAD || oHero.state == Hero.STATE_REVIVE) {
                         arrZombies.removeValue(obj, true);
                         oWorldBox.destroyBody(body);
-                        continue;
                     }
                 } else if (body.getUserData() instanceof Bullet) {
                     Bullet obj = (Bullet) body.getUserData();
                     if (obj.state == Bullet.STATE_DESTROY) {
                         arrBullets.removeValue(obj, true);
                         oWorldBox.destroyBody(body);
-                        continue;
                     }
                 } else if (body.getUserData() instanceof Items) {
                     Items obj = (Items) body.getUserData();
                     if (obj.state == Items.STATE_TAKEN) {
                         arrItems.removeValue(obj, true);
                         oWorldBox.destroyBody(body);
-                        continue;
                     }
                 } else if (body.getUserData() instanceof Pisable) {
                     Pisable obj = (Pisable) body.getUserData();
                     if (obj.state == Pisable.STATE_DESTROY) {
                         arrPisables.removeValue(obj, true);
                         oWorldBox.destroyBody(body);
-                        continue;
                     }
                 } else if (body.getUserData() instanceof Spike) {
                     Spike obj = (Spike) body.getUserData();
                     if (obj.state == Spike.STATE_DESTROY || oHero.state == Hero.STATE_REVIVE) {
                         arrSpikes.removeValue(obj, true);
                         oWorldBox.destroyBody(body);
-                        continue;
                     }
                 } else if (body.getUserData() instanceof Saw) {
                     Saw obj = (Saw) body.getUserData();
                     if (obj.state == Saw.STATE_DESTROY || oHero.state == Hero.STATE_REVIVE) {
                         arrSaws.removeValue(obj, true);
                         oWorldBox.destroyBody(body);
-                        continue;
                     }
                 }
             }
@@ -649,9 +634,9 @@ public class WorldGame {
                 beginContactHeroOtraCosa(b, a);
 
             if (a.getBody().getUserData() instanceof Pisable)
-                beginContactPisableOtraCosa(a, b);
+                beginContactPisableOtraCosa(b);
             else if (b.getBody().getUserData() instanceof Pisable)
-                beginContactPisableOtraCosa(b, a);
+                beginContactPisableOtraCosa(a);
 
             if (a.getBody().getUserData() instanceof Bullet)
                 beginContactBulletOtraCosa(a, b);
@@ -721,8 +706,7 @@ public class WorldGame {
             }
         }
 
-        private void beginContactPisableOtraCosa(Fixture fixPisable, Fixture fixOtraCosa) {
-            // Pisable objPisable = (Pisable) fixPisable.getBody().getUserData();
+        private void beginContactPisableOtraCosa(Fixture fixOtraCosa) {
             Object objOtraCosa = fixOtraCosa.getBody().getUserData();
 
             if (objOtraCosa instanceof Zombie) {
@@ -812,24 +796,15 @@ public class WorldGame {
             Fixture b = contact.getFixtureB();
 
             if (a.getBody().getUserData() instanceof Hero)
-                preSolveHero(a, b, contact);
+                preSolveHero(b, contact);
             else if (b.getBody().getUserData() instanceof Hero)
-                preSolveHero(b, a, contact);
+                preSolveHero(a, contact);
         }
 
-        private void preSolveHero(Fixture fixHero, Fixture otraCosa, Contact contact) {
+        private void preSolveHero(Fixture otraCosa, Contact contact) {
             Object oOtraCosa = otraCosa.getBody().getUserData();
 
-            if (oOtraCosa instanceof Pisable) {
-                // Pisable obj = (Pisable) oOtraCosa;
-                //
-                // float ponyY = fixHero.getBody().getPosition().y - .30f;
-                // float pisY = obj.position.y + obj.height / 2f;
-                //
-                // if (ponyY < pisY)
-                // contact.setEnabled(false);
-
-            } else if (oOtraCosa instanceof Zombie) {
+           if (oOtraCosa instanceof Zombie) {
                 contact.setEnabled(false);
             } else if (oOtraCosa instanceof Spike) {
                 contact.setEnabled(false);

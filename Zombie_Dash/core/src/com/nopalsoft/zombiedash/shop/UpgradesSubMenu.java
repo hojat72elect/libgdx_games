@@ -177,14 +177,6 @@ public class UpgradesSubMenu {
         return tbContent;
     }
 
-    /**
-     * @param titulo
-     * @param lblPrecio
-     * @param imagen
-     * @param descripcion
-     * @param boton
-     * @return
-     */
     private Table agregarUpgrades(String titulo, Label lblPrecio, AtlasRegion imagen, String descripcion, Image[] arrLevel, TextButton boton) {
 
         Image moneda = new Image(Assets.itemGem);
@@ -383,8 +375,8 @@ public class UpgradesSubMenu {
 
             case 4:
                 return precioNivel5;
-            default:
             case 5:
+            default:
                 return precioNivel6;
         }
     }

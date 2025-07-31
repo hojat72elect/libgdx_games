@@ -19,8 +19,6 @@ import com.nopalsoft.zombiedash.Settings;
 import com.nopalsoft.zombiedash.objects.Hero;
 import com.nopalsoft.zombiedash.scene2d.AnimatedSpriteActor;
 
-import java.util.Iterator;
-
 public class PersonajesSubMenu {
 
     private final static Preferences pref = Gdx.app.getPreferences("com.nopalsoft.zombiedash.shop");
@@ -130,7 +128,7 @@ public class PersonajesSubMenu {
     }
 
     private void inicializarBotones() {
-        arrBotones = new Array<TextButton>();
+        arrBotones = new Array<>();
 
         // DEFAULT
         btBuySWAT = new TextButton(textSelect, Assets.styleTextButtonPurchased);
@@ -280,9 +278,8 @@ public class PersonajesSubMenu {
 
     private void setSelected(TextButton boton) {
         // Pongo todos visibles y al final el boton seleccionado en invisible
-        Iterator<TextButton> i = arrBotones.iterator();
-        while (i.hasNext()) {
-            i.next().setVisible(true);
+        for (TextButton arrBotone : arrBotones) {
+            arrBotone.setVisible(true);
         }
         boton.setVisible(false);
     }

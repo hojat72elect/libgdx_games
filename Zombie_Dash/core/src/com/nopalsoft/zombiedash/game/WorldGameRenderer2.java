@@ -22,8 +22,6 @@ import com.nopalsoft.zombiedash.objects.Spike;
 import com.nopalsoft.zombiedash.objects.Zombie;
 import com.nopalsoft.zombiedash.screens.Screens;
 
-import java.util.Iterator;
-
 public class WorldGameRenderer2 {
 
     final float WIDTH = Screens.WORLD_WIDTH;
@@ -44,7 +42,7 @@ public class WorldGameRenderer2 {
         this.renderBox = new Box2DDebugRenderer();
     }
 
-    public void render(float delta) {
+    public void render() {
 
         oCam.update();
         batcher.setProjectionMatrix(oCam.combined);
@@ -68,52 +66,20 @@ public class WorldGameRenderer2 {
     private void drawPisables() {
         AtlasRegion keyframe = null;
 
-        Iterator<Pisable> i = oWorld.arrPisables.iterator();
-        while (i.hasNext()) {
-            Pisable obj = i.next();
-
+        for (Pisable obj : oWorld.arrPisables) {
             if (obj instanceof Piso) {
                 keyframe = Assets.pisoVerde;
             }
-            // else if (obj instanceof ItemHearth) {
-            // keyframe = Assets.itemHeart;
-            // }
-            // else if (obj instanceof ItemMeat) {
-            // keyframe = Assets.itemMeat;
-            // }
-            // else if (obj instanceof ItemSkull) {
-            // keyframe = Assets.itemSkull;
-            // }
-            // else if (obj instanceof ItemShield) {
-            // keyframe = Assets.itemShield;
-            // }
-            // else if (obj instanceof ItemStar) {
-            // keyframe = Assets.itemStar;
-            // }
 
             batcher.draw(keyframe, obj.position.x - obj.DRAW_WIDTH / 2f, obj.position.y - obj.DRAW_HEIGHT / 2f, obj.DRAW_WIDTH, obj.DRAW_HEIGHT);
         }
     }
 
-    private void drawCrates() {
-
-        // Iterator<Crate> i = oWorld.arrCrates.iterator();
-        // while (i.hasNext()) {
-        // Crate obj = i.next();
-        // float halfSize = obj.SIZE / 2f;
-        // batcher.draw(Assets.crate, obj.position.x - halfSize, obj.position.y - halfSize, halfSize, halfSize, obj.SIZE, obj.SIZE, 1, 1,
-        // obj.angleDeg);
-        //
-        // }
-
-    }
+    private void drawCrates() {}
 
     private void drawSaw() {
 
-        Iterator<Saw> i = oWorld.arrSaws.iterator();
-        while (i.hasNext()) {
-            Saw obj = i.next();
-
+        for (Saw obj : oWorld.arrSaws) {
             if (obj.state == Saw.STATE_NORMAL) {
                 float halfSize = (Saw.SIZE + .2f) / 2f;
                 batcher.draw(Assets.saw, obj.position.x - halfSize, obj.position.y - halfSize, halfSize, halfSize, Saw.SIZE + .2f, Saw.SIZE + .2f, 1,
@@ -127,10 +93,7 @@ public class WorldGameRenderer2 {
     private void drawItems() {
         TextureRegion keyframe = null;
 
-        Iterator<Items> i = oWorld.arrItems.iterator();
-        while (i.hasNext()) {
-            Items obj = i.next();
-
+        for (Items obj : oWorld.arrItems) {
             if (obj instanceof ItemGem) {
                 keyframe = Assets.itemGem;
             } else if (obj instanceof ItemHearth) {
@@ -147,10 +110,8 @@ public class WorldGameRenderer2 {
 
     private void drawZombie() {
 
-        Iterator<Zombie> i = oWorld.arrZombies.iterator();
-        while (i.hasNext()) {
+        for (Zombie obj : oWorld.arrZombies) {
 
-            Zombie obj = i.next();
             if (!obj.canUpdate)
                 continue;
             AnimationSprite animWalk = null;
@@ -231,19 +192,13 @@ public class WorldGameRenderer2 {
     private void drawSpikes() {
         TextureRegion keyframe = Assets.spike;
 
-        Iterator<Spike> i = oWorld.arrSpikes.iterator();
-        while (i.hasNext()) {
-            Spike obj = i.next();
-
+        for (Spike obj : oWorld.arrSpikes) {
             batcher.draw(keyframe, obj.position.x - obj.DRAW_WIDTH / 2f, obj.position.y - obj.DRAW_HEIGHT / 2f, obj.DRAW_WIDTH, obj.DRAW_HEIGHT);
         }
     }
 
     private void drawBullets() {
-        Iterator<Bullet> i = oWorld.arrBullets.iterator();
-        while (i.hasNext()) {
-            Bullet obj = i.next();
-
+        for (Bullet obj : oWorld.arrBullets) {
             AnimationSprite animBullet = null;
 
             switch (obj.tipo) {

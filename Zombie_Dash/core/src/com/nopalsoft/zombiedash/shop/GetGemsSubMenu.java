@@ -1,7 +1,5 @@
 package com.nopalsoft.zombiedash.shop;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;

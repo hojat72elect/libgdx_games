@@ -26,7 +26,7 @@ public class MainZombieDash extends Game {
 
         batcher = new SpriteBatch();
         Assets.load();
-        Achievements.init(this);
+        Achievements.init();
 
         setScreen(new MainMenuScreen(this));
     }

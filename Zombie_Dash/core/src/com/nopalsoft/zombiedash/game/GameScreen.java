@@ -191,7 +191,7 @@ public class GameScreen extends Screens {
             Assets.parallaxBackground.render(delta);
         else
             Assets.parallaxBackground.render(0);
-        renderer.render(delta);
+        renderer.render();
 
         oCam.update();
         batcher.setProjectionMatrix(oCam.combined);
