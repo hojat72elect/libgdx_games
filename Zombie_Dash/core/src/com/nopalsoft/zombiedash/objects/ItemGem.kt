@@ -1,8 +1,3 @@
-package com.nopalsoft.zombiedash.objects;
+package com.nopalsoft.zombiedash.objects
 
-public class ItemGem extends Items {
-
-    public ItemGem(float x, float y) {
-        super(x, y, .35f, .35f);
-    }
-}
+class ItemGem(x: Float, y: Float) : Items(x, y, .35f, .35f)
