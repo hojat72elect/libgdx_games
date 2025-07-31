@@ -34,7 +34,7 @@ class GetGemsSubMenu(game: MainZombie, containerTable: Table) {
     init {
         this.game = game
         this.containerTable = containerTable
-        languagesBundle = game.idiomas
+        languagesBundle = game.idiomas!!
         containerTable.clear()
 
         textBuy = languagesBundle.get("buy")

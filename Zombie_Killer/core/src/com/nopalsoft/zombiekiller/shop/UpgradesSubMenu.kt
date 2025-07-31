@@ -47,7 +47,7 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombie) {
 
     init {
         this.contenedor = contenedor
-        idiomas = game.idiomas
+        idiomas = game.idiomas!!
         contenedor.clear()
 
         textUpgrade = idiomas.get("upgrade")

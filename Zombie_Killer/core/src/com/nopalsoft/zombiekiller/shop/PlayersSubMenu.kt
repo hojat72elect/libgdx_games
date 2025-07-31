@@ -46,7 +46,7 @@ class PlayersSubMenu(containerTable: Table, game: MainZombie) {
     var textSelect: String?
 
     init {
-        languagesBundle = game.idiomas
+        languagesBundle = game.idiomas!!
         this.containerTable = containerTable
         containerTable.clear()
         loadPurchases()
