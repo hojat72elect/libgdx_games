@@ -1,67 +1,62 @@
-package com.nopalsoft.zombiekiller.scene2d;
+package com.nopalsoft.zombiekiller.scene2d
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
-import com.nopalsoft.zombiekiller.Assets;
-import com.nopalsoft.zombiekiller.screens.Screens;
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.utils.Align
+import com.nopalsoft.zombiekiller.Assets
+import com.nopalsoft.zombiekiller.screens.Screens
 
-public class DialogRate extends Dialog {
+class DialogRate(currentScreen: Screens) : Dialog(currentScreen, 400f, 310f, 100f, Assets.backgroundSmallWindow) {
+    var btYes: TextButton? = null
+    var btLater: TextButton? = null
 
-    TextButton btYes, btLater;
+    init {
+        val lbShop = Label(idiomas.get("support_this_game"), Assets.labelStyleGrande)
+        lbShop.setFontScale(1.2f)
+        lbShop.setAlignment(Align.center)
+        lbShop.setPosition(getWidth() / 2f - lbShop.getWidth() / 2f, 230f)
+        addActor(lbShop)
 
-    public DialogRate(Screens currentScreen) {
-        super(currentScreen, 400, 310, 100, Assets.backgroundSmallWindow);
+        val lbContent = Label(idiomas.get("support_description"), Assets.labelStyleChico)
+        lbContent.setWrap(true)
+        lbContent.setWidth(getWidth() - 60)
+        lbContent.setPosition(35f, 150f)
+        addActor(lbContent)
 
-        Label lbShop = new Label(idiomas.get("support_this_game"), Assets.labelStyleGrande);
-        lbShop.setFontScale(1.2f);
-        lbShop.setAlignment(Align.center);
-        lbShop.setPosition(getWidth() / 2f - lbShop.getWidth() / 2f, 230);
-        addActor(lbShop);
+        initButtons()
 
-        Label lbContent = new Label(idiomas.get("support_description"), Assets.labelStyleChico);
-        lbContent.setWrap(true);
-        lbContent.setWidth(getWidth() - 60);
-        lbContent.setPosition(35, 150);
-        addActor(lbContent);
+        val content = Table()
+        content.setSize(375f, 90f)
+        content.setPosition(getWidth() / 2f - content.getWidth() / 2f, 40f)
 
-        initButtons();
+        content.defaults().expandX().uniform()
 
-        Table content = new Table();
-        content.setSize(375, 90);
-        content.setPosition(getWidth() / 2f - content.getWidth() / 2f, 40);
+        content.add<TextButton?>(btYes)
+        content.add<TextButton?>(btLater)
 
-        content.defaults().expandX().uniform();
-
-        content.add(btYes);
-        content.add(btLater);
-
-        addActor(content);
+        addActor(content)
     }
 
-    private void initButtons() {
-        btYes = new TextButton(idiomas.get("OK"), Assets.styleTextButtonPurchased);
-        screen.addPressEffect(btYes);
-        btYes.addListener(new ClickListener() {
-            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                hide();
+    private fun initButtons() {
+        btYes = TextButton(idiomas.get("OK"), Assets.styleTextButtonPurchased)
+        screen.addPressEffect(btYes)
+        btYes!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                hide()
             }
-        });
+        })
 
-        btLater = new TextButton(idiomas.get("not_now"), Assets.styleTextButtonPurchased);
-        screen.addPressEffect(btLater);
-        btLater.addListener(new ClickListener() {
-            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-                hide();
+        btLater = TextButton(idiomas.get("not_now"), Assets.styleTextButtonPurchased)
+        screen.addPressEffect(btLater)
+        btLater!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                hide()
             }
-        });
+        })
     }
 
-    @Override
-    public void show(Stage stage) {
-        super.show(stage);
-    }
 }

@@ -1,44 +1,40 @@
-package com.nopalsoft.zombiekiller.scene2d;
+package com.nopalsoft.zombiekiller.scene2d
 
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.nopalsoft.zombiekiller.Assets;
+import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.nopalsoft.zombiekiller.Assets
 
-public class LabelDialog extends Table {
+class LabelDialog(text: String?, isInverted: Boolean) : Table() {
+    var label: Label
 
-    Label label;
+    init {
+        label = Label(text, Assets.labelStyleHelpDialog)
+        label.setWrap(true)
 
-    public LabelDialog(String text, boolean isInverted) {
+        var width = 75f
+        var height = 100f
 
-        label = new Label(text, Assets.labelStyleHelpDialog);
-        label.setWrap(true);
+        if (label.getWidth() > width) width = label.getWidth()
+        if (label.getHeight() > height) height = label.getHeight()
 
-        float width = 75;
-        float height = 100;
-
-        if (label.getWidth() > width)
-            width = label.getWidth();
-        if (label.getHeight() > height)
-            height = label.getHeight();
-
-        setSize(width, height);
+        setSize(width, height)
 
         if (isInverted) {
-            defaults().pad(45, 10, 10, 10);
-            pad(0);
-            setBackground(Assets.helpDialogInverted);
+            defaults().pad(45f, 10f, 10f, 10f)
+            pad(0f)
+            setBackground(Assets.helpDialogInverted)
         } else {
-            defaults().pad(10, 10, 45, 10);
-            pad(0);
-            setBackground(Assets.helpDialog);
+            defaults().pad(10f, 10f, 45f, 10f)
+            pad(0f)
+            setBackground(Assets.helpDialog)
         }
 
-        add(label).expand().fill();
+        add<Label?>(label).expand().fill()
     }
 
-    @Override
-    public void setPosition(float x, float y) {
-        x -= 35;
-        super.setPosition(x, y);
+    override fun setPosition(x: Float, y: Float) {
+        var x = x
+        x -= 35f
+        super.setPosition(x, y)
     }
 }

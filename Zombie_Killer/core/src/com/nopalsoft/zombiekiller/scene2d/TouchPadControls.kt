@@ -1,91 +1,105 @@
-package com.nopalsoft.zombiekiller.scene2d;
+package com.nopalsoft.zombiekiller.scene2d
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.nopalsoft.zombiekiller.Assets;
-import com.nopalsoft.zombiekiller.Settings;
+import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.nopalsoft.zombiekiller.Assets
+import com.nopalsoft.zombiekiller.Settings
 
-public class TouchPadControls extends Table {
+class TouchPadControls : Table() {
+    @JvmField
+    var isMovingUp: Boolean = false
 
-    public boolean isMovingUp, isMovingDown, isMovingLeft, isMovingRight;
-    public float widthButtons;
-    Button btUp, btDown, btLeft, btRight;
+    @JvmField
+    var isMovingDown: Boolean = false
 
-    public TouchPadControls() {
-        init();
+    @JvmField
+    var isMovingLeft: Boolean = false
+
+    @JvmField
+    var isMovingRight: Boolean = false
+
+    @JvmField
+    var widthButtons: Float = 0f
+    var btUp: Button? = null
+    var btDown: Button? = null
+    var btLeft: Button? = null
+    var btRight: Button? = null
+
+    init {
+        init()
     }
 
-    private void init() {
-        btUp = new Button(Assets.btUp, Assets.btUpPress, Assets.btUpPress);
-        btUp.addListener(new ClickListener() {
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                isMovingUp = true;
-                btUp.setChecked(true);
+    private fun init() {
+        btUp = Button(Assets.btUp, Assets.btUpPress, Assets.btUpPress)
+        btUp!!.addListener(object : ClickListener() {
+            override fun enter(event: InputEvent?, x: Float, y: Float, pointer: Int, fromActor: Actor?) {
+                isMovingUp = true
+                btUp!!.setChecked(true)
             }
 
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                isMovingUp = false;
-                btUp.setChecked(false);
+            override fun exit(event: InputEvent?, x: Float, y: Float, pointer: Int, toActor: Actor?) {
+                isMovingUp = false
+                btUp!!.setChecked(false)
             }
-        });
+        })
 
-        btDown = new Button(Assets.btDown, Assets.btDownPress, Assets.btDownPress);
-        btDown.addListener(new ClickListener() {
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                isMovingDown = true;
-                btDown.setChecked(true);
-            }
-
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                isMovingDown = false;
-                btDown.setChecked(false);
-            }
-        });
-
-        btLeft = new Button(Assets.btLeft, Assets.btLeftPress, Assets.btLeftPress);
-        btLeft.addListener(new ClickListener() {
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                isMovingLeft = true;
-                btLeft.setChecked(true);
+        btDown = Button(Assets.btDown, Assets.btDownPress, Assets.btDownPress)
+        btDown!!.addListener(object : ClickListener() {
+            override fun enter(event: InputEvent?, x: Float, y: Float, pointer: Int, fromActor: Actor?) {
+                isMovingDown = true
+                btDown!!.setChecked(true)
             }
 
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                isMovingLeft = false;
-                btLeft.setChecked(false);
+            override fun exit(event: InputEvent?, x: Float, y: Float, pointer: Int, toActor: Actor?) {
+                isMovingDown = false
+                btDown!!.setChecked(false)
             }
-        });
+        })
 
-        btRight = new Button(Assets.btRight, Assets.btRightPress, Assets.btRightPress);
-        btRight.addListener(new ClickListener() {
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                isMovingRight = true;
-                btRight.setChecked(true);
+        btLeft = Button(Assets.btLeft, Assets.btLeftPress, Assets.btLeftPress)
+        btLeft!!.addListener(object : ClickListener() {
+            override fun enter(event: InputEvent?, x: Float, y: Float, pointer: Int, fromActor: Actor?) {
+                isMovingLeft = true
+                btLeft!!.setChecked(true)
             }
 
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                isMovingRight = false;
-                btRight.setChecked(false);
+            override fun exit(event: InputEvent?, x: Float, y: Float, pointer: Int, toActor: Actor?) {
+                isMovingLeft = false
+                btLeft!!.setChecked(false)
             }
-        });
+        })
 
-        setNewSize(Settings.padSize);
+        btRight = Button(Assets.btRight, Assets.btRightPress, Assets.btRightPress)
+        btRight!!.addListener(object : ClickListener() {
+            override fun enter(event: InputEvent?, x: Float, y: Float, pointer: Int, fromActor: Actor?) {
+                isMovingRight = true
+                btRight!!.setChecked(true)
+            }
+
+            override fun exit(event: InputEvent?, x: Float, y: Float, pointer: Int, toActor: Actor?) {
+                isMovingRight = false
+                btRight!!.setChecked(false)
+            }
+        })
+
+        setNewSize(Settings.padSize)
     }
 
-    public void setNewSize(float width) {
-        this.widthButtons = width;
-        clearChildren();
+    fun setNewSize(width: Float) {
+        this.widthButtons = width
+        clearChildren()
 
-        defaults().size(widthButtons / 3f);
+        defaults().size(widthButtons / 3f)
 
-        add(btUp).colspan(2).center();
-        row();
-        add(btLeft).left();
-        add(btRight).right().padLeft(widthButtons / 3.5f);
-        row();
-        add(btDown).colspan(2).center();
-        pack();
+        add<Button?>(btUp).colspan(2).center()
+        row()
+        add<Button?>(btLeft).left()
+        add<Button?>(btRight).right().padLeft(widthButtons / 3.5f)
+        row()
+        add<Button?>(btDown).colspan(2).center()
+        pack()
     }
 }

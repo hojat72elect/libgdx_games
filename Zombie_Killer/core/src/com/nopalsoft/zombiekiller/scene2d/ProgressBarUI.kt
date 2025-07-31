@@ -1,56 +1,53 @@
-package com.nopalsoft.zombiekiller.scene2d;
+package com.nopalsoft.zombiekiller.scene2d
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.nopalsoft.zombiekiller.Assets;
+import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.nopalsoft.zombiekiller.Assets
 
-public class ProgressBarUI extends Table {
-    public float maxNum;
-    public float actualNum;
-    float WIDTH = 180;
-    float HEIGHT = 30;
-    float BAR_WIDTH = 140;
-    float BAR_HEIGHT = 20;
-    AtlasRegion bar;
+class ProgressBarUI : Table {
+    var maxNum: Float
+    var actualNum: Float
+    var WIDTH: Float = 180f
+    var HEIGHT: Float = 30f
+    var BAR_WIDTH: Float = 140f
+    var BAR_HEIGHT: Float = 20f
+    var bar: AtlasRegion?
 
-    public ProgressBarUI(AtlasRegion bar, AtlasRegion icon, float maxNum, float actualNum, float x, float y) {
-        this.setBounds(x, y, WIDTH, HEIGHT);
-        this.maxNum = maxNum;
-        this.actualNum = actualNum;
-        setBackground(Assets.backgroundProgressBar);
-        setIcon(icon);
-        this.bar = bar;
+    constructor(bar: AtlasRegion?, icon: AtlasRegion?, maxNum: Float, actualNum: Float, x: Float, y: Float) {
+        this.setBounds(x, y, WIDTH, HEIGHT)
+        this.maxNum = maxNum
+        this.actualNum = actualNum
+        setBackground(Assets.backgroundProgressBar)
+        setIcon(icon)
+        this.bar = bar
     }
 
-    public ProgressBarUI(AtlasRegion bar, AtlasRegion icon, float maxNum, float x, float y) {
-        this.setBounds(x, y, WIDTH, HEIGHT);
-        this.maxNum = maxNum;
-        this.actualNum = maxNum;
-        setBackground(Assets.backgroundProgressBar);
-        setIcon(icon);
-        this.bar = bar;
+    constructor(bar: AtlasRegion?, icon: AtlasRegion?, maxNum: Float, x: Float, y: Float) {
+        this.setBounds(x, y, WIDTH, HEIGHT)
+        this.maxNum = maxNum
+        this.actualNum = maxNum
+        setBackground(Assets.backgroundProgressBar)
+        setIcon(icon)
+        this.bar = bar
     }
 
-    private void setIcon(AtlasRegion icon) {
-        Image imgIcon = new Image(icon);
+    private fun setIcon(icon: AtlasRegion?) {
+        val imgIcon = Image(icon)
         // Both height because i want it to be a square
-        imgIcon.scaleBy(-.3f);
-        imgIcon.setPosition(-15, getHeight() / 2f - (imgIcon.getPrefHeight() * imgIcon.getScaleY() / 2f));
-        addActor(imgIcon);
+        imgIcon.scaleBy(-.3f)
+        imgIcon.setPosition(-15f, getHeight() / 2f - (imgIcon.getPrefHeight() * imgIcon.getScaleY() / 2f))
+        addActor(imgIcon)
     }
 
-    public void updateActualNum(float actualNum) {
-        this.actualNum = actualNum;
-        if (actualNum > maxNum)
-            maxNum = actualNum;
+    fun updateActualNum(actualNum: Float) {
+        this.actualNum = actualNum
+        if (actualNum > maxNum) maxNum = actualNum
     }
 
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-        if (actualNum > 0)
-            batch.draw(bar, this.getX() + 34, this.getY() + 6, BAR_WIDTH * (actualNum / maxNum), BAR_HEIGHT);
+    override fun draw(batch: Batch, parentAlpha: Float) {
+        super.draw(batch, parentAlpha)
+        if (actualNum > 0) batch.draw(bar, this.getX() + 34, this.getY() + 6, BAR_WIDTH * (actualNum / maxNum), BAR_HEIGHT)
     }
 }
