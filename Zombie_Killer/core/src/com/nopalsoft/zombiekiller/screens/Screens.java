@@ -111,17 +111,17 @@ public abstract class Screens extends InputAdapter implements Screen {
 
         AnimationSprite heroRun = null;
         switch (Settings.skinSeleccionada) {
-            case Hero.TIPO_FORCE:
-            case Hero.TIPO_RAMBO:
+            case Hero.TYPE_FORCE:
+            case Hero.TYPE_RAMBO:
                 heroRun = Assets.heroRamboWalk;
                 break;
-            case Hero.TIPO_SOLDIER:
+            case Hero.TYPE_SOLDIER:
                 heroRun = Assets.heroSoldierWalk;
                 break;
-            case Hero.TIPO_SWAT:
+            case Hero.TYPE_SWAT:
                 heroRun = Assets.heroSwatWalk;
                 break;
-            case Hero.TIPO_VADER:
+            case Hero.TYPE_VADER:
                 heroRun = Assets.heroVaderWalk;
                 break;
         }

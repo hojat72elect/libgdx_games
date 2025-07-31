@@ -6,21 +6,20 @@ import com.nopalsoft.zombiekiller.Assets;
 
 public class LabelDialog extends Table {
 
-    Label lbl;
+    Label label;
 
     public LabelDialog(String text, boolean isInverted) {
-        // this.debug();
 
-        lbl = new Label(text, Assets.labelStyleHelpDialog);
-        lbl.setWrap(true);
+        label = new Label(text, Assets.labelStyleHelpDialog);
+        label.setWrap(true);
 
         float width = 75;
         float height = 100;
 
-        if (lbl.getWidth() > width)
-            width = lbl.getWidth();
-        if (lbl.getHeight() > height)
-            height = lbl.getHeight();
+        if (label.getWidth() > width)
+            width = label.getWidth();
+        if (label.getHeight() > height)
+            height = label.getHeight();
 
         setSize(width, height);
 
@@ -34,7 +33,7 @@ public class LabelDialog extends Table {
             setBackground(Assets.helpDialog);
         }
 
-        add(lbl).expand().fill();
+        add(label).expand().fill();
     }
 
     @Override

@@ -27,7 +27,7 @@ public class DialogNextLevel extends Dialog {
 
     public DialogNextLevel(Screens currentScreen) {
         super(currentScreen, 380, 390, 50, Assets.backgroundSmallWindow);
-        oWorld = ((GameScreen) currentScreen).oWorld;
+        oWorld = ((GameScreen) currentScreen).worldGame;
         ventanaShop = new DialogShop(screen);
         ventanaSelectLevel = new DialogSelectLevel(screen);
 

@@ -42,16 +42,16 @@ public class OverlayTutorial extends Group {
 
         helpPad = new LabelDialog(idiomas.get("help_pad"), false);
         helpPad.sizeBy(-50, 10);
-        helpPad.setPosition(gameScreen.pad.getX() + gameScreen.pad.getWidth() / 2f, gameScreen.pad.getY() + gameScreen.pad.getHeight() / 2f);
+        helpPad.setPosition(gameScreen.touchpad.getX() + gameScreen.touchpad.getWidth() / 2f, gameScreen.touchpad.getY() + gameScreen.touchpad.getHeight() / 2f);
 
         helpJump = new LabelDialog(idiomas.get("help_jump"), false);
         helpJump.sizeBy(0, 10);
-        helpJump.setPosition(gameScreen.btJump.getX() + gameScreen.btJump.getWidth() / 2f, gameScreen.btJump.getY() + gameScreen.btJump.getHeight()
+        helpJump.setPosition(gameScreen.buttonJump.getX() + gameScreen.buttonJump.getWidth() / 2f, gameScreen.buttonJump.getY() + gameScreen.buttonJump.getHeight()
                 / 2f);
 
         helpFire = new LabelDialog(idiomas.get("help_fire"), false);
         helpFire.sizeBy(0, 10);
-        helpFire.setPosition(gameScreen.btFire.getX() + gameScreen.btFire.getWidth() / 2f, gameScreen.btFire.getY() + gameScreen.btFire.getHeight()
+        helpFire.setPosition(gameScreen.buttonFire.getX() + gameScreen.buttonFire.getWidth() / 2f, gameScreen.buttonFire.getY() + gameScreen.buttonFire.getHeight()
                 / 2f);
 
         helpLifeBar = new LabelDialog(idiomas.get("help_life"), true);

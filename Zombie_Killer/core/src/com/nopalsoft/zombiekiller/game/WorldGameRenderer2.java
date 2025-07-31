@@ -31,12 +31,12 @@ public class WorldGameRenderer2 {
     final float WIDTH = Screens.WORLD_WIDTH;
     final float HEIGHT = Screens.WORLD_HEIGHT;
 
-    SpriteBatch batcher;
-    WorldGame oWorld;
-    ParallaxCamera oCam;
-    OrthogonalTiledMapRenderer tiledRender;
+    SpriteBatch batch;
+    WorldGame worldGame;
+    ParallaxCamera camera;
+    OrthogonalTiledMapRenderer tiledRenderer;
 
-    Box2DDebugRenderer renderBox;
+    Box2DDebugRenderer physicsDebugRenderer;
 
     float xMin, xMax, yMin, yMax;
 
@@ -45,76 +45,74 @@ public class WorldGameRenderer2 {
     TiledMapTileLayer map3;
     TiledMapTileLayer map4;
 
-    TiledMapTileLayer mapInFront;// Enfrente del mono
+    TiledMapTileLayer mapInFront;// In front of the monkey
 
     boolean showMoon;
 
-    public WorldGameRenderer2(SpriteBatch batcher, WorldGame oWorld) {
+    public WorldGameRenderer2(SpriteBatch batch, WorldGame worldGame) {
 
-        this.oCam = new ParallaxCamera(WIDTH, HEIGHT);
-        this.oCam.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
-        this.batcher = batcher;
-        this.oWorld = oWorld;
-        this.renderBox = new Box2DDebugRenderer();
-        tiledRender = new OrthogonalTiledMapRenderer(Assets.map, oWorld.unitScale);
+        this.camera = new ParallaxCamera(WIDTH, HEIGHT);
+        this.camera.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
+        this.batch = batch;
+        this.worldGame = worldGame;
+        this.physicsDebugRenderer = new Box2DDebugRenderer();
+        tiledRenderer = new OrthogonalTiledMapRenderer(Assets.map, worldGame.unitScale);
 
-        /*
-         * Entre mas chico el numero se renderean primero.
-         */
-        map1 = (TiledMapTileLayer) tiledRender.getMap().getLayers().get("1");
-        map2 = (TiledMapTileLayer) tiledRender.getMap().getLayers().get("2");
-        map3 = (TiledMapTileLayer) tiledRender.getMap().getLayers().get("3");
-        map4 = (TiledMapTileLayer) tiledRender.getMap().getLayers().get("4");
-        mapInFront = (TiledMapTileLayer) tiledRender.getMap().getLayers().get("inFront");
+        // The smaller the number, the first they are rendered.
+        map1 = (TiledMapTileLayer) tiledRenderer.getMap().getLayers().get("1");
+        map2 = (TiledMapTileLayer) tiledRenderer.getMap().getLayers().get("2");
+        map3 = (TiledMapTileLayer) tiledRenderer.getMap().getLayers().get("3");
+        map4 = (TiledMapTileLayer) tiledRenderer.getMap().getLayers().get("4");
+        mapInFront = (TiledMapTileLayer) tiledRenderer.getMap().getLayers().get("inFront");
 
-        xMin = 4.0f;// Inicia en 4 porque la camara esta centrada no en el origen
-        xMax = oWorld.unitScale * oWorld.tiledWidth * 32 - 4;// Menos 4 porque la camara esta centrada en el origen
+        xMin = 4.0f;// It starts at 4 because the camera is centered not at the origin
+        xMax = worldGame.unitScale * worldGame.tiledWidth * 32 - 4;// Minus 4 because the camera is centered on the origin
         yMin = 2.4f;
-        yMax = oWorld.unitScale * oWorld.tiledHeight * 32 - 1f;// Aqui no le voy a restar el -2.4 solamente -1f para que tenga un poco mas de libertad al ir hacia arriba.
+        yMax = worldGame.unitScale * worldGame.tiledHeight * 32 - 1f;// Here I'm not going to subtract the -2.4, just -1f so that it has a little more freedom when going up.
 
         showMoon = MathUtils.randomBoolean();
     }
 
     public void render() {
-        oCam.position.x = oWorld.oHero.position.x;
-        oCam.position.y = oWorld.oHero.position.y;
+        camera.position.x = worldGame.hero.position.x;
+        camera.position.y = worldGame.hero.position.y;
 
-        // Actualizo la camara para que no se salga de los bounds
-        if (oCam.position.x < xMin)
-            oCam.position.x = xMin;
-        else if (oCam.position.x > xMax)
-            oCam.position.x = xMax;
+        // I update the camera so that it doesn't go out of bounds
+        if (camera.position.x < xMin)
+            camera.position.x = xMin;
+        else if (camera.position.x > xMax)
+            camera.position.x = xMax;
 
-        if (oCam.position.y < yMin)
-            oCam.position.y = yMin;
-        else if (oCam.position.y > yMax)
-            oCam.position.y = yMax;
+        if (camera.position.y < yMin)
+            camera.position.y = yMin;
+        else if (camera.position.y > yMax)
+            camera.position.y = yMax;
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
-        batcher.begin();
-        batcher.disableBlending();
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.disableBlending();
         drawBackGround();
-        batcher.end();
+        batch.end();
 
-        batcher.setProjectionMatrix(oCam.calculateParallaxMatrix(0.5f, 1));
-        batcher.begin();
+        batch.setProjectionMatrix(camera.calculateParallaxMatrix(0.5f, 1));
+        batch.begin();
         drawParallaxBackground();
-        batcher.end();
+        batch.end();
 
         if (showMoon) {
-            batcher.setProjectionMatrix(oCam.calculateParallaxMatrix(0.25f, .8f));
-            batcher.begin();
-            batcher.enableBlending();
+            batch.setProjectionMatrix(camera.calculateParallaxMatrix(0.25f, .8f));
+            batch.begin();
+            batch.enableBlending();
             drawMoon();
-            batcher.end();
+            batch.end();
         }
 
         drawTiled();
 
-        batcher.setProjectionMatrix(oCam.combined);
-        batcher.begin();
-        batcher.enableBlending();
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.enableBlending();
         drawItems();
         drawCrates();
         drawSaw();
@@ -122,67 +120,67 @@ public class WorldGameRenderer2 {
         drawBullets();
         drawPlayer();
 
-        batcher.end();
+        batch.end();
 
         drawTiledInfront();
 
     }
 
     private void drawBackGround() {
-        batcher.draw(Assets.backBackground, oCam.position.x - 4f, oCam.position.y - 2.4f, 8.0f, 4.8f);
+        batch.draw(Assets.backBackground, camera.position.x - 4f, camera.position.y - 2.4f, 8.0f, 4.8f);
     }
 
     private void drawParallaxBackground() {
         for (int i = 0; i < 2; i += 1) {
-            batcher.draw(Assets.background, (-xMin / 2f) + (i * 16), 0, 8.0f, 4.8f);
-            batcher.draw(Assets.background, (-xMin / 2f) + ((i + 1) * 16), 0, -8.0f, 4.8f);
+            batch.draw(Assets.background, (-xMin / 2f) + (i * 16), 0, 8.0f, 4.8f);
+            batch.draw(Assets.background, (-xMin / 2f) + ((i + 1) * 16), 0, -8.0f, 4.8f);
         }
     }
 
     private void drawMoon() {
-        batcher.draw(Assets.moon, 4, 2.3f, 3.5f, 2.55f);
+        batch.draw(Assets.moon, 4, 2.3f, 3.5f, 2.55f);
     }
 
     private void drawTiledInfront() {
 
-        tiledRender.setView(oCam);
+        tiledRenderer.setView(camera);
 
-        tiledRender.getBatch().begin();
+        tiledRenderer.getBatch().begin();
         if (mapInFront != null)
-            tiledRender.renderTileLayer(mapInFront);
-        tiledRender.getBatch().end();
+            tiledRenderer.renderTileLayer(mapInFront);
+        tiledRenderer.getBatch().end();
     }
 
     private void drawTiled() {
-        tiledRender.setView(oCam);
-        tiledRender.getBatch().begin();
+        tiledRenderer.setView(camera);
+        tiledRenderer.getBatch().begin();
         if (map1 != null)
-            tiledRender.renderTileLayer(map1);
+            tiledRenderer.renderTileLayer(map1);
         if (map2 != null)
-            tiledRender.renderTileLayer(map2);
+            tiledRenderer.renderTileLayer(map2);
         if (map3 != null)
-            tiledRender.renderTileLayer(map3);
+            tiledRenderer.renderTileLayer(map3);
         if (map4 != null)
-            tiledRender.renderTileLayer(map4);
+            tiledRenderer.renderTileLayer(map4);
 
         // tiledRender.render();
-        tiledRender.getBatch().end();
+        tiledRenderer.getBatch().end();
     }
 
     private void drawCrates() {
 
-        for (Crate obj : oWorld.arrCrates) {
+        for (Crate obj : worldGame.crates) {
             float halfSize = obj.SIZE / 2f;
-            batcher.draw(Assets.crate, obj.position.x - halfSize, obj.position.y - halfSize, halfSize, halfSize, obj.SIZE, obj.SIZE, 1, 1,
+            batch.draw(Assets.crate, obj.position.x - halfSize, obj.position.y - halfSize, halfSize, halfSize, obj.SIZE, obj.SIZE, 1, 1,
                     obj.angleDeg);
         }
     }
 
     private void drawSaw() {
 
-        for (Saw obj : oWorld.arrSaws) {
+        for (Saw obj : worldGame.saws) {
             float halfSize = (obj.SIZE + .2f) / 2f;
-            batcher.draw(Assets.saw, obj.position.x - halfSize, obj.position.y - halfSize, halfSize, halfSize, obj.SIZE + .2f, obj.SIZE + .2f, 1, 1,
+            batch.draw(Assets.saw, obj.position.x - halfSize, obj.position.y - halfSize, halfSize, halfSize, obj.SIZE + .2f, obj.SIZE + .2f, 1, 1,
                     obj.angleDeg);
         }
     }
@@ -190,7 +188,7 @@ public class WorldGameRenderer2 {
     private void drawItems() {
         TextureRegion keyframe = null;
 
-        for (Items obj : oWorld.arrItems) {
+        for (Items obj : worldGame.items) {
             if (obj instanceof ItemGem) {
                 keyframe = Assets.itemGem;
             } else if (obj instanceof ItemHeart) {
@@ -205,13 +203,13 @@ public class WorldGameRenderer2 {
                 keyframe = Assets.itemStar;
             }
 
-            batcher.draw(keyframe, obj.position.x - obj.DRAW_WIDTH / 2f, obj.position.y - obj.DRAW_HEIGHT / 2f, obj.DRAW_WIDTH, obj.DRAW_HEIGHT);
+            batch.draw(keyframe, obj.position.x - obj.DRAW_WIDTH / 2f, obj.position.y - obj.DRAW_HEIGHT / 2f, obj.DRAW_WIDTH, obj.DRAW_HEIGHT);
         }
     }
 
     private void drawZombie() {
 
-        for (Zombie obj : oWorld.arrZombies) {
+        for (Zombie obj : worldGame.zombies) {
 
             AnimationSprite animWalk = null;
             AnimationSprite animIdle = null;
@@ -284,21 +282,21 @@ public class WorldGameRenderer2 {
             if (obj.isFacingLeft) {
                 spriteFrame.setPosition(obj.position.x + .29f, obj.position.y - .34f + ajusteY);
                 spriteFrame.setSize(-.8f, .8f);
-                spriteFrame.draw(batcher);
+                spriteFrame.draw(batch);
             } else {
                 spriteFrame.setPosition(obj.position.x - .29f, obj.position.y - .34f + ajusteY);
                 spriteFrame.setSize(.8f, .8f);
-                spriteFrame.draw(batcher);
+                spriteFrame.draw(batch);
             }
 
-            // Barra de vidas
+            // Life bar
             if (obj.vidas > 0 && (obj.state == Zombie.STATE_NORMAL || obj.state == Zombie.STATE_HURT))
-                batcher.draw(Assets.redBar, obj.position.x - .33f, obj.position.y + .36f, .65f * ((float) obj.vidas / obj.MAX_LIFE), .075f);
+                batch.draw(Assets.redBar, obj.position.x - .33f, obj.position.y + .36f, .65f * ((float) obj.vidas / obj.MAX_LIFE), .075f);
         }
     }
 
     private void drawBullets() {
-        for (Bullet obj : oWorld.arrBullets) {
+        for (Bullet obj : worldGame.bullets) {
             AnimationSprite animBullet = null;
 
             switch (obj.tipo) {
@@ -329,11 +327,11 @@ public class WorldGameRenderer2 {
                 if (obj.isFacingLeft) {
                     spriteFrame.setPosition(obj.position.x + .1f, obj.position.y - .1f);
                     spriteFrame.setSize(-.2f, .2f);
-                    spriteFrame.draw(batcher);
+                    spriteFrame.draw(batch);
                 } else {
                     spriteFrame.setPosition(obj.position.x - .1f, obj.position.y - .1f);
                     spriteFrame.setSize(.2f, .2f);
-                    spriteFrame.draw(batcher);
+                    spriteFrame.draw(batch);
                 }
             }
 
@@ -341,13 +339,13 @@ public class WorldGameRenderer2 {
             if (obj.state == Bullet.STATE_MUZZLE) {
                 Sprite spriteFrame = Assets.muzzle.getKeyFrame(obj.stateTime, false);
                 if (obj.isFacingLeft) {
-                    spriteFrame.setPosition(oWorld.oHero.position.x + .1f - .42f, oWorld.oHero.position.y - .1f - .14f);
+                    spriteFrame.setPosition(worldGame.hero.position.x + .1f - .42f, worldGame.hero.position.y - .1f - .14f);
                     spriteFrame.setSize(-.2f, .2f);
                 } else {
-                    spriteFrame.setPosition(oWorld.oHero.position.x - .1f + .42f, oWorld.oHero.position.y - .1f - .14f);
+                    spriteFrame.setPosition(worldGame.hero.position.x - .1f + .42f, worldGame.hero.position.y - .1f - .14f);
                     spriteFrame.setSize(.2f, .2f);
                 }
-                spriteFrame.draw(batcher);
+                spriteFrame.draw(batch);
             }
 
             // MUZZLE HIT
@@ -360,14 +358,14 @@ public class WorldGameRenderer2 {
                     spriteFrame.setPosition(obj.position.x + .1f, obj.position.y - .1f);
                     spriteFrame.setSize(-.2f, .2f);
                 }
-                spriteFrame.draw(batcher);
+                spriteFrame.draw(batch);
             }
         }
     }
 
     private void drawPlayer() {
 
-        Hero obj = oWorld.oHero;
+        Hero obj = worldGame.hero;
 
         AnimationSprite heroClimb = null;
         AnimationSprite heroDie = null;
@@ -376,8 +374,8 @@ public class WorldGameRenderer2 {
         AnimationSprite heroShoot = null;
         AnimationSprite heroWalk = null;
 
-        switch (obj.tipo) {
-            case Hero.TIPO_FORCE:
+        switch (obj.type) {
+            case Hero.TYPE_FORCE:
                 heroClimb = Assets.heroForceClimb;
                 heroDie = Assets.heroForceDie;
                 heroHurt = Assets.heroForceHurt;
@@ -386,7 +384,7 @@ public class WorldGameRenderer2 {
                 heroWalk = Assets.heroForceWalk;
                 break;
 
-            case Hero.TIPO_RAMBO:
+            case Hero.TYPE_RAMBO:
                 heroClimb = Assets.heroRamboClimb;
                 heroDie = Assets.heroRamboDie;
                 heroHurt = Assets.heroRamboHurt;
@@ -394,7 +392,7 @@ public class WorldGameRenderer2 {
                 heroShoot = Assets.heroRamboShoot;
                 heroWalk = Assets.heroRamboWalk;
                 break;
-            case Hero.TIPO_SOLDIER:
+            case Hero.TYPE_SOLDIER:
                 heroClimb = Assets.heroSoldierClimb;
                 heroDie = Assets.heroSoldierDie;
                 heroHurt = Assets.heroSoldierHurt;
@@ -402,7 +400,7 @@ public class WorldGameRenderer2 {
                 heroShoot = Assets.heroSoldierShoot;
                 heroWalk = Assets.heroSoldierWalk;
                 break;
-            case Hero.TIPO_SWAT:
+            case Hero.TYPE_SWAT:
                 heroClimb = Assets.heroSwatClimb;
                 heroDie = Assets.heroSwatDie;
                 heroHurt = Assets.heroSwatHurt;
@@ -410,7 +408,7 @@ public class WorldGameRenderer2 {
                 heroShoot = Assets.heroSwatShoot;
                 heroWalk = Assets.heroSwatWalk;
                 break;
-            case Hero.TIPO_VADER:
+            case Hero.TYPE_VADER:
                 heroClimb = Assets.heroVaderClimb;
                 heroDie = Assets.heroVaderDie;
                 heroHurt = Assets.heroVaderHurt;
@@ -439,19 +437,19 @@ public class WorldGameRenderer2 {
         } else
             spriteFrame = null;
 
-        // Si esta escalando lo dibujo siempre del mismo lado
+        // If he is climbing I always draw him on the same side
         if (obj.isClimbing) {
             spriteFrame.setPosition(obj.position.x + .35f, obj.position.y - .34f);
             spriteFrame.setSize(-.7f, .77f);
-            spriteFrame.draw(batcher);
+            spriteFrame.draw(batch);
         } else if (obj.isFacingLeft) {
             spriteFrame.setPosition(obj.position.x + .29f, obj.position.y - .34f);
             spriteFrame.setSize(-.7f, .7f);
-            spriteFrame.draw(batcher);
+            spriteFrame.draw(batch);
         } else {
             spriteFrame.setPosition(obj.position.x - .29f, obj.position.y - .34f);
             spriteFrame.setSize(.7f, .7f);
-            spriteFrame.draw(batcher);
+            spriteFrame.draw(batch);
         }
     }
 

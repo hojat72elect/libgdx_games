@@ -135,14 +135,14 @@ public class PlayersSubMenu {
 
         // DEFAULT
         btBuySWAT = new TextButton(textSelect, Assets.styleTextButtonPurchased);
-        if (Settings.skinSeleccionada == Hero.TIPO_SWAT)
+        if (Settings.skinSeleccionada == Hero.TYPE_SWAT)
             btBuySWAT.setVisible(false);
 
         addEfectoPress(btBuySWAT);
         btBuySWAT.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Settings.skinSeleccionada = Hero.TIPO_SWAT;
+                Settings.skinSeleccionada = Hero.TYPE_SWAT;
                 setSelected(btBuySWAT);
             }
         });
@@ -153,7 +153,7 @@ public class PlayersSubMenu {
         else
             btBuyRambo = new TextButton(textBuy, Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == Hero.TIPO_RAMBO)
+        if (Settings.skinSeleccionada == Hero.TYPE_RAMBO)
             btBuyRambo.setVisible(false);
 
         addEfectoPress(btBuyRambo);
@@ -161,7 +161,7 @@ public class PlayersSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyRambo) {
-                    Settings.skinSeleccionada = Hero.TIPO_RAMBO;
+                    Settings.skinSeleccionada = Hero.TYPE_RAMBO;
                     setSelected(btBuyRambo);
                 } else if (Settings.gemsTotal >= PRECIO_HERO_RAMBO) {
                     Settings.gemsTotal -= PRECIO_HERO_RAMBO;
@@ -179,7 +179,7 @@ public class PlayersSubMenu {
         else
             btBuySoldier = new TextButton(textBuy, Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == Hero.TIPO_SOLDIER)
+        if (Settings.skinSeleccionada == Hero.TYPE_SOLDIER)
             btBuySoldier.setVisible(false);
 
         addEfectoPress(btBuySoldier);
@@ -187,7 +187,7 @@ public class PlayersSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuySoldier) {
-                    Settings.skinSeleccionada = Hero.TIPO_SOLDIER;
+                    Settings.skinSeleccionada = Hero.TYPE_SOLDIER;
                     setSelected(btBuySoldier);
                 } else if (Settings.gemsTotal >= PRECIO_HERO_SOLDIER) {
                     Settings.gemsTotal -= PRECIO_HERO_SOLDIER;
@@ -205,7 +205,7 @@ public class PlayersSubMenu {
         else
             btBuyElite = new TextButton(textBuy, Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == Hero.TIPO_FORCE)
+        if (Settings.skinSeleccionada == Hero.TYPE_FORCE)
             btBuyElite.setVisible(false);
 
         addEfectoPress(btBuyElite);
@@ -213,7 +213,7 @@ public class PlayersSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyElite) {
-                    Settings.skinSeleccionada = Hero.TIPO_FORCE;
+                    Settings.skinSeleccionada = Hero.TYPE_FORCE;
                     setSelected(btBuyElite);
                 } else if (Settings.gemsTotal >= PRECIO_HERO_ELITE) {
                     Settings.gemsTotal -= PRECIO_HERO_ELITE;
@@ -231,7 +231,7 @@ public class PlayersSubMenu {
         else
             btBuyVader = new TextButton(textBuy, Assets.styleTextButtonBuy);
 
-        if (Settings.skinSeleccionada == Hero.TIPO_VADER)
+        if (Settings.skinSeleccionada == Hero.TYPE_VADER)
             btBuyVader.setVisible(false);
 
         addEfectoPress(btBuyVader);
@@ -239,7 +239,7 @@ public class PlayersSubMenu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (didBuyVader) {
-                    Settings.skinSeleccionada = Hero.TIPO_VADER;
+                    Settings.skinSeleccionada = Hero.TYPE_VADER;
                     setSelected(btBuyVader);
                 } else if (Settings.gemsTotal >= PRECIO_HERO_VADER) {
                     Settings.gemsTotal -= PRECIO_HERO_VADER;

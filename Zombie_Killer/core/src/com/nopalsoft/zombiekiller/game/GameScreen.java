@@ -29,21 +29,21 @@ public class GameScreen extends Screens {
     static final int STATE_GAME_OVER = 1;
     static final int STATE_NEXT_LEVEL = 2;
     static final int STATE_PAUSED = 3;
-    public WorldGame oWorld;
-    public Button btJump, btFire;
-    public Touchpad pad;
+    public WorldGame worldGame;
+    public Button buttonJump, buttonFire;
+    public Touchpad touchpad;
     public TouchPadControls touchPadControls;
     public int level;
     int state;
     WorldGameRenderer2 renderer;
-    float accelX, accelY;
+    float accelerationX, accelerationY;
     boolean didJump;
     boolean isFiring;
-    Button btPause;
-    DialogGameover ventanaGameover;
-    DialogPause ventanaPause;
+    Button buttonPause;
+    DialogGameover gameOverDialog;
+    DialogPause pauseDialog;
     OverlayTutorial overlayTutorial;
-    Label lbLevel;
+    Label labelLevel;
 
     ProgressBarUI lifeBar;
     ProgressBarUI shieldBar;
@@ -81,29 +81,29 @@ public class GameScreen extends Screens {
 
         this.level = level;
         Gdx.app.log("Map", level + "");
-        lbLevel = new Label(game.idiomas.get("world") + " " + (level + 1), Assets.labelStyleChico);
-        lbLevel.setPosition(SCREEN_WIDTH / 2f - lbLevel.getWidth() / 2f, 391);
+        labelLevel = new Label(game.idiomas.get("world") + " " + (level + 1), Assets.labelStyleChico);
+        labelLevel.setPosition(SCREEN_WIDTH / 2f - labelLevel.getWidth() / 2f, 391);
 
         state = STATE_RUNNING;
         Settings.numeroVecesJugadas++;
 
-        ventanaGameover = new DialogGameover(this);
-        ventanaPause = new DialogPause(this);
+        gameOverDialog = new DialogGameover(this);
+        pauseDialog = new DialogPause(this);
 
-        oWorld = new WorldGame();
-        renderer = new WorldGameRenderer2(batcher, oWorld);
+        worldGame = new WorldGame();
+        renderer = new WorldGameRenderer2(batcher, worldGame);
 
-        lifeBar = new ProgressBarUI(Assets.redBar, Assets.itemHeart, oWorld.oHero.vidas, 20, 440);
-        shieldBar = new ProgressBarUI(Assets.whiteBar, Assets.itemShield, oWorld.oHero.MAX_SHIELD, oWorld.oHero.shield, 20, 395);
+        lifeBar = new ProgressBarUI(Assets.redBar, Assets.itemHeart, worldGame.hero.lives, 20, 440);
+        shieldBar = new ProgressBarUI(Assets.whiteBar, Assets.itemShield, worldGame.hero.MAX_SHIELDS, worldGame.hero.shield, 20, 395);
         numGemsBar = new NumGemsBar(Assets.itemGem, 20, 350);
         skullBar = new SkullBar(SCREEN_WIDTH / 2f, 415);
 
-        btJump = new Button(Assets.btUp);
-        btJump.setSize(Settings.buttonSize, Settings.buttonSize);
-        btJump.setPosition(Settings.buttonJumpPositionX, Settings.buttonJumpPositionY);
-        btJump.getColor().a = .5f;
-        addEfectoPress(btJump);
-        btJump.addListener(new ClickListener() {
+        buttonJump = new Button(Assets.btUp);
+        buttonJump.setSize(Settings.buttonSize, Settings.buttonSize);
+        buttonJump.setPosition(Settings.buttonJumpPositionX, Settings.buttonJumpPositionY);
+        buttonJump.getColor().a = .5f;
+        addEfectoPress(buttonJump);
+        buttonJump.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 didJump = true;
@@ -111,12 +111,12 @@ public class GameScreen extends Screens {
             }
         });
 
-        btFire = new Button(Assets.btFire);
-        btFire.setSize(Settings.buttonSize, Settings.buttonSize);
-        btFire.setPosition(Settings.buttonFirePositionX, Settings.buttonFirePositionY);
-        btFire.getColor().a = .5f;
-        addEfectoPress(btFire);
-        btFire.addListener(new ClickListener() {
+        buttonFire = new Button(Assets.btFire);
+        buttonFire.setSize(Settings.buttonSize, Settings.buttonSize);
+        buttonFire.setPosition(Settings.buttonFirePositionX, Settings.buttonFirePositionY);
+        buttonFire.getColor().a = .5f;
+        addEfectoPress(buttonFire);
+        buttonFire.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 isFiring = true;
@@ -124,41 +124,41 @@ public class GameScreen extends Screens {
             }
         });
 
-        btPause = new Button(Assets.btPause);
-        btPause.setSize(45, 45);
-        btPause.setPosition(SCREEN_WIDTH - 50, SCREEN_HEIGHT - 50);
-        addEfectoPress(btPause);
-        btPause.addListener(new ClickListener() {
+        buttonPause = new Button(Assets.btPause);
+        buttonPause.setSize(45, 45);
+        buttonPause.setPosition(SCREEN_WIDTH - 50, SCREEN_HEIGHT - 50);
+        addEfectoPress(buttonPause);
+        buttonPause.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 setPaused();
             }
         });
 
-        pad = new Touchpad(5, Assets.touchPadStyle);
-        pad.setPosition(Settings.padPositionX, Settings.padPositionY);
-        pad.setSize(Settings.padSize, Settings.padSize);
-        pad.getColor().a = .5f;
+        touchpad = new Touchpad(5, Assets.touchPadStyle);
+        touchpad.setPosition(Settings.padPositionX, Settings.padPositionY);
+        touchpad.setSize(Settings.padSize, Settings.padSize);
+        touchpad.getColor().a = .5f;
 
         touchPadControls = new TouchPadControls();
         touchPadControls.setPosition(Settings.padPositionX, Settings.padPositionY);
         touchPadControls.getColor().a = .5f;
 
         if (Gdx.app.getType() == ApplicationType.Android || Gdx.app.getType() == ApplicationType.iOS) {
-            stage.addActor(btFire);
-            stage.addActor(btJump);
+            stage.addActor(buttonFire);
+            stage.addActor(buttonJump);
 
             if (Settings.isPadEnabled)
-                stage.addActor(pad);
+                stage.addActor(touchpad);
             else
                 stage.addActor(touchPadControls);
         }
-        stage.addActor(btPause);
+        stage.addActor(buttonPause);
         stage.addActor(lifeBar);
         stage.addActor(shieldBar);
         stage.addActor(numGemsBar);
         stage.addActor(skullBar);
-        stage.addActor(lbLevel);
+        stage.addActor(labelLevel);
 
         overlayTutorial = new OverlayTutorial(this);
         if (level == 0) {
@@ -185,36 +185,36 @@ public class GameScreen extends Screens {
 
         float sensibility = .6f;
 
-        if (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.LEFT) || pad.getKnobPercentX() < -sensibility
+        if (Gdx.input.isKeyPressed(Keys.A) || Gdx.input.isKeyPressed(Keys.LEFT) || touchpad.getKnobPercentX() < -sensibility
                 || touchPadControls.isMovingLeft)
-            accelX = -1;
-        else if (Gdx.input.isKeyPressed(Keys.D) || Gdx.input.isKeyPressed(Keys.RIGHT) || pad.getKnobPercentX() > sensibility
+            accelerationX = -1;
+        else if (Gdx.input.isKeyPressed(Keys.D) || Gdx.input.isKeyPressed(Keys.RIGHT) || touchpad.getKnobPercentX() > sensibility
                 || touchPadControls.isMovingRight)
-            accelX = 1;
+            accelerationX = 1;
         else
-            accelX = 0;
+            accelerationX = 0;
 
-        if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.UP) || pad.getKnobPercentY() > sensibility || touchPadControls.isMovingUp)
-            accelY = 1;
-        else if (Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DOWN) || pad.getKnobPercentY() < -sensibility
+        if (Gdx.input.isKeyPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.UP) || touchpad.getKnobPercentY() > sensibility || touchPadControls.isMovingUp)
+            accelerationY = 1;
+        else if (Gdx.input.isKeyPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.DOWN) || touchpad.getKnobPercentY() < -sensibility
                 || touchPadControls.isMovingDown)
-            accelY = -1;
+            accelerationY = -1;
         else
-            accelY = 0;
+            accelerationY = 0;
 
         if (Gdx.input.isKeyPressed(Keys.F))
             isFiring = true;
 
-        oWorld.update(delta, didJump, isFiring, accelX, accelY);
+        worldGame.update(delta, didJump, isFiring, accelerationX, accelerationY);
 
-        lifeBar.updateActualNum(oWorld.oHero.vidas);
-        shieldBar.updateActualNum(oWorld.oHero.shield);
-        numGemsBar.updateNumGems(oWorld.gems);
-        skullBar.tryToUpdateSkulls(oWorld.skulls);
+        lifeBar.updateActualNum(worldGame.hero.lives);
+        shieldBar.updateActualNum(worldGame.hero.shield);
+        numGemsBar.updateNumGems(worldGame.gems);
+        skullBar.tryToUpdateSkulls(worldGame.skulls);
 
-        if (oWorld.state == WorldGame.STATE_GAMEOVER) {
+        if (worldGame.state == WorldGame.STATE_GAMEOVER) {
             setGameover();
-        } else if (oWorld.state == WorldGame.STATE_NEXT_LEVEL) {
+        } else if (worldGame.state == WorldGame.STATE_NEXT_LEVEL) {
             setNextLevel();
         }
 
@@ -223,12 +223,12 @@ public class GameScreen extends Screens {
 
     private void setGameover() {
         state = STATE_GAME_OVER;
-        ventanaGameover.show(stage);
+        gameOverDialog.show(stage);
     }
 
     private void setNextLevel() {
         state = STATE_NEXT_LEVEL;
-        Settings.saveLevel(level, oWorld.skulls);
+        Settings.saveLevel(level, worldGame.skulls);
 
         Achievements.unlockCollectedSkulls();
 
@@ -238,14 +238,14 @@ public class GameScreen extends Screens {
     private void setPaused() {
         if (state == STATE_RUNNING) {
             state = STATE_PAUSED;
-            ventanaPause.show(stage);
+            pauseDialog.show(stage);
         }
     }
 
     @Override
     public void hide() {
 
-        Settings.zombiesKilled += oWorld.totalZombiesKilled;
+        Settings.zombiesKilled += worldGame.totalZombiesKilled;
         Achievements.unlockKilledZombies();
         super.hide();
     }
@@ -276,8 +276,8 @@ public class GameScreen extends Screens {
             didJump = true;
             return true;
         } else if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
-            if (ventanaPause.isVisible())
-                ventanaPause.hide();
+            if (pauseDialog.isVisible())
+                pauseDialog.hide();
             else
                 setPaused();
             return true;

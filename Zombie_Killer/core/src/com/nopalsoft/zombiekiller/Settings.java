@@ -97,7 +97,7 @@ public class Settings {
         buttonJumpPositionY = pref.getFloat("buttonJumpPositionY", SettingsScreen.DEFAULT_POSITION_BUTTON_JUMP.y);
 
         numeroVecesJugadas = pref.getInteger("numeroVecesJugadas", 0);
-        skinSeleccionada = pref.getInteger("skinSeleccionada", Hero.TIPO_SWAT);
+        skinSeleccionada = pref.getInteger("skinSeleccionada", Hero.TYPE_SWAT);
         gemsTotal = pref.getInteger("gemsTotal", 0);
         zombiesKilled = pref.getLong("zombiesKilled", 0);
 

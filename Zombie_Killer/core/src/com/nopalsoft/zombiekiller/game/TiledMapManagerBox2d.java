@@ -41,30 +41,30 @@ import java.util.Iterator;
 
 public class TiledMapManagerBox2d {
 
-    private final WorldGame oWorld;
-    private final World oWorldBox;
+    private final WorldGame worldGame;
+    private final World world;
     private final float m_units;
     private final Logger logger;
-    private final FixtureDef defaultFixture;
+    private final FixtureDef defaultFixtureDefinition;
 
-    public TiledMapManagerBox2d(WorldGame oWorld, float unitScale) {
-        this.oWorld = oWorld;
-        oWorldBox = oWorld.oWorldBox;
+    public TiledMapManagerBox2d(WorldGame worldGame, float unitScale) {
+        this.worldGame = worldGame;
+        world = worldGame.world;
         m_units = unitScale;
         logger = new Logger("MapBodyManager", 1);
 
-        defaultFixture = new FixtureDef();
-        defaultFixture.density = 1.0f;
-        defaultFixture.friction = .5f;
-        defaultFixture.restitution = 0.0f;
+        defaultFixtureDefinition = new FixtureDef();
+        defaultFixtureDefinition.density = 1.0f;
+        defaultFixtureDefinition.friction = .5f;
+        defaultFixtureDefinition.restitution = 0.0f;
     }
 
-    public void createObjetosDesdeTiled(Map map) {
-        crearFisicos(map);
-        crearMalos(map);
+    public void createObjectsFromTiled(Map map) {
+        createPhysics(map);
+        createEnemies(map);
     }
 
-    private void crearFisicos(Map map) {
+    private void createPhysics(Map map) {
         MapLayer layer = map.getLayers().get("fisicos");
 
         if (layer == null) {
@@ -73,52 +73,52 @@ public class TiledMapManagerBox2d {
         }
 
         MapObjects objects = layer.getObjects();
-        Iterator<MapObject> objectIt = objects.iterator();
+        Iterator<MapObject> objectIterator = objects.iterator();
 
         int skulls = 0;
-        while (objectIt.hasNext()) {
-            MapObject object = objectIt.next();
+        while (objectIterator.hasNext()) {
+            MapObject object = objectIterator.next();
 
             if (object instanceof TextureMapObject) {
                 continue;
             }
 
             MapProperties properties = object.getProperties();
-            String tipo = (String) properties.get("type");
-            if (tipo == null)
+            String type = (String) properties.get("type");
+            if (type == null)
                 continue;
-            else if (tipo.equals("pisable")) {
+            else if (type.equals("pisable")) {
                 if (object instanceof RectangleMapObject) {
-                    crearPisable(object);
+                    createPlatform(object);
                     continue;
                 }
-            } else if (tipo.equals("ladder")) {
+            } else if (type.equals("ladder")) {
                 if (object instanceof RectangleMapObject) {
-                    createLadder(object, tipo);
+                    createLadder(object, type);
                     continue;
                 }
-            } else if (tipo.equals("crate")) {
+            } else if (type.equals("crate")) {
                 if (object instanceof RectangleMapObject) {
                     createCrate(object);
                     continue;
                 }
-            } else if (tipo.equals("saw")) {
+            } else if (type.equals("saw")) {
                 if (object instanceof RectangleMapObject) {
                     createSaw(object);
                     continue;
                 }
-            } else if (tipo.equals("gem") || tipo.equals("heart") || tipo.equals("star") || tipo.equals("skull") || tipo.equals("meat")
-                    || tipo.equals("shield")) {
+            } else if (type.equals("gem") || type.equals("heart") || type.equals("star") || type.equals("skull") || type.equals("meat")
+                    || type.equals("shield")) {
                 if (object instanceof RectangleMapObject) {
-                    if (tipo.equals("skull"))
+                    if (type.equals("skull"))
                         skulls++;
-                    crearItem(object, tipo);
+                    createItem(object, type);
                     continue;
                 }
             }
 
             /*
-             * Normalmente si no ninguno es el piso
+             * Normally if not none is the floor.
              */
             Shape shape;
             if (object instanceof RectangleMapObject) {
@@ -134,25 +134,25 @@ public class TiledMapManagerBox2d {
                 continue;
             }
 
-            defaultFixture.shape = shape;
+            defaultFixtureDefinition.shape = shape;
 
-            BodyDef bodyDef = new BodyDef();
-            bodyDef.type = BodyType.StaticBody;
+            BodyDef bodyDefinition = new BodyDef();
+            bodyDefinition.type = BodyType.StaticBody;
 
-            Body body = oWorldBox.createBody(bodyDef);
-            body.createFixture(defaultFixture);
-            body.setUserData(tipo);
+            Body body = world.createBody(bodyDefinition);
+            body.createFixture(defaultFixtureDefinition);
+            body.setUserData(type);
 
-            defaultFixture.shape = null;
-            defaultFixture.isSensor = false;
-            defaultFixture.filter.groupIndex = 0;
+            defaultFixtureDefinition.shape = null;
+            defaultFixtureDefinition.isSensor = false;
+            defaultFixtureDefinition.filter.groupIndex = 0;
             shape.dispose();
         }
         if (skulls != 3)
             throw new GdxRuntimeException("#### DEBE HABER 3 SKULLS ####");
     }
 
-    private void crearMalos(Map map) {
+    private void createEnemies(Map map) {
         MapLayer layer = map.getLayers().get("malos");
 
         if (layer == null) {
@@ -168,30 +168,30 @@ public class TiledMapManagerBox2d {
             }
 
             MapProperties properties = object.getProperties();
-            String tipo = (String) properties.get("type");
-            if (tipo.equals("zombieCuasy") || tipo.equals("zombieFrank") || tipo.equals("zombieMummy") || tipo.equals("zombieKid")
-                    || tipo.equals("zombiePan")) {
+            String type = (String) properties.get("type");
+            if (type.equals("zombieCuasy") || type.equals("zombieFrank") || type.equals("zombieMummy") || type.equals("zombieKid")
+                    || type.equals("zombiePan")) {
                 if (object instanceof RectangleMapObject) {
-                    crearZombieMalo(object, tipo);
-                    oWorld.TOTAL_ZOMBIES_LEVEL++;
+                    createZombie(object, type);
+                    worldGame.TOTAL_ZOMBIES_LEVEL++;
                 }
             } else {
-                throw new GdxRuntimeException("Error en layer " + "malos" + ", objeto:" + tipo);
+                throw new GdxRuntimeException("Error en layer " + "malos" + ", objeto:" + type);
             }
         }
     }
 
-    private void crearPisable(MapObject object) {
+    private void createPlatform(MapObject object) {
         Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
         PolygonShape polygon = new PolygonShape();
         Vector2 size = new Vector2((rectangle.x + rectangle.width * 0.5f) * m_units, (rectangle.y + rectangle.height * 0.5f) * m_units);
         polygon.setAsBox(rectangle.getWidth() * 0.5f * m_units, rectangle.height * 0.5f * m_units, size, 0.0f);
-        defaultFixture.shape = polygon;
+        defaultFixtureDefinition.shape = polygon;
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.StaticBody;
-        Body body = oWorldBox.createBody(bodyDef);
-        body.createFixture(defaultFixture);
+        Body body = world.createBody(bodyDef);
+        body.createFixture(defaultFixtureDefinition);
 
         float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
@@ -205,17 +205,17 @@ public class TiledMapManagerBox2d {
         PolygonShape polygon = new PolygonShape();
         Vector2 size = new Vector2((rectangle.x + rectangle.width * 0.5f) * m_units, (rectangle.y + rectangle.height * 0.5f) * m_units);
         polygon.setAsBox(rectangle.getWidth() * 0.5f * m_units, rectangle.height * 0.5f * m_units, size, 0.0f);
-        defaultFixture.shape = polygon;
+        defaultFixtureDefinition.shape = polygon;
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.StaticBody;
-        Body body = oWorldBox.createBody(bodyDef);
+        Body body = world.createBody(bodyDef);
 
-        defaultFixture.isSensor = true;
-        body.createFixture(defaultFixture);
+        defaultFixtureDefinition.isSensor = true;
+        body.createFixture(defaultFixtureDefinition);
         body.setUserData(tipo);
 
-        defaultFixture.isSensor = false;
+        defaultFixtureDefinition.isSensor = false;
     }
 
     private void createCrate(MapObject object) {
@@ -236,15 +236,15 @@ public class TiledMapManagerBox2d {
 
         Crate obj = new Crate(x, y, width);
 
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.position.x = obj.position.x;
-        bodyDef.position.y = obj.position.y;
-        bodyDef.type = BodyType.DynamicBody;
-        Body body = oWorldBox.createBody(bodyDef);
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.x = obj.position.x;
+        bodyDefinition.position.y = obj.position.y;
+        bodyDefinition.type = BodyType.DynamicBody;
+        Body body = world.createBody(bodyDefinition);
 
         body.createFixture(fixDef);
 
-        oWorld.arrCrates.add(obj);
+        worldGame.crates.add(obj);
         body.setUserData(obj);
     }
 
@@ -258,7 +258,7 @@ public class TiledMapManagerBox2d {
         CircleShape shape = new CircleShape();
         shape.setRadius(width / 2f);
 
-        defaultFixture.shape = shape;
+        defaultFixtureDefinition.shape = shape;
 
         Saw obj = new Saw(x, y, width);
 
@@ -266,25 +266,25 @@ public class TiledMapManagerBox2d {
         bodyDef.position.x = obj.position.x;
         bodyDef.position.y = obj.position.y;
         bodyDef.type = BodyType.KinematicBody;
-        Body body = oWorldBox.createBody(bodyDef);
+        Body body = world.createBody(bodyDef);
 
-        body.createFixture(defaultFixture);
+        body.createFixture(defaultFixtureDefinition);
 
-        oWorld.arrSaws.add(obj);
+        worldGame.saws.add(obj);
         body.setUserData(obj);
         body.setAngularVelocity((float) Math.toRadians(360));
 
         shape.dispose();
     }
 
-    private void crearItem(MapObject object, String tipo) {
+    private void createItem(MapObject object, String type) {
         Items obj = null;
 
         Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
         float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
 
-        switch (tipo) {
+        switch (type) {
             case "gem":
                 obj = new ItemGem(x, y);
                 break;
@@ -306,34 +306,34 @@ public class TiledMapManagerBox2d {
                 break;
         }
 
-        BodyDef bd = new BodyDef();
-        bd.position.y = obj.position.y;
-        bd.position.x = obj.position.x;
-        bd.type = BodyType.StaticBody;
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.y = obj.position.y;
+        bodyDefinition.position.x = obj.position.x;
+        bodyDefinition.type = BodyType.StaticBody;
 
         CircleShape shape = new CircleShape();
         shape.setRadius(.15f);
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.isSensor = true;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.isSensor = true;
 
-        Body oBody = oWorldBox.createBody(bd);
-        oBody.createFixture(fixture);
+        Body body = world.createBody(bodyDefinition);
+        body.createFixture(fixtureDefinition);
 
-        oBody.setUserData(obj);
-        oWorld.arrItems.add(obj);
+        body.setUserData(obj);
+        worldGame.items.add(obj);
         shape.dispose();
     }
 
-    private void crearZombieMalo(MapObject object, String tipo) {
+    private void createZombie(MapObject object, String type) {
         Zombie obj = null;
 
         Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
         float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
 
-        switch (tipo) {
+        switch (type) {
             case "zombieCuasy":
                 obj = new Zombie(x, y, Zombie.TIPO_CUASY);
                 break;
@@ -351,26 +351,26 @@ public class TiledMapManagerBox2d {
                 break;
         }
 
-        BodyDef bd = new BodyDef();
-        bd.position.x = obj.position.x;
-        bd.position.y = obj.position.y;
-        bd.type = BodyType.DynamicBody;
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.x = obj.position.x;
+        bodyDefinition.position.y = obj.position.y;
+        bodyDefinition.type = BodyType.DynamicBody;
 
-        Body oBody = oWorldBox.createBody(bd);
+        Body body = world.createBody(bodyDefinition);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(.17f, .32f);
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.density = 8;
-        fixture.friction = 0;
-        fixture.filter.groupIndex = -1;
-        oBody.createFixture(fixture);
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.density = 8;
+        fixtureDefinition.friction = 0;
+        fixtureDefinition.filter.groupIndex = -1;
+        body.createFixture(fixtureDefinition);
 
-        oBody.setFixedRotation(true);
-        oBody.setUserData(obj);
-        oWorld.arrZombies.add(obj);
+        body.setFixedRotation(true);
+        body.setUserData(obj);
+        worldGame.zombies.add(obj);
 
         shape.dispose();
     }

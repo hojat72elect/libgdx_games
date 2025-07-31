@@ -43,44 +43,44 @@ public class WorldGame {
     public int tiledHeight;
 
     /**
-     * Por el momento hice una prueba con 110 tiles de width y todo funciona bien, no se pasa el background
+     * At the moment I did a test with 110 tiles width and everything works fine, the background does not go through.
      */
-    public World oWorldBox;
+    public World world;
     public int gems;
     public int skulls;
     public int TOTAL_ZOMBIES_LEVEL;
     public int totalZombiesKilled;
-    public int bonus;// Si se matan todos los zombies, las gemas recolectadas x2
+    public int bonus;// If all zombies are killed, the collected gems x2
     float TIME_TO_FIRE_AGAIN = .3f;
     float timeToFireAgain;
-    /**
-     * Mis tiles son de 32px, asi que la unidad seria 1/32 con una camara ortograpicha de 10x15 para ver 10 tiles de ancho y 15 de alto. El probema es que mi camara es de 8x4.8f por eso tengo que
-     * cambiar la escala, con 1/32 solo veria 8 tiles a lo ancho y de altura 4.8 por como esta configurada la camara.
-     * <p>
-     * con 1/96 veo 24 tiles a lo ancho
+
+    /*
+     * My tiles are 32px, so the unit would be 1/32 with a 10x15 orthographic camera to see 10 tiles wide and 15 tiles high. The problem is that my camera
+     *  is 8x4.8px, so I have to change the scale. With 1/32, I would only see 8 tiles wide and 4.8 tiles high, due to the way the camera is configured.
+     * With 1/96, I see 24 tiles wide.
      */
     float unitScale = 1 / 76f;
-    Hero oHero;
+    Hero hero;
 
-    Array<Zombie> arrZombies;
-    Array<Items> arrItems;
-    Array<Crate> arrCrates;
-    Array<Bullet> arrBullets;
-    Array<Saw> arrSaws;
-    Array<Body> arrBodies;
+    Array<Zombie> zombies;
+    Array<Items> items;
+    Array<Crate> crates;
+    Array<Bullet> bullets;
+    Array<Saw> saws;
+    Array<Body> bodies;
 
     public WorldGame() {
-        oWorldBox = new World(new Vector2(0, -9.8f), true);
-        oWorldBox.setContactListener(new Colisiones());
+        world = new World(new Vector2(0, -9.8f), true);
+        world.setContactListener(new CollisionHandler());
 
-        arrItems = new Array<>();
-        arrZombies = new Array<>();
-        arrBullets = new Array<>();
-        arrCrates = new Array<>();
-        arrSaws = new Array<>();
-        arrBodies = new Array<>();
+        items = new Array<>();
+        zombies = new Array<>();
+        bullets = new Array<>();
+        crates = new Array<>();
+        saws = new Array<>();
+        bodies = new Array<>();
 
-        new TiledMapManagerBox2d(this, unitScale).createObjetosDesdeTiled(Assets.map);
+        new TiledMapManagerBox2d(this, unitScale).createObjectsFromTiled(Assets.map);
         tiledWidth = ((TiledMapTileLayer) Assets.map.getLayers().get("1")).getWidth();
         tiledHeight = ((TiledMapTileLayer) Assets.map.getLayers().get("1")).getHeight();
 
@@ -92,51 +92,51 @@ public class WorldGame {
         Gdx.app.log("Tile Width", tiledWidth + "");
         Gdx.app.log("Tile Height", tiledHeight + "");
 
-        crearHeroPrueba();
+        createHero();
 
         state = STATE_RUNNING;
     }
 
-    private void crearHeroPrueba() {
-        oHero = new Hero(1.35f, 1.6f, Settings.skinSeleccionada);
+    private void createHero() {
+        hero = new Hero(1.35f, 1.6f, Settings.skinSeleccionada);
 
-        BodyDef bd = new BodyDef();
-        bd.position.x = oHero.position.x;
-        bd.position.y = oHero.position.y;
-        bd.type = BodyType.DynamicBody;
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.x = hero.position.x;
+        bodyDefinition.position.y = hero.position.y;
+        bodyDefinition.type = BodyType.DynamicBody;
 
-        Body oBody = oWorldBox.createBody(bd);
+        Body body = world.createBody(bodyDefinition);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(.17f, .32f);
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.density = 8;
-        fixture.friction = 0;
-        Fixture cuerpo = oBody.createFixture(fixture);
-        cuerpo.setUserData("cuerpo");
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.density = 8;
+        fixtureDefinition.friction = 0;
+        Fixture heroFixture = body.createFixture(fixtureDefinition);
+        heroFixture.setUserData("cuerpo");
 
         PolygonShape sensorPiesShape = new PolygonShape();
         sensorPiesShape.setAsBox(.11f, .025f, new Vector2(0, -.32f), 0);
-        fixture.shape = sensorPiesShape;
-        fixture.density = 0;
-        fixture.restitution = 0f;
-        fixture.friction = 0;
-        fixture.isSensor = true;
-        Fixture sensorPies = oBody.createFixture(fixture);
+        fixtureDefinition.shape = sensorPiesShape;
+        fixtureDefinition.density = 0;
+        fixtureDefinition.restitution = 0f;
+        fixtureDefinition.friction = 0;
+        fixtureDefinition.isSensor = true;
+        Fixture sensorPies = body.createFixture(fixtureDefinition);
         sensorPies.setUserData("pies");
 
-        oBody.setFixedRotation(true);
-        oBody.setUserData(oHero);
-        oBody.setBullet(true);
+        body.setFixedRotation(true);
+        body.setUserData(hero);
+        body.setBullet(true);
 
         shape.dispose();
     }
 
     private void createBullet(boolean isFiring, float delta) {
-        // No puede disparar si esta escalando
-        if (oHero.isClimbing || oHero.state == Hero.STATE_HURT || oHero.state == Hero.STATE_DEAD)
+        // Can't shoot if climbing
+        if (hero.isClimbing || hero.state == Hero.STATE_HURT || hero.state == Hero.STATE_DEAD)
             return;
 
         if (isFiring) {
@@ -152,44 +152,44 @@ public class WorldGame {
     }
 
     private void createBullet() {
-        boolean isFacingLeft = oHero.isFacingLeft;
+        boolean isFacingLeft = hero.isFacingLeft;
         Bullet obj;
 
         if (isFacingLeft) {
-            obj = new Bullet(oHero.position.x - .42f, oHero.position.y - .14f, true);
+            obj = new Bullet(hero.position.x - .42f, hero.position.y - .14f, true);
         } else {
-            obj = new Bullet(oHero.position.x + .42f, oHero.position.y - .14f, false);
+            obj = new Bullet(hero.position.x + .42f, hero.position.y - .14f, false);
         }
 
-        if (!oHero.isWalking)
-            oHero.fire();// Pone el estado en fire y aparece la animacion
+        if (!hero.isWalking)
+            hero.fire();// Puts the state on fire and the animation appears
 
-        BodyDef bd = new BodyDef();
-        bd.position.x = obj.position.x;
-        bd.position.y = obj.position.y;
-        bd.type = BodyType.DynamicBody;
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.x = obj.position.x;
+        bodyDefinition.position.y = obj.position.y;
+        bodyDefinition.type = BodyType.DynamicBody;
 
-        Body oBody = oWorldBox.createBody(bd);
+        Body body = world.createBody(bodyDefinition);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(.1f, .1f);
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.density = 1;
-        fixture.isSensor = true;
-        oBody.createFixture(fixture);
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.density = 1;
+        fixtureDefinition.isSensor = true;
+        body.createFixture(fixtureDefinition);
 
-        oBody.setFixedRotation(true);
-        oBody.setUserData(obj);
-        oBody.setBullet(true);
-        oBody.setGravityScale(0);
-        arrBullets.add(obj);
+        body.setFixedRotation(true);
+        body.setUserData(obj);
+        body.setBullet(true);
+        body.setGravityScale(0);
+        bullets.add(obj);
 
         if (isFacingLeft)
-            oBody.setLinearVelocity(-Bullet.VELOCIDAD, 0);
+            body.setLinearVelocity(-Bullet.VELOCIDAD, 0);
         else
-            oBody.setLinearVelocity(Bullet.VELOCIDAD, 0);
+            body.setLinearVelocity(Bullet.VELOCIDAD, 0);
     }
 
     private void createItemFromZombie(float x, float y) {
@@ -211,39 +211,39 @@ public class WorldGame {
                 break;
         }
 
-        BodyDef bd = new BodyDef();
-        bd.position.y = obj.position.y;
-        bd.position.x = obj.position.x;
-        bd.type = BodyType.DynamicBody;
+        BodyDef bodyDefinition = new BodyDef();
+        bodyDefinition.position.y = obj.position.y;
+        bodyDefinition.position.x = obj.position.x;
+        bodyDefinition.type = BodyType.DynamicBody;
 
         CircleShape shape = new CircleShape();
         shape.setRadius(.15f);
 
-        FixtureDef fixture = new FixtureDef();
-        fixture.shape = shape;
-        fixture.restitution = .3f;
-        fixture.density = 1;
-        fixture.friction = 1f;
-        fixture.filter.groupIndex = -1;
+        FixtureDef fixtureDefinition = new FixtureDef();
+        fixtureDefinition.shape = shape;
+        fixtureDefinition.restitution = .3f;
+        fixtureDefinition.density = 1;
+        fixtureDefinition.friction = 1f;
+        fixtureDefinition.filter.groupIndex = -1;
 
-        Body oBody = oWorldBox.createBody(bd);
-        oBody.createFixture(fixture);
+        Body body = world.createBody(bodyDefinition);
+        body.createFixture(fixtureDefinition);
 
-        oBody.setUserData(obj);
-        arrItems.add(obj);
+        body.setUserData(obj);
+        items.add(obj);
         shape.dispose();
     }
 
     public void update(float delta, boolean didJump, boolean isFiring, float accelX, float accelY) {
-        oWorldBox.step(delta, 8, 4);
+        world.step(delta, 8, 4);
 
-        eliminarObjetos();
+        removeObjects();
 
         createBullet(isFiring, delta);
 
-        oWorldBox.getBodies(arrBodies);
+        world.getBodies(bodies);
 
-        for (Body body : arrBodies) {
+        for (Body body : bodies) {
             if (body.getUserData() instanceof Hero) {
                 updateHeroPlayer(delta, body, didJump, accelX, accelY);
             } else if (body.getUserData() instanceof Zombie) {
@@ -259,15 +259,15 @@ public class WorldGame {
             }
         }
 
-        if (oHero.state == Hero.STATE_DEAD && oHero.stateTime >= Hero.DURATION_DEAD)
+        if (hero.state == Hero.STATE_DEAD && hero.stateTime >= Hero.DURATION_DEAD)
             state = STATE_GAMEOVER;
     }
 
     private void updateZombieMalo(float delta, Body body) {
         Zombie obj = (Zombie) body.getUserData();
 
-        if (obj.position.x > oHero.position.x - 2 && obj.position.x < oHero.position.x + 2 && obj.position.y < oHero.position.y + .5f
-                && obj.position.y > oHero.position.y - .5f && !obj.canUpdate) {
+        if (obj.position.x > hero.position.x - 2 && obj.position.x < hero.position.x + 2 && obj.position.y < hero.position.y + .5f
+                && obj.position.y > hero.position.y - .5f && !obj.canUpdate) {
             obj.canUpdate = true;
             Sound sound = null;
             switch (obj.tipo) {
@@ -291,7 +291,7 @@ public class WorldGame {
             Assets.playSound(sound, 1);
         }
 
-        obj.update(delta, body, 0, oHero);
+        obj.update(delta, body, 0, hero);
 
         if (obj.position.y < -.5f) {
             obj.die();
@@ -299,10 +299,10 @@ public class WorldGame {
     }
 
     private void updateHeroPlayer(float delta, Body body, boolean didJump, float accelX, float accelY) {
-        oHero.update(delta, body, didJump, accelX, accelY);
+        hero.update(delta, body, didJump, accelX, accelY);
 
-        if (oHero.position.y < -.5f) {
-            oHero.die();
+        if (hero.position.y < -.5f) {
+            hero.die();
         }
     }
 
@@ -310,7 +310,7 @@ public class WorldGame {
         Bullet obj = (Bullet) body.getUserData();
         obj.update(delta, body);
 
-        if (obj.position.x > oHero.position.x + 4 || obj.position.x < oHero.position.x - 4)
+        if (obj.position.x > hero.position.x + 4 || obj.position.x < hero.position.x - 4)
             obj.state = Bullet.STATE_DESTROY;
     }
 
@@ -329,25 +329,25 @@ public class WorldGame {
         obj.update(delta, body);
     }
 
-    private void eliminarObjetos() {
-        oWorldBox.getBodies(arrBodies);
+    private void removeObjects() {
+        world.getBodies(bodies);
 
-        for (Body body : arrBodies) {
-            if (!oWorldBox.isLocked()) {
+        for (Body body : bodies) {
+            if (!world.isLocked()) {
 
                 if (body.getUserData() instanceof Items) {
                     Items obj = (Items) body.getUserData();
                     if (obj.state == Items.STATE_TAKEN) {
-                        arrItems.removeValue(obj, true);
-                        oWorldBox.destroyBody(body);
+                        items.removeValue(obj, true);
+                        world.destroyBody(body);
                     }
                 } else if (body.getUserData() instanceof Zombie) {
                     Zombie obj = (Zombie) body.getUserData();
                     if (obj.state == Zombie.STATE_DEAD && obj.stateTime >= Zombie.DURATION_DEAD) {
                         float x = obj.position.x;
                         float y = obj.position.y;
-                        arrZombies.removeValue(obj, true);
-                        oWorldBox.destroyBody(body);
+                        zombies.removeValue(obj, true);
+                        world.destroyBody(body);
                         totalZombiesKilled++;
                         Settings.gemsTotal += 3;
                         gems += 3;
@@ -358,15 +358,15 @@ public class WorldGame {
                 } else if (body.getUserData() instanceof Bullet) {
                     Bullet obj = (Bullet) body.getUserData();
                     if (obj.state == Bullet.STATE_DESTROY) {
-                        arrBullets.removeValue(obj, true);
-                        oWorldBox.destroyBody(body);
+                        bullets.removeValue(obj, true);
+                        world.destroyBody(body);
                     }
                 }
             }
         }
     }
 
-    class Colisiones implements ContactListener {
+    class CollisionHandler implements ContactListener {
 
         @Override
         public void beginContact(Contact contact) {
@@ -374,9 +374,9 @@ public class WorldGame {
             Fixture b = contact.getFixtureB();
 
             if (a.getBody().getUserData() instanceof Hero)
-                beginContactHeroOtraCosa(a, b);
+                handleHeroCollisions(a, b);
             else if (b.getBody().getUserData() instanceof Hero)
-                beginContactHeroOtraCosa(b, a);
+                handleHeroCollisions(b, a);
 
             if (a.getBody().getUserData() instanceof Bullet)
                 beginContactBulletOtraCosa(a, b);
@@ -384,67 +384,66 @@ public class WorldGame {
                 beginContactBulletOtraCosa(b, a);
         }
 
-        private void beginContactHeroOtraCosa(Fixture fixHero, Fixture otraCosa) {
-            Object oOtraCosa = otraCosa.getBody().getUserData();
+        private void handleHeroCollisions(Fixture heroFixture, Fixture otherFixture) {
+            Object otherObject = otherFixture.getBody().getUserData();
 
-            if (oOtraCosa.equals("ladder")) {
-                oHero.isOnStairs = true;
-            } else if (oOtraCosa.equals("suelo") || oOtraCosa instanceof Platform) {
-                if (fixHero.getUserData().equals("pies"))
-                    oHero.canJump = true;
-            } else if (oOtraCosa instanceof Crate) {
-                // Crate obj = (Crate) oOtraCosa;
+            if (otherObject.equals("ladder")) {
+                hero.isOnStairs = true;
+            } else if (otherObject.equals("suelo") || otherObject instanceof Platform) {
+                if (heroFixture.getUserData().equals("pies"))
+                    hero.canJump = true;
+            } else if (otherObject instanceof Crate) {
 
-                if (fixHero.getUserData().equals("pies")) {
-                    oHero.canJump = true;
-                    oHero.bodyCrate = otraCosa.getBody();
+                if (heroFixture.getUserData().equals("pies")) {
+                    hero.canJump = true;
+                    hero.bodyCrate = otherFixture.getBody();
                 }
-            } else if (oOtraCosa.equals("spikes")) {
-                oHero.die();
-            } else if (oOtraCosa instanceof Saw) {
-                oHero.die();
-            } else if (oOtraCosa instanceof ItemGem) {
-                Items obj = (Items) oOtraCosa;
-                if (oHero.state != Hero.STATE_DEAD && obj.state == Items.STATE_NORMAL) {
+            } else if (otherObject.equals("spikes")) {
+                hero.die();
+            } else if (otherObject instanceof Saw) {
+                hero.die();
+            } else if (otherObject instanceof ItemGem) {
+                Items obj = (Items) otherObject;
+                if (hero.state != Hero.STATE_DEAD && obj.state == Items.STATE_NORMAL) {
                     obj.taken();
                     Settings.gemsTotal++;
                     gems++;
 
                     Assets.playSound(Assets.gem, .075f);
                 }
-            } else if (oOtraCosa instanceof ItemHeart) {
-                Items obj = (Items) oOtraCosa;
-                if (oHero.state != Hero.STATE_DEAD && obj.state == Items.STATE_NORMAL) {
+            } else if (otherObject instanceof ItemHeart) {
+                Items obj = (Items) otherObject;
+                if (hero.state != Hero.STATE_DEAD && obj.state == Items.STATE_NORMAL) {
                     obj.taken();
-                    oHero.getHearth();
+                    hero.getHeart();
 
                     Assets.playSound(Assets.hearth, 1);
                 }
-            } else if (oOtraCosa instanceof ItemSkull) {
-                Items obj = (Items) oOtraCosa;
-                if (oHero.state != Hero.STATE_DEAD && obj.state == Items.STATE_NORMAL) {
+            } else if (otherObject instanceof ItemSkull) {
+                Items obj = (Items) otherObject;
+                if (hero.state != Hero.STATE_DEAD && obj.state == Items.STATE_NORMAL) {
                     obj.taken();
                     skulls++;
 
                     Assets.playSound(Assets.skull, .3f);
                 }
-            } else if (oOtraCosa instanceof ItemMeat) {
-                Items obj = (Items) oOtraCosa;
-                if (oHero.state != Hero.STATE_DEAD && obj.state == Items.STATE_NORMAL) {
+            } else if (otherObject instanceof ItemMeat) {
+                Items obj = (Items) otherObject;
+                if (hero.state != Hero.STATE_DEAD && obj.state == Items.STATE_NORMAL) {
                     obj.taken();
 
                     Assets.playSound(Assets.hearth, 1);
                 }
-            } else if (oOtraCosa instanceof ItemShield) {
-                Items obj = (Items) oOtraCosa;
-                if (oHero.state != Hero.STATE_DEAD && obj.state == Items.STATE_NORMAL) {
+            } else if (otherObject instanceof ItemShield) {
+                Items obj = (Items) otherObject;
+                if (hero.state != Hero.STATE_DEAD && obj.state == Items.STATE_NORMAL) {
                     obj.taken();
-                    oHero.getShield();
+                    hero.getShield();
                     Assets.playSound(Assets.shield, 1);
                 }
-            } else if (oOtraCosa instanceof ItemStar) {
-                Items obj = (Items) oOtraCosa;
-                if (oHero.state != Hero.STATE_DEAD && state == STATE_RUNNING) {
+            } else if (otherObject instanceof ItemStar) {
+                Items obj = (Items) otherObject;
+                if (hero.state != Hero.STATE_DEAD && state == STATE_RUNNING) {
                     obj.taken();
                     state = STATE_NEXT_LEVEL;
                     if (totalZombiesKilled == TOTAL_ZOMBIES_LEVEL) {
@@ -452,17 +451,17 @@ public class WorldGame {
                         Settings.gemsTotal += bonus;
                     }
                 }
-            } else if (oOtraCosa instanceof Zombie) {
-                Zombie obj = (Zombie) oOtraCosa;
+            } else if (otherObject instanceof Zombie) {
+                Zombie obj = (Zombie) otherObject;
                 if (obj.state == Zombie.STATE_NORMAL || obj.state == Zombie.STATE_HURT) {
-                    oHero.getHurt();
+                    hero.getHurt();
                     Sound sound;
-                    switch (oHero.tipo) {
-                        case Hero.TIPO_FORCE:
-                        case Hero.TIPO_RAMBO:
+                    switch (hero.type) {
+                        case Hero.TYPE_FORCE:
+                        case Hero.TYPE_RAMBO:
                             sound = Assets.hurt1;
                             break;
-                        case Hero.TIPO_SWAT:
+                        case Hero.TYPE_SWAT:
                             sound = Assets.hurt2;
                             break;
                         default:
@@ -474,7 +473,7 @@ public class WorldGame {
                     float impulseX = obj.isFacingLeft ? -obj.FORCE_IMPACT : obj.FORCE_IMPACT;
                     float impulseY = 2.5f;
 
-                    fixHero.getBody().setLinearVelocity(impulseX, impulseY);
+                    heroFixture.getBody().setLinearVelocity(impulseX, impulseY);
                 }
                 obj.isTouchingPlayer = true;
             }
@@ -523,13 +522,13 @@ public class WorldGame {
         private void endContactHeroOtraCosa(Fixture fixHero, Fixture otraCosa) {
             Object oOtraCosa = otraCosa.getBody().getUserData();
             if (oOtraCosa.equals("ladder")) {
-                oHero.isOnStairs = false;
+                hero.isOnStairs = false;
             } else if (oOtraCosa instanceof Zombie) {
                 Zombie obj = (Zombie) oOtraCosa;
                 obj.isTouchingPlayer = false;
             } else if (oOtraCosa instanceof Crate) {
                 if (fixHero.getUserData().equals("pies")) {
-                    oHero.bodyCrate = null;
+                    hero.bodyCrate = null;
                 }
             }
         }
@@ -556,7 +555,7 @@ public class WorldGame {
             if (oOtraCosa instanceof Platform) {
                 Platform obj = (Platform) oOtraCosa;
 
-                if (oHero.isClimbing) {
+                if (hero.isClimbing) {
                     contact.setEnabled(false);
                     return;
                 }

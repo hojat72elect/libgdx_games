@@ -9,19 +9,25 @@ public class Hero {
     public final static int STATE_NORMAL = 0;
     public final static int STATE_HURT = 1;
     public final static int STATE_DEAD = 2;
-    public final static int TIPO_FORCE = 0;
-    public final static int TIPO_RAMBO = 1;
-    public final static int TIPO_SOLDIER = 2;
-    public final static int TIPO_SWAT = 3;
-    public final static int TIPO_VADER = 4;
+
+    public final static int TYPE_FORCE = 0;
+    public final static int TYPE_RAMBO = 1;
+    public final static int TYPE_SOLDIER = 2;
+    public final static int TYPE_SWAT = 3;
+    public final static int TYPE_VADER = 4;
+
     public final static float DURATION_DEAD = Assets.heroForceDie.animationDuration + .2f;
     public final static float DURATION_HURT = .5f;
     public final static float DURATION_IS_FIRING = Assets.heroForceShoot.animationDuration + .1f;
-    public static float VELOCIDAD_JUMP = 5;
-    public static float VELOCIDAD_WALK = 1.5f;
-    public final int tipo;
-    public final int MAX_VIDAS = Settings.LEVEL_LIFE + 3;
-    public final int MAX_SHIELD = Settings.LEVEL_SHIELD + 1;
+
+    public static float JUMP_SPEED = 5;
+    public static float WALK_SPEED = 1.5f;
+
+    public final int type;
+
+    public final int MAX_LIVES = Settings.LEVEL_LIFE + 3;
+    public final int MAX_SHIELDS = Settings.LEVEL_SHIELD + 1;
+
     public int state;
     public Vector2 position;
     public float stateTime;
@@ -30,23 +36,20 @@ public class Hero {
     public boolean isFiring;
     public boolean isClimbing;
     public boolean canJump;
-    public Body bodyCrate;// Cuerpo del crate im standing
-    /**
-     * Verdadero si toca las escaleras
-     */
-    public boolean isOnStairs;
-    public int vidas;
+    public Body bodyCrate;// Crate body standing
+    public boolean isOnStairs; // True if you touch the stairs
+    public int lives;
     public int shield;
 
     public Hero(float x, float y, int tipo) {
         position = new Vector2(x, y);
         state = STATE_NORMAL;
         stateTime = 0;
-        this.tipo = tipo;
+        this.type = tipo;
         canJump = true;
 
-        shield = MAX_SHIELD;
-        vidas = MAX_VIDAS;
+        shield = MAX_SHIELDS;
+        lives = MAX_LIVES;
     }
 
     public void update(float delta, Body body, boolean didJump, float accelX, float accelY) {
@@ -73,7 +76,7 @@ public class Hero {
         Vector2 velocity = body.getLinearVelocity();
 
         if (didJump && canJump) {
-            velocity.y = VELOCIDAD_JUMP;
+            velocity.y = JUMP_SPEED;
             canJump = false;
 
             Assets.playSound(Assets.jump, 1);
@@ -90,8 +93,7 @@ public class Hero {
             } else if (accelY == -1) {
                 velocity.y = -1;
             }
-            // Si no a empezado a escalar no limito la velocidad porque si salto y solo estoy en
-            // las escaleras va caer con velocidad 0
+            // If he hasn't started climbing, I don't limit the speed because if he jumps and I'm only on the stairs, he'll fall at speed 0.
             else if (isClimbing) {
                 velocity.y = 0;
             }
@@ -101,11 +103,11 @@ public class Hero {
         }
 
         if (accelX == -1) {
-            velocity.x = -VELOCIDAD_WALK;
+            velocity.x = -WALK_SPEED;
             isFacingLeft = true;
             isWalking = true;
         } else if (accelX == 1) {
-            velocity.x = VELOCIDAD_WALK;
+            velocity.x = WALK_SPEED;
             isFacingLeft = false;
             isWalking = true;
         } else {
@@ -136,8 +138,8 @@ public class Hero {
             return;
         }
 
-        vidas--;
-        if (vidas > 0) {
+        lives--;
+        if (lives > 0) {
             state = STATE_HURT;
         } else {
             state = STATE_DEAD;
@@ -147,19 +149,19 @@ public class Hero {
 
     public void getShield() {
         shield += 2;
-        if (shield > MAX_SHIELD)
-            shield = MAX_SHIELD;
+        if (shield > MAX_SHIELDS)
+            shield = MAX_SHIELDS;
     }
 
-    public void getHearth() {
-        vidas += 1;
-        if (vidas > MAX_VIDAS)
-            vidas = MAX_VIDAS;
+    public void getHeart() {
+        lives += 1;
+        if (lives > MAX_LIVES)
+            lives = MAX_LIVES;
     }
 
     public void die() {
         if (state != STATE_DEAD) {
-            vidas = 0;
+            lives = 0;
             shield = 0;
             state = STATE_DEAD;
             stateTime = 0;
