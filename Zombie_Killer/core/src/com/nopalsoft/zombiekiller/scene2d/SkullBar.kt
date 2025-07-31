@@ -1,32 +1,32 @@
-package com.nopalsoft.zombiekiller.scene2d;
+package com.nopalsoft.zombiekiller.scene2d
 
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.nopalsoft.zombiekiller.Assets;
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import com.nopalsoft.zombiekiller.Assets
 
-public class SkullBar extends Table {
-    public int numOfSkulls;
-    float WIDTH = 180;
-    float HEIGHT = 60;
-    Image[] arrSkulls;
+class SkullBar(x: Float, y: Float) : Table() {
+    var numOfSkulls: Int = 0
+    var WIDTH: Float = 180f
+    var HEIGHT: Float = 60f
+    var arrSkulls: Array<Image?>
 
-    public SkullBar(float x, float y) {
-        this.setBounds(x - WIDTH / 2f, y, WIDTH, HEIGHT);
-        setBackground(Assets.skullBarBackground);
-        arrSkulls = new Image[3];
+    init {
+        this.setBounds(x - WIDTH / 2f, y, WIDTH, HEIGHT)
+        setBackground(Assets.skullBarBackground)
+        arrSkulls = arrayOfNulls<Image>(3)
 
-        for (int i = 0; i < arrSkulls.length; i++) {
-            arrSkulls[i] = new Image();
-            add(arrSkulls[i]).size(40).pad(6);
+        for (i in arrSkulls.indices) {
+            arrSkulls[i] = Image()
+            add<Image?>(arrSkulls[i]).size(40f).pad(6f)
         }
     }
 
-    public void tryToUpdateSkulls(int actualNumSkulls) {
+    fun tryToUpdateSkulls(actualNumSkulls: Int) {
         if (numOfSkulls < actualNumSkulls) {
-            numOfSkulls = actualNumSkulls;
-            for (int i = 0; i < numOfSkulls; i++) {
-                arrSkulls[i].setDrawable(new TextureRegionDrawable(Assets.itemSkull));
+            numOfSkulls = actualNumSkulls
+            for (i in 0..<numOfSkulls) {
+                arrSkulls[i]!!.setDrawable(TextureRegionDrawable(Assets.itemSkull))
             }
         }
     }

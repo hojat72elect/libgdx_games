@@ -1,32 +1,21 @@
-package com.nopalsoft.zombiekiller.scene2d;
+package com.nopalsoft.zombiekiller.scene2d
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.nopalsoft.zombiekiller.AnimationSprite;
+import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.scenes.scene2d.Actor
+import com.nopalsoft.zombiekiller.AnimationSprite
 
-public class AnimatedSpriteActor extends Actor {
+class AnimatedSpriteActor(var animation: AnimationSprite) : Actor() {
+    var stateTime: Float = 0f
 
-    AnimationSprite animation;
-
-    float stateTime;
-
-    public AnimatedSpriteActor(AnimationSprite animation) {
-        this.animation = animation;
-        stateTime = 0;
+    override fun act(delta: Float) {
+        stateTime += delta
+        super.act(delta)
     }
 
-    @Override
-    public void act(float delta) {
-        stateTime += delta;
-        super.act(delta);
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        Sprite spriteframe = animation.getKeyFrame(stateTime, true);
-        spriteframe.setPosition(getX(), getY());
-        spriteframe.setSize(getWidth(), getHeight());
-        spriteframe.draw(batch);
+    override fun draw(batch: Batch?, parentAlpha: Float) {
+        val spriteframe = animation.getKeyFrame(stateTime, true)
+        spriteframe.setPosition(getX(), getY())
+        spriteframe.setSize(getWidth(), getHeight())
+        spriteframe.draw(batch)
     }
 }
