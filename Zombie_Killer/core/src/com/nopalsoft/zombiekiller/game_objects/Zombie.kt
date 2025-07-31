@@ -1,176 +1,197 @@
-package com.nopalsoft.zombiekiller.game_objects;
+package com.nopalsoft.zombiekiller.game_objects
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.nopalsoft.zombiekiller.Assets;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
+import com.nopalsoft.zombiekiller.Assets
 
-public class Zombie {
+class Zombie(x: Float, y: Float, type: Int) {
+    @JvmField
+    val type: Int
 
-    public final static int STATE_RISE = 0;
-    public final static int STATE_NORMAL = 1;
-    public final static int STATE_HURT = 2;
-    public final static int STATE_DEAD = 3;
+    @JvmField
+    val MAX_LIFE: Int
+    val TIME_TO_HURT_PLAYER: Float = 1f
 
-    public final static int TYPE_KID = 0;
-    public final static int TYPE_FRANK = 1;
-    public final static int TYPE_CUASY = 2;
-    public final static int TYPE_PAN = 3;
-    public final static int TYPE_MUMMY = 4;
+    @JvmField
+    var state: Int
 
-    public final static float RISE_DURATION = Assets.zombieKidRise.animationDuration + .2f;
-    public final static float DEAD_DURATION = Assets.zombieKidDie.animationDuration + .2f;
-    public final static float HURT_DURATION = .3f;
+    var WALK_SPEED: Float = 0f
 
-    public final int type;
-    public final int MAX_LIFE;
-    public final float TIME_TO_HURT_PLAYER = 1;
-    public int state;
+    @JvmField
+    var FORCE_IMPACT: Float = 0f
 
-    public float WALK_SPEED;
-    public float FORCE_IMPACT;
+    @JvmField
+    var position: Vector2
 
-    public Vector2 position;
-    public float stateTime;
-    public boolean isFacingLeft;
-    public boolean isWalking;
-    public boolean canUpdate;
-    public boolean isFollowing;
-    public int lives;
-    public boolean isTouchingPlayer;
-    float timeToHurtPlayer;
+    @JvmField
+    var stateTime: Float
 
-    public Zombie(float x, float y, int type) {
-        position = new Vector2(x, y);
-        state = STATE_RISE;
-        stateTime = 0;
-        this.type = type;
-        canUpdate = false;
+    @JvmField
+    var isFacingLeft: Boolean = false
 
-        isFollowing = true;
+    @JvmField
+    var isWalking: Boolean = false
 
-        switch (type) {
-            case TYPE_KID:
-                lives = 5;
-                FORCE_IMPACT = 2.5f;
-                WALK_SPEED = 1.1f;
-                break;
+    @JvmField
+    var canUpdate: Boolean
+    var isFollowing: Boolean
 
-            case TYPE_CUASY:
-                lives = 15;
-                FORCE_IMPACT = 3;
-                WALK_SPEED = .5f;
-                break;
+    @JvmField
+    var lives: Int = 0
 
-            case TYPE_MUMMY:
-                lives = 100;
-                FORCE_IMPACT = 8;
-                WALK_SPEED = .5f;
-                break;
+    @JvmField
+    var isTouchingPlayer: Boolean = false
+    var timeToHurtPlayer: Float = 0f
 
-            case TYPE_PAN:
-                lives = 50;
-                FORCE_IMPACT = 4;
-                WALK_SPEED = .7f;
-                break;
+    init {
+        position = Vector2(x, y)
+        state = STATE_RISE
+        stateTime = 0f
+        this.type = type
+        canUpdate = false
 
-            case TYPE_FRANK:
-                lives = 120;
-                FORCE_IMPACT = 5;
-                WALK_SPEED = 1.3f;
-                break;
+        isFollowing = true
+
+        when (type) {
+            TYPE_KID -> {
+                lives = 5
+                FORCE_IMPACT = 2.5f
+                WALK_SPEED = 1.1f
+            }
+
+            TYPE_CUASY -> {
+                lives = 15
+                FORCE_IMPACT = 3f
+                WALK_SPEED = .5f
+            }
+
+            TYPE_MUMMY -> {
+                lives = 100
+                FORCE_IMPACT = 8f
+                WALK_SPEED = .5f
+            }
+
+            TYPE_PAN -> {
+                lives = 50
+                FORCE_IMPACT = 4f
+                WALK_SPEED = .7f
+            }
+
+            TYPE_FRANK -> {
+                lives = 120
+                FORCE_IMPACT = 5f
+                WALK_SPEED = 1.3f
+            }
         }
-        MAX_LIFE = lives;
+        MAX_LIFE = lives
     }
 
-    public void update(float delta, Body body, float accelX, Hero oHero) {
-        body.setAwake(true);
-        position.x = body.getPosition().x;
-        position.y = body.getPosition().y;
-        Vector2 velocity = body.getLinearVelocity();
+    fun update(delta: Float, body: Body, accelX: Float, oHero: Hero) {
+        var accelX = accelX
+        body.isAwake = true
+        position.x = body.getPosition().x
+        position.y = body.getPosition().y
+        val velocity = body.getLinearVelocity()
 
         // So that if they cannot be updated, at least the objects fall and remain at ground level. Then the earth looks stuck to the ground when state==Rise
         if (!canUpdate) {
-            body.setLinearVelocity(0, velocity.y);
-            return;
+            body.setLinearVelocity(0f, velocity.y)
+            return
         }
 
-        isFacingLeft = !(oHero.position.x > position.x);
+        isFacingLeft = !(oHero.position.x > position.x)
 
         if (state == STATE_RISE) {
-            stateTime += delta;
+            stateTime += delta
             if (stateTime >= RISE_DURATION) {
-                state = STATE_NORMAL;
-                stateTime = 0;
+                state = STATE_NORMAL
+                stateTime = 0f
             }
-            return;
+            return
         } else if (state == STATE_DEAD) {
-            stateTime += delta;
-            return;
+            stateTime += delta
+            return
         } else if (state == STATE_HURT) {
-            stateTime += delta;
+            stateTime += delta
             if (stateTime >= HURT_DURATION) {
-                state = STATE_NORMAL;
-                stateTime = 0;
+                state = STATE_NORMAL
+                stateTime = 0f
             }
-            return;
+            return
         }
 
         if (isTouchingPlayer) {
-            timeToHurtPlayer += delta;
+            timeToHurtPlayer += delta
             if (timeToHurtPlayer >= TIME_TO_HURT_PLAYER) {
-                timeToHurtPlayer -= TIME_TO_HURT_PLAYER;
-                oHero.getHurt();
+                timeToHurtPlayer -= TIME_TO_HURT_PLAYER
+                oHero.hurt()
             }
         } else {
-            timeToHurtPlayer = 0;
+            timeToHurtPlayer = 0f
         }
 
         if (isFollowing) {
-            if (oHero.position.x + .1f < position.x)
-                accelX = -1;
-            else if (oHero.position.x - .1f > position.x)
-                accelX = 1;
-            else
-                accelX = 0;
+            if (oHero.position.x + .1f < position.x) accelX = -1f
+            else if (oHero.position.x - .1f > position.x) accelX = 1f
+            else accelX = 0f
         }
 
-        if (accelX == -1) {
-            velocity.x = -WALK_SPEED;
-            isFacingLeft = true;
-            isWalking = true;
-        } else if (accelX == 1) {
-            velocity.x = WALK_SPEED;
-            isFacingLeft = false;
-            isWalking = true;
+        if (accelX == -1f) {
+            velocity.x = -WALK_SPEED
+            isFacingLeft = true
+            isWalking = true
+        } else if (accelX == 1f) {
+            velocity.x = WALK_SPEED
+            isFacingLeft = false
+            isWalking = true
         } else {
-            velocity.x = 0;
-            isWalking = false;
+            velocity.x = 0f
+            isWalking = false
         }
 
-        body.setLinearVelocity(velocity);
+        body.linearVelocity = velocity
 
-        stateTime += delta;
+        stateTime += delta
     }
 
-    public void getHurt(int damage) {
+    fun getHurt(damage: Int) {
         if (state == STATE_NORMAL || state == STATE_HURT) {
-            lives -= damage;
+            lives -= damage
             if (lives <= 0) {
-                state = STATE_DEAD;
-                stateTime = 0;
+                state = STATE_DEAD
+                stateTime = 0f
             } else {
                 if (state == STATE_NORMAL) {
-                    state = STATE_HURT;
-                    stateTime = 0;
+                    state = STATE_HURT
+                    stateTime = 0f
                 }
             }
         }
     }
 
-    public void die() {
+    fun die() {
         if (state != STATE_DEAD) {
-            state = STATE_DEAD;
-            stateTime = 0;
+            state = STATE_DEAD
+            stateTime = 0f
         }
+    }
+
+    companion object {
+        const val STATE_RISE: Int = 0
+        const val STATE_NORMAL: Int = 1
+        const val STATE_HURT: Int = 2
+        const val STATE_DEAD: Int = 3
+
+        const val TYPE_KID: Int = 0
+        const val TYPE_FRANK: Int = 1
+        const val TYPE_CUASY: Int = 2
+        const val TYPE_PAN: Int = 3
+        const val TYPE_MUMMY: Int = 4
+
+        val RISE_DURATION: Float = Assets.zombieKidRise.animationDuration + .2f
+
+        @JvmField
+        val DEAD_DURATION: Float = Assets.zombieKidDie.animationDuration + .2f
+        const val HURT_DURATION: Float = .3f
     }
 }

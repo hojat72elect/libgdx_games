@@ -454,7 +454,7 @@ public class WorldGame {
             } else if (otherObject instanceof Zombie) {
                 Zombie obj = (Zombie) otherObject;
                 if (obj.state == Zombie.STATE_NORMAL || obj.state == Zombie.STATE_HURT) {
-                    hero.getHurt();
+                    hero.hurt();
                     Sound sound;
                     switch (hero.type) {
                         case Hero.TYPE_FORCE:

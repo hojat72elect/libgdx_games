@@ -1,175 +1,195 @@
-package com.nopalsoft.zombiekiller.game_objects;
+package com.nopalsoft.zombiekiller.game_objects
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.nopalsoft.zombiekiller.Assets;
-import com.nopalsoft.zombiekiller.Settings;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
+import com.nopalsoft.zombiekiller.Assets
+import com.nopalsoft.zombiekiller.Settings
 
-public class Hero {
-    public final static int STATE_NORMAL = 0;
-    public final static int STATE_HURT = 1;
-    public final static int STATE_DEAD = 2;
+class Hero(x: Float, y: Float, tipo: Int) {
+    @JvmField
+    val type: Int
 
-    public final static int TYPE_FORCE = 0;
-    public final static int TYPE_RAMBO = 1;
-    public final static int TYPE_SOLDIER = 2;
-    public final static int TYPE_SWAT = 3;
-    public final static int TYPE_VADER = 4;
+    val MAX_LIVES: Int = Settings.LEVEL_LIFE + 3
 
-    public final static float DURATION_DEAD = Assets.heroForceDie.animationDuration + .2f;
-    public final static float DURATION_HURT = .5f;
-    public final static float DURATION_IS_FIRING = Assets.heroForceShoot.animationDuration + .1f;
+    @JvmField
+    val MAX_SHIELDS: Int = Settings.LEVEL_SHIELD + 1
 
-    public static float JUMP_SPEED = 5;
-    public static float WALK_SPEED = 1.5f;
+    @JvmField
+    var state: Int
 
-    public final int type;
+    @JvmField
+    var position: Vector2
 
-    public final int MAX_LIVES = Settings.LEVEL_LIFE + 3;
-    public final int MAX_SHIELDS = Settings.LEVEL_SHIELD + 1;
+    @JvmField
+    var stateTime: Float
 
-    public int state;
-    public Vector2 position;
-    public float stateTime;
-    public boolean isFacingLeft;
-    public boolean isWalking;
-    public boolean isFiring;
-    public boolean isClimbing;
-    public boolean canJump;
-    public Body bodyCrate;// Crate body standing
-    public boolean isOnStairs; // True if you touch the stairs
-    public int lives;
-    public int shield;
+    @JvmField
+    var isFacingLeft: Boolean = false
 
-    public Hero(float x, float y, int tipo) {
-        position = new Vector2(x, y);
-        state = STATE_NORMAL;
-        stateTime = 0;
-        this.type = tipo;
-        canJump = true;
+    @JvmField
+    var isWalking: Boolean = false
 
-        shield = MAX_SHIELDS;
-        lives = MAX_LIVES;
+    @JvmField
+    var isFiring: Boolean = false
+
+    @JvmField
+    var isClimbing: Boolean = false
+
+    @JvmField
+    var canJump: Boolean
+
+    @JvmField
+    var bodyCrate: Body? = null // Crate body standing
+
+    @JvmField
+    var isOnStairs: Boolean = false // True if you touch the stairs
+
+    @JvmField
+    var lives: Int
+
+    @JvmField
+    var shield: Int
+
+    init {
+        position = Vector2(x, y)
+        state = STATE_NORMAL
+        stateTime = 0f
+        this.type = tipo
+        canJump = true
+
+        shield = MAX_SHIELDS
+        lives = MAX_LIVES
     }
 
-    public void update(float delta, Body body, boolean didJump, float accelX, float accelY) {
-        position.x = body.getPosition().x;
-        position.y = body.getPosition().y;
+    fun update(delta: Float, body: Body, didJump: Boolean, accelX: Float, accelY: Float) {
+        position.x = body.getPosition().x
+        position.y = body.getPosition().y
 
         if (state == STATE_HURT) {
-            stateTime += delta;
+            stateTime += delta
             if (stateTime >= DURATION_HURT) {
-                state = STATE_NORMAL;
-                stateTime = 0;
+                state = STATE_NORMAL
+                stateTime = 0f
             }
-            return;
+            return
         } else if (state == STATE_DEAD) {
-            stateTime += delta;
-            return;
+            stateTime += delta
+            return
         }
 
         if (isFiring && stateTime >= DURATION_IS_FIRING) {
-            isFiring = false;
-            stateTime = 0;
+            isFiring = false
+            stateTime = 0f
         }
 
-        Vector2 velocity = body.getLinearVelocity();
+        val velocity = body.getLinearVelocity()
 
         if (didJump && canJump) {
-            velocity.y = JUMP_SPEED;
-            canJump = false;
+            velocity.y = JUMP_SPEED
+            canJump = false
 
-            Assets.playSound(Assets.jump, 1);
+            Assets.playSound(Assets.jump, 1f)
         }
 
         if (isOnStairs) {
-            if (accelY != 0) {
-                isClimbing = true;
-                body.setGravityScale(0);
+            if (accelY != 0f) {
+                isClimbing = true
+                body.gravityScale = 0f
             }
 
-            if (accelY == 1) {
-                velocity.y = 1;
-            } else if (accelY == -1) {
-                velocity.y = -1;
-            }
-            // If he hasn't started climbing, I don't limit the speed because if he jumps and I'm only on the stairs, he'll fall at speed 0.
-            else if (isClimbing) {
-                velocity.y = 0;
+            if (accelY == 1f) {
+                velocity.y = 1f
+            } else if (accelY == -1f) {
+                velocity.y = -1f
+            } else if (isClimbing) {
+                velocity.y = 0f
             }
         } else {
-            body.setGravityScale(1);
-            isClimbing = false;
+            body.gravityScale = 1f
+            isClimbing = false
         }
 
-        if (accelX == -1) {
-            velocity.x = -WALK_SPEED;
-            isFacingLeft = true;
-            isWalking = true;
-        } else if (accelX == 1) {
-            velocity.x = WALK_SPEED;
-            isFacingLeft = false;
-            isWalking = true;
+        if (accelX == -1f) {
+            velocity.x = -WALK_SPEED
+            isFacingLeft = true
+            isWalking = true
+        } else if (accelX == 1f) {
+            velocity.x = WALK_SPEED
+            isFacingLeft = false
+            isWalking = true
         } else {
-            if (bodyCrate != null)
-                velocity.x = bodyCrate.getLinearVelocity().x;
-            else
-                velocity.x = 0;
-            isWalking = false;
+            if (bodyCrate != null) velocity.x = bodyCrate!!.getLinearVelocity().x
+            else velocity.x = 0f
+            isWalking = false
         }
 
-        body.setLinearVelocity(velocity);
+        body.linearVelocity = velocity
 
-        if (isClimbing && accelY != 0)
-            stateTime += delta;
-
-        else if (!isClimbing)
-            stateTime += delta;
+        if (isClimbing && accelY != 0f) stateTime += delta
+        else if (!isClimbing) stateTime += delta
     }
 
-    public void getHurt() {
-        if (state != STATE_NORMAL)
-            return;
+    fun hurt() {
+        if (state != STATE_NORMAL) return
 
         if (shield > 0) {
-            shield--;
-            state = STATE_HURT;
-            stateTime = 0;
-            return;
+            shield--
+            state = STATE_HURT
+            stateTime = 0f
+            return
         }
 
-        lives--;
+        lives--
         if (lives > 0) {
-            state = STATE_HURT;
+            state = STATE_HURT
         } else {
-            state = STATE_DEAD;
+            state = STATE_DEAD
         }
-        stateTime = 0;
+        stateTime = 0f
     }
 
-    public void getShield() {
-        shield += 2;
-        if (shield > MAX_SHIELDS)
-            shield = MAX_SHIELDS;
+    fun getShield() {
+        shield += 2
+        if (shield > MAX_SHIELDS) shield = MAX_SHIELDS
     }
 
-    public void getHeart() {
-        lives += 1;
-        if (lives > MAX_LIVES)
-            lives = MAX_LIVES;
-    }
+    val heart: Unit
+        get() {
+            lives += 1
+            if (lives > MAX_LIVES) lives = MAX_LIVES
+        }
 
-    public void die() {
+    fun die() {
         if (state != STATE_DEAD) {
-            lives = 0;
-            shield = 0;
-            state = STATE_DEAD;
-            stateTime = 0;
+            lives = 0
+            shield = 0
+            state = STATE_DEAD
+            stateTime = 0f
         }
     }
 
-    public void fire() {
-        isFiring = true;
-        stateTime = 0;
+    fun fire() {
+        isFiring = true
+        stateTime = 0f
+    }
+
+    companion object {
+        const val STATE_NORMAL: Int = 0
+        const val STATE_HURT: Int = 1
+        const val STATE_DEAD: Int = 2
+
+        const val TYPE_FORCE: Int = 0
+        const val TYPE_RAMBO: Int = 1
+        const val TYPE_SOLDIER: Int = 2
+        const val TYPE_SWAT: Int = 3
+        const val TYPE_VADER: Int = 4
+
+        @JvmField
+        val DURATION_DEAD: Float = Assets.heroForceDie.animationDuration + .2f
+        const val DURATION_HURT: Float = .5f
+        val DURATION_IS_FIRING: Float = Assets.heroForceShoot.animationDuration + .1f
+
+        var JUMP_SPEED: Float = 5f
+        var WALK_SPEED: Float = 1.5f
     }
 }

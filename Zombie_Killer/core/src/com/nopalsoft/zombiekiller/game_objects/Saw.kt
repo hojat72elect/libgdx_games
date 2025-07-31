@@ -1,29 +1,36 @@
-package com.nopalsoft.zombiekiller.game_objects;
+package com.nopalsoft.zombiekiller.game_objects
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
 
-public class Saw {
-    public final static int STATE_NORMAL = 0;
-    public final float SIZE;
-    public int state;
-    public Vector2 position;
-    public float angleDeg;
+class Saw(x: Float, y: Float, size: Float) {
+    @JvmField
+    val SIZE: Float
+    var state: Int
 
-    public float stateTime;
+    @JvmField
+    var position: Vector2
 
-    public Saw(float x, float y, float size) {
-        position = new Vector2(x, y);
-        state = STATE_NORMAL;
-        SIZE = size;
+    @JvmField
+    var angleDeg: Float = 0f
+
+    var stateTime: Float = 0f
+
+    init {
+        position = Vector2(x, y)
+        state = STATE_NORMAL
+        SIZE = size
     }
 
-    public void update(float delta, Body body) {
+    fun update(delta: Float, body: Body) {
+        position.x = body.getPosition().x
+        position.y = body.getPosition().y
 
-        position.x = body.getPosition().x;
-        position.y = body.getPosition().y;
+        angleDeg = Math.toDegrees(body.angle.toDouble()).toFloat()
+        stateTime += delta
+    }
 
-        angleDeg = (float) Math.toDegrees(body.getAngle());
-        stateTime += delta;
+    companion object {
+        const val STATE_NORMAL: Int = 0
     }
 }
