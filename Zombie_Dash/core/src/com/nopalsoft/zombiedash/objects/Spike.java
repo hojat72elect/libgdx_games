@@ -7,10 +7,9 @@ import com.nopalsoft.zombiedash.game.WorldGame;
 public class Spike {
     public final static int STATE_NORMAL = 0;
     public static int STATE_DESTROY = 1;
-    public int state;
-
     final public float DRAW_WIDTH = 1f;
     final public float DRAW_HEIGHT = .2f;
+    public int state;
     public Vector2 position;
 
     public float stateTime;

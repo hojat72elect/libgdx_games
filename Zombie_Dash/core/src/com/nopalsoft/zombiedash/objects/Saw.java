@@ -7,15 +7,11 @@ import com.nopalsoft.zombiedash.game.WorldGame;
 public class Saw {
     public final static int STATE_DIALOG = 0;
     public final static int STATE_NORMAL = 1;
-    public static int STATE_DESTROY = 2;
-    public int state;
-
-    final float DURATION_STATE_DIALOG = 2;
-
     static public final float SIZE = .5f;
-
+    public static int STATE_DESTROY = 2;
+    final float DURATION_STATE_DIALOG = 2;
     final float velocityX = -2;
-
+    public int state;
     public Vector2 position;
     public float angleDeg;
 

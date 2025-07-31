@@ -37,6 +37,7 @@ public abstract class Screens extends InputAdapter implements Screen {
     public Stage stage;
 
     protected Music music;
+    Image blackFadeOut;
 
     public Screens(MainZombieDash game) {
         this.stage = game.stage;
@@ -82,8 +83,6 @@ public abstract class Screens extends InputAdapter implements Screen {
             }
         });
     }
-
-    Image blackFadeOut;
 
     public void changeScreenWithFadeOut(final Class<?> newScreen, final MainZombieDash game) {
         blackFadeOut = new Image(Assets.pixelNegro);

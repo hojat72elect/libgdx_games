@@ -10,32 +10,24 @@ public class Hero {
     public final static int STATE_HURT = 1;
     public final static int STATE_DEAD = 2;
     public final static int STATE_REVIVE = 3;
-    public int state;
-
     public final static int TIPO_FORCE = 0;
     public final static int TIPO_RAMBO = 1;
     public final static int TIPO_SOLDIER = 2;
     public final static int TIPO_SWAT = 3;
     public final static int TIPO_VADER = 4;
-    public final int tipo;
-
-    public static float VELOCIDAD_JUMP = 5;
-    public final float VELOCIDAD_SECOND_JUMP;
-
     public final static float DURATION_DEAD = Assets.heroForceDie.animationDuration + .2f;
     public final static float DURATION_HURT = .5f;
-
+    public static float VELOCIDAD_JUMP = 5;
+    public final int tipo;
+    public final float VELOCIDAD_SECOND_JUMP;
+    public final int MAX_VIDAS = Settings.LEVEL_LIFE + 3;
+    public final int MAX_SHIELD = Settings.LEVEL_SHIELD + 1;
     final Vector2 initialPosition;
+    public int state;
     public Vector2 position;
     public float stateTime;
-
     public boolean isJumping;// To know if i can draw the jumping animation
-
     public int numPisosEnContacto;// Pisos que esta tocando actualmente si es ==0 no puede saltar
-
-    private boolean canJump;
-    private boolean canDoubleJump;
-
     public boolean didGetHurtAtLeastOnce;
 
     /**
@@ -43,10 +35,9 @@ public class Hero {
      */
 
     public int vidas;
-    public final int MAX_VIDAS = Settings.LEVEL_LIFE + 3;
-
     public int shield;
-    public final int MAX_SHIELD = Settings.LEVEL_SHIELD + 1;
+    private boolean canJump;
+    private boolean canDoubleJump;
 
     public Hero(float x, float y, int tipo) {
         position = new Vector2(x, y);

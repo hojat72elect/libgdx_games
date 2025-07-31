@@ -8,11 +8,10 @@ import com.badlogic.gdx.utils.Align;
 import com.nopalsoft.zombiedash.Assets;
 
 public class NumItemsBar extends Table {
+    public int actualNum;
     float WIDTH = 100;
     float HEIGHT = 30;
-
     Label lbNum;
-    public int actualNum;
 
     public NumItemsBar(AtlasRegion icon, float x, float y) {
         // this.debug();

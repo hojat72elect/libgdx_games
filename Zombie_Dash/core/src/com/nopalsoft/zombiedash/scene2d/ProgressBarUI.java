@@ -7,13 +7,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.nopalsoft.zombiedash.Assets;
 
 public class ProgressBarUI extends Table {
+    public float maxNum;
+    public float actualNum;
     float WIDTH = 180;
     float HEIGHT = 30;
     float BAR_WIDTH = 140;
     float BAR_HEIGHT = 20;
-
-    public float maxNum;
-    public float actualNum;
     AtlasRegion bar;
 
     public ProgressBarUI(AtlasRegion bar, AtlasRegion icon, float maxNum, float actualNum, float x, float y) {

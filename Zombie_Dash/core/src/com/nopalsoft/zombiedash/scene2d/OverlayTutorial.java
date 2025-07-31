@@ -12,18 +12,15 @@ import com.nopalsoft.zombiedash.screens.Screens;
 
 public class OverlayTutorial extends Group {
 
+    public boolean isVisible;
     LabelDialog currentDialog;
-
     LabelDialog helpJump;
     LabelDialog helpFire;
     LabelDialog helpLifeBar;
     LabelDialog helpShieldBar;
     LabelDialog helpAmmo;
-
     LabelDialog helpCollectGems;
     GameScreen gameScreen;
-
-    public boolean isVisible;
     int numDialogShown = 0;
 
     I18NBundle idiomas;

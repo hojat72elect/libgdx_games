@@ -8,17 +8,9 @@ import com.badlogic.gdx.utils.Array;
 
 public class AnimationSprite {
 
-    /**
-     * Defines possible playback modes for an {@link Animation}.
-     */
-    public enum PlayMode {
-        NORMAL, REVERSED, LOOP, LOOP_REVERSED, LOOP_PINGPONG, LOOP_RANDOM,
-    }
-
-    final Sprite[] spriteFrames;
     public final float frameDuration;
     public final float animationDuration;
-
+    final Sprite[] spriteFrames;
     private PlayMode playMode = PlayMode.NORMAL;
 
     /**
@@ -188,5 +180,12 @@ public class AnimationSprite {
     public boolean isAnimationFinished(float stateTime) {
         int frameNumber = (int) (stateTime / frameDuration);
         return spriteFrames.length - 1 < frameNumber;
+    }
+
+    /**
+     * Defines possible playback modes for an {@link Animation}.
+     */
+    public enum PlayMode {
+        NORMAL, REVERSED, LOOP, LOOP_REVERSED, LOOP_PINGPONG, LOOP_RANDOM,
     }
 }

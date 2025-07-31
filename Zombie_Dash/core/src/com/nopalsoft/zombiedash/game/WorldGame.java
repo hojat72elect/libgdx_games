@@ -36,43 +36,31 @@ import com.nopalsoft.zombiedash.screens.Screens;
 import java.util.Iterator;
 
 public class WorldGame {
-    final float WIDTH = Screens.WORLD_WIDTH;
-    final float HEIGHT = Screens.WORLD_HEIGHT;
-
+    public final static float velocidadX = -2;
     static final int STATE_RUNNING = 0;
     static final int STATE_GAMEOVER = 1;
+    final float WIDTH = Screens.WORLD_WIDTH;
+    final float HEIGHT = Screens.WORLD_HEIGHT;
     public int state;
-
-    public final static float velocidadX = -2;
-
-    float TIME_TO_SPAWN_PISO;
-    float timeToSpawnPiso;
-
-    float TIME_TO_SPAWN_ZOMBIE = 2.0f;
-    float timeToSpawnZombie;
-
-    float TIME_TO_SPAWN_SPIKE = 5f;
-    float timeToSpawnSpike;
-
-    float TIME_TO_SPAWN_SAW = 12;
-    float timeToSpawnSaw;
-
-    float TIME_TO_SPAWN_ITEM = 3.0f;// Items son corazones o escudos
-    float timeToSpawnItem;
-
-    float TIME_TO_SPAWN_GEMS = 1.8f;
-    float timeToSpawnGems;
-
-    float TIME_TO_INCREASE_SPAWN = 5;
-    float timeToIncreaseSpawn;
-
     public World oWorldBox;
     public int gems;
     public float distance;
     public int zombiesKilled;
-
     public Hero oHero;
-
+    float TIME_TO_SPAWN_PISO;
+    float timeToSpawnPiso;
+    float TIME_TO_SPAWN_ZOMBIE = 2.0f;
+    float timeToSpawnZombie;
+    float TIME_TO_SPAWN_SPIKE = 5f;
+    float timeToSpawnSpike;
+    float TIME_TO_SPAWN_SAW = 12;
+    float timeToSpawnSaw;
+    float TIME_TO_SPAWN_ITEM = 3.0f;// Items son corazones o escudos
+    float timeToSpawnItem;
+    float TIME_TO_SPAWN_GEMS = 1.8f;
+    float timeToSpawnGems;
+    float TIME_TO_INCREASE_SPAWN = 5;
+    float timeToIncreaseSpawn;
     Array<Body> arrBodies;
     Array<Pisable> arrPisables;
     Array<Zombie> arrZombies;

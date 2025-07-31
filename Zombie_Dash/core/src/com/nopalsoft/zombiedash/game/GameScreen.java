@@ -26,12 +26,10 @@ public class GameScreen extends Screens {
     static final int STATE_GAME_OVER = 1;
     static final int STATE_CHECK_REVIVE = 2;
     static final int STATE_PAUSED = 3;
-    int state;
-
     public WorldGame oWorld;
-    WorldGameRenderer2 renderer;
-
     public Button btJump, btFire;
+    int state;
+    WorldGameRenderer2 renderer;
     boolean didJump;
     boolean didFire;
     boolean isJumpPressed;

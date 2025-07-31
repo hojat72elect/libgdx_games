@@ -11,33 +11,27 @@ public class Settings {
     public final static int NUM_GEMS_INVITE_FACEBOOK = 50;
 
     public final static boolean isTest = false;
+    private final static Preferences pref = Gdx.app.getPreferences("com.nopalsoft.zombiedash");
     public static boolean isMusicOn;
     public static boolean isSoundOn;
     public static boolean showHelp;
-
     public static boolean didBuyNoAds;
     public static boolean didLikeFacebook;
     public static boolean didRate;
-
     public static float buttonSize;
     public static float buttonFirePositionX;
     public static float buttonFirePositionY;
     public static float buttonJumpPositionX;
     public static float buttonJumpPositionY;
-
     public static int numeroVecesJugadas;
     public static int skinSeleccionada;
     public static int gemsTotal;
     public static int numBullets;
-
     public static int bestScore;
-
     public static int LEVEL_LIFE;
     public static int LEVEL_SHIELD;
     public static int LEVEL_SECOND_JUMP;
     public static int LEVEL_WEAPON;
-
-    private final static Preferences pref = Gdx.app.getPreferences("com.nopalsoft.zombiedash");
 
     public static void save() {
 

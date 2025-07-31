@@ -11,29 +11,24 @@ public class Zombie {
     public final static int STATE_NORMAL = 1;
     public final static int STATE_HURT = 2;
     public final static int STATE_DEAD = 3;
-    public int state;
-
     public final static int TIPO_KID = 0;
     public final static int TIPO_FRANK = 1;
     public final static int TIPO_CUASY = 2;
     public final static int TIPO_PAN = 3;
     public final static int TIPO_MUMMY = 4;
-    public final int tipo;
-
-    float VELOCIDAD_WALK = .5f;
-
     public final static float DURATION_RISE = Assets.zombieKidRise.animationDuration + .2f;
     public final static float DURATION_DEAD = Assets.zombieKidDie.animationDuration + .2f;
     public final static float DURATION_HURT = .3f;
-
+    public final int tipo;
+    public final int MAX_LIFE;
+    public int state;
     public Vector2 position;
     public float stateTime;
 
     public boolean canUpdate;
     public boolean isFacingLeft;
-
-    public final int MAX_LIFE;
     public int vidas;
+    float VELOCIDAD_WALK = .5f;
 
     public Zombie(float x, float y, int tipo) {
         position = new Vector2(x, y);
