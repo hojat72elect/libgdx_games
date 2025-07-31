@@ -12,7 +12,7 @@ class Zombie(x: Float, y: Float, type: Int) {
     var state: Int
     var WALK_SPEED: Float = 0f
     var FORCE_IMPACT: Float = 0f
-    var position: Vector2
+    var position: Vector2 = Vector2(x, y)
     var stateTime: Float
     var isFacingLeft: Boolean = false
     var isWalking: Boolean = false
@@ -23,7 +23,6 @@ class Zombie(x: Float, y: Float, type: Int) {
     var timeToHurtPlayer: Float = 0f
 
     init {
-        position = Vector2(x, y)
         state = STATE_RISE
         stateTime = 0f
         this.type = type
@@ -80,52 +79,66 @@ class Zombie(x: Float, y: Float, type: Int) {
 
         isFacingLeft = !(oHero.position.x > position.x)
 
-        if (state == STATE_RISE) {
-            stateTime += delta
-            if (stateTime >= RISE_DURATION) {
-                state = STATE_NORMAL
-                stateTime = 0f
+        when {
+            state == STATE_RISE -> {
+                stateTime += delta
+                if (stateTime >= RISE_DURATION) {
+                    state = STATE_NORMAL
+                    stateTime = 0f
+                }
+                return
             }
-            return
-        } else if (state == STATE_DEAD) {
-            stateTime += delta
-            return
-        } else if (state == STATE_HURT) {
-            stateTime += delta
-            if (stateTime >= HURT_DURATION) {
-                state = STATE_NORMAL
-                stateTime = 0f
-            }
-            return
-        }
 
-        if (isTouchingPlayer) {
-            timeToHurtPlayer += delta
-            if (timeToHurtPlayer >= TIME_TO_HURT_PLAYER) {
-                timeToHurtPlayer -= TIME_TO_HURT_PLAYER
-                oHero.hurt()
+            state == STATE_DEAD -> {
+                stateTime += delta
+                return
             }
-        } else {
-            timeToHurtPlayer = 0f
+
+            state == STATE_HURT -> {
+                stateTime += delta
+                if (stateTime >= HURT_DURATION) {
+                    state = STATE_NORMAL
+                    stateTime = 0f
+                }
+                return
+            }
+
+            isTouchingPlayer -> {
+                timeToHurtPlayer += delta
+                if (timeToHurtPlayer >= TIME_TO_HURT_PLAYER) {
+                    timeToHurtPlayer -= TIME_TO_HURT_PLAYER
+                    oHero.hurt()
+                }
+            }
+
+            else -> {
+                timeToHurtPlayer = 0f
+            }
         }
 
         if (isFollowing) {
-            if (oHero.position.x + .1f < position.x) accelX = -1f
-            else if (oHero.position.x - .1f > position.x) accelX = 1f
-            else accelX = 0f
+            accelX = if (oHero.position.x + .1f < position.x) -1f
+            else if (oHero.position.x - .1f > position.x) 1f
+            else 0f
         }
 
-        if (accelX == -1f) {
-            velocity.x = -WALK_SPEED
-            isFacingLeft = true
-            isWalking = true
-        } else if (accelX == 1f) {
-            velocity.x = WALK_SPEED
-            isFacingLeft = false
-            isWalking = true
-        } else {
-            velocity.x = 0f
-            isWalking = false
+        when (accelX) {
+            -1f -> {
+                velocity.x = -WALK_SPEED
+                isFacingLeft = true
+                isWalking = true
+            }
+
+            1f -> {
+                velocity.x = WALK_SPEED
+                isFacingLeft = false
+                isWalking = true
+            }
+
+            else -> {
+                velocity.x = 0f
+                isWalking = false
+            }
         }
 
         body.linearVelocity = velocity

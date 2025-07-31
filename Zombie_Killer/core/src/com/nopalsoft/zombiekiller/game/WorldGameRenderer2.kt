@@ -164,9 +164,9 @@ class WorldGameRenderer2(batch: SpriteBatch, worldGame: WorldGame) {
 
     private fun drawSaw() {
         for (obj in worldGame.saws!!) {
-            val halfSize = (obj!!.SIZE + .2f) / 2f
+            val halfSize = (obj!!.size + .2f) / 2f
             batch.draw(
-                Assets.saw, obj.position.x - halfSize, obj.position.y - halfSize, halfSize, halfSize, obj.SIZE + .2f, obj.SIZE + .2f, 1f, 1f,
+                Assets.saw, obj.position.x - halfSize, obj.position.y - halfSize, halfSize, halfSize, obj.size + .2f, obj.size + .2f, 1f, 1f,
                 obj.angleDeg
             )
         }
