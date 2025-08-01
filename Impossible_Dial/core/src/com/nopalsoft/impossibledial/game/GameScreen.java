@@ -17,10 +17,9 @@ import com.nopalsoft.impossibledial.Achievements;
 import com.nopalsoft.impossibledial.Assets;
 import com.nopalsoft.impossibledial.MainGame;
 import com.nopalsoft.impossibledial.Settings;
-import com.nopalsoft.impossibledial.handlers.GoogleGameServicesHandler;
-import com.nopalsoft.impossibledial.objetos.Arrow;
-import com.nopalsoft.impossibledial.objetos.ArrowEasy;
-import com.nopalsoft.impossibledial.objetos.ArrowHard;
+import com.nopalsoft.impossibledial.game_objects.Arrow;
+import com.nopalsoft.impossibledial.game_objects.ArrowEasy;
+import com.nopalsoft.impossibledial.game_objects.ArrowHard;
 import com.nopalsoft.impossibledial.scene2d.CountDown;
 import com.nopalsoft.impossibledial.screens.MainMenuScreen;
 import com.nopalsoft.impossibledial.screens.Screens;
@@ -101,34 +100,22 @@ public class GameScreen extends Screens {
 
         btShare = new Button(Assets.btShare);
         addEfectoPress(btShare);
-        btShare.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (!btShare.isDisabled()) {
-                    game.reqHandler.shareAPK();
-                }
-            }
-        });
+
 
         tbMenu = new Table();
         tbMenu.setSize(SCREEN_WIDTH, 90);
         tbMenu.setPosition(0, 110);
         tbMenu.defaults().expandX().size(90);
-
         tbMenu.add(btBack);
         tbMenu.add(btTryAgain);
 
-        // TODO fix que no se puede porque truena la app y no la aceptan en la tienda
         if (Gdx.app.getType() != ApplicationType.iOS) {
             tbMenu.add(btShare);
         }
 
         stage.addActor(lbScore);
-
-
         setReady();
 
-        game.reqHandler.loadInterstitial();
     }
 
     @Override
@@ -142,9 +129,9 @@ public class GameScreen extends Screens {
                 score++;
 
                 if (dificultad == DIFICULTAD_EASY) {
-                    Achievements.unlockScoreAchievementsEasy(score);
+                    Achievements.unlockScoreAchievementsEasy();
                 } else {
-                    Achievements.unlockScoreAchievementsHard(score);
+                    Achievements.unlockScoreAchievementsHard();
                 }
             } else {
                 setGameover();
@@ -197,25 +184,16 @@ public class GameScreen extends Screens {
             state = STATE_GAMEOVER;
 
             int bestScore;
-            String leaderboardID;
+
             if (dificultad == DIFICULTAD_EASY) {
                 Settings.setNewScoreEasy(score);
                 bestScore = Settings.bestScoreEasy;
-                if (game.gameServiceHandler instanceof GoogleGameServicesHandler) {
-                    leaderboardID = "CgkIlp_HkPwMEAIQAg";
-                } else {
-                    leaderboardID = "BestScoreID";
-                }
+
             } else {
                 Settings.setNewScoreHard(score);
                 bestScore = Settings.bestScoreHard;
-                if (game.gameServiceHandler instanceof GoogleGameServicesHandler) {
-                    leaderboardID = "CgkIlp_HkPwMEAIQCQ";
-                } else {
-                    leaderboardID = "bestScoreHardID";
-                }
+
             }
-            game.gameServiceHandler.submitScore(score, leaderboardID);
 
 
             float animationTime = .8f;
@@ -273,17 +251,7 @@ public class GameScreen extends Screens {
             stage.addActor(lblScore);
             stage.addActor(tbMenu);
 
-
-            game.reqHandler.showAdBanner();
-
             Settings.numVecesJugadas++;
-            if (Settings.numVecesJugadas % 5f == 0 || score > 80) {
-                game.reqHandler.showInterstitial();
-            }
-
-//            if (!game.facebookHandler.facebookIsSignedIn() && (Settings.numVecesJugadas == 5 || Settings.numVecesJugadas == 10)) {
-//                new VentanaFacebook(this).show(stage);
-//            }
 
             Achievements.unlockTimesPlayedAchievements();
             Settings.save();
@@ -293,7 +261,6 @@ public class GameScreen extends Screens {
     @Override
     public void hide() {
         super.hide();
-        game.reqHandler.hideAdBanner();
     }
 
     @Override

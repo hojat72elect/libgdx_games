@@ -17,7 +17,7 @@ public class VentanaDificultad extends Ventana {
 
     public VentanaDificultad(final MainMenuScreen currentScreen) {
         super(currentScreen, WIDTH, HEIGHT, 300);
-        setCloseButton(270, 190, 50);
+        setCloseButton();
 
 
         btEasy = new TextButton(Assets.idiomas.get("easy"), new TextButtonStyle(Assets.btEnabled, null, null, Assets.fontChico));

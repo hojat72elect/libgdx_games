@@ -37,10 +37,10 @@ public class Ventana extends Group {
         setBackGround(Assets.dialogVentana);
     }
 
-    protected void setCloseButton(float positionX, float positionY, float size) {
+    protected void setCloseButton() {
         Button btClose = new Button(Assets.btFalse);
-        btClose.setSize(size, size);
-        btClose.setPosition(positionX, positionY);
+        btClose.setSize((float) 50, (float) 50);
+        btClose.setPosition((float) 270, (float) 190);
         screen.addEfectoPress(btClose);
         btClose.addListener(new ClickListener() {
             @Override
@@ -72,16 +72,11 @@ public class Ventana extends Group {
         stage.addActor(dim);
         stage.addActor(this);
 
-        game.reqHandler.showAdBanner();
-    }
 
-    public boolean isShown() {
-        return isShown;
     }
 
     public void hide() {
         isShown = false;
-        game.reqHandler.hideAdBanner();
         addAction(Actions.sequence(Actions.scaleTo(.5f, .5f, DURACION_ANIMATION), Actions.removeActor()));
         dim.addAction(Actions.sequence(Actions.alpha(0, DURACION_ANIMATION), Actions.removeActor()));
     }

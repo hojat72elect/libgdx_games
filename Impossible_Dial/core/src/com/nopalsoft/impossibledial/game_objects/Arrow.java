@@ -1,4 +1,4 @@
-package com.nopalsoft.impossibledial.objetos;
+package com.nopalsoft.impossibledial.game_objects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
