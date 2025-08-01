@@ -153,7 +153,7 @@ class SettingsScreen(game: MainZombieDash) : Screens(game) {
     override fun update(delta: Float) {}
 
     override fun draw(delta: Float) {
-        Assets.parallaxBackground.render(delta)
+        Assets.parallaxBackground!!.render(delta)
     }
 
     override fun keyDown(keycode: Int): Boolean {

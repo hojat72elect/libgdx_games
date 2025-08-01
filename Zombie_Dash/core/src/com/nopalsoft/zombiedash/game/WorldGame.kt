@@ -418,9 +418,9 @@ class WorldGame {
             if (Settings.numBullets > 0) {
                 createBullet()
                 Settings.numBullets--
-                Assets.playSound(Assets.shoot1, .75f)
+                Assets.playSound(Assets.shoot1!!, .75f)
             } else {
-                Assets.playSound(Assets.noBullet, .85f)
+                Assets.playSound(Assets.noBullet!!, .85f)
             }
         }
 
@@ -623,7 +623,7 @@ class WorldGame {
                     obj.taken()
                     Settings.gemsTotal++
                     gems++
-                    Assets.playSound(Assets.gem, .075f)
+                    Assets.playSound(Assets.gem!!, .075f)
                 }
             } else if (oOtraCosa is ItemHearth) {
                 val obj = oOtraCosa as Items
@@ -631,21 +631,21 @@ class WorldGame {
                     obj.taken()
                     oHero!!.hearth
 
-                    Assets.playSound(Assets.hearth, 1f)
+                    Assets.playSound(Assets.hearth!!, 1f)
                 }
             } else if (oOtraCosa is ItemShield) {
                 val obj = oOtraCosa as Items
                 if (oHero!!.state != Hero.STATE_DEAD && obj.state == Items.STATE_NORMAL) {
                     obj.taken()
                     oHero!!.getShield()
-                    Assets.playSound(Assets.shield, 1f)
+                    Assets.playSound(Assets.shield!!, 1f)
                 }
             } else if (oOtraCosa is ItemWeapon) {
                 val obj = oOtraCosa as Items
                 if (oHero!!.state != Hero.STATE_DEAD && obj.state == Items.STATE_NORMAL) {
                     obj.taken()
                     Settings.numBullets += 25
-                    Assets.playSound(Assets.shield, 1f)
+                    Assets.playSound(Assets.shield!!, 1f)
                 }
             } else if (oOtraCosa is Spike) {
                 oHero!!.hurt
@@ -661,7 +661,7 @@ class WorldGame {
                         Hero.TIPO_SWAT -> sound = Assets.hurt2
                         else -> sound = Assets.hurt3
                     }
-                    Assets.playSound(sound, 1f)
+                    Assets.playSound(sound!!, 1f)
                 }
             }
         }
@@ -680,7 +680,7 @@ class WorldGame {
                     Zombie.TIPO_MUMMY -> sound = Assets.zombieMummy
                     Zombie.TIPO_PAN -> sound = Assets.zombiePan
                 }
-                Assets.playSound(sound, 1f)
+                Assets.playSound(sound!!, 1f)
             } else if (objOtraCosa is Spike) {
                 val obj = objOtraCosa
                 if (fixOtraCosa.getUserData() == "spikeLeft") {

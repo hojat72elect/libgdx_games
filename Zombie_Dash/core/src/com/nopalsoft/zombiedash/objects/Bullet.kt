@@ -59,7 +59,7 @@ class Bullet(x: Float, y: Float) {
         const val LEVEL_2: Int = 2
         const val LEVEL_3: Int = 3
         const val LEVEL_4_AND_UP: Int = 4
-        val DURATION_MUZZLE: Float = Assets.muzzle.animationDuration
+        val DURATION_MUZZLE: Float = Assets.muzzle!!.animationDuration
         @JvmField
         var VELOCIDAD: Float = 5f
     }

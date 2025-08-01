@@ -167,8 +167,8 @@ class GameScreen(game: MainZombieDash) : Screens(game) {
     }
 
     override fun draw(delta: Float) {
-        if (state == STATE_RUNNING) Assets.parallaxBackground.render(delta)
-        else Assets.parallaxBackground.render(0f)
+        if (state == STATE_RUNNING) Assets.parallaxBackground!!.render(delta)
+        else Assets.parallaxBackground!!.render(0f)
         renderer.render()
 
         oCam.update()

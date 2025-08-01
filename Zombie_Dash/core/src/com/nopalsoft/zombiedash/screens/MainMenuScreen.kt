@@ -138,7 +138,7 @@ class MainMenuScreen(game: MainZombieDash) : Screens(game) {
     }
 
     override fun draw(delta: Float) {
-        Assets.parallaxBackground.render(delta)
+        Assets.parallaxBackground!!.render(delta)
     }
 
     override fun keyDown(keycode: Int): Boolean {

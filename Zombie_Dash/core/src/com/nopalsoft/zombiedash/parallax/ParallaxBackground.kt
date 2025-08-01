@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
 
-class ParallaxBackground(private val layers: Array<ParallaxLayer>, width: Float, height: Float, speed: Vector2?) {
+class ParallaxBackground(private val layers: Array<ParallaxLayer?>, width: Float, height: Float, speed: Vector2?) {
     private val camera: Camera
     private val batch: SpriteBatch
     private val speed = Vector2()
@@ -28,7 +28,7 @@ class ParallaxBackground(private val layers: Array<ParallaxLayer>, width: Float,
         batch.begin()
 
         for (layer in layers) {
-            var currentX = -camera.position.x * layer.parallaxRatio!!.x % (layer.region!!.getRegionWidth() + layer.padding!!.x)
+            var currentX = -camera.position.x * layer!!.parallaxRatio!!.x % (layer.region!!.getRegionWidth() + layer.padding!!.x)
 
             if (speed.x < 0) currentX -= (layer.region!!.getRegionWidth() + layer.padding!!.x)
 

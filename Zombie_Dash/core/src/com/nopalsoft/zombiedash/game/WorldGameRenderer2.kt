@@ -225,7 +225,7 @@ class WorldGameRenderer2(batcher: SpriteBatch, oWorld: WorldGame) {
 
             // MUZZLE FIRE
             if (obj.state == Bullet.STATE_MUZZLE) {
-                val spriteFrame = Assets.muzzle.getKeyFrame(obj.stateTime, false)
+                val spriteFrame = Assets.muzzle!!.getKeyFrame(obj.stateTime, false)
                 if (obj.isFacingLeft) {
                     spriteFrame!!.setPosition(oWorld.oHero!!.position.x + .1f - .42f, oWorld.oHero!!.position.y - .1f - .14f)
                     spriteFrame.setSize(-.2f, .2f)
@@ -238,7 +238,7 @@ class WorldGameRenderer2(batcher: SpriteBatch, oWorld: WorldGame) {
 
             // MUZZLE HIT
             if (obj.state == Bullet.STATE_HIT) {
-                val spriteFrame = Assets.muzzle.getKeyFrame(obj.stateTime, false)
+                val spriteFrame = Assets.muzzle!!.getKeyFrame(obj.stateTime, false)
                 if (obj.isFacingLeft) { // Aqui es lo mismo que muzzle fire pero alreves
                     spriteFrame!!.setPosition(obj.position.x - .1f, obj.position.y - .1f)
                     spriteFrame.setSize(.2f, .2f)

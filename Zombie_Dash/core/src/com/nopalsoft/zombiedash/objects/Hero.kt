@@ -107,7 +107,7 @@ class Hero(x: Float, y: Float, tipo: Int) {
             isJumping = true
             stateTime = 0f
             body.gravityScale = .9f
-            Assets.playSound(Assets.jump, 1f)
+            Assets.playSound(Assets.jump!!, 1f)
         }
         if (!isJumpPressed) body.gravityScale = 1f
 
@@ -193,7 +193,7 @@ class Hero(x: Float, y: Float, tipo: Int) {
         const val TIPO_VADER: Int = 4
 
         @JvmField
-        val DURATION_DEAD: Float = Assets.heroForceDie.animationDuration + .2f
+        val DURATION_DEAD: Float = Assets.heroForceDie!!.animationDuration + .2f
         const val DURATION_HURT: Float = .5f
         var VELOCIDAD_JUMP: Float = 5f
     }

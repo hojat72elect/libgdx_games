@@ -94,7 +94,7 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombieDash) {
         contenedor
             .add<Table?>(
                 agregarCompra(
-                    idiomas.format("bulles_x_num", 100), lbPrecio100Bullets, Assets.bullet1, idiomas.get("buy_100_bullets"),
+                    idiomas.format("bulles_x_num", 100), lbPrecio100Bullets, Assets.bullet1!!, idiomas.get("buy_100_bullets"),
                     btBuy100Bullets
                 )
             ).expandX().fill()
@@ -103,7 +103,7 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombieDash) {
         contenedor
             .add<Table?>(
                 agregarCompra(
-                    idiomas.format("bulles_x_num", 250), lbPrecio250Bullets, Assets.bullet1, idiomas.get("buy_250_bullets"),
+                    idiomas.format("bulles_x_num", 250), lbPrecio250Bullets, Assets.bullet1!!, idiomas.get("buy_250_bullets"),
                     btBuy250Bullets
                 )
             ).expandX().fill()
@@ -112,7 +112,7 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombieDash) {
         contenedor
             .add<Table?>(
                 agregarCompra(
-                    idiomas.format("bulles_x_num", 500), lbPrecio500Bullets, Assets.bullet1, idiomas.get("buy_500_bullets"),
+                    idiomas.format("bulles_x_num", 500), lbPrecio500Bullets, Assets.bullet1!!, idiomas.get("buy_500_bullets"),
                     btBuy500Bullets
                 )
             ).expandX().fill()
@@ -121,7 +121,7 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombieDash) {
         contenedor
             .add<Table?>(
                 agregarCompra(
-                    idiomas.format("bulles_x_num", 1000), lbPrecio1000Bullets, Assets.bullet1, idiomas.get("buy_1000_bullets"),
+                    idiomas.format("bulles_x_num", 1000), lbPrecio1000Bullets, Assets.bullet1!!, idiomas.get("buy_1000_bullets"),
                     btBuy1000Bullets
                 )
             ).expandX().fill()

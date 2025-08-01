@@ -115,10 +115,10 @@ class Zombie(x: Float, y: Float, tipo: Int) {
         const val TIPO_CUASY: Int = 2
         const val TIPO_PAN: Int = 3
         const val TIPO_MUMMY: Int = 4
-        val DURATION_RISE: Float = Assets.zombieKidRise.animationDuration + .2f
+        val DURATION_RISE: Float = Assets.zombieKidRise!!.animationDuration + .2f
 
         @JvmField
-        val DURATION_DEAD: Float = Assets.zombieKidDie.animationDuration + .2f
+        val DURATION_DEAD: Float = Assets.zombieKidDie!!.animationDuration + .2f
         const val DURATION_HURT: Float = .3f
     }
 }

@@ -62,7 +62,7 @@ class PersonajesSubMenu(contenedor: Table, game: MainZombieDash) {
         inicializarBotones()
 
         // Usar Default
-        contenedor.add<Table?>(agregarPersonajeTabla(idiomas.get("swat"), null, Assets.heroSwatRun, idiomas.get("swat_description"), btBuySWAT)).expandX()
+        contenedor.add<Table?>(agregarPersonajeTabla(idiomas.get("swat"), null, Assets.heroSwatRun!!, idiomas.get("swat_description"), btBuySWAT)).expandX()
             .fill()
         contenedor.row()
 
@@ -70,7 +70,7 @@ class PersonajesSubMenu(contenedor: Table, game: MainZombieDash) {
         contenedor
             .add<Table?>(
                 agregarPersonajeTabla(
-                    idiomas.get("guerrilla"), lbPrecioRambo, Assets.heroRamboRun, idiomas.get("guerrilla_description"),
+                    idiomas.get("guerrilla"), lbPrecioRambo, Assets.heroRamboRun!!, idiomas.get("guerrilla_description"),
                     btBuyRambo
                 )
             ).expandX().fill()
@@ -81,7 +81,7 @@ class PersonajesSubMenu(contenedor: Table, game: MainZombieDash) {
             agregarPersonajeTabla(
                 idiomas.get("soldier"),  //
                 lbPrecioSoldier,  //
-                Assets.heroSoldierRun,  //
+                Assets.heroSoldierRun!!,  //
                 idiomas.get("soldier_description"),  //
                 btBuySoldier
             )
@@ -93,7 +93,7 @@ class PersonajesSubMenu(contenedor: Table, game: MainZombieDash) {
             agregarPersonajeTabla(
                 idiomas.get("elite_force"),  //
                 lbPrecioElite,  //
-                Assets.heroForceRun,  //
+                Assets.heroForceRun!!,  //
                 idiomas.get("elite_force_description"),  //
                 btBuyElite
             )
@@ -105,7 +105,7 @@ class PersonajesSubMenu(contenedor: Table, game: MainZombieDash) {
             agregarPersonajeTabla(
                 idiomas.get("ghost"),  //
                 lbPrecioVader,  //
-                Assets.heroVaderRun,  //
+                Assets.heroVaderRun!!,  //
                 idiomas.get("ghost_description"),  //
                 btBuyVader
             )
