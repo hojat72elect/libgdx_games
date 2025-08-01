@@ -114,7 +114,7 @@ class GameScreen(game: MainGame, var dificultad: Int) : Screens(game) {
 
     override fun update(delta: Float) {
         if (Gdx.input.justTouched()) {
-            if (oArrow!!.getFlechaApuntandoAlCuadrante() == oArrow!!.colorActual) {
+            if (oArrow!!.flechaApuntandoAlCuadrante == oArrow!!.colorActual) {
                 entroASuCuadrante = false
 
 
@@ -132,11 +132,11 @@ class GameScreen(game: MainGame, var dificultad: Int) : Screens(game) {
         }
 
 
-        if (oArrow!!.getFlechaApuntandoAlCuadrante() == oArrow!!.colorActual) {
+        if (oArrow!!.flechaApuntandoAlCuadrante == oArrow!!.colorActual) {
             entroASuCuadrante = true
         }
         if (entroASuCuadrante) {
-            if (oArrow!!.getFlechaApuntandoAlCuadrante() != oArrow!!.colorActual) {
+            if (oArrow!!.flechaApuntandoAlCuadrante != oArrow!!.colorActual) {
                 setGameover()
             }
         }
@@ -145,7 +145,7 @@ class GameScreen(game: MainGame, var dificultad: Int) : Screens(game) {
             if (score > scoreAnterior) {
                 scoreAnterior = score
 
-                lbScore.setColor(Arrow.getRandomColor())
+                lbScore.setColor(Arrow.randomColor)
                 lbScore.setText(scoreAnterior.toString() + "")
             }
         }
