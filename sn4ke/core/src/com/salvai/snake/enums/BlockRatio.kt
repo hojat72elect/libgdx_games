@@ -1,5 +1,5 @@
-package com.salvai.snake.enums;
+package com.salvai.snake.enums
 
-public enum BlockRatio {
+enum class BlockRatio {
     SMALL, MEDIUM, BIG
 }
