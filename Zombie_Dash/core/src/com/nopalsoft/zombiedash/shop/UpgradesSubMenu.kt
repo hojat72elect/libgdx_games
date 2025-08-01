@@ -65,7 +65,7 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombieDash) {
 
     init {
         this.contenedor = contenedor
-        idiomas = game.idiomas
+        idiomas = game.idiomas!!
         contenedor.clear()
 
         textUpgrade = idiomas.get("upgrade")

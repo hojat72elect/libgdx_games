@@ -44,7 +44,7 @@ class PersonajesSubMenu(contenedor: Table, game: MainZombieDash) {
     var textSelect: String?
 
     init {
-        idiomas = game.idiomas
+        idiomas = game.idiomas!!
         this.contenedor = contenedor
         contenedor.clear()
         loadPurchases()

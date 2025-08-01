@@ -188,7 +188,7 @@ class GameScreen(game: MainZombieDash) : Screens(game) {
 
     fun setGameover() {
         state = STATE_GAME_OVER
-        Settings.setBestScore(oWorld.distance.toInt())
+        Settings.changeHighestScore(oWorld.distance.toInt())
         VentanaGameover(this).show(stage)
     }
 

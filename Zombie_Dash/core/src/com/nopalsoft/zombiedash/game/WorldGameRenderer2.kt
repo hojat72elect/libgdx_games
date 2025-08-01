@@ -213,11 +213,11 @@ class WorldGameRenderer2(batcher: SpriteBatch, oWorld: WorldGame) {
             run {
                 val spriteFrame = animBullet!!.getKeyFrame(obj.stateTime, false)
                 if (obj.isFacingLeft) {
-                    spriteFrame.setPosition(obj.position.x + .1f, obj.position.y - .1f)
+                    spriteFrame!!.setPosition(obj.position.x + .1f, obj.position.y - .1f)
                     spriteFrame.setSize(-.2f, .2f)
                     spriteFrame.draw(batcher)
                 } else {
-                    spriteFrame.setPosition(obj.position.x - .1f, obj.position.y - .1f)
+                    spriteFrame!!.setPosition(obj.position.x - .1f, obj.position.y - .1f)
                     spriteFrame.setSize(.2f, .2f)
                     spriteFrame.draw(batcher)
                 }
@@ -227,10 +227,10 @@ class WorldGameRenderer2(batcher: SpriteBatch, oWorld: WorldGame) {
             if (obj.state == Bullet.STATE_MUZZLE) {
                 val spriteFrame = Assets.muzzle.getKeyFrame(obj.stateTime, false)
                 if (obj.isFacingLeft) {
-                    spriteFrame.setPosition(oWorld.oHero!!.position.x + .1f - .42f, oWorld.oHero!!.position.y - .1f - .14f)
+                    spriteFrame!!.setPosition(oWorld.oHero!!.position.x + .1f - .42f, oWorld.oHero!!.position.y - .1f - .14f)
                     spriteFrame.setSize(-.2f, .2f)
                 } else {
-                    spriteFrame.setPosition(oWorld.oHero!!.position.x - .1f + .42f, oWorld.oHero!!.position.y - .1f - .14f)
+                    spriteFrame!!.setPosition(oWorld.oHero!!.position.x - .1f + .42f, oWorld.oHero!!.position.y - .1f - .14f)
                     spriteFrame.setSize(.2f, .2f)
                 }
                 spriteFrame.draw(batcher)
@@ -240,10 +240,10 @@ class WorldGameRenderer2(batcher: SpriteBatch, oWorld: WorldGame) {
             if (obj.state == Bullet.STATE_HIT) {
                 val spriteFrame = Assets.muzzle.getKeyFrame(obj.stateTime, false)
                 if (obj.isFacingLeft) { // Aqui es lo mismo que muzzle fire pero alreves
-                    spriteFrame.setPosition(obj.position.x - .1f, obj.position.y - .1f)
+                    spriteFrame!!.setPosition(obj.position.x - .1f, obj.position.y - .1f)
                     spriteFrame.setSize(.2f, .2f)
                 } else {
-                    spriteFrame.setPosition(obj.position.x + .1f, obj.position.y - .1f)
+                    spriteFrame!!.setPosition(obj.position.x + .1f, obj.position.y - .1f)
                     spriteFrame.setSize(-.2f, .2f)
                 }
                 spriteFrame.draw(batcher)

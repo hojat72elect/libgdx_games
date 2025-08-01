@@ -36,7 +36,7 @@ class GetGemsSubMenu(game: MainZombieDash, contenedor: Table) {
     init {
         this.game = game
         this.contenedor = contenedor
-        idiomas = game.idiomas
+        idiomas = game.idiomas!!
         contenedor.clear()
 
         textBuy = idiomas.get("buy")
@@ -48,7 +48,7 @@ class GetGemsSubMenu(game: MainZombieDash, contenedor: Table) {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 if (!Settings.didLikeFacebook) {
                     Settings.didLikeFacebook = true
-                    game.stage.addAction(Actions.sequence(Actions.delay(1f), Actions.run(object : Runnable {
+                    game.stage!!.addAction(Actions.sequence(Actions.delay(1f), Actions.run(object : Runnable {
                         override fun run() {
                             Settings.gemsTotal += monedasLikeFacebook
                             btLikeFacebook.setText(idiomas.get("visit_us"))

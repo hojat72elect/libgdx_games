@@ -40,7 +40,7 @@ class SettingsScreen(game: MainZombieDash) : Screens(game) {
         // tbSizes.debug();
 
         // Size buttons
-        val lbButtonsSize = Label(game.idiomas.get("button_size"), Assets.labelStyleChico)
+        val lbButtonsSize = Label(game.idiomas!!.get("button_size"), Assets.labelStyleChico)
         sliderButtonSize = Slider(.5f, 1.5f, .1f, false, Assets.sliderStyle)
         sliderButtonSize.setValue(1f) // LA mitad es 1
         sliderButtonSize.addListener(object : ChangeListener() {
@@ -52,7 +52,7 @@ class SettingsScreen(game: MainZombieDash) : Screens(game) {
             }
         })
 
-        btDefaults = TextButton(game.idiomas.get("defaults"), Assets.styleTextButtonBuy)
+        btDefaults = TextButton(game.idiomas!!.get("defaults"), Assets.styleTextButtonBuy)
         addEfectoPress(btDefaults)
         btDefaults.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -133,7 +133,7 @@ class SettingsScreen(game: MainZombieDash) : Screens(game) {
         val tbFacebookStuff = Table()
         tbFacebookStuff.setPosition(25f, 350f)
 
-        val lbLoginFacebook = Label(game.idiomas.get("facebook_login_description"), Assets.labelStyleChico)
+        val lbLoginFacebook = Label(game.idiomas!!.get("facebook_login_description"), Assets.labelStyleChico)
         lbLoginFacebook.setWrap(true)
 
         tbFacebookStuff.add<Label?>(lbLoginFacebook).width(600f).expandX().left()

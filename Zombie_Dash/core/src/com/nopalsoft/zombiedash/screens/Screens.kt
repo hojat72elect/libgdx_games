@@ -41,9 +41,9 @@ abstract class Screens(game: MainZombieDash) : InputAdapter(), Screen {
     var blackFadeOut: Image? = null
 
     init {
-        this.stage = game.stage
+        this.stage = game.stage!!
         this.stage.clear()
-        this.batcher = game.batcher
+        this.batcher = game.batcher!!
         this.game = game
 
         oCam = OrthographicCamera(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat())
@@ -98,7 +98,7 @@ abstract class Screens(game: MainZombieDash) : InputAdapter(), Screen {
             }
         })))
 
-        val lbl = Label(game.idiomas.get("loading"), Assets.labelStyleGrande)
+        val lbl = Label(game.idiomas!!.get("loading"), Assets.labelStyleGrande)
         lbl.setPosition(SCREEN_WIDTH / 2f - lbl.getWidth() / 2f, SCREEN_HEIGHT / 2f - lbl.getHeight() / 2f)
         lbl.getColor().a = 0f
         lbl.addAction(Actions.fadeIn(.6f))

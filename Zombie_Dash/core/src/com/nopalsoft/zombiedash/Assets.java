@@ -510,7 +510,7 @@ public class Assets {
     }
 
     public static void playSound(Sound sonido, float volume) {
-        if (Settings.isSoundOn) {
+        if (Settings.isSoundOn()) {
             sonido.play(volume);
         }
     }
