@@ -36,7 +36,7 @@ import com.nopalsoft.zombiedash.screens.Screens
 class WorldGame {
     val WIDTH: Float = Screens.WORLD_WIDTH
     var state: Int = 0
-    var oWorldBox: World
+    var oWorldBox: World = World(Vector2(0f, -9.8f), true)
     var gems: Int = 0
     var distance: Float = 0f
     var zombiesKilled: Int = 0
@@ -64,7 +64,6 @@ class WorldGame {
     var arrSaws: Array<Saw?>
 
     init {
-        oWorldBox = World(Vector2(0f, -9.8f), true)
         oWorldBox.setContactListener(Colisiones())
 
         arrBodies = Array<Body>()
@@ -427,20 +426,34 @@ class WorldGame {
         oWorldBox.getBodies(arrBodies)
 
         for (body in arrBodies) {
-            if (body.userData is Hero) {
-                updateHeroPlayer(delta, body, didJump, isJumpPressed)
-            } else if (body.userData is Pisable) {
-                updatePisable(delta, body)
-            } else if (body.userData is Zombie) {
-                updateZombie(delta, body)
-            } else if (body.userData is Bullet) {
-                updateBullet(delta, body)
-            } else if (body.userData is Spike) {
-                updateSpike(delta, body)
-            } else if (body.userData is Saw) {
-                updateSaw(delta, body)
-            } else if (body.userData is Items) {
-                updateItems(delta, body)
+            when (body.userData) {
+                is Hero -> {
+                    updateHeroPlayer(delta, body, didJump, isJumpPressed)
+                }
+
+                is Pisable -> {
+                    updatePisable(delta, body)
+                }
+
+                is Zombie -> {
+                    updateZombie(delta, body)
+                }
+
+                is Bullet -> {
+                    updateBullet(delta, body)
+                }
+
+                is Spike -> {
+                    updateSpike(delta, body)
+                }
+
+                is Saw -> {
+                    updateSaw(delta, body)
+                }
+
+                is Items -> {
+                    updateItems(delta, body)
+                }
             }
         }
 
@@ -655,11 +668,10 @@ class WorldGame {
                 val obj = oOtraCosa
                 if (obj.state == Zombie.STATE_NORMAL || obj.state == Zombie.STATE_HURT) {
                     oHero!!.hurt
-                    val sound: Sound?
-                    when (oHero!!.tipo) {
-                        Hero.TIPO_FORCE, Hero.TIPO_RAMBO -> sound = Assets.hurt1
-                        Hero.TIPO_SWAT -> sound = Assets.hurt2
-                        else -> sound = Assets.hurt3
+                    val sound: Sound? = when (oHero!!.tipo) {
+                        Hero.TIPO_FORCE, Hero.TIPO_RAMBO -> Assets.hurt1
+                        Hero.TIPO_SWAT -> Assets.hurt2
+                        else -> Assets.hurt3
                     }
                     Assets.playSound(sound!!, 1f)
                 }
@@ -757,7 +769,7 @@ class WorldGame {
     }
 
     companion object {
-        val velocidadX: Float = -2f
+        const val velocidadX: Float = -2f
         const val STATE_RUNNING: Int = 0
         const val STATE_GAMEOVER: Int = 1
     }

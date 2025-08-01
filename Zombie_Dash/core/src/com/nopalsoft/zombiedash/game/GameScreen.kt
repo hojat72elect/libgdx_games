@@ -179,7 +179,7 @@ class GameScreen(game: MainZombieDash) : Screens(game) {
         batcher.end()
     }
 
-    protected fun setPaused() {
+    private fun setPaused() {
         if (state == STATE_RUNNING) {
             state = STATE_PAUSED
             ventanaPause.show(stage)
@@ -219,19 +219,26 @@ class GameScreen(game: MainZombieDash) : Screens(game) {
     }
 
     override fun keyDown(keycode: Int): Boolean {
-        if (keycode == Input.Keys.SPACE) {
-            didJump = true
-            isJumpPressed = true
-            return true
-        } else if (keycode == Input.Keys.F) {
-            didFire = true
-            return true
-        } else if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
-            if (ventanaPause.isVisible) ventanaPause.hide()
-            else setPaused()
-            return true
+        when (keycode) {
+            Input.Keys.SPACE -> {
+                didJump = true
+                isJumpPressed = true
+                return true
+            }
+
+            Input.Keys.F -> {
+                didFire = true
+                return true
+            }
+
+            Input.Keys.ESCAPE, Input.Keys.BACK -> {
+                if (ventanaPause.isVisible) ventanaPause.hide()
+                else setPaused()
+                return true
+            }
+
+            else -> return false
         }
-        return false
     }
 
     override fun keyUp(keycode: Int): Boolean {

@@ -15,7 +15,7 @@ class Spike(x: Float, y: Float) {
     var state: Int
 
     @JvmField
-    var position: Vector2
+    var position: Vector2 = Vector2(x, y)
 
     var stateTime: Float = 0f
 
@@ -27,7 +27,6 @@ class Spike(x: Float, y: Float) {
     var canDraw: Boolean = false
 
     init {
-        position = Vector2(x, y)
         state = STATE_NORMAL
     }
 

@@ -494,7 +494,7 @@ object Assets {
         var i = 1
         var obj: Sprite?
         do {
-            obj = atlas.createSprite("Bullet/" + "muzzle" + i)
+            obj = atlas.createSprite("Bullet/muzzle$i")
             i++
             if (obj != null) arrSprites.add(obj)
         } while (obj != null)

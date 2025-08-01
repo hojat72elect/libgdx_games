@@ -17,7 +17,7 @@ class Zombie(x: Float, y: Float, tipo: Int) {
     var state: Int
 
     @JvmField
-    var position: Vector2
+    var position: Vector2 = Vector2(x, y)
 
     @JvmField
     var stateTime: Float
@@ -33,7 +33,6 @@ class Zombie(x: Float, y: Float, tipo: Int) {
     var VELOCIDAD_WALK: Float = .5f
 
     init {
-        position = Vector2(x, y)
         state = STATE_RISE
         stateTime = 0f
         canUpdate = false
@@ -65,29 +64,37 @@ class Zombie(x: Float, y: Float, tipo: Int) {
 
         body.linearVelocity = velocity
 
-        if (state == STATE_RISE) {
-            stateTime += delta
-            if (stateTime >= DURATION_RISE) {
-                state = STATE_NORMAL
-                stateTime = 0f
+        when (state) {
+            STATE_RISE -> {
+                stateTime += delta
+                if (stateTime >= DURATION_RISE) {
+                    state = STATE_NORMAL
+                    stateTime = 0f
+                }
+                return
             }
-            return
-        } else if (state == STATE_DEAD) {
-            stateTime += delta
-            return
-        } else if (state == STATE_HURT) {
-            stateTime += delta
-            if (stateTime >= DURATION_HURT) {
-                state = STATE_NORMAL
-                stateTime = 0f
+
+            STATE_DEAD -> {
+                stateTime += delta
+                return
             }
-            // body.setLinearVelocity(0, velocity.y);
-            return
+
+            STATE_HURT -> {
+                stateTime += delta
+                if (stateTime >= DURATION_HURT) {
+                    state = STATE_NORMAL
+                    stateTime = 0f
+                }
+                // body.setLinearVelocity(0, velocity.y);
+                return
+            }
+
+            else -> {
+                body.linearVelocity = velocity
+
+                stateTime += delta
+            }
         }
-
-        body.linearVelocity = velocity
-
-        stateTime += delta
     }
 
     fun getHurt(damage: Int) {

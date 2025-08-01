@@ -5,24 +5,17 @@ import com.badlogic.gdx.physics.box2d.Body
 
 open class Pisable(x: Float, y: Float, drawWidth: Float, drawHeight: Float) {
     @JvmField
-    var state: Int
+    var state: Int = STATE_NORMAL
 
     @JvmField
-    var position: Vector2
-    var stateTime: Float
+    var position: Vector2 = Vector2(x, y)
+    var stateTime: Float = 0f
 
     @JvmField
-    var DRAW_WIDTH: Float
-    @JvmField
-    var DRAW_HEIGHT: Float
+    var DRAW_WIDTH: Float = drawWidth
 
-    init {
-        position = Vector2(x, y)
-        stateTime = 0f
-        state = STATE_NORMAL
-        DRAW_WIDTH = drawWidth
-        DRAW_HEIGHT = drawHeight
-    }
+    @JvmField
+    var DRAW_HEIGHT: Float = drawHeight
 
     fun update(delta: Float, body: Body) {
         position.x = body.getPosition().x

@@ -11,13 +11,12 @@ open class Items(x: Float, y: Float, drawWidth: Float, drawHeight: Float) {
     @JvmField
     var state: Int
     @JvmField
-    var position: Vector2
+    var position: Vector2 = Vector2(x, y)
     var angleDeg: Float = 0f
 
     var stateTime: Float = 0f
 
     init {
-        position = Vector2(x, y)
         state = STATE_NORMAL
         DRAW_HEIGHT = drawHeight
         DRAW_WIDTH = drawWidth
@@ -26,7 +25,7 @@ open class Items(x: Float, y: Float, drawWidth: Float, drawHeight: Float) {
     fun update(delta: Float, body: Body) {
         position.x = body.getPosition().x
         position.y = body.getPosition().y
-        angleDeg = Math.toDegrees(body.getAngle().toDouble()).toFloat()
+        angleDeg = Math.toDegrees(body.angle.toDouble()).toFloat()
         stateTime += delta
     }
 

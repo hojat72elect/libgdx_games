@@ -22,7 +22,7 @@ import com.nopalsoft.zombiedash.Settings
 class SettingsScreen(game: MainZombieDash) : Screens(game) {
     var btJump: Image
     var btFire: Image
-    var dragPoint: Vector3
+    var dragPoint: Vector3 = Vector3()
 
     var sliderButtonSize: Slider
 
@@ -32,7 +32,6 @@ class SettingsScreen(game: MainZombieDash) : Screens(game) {
     var btMenu: Button
 
     init {
-        dragPoint = Vector3()
 
         val tbSizes = Table()
         tbSizes.setPosition(25f, 210f)

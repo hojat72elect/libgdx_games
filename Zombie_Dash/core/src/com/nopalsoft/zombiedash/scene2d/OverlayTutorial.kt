@@ -20,13 +20,11 @@ class OverlayTutorial(gameScreen: GameScreen) : Group() {
     var helpShieldBar: LabelDialog
     var helpAmmo: LabelDialog
     var helpCollectGems: LabelDialog
-    var gameScreen: GameScreen?
     var numDialogShown: Int = 0
 
     var idiomas: I18NBundle
 
     init {
-        this.gameScreen = gameScreen
         setSize(Screens.SCREEN_WIDTH.toFloat(), Screens.SCREEN_HEIGHT.toFloat())
         setBackground()
         idiomas = gameScreen.game!!.idiomas!!

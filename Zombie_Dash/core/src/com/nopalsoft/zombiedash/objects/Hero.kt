@@ -13,13 +13,13 @@ class Hero(x: Float, y: Float, tipo: Int) {
 
     @JvmField
     val MAX_SHIELD: Int = Settings.LEVEL_SHIELD + 1
-    val initialPosition: Vector2
+    val initialPosition: Vector2 = Vector2(x, y)
 
     @JvmField
     var state: Int
 
     @JvmField
-    var position: Vector2
+    var position: Vector2 = Vector2(x, y)
 
     @JvmField
     var stateTime: Float
@@ -43,8 +43,6 @@ class Hero(x: Float, y: Float, tipo: Int) {
     private var canDoubleJump: Boolean
 
     init {
-        position = Vector2(x, y)
-        initialPosition = Vector2(x, y)
         state = STATE_NORMAL
         stateTime = 0f
         this.tipo = tipo
@@ -55,13 +53,13 @@ class Hero(x: Float, y: Float, tipo: Int) {
         shield = MAX_SHIELD
         vidas = MAX_VIDAS
 
-        when (Settings.LEVEL_SECOND_JUMP) {
-            0 -> VELOCIDAD_SECOND_JUMP = 3.5f
-            1 -> VELOCIDAD_SECOND_JUMP = 4f
-            2, 3 -> VELOCIDAD_SECOND_JUMP = 4.35f
-            4, 5 -> VELOCIDAD_SECOND_JUMP = 4.7f
-            6 -> VELOCIDAD_SECOND_JUMP = 5f
-            else -> VELOCIDAD_SECOND_JUMP = 5f
+        VELOCIDAD_SECOND_JUMP = when (Settings.LEVEL_SECOND_JUMP) {
+            0 -> 3.5f
+            1 -> 4f
+            2, 3 -> 4.35f
+            4, 5 -> 4.7f
+            6 -> 5f
+            else -> 5f
         }
     }
 
@@ -69,28 +67,34 @@ class Hero(x: Float, y: Float, tipo: Int) {
         position.x = body.getPosition().x
         position.y = body.getPosition().y
 
-        if (state == STATE_REVIVE) {
-            state = STATE_NORMAL
-            canJump = true
-            isJumping = false
-            canDoubleJump = true
-            stateTime = 0f
-            vidas = MAX_VIDAS
-            initialPosition.y = 3f
-            position.x = initialPosition.x
-            position.y = initialPosition.y
-            body.setTransform(initialPosition, 0f)
-            body.setLinearVelocity(0f, 0f)
-        } else if (state == STATE_HURT) {
-            stateTime += delta
-            if (stateTime >= DURATION_HURT) {
+        when (state) {
+            STATE_REVIVE -> {
                 state = STATE_NORMAL
+                canJump = true
+                isJumping = false
+                canDoubleJump = true
                 stateTime = 0f
+                vidas = MAX_VIDAS
+                initialPosition.y = 3f
+                position.x = initialPosition.x
+                position.y = initialPosition.y
+                body.setTransform(initialPosition, 0f)
+                body.setLinearVelocity(0f, 0f)
             }
-            return
-        } else if (state == STATE_DEAD) {
-            stateTime += delta
-            return
+
+            STATE_HURT -> {
+                stateTime += delta
+                if (stateTime >= DURATION_HURT) {
+                    state = STATE_NORMAL
+                    stateTime = 0f
+                }
+                return
+            }
+
+            STATE_DEAD -> {
+                stateTime += delta
+                return
+            }
         }
 
         val velocity = body.getLinearVelocity()
@@ -128,10 +132,10 @@ class Hero(x: Float, y: Float, tipo: Int) {
             }
 
             vidas--
-            if (vidas > 0) {
-                state = STATE_HURT
+            state = if (vidas > 0) {
+                STATE_HURT
             } else {
-                state = STATE_DEAD
+                STATE_DEAD
             }
             stateTime = 0f
             didGetHurtAtLeastOnce = true

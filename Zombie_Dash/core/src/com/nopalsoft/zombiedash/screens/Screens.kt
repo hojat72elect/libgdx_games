@@ -34,14 +34,13 @@ abstract class Screens(game: MainZombieDash) : InputAdapter(), Screen {
     var batcher: SpriteBatch
 
     @JvmField
-    var stage: Stage
+    var stage: Stage = game.stage!!
 
     @JvmField
     protected var music: Music? = null
     var blackFadeOut: Image? = null
 
     init {
-        this.stage = game.stage!!
         this.stage.clear()
         this.batcher = game.batcher!!
         this.game = game
@@ -86,17 +85,19 @@ abstract class Screens(game: MainZombieDash) : InputAdapter(), Screen {
         blackFadeOut = Image(Assets.pixelNegro)
         blackFadeOut!!.setSize(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat())
         blackFadeOut!!.getColor().a = 0f
-        blackFadeOut!!.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run(object : Runnable {
-            override fun run() {
-                if (newScreen == GameScreen::class.java) {
+        blackFadeOut!!.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run {
+            when (newScreen) {
+                GameScreen::class.java -> {
                     game.setScreen(GameScreen(game))
-                } else if (newScreen == MainMenuScreen::class.java) game.setScreen(MainMenuScreen(game))
-                else if (newScreen == SettingsScreen::class.java) game.setScreen(SettingsScreen(game))
+                }
 
-                // El blackFadeOut se remueve del stage cuando se le da new Screens(game) "Revisar el constructor de la clase Screens" por lo que no hay necesidad de hacer
-                // blackFadeout.remove();
+                MainMenuScreen::class.java -> game.setScreen(MainMenuScreen(game))
+                SettingsScreen::class.java -> game.setScreen(SettingsScreen(game))
             }
-        })))
+
+            // El blackFadeOut se remueve del stage cuando se le da new Screens(game) "Revisar el constructor de la clase Screens" por lo que no hay necesidad de hacer
+            // blackFadeout.remove();
+        }))
 
         val lbl = Label(game.idiomas!!.get("loading"), Assets.labelStyleGrande)
         lbl.setPosition(SCREEN_WIDTH / 2f - lbl.getWidth() / 2f, SCREEN_HEIGHT / 2f - lbl.getHeight() / 2f)

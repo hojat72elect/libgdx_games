@@ -57,15 +57,12 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombieDash) {
     var arrLife: Array<Image?>
     var arrShield: Array<Image?>
 
-    var contenedor: Table?
-    var idiomas: I18NBundle
+    var idiomas: I18NBundle = game.idiomas!!
 
     var textUpgrade: String?
     var textBuy: String?
 
     init {
-        this.contenedor = contenedor
-        idiomas = game.idiomas!!
         contenedor.clear()
 
         textUpgrade = idiomas.get("upgrade")
@@ -177,26 +174,26 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombieDash) {
         if (lblPrecio == null) moneda.isVisible = false
 
         val tbBarraTitulo = Table()
-        tbBarraTitulo.add<Label?>(Label(titulo, Assets.labelStyleChico)).expandX().left()
-        tbBarraTitulo.add<Image?>(moneda).right().size(20f)
+        tbBarraTitulo.add(Label(titulo, Assets.labelStyleChico)).expandX().left()
+        tbBarraTitulo.add(moneda).right().size(20f)
         tbBarraTitulo.add<Label?>(lblPrecio).right().padRight(10f)
 
         val tbDescrip = Table()
-        tbDescrip.add<AnimatedSpriteActor?>(imgPersonaje).center().pad(5f).size(30f, 30f)
+        tbDescrip.add(imgPersonaje).center().pad(5f).size(30f, 30f)
         val lblDescripcion = Label(descripcion, Assets.labelStyleChico)
         lblDescripcion.setWrap(true)
         lblDescripcion.setFontScale(.9f)
-        tbDescrip.add<Label?>(lblDescripcion).expand().fill().padLeft(5f)
+        tbDescrip.add(lblDescripcion).expand().fill().padLeft(5f)
 
         val tbContent = Table()
         // tbContent.debug();
         tbContent.setBackground(Assets.storeTableBackground)
         tbContent.defaults().padLeft(20f).padRight(20f)
 
-        tbContent.add<Table?>(tbBarraTitulo).expandX().fill().colspan(1).padTop(20f)
+        tbContent.add(tbBarraTitulo).expandX().fill().colspan(1).padTop(20f)
 
         tbContent.row().colspan(1)
-        tbContent.add<Table?>(tbDescrip).expandX().fill()
+        tbContent.add(tbDescrip).expandX().fill()
 
         tbContent.row().padBottom(20f)
         tbContent.add<TextButton?>(boton).expandX().right().size(120f, 45f)
@@ -211,25 +208,25 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombieDash) {
         if (lblPrecio == null) moneda.isVisible = false
 
         val tbBarraTitulo = Table()
-        tbBarraTitulo.add<Label?>(Label(titulo, Assets.labelStyleChico)).expandX().left()
-        tbBarraTitulo.add<Image?>(moneda).right().size(20f)
+        tbBarraTitulo.add(Label(titulo, Assets.labelStyleChico)).expandX().left()
+        tbBarraTitulo.add(moneda).right().size(20f)
         tbBarraTitulo.add<Label?>(lblPrecio).right().padRight(10f)
 
         val tbDescrip = Table()
-        tbDescrip.add<Image?>(imgPersonaje).left().pad(5f).size(55f, 48f)
+        tbDescrip.add(imgPersonaje).left().pad(5f).size(55f, 48f)
         val lblDescripcion = Label(descripcion, Assets.labelStyleChico)
         lblDescripcion.setWrap(true)
         lblDescripcion.setFontScale(.9f)
-        tbDescrip.add<Label?>(lblDescripcion).expand().fill().padLeft(5f)
+        tbDescrip.add(lblDescripcion).expand().fill().padLeft(5f)
 
         val tbContent = Table()
         // tbContent.debug();
         tbContent.setBackground(Assets.storeTableBackground)
         tbContent.defaults().padLeft(20f).padRight(20f)
 
-        tbContent.add<Table?>(tbBarraTitulo).expandX().fill().colspan(2).padTop(20f)
+        tbContent.add(tbBarraTitulo).expandX().fill().colspan(2).padTop(20f)
         tbContent.row().colspan(2)
-        tbContent.add<Table?>(tbDescrip).expandX().fill()
+        tbContent.add(tbDescrip).expandX().fill()
         tbContent.row().padBottom(20f)
 
         val auxTab = Table()
@@ -239,7 +236,7 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombieDash) {
             auxTab.add<Image?>(arrLevel[i]).width(25f).height(25f)
         }
 
-        tbContent.add<Table?>(auxTab).left().expand().padRight(0f)
+        tbContent.add(auxTab).left().expand().padRight(0f)
         tbContent.add<TextButton?>(boton).left().size(120f, 45f).padLeft(0f)
 
         return tbContent
@@ -373,18 +370,18 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombieDash) {
     }
 
     private fun calcularPrecio(nivel: Int): Int {
-        when (nivel) {
-            0 -> return precioNivel1
+        return when (nivel) {
+            0 -> precioNivel1
 
-            1 -> return precioNivel2
+            1 -> precioNivel2
 
-            2 -> return precioNivel3
+            2 -> precioNivel3
 
-            3 -> return precioNivel4
+            3 -> precioNivel4
 
-            4 -> return precioNivel5
-            5 -> return precioNivel6
-            else -> return precioNivel6
+            4 -> precioNivel5
+            5 -> precioNivel6
+            else -> precioNivel6
         }
     }
 
@@ -397,7 +394,7 @@ class UpgradesSubMenu(contenedor: Table, game: MainZombieDash) {
         }
     }
 
-    protected fun addEfectoPress(actor: Actor) {
+    private fun addEfectoPress(actor: Actor) {
         actor.addListener(object : InputListener() {
             override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
                 actor.setPosition(actor.getX(), actor.getY() - 3)

@@ -25,12 +25,11 @@ class WorldGameRenderer2(batcher: SpriteBatch, oWorld: WorldGame) {
 
     var batcher: SpriteBatch
     var oWorld: WorldGame
-    var oCam: OrthographicCamera
+    var oCam: OrthographicCamera = OrthographicCamera(WIDTH, HEIGHT)
 
     var renderBox: Box2DDebugRenderer?
 
     init {
-        this.oCam = OrthographicCamera(WIDTH, HEIGHT)
         this.oCam.position.set(WIDTH / 2f, HEIGHT / 2f, 0f)
         this.batcher = batcher
         this.oWorld = oWorld
@@ -89,14 +88,22 @@ class WorldGameRenderer2(batcher: SpriteBatch, oWorld: WorldGame) {
         var keyframe: TextureRegion? = null
 
         for (obj in oWorld.arrItems) {
-            if (obj is ItemGem) {
-                keyframe = Assets.itemGem
-            } else if (obj is ItemHearth) {
-                keyframe = Assets.itemHeart
-            } else if (obj is ItemShield) {
-                keyframe = Assets.itemShield
-            } else if (obj is ItemWeapon) {
-                keyframe = Assets.weaponSmall
+            when (obj) {
+                is ItemGem -> {
+                    keyframe = Assets.itemGem
+                }
+
+                is ItemHearth -> {
+                    keyframe = Assets.itemHeart
+                }
+
+                is ItemShield -> {
+                    keyframe = Assets.itemShield
+                }
+
+                is ItemWeapon -> {
+                    keyframe = Assets.weaponSmall
+                }
             }
 
             batcher.draw(keyframe, obj!!.position.x - obj.DRAW_WIDTH / 2f, obj.position.y - obj.DRAW_HEIGHT / 2f, obj.DRAW_WIDTH, obj.DRAW_HEIGHT)
@@ -154,17 +161,15 @@ class WorldGameRenderer2(batcher: SpriteBatch, oWorld: WorldGame) {
                 }
             }
 
-            val spriteFrame: Sprite?
-
-            if (obj.state == Zombie.STATE_NORMAL) {
-                spriteFrame = animWalk!!.getKeyFrame(obj.stateTime, true)
+            val spriteFrame = if (obj.state == Zombie.STATE_NORMAL) {
+                animWalk!!.getKeyFrame(obj.stateTime, true)
             } else if (obj.state == Zombie.STATE_RISE) {
-                spriteFrame = animRise!!.getKeyFrame(obj.stateTime, false)
+                animRise!!.getKeyFrame(obj.stateTime, false)
             } else if (obj.state == Zombie.STATE_DEAD) {
-                spriteFrame = animDie!!.getKeyFrame(obj.stateTime, false)
+                animDie!!.getKeyFrame(obj.stateTime, false)
             } else if (obj.state == Zombie.STATE_HURT) {
-                spriteFrame = zombieHurt
-            } else spriteFrame = null
+                zombieHurt
+            } else null
 
             if (obj.isFacingLeft) {
                 spriteFrame!!.setPosition(obj.position.x + .29f, obj.position.y - .34f + ajusteY)
@@ -296,17 +301,15 @@ class WorldGameRenderer2(batcher: SpriteBatch, oWorld: WorldGame) {
             }
         }
 
-        val spriteFrame: Sprite?
-
-        if (obj.state == Hero.STATE_NORMAL) {
+        val spriteFrame = if (obj.state == Hero.STATE_NORMAL) {
             if (obj.isJumping) {
-                spriteFrame = heroJump!!.getKeyFrame(obj.stateTime, false)
-            } else spriteFrame = heroRun!!.getKeyFrame(obj.stateTime, true)
+                heroJump!!.getKeyFrame(obj.stateTime, false)
+            } else heroRun!!.getKeyFrame(obj.stateTime, true)
         } else if (obj.state == Hero.STATE_DEAD) {
-            spriteFrame = heroDie!!.getKeyFrame(obj.stateTime, false)
+            heroDie!!.getKeyFrame(obj.stateTime, false)
         } else if (obj.state == Hero.STATE_HURT) {
-            spriteFrame = heroHurt
-        } else spriteFrame = null
+            heroHurt
+        } else null
 
         if (spriteFrame == null) return
 

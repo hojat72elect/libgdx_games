@@ -24,14 +24,11 @@ class VentanaGameover(currentScreen: Screens) : Ventana(currentScreen, 450f, 410
 
     var buttonSize: Int = 55
 
-    var oWorld: WorldGame
+    var oWorld: WorldGame = (currentScreen as GameScreen).oWorld
 
-    var ventanaShop: VentanaShop
+    var ventanaShop: VentanaShop = VentanaShop(screen)
 
     init {
-        oWorld = (currentScreen as GameScreen).oWorld
-
-        ventanaShop = VentanaShop(screen)
 
         val lbDistance = Label(idiomas!!.format("distance_num", oWorld.distance.toInt()), Assets.labelStyleGrande)
         lbDistance.setFontScale(1.5f)

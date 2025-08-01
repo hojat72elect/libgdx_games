@@ -15,15 +15,12 @@ import com.nopalsoft.zombiedash.screens.Screens
 class VentanaRevive(currentScreen: Screens, var priceRevive: Int) : Ventana(currentScreen, 250f, 250f, 100f, Assets.backgroundSmallWindow) {
     var btOK: TextButton? = null
     var btNo: TextButton? = null
-    var totalGems: NumItemsBar?
+    var totalGems = NumItemsBar(Assets.itemGem, 150f, 220f)
 
-    var gameScreen: GameScreen
+    var gameScreen: GameScreen = currentScreen as GameScreen
 
     init {
-        gameScreen = currentScreen as GameScreen
-
-        totalGems = NumItemsBar(Assets.itemGem, 150f, 220f)
-        totalGems!!.updateNumGems(Settings.gemsTotal)
+        totalGems.updateNumGems(Settings.gemsTotal)
         addActor(totalGems)
 
         val lbShop = Label(idiomas!!.get("revive"), Assets.labelStyleGrande)
@@ -34,7 +31,7 @@ class VentanaRevive(currentScreen: Screens, var priceRevive: Int) : Ventana(curr
 
         val tbGemsPrice = Table()
         tbGemsPrice.add<Image?>(Image(Assets.itemGem)).size(25f)
-        tbGemsPrice.add<Label?>(Label("x" + priceRevive, Assets.labelStyleChico)).pad(5f).center()
+        tbGemsPrice.add<Label?>(Label("x$priceRevive", Assets.labelStyleChico)).pad(5f).center()
 
         tbGemsPrice.pack()
         tbGemsPrice.setPosition(getWidth() / 2f - tbGemsPrice.getWidth() / 2f, 120f)

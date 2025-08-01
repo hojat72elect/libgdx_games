@@ -11,7 +11,8 @@ class Bullet(x: Float, y: Float) {
     @JvmField
     var state: Int
     @JvmField
-    var position: Vector2
+    var position: Vector2 = Vector2(x, y)
+
     @JvmField
     var stateTime: Float = 0f
 
@@ -21,7 +22,6 @@ class Bullet(x: Float, y: Float) {
     var DAMAGE: Int = Settings.LEVEL_WEAPON + 1
 
     init {
-        position = Vector2(x, y)
         state = STATE_MUZZLE
 
         tipo = LEVEL_0
@@ -34,8 +34,8 @@ class Bullet(x: Float, y: Float) {
         if (state == STATE_MUZZLE || state == STATE_HIT) {
             stateTime += delta
             if (stateTime >= DURATION_MUZZLE) {
-                if (state == STATE_MUZZLE) state = STATE_NORMAL
-                else state = STATE_DESTROY
+                state = if (state == STATE_MUZZLE) STATE_NORMAL
+                else STATE_DESTROY
                 stateTime = 0f
             }
             return

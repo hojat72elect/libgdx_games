@@ -15,7 +15,7 @@ import com.nopalsoft.zombiedash.Assets
 import com.nopalsoft.zombiedash.MainZombieDash
 import com.nopalsoft.zombiedash.Settings
 
-class GetGemsSubMenu(game: MainZombieDash, contenedor: Table) {
+class GetGemsSubMenu(var game: MainZombieDash, contenedor: Table) {
     var monedasLikeFacebook: Int = 1500
 
     // Comun
@@ -28,15 +28,10 @@ class GetGemsSubMenu(game: MainZombieDash, contenedor: Table) {
     var btBuy30MilCoins: TextButton?
     var btBuy50MilCoins: TextButton?
 
-    var contenedor: Table?
-    var game: MainZombieDash?
-    var idiomas: I18NBundle
+    var idiomas: I18NBundle = game.idiomas!!
     var textBuy: String?
 
     init {
-        this.game = game
-        this.contenedor = contenedor
-        idiomas = game.idiomas!!
         contenedor.clear()
 
         textBuy = idiomas.get("buy")
@@ -48,13 +43,11 @@ class GetGemsSubMenu(game: MainZombieDash, contenedor: Table) {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 if (!Settings.didLikeFacebook) {
                     Settings.didLikeFacebook = true
-                    game.stage!!.addAction(Actions.sequence(Actions.delay(1f), Actions.run(object : Runnable {
-                        override fun run() {
-                            Settings.gemsTotal += monedasLikeFacebook
-                            btLikeFacebook.setText(idiomas.get("visit_us"))
-                            btLikeFacebook.setStyle(Assets.styleTextButtonBuy)
-                        }
-                    })))
+                    game.stage!!.addAction(Actions.sequence(Actions.delay(1f), Actions.run {
+                        Settings.gemsTotal += monedasLikeFacebook
+                        btLikeFacebook.setText(idiomas.get("visit_us"))
+                        btLikeFacebook.setStyle(Assets.styleTextButtonBuy)
+                    }))
                 }
             }
         })
@@ -112,22 +105,22 @@ class GetGemsSubMenu(game: MainZombieDash, contenedor: Table) {
         val imgPersonaje = Image(imagen)
 
         val tbBarraTitulo = Table()
-        tbBarraTitulo.add<Label?>(Label(idiomas.format("get_num", numMonedasToGet), Assets.labelStyleChico)).left().padLeft(5f)
-        tbBarraTitulo.add<Image?>(moneda).left().expandX().padLeft(5f).size(20f)
+        tbBarraTitulo.add(Label(idiomas.format("get_num", numMonedasToGet), Assets.labelStyleChico)).left().padLeft(5f)
+        tbBarraTitulo.add(moneda).left().expandX().padLeft(5f).size(20f)
 
         val tbDescrip = Table()
-        tbDescrip.add<Image?>(imgPersonaje).left().pad(10f).size(55f, 45f)
+        tbDescrip.add(imgPersonaje).left().pad(10f).size(55f, 45f)
         val lblDescripcion = Label(descripcion, Assets.labelStyleChico)
         lblDescripcion.setWrap(true)
         lblDescripcion.setFontScale(.9f)
-        tbDescrip.add<Label?>(lblDescripcion).expand().fill().padLeft(5f)
+        tbDescrip.add(lblDescripcion).expand().fill().padLeft(5f)
 
         val tbContent = Table()
         tbContent.defaults().padLeft(20f).padRight(20f)
         tbContent.setBackground(Assets.storeTableBackground)
-        tbContent.add<Table?>(tbBarraTitulo).expandX().fill().colspan(2).padTop(20f)
+        tbContent.add(tbBarraTitulo).expandX().fill().colspan(2).padTop(20f)
         tbContent.row().colspan(2)
-        tbContent.add<Table?>(tbDescrip).expandX().fill()
+        tbContent.add(tbDescrip).expandX().fill()
         tbContent.row().colspan(2)
 
         tbContent.add<TextButton?>(boton).right().padBottom(20f).size(120f, 45f)
@@ -135,7 +128,7 @@ class GetGemsSubMenu(game: MainZombieDash, contenedor: Table) {
         return tbContent
     }
 
-    protected fun addEfectoPress(actor: Actor) {
+    private fun addEfectoPress(actor: Actor) {
         actor.addListener(object : InputListener() {
             override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
                 actor.setPosition(actor.getX(), actor.getY() - 3)

@@ -38,14 +38,11 @@ class PersonajesSubMenu(contenedor: Table, game: MainZombieDash) {
     var btBuyElite: TextButton? = null
     var btBuyVader: TextButton? = null
     var arrBotones: Array<TextButton>? = null
-    var contenedor: Table?
-    var idiomas: I18NBundle
+    var idiomas: I18NBundle = game.idiomas!!
     var textBuy: String?
     var textSelect: String?
 
     init {
-        idiomas = game.idiomas!!
-        this.contenedor = contenedor
         contenedor.clear()
         loadPurchases()
 
@@ -120,23 +117,22 @@ class PersonajesSubMenu(contenedor: Table, game: MainZombieDash) {
         if (lblPrecio == null) moneda.isVisible = false
 
         val tbBarraTitulo = Table()
-        tbBarraTitulo.add<Label?>(Label(titulo, Assets.labelStyleChico)).expandX().left()
-        tbBarraTitulo.add<Image?>(moneda).right().size(20f)
+        tbBarraTitulo.add(Label(titulo, Assets.labelStyleChico)).expandX().left()
+        tbBarraTitulo.add(moneda).right().size(20f)
         tbBarraTitulo.add<Label?>(lblPrecio).right().padRight(10f)
 
         val tbContent = Table()
         tbContent.setBackground(Assets.storeTableBackground)
 
-        // tbContent.debug();
         tbContent.defaults().padLeft(20f).padRight(20f)
-        tbContent.add<Table?>(tbBarraTitulo).expandX().fill().colspan(2).padTop(20f)
+        tbContent.add(tbBarraTitulo).expandX().fill().colspan(2).padTop(20f)
         tbContent.row()
-        tbContent.add<AnimatedSpriteActor?>(imgPersonaje).left().size(70f, 70f)
+        tbContent.add(imgPersonaje).left().size(70f, 70f)
 
         val lblDescripcion = Label(descripcion, Assets.labelStyleChico)
         lblDescripcion.setWrap(true)
         lblDescripcion.setFontScale(.9f)
-        tbContent.add<Label?>(lblDescripcion).expand().fill().padLeft(5f)
+        tbContent.add(lblDescripcion).expand().fill().padLeft(5f)
 
         tbContent.row().colspan(2)
         tbContent.add<TextButton?>(boton).expandX().right().padBottom(20f).size(120f, 45f)
@@ -161,8 +157,8 @@ class PersonajesSubMenu(contenedor: Table, game: MainZombieDash) {
         })
 
         // SKIN_HERO_RAMBO
-        if (didBuyRambo) btBuyRambo = TextButton(textSelect, Assets.styleTextButtonPurchased)
-        else btBuyRambo = TextButton(textBuy, Assets.styleTextButtonBuy)
+        btBuyRambo = if (didBuyRambo) TextButton(textSelect, Assets.styleTextButtonPurchased)
+        else TextButton(textBuy, Assets.styleTextButtonBuy)
 
         if (Settings.skinSeleccionada == Hero.TIPO_RAMBO) btBuyRambo!!.isVisible = false
 
@@ -183,8 +179,8 @@ class PersonajesSubMenu(contenedor: Table, game: MainZombieDash) {
         })
 
         // SKIN_HERO_SOLDIER
-        if (didBuySoldier) btBuySoldier = TextButton(textSelect, Assets.styleTextButtonPurchased)
-        else btBuySoldier = TextButton(textBuy, Assets.styleTextButtonBuy)
+        btBuySoldier = if (didBuySoldier) TextButton(textSelect, Assets.styleTextButtonPurchased)
+        else TextButton(textBuy, Assets.styleTextButtonBuy)
 
         if (Settings.skinSeleccionada == Hero.TIPO_SOLDIER) btBuySoldier!!.isVisible = false
 
@@ -205,8 +201,8 @@ class PersonajesSubMenu(contenedor: Table, game: MainZombieDash) {
         })
 
         // SKIN_HERO_SWAT
-        if (didBuyElite) btBuyElite = TextButton(textSelect, Assets.styleTextButtonPurchased)
-        else btBuyElite = TextButton(textBuy, Assets.styleTextButtonBuy)
+        btBuyElite = if (didBuyElite) TextButton(textSelect, Assets.styleTextButtonPurchased)
+        else TextButton(textBuy, Assets.styleTextButtonBuy)
 
         if (Settings.skinSeleccionada == Hero.TIPO_FORCE) btBuyElite!!.isVisible = false
 
@@ -227,8 +223,8 @@ class PersonajesSubMenu(contenedor: Table, game: MainZombieDash) {
         })
 
         // SKIN_HERO_VADER
-        if (didBuyVader) btBuyVader = TextButton(textSelect, Assets.styleTextButtonPurchased)
-        else btBuyVader = TextButton(textBuy, Assets.styleTextButtonBuy)
+        btBuyVader = if (didBuyVader) TextButton(textSelect, Assets.styleTextButtonPurchased)
+        else TextButton(textBuy, Assets.styleTextButtonBuy)
 
         if (Settings.skinSeleccionada == Hero.TIPO_VADER) btBuyVader!!.isVisible = false
 
@@ -284,7 +280,7 @@ class PersonajesSubMenu(contenedor: Table, game: MainZombieDash) {
         boton.isVisible = false
     }
 
-    protected fun addEfectoPress(actor: Actor) {
+    private fun addEfectoPress(actor: Actor) {
         actor.addListener(object : InputListener() {
             override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
                 actor.setPosition(actor.getX(), actor.getY() - 3)

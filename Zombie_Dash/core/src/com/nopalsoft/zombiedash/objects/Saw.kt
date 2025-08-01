@@ -12,7 +12,7 @@ class Saw(x: Float, y: Float) {
     var state: Int
 
     @JvmField
-    var position: Vector2
+    var position: Vector2 = Vector2(x, y)
 
     @JvmField
     var angleDeg: Float = 0f
@@ -20,7 +20,6 @@ class Saw(x: Float, y: Float) {
     var stateTime: Float = 0f
 
     init {
-        position = Vector2(x, y)
         state = STATE_DIALOG
     }
 
