@@ -18,8 +18,6 @@ import com.nopalsoft.impossibledial.MainGame;
 import com.nopalsoft.impossibledial.Settings;
 import com.nopalsoft.impossibledial.game.GameScreen;
 
-import java.util.Random;
-
 public abstract class Screens extends InputAdapter implements Screen {
     public static final int SCREEN_WIDTH = 480;
     public static final int SCREEN_HEIGHT = 800;
@@ -30,7 +28,6 @@ public abstract class Screens extends InputAdapter implements Screen {
     public SpriteBatch batcher;
     public Stage stage;
 
-    Random oRan;
     Image blackFadeOut;
 
     public Screens(final MainGame game) {
@@ -73,11 +70,6 @@ public abstract class Screens extends InputAdapter implements Screen {
                 } else if (newScreen == MainMenuScreen.class) {
                     game.setScreen(new MainMenuScreen(game));
                 }
-                // else if (newScreen == HelpScreen.class)
-                // game.setScreen(new HelpScreen(game));
-
-                // El blackFadeOut se remueve del stage cuando se le da new Screens(game) "Revisar el constructor de la clase Screens" por lo que no hay necesidad de hacer
-                // blackFadeout.remove();
             }
         })));
         stage.addActor(blackFadeOut);
@@ -123,17 +115,16 @@ public abstract class Screens extends InputAdapter implements Screen {
 
     @Override
     public void pause() {
-        // Assets.pauseMusic();
+
     }
 
     @Override
     public void resume() {
-        // Assets.playMusic();
+
     }
 
     @Override
     public void dispose() {
-        // stage.dispose();
-        // batcher.dispose();
+
     }
 }

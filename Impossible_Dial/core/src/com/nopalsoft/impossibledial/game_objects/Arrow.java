@@ -59,8 +59,8 @@ public abstract class Arrow extends Image {
             case 6:
                 color = Color.PURPLE;
                 break;
-            default:
             case 7:
+            default:
                 color = Color.RED;
                 break;
         }

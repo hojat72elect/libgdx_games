@@ -24,7 +24,7 @@ public class MainGame extends Game {
 
         Settings.load();
         Assets.load();
-        Achievements.init(this);
+        Achievements.init();
         setScreen(new MainMenuScreen(this));
     }
 }

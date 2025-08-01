@@ -6,17 +6,16 @@ import com.nopalsoft.impossibledial.Assets;
 
 
 public class ArrowEasy extends Arrow {
-    private final float VELOCIDAD_INICIAL = 4;
-    private final float VELOCIDAD_MAXIMA = .925f;
 
 
     public ArrowEasy(float x, float y) {
         super(x, y);
-        velocidadActual = VELOCIDAD_INICIAL;
+        velocidadActual = (float) 4;
     }
 
     @Override
     public void didScore() {
+        float VELOCIDAD_MAXIMA = .925f;
         if (velocidadActual > 2.5f) {
             velocidadActual -= .4f;
         } else if (velocidadActual > 1.5f) {
@@ -73,8 +72,6 @@ public class ArrowEasy extends Arrow {
      * #########
      * # 3 # 4 #
      * #########
-     *
-     * @return
      */
     public int getFlechaApuntandoAlCuadrante() {
 

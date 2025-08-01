@@ -6,22 +6,19 @@ import com.nopalsoft.impossibledial.Assets;
 
 
 public class ArrowHard extends Arrow {
-    private final float VELOCIDAD_INICIAL = 4;
-    private final float VELOCIDAD_MAXIMA = 1.5f;
 
     public ArrowHard(float x, float y) {
         super(x, y);
-        velocidadActual = VELOCIDAD_INICIAL;
+        velocidadActual = (float) 4;
     }
 
     @Override
     public void didScore() {
+        float VELOCIDAD_MAXIMA = 1.5f;
         if (velocidadActual > 2.5f) {
             velocidadActual -= .25f;
         } else if (velocidadActual > 1.5f) {
             velocidadActual -= .015f;
-        } else if (velocidadActual > VELOCIDAD_MAXIMA) {
-            velocidadActual -= .0025f;
         }
 
         if (velocidadActual < VELOCIDAD_MAXIMA) {
@@ -84,8 +81,6 @@ public class ArrowHard extends Arrow {
      * #########
      * # 3 # 4 #
      * #########
-     *
-     * @return
      */
     public int getFlechaApuntandoAlCuadrante() {
 

@@ -4,7 +4,7 @@ public class Achievements {
 
     static String begginerEasy, intermediateEasy, advancedEasy, expertEasy, masterHard, godHard, iLikeThisGame, iLoveThisGame;
 
-    public static void init(com.nopalsoft.impossibledial.MainGame game) {
+    public static void init() {
 
         begginerEasy = "beginnerID";
         intermediateEasy = "intermediateID";

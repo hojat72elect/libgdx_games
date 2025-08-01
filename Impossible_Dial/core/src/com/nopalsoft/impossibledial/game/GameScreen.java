@@ -75,7 +75,6 @@ public class GameScreen extends Screens {
         lbScore.setColor(Color.RED);
         lbScore.setPosition(10, 735);
 
-        int buttonSize = 90;
         btBack = new Button(Assets.btBack);
         addEfectoPress(btBack);
         btBack.addListener(new ClickListener() {
