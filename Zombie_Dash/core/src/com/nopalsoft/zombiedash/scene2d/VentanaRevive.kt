@@ -1,7 +1,6 @@
 package com.nopalsoft.zombiedash.scene2d
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -58,7 +57,7 @@ class VentanaRevive(currentScreen: Screens, var priceRevive: Int) : Ventana(curr
 
     private fun initButtons() {
         btOK = TextButton(idiomas!!.get("OK"), Assets.styleTextButtonBuy)
-        screen.addEfectoPress(btOK)
+        screen.addEfectoPress(btOK!!)
         btOK!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()
@@ -69,7 +68,7 @@ class VentanaRevive(currentScreen: Screens, var priceRevive: Int) : Ventana(curr
         })
 
         btNo = TextButton(idiomas!!.get("no"), Assets.styleTextButtonBuy)
-        screen.addEfectoPress(btNo)
+        screen.addEfectoPress(btNo!!)
         btNo!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()

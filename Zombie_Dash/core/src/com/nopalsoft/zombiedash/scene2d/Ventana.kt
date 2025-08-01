@@ -24,7 +24,7 @@ open class Ventana(@JvmField protected var screen: Screens, width: Float, height
     private var imgBackground: Image? = null
 
     init {
-        game = screen.game
+        game = screen.game!!
         idiomas = game.idiomas
         setSize(width, height)
         setY(positionY)

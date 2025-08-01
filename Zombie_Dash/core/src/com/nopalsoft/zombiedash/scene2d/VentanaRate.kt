@@ -1,7 +1,6 @@
 package com.nopalsoft.zombiedash.scene2d
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
@@ -44,7 +43,7 @@ class VentanaRate(currentScreen: Screens) : Ventana(currentScreen, 400f, 310f, 1
 
     private fun initButtons() {
         btYes = TextButton(idiomas!!.get("OK"), Assets.styleTextButtonPurchased)
-        screen.addEfectoPress(btYes)
+        screen.addEfectoPress(btYes!!)
         btYes!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()
@@ -52,7 +51,7 @@ class VentanaRate(currentScreen: Screens) : Ventana(currentScreen, 400f, 310f, 1
         })
 
         btLater = TextButton(idiomas!!.get("not_now"), Assets.styleTextButtonPurchased)
-        screen.addEfectoPress(btLater)
+        screen.addEfectoPress(btLater!!)
         btLater!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()

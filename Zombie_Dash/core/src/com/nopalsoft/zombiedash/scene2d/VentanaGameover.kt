@@ -2,7 +2,6 @@ package com.nopalsoft.zombiedash.scene2d
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -79,7 +78,7 @@ class VentanaGameover(currentScreen: Screens) : Ventana(currentScreen, 450f, 410
         btMenu = Button(Assets.btMenu)
         btMenu!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
 
-        screen.addEfectoPress(btMenu)
+        screen.addEfectoPress(btMenu!!)
         btMenu!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()
@@ -89,7 +88,7 @@ class VentanaGameover(currentScreen: Screens) : Ventana(currentScreen, 450f, 410
 
         btShop = Button(Assets.btShop)
         btShop!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
-        screen.addEfectoPress(btShop)
+        screen.addEfectoPress(btShop!!)
         btShop!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 ventanaShop.show(screen.stage)
@@ -98,7 +97,7 @@ class VentanaGameover(currentScreen: Screens) : Ventana(currentScreen, 450f, 410
 
         btTryAgain = Button(Assets.btTryAgain)
         btTryAgain!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
-        screen.addEfectoPress(btTryAgain)
+        screen.addEfectoPress(btTryAgain!!)
         btTryAgain!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()

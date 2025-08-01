@@ -1,7 +1,6 @@
 package com.nopalsoft.zombiedash.scene2d
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -50,7 +49,7 @@ class VentanaPause(currentScreen: Screens) : Ventana(currentScreen, 350f, 310f, 
     private fun initButtons() {
         btMenu = Button(Assets.btMenu)
         btMenu!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
-        screen.addEfectoPress(btMenu)
+        screen.addEfectoPress(btMenu!!)
         btMenu!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()
@@ -61,7 +60,7 @@ class VentanaPause(currentScreen: Screens) : Ventana(currentScreen, 350f, 310f, 
         btTryAgain = Button(Assets.btTryAgain)
         btTryAgain!!.setSize(buttonSize.toFloat(), buttonSize.toFloat())
 
-        screen.addEfectoPress(btTryAgain)
+        screen.addEfectoPress(btTryAgain!!)
         btTryAgain!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide()
