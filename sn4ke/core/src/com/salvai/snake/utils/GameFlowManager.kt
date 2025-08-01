@@ -22,7 +22,7 @@ class GameFlowManager(private val gameScreen: GameScreen) {
     var baseBlocks: Array<Block?>?
 
     @JvmField
-    var blocks: Array<Block?>
+    var blocks: Array<Block>
 
     @JvmField
     var apple: Apple? = null
@@ -36,7 +36,7 @@ class GameFlowManager(private val gameScreen: GameScreen) {
         val boundariesCreator = BoundariesCreator(blockTexture, gameScreen.game.worldUtils)
 
         baseBlocks = boundariesCreator.fullBoundaries()
-        blocks = Array<Block?>()
+        blocks = Array<Block>()
 
         //load blocks
         blocks = this.gameScreen.game.currentLevel.getBlocks(blockTexture, gameScreen.game.worldUtils)
@@ -51,7 +51,7 @@ class GameFlowManager(private val gameScreen: GameScreen) {
 
 
         if (gameScreen.game.firstTimeOpen) apple = Apple(Vector2(11f, 19f), blockTexture, gameScreen.game.worldUtils, gameScreen.game.selectedColor)
-        else apple = Apple(gameObjectMap.getFreePositions(snake, null), blockTexture, gameScreen.game.worldUtils, gameScreen.game.selectedColor)
+        else apple = Apple(gameObjectMap.getFreePositions(snake!!, null), blockTexture, gameScreen.game.worldUtils, gameScreen.game.selectedColor)
     }
 
     fun update(userDirection: MovingDirection?): SnakeBody? {
@@ -92,7 +92,7 @@ class GameFlowManager(private val gameScreen: GameScreen) {
             gameScreen.game.score += Constants.POINT
             gameScreen.updateScoreLabel()
 
-            apple!!.reset(gameObjectMap.getFreePositions(snake, apple))
+            apple!!.reset(gameObjectMap.getFreePositions(snake!!, apple!!))
         }
     }
 
