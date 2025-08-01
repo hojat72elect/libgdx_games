@@ -88,7 +88,7 @@ class GameFlowManager(private val gameScreen: GameScreen) {
     }
 
     private fun checkScore() {
-        if (snake!!.eats(apple)) {
+        if (snake!!.eats(apple!!)) {
             gameScreen.game.score += Constants.POINT
             gameScreen.updateScoreLabel()
 
