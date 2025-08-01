@@ -16,6 +16,8 @@ public class MainGame extends Game {
     public final RequestHandler reqHandler;
     public final FacebookHandler facebookHandler;
     public final HandlerGWT handlerGWT;
+    public Stage stage;
+    public SpriteBatch batcher;
 
     public MainGame(RequestHandler reqHandler, GameServicesHandler gameServiceHandler, FacebookHandler facebookHandler) {
         this.reqHandler = reqHandler;
@@ -23,7 +25,6 @@ public class MainGame extends Game {
         this.facebookHandler = facebookHandler;
         handlerGWT = null;
     }
-
     public MainGame(RequestHandler reqHandler, GameServicesHandler gameServiceHandler,
                     FacebookHandler facebookHandler, HandlerGWT handlerGWT) {
         this.reqHandler = reqHandler;
@@ -31,9 +32,6 @@ public class MainGame extends Game {
         this.facebookHandler = facebookHandler;
         this.handlerGWT = handlerGWT;
     }
-
-    public Stage stage;
-    public SpriteBatch batcher;
 
     @Override
     public void create() {

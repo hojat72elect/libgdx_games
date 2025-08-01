@@ -30,10 +30,9 @@ public class GameScreen extends Screens {
     private final static int STATE_READY = 0;
     private final static int STATE_RUNNING = 1;
     private final static int STATE_GAMEOVER = 2;
-    int state;
-
     public static int DIFICULTAD_EASY = 0;
     public static int DIFICULTAD_HARD = 1;
+    int state;
     int dificultad;
 
 
@@ -47,6 +46,10 @@ public class GameScreen extends Screens {
 
     Image circulo;
     Arrow oArrow;
+    /**
+     * Esta variable indica si la flecha esta apuntando al cuadrante de su color, si no se preciona y se sale hacia otro cuadrante es gameOver
+     */
+    boolean entroASuCuadrante;
 
 
     public GameScreen(final MainGame game, final int dificultad) {
@@ -127,12 +130,6 @@ public class GameScreen extends Screens {
 
         game.reqHandler.loadInterstitial();
     }
-
-
-    /**
-     * Esta variable indica si la flecha esta apuntando al cuadrante de su color, si no se preciona y se sale hacia otro cuadrante es gameOver
-     */
-    boolean entroASuCuadrante;
 
     @Override
     public void update(float delta) {

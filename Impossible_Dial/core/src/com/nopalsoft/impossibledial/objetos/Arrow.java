@@ -35,29 +35,6 @@ public abstract class Arrow extends Image {
         colorActual = COLOR_GREEN;//Como al inicio esta apuntando al verde, asi nunca se crea inicialmente un verde
     }
 
-    public abstract void didScore();
-
-    public abstract void init();
-
-    public abstract int getFlechaApuntandoAlCuadrante();
-
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-
-        if (getRotation() >= 360) {
-            setRotation(0);
-        } else if (getRotation() <= -360) {
-            setRotation(0);
-        }
-    }
-
-
-    public void setGameOver() {
-        getActions().clear();
-    }
-
-
     public static Color getColor(int colorPalabra) {
         Color color;
         switch (colorPalabra) {
@@ -92,5 +69,26 @@ public abstract class Arrow extends Image {
 
     public static Color getRandomColor() {
         return getColor(MathUtils.random(7));
+    }
+
+    public abstract void didScore();
+
+    public abstract void init();
+
+    public abstract int getFlechaApuntandoAlCuadrante();
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+
+        if (getRotation() >= 360) {
+            setRotation(0);
+        } else if (getRotation() <= -360) {
+            setRotation(0);
+        }
+    }
+
+    public void setGameOver() {
+        getActions().clear();
     }
 }

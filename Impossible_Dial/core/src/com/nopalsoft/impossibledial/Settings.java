@@ -5,11 +5,10 @@ import com.badlogic.gdx.Preferences;
 
 public class Settings {
 
+    private final static Preferences pref = Gdx.app.getPreferences("com.nopalsoft.impossibledial");
     public static int bestScoreEasy;
     public static int bestScoreHard;
     public static int numVecesJugadas;
-
-    private final static Preferences pref = Gdx.app.getPreferences("com.nopalsoft.impossibledial");
 
     public static void save() {
         pref.putInteger("bestScore", bestScoreEasy);

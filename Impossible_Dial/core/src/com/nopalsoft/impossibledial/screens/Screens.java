@@ -31,6 +31,7 @@ public abstract class Screens extends InputAdapter implements Screen {
     public Stage stage;
 
     Random oRan;
+    Image blackFadeOut;
 
     public Screens(final MainGame game) {
         this.stage = game.stage;
@@ -59,8 +60,6 @@ public abstract class Screens extends InputAdapter implements Screen {
         stage.act(delta);
         stage.draw();
     }
-
-    Image blackFadeOut;
 
     public void changeScreenWithFadeOut(final Class<?> newScreen, final MainGame game, final int level) {
         blackFadeOut = new Image(Assets.pixelNegro);
