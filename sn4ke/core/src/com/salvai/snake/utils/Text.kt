@@ -1,8 +1,8 @@
-package com.salvai.snake.utils;
+package com.salvai.snake.utils
 
-public class Text {
+object Text {
+    const val GAME_NAME: String = "Snake it!" //ATTENTION don't change, is just used for preferences, would delete all highscores
 
-    public static final String GAME_NAME = "Snake it!"; //ATTENTION don't change, is just used for preferences, would delete all highscores
-
-    public static final String[] LEVEL_TABS = {"small", "medium", "big"};
+    @JvmField
+    val LEVEL_TABS: Array<String?> = arrayOf<String?>("small", "medium", "big")
 }
