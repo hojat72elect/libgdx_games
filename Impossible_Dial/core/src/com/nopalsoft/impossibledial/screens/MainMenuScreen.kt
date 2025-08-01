@@ -17,7 +17,7 @@ import com.nopalsoft.impossibledial.MainGame
 import com.nopalsoft.impossibledial.scene2d.VentanaDificultad
 
 class MainMenuScreen(game: MainGame) : Screens(game) {
-    var titulo: Image?
+    var titulo = Image(Assets.titulo)
     var circulo: Image
     var arrow: Image
 
@@ -30,14 +30,10 @@ class MainMenuScreen(game: MainGame) : Screens(game) {
     var btAchievement: Button?
     var btFacebook: Button?
 
-    var ventanaDificultad: VentanaDificultad
-
+    var ventanaDificultad: VentanaDificultad = VentanaDificultad(this)
 
     init {
-        ventanaDificultad = VentanaDificultad(this)
-
-        titulo = Image(Assets.titulo)
-        titulo!!.setPosition(SCREEN_WIDTH / 2f - titulo!!.getWidth() / 2f, 610f)
+        titulo.setPosition(SCREEN_WIDTH / 2f - titulo.getWidth() / 2f, 610f)
 
         circulo = Image(Assets.circle)
         circulo.setSize(325f, 325f)
@@ -48,11 +44,9 @@ class MainMenuScreen(game: MainGame) : Screens(game) {
         arrow.setPosition(SCREEN_WIDTH / 2f - arrow.getWidth() / 2f, 240 + circulo.getHeight() / 2f)
         arrow.setOrigin(4f, 0f)
 
-        val run: Runnable = object : Runnable {
-            override fun run() {
-                val rotation = MathUtils.random(180, 360).toFloat()
-                arrow.addAction(Actions.sequence(Actions.rotateBy(rotation, 3f), Actions.rotateBy(-rotation, 3f)))
-            }
+        val run = Runnable {
+            val rotation = MathUtils.random(180, 360).toFloat()
+            arrow.addAction(Actions.sequence(Actions.rotateBy(rotation, 3f), Actions.rotateBy(-rotation, 3f)))
         }
         arrow.addAction(Actions.forever(Actions.sequence(Actions.run(run), Actions.delay(6f))))
 

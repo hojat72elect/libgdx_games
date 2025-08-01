@@ -43,7 +43,7 @@ class GameScreen(game: MainGame, var dificultad: Int) : Screens(game) {
     var score: Int = 0
     var scoreAnterior: Int = 0
 
-    var circulo: Image
+    var circulo: Image = Image()
     var oArrow: Arrow? = null
 
     /**
@@ -53,7 +53,6 @@ class GameScreen(game: MainGame, var dificultad: Int) : Screens(game) {
 
 
     init {
-        circulo = Image()
         circulo.setSize(385f, 385f)
         circulo.setPosition(SCREEN_WIDTH / 2f - circulo.getWidth() / 2f, 200f)
 
@@ -195,7 +194,7 @@ class GameScreen(game: MainGame, var dificultad: Int) : Screens(game) {
 
             var scoreText = Assets.idiomas!!.get("score")
 
-            scoreText += "\n" + score + "\n Best\n" + bestScore
+            scoreText += "\n$score\n Best\n$bestScore"
 
             val scoreTextColor = StringBuilder()
 
@@ -211,7 +210,7 @@ class GameScreen(game: MainGame, var dificultad: Int) : Screens(game) {
             )
             for (i in 0..<scoreText.length) {
                 scoreTextColor.append(apend[i])
-                scoreTextColor.append(scoreText.get(i))
+                scoreTextColor.append(scoreText[i])
             }
             scoreTextColor.append(apend[scoreText.length])
 
@@ -230,13 +229,11 @@ class GameScreen(game: MainGame, var dificultad: Int) : Screens(game) {
             btTryAgain.setDisabled(true)
             btShare.setDisabled(true)
 
-            tbMenu.addAction(Actions.sequence(Actions.delay(1f), Actions.alpha(1f, animationTime), Actions.run(object : Runnable {
-                override fun run() {
-                    btBack.setDisabled(false)
-                    btTryAgain.setDisabled(false)
-                    btShare.setDisabled(false)
-                }
-            })))
+            tbMenu.addAction(Actions.sequence(Actions.delay(1f), Actions.alpha(1f, animationTime), Actions.run {
+                btBack.setDisabled(false)
+                btTryAgain.setDisabled(false)
+                btShare.setDisabled(false)
+            }))
 
             stage!!.addActor(lblScore)
             stage!!.addActor(tbMenu)

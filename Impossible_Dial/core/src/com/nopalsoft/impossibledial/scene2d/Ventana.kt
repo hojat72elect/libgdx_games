@@ -8,19 +8,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
-import com.badlogic.gdx.utils.I18NBundle
 import com.nopalsoft.impossibledial.Assets
 import com.nopalsoft.impossibledial.MainGame
 import com.nopalsoft.impossibledial.screens.Screens
 
 open class Ventana(protected var screen: Screens, width: Float, height: Float, positionY: Float) : Group() {
     private val dim: Image
-    protected var idiomas: I18NBundle?
-    protected var game: MainGame?
+    protected var game: MainGame? = screen.game
 
     init {
-        game = screen.game
-        idiomas = Assets.idiomas
         setSize(width, height)
         setY(positionY)
 

@@ -10,8 +10,7 @@ object Achievements {
     var iLikeThisGame: String? = null
     var iLoveThisGame: String? = null
 
-    @JvmStatic
-    fun init() {
+    fun initialize() {
         begginerEasy = "beginnerID"
         intermediateEasy = "intermediateID"
         advancedEasy = "advancedID"
@@ -22,15 +21,12 @@ object Achievements {
         godHard = "godID"
     }
 
-    @JvmStatic
     fun unlockScoreAchievementsEasy() {
     }
 
-    @JvmStatic
     fun unlockScoreAchievementsHard() {
     }
 
-    @JvmStatic
     fun unlockTimesPlayedAchievements() {
     }
 }

@@ -62,14 +62,14 @@ class ArrowEasy(x: Float, y: Float) : Arrow(x, y) {
          * #########
          */
         get() {
-            if ((getRotation() >= 0 && getRotation() < 90) || (getRotation() >= -360 && getRotation() < -270)) {
-                return COLOR_GREEN
+            return if ((getRotation() >= 0 && getRotation() < 90) || (getRotation() >= -360 && getRotation() < -270)) {
+                COLOR_GREEN
             } else if ((getRotation() >= 90 && getRotation() < 180) || (getRotation() >= -270 && getRotation() < -180)) {
-                return COLOR_RED
+                COLOR_RED
             } else if ((getRotation() >= 180 && getRotation() < 270) || (getRotation() >= -180 && getRotation() < -90)) {
-                return COLOR_BLUE
+                COLOR_BLUE
             } else {
-                return COLOR_YELLOW
+                COLOR_YELLOW
             }
         }
 }

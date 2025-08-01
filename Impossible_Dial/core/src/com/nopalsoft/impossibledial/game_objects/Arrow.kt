@@ -8,13 +8,8 @@ abstract class Arrow(x: Float, y: Float) : Image() {
     /**
      * El color de la flecha
      */
-    @JvmField
     var colorActual: Int
-
-    @JvmField
     protected var velocidadActual: Float = 0f
-
-    @JvmField
     var isGoingLeft: Boolean = false
 
     init {
