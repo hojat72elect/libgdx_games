@@ -1,5 +1,5 @@
-package com.salvai.snake.enums;
+package com.salvai.snake.enums
 
-public enum MovingDirection {
+enum class MovingDirection {
     LEFT, RIGHT, UP, DOWN, NONE // to start snake without moving until swipe direction is detected
 }
