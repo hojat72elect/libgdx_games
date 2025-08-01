@@ -67,7 +67,7 @@ class GameScreen(game: MainGame, var dificultad: Int) : Screens(game) {
 
         oArrow!!.init()
 
-        stage.addActor(circulo)
+        stage!!.addActor(circulo)
 
         lbScore = Label("0", LabelStyle(Assets.fontChico, Color.WHITE))
         lbScore.setColor(Color.RED)
@@ -108,7 +108,7 @@ class GameScreen(game: MainGame, var dificultad: Int) : Screens(game) {
             tbMenu.add<Button?>(btShare)
         }
 
-        stage.addActor(lbScore)
+        stage!!.addActor(lbScore)
         setReady()
     }
 
@@ -152,22 +152,22 @@ class GameScreen(game: MainGame, var dificultad: Int) : Screens(game) {
     }
 
     override fun draw(delta: Float) {
-        batcher.begin()
-        batcher.draw(Assets.header, 0f, 780f, 480f, 20f)
-        batcher.draw(Assets.header, 0f, 0f, 480f, 20f)
+        batcher!!.begin()
+        batcher!!.draw(Assets.header, 0f, 780f, 480f, 20f)
+        batcher!!.draw(Assets.header, 0f, 0f, 480f, 20f)
 
-        batcher.end()
+        batcher!!.end()
     }
 
     private fun setReady() {
         state = STATE_READY
-        stage.addActor(CountDown(this))
+        stage!!.addActor(CountDown(this))
     }
 
     fun setRunning() {
         if (state == STATE_READY) {
             state = STATE_RUNNING
-            stage.addActor(oArrow)
+            stage!!.addActor(oArrow)
         }
     }
 
@@ -238,8 +238,8 @@ class GameScreen(game: MainGame, var dificultad: Int) : Screens(game) {
                 }
             })))
 
-            stage.addActor(lblScore)
-            stage.addActor(tbMenu)
+            stage!!.addActor(lblScore)
+            stage!!.addActor(tbMenu)
 
             Settings.numVecesJugadas++
 
@@ -254,7 +254,7 @@ class GameScreen(game: MainGame, var dificultad: Int) : Screens(game) {
 
     override fun keyDown(keycode: Int): Boolean {
         if ((keycode == Input.Keys.BACK) or (keycode == Input.Keys.ESCAPE)) {
-            changeScreenWithFadeOut(MainMenuScreen::class.java, game)
+            changeScreenWithFadeOut(MainMenuScreen::class.java, game!!)
             return true
         }
         return super.keyDown(keycode)

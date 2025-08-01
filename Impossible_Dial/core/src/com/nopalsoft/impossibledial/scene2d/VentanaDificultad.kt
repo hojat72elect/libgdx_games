@@ -22,7 +22,7 @@ class VentanaDificultad(currentScreen: MainMenuScreen) : Ventana(currentScreen, 
         btEasy.setPosition(getWidth() / 2f - btEasy.getWidth() / 2f, 125f)
         btEasy.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                currentScreen.changeScreenWithFadeOut(GameScreen::class.java, game, GameScreen.DIFICULTAD_EASY)
+                currentScreen.changeScreenWithFadeOut(GameScreen::class.java, game!!, GameScreen.DIFICULTAD_EASY)
                 hide()
             }
         })
@@ -33,7 +33,7 @@ class VentanaDificultad(currentScreen: MainMenuScreen) : Ventana(currentScreen, 
         btHard.setPosition(getWidth() / 2f - btHard.getWidth() / 2f, 40f)
         btHard.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                currentScreen.changeScreenWithFadeOut(GameScreen::class.java, game, GameScreen.DIFICULTAD_HARD)
+                currentScreen.changeScreenWithFadeOut(GameScreen::class.java, game!!, GameScreen.DIFICULTAD_HARD)
                 hide()
             }
         })
