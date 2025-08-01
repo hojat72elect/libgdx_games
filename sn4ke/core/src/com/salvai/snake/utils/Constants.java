@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Interpolation;
 
 public class Constants {
 
-
     // Screen
     public static final int SCREEN_WIDTH = 1080;
     public static final int SCREEN_HEIGHT = 1920;
@@ -47,13 +46,6 @@ public class Constants {
     public static final int MAX_BACKGROUND_OBJECTS = 60;
     public static final int MIN_BACKGROUND_SPEED = 20;
 
-    // todo : they need to be converted into another file format that is readable by LibGDX.
-//    public static final String POINT_SFX = "sound/point.m4a";
-//    public static final String UP_SFX = "sound/up.m4a";
-//    public static final String LEFT_RIGHT_SFX = "sound/left-right.m4a";
-//    public static final String DOWN_SFX = "sound/down.m4a";
-//    public static final String GAME_OVER_SFX = "sound/game-over.m4a";
-//    public static final String NEW_BEST_SFX = "sound/new-best.m4a";
     public static final int MAX_BACKGROUND_SPEED = 80;
     public static final int BACKGROUND_OBJECT_WIDTH = 6;
     public static final int BACKGROUND_OBJECT_HEIGHT = 6;
@@ -66,7 +58,7 @@ public class Constants {
     public static final Interpolation INTERPOLATION = Interpolation.pow2;
     public static final Interpolation SNAKE_INTERPOLATION = Interpolation.smoother;
     public static final float SNAKE_DURATION = 0.1f;
-    public static boolean DEV = false;
+
     //DIALOGS
     public static int DIALOG_BUTTON_SIZE = 260;
     public static int DIALOG_BUTTON_PAD = 80;
@@ -74,8 +66,6 @@ public class Constants {
     public enum SCREEN {
         MENU,
         SETTINGS,
-        GAME,
-        SPLASH,
         LEVELCHOOSE
     }
 }

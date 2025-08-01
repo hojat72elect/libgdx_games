@@ -3,7 +3,6 @@ package com.salvai.snake.utils;
 import com.badlogic.gdx.math.Vector2;
 import com.salvai.snake.enums.BlockRatio;
 
-
 public class WorldUtils {
 
     public int blockSize;

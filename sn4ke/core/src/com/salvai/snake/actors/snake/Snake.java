@@ -28,7 +28,7 @@ public class Snake {
         bodyColor = Colors.getBodyColor(styleIndex);
 
         snakeHead = new SnakeHead(texture, headColor, worldUtils);
-        snakeBodies = new Array<SnakeBody>();
+        snakeBodies = new Array<>();
         addBody = false;
         setDirection(MovingDirection.NONE);
     }
@@ -41,7 +41,7 @@ public class Snake {
         bodyColor = Colors.getBodyColor(styleIndex);
 
         snakeHead = new SnakeHead(texture, startX, startY, headColor, worldUtils);
-        snakeBodies = new Array<SnakeBody>();
+        snakeBodies = new Array<>();
         addBody = false;
         setDirection(MovingDirection.NONE);
     }

@@ -4,13 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 
 import java.util.Random;
 
-/**
- * Created by mert on 2/2/18.
- */
-
 public class RandomUtil {
     public static Random random = new Random();
-
 
     //BACKGROUND
     public static int getRandomBackgroundStarYCoordinate(int height) {
@@ -35,10 +30,5 @@ public class RandomUtil {
 
     public static int getRandomStarSpeed() {
         return random.nextInt(Constants.MAX_BACKGROUND_SPEED - Constants.MIN_BACKGROUND_SPEED) + Constants.MIN_BACKGROUND_SPEED;
-    }
-
-
-    public static String getRandomShareScoreText() {
-        return Text.SHARE_SCORE[random.nextInt(Text.SHARE_SCORE.length)];
     }
 }

@@ -26,8 +26,8 @@ public class Level {
 
     //1 block, 2 snake 0 nothing
 
-    public Array<Block> getBlocks(Texture blockTexture, WorldUtils worldUtils, int colorIndex) {
-        Array<Block> blocks = new Array<Block>();
+    public Array<Block> getBlocks(Texture blockTexture, WorldUtils worldUtils) {
+        Array<Block> blocks = new Array<>();
 
         //reverse array other wise blocks are mirrored
         if (toReverse) {
@@ -40,7 +40,7 @@ public class Level {
         for (int i = 0; i < blocksPositions.length; i++)
             for (int j = 0; j < blocksPositions[0].length; j++)
                 if (blocksPositions[i][j] == Constants.BLOCK_CELL)
-                    blocks.add(new Block(new Vector2(j + 1, i + 1), blockTexture, worldUtils)); // +1 beause of border
+                    blocks.add(new Block(new Vector2(j + 1, i + 1), blockTexture, worldUtils)); // +1 because of border
                 else if (blocksPositions[i][j] == Constants.SNAKE_HEAD_CELL) {
                     snakeStartX = j + 1;
                     snakeStartY = i + 1;

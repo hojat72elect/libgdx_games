@@ -15,7 +15,7 @@ public class GameObjectMap {
     public GameObjectMap(Array<Block> blocks, WorldUtils worldUtils) {
         //because world starts from 0 to screenwidth/height
         map = new int[worldUtils.worldWidth - Constants.PLAY_HEIGHT_FACTOR_X][worldUtils.playableWorldHeigth - 1];
-        freePositions = new Array<Vector2>();
+        freePositions = new Array<>();
         for (Block block : blocks)
             map[(int) block.worldPosition.x - 1][(int) block.worldPosition.y - 1] = 1;
     }

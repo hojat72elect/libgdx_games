@@ -29,7 +29,6 @@ import com.salvai.snake.utils.MyAssetsManager;
 import com.salvai.snake.utils.Text;
 import com.salvai.snake.utils.WorldUtils;
 
-
 public class SnakeIt extends Game {
 
     public GameState gameState;
@@ -88,7 +87,7 @@ public class SnakeIt extends Game {
 
     private void setUpGlobalVariables() {
         highScores = new int[Constants.MAX_LEVEL];
-        levels = new Array<Level>();
+        levels = new Array<>();
         worldHeight = viewport.getWorldHeight();
         worldWidth = viewport.getWorldWidth();
     }

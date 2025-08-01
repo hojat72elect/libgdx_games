@@ -20,7 +20,6 @@ import com.salvai.snake.utils.Constants;
 
 public class SettingsScreen extends ScreenAdapter {
 
-    private final int PREVIEW_BLOCKS = 6;
     //Snake colors
     private final Texture snakeTexture;
     private final Array<PreviewSnake> previewSnakes;
@@ -29,7 +28,6 @@ public class SettingsScreen extends ScreenAdapter {
     float width;
     float height;
     private Table table;
-    private Table snakeTable;
     private Button soundButton;
     private Button vibrationButton;
 
@@ -41,25 +39,18 @@ public class SettingsScreen extends ScreenAdapter {
         height = game.worldHeight;
 
 
-        previewSnakes = new Array<PreviewSnake>();
+        previewSnakes = new Array<>();
         snakeTexture = game.assetsManager.manager.get(Constants.BLOCK_IMAGE_NAME, Texture.class);
 
         game.stage.clear();
-
         game.setUpTopBar(Constants.SCREEN.SETTINGS);
-
-
         speedChooser = new SpeedChooser(game);
-
 
         setUpButtons();
         setUpTable();
         setUpSnakeTable();
 
-//        table.setDebug(true);
-
         game.stage.addActor(table);
-
 
         setUpInputMultiplexer();
         game.stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(Constants.FADE_TIME)));
@@ -88,12 +79,13 @@ public class SettingsScreen extends ScreenAdapter {
     }
 
     private void setUpSnakeTable() {
-        snakeTable = new Table(game.skin);
+        Table snakeTable = new Table(game.skin);
         snakeTable.defaults().size(width * 0.07f).spaceBottom(width * 0.05f);
         snakeTable.row();
         for (int i = 0; i < Constants.COLORS_SIZE; i++) {
             final int item = i;
             //preview
+            int PREVIEW_BLOCKS = 6;
             final PreviewSnake previewSnake = new PreviewSnake(item, PREVIEW_BLOCKS, snakeTexture, game.selectedColor == item);
             for (Image image : previewSnake.previews)
                 snakeTable.add(image);

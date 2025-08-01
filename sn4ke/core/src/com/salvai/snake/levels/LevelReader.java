@@ -14,7 +14,7 @@ public class LevelReader {
     }
 
     public Array<Level> loadAllLevels() {
-        Array<Level> levels = new Array<Level>();
+        Array<Level> levels = new Array<>();
 
 
         for (int i = 1; i <= Constants.MAX_LEVEL; i++)

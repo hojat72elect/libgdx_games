@@ -30,7 +30,6 @@ public class SplashScreen extends ScreenAdapter {
 
         game.assetsManager.loadSkin();
         game.assetsManager.loadImages();
-//        game.assetsManager.loadSounds();
     }
 
 

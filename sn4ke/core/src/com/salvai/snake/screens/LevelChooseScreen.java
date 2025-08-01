@@ -33,17 +33,16 @@ public class LevelChooseScreen extends ScreenAdapter {
     private final ButtonGroup<TextButton> tabs;
     float width;
     float height;
-    private Table tableTabs;
     private ScrollPane scrollPane;
 
 
     public LevelChooseScreen(SnakeIt gameClass) {
         game = gameClass;
 
-        levelLabels = new Array<Label>();
-        levelTables = new Array<Table>();
+        levelLabels = new Array<>();
+        levelTables = new Array<>();
 
-        tabs = new ButtonGroup<TextButton>();
+        tabs = new ButtonGroup<>();
 
         width = game.worldWidth;
         height = game.worldHeight;
@@ -82,7 +81,7 @@ public class LevelChooseScreen extends ScreenAdapter {
     }
 
     private void setUpTabs() {
-        tableTabs = new Table(game.skin);
+        Table tableTabs = new Table(game.skin);
         tableTabs.setSize(width, height * 0.1f);
         tableTabs.setPosition(0, height * 0.8f);
         tableTabs.defaults().uniformX().spaceBottom(height * 0.1f).size(width * 0.33f, height * 0.05f);
@@ -158,8 +157,7 @@ public class LevelChooseScreen extends ScreenAdapter {
 
     private void setUpLevelLabels(Table levelTable, int end) {
         for (int i = end - (COLUMNS - 1); i <= end; i++) {
-            final int level = i;
-            final Label levelLabel = new Label("" + game.highScores[level], game.skin, "level");
+            final Label levelLabel = new Label("" + game.highScores[i], game.skin, "level");
             levelLabel.setAlignment(Align.center);
             levelTable.add(levelLabel).size(width * 0.2f, height * 0.04f).spaceBottom(width * 0.05f);
             levelLabels.add(levelLabel);

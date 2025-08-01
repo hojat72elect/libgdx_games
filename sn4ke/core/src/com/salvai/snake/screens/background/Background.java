@@ -22,7 +22,6 @@ public class Background {
     private final int width;
     private final int height;
     private final Image backgroundImage;
-    private final int backgroundIndex;
     private boolean colorToReset;
     private int colorIndex;
 
@@ -30,15 +29,14 @@ public class Background {
     public Background(Texture texture, Stage stage, Texture backgroundTexture, int currentBackgroundIndex) {
         this.texture = texture;
         this.stage = stage;
-        backgroundIndex = currentBackgroundIndex;
 
         width = (int) stage.getViewport().getWorldWidth();
         height = (int) stage.getViewport().getWorldHeight();
 
-        starsCreationDelay = new Array<Integer>();
+        starsCreationDelay = new Array<>();
 
         backgroundImage = new Image(backgroundTexture);
-        backgroundImage.setColor(Colors.getBackgroundColor(backgroundIndex));
+        backgroundImage.setColor(Colors.getBackgroundColor(currentBackgroundIndex));
         backgroundImage.setOrigin(0, 0);
         backgroundImage.setSize(width, height);
         backgroundImage.rotateBy(0);

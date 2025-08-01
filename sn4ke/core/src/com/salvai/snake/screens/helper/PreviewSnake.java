@@ -22,7 +22,7 @@ public class PreviewSnake {
         this.amount = amount;
         this.active = active;
 
-        previews = new Array<Image>();
+        previews = new Array<>();
 
         for (int i = 0; i < amount - 1; i++) {
             Image body = new Image(texture);

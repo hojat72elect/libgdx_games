@@ -7,7 +7,6 @@ import static com.salvai.snake.utils.Constants.BACKGROUND_COLOR;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.input.GestureDetector;
@@ -48,19 +47,12 @@ public class GameScreen extends ScreenAdapter {
     public boolean gameOverDialogToShow;
     public boolean newHighscore;
     public Array<MovingDirection> userDirections;
-    //SOUND
-    public Sound pointSound;
-    public Sound upSound;
-    public Sound downSound;
-    public Sound leftRightSound;
-    public Sound gameOverSound;
-    public Sound newBestSound;
+
     private int updateCountdown;
     private int gameOverEffectCount;
     private Label scoreLabel;
     private Container<Label> scoreContainer;
     private Image handImage;
-    private Table gameOverTable;
 
 
     public GameScreen(final SnakeIt gameClass) {
@@ -78,9 +70,6 @@ public class GameScreen extends ScreenAdapter {
         game.stage.clear();
         gameOverStage = new Stage(game.viewport);
 
-
-//        loadSounds();
-
         game.savePreferences();
 
         gameOver = false;
@@ -88,7 +77,7 @@ public class GameScreen extends ScreenAdapter {
         updateCountdown = game.worldTime;
 
         gameFlowManager = new GameFlowManager(this);
-        userDirections = new Array<MovingDirection>();
+        userDirections = new Array<>();
 
         addActors();
         setUpTopBar();
@@ -140,7 +129,7 @@ public class GameScreen extends ScreenAdapter {
     }
 
     private void setUpGameOverTable() {
-        gameOverTable = new Table(game.skin);
+        Table gameOverTable = new Table(game.skin);
 
         Button replayButton = new Button(game.skin, "play");
         replayButton.addListener(new ClickListener() {
@@ -186,16 +175,6 @@ public class GameScreen extends ScreenAdapter {
         gameOverTable.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(Constants.FADE_TIME)));
         gameOverStage.addActor(gameOverTable);
     }
-
-//    private void loadSounds() {
-//        pointSound = game.assetsManager.manager.get(Constants.POINT_SFX, Sound.class);
-//        upSound = game.assetsManager.manager.get(Constants.UP_SFX, Sound.class);
-//        downSound = game.assetsManager.manager.get(Constants.DOWN_SFX, Sound.class);
-//        leftRightSound = game.assetsManager.manager.get(Constants.LEFT_RIGHT_SFX, Sound.class);
-//        gameOverSound = game.assetsManager.manager.get(Constants.GAME_OVER_SFX, Sound.class);
-//        newBestSound = game.assetsManager.manager.get(Constants.NEW_BEST_SFX, Sound.class);
-//    }
-
 
     private void setUpInputMultiplexer() {
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
@@ -275,7 +254,7 @@ public class GameScreen extends ScreenAdapter {
         scoreLabel.setAlignment(Align.right);
         scoreLabel.setFontScale(2f);
 
-        scoreContainer = new Container<Label>(scoreLabel);
+        scoreContainer = new Container<>(scoreLabel);
         scoreContainer.setTransform(true);
         scoreContainer.setSize(game.worldWidth * 0.2f, game.worldWidth * 0.1f);
         scoreContainer.setOrigin(scoreContainer.getWidth() / 2, scoreContainer.getHeight() / 2);

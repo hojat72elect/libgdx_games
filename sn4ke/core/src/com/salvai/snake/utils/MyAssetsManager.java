@@ -13,7 +13,6 @@ public class MyAssetsManager {
         manager = new AssetManager();
     }
 
-
     public void loadImages() {
         manager.load(Constants.HAND_IMAGE_NAME, Texture.class);
 
@@ -21,15 +20,6 @@ public class MyAssetsManager {
         for (int i = 1; i <= Constants.MAX_LEVEL; i++)
             manager.load(Constants.LEVEL_PREVIEW + i + ".png", Texture.class);
     }
-
-//    public void loadSounds() {
-//        manager.load(Constants.POINT_SFX, Sound.class);
-//        manager.load(Constants.UP_SFX, Sound.class);
-//        manager.load(Constants.LEFT_RIGHT_SFX, Sound.class);
-//        manager.load(Constants.DOWN_SFX, Sound.class);
-//        manager.load(Constants.GAME_OVER_SFX, Sound.class);
-//        manager.load(Constants.NEW_BEST_SFX, Sound.class);
-//    }
 
     public void loadSplashScreen() {
         manager.load(Constants.BACKGROUND_IMAGE, Texture.class);
