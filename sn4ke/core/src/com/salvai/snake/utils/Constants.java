@@ -6,17 +6,6 @@ import com.badlogic.gdx.math.Interpolation;
 public class Constants {
 
 
-    public static boolean DEV = false;
-
-    public enum SCREEN {
-        MENU,
-        SETTINGS,
-        GAME,
-        SPLASH,
-        LEVELCHOOSE
-    }
-
-
     // Screen
     public static final int SCREEN_WIDTH = 1080;
     public static final int SCREEN_HEIGHT = 1920;
@@ -39,8 +28,6 @@ public class Constants {
     //COLORS
     public static final Color BACKGROUND_COLOR = new Color(255, 255, 255, 1);
     public static final int COLORS_SIZE = 4;
-
-
     //many numbers
     public static final int POINT = 1;
     public static final int WORLD_GAME_OVER_TIME = 10; //60 = 1 second. Time that passes before moving
@@ -56,6 +43,9 @@ public class Constants {
     public static final String SKIN_FILE_NAME = "skin/uiskin.json";
     public static final String SKIN_ATLAS_FILE_NAME = "skin/uiskin.atlas";
     public static final String LEVEL_PREVIEW = "level-preview/level-";
+    //background
+    public static final int MAX_BACKGROUND_OBJECTS = 60;
+    public static final int MIN_BACKGROUND_SPEED = 20;
 
     // todo : they need to be converted into another file format that is readable by LibGDX.
 //    public static final String POINT_SFX = "sound/point.m4a";
@@ -64,10 +54,6 @@ public class Constants {
 //    public static final String DOWN_SFX = "sound/down.m4a";
 //    public static final String GAME_OVER_SFX = "sound/game-over.m4a";
 //    public static final String NEW_BEST_SFX = "sound/new-best.m4a";
-
-    //background
-    public static final int MAX_BACKGROUND_OBJECTS = 60;
-    public static final int MIN_BACKGROUND_SPEED = 20;
     public static final int MAX_BACKGROUND_SPEED = 80;
     public static final int BACKGROUND_OBJECT_WIDTH = 6;
     public static final int BACKGROUND_OBJECT_HEIGHT = 6;
@@ -80,9 +66,16 @@ public class Constants {
     public static final Interpolation INTERPOLATION = Interpolation.pow2;
     public static final Interpolation SNAKE_INTERPOLATION = Interpolation.smoother;
     public static final float SNAKE_DURATION = 0.1f;
-
+    public static boolean DEV = false;
     //DIALOGS
     public static int DIALOG_BUTTON_SIZE = 260;
     public static int DIALOG_BUTTON_PAD = 80;
     public static int DIALOG_BUTTON_SPACE = 120;
+    public enum SCREEN {
+        MENU,
+        SETTINGS,
+        GAME,
+        SPLASH,
+        LEVELCHOOSE
+    }
 }

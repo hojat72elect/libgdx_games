@@ -9,9 +9,9 @@ import com.salvai.snake.utils.Constants;
 
 public class SpeedChooser {
 
+    private final SnakeIt game;
     public Slider slider;
     public Label label;
-    private final SnakeIt game;
     private int speedValue;
 
     public SpeedChooser(SnakeIt gameClass) {

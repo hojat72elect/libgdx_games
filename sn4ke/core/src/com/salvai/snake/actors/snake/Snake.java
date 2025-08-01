@@ -12,13 +12,13 @@ import com.salvai.snake.utils.WorldUtils;
 
 public class Snake {
 
+    private final Color headColor;
+    private final WorldUtils worldUtils;
     public SnakeHead snakeHead;
     public Array<com.salvai.snake.actors.snake.SnakeBody> snakeBodies;
     public boolean addBody;
     public Texture texture;
     public Color bodyColor;
-    private final Color headColor;
-    private final WorldUtils worldUtils;
 
     public Snake(Texture texture, int styleIndex, WorldUtils worldUtils) {
         this.texture = texture;

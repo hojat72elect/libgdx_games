@@ -21,22 +21,17 @@ import com.salvai.snake.utils.Constants;
 public class SettingsScreen extends ScreenAdapter {
 
     private final int PREVIEW_BLOCKS = 6;
-
+    //Snake colors
+    private final Texture snakeTexture;
+    private final Array<PreviewSnake> previewSnakes;
+    private final SpeedChooser speedChooser;
     public SnakeIt game;
     float width;
     float height;
     private Table table;
-
-
-    //Snake colors
-    private final Texture snakeTexture;
     private Table snakeTable;
-    private final Array<PreviewSnake> previewSnakes;
-
-
     private Button soundButton;
     private Button vibrationButton;
-    private final SpeedChooser speedChooser;
 
 
     public SettingsScreen(SnakeIt gameClass) {

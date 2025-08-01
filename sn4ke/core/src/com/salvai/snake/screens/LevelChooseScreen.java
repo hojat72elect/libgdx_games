@@ -28,12 +28,12 @@ public class LevelChooseScreen extends ScreenAdapter {
     public final SnakeIt game;
     private final int COLUMNS = 4;
     private final int TABS = 3;
-    float width;
-    float height;
-    private Table tableTabs;
     private final Array<Table> levelTables;
     private final Array<Label> levelLabels;
     private final ButtonGroup<TextButton> tabs;
+    float width;
+    float height;
+    private Table tableTabs;
     private ScrollPane scrollPane;
 
 

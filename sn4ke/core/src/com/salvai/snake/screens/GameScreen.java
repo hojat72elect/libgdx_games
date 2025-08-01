@@ -40,13 +40,14 @@ import com.salvai.snake.utils.GameFlowManager;
 
 public class GameScreen extends ScreenAdapter {
 
+    private final GameFlowManager gameFlowManager;
+    private final Stage gameOverStage;
+    private final SpeedChooser speedChooser;
     public SnakeIt game;
     public boolean gameOver;
     public boolean gameOverDialogToShow;
     public boolean newHighscore;
-
     public Array<MovingDirection> userDirections;
-
     //SOUND
     public Sound pointSound;
     public Sound upSound;
@@ -56,13 +57,10 @@ public class GameScreen extends ScreenAdapter {
     public Sound newBestSound;
     private int updateCountdown;
     private int gameOverEffectCount;
-    private final GameFlowManager gameFlowManager;
     private Label scoreLabel;
     private Container<Label> scoreContainer;
     private Image handImage;
-    private final Stage gameOverStage;
     private Table gameOverTable;
-    private final SpeedChooser speedChooser;
 
 
     public GameScreen(final SnakeIt gameClass) {

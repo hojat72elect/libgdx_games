@@ -19,13 +19,13 @@ import com.salvai.snake.utils.UrlController;
 
 public class MenuScreen extends ScreenAdapter {
 
+    private final SnakeIt game;
+    private final float width;
+    private final float height;
     public MyDialog exitDialog;
     public Button playButton;
     public TextButton websiteButton;
     private Table table;
-    private final SnakeIt game;
-    private final float width;
-    private final float height;
 
 
     public MenuScreen(SnakeIt gameClass) {

@@ -13,14 +13,14 @@ import com.salvai.snake.enums.MovingDirection;
 import com.salvai.snake.screens.GameScreen;
 
 public class GameFlowManager {
-    public Snake snake;
-    public Array<Block> baseBlocks;
-    public Array<Block> blocks;
-    public Apple apple;
     private final GameScreen gameScreen;
     private final Texture blockTexture;
     private final BoundariesCreator boundariesCreator;
     private final GameObjectMap gameObjectMap;
+    public Snake snake;
+    public Array<Block> baseBlocks;
+    public Array<Block> blocks;
+    public Apple apple;
 
 
     public GameFlowManager(GameScreen screen) {

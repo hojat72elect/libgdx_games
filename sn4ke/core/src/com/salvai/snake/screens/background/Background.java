@@ -21,10 +21,9 @@ public class Background {
     private final Stage stage;
     private final int width;
     private final int height;
-
-    private boolean colorToReset;
     private final Image backgroundImage;
     private final int backgroundIndex;
+    private boolean colorToReset;
     private int colorIndex;
 
 
