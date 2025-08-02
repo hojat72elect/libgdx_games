@@ -24,8 +24,9 @@ public class Level {
         toReverse = true;
     }
 
-    //1 block, 2 snake 0 nothing
-
+    /**
+     * 1 block, 2 snake 0 nothing
+     */
     public Array<Block> getBlocks(Texture blockTexture, WorldUtils worldUtils) {
         Array<Block> blocks = new Array<>();
 
