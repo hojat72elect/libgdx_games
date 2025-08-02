@@ -1,5 +1,5 @@
-package com.nopalsoft.ponyrace.handlers;
+package com.nopalsoft.ponyrace.handlers
 
-public interface FloatFormatter {
-    String format(String format, float number);
+fun interface FloatFormatter {
+    fun format(format: String, number: Float): String
 }
