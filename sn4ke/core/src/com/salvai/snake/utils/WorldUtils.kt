@@ -29,10 +29,10 @@ class WorldUtils(blockRatio: BlockRatio) {
 
     fun setBlockSize(blockRatio: BlockRatio) {
         this.blockRatio = blockRatio
-        when (blockRatio) {
-            BlockRatio.SMALL -> blockSize = Constants.SCREEN_BLOCK_SIZE_SMALL
-            BlockRatio.MEDIUM -> blockSize = Constants.SCREEN_BLOCK_SIZE_MEDIUM
-            BlockRatio.BIG -> blockSize = Constants.SCREEN_BLOCK_SIZE_BIG
+        blockSize = when (blockRatio) {
+            BlockRatio.SMALL -> Constants.SCREEN_BLOCK_SIZE_SMALL
+            BlockRatio.MEDIUM -> Constants.SCREEN_BLOCK_SIZE_MEDIUM
+            BlockRatio.BIG -> Constants.SCREEN_BLOCK_SIZE_BIG
         }
 
         worldWidth = Constants.SCREEN_WIDTH / blockSize - 1 //screen width / blocksize - 1
@@ -41,10 +41,10 @@ class WorldUtils(blockRatio: BlockRatio) {
         worldHeightCenter = worldHeight / 2
         playableWorldWidth = worldWidth - (Constants.PLAY_HEIGHT_FACTOR_X * 2)
 
-        when (blockRatio) {
-            BlockRatio.SMALL -> playableWorldHeigth = worldHeight - Constants.PLAY_HEIGHT_FACTOR_Y_SMALL + 1
-            BlockRatio.MEDIUM -> playableWorldHeigth = worldHeight - Constants.PLAY_HEIGHT_FACTOR_Y_MEDIUM + 1
-            BlockRatio.BIG -> playableWorldHeigth = worldHeight - Constants.PLAY_HEIGHT_FACTOR_Y_BIG + 1
+        playableWorldHeigth = when (blockRatio) {
+            BlockRatio.SMALL -> worldHeight - Constants.PLAY_HEIGHT_FACTOR_Y_SMALL + 1
+            BlockRatio.MEDIUM -> worldHeight - Constants.PLAY_HEIGHT_FACTOR_Y_MEDIUM + 1
+            BlockRatio.BIG -> worldHeight - Constants.PLAY_HEIGHT_FACTOR_Y_BIG + 1
         }
     }
 

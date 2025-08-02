@@ -7,10 +7,10 @@ import kotlin.math.abs
 object SwipeDetector {
     @JvmStatic
     fun onSwipe(velocityX: Int, velocityY: Int): MovingDirection? {
-        if (abs(velocityX) > abs(velocityY) && abs(velocityX) > Constants.SWIPE_FACTOR) if (velocityX > 0) return MovingDirection.RIGHT
-        else return MovingDirection.LEFT
-        else if (abs(velocityY) > Constants.SWIPE_FACTOR) if (velocityY > 0) return MovingDirection.DOWN
-        else return MovingDirection.UP
+        if (abs(velocityX) > abs(velocityY) && abs(velocityX) > Constants.SWIPE_FACTOR) return if (velocityX > 0) MovingDirection.RIGHT
+        else MovingDirection.LEFT
+        else if (abs(velocityY) > Constants.SWIPE_FACTOR) return if (velocityY > 0) MovingDirection.DOWN
+        else MovingDirection.UP
         return null
     }
 }

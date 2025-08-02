@@ -25,22 +25,15 @@ import com.salvai.snake.utils.Text
 class LevelChooseScreen(val game: SnakeIt) : ScreenAdapter() {
     private val COLUMNS = 4
     private val TABS = 3
-    private val levelTables: Array<Table?>
-    private val levelLabels: Array<Label?>
-    private val tabs: ButtonGroup<TextButton?>
-    var width: Float
-    var height: Float
+    private val levelTables: Array<Table?> = Array<Table?>()
+    private val levelLabels: Array<Label?> = Array<Label?>()
+    private val tabs: ButtonGroup<TextButton?> = ButtonGroup<TextButton?>()
+    var width: Float = game.worldWidth
+    var height: Float = game.worldHeight
     private var scrollPane: ScrollPane? = null
 
 
     init {
-        levelLabels = Array<Label?>()
-        levelTables = Array<Table?>()
-
-        tabs = ButtonGroup<TextButton?>()
-
-        width = game.worldWidth
-        height = game.worldHeight
 
         game.stage!!.clear()
         game.setUpTopBar(Constants.SCREEN.LEVELCHOOSE)
@@ -104,7 +97,7 @@ class LevelChooseScreen(val game: SnakeIt) : ScreenAdapter() {
             })
             tabs.add(tab)
 
-            tableTabs.add<TextButton?>(tab)
+            tableTabs.add(tab)
         }
         game.stage!!.addActor(tableTabs)
     }
@@ -129,26 +122,24 @@ class LevelChooseScreen(val game: SnakeIt) : ScreenAdapter() {
     }
 
     private fun setUpLevelPreviews(levelTable: Table, level: Int) {
-        val levelPreview = Image(game.assetsManager!!.manager.get<Texture?>(Constants.LEVEL_PREVIEW + (level + 1) + ".png", Texture::class.java))
+        val levelPreview = Image(game.assetsManager!!.manager.get(Constants.LEVEL_PREVIEW + (level + 1) + ".png", Texture::class.java))
         levelPreview.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 game.level = level
-                game.stage!!.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run(object : Runnable {
-                    override fun run() {
-                        game.setScreen(GameScreen(game))
-                        dispose()
-                    }
-                })))
+                game.stage!!.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run {
+                    game.setScreen(GameScreen(game))
+                    dispose()
+                }))
             }
         })
-        levelTable.add<Image?>(levelPreview).size(width * 0.2f, height * 0.2f)
+        levelTable.add(levelPreview).size(width * 0.2f, height * 0.2f)
     }
 
     private fun setUpLevelLabels(levelTable: Table, end: Int) {
         for (i in end - (COLUMNS - 1)..end) {
             val levelLabel = Label("" + game.highScores[i], game.skin, "level")
             levelLabel.setAlignment(Align.center)
-            levelTable.add<Label?>(levelLabel).size(width * 0.2f, height * 0.04f).spaceBottom(width * 0.05f)
+            levelTable.add(levelLabel).size(width * 0.2f, height * 0.04f).spaceBottom(width * 0.05f)
             levelLabels.add(levelLabel)
         }
         levelTable.row()

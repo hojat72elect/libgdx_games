@@ -108,18 +108,18 @@ class SnakeIt : Game() {
 
     private fun setUpBackground() {
         background = Background(
-            assetsManager!!.manager.get<Texture?>(Constants.BLOCK_IMAGE_NAME, Texture::class.java),
+            assetsManager!!.manager.get(Constants.BLOCK_IMAGE_NAME, Texture::class.java),
             backgroundStage,
-            assetsManager!!.manager.get<Texture?>(Constants.BACKGROUND_IMAGE, Texture::class.java),
+            assetsManager!!.manager.get(Constants.BACKGROUND_IMAGE, Texture::class.java),
             selectedColor
         )
     }
 
     private fun setBlockRatio() {
-        when (selectedLevelTab) {
-            1 -> worldUtils = WorldUtils(BlockRatio.MEDIUM)
-            2 -> worldUtils = WorldUtils(BlockRatio.BIG)
-            else -> worldUtils = WorldUtils(BlockRatio.SMALL)
+        worldUtils = when (selectedLevelTab) {
+            1 -> WorldUtils(BlockRatio.MEDIUM)
+            2 -> WorldUtils(BlockRatio.BIG)
+            else -> WorldUtils(BlockRatio.SMALL)
         }
     }
 
@@ -137,7 +137,7 @@ class SnakeIt : Game() {
         preferences!!.putInteger("selectedColor", selectedColor)
         preferences!!.putInteger("selectedLevelTab", selectedLevelTab)
         preferences!!.putBoolean("firstTimeOpen", firstTimeOpen)
-        for (i in 0..<Constants.MAX_LEVEL) preferences!!.putInteger("highScore" + i, highScores[i])
+        for (i in 0..<Constants.MAX_LEVEL) preferences!!.putInteger("highScore$i", highScores[i])
         preferences!!.flush()
     }
 
@@ -150,7 +150,7 @@ class SnakeIt : Game() {
         soundOn = preferences!!.getBoolean("sound", true)
         vibrationOn = preferences!!.getBoolean("vibration", true)
         highScores[0] = preferences!!.getInteger("highScore" + 0, 0)
-        for (i in 1..<Constants.MAX_LEVEL) highScores[i] = preferences!!.getInteger("highScore" + i, 0)
+        for (i in 1..<Constants.MAX_LEVEL) highScores[i] = preferences!!.getInteger("highScore$i", 0)
     }
 
 
@@ -167,11 +167,7 @@ class SnakeIt : Game() {
                 if (getScreen() is MenuScreen) {
                     (getScreen() as MenuScreen).playButton!!.addAction(Actions.fadeOut(Constants.FADE_TIME))
                     (getScreen() as MenuScreen).exitDialog!!.show(stage)
-                } else stage!!.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run(object : Runnable {
-                    override fun run() {
-                        setScreen(MenuScreen(this@SnakeIt))
-                    }
-                })))
+                } else stage!!.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run { setScreen(MenuScreen(this@SnakeIt)) }))
             }
         })
 
@@ -186,11 +182,7 @@ class SnakeIt : Game() {
             settingsButton.addListener(object : ClickListener() {
                 override fun clicked(event: InputEvent?, x: Float, y: Float) {
                     settingsButton.addAction(Actions.fadeOut(Constants.FADE_TIME))
-                    stage!!.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run(object : Runnable {
-                        override fun run() {
-                            setScreen(SettingsScreen(this@SnakeIt))
-                        }
-                    })))
+                    stage!!.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run { setScreen(SettingsScreen(this@SnakeIt)) }))
                 }
             })
             topBarStage!!.addActor(settingsButton)

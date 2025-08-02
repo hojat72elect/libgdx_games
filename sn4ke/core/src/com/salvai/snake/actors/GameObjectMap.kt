@@ -1,28 +1,28 @@
 package com.salvai.snake.actors
 
 import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.utils.Array
 import com.salvai.snake.actors.snake.Snake
 import com.salvai.snake.utils.Constants
 import com.salvai.snake.utils.WorldUtils
+import com.badlogic.gdx.utils.Array as GdxArray
 
-class GameObjectMap(blocks: Array<Block>, worldUtils: WorldUtils) {
-    private val map: kotlin.Array<IntArray?>
-    private val freePositions: Array<Vector2?>
+class GameObjectMap(blocks: GdxArray<Block>, worldUtils: WorldUtils) {
+    //because world starts from 0 to screenwidth/height
+    private val map = Array<IntArray?>(worldUtils.worldWidth - Constants.PLAY_HEIGHT_FACTOR_X) {
+        IntArray(worldUtils.playableWorldHeigth - 1)
+    }
+    private val freePositions = GdxArray<Vector2?>()
 
     init {
-        //because world starts from 0 to screenwidth/height
-        map = Array<IntArray?>(worldUtils.worldWidth - Constants.PLAY_HEIGHT_FACTOR_X) { IntArray(worldUtils.playableWorldHeigth - 1) }
-        freePositions = Array<Vector2?>()
-        for (block in blocks) map[block.worldPosition!!.x.toInt() - 1]!![block.worldPosition!!.y.toInt() - 1] = 1
+        for (block in blocks) map[block.worldPosition.x.toInt() - 1]!![block.worldPosition.y.toInt() - 1] = 1
     }
 
     fun getFreePositions(snake: Snake, apple: Apple?): Vector2? {
-        map[snake.snakeHead.worldPosition!!.x.toInt() - 1]!![snake.snakeHead.worldPosition!!.y.toInt() - 1] = 2
+        map[snake.snakeHead.worldPosition.x.toInt() - 1]!![snake.snakeHead.worldPosition.y.toInt() - 1] = 2
 
-        for (snakeBody in snake.snakeBodies) map[snakeBody.worldPosition!!.x.toInt() - 1]!![snakeBody.worldPosition!!.y.toInt() - 1] = 2
+        for (snakeBody in snake.snakeBodies) map[snakeBody.worldPosition.x.toInt() - 1]!![snakeBody.worldPosition.y.toInt() - 1] = 2
 
-        if (apple != null) map[apple.worldPosition!!.x.toInt() - 1]!![apple.worldPosition!!.y.toInt() - 1] = 2
+        if (apple != null) map[apple.worldPosition.x.toInt() - 1]!![apple.worldPosition.y.toInt() - 1] = 2
         return this.freePosition
     }
 

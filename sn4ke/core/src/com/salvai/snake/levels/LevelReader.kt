@@ -16,14 +16,14 @@ class LevelReader {
     }
 
     private fun loadLevel(level: Int): Level? {
-        if (level % 20 == 0) {
-            return json.fromJson(
+        return if (level % 20 == 0) {
+            json.fromJson(
                 Level::class.java,
                 Gdx.files.internal("levels/level" + level / Constants.LEVELS_PRO_TAB + "-20.json")
             )
             //TODO find out how to read levels correctly
         } else {
-            return json.fromJson(
+            json.fromJson(
                 Level::class.java,
                 Gdx.files.internal("levels/level" + ((level / Constants.LEVELS_PRO_TAB) + 1) + "-" + level % Constants.LEVELS_PRO_TAB + ".json")
             ) //TODO find out how to read levels correctly}

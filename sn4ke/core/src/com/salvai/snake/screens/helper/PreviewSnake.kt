@@ -10,11 +10,10 @@ import com.salvai.snake.utils.Constants.DURATION
 import com.salvai.snake.utils.Constants.INTERPOLATION
 import com.salvai.snake.utils.Constants.SCALE
 
-class PreviewSnake(var style: Int, var amount: Int, texture: Texture, var active: Boolean) {
-    var previews: Array<Image>
+class PreviewSnake(style: Int, amount: Int, texture: Texture, var active: Boolean) {
+    var previews: Array<Image> = Array<Image>()
 
     init {
-        previews = Array<Image>()
 
         for (i in 0..<amount - 1) {
             val body = Image(texture)

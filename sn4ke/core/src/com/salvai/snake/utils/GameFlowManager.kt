@@ -31,7 +31,7 @@ class GameFlowManager(private val gameScreen: GameScreen) {
     init {
         this.gameScreen.game.savePreferences()
 
-        val blockTexture = gameScreen.game.assetsManager!!.manager.get<Texture?>(Constants.BLOCK_IMAGE_NAME, Texture::class.java)
+        val blockTexture = gameScreen.game.assetsManager!!.manager.get(Constants.BLOCK_IMAGE_NAME, Texture::class.java)
 
         val boundariesCreator = BoundariesCreator(blockTexture, gameScreen.game.worldUtils!!)
 
@@ -42,16 +42,21 @@ class GameFlowManager(private val gameScreen: GameScreen) {
         blocks = this.gameScreen.game.currentLevel!!.getBlocks(blockTexture, gameScreen.game.worldUtils!!)
 
         //Load blocks first other wise start X is aways -1. See getBocks method
-        if (gameScreen.game.firstTimeOpen) snake = Snake(blockTexture, 8, 19, gameScreen.game.selectedColor, gameScreen.game.worldUtils!!)
-        else if (gameScreen.game.currentLevel!!.snakeStartX > 0) snake =
-            Snake(blockTexture, gameScreen.game.currentLevel!!.snakeStartX, gameScreen.game.currentLevel!!.snakeStartY, gameScreen.game.selectedColor, gameScreen.game.worldUtils!!)
-        else snake = Snake(blockTexture, gameScreen.game.selectedColor, gameScreen.game.worldUtils!!)
+        snake = if (gameScreen.game.firstTimeOpen) Snake(blockTexture, 8, 19, gameScreen.game.selectedColor, gameScreen.game.worldUtils!!)
+        else if (gameScreen.game.currentLevel!!.snakeStartX > 0) Snake(
+            blockTexture,
+            gameScreen.game.currentLevel!!.snakeStartX,
+            gameScreen.game.currentLevel!!.snakeStartY,
+            gameScreen.game.selectedColor,
+            gameScreen.game.worldUtils!!
+        )
+        else Snake(blockTexture, gameScreen.game.selectedColor, gameScreen.game.worldUtils!!)
 
         gameObjectMap = GameObjectMap(blocks, gameScreen.game.worldUtils!!)
 
 
-        if (gameScreen.game.firstTimeOpen) apple = Apple(Vector2(11f, 19f), blockTexture, gameScreen.game.worldUtils!!, gameScreen.game.selectedColor)
-        else apple = Apple(gameObjectMap.getFreePositions(snake!!, null), blockTexture, gameScreen.game.worldUtils!!, gameScreen.game.selectedColor)
+        apple = if (gameScreen.game.firstTimeOpen) Apple(Vector2(11f, 19f), blockTexture, gameScreen.game.worldUtils!!, gameScreen.game.selectedColor)
+        else Apple(gameObjectMap.getFreePositions(snake!!, null), blockTexture, gameScreen.game.worldUtils!!, gameScreen.game.selectedColor)
     }
 
     fun update(userDirection: MovingDirection?): SnakeBody? {

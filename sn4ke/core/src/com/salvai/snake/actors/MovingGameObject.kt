@@ -25,7 +25,6 @@ abstract class MovingGameObject(
         this.direction = direction
     }
 
-
     fun move(screenBlockSize: Int) {
         if (move) when (direction) {
             MovingDirection.UP -> moveUp(screenBlockSize)
@@ -37,7 +36,6 @@ abstract class MovingGameObject(
         else move = true
         setScreenPosition()
     }
-
 
     private fun moveUp(screenBlockSize: Int) {
         addAction(Actions.moveBy(0f, screenBlockSize.toFloat(), Constants.SNAKE_DURATION, Constants.SNAKE_INTERPOLATION))
@@ -66,25 +64,23 @@ abstract class MovingGameObject(
         setScreenPosition()
     }
 
-
     private fun moveUpWorldPosition() {
-        worldPosition!!.y += Constants.WORLD_BLOCK_SIZE.toFloat()
+        worldPosition.y += Constants.WORLD_BLOCK_SIZE.toFloat()
     }
 
     private fun moveDownWorldPosition() {
-        worldPosition!!.y -= Constants.WORLD_BLOCK_SIZE.toFloat()
+        worldPosition.y -= Constants.WORLD_BLOCK_SIZE.toFloat()
     }
 
     private fun moveLeftWorldPosition() {
-        worldPosition!!.x -= Constants.WORLD_BLOCK_SIZE.toFloat()
+        worldPosition.x -= Constants.WORLD_BLOCK_SIZE.toFloat()
     }
 
     private fun moveRightWorldPosition() {
-        worldPosition!!.x += Constants.WORLD_BLOCK_SIZE.toFloat()
+        worldPosition.x += Constants.WORLD_BLOCK_SIZE.toFloat()
     }
 
-
     fun setScreenPosition() {
-        screenPosition = worldUtils!!.worldToScreen(worldPosition!!)
+        screenPosition = worldUtils.worldToScreen(worldPosition)
     }
 }
