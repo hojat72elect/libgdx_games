@@ -103,10 +103,7 @@ public class GameScreen extends BaseScreen {
         drawStatsEndRace = false;
 
         switch (Settings.timeLevel) {
-            default:
-            case 0:
-                COIN_MULTIPLIER_TIME_LEFT = 0;
-                break;
+
             case 1:
                 COIN_MULTIPLIER_TIME_LEFT = 1;
                 break;
@@ -121,6 +118,10 @@ public class GameScreen extends BaseScreen {
                 break;
             case 5:
                 COIN_MULTIPLIER_TIME_LEFT = 5;
+                break;
+            case 0:
+            default:
+                COIN_MULTIPLIER_TIME_LEFT = 0;
                 break;
         }
 
@@ -225,10 +226,7 @@ public class GameScreen extends BaseScreen {
             return;
 
         switch (state) {
-            default:
-            case ready:
-                updateReady();
-                break;
+
             case running:
                 updateRunning(delta);
                 break;
@@ -242,6 +240,10 @@ public class GameScreen extends BaseScreen {
                 break;
             case tryAgain:
                 updateTryAgain(delta);
+                break;
+            case ready:
+            default:
+                updateReady();
                 break;
         }
     }

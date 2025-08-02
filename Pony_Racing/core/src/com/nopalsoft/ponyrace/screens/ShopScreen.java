@@ -851,7 +851,6 @@ public class ShopScreen extends BaseScreen {
 
         stage.act(delta);
         stage.draw();
-
     }
 
     private void renderTitle(float delta) {
