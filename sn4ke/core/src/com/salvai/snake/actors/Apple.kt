@@ -23,12 +23,15 @@ class Apple(worldPosition: Vector2?, texture: Texture?, worldUtils: WorldUtils, 
     }
 
     fun reset(worldPosition: Vector2?) {
-        this.worldPosition = worldPosition
-        screenPosition = worldUtils!!.worldToScreen(worldPosition!!)
-        addAction(Actions.sequence(Actions.fadeOut(Constants.DURATION * 0.5f), Actions.run(object : Runnable {
-            override fun run() {
-                setPosition(screenPosition!!.x, screenPosition!!.y)
-            }
-        }), Actions.delay(0.2f), Actions.fadeIn(Constants.DURATION)))
+        this.worldPosition = worldPosition!!
+        screenPosition = worldUtils.worldToScreen(worldPosition)
+        addAction(
+            Actions.sequence(
+                Actions.fadeOut(Constants.DURATION * 0.5f),
+                Actions.run { setPosition(screenPosition.x, screenPosition.y) },
+                Actions.delay(0.2f),
+                Actions.fadeIn(Constants.DURATION)
+            )
+        )
     }
 }

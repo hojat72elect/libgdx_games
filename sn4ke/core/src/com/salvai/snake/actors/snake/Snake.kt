@@ -77,10 +77,9 @@ class Snake {
 
 
     fun addBody(): SnakeBody {
-        val newBody: SnakeBody
-        if (snakeBodies.size > 0) {
-            newBody = SnakeBody(Vector2(snakeBodies.peek().worldPosition), texture, snakeBodies.peek().direction, bodyColor, worldUtils)
-        } else newBody = SnakeBody(Vector2(snakeHead.worldPosition), texture, snakeHead.direction, bodyColor, worldUtils)
+        val newBody = if (snakeBodies.size > 0) {
+            SnakeBody(Vector2(snakeBodies.peek().worldPosition), texture, snakeBodies.peek().direction, bodyColor, worldUtils)
+        } else SnakeBody(Vector2(snakeHead.worldPosition), texture, snakeHead.direction, bodyColor, worldUtils)
         snakeBodies.add(newBody)
         addBody = false
         return newBody
