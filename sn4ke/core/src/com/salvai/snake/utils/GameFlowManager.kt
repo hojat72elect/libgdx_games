@@ -39,7 +39,7 @@ class GameFlowManager(private val gameScreen: GameScreen) {
         blocks = Array<Block>()
 
         //load blocks
-        blocks = this.gameScreen.game.currentLevel!!.getBlocks(blockTexture, gameScreen.game.worldUtils)
+        blocks = this.gameScreen.game.currentLevel!!.getBlocks(blockTexture, gameScreen.game.worldUtils!!)
 
         //Load blocks first other wise start X is aways -1. See getBocks method
         if (gameScreen.game.firstTimeOpen) snake = Snake(blockTexture, 8, 19, gameScreen.game.selectedColor, gameScreen.game.worldUtils!!)
