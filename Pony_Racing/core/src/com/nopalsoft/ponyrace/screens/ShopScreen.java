@@ -873,8 +873,9 @@ public class ShopScreen extends BaseScreen {
 
             case 4:
                 return UPGRADE_PRICE_BOMBS_LEVEL4;
-            default:
+
             case 5:
+            default:
                 return UPGRADE_PRICE_BOMBS_LEVEL5;
         }
     }
@@ -891,8 +892,9 @@ public class ShopScreen extends BaseScreen {
 
             case 4:
                 return UPGRADE_PRICE_WOOD_LEVEL4;
-            default:
+
             case 5:
+            default:
                 return UPGRADE_PRICE_WOOD_LEVEL5;
         }
     }
@@ -909,8 +911,9 @@ public class ShopScreen extends BaseScreen {
 
             case 4:
                 return UPGRADE_PRICE_CHOCOLATE_LEVEL4;
-            default:
+
             case 5:
+            default:
                 return UPGRADE_PRICE_CHOCOLATE_LEVEL5;
         }
     }
@@ -927,8 +930,9 @@ public class ShopScreen extends BaseScreen {
 
             case 4:
                 return UPGRADE_PRICE_BALLON_LEVEL4;
-            default:
+
             case 5:
+            default:
                 return UPGRADE_PRICE_BALLON_LEVEL5;
         }
     }
@@ -945,8 +949,9 @@ public class ShopScreen extends BaseScreen {
 
             case 4:
                 return UPGRADE_PRICE_CHILI_LEVEL4;
-            default:
+
             case 5:
+            default:
                 return UPGRADE_PRICE_CHILI_LEVEL5;
         }
     }
@@ -963,8 +968,9 @@ public class ShopScreen extends BaseScreen {
 
             case 4:
                 return UPGRADE_PRICE_COIN_LEVEL4;
-            default:
+
             case 5:
+            default:
                 return UPGRADE_PRICE_COIN_LEVEL5;
         }
     }
@@ -981,8 +987,9 @@ public class ShopScreen extends BaseScreen {
 
             case 4:
                 return UPGRADE_PRICE_TIME_LEVEL4;
-            default:
+
             case 5:
+            default:
                 return UPGRADE_PRICE_TIME_LEVEL5;
         }
     }

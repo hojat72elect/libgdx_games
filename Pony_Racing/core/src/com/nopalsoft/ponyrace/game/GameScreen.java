@@ -259,7 +259,7 @@ public class GameScreen extends BaseScreen {
         else if (Gdx.input.isKeyPressed(Keys.D))
             accelX = 1;
 
-        world.update(delta, accelX, jump, fireBomb, fireWood, renderer);
+        world.update(delta, accelX, jump, fireBomb, fireWood);
 
         if (world.state == TileMapHandler.State.timeUp) {
             setTimeUp();
@@ -298,11 +298,11 @@ public class GameScreen extends BaseScreen {
     }
 
     private void updateTimeUp(float delta) {
-        world.update(delta, renderer);
+        world.update(delta);
     }
 
     private void updateNextLevel(float delta) {
-        world.update(delta, renderer);
+        world.update(delta);
 
         if (ScreenStateTime >= Ventana.DURACION_ANIMATION + .2f) {
             drawStatsEndRace = true;
@@ -311,7 +311,7 @@ public class GameScreen extends BaseScreen {
     }
 
     private void updateTryAgain(float delta) {
-        world.update(delta, renderer);
+        world.update(delta);
 
         if (ScreenStateTime >= Ventana.DURACION_ANIMATION + .2f) {
             drawStatsEndRace = true;

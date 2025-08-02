@@ -5,7 +5,6 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
 import com.nopalsoft.ponyrace.PonyRacingGame
 import com.nopalsoft.ponyrace.handlers.FloatFormatter
 
-
 val formatter = FloatFormatter { format: String, args: Float -> String.format(format, args) }
 
 fun main() {

@@ -25,10 +25,7 @@ public class Bomb extends BaseGameObject {
         skelBomb.setToSetupPose();
 
         switch (Settings.bombLevel) {
-            default:
-            case 0:
-                TIEMPO_HURT = 2;
-                break;
+
             case 1:
                 TIEMPO_HURT = 2.5f;
                 break;
@@ -43,6 +40,10 @@ public class Bomb extends BaseGameObject {
                 break;
             case 5:
                 TIEMPO_HURT = 3.5f;
+                break;
+            case 0:
+            default:
+                TIEMPO_HURT = 2;
                 break;
         }
     }

@@ -26,10 +26,7 @@ public class Wood extends BaseGameObject {
             tipo = Tipo.tachuela;
 
         switch (Settings.woodLevel) {
-            default:
-            case 0:
-                TIEMPO_HURT = 2;
-                break;
+
             case 1:
                 TIEMPO_HURT = 2.5f;
                 break;
@@ -44,6 +41,10 @@ public class Wood extends BaseGameObject {
                 break;
             case 5:
                 TIEMPO_HURT = 3.5f;
+                break;
+            case 0:
+            default:
+                TIEMPO_HURT = 2;
                 break;
         }
         this.ponyTirador = ponyTirador;

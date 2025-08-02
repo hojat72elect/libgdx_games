@@ -142,11 +142,11 @@ public class TileMapHandler {
         }
     }
 
-    public void update(float delta, WorldTiledRenderer render) {
-        update(delta, 0, false, false, false, render);
+    public void update(float delta) {
+        update(delta, 0, false, false, false);
     }
 
-    public void update(float delta, float accelX, boolean jump, boolean fireBomb, boolean fireWood, WorldTiledRenderer render) {
+    public void update(float delta, float accelX, boolean jump, boolean fireBomb, boolean fireWood) {
         oWorldBox.step(delta, 8, 4); // para hacer mas lento el juego 1/300f
         oWorldBox.clearForces();
         // Actualizo
@@ -603,27 +603,23 @@ public class TileMapHandler {
                         if (random.nextBoolean()) {
                             switch (Settings.coinLevel) {
 
-                                default:
-                                case 0:
-                                    valorMoneda = 1;
-
-                                    break;
-
                                 case 1:
                                 case 2:
                                     valorMoneda = 2;
-
                                     break;
 
                                 case 3:
                                 case 4:
                                     valorMoneda = 3;
-
                                     break;
 
                                 case 5:
                                     valorMoneda = 5;
+                                    break;
 
+                                case 0:
+                                default:
+                                    valorMoneda = 1;
                                     break;
                             }
                         } else {
@@ -647,10 +643,7 @@ public class TileMapHandler {
                         oBalloons.hitPony();
                         if (!isMalo) {
                             switch (Settings.chocolateLevel) {
-                                default:
-                                case 0:
-                                    tiempoLeft += 5;
-                                    break;
+
                                 case 1:
                                     tiempoLeft += 7.5f;
                                     break;
@@ -665,6 +658,10 @@ public class TileMapHandler {
                                     break;
                                 case 5:
                                     tiempoLeft += 18f;
+                                    break;
+                                case 0:
+                                default:
+                                    tiempoLeft += 5;
                                     break;
                             }
                             ponyDataBody.globosRecolectados++;
