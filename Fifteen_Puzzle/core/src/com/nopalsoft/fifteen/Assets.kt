@@ -17,95 +17,35 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 object Assets {
     var fontChico: BitmapFont? = null
     var fontGrande: BitmapFont? = null
-
-    @JvmField
     var fondo: AtlasRegion? = null
-
-    @JvmField
     var fondoTablero: AtlasRegion? = null
-
-    @JvmField
     var puzzleSolved: AtlasRegion? = null
-
-    @JvmField
     var titulo: AtlasRegion? = null
-
-    @JvmField
     var pixelNegro: NinePatchDrawable? = null
-
-    @JvmField
     var fondoPuntuaciones: AtlasRegion? = null
-
-    @JvmField
     var btAtras: TextureRegionDrawable? = null
-
-    @JvmField
     var btFacebook: TextureRegionDrawable? = null
-
-    @JvmField
     var btTwitter: TextureRegionDrawable? = null
-
-    @JvmField
     var piezaVacia: AtlasRegion? = null
-
-    @JvmField
     var pieza1: AtlasRegion? = null
-
-    @JvmField
     var pieza2: AtlasRegion? = null
-
-    @JvmField
     var pieza3: AtlasRegion? = null
-
-    @JvmField
     var pieza4: AtlasRegion? = null
-
-    @JvmField
     var pieza5: AtlasRegion? = null
-
-    @JvmField
     var pieza6: AtlasRegion? = null
-
-    @JvmField
     var pieza7: AtlasRegion? = null
-
-    @JvmField
     var pieza8: AtlasRegion? = null
-
-    @JvmField
     var pieza9: AtlasRegion? = null
-
-    @JvmField
     var pieza10: AtlasRegion? = null
-
-    @JvmField
     var pieza11: AtlasRegion? = null
-
-    @JvmField
     var pieza12: AtlasRegion? = null
-
-    @JvmField
     var pieza13: AtlasRegion? = null
-
-    @JvmField
     var pieza14: AtlasRegion? = null
-
-    @JvmField
     var pieza15: AtlasRegion? = null
-
-    @JvmField
     var labelStyleChico: LabelStyle? = null
-
-    @JvmField
     var labelStyleGrande: LabelStyle? = null
-
-    @JvmField
     var styleButtonMusica: ButtonStyle? = null
-
-    @JvmField
     var styleButtonPause: ButtonStyle? = null
-
-    @JvmField
     var styleButtonSonido: ButtonStyle? = null
 
     var atlas: TextureAtlas? = null
@@ -193,7 +133,7 @@ object Assets {
         playMusic()
     }
 
-    @JvmStatic
+
     fun playMusic() {
         if (Settings.isMusicOn) {
             music1!!.stop()
@@ -203,13 +143,13 @@ object Assets {
         }
     }
 
-    @JvmStatic
+
     fun pauseMusic() {
         music1!!.stop()
         music2!!.stop()
     }
 
-    @JvmStatic
+
     fun playSoundMove() {
         if (Settings.isSoundOn) {
             if (MathUtils.randomBoolean()) move1!!.play(1f)

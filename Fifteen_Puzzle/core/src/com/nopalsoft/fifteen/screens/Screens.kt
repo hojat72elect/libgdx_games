@@ -24,15 +24,10 @@ import com.nopalsoft.fifteen.game.GameScreen
 import kotlin.math.abs
 
 abstract class Screens(game: MainFifteen) : InputAdapter(), Screen, GestureListener {
-    @JvmField
+
     var game: MainFifteen?
-
     var oCam: OrthographicCamera
-
-    @JvmField
     var batcher: SpriteBatch?
-
-    @JvmField
     var stage = game.stage
     var blackFadeOut: Image? = null
 

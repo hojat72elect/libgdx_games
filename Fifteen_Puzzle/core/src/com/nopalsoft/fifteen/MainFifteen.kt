@@ -8,10 +8,8 @@ import com.nopalsoft.fifteen.screens.MainMenuScreen
 import com.nopalsoft.fifteen.screens.Screens
 
 class MainFifteen : Game() {
-    @JvmField
-    var stage: Stage? = null
 
-    @JvmField
+    var stage: Stage? = null
     var batcher: SpriteBatch? = null
 
     override fun create() {

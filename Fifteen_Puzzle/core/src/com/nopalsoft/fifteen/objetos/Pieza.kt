@@ -8,10 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.nopalsoft.fifteen.Assets
 
-class Pieza(@JvmField var posicion: Int, valor: Int) : Actor() {
+class Pieza(var posicion: Int, valor: Int) : Actor() {
     val SIZE: Float = 110f // Tamano final de la ficha
 
-    @JvmField
     var valor: Int // esta pieza la hice privada porque cuando cambio su valor tambien tengo que cambiar la imagen de esta pieza
     var keyframe: TextureRegion? = null
 

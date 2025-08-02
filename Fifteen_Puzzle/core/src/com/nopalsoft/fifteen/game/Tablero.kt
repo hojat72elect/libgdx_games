@@ -11,27 +11,15 @@ import com.nopalsoft.fifteen.objetos.Pieza
 import com.nopalsoft.fifteen.screens.Screens
 
 class Tablero : Group() {
-    @JvmField
-    var state: Int = 0
 
-    @JvmField
-    var tiempo: Float = 0f
-
-    @JvmField
-    var moves: Int = 0
-
-    @JvmField
-    var moveUp: Boolean = false
-
-    @JvmField
-    var moveDown: Boolean = false
-
-    @JvmField
-    var moveLeft: Boolean = false
-
-    @JvmField
-    var moveRight: Boolean = false
-    var shuffle: Boolean = false
+    var state = 0
+    var tiempo = 0f
+    var moves = 0
+    var moveUp = false
+    var moveDown = false
+    var moveLeft = false
+    var moveRight = false
+    var shuffle = false
     var arrPiezasNums: Array<Pieza>
     var oPiezaBlanca: Pieza
 
@@ -226,9 +214,9 @@ class Tablero : Group() {
     }
 
     companion object {
-        const val STATE_SHUFFLE: Int = 0
-        const val STATE_RUNNING: Int = 1
-        const val STATE_NO_MORE_MOVES: Int = 2
-        const val STATE_GAMEOVER: Int = 3
+        const val STATE_SHUFFLE = 0
+        const val STATE_RUNNING = 1
+        const val STATE_NO_MORE_MOVES = 2
+        const val STATE_GAMEOVER = 3
     }
 }
