@@ -1,223 +1,222 @@
-package com.nopalsoft.fifteen.screens;
+package com.nopalsoft.fifteen.screens
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.input.GestureDetector.GestureListener;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.nopalsoft.fifteen.Assets;
-import com.nopalsoft.fifteen.MainFifteen;
-import com.nopalsoft.fifteen.Settings;
-import com.nopalsoft.fifteen.game.GameScreen;
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.InputAdapter
+import com.badlogic.gdx.InputMultiplexer
+import com.badlogic.gdx.Screen
+import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.input.GestureDetector
+import com.badlogic.gdx.input.GestureDetector.GestureListener
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.InputListener
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.nopalsoft.fifteen.Assets
+import com.nopalsoft.fifteen.Assets.pauseMusic
+import com.nopalsoft.fifteen.Assets.playMusic
+import com.nopalsoft.fifteen.MainFifteen
+import com.nopalsoft.fifteen.Settings.save
+import com.nopalsoft.fifteen.game.GameScreen
+import kotlin.math.abs
 
-public abstract class Screens extends InputAdapter implements Screen, GestureListener {
-    public static final int SCREEN_WIDTH = 480;
-    public static final int SCREEN_HEIGHT = 800;
+abstract class Screens(game: MainFifteen) : InputAdapter(), Screen, GestureListener {
+    @JvmField
+    var game: MainFifteen?
 
-    public MainFifteen game;
+    var oCam: OrthographicCamera
 
-    public OrthographicCamera oCam;
-    public SpriteBatch batcher;
-    public Stage stage;
-    Image blackFadeOut;
+    @JvmField
+    var batcher: SpriteBatch?
 
-    public Screens(final MainFifteen game) {
-        this.stage = game.stage;
-        this.stage.clear();
-        this.batcher = game.batcher;
-        this.game = game;
+    @JvmField
+    var stage: Stage?
+    var blackFadeOut: Image? = null
 
-        oCam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
-        oCam.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0);
+    init {
+        this.stage = game.stage
+        this.stage!!.clear()
+        this.batcher = game.batcher
+        this.game = game
 
-        GestureDetector detector = new GestureDetector(20, .5f, 2, .15f, this);
+        oCam = OrthographicCamera(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat())
+        oCam.position.set(SCREEN_WIDTH / 2f, SCREEN_HEIGHT / 2f, 0f)
 
-        InputMultiplexer input = new InputMultiplexer(this, detector, stage);
-        Gdx.input.setInputProcessor(input);
+        val detector = GestureDetector(20f, .5f, 2f, .15f, this)
+
+        val input = InputMultiplexer(this, detector, stage)
+        Gdx.input.inputProcessor = input
     }
 
-    @Override
-    public void render(float delta) {
-        if (delta > .1f)
-            delta = .1f;
+    override fun render(delta: Float) {
+        var delta = delta
+        if (delta > .1f) delta = .1f
 
-        update(delta);
+        update(delta)
 
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
-        draw(delta);
+        oCam.update()
+        batcher!!.setProjectionMatrix(oCam.combined)
+        draw(delta)
 
-        stage.act(delta);
-        stage.draw();
+        stage!!.act(delta)
+        stage!!.draw()
     }
 
-    public void changeScreenWithFadeOut(final Class<?> newScreen,
-                                        final MainFifteen game) {
-        blackFadeOut = new Image(Assets.pixelNegro);
-        blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        blackFadeOut.getColor().a = 0;
-        blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f),
-                Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (newScreen == GameScreen.class)
-                            game.setScreen(new GameScreen(game));
-                        else if (newScreen == MainMenuScreen.class)
-                            game.setScreen(new MainMenuScreen(game));
-                        else if (newScreen == HelpScreen.class)
-                            game.setScreen(new HelpScreen(game));
+    fun changeScreenWithFadeOut(
+        newScreen: Class<*>?,
+        game: MainFifteen
+    ) {
+        blackFadeOut = Image(Assets.pixelNegro)
+        blackFadeOut!!.setSize(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat())
+        blackFadeOut!!.getColor().a = 0f
+        blackFadeOut!!.addAction(
+            Actions.sequence(
+                Actions.fadeIn(.5f),
+                Actions.run(object : Runnable {
+                    override fun run() {
+                        if (newScreen == GameScreen::class.java) game.setScreen(GameScreen(game))
+                        else if (newScreen == MainMenuScreen::class.java) game.setScreen(MainMenuScreen(game))
+                        else if (newScreen == HelpScreen::class.java) game.setScreen(HelpScreen(game))
 
                         // El blackFadeOut se remueve del stage cuando se le da new Screens(game) "Revisar el constructor de la clase Screens" por lo que no hay necesidad de hacer
                         // blackFadeout.remove();
                     }
-                })));
-        stage.addActor(blackFadeOut);
+                })
+            )
+        )
+        stage!!.addActor(blackFadeOut)
     }
 
-    public void addEfectoPress(final Actor actor) {
-        actor.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y,
-                                     int pointer, int button) {
-                actor.setPosition(actor.getX(), actor.getY() - 5);
-                event.stop();
-                return true;
+    fun addEfectoPress(actor: Actor) {
+        actor.addListener(object : InputListener() {
+            override fun touchDown(
+                event: InputEvent, x: Float, y: Float,
+                pointer: Int, button: Int
+            ): Boolean {
+                actor.setPosition(actor.getX(), actor.getY() - 5)
+                event.stop()
+                return true
             }
 
-            @Override
-            public void touchUp(InputEvent event, float x, float y,
-                                int pointer, int button) {
-                actor.setPosition(actor.getX(), actor.getY() + 5);
+            override fun touchUp(
+                event: InputEvent?, x: Float, y: Float,
+                pointer: Int, button: Int
+            ) {
+                actor.setPosition(actor.getX(), actor.getY() + 5)
             }
-        });
+        })
     }
 
-    public abstract void draw(float delta);
+    abstract fun draw(delta: Float)
 
-    public abstract void update(float delta);
+    abstract fun update(delta: Float)
 
-    @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+    override fun resize(width: Int, height: Int) {
+        stage!!.viewport.update(width, height, true)
     }
 
-    @Override
-    public void show() {
+    override fun show() {
     }
 
-    @Override
-    public void hide() {
-        Settings.save();
+    override fun hide() {
+        save()
     }
 
-    @Override
-    public void pause() {
-        Assets.pauseMusic();
+    override fun pause() {
+        pauseMusic()
     }
 
-    @Override
-    public void resume() {
-        Assets.playMusic();
+    override fun resume() {
+        playMusic()
     }
 
-    @Override
-    public void dispose() {
-        stage.dispose();
-        batcher.dispose();
+    override fun dispose() {
+        stage!!.dispose()
+        batcher!!.dispose()
     }
 
-    @Override
-    public boolean touchDown(float x, float y, int pointer, int button) {
+    override fun touchDown(x: Float, y: Float, pointer: Int, button: Int): Boolean {
         // TODO Auto-generated method stub
-        return false;
+        return false
     }
 
-    @Override
-    public boolean tap(float x, float y, int count, int button) {
+    override fun tap(x: Float, y: Float, count: Int, button: Int): Boolean {
         // TODO Auto-generated method stub
-        return false;
+        return false
     }
 
-    @Override
-    public boolean longPress(float x, float y) {
+    override fun longPress(x: Float, y: Float): Boolean {
         // TODO Auto-generated method stub
-        return false;
+        return false
     }
 
-    @Override
-    public boolean fling(float velocityX, float velocityY, int button) {
-        if (Math.abs(velocityX) > Math.abs(velocityY)) {
+    override fun fling(velocityX: Float, velocityY: Float, button: Int): Boolean {
+        if (abs(velocityX) > abs(velocityY)) {
             if (velocityX > 0) {
-                right();
+                right()
             } else {
-                left();
+                left()
             }
         } else {
             if (velocityY > 0) {
-                down();
+                down()
             } else {
-                up();
+                up()
             }
         }
-        return false;
+        return false
     }
 
-    @Override
-    public boolean pan(float x, float y, float deltaX, float deltaY) {
+    override fun pan(x: Float, y: Float, deltaX: Float, deltaY: Float): Boolean {
         // TODO Auto-generated method stub
-        return false;
+        return false
     }
 
-    @Override
-    public boolean panStop(float x, float y, int pointer, int button) {
+    override fun panStop(x: Float, y: Float, pointer: Int, button: Int): Boolean {
         // TODO Auto-generated method stub
-        return false;
+        return false
     }
 
-    @Override
-    public boolean zoom(float initialDistance, float distance) {
+    override fun zoom(initialDistance: Float, distance: Float): Boolean {
         // TODO Auto-generated method stub
-        return false;
+        return false
     }
 
-    @Override
-    public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2,
-                         Vector2 pointer1, Vector2 pointer2) {
+    override fun pinch(
+        initialPointer1: Vector2?, initialPointer2: Vector2?,
+        pointer1: Vector2?, pointer2: Vector2?
+    ): Boolean {
         // TODO Auto-generated method stub
-        return false;
+        return false
     }
 
-    @Override
-    public void pinchStop() {
-
+    override fun pinchStop() {
     }
 
-    public void up() {
-        Gdx.app.log("UP", "");
+    open fun up() {
+        Gdx.app.log("UP", "")
     }
 
-    public void down() {
-        Gdx.app.log("DOWN", "");
+    open fun down() {
+        Gdx.app.log("DOWN", "")
     }
 
-    public void left() {
-        Gdx.app.log("LEFT", "");
+    open fun left() {
+        Gdx.app.log("LEFT", "")
     }
 
-    public void right() {
-        Gdx.app.log("RIGHT", "");
+    open fun right() {
+        Gdx.app.log("RIGHT", "")
+    }
+
+    companion object {
+        const val SCREEN_WIDTH: Int = 480
+        const val SCREEN_HEIGHT: Int = 800
     }
 }

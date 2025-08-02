@@ -1,136 +1,102 @@
-package com.nopalsoft.fifteen.objetos;
+package com.nopalsoft.fifteen.objetos
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.nopalsoft.fifteen.Assets;
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.nopalsoft.fifteen.Assets
 
-import java.util.LinkedHashMap;
+class Pieza(@JvmField var posicion: Int, valor: Int) : Actor() {
+    val SIZE: Float = 110f // Tamano final de la ficha
 
-public class Pieza extends Actor {
+    @JvmField
+    var valor: Int // esta pieza la hice privada porque cuando cambio su valor tambien tengo que cambiar la imagen de esta pieza
+    var keyframe: TextureRegion? = null
 
-    // //Las posiciones empiezan a contar de izq a derecha desde arriba hacia abajo
-    final static LinkedHashMap<Integer, Vector2> mapPosiciones = new LinkedHashMap<>();
+    init {
+        setWidth(SIZE)
+        setHeight(SIZE)
+        setOrigin(SIZE / 2f, SIZE / 2f)
 
-    static {
-        mapPosiciones.put(0, new Vector2(20, 350));
-        mapPosiciones.put(1, new Vector2(130, 350));
-        mapPosiciones.put(2, new Vector2(240, 350));
-        mapPosiciones.put(3, new Vector2(350, 350));
-        mapPosiciones.put(4, new Vector2(20, 240));
-        mapPosiciones.put(5, new Vector2(130, 240));
-        mapPosiciones.put(6, new Vector2(240, 240));
-        mapPosiciones.put(7, new Vector2(350, 240));
-        mapPosiciones.put(8, new Vector2(20, 130));
-        mapPosiciones.put(9, new Vector2(130, 130));
-        mapPosiciones.put(10, new Vector2(240, 130));
-        mapPosiciones.put(11, new Vector2(350, 130));
-        mapPosiciones.put(12, new Vector2(20, 20));
-        mapPosiciones.put(13, new Vector2(130, 20));
-        mapPosiciones.put(14, new Vector2(240, 20));
-        mapPosiciones.put(15, new Vector2(350, 20));
-    }
+        setPosition(
+            mapPosiciones.get(posicion)!!.x,
+            mapPosiciones.get(posicion)!!.y
+        )
+        this.valor = valor
 
-    final float SIZE = 110;// Tamano final de la ficha
-    public int posicion;
-
-    public int valor;// esta pieza la hice privada porque cuando cambio su valor tambien tengo que cambiar la imagen de esta pieza
-    TextureRegion keyframe;
-
-    public Pieza(int posicion, int valor) {
-        this.posicion = posicion;
-        setWidth(SIZE);
-        setHeight(SIZE);
-        setOrigin(SIZE / 2f, SIZE / 2f);
-
-        setPosition(mapPosiciones.get(posicion).x,
-                mapPosiciones.get(posicion).y);
-        this.valor = valor;
-
-        switch (valor) {
-
-            case 0:
-                keyframe = Assets.piezaVacia;
-                break;
-            case 1:
-                keyframe = Assets.pieza1;
-                break;
-            case 2:
-                keyframe = Assets.pieza2;
-                break;
-            case 3:
-                keyframe = Assets.pieza3;
-                break;
-            case 4:
-                keyframe = Assets.pieza4;
-                break;
-            case 5:
-                keyframe = Assets.pieza5;
-                break;
-            case 6:
-                keyframe = Assets.pieza6;
-                break;
-            case 7:
-                keyframe = Assets.pieza7;
-                break;
-            case 8:
-                keyframe = Assets.pieza8;
-                break;
-            case 9:
-                keyframe = Assets.pieza9;
-                break;
-            case 10:
-                keyframe = Assets.pieza10;
-                break;
-            case 11:
-                keyframe = Assets.pieza11;
-                break;
-            case 12:
-                keyframe = Assets.pieza12;
-                break;
-            case 13:
-                keyframe = Assets.pieza13;
-                break;
-            case 14:
-                keyframe = Assets.pieza14;
-                break;
-            case 15:
-                keyframe = Assets.pieza15;
-                break;
-            case -10:
-            default:
-                keyframe = null;
-                break;
+        when (valor) {
+            0 -> keyframe = Assets.piezaVacia
+            1 -> keyframe = Assets.pieza1
+            2 -> keyframe = Assets.pieza2
+            3 -> keyframe = Assets.pieza3
+            4 -> keyframe = Assets.pieza4
+            5 -> keyframe = Assets.pieza5
+            6 -> keyframe = Assets.pieza6
+            7 -> keyframe = Assets.pieza7
+            8 -> keyframe = Assets.pieza8
+            9 -> keyframe = Assets.pieza9
+            10 -> keyframe = Assets.pieza10
+            11 -> keyframe = Assets.pieza11
+            12 -> keyframe = Assets.pieza12
+            13 -> keyframe = Assets.pieza13
+            14 -> keyframe = Assets.pieza14
+            15 -> keyframe = Assets.pieza15
+            -10 -> keyframe = null
+            else -> keyframe = null
         }
     }
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
+    fun moveToPosition(pos: Int) {
+        this.posicion = pos
+        Gdx.app.log("Move to ", pos.toString() + "")
+        addAction(
+            Actions.moveTo(
+                mapPosiciones.get(posicion)!!.x,
+                mapPosiciones.get(posicion)!!.y, .085f
+            )
+        )
     }
 
-    public void moveToPosition(int pos) {
-        this.posicion = pos;
-        Gdx.app.log("Move to ", pos + "");
-        addAction(Actions.moveTo(mapPosiciones.get(posicion).x,
-                mapPosiciones.get(posicion).y, .085f));
+    fun moveInstantly(pos: Int) {
+        this.posicion = pos
+        setPosition(
+            mapPosiciones.get(posicion)!!.x,
+            mapPosiciones.get(posicion)!!.y
+        )
     }
 
-    public void moveInstantly(int pos) {
-        this.posicion = pos;
-        setPosition(mapPosiciones.get(posicion).x,
-                mapPosiciones.get(posicion).y);
+    override fun draw(batch: Batch, parentAlpha: Float) {
+        if (keyframe == null) return
+        batch.draw(
+            keyframe, getX(), getY(), getOriginX(), getOriginY(),
+            getWidth(), getHeight(), getScaleX(), getScaleY(),
+            getRotation()
+        )
     }
 
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        if (keyframe == null)
-            return;
-        batch.draw(keyframe, getX(), getY(), getOriginX(), getOriginY(),
-                getWidth(), getHeight(), getScaleX(), getScaleY(),
-                getRotation());
+    companion object {
+        // //Las posiciones empiezan a contar de izq a derecha desde arriba hacia abajo
+        val mapPosiciones: LinkedHashMap<Int?, Vector2?> = LinkedHashMap<Int?, Vector2?>()
+
+        init {
+            mapPosiciones.put(0, Vector2(20f, 350f))
+            mapPosiciones.put(1, Vector2(130f, 350f))
+            mapPosiciones.put(2, Vector2(240f, 350f))
+            mapPosiciones.put(3, Vector2(350f, 350f))
+            mapPosiciones.put(4, Vector2(20f, 240f))
+            mapPosiciones.put(5, Vector2(130f, 240f))
+            mapPosiciones.put(6, Vector2(240f, 240f))
+            mapPosiciones.put(7, Vector2(350f, 240f))
+            mapPosiciones.put(8, Vector2(20f, 130f))
+            mapPosiciones.put(9, Vector2(130f, 130f))
+            mapPosiciones.put(10, Vector2(240f, 130f))
+            mapPosiciones.put(11, Vector2(350f, 130f))
+            mapPosiciones.put(12, Vector2(20f, 20f))
+            mapPosiciones.put(13, Vector2(130f, 20f))
+            mapPosiciones.put(14, Vector2(240f, 20f))
+            mapPosiciones.put(15, Vector2(350f, 20f))
+        }
     }
 }

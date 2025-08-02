@@ -1,215 +1,201 @@
-package com.nopalsoft.fifteen.game;
+package com.nopalsoft.fifteen.game
 
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.nopalsoft.fifteen.Assets;
-import com.nopalsoft.fifteen.MainFifteen;
-import com.nopalsoft.fifteen.Settings;
-import com.nopalsoft.fifteen.scene2d.MarcoGameOver;
-import com.nopalsoft.fifteen.scene2d.MarcoPaused;
-import com.nopalsoft.fifteen.screens.MainMenuScreen;
-import com.nopalsoft.fifteen.screens.Screens;
+import com.badlogic.gdx.Input
+import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.utils.Align
+import com.badlogic.gdx.utils.viewport.StretchViewport
+import com.nopalsoft.fifteen.Assets
+import com.nopalsoft.fifteen.MainFifteen
+import com.nopalsoft.fifteen.Settings
+import com.nopalsoft.fifteen.Settings.setBestScores
+import com.nopalsoft.fifteen.scene2d.MarcoGameOver
+import com.nopalsoft.fifteen.scene2d.MarcoPaused
+import com.nopalsoft.fifteen.screens.MainMenuScreen
+import com.nopalsoft.fifteen.screens.Screens
 
-public class GameScreen extends Screens {
-    static final int STATE_READY = 1;
-    static final int STATE_RUNNING = 2;
-    static final int STATE_PAUSED = 3;
-    static final int STATE_GAME_OVER = 4;
-    private final Stage stageGame;
-    public int state;
-    Tablero oTablero;
-    Table tbMarcadores;
-    Label lbTime, lbMoves;
+class GameScreen(game: MainFifteen) : Screens(game) {
+    private val stageGame: Stage
+    var state: Int = 0
+    var oTablero: Tablero
+    var tbMarcadores: Table? = null
+    var lbTime: Label? = null
+    var lbMoves: Label? = null
 
-    Button btPause;
+    var btPause: Button? = null
 
-    MarcoPaused oMarcoPaused;
+    var oMarcoPaused: MarcoPaused? = null
 
-    public GameScreen(MainFifteen game) {
-        super(game);
-        stageGame = new Stage(new StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT));
-        oTablero = new Tablero();
-        stageGame.addActor(oTablero);
+    init {
+        stageGame = Stage(StretchViewport(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat()))
+        oTablero = Tablero()
+        stageGame.addActor(oTablero)
 
-        initUI();
+        initUI()
 
-        setReady();
+        setReady()
 
-        Settings.numeroVecesJugadas++;
+        Settings.numeroVecesJugadas++
     }
 
-    private void initUI() {
-        tbMarcadores = new Table();
-        tbMarcadores.setSize(SCREEN_WIDTH, 100);
-        tbMarcadores.setPosition(0, 680);
+    private fun initUI() {
+        tbMarcadores = Table()
+        tbMarcadores!!.setSize(SCREEN_WIDTH.toFloat(), 100f)
+        tbMarcadores!!.setPosition(0f, 680f)
+
         // tbMarcadores.debug();
+        lbTime = Label("Time\n0", Assets.labelStyleChico)
+        lbTime!!.setAlignment(Align.center)
+        lbTime!!.setFontScale(1.15f)
+        lbMoves = Label("Moves\n0", Assets.labelStyleChico)
+        lbMoves!!.setFontScale(1.15f)
+        lbMoves!!.setAlignment(Align.center)
 
-        lbTime = new Label("Time\n0", Assets.labelStyleChico);
-        lbTime.setAlignment(Align.center);
-        lbTime.setFontScale(1.15f);
-        lbMoves = new Label("Moves\n0", Assets.labelStyleChico);
-        lbMoves.setFontScale(1.15f);
-        lbMoves.setAlignment(Align.center);
+        tbMarcadores!!.row().expand().uniform().center()
+        tbMarcadores!!.add<Label?>(lbTime)
+        tbMarcadores!!.add<Label?>(lbMoves)
 
-        tbMarcadores.row().expand().uniform().center();
-        tbMarcadores.add(lbTime);
-        tbMarcadores.add(lbMoves);
-
-        btPause = new Button(Assets.styleButtonPause);
-        btPause.setPosition(SCREEN_WIDTH / 2F - btPause.getWidth() / 2, 110);
-        btPause.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                setPaused();
+        btPause = Button(Assets.styleButtonPause)
+        btPause!!.setPosition(SCREEN_WIDTH / 2f - btPause!!.getWidth() / 2, 110f)
+        btPause!!.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                setPaused()
             }
-        });
+        })
 
-        oMarcoPaused = new MarcoPaused(this);
+        oMarcoPaused = MarcoPaused(this)
 
-        stage.addActor(tbMarcadores);
-        stage.addActor(btPause);
+        stage!!.addActor(tbMarcadores)
+        stage!!.addActor(btPause)
     }
 
-    @Override
-    public void resize(int width, int height) {
-        super.resize(width, height);
-        stageGame.getViewport().update(width, height, true);
+    override fun resize(width: Int, height: Int) {
+        super.resize(width, height)
+        stageGame.viewport.update(width, height, true)
     }
 
-    @Override
-    public void update(float delta) {
-
+    override fun update(delta: Float) {
         if (state == STATE_RUNNING) {
-            updateRunning(delta);
+            updateRunning(delta)
         }
 
-        lbTime.setText("Time\n" + ((int) oTablero.tiempo));
-        lbMoves.setText("Moves\n" + (oTablero.moves));
+        lbTime!!.setText("Time\n" + (oTablero.tiempo.toInt()))
+        lbMoves!!.setText("Moves\n" + (oTablero.moves))
     }
 
-    private void updateRunning(float delta) {
-        stageGame.act(delta);
+    private fun updateRunning(delta: Float) {
+        stageGame.act(delta)
 
         if (oTablero.state == Tablero.STATE_GAMEOVER) {
-            setGameover();
+            setGameover()
         }
     }
 
-    @Override
-    public void draw(float delta) {
+    override fun draw(delta: Float) {
+        batcher!!.begin()
+        batcher!!.draw(Assets.fondo, 0f, 0f, SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat())
+        batcher!!.end()
 
-        batcher.begin();
-        batcher.draw(Assets.fondo, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        batcher.end();
-
-        stageGame.draw();
+        stageGame.draw()
     }
 
-    @Override
-    public void pause() {
-        setPaused();
-        super.pause();
+    override fun pause() {
+        setPaused()
+        super.pause()
     }
 
-    @Override
-    public void hide() {
-        super.hide();
-        stageGame.dispose();
+    override fun hide() {
+        super.hide()
+        stageGame.dispose()
     }
 
-    private void setReady() {
-        state = STATE_READY;
+    private fun setReady() {
+        state = STATE_READY
     }
 
-    private void setPaused() {
-        if (state == STATE_GAME_OVER || state == STATE_PAUSED)
-            return;
-        state = STATE_PAUSED;
-        stage.addActor(oMarcoPaused);
+    private fun setPaused() {
+        if (state == STATE_GAME_OVER || state == STATE_PAUSED) return
+        state = STATE_PAUSED
+        stage!!.addActor(oMarcoPaused)
     }
 
-    public void setRunning() {
-        if (state == STATE_GAME_OVER)
-            return;
-        state = STATE_RUNNING;
+    fun setRunning() {
+        if (state == STATE_GAME_OVER) return
+        state = STATE_RUNNING
     }
 
-    private void setGameover() {
-        state = STATE_GAME_OVER;
-        Settings.setBestScores((int) oTablero.tiempo, oTablero.moves);
+    private fun setGameover() {
+        state = STATE_GAME_OVER
+        setBestScores(oTablero.tiempo.toInt(), oTablero.moves)
 
-        MarcoGameOver oMarcoGameover = new MarcoGameOver(this,
-                (int) oTablero.tiempo, oTablero.moves);
-        stage.addActor(oMarcoGameover);
+        val oMarcoGameover = MarcoGameOver(
+            this,
+            oTablero.tiempo.toInt(), oTablero.moves
+        )
+        stage!!.addActor(oMarcoGameover)
     }
 
-    @Override
-    public boolean fling(float velocityX, float velocityY, int button) {
-        setRunning();
-        return super.fling(velocityX, velocityY, button);
+    override fun fling(velocityX: Float, velocityY: Float, button: Int): Boolean {
+        setRunning()
+        return super.fling(velocityX, velocityY, button)
     }
 
     /**
      * Es muy imporante recordar que lo que se mueve es la pieza blanca por lo tanto si yo digo moveUp la pieza blanca se movera hacia arriba pero el usuario piensa que si hace un swipe down la pieza
      * de arriba de la blanca es la que baja. Cuando nosotros sabemos que la que sube es la blanca.
      */
-
-    @Override
-    public void up() {
-        oTablero.moveDown = true;
-        super.up();
+    override fun up() {
+        oTablero.moveDown = true
+        super.up()
     }
 
-    @Override
-    public void down() {
-        oTablero.moveUp = true;
-        super.down();
+    override fun down() {
+        oTablero.moveUp = true
+        super.down()
     }
 
-    @Override
-    public void right() {
-        oTablero.moveLeft = true;
-        super.right();
+    override fun right() {
+        oTablero.moveLeft = true
+        super.right()
     }
 
-    @Override
-    public void left() {
-        oTablero.moveRight = true;
-        super.left();
+    override fun left() {
+        oTablero.moveRight = true
+        super.left()
     }
 
     /**
      * Es muy imporante recordar que lo que se mueve es la pieza blanca por lo tanto si yo digo moveUp la pieza blanca se movera hacia arriba pero el usuario piensa que si hace un swipe down la pieza
      * de arriba de la blanca es la que baja. Cuando nosotros sabemos que la que sube es la blanca.
      */
-
-    @Override
-    public boolean keyDown(int keycode) {
-
-        if (keycode == Keys.LEFT) {
-            oTablero.moveRight = true;
-            setRunning();
-        } else if (keycode == Keys.RIGHT) {
-            oTablero.moveLeft = true;
-            setRunning();
-        } else if (keycode == Keys.UP) {
-            oTablero.moveDown = true;
-            setRunning();
-        } else if (keycode == Keys.DOWN) {
-            oTablero.moveUp = true;
-            setRunning();
-        } else if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
-
-            changeScreenWithFadeOut(MainMenuScreen.class, game);
+    override fun keyDown(keycode: Int): Boolean {
+        if (keycode == Input.Keys.LEFT) {
+            oTablero.moveRight = true
+            setRunning()
+        } else if (keycode == Input.Keys.RIGHT) {
+            oTablero.moveLeft = true
+            setRunning()
+        } else if (keycode == Input.Keys.UP) {
+            oTablero.moveDown = true
+            setRunning()
+        } else if (keycode == Input.Keys.DOWN) {
+            oTablero.moveUp = true
+            setRunning()
+        } else if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
+            changeScreenWithFadeOut(MainMenuScreen::class.java, game!!)
         }
 
-        return true;
+        return true
+    }
+
+    companion object {
+        const val STATE_READY: Int = 1
+        const val STATE_RUNNING: Int = 2
+        const val STATE_PAUSED: Int = 3
+        const val STATE_GAME_OVER: Int = 4
     }
 }

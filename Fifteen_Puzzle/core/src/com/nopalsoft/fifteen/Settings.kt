@@ -1,45 +1,54 @@
-package com.nopalsoft.fifteen;
+package com.nopalsoft.fifteen
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Preferences
 
-public class Settings {
+object Settings {
+    private val pref: Preferences = Gdx.app
+        .getPreferences("com.tiar.fifteen")
 
-    private final static Preferences pref = Gdx.app
-            .getPreferences("com.tiar.fifteen");
-    public static int bestTime;
-    public static int bestMoves;
-    public static boolean didBuyNoAds;
-    public static boolean isMusicOn;
-    public static boolean isSoundOn;
-    public static int numeroVecesJugadas;
+    @JvmField
+    var bestTime: Int = 0
 
-    public static void load() {
+    @JvmField
+    var bestMoves: Int = 0
+    var didBuyNoAds: Boolean = false
 
-        bestTime = pref.getInteger("bestTime", Integer.MAX_VALUE);
-        bestMoves = pref.getInteger("bestMoves", Integer.MAX_VALUE);
-        numeroVecesJugadas = pref.getInteger("numeroVecesJugadas", 0);
+    @JvmField
+    var isMusicOn: Boolean = false
 
-        didBuyNoAds = pref.getBoolean("didBuyNoAds", false);
-        isMusicOn = pref.getBoolean("isMusicOn", true);
-        isSoundOn = pref.getBoolean("isSoundOn", true);
+    @JvmField
+    var isSoundOn: Boolean = false
+
+    @JvmField
+    var numeroVecesJugadas: Int = 0
+
+    @JvmStatic
+    fun load() {
+        bestTime = pref.getInteger("bestTime", Int.Companion.MAX_VALUE)
+        bestMoves = pref.getInteger("bestMoves", Int.Companion.MAX_VALUE)
+        numeroVecesJugadas = pref.getInteger("numeroVecesJugadas", 0)
+
+        didBuyNoAds = pref.getBoolean("didBuyNoAds", false)
+        isMusicOn = pref.getBoolean("isMusicOn", true)
+        isSoundOn = pref.getBoolean("isSoundOn", true)
     }
 
-    public static void save() {
-        pref.putInteger("bestTime", bestTime);
-        pref.putInteger("bestMoves", bestMoves);
-        pref.putInteger("numeroVecesJugadas", numeroVecesJugadas);
-        pref.putBoolean("didBuyNoAds", didBuyNoAds);
-        pref.putBoolean("isMusicOn", isMusicOn);
-        pref.putBoolean("isSoundOn", isSoundOn);
-        pref.flush();
+    @JvmStatic
+    fun save() {
+        pref.putInteger("bestTime", bestTime)
+        pref.putInteger("bestMoves", bestMoves)
+        pref.putInteger("numeroVecesJugadas", numeroVecesJugadas)
+        pref.putBoolean("didBuyNoAds", didBuyNoAds)
+        pref.putBoolean("isMusicOn", isMusicOn)
+        pref.putBoolean("isSoundOn", isSoundOn)
+        pref.flush()
     }
 
-    public static void setBestScores(int time, int moves) {
-        if (time < bestTime)
-            bestTime = time;
-        if (moves < bestMoves)
-            bestMoves = moves;
-        save();
+    @JvmStatic
+    fun setBestScores(time: Int, moves: Int) {
+        if (time < bestTime) bestTime = time
+        if (moves < bestMoves) bestMoves = moves
+        save()
     }
 }

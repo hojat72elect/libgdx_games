@@ -1,225 +1,234 @@
-package com.nopalsoft.fifteen.game;
+package com.nopalsoft.fifteen.game
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Array.ArrayIterator;
-import com.nopalsoft.fifteen.Assets;
-import com.nopalsoft.fifteen.objetos.Pieza;
-import com.nopalsoft.fifteen.screens.Screens;
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.scenes.scene2d.Group
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.utils.Array
+import com.nopalsoft.fifteen.Assets
+import com.nopalsoft.fifteen.Assets.playSoundMove
+import com.nopalsoft.fifteen.objetos.Pieza
+import com.nopalsoft.fifteen.screens.Screens
 
-public class Tablero extends Group {
-    static public final int STATE_SHUFFLE = 0;
-    static public final int STATE_RUNNING = 1;
-    static public final int STATE_NO_MORE_MOVES = 2;
-    static public final int STATE_GAMEOVER = 3;
-    public int state;
-    public float tiempo;
-    public int moves;
-    public boolean moveUp, moveDown, moveLeft, moveRight, shuffle;
-    Array<Pieza> arrPiezasNums;
-    Pieza oPiezaBlanca;
+class Tablero : Group() {
+    @JvmField
+    var state: Int = 0
 
-    public Tablero() {
-        setSize(480, 480);
-        setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 200);
-        addBackground();
+    @JvmField
+    var tiempo: Float = 0f
+
+    @JvmField
+    var moves: Int = 0
+
+    @JvmField
+    var moveUp: Boolean = false
+
+    @JvmField
+    var moveDown: Boolean = false
+
+    @JvmField
+    var moveLeft: Boolean = false
+
+    @JvmField
+    var moveRight: Boolean = false
+    var shuffle: Boolean = false
+    var arrPiezasNums: Array<Pieza>
+    var oPiezaBlanca: Pieza
+
+    init {
+        setSize(480f, 480f)
+        setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 200f)
+        addBackground()
 
         // Inicializco el tablero con puros ceros
-        for (int i = 0; i < 16; i++) {
-            addActor(new Pieza(i, 0));
+        for (i in 0..15) {
+            addActor(Pieza(i, 0))
         }
 
-        arrPiezasNums = new Array<>();
-        for (int i = 1; i < 16; i++) {
-            Pieza obj = new Pieza(i - 1, i);
-            addActor(obj);
-            arrPiezasNums.add(obj);
+        arrPiezasNums = Array<Pieza>()
+        for (i in 1..15) {
+            val obj = Pieza(i - 1, i)
+            addActor(obj)
+            arrPiezasNums.add(obj)
         }
-        oPiezaBlanca = new Pieza(15, -10);// La pieza que no tiene nada vale -10;
-        arrPiezasNums.add(oPiezaBlanca);
-        addActor(oPiezaBlanca);
+        oPiezaBlanca = Pieza(15, -10) // La pieza que no tiene nada vale -10;
+        arrPiezasNums.add(oPiezaBlanca)
+        addActor(oPiezaBlanca)
 
-        shuffle();// Dentro de shuffle pongo el estado
+        shuffle() // Dentro de shuffle pongo el estado
     }
 
-    private void addBackground() {
-        Image background = new Image(Assets.fondoTablero);
-        background.setSize(getWidth(), getHeight());
-        background.setPosition(0, 0);
-        addActor(background);
+    private fun addBackground() {
+        val background = Image(Assets.fondoTablero)
+        background.setSize(getWidth(), getHeight())
+        background.setPosition(0f, 0f)
+        addActor(background)
     }
 
-    private void shuffle() {
-        state = STATE_SHUFFLE;
-        int timesToShuffle = 3500;
+    private fun shuffle() {
+        state = STATE_SHUFFLE
+        val timesToShuffle = 3500
 
-        for (int i = 0; i < timesToShuffle; i++) {
-            int shuffle = MathUtils.random(4);
-            switch (shuffle) {
-                case 0:
-                    if (!moveUp())
-                        i--;
-                    break;
-                case 1:
-                    if (!moveDown())
-                        i--;
-                    break;
-                case 2:
-                    if (!moveLeft())
-                        i--;
-                    break;
-                case 3:
-                default:
-                    if (!moveRight())
-                        i--;
-                    break;
+        var i = 0
+        while (i < timesToShuffle) {
+            val shuffle = MathUtils.random(4)
+            when (shuffle) {
+                0 -> if (!moveUp()) i--
+                1 -> if (!moveDown()) i--
+                2 -> if (!moveLeft()) i--
+                3 -> if (!moveRight()) i--
+                else -> if (!moveRight()) i--
             }
+            i++
         }
-        tiempo = moves = 0;
-        state = STATE_RUNNING;
+        moves = 0
+        tiempo = moves.toFloat()
+        state = STATE_RUNNING
     }
 
     // Revisa si la posicion de la izquierda esta en el mismo renglon
-    private boolean canMoveLeft(int nextPos) {
-        return nextPos != 11 && nextPos != 7 && nextPos != 3 && nextPos != -1;
+    private fun canMoveLeft(nextPos: Int): Boolean {
+        return nextPos != 11 && nextPos != 7 && nextPos != 3 && nextPos != -1
     }
 
     // Revisa si la posicion de la derecha esta en el mismo renglon
-    private boolean canMoveRight(int nextPos) {
-        return nextPos != 4 && nextPos != 8 && nextPos != 12 && nextPos != 16;
+    private fun canMoveRight(nextPos: Int): Boolean {
+        return nextPos != 4 && nextPos != 8 && nextPos != 12 && nextPos != 16
     }
 
-    private boolean canMoveUp(int nextPos) {
-        return nextPos >= 0;
+    private fun canMoveUp(nextPos: Int): Boolean {
+        return nextPos >= 0
     }
 
-    private boolean canMoveDown(int nextPos) {
-        return nextPos <= 15;
+    private fun canMoveDown(nextPos: Int): Boolean {
+        return nextPos <= 15
     }
 
     // Intercambia la posicion de dos piezas
-    private void swapPieces(Pieza a, Pieza b) {
-        int posA = a.posicion;
-        int posB = b.posicion;
+    private fun swapPieces(a: Pieza, b: Pieza) {
+        val posA = a.posicion
+        val posB = b.posicion
 
         if (state == STATE_SHUFFLE) {
-            a.moveInstantly(posB);
-            b.moveInstantly(posA);
+            a.moveInstantly(posB)
+            b.moveInstantly(posA)
         } else {
-            a.moveToPosition(posB);
-            b.moveToPosition(posA);
+            a.moveToPosition(posB)
+            b.moveToPosition(posA)
         }
-        moves++;
-        if (state == STATE_RUNNING)
-            Assets.playSoundMove();
+        moves++
+        if (state == STATE_RUNNING) playSoundMove()
     }
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
+    override fun act(delta: Float) {
+        super.act(delta)
 
         if (state == STATE_NO_MORE_MOVES) {
-            int numActions = 0;
-            for (Pieza arrPiezasNum : arrPiezasNums) {
-                numActions += arrPiezasNum.getActions().size;
+            var numActions = 0
+            for (arrPiezasNum in arrPiezasNums) {
+                numActions += arrPiezasNum.actions.size
             }
-            numActions += getActions().size;
-            if (numActions == 0)
-                state = STATE_GAMEOVER;
-            return;
+            numActions += actions.size
+            if (numActions == 0) state = STATE_GAMEOVER
+            return
         }
 
         if (moveUp) {
-            moveUp();
+            moveUp()
         } else if (moveDown) {
-            moveDown();
+            moveDown()
         } else if (moveLeft) {
-            moveLeft();
+            moveLeft()
         } else if (moveRight) {
-            moveRight();
+            moveRight()
         }
 
-        if (shuffle)
-            shuffle();
+        if (shuffle) shuffle()
 
-        moveDown = moveLeft = moveRight = moveUp = shuffle = false;
+        shuffle = false
+        moveUp = shuffle
+        moveRight = moveUp
+        moveLeft = moveRight
+        moveDown = moveLeft
 
         if (checkWinClassic()) {
-            Gdx.app.log("WIN CLASSIC", "");
-            state = STATE_NO_MORE_MOVES;
+            Gdx.app.log("WIN CLASSIC", "")
+            state = STATE_NO_MORE_MOVES
         }
 
-        tiempo += Gdx.graphics.getRawDeltaTime();
+        tiempo += Gdx.graphics.rawDeltaTime
     }
 
-    private Pieza getPiezaEnPos(int pos) {
-        ArrayIterator<Pieza> ite = new ArrayIterator<>(arrPiezasNums);
+    private fun getPiezaEnPos(pos: Int): Pieza? {
+        val ite = Array.ArrayIterator<Pieza>(arrPiezasNums)
         while (ite.hasNext()) {
-            Pieza obj = ite.next();
-            if (obj.posicion == pos)
-                return obj;
+            val obj = ite.next()
+            if (obj.posicion == pos) return obj
         }
-        return null;
+        return null
     }
 
     /**
      * Verdadero si se logro hacer el movimiento
      */
-    public boolean moveUp() {
-        int nextPos = oPiezaBlanca.posicion - 4;
+    fun moveUp(): Boolean {
+        val nextPos = oPiezaBlanca.posicion - 4
         if (canMoveUp(nextPos)) {
-            swapPieces(oPiezaBlanca, getPiezaEnPos(nextPos));
-            return true;
+            swapPieces(oPiezaBlanca, getPiezaEnPos(nextPos)!!)
+            return true
         }
-        return false;
+        return false
     }
 
     /**
      * Verdadero si se logro hacer el movimiento
      */
-    public boolean moveDown() {
-        int nextPos = oPiezaBlanca.posicion + 4;
+    fun moveDown(): Boolean {
+        val nextPos = oPiezaBlanca.posicion + 4
         if (canMoveDown(nextPos)) {
-            swapPieces(oPiezaBlanca, getPiezaEnPos(nextPos));
-            return true;
+            swapPieces(oPiezaBlanca, getPiezaEnPos(nextPos)!!)
+            return true
         }
-        return false;
+        return false
     }
 
     /**
      * Verdadero si se logro hacer el movimiento
      */
-    public boolean moveRight() {
-        int nextPos = oPiezaBlanca.posicion + 1;
+    fun moveRight(): Boolean {
+        val nextPos = oPiezaBlanca.posicion + 1
         if (canMoveRight(nextPos)) {
-            swapPieces(oPiezaBlanca, getPiezaEnPos(nextPos));
-            return true;
+            swapPieces(oPiezaBlanca, getPiezaEnPos(nextPos)!!)
+            return true
         }
-        return false;
+        return false
     }
 
     /**
      * Verdadero si se logro hacer el movimiento
      */
-    public boolean moveLeft() {
-        int nextPos = oPiezaBlanca.posicion - 1;
+    fun moveLeft(): Boolean {
+        val nextPos = oPiezaBlanca.posicion - 1
         if (canMoveLeft(nextPos)) {
-            swapPieces(oPiezaBlanca, getPiezaEnPos(nextPos));
-            return true;
+            swapPieces(oPiezaBlanca, getPiezaEnPos(nextPos)!!)
+            return true
         }
-        return false;
+        return false
     }
 
-    boolean checkWinClassic() {
-        for (int i = 0; i < 15; i++) {
-            Pieza obj = getPiezaEnPos(i);
+    fun checkWinClassic(): Boolean {
+        for (i in 0..14) {
+            val obj = getPiezaEnPos(i)
 
-            if (i + 1 != obj.valor)
-                return false;
+            if (i + 1 != obj!!.valor) return false
         }
-        return true;
+        return true
+    }
+
+    companion object {
+        const val STATE_SHUFFLE: Int = 0
+        const val STATE_RUNNING: Int = 1
+        const val STATE_NO_MORE_MOVES: Int = 2
+        const val STATE_GAMEOVER: Int = 3
     }
 }
