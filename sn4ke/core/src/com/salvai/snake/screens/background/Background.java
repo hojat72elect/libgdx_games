@@ -1,6 +1,5 @@
 package com.salvai.snake.screens.background;
 
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -24,7 +23,6 @@ public class Background {
     private final Image backgroundImage;
     private boolean colorToReset;
     private int colorIndex;
-
 
     public Background(Texture texture, Stage stage, Texture backgroundTexture, int currentBackgroundIndex) {
         this.texture = texture;
