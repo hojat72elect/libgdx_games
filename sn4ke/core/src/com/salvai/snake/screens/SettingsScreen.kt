@@ -83,7 +83,7 @@ class SettingsScreen(var game: SnakeIt) : ScreenAdapter() {
             val item = i
             //preview
             val PREVIEW_BLOCKS = 6
-            val previewSnake = PreviewSnake(item, PREVIEW_BLOCKS, snakeTexture, game.selectedColor == item)
+            val previewSnake = PreviewSnake(item, PREVIEW_BLOCKS, snakeTexture!!, game.selectedColor == item)
             for (image in previewSnake.previews) snakeTable.add<Image?>(image)
 
             for (image in previewSnake.previews) image.addListener(object : ClickListener() {
