@@ -57,12 +57,10 @@ public class Assets {
     public static ButtonStyle styleButtonSonido;
 
     static TextureAtlas atlas;
-
-    private static Music music1;
-    private static Music music2;
-
     static Sound move1;
     static Sound move2;
+    private static Music music1;
+    private static Music music2;
 
     public static void loadFont() {
         fontChico = new BitmapFont(Gdx.files.internal("data/fontChico.fnt"), atlas.findRegion("fontChico"));

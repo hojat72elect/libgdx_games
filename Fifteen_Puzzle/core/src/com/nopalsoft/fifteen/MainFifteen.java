@@ -9,12 +9,12 @@ import com.nopalsoft.fifteen.screens.Screens;
 
 public class MainFifteen extends Game {
 
+    public Stage stage;
+    public SpriteBatch batcher;
+
     public MainFifteen() {
 
     }
-
-    public Stage stage;
-    public SpriteBatch batcher;
 
     @Override
     public void create() {

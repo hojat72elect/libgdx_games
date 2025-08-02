@@ -13,7 +13,7 @@ import java.util.LinkedHashMap;
 public class Pieza extends Actor {
 
     // //Las posiciones empiezan a contar de izq a derecha desde arriba hacia abajo
-    final static LinkedHashMap<Integer, Vector2> mapPosiciones = new LinkedHashMap<Integer, Vector2>();
+    final static LinkedHashMap<Integer, Vector2> mapPosiciones = new LinkedHashMap<>();
 
     static {
         mapPosiciones.put(0, new Vector2(20, 350));
@@ -51,10 +51,7 @@ public class Pieza extends Actor {
         this.valor = valor;
 
         switch (valor) {
-            default:
-            case -10:
-                keyframe = null;
-                break;
+
             case 0:
                 keyframe = Assets.piezaVacia;
                 break;
@@ -102,6 +99,10 @@ public class Pieza extends Actor {
                 break;
             case 15:
                 keyframe = Assets.pieza15;
+                break;
+            case -10:
+            default:
+                keyframe = null;
                 break;
         }
     }

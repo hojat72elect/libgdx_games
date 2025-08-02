@@ -21,8 +21,6 @@ import com.nopalsoft.fifteen.MainFifteen;
 import com.nopalsoft.fifteen.Settings;
 import com.nopalsoft.fifteen.game.GameScreen;
 
-import java.util.Random;
-
 public abstract class Screens extends InputAdapter implements Screen, GestureListener {
     public static final int SCREEN_WIDTH = 480;
     public static final int SCREEN_HEIGHT = 800;
@@ -32,8 +30,7 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
     public OrthographicCamera oCam;
     public SpriteBatch batcher;
     public Stage stage;
-
-    Random oRan;
+    Image blackFadeOut;
 
     public Screens(final MainFifteen game) {
         this.stage = game.stage;
@@ -66,8 +63,6 @@ public abstract class Screens extends InputAdapter implements Screen, GestureLis
         stage.act(delta);
         stage.draw();
     }
-
-    Image blackFadeOut;
 
     public void changeScreenWithFadeOut(final Class<?> newScreen,
                                         final MainFifteen game) {

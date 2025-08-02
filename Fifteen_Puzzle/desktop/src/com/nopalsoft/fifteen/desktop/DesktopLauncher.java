@@ -14,5 +14,4 @@ public class DesktopLauncher {
         new LwjglApplication(
                 new MainFifteen(), cfg);
     }
-
 }

@@ -22,12 +22,9 @@ public class GameScreen extends Screens {
     static final int STATE_RUNNING = 2;
     static final int STATE_PAUSED = 3;
     static final int STATE_GAME_OVER = 4;
-    public int state;
-
-    Tablero oTablero;
-
     private final Stage stageGame;
-
+    public int state;
+    Tablero oTablero;
     Table tbMarcadores;
     Label lbTime, lbMoves;
 
@@ -66,7 +63,7 @@ public class GameScreen extends Screens {
         tbMarcadores.add(lbMoves);
 
         btPause = new Button(Assets.styleButtonPause);
-        btPause.setPosition(SCREEN_WIDTH / 2 - btPause.getWidth() / 2, 110);
+        btPause.setPosition(SCREEN_WIDTH / 2F - btPause.getWidth() / 2, 110);
         btPause.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -89,10 +86,8 @@ public class GameScreen extends Screens {
     @Override
     public void update(float delta) {
 
-        switch (state) {
-            case STATE_RUNNING:
-                updateRunning(delta);
-                break;
+        if (state == STATE_RUNNING) {
+            updateRunning(delta);
         }
 
         lbTime.setText("Time\n" + ((int) oTablero.tiempo));

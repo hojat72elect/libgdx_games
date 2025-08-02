@@ -21,7 +21,6 @@ public class MainMenuScreen extends Screens {
     Label lbHelp;
     Label lbLeaderboard;
     Label lbRate;
-    Label lbMore;
 
     Button btMusica;
     Button btSonido;

@@ -30,11 +30,11 @@ public class HelpScreen extends Screens {
         imgPuzzle = new Image(Assets.puzzleSolved);
         imgPuzzle.setSize(350, 350);
         imgPuzzle
-                .setPosition(SCREEN_WIDTH / 2 - imgPuzzle.getWidth() / 2f, 200);
+                .setPosition(SCREEN_WIDTH / 2F - imgPuzzle.getWidth() / 2f, 200);
 
         btBack = new Button(Assets.btAtras);
         btBack.setSize(60, 60);
-        btBack.setPosition(SCREEN_WIDTH / 2 - 30, 115);
+        btBack.setPosition(SCREEN_WIDTH / 2F - 30, 115);
         addEfectoPress(btBack);
         btBack.addListener(new ClickListener() {
             @Override

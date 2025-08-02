@@ -5,15 +5,14 @@ import com.badlogic.gdx.Preferences;
 
 public class Settings {
 
+    private final static Preferences pref = Gdx.app
+            .getPreferences("com.tiar.fifteen");
     public static int bestTime;
     public static int bestMoves;
     public static boolean didBuyNoAds;
     public static boolean isMusicOn;
     public static boolean isSoundOn;
     public static int numeroVecesJugadas;
-
-    private final static Preferences pref = Gdx.app
-            .getPreferences("com.tiar.fifteen");
 
     public static void load() {
 

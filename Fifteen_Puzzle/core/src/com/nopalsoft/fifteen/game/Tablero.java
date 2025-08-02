@@ -10,21 +10,17 @@ import com.nopalsoft.fifteen.Assets;
 import com.nopalsoft.fifteen.objetos.Pieza;
 import com.nopalsoft.fifteen.screens.Screens;
 
-import java.util.Iterator;
-
 public class Tablero extends Group {
     static public final int STATE_SHUFFLE = 0;
     static public final int STATE_RUNNING = 1;
     static public final int STATE_NO_MORE_MOVES = 2;
     static public final int STATE_GAMEOVER = 3;
     public int state;
-    Array<Pieza> arrPiezasNums;
-    Pieza oPiezaBlanca;
-
     public float tiempo;
     public int moves;
-
     public boolean moveUp, moveDown, moveLeft, moveRight, shuffle;
+    Array<Pieza> arrPiezasNums;
+    Pieza oPiezaBlanca;
 
     public Tablero() {
         setSize(480, 480);
@@ -36,7 +32,7 @@ public class Tablero extends Group {
             addActor(new Pieza(i, 0));
         }
 
-        arrPiezasNums = new Array<Pieza>();
+        arrPiezasNums = new Array<>();
         for (int i = 1; i < 16; i++) {
             Pieza obj = new Pieza(i - 1, i);
             addActor(obj);
@@ -121,17 +117,14 @@ public class Tablero extends Group {
             Assets.playSoundMove();
     }
 
-    float acum;
-
     @Override
     public void act(float delta) {
         super.act(delta);
 
         if (state == STATE_NO_MORE_MOVES) {
             int numActions = 0;
-            Iterator<Pieza> i = arrPiezasNums.iterator();
-            while (i.hasNext()) {
-                numActions += i.next().getActions().size;
+            for (Pieza arrPiezasNum : arrPiezasNums) {
+                numActions += arrPiezasNum.getActions().size;
             }
             numActions += getActions().size;
             if (numActions == 0)
@@ -163,7 +156,7 @@ public class Tablero extends Group {
     }
 
     private Pieza getPiezaEnPos(int pos) {
-        ArrayIterator<Pieza> ite = new ArrayIterator<Pieza>(arrPiezasNums);
+        ArrayIterator<Pieza> ite = new ArrayIterator<>(arrPiezasNums);
         while (ite.hasNext()) {
             Pieza obj = ite.next();
             if (obj.posicion == pos)
@@ -174,8 +167,6 @@ public class Tablero extends Group {
 
     /**
      * Verdadero si se logro hacer el movimiento
-     *
-     * @return
      */
     public boolean moveUp() {
         int nextPos = oPiezaBlanca.posicion - 4;
@@ -188,8 +179,6 @@ public class Tablero extends Group {
 
     /**
      * Verdadero si se logro hacer el movimiento
-     *
-     * @return
      */
     public boolean moveDown() {
         int nextPos = oPiezaBlanca.posicion + 4;
@@ -202,8 +191,6 @@ public class Tablero extends Group {
 
     /**
      * Verdadero si se logro hacer el movimiento
-     *
-     * @return
      */
     public boolean moveRight() {
         int nextPos = oPiezaBlanca.posicion + 1;
@@ -216,8 +203,6 @@ public class Tablero extends Group {
 
     /**
      * Verdadero si se logro hacer el movimiento
-     *
-     * @return
      */
     public boolean moveLeft() {
         int nextPos = oPiezaBlanca.posicion - 1;
