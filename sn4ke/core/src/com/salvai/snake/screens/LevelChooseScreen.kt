@@ -42,7 +42,7 @@ class LevelChooseScreen(val game: SnakeIt) : ScreenAdapter() {
         width = game.worldWidth
         height = game.worldHeight
 
-        game.stage.clear()
+        game.stage!!.clear()
         game.setUpTopBar(Constants.SCREEN.LEVELCHOOSE)
 
         setUpTabs()
@@ -55,14 +55,14 @@ class LevelChooseScreen(val game: SnakeIt) : ScreenAdapter() {
         setUpInputMultiplexer()
 
 
-        game.stage.addAction(Actions.sequence(Actions.alpha(0f), Actions.fadeIn(Constants.FADE_TIME)))
+        game.stage!!.addAction(Actions.sequence(Actions.alpha(0f), Actions.fadeIn(Constants.FADE_TIME)))
     }
 
     private fun setUpScrollPane() {
         scrollPane = ScrollPane(levelTables.get(game.selectedLevelTab), game.skin)
         scrollPane!!.setSize(width, height * 0.7f)
         scrollPane!!.setPosition(0f, height * 0.1f)
-        game.stage.addActor(scrollPane)
+        game.stage!!.addActor(scrollPane)
     }
 
 
@@ -99,14 +99,14 @@ class LevelChooseScreen(val game: SnakeIt) : ScreenAdapter() {
 
                     scrollPane!!.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), changeTable, Actions.fadeIn(Constants.FADE_TIME)))
 
-                    game.setSelectedLevelTab(tabIndex)
+                    game.updateSelectedLevelTab(tabIndex)
                 }
             })
             tabs.add(tab)
 
             tableTabs.add<TextButton?>(tab)
         }
-        game.stage.addActor(tableTabs)
+        game.stage!!.addActor(tableTabs)
     }
 
 
@@ -129,11 +129,11 @@ class LevelChooseScreen(val game: SnakeIt) : ScreenAdapter() {
     }
 
     private fun setUpLevelPreviews(levelTable: Table, level: Int) {
-        val levelPreview = Image(game.assetsManager.manager.get<Texture?>(Constants.LEVEL_PREVIEW + (level + 1) + ".png", Texture::class.java))
+        val levelPreview = Image(game.assetsManager!!.manager.get<Texture?>(Constants.LEVEL_PREVIEW + (level + 1) + ".png", Texture::class.java))
         levelPreview.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 game.level = level
-                game.stage.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run(object : Runnable {
+                game.stage!!.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run(object : Runnable {
                     override fun run() {
                         game.setScreen(GameScreen(game))
                         dispose()
@@ -166,6 +166,6 @@ class LevelChooseScreen(val game: SnakeIt) : ScreenAdapter() {
     }
 
     override fun resize(width: Int, height: Int) {
-        game.stage.viewport.update(width, height, true)
+        game.stage!!.viewport.update(width, height, true)
     }
 }

@@ -17,14 +17,14 @@ class SplashScreen(var game: SnakeIt) : ScreenAdapter() {
     private var toSetUp = true
 
     init {
-        splashSprite = Sprite(game.assetsManager.manager.get<Texture?>(Constants.APPLE_IMAGE_NAME, Texture::class.java))
+        splashSprite = Sprite(game.assetsManager!!.manager.get<Texture?>(Constants.APPLE_IMAGE_NAME, Texture::class.java))
         splashSprite.setSize(game.worldWidth * 0.6f, game.worldWidth * 0.6f)
         splashSprite.setPosition(game.worldWidth * 0.2f, game.worldHeight * 0.5f - splashSprite.getHeight() * 0.3f)
         splashSprite.setAlpha(1f)
         countdownTime = 41
 
-        game.assetsManager.loadSkin()
-        game.assetsManager.loadImages()
+        game.assetsManager!!.loadSkin()
+        game.assetsManager!!.loadImages()
     }
 
 
@@ -32,11 +32,11 @@ class SplashScreen(var game: SnakeIt) : ScreenAdapter() {
         setupScreen()
         game.drawBackground(delta, MovingDirection.UP)
 
-        game.backgroundStage.batch.begin()
-        splashSprite.draw(game.backgroundStage.batch)
-        game.backgroundStage.batch.end()
+        game.backgroundStage!!.batch.begin()
+        splashSprite.draw(game.backgroundStage!!.batch)
+        game.backgroundStage!!.batch.end()
 
-        if (game.assetsManager.manager.update()) {
+        if (game.assetsManager!!.manager.update()) {
             //load levels first
             if (countdownTime < 41) {
                 countdownTime = (countdownTime - delta).toInt()
@@ -52,7 +52,7 @@ class SplashScreen(var game: SnakeIt) : ScreenAdapter() {
                 }
             } else {
                 if (toSetUp) {
-                    game.skin = game.assetsManager.manager.get<Skin?>(Constants.SKIN_FILE_NAME, Skin::class.java)
+                    game.skin = game.assetsManager!!.manager.get<Skin?>(Constants.SKIN_FILE_NAME, Skin::class.java)
                     game.setUpTopBar(Constants.SCREEN.MENU)
 
                     val levelReader = LevelReader()
@@ -68,12 +68,12 @@ class SplashScreen(var game: SnakeIt) : ScreenAdapter() {
     private fun setupScreen() {
         Gdx.gl.glClearColor(Constants.BACKGROUND_COLOR.r, Constants.BACKGROUND_COLOR.g, Constants.BACKGROUND_COLOR.b, Constants.BACKGROUND_COLOR.a)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        game.camera.update()
+        game.camera!!.update()
     }
 
 
     override fun resize(width: Int, height: Int) {
         // change the stage's viewport when teh screen size is changed
-        game.viewport.update(width, height, true)
+        game.viewport!!.update(width, height, true)
     }
 }

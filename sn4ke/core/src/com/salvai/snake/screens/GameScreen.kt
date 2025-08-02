@@ -59,7 +59,7 @@ class GameScreen(var game: SnakeIt) : ScreenAdapter() {
         gameOverDialogToShow = true
         newHighscore = false
 
-        game.stage.clear()
+        game.stage!!.clear()
         gameOverStage = Stage(game.viewport)
 
         game.savePreferences()
@@ -79,7 +79,7 @@ class GameScreen(var game: SnakeIt) : ScreenAdapter() {
 
         setUpInputMultiplexer()
 
-        game.stage.addAction(Actions.sequence(Actions.alpha(0f), Actions.fadeIn(Constants.FADE_TIME)))
+        game.stage!!.addAction(Actions.sequence(Actions.alpha(0f), Actions.fadeIn(Constants.FADE_TIME)))
     }
 
     override fun render(delta: Float) {
@@ -97,7 +97,7 @@ class GameScreen(var game: SnakeIt) : ScreenAdapter() {
     }
 
     private fun setUpTutorial() {
-        handImage = Image(game.assetsManager.manager.get<Texture?>(Constants.HAND_IMAGE_NAME, Texture::class.java))
+        handImage = Image(game.assetsManager!!.manager.get<Texture?>(Constants.HAND_IMAGE_NAME, Texture::class.java))
         handImage!!.setBounds(game.worldWidth * 0.5f - 250, game.worldHeight * 0.5f - 150, 300f, 300f)
         handImage!!.addAction(
             Actions.forever(
@@ -108,7 +108,7 @@ class GameScreen(var game: SnakeIt) : ScreenAdapter() {
                 )
             )
         )
-        game.stage.addActor(handImage)
+        game.stage!!.addActor(handImage)
     }
 
     fun stopTutorial() {
@@ -129,7 +129,7 @@ class GameScreen(var game: SnakeIt) : ScreenAdapter() {
         replayButton.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 gameOverStage.addAction(Actions.fadeOut(Constants.FADE_TIME))
-                game.stage.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run(object : Runnable {
+                game.stage!!.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run(object : Runnable {
                     override fun run() {
                         game.setScreen(GameScreen(game))
                         dispose()
@@ -143,7 +143,7 @@ class GameScreen(var game: SnakeIt) : ScreenAdapter() {
         homeButton.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 gameOverStage.addAction(Actions.fadeOut(Constants.FADE_TIME))
-                game.stage.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run(object : Runnable {
+                game.stage!!.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run(object : Runnable {
                     override fun run() {
                         game.setScreen(LevelChooseScreen(game))
                         dispose()
@@ -176,16 +176,16 @@ class GameScreen(var game: SnakeIt) : ScreenAdapter() {
     }
 
     private fun addActors() {
-        for (block in gameFlowManager.baseBlocks!!) game.stage.addActor(block)
-        for (block in gameFlowManager.blocks) game.stage.addActor(block)
-        game.stage.addActor(gameFlowManager.apple)
-        game.stage.addActor(gameFlowManager.snake!!.snakeHead)
+        for (block in gameFlowManager.baseBlocks!!) game.stage!!.addActor(block)
+        for (block in gameFlowManager.blocks) game.stage!!.addActor(block)
+        game.stage!!.addActor(gameFlowManager.apple)
+        game.stage!!.addActor(gameFlowManager.snake!!.snakeHead)
     }
 
 
     fun updateLogic() {
         val newBody = gameFlowManager.update(if (userDirections.size > 0) userDirections.first() else null)
-        if (newBody != null) game.stage.addActor(newBody)
+        if (newBody != null) game.stage!!.addActor(newBody)
 
         if (userDirections.size > 0) userDirections.removeIndex(0)
 
@@ -203,7 +203,7 @@ class GameScreen(var game: SnakeIt) : ScreenAdapter() {
             gameOverDialogToShow = false
             game.savePreferences()
             gameOverStage.addAction(Actions.fadeOut(Constants.FADE_TIME))
-            game.stage.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run(object : Runnable {
+            game.stage!!.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run(object : Runnable {
                 override fun run() {
                     game.setScreen(LevelChooseScreen(game))
                     dispose()
@@ -234,7 +234,7 @@ class GameScreen(var game: SnakeIt) : ScreenAdapter() {
     private fun setupScreen() {
         Gdx.gl.glClearColor(BACKGROUND_COLOR.r, BACKGROUND_COLOR.g, BACKGROUND_COLOR.b, BACKGROUND_COLOR.a)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        game.camera.update()
+        game.camera!!.update()
     }
 
 
@@ -248,7 +248,7 @@ class GameScreen(var game: SnakeIt) : ScreenAdapter() {
         scoreContainer!!.setSize(game.worldWidth * 0.2f, game.worldWidth * 0.1f)
         scoreContainer!!.setOrigin(scoreContainer!!.getWidth() / 2, scoreContainer!!.getHeight() / 2)
         scoreContainer!!.setPosition(game.worldWidth * 0.5f - scoreContainer!!.getWidth() * 0.5f, game.worldHeight - game.worldWidth * 0.15f)
-        game.stage.addActor(scoreContainer)
+        game.stage!!.addActor(scoreContainer)
     }
 
     fun updateScoreLabel() {
@@ -265,7 +265,7 @@ class GameScreen(var game: SnakeIt) : ScreenAdapter() {
     }
 
     override fun resize(width: Int, height: Int) {
-        game.viewport.update(width, height, true)
+        game.viewport!!.update(width, height, true)
     }
 
     override fun resume() {

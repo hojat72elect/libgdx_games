@@ -33,7 +33,7 @@ class MenuScreen(private val game: SnakeIt) : ScreenAdapter() {
         width = game.worldWidth
         height = game.worldHeight
 
-        game.stage.clear()
+        game.stage!!.clear()
         game.setUpTopBar(Constants.SCREEN.MENU)
 
 
@@ -43,18 +43,18 @@ class MenuScreen(private val game: SnakeIt) : ScreenAdapter() {
         setUpTable()
 
         //table.setDebug(true);
-        game.stage.addActor(table)
+        game.stage!!.addActor(table)
 
         Gdx.input.isCatchBackKey = false
 
         setUpInputMultiplexer()
 
-        game.stage.addAction(Actions.sequence(Actions.alpha(0f), Actions.fadeIn(Constants.FADE_TIME)))
+        game.stage!!.addAction(Actions.sequence(Actions.alpha(0f), Actions.fadeIn(Constants.FADE_TIME)))
     }
 
 
     fun setUpExitDialog() {
-        exitDialog = MyDialog("", game.skin, Label("Exit?", game.skin))
+        exitDialog = MyDialog("", game.skin!!, Label("Exit?", game.skin))
         exitDialog!!.getContentTable().padBottom(Constants.DIALOG_BUTTON_PAD.toFloat())
         val noButton = Button(game.skin, "no")
         val yesButton = Button(game.skin, "yes")
@@ -74,8 +74,8 @@ class MenuScreen(private val game: SnakeIt) : ScreenAdapter() {
             }
         })
 
-        exitDialog!!.getButtonTable().add<Button?>(noButton)
-        exitDialog!!.getButtonTable().add<Button?>(yesButton)
+        exitDialog!!.getButtonTable().add(noButton)
+        exitDialog!!.getButtonTable().add(yesButton)
     }
 
     fun setUpInputMultiplexer() {
@@ -99,7 +99,7 @@ class MenuScreen(private val game: SnakeIt) : ScreenAdapter() {
         playButton = Button(game.skin, "play")
         playButton!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                game.stage.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run(object : Runnable {
+                game.stage!!.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run(object : Runnable {
                     override fun run() {
                         game.setScreen(LevelChooseScreen(game))
                         dispose()
@@ -120,7 +120,7 @@ class MenuScreen(private val game: SnakeIt) : ScreenAdapter() {
     override fun render(delta: Float) {
         setupScreen()
         game.draw(delta)
-        game.stage.act()
+        game.stage!!.act()
     }
 
     private fun setupScreen() {
@@ -129,6 +129,6 @@ class MenuScreen(private val game: SnakeIt) : ScreenAdapter() {
     }
 
     override fun resize(width: Int, height: Int) {
-        game.stage.viewport.update(width, height, true)
+        game.stage!!.viewport.update(width, height, true)
     }
 }

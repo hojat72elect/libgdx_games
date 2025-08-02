@@ -37,9 +37,9 @@ class SettingsScreen(var game: SnakeIt) : ScreenAdapter() {
 
 
         previewSnakes = Array<PreviewSnake>()
-        snakeTexture = game.assetsManager.manager.get<Texture?>(Constants.BLOCK_IMAGE_NAME, Texture::class.java)
+        snakeTexture = game.assetsManager!!.manager.get<Texture?>(Constants.BLOCK_IMAGE_NAME, Texture::class.java)
 
-        game.stage.clear()
+        game.stage!!.clear()
         game.setUpTopBar(Constants.SCREEN.SETTINGS)
         speedChooser = SpeedChooser(game)
 
@@ -47,10 +47,10 @@ class SettingsScreen(var game: SnakeIt) : ScreenAdapter() {
         setUpTable()
         setUpSnakeTable()
 
-        game.stage.addActor(table)
+        game.stage!!.addActor(table)
 
         setUpInputMultiplexer()
-        game.stage.addAction(Actions.sequence(Actions.alpha(0f), Actions.fadeIn(Constants.FADE_TIME)))
+        game.stage!!.addAction(Actions.sequence(Actions.alpha(0f), Actions.fadeIn(Constants.FADE_TIME)))
     }
 
     fun setUpInputMultiplexer() {
@@ -145,6 +145,6 @@ class SettingsScreen(var game: SnakeIt) : ScreenAdapter() {
     }
 
     override fun resize(width: Int, height: Int) {
-        game.stage.viewport.update(width, height, true)
+        game.stage!!.viewport.update(width, height, true)
     }
 }
