@@ -19,9 +19,9 @@ import com.nopalsoft.fifteen.screens.MainMenuScreen
 import com.nopalsoft.fifteen.screens.Screens
 
 class GameScreen(game: MainFifteen) : Screens(game) {
-    private val stageGame: Stage
+    private val stageGame: Stage = Stage(StretchViewport(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat()))
     var state: Int = 0
-    var oTablero: Tablero
+    var oTablero: Tablero = Tablero()
     var tbMarcadores: Table? = null
     var lbTime: Label? = null
     var lbMoves: Label? = null
@@ -31,8 +31,6 @@ class GameScreen(game: MainFifteen) : Screens(game) {
     var oMarcoPaused: MarcoPaused? = null
 
     init {
-        stageGame = Stage(StretchViewport(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat()))
-        oTablero = Tablero()
         stageGame.addActor(oTablero)
 
         initUI()
@@ -46,8 +44,6 @@ class GameScreen(game: MainFifteen) : Screens(game) {
         tbMarcadores = Table()
         tbMarcadores!!.setSize(SCREEN_WIDTH.toFloat(), 100f)
         tbMarcadores!!.setPosition(0f, 680f)
-
-        // tbMarcadores.debug();
         lbTime = Label("Time\n0", Assets.labelStyleChico)
         lbTime!!.setAlignment(Align.center)
         lbTime!!.setFontScale(1.15f)
@@ -173,22 +169,33 @@ class GameScreen(game: MainFifteen) : Screens(game) {
      * de arriba de la blanca es la que baja. Cuando nosotros sabemos que la que sube es la blanca.
      */
     override fun keyDown(keycode: Int): Boolean {
-        if (keycode == Input.Keys.LEFT) {
-            oTablero.moveRight = true
-            setRunning()
-        } else if (keycode == Input.Keys.RIGHT) {
-            oTablero.moveLeft = true
-            setRunning()
-        } else if (keycode == Input.Keys.UP) {
-            oTablero.moveDown = true
-            setRunning()
-        } else if (keycode == Input.Keys.DOWN) {
-            oTablero.moveUp = true
-            setRunning()
-        } else if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
-            changeScreenWithFadeOut(MainMenuScreen::class.java, game!!)
-        }
+        when (keycode) {
+            Input.Keys.LEFT -> {
+                oTablero.moveRight = true
+                setRunning()
+            }
 
+            Input.Keys.RIGHT -> {
+                oTablero.moveLeft = true
+                setRunning()
+            }
+
+            Input.Keys.UP -> {
+                oTablero.moveDown = true
+                setRunning()
+            }
+
+            Input.Keys.DOWN -> {
+                oTablero.moveUp = true
+                setRunning()
+            }
+
+            Input.Keys.ESCAPE, Input.Keys.BACK -> {
+                changeScreenWithFadeOut(MainMenuScreen::class.java, game!!)
+            }
+
+            else -> {}
+        }
         return true
     }
 

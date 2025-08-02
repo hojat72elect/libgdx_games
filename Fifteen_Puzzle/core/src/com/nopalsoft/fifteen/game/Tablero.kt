@@ -82,7 +82,7 @@ class Tablero : Group() {
             i++
         }
         moves = 0
-        tiempo = moves.toFloat()
+        tiempo = 0F
         state = STATE_RUNNING
     }
 
@@ -146,10 +146,10 @@ class Tablero : Group() {
         if (shuffle) shuffle()
 
         shuffle = false
-        moveUp = shuffle
-        moveRight = moveUp
-        moveLeft = moveRight
-        moveDown = moveLeft
+        moveUp = false
+        moveRight = false
+        moveLeft = false
+        moveDown = false
 
         if (checkWinClassic()) {
             Gdx.app.log("WIN CLASSIC", "")

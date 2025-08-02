@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.nopalsoft.fifteen.Assets
@@ -34,11 +33,10 @@ abstract class Screens(game: MainFifteen) : InputAdapter(), Screen, GestureListe
     var batcher: SpriteBatch?
 
     @JvmField
-    var stage: Stage?
+    var stage = game.stage
     var blackFadeOut: Image? = null
 
     init {
-        this.stage = game.stage
         this.stage!!.clear()
         this.batcher = game.batcher
         this.game = game
@@ -78,16 +76,13 @@ abstract class Screens(game: MainFifteen) : InputAdapter(), Screen, GestureListe
         blackFadeOut!!.addAction(
             Actions.sequence(
                 Actions.fadeIn(.5f),
-                Actions.run(object : Runnable {
-                    override fun run() {
-                        if (newScreen == GameScreen::class.java) game.setScreen(GameScreen(game))
-                        else if (newScreen == MainMenuScreen::class.java) game.setScreen(MainMenuScreen(game))
-                        else if (newScreen == HelpScreen::class.java) game.setScreen(HelpScreen(game))
-
-                        // El blackFadeOut se remueve del stage cuando se le da new Screens(game) "Revisar el constructor de la clase Screens" por lo que no hay necesidad de hacer
-                        // blackFadeout.remove();
+                Actions.run {
+                    when (newScreen) {
+                        GameScreen::class.java -> game.setScreen(GameScreen(game))
+                        MainMenuScreen::class.java -> game.setScreen(MainMenuScreen(game))
+                        HelpScreen::class.java -> game.setScreen(HelpScreen(game))
                     }
-                })
+                }
             )
         )
         stage!!.addActor(blackFadeOut)

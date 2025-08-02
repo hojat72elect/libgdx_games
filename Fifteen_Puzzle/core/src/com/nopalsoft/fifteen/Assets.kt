@@ -2,7 +2,6 @@ package com.nopalsoft.fifteen
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.audio.Music
-import com.badlogic.gdx.audio.Music.OnCompletionListener
 import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
@@ -147,8 +146,8 @@ object Assets {
         loadFont()
         cargarEstilos()
 
-        if (MathUtils.randomBoolean()) fondo = atlas!!.findRegion("fondo")
-        else fondo = atlas!!.findRegion("fondo2")
+        fondo = if (MathUtils.randomBoolean()) atlas!!.findRegion("fondo")
+        else atlas!!.findRegion("fondo2")
         fondoTablero = atlas!!.findRegion("fondoPuntuaciones")
 
         titulo = atlas!!.findRegion("titulo")
@@ -187,17 +186,9 @@ object Assets {
 
         Settings.load()
 
-        music1!!.setOnCompletionListener(object : OnCompletionListener {
-            override fun onCompletion(music: Music?) {
-                if (Settings.isMusicOn) music2!!.play()
-            }
-        })
+        music1!!.setOnCompletionListener { if (Settings.isMusicOn) music2!!.play() }
 
-        music2!!.setOnCompletionListener(object : OnCompletionListener {
-            override fun onCompletion(music: Music?) {
-                if (Settings.isMusicOn) music1!!.play()
-            }
-        })
+        music2!!.setOnCompletionListener { if (Settings.isMusicOn) music1!!.play() }
 
         playMusic()
     }

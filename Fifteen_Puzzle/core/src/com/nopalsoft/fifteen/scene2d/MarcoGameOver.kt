@@ -14,11 +14,9 @@ import com.nopalsoft.fifteen.Settings
 import com.nopalsoft.fifteen.screens.MainMenuScreen
 import com.nopalsoft.fifteen.screens.Screens
 
-class MarcoGameOver(screen: Screens, time: Int, moves: Int) : Group() {
-    var screen: Screens?
+class MarcoGameOver(var screen: Screens, time: Int, moves: Int) : Group() {
 
     init {
-        this.screen = screen
         setSize(420f, 450f)
         setOrigin(getWidth() / 2f, getHeight() / 2f)
         setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 260f)
@@ -97,16 +95,13 @@ class MarcoGameOver(screen: Screens, time: Int, moves: Int) : Group() {
         scoreTable.add<Label?>(lbBestMoves).left()
         scoreTable.add<Label?>(lbBestNumMoves).right().expand()
 
-        // Facebook Twitter
-        val btShareFacebook: Button
-        val btShareTwitter: Button
-
-        btShareTwitter = Button(Assets.btTwitter)
+        val btShareTwitter = Button(Assets.btTwitter)
         btShareTwitter.setSize(50f, 50f)
         btShareTwitter.setPosition(155f, 110f)
         screen.addEfectoPress(btShareTwitter)
 
-        btShareFacebook = Button(Assets.btFacebook)
+        // Facebook Twitter
+        val btShareFacebook = Button(Assets.btFacebook)
         btShareFacebook.setSize(50f, 50f)
         btShareFacebook.setPosition(225f, 110f)
         screen.addEfectoPress(btShareFacebook)
@@ -131,14 +126,12 @@ class MarcoGameOver(screen: Screens, time: Int, moves: Int) : Group() {
         addAction(
             Actions.sequence(
                 Actions.scaleTo(1f, 1f, .2f),
-                Actions.run(object : Runnable {
-                    override fun run() {
-                        addActor(scoreTable)
-                        addActor(btShareTwitter)
-                        addActor(btShareFacebook)
-                        addActor(lbMainMenu)
-                    }
-                })
+                Actions.run {
+                    addActor(scoreTable)
+                    addActor(btShareTwitter)
+                    addActor(btShareFacebook)
+                    addActor(lbMainMenu)
+                }
             )
         )
     }

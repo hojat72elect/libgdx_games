@@ -10,16 +10,15 @@ import com.nopalsoft.fifteen.Assets
 import com.nopalsoft.fifteen.MainFifteen
 
 class HelpScreen(game: MainFifteen) : Screens(game) {
-    var lbTextHelp: Label
+    var lbTextHelp: Label = Label(
+        "The object of the puzzle is to place the tiles in order (see diagram below) by making sliding moves that use the empty space.",
+        Assets.labelStyleChico
+    )
     var imgPuzzle: Image
 
     var btBack: Button
 
     init {
-        lbTextHelp = Label(
-            "The object of the puzzle is to place the tiles in order (see diagram below) by making sliding moves that use the empty space.",
-            Assets.labelStyleChico
-        )
         lbTextHelp.setWrap(true)
         lbTextHelp.setWidth((SCREEN_WIDTH - 20).toFloat())
         lbTextHelp.setPosition(

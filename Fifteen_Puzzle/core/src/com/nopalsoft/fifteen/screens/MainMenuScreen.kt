@@ -16,7 +16,7 @@ import com.nopalsoft.fifteen.Settings
 import com.nopalsoft.fifteen.game.GameScreen
 
 class MainMenuScreen(game: MainFifteen) : Screens(game) {
-    var imgTitulo: Image?
+    var imgTitulo = Image(Assets.titulo)
 
     var lbPlay: Label
     var lbHelp: Label
@@ -28,9 +28,8 @@ class MainMenuScreen(game: MainFifteen) : Screens(game) {
     var btFacebook: Button
 
     init {
-        imgTitulo = Image(Assets.titulo)
-        imgTitulo!!.setPosition(
-            SCREEN_WIDTH / 2f - imgTitulo!!.getWidth() / 2f,
+        imgTitulo.setPosition(
+            SCREEN_WIDTH / 2f - imgTitulo.getWidth() / 2f,
             630f
         )
 

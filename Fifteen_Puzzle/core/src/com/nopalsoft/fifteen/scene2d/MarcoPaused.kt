@@ -12,11 +12,9 @@ import com.nopalsoft.fifteen.game.GameScreen
 import com.nopalsoft.fifteen.screens.MainMenuScreen
 import com.nopalsoft.fifteen.screens.Screens
 
-class MarcoPaused(screen: Screens) : Group() {
-    var screen: Screens?
+class MarcoPaused(var screen: Screens) : Group() {
 
     init {
-        this.screen = screen
         setSize(420f, 300f)
         setOrigin(getWidth() / 2f, getHeight() / 2f)
         setPosition(Screens.SCREEN_WIDTH / 2f - getWidth() / 2f, 260f)
@@ -63,12 +61,10 @@ class MarcoPaused(screen: Screens) : Group() {
         addAction(
             Actions.sequence(
                 Actions.scaleTo(1f, 1f, .2f),
-                Actions.run(object : Runnable {
-                    override fun run() {
-                        addActor(lbMainMenu)
-                        addActor(lbResume)
-                    }
-                })
+                Actions.run {
+                    addActor(lbMainMenu)
+                    addActor(lbResume)
+                }
             )
         )
     }
