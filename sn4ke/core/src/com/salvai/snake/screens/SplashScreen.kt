@@ -12,12 +12,11 @@ import com.salvai.snake.levels.LevelReader
 import com.salvai.snake.utils.Constants
 
 class SplashScreen(var game: SnakeIt) : ScreenAdapter() {
-    var splashSprite: Sprite
+    var splashSprite: Sprite = Sprite(game.assetsManager!!.manager.get(Constants.APPLE_IMAGE_NAME, Texture::class.java))
     private var countdownTime: Int
     private var toSetUp = true
 
     init {
-        splashSprite = Sprite(game.assetsManager!!.manager.get<Texture?>(Constants.APPLE_IMAGE_NAME, Texture::class.java))
         splashSprite.setSize(game.worldWidth * 0.6f, game.worldWidth * 0.6f)
         splashSprite.setPosition(game.worldWidth * 0.2f, game.worldHeight * 0.5f - splashSprite.getHeight() * 0.3f)
         splashSprite.setAlpha(1f)
@@ -52,7 +51,7 @@ class SplashScreen(var game: SnakeIt) : ScreenAdapter() {
                 }
             } else {
                 if (toSetUp) {
-                    game.skin = game.assetsManager!!.manager.get<Skin?>(Constants.SKIN_FILE_NAME, Skin::class.java)
+                    game.skin = game.assetsManager!!.manager.get(Constants.SKIN_FILE_NAME, Skin::class.java)
                     game.setUpTopBar(Constants.SCREEN.MENU)
 
                     val levelReader = LevelReader()

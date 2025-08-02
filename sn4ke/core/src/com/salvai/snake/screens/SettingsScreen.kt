@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Button
-import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.badlogic.gdx.scenes.scene2d.ui.Slider
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Array
@@ -20,24 +18,19 @@ import com.salvai.snake.screens.helper.SpeedChooser
 import com.salvai.snake.utils.Constants
 
 class SettingsScreen(var game: SnakeIt) : ScreenAdapter() {
+
     //Snake colors
-    private val snakeTexture: Texture?
-    private val previewSnakes: Array<PreviewSnake>
+    private val snakeTexture: Texture? = game.assetsManager!!.manager.get<Texture?>(Constants.BLOCK_IMAGE_NAME, Texture::class.java)
+    private val previewSnakes: Array<PreviewSnake> = Array<PreviewSnake>()
     private val speedChooser: SpeedChooser
-    var width: Float
-    var height: Float
+    var width: Float = game.worldWidth
+    var height: Float = game.worldHeight
     private var table: Table? = null
     private var soundButton: Button? = null
     private var vibrationButton: Button? = null
 
 
     init {
-        width = game.worldWidth
-        height = game.worldHeight
-
-
-        previewSnakes = Array<PreviewSnake>()
-        snakeTexture = game.assetsManager!!.manager.get<Texture?>(Constants.BLOCK_IMAGE_NAME, Texture::class.java)
 
         game.stage!!.clear()
         game.setUpTopBar(Constants.SCREEN.SETTINGS)
@@ -72,7 +65,7 @@ class SettingsScreen(var game: SnakeIt) : ScreenAdapter() {
         table!!.add<Button?>(soundButton).size(height * 0.12f).colspan(3)
         table!!.add<Button?>(vibrationButton).size(height * 0.12f).colspan(3)
         table!!.row()
-        table!!.add<Slider?>(speedChooser.slider).colspan(6).height(height * 0.14f)
+        table!!.add(speedChooser.slider).colspan(6).height(height * 0.14f)
     }
 
     private fun setUpSnakeTable() {
@@ -84,7 +77,7 @@ class SettingsScreen(var game: SnakeIt) : ScreenAdapter() {
             //preview
             val PREVIEW_BLOCKS = 6
             val previewSnake = PreviewSnake(item, PREVIEW_BLOCKS, snakeTexture!!, game.selectedColor == item)
-            for (image in previewSnake.previews) snakeTable.add<Image?>(image)
+            for (image in previewSnake.previews) snakeTable.add(image)
 
             for (image in previewSnake.previews) image.addListener(object : ClickListener() {
                 override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -100,7 +93,7 @@ class SettingsScreen(var game: SnakeIt) : ScreenAdapter() {
         }
 
         table!!.row()
-        table!!.add<Table?>(snakeTable).colspan(6)
+        table!!.add(snakeTable).colspan(6)
     }
 
     private fun selectPreview(index: Int) {

@@ -17,21 +17,16 @@ import com.salvai.snake.utils.Constants
 import com.salvai.snake.utils.UrlController.openWebsite
 
 class MenuScreen(private val game: SnakeIt) : ScreenAdapter() {
-    private val width: Float
-    private val height: Float
 
-    @JvmField
+    private val width = game.worldWidth
+    private val height = game.worldHeight
     var exitDialog: MyDialog? = null
-
-    @JvmField
     var playButton: Button? = null
     var websiteButton: TextButton? = null
     private var table: Table? = null
 
 
     init {
-        width = game.worldWidth
-        height = game.worldHeight
 
         game.stage!!.clear()
         game.setUpTopBar(Constants.SCREEN.MENU)
@@ -99,12 +94,10 @@ class MenuScreen(private val game: SnakeIt) : ScreenAdapter() {
         playButton = Button(game.skin, "play")
         playButton!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                game.stage!!.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run(object : Runnable {
-                    override fun run() {
-                        game.setScreen(LevelChooseScreen(game))
-                        dispose()
-                    }
-                })))
+                game.stage!!.addAction(Actions.sequence(Actions.fadeOut(Constants.FADE_TIME), Actions.run {
+                    game.setScreen(LevelChooseScreen(game))
+                    dispose()
+                }))
             }
         })
 
