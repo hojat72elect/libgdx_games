@@ -176,7 +176,7 @@ public class TileMapHandler {
             } else if (obj.getUserData() != null && obj.getUserData() instanceof Wood) {
                 Wood oWood = ((Wood) obj.getUserData());
                 oWood.update(delta, obj);
-                if (oWood.state == Wood.State.hit && !oWorldBox.isLocked() && oWood.stateTime >= Bomb.TIEMPO_EXPLOSION) {
+                if (oWood.state == Wood.State.HIT && !oWorldBox.isLocked() && oWood.stateTime >= Bomb.TIEMPO_EXPLOSION) {
                     arrWoods.removeValue(oWood, true);
                     arrBodys.removeValue(obj, true);
                     oWorldBox.destroyBody(obj);
@@ -426,7 +426,7 @@ public class TileMapHandler {
 
         oBody.setFixedRotation(true);
 
-        Wood oWood = new Wood(oPonyWood.position.x, oPonyWood.position.y, oPonyWood, this);
+        Wood oWood = new Wood(oPonyWood.position.x, oPonyWood.position.y, this);
 
         arrWoods.add(oWood);
         arrBodys.add(oBody);
@@ -591,7 +591,7 @@ public class TileMapHandler {
                     ponyDataBody.getHurt(((Bomb) otraCosaDataBody).bombTimerSeconds);
                 } else if (fixOtraCosa.getUserData() != null && fixOtraCosa.getUserData().equals("nucleoWood")) {
                     Wood oWood = (Wood) otraCosaDataBody;
-                    if (oWood.state == Wood.State.normal) {
+                    if (oWood.state == Wood.State.NORMAL) {
                         oWood.hitByPony(fixOtraCosa.getBody());
                         ponyDataBody.getHurt(((Wood) otraCosaDataBody).TIEMPO_HURT);
                     }

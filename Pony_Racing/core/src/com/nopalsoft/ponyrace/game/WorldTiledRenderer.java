@@ -210,7 +210,7 @@ public class WorldTiledRenderer {
 
             TextureRegion keyFrame;
 
-            if (obj.tipo == Wood.Tipo.platano)
+            if (obj.tipo == Wood.Tipo.PLATANO)
                 keyFrame = oWorld.game.assetsHandler.platano;
             else
                 keyFrame = oWorld.game.assetsHandler.tachuelas;
