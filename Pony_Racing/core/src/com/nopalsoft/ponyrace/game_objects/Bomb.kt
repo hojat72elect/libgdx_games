@@ -8,36 +8,32 @@ import com.nopalsoft.ponyrace.game.TileMapHandler
 
 class Bomb(x: Float, y: Float, world: TileMapHandler) : BaseGameObject(x, y) {
     @JvmField
-    val TIEMPO_HURT = when (Settings.bombLevel) {
-        1 -> 2.5f
-        2 -> 2.7f
-        3 -> 3f
-        4 -> 3.25f
-        5 -> 3.5f
-        0 -> 2f
-        else -> 2f
+    val bombTimerSeconds = when (Settings.bombLevel) {
+        1 -> 2.5F
+        2 -> 2.7F
+        3 -> 3F
+        4 -> 3.25F
+        5 -> 3.5F
+        0 -> 2F
+        else -> 2F
     }
 
     @JvmField
-    var lastStatetime: Float
+    var stateTime = 0F
 
     @JvmField
-    var stateTime: Float = 0f
-    var angulo: Float = 0f
+    var lastStatetime = stateTime
+
+    var angulo = 0F
 
     @JvmField
-    var state: State?
+    var state = State.NORMAL
 
     @JvmField
-    var skelBomb: Skeleton?
+    var skelBomb = Skeleton(world.game.assetsHandler.skeletonBombData)
 
     init {
-        lastStatetime = stateTime
-        state = State.NORMAL
-        skelBomb = Skeleton(world.game.assetsHandler.skeletonBombData)
-        skelBomb!!.setToSetupPose()
-
-
+        skelBomb.setToSetupPose()
     }
 
     fun update(delta: Float, obj: Body) {

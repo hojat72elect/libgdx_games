@@ -588,7 +588,7 @@ public class TileMapHandler {
                     ponyDataBody.regresoHoyo.set(ponyDataBody.position.x, ponyDataBody.position.y);
                 } else if (fixOtraCosa.getUserData() != null && fixOtraCosa.getUserData().equals("nucleoBomba")) {
                     ((Bomb) otraCosaDataBody).explode(fixOtraCosa.getBody());
-                    ponyDataBody.getHurt(((Bomb) otraCosaDataBody).TIEMPO_HURT);
+                    ponyDataBody.getHurt(((Bomb) otraCosaDataBody).bombTimerSeconds);
                 } else if (fixOtraCosa.getUserData() != null && fixOtraCosa.getUserData().equals("nucleoWood")) {
                     Wood oWood = (Wood) otraCosaDataBody;
                     if (oWood.state == Wood.State.normal) {
@@ -740,7 +740,7 @@ public class TileMapHandler {
             if (fixPony.getUserData() != null && fixPony.getUserData().equals("cuerpo") && fixOtraCosa.getUserData() != null
                     && fixOtraCosa.getUserData().equals("sensorBomba")) {
                 if (((Bomb) otraCosaData).state == Bomb.State.EXPLODE) {
-                    oOpponentPony.getHurt(((Bomb) otraCosaData).TIEMPO_HURT);
+                    oOpponentPony.getHurt(((Bomb) otraCosaData).bombTimerSeconds);
                 }
             }
         }
