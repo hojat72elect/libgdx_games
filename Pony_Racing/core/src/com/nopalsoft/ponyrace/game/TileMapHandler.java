@@ -161,7 +161,7 @@ public class TileMapHandler {
             } else if (obj.getUserData() != null && obj.getUserData() instanceof Wing) {
                 Wing objWing = ((Wing) obj.getUserData());
                 objWing.update(delta);
-                if (objWing.state == Wing.State.ACTIVE && !oWorldBox.isLocked()) {
+                if (objWing.getState() == Wing.State.ACTIVE && !oWorldBox.isLocked()) {
                     arrPlumas.removeValue(objWing, true);
                     oWorldBox.destroyBody(obj);
                 }

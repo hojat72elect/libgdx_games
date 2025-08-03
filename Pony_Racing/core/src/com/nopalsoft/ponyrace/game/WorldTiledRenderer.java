@@ -303,7 +303,7 @@ public class WorldTiledRenderer {
         for (Wing obj : oWorld.arrPlumas) {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 1))
                 continue;
-            oWorld.game.assetsHandler.plumaAnim.apply(oWorld.game.assetsHandler.plumaSkeleton, obj.lastStateTime, obj.stateTime, true, null);
+            oWorld.game.assetsHandler.plumaAnim.apply(oWorld.game.assetsHandler.plumaSkeleton, obj.getLastStateTime(), obj.getStateTime(), true, null);
             oWorld.game.assetsHandler.plumaSkeleton.setX(obj.position.x);
             oWorld.game.assetsHandler.plumaSkeleton.setY(obj.position.y - .2f);
             oWorld.game.assetsHandler.plumaSkeleton.updateWorldTransform();
