@@ -23,7 +23,7 @@ open class Ventana(currentScreen: BaseScreen) : Group() {
     init {
         screen = currentScreen
         game = currentScreen.game!!
-        oAssetsHandler = game.assetsHandler
+        oAssetsHandler = game.assetsHandler!!
     }
 
     fun setBackGround() {

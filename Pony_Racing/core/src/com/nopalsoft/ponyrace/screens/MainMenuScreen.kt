@@ -41,12 +41,12 @@ class MainMenuScreen(game: PonyRacingGame) : BaseScreen(game) {
         stage.addActor(btSonido)
         stage.addActor(btMusica)
 
-        assetsHandler.skeletonMenuTitle.setX(400f)
-        assetsHandler.skeletonMenuTitle.setY(370f)
+        assetsHandler.skeletonMenuTitle!!.setX(400f)
+        assetsHandler.skeletonMenuTitle!!.setY(370f)
     }
 
     fun cargarBotones() {
-        btJugar2 = BotonNube(assetsHandler.nube, "Play", assetsHandler.fontGde)
+        btJugar2 = BotonNube(assetsHandler.nube!!, "Play", assetsHandler.fontGde!!)
         btJugar2!!.setSize(200f, 130f)
 
         btJugar2!!.addListener(object : ClickListener() {
@@ -60,7 +60,7 @@ class MainMenuScreen(game: PonyRacingGame) : BaseScreen(game) {
             }
         })
 
-        btMore = BotonNube(assetsHandler.nube, "More", assetsHandler.fontGde)
+        btMore = BotonNube(assetsHandler.nube!!, "More", assetsHandler.fontGde!!)
         btMore!!.setSize(200f, 130f)
         btMore!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -69,7 +69,7 @@ class MainMenuScreen(game: PonyRacingGame) : BaseScreen(game) {
             }
         })
 
-        btLeaderBoard = BotonNube(assetsHandler.nube, "LeaderBoards", assetsHandler.fontChco)
+        btLeaderBoard = BotonNube(assetsHandler.nube!!, "LeaderBoards", assetsHandler.fontChco!!)
         btLeaderBoard!!.setSize(290f, 140f)
         btLeaderBoard!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -132,9 +132,9 @@ class MainMenuScreen(game: PonyRacingGame) : BaseScreen(game) {
     }
 
     private fun renderFlagTitle(delta: Float) {
-        assetsHandler.animationMenuTitle.apply(assetsHandler.skeletonMenuTitle, screenLastStateTime, ScreenStateTime, true, null)
-        assetsHandler.skeletonMenuTitle.updateWorldTransform()
-        assetsHandler.skeletonMenuTitle.update(delta)
+        assetsHandler.animationMenuTitle!!.apply(assetsHandler.skeletonMenuTitle, screenLastStateTime, ScreenStateTime, true, null)
+        assetsHandler.skeletonMenuTitle!!.updateWorldTransform()
+        assetsHandler.skeletonMenuTitle!!.update(delta)
         skeletonRenderer!!.draw(batch, assetsHandler.skeletonMenuTitle)
     }
 

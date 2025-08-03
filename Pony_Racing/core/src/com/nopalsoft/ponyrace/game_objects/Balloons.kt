@@ -20,8 +20,8 @@ class Balloons(x: Float, y: Float, tileMapHandler: TileMapHandler) : BaseGameObj
         stateTime = tileMapHandler.random.nextFloat() * 5f
         lastStateTime = stateTime
         state = State.IDLE
-        balloonsSkeleton = Skeleton(tileMapHandler.game.assetsHandler.globoSkeletonData)
-        TAKEN_ANIMATION_DURATION = tileMapHandler.game.assetsHandler.globoTomadaAnim.duration
+        balloonsSkeleton = Skeleton(tileMapHandler.game.assetsHandler!!.globoSkeletonData)
+        TAKEN_ANIMATION_DURATION = tileMapHandler.game.assetsHandler!!.globoTomadaAnim!!.duration
     }
 
     fun update(delta: Float) {

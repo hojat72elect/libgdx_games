@@ -25,8 +25,8 @@ class VentanaTimesUp(currentScreen: BaseScreen) : Ventana(currentScreen) {
         addActor(timeUp)
 
         val btTryAgain = BotonNube(
-            oAssetsHandler.nube, "Try again",
-            oAssetsHandler.fontChco
+            oAssetsHandler.nube!!, "Try again",
+            oAssetsHandler.fontChco!!
         )
         btTryAgain.setSize(150f, 100f)
         btTryAgain.setPosition(
@@ -57,8 +57,8 @@ class VentanaTimesUp(currentScreen: BaseScreen) : Ventana(currentScreen) {
         })
 
         val btMainMenu = BotonNube(
-            oAssetsHandler.nube, "Menu",
-            oAssetsHandler.fontChco
+            oAssetsHandler.nube!!, "Menu",
+            oAssetsHandler.fontChco!!
         )
         btMainMenu.setSize(150f, 100f)
         btMainMenu

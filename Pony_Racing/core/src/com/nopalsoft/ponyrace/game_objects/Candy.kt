@@ -20,8 +20,8 @@ class Candy(x: Float, y: Float, oWorld: TileMapHandler) : BaseGameObject(x, y) {
         stateTime = oWorld.random.nextFloat() * 5f
         lastStateTime = stateTime
         state = State.NORMAL
-        skeleton = Skeleton(oWorld.game.assetsHandler.dulceSkeletonData)
-        PICK_UP_DURATION = oWorld.game.assetsHandler.dulceTomadaAnim.duration
+        skeleton = Skeleton(oWorld.game.assetsHandler!!.dulceSkeletonData)
+        PICK_UP_DURATION = oWorld.game.assetsHandler!!.dulceTomadaAnim!!.duration
     }
 
     fun update(delta: Float) {

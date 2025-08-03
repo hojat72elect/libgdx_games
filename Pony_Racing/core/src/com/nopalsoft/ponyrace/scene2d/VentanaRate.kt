@@ -24,7 +24,7 @@ class VentanaRate(currentScreen: BaseScreen) : Ventana(currentScreen) {
 
         val lbContenido = Label(
             "Hello, thank you for playing Pony racing.\nHelp us to support this game. Just rate us at the app store.",
-            game.assetsHandler.skin
+            game.assetsHandler!!.skin
         )
         lbContenido.setSize(getWidth() - 20, 170f)
         lbContenido.setPosition(
@@ -33,7 +33,7 @@ class VentanaRate(currentScreen: BaseScreen) : Ventana(currentScreen) {
         )
         lbContenido.setWrap(true)
 
-        val btRate = TextButton("Rate", game.assetsHandler.skin)
+        val btRate = TextButton("Rate", game.assetsHandler!!.skin)
         btRate.label.setWrap(true)
         btRate.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -41,7 +41,7 @@ class VentanaRate(currentScreen: BaseScreen) : Ventana(currentScreen) {
             }
         })
 
-        val btNotNow = TextButton("Not now", game.assetsHandler.skin)
+        val btNotNow = TextButton("Not now", game.assetsHandler!!.skin)
         btNotNow.label.setWrap(true)
         btNotNow.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {

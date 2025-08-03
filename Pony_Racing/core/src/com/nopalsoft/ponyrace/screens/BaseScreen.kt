@@ -44,8 +44,8 @@ abstract class BaseScreen(game: PonyRacingGame) : InputAdapter(), Screen {
     protected var ScreenStateTime: Float
 
     init {
-        assetsHandler = game.assetsHandler
-        stage = game.stage
+        assetsHandler = game.assetsHandler!!
+        stage = game.stage!!
         stage.clear()
         batch = game.batch
         glyphLayout = GlyphLayout()
@@ -60,20 +60,20 @@ abstract class BaseScreen(game: PonyRacingGame) : InputAdapter(), Screen {
         ScreenStateTime = 0f
         screenLastStateTime = ScreenStateTime
         if (this is MainMenuScreen) {
-            assetsHandler.fontGde.getData().setScale(1f)
-            assetsHandler.fontChco.getData().setScale(.65f)
+            assetsHandler.fontGde!!.getData().setScale(1f)
+            assetsHandler.fontChco!!.getData().setScale(.65f)
         } else if (this is GameScreen) {
-            assetsHandler.fontGde.getData().setScale(.625f)
-            assetsHandler.fontChco.getData().setScale(.55f)
+            assetsHandler.fontGde!!.getData().setScale(.625f)
+            assetsHandler.fontChco!!.getData().setScale(.55f)
         } else if (this is WorldMapTiledScreen) {
-            assetsHandler.fontGde.getData().setScale(.8f)
-            assetsHandler.fontChco.getData().setScale(.6f)
+            assetsHandler.fontGde!!.getData().setScale(.8f)
+            assetsHandler.fontChco!!.getData().setScale(.6f)
         } else if (this is LeaderboardChooseScreen) {
-            assetsHandler.fontGde.getData().setScale(.8f)
-            assetsHandler.fontChco.getData().setScale(.65f)
+            assetsHandler.fontGde!!.getData().setScale(.8f)
+            assetsHandler.fontChco!!.getData().setScale(.65f)
         } else if (this is ShopScreen) {
-            assetsHandler.fontGde.getData().setScale(.68f)
-            assetsHandler.fontChco.getData().setScale(.45f)
+            assetsHandler.fontGde!!.getData().setScale(.68f)
+            assetsHandler.fontChco!!.getData().setScale(.45f)
         }
     }
 

@@ -56,7 +56,7 @@ class LoadingScreen : BaseScreen {
                 game!!.setScreen(GameScreen(game, nivelTiled))
             }
         } else {
-            cargaActual = (game!!.assetsHandler.getProgress() * 100).toInt()
+            cargaActual = (game!!.assetsHandler!!.getProgress() * 100).toInt()
         }
     }
 
@@ -65,9 +65,9 @@ class LoadingScreen : BaseScreen {
         batch!!.setProjectionMatrix(camera!!.combined)
 
         batch!!.begin()
-        assetsHandler.fontChco.color = Color.WHITE
+        assetsHandler.fontChco!!.color = Color.WHITE
         glyphLayout!!.setText(assetsHandler.fontChco, "%")
-        assetsHandler.fontChco.draw(
+        assetsHandler.fontChco!!.draw(
             batch, cargaActual.toString() + "%", (SCREEN_WIDTH / 2f)
                     - (glyphLayout!!.width / 2), SCREEN_HEIGHT / 2f - glyphLayout!!.height / 2
         )

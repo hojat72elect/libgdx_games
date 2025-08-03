@@ -30,8 +30,8 @@ class LeaderboardChooseScreen(game: PonyRacingGame) : BaseScreen(game) {
 
     private fun cargarBotones() {
         btLeaderBoard = BotonNube(
-            assetsHandler.nube, "LeaderBoards",
-            assetsHandler.fontChco
+            assetsHandler.nube!!, "LeaderBoards",
+            assetsHandler.fontChco!!
         )
         btLeaderBoard!!.setSize(290f, 140f)
         btLeaderBoard!!.addListener(object : ClickListener() {
@@ -47,8 +47,8 @@ class LeaderboardChooseScreen(game: PonyRacingGame) : BaseScreen(game) {
         })
 
         btAchievements = BotonNube(
-            assetsHandler.nube, "Achievements",
-            assetsHandler.fontChco
+            assetsHandler.nube!!, "Achievements",
+            assetsHandler.fontChco!!
         )
         btAchievements!!.setSize(290f, 140f)
         btAchievements!!.addListener(object : ClickListener() {
@@ -63,7 +63,7 @@ class LeaderboardChooseScreen(game: PonyRacingGame) : BaseScreen(game) {
             }
         })
 
-        btBack = BotonNube(assetsHandler.nube, "Back", assetsHandler.fontGde)
+        btBack = BotonNube(assetsHandler.nube!!, "Back", assetsHandler.fontGde!!)
         btBack!!.setSize(150f, 100f)
         btBack!!.setPosition(645f, 5f)
         btBack!!.addListener(object : ClickListener() {
@@ -91,7 +91,7 @@ class LeaderboardChooseScreen(game: PonyRacingGame) : BaseScreen(game) {
         val stilo = TextButtonStyle(
             assetsHandler.btSignInUp,
             assetsHandler.btSignInDown, null,
-            assetsHandler.skin.getFont("default-font")
+            assetsHandler.skin!!.getFont("default-font")
         )
         btSignOut = TextButton("Sign out", stilo)
         btSignOut!!.setPosition(5f, 5f)

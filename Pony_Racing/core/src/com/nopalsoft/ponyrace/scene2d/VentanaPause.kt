@@ -31,8 +31,8 @@ class VentanaPause(currentScreen: BaseScreen) : Ventana(currentScreen) {
         lbTitle.setPosition(getWidth() / 2f - lbTitle.getWidth() / 2f, 255f)
 
         val btResume = BotonNube(
-            oAssetsHandler.nube, "Resume",
-            oAssetsHandler.fontChco
+            oAssetsHandler.nube!!, "Resume",
+            oAssetsHandler.fontChco!!
         )
         btResume.setSize(150f, 100f)
         btResume.setPosition(getWidth() / 2f - btResume.getWidth() / 2f, 150f)
@@ -54,8 +54,8 @@ class VentanaPause(currentScreen: BaseScreen) : Ventana(currentScreen) {
         })
 
         val btTryAgain = BotonNube(
-            oAssetsHandler.nube, "Try again",
-            oAssetsHandler.fontChco
+            oAssetsHandler.nube!!, "Try again",
+            oAssetsHandler.fontChco!!
         )
         btTryAgain.setSize(150f, 100f)
         btTryAgain.setPosition(60f, 30f)
@@ -83,8 +83,8 @@ class VentanaPause(currentScreen: BaseScreen) : Ventana(currentScreen) {
         })
 
         val btMainMenu = BotonNube(
-            oAssetsHandler.nube, "Menu",
-            oAssetsHandler.fontChco
+            oAssetsHandler.nube!!, "Menu",
+            oAssetsHandler.fontChco!!
         )
         btMainMenu.setSize(150f, 100f)
         btMainMenu.setPosition(240f, 30f)

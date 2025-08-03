@@ -20,8 +20,8 @@ class Coin(x: Float, y: Float, tileMapHandler: TileMapHandler) : BaseGameObject(
         stateTime = tileMapHandler.random.nextFloat() * 5f
         lastStatetime = stateTime
         state = State.IDLE
-        coinSkeleton = Skeleton(tileMapHandler.game.assetsHandler.skeletonMonedaData)
-        TIEMPO_TOMADA = tileMapHandler.game.assetsHandler.monedaTomadaAnim.duration
+        coinSkeleton = Skeleton(tileMapHandler.game.assetsHandler!!.skeletonMonedaData)
+        TIEMPO_TOMADA = tileMapHandler.game.assetsHandler!!.monedaTomadaAnim!!.duration
     }
 
     fun update(delta: Float) {

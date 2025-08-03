@@ -20,8 +20,8 @@ class Chili(x: Float, y: Float, tileMapHandler: TileMapHandler) : BaseGameObject
         stateTime = tileMapHandler.random.nextFloat() * 5f
         lastStateTime = stateTime
         state = State.IDLE
-        chiliSkeleton = Skeleton(tileMapHandler.game.assetsHandler.chileSkeletonData)
-        HIT_ANIMATION_DURATION = tileMapHandler.game.assetsHandler.chileTomadaAnim.duration
+        chiliSkeleton = Skeleton(tileMapHandler.game.assetsHandler!!.chileSkeletonData)
+        HIT_ANIMATION_DURATION = tileMapHandler.game.assetsHandler!!.chileTomadaAnim!!.duration
     }
 
     fun update(delta: Float) {

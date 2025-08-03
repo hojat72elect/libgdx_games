@@ -127,7 +127,7 @@ open class Pony(x: Float, y: Float, nombreSkin: String?, oWorld: TileMapHandler)
         isHurt = false
         pasoLaMeta = false
         tocoElPisoDespuesCaerHoyo = true
-        ponySkel = Skeleton(oWorld.game.assetsHandler.ponySkeletonData)
+        ponySkel = Skeleton(oWorld.game.assetsHandler!!.ponySkeletonData)
         ponySkel.setSkin(nombreSkin)
         ponySkel.setToSetupPose()
 

@@ -131,7 +131,7 @@ class ShopScreen(game: PonyRacingGame) : BaseScreen(game) {
         costUpCoin = checkPriceCoin()
         costUpTime = checkPriceTime()
 
-        btBack = BotonNube(assetsHandler.nube, "Back", assetsHandler.fontGde)
+        btBack = BotonNube(assetsHandler.nube!!, "Back", assetsHandler.fontGde!!)
         btBack.setSize(150f, 100f)
         btBack.setPosition(645f, 5f)
 
@@ -178,8 +178,8 @@ class ShopScreen(game: PonyRacingGame) : BaseScreen(game) {
         setItems()
         items!!.setChecked(true)
 
-        assetsHandler.skeletonTiendaTitle.setX(400f)
-        assetsHandler.skeletonTiendaTitle.setY(450f)
+        assetsHandler.skeletonTiendaTitle!!.setX(400f)
+        assetsHandler.skeletonTiendaTitle!!.setY(450f)
     }
 
     private fun crearTodosLosBotones() {
@@ -816,7 +816,7 @@ class ShopScreen(game: PonyRacingGame) : BaseScreen(game) {
 
         batch!!.enableBlending()
         batch!!.draw(assetsHandler.monedaTienda, 5f, 440f, 35f, 35f)
-        assetsHandler.fontGde.draw(
+        assetsHandler.fontGde!!.draw(
             batch, Settings.numeroMonedasActual.toString() + "", 45f,
             470f
         )
@@ -824,43 +824,43 @@ class ShopScreen(game: PonyRacingGame) : BaseScreen(game) {
         renderTitle(delta)
 
         batch!!.draw(assetsHandler.bombaTienda, 635f, 405f, 30f, 30f)
-        assetsHandler.fontChco.draw(
+        assetsHandler.fontChco!!.draw(
             batch, (Settings.numeroBombas.toString() + " lvl "
                     + Settings.bombLevel + "/5"), 660f, 425f
         )
 
         batch!!.draw(assetsHandler.bananaSpikeTienda, 635f, 355f, 30f, 30f)
-        assetsHandler.fontChco.draw(
+        assetsHandler.fontChco!!.draw(
             batch, (Settings.numeroWoods.toString() + " lvl "
                     + Settings.woodLevel + "/5"), 660f, 375f
         )
 
         batch!!.draw(assetsHandler.chocolateTienda, 635f, 305f, 30f, 30f)
-        assetsHandler.fontChco.draw(
+        assetsHandler.fontChco!!.draw(
             batch, "lvl " + Settings.chocolateLevel + "/5",
             670f, 325f
         )
-        // //
+
         batch!!.draw(assetsHandler.globoTienda, 635f, 255f, 30f, 30f)
-        assetsHandler.fontChco.draw(
+        assetsHandler.fontChco!!.draw(
             batch, "lvl " + Settings.balloonLevel + "/5",
             670f, 275f
         )
-        //
+
         batch!!.draw(assetsHandler.chileTienda, 635f, 205f, 30f, 30f)
-        assetsHandler.fontChco.draw(
+        assetsHandler.fontChco!!.draw(
             batch, "lvl " + Settings.chiliLevel + "/5",
             670f, 225f
         )
 
         batch!!.draw(assetsHandler.monedaTienda, 635f, 155f, 30f, 30f)
-        assetsHandler.fontChco.draw(
+        assetsHandler.fontChco!!.draw(
             batch, "lvl " + Settings.coinLevel + "/5", 670f,
             175f
         )
 
         batch!!.draw(assetsHandler.cronometroTienda, 635f, 105f, 30f, 30f)
-        assetsHandler.fontChco.draw(
+        assetsHandler.fontChco!!.draw(
             batch, "lvl " + Settings.timeLevel + "/5", 670f,
             125f
         )
@@ -872,12 +872,12 @@ class ShopScreen(game: PonyRacingGame) : BaseScreen(game) {
     }
 
     private fun renderTitle(delta: Float) {
-        assetsHandler.animationTiendaTitle.apply(
+        assetsHandler.animationTiendaTitle!!.apply(
             assetsHandler.skeletonTiendaTitle,
             screenLastStateTime, ScreenStateTime, true, null
         )
-        assetsHandler.skeletonTiendaTitle.updateWorldTransform()
-        assetsHandler.skeletonTiendaTitle.update(delta)
+        assetsHandler.skeletonTiendaTitle!!.updateWorldTransform()
+        assetsHandler.skeletonTiendaTitle!!.update(delta)
         skeletonRenderer!!.draw(batch, assetsHandler.skeletonTiendaTitle)
     }
 

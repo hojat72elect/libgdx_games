@@ -34,7 +34,7 @@ class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
         oWorldBox = oWorld.oWorldBox
         m_units = unitsPerPixel
         logger = Logger("MapBodyManager", 1)
-        nombrePonys = oWorld.game.assetsHandler.nombrePonys
+        nombrePonys = oWorld.game.assetsHandler!!.nombrePonys
 
         defaultFixture = FixtureDef()
         defaultFixture.density = 1.0f
@@ -260,7 +260,7 @@ class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
         val nombreSkin: String
 
         if (tipo == "pony") {
-            nombreSkin = Settings.selectedSkin
+            nombreSkin = Settings.selectedSkin!!
             oPony = PonyPlayer(x, y, nombreSkin, oWorld!!)
         } else { // Ponis malos
 

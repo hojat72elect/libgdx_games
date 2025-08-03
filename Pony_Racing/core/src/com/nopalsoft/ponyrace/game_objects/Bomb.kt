@@ -30,7 +30,7 @@ class Bomb(x: Float, y: Float, world: TileMapHandler) : BaseGameObject(x, y) {
     var state = State.NORMAL
 
     @JvmField
-    var skelBomb = Skeleton(world.game.assetsHandler.skeletonBombData)
+    var skelBomb = Skeleton(world.game.assetsHandler!!.skeletonBombData)
 
     init {
         skelBomb.setToSetupPose()
