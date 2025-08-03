@@ -43,7 +43,6 @@ class VentanaTryAgain(currentScreen: BaseScreen) : Ventana(currentScreen) {
             content.setPosition(getWidth() / 2f - content.getWidth() / 2f, 50f)
         }
 
-        // content.debug();
         val lbLapTime = Label(
             "Lap time", LabelStyle(
                 oAssetsHandler.fontChco, Color.WHITE

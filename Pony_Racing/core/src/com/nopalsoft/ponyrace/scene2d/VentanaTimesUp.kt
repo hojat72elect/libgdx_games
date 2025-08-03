@@ -39,18 +39,16 @@ class VentanaTimesUp(currentScreen: BaseScreen) : Ventana(currentScreen) {
                 btTryAgain.addAction(
                     Actions.sequence(
                         Actions.delay(.2f),
-                        btTryAgain.accionInicial, Actions.run(object : Runnable {
-                            override fun run() {
-                                hide()
-                                game.setScreen(
-                                    LoadingScreen(
-                                        game,
-                                        GameScreen::class.java,
-                                        gameScreen.nivelTiled
-                                    )
+                        btTryAgain.accionInicial, Actions.run {
+                            hide()
+                            game.setScreen(
+                                LoadingScreen(
+                                    game,
+                                    GameScreen::class.java,
+                                    gameScreen.nivelTiled
                                 )
-                            }
-                        })
+                            )
+                        }
                     )
                 )
             }
@@ -69,18 +67,16 @@ class VentanaTimesUp(currentScreen: BaseScreen) : Ventana(currentScreen) {
                 btMainMenu.addAction(
                     Actions.sequence(
                         Actions.delay(.2f),
-                        btMainMenu.accionInicial, Actions.run(object : Runnable {
-                            override fun run() {
-                                hide()
-                                game.setScreen(
-                                    LoadingScreen(
-                                        game,
-                                        WorldMapTiledScreen::class.java
-                                    )
+                        btMainMenu.accionInicial, Actions.run {
+                            hide()
+                            game.setScreen(
+                                LoadingScreen(
+                                    game,
+                                    WorldMapTiledScreen::class.java
                                 )
-                                screen!!.dispose()
-                            }
-                        })
+                            )
+                            screen!!.dispose()
+                        }
                     )
                 )
             }

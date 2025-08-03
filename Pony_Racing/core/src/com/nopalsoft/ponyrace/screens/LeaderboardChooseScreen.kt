@@ -72,17 +72,15 @@ class LeaderboardChooseScreen(game: PonyRacingGame) : BaseScreen(game) {
                 btBack!!.addAction(
                     Actions.sequence(
                         Actions.delay(.2f),
-                        btBack!!.accionInicial, Actions.run(object : Runnable {
-                            override fun run() {
-                                this@LeaderboardChooseScreen.game!!
-                                    .setScreen(
-                                        LoadingScreen(
-                                            this@LeaderboardChooseScreen.game!!,
-                                            MainMenuScreen::class.java
-                                        )
+                        btBack!!.accionInicial, Actions.run {
+                            this@LeaderboardChooseScreen.game!!
+                                .setScreen(
+                                    LoadingScreen(
+                                        this@LeaderboardChooseScreen.game!!,
+                                        MainMenuScreen::class.java
                                     )
-                            }
-                        })
+                                )
+                        }
                     )
                 )
             }

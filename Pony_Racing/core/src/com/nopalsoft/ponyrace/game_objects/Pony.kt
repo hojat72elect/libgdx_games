@@ -12,9 +12,25 @@ import com.nopalsoft.ponyrace.Settings
 import com.nopalsoft.ponyrace.game.TileMapHandler
 import java.util.Random
 
-open class Pony(x: Float, y: Float, nombreSkin: String?, oWorld: TileMapHandler) {
-    val TIEMPO_IS_CHILE: Float
-    val TIEMPO_IS_DULCE: Float
+open class Pony(x: Float, y: Float, @JvmField var nombreSkin: String?, oWorld: TileMapHandler) {
+    val TIEMPO_IS_CHILE: Float = when (Settings.chiliLevel) {
+        1 -> 3.5f
+        2 -> 5f
+        3 -> 7f
+        4 -> 9f
+        5 -> 11f
+        0 -> 3f
+        else -> 3f
+    }
+    val TIEMPO_IS_DULCE: Float = when (Settings.chocolateLevel) {
+        1 -> 3.5f
+        2 -> 4f
+        3 -> 5f
+        4 -> 7f
+        5 -> 9f
+        0 -> 3f
+        else -> 3f
+    }
 
     @JvmField
     val position: Vector3
@@ -60,10 +76,7 @@ open class Pony(x: Float, y: Float, nombreSkin: String?, oWorld: TileMapHandler)
     var stateTime: Float
     var chileTime: Float = 0f
     var dulceTime: Float = 0f
-    var random: Random?
-
-    @JvmField
-    var nombreSkin: String?
+    var random: Random? = oWorld.random
 
     @JvmField
     var monedasRecolectadas: Int
@@ -91,29 +104,6 @@ open class Pony(x: Float, y: Float, nombreSkin: String?, oWorld: TileMapHandler)
     var fireWood: Boolean = false
 
     init {
-        this.random = oWorld.random
-
-        when (Settings.chiliLevel) {
-            1 -> TIEMPO_IS_CHILE = 3.5f
-            2 -> TIEMPO_IS_CHILE = 5f
-            3 -> TIEMPO_IS_CHILE = 7f
-            4 -> TIEMPO_IS_CHILE = 9f
-            5 -> TIEMPO_IS_CHILE = 11f
-            0 -> TIEMPO_IS_CHILE = 3f
-            else -> TIEMPO_IS_CHILE = 3f
-        }
-
-        when (Settings.chocolateLevel) {
-            1 -> TIEMPO_IS_DULCE = 3.5f
-            2 -> TIEMPO_IS_DULCE = 4f
-            3 -> TIEMPO_IS_DULCE = 5f
-            4 -> TIEMPO_IS_DULCE = 7f
-            5 -> TIEMPO_IS_DULCE = 9f
-            0 -> TIEMPO_IS_DULCE = 3f
-            else -> TIEMPO_IS_DULCE = 3f
-        }
-
-        this.nombreSkin = nombreSkin
 
         state = STATE_WALK_RIGHT
 

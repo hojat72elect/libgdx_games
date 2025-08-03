@@ -43,33 +43,24 @@ class AssetsHandler : AssetManager() {
 
     @JvmField
     var btMusicaOff: NinePatchDrawable? = null
-    var nombrePonys: LinkedHashMap<Int?, String>
+    var nombrePonys: LinkedHashMap<Int?, String> = LinkedHashMap(6)
     var skin: Skin? = null
     var btSignInUp: NinePatchDrawable? = null
     var btSignInDown: NinePatchDrawable? = null
     var btShareFacebookUp: NinePatchDrawable? = null
     var btShareFacebookDown: NinePatchDrawable? = null
 
-    /**
-     * ######################################### FONTS ###########################################
-     */
     @JvmField
     var fontGde: BitmapFont? = null
 
     @JvmField
     var fontChco: BitmapFont? = null
 
-    /**
-     * ######################################### MENUS ###########################################
-     */
     var fondoMainMenu: AtlasRegion? = null
     var btnFacebook: NinePatchDrawable? = null
     var skeletonMenuTitle: Skeleton? = null
     var animationMenuTitle: com.esotericsoftware.spine.Animation? = null
 
-    /**
-     * ################################################################## TIENDA #############################################################
-     */
     var skeletonTiendaTitle: Skeleton? = null
     var animationTiendaTitle: com.esotericsoftware.spine.Animation? = null
     var fondoTienda: AtlasRegion? = null
@@ -304,7 +295,6 @@ class AssetsHandler : AssetManager() {
     var atlasTiledStuff: String = "data/animaciones/animacionesJuego.txt"
 
     init {
-        nombrePonys = LinkedHashMap<Int?, String>(6)
         nombrePonys.put(0, "Cloud")
         nombrePonys.put(1, "Natylol")
         nombrePonys.put(2, "Ignis")
@@ -370,21 +360,21 @@ class AssetsHandler : AssetManager() {
     }
 
     fun loadMenus() {
-        if (!isLoaded("data/musica/00.mp3")) load<Music?>("data/musica/00.mp3", Music::class.java)
+        if (!isLoaded("data/musica/00.mp3")) load("data/musica/00.mp3", Music::class.java)
 
-        if (!isLoaded(atlasMenusRuta)) load<TextureAtlas?>(atlasMenusRuta, TextureAtlas::class.java)
+        if (!isLoaded(atlasMenusRuta)) load(atlasMenusRuta, TextureAtlas::class.java)
 
-        if (!isLoaded(atlasWorldTiledScreenRuta)) load<TiledMap?>(atlasWorldTiledScreenRuta, TiledMap::class.java)
+        if (!isLoaded(atlasWorldTiledScreenRuta)) load(atlasWorldTiledScreenRuta, TiledMap::class.java)
     }
 
     fun cargarMenus() {
         cargarComun()
-        musicaMenus = get<Music?>("data/musica/00.mp3", Music::class.java)
+        musicaMenus = get("data/musica/00.mp3", Music::class.java)
         musicaMenus!!.isLooping = true
 
         playMusicMenus()
 
-        val atlas = get<TextureAtlas>(atlasMenusRuta, TextureAtlas::class.java)
+        val atlas = get(atlasMenusRuta, TextureAtlas::class.java)
         fondoMainMenu = atlas.findRegion("fondoMenu")
         btnFacebook = NinePatchDrawable(NinePatch(atlas.findRegion("botonFace")))
 
@@ -446,7 +436,7 @@ class AssetsHandler : AssetManager() {
         cargarComun()
         val json = SkeletonJson(atlas)
 
-        tiledWorldMap = get<TiledMap?>(atlasWorldTiledScreenRuta, TiledMap::class.java)
+        tiledWorldMap = get(atlasWorldTiledScreenRuta, TiledMap::class.java)
 
 
         json.scale = .007f
@@ -478,96 +468,130 @@ class AssetsHandler : AssetManager() {
         var carpeta = "tiled"
         if (usarPacked) carpeta = "tiledp"
 
-        if (nivelTiled == 1) {
-            rutaTiled = "data/" + carpeta + "/mundo01.tmx"
-            // rutaTiled =
-            rutaMusica = "data/musica/01.mp3"
-        } else if (nivelTiled == 2) {
-            rutaTiled = "data/" + carpeta + "/mundo02.tmx"
-            rutaMusica = "data/musica/02.mp3"
-        } else if (nivelTiled == 3) {
-            rutaTiled = "data/" + carpeta + "/mundo03.tmx"
-            rutaMusica = "data/musica/03.mp3"
-        } else if (nivelTiled == 4) {
-            rutaTiled = "data/" + carpeta + "/mundo04.tmx"
-            rutaMusica = "data/musica/04.mp3"
-        } else if (nivelTiled == 5) {
-            rutaTiled = "data/" + carpeta + "/mundo05.tmx"
-            rutaMusica = "data/musica/05.mp3"
-        } else if (nivelTiled == 6) {
-            rutaTiled = "data/" + carpeta + "/mundo06.tmx"
-            rutaMusica = "data/musica/01.mp3"
-        } else if (nivelTiled == 7) {
-            rutaTiled = "data/" + carpeta + "/mundo07.tmx"
-            rutaMusica = "data/musica/02.mp3"
-        } else if (nivelTiled == 8) {
-            rutaTiled = "data/" + carpeta + "/mundo08.tmx"
-            rutaMusica = "data/musica/03.mp3"
-        } else if (nivelTiled == 9) {
-            rutaTiled = "data/" + carpeta + "/mundo09.tmx"
-            rutaMusica = "data/musica/04.mp3"
-        } else if (nivelTiled == 10) {
-            rutaTiled = "data/" + carpeta + "/mundo10.tmx"
-            rutaMusica = "data/musica/05.mp3"
-        } else if (nivelTiled == 11) {
-            rutaTiled = "data/" + carpeta + "/mundo11.tmx"
-            rutaMusica = "data/musica/01.mp3"
-        } else if (nivelTiled == 12) {
-            rutaTiled = "data/" + carpeta + "/mundo12.tmx"
-            rutaMusica = "data/musica/02.mp3"
-        } else if (nivelTiled == 13) {
-            rutaTiled = "data/" + carpeta + "/mundo13.tmx"
-            rutaMusica = "data/musica/04.mp3"
-        } else if (nivelTiled == 14) {
-            rutaTiled = "data/" + carpeta + "/mundo14.tmx"
-            rutaMusica = "data/musica/05.mp3"
-        } else if (nivelTiled == 15) {
-            rutaTiled = "data/" + carpeta + "/mundo15.tmx"
-            rutaMusica = "data/musica/01.mp3"
-        } else if (nivelTiled == 16) {
-            rutaTiled = "data/" + carpeta + "/mundo16.tmx"
-            rutaMusica = "data/musica/02.mp3"
-        } else if (nivelTiled == 17) {
-            rutaTiled = "data/" + carpeta + "/mundo17.tmx"
-            rutaMusica = "data/musica/03.mp3"
-        } else if (nivelTiled == 1000) { // Mundo de muchas monedas
-            val mundo = Random().nextInt(2)
-
-            if (mundo == 0) {
-                rutaTiled = "data/" + carpeta + "/especial01.tmx"
-            } else {
-                rutaTiled = "data/" + carpeta + "/especial02.tmx"
+        when (nivelTiled) {
+            1 -> {
+                rutaTiled = "data/$carpeta/mundo01.tmx"
+                rutaMusica = "data/musica/01.mp3"
             }
 
-            rutaMusica = "data/musica/01.mp3"
+            2 -> {
+                rutaTiled = "data/$carpeta/mundo02.tmx"
+                rutaMusica = "data/musica/02.mp3"
+            }
+
+            3 -> {
+                rutaTiled = "data/$carpeta/mundo03.tmx"
+                rutaMusica = "data/musica/03.mp3"
+            }
+
+            4 -> {
+                rutaTiled = "data/$carpeta/mundo04.tmx"
+                rutaMusica = "data/musica/04.mp3"
+            }
+
+            5 -> {
+                rutaTiled = "data/$carpeta/mundo05.tmx"
+                rutaMusica = "data/musica/05.mp3"
+            }
+
+            6 -> {
+                rutaTiled = "data/$carpeta/mundo06.tmx"
+                rutaMusica = "data/musica/01.mp3"
+            }
+
+            7 -> {
+                rutaTiled = "data/$carpeta/mundo07.tmx"
+                rutaMusica = "data/musica/02.mp3"
+            }
+
+            8 -> {
+                rutaTiled = "data/$carpeta/mundo08.tmx"
+                rutaMusica = "data/musica/03.mp3"
+            }
+
+            9 -> {
+                rutaTiled = "data/$carpeta/mundo09.tmx"
+                rutaMusica = "data/musica/04.mp3"
+            }
+
+            10 -> {
+                rutaTiled = "data/$carpeta/mundo10.tmx"
+                rutaMusica = "data/musica/05.mp3"
+            }
+
+            11 -> {
+                rutaTiled = "data/$carpeta/mundo11.tmx"
+                rutaMusica = "data/musica/01.mp3"
+            }
+
+            12 -> {
+                rutaTiled = "data/$carpeta/mundo12.tmx"
+                rutaMusica = "data/musica/02.mp3"
+            }
+
+            13 -> {
+                rutaTiled = "data/$carpeta/mundo13.tmx"
+                rutaMusica = "data/musica/04.mp3"
+            }
+
+            14 -> {
+                rutaTiled = "data/$carpeta/mundo14.tmx"
+                rutaMusica = "data/musica/05.mp3"
+            }
+
+            15 -> {
+                rutaTiled = "data/$carpeta/mundo15.tmx"
+                rutaMusica = "data/musica/01.mp3"
+            }
+
+            16 -> {
+                rutaTiled = "data/$carpeta/mundo16.tmx"
+                rutaMusica = "data/musica/02.mp3"
+            }
+
+            17 -> {
+                rutaTiled = "data/$carpeta/mundo17.tmx"
+                rutaMusica = "data/musica/03.mp3"
+            }
+
+            1000 -> { // Mundo de muchas monedas
+                val mundo = Random().nextInt(2)
+
+                rutaTiled = if (mundo == 0) {
+                    "data/$carpeta/especial01.tmx"
+                } else {
+                    "data/$carpeta/especial02.tmx"
+                }
+
+                rutaMusica = "data/musica/01.mp3"
+            }
         }
 
-        if (!isLoaded(rutaMusica)) load<Music?>(rutaMusica, Music::class.java)
+        if (!isLoaded(rutaMusica)) load(rutaMusica, Music::class.java)
 
-        if (!isLoaded(atlasTiledStuff)) load<TextureAtlas?>(atlasTiledStuff, TextureAtlas::class.java)
+        if (!isLoaded(atlasTiledStuff)) load(atlasTiledStuff, TextureAtlas::class.java)
 
-        if (!isLoaded(rutaTiled)) load<TiledMap?>(rutaTiled, TiledMap::class.java)
+        if (!isLoaded(rutaTiled)) load(rutaTiled, TiledMap::class.java)
 
-        if (!isLoaded("data/musica/coin.mp3")) load<Sound?>("data/musica/coin.mp3", Sound::class.java)
+        if (!isLoaded("data/musica/coin.mp3")) load("data/musica/coin.mp3", Sound::class.java)
 
-        if (!isLoaded("data/musica/salto.mp3")) load<Sound?>("data/musica/salto.mp3", Sound::class.java)
+        if (!isLoaded("data/musica/salto.mp3")) load("data/musica/salto.mp3", Sound::class.java)
     }
 
     /**
      * Antes de llamar a este metodo se debe llamar loadMenuPrincipal
      */
     fun cargarGameScreenTiled() {
-        musicaTiled = get<Music?>(rutaMusica, Music::class.java)
+        musicaTiled = get(rutaMusica, Music::class.java)
         musicaTiled!!.isLooping = true
         platMusicInGame()
 
-        val atlas = get<TextureAtlas>(atlasTiledStuff, TextureAtlas::class.java)
-        tiledMap = get<TiledMap?>(rutaTiled, TiledMap::class.java)
+        val atlas = get(atlasTiledStuff, TextureAtlas::class.java)
+        tiledMap = get(rutaTiled, TiledMap::class.java)
 
         val json = SkeletonJson(atlas)
         json.scale = .01f
         ponySkeletonData = json.readSkeletonData(Gdx.files.internal("data/animaciones/personajes.json"))
-        // ponySkeletonData = json.readSkeletonData(Gdx.files.internal("data/animaciones/characters.json"));
         json.scale = .004f
         skeletonBombData = json.readSkeletonData(Gdx.files.internal("data/animaciones/bombs.json"))
         bombAnim = skeletonBombData!!.findAnimation("b1")

@@ -28,7 +28,7 @@ class PonysSubMenu(shop: ShopScreen, var contenedor: Table) {
     val USE: String = "Use"
     private val prefName = "com.nopalsoft.ponyRace.ponysSubMenu"
     private val prefAchiv: Preferences = Gdx.app.getPreferences(prefName)
-    var oAssetsHandler: AssetsHandler
+    var oAssetsHandler: AssetsHandler = shop.game!!.assetsHandler!!
     var btUnlockCloud: TextButton? = null
     var btUnlockCientifico: TextButton? = null
     var btUnlockEnemigo: TextButton? = null
@@ -48,7 +48,6 @@ class PonysSubMenu(shop: ShopScreen, var contenedor: Table) {
     private var isLalbaUnlocked: Boolean
 
     init {
-        oAssetsHandler = shop.game!!.assetsHandler!!
 
         isCientificoUnlocked = prefAchiv.getBoolean("isCientificoUnlocked", false)
         isEnemigoUnlocked = prefAchiv.getBoolean("isEnemigoUnlocked", false)
@@ -221,105 +220,105 @@ class PonysSubMenu(shop: ShopScreen, var contenedor: Table) {
 
         // Cloud
         var tbDentro = Table()
-        tbDentro.add<Image?>(Image(oAssetsHandler.perfilCloud)).size(65f, 60f).padLeft(10f).padRight(10f)
+        tbDentro.add(Image(oAssetsHandler.perfilCloud)).size(65f, 60f).padLeft(10f).padRight(10f)
         var descripcion = Label("Play using cloud pony", lblStyle)
         descripcion.setWrap(true)
-        tbDentro.add<Label?>(descripcion).expand().fill()
+        tbDentro.add(descripcion).expand().fill()
         dentroCloud = Table()
         dentroCloud!!.add<TextButton?>(btUnlockCloud).size(120f, 70f)
 
         tbDentro.add<Table?>(dentroCloud)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // Cientifico
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(oAssetsHandler.perfilcientifico)).size(65f, 60f).padLeft(10f).padRight(10f)
+        tbDentro.add(Image(oAssetsHandler.perfilcientifico)).size(65f, 60f).padLeft(10f).padRight(10f)
         descripcion = Label("Play using scientisg pony", lblStyle)
         descripcion.setWrap(true)
-        tbDentro.add<Label?>(descripcion).expandX().fill()
+        tbDentro.add(descripcion).expandX().fill()
         dentroCientifico = Table()
         if (!isCientificoUnlocked) {
-            dentroCientifico!!.add<Image?>(Image(oAssetsHandler.monedaTienda))
+            dentroCientifico!!.add(Image(oAssetsHandler.monedaTienda))
             val precio = Label(PRECIO_DESBLOQUEAR_PONY.toString() + "", lblStyle)
-            dentroCientifico!!.add<Label?>(precio).left()
+            dentroCientifico!!.add(precio).left()
             dentroCientifico!!.row().colspan(2)
         }
         dentroCientifico!!.add<TextButton?>(btUnlockCientifico).size(120f, 70f)
         tbDentro.add<Table?>(dentroCientifico)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // Enemigo
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(oAssetsHandler.perfilenemigo)).size(65f, 60f).padLeft(10f).padRight(10f)
+        tbDentro.add(Image(oAssetsHandler.perfilenemigo)).size(65f, 60f).padLeft(10f).padRight(10f)
         descripcion = Label("Play using Enemy pony", lblStyle)
         descripcion.setWrap(true)
-        tbDentro.add<Label?>(descripcion).expandX().fill()
+        tbDentro.add(descripcion).expandX().fill()
         dentroEnemigo = Table()
         if (!isEnemigoUnlocked) {
-            dentroEnemigo!!.add<Image?>(Image(oAssetsHandler.monedaTienda))
+            dentroEnemigo!!.add(Image(oAssetsHandler.monedaTienda))
             val precio = Label(PRECIO_DESBLOQUEAR_PONY.toString() + "", lblStyle)
-            dentroEnemigo!!.add<Label?>(precio).left()
+            dentroEnemigo!!.add(precio).left()
             dentroEnemigo!!.row().colspan(2)
         }
         dentroEnemigo!!.add<TextButton?>(btUnlockEnemigo).size(120f, 70f)
         tbDentro.add<Table?>(dentroEnemigo)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // Natylol
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(oAssetsHandler.perfilNatylol)).size(65f, 60f).padLeft(10f).padRight(10f)
+        tbDentro.add(Image(oAssetsHandler.perfilNatylol)).size(65f, 60f).padLeft(10f).padRight(10f)
         descripcion = Label("Play using Natylol pony", lblStyle)
         descripcion.setWrap(true)
-        tbDentro.add<Label?>(descripcion).expandX().fill()
+        tbDentro.add(descripcion).expandX().fill()
         dentroNatylol = Table()
         if (!isNatylolUnlocked) {
-            dentroNatylol!!.add<Image?>(Image(oAssetsHandler.monedaTienda))
+            dentroNatylol!!.add(Image(oAssetsHandler.monedaTienda))
             val precio = Label(PRECIO_DESBLOQUEAR_PONY.toString() + "", lblStyle)
-            dentroNatylol!!.add<Label?>(precio).left()
+            dentroNatylol!!.add(precio).left()
             dentroNatylol!!.row().colspan(2)
         }
         dentroNatylol!!.add<TextButton?>(btUnlockNatylol).size(120f, 70f)
         tbDentro.add<Table?>(dentroNatylol)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // Ignis
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(oAssetsHandler.perfilIgnis)).size(65f, 60f).padLeft(10f).padRight(10f)
+        tbDentro.add(Image(oAssetsHandler.perfilIgnis)).size(65f, 60f).padLeft(10f).padRight(10f)
         descripcion = Label("Play using Ignis pony", lblStyle)
         descripcion.setWrap(true)
-        tbDentro.add<Label?>(descripcion).expandX().fill()
+        tbDentro.add(descripcion).expandX().fill()
         dentroIgnis = Table()
         if (!isIgnisUnlocked) {
-            dentroIgnis!!.add<Image?>(Image(oAssetsHandler.monedaTienda))
+            dentroIgnis!!.add(Image(oAssetsHandler.monedaTienda))
             val precio = Label(PRECIO_DESBLOQUEAR_PONY.toString() + "", lblStyle)
-            dentroIgnis!!.add<Label?>(precio).left()
+            dentroIgnis!!.add(precio).left()
             dentroIgnis!!.row().colspan(2)
         }
         dentroIgnis!!.add<TextButton?>(btUnlockIgnis).size(120f, 70f)
         tbDentro.add<Table?>(dentroIgnis)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // Lalba
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(oAssetsHandler.perfilLAlba)).size(65f, 60f).padLeft(10f).padRight(10f)
+        tbDentro.add(Image(oAssetsHandler.perfilLAlba)).size(65f, 60f).padLeft(10f).padRight(10f)
         descripcion = Label("Play using Lalba pony", lblStyle)
         descripcion.setWrap(true)
-        tbDentro.add<Label?>(descripcion).expandX().fill()
+        tbDentro.add(descripcion).expandX().fill()
         dentroLalba = Table()
         if (!isLalbaUnlocked) {
-            dentroLalba!!.add<Image?>(Image(oAssetsHandler.monedaTienda))
+            dentroLalba!!.add(Image(oAssetsHandler.monedaTienda))
             val precio = Label(PRECIO_DESBLOQUEAR_PONY.toString() + "", lblStyle)
-            dentroLalba!!.add<Label?>(precio).left()
+            dentroLalba!!.add(precio).left()
             dentroLalba!!.row().colspan(2)
         }
         dentroLalba!!.add<TextButton?>(btUnlockLalba).size(120f, 70f)
         tbDentro.add<Table?>(dentroLalba)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
     }
 }

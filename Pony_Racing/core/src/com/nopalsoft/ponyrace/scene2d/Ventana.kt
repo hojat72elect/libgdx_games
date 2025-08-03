@@ -10,21 +10,15 @@ import com.nopalsoft.ponyrace.screens.BaseScreen
 
 open class Ventana(currentScreen: BaseScreen) : Group() {
     @JvmField
-    var screen: BaseScreen?
+    var screen: BaseScreen? = currentScreen
 
     @JvmField
-    var game: PonyRacingGame
+    var game: PonyRacingGame = currentScreen.game!!
 
     @JvmField
-    var oAssetsHandler: AssetsHandler
+    var oAssetsHandler: AssetsHandler = game.assetsHandler!!
 
     private var isVisible = false
-
-    init {
-        screen = currentScreen
-        game = currentScreen.game!!
-        oAssetsHandler = game.assetsHandler!!
-    }
 
     fun setBackGround() {
         val img = Image(oAssetsHandler.fondoVentanas)
@@ -40,11 +34,7 @@ open class Ventana(currentScreen: BaseScreen) : Group() {
         addAction(
             Actions.sequence(
                 Actions.scaleTo(1f, 1f, DURACION_ANIMATION),
-                Actions.run(object : Runnable {
-                    override fun run() {
-                        endResize()
-                    }
-                })
+                Actions.run { endResize() }
             )
         )
 

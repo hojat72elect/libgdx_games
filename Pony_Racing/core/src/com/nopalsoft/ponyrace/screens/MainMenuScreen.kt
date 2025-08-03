@@ -24,7 +24,7 @@ class MainMenuScreen(game: PonyRacingGame) : BaseScreen(game) {
     init {
         cargarBotones()
 
-        val actionLogoMenu = Actions.action<MoveToAction>(MoveToAction::class.java)
+        val actionLogoMenu = Actions.action(MoveToAction::class.java)
         actionLogoMenu.interpolation = Interpolation.swingOut
         actionLogoMenu.setPosition(235f, 270f)
         actionLogoMenu.duration = .9f
@@ -52,11 +52,14 @@ class MainMenuScreen(game: PonyRacingGame) : BaseScreen(game) {
         btJugar2!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 btJugar2!!.wasSelected = true
-                btJugar2!!.addAction(Actions.sequence(Actions.delay(.2f), btJugar2!!.accionInicial, Actions.run(object : Runnable {
-                    override fun run() {
-                        this@MainMenuScreen.game!!.setScreen(LoadingScreen(game!!, WorldMapTiledScreen::class.java))
-                    }
-                })))
+                btJugar2!!.addAction(Actions.sequence(Actions.delay(.2f), btJugar2!!.accionInicial, Actions.run {
+                    this@MainMenuScreen.game!!.setScreen(
+                        LoadingScreen(
+                            game!!,
+                            WorldMapTiledScreen::class.java
+                        )
+                    )
+                }))
             }
         })
 
@@ -74,11 +77,14 @@ class MainMenuScreen(game: PonyRacingGame) : BaseScreen(game) {
         btLeaderBoard!!.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 btLeaderBoard!!.wasSelected = true
-                btLeaderBoard!!.addAction(Actions.sequence(Actions.delay(.2f), btLeaderBoard!!.accionInicial, Actions.run(object : Runnable {
-                    override fun run() {
-                        game!!.setScreen(LoadingScreen(game!!, LeaderboardChooseScreen::class.java))
-                    }
-                })))
+                btLeaderBoard!!.addAction(Actions.sequence(Actions.delay(.2f), btLeaderBoard!!.accionInicial, Actions.run {
+                    game!!.setScreen(
+                        LoadingScreen(
+                            game!!,
+                            LeaderboardChooseScreen::class.java
+                        )
+                    )
+                }))
             }
         })
 

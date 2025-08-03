@@ -141,17 +141,15 @@ class ShopScreen(game: PonyRacingGame) : BaseScreen(game) {
                 btBack.addAction(
                     Actions.sequence(
                         Actions.delay(.2f),
-                        btBack.accionInicial, Actions.run(object : Runnable {
-                            override fun run() {
-                                this@ShopScreen.game!!
-                                    .setScreen(
-                                        LoadingScreen(
-                                            this@ShopScreen.game!!,
-                                            WorldMapTiledScreen::class.java
-                                        )
+                        btBack.accionInicial, Actions.run {
+                            this@ShopScreen.game!!
+                                .setScreen(
+                                    LoadingScreen(
+                                        this@ShopScreen.game!!,
+                                        WorldMapTiledScreen::class.java
                                     )
-                            }
-                        })
+                                )
+                        }
                     )
                 )
             }
@@ -431,9 +429,8 @@ class ShopScreen(game: PonyRacingGame) : BaseScreen(game) {
         /*
          * BOTONES OPCIONES COINS
          */
-        val btFaceText: String
-        if (Settings.wasAppLiked) btFaceText = "Visit us"
-        else btFaceText = "Like us"
+        val btFaceText: String = if (Settings.wasAppLiked) "Visit us"
+        else "Like us"
 
         btLikeUsFacebook = TextButton(btFaceText, btStyle)
         btLikeUsFacebook!!.addListener(object : ClickListener() {
@@ -441,16 +438,14 @@ class ShopScreen(game: PonyRacingGame) : BaseScreen(game) {
                 btLikeUsFacebook!!.addAction(
                     Actions.sequence(
                         Actions.delay(2f),
-                        Actions.run(object : Runnable {
-                            override fun run() {
-                                if (!Settings.wasAppLiked) {
-                                    Settings.wasAppLiked = true
-                                    Settings.sumarMonedas(Settings.MONEDAS_REGALO_FACEBOOK)
-                                    Settings.guardar()
-                                    btLikeUsFacebook!!.setText("Visit us")
-                                }
+                        Actions.run {
+                            if (!Settings.wasAppLiked) {
+                                Settings.wasAppLiked = true
+                                Settings.sumarMonedas(Settings.MONEDAS_REGALO_FACEBOOK)
+                                Settings.guardar()
+                                btLikeUsFacebook!!.setText("Visit us")
                             }
-                        })
+                        }
                     )
                 )
             }
@@ -537,114 +532,114 @@ class ShopScreen(game: PonyRacingGame) : BaseScreen(game) {
         var tbDentro = Table()
 
         // 10 Bombas
-        tbDentro.add<Image?>(Image(assetsHandler.bombaTienda)).size(35f, 38f)
+        tbDentro.add(Image(assetsHandler.bombaTienda)).size(35f, 38f)
         var cantidad = Label("x10", lblStyle)
-        tbDentro.add<Label?>(cantidad).width(80f)
+        tbDentro.add(cantidad).width(80f)
         tbDentro.add().width(30f)
-        tbDentro.add<Image?>(Image(assetsHandler.monedaTienda))
+        tbDentro.add(Image(assetsHandler.monedaTienda))
         var precio = Label(PRECIO_10_BOMBS.toString() + "", lblStyle)
-        tbDentro.add<Label?>(precio).width(80f)
+        tbDentro.add(precio).width(80f)
         tbDentro.add().width(30f)
         tbDentro.add<TextButton?>(btBuy10Bomb).size(85f, 65f)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // 20 Bombas
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(assetsHandler.bombaTienda)).size(35f, 38f)
+        tbDentro.add(Image(assetsHandler.bombaTienda)).size(35f, 38f)
         cantidad = Label("x20", lblStyle)
-        tbDentro.add<Label?>(cantidad).width(80f)
+        tbDentro.add(cantidad).width(80f)
         tbDentro.add().width(30f)
-        tbDentro.add<Image?>(Image(assetsHandler.monedaTienda))
+        tbDentro.add(Image(assetsHandler.monedaTienda))
         precio = Label(PRECIO_20_BOMBS.toString() + "", lblStyle)
-        tbDentro.add<Label?>(precio).width(80f)
+        tbDentro.add(precio).width(80f)
         tbDentro.add().width(30f)
         tbDentro.add<TextButton?>(btBuy20Bomb).size(85f, 65f)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // 50 Bombas
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(assetsHandler.bombaTienda)).size(35f, 38f)
+        tbDentro.add(Image(assetsHandler.bombaTienda)).size(35f, 38f)
         cantidad = Label("x50", lblStyle)
-        tbDentro.add<Label?>(cantidad).width(80f)
+        tbDentro.add(cantidad).width(80f)
         tbDentro.add().width(30f)
-        tbDentro.add<Image?>(Image(assetsHandler.monedaTienda))
+        tbDentro.add(Image(assetsHandler.monedaTienda))
         precio = Label(PRECIO_50_BOMBS.toString() + "", lblStyle)
-        tbDentro.add<Label?>(precio).width(80f)
+        tbDentro.add(precio).width(80f)
         tbDentro.add().width(30f)
         tbDentro.add<TextButton?>(btBuy50Bomb).size(85f, 65f)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // 100 Bombas
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(assetsHandler.bombaTienda)).size(35f, 38f)
+        tbDentro.add(Image(assetsHandler.bombaTienda)).size(35f, 38f)
         cantidad = Label("x100", lblStyle)
-        tbDentro.add<Label?>(cantidad).width(80f)
+        tbDentro.add(cantidad).width(80f)
         tbDentro.add().width(30f)
-        tbDentro.add<Image?>(Image(assetsHandler.monedaTienda))
+        tbDentro.add(Image(assetsHandler.monedaTienda))
         precio = Label(PRECIO_100_BOMBS.toString() + "", lblStyle)
-        tbDentro.add<Label?>(precio).width(80f)
+        tbDentro.add(precio).width(80f)
         tbDentro.add().width(30f)
         tbDentro.add<TextButton?>(btBuy100Bomb).size(85f, 65f)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // 10 Madera
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(assetsHandler.bananaSpikeTienda)).size(35f, 38f)
+        tbDentro.add(Image(assetsHandler.bananaSpikeTienda)).size(35f, 38f)
         cantidad = Label("x10", lblStyle)
-        tbDentro.add<Label?>(cantidad).width(80f)
+        tbDentro.add(cantidad).width(80f)
         tbDentro.add().width(30f)
-        tbDentro.add<Image?>(Image(assetsHandler.monedaTienda))
+        tbDentro.add(Image(assetsHandler.monedaTienda))
         precio = Label(PRECIO_10_WOOD.toString() + "", lblStyle)
-        tbDentro.add<Label?>(precio).width(80f)
+        tbDentro.add(precio).width(80f)
         tbDentro.add().width(30f)
         tbDentro.add<TextButton?>(btBuy10Wood).size(85f, 65f)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // 20 Madera
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(assetsHandler.bananaSpikeTienda)).size(35f, 38f)
+        tbDentro.add(Image(assetsHandler.bananaSpikeTienda)).size(35f, 38f)
         cantidad = Label("x20", lblStyle)
-        tbDentro.add<Label?>(cantidad).width(80f)
+        tbDentro.add(cantidad).width(80f)
         tbDentro.add().width(30f)
-        tbDentro.add<Image?>(Image(assetsHandler.monedaTienda))
+        tbDentro.add(Image(assetsHandler.monedaTienda))
         precio = Label(PRECIO_20_WOOD.toString() + "", lblStyle)
-        tbDentro.add<Label?>(precio).width(80f)
+        tbDentro.add(precio).width(80f)
         tbDentro.add().width(30f)
         tbDentro.add<TextButton?>(btBuy20Wood).size(85f, 65f)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // 50 Madera
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(assetsHandler.bananaSpikeTienda)).size(35f, 38f)
+        tbDentro.add(Image(assetsHandler.bananaSpikeTienda)).size(35f, 38f)
         cantidad = Label("x50", lblStyle)
-        tbDentro.add<Label?>(cantidad).width(80f)
+        tbDentro.add(cantidad).width(80f)
         tbDentro.add().width(30f)
-        tbDentro.add<Image?>(Image(assetsHandler.monedaTienda))
+        tbDentro.add(Image(assetsHandler.monedaTienda))
         precio = Label(PRECIO_50_WOOD.toString() + "", lblStyle)
-        tbDentro.add<Label?>(precio).width(80f)
+        tbDentro.add(precio).width(80f)
         tbDentro.add().width(30f)
         tbDentro.add<TextButton?>(btBuy50Wood).size(85f, 65f)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // 100 Bombas
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(assetsHandler.bananaSpikeTienda)).size(35f, 38f)
+        tbDentro.add(Image(assetsHandler.bananaSpikeTienda)).size(35f, 38f)
         cantidad = Label("x100", lblStyle)
-        tbDentro.add<Label?>(cantidad).width(80f)
+        tbDentro.add(cantidad).width(80f)
         tbDentro.add().width(30f)
-        tbDentro.add<Image?>(Image(assetsHandler.monedaTienda))
+        tbDentro.add(Image(assetsHandler.monedaTienda))
         precio = Label(PRECIO_100_WOOD.toString() + "", lblStyle)
-        tbDentro.add<Label?>(precio).width(80f)
+        tbDentro.add(precio).width(80f)
         tbDentro.add().width(30f)
         tbDentro.add<TextButton?>(btBuy100Wood).size(85f, 65f)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
     }
 
@@ -654,120 +649,120 @@ class ShopScreen(game: PonyRacingGame) : BaseScreen(game) {
 
         // Upgrade Bombas
         var tbDentro = Table()
-        tbDentro.add<Image?>(Image(assetsHandler.bombaTienda)).size(35f, 38f).padLeft(10f)
+        tbDentro.add(Image(assetsHandler.bombaTienda)).size(35f, 38f).padLeft(10f)
             .padRight(10f)
         var descripcion = Label("Bomb Efect Last Longer", lblStyle)
         descripcion.setWrap(true)
-        tbDentro.add<Label?>(descripcion).expandX().fill()
+        tbDentro.add(descripcion).expandX().fill()
         dentroUpBombas = Table()
-        dentroUpBombas!!.add<Image?>(Image(assetsHandler.monedaTienda))
+        dentroUpBombas!!.add(Image(assetsHandler.monedaTienda))
         dentroUpBombas!!.add<Label?>(lblPrecioUpBomb).left()
         dentroUpBombas!!.row().colspan(2)
         dentroUpBombas!!.add<TextButton?>(btUpgradeBomb).size(120f, 70f)
         if (Settings.bombLevel < 5) tbDentro.add<Table?>(dentroUpBombas)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // Upgrade Wood
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(assetsHandler.bananaSpikeTienda)).size(35f, 38f)
+        tbDentro.add(Image(assetsHandler.bananaSpikeTienda)).size(35f, 38f)
             .padLeft(10f).padRight(10f)
         descripcion = Label(
             "Bananas and spikes effects last longer",
             lblStyle
         )
         descripcion.setWrap(true)
-        tbDentro.add<Label?>(descripcion).expandX().fill()
+        tbDentro.add(descripcion).expandX().fill()
         dentroUpWood = Table()
-        dentroUpWood!!.add<Image?>(Image(assetsHandler.monedaTienda))
+        dentroUpWood!!.add(Image(assetsHandler.monedaTienda))
         dentroUpWood!!.add<Label?>(lblPrecioUpWood).left()
         dentroUpWood!!.row().colspan(2)
         dentroUpWood!!.add<TextButton?>(btUpgradeWood).size(120f, 70f)
         if (Settings.woodLevel < 5) tbDentro.add<Table?>(dentroUpWood)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // Upgrade Chocolate
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(assetsHandler.chocolateTienda)).size(35f, 38f)
+        tbDentro.add(Image(assetsHandler.chocolateTienda)).size(35f, 38f)
             .padLeft(10f).padRight(10f)
         descripcion = Label("Chocolate efect last longer", lblStyle)
         descripcion.setWrap(true)
-        tbDentro.add<Label?>(descripcion).expandX().fill()
+        tbDentro.add(descripcion).expandX().fill()
         dentroUpChocolate = Table()
-        dentroUpChocolate!!.add<Image?>(Image(assetsHandler.monedaTienda))
+        dentroUpChocolate!!.add(Image(assetsHandler.monedaTienda))
         dentroUpChocolate!!.add<Label?>(lblPrecioUpChocolate).left()
         dentroUpChocolate!!.row().colspan(2)
         dentroUpChocolate!!.add<TextButton?>(btUpgradeChocolate).size(120f, 70f)
         if (Settings.chocolateLevel < 5) tbDentro.add<Table?>(dentroUpChocolate)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // Upgrade Ballon
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(assetsHandler.globoTienda)).size(35f, 45f).padLeft(10f)
+        tbDentro.add(Image(assetsHandler.globoTienda)).size(35f, 45f).padLeft(10f)
             .padRight(10f)
         descripcion = Label("Ballons reward extra time", lblStyle)
         descripcion.setWrap(true)
-        tbDentro.add<Label?>(descripcion).expandX().fill()
+        tbDentro.add(descripcion).expandX().fill()
         dentroUpBallon = Table()
-        dentroUpBallon!!.add<Image?>(Image(assetsHandler.monedaTienda))
+        dentroUpBallon!!.add(Image(assetsHandler.monedaTienda))
         dentroUpBallon!!.add<Label?>(lblPrecioBallon).left()
         dentroUpBallon!!.row().colspan(2)
         dentroUpBallon!!.add<TextButton?>(btUpgradeBallon).size(120f, 70f)
         if (Settings.balloonLevel < 5) tbDentro.add<Table?>(dentroUpBallon)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // Upgrade Chili
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(assetsHandler.chileTienda)).size(35f, 38f).padLeft(10f)
+        tbDentro.add(Image(assetsHandler.chileTienda)).size(35f, 38f).padLeft(10f)
             .padRight(10f)
         descripcion = Label("Chili pepper effect last longer", lblStyle)
         descripcion.setWrap(true)
-        tbDentro.add<Label?>(descripcion).expandX().fill()
+        tbDentro.add(descripcion).expandX().fill()
         dentroUpChili = Table()
-        dentroUpChili!!.add<Image?>(Image(assetsHandler.monedaTienda))
+        dentroUpChili!!.add(Image(assetsHandler.monedaTienda))
         dentroUpChili!!.add<Label?>(lblPrecioUpChili).left()
         dentroUpChili!!.row().colspan(2)
         dentroUpChili!!.add<TextButton?>(btUpgradeChili).size(120f, 70f)
         if (Settings.chiliLevel < 5) tbDentro.add<Table?>(dentroUpChili)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // UPGRADE COIN
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(assetsHandler.monedaTienda)).size(35f, 38f).padLeft(10f)
+        tbDentro.add(Image(assetsHandler.monedaTienda)).size(35f, 38f).padLeft(10f)
             .padRight(10f)
         descripcion = Label("Bitcoins earn extra bits", lblStyle)
         descripcion.setWrap(true)
-        tbDentro.add<Label?>(descripcion).expandX().fill()
+        tbDentro.add(descripcion).expandX().fill()
         dentroUpCoin = Table()
-        dentroUpCoin!!.add<Image?>(Image(assetsHandler.monedaTienda))
+        dentroUpCoin!!.add(Image(assetsHandler.monedaTienda))
         dentroUpCoin!!.add<Label?>(lblPrecioCoin).left()
         dentroUpCoin!!.row().colspan(2)
         dentroUpCoin!!.add<TextButton?>(btUpgradeCoin).size(120f, 70f)
         if (Settings.coinLevel < 5) tbDentro.add<Table?>(dentroUpCoin)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
 
         // UPGRADE TIME
         tbDentro = Table()
-        tbDentro.add<Image?>(Image(assetsHandler.cronometroTienda)).size(35f, 38f)
+        tbDentro.add(Image(assetsHandler.cronometroTienda)).size(35f, 38f)
             .padLeft(10f).padRight(10f)
         descripcion = Label(
             "Time left in stopwatch earn extra bits",
             lblStyle
         )
         descripcion.setWrap(true)
-        tbDentro.add<Label?>(descripcion).expandX().fill()
+        tbDentro.add(descripcion).expandX().fill()
         dentroUpTime = Table()
-        dentroUpTime!!.add<Image?>(Image(assetsHandler.monedaTienda))
+        dentroUpTime!!.add(Image(assetsHandler.monedaTienda))
         dentroUpTime!!.add<Label?>(lblPrecioTime).left()
         dentroUpTime!!.row().colspan(2)
         dentroUpTime!!.add<TextButton?>(btUpgradeTime).size(120f, 70f)
         if (Settings.timeLevel < 5) tbDentro.add<Table?>(dentroUpTime)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
     }
 
@@ -781,15 +776,15 @@ class ShopScreen(game: PonyRacingGame) : BaseScreen(game) {
         val tbDentro = Table()
 
 
-        tbDentro.add<Image?>(Image(assetsHandler.btnFacebook)).size(40f, 40f)
+        tbDentro.add(Image(assetsHandler.btnFacebook)).size(40f, 40f)
             .padLeft(10f).padRight(10f)
         val descripcion = Label(
             "Like us on facebook and get 3500 bit coins", lblStyle
         )
         descripcion.setWrap(true)
-        tbDentro.add<Label?>(descripcion).expandX().fill()
+        tbDentro.add(descripcion).expandX().fill()
         tbDentro.add<TextButton?>(btLikeUsFacebook).size(120f, 70f)
-        contenedor.add<Table?>(tbDentro).expandX().fill()
+        contenedor.add(tbDentro).expandX().fill()
         contenedor.row().padTop(15f)
     }
 
@@ -882,100 +877,100 @@ class ShopScreen(game: PonyRacingGame) : BaseScreen(game) {
     }
 
     private fun checkPriceBomb(): Int {
-        when (Settings.bombLevel + 1) {
-            1 -> return UPGRADE_PRICE_BOMBS_LEVEL1
-            2 -> return UPGRADE_PRICE_BOMBS_LEVEL2
+        return when (Settings.bombLevel + 1) {
+            1 -> UPGRADE_PRICE_BOMBS_LEVEL1
+            2 -> UPGRADE_PRICE_BOMBS_LEVEL2
 
-            3 -> return UPGRADE_PRICE_BOMBS_LEVEL3
+            3 -> UPGRADE_PRICE_BOMBS_LEVEL3
 
-            4 -> return UPGRADE_PRICE_BOMBS_LEVEL4
+            4 -> UPGRADE_PRICE_BOMBS_LEVEL4
 
-            5 -> return UPGRADE_PRICE_BOMBS_LEVEL5
-            else -> return UPGRADE_PRICE_BOMBS_LEVEL5
+            5 -> UPGRADE_PRICE_BOMBS_LEVEL5
+            else -> UPGRADE_PRICE_BOMBS_LEVEL5
         }
     }
 
     private fun checkPriceWood(): Int {
-        when (Settings.woodLevel + 1) {
-            1 -> return UPGRADE_PRICE_WOOD_LEVEL1
-            2 -> return UPGRADE_PRICE_WOOD_LEVEL2
+        return when (Settings.woodLevel + 1) {
+            1 -> UPGRADE_PRICE_WOOD_LEVEL1
+            2 -> UPGRADE_PRICE_WOOD_LEVEL2
 
-            3 -> return UPGRADE_PRICE_WOOD_LEVEL3
+            3 -> UPGRADE_PRICE_WOOD_LEVEL3
 
-            4 -> return UPGRADE_PRICE_WOOD_LEVEL4
+            4 -> UPGRADE_PRICE_WOOD_LEVEL4
 
-            5 -> return UPGRADE_PRICE_WOOD_LEVEL5
-            else -> return UPGRADE_PRICE_WOOD_LEVEL5
+            5 -> UPGRADE_PRICE_WOOD_LEVEL5
+            else -> UPGRADE_PRICE_WOOD_LEVEL5
         }
     }
 
     private fun checkPriceChocolate(): Int {
-        when (Settings.chocolateLevel + 1) {
-            1 -> return UPGRADE_PRICE_CHOCOLATE_LEVEL1
-            2 -> return UPGRADE_PRICE_CHOCOLATE_LEVEL2
+        return when (Settings.chocolateLevel + 1) {
+            1 -> UPGRADE_PRICE_CHOCOLATE_LEVEL1
+            2 -> UPGRADE_PRICE_CHOCOLATE_LEVEL2
 
-            3 -> return UPGRADE_PRICE_CHOCOLATE_LEVEL3
+            3 -> UPGRADE_PRICE_CHOCOLATE_LEVEL3
 
-            4 -> return UPGRADE_PRICE_CHOCOLATE_LEVEL4
+            4 -> UPGRADE_PRICE_CHOCOLATE_LEVEL4
 
-            5 -> return UPGRADE_PRICE_CHOCOLATE_LEVEL5
-            else -> return UPGRADE_PRICE_CHOCOLATE_LEVEL5
+            5 -> UPGRADE_PRICE_CHOCOLATE_LEVEL5
+            else -> UPGRADE_PRICE_CHOCOLATE_LEVEL5
         }
     }
 
     private fun checkPriceBallon(): Int {
-        when (Settings.balloonLevel + 1) {
-            1 -> return UPGRADE_PRICE_BALLON_LEVEL1
-            2 -> return UPGRADE_PRICE_BALLON_LEVEL2
+        return when (Settings.balloonLevel + 1) {
+            1 -> UPGRADE_PRICE_BALLON_LEVEL1
+            2 -> UPGRADE_PRICE_BALLON_LEVEL2
 
-            3 -> return UPGRADE_PRICE_BALLON_LEVEL3
+            3 -> UPGRADE_PRICE_BALLON_LEVEL3
 
-            4 -> return UPGRADE_PRICE_BALLON_LEVEL4
+            4 -> UPGRADE_PRICE_BALLON_LEVEL4
 
-            5 -> return UPGRADE_PRICE_BALLON_LEVEL5
-            else -> return UPGRADE_PRICE_BALLON_LEVEL5
+            5 -> UPGRADE_PRICE_BALLON_LEVEL5
+            else -> UPGRADE_PRICE_BALLON_LEVEL5
         }
     }
 
     private fun checkPriceChili(): Int {
-        when (Settings.chiliLevel + 1) {
-            1 -> return UPGRADE_PRICE_CHILI_LEVEL1
-            2 -> return UPGRADE_PRICE_CHILI_LEVEL2
+        return when (Settings.chiliLevel + 1) {
+            1 -> UPGRADE_PRICE_CHILI_LEVEL1
+            2 -> UPGRADE_PRICE_CHILI_LEVEL2
 
-            3 -> return UPGRADE_PRICE_CHILI_LEVEL3
+            3 -> UPGRADE_PRICE_CHILI_LEVEL3
 
-            4 -> return UPGRADE_PRICE_CHILI_LEVEL4
+            4 -> UPGRADE_PRICE_CHILI_LEVEL4
 
-            5 -> return UPGRADE_PRICE_CHILI_LEVEL5
-            else -> return UPGRADE_PRICE_CHILI_LEVEL5
+            5 -> UPGRADE_PRICE_CHILI_LEVEL5
+            else -> UPGRADE_PRICE_CHILI_LEVEL5
         }
     }
 
     private fun checkPriceCoin(): Int {
-        when (Settings.coinLevel + 1) {
-            1 -> return UPGRADE_PRICE_COIN_LEVEL1
-            2 -> return UPGRADE_PRICE_COIN_LEVEL2
+        return when (Settings.coinLevel + 1) {
+            1 -> UPGRADE_PRICE_COIN_LEVEL1
+            2 -> UPGRADE_PRICE_COIN_LEVEL2
 
-            3 -> return UPGRADE_PRICE_COIN_LEVEL3
+            3 -> UPGRADE_PRICE_COIN_LEVEL3
 
-            4 -> return UPGRADE_PRICE_COIN_LEVEL4
+            4 -> UPGRADE_PRICE_COIN_LEVEL4
 
-            5 -> return UPGRADE_PRICE_COIN_LEVEL5
-            else -> return UPGRADE_PRICE_COIN_LEVEL5
+            5 -> UPGRADE_PRICE_COIN_LEVEL5
+            else -> UPGRADE_PRICE_COIN_LEVEL5
         }
     }
 
     private fun checkPriceTime(): Int {
-        when (Settings.timeLevel + 1) {
-            1 -> return UPGRADE_PRICE_TIME_LEVEL1
-            2 -> return UPGRADE_PRICE_TIME_LEVEL2
+        return when (Settings.timeLevel + 1) {
+            1 -> UPGRADE_PRICE_TIME_LEVEL1
+            2 -> UPGRADE_PRICE_TIME_LEVEL2
 
-            3 -> return UPGRADE_PRICE_TIME_LEVEL3
+            3 -> UPGRADE_PRICE_TIME_LEVEL3
 
-            4 -> return UPGRADE_PRICE_TIME_LEVEL4
+            4 -> UPGRADE_PRICE_TIME_LEVEL4
 
-            5 -> return UPGRADE_PRICE_TIME_LEVEL5
-            else -> return UPGRADE_PRICE_TIME_LEVEL5
+            5 -> UPGRADE_PRICE_TIME_LEVEL5
+            else -> UPGRADE_PRICE_TIME_LEVEL5
         }
     }
 

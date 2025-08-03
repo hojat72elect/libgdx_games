@@ -20,23 +20,15 @@ import com.badlogic.gdx.utils.Logger
 import com.nopalsoft.ponyrace.Settings
 import com.nopalsoft.ponyrace.game.TileMapHandler
 
-class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
-    private val oWorld: TileMapHandler?
-    private val oWorldBox: World
-    private val m_units: Float
-    private val logger: Logger
-    private val defaultFixture: FixtureDef
-    private val nombrePonys: LinkedHashMap<Int?, String>
+class TiledMapManagerBox2d(private val oWorld: TileMapHandler, unitsPerPixel: Float) {
+    private val oWorldBox: World = oWorld.oWorldBox
+    private val m_units: Float = unitsPerPixel
+    private val logger: Logger = Logger("MapBodyManager", 1)
+    private val defaultFixture: FixtureDef = FixtureDef()
+    private val nombrePonys: LinkedHashMap<Int?, String> = oWorld.game.assetsHandler!!.nombrePonys
     var contadorPonisCreados: Int = 0
 
     init {
-        this.oWorld = oWorld
-        oWorldBox = oWorld.oWorldBox
-        m_units = unitsPerPixel
-        logger = Logger("MapBodyManager", 1)
-        nombrePonys = oWorld.game.assetsHandler!!.nombrePonys
-
-        defaultFixture = FixtureDef()
         defaultFixture.density = 1.0f
         defaultFixture.friction = .5f
         defaultFixture.restitution = 0.0f
@@ -51,7 +43,7 @@ class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
         val layer = map.layers.get(layerName)
 
         if (layer == null) {
-            logger.error("layer " + layerName + " no existe")
+            logger.error("layer $layerName no existe")
             return
         }
 
@@ -79,7 +71,7 @@ class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
         val layer = map.layers.get(layerName)
 
         if (layer == null) {
-            logger.error("layer " + layerName + " no existe")
+            logger.error("layer $layerName no existe")
             return
         }
 
@@ -114,39 +106,37 @@ class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
                 val rectangle = (`object` as RectangleMapObject).rectangle
                 val x = (rectangle.x + rectangle.width * 0.5f) * m_units
                 val y = (rectangle.y + rectangle.height * 0.5f) * m_units
-                oWorld!!.finJuego = Vector2(x, y)
+                oWorld.finJuego = Vector2(x, y)
                 continue
             } else if (tipo == "gemaChica") {
                 val rectangle = (`object` as RectangleMapObject).rectangle
                 val x = (rectangle.x + rectangle.width * 0.5f) * m_units
                 val y = (rectangle.y + rectangle.height * 0.5f) * m_units
-                oWorld!!.arrBloodStone.add(BloodStone(x, y, BloodStone.Type.SMALL, oWorld.random))
+                oWorld.arrBloodStone.add(BloodStone(x, y, BloodStone.Type.SMALL, oWorld.random))
                 continue
             } else if (tipo == "gemaMediana") {
                 val rectangle = (`object` as RectangleMapObject).rectangle
                 val x = (rectangle.x + rectangle.width * 0.5f) * m_units
                 val y = (rectangle.y + rectangle.height * 0.5f) * m_units
-                oWorld!!.arrBloodStone.add(BloodStone(x, y, BloodStone.Type.MEDIUM, oWorld.random))
+                oWorld.arrBloodStone.add(BloodStone(x, y, BloodStone.Type.MEDIUM, oWorld.random))
                 continue
             } else if (tipo == "gemaGrande") {
                 val rectangle = (`object` as RectangleMapObject).rectangle
                 val x = (rectangle.x + rectangle.width * 0.5f) * m_units
                 val y = (rectangle.y + rectangle.height * 0.5f) * m_units
-                oWorld!!.arrBloodStone.add(BloodStone(x, y, BloodStone.Type.LARGE, oWorld.random))
+                oWorld.arrBloodStone.add(BloodStone(x, y, BloodStone.Type.LARGE, oWorld.random))
                 continue
             }
-
-            val shape: Shape?
-            if (`object` is RectangleMapObject) {
-                shape = getRectangle(`object`)
+            val shape = if (`object` is RectangleMapObject) {
+                getRectangle(`object`)
             } else if (`object` is PolygonMapObject) {
-                shape = getPolygon(`object`)
+                getPolygon(`object`)
             } else if (`object` is PolylineMapObject) {
-                shape = getPolyline(`object`)
+                getPolyline(`object`)
             } else if (`object` is CircleMapObject) {
-                shape = getCircle(`object`)
+                getCircle(`object`)
             } else {
-                logger.error("non suported shape " + `object`)
+                logger.error("non suported shape $`object`")
                 continue
             }
 
@@ -166,14 +156,14 @@ class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
 
             if (tipo == "bandera1") {
                 if (properties.get("jump") == "left") body.userData = Flag(
-                    oWorld!!,
+                    oWorld,
                     Flag.ActionType.JUMP_LEFT
                 )
                 else if (properties.get("jump") == "right") body.userData = Flag(
-                    oWorld!!,
+                    oWorld,
                     Flag.ActionType.JUMP_RIGHT
                 )
-                else if (properties.get("jump") == "stand") body.userData = Flag(oWorld!!, Flag.ActionType.JUMP)
+                else if (properties.get("jump") == "stand") body.userData = Flag(oWorld, Flag.ActionType.JUMP)
             } else body.userData = tipo
 
             defaultFixture.shape = null
@@ -198,8 +188,8 @@ class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
         val x = (rectangle.x + rectangle.width * 0.5f) * m_units
         val y = (rectangle.y + rectangle.height * 0.5f) * m_units
         val height = (rectangle.height * m_units * 0.5f)
-        val width = (rectangle.width * m_units * 0.5f)
-        body.userData = Platform(x, y, width, height)
+        (rectangle.width * m_units * 0.5f)
+        body.userData = Platform(x, y, height)
     }
 
     private fun getRectangle(rectangleObject: RectangleMapObject): Shape {
@@ -261,13 +251,13 @@ class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
 
         if (tipo == "pony") {
             nombreSkin = Settings.selectedSkin!!
-            oPony = PonyPlayer(x, y, nombreSkin, oWorld!!)
+            oPony = PonyPlayer(x, y, nombreSkin, oWorld)
         } else { // Ponis malos
 
             if (Settings.selectedSkin == nombrePonys.get(contadorPonisCreados)) contadorPonisCreados++
             nombreSkin = nombrePonys.get(contadorPonisCreados)!!
 
-            oPony = OpponentPony(x, y, nombreSkin, oWorld!!)
+            oPony = OpponentPony(x, y, nombreSkin, oWorld)
         }
         contadorPonisCreados++ // Se comenta esta linea si se quieren poner muchos ponys. PAra debugear
 
@@ -360,10 +350,9 @@ class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
         }
 
         val `as` = Polygon(vertices)
-        val oBonfire: Bonfire?
-        oBonfire = Bonfire(
+        val oBonfire = Bonfire(
             `as`.getBoundingRectangle().width / 2f * m_units + `as`.getBoundingRectangle().x * m_units + xLost,
-            `as`.getBoundingRectangle().height / 2f * m_units + `as`.getBoundingRectangle().y * m_units + yLost - .15f, oWorld!!.random
+            `as`.getBoundingRectangle().height / 2f * m_units + `as`.getBoundingRectangle().y * m_units + yLost - .15f, oWorld.random
         )
 
         polygon.set(worldVertices)
@@ -390,7 +379,7 @@ class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
         val x = (rectangle.x + rectangle.width * 0.5f) * m_units
         val y = (rectangle.y + rectangle.height * 0.5f) * m_units
 
-        val obj = Wing(x, y, oWorld!!.random)
+        val obj = Wing(x, y, oWorld.random)
         val bd = BodyDef()
         bd.position.y = obj.position.y
         bd.position.x = obj.position.x
@@ -420,7 +409,7 @@ class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
         val x = (rectangle.x + rectangle.width * 0.5f) * m_units
         val y = (rectangle.y + rectangle.height * 0.5f) * m_units
 
-        val obj = Coin(x, y, oWorld!!)
+        val obj = Coin(x, y, oWorld)
         val bd = BodyDef()
         bd.position.y = obj.position.y
         bd.position.x = obj.position.x
@@ -450,7 +439,7 @@ class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
         val x = (rectangle.x + rectangle.width * 0.5f) * m_units
         val y = (rectangle.y + rectangle.height * 0.5f) * m_units
 
-        val obj = Chili(x, y, oWorld!!)
+        val obj = Chili(x, y, oWorld)
         val bd = BodyDef()
         bd.position.y = obj.position.y
         bd.position.x = obj.position.x
@@ -480,7 +469,7 @@ class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
         val x = (rectangle.x + rectangle.width * 0.5f) * m_units
         val y = (rectangle.y + rectangle.height * 0.5f) * m_units
 
-        val obj = Balloons(x, y, oWorld!!)
+        val obj = Balloons(x, y, oWorld)
         val bd = BodyDef()
         bd.position.y = obj.position.y
         bd.position.x = obj.position.x
@@ -510,7 +499,7 @@ class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
         val x = (rectangle.x + rectangle.width * 0.5f) * m_units
         val y = (rectangle.y + rectangle.height * 0.5f) * m_units
 
-        val obj = Candy(x, y, oWorld!!)
+        val obj = Candy(x, y, oWorld)
         val bd = BodyDef()
         bd.position.y = obj.position.y
         bd.position.x = obj.position.x
@@ -536,7 +525,6 @@ class TiledMapManagerBox2d(oWorld: TileMapHandler, unitsPerPixel: Float) {
     }
 
     companion object {
-        @JvmField
-        val CONTACT_CORREDORES: Short = -1
+        const val CONTACT_CORREDORES: Short = -1
     }
 }

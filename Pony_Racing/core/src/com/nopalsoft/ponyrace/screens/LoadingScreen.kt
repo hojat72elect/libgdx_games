@@ -24,36 +24,56 @@ class LoadingScreen : BaseScreen {
         cargaActual = 0
         this.nivelTiled = nivelTiled
 
-        if (clase == MainMenuScreen::class.java) {
-            assetsHandler.loadMenus()
-        } else if (clase == LeaderboardChooseScreen::class.java) {
-            assetsHandler.loadMenus()
-        } else if (clase == WorldMapTiledScreen::class.java) {
-            assetsHandler.loadMenus()
-        } else if (clase == ShopScreen::class.java) {
-            assetsHandler.loadMenus()
-        } else if (clase == GameScreen::class.java) {
-            assetsHandler.loadGameScreenTiled(nivelTiled)
+        when (clase) {
+            MainMenuScreen::class.java -> {
+                assetsHandler.loadMenus()
+            }
+
+            LeaderboardChooseScreen::class.java -> {
+                assetsHandler.loadMenus()
+            }
+
+            WorldMapTiledScreen::class.java -> {
+                assetsHandler.loadMenus()
+            }
+
+            ShopScreen::class.java -> {
+                assetsHandler.loadMenus()
+            }
+
+            GameScreen::class.java -> {
+                assetsHandler.loadGameScreenTiled(nivelTiled)
+            }
         }
     }
 
     override fun update(delta: Float) {
         if (assetsHandler.update()) {
-            if (clase == MainMenuScreen::class.java) {
-                assetsHandler.cargarMenus()
-                game!!.setScreen(MainMenuScreen(game!!))
-            } else if (clase == LeaderboardChooseScreen::class.java) {
-                assetsHandler.cargarMenus()
-                game!!.setScreen(LeaderboardChooseScreen(game!!))
-            } else if (clase == WorldMapTiledScreen::class.java) {
-                assetsHandler.cargarMenus()
-                game!!.setScreen(WorldMapTiledScreen(game))
-            } else if (clase == ShopScreen::class.java) {
-                assetsHandler.cargarMenus()
-                game!!.setScreen(ShopScreen(game!!))
-            } else if (clase == GameScreen::class.java) {
-                assetsHandler.cargarGameScreenTiled()
-                game!!.setScreen(GameScreen(game!!, nivelTiled))
+            when (clase) {
+                MainMenuScreen::class.java -> {
+                    assetsHandler.cargarMenus()
+                    game!!.setScreen(MainMenuScreen(game!!))
+                }
+
+                LeaderboardChooseScreen::class.java -> {
+                    assetsHandler.cargarMenus()
+                    game!!.setScreen(LeaderboardChooseScreen(game!!))
+                }
+
+                WorldMapTiledScreen::class.java -> {
+                    assetsHandler.cargarMenus()
+                    game!!.setScreen(WorldMapTiledScreen(game))
+                }
+
+                ShopScreen::class.java -> {
+                    assetsHandler.cargarMenus()
+                    game!!.setScreen(ShopScreen(game!!))
+                }
+
+                GameScreen::class.java -> {
+                    assetsHandler.cargarGameScreenTiled()
+                    game!!.setScreen(GameScreen(game!!, nivelTiled))
+                }
             }
         } else {
             cargaActual = (game!!.assetsHandler!!.getProgress() * 100).toInt()
@@ -68,7 +88,7 @@ class LoadingScreen : BaseScreen {
         assetsHandler.fontChco!!.color = Color.WHITE
         glyphLayout!!.setText(assetsHandler.fontChco, "%")
         assetsHandler.fontChco!!.draw(
-            batch, cargaActual.toString() + "%", (SCREEN_WIDTH / 2f)
+            batch, "$cargaActual%", (SCREEN_WIDTH / 2f)
                     - (glyphLayout!!.width / 2), SCREEN_HEIGHT / 2f - glyphLayout!!.height / 2
         )
         batch!!.end()
