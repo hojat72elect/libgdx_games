@@ -52,13 +52,12 @@ class WorldMapTiledScreen(game: PonyRacingGame) : BaseScreen(game), GestureListe
     var lblDificultadActual: Label
 
     var gestureDetector: GestureDetector?
-    var oRan: Random
+    var oRan: Random = Random()
 
     var secretWorldBounds: Rectangle
     var secretWorld: Vector2
 
     init {
-        oRan = Random()
         tiledRender = OrthogonalTiledMapRenderer(game.assetsHandler!!.tiledWorldMap, unitScale)
         camera = OrthographicCamera(SCREEN_WIDTH * unitScale, SCREEN_HEIGHT * unitScale)
         camera!!.position.set(SCREEN_WIDTH * unitScale / 2f, SCREEN_HEIGHT * unitScale / 2f, 0f)
@@ -66,10 +65,10 @@ class WorldMapTiledScreen(game: PonyRacingGame) : BaseScreen(game), GestureListe
         CAM_MIN_X = SCREEN_WIDTH * unitScale / 2f
         CAM_MIN_Y = SCREEN_HEIGHT * unitScale / 2f
 
-        CAM_MAX_X = game.assetsHandler!!.tiledWorldMap!!.properties.get<String?>("tamanoMapaX", String::class.java).toInt().toFloat()
+        CAM_MAX_X = game.assetsHandler!!.tiledWorldMap!!.properties!!.get<String?>("tamanoMapaX", String::class.java)!!.toInt().toFloat()
         CAM_MAX_X -= SCREEN_WIDTH * unitScale / 2f
 
-        CAM_MAX_Y = game.assetsHandler!!.tiledWorldMap!!.properties.get<String?>("tamanoMapaY", String::class.java).toInt().toFloat()
+        CAM_MAX_Y = game.assetsHandler!!.tiledWorldMap!!.properties.get<String?>("tamanoMapaY", String::class.java)!!.toInt().toFloat()
         CAM_MAX_Y -= SCREEN_HEIGHT * unitScale / 2f
 
         val x = (oRan.nextFloat() * SCREEN_WIDTH * unitScale - 2) + 2
@@ -89,11 +88,7 @@ class WorldMapTiledScreen(game: PonyRacingGame) : BaseScreen(game), GestureListe
         btBack.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 btBack.wasSelected = true
-                btBack.addAction(Actions.sequence(Actions.delay(.2f), btBack.accionInicial, Actions.run(object : Runnable {
-                    override fun run() {
-                        game.setScreen(LoadingScreen(game, MainMenuScreen::class.java))
-                    }
-                })))
+                btBack.addAction(Actions.sequence(Actions.delay(.2f), btBack.accionInicial, Actions.run { game.setScreen(LoadingScreen(game, MainMenuScreen::class.java)) }))
             }
         })
 
@@ -104,11 +99,7 @@ class WorldMapTiledScreen(game: PonyRacingGame) : BaseScreen(game), GestureListe
         btTienda.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 btTienda.wasSelected = true
-                btTienda.addAction(Actions.sequence(Actions.delay(.2f), btTienda.accionInicial, Actions.run(object : Runnable {
-                    override fun run() {
-                        game.setScreen(LoadingScreen(game, ShopScreen::class.java))
-                    }
-                })))
+                btTienda.addAction(Actions.sequence(Actions.delay(.2f), btTienda.accionInicial, Actions.run { game.setScreen(LoadingScreen(game, ShopScreen::class.java)) }))
             }
         })
 
@@ -160,7 +151,7 @@ class WorldMapTiledScreen(game: PonyRacingGame) : BaseScreen(game), GestureListe
         val objects = layer.objects
         for (`object` in objects) {
             val properties = `object`.properties
-            val level = properties.get<String?>("level", String::class.java).toInt()
+            val level = properties.get("level", String::class.java)!!.toInt()
 
             val rectangle = (`object` as RectangleMapObject).rectangle
             val x = (rectangle.x + rectangle.width * 0.5f) * unitScale
