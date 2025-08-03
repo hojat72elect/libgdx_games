@@ -50,7 +50,7 @@ class LoadingScreen : BaseScreen {
                 game!!.setScreen(WorldMapTiledScreen(game))
             } else if (clase == ShopScreen::class.java) {
                 assetsHandler.cargarMenus()
-                game!!.setScreen(ShopScreen(game))
+                game!!.setScreen(ShopScreen(game!!))
             } else if (clase == GameScreen::class.java) {
                 assetsHandler.cargarGameScreenTiled()
                 game!!.setScreen(GameScreen(game, nivelTiled))
