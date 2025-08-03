@@ -168,7 +168,7 @@ public class TileMapHandler {
             } else if (obj.getUserData() != null && obj.getUserData() instanceof Bomb) {
                 Bomb oBomb = ((Bomb) obj.getUserData());
                 oBomb.update(delta, obj);
-                if (oBomb.state == Bomb.State.explode && !oWorldBox.isLocked() && oBomb.stateTime >= Bomb.TIEMPO_EXPLOSION) {
+                if (oBomb.state == Bomb.State.EXPLODE && !oWorldBox.isLocked() && oBomb.stateTime >= Bomb.TIEMPO_EXPLOSION) {
                     arrBombas.removeValue(oBomb, true);
                     arrBodys.removeValue(obj, true);
                     oWorldBox.destroyBody(obj);
@@ -739,7 +739,7 @@ public class TileMapHandler {
 
             if (fixPony.getUserData() != null && fixPony.getUserData().equals("cuerpo") && fixOtraCosa.getUserData() != null
                     && fixOtraCosa.getUserData().equals("sensorBomba")) {
-                if (((Bomb) otraCosaData).state == Bomb.State.explode) {
+                if (((Bomb) otraCosaData).state == Bomb.State.EXPLODE) {
                     oOpponentPony.getHurt(((Bomb) otraCosaData).TIEMPO_HURT);
                 }
             }

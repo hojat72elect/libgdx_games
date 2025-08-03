@@ -188,7 +188,7 @@ public class WorldTiledRenderer {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, .5f))
                 continue;
 
-            if (obj.state == Bomb.State.normal) {
+            if (obj.state == Bomb.State.NORMAL) {
                 oWorld.game.assetsHandler.bombAnim.apply(obj.skelBomb, obj.lastStatetime, obj.stateTime, true, null);
             } else {
                 oWorld.game.assetsHandler.bombExAnim.apply(obj.skelBomb, obj.lastStatetime, obj.stateTime, true, null);
