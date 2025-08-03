@@ -62,7 +62,7 @@ class LoadingScreen : BaseScreen {
 
                 WorldMapTiledScreen::class.java -> {
                     assetsHandler.cargarMenus()
-                    game!!.setScreen(WorldMapTiledScreen(game))
+                    game!!.setScreen(WorldMapTiledScreen(game!!))
                 }
 
                 ShopScreen::class.java -> {
