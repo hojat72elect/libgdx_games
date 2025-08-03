@@ -6,13 +6,8 @@ import java.util.Random
 class Flag(world: TileMapHandler, @JvmField var actionType: ActionType?) {
 
     @JvmField
-    var state: State?
-    var random: Random
-
-    init {
-        random = world.random
-        state = State.NORMAL
-    }
+    var state: State? = State.NORMAL
+    var random: Random = world.random
 
     fun permitirSalto(): Boolean {
         if (state == State.NORMAL && random.nextBoolean()) {
