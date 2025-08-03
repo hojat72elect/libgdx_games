@@ -22,7 +22,7 @@ open class Ventana(currentScreen: BaseScreen) : Group() {
 
     init {
         screen = currentScreen
-        game = currentScreen.game
+        game = currentScreen.game!!
         oAssetsHandler = game.assetsHandler
     }
 
