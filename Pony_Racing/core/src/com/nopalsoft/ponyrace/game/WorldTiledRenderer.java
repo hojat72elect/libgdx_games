@@ -116,15 +116,15 @@ public class WorldTiledRenderer {
             if (!OrthoCam.frustum.sphereInFrustum(obj.position, 3))
                 continue;
 
-            if (obj.type == BloodStone.Type.SMALL) {
-                oWorld.game.assetsHandler.bloodStoneAnim.apply(oWorld.game.assetsHandler.bloodStoneSkeleton, obj.lastStateTime, obj.stateTime, true, null);
+            if (obj.getType() == BloodStone.Type.SMALL) {
+                oWorld.game.assetsHandler.bloodStoneAnim.apply(oWorld.game.assetsHandler.bloodStoneSkeleton, obj.getLastStateTime(), obj.getStateTime(), true, null);
                 oWorld.game.assetsHandler.bloodStoneSkeleton.setX(obj.position.x);
                 oWorld.game.assetsHandler.bloodStoneSkeleton.setY(obj.position.y - .12f);
                 oWorld.game.assetsHandler.bloodStoneSkeleton.updateWorldTransform();
                 oWorld.game.assetsHandler.bloodStoneSkeleton.update(delta);
                 skelrender.draw(batch, oWorld.game.assetsHandler.bloodStoneSkeleton);
-            } else if (obj.type == BloodStone.Type.MEDIUM) {
-                oWorld.game.assetsHandler.bloodStone2Anim.apply(oWorld.game.assetsHandler.bloodStone2Skeleton, obj.lastStateTime, obj.stateTime, true, null);
+            } else if (obj.getType() == BloodStone.Type.MEDIUM) {
+                oWorld.game.assetsHandler.bloodStone2Anim.apply(oWorld.game.assetsHandler.bloodStone2Skeleton, obj.getLastStateTime(), obj.getStateTime(), true, null);
                 oWorld.game.assetsHandler.bloodStone2Skeleton.setX(obj.position.x);
                 oWorld.game.assetsHandler.bloodStone2Skeleton.setY(obj.position.y - .12f);
                 oWorld.game.assetsHandler.bloodStone2Skeleton.updateWorldTransform();
