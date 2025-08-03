@@ -233,8 +233,7 @@ public class Pony {
                 animState.setAnimation(0, "Running", true);
         }
 
-        // Si no se esta moviendo a la izq o derecha, y si ya toco el suelo lo
-        // pongo en stanging
+        // Si no se esta moviendo a la izq o derecha, y si ya toco el suelo lo pongo en stanging
         if ((animState.getCurrent(0).getAnimation().getName().equals("Runningchocolate") || animState.getCurrent(0).getAnimation().getName().equals("Running") || animState.getCurrent(0).getAnimation().getName().equals("Runningchile") || animState.getCurrent(0).getAnimation().getName().equals("hurt")) && aceleration.x == 0 && !isJumping) {
             if (isDulce)
                 animState.setAnimation(0, "standingchocolate", true);
@@ -246,7 +245,7 @@ public class Pony {
     }
 
     public void jump() {
-        // isJumping=false; //salto infinito
+
         if (isDoubleJump || isHurt)
             return;
 
@@ -280,8 +279,6 @@ public class Pony {
         TIEMPO_IS_HURT = tiempoIsHurt;
         stateTime = 0;
         isHurt = true;
-
-        // Gdx.app.log("Tiempo Hurt", TIEMPO_IS_HURT+"");
 
         animState.setAnimation(0, "hurt", true);
     }

@@ -38,7 +38,6 @@ public class OpponentPony extends Pony {
     public void hitSimpleJump(int newPosition) {
         if (didTouchFlag) {
             float pro = random.nextFloat();
-            // Gdx.app.log("PROBABILIDAD", pro + "");
             if (pro < jumpSuccessProbability) {
                 hasToJump = true;
                 state = newPosition;
