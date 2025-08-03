@@ -221,7 +221,7 @@ public class TiledMapManagerBox2d {
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
         float height = (rectangle.height * m_units * 0.5f);
         float width = (rectangle.width * m_units * 0.5f);
-        body.setUserData(new Pisable(x, y, width, height));
+        body.setUserData(new Platform(x, y, width, height));
     }
 
     private Shape getRectangle(RectangleMapObject rectangleObject) {

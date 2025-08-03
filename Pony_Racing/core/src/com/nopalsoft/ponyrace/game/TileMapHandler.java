@@ -25,7 +25,7 @@ import com.nopalsoft.ponyrace.game_objects.Chili;
 import com.nopalsoft.ponyrace.game_objects.Coin;
 import com.nopalsoft.ponyrace.game_objects.Flag;
 import com.nopalsoft.ponyrace.game_objects.OpponentPony;
-import com.nopalsoft.ponyrace.game_objects.Pisable;
+import com.nopalsoft.ponyrace.game_objects.Platform;
 import com.nopalsoft.ponyrace.game_objects.Pony;
 import com.nopalsoft.ponyrace.game_objects.PonyPlayer;
 import com.nopalsoft.ponyrace.game_objects.TiledMapManagerBox2d;
@@ -568,7 +568,7 @@ public class TileMapHandler {
                     ponyDataBody.tocoPisoInclinado();
                 } else if (otraCosaDataBody.equals("hoyo")) {
                     ponyDataBody.cayoEnHoyo();
-                } else if (otraCosaDataBody instanceof Pisable) {
+                } else if (otraCosaDataBody instanceof Platform) {
                     ponyDataBody.tocoElPiso();
                 }
             } else if (otraCosaDataBody instanceof Pony) {
@@ -721,12 +721,12 @@ public class TileMapHandler {
 
             Object otraCosaDataBody = fixOtraCosa.getBody().getUserData();
 
-            if (otraCosaDataBody instanceof Pisable) {
+            if (otraCosaDataBody instanceof Platform) {
                 // Si el pony su centro - la mitad de su altura y el piso su centro mas la mitad de su altura
                 // Si ponyY es menor significa q esta por abajo.
-                Pisable oPis = (Pisable) otraCosaDataBody;
+                Platform oPis = (Platform) otraCosaDataBody;
                 float ponyY = fixPony.getBody().getPosition().y - .25f;
-                float pisY = oPis.position.y + oPis.alto / 2f;
+                float pisY = oPis.position.y + oPis.getAlto() / 2f;
 
                 if (ponyY < pisY)
                     contact.setEnabled(false);
