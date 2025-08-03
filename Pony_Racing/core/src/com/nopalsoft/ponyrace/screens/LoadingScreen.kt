@@ -53,7 +53,7 @@ class LoadingScreen : BaseScreen {
                 game!!.setScreen(ShopScreen(game!!))
             } else if (clase == GameScreen::class.java) {
                 assetsHandler.cargarGameScreenTiled()
-                game!!.setScreen(GameScreen(game, nivelTiled))
+                game!!.setScreen(GameScreen(game!!, nivelTiled))
             }
         } else {
             cargaActual = (game!!.assetsHandler!!.getProgress() * 100).toInt()

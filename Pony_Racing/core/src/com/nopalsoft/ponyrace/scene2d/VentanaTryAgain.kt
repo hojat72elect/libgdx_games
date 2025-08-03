@@ -22,11 +22,11 @@ class VentanaTryAgain(currentScreen: BaseScreen) : Ventana(currentScreen) {
         setBackGround()
 
         gameScreen = currentScreen as GameScreen
-        oWorld = gameScreen.world
+        oWorld = gameScreen.world!!
 
         var medalla: Image? = null
-        if (oWorld.oPony.lugarEnLaCarrera == 2) medalla = Image(oAssetsHandler.medallaSegundoLugar)
-        else if (oWorld.oPony.lugarEnLaCarrera == 3) medalla = Image(oAssetsHandler.medallaTercerLugar)
+        if (oWorld.oPony!!.lugarEnLaCarrera == 2) medalla = Image(oAssetsHandler.medallaSegundoLugar)
+        else if (oWorld.oPony!!.lugarEnLaCarrera == 3) medalla = Image(oAssetsHandler.medallaTercerLugar)
 
         val content = Table()
         content.setSize(320f, 180f)
