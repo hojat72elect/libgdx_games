@@ -28,7 +28,7 @@ public class Skeleton {
         slots = new Array(data.slots.size);
         drawOrder = new Array(data.slots.size);
         for (SlotData slotData : data.slots) {
-            Bone bone = bones.get(data.bones.indexOf(slotData.boneData, true));
+            Bone bone = bones.get(data.bones.indexOf(slotData.getBoneData(), true));
             Slot slot = new Slot(slotData, this, bone);
             slots.add(slot);
             drawOrder.add(slot);
@@ -150,7 +150,7 @@ public class Skeleton {
         Array<Slot> slots = this.slots;
         for (int i = 0, n = slots.size; i < n; i++) {
             Slot slot = slots.get(i);
-            if (slot.data.name.equals(slotName)) return slot;
+            if (slot.data.getName().equals(slotName)) return slot;
         }
         return null;
     }
@@ -162,7 +162,7 @@ public class Skeleton {
         if (slotName == null) throw new IllegalArgumentException("slotName cannot be null.");
         Array<Slot> slots = this.slots;
         for (int i = 0, n = slots.size; i < n; i++)
-            if (slots.get(i).data.name.equals(slotName)) return i;
+            if (slots.get(i).data.getName().equals(slotName)) return i;
         return -1;
     }
 
@@ -237,7 +237,7 @@ public class Skeleton {
         Array<Slot> slots = this.slots;
         for (int i = 0, n = slots.size; i < n; i++) {
             Slot slot = slots.get(i);
-            if (slot.data.name.equals(slotName)) {
+            if (slot.data.getName().equals(slotName)) {
                 Attachment attachment = null;
                 if (attachmentName != null) {
                     attachment = getAttachment(i, attachmentName);

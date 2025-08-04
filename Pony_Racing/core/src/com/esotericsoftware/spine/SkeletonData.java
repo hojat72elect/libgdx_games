@@ -74,7 +74,7 @@ public class SkeletonData {
         Array<SlotData> slots = this.slots;
         for (int i = 0, n = slots.size; i < n; i++) {
             SlotData slot = slots.get(i);
-            if (slot.name.equals(slotName)) return slot;
+            if (slot.getName().equals(slotName)) return slot;
         }
         return null;
     }
@@ -86,7 +86,7 @@ public class SkeletonData {
         if (slotName == null) throw new IllegalArgumentException("slotName cannot be null.");
         Array<SlotData> slots = this.slots;
         for (int i = 0, n = slots.size; i < n; i++)
-            if (slots.get(i).name.equals(slotName)) return i;
+            if (slots.get(i).getName().equals(slotName)) return i;
         return -1;
     }
 

@@ -97,8 +97,8 @@ public class Slot {
     }
 
     void setToSetupPose(int slotIndex) {
-        color.set(data.color);
-        setAttachment(data.attachmentName == null ? null : skeleton.getAttachment(slotIndex, data.attachmentName));
+        color.set(data.getColor());
+        setAttachment(data.getAttachmentName() == null ? null : skeleton.getAttachment(slotIndex, data.getAttachmentName()));
         // BOZO - Set mesh to setup pose.
         // attachmentVertices.clear();
     }
@@ -108,6 +108,6 @@ public class Slot {
     }
 
     public String toString() {
-        return data.name;
+        return data.getName();
     }
 }

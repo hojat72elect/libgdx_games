@@ -93,9 +93,9 @@ public class SkeletonJson {
             String color = slotMap.getString("color", null);
             if (color != null) slotData.getColor().set(Color.valueOf(color));
 
-            slotData.attachmentName = slotMap.getString("attachment", null);
+            slotData.setAttachmentName(slotMap.getString("attachment", null));
 
-            slotData.additiveBlending = slotMap.getBoolean("additive", false);
+            slotData.setAdditiveBlending(slotMap.getBoolean("additive", false));
 
             skeletonData.addSlot(slotData);
         }

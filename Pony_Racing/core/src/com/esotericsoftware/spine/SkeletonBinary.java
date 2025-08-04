@@ -100,8 +100,8 @@ public class SkeletonBinary {
                 BoneData boneData = skeletonData.bones.get(input.readInt(true));
                 SlotData slotData = new SlotData(slotName, boneData);
                 Color.rgba8888ToColor(slotData.getColor(), input.readInt());
-                slotData.attachmentName = input.readString();
-                slotData.additiveBlending = input.readBoolean();
+                slotData.setAttachmentName(input.readString());
+                slotData.setAdditiveBlending(input.readBoolean());
                 skeletonData.addSlot(slotData);
             }
 
