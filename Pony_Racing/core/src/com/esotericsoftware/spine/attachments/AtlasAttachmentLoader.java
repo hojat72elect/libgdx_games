@@ -1,5 +1,3 @@
-
-
 package com.esotericsoftware.spine.attachments;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
