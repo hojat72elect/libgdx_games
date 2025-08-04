@@ -141,7 +141,7 @@ public class SkeletonData {
     public EventData findEvent(String eventDataName) {
         if (eventDataName == null) throw new IllegalArgumentException("eventDataName cannot be null.");
         for (EventData eventData : events)
-            if (eventData.name.equals(eventDataName)) return eventData;
+            if (eventData.getName().equals(eventDataName)) return eventData;
         return null;
     }
 

@@ -119,9 +119,9 @@ public class SkeletonBinary {
             // Events.
             for (int i = 0, n = input.readInt(true); i < n; i++) {
                 EventData eventData = new EventData(input.readString());
-                eventData.intValue = input.readInt(false);
-                eventData.floatValue = input.readFloat();
-                eventData.stringValue = input.readString();
+                eventData.setIntValue(input.readInt(false));
+                eventData.setFloatValue(input.readFloat());
+                eventData.setStringValue(input.readString());
                 skeletonData.addEvent(eventData);
             }
 
@@ -383,7 +383,7 @@ public class SkeletonBinary {
                     Event event = new Event(eventData);
                     event.setIntValue(input.readInt(false));
                     event.setFloatValue(input.readFloat());
-                    event.setStringValue(input.readBoolean() ? input.readString() : eventData.stringValue);
+                    event.setStringValue(input.readBoolean() ? input.readString() : eventData.getStringValue());
                     timeline.setFrame(i, time, event);
                 }
                 timelines.add(timeline);
