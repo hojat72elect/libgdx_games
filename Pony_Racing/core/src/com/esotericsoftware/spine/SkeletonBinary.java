@@ -166,7 +166,7 @@ public class SkeletonBinary {
         if (name == null) name = attachmentName;
 
         switch (AttachmentType.values()[input.readByte()]) {
-            case region: {
+            case REGION: {
                 String path = input.readString();
                 if (path == null) path = name;
                 RegionAttachment region = attachmentLoader.newRegionAttachment(skin, name, path);
@@ -182,13 +182,13 @@ public class SkeletonBinary {
                 region.updateOffset();
                 return region;
             }
-            case boundingbox: {
+            case BOUNDING_BOX: {
                 BoundingBoxAttachment box = attachmentLoader.newBoundingBoxAttachment(skin, name);
                 if (box == null) return null;
                 box.setVertices(readFloatArray(input, scale));
                 return box;
             }
-            case mesh: {
+            case MESH: {
                 String path = input.readString();
                 if (path == null) path = name;
                 MeshAttachment mesh = attachmentLoader.newMeshAttachment(skin, name, path);

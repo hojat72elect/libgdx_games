@@ -141,8 +141,8 @@ public class SkeletonJson {
         float scale = this.scale;
         name = map.getString("name", name);
 
-        switch (AttachmentType.valueOf(map.getString("type", AttachmentType.region.name()))) {
-            case region:
+        switch (AttachmentType.valueOf(map.getString("type", AttachmentType.REGION.name()))) {
+            case REGION:
                 RegionAttachment region = attachmentLoader.newRegionAttachment(skin, name, map.getString("path", name));
                 region.setX(map.getFloat("x", 0) * scale);
                 region.setY(map.getFloat("y", 0) * scale);
@@ -157,7 +157,7 @@ public class SkeletonJson {
 
                 region.updateOffset();
                 return region;
-            case boundingbox: {
+            case BOUNDING_BOX: {
                 BoundingBoxAttachment box = attachmentLoader.newBoundingBoxAttachment(skin, name);
                 float[] vertices = map.require("vertices").asFloatArray();
                 if (scale != 1) {
@@ -167,7 +167,7 @@ public class SkeletonJson {
                 box.setVertices(vertices);
                 return box;
             }
-            case mesh: {
+            case MESH: {
                 MeshAttachment mesh = attachmentLoader.newMeshAttachment(skin, name, map.getString("path", name));
                 float[] vertices = map.require("vertices").asFloatArray();
                 if (scale != 1) {
