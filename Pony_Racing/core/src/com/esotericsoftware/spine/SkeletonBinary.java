@@ -381,9 +381,9 @@ public class SkeletonBinary {
                     float time = input.readFloat();
                     EventData eventData = skeletonData.events.get(input.readInt(true));
                     Event event = new Event(eventData);
-                    event.intValue = input.readInt(false);
-                    event.floatValue = input.readFloat();
-                    event.stringValue = input.readBoolean() ? input.readString() : eventData.stringValue;
+                    event.setIntValue(input.readInt(false));
+                    event.setFloatValue(input.readFloat());
+                    event.setStringValue(input.readBoolean() ? input.readString() : eventData.stringValue);
                     timeline.setFrame(i, time, event);
                 }
                 timelines.add(timeline);

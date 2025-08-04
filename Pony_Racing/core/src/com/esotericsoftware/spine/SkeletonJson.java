@@ -361,9 +361,9 @@ public class SkeletonJson {
                 EventData eventData = skeletonData.findEvent(eventMap.getString("name"));
                 if (eventData == null) throw new SerializationException("Event not found: " + eventMap.getString("name"));
                 Event event = new Event(eventData);
-                event.intValue = eventMap.getInt("int", eventData.getInt());
-                event.floatValue = eventMap.getFloat("float", eventData.getFloat());
-                event.stringValue = eventMap.getString("string", eventData.getString());
+                event.setIntValue(eventMap.getInt("int", eventData.getInt()));
+                event.setFloatValue(eventMap.getFloat("float", eventData.getFloat()));
+                event.setStringValue(eventMap.getString("string", eventData.getString()));
                 timeline.setFrame(frameIndex++, eventMap.getFloat("time"), event);
             }
             timelines.add(timeline);
