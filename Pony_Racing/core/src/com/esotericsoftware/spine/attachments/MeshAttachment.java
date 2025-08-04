@@ -18,7 +18,6 @@ public class MeshAttachment extends Attachment {
     private float[] vertices;
     private short[] triangles;
     private float[] worldVertices;
-    // Nonessential.
     private int[] edges;
     private float width, height;
     private int hullLength;

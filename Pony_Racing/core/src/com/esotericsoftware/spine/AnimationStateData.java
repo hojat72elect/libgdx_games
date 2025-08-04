@@ -1,5 +1,3 @@
-
-
 package com.esotericsoftware.spine;
 
 import com.badlogic.gdx.utils.ObjectFloatMap;

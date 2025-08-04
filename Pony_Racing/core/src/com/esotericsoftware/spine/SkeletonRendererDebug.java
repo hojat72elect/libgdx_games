@@ -1,5 +1,3 @@
-
-
 package com.esotericsoftware.spine;
 
 import static com.badlogic.gdx.graphics.g2d.Batch.X1;
