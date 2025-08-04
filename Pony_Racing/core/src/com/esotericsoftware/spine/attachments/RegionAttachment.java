@@ -1,5 +1,3 @@
-
-
 package com.esotericsoftware.spine.attachments;
 
 import static com.badlogic.gdx.graphics.g2d.SpriteBatch.C1;

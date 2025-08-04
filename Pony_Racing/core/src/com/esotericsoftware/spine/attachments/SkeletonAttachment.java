@@ -1,5 +1,3 @@
-
-
 package com.esotericsoftware.spine.attachments;
 
 import com.esotericsoftware.spine.Skeleton;
