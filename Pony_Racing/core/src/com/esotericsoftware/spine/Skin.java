@@ -7,6 +7,7 @@ import com.esotericsoftware.spine.attachments.Attachment;
 
 /**
  * Stores attachments by slot index and attachment name.
+ * This is an organized way of managing a collection of attachments for a skeletal animation.
  */
 public class Skin {
     static private final Key lookup = new Key();
@@ -76,6 +77,9 @@ public class Skin {
         }
     }
 
+    /**
+     * This key allows us to efficiently store and retrieve our attachments in an ObjectMap.
+     */
     static class Key {
         int slotIndex;
         String name;
