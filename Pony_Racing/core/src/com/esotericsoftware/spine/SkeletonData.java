@@ -2,6 +2,10 @@ package com.esotericsoftware.spine;
 
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * This is a container for all the defining information of a single animated skeleton. It's a
+ * recipe from which animated instances are created and controlled.
+ */
 public class SkeletonData {
     final Array<BoneData> bones = new Array(); // Ordered parents first.
     final Array<SlotData> slots = new Array(); // Setup pose draw order.
@@ -56,8 +60,6 @@ public class SkeletonData {
         return -1;
     }
 
-    // --- Skins.
-
     /**
      * @return May be null.
      */
@@ -95,8 +97,6 @@ public class SkeletonData {
         return null;
     }
 
-    // --- Animations.
-
     public void addAnimation(Animation animation) {
         if (animation == null) throw new IllegalArgumentException("animation cannot be null.");
         animations.add(animation);
@@ -114,8 +114,6 @@ public class SkeletonData {
         }
         return null;
     }
-
-    // ---
 
     /**
      * @return May be null.
