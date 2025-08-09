@@ -112,7 +112,7 @@ public class SkeletonJson {
                 }
             }
             skeletonData.addSkin(skin);
-            if (skin.name.equals("default")) skeletonData.defaultSkin = skin;
+            if (skin.getName().equals("default")) skeletonData.defaultSkin = skin;
         }
 
         // Events.

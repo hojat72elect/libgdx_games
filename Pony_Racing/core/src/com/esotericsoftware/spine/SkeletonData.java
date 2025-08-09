@@ -117,7 +117,7 @@ public class SkeletonData {
     public Skin findSkin(String skinName) {
         if (skinName == null) throw new IllegalArgumentException("skinName cannot be null.");
         for (Skin skin : skins)
-            if (skin.name.equals(skinName)) return skin;
+            if (skin.getName().equals(skinName)) return skin;
         return null;
     }
 
