@@ -6,11 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.nopalsoft.lander.screens.MainMenuScreen
 
 class MainLander : Game() {
-    @JvmField
-    var stage: Stage? = null
 
-    @JvmField
-    var batcher: SpriteBatch? = null
+    lateinit var stage: Stage
+    lateinit var batcher: SpriteBatch
 
     override fun create() {
         Assets.cargar()
