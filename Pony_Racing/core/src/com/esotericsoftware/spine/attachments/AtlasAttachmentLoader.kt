@@ -11,7 +11,6 @@ class AtlasAttachmentLoader(val atlas: TextureAtlas) : AttachmentLoader {
 
     override fun newRegionAttachment(skin: Skin, name: String, path: String): RegionAttachment? {
         val attachment = RegionAttachment(name)
-        attachment.path = path
         val region = atlas.findRegion(path)
         if (region == null) throw RuntimeException("Region not found in atlas: $attachment (region attachment: $name)")
         attachment.region = region
@@ -20,7 +19,6 @@ class AtlasAttachmentLoader(val atlas: TextureAtlas) : AttachmentLoader {
 
     override fun newMeshAttachment(skin: Skin, name: String, path: String): MeshAttachment? {
         val attachment = MeshAttachment(name)
-        attachment.path = path
         val region = atlas.findRegion(path)
         if (region == null) throw RuntimeException("Region not found in atlas: $attachment (region attachment: $name)")
         attachment.region = region

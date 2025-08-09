@@ -33,13 +33,6 @@ public class SkeletonJson {
         attachmentLoader = new AtlasAttachmentLoader(atlas);
     }
 
-    public SkeletonJson(AttachmentLoader attachmentLoader) {
-        this.attachmentLoader = attachmentLoader;
-    }
-
-    public float getScale() {
-        return scale;
-    }
 
     /**
      * Scales the bones, images, and animations as they are loaded.
@@ -175,21 +168,11 @@ public class SkeletonJson {
                 short[] triangles = map.require("triangles").asShortArray();
                 float[] uvs = map.require("uvs").asFloatArray();
                 mesh.setMesh(vertices, triangles, uvs);
-                if (map.has("hull")) mesh.setHullLength(map.require("hull").asInt());
-                if (map.has("edges")) mesh.setEdges(map.require("edges").asIntArray());
                 mesh.setWidth(map.getFloat("width", 0) * scale);
                 mesh.setHeight(map.getFloat("height", 0) * scale);
                 return mesh;
             }
         }
-
-        // RegionSequenceAttachment regionSequenceAttachment = (RegionSequenceAttachment)attachment;
-        //
-        // float fps = map.getFloat("fps");
-        // regionSequenceAttachment.setFrameTime(fps);
-        //
-        // String modeString = map.getString("mode");
-        // regionSequenceAttachment.setMode(modeString == null ? Mode.forward : Mode.valueOf(modeString));
 
         return null;
     }

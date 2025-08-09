@@ -2,7 +2,6 @@ package com.esotericsoftware.spine
 
 import com.badlogic.gdx.utils.ObjectMap
 import com.esotericsoftware.spine.attachments.Attachment
-import com.badlogic.gdx.utils.Array as GdxArray
 
 /**
  * Stores attachments by slot index and attachment name.
@@ -19,29 +18,10 @@ class Skin(val name: String) {
         attachments.put(key, attachment)
     }
 
-
     fun getAttachment(slotIndex: Int, name: String): Attachment? {
         require(slotIndex >= 0) { "slotIndex must be >= 0." }
         lookup.set(slotIndex, name)
         return attachments.get(lookup)
-    }
-
-    fun findNamesForSlot(slotIndex: Int, names: GdxArray<String>) {
-        require(slotIndex >= 0) { "slotIndex must be >= 0." }
-        for (key in attachments.keys()) {
-            if (key.slotIndex == slotIndex) {
-                names.add(key.name)
-            }
-        }
-    }
-
-    fun findAttachmentsForSlot(slotIndex: Int, attachments: GdxArray<Attachment>) {
-        require(slotIndex >= 0) { "slotIndex must be >= 0." }
-        for (entry in this.attachments.entries()) if (entry.key.slotIndex == slotIndex) attachments.add(entry.value)
-    }
-
-    fun clear() {
-        attachments.clear()
     }
 
     override fun toString() = name

@@ -9,7 +9,7 @@ import com.esotericsoftware.spine.attachments.MeshAttachment;
 public class Animation {
     final String name;
     private final Array<Timeline> timelines;
-    private float duration;
+    private final float duration;
 
     public Animation(String name, Array<Timeline> timelines, float duration) {
         if (name == null) throw new IllegalArgumentException("name cannot be null.");
@@ -38,25 +38,11 @@ public class Animation {
         }
     }
 
-    static int linearSearch(float[] values, float target, int step) {
-        for (int i = 0, last = values.length - step; i <= last; i += step)
-            if (values[i] > target) return i;
-        return -1;
-    }
-
-    public Array<Timeline> getTimelines() {
-        return timelines;
-    }
-
     /**
      * Returns the duration of the animation in seconds.
      */
     public float getDuration() {
         return duration;
-    }
-
-    public void setDuration(float duration) {
-        this.duration = duration;
     }
 
     /**
@@ -119,7 +105,6 @@ public class Animation {
     abstract static public class CurveTimeline implements Timeline {
         static public final float LINEAR = 0;
         static public final float STEPPED = -1;
-        static public final float BEZIER = -2;
         static private final int BEZIER_SEGMENTS = 10;
 
         private final float[] curves; // dfx, dfy, ddfx, ddfy, dddfx, dddfy, ...
@@ -132,21 +117,8 @@ public class Animation {
             return curves.length / 6 + 1;
         }
 
-        public void setLinear(int frameIndex) {
-            curves[frameIndex * 6] = LINEAR;
-        }
-
         public void setStepped(int frameIndex) {
             curves[frameIndex * 6] = STEPPED;
-        }
-
-        public float getCurveType(int frameIndex) {
-            int index = frameIndex * 6;
-            if (index == curves.length) return LINEAR;
-            float type = curves[index];
-            if (type == LINEAR) return LINEAR;
-            if (type == STEPPED) return STEPPED;
-            return BEZIER;
         }
 
         /**
@@ -219,14 +191,6 @@ public class Animation {
             frames = new float[frameCount * 2];
         }
 
-        public int getBoneIndex() {
-            return boneIndex;
-        }
-
-        public void setBoneIndex(int boneIndex) {
-            this.boneIndex = boneIndex;
-        }
-
         public float[] getFrames() {
             return frames;
         }
@@ -287,14 +251,6 @@ public class Animation {
         public TranslateTimeline(int frameCount) {
             super(frameCount);
             frames = new float[frameCount * 3];
-        }
-
-        public int getBoneIndex() {
-            return boneIndex;
-        }
-
-        public void setBoneIndex(int boneIndex) {
-            this.boneIndex = boneIndex;
         }
 
         public float[] getFrames() {
@@ -381,14 +337,6 @@ public class Animation {
             frames = new float[frameCount * 5];
         }
 
-        public int getSlotIndex() {
-            return slotIndex;
-        }
-
-        public void setSlotIndex(int slotIndex) {
-            this.slotIndex = slotIndex;
-        }
-
         public float[] getFrames() {
             return frames;
         }
@@ -456,20 +404,8 @@ public class Animation {
             return frames.length;
         }
 
-        public int getSlotIndex() {
-            return slotIndex;
-        }
-
-        public void setSlotIndex(int slotIndex) {
-            this.slotIndex = slotIndex;
-        }
-
         public float[] getFrames() {
             return frames;
-        }
-
-        public String[] getAttachmentNames() {
-            return attachmentNames;
         }
 
         /**
@@ -511,10 +447,6 @@ public class Animation {
 
         public float[] getFrames() {
             return frames;
-        }
-
-        public Event[] getEvents() {
-            return events;
         }
 
         /**
@@ -573,10 +505,6 @@ public class Animation {
             return frames;
         }
 
-        public int[][] getDrawOrders() {
-            return drawOrders;
-        }
-
         /**
          * Sets the time of the specified keyframe.
          *
@@ -621,28 +549,8 @@ public class Animation {
             frameVertices = new float[frameCount][];
         }
 
-        public int getSlotIndex() {
-            return slotIndex;
-        }
-
-        public void setSlotIndex(int slotIndex) {
-            this.slotIndex = slotIndex;
-        }
-
-        public MeshAttachment getMeshAttachment() {
-            return meshAttachment;
-        }
-
-        public void setMeshAttachment(MeshAttachment attachment) {
-            this.meshAttachment = attachment;
-        }
-
         public float[] getFrames() {
             return frames;
-        }
-
-        public float[][] getVertices() {
-            return frameVertices;
         }
 
         /**

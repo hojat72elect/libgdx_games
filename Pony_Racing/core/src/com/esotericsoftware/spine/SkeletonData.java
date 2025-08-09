@@ -11,24 +11,11 @@ public class SkeletonData {
     String name;
     Skin defaultSkin;
 
-    public void clear() {
-        bones.clear();
-        slots.clear();
-        skins.clear();
-        defaultSkin = null;
-        events.clear();
-        animations.clear();
-    }
-
     // --- Bones.
 
     public void addBone(BoneData bone) {
         if (bone == null) throw new IllegalArgumentException("bone cannot be null.");
         bones.add(bone);
-    }
-
-    public Array<BoneData> getBones() {
-        return bones;
     }
 
     /**
@@ -62,23 +49,6 @@ public class SkeletonData {
         slots.add(slot);
     }
 
-    public Array<SlotData> getSlots() {
-        return slots;
-    }
-
-    /**
-     * @return May be null.
-     */
-    public SlotData findSlot(String slotName) {
-        if (slotName == null) throw new IllegalArgumentException("slotName cannot be null.");
-        Array<SlotData> slots = this.slots;
-        for (int i = 0, n = slots.size; i < n; i++) {
-            SlotData slot = slots.get(i);
-            if (slot.getName().equals(slotName)) return slot;
-        }
-        return null;
-    }
-
     /**
      * @return -1 if the bone was not found.
      */
@@ -99,13 +69,6 @@ public class SkeletonData {
         return defaultSkin;
     }
 
-    /**
-     * @param defaultSkin May be null.
-     */
-    public void setDefaultSkin(Skin defaultSkin) {
-        this.defaultSkin = defaultSkin;
-    }
-
     public void addSkin(Skin skin) {
         if (skin == null) throw new IllegalArgumentException("skin cannot be null.");
         skins.add(skin);
@@ -120,15 +83,6 @@ public class SkeletonData {
             if (skin.getName().equals(skinName)) return skin;
         return null;
     }
-
-    /**
-     * Returns all skins, including the default skin.
-     */
-    public Array<Skin> getSkins() {
-        return skins;
-    }
-
-    // --- Events.
 
     public void addEvent(EventData eventData) {
         if (eventData == null) throw new IllegalArgumentException("eventData cannot be null.");
@@ -145,19 +99,11 @@ public class SkeletonData {
         return null;
     }
 
-    public Array<EventData> getEvents() {
-        return events;
-    }
-
     // --- Animations.
 
     public void addAnimation(Animation animation) {
         if (animation == null) throw new IllegalArgumentException("animation cannot be null.");
         animations.add(animation);
-    }
-
-    public Array<Animation> getAnimations() {
-        return animations;
     }
 
     /**

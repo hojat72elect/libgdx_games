@@ -380,7 +380,7 @@ class AssetsHandler : AssetManager() {
 
         val json = SkeletonJson(atlas)
 
-        json.scale = .7f
+        json.setScale(.7f)
         val skeletonData = json.readSkeletonData(Gdx.files.internal("data/menus/titleponyracing.json"))
         animationMenuTitle = skeletonData.findAnimation("flag")
         skeletonMenuTitle = Skeleton(skeletonData)
@@ -426,7 +426,7 @@ class AssetsHandler : AssetManager() {
 
         val json = SkeletonJson(atlas)
 
-        json.scale = 1f
+        json.setScale(1f)
         val skeletonData = json.readSkeletonData(Gdx.files.internal("data/menus/shoptitle.json"))
         animationTiendaTitle = skeletonData.findAnimation("animation")
         skeletonTiendaTitle = Skeleton(skeletonData)
@@ -439,17 +439,17 @@ class AssetsHandler : AssetManager() {
         tiledWorldMap = get(atlasWorldTiledScreenRuta, TiledMap::class.java)
 
 
-        json.scale = .007f
+        json.setScale(.007f)
         var skeletonData = json.readSkeletonData(Gdx.files.internal("data/menus/ball.json"))
         bolaAnim = skeletonData.findAnimation("pulse")
         bolaSkeleton = Skeleton(skeletonData)
 
-        json.scale = .0225f
+        json.setScale(.0225f)
         skeletonData = json.readSkeletonData(Gdx.files.internal("data/menus/thunder.json"))
         rayoAnim = skeletonData.findAnimation("floating")
         rayoSkeleton = Skeleton(skeletonData)
 
-        json.scale = .025f
+        json.setScale(.025f)
         skeletonData = json.readSkeletonData(Gdx.files.internal("data/menus/humovolcan.json"))
         humoVolvanAnimation = skeletonData.findAnimation("humo")
         humoVolcanSkeleton = Skeleton(skeletonData)
@@ -590,29 +590,29 @@ class AssetsHandler : AssetManager() {
         tiledMap = get(rutaTiled, TiledMap::class.java)
 
         val json = SkeletonJson(atlas)
-        json.scale = .01f
+        json.setScale(.01f)
         ponySkeletonData = json.readSkeletonData(Gdx.files.internal("data/animaciones/personajes.json"))
-        json.scale = .004f
+        json.setScale(.004f)
         skeletonBombData = json.readSkeletonData(Gdx.files.internal("data/animaciones/bombs.json"))
         bombAnim = skeletonBombData!!.findAnimation("b1")
         bombExAnim = skeletonBombData!!.findAnimation("b2x")
 
-        json.scale = .005f
+        json.setScale(.005f)
         skeletonMonedaData = json.readSkeletonData(Gdx.files.internal("data/animaciones/coin.json"))
         monedaAnim = skeletonMonedaData!!.findAnimation("normal")
         monedaTomadaAnim = skeletonMonedaData!!.findAnimation("plus1")
 
-        json.scale = .009f
+        json.setScale(.009f)
         chileSkeletonData = json.readSkeletonData(Gdx.files.internal("data/animaciones/chile.json"))
         chileAnim = chileSkeletonData!!.findAnimation("normal")
         chileTomadaAnim = chileSkeletonData!!.findAnimation("toospicy")
 
-        json.scale = .009f
+        json.setScale(.009f)
         globoSkeletonData = json.readSkeletonData(Gdx.files.internal("data/animaciones/ballons.json"))
         globoAnim = globoSkeletonData!!.findAnimation("normal")
         globoTomadaAnim = globoSkeletonData!!.findAnimation("plus5")
 
-        json.scale = .009f
+        json.setScale(.009f)
         dulceSkeletonData = json.readSkeletonData(Gdx.files.internal("data/animaciones/chocolate.json"))
         dulceAnim = dulceSkeletonData!!.findAnimation("normal")
         dulceTomadaAnim = dulceSkeletonData!!.findAnimation("speedup")
@@ -624,7 +624,7 @@ class AssetsHandler : AssetManager() {
         youLose = atlas.findRegion("imagenes/podio/youlose")
         timeUp = atlas.findRegion("imagenes/podio/timeup")
 
-        json.scale = .01f
+        json.setScale(.01f)
         val fondoSkeletonData = json.readSkeletonData(Gdx.files.internal("data/animaciones/background.json"))
         fondoAnim = fondoSkeletonData.findAnimation("animation")
         fondoSkeleton = Skeleton(fondoSkeletonData)

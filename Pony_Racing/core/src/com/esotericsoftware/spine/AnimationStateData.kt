@@ -41,16 +41,16 @@ class AnimationStateData(val skeletonData: SkeletonData) {
             return 31 * (31 + a1.hashCode()) + a2.hashCode()
         }
 
-        override fun equals(obj: Any?): Boolean {
-            if (this === obj) return true
-            if (obj == null) return false
-            val other = obj as Key
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (other == null) return false
+            val otherKey = other as Key
             if (a1 == null) {
-                if (other.a1 != null) return false
-            } else if (a1 != other.a1) return false
-            if (a2 == null) {
-                return other.a2 == null
-            } else return a2 == other.a2
+                if (otherKey.a1 != null) return false
+            } else if (a1 != otherKey.a1) return false
+            return if (a2 == null) {
+                otherKey.a2 == null
+            } else a2 == otherKey.a2
         }
     }
 }

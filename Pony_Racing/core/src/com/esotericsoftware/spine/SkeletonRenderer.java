@@ -13,11 +13,9 @@ import com.esotericsoftware.spine.attachments.SkeletonAttachment;
 public class SkeletonRenderer {
     static private final short[] quadTriangle = {0, 1, 2, 2, 3, 0};
 
-    private boolean premultipliedAlpha;
-
     public void draw(PolygonSpriteBatch batch, Skeleton skeleton) {
-        boolean premultipliedAlpha = this.premultipliedAlpha;
-        int srcFunc = premultipliedAlpha ? GL20.GL_ONE : GL20.GL_SRC_ALPHA;
+        boolean premultipliedAlpha = false;
+        int srcFunc = GL20.GL_SRC_ALPHA;
         batch.setBlendFunction(srcFunc, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
         boolean additive = false;
@@ -79,8 +77,8 @@ public class SkeletonRenderer {
     }
 
     public void draw(Batch batch, Skeleton skeleton) {
-        boolean premultipliedAlpha = this.premultipliedAlpha;
-        int srcFunc = premultipliedAlpha ? GL20.GL_ONE : GL20.GL_SRC_ALPHA;
+        boolean premultipliedAlpha = false;
+        int srcFunc = GL20.GL_SRC_ALPHA;
         batch.setBlendFunction(srcFunc, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
         boolean additive = false;
@@ -127,7 +125,4 @@ public class SkeletonRenderer {
         }
     }
 
-    public void setPremultipliedAlpha(boolean premultipliedAlpha) {
-        this.premultipliedAlpha = premultipliedAlpha;
-    }
 }

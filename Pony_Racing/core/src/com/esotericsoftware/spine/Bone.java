@@ -1,17 +1,6 @@
 package com.esotericsoftware.spine;
 
-import static com.badlogic.gdx.math.Matrix3.M00;
-import static com.badlogic.gdx.math.Matrix3.M01;
-import static com.badlogic.gdx.math.Matrix3.M02;
-import static com.badlogic.gdx.math.Matrix3.M10;
-import static com.badlogic.gdx.math.Matrix3.M11;
-import static com.badlogic.gdx.math.Matrix3.M12;
-import static com.badlogic.gdx.math.Matrix3.M20;
-import static com.badlogic.gdx.math.Matrix3.M21;
-import static com.badlogic.gdx.math.Matrix3.M22;
-
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Matrix3;
 
 public class Bone {
     final BoneData data;
@@ -99,14 +88,6 @@ public class Bone {
         scaleY = data.scaleY;
     }
 
-    public BoneData getData() {
-        return data;
-    }
-
-    public Bone getParent() {
-        return parent;
-    }
-
     public float getX() {
         return x;
     }
@@ -181,21 +162,6 @@ public class Bone {
 
     public float getWorldScaleY() {
         return worldScaleY;
-    }
-
-    public Matrix3 getWorldTransform(Matrix3 worldTransform) {
-        if (worldTransform == null) throw new IllegalArgumentException("worldTransform cannot be null.");
-        float[] val = worldTransform.val;
-        val[M00] = m00;
-        val[M01] = m01;
-        val[M10] = m10;
-        val[M11] = m11;
-        val[M02] = worldX;
-        val[M12] = worldY;
-        val[M20] = 0;
-        val[M21] = 0;
-        val[M22] = 1;
-        return worldTransform;
     }
 
     public String toString() {

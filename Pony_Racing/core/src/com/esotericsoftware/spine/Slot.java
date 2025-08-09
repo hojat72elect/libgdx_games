@@ -13,13 +13,6 @@ public class Slot {
     Attachment attachment;
     private float attachmentTime;
 
-    Slot() {
-        data = null;
-        bone = null;
-        skeleton = null;
-        color = new Color(1, 1, 1, 1);
-    }
-
     public Slot(SlotData data, Skeleton skeleton, Bone bone) {
         if (data == null) throw new IllegalArgumentException("data cannot be null.");
         if (skeleton == null) throw new IllegalArgumentException("skeleton cannot be null.");
@@ -46,10 +39,6 @@ public class Slot {
         attachmentTime = slot.attachmentTime;
     }
 
-    public SlotData getData() {
-        return data;
-    }
-
     public Skeleton getSkeleton() {
         return skeleton;
     }
@@ -70,7 +59,6 @@ public class Slot {
     }
 
     /**
-     * Sets the attachment, resets {@link #getAttachmentTime()}, and clears {@link #getAttachmentVertices()}.
      *
      * @param attachment May be null.
      */
@@ -79,17 +67,6 @@ public class Slot {
         this.attachment = attachment;
         attachmentTime = skeleton.time;
         attachmentVertices.clear();
-    }
-
-    /**
-     * Returns the time since the attachment was set.
-     */
-    public float getAttachmentTime() {
-        return skeleton.time - attachmentTime;
-    }
-
-    public void setAttachmentTime(float time) {
-        attachmentTime = skeleton.time - time;
     }
 
     public FloatArray getAttachmentVertices() {

@@ -14,13 +14,10 @@ import com.esotericsoftware.spine.Slot;
 public class MeshAttachment extends Attachment {
     private final Color color = new Color(1, 1, 1, 1);
     private TextureRegion region;
-    private String path;
     private float[] vertices;
     private short[] triangles;
     private float[] worldVertices;
-    private int[] edges;
     private float width, height;
-    private int hullLength;
 
     public MeshAttachment(String name) {
         super(name);
@@ -79,30 +76,6 @@ public class MeshAttachment extends Attachment {
 
     public Color getColor() {
         return color;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public int getHullLength() {
-        return hullLength;
-    }
-
-    public void setHullLength(int hullLength) {
-        this.hullLength = hullLength;
-    }
-
-    public int[] getEdges() {
-        return edges;
-    }
-
-    public void setEdges(int[] edges) {
-        this.edges = edges;
     }
 
     public float getWidth() {

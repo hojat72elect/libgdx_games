@@ -46,7 +46,6 @@ public class RegionAttachment extends Attachment {
     private final float[] offset = new float[8];
     private final Color color = new Color(1, 1, 1, 1);
     private TextureRegion region;
-    private String path;
     private float x, y, scaleX = 1, scaleY = 1, rotation, width, height;
 
     public RegionAttachment(String name) {
@@ -142,10 +141,10 @@ public class RegionAttachment extends Attachment {
         Color regionColor = color;
         float a = skeletonColor.a * slotColor.a * regionColor.a * 255;
         float multiplier = premultipliedAlpha ? a : 255;
-        float color = NumberUtils.intToFloatColor( //
-                ((int) a << 24) //
-                        | ((int) (skeletonColor.b * slotColor.b * regionColor.b * multiplier) << 16) //
-                        | ((int) (skeletonColor.g * slotColor.g * regionColor.g * multiplier) << 8) //
+        float color = NumberUtils.intToFloatColor(
+                ((int) a << 24)
+                        | ((int) (skeletonColor.b * slotColor.b * regionColor.b * multiplier) << 16)
+                        | ((int) (skeletonColor.g * slotColor.g * regionColor.g * multiplier) << 8)
                         | (int) (skeletonColor.r * slotColor.r * regionColor.r * multiplier));
 
         float[] vertices = this.vertices;
@@ -182,10 +181,6 @@ public class RegionAttachment extends Attachment {
 
     public float[] getWorldVertices() {
         return vertices;
-    }
-
-    public float[] getOffset() {
-        return offset;
     }
 
     public float getX() {
@@ -248,11 +243,4 @@ public class RegionAttachment extends Attachment {
         return color;
     }
 
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
 }

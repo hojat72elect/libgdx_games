@@ -102,89 +102,12 @@ public class Skeleton {
         return data;
     }
 
-    public Array<Bone> getBones() {
-        return bones;
-    }
-
     /**
      * @return May return null.
      */
     public Bone getRootBone() {
         if (bones.size == 0) return null;
         return bones.first();
-    }
-
-    /**
-     * @return May be null.
-     */
-    public Bone findBone(String boneName) {
-        if (boneName == null) throw new IllegalArgumentException("boneName cannot be null.");
-        Array<Bone> bones = this.bones;
-        for (int i = 0, n = bones.size; i < n; i++) {
-            Bone bone = bones.get(i);
-            if (bone.data.name.equals(boneName)) return bone;
-        }
-        return null;
-    }
-
-    /**
-     * @return -1 if the bone was not found.
-     */
-    public int findBoneIndex(String boneName) {
-        if (boneName == null) throw new IllegalArgumentException("boneName cannot be null.");
-        Array<Bone> bones = this.bones;
-        for (int i = 0, n = bones.size; i < n; i++)
-            if (bones.get(i).data.name.equals(boneName)) return i;
-        return -1;
-    }
-
-    public Array<Slot> getSlots() {
-        return slots;
-    }
-
-    /**
-     * @return May be null.
-     */
-    public Slot findSlot(String slotName) {
-        if (slotName == null) throw new IllegalArgumentException("slotName cannot be null.");
-        Array<Slot> slots = this.slots;
-        for (int i = 0, n = slots.size; i < n; i++) {
-            Slot slot = slots.get(i);
-            if (slot.data.getName().equals(slotName)) return slot;
-        }
-        return null;
-    }
-
-    /**
-     * @return -1 if the bone was not found.
-     */
-    public int findSlotIndex(String slotName) {
-        if (slotName == null) throw new IllegalArgumentException("slotName cannot be null.");
-        Array<Slot> slots = this.slots;
-        for (int i = 0, n = slots.size; i < n; i++)
-            if (slots.get(i).data.getName().equals(slotName)) return i;
-        return -1;
-    }
-
-    /**
-     * Returns the slots in the order they will be drawn. The returned array may be modified to change the draw order.
-     */
-    public Array<Slot> getDrawOrder() {
-        return drawOrder;
-    }
-
-    /**
-     * Sets the slots and the order they will be drawn.
-     */
-    public void setDrawOrder(Array<Slot> drawOrder) {
-        this.drawOrder = drawOrder;
-    }
-
-    /**
-     * @return May be null.
-     */
-    public Skin getSkin() {
-        return skin;
     }
 
     /**
@@ -212,13 +135,6 @@ public class Skeleton {
     /**
      * @return May be null.
      */
-    public Attachment getAttachment(String slotName, String attachmentName) {
-        return getAttachment(data.findSlotIndex(slotName), attachmentName);
-    }
-
-    /**
-     * @return May be null.
-     */
     public Attachment getAttachment(int slotIndex, String attachmentName) {
         if (attachmentName == null) throw new IllegalArgumentException("attachmentName cannot be null.");
         if (skin != null) {
@@ -229,46 +145,12 @@ public class Skeleton {
         return null;
     }
 
-    /**
-     * @param attachmentName May be null.
-     */
-    public void setAttachment(String slotName, String attachmentName) {
-        if (slotName == null) throw new IllegalArgumentException("slotName cannot be null.");
-        Array<Slot> slots = this.slots;
-        for (int i = 0, n = slots.size; i < n; i++) {
-            Slot slot = slots.get(i);
-            if (slot.data.getName().equals(slotName)) {
-                Attachment attachment = null;
-                if (attachmentName != null) {
-                    attachment = getAttachment(i, attachmentName);
-                    if (attachment == null)
-                        throw new IllegalArgumentException("Attachment not found: " + attachmentName + ", for slot: " + slotName);
-                }
-                slot.setAttachment(attachment);
-                return;
-            }
-        }
-        throw new IllegalArgumentException("Slot not found: " + slotName);
-    }
-
     public Color getColor() {
         return color;
     }
 
-    public boolean getFlipX() {
-        return flipX;
-    }
-
     public void setFlipX(boolean flipX) {
         this.flipX = flipX;
-    }
-
-    public boolean getFlipY() {
-        return flipY;
-    }
-
-    public void setFlipY(boolean flipY) {
-        this.flipY = flipY;
     }
 
     public float getX() {

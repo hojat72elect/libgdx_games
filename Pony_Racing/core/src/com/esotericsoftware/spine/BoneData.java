@@ -22,40 +22,8 @@ public class BoneData {
         this.parent = parent;
     }
 
-    /**
-     * Copy constructor.
-     *
-     * @param parent May be null.
-     */
-    public BoneData(BoneData bone, BoneData parent) {
-        if (bone == null) throw new IllegalArgumentException("bone cannot be null.");
-        this.parent = parent;
-        name = bone.name;
-        length = bone.length;
-        x = bone.x;
-        y = bone.y;
-        rotation = bone.rotation;
-        scaleX = bone.scaleX;
-        scaleY = bone.scaleY;
-    }
-
-    /**
-     * @return May be null.
-     */
-    public BoneData getParent() {
-        return parent;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public float getLength() {
-        return length;
-    }
-
-    public void setLength(float length) {
-        this.length = length;
     }
 
     public float getX() {
@@ -72,46 +40,6 @@ public class BoneData {
 
     public void setY(float y) {
         this.y = y;
-    }
-
-    public float getRotation() {
-        return rotation;
-    }
-
-    public void setRotation(float rotation) {
-        this.rotation = rotation;
-    }
-
-    public float getScaleX() {
-        return scaleX;
-    }
-
-    public void setScaleX(float scaleX) {
-        this.scaleX = scaleX;
-    }
-
-    public float getScaleY() {
-        return scaleY;
-    }
-
-    public void setScaleY(float scaleY) {
-        this.scaleY = scaleY;
-    }
-
-    public boolean getInheritScale() {
-        return inheritScale;
-    }
-
-    public void setInheritScale(boolean inheritScale) {
-        this.inheritScale = inheritScale;
-    }
-
-    public boolean getInheritRotation() {
-        return inheritRotation;
-    }
-
-    public void setInheritRotation(boolean inheritRotation) {
-        this.inheritRotation = inheritRotation;
     }
 
     public Color getColor() {

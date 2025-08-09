@@ -17,7 +17,6 @@ public class AnimationState {
             return new TrackEntry();
         }
     };
-    private float timeScale = 1;
 
     public AnimationState(AnimationStateData data) {
         if (data == null) throw new IllegalArgumentException("data cannot be null.");
@@ -25,6 +24,7 @@ public class AnimationState {
     }
 
     public void update(float delta) {
+        float timeScale = 1;
         delta *= timeScale;
         for (int i = 0; i < tracks.size; i++) {
             TrackEntry current = tracks.get(i);
@@ -100,12 +100,6 @@ public class AnimationState {
 
             current.lastTime = current.time;
         }
-    }
-
-    public void clearTracks() {
-        for (int i = 0, n = tracks.size; i < n; i++)
-            clearTrack(i);
-        tracks.clear();
     }
 
     public void clearTrack(int trackIndex) {
@@ -249,32 +243,6 @@ public class AnimationState {
         listeners.add(listener);
     }
 
-    /**
-     * Removes the listener added with {@link #addListener(AnimationStateListener)}.
-     */
-    public void removeListener(AnimationStateListener listener) {
-        listeners.removeValue(listener, true);
-    }
-
-    public float getTimeScale() {
-        return timeScale;
-    }
-
-    public void setTimeScale(float timeScale) {
-        this.timeScale = timeScale;
-    }
-
-    public AnimationStateData getData() {
-        return data;
-    }
-
-    /**
-     * Returns the list of tracks that have animations, which may contain nulls.
-     */
-    public Array<TrackEntry> getTracks() {
-        return tracks;
-    }
-
     public String toString() {
         StringBuilder buffer = new StringBuilder(64);
         for (int i = 0, n = tracks.size; i < n; i++) {
@@ -334,26 +302,6 @@ public class AnimationState {
             return animation;
         }
 
-        public void setAnimation(Animation animation) {
-            this.animation = animation;
-        }
-
-        public boolean getLoop() {
-            return loop;
-        }
-
-        public void setLoop(boolean loop) {
-            this.loop = loop;
-        }
-
-        public float getDelay() {
-            return delay;
-        }
-
-        public void setDelay(float delay) {
-            this.delay = delay;
-        }
-
         public float getTime() {
             return time;
         }
@@ -362,77 +310,9 @@ public class AnimationState {
             this.time = time;
         }
 
-        public float getEndTime() {
-            return endTime;
-        }
-
-        public void setEndTime(float endTime) {
-            this.endTime = endTime;
-        }
-
-        public AnimationStateListener getListener() {
-            return listener;
-        }
-
-        public void setListener(AnimationStateListener listener) {
-            this.listener = listener;
-        }
-
-        public float getLastTime() {
-            return lastTime;
-        }
-
-        public void setLastTime(float lastTime) {
-            this.lastTime = lastTime;
-        }
-
-        public float getMix() {
-            return mix;
-        }
-
-        public void setMix(float mix) {
-            this.mix = mix;
-        }
-
-        public float getTimeScale() {
-            return timeScale;
-        }
-
-        public void setTimeScale(float timeScale) {
-            this.timeScale = timeScale;
-        }
-
-        public TrackEntry getNext() {
-            return next;
-        }
-
-        public void setNext(TrackEntry next) {
-            this.next = next;
-        }
-
-        /**
-         * Returns true if the current time is greater than the end time, regardless of looping.
-         */
-        public boolean isComplete() {
-            return time >= endTime;
-        }
-
         public String toString() {
             return animation == null ? "<none>" : animation.name;
         }
     }
 
-    static public abstract class AnimationStateAdapter implements AnimationStateListener {
-        public void event(int trackIndex, Event event) {
-        }
-
-        public void complete(int trackIndex, int loopCount) {
-        }
-
-        public void start(int trackIndex) {
-        }
-
-        public void end(int trackIndex) {
-        }
-    }
 }
