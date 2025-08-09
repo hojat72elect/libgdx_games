@@ -135,16 +135,16 @@ public class SkeletonJson {
         switch (AttachmentType.valueOf(map.getString("type", AttachmentType.REGION.name()))) {
             case REGION:
                 RegionAttachment region = attachmentLoader.newRegionAttachment(skin, name, map.getString("path", name));
-                region.setX(map.getFloat("x", 0) * scale);
-                region.setY(map.getFloat("y", 0) * scale);
-                region.setScaleX(map.getFloat("scaleX", 1));
-                region.setScaleY(map.getFloat("scaleY", 1));
-                region.setRotation(map.getFloat("rotation", 0));
-                region.setWidth(map.getFloat("width") * scale);
-                region.setHeight(map.getFloat("height") * scale);
+                region.x = map.getFloat("x", 0) * scale;
+                region.y = map.getFloat("y", 0) * scale;
+                region.scaleX = map.getFloat("scaleX", 1);
+                region.scaleY = map.getFloat("scaleY", 1);
+                region.rotation = map.getFloat("rotation", 0);
+                region.width = map.getFloat("width") * scale;
+                region.height = map.getFloat("height") * scale;
 
                 String color = map.getString("color", null);
-                if (color != null) region.getColor().set(Color.valueOf(color));
+                if (color != null) region.color.set(Color.valueOf(color));
 
                 region.updateOffset();
                 return region;

@@ -13,7 +13,7 @@ class AtlasAttachmentLoader(val atlas: TextureAtlas) : AttachmentLoader {
         val attachment = RegionAttachment(name)
         val region = atlas.findRegion(path)
         if (region == null) throw RuntimeException("Region not found in atlas: $attachment (region attachment: $name)")
-        attachment.region = region
+        attachment.setRegion(region)
         return attachment
     }
 
