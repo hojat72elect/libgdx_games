@@ -34,9 +34,9 @@ public class MeshAttachment extends Attachment {
     }
 
     public void updateWorldVertices(Slot slot, boolean premultipliedAlpha) {
-        Skeleton skeleton = slot.getSkeleton();
+        Skeleton skeleton = slot.skeleton;
         Color skeletonColor = skeleton.getColor();
-        Color slotColor = slot.getColor();
+        Color slotColor = slot.color;
         Color meshColor = color;
         float a = skeletonColor.a * slotColor.a * meshColor.a * 255;
         float multiplier = premultipliedAlpha ? a : 255;
@@ -47,10 +47,10 @@ public class MeshAttachment extends Attachment {
                         | (int) (skeletonColor.r * slotColor.r * meshColor.r * multiplier));
 
         float[] worldVertices = this.worldVertices;
-        FloatArray verticesArray = slot.getAttachmentVertices();
+        FloatArray verticesArray = slot.attachmentVertices;
         float[] vertices = this.vertices;
         if (verticesArray.size == vertices.length) vertices = verticesArray.items;
-        Bone bone = slot.getBone();
+        Bone bone = slot.bone;
         float x = skeleton.getX() + bone.getWorldX(), y = skeleton.getY() + bone.getWorldY();
         float m00 = bone.getM00(), m01 = bone.getM01(), m10 = bone.getM10(), m11 = bone.getM11();
         for (int v = 0, w = 0, n = worldVertices.length; w < n; v += 2, w += 5) {

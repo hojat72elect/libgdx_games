@@ -53,7 +53,7 @@ public class SkeletonRenderer {
             } else if (attachment instanceof SkeletonAttachment) {
                 Skeleton attachmentSkeleton = ((SkeletonAttachment) attachment).getSkeleton();
                 if (attachmentSkeleton == null) continue;
-                Bone bone = slot.getBone();
+                Bone bone = slot.bone;
                 Bone rootBone = attachmentSkeleton.getRootBone();
                 float oldScaleX = rootBone.getScaleX();
                 float oldScaleY = rootBone.getScaleY();
@@ -102,7 +102,7 @@ public class SkeletonRenderer {
             } else if (attachment instanceof SkeletonAttachment) {
                 Skeleton attachmentSkeleton = ((SkeletonAttachment) attachment).getSkeleton();
                 if (attachmentSkeleton == null) continue;
-                Bone bone = slot.getBone();
+                Bone bone = slot.bone;
                 Bone rootBone = attachmentSkeleton.getRootBone();
                 float oldScaleX = rootBone.getScaleX();
                 float oldScaleY = rootBone.getScaleY();

@@ -565,7 +565,7 @@ public class Animation {
             Slot slot = skeleton.slots.get(slotIndex);
             if (slot.getAttachment() != meshAttachment) return;
 
-            FloatArray verticesArray = slot.getAttachmentVertices();
+            FloatArray verticesArray = slot.attachmentVertices;
             verticesArray.size = 0;
 
             float[] frames = this.frames;
