@@ -12,33 +12,33 @@ import com.esotericsoftware.spine.Slot
  * Attachment that displays a texture region.
  */
 class RegionAttachment(name: String) : Attachment(name) {
-    val worldVertices: FloatArray = FloatArray(20)
+    val worldVertices = FloatArray(20)
     private val offset = FloatArray(8)
 
     @JvmField
-    val color: Color = Color(1f, 1f, 1f, 1f)
+    val color = Color(1f, 1f, 1f, 1f)
     private var region: TextureRegion? = null
 
     @JvmField
-    var x: Float = 0f
+    var x = 0f
 
     @JvmField
-    var y: Float = 0f
+    var y = 0f
 
     @JvmField
-    var scaleX: Float = 1f
+    var scaleX = 1f
 
     @JvmField
-    var scaleY: Float = 1f
+    var scaleY = 1f
 
     @JvmField
-    var rotation: Float = 0f
+    var rotation = 0f
 
     @JvmField
-    var width: Float = 0f
+    var width = 0f
 
     @JvmField
-    var height: Float = 0f
+    var height = 0f
 
     fun updateOffset() {
         val width = this.width
@@ -91,13 +91,9 @@ class RegionAttachment(name: String) : Attachment(name) {
         offset[BRY] = localYCos + localX2Sin
     }
 
-    fun getRegion(): TextureRegion {
-        checkNotNull(region) { "Region has not been set: " + this }
-        return region!!
-    }
+    fun getRegion() = region!!
 
     fun setRegion(region: TextureRegion) {
-        requireNotNull(region) { "region cannot be null." }
         this.region = region
         val vertices = this.worldVertices
         if (region is AtlasRegion && region.rotate) {
@@ -145,11 +141,9 @@ class RegionAttachment(name: String) : Attachment(name) {
         val m01 = bone.getM01()
         val m10 = bone.getM10()
         val m11 = bone.getM11()
-        var offsetX: Float
-        var offsetY: Float
 
-        offsetX = offset[BRX]
-        offsetY = offset[BRY]
+        var offsetX = offset[BRX]
+        var offsetY = offset[BRY]
         vertices[Batch.X1] = offsetX * m00 + offsetY * m01 + x // br
         vertices[Batch.Y1] = offsetX * m10 + offsetY * m11 + y
         vertices[Batch.C1] = color
@@ -174,13 +168,13 @@ class RegionAttachment(name: String) : Attachment(name) {
     }
 
     companion object {
-        const val BLX: Int = 0
-        const val BLY: Int = 1
-        const val ULX: Int = 2
-        const val ULY: Int = 3
-        const val URX: Int = 4
-        const val URY: Int = 5
-        const val BRX: Int = 6
-        const val BRY: Int = 7
+        const val BLX = 0
+        const val BLY = 1
+        const val ULX = 2
+        const val ULY = 3
+        const val URX = 4
+        const val URY = 5
+        const val BRX = 6
+        const val BRY = 7
     }
 }
