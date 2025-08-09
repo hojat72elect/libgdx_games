@@ -40,10 +40,10 @@ public class MeshAttachment extends Attachment {
         Color meshColor = color;
         float a = skeletonColor.a * slotColor.a * meshColor.a * 255;
         float multiplier = premultipliedAlpha ? a : 255;
-        float color = NumberUtils.intToFloatColor( //
-                ((int) a << 24) //
-                        | ((int) (skeletonColor.b * slotColor.b * meshColor.b * multiplier) << 16) //
-                        | ((int) (skeletonColor.g * slotColor.g * meshColor.g * multiplier) << 8) //
+        float color = NumberUtils.intToFloatColor(
+                ((int) a << 24)
+                        | ((int) (skeletonColor.b * slotColor.b * meshColor.b * multiplier) << 16)
+                        | ((int) (skeletonColor.g * slotColor.g * meshColor.g * multiplier) << 8)
                         | (int) (skeletonColor.r * slotColor.r * meshColor.r * multiplier));
 
         float[] worldVertices = this.worldVertices;
