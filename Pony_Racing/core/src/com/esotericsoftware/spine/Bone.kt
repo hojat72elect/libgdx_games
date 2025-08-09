@@ -10,64 +10,54 @@ class Bone {
     val parent: Bone?
 
     @JvmField
-    var x: Float = 0f
+    var x = 0f
 
     @JvmField
-    var y: Float = 0f
+    var y = 0f
 
     @JvmField
-    var rotation: Float = 0f
+    var rotation = 0f
 
     @JvmField
-    var scaleX: Float = 0f
+    var scaleX = 0f
 
     @JvmField
-    var scaleY: Float = 0f
+    var scaleY = 0f
 
     @JvmField
-    var m00: Float = 0f
+    var m00 = 0f
 
     @JvmField
-    var m01: Float = 0f
+    var m01 = 0f
 
     @JvmField
-    var worldX: Float = 0f // a b x
+    var worldX = 0f // a b x
 
     @JvmField
-    var m10: Float = 0f
+    var m10 = 0f
 
     @JvmField
-    var m11: Float = 0f
+    var m11 = 0f
 
     @JvmField
-    var worldY: Float = 0f // c d y
+    var worldY = 0f // c d y
 
     @JvmField
-    var worldRotation: Float = 0f
+    var worldRotation = 0f
 
     @JvmField
-    var worldScaleX: Float = 0f
+    var worldScaleX = 0f
 
     @JvmField
-    var worldScaleY: Float = 0f
+    var worldScaleY = 0f
 
-    /**
-     * @param parent May be null.
-     */
     constructor(data: BoneData, parent: Bone?) {
-        requireNotNull(data) { "data cannot be null." }
         this.data = data
         this.parent = parent
         setToSetupPose()
     }
 
-    /**
-     * Copy constructor.
-     *
-     * @param parent May be null.
-     */
     constructor(bone: Bone, parent: Bone?) {
-        requireNotNull(bone) { "bone cannot be null." }
         this.parent = parent
         data = bone.data
         x = bone.x
@@ -125,7 +115,6 @@ class Bone {
         scaleY = data.scaleY
     }
 
-    override fun toString(): String {
-        return data.name
-    }
+    override fun toString() = data.name
+
 }
