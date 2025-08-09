@@ -6,17 +6,13 @@ import com.badlogic.gdx.physics.box2d.Body;
 public class Bomba {
 
     final static public float VELOCIDAD = 1f;
-
-    public static int DIRECCION_UP = 0;
-    public static int DIRECCION_RIGHT = 1;
-
     final public static int STATE_NORMAL = 0;
     final public static int STATE_TOMADA = 1;
     final public static int STATE_EXPLOSION = 2;
-
-    final float TIME_TOMADA = .5f;
     final public static float TIME_EXPLOSION = .05f * 20;
-
+    public static int DIRECCION_UP = 0;
+    public static int DIRECCION_RIGHT = 1;
+    final float TIME_TOMADA = .5f;
     public Vector2 position;
     public Vector2 velocidad;
 

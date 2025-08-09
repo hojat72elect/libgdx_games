@@ -5,9 +5,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 public class Plataforma {
 
-    public boolean isFinal;
     public static int STATE_NORMAL = 0;
-
+    public boolean isFinal;
     public Vector2 position;
     public Vector2 size;
     public float stateTime;

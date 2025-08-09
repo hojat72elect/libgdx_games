@@ -7,151 +7,141 @@ import com.nopalsoft.lander.Settings;
 
 public class Nave {
 
-	final public static float DRAW_WIDTH = .7f;
-	final public static float DRAW_HEIGHT = 1.59f;
-	final public static float WIDTH = .5f;
-	final public static float HEIGHT = 1.0f;
+    final public static float DRAW_WIDTH = .7f;
+    final public static float DRAW_HEIGHT = 1.59f;
+    final public static float WIDTH = .5f;
+    final public static float HEIGHT = 1.0f;
 
-	final public static float DENSIDAD_INICIAL = .7f;
+    final public static float DENSIDAD_INICIAL = .7f;
 
-	final public static float VELOCIDAD_FLY = 2f;
-	final public static float MAX_SPEED_Y = 2;
-	final public static float MIN_SPEED_Y = -4;
-	public float velocidadFly;
+    final public static float VELOCIDAD_FLY = 2f;
+    final public static float MAX_SPEED_Y = 2;
+    final public static float MIN_SPEED_Y = -4;
+    final public static float VELOCIDAD_MOVE = 1.3f;
+    final public static float MAX_SPEED_X = 1f;
+    final public static float GAS_INICIAL = 100;
+    final public static float VIDA_INICIAL = 20;
+    public static int STATE_NORMAL = 0;
+    public static int STATE_EXPLODE = 1;
+    public static float EXPLODE_TIME = .05f * 20;
+    public static float TIME_HURT_BY_BOMB = .05f;// Debe ser un numero pequeno
+    public float velocidadFly;
+    public float velocidadMove;
+    public float gas;
+    public float vida;
+    public Vector2 position;
+    public Vector2 velocity;
+    public float angleRad;
 
-	final public static float VELOCIDAD_MOVE = 1.3f;
-	public float velocidadMove;
-	final public static float MAX_SPEED_X = 1f;
+    public int state;
+    public float stateTime;
 
-	final public static float GAS_INICIAL = 100;
-	public float gas;
+    public boolean isFlying;
+    public boolean isHurtByBomb;
 
-	final public static float VIDA_INICIAL = 20;
-	public float vida;
+    /**
+     * Cuando aterrizo en el area de ganar el juego
+     */
+    public boolean isLanded;
 
-	public static int STATE_NORMAL = 0;
-	public static int STATE_EXPLODE = 1;
-	public static float EXPLODE_TIME = .05f * 20;
-	public static float TIME_HURT_BY_BOMB = .05f;// Debe ser un numero pequeno
+    public Nave(float x, float y) {
+        position = new Vector2(x, y);
+        state = STATE_NORMAL;
+        gas = GAS_INICIAL;
+        vida = VIDA_INICIAL;
+        velocidadFly = VELOCIDAD_FLY;
+        velocidadMove = VELOCIDAD_MOVE;
+        isFlying = false;
 
-	public Vector2 position;
-	public Vector2 velocity;
-	public float angleRad;
+        // Upgrades
+        velocidadFly += (.09f * Settings.nivelVelocidadY);
+        velocidadMove += (.02f * Settings.nivelRotacion);
+        vida += (5.3f * Settings.nivelVida);
+        gas += (33.3f * Settings.nivelGas);
+    }
 
-	public int state;
-	public float stateTime;
+    public void update(float delta, Body body, float accelX, float accelY) {
 
-	public boolean isFlying;
-	public boolean isHurtByBomb;
+        if (state == STATE_NORMAL) {
 
-	/**
-	 * Cuando aterrizo en el area de ganar el juego
-	 */
-	public boolean isLanded;
+            if (gas < 0 || accelY == 0) {
+                accelX = accelY = 0;
+                isFlying = false;
+            } else
+                isFlying = true;
 
-	public Nave(float x, float y) {
-		position = new Vector2(x, y);
-		state = STATE_NORMAL;
-		gas = GAS_INICIAL;
-		vida = VIDA_INICIAL;
-		velocidadFly = VELOCIDAD_FLY;
-		velocidadMove = VELOCIDAD_MOVE;
-		isFlying = false;
+            // I put the speed on
+            body.applyForceToCenter(velocidadMove * accelX, velocidadFly * accelY, true);
 
-		// Upgrades
-		velocidadFly += (.09f * Settings.nivelVelocidadY);
-		velocidadMove += (.02f * Settings.nivelRotacion);
-		vida += (5.3f * Settings.nivelVida);
-		gas += (33.3f * Settings.nivelGas);
-	}
+            // I put the speed in x to the opponent so that it reduces its speed
+            body.applyForceToCenter(body.getLinearVelocity().x * -.015f, 0, true);
 
-	public void update(float delta, Body body, float accelX, float accelY) {
+            velocity = body.getLinearVelocity();
 
-		if (state == STATE_NORMAL) {
+            if (isHurtByBomb && stateTime > TIME_HURT_BY_BOMB)
+                isHurtByBomb = false;
 
-			if (gas < 0 || accelY == 0) {
-				accelX = accelY = 0;
-				isFlying = false;
-			}
-			else
-				isFlying = true;
+            if (!isHurtByBomb) {
+                if (velocity.y > Nave.MAX_SPEED_Y) {
+                    velocity.y = Nave.MAX_SPEED_Y;
+                    body.setLinearVelocity(velocity);
+                } else if (velocity.y < MIN_SPEED_Y) {
+                    velocity.y = MIN_SPEED_Y;
+                    body.setLinearVelocity(velocity);
+                }
+                if (velocity.x > Nave.MAX_SPEED_X) {
+                    velocity.x = Nave.MAX_SPEED_X;
+                    body.setLinearVelocity(velocity);
+                } else if (velocity.x < -Nave.MAX_SPEED_X) {
+                    velocity.x = -Nave.MAX_SPEED_X;
+                    body.setLinearVelocity(velocity);
+                }
+            }
 
-			// I put the speed on
-			body.applyForceToCenter(velocidadMove * accelX, velocidadFly * accelY, true);
+            angleRad = MathUtils.atan2(-accelX, accelY);
 
-			// I put the speed in x to the opponent so that it reduces its speed
-			body.applyForceToCenter(body.getLinearVelocity().x * -.015f, 0, true);
+            position.x = body.getPosition().x;
+            position.y = body.getPosition().y;
 
-			velocity = body.getLinearVelocity();
+            int MAX_ANGLE_DEGREES = 35;
+            float angleLimitRad = (float) Math.toRadians(MAX_ANGLE_DEGREES);
 
-			if (isHurtByBomb && stateTime > TIME_HURT_BY_BOMB)
-				isHurtByBomb = false;
+            if (angleRad > angleLimitRad)
+                angleRad = angleLimitRad;
+            else if (angleRad < -angleLimitRad)
+                angleRad = -angleLimitRad;
 
-			if (!isHurtByBomb) {
-				if (velocity.y > Nave.MAX_SPEED_Y) {
-					velocity.y = Nave.MAX_SPEED_Y;
-					body.setLinearVelocity(velocity);
+            body.setTransform(position.x, position.y, angleRad);
 
-				}
-				else if (velocity.y < MIN_SPEED_Y) {
-					velocity.y = MIN_SPEED_Y;
-					body.setLinearVelocity(velocity);
-				}
-				if (velocity.x > Nave.MAX_SPEED_X) {
-					velocity.x = Nave.MAX_SPEED_X;
-					body.setLinearVelocity(velocity);
-				}
-				else if (velocity.x < -Nave.MAX_SPEED_X) {
-					velocity.x = -Nave.MAX_SPEED_X;
-					body.setLinearVelocity(velocity);
-				}
-			}
+            if (accelX != 0 || accelY != 0)
+                gas -= (5 * delta);
+        } else {
+            body.setLinearVelocity(0, 0);
+        }
 
-			angleRad = MathUtils.atan2(-accelX, accelY);
+        stateTime += delta;
+    }
 
-			position.x = body.getPosition().x;
-			position.y = body.getPosition().y;
+    public void colision(float fuerzaImpacto) {
+        if (state == STATE_NORMAL) {
+            vida -= fuerzaImpacto;
+            if (vida <= 0) {
 
-			int MAX_ANGLE_DEGREES = 35;
-			float angleLimitRad = (float) Math.toRadians(MAX_ANGLE_DEGREES);
+                state = STATE_EXPLODE;
+                stateTime = 0;
+            }
+        }
+    }
 
-			if (angleRad > angleLimitRad)
-				angleRad = angleLimitRad;
-			else if (angleRad < -angleLimitRad)
-				angleRad = -angleLimitRad;
+    public void getHurtByLaser(float dano) {
+        isHurtByBomb = true;
+        stateTime = 0;
+        colision(dano);
+    }
 
-			body.setTransform(position.x, position.y, angleRad);
-
-			if (accelX != 0 || accelY != 0)
-				gas -= (5 * delta);
-		}
-		else {
-			body.setLinearVelocity(0, 0);
-		}
-
-		stateTime += delta;
-	}
-
-	public void colision(float fuerzaImpacto) {
-		if (state == STATE_NORMAL) {
-			vida -= fuerzaImpacto;
-			if (vida <= 0) {
-
-				state = STATE_EXPLODE;
-				stateTime = 0;
-			}
-		}
-	}
-
-	public void getHurtByLaser(float dano) {
-		isHurtByBomb = true;
-		stateTime = 0;
-		colision(dano);
-	}
-
-	public void getHurtByBomb(float dano) {
-		isHurtByBomb = true;
-		stateTime = 0;
-		colision(dano);
-	}
+    public void getHurtByBomb(float dano) {
+        isHurtByBomb = true;
+        stateTime = 0;
+        colision(dano);
+    }
 }

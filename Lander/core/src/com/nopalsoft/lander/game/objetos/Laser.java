@@ -9,25 +9,18 @@ public class Laser {
     public static int DIRECCION_VERTICAL = 1;
 
     public static float DRAW_ANCHO = .35f;
-
-    float TIME_OFF;
-    public float timeOFF;
-
-    float TIME_ON = 3;
-    public float timeON;
-
     public static int STATE_NORMAL = 0;
     public static int STATE_FIRE = 1;
-
+    public final float width, height;
+    public float timeOFF;
+    public float timeON;
     public Vector2 position;
-
     public float stateTime;
     public int state;
     public int direccion;
-
-    public final float width, height;
-
     public boolean isTouchingShip;
+    float TIME_OFF;
+    float TIME_ON = 3;
 
     public Laser(float x, float y, float width, float height, float tiempoApagado, float tiempoApagadoInicio, String direccion) {
         position = new Vector2(x, y);

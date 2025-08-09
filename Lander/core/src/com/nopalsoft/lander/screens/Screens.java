@@ -40,7 +40,6 @@ public abstract class Screens extends InputAdapter implements Screen {
         Gdx.input.setInputProcessor(input);
 
         ScreenlastStatetime = ScreenStateTime = 0;
-
     }
 
     @Override
