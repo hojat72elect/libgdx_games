@@ -135,12 +135,12 @@ class RegionAttachment(name: String) : Attachment(name) {
         val vertices = this.worldVertices
         val offset = this.offset
         val bone = slot.bone
-        val x = skeleton.getX() + bone.getWorldX()
-        val y = skeleton.getY() + bone.getWorldY()
-        val m00 = bone.getM00()
-        val m01 = bone.getM01()
-        val m10 = bone.getM10()
-        val m11 = bone.getM11()
+        val x = skeleton.getX() + bone.worldX
+        val y = skeleton.getY() + bone.worldY
+        val m00 = bone.m00
+        val m01 = bone.m01
+        val m10 = bone.m10
+        val m11 = bone.m11
 
         var offsetX = offset[BRX]
         var offsetY = offset[BRY]

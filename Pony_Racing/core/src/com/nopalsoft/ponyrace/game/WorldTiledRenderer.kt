@@ -141,10 +141,10 @@ class WorldTiledRenderer(batch: SpriteBatch, oWorld: TileMapHandler) {
 
         if (oWorld.oPony!!.state == Pony.STATE_WALK_RIGHT) {
             oWorld.oPony!!.ponySkel.setFlipX(true)
-            oWorld.oPony!!.ponySkel.getRootBone().setRotation(Math.toDegrees(-oWorld.oPony!!.angleRad.toDouble()).toFloat())
+            oWorld.oPony!!.ponySkel.getRootBone().rotation = Math.toDegrees(-oWorld.oPony!!.angleRad.toDouble()).toFloat()
         } else if (oWorld.oPony!!.state == Pony.STATE_WALK_LEFT) {
             oWorld.oPony!!.ponySkel.setFlipX(false)
-            oWorld.oPony!!.ponySkel.getRootBone().setRotation(Math.toDegrees(oWorld.oPony!!.angleRad.toDouble()).toFloat())
+            oWorld.oPony!!.ponySkel.getRootBone().rotation = Math.toDegrees(oWorld.oPony!!.angleRad.toDouble()).toFloat()
         }
 
         oWorld.oPony!!.ponySkel.setX(oWorld.oPony!!.position.x)
