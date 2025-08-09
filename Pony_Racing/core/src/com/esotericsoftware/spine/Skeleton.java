@@ -19,16 +19,16 @@ public class Skeleton {
         if (data == null) throw new IllegalArgumentException("data cannot be null.");
         this.data = data;
 
-        bones = new Array(data.bones.size);
-        for (BoneData boneData : data.bones) {
-            Bone parent = boneData.getParent() == null ? null : bones.get(data.bones.indexOf(boneData.getParent(), true));
+        bones = new Array(data.getBones().size);
+        for (BoneData boneData : data.getBones()) {
+            Bone parent = boneData.getParent() == null ? null : bones.get(data.getBones().indexOf(boneData.getParent(), true));
             bones.add(new Bone(boneData, parent));
         }
 
-        slots = new Array(data.slots.size);
-        drawOrder = new Array(data.slots.size);
-        for (SlotData slotData : data.slots) {
-            Bone bone = bones.get(data.bones.indexOf(slotData.getBoneData(), true));
+        slots = new Array(data.getSlots().size);
+        drawOrder = new Array(data.getSlots().size);
+        for (SlotData slotData : data.getSlots()) {
+            Bone bone = bones.get(data.getBones().indexOf(slotData.getBoneData(), true));
             Slot slot = new Slot(slotData, this, bone);
             slots.add(slot);
             drawOrder.add(slot);
@@ -141,7 +141,7 @@ public class Skeleton {
             Attachment attachment = skin.getAttachment(slotIndex, attachmentName);
             if (attachment != null) return attachment;
         }
-        if (data.defaultSkin != null) return data.defaultSkin.getAttachment(slotIndex, attachmentName);
+        if (data.getDefaultSkin() != null) return data.getDefaultSkin().getAttachment(slotIndex, attachmentName);
         return null;
     }
 
@@ -182,6 +182,6 @@ public class Skeleton {
     }
 
     public String toString() {
-        return data.name != null ? data.name : super.toString();
+        return data.getName() != null ? data.getName() : super.toString();
     }
 }
