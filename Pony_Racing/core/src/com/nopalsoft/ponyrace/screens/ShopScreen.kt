@@ -873,7 +873,7 @@ class ShopScreen(game: PonyRacingGame) : BaseScreen(game) {
         )
         assetsHandler.skeletonTiendaTitle!!.updateWorldTransform()
         assetsHandler.skeletonTiendaTitle!!.update(delta)
-        skeletonRenderer!!.draw(batch, assetsHandler.skeletonTiendaTitle)
+        skeletonRenderer!!.draw(batch!!, assetsHandler.skeletonTiendaTitle!!)
     }
 
     private fun checkPriceBomb(): Int {

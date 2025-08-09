@@ -141,7 +141,7 @@ class MainMenuScreen(game: PonyRacingGame) : BaseScreen(game) {
         assetsHandler.animationMenuTitle!!.apply(assetsHandler.skeletonMenuTitle, screenLastStateTime, ScreenStateTime, true, null)
         assetsHandler.skeletonMenuTitle!!.updateWorldTransform()
         assetsHandler.skeletonMenuTitle!!.update(delta)
-        skeletonRenderer!!.draw(batch, assetsHandler.skeletonMenuTitle)
+        skeletonRenderer!!.draw(batch!!, assetsHandler.skeletonMenuTitle!!)
     }
 
     override fun keyDown(keycode: Int): Boolean {

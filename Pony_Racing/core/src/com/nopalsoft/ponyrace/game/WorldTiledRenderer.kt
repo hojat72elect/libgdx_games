@@ -82,7 +82,7 @@ class WorldTiledRenderer(batch: SpriteBatch, oWorld: TileMapHandler) {
             oWorld.game.assetsHandler!!.fondoSkeleton!!.setY(1.55f)
             oWorld.game.assetsHandler!!.fondoSkeleton!!.updateWorldTransform()
             oWorld.game.assetsHandler!!.fondoSkeleton!!.update(delta)
-            skelrender.draw(batch, oWorld.game.assetsHandler!!.fondoSkeleton)
+            skelrender.draw(batch, oWorld.game.assetsHandler!!.fondoSkeleton!!)
             batch.end()
         }
         renderBackGround()
@@ -117,14 +117,14 @@ class WorldTiledRenderer(batch: SpriteBatch, oWorld: TileMapHandler) {
                 oWorld.game.assetsHandler!!.bloodStoneSkeleton!!.setY(obj.position.y - .12f)
                 oWorld.game.assetsHandler!!.bloodStoneSkeleton!!.updateWorldTransform()
                 oWorld.game.assetsHandler!!.bloodStoneSkeleton!!.update(delta)
-                skelrender.draw(batch, oWorld.game.assetsHandler!!.bloodStoneSkeleton)
+                skelrender.draw(batch, oWorld.game.assetsHandler!!.bloodStoneSkeleton!!)
             } else if (obj.type == BloodStone.Type.MEDIUM) {
                 oWorld.game.assetsHandler!!.bloodStone2Anim!!.apply(oWorld.game.assetsHandler!!.bloodStone2Skeleton, obj.lastStateTime, obj.stateTime, true, null)
                 oWorld.game.assetsHandler!!.bloodStone2Skeleton!!.setX(obj.position.x)
                 oWorld.game.assetsHandler!!.bloodStone2Skeleton!!.setY(obj.position.y - .12f)
                 oWorld.game.assetsHandler!!.bloodStone2Skeleton!!.updateWorldTransform()
                 oWorld.game.assetsHandler!!.bloodStone2Skeleton!!.update(delta)
-                skelrender.draw(batch, oWorld.game.assetsHandler!!.bloodStone2Skeleton)
+                skelrender.draw(batch, oWorld.game.assetsHandler!!.bloodStone2Skeleton!!)
             }
         }
     }
@@ -216,7 +216,7 @@ class WorldTiledRenderer(batch: SpriteBatch, oWorld: TileMapHandler) {
             obj.coinSkeleton!!.setY(obj.position.y)
             obj.coinSkeleton!!.updateWorldTransform()
             obj.coinSkeleton!!.update(delta)
-            skelrender.draw(batch, obj.coinSkeleton)
+            skelrender.draw(batch, obj.coinSkeleton!!)
         }
     }
 
@@ -233,7 +233,7 @@ class WorldTiledRenderer(batch: SpriteBatch, oWorld: TileMapHandler) {
             obj.chiliSkeleton!!.setY(obj.position.y - .05f)
             obj.chiliSkeleton!!.updateWorldTransform()
             obj.chiliSkeleton!!.update(delta)
-            skelrender.draw(batch, obj.chiliSkeleton)
+            skelrender.draw(batch, obj.chiliSkeleton!!)
         }
     }
 
@@ -250,7 +250,7 @@ class WorldTiledRenderer(batch: SpriteBatch, oWorld: TileMapHandler) {
             obj.balloonsSkeleton!!.setY(obj.position.y - .36f)
             obj.balloonsSkeleton!!.updateWorldTransform()
             obj.balloonsSkeleton!!.update(delta)
-            skelrender.draw(batch, obj.balloonsSkeleton)
+            skelrender.draw(batch, obj.balloonsSkeleton!!)
         }
     }
 
@@ -267,7 +267,7 @@ class WorldTiledRenderer(batch: SpriteBatch, oWorld: TileMapHandler) {
             obj.skeleton!!.setY(obj.position.y - .4f)
             obj.skeleton!!.updateWorldTransform()
             obj.skeleton!!.update(delta)
-            skelrender.draw(batch, obj.skeleton)
+            skelrender.draw(batch, obj.skeleton!!)
         }
     }
 
@@ -279,7 +279,7 @@ class WorldTiledRenderer(batch: SpriteBatch, oWorld: TileMapHandler) {
             oWorld.game.assetsHandler!!.plumaSkeleton!!.setY(obj.position.y - .2f)
             oWorld.game.assetsHandler!!.plumaSkeleton!!.updateWorldTransform()
             oWorld.game.assetsHandler!!.plumaSkeleton!!.update(delta)
-            skelrender.draw(batch, oWorld.game.assetsHandler!!.plumaSkeleton)
+            skelrender.draw(batch, oWorld.game.assetsHandler!!.plumaSkeleton!!)
         }
     }
 
@@ -291,7 +291,7 @@ class WorldTiledRenderer(batch: SpriteBatch, oWorld: TileMapHandler) {
             oWorld.game.assetsHandler!!.fogataSkeleton!!.setY(obj.position.y)
             oWorld.game.assetsHandler!!.fogataSkeleton!!.updateWorldTransform()
             oWorld.game.assetsHandler!!.fogataSkeleton!!.update(delta)
-            skelrender.draw(batch, oWorld.game.assetsHandler!!.fogataSkeleton)
+            skelrender.draw(batch, oWorld.game.assetsHandler!!.fogataSkeleton!!)
         }
     }
 }

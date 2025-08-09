@@ -246,7 +246,7 @@ class WorldMapTiledScreen(game: PonyRacingGame) : BaseScreen(game), GestureListe
             assetsHandler.bolaSkeleton!!.setY(y - .5f)
             assetsHandler.bolaSkeleton!!.updateWorldTransform()
             assetsHandler.bolaSkeleton!!.update(delta)
-            skeletonRenderer!!.draw(batch, assetsHandler.bolaSkeleton)
+            skeletonRenderer!!.draw(batch!!, assetsHandler.bolaSkeleton!!)
 
             assetsHandler.fontChco!!.getData().setScale(.0125f)
             assetsHandler.fontChco!!.draw(batch, arrMundos.get(i).level.toString() + "", x - .25f, y + .2f)
@@ -258,7 +258,7 @@ class WorldMapTiledScreen(game: PonyRacingGame) : BaseScreen(game), GestureListe
             assetsHandler.rayoSkeleton!!.setY(secretWorld.y)
             assetsHandler.rayoSkeleton!!.updateWorldTransform()
             assetsHandler.rayoSkeleton!!.update(delta)
-            skeletonRenderer!!.draw(batch, assetsHandler.rayoSkeleton)
+            skeletonRenderer!!.draw(batch!!, assetsHandler.rayoSkeleton!!)
         }
 
         assetsHandler.humoVolvanAnimation!!.apply(assetsHandler.humoVolcanSkeleton, screenLastStateTime, ScreenStateTime, true, null)
@@ -266,12 +266,10 @@ class WorldMapTiledScreen(game: PonyRacingGame) : BaseScreen(game), GestureListe
         assetsHandler.humoVolcanSkeleton!!.setY(10.5f)
         assetsHandler.humoVolcanSkeleton!!.updateWorldTransform()
         assetsHandler.humoVolcanSkeleton!!.update(delta)
-        skeletonRenderer!!.draw(batch, assetsHandler.humoVolcanSkeleton)
+        skeletonRenderer!!.draw(batch!!, assetsHandler.humoVolcanSkeleton!!)
     }
 
-    override fun show() {
-        // TODO Auto-generated method stub
-    }
+    override fun show() {}
 
     private fun renderShapes() {
         val render = ShapeRenderer()
