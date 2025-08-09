@@ -1,22 +1,22 @@
-package com.nopalsoft.lander;
+package com.nopalsoft.lander
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.nopalsoft.lander.screens.MainMenuScreen;
+import com.badlogic.gdx.Game
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.nopalsoft.lander.screens.MainMenuScreen
 
-public class MainLander extends Game {
+class MainLander : Game() {
+    @JvmField
+    var stage: Stage? = null
 
-    public Stage stage;
-    public SpriteBatch batcher;
+    @JvmField
+    var batcher: SpriteBatch? = null
 
-    @Override
-    public void create() {
-        Assets.cargar();
-        stage = new Stage();
-        batcher = new SpriteBatch();
+    override fun create() {
+        Assets.cargar()
+        stage = Stage()
+        batcher = SpriteBatch()
 
-        // setScreen(new GameScreen(this, 1));
-        setScreen(new MainMenuScreen(this));
+        setScreen(MainMenuScreen(this))
     }
 }
