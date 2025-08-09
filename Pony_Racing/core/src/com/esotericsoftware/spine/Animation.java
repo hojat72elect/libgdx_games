@@ -211,7 +211,7 @@ public class Animation {
             Bone bone = skeleton.bones.get(boneIndex);
 
             if (time >= frames[frames.length - 2]) { // Time is after last frame.
-                float amount = bone.data.rotation + frames[frames.length - 1] - bone.rotation;
+                float amount = bone.data.getRotation() + frames[frames.length - 1] - bone.rotation;
                 while (amount > 180)
                     amount -= 360;
                 while (amount < -180)
@@ -232,7 +232,7 @@ public class Animation {
                 amount -= 360;
             while (amount < -180)
                 amount += 360;
-            amount = bone.data.rotation + (prevFrameValue + amount * percent) - bone.rotation;
+            amount = bone.data.getRotation() + (prevFrameValue + amount * percent) - bone.rotation;
             while (amount > 180)
                 amount -= 360;
             while (amount < -180)
@@ -274,8 +274,8 @@ public class Animation {
             Bone bone = skeleton.bones.get(boneIndex);
 
             if (time >= frames[frames.length - 3]) { // Time is after last frame.
-                bone.x += (bone.data.x + frames[frames.length - 2] - bone.x) * alpha;
-                bone.y += (bone.data.y + frames[frames.length - 1] - bone.y) * alpha;
+                bone.x += (bone.data.getX() + frames[frames.length - 2] - bone.x) * alpha;
+                bone.y += (bone.data.getY() + frames[frames.length - 1] - bone.y) * alpha;
                 return;
             }
 
@@ -287,8 +287,8 @@ public class Animation {
             float percent = MathUtils.clamp(1 - (time - frameTime) / (frames[frameIndex + PREV_FRAME_TIME] - frameTime), 0, 1);
             percent = getCurvePercent(frameIndex / 3 - 1, percent);
 
-            bone.x += (bone.data.x + prevFrameX + (frames[frameIndex + FRAME_X] - prevFrameX) * percent - bone.x) * alpha;
-            bone.y += (bone.data.y + prevFrameY + (frames[frameIndex + FRAME_Y] - prevFrameY) * percent - bone.y) * alpha;
+            bone.x += (bone.data.getX() + prevFrameX + (frames[frameIndex + FRAME_X] - prevFrameX) * percent - bone.x) * alpha;
+            bone.y += (bone.data.getY() + prevFrameY + (frames[frameIndex + FRAME_Y] - prevFrameY) * percent - bone.y) * alpha;
         }
     }
 
@@ -303,8 +303,8 @@ public class Animation {
 
             Bone bone = skeleton.bones.get(boneIndex);
             if (time >= frames[frames.length - 3]) { // Time is after last frame.
-                bone.scaleX += (bone.data.scaleX - 1 + frames[frames.length - 2] - bone.scaleX) * alpha;
-                bone.scaleY += (bone.data.scaleY - 1 + frames[frames.length - 1] - bone.scaleY) * alpha;
+                bone.scaleX += (bone.data.getScaleX() - 1 + frames[frames.length - 2] - bone.scaleX) * alpha;
+                bone.scaleY += (bone.data.getScaleY() - 1 + frames[frames.length - 1] - bone.scaleY) * alpha;
                 return;
             }
 
@@ -316,9 +316,9 @@ public class Animation {
             float percent = MathUtils.clamp(1 - (time - frameTime) / (frames[frameIndex + PREV_FRAME_TIME] - frameTime), 0, 1);
             percent = getCurvePercent(frameIndex / 3 - 1, percent);
 
-            bone.scaleX += (bone.data.scaleX - 1 + prevFrameX + (frames[frameIndex + FRAME_X] - prevFrameX) * percent - bone.scaleX)
+            bone.scaleX += (bone.data.getScaleX() - 1 + prevFrameX + (frames[frameIndex + FRAME_X] - prevFrameX) * percent - bone.scaleX)
                     * alpha;
-            bone.scaleY += (bone.data.scaleY - 1 + prevFrameY + (frames[frameIndex + FRAME_Y] - prevFrameY) * percent - bone.scaleY)
+            bone.scaleY += (bone.data.getScaleY() - 1 + prevFrameY + (frames[frameIndex + FRAME_Y] - prevFrameY) * percent - bone.scaleY)
                     * alpha;
         }
     }

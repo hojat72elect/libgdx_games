@@ -48,14 +48,14 @@ public class Bone {
         if (parent != null) {
             worldX = x * parent.m00 + y * parent.m01 + parent.worldX;
             worldY = x * parent.m10 + y * parent.m11 + parent.worldY;
-            if (data.inheritScale) {
+            if (data.getInheritScale()) {
                 worldScaleX = parent.worldScaleX * scaleX;
                 worldScaleY = parent.worldScaleY * scaleY;
             } else {
                 worldScaleX = scaleX;
                 worldScaleY = scaleY;
             }
-            worldRotation = data.inheritRotation ? parent.worldRotation + rotation : rotation;
+            worldRotation = data.getInheritRotation() ? parent.worldRotation + rotation : rotation;
         } else {
             worldX = flipX ? -x : x;
             worldY = flipY ? -y : y;
@@ -81,11 +81,11 @@ public class Bone {
 
     public void setToSetupPose() {
         BoneData data = this.data;
-        x = data.x;
-        y = data.y;
-        rotation = data.rotation;
-        scaleX = data.scaleX;
-        scaleY = data.scaleY;
+        x = data.getX();
+        y = data.getY();
+        rotation = data.getRotation();
+        scaleX = data.getScaleX();
+        scaleY = data.getScaleY();
     }
 
     public float getX() {
@@ -165,6 +165,6 @@ public class Bone {
     }
 
     public String toString() {
-        return data.name;
+        return data.getName();
     }
 }

@@ -21,7 +21,7 @@ public class Skeleton {
 
         bones = new Array(data.bones.size);
         for (BoneData boneData : data.bones) {
-            Bone parent = boneData.parent == null ? null : bones.get(data.bones.indexOf(boneData.parent, true));
+            Bone parent = boneData.getParent() == null ? null : bones.get(data.bones.indexOf(boneData.getParent(), true));
             bones.add(new Bone(boneData, parent));
         }
 

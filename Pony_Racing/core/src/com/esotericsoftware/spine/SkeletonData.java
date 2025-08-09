@@ -11,8 +11,6 @@ public class SkeletonData {
     String name;
     Skin defaultSkin;
 
-    // --- Bones.
-
     public void addBone(BoneData bone) {
         if (bone == null) throw new IllegalArgumentException("bone cannot be null.");
         bones.add(bone);
@@ -26,7 +24,7 @@ public class SkeletonData {
         Array<BoneData> bones = this.bones;
         for (int i = 0, n = bones.size; i < n; i++) {
             BoneData bone = bones.get(i);
-            if (bone.name.equals(boneName)) return bone;
+            if (bone.getName().equals(boneName)) return bone;
         }
         return null;
     }
@@ -38,11 +36,9 @@ public class SkeletonData {
         if (boneName == null) throw new IllegalArgumentException("boneName cannot be null.");
         Array<BoneData> bones = this.bones;
         for (int i = 0, n = bones.size; i < n; i++)
-            if (bones.get(i).name.equals(boneName)) return i;
+            if (bones.get(i).getName().equals(boneName)) return i;
         return -1;
     }
-
-    // --- Slots.
 
     public void addSlot(SlotData slot) {
         if (slot == null) throw new IllegalArgumentException("slot cannot be null.");

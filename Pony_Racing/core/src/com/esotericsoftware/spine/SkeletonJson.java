@@ -60,14 +60,14 @@ public class SkeletonJson {
                 if (parent == null) throw new SerializationException("Parent bone not found: " + parentName);
             }
             BoneData boneData = new BoneData(boneMap.getString("name"), parent);
-            boneData.length = boneMap.getFloat("length", 0) * scale;
-            boneData.x = boneMap.getFloat("x", 0) * scale;
-            boneData.y = boneMap.getFloat("y", 0) * scale;
-            boneData.rotation = boneMap.getFloat("rotation", 0);
-            boneData.scaleX = boneMap.getFloat("scaleX", 1);
-            boneData.scaleY = boneMap.getFloat("scaleY", 1);
-            boneData.inheritScale = boneMap.getBoolean("inheritScale", true);
-            boneData.inheritRotation = boneMap.getBoolean("inheritRotation", true);
+            boneData.setLength(boneMap.getFloat("length", 0) * scale);
+            boneData.setX(boneMap.getFloat("x", 0) * scale);
+            boneData.setY(boneMap.getFloat("y", 0) * scale);
+            boneData.setRotation(boneMap.getFloat("rotation", 0));
+            boneData.setScaleX(boneMap.getFloat("scaleX", 1));
+            boneData.setScaleY(boneMap.getFloat("scaleY", 1));
+            boneData.setInheritScale(boneMap.getBoolean("inheritScale", true));
+            boneData.setInheritRotation(boneMap.getBoolean("inheritRotation", true));
 
             String color = boneMap.getString("color", null);
             if (color != null) boneData.getColor().set(Color.valueOf(color));
