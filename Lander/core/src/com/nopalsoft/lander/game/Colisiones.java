@@ -56,9 +56,9 @@ public class Colisiones implements ContactListener {
         } else if (oOtraCosa instanceof Estrella) {
             Estrella obj = (Estrella) oOtraCosa;
 
-            if (obj.state == Estrella.STATE_NORMAL) {
+            if (obj.getState() == Estrella.STATE_NORMAL) {
                 oWorld.estrellasTomadas++;
-                obj.state = Estrella.STATE_TOMADA;
+                obj.setState(Estrella.STATE_TOMADA);
             }
             return;
         } else if (oOtraCosa instanceof Bomba) {

@@ -115,7 +115,7 @@ public class WorldGameRenderer {
 
     public void renderEstrella() {
         for (Estrella obj : oWorld.arrEstrellas) {
-            batcher.draw(Assets.star, obj.position.x - .25f, obj.position.y - .25f, .5f, .5f);
+            batcher.draw(Assets.star, obj.getPosition().x - .25f, obj.getPosition().y - .25f, .5f, .5f);
         }
     }
 

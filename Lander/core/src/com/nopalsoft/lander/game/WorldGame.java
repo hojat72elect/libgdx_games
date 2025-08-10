@@ -73,7 +73,7 @@ public class WorldGame {
                 }
             } else if (body.getUserData() instanceof Estrella) {
                 Estrella obj = (Estrella) body.getUserData();
-                if (obj.state == Estrella.STATE_TOMADA && !oWorldBox.isLocked()) {
+                if (obj.getState() == Estrella.STATE_TOMADA && !oWorldBox.isLocked()) {
                     oWorldBox.destroyBody(body);
                     arrEstrellas.removeValue(obj, true);
                 }
@@ -85,7 +85,6 @@ public class WorldGame {
                     arrBombas.removeValue(obj, true);
                 }
             } else if (body.getUserData() instanceof Laser) {
-                // Laser obj = (Laser) body.getUserData();
                 updateLaser(delta, body);
             }
         }
