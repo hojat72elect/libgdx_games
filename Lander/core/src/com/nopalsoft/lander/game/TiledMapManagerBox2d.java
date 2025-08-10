@@ -172,7 +172,7 @@ public class TiledMapManagerBox2d {
     }
 
     private void crearNave(Plataforma plataforma) {
-        Nave oNave = new Nave(plataforma.position.x, plataforma.position.y + plataforma.size.y / 2);
+        Nave oNave = new Nave(plataforma.getPosition().x, plataforma.getPosition().y + plataforma.getSize().y / 2);
 
         BodyDef bd = new BodyDef();
         bd.position.x = oNave.position.x;
