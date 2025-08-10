@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
-import com.badlogic.gdx.utils.Array
 
 class PagedScrollPane : ScrollPane(null) {
     private var wasPanDragFling = false
@@ -16,8 +15,8 @@ class PagedScrollPane : ScrollPane(null) {
         super.setWidget(content)
     }
 
-    fun addPage(page: Actor?) {
-        content.add<Actor?>(page).expandY().fillY()
+    fun addPage(page: Actor) {
+        content.add(page).expandY().fillY()
     }
 
     override fun act(delta: Float) {
@@ -55,22 +54,17 @@ class PagedScrollPane : ScrollPane(null) {
     }
 
     private fun scrollToPage() {
-        val width = getWidth()
-
-        val scrollX = getScrollX()
-
-        val maxX = getMaxX()
 
         if (scrollX >= maxX || scrollX <= 0) return
 
-        val pages: Array<Actor> = content.getChildren()
+        val pages = content.getChildren()
 
         var pageX = 0f
 
         var pageWidth = 0f
         if (pages.size > 0) {
             for (a in pages) {
-                pageX = a.getX()
+                pageX = a.x
                 pageWidth = a.getWidth()
                 if (scrollX < (pageX + pageWidth * 0.5)) {
                     break
