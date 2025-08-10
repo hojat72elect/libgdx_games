@@ -148,7 +148,7 @@ public class GameScreen extends Screens {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
-            game.setScreen(new MainMenuScreen(game));
+            getGame().setScreen(new MainMenuScreen(getGame()));
             return true;
         }
         return false;

@@ -73,12 +73,6 @@ public class MainMenuScreen extends Screens {
         btMore = new TextButton("More", Assets.styleTextButtonMenu);
         btMore.setSize(botonWidth, 100);
         btMore.setPosition(botonX, -90);
-        btMore.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-
-            }
-        });
 
         addActionToButtonEnter(btPlay, botonX, 420);
         addActionToButtonEnter(btSettings, botonX, 300);
@@ -103,7 +97,7 @@ public class MainMenuScreen extends Screens {
             @Override
             public void run() {
                 if (screen == LevelScreen.class) {
-                    game.setScreen(new LevelScreen(game));
+                    getGame().setScreen(new LevelScreen(getGame()));
                 }
             }
         })));

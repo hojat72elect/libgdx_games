@@ -79,7 +79,7 @@ public class LevelScreen extends Screens {
                 if (button.isDisabled()) {
                     Gdx.app.log("Locked", "El mundo " + (level + 1) + "esta bloqueado");
                 } else
-                    game.setScreen(new GameScreen(game, level));
+                    getGame().setScreen(new GameScreen(getGame(), level));
             }
         });
 
@@ -104,7 +104,7 @@ public class LevelScreen extends Screens {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Keys.ESCAPE || keycode == Keys.BACK) {
-            game.setScreen(new MainMenuScreen(game));
+            getGame().setScreen(new MainMenuScreen(getGame()));
             return true;
         }
         return false;
