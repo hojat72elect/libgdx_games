@@ -13,8 +13,8 @@ class Plataforma(x: Float, y: Float, width: Float, height: Float) {
     var state = STATE_NORMAL
 
     fun update(delta: Float, body: Body) {
-        position.x = body.getPosition().x
-        position.y = body.getPosition().y
+        position.x = body.position.x
+        position.y = body.position.y
         stateTime += delta
     }
 
