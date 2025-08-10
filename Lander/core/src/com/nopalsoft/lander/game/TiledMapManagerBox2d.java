@@ -237,7 +237,7 @@ public class TiledMapManagerBox2d {
         float height = (rectangle.height * m_units * 0.5f);
         float width = (rectangle.width * m_units * 0.5f);
 
-        Gas obj = new Gas(x, y, width, height);
+        Gas obj = new Gas(x, y);
         BodyDef bd = new BodyDef();
         bd.position.y = obj.getPosition().y;
         bd.position.x = obj.getPosition().x;

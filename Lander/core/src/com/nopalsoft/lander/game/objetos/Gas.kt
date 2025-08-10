@@ -3,12 +3,11 @@ package com.nopalsoft.lander.game.objetos
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 
-class Gas(x: Float, y: Float, width: Float, height: Float) {
+class Gas(x: Float, y: Float) {
 
-    var position: Vector2 = Vector2(x, y)
-    var size: Vector2? = Vector2(width, height)
-    var stateTime: Float = 0f
-    var state: Int = STATE_NORMAL
+    var position = Vector2(x, y)
+    var stateTime = 0f
+    var state = STATE_NORMAL
 
     fun update(delta: Float, body: Body) {
         position.x = body.getPosition().x
