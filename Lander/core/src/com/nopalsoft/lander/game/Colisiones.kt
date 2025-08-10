@@ -111,10 +111,10 @@ class Colisiones(var oWorld: WorldGame) : ContactListener {
         }
     }
 
-    override fun preSolve(contact: Contact?, oldManifold: Manifold?) {
+    override fun preSolve(contact: Contact, oldManifold: Manifold) {
     }
 
-    override fun postSolve(contact: Contact, impulse: ContactImpulse?) {
+    override fun postSolve(contact: Contact, impulse: ContactImpulse) {
         if (contact.fixtureA.body.userData is Nave) postSolveNaveOtraCosa(contact.fixtureB)
         else if (contact.fixtureB.body.userData is Nave) postSolveNaveOtraCosa(contact.fixtureA)
     }
