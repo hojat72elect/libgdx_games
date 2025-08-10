@@ -11,39 +11,20 @@ import com.nopalsoft.lander.game.objetos.Laser
 import com.nopalsoft.lander.game.objetos.Nave
 import com.nopalsoft.lander.screens.Screens
 
-class WorldGameRenderer(batcher: SpriteBatch, oWorld: WorldGame) {
-    val WIDTH: Float = Screens.WORLD_SCREEN_WIDTH
-    val HEIGHT: Float = Screens.WORLD_SCREEN_HEIGHT
+class WorldGameRenderer(val batcher: SpriteBatch, val oWorld: WorldGame) {
 
-    var CAM_MIN_X: Float
-    var CAM_MIN_Y: Float
-    var CAM_MAX_X: Float
-    var CAM_MAX_Y: Float
-
-    var batcher: SpriteBatch
-    var oWorld: WorldGame
-    var oCam: OrthographicCamera
-    var tiledRenderer: OrthogonalTiledMapRenderer
-
-    var renderBox: Box2DDebugRenderer
+    val WIDTH = Screens.WORLD_SCREEN_WIDTH
+    val HEIGHT = Screens.WORLD_SCREEN_HEIGHT
+    var CAM_MIN_X = WIDTH / 2F
+    var CAM_MIN_Y = HEIGHT / 2F
+    var CAM_MAX_X = Assets.map!!.properties.get("tamanoMapaX", String::class.java).toFloat() * oWorld.unitScale * 32 - (WIDTH / 2f)
+    var CAM_MAX_Y = Assets.map!!.properties.get("tamanoMapaY", String::class.java).toFloat() * oWorld.unitScale * 32 - (HEIGHT / 2f)
+    var oCam = OrthographicCamera(WIDTH, HEIGHT)
+    var tiledRenderer = OrthogonalTiledMapRenderer(Assets.map, oWorld.unitScale)
+    var renderBox = Box2DDebugRenderer()
 
     init {
-        this.oCam = OrthographicCamera(WIDTH, HEIGHT)
         this.oCam.position.set(WIDTH / 2f, HEIGHT / 2f, 0f)
-
-        CAM_MAX_X = Assets.map!!.properties.get<String?>("tamanoMapaX", String::class.java).toInt().toFloat()
-        CAM_MAX_X = CAM_MAX_X * oWorld.unitScale * 32 - (WIDTH / 2f)
-
-        CAM_MAX_Y = Assets.map!!.properties.get<String?>("tamanoMapaY", String::class.java).toInt().toFloat()
-        CAM_MAX_Y = CAM_MAX_Y * oWorld.unitScale * 32 - (HEIGHT / 2f)
-
-        CAM_MIN_X = WIDTH / 2f
-        CAM_MIN_Y = HEIGHT / 2f
-
-        this.batcher = batcher
-        this.oWorld = oWorld
-        this.renderBox = Box2DDebugRenderer()
-        this.tiledRenderer = OrthogonalTiledMapRenderer(Assets.map, oWorld.unitScale)
     }
 
     fun render() {
@@ -87,8 +68,8 @@ class WorldGameRenderer(batcher: SpriteBatch, oWorld: WorldGame) {
         val keyframe: TextureRegion?
 
         if (obj!!.state == Nave.STATE_NORMAL) {
-            if (obj.isFlying) keyframe = Assets.naveFly.getKeyFrame(obj.stateTime, true)
-            else keyframe = Assets.nave
+            keyframe = if (obj.isFlying) Assets.naveFly.getKeyFrame(obj.stateTime, true)
+            else Assets.nave
             batcher.draw(
                 keyframe,
                 obj.position.x - Nave.DRAW_WIDTH / 2f,
