@@ -52,8 +52,8 @@ public class WorldGameRenderer {
 
     public void render() {
 
-        oCam.position.x = oWorld.oNave.position.x;
-        oCam.position.y = oWorld.oNave.position.y;
+        oCam.position.x = oWorld.oNave.getPosition().x;
+        oCam.position.y = oWorld.oNave.getPosition().y;
 
         if (oCam.position.y < CAM_MIN_Y)
             oCam.position.y = CAM_MIN_Y;
@@ -100,10 +100,10 @@ public class WorldGameRenderer {
                 keyframe = Assets.naveFly.getKeyFrame(obj.stateTime, true);
             else
                 keyframe = Assets.nave;
-            batcher.draw(keyframe, obj.position.x - Nave.DRAW_WIDTH / 2f, obj.position.y - 1.025f, Nave.DRAW_WIDTH / 2f, 1.025f, Nave.DRAW_WIDTH, Nave.DRAW_HEIGHT, 1, 1, (float) Math.toDegrees(obj.angleRad));
+            batcher.draw(keyframe, obj.getPosition().x - Nave.DRAW_WIDTH / 2f, obj.getPosition().y - 1.025f, Nave.DRAW_WIDTH / 2f, 1.025f, Nave.DRAW_WIDTH, Nave.DRAW_HEIGHT, 1, 1, (float) Math.toDegrees(obj.angleRad));
         } else {
             keyframe = Assets.explosion.getKeyFrame(obj.stateTime, false);
-            batcher.draw(keyframe, obj.position.x - .5f, obj.position.y - .5f, .5f, .5f, 1f, 1f, 1, 1, (float) Math.toDegrees(obj.angleRad));
+            batcher.draw(keyframe, obj.getPosition().x - .5f, obj.getPosition().y - .5f, .5f, .5f, 1f, 1f, 1, 1, (float) Math.toDegrees(obj.angleRad));
         }
     }
 

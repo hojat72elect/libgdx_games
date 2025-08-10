@@ -175,8 +175,8 @@ public class TiledMapManagerBox2d {
         Nave oNave = new Nave(plataforma.getPosition().x, plataforma.getPosition().y + plataforma.getSize().y / 2);
 
         BodyDef bd = new BodyDef();
-        bd.position.x = oNave.position.x;
-        bd.position.y = oNave.position.y;
+        bd.position.x = oNave.getPosition().x;
+        bd.position.y = oNave.getPosition().y;
         bd.type = BodyType.DynamicBody;
         Body oBody = oWorldBox.createBody(bd);
 

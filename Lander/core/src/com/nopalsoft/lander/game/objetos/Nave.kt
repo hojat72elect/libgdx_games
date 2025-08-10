@@ -8,6 +8,8 @@ import com.nopalsoft.lander.Settings
 class Nave(x: Float, y: Float) {
     var velocidadFly = VELOCIDAD_FLY
     var velocidadMove = VELOCIDAD_MOVE
+
+    @JvmField
     var gas = GAS_INICIAL
     var vida = VIDA_INICIAL
     var position = Vector2(x, y)
