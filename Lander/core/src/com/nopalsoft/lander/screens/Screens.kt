@@ -11,15 +11,9 @@ import com.nopalsoft.lander.Settings
 
 abstract class Screens(open val game: MainLander) : InputAdapter(), Screen {
 
-    @JvmField
     var oCam = OrthographicCamera(SCREEN_WIDTH.toFloat(), SCREEN_HEIGHT.toFloat())
-
-    @JvmField
     var batcher = game.batcher
-
-    @JvmField
     var stage = game.stage
-
     protected var screenStateTime = 0F
     protected var screenLastStateTime = 0F
 
@@ -32,15 +26,11 @@ abstract class Screens(open val game: MainLander) : InputAdapter(), Screen {
     override fun render(delta: Float) {
         var delta = delta
         if (delta > .1f) delta = .1f
-
         screenLastStateTime = screenStateTime
         screenStateTime += delta
         update(delta)
-
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-
         draw(delta)
-
         stage.act(delta)
         stage.draw()
     }

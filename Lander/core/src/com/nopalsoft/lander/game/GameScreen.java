@@ -44,7 +44,7 @@ public class GameScreen extends Screens {
         this.level = level;
         Assets.cargarMapa(level);
         oWorld = new WorldGame();
-        renderer = new WorldGameRenderer(batcher, oWorld);
+        renderer = new WorldGameRenderer(getBatcher(), oWorld);
 
         dialogGameover = new VentanaGameOver(game, oWorld, level);
         dialogPaused = new VentanaPaused(game, oWorld, level);
@@ -74,8 +74,8 @@ public class GameScreen extends Screens {
             }
         });
 
-        stage.addActor(marcoStats);
-        stage.addActor(btPause);
+        getStage().addActor(marcoStats);
+        getStage().addActor(btPause);
 
         state = STATE_RUNNING;
     }
@@ -122,27 +122,27 @@ public class GameScreen extends Screens {
     @Override
     public void draw(float delta) {
         renderer.render();
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        getOCam().update();
+        getBatcher().setProjectionMatrix(getOCam().combined);
 
-        batcher.begin();
-        batcher.end();
+        getBatcher().begin();
+        getBatcher().end();
     }
 
     private void setPaused() {
         state = STATE_PAUSED;
-        dialogPaused.show(stage);
+        dialogPaused.show(getStage());
     }
 
     private void setGameover() {
         state = STATE_GAME_OVER;
-        dialogGameover.show(stage);
+        dialogGameover.show(getStage());
     }
 
     private void setNextLevel() {
         state = STATE_GAME_OVER;
         Settings.setStarsFromLevel(level, oWorld.estrellasTomadas);
-        dialogNextLevel.show(stage);
+        dialogNextLevel.show(getStage());
     }
 
     @Override

@@ -43,7 +43,7 @@ public class LevelScreen extends Screens {
 
         contenedor.add(scroll).expand().fill().pad(32).top();
 
-        stage.addActor(contenedor);
+        getStage().addActor(contenedor);
     }
 
     public Button getLevelButton(final int level) {
@@ -88,13 +88,13 @@ public class LevelScreen extends Screens {
 
     @Override
     public void draw(float delta) {
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
+        getOCam().update();
+        getBatcher().setProjectionMatrix(getOCam().combined);
 
-        batcher.begin();
-        batcher.disableBlending();
-        batcher.draw(Assets.fondo, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        batcher.end();
+        getBatcher().begin();
+        getBatcher().disableBlending();
+        getBatcher().draw(Assets.fondo, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        getBatcher().end();
     }
 
     @Override

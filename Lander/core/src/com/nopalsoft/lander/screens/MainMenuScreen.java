@@ -37,10 +37,10 @@ public class MainMenuScreen extends Screens {
         titulo.setScale(.3f);
         titulo.addAction(Actions.parallel(action, scAction));
 
-        stage.addActor(btPlay);
-        stage.addActor(btSettings);
-        stage.addActor(btMore);
-        stage.addActor(titulo);
+        getStage().addActor(btPlay);
+        getStage().addActor(btSettings);
+        getStage().addActor(btMore);
+        getStage().addActor(titulo);
 
         dialogShop = new VentanaShop(game);
     }
@@ -66,7 +66,7 @@ public class MainMenuScreen extends Screens {
         btSettings.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                dialogShop.show(stage);
+                dialogShop.show(getStage());
             }
         });
 
@@ -93,7 +93,7 @@ public class MainMenuScreen extends Screens {
         addActionToButtonLeave(btSettings, btSettings.getX(), -100);
         addActionToButtonLeave(btMore, btMore.getX(), -100);
 
-        stage.addAction(Actions.sequence(Actions.delay(.75f), Actions.run(new Runnable() {
+        getStage().addAction(Actions.sequence(Actions.delay(.75f), Actions.run(new Runnable() {
             @Override
             public void run() {
                 if (screen == LevelScreen.class) {
@@ -113,13 +113,12 @@ public class MainMenuScreen extends Screens {
 
     @Override
     public void draw(float delta) {
-        oCam.update();
-        batcher.setProjectionMatrix(oCam.combined);
-
-        batcher.begin();
-        batcher.disableBlending();
-        batcher.draw(Assets.fondo, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        batcher.end();
+        getOCam().update();
+        getBatcher().setProjectionMatrix(getOCam().combined);
+        getBatcher().begin();
+        getBatcher().disableBlending();
+        getBatcher().draw(Assets.fondo, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        getBatcher().end();
     }
 
     @Override
