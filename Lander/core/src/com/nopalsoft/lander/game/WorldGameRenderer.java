@@ -121,12 +121,12 @@ public class WorldGameRenderer {
 
     public void renderLaser() {
         for (Laser obj : oWorld.arrLaser) {
-            if (obj.direccion == Laser.DIRECCION_HORIZONTAL) {
+            if (obj.directionInteger == Laser.DIRECCION_HORIZONTAL) {
                 if (obj.state == Laser.STATE_FIRE)
-                    batcher.draw(Assets.laser.getKeyFrame(obj.stateTime, true), obj.position.x - obj.width / 2f, obj.position.y - obj.height / 2f, obj.width, obj.height);
+                    batcher.draw(Assets.laser.getKeyFrame(obj.stateTime, true), obj.position.x - obj.getWidth() / 2f, obj.position.y - obj.getHeight() / 2f, obj.getWidth(), obj.getHeight());
             } else {
                 if (obj.state == Laser.STATE_FIRE)
-                    batcher.draw(Assets.laserVertical.getKeyFrame(obj.stateTime, true), obj.position.x - obj.width / 2f, obj.position.y - obj.height / 2f, obj.width, obj.height);
+                    batcher.draw(Assets.laserVertical.getKeyFrame(obj.stateTime, true), obj.position.x - obj.getWidth() / 2f, obj.position.y - obj.getHeight() / 2f, obj.getWidth(), obj.getHeight());
             }
         }
     }

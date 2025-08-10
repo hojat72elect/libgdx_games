@@ -3,70 +3,62 @@ package com.nopalsoft.lander.game.objetos
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 
-class Laser(x: Float, y: Float, width: Float, height: Float, tiempoApagado: Float, tiempoApagadoInicio: Float, direccion: String) {
-    @JvmField
-    val width: Float
+class Laser(x: Float, y: Float, var width: Float, var height: Float, tiempoApagado: Float, tiempoApagadoInicio: Float, directionString: String) {
+
+    var timeOFF = tiempoApagadoInicio
+    var timeON = 0f
 
     @JvmField
-    val height: Float
-    var timeOFF: Float
-    var timeON: Float
+    var position = Vector2(x, y)
 
     @JvmField
-    var position: Vector2
+    var stateTime = timeON
 
     @JvmField
-    var stateTime: Float
+    var state = STATE_NORMAL
 
     @JvmField
-    var state: Int
+    var directionInteger = 0
 
     @JvmField
-    var direccion: Int = 0
+    var isTouchingShip = false
 
-    @JvmField
-    var isTouchingShip: Boolean = false
-    var TIME_OFF: Float
-    var TIME_ON: Float = 3f
+    var timeOffStep = tiempoApagado
 
     init {
-        var width = width
-        var height = height
-        position = Vector2(x, y)
-        timeOFF = tiempoApagadoInicio
-        TIME_OFF = tiempoApagado
-        timeON = 0f
-        stateTime = timeON
-        state = STATE_NORMAL
 
-        if (height > width) width = DRAW_ANCHO
-        else height = DRAW_ANCHO
+        if (height > width) {
+            width = DRAW_ANCHO
+        } else {
+            height = DRAW_ANCHO
+        }
 
-        this.width = width
-        this.height = height
 
-        if (direccion == "horizontal") this.direccion = DIRECCION_HORIZONTAL
-        else if (direccion == "vertical") this.direccion = DIRECCION_VERTICAL
+        if (directionString == "horizontal") {
+            directionInteger = DIRECCION_HORIZONTAL
+        } else if (directionString == "vertical") {
+            directionInteger = DIRECCION_VERTICAL
+        }
     }
 
     fun update(delta: Float, body: Body) {
-        position.x = body.getPosition().x
-        position.y = body.getPosition().y
+        position.x = body.position.x
+        position.y = body.position.y
 
         if (state == STATE_NORMAL) {
             timeOFF += delta
-            if (timeOFF >= TIME_OFF) {
+            if (timeOFF >= timeOffStep) {
                 state = STATE_FIRE
-                timeOFF -= TIME_OFF
+                timeOFF -= timeOffStep
                 stateTime = 0f
             }
         }
 
         if (state == STATE_FIRE) {
             timeON += delta
-            if (timeON >= TIME_ON) {
+            if (timeON >= TIME_ON_STEP) {
                 state = STATE_NORMAL
-                timeON -= TIME_ON
+                timeON -= TIME_ON_STEP
                 stateTime = 0f
             }
         }
@@ -75,14 +67,12 @@ class Laser(x: Float, y: Float, width: Float, height: Float, tiempoApagado: Floa
     }
 
     companion object {
-        @JvmField
-        var DIRECCION_HORIZONTAL: Int = 0
-        var DIRECCION_VERTICAL: Int = 1
 
-        var DRAW_ANCHO: Float = .35f
-        var STATE_NORMAL: Int = 0
-
-        @JvmField
-        var STATE_FIRE: Int = 1
+        const val DIRECCION_HORIZONTAL = 0
+        private const val DIRECCION_VERTICAL = 1
+        private const val DRAW_ANCHO = .35f
+        private const val STATE_NORMAL = 0
+        const val STATE_FIRE = 1
+        const val TIME_ON_STEP = 3f
     }
 }
