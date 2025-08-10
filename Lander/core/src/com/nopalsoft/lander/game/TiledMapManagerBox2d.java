@@ -202,8 +202,6 @@ public class TiledMapManagerBox2d {
         Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
         float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
-        float height = (rectangle.height * m_units * 0.5f);
-        float width = (rectangle.width * m_units * 0.5f);
 
         Estrella obj = new Estrella(x, y);
         BodyDef bd = new BodyDef();
@@ -234,8 +232,6 @@ public class TiledMapManagerBox2d {
         Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
         float x = (rectangle.x + rectangle.width * 0.5f) * m_units;
         float y = (rectangle.y + rectangle.height * 0.5f) * m_units;
-        float height = (rectangle.height * m_units * 0.5f);
-        float width = (rectangle.width * m_units * 0.5f);
 
         Gas obj = new Gas(x, y);
         BodyDef bd = new BodyDef();
@@ -289,7 +285,6 @@ public class TiledMapManagerBox2d {
         fixture.restitution = 0f;
         fixture.friction = 0f;
         fixture.isSensor = true;
-        // fixture.filter.groupIndex = CONTACT_CORREDORES;
 
         Body oBody = oWorldBox.createBody(bd);
         oBody.createFixture(fixture);
@@ -314,14 +309,11 @@ public class TiledMapManagerBox2d {
 
         CircleShape pies = new CircleShape();
         pies.setRadius(.2f);
-        // pies.setAsBox(.05f, .05f);
-
         FixtureDef fixture = new FixtureDef();
         fixture.shape = pies;
         fixture.density = 15f;
         fixture.restitution = 0f;
         fixture.friction = 0f;
-        // fixture.filter.groupIndex = CONTACT_CORREDORES;
 
         Body oBody = oWorldBox.createBody(bd);
         oBody.setGravityScale(0);
