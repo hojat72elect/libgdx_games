@@ -6,41 +6,33 @@ import com.badlogic.gdx.physics.box2d.Body
 import com.nopalsoft.lander.Settings
 
 class Nave(x: Float, y: Float) {
-    var velocidadFly: Float = VELOCIDAD_FLY
-    var velocidadMove: Float = VELOCIDAD_MOVE
+    var velocidadFly = VELOCIDAD_FLY
+    var velocidadMove = VELOCIDAD_MOVE
+    var gas = GAS_INICIAL
+    var vida = VIDA_INICIAL
+    var position = Vector2(x, y)
+    private lateinit var velocity: Vector2
 
     @JvmField
-    var gas: Float = GAS_INICIAL
+    var angleRad = 0f
 
     @JvmField
-    var vida: Float = VIDA_INICIAL
+    var state = STATE_NORMAL
 
     @JvmField
-    var position: Vector2 = Vector2(x, y)
-    var velocity: Vector2? = null
+    var stateTime = 0f
 
     @JvmField
-    var angleRad: Float = 0f
-
-    @JvmField
-    var state: Int = STATE_NORMAL
-
-    @JvmField
-    var stateTime: Float = 0f
-
-    @JvmField
-    var isFlying: Boolean
-    var isHurtByBomb: Boolean = false
+    var isFlying = false
+    var isHurtByBomb = false
 
     /**
      * Cuando aterrizo en el area de ganar el juego
      */
     @JvmField
-    var isLanded: Boolean = false
+    var isLanded = false
 
     init {
-        isFlying = false
-
         // Upgrades
         velocidadFly += (.09f * Settings.nivelVelocidadY)
         velocidadMove += (.02f * Settings.nivelRotacion)
@@ -69,28 +61,28 @@ class Nave(x: Float, y: Float) {
             if (isHurtByBomb && stateTime > TIME_HURT_BY_BOMB) isHurtByBomb = false
 
             if (!isHurtByBomb) {
-                if (velocity!!.y > MAX_SPEED_Y) {
-                    velocity!!.y = MAX_SPEED_Y
+                if (velocity.y > MAX_SPEED_Y) {
+                    velocity.y = MAX_SPEED_Y
                     body.linearVelocity = velocity
-                } else if (velocity!!.y < MIN_SPEED_Y) {
-                    velocity!!.y = MIN_SPEED_Y
+                } else if (velocity.y < MIN_SPEED_Y) {
+                    velocity.y = MIN_SPEED_Y
                     body.linearVelocity = velocity
                 }
-                if (velocity!!.x > MAX_SPEED_X) {
-                    velocity!!.x = MAX_SPEED_X
+                if (velocity.x > MAX_SPEED_X) {
+                    velocity.x = MAX_SPEED_X
                     body.linearVelocity = velocity
-                } else if (velocity!!.x < -MAX_SPEED_X) {
-                    velocity!!.x = -MAX_SPEED_X
+                } else if (velocity.x < -MAX_SPEED_X) {
+                    velocity.x = -MAX_SPEED_X
                     body.linearVelocity = velocity
                 }
             }
 
             angleRad = MathUtils.atan2(-accelX, accelY)
 
-            position.x = body.getPosition().x
-            position.y = body.getPosition().y
+            position.x = body.position.x
+            position.y = body.position.y
 
-            val MAX_ANGLE_DEGREES = 35F
+
             val angleLimitRad = Math.toRadians(MAX_ANGLE_DEGREES.toDouble()).toFloat()
 
             if (angleRad > angleLimitRad) angleRad = angleLimitRad
@@ -129,29 +121,22 @@ class Nave(x: Float, y: Float) {
     }
 
     companion object {
-        const val DRAW_WIDTH: Float = .7f
-        const val DRAW_HEIGHT: Float = 1.59f
-        const val WIDTH: Float = .5f
-        const val HEIGHT: Float = 1.0f
-
-        const val DENSIDAD_INICIAL: Float = .7f
-
-        const val VELOCIDAD_FLY: Float = 2f
-        const val MAX_SPEED_Y: Float = 2f
-        const val MIN_SPEED_Y: Float = -4f
-        const val VELOCIDAD_MOVE: Float = 1.3f
-        const val MAX_SPEED_X: Float = 1f
-        const val GAS_INICIAL: Float = 100f
-        const val VIDA_INICIAL: Float = 20f
-
-        @JvmField
-        var STATE_NORMAL: Int = 0
-
-        @JvmField
-        var STATE_EXPLODE: Int = 1
-
-        @JvmField
-        var EXPLODE_TIME: Float = .05f * 20
-        var TIME_HURT_BY_BOMB: Float = .05f // Debe ser un numero pequeno
+        const val DRAW_WIDTH = .7f
+        const val DRAW_HEIGHT = 1.59f
+        const val WIDTH = .5f
+        const val HEIGHT = 1.0f
+        const val DENSIDAD_INICIAL = .7f
+        const val VELOCIDAD_FLY = 2f
+        const val MAX_SPEED_Y = 2f
+        const val MIN_SPEED_Y = -4f
+        const val VELOCIDAD_MOVE = 1.3f
+        const val MAX_SPEED_X = 1f
+        const val GAS_INICIAL = 100f
+        const val VIDA_INICIAL = 20f
+        const val STATE_NORMAL = 0
+        const val STATE_EXPLODE = 1
+        private const val MAX_ANGLE_DEGREES = 35F
+        const val EXPLODE_TIME = .05f * 20
+        var TIME_HURT_BY_BOMB = .05f // Debe ser un numero pequeno
     }
 }
