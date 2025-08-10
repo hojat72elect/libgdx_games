@@ -13,33 +13,30 @@ import com.nopalsoft.lander.screens.Screens
 
 class WorldGameRenderer(val batcher: SpriteBatch, val oWorld: WorldGame) {
 
-    val WIDTH = Screens.WORLD_SCREEN_WIDTH
-    val HEIGHT = Screens.WORLD_SCREEN_HEIGHT
-    var CAM_MIN_X = WIDTH / 2F
-    var CAM_MIN_Y = HEIGHT / 2F
-    var CAM_MAX_X = Assets.map!!.properties.get("tamanoMapaX", String::class.java).toFloat() * oWorld.unitScale * 32 - (WIDTH / 2f)
-    var CAM_MAX_Y = Assets.map!!.properties.get("tamanoMapaY", String::class.java).toFloat() * oWorld.unitScale * 32 - (HEIGHT / 2f)
-    var oCam = OrthographicCamera(WIDTH, HEIGHT)
+
+    var cameraMaxX = Assets.map!!.properties.get("tamanoMapaX", String::class.java).toFloat() * oWorld.unitScale * 32 - (WIDTH / 2f)
+    var cameraMaxY = Assets.map!!.properties.get("tamanoMapaY", String::class.java).toFloat() * oWorld.unitScale * 32 - (HEIGHT / 2f)
+    var camera = OrthographicCamera(WIDTH, HEIGHT)
     var tiledRenderer = OrthogonalTiledMapRenderer(Assets.map, oWorld.unitScale)
     var renderBox = Box2DDebugRenderer()
 
     init {
-        this.oCam.position.set(WIDTH / 2f, HEIGHT / 2f, 0f)
+        this.camera.position.set(WIDTH / 2f, HEIGHT / 2f, 0f)
     }
 
     fun render() {
-        oCam.position.x = oWorld.oNave!!.position.x
-        oCam.position.y = oWorld.oNave!!.position.y
+        camera.position.x = oWorld.oNave!!.position.x
+        camera.position.y = oWorld.oNave!!.position.y
 
-        if (oCam.position.y < CAM_MIN_Y) oCam.position.y = CAM_MIN_Y
-        if (oCam.position.x < CAM_MIN_X) oCam.position.x = CAM_MIN_X
+        if (camera.position.y < CAM_MIN_Y) camera.position.y = CAM_MIN_Y
+        if (camera.position.x < CAM_MIN_X) camera.position.x = CAM_MIN_X
 
-        if (oCam.position.y > CAM_MAX_Y) oCam.position.y = CAM_MAX_Y
+        if (camera.position.y > cameraMaxY) camera.position.y = cameraMaxY
 
-        if (oCam.position.x > CAM_MAX_X) oCam.position.x = CAM_MAX_X
+        if (camera.position.x > cameraMaxX) camera.position.x = cameraMaxX
 
-        oCam.update()
-        batcher.setProjectionMatrix(oCam.combined)
+        camera.update()
+        batcher.setProjectionMatrix(camera.combined)
 
         renderTiled()
 
@@ -53,12 +50,12 @@ class WorldGameRenderer(val batcher: SpriteBatch, val oWorld: WorldGame) {
         batcher.end()
 
         if (Assets.isDebug) {
-            renderBox.render(oWorld.oWorldBox, oCam.combined)
+            renderBox.render(oWorld.oWorldBox, camera.combined)
         }
     }
 
     fun renderTiled() {
-        tiledRenderer.setView(oCam)
+        tiledRenderer.setView(camera)
         tiledRenderer.render()
     }
 
@@ -127,5 +124,12 @@ class WorldGameRenderer(val batcher: SpriteBatch, val oWorld: WorldGame) {
                 batcher.draw(keyframe, obj.position.x - .25f, obj.position.y - .25f, .5f, .5f)
             }
         }
+    }
+
+    companion object {
+        private const val WIDTH = Screens.WORLD_SCREEN_WIDTH
+        private const val HEIGHT = Screens.WORLD_SCREEN_HEIGHT
+        private const val CAM_MIN_X = WIDTH / 2F
+        private const val CAM_MIN_Y = HEIGHT / 2F
     }
 }
