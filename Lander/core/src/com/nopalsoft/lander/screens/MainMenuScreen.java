@@ -93,12 +93,9 @@ public class MainMenuScreen extends Screens {
         addActionToButtonLeave(btSettings, btSettings.getX(), -100);
         addActionToButtonLeave(btMore, btMore.getX(), -100);
 
-        getStage().addAction(Actions.sequence(Actions.delay(.75f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                if (screen == LevelScreen.class) {
-                    getGame().setScreen(new LevelScreen(getGame()));
-                }
+        getStage().addAction(Actions.sequence(Actions.delay(.75f), Actions.run(() -> {
+            if (screen == LevelScreen.class) {
+                getGame().setScreen(new LevelScreen(getGame()));
             }
         })));
     }
