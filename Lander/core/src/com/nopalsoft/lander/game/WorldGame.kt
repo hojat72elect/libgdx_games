@@ -3,7 +3,6 @@ package com.nopalsoft.lander.game
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.World
-import com.badlogic.gdx.utils.Array
 import com.nopalsoft.lander.Assets
 import com.nopalsoft.lander.game.objetos.Bomba
 import com.nopalsoft.lander.game.objetos.Estrella
@@ -11,7 +10,7 @@ import com.nopalsoft.lander.game.objetos.Gas
 import com.nopalsoft.lander.game.objetos.Laser
 import com.nopalsoft.lander.game.objetos.Nave
 import com.nopalsoft.lander.game.objetos.Plataforma
-import java.util.Random
+import com.badlogic.gdx.utils.Array as GdxArray
 
 class WorldGame {
 
@@ -27,13 +26,12 @@ class WorldGame {
     var timeOutOfGas = 0f
     var timeforNextLevel = 0f
     var oNave: Nave? = null
-    var arrPlataformas = Array<Plataforma>()
-    var arrEstrellas = Array<Estrella>()
-    var arrGas = Array<Gas>()
-    var arrLaser = Array<Laser>()
-    var arrBombas = Array<Bomba>()
-    var arrBodies = Array<Body>()
-    var oRan = Random()
+    var arrPlataformas = GdxArray<Plataforma>()
+    var arrEstrellas = GdxArray<Estrella>()
+    var arrGas = GdxArray<Gas>()
+    var arrLaser = GdxArray<Laser>()
+    var arrBombas = GdxArray<Bomba>()
+    var arrBodies = GdxArray<Body>()
 
     init {
         oWorldBox.setContactListener(Colisiones(this))
