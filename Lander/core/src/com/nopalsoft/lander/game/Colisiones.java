@@ -48,9 +48,9 @@ public class Colisiones implements ContactListener {
         if (oOtraCosa instanceof Gas) {
             Gas obj = (Gas) oOtraCosa;
 
-            if (obj.state == Gas.STATE_NORMAL) {
+            if (obj.getState() == Gas.STATE_NORMAL) {
                 oNave.gas += 100;
-                obj.state = Gas.STATE_TOMADA;
+                obj.setState(Gas.STATE_TOMADA);
             }
             return;
         } else if (oOtraCosa instanceof Estrella) {

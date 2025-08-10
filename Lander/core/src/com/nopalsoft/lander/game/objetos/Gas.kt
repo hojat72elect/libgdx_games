@@ -1,29 +1,23 @@
-package com.nopalsoft.lander.game.objetos;
+package com.nopalsoft.lander.game.objetos
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.Body
 
-public class Gas {
+class Gas(x: Float, y: Float, width: Float, height: Float) {
 
-    public static int STATE_NORMAL = 0;
-    public static int STATE_TOMADA = 1;
+    var position: Vector2 = Vector2(x, y)
+    var size: Vector2? = Vector2(width, height)
+    var stateTime: Float = 0f
+    var state: Int = STATE_NORMAL
 
-    public Vector2 position;
-    public Vector2 size;
-    public float stateTime;
-
-    public int state;
-
-    public Gas(float x, float y, float width, float height) {
-        position = new Vector2(x, y);
-        size = new Vector2(width, height);
-        stateTime = 0;
-        state = STATE_NORMAL;
+    fun update(delta: Float, body: Body) {
+        position.x = body.getPosition().x
+        position.y = body.getPosition().y
+        stateTime += delta
     }
 
-    public void update(float delta, Body body) {
-        position.x = body.getPosition().x;
-        position.y = body.getPosition().y;
-        stateTime += delta;
+    companion object {
+        const val STATE_NORMAL = 0
+        const val STATE_TOMADA = 1
     }
 }

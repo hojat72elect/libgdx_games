@@ -109,7 +109,7 @@ public class WorldGameRenderer {
 
     public void renderGas() {
         for (Gas obj : oWorld.arrGas) {
-            batcher.draw(Assets.gas, obj.position.x - .25f, obj.position.y - .25f, .5f, .5f);
+            batcher.draw(Assets.gas, obj.getPosition().x - .25f, obj.getPosition().y - .25f, .5f, .5f);
         }
     }
 

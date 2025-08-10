@@ -239,8 +239,8 @@ public class TiledMapManagerBox2d {
 
         Gas obj = new Gas(x, y, width, height);
         BodyDef bd = new BodyDef();
-        bd.position.y = obj.position.y;
-        bd.position.x = obj.position.x;
+        bd.position.y = obj.getPosition().y;
+        bd.position.x = obj.getPosition().x;
         bd.type = BodyType.StaticBody;
 
         PolygonShape pies = new PolygonShape();
@@ -252,7 +252,6 @@ public class TiledMapManagerBox2d {
         fixture.restitution = 0f;
         fixture.friction = 0f;
         fixture.isSensor = true;
-        // fixture.filter.groupIndex = CONTACT_CORREDORES;
 
         Body oBody = oWorldBox.createBody(bd);
         oBody.createFixture(fixture);

@@ -67,7 +67,7 @@ public class WorldGame {
                 updateNave(body, delta, accelY, accelX);
             } else if (body.getUserData() instanceof Gas) {
                 Gas obj = (Gas) body.getUserData();
-                if (obj.state == Gas.STATE_TOMADA && !oWorldBox.isLocked()) {
+                if (obj.getState() == Gas.STATE_TOMADA && !oWorldBox.isLocked()) {
                     oWorldBox.destroyBody(body);
                     arrGas.removeValue(obj, true);
                 }
