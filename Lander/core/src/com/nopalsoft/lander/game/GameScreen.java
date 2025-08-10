@@ -56,8 +56,8 @@ public class GameScreen extends Screens {
         marcoStats.setBackground(Assets.marcoStats);
         marcoStats.setPosition(0, SCREEN_HEIGHT - 99);
 
-        lifeBar = new LifeBar(oWorld.oNave.getVida());
-        gasBar = new LifeBar(oWorld.oNave.gas);
+        lifeBar = new LifeBar(oWorld.getONave().getVida());
+        gasBar = new LifeBar(oWorld.getONave().gas);
 
         marcoStats.add(lifeBar).width(90).height(25).padLeft(35).padBottom(5);
         marcoStats.row();
@@ -109,12 +109,12 @@ public class GameScreen extends Screens {
 
         oWorld.update(delta, accelY, accelX);
 
-        lifeBar.updateActualLife(oWorld.oNave.getVida());
-        gasBar.updateActualLife(oWorld.oNave.gas);
+        lifeBar.updateActualLife(oWorld.getONave().getVida());
+        gasBar.updateActualLife(oWorld.getONave().gas);
 
-        if (oWorld.state == WorldGame.STATE_GAME_OVER) {
+        if (oWorld.getState() == WorldGame.Companion.getSTATE_GAME_OVER()) {
             setGameover();
-        } else if (oWorld.state == WorldGame.STATE_NEXT_LEVEL) {
+        } else if (oWorld.getState() == WorldGame.Companion.getSTATE_NEXT_LEVEL()) {
             setNextLevel();
         }
     }

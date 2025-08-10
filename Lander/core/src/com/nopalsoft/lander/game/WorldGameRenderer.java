@@ -52,8 +52,8 @@ public class WorldGameRenderer {
 
     public void render() {
 
-        oCam.position.x = oWorld.oNave.getPosition().x;
-        oCam.position.y = oWorld.oNave.getPosition().y;
+        oCam.position.x = oWorld.getONave().getPosition().x;
+        oCam.position.y = oWorld.getONave().getPosition().y;
 
         if (oCam.position.y < CAM_MIN_Y)
             oCam.position.y = CAM_MIN_Y;
@@ -81,7 +81,7 @@ public class WorldGameRenderer {
         batcher.end();
 
         if (Assets.isDebug) {
-            renderBox.render(oWorld.oWorldBox, oCam.combined);
+            renderBox.render(oWorld.getOWorldBox(), oCam.combined);
         }
     }
 
@@ -91,7 +91,7 @@ public class WorldGameRenderer {
     }
 
     public void renderNave() {
-        Nave obj = oWorld.oNave;
+        Nave obj = oWorld.getONave();
 
         TextureRegion keyframe;
 
@@ -108,19 +108,19 @@ public class WorldGameRenderer {
     }
 
     public void renderGas() {
-        for (Gas obj : oWorld.arrGas) {
+        for (Gas obj : oWorld.getArrGas()) {
             batcher.draw(Assets.gas, obj.getPosition().x - .25f, obj.getPosition().y - .25f, .5f, .5f);
         }
     }
 
     public void renderEstrella() {
-        for (Estrella obj : oWorld.arrEstrellas) {
+        for (Estrella obj : oWorld.getArrEstrellas()) {
             batcher.draw(Assets.star, obj.getPosition().x - .25f, obj.getPosition().y - .25f, .5f, .5f);
         }
     }
 
     public void renderLaser() {
-        for (Laser obj : oWorld.arrLaser) {
+        for (Laser obj : oWorld.getArrLaser()) {
             if (obj.directionInteger == Laser.DIRECCION_HORIZONTAL) {
                 if (obj.state == Laser.STATE_FIRE)
                     batcher.draw(Assets.laser.getKeyFrame(obj.stateTime, true), obj.position.x - obj.getWidth() / 2f, obj.position.y - obj.getHeight() / 2f, obj.getWidth(), obj.getHeight());
@@ -132,7 +132,7 @@ public class WorldGameRenderer {
     }
 
     public void renderBombas() {
-        for (Bomba obj : oWorld.arrBombas) {
+        for (Bomba obj : oWorld.getArrBombas()) {
             TextureRegion keyframe;
             if (obj.state == Bomba.STATE_EXPLOSION) {
                 keyframe = Assets.explosion.getKeyFrame(obj.stateTime, false);

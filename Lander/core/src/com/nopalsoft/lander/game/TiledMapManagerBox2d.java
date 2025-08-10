@@ -40,7 +40,7 @@ public class TiledMapManagerBox2d {
 
     public TiledMapManagerBox2d(WorldGame oWorld, float unitsPerPixel) {
         this.oWorld = oWorld;
-        oWorldBox = oWorld.oWorldBox;
+        oWorldBox = oWorld.getOWorldBox();
         m_units = unitsPerPixel;
         logger = new Logger("MapBodyManager", 1);
 
@@ -163,7 +163,7 @@ public class TiledMapManagerBox2d {
         Plataforma plataforma = new Plataforma(x, y, width, height);
 
         body.setUserData(plataforma);
-        oWorld.arrPlataformas.add(plataforma);
+        oWorld.getArrPlataformas().add(plataforma);
 
         if (tipo.equals("inicio"))
             crearNave(plataforma);
@@ -195,7 +195,7 @@ public class TiledMapManagerBox2d {
 
         shape.dispose();
 
-        oWorld.oNave = oNave;
+        oWorld.setONave(oNave);
     }
 
     private void crearEstrella(MapObject object) {
@@ -226,7 +226,7 @@ public class TiledMapManagerBox2d {
 
         oBody.setUserData(obj);
 
-        oWorld.arrEstrellas.add(obj);
+        oWorld.getArrEstrellas().add(obj);
         pies.dispose();
     }
 
@@ -258,7 +258,7 @@ public class TiledMapManagerBox2d {
 
         oBody.setUserData(obj);
 
-        oWorld.arrGas.add(obj);
+        oWorld.getArrGas().add(obj);
         pies.dispose();
     }
 
@@ -296,7 +296,7 @@ public class TiledMapManagerBox2d {
 
         oBody.setUserData(obj);
 
-        oWorld.arrLaser.add(obj);
+        oWorld.getArrLaser().add(obj);
         pies.dispose();
     }
 
@@ -328,7 +328,7 @@ public class TiledMapManagerBox2d {
         oBody.createFixture(fixture);
 
         oBody.setUserData(obj);
-        oWorld.arrBombas.add(obj);
+        oWorld.getArrBombas().add(obj);
 
         pies.dispose();
     }

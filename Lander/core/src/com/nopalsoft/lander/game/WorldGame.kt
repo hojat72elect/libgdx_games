@@ -15,55 +15,29 @@ import java.util.Random
 
 class WorldGame {
 
-    @JvmField
-    var oWorldBox: World
-    var graivity: Vector2? = Vector2(0f, -4.9f)
+    var graivity = Vector2(0f, -4.9f)
+    var oWorldBox = World(graivity, true)
+    var state = 0
 
     @JvmField
-    var state: Int = 0
+    var estrellasTomadas: Int = 0
 
     @JvmField
-    var estrellasTomadas: Int
-
-    @JvmField
-    var unitScale: Float = 1 / 100f
-    var timeOutOfGas: Float = 0f
-    var timeforNextLevel: Float = 0f
-
-    @JvmField
+    var unitScale = 1 / 100f
+    var timeOutOfGas = 0f
+    var timeforNextLevel = 0f
     var oNave: Nave? = null
-
-    @JvmField
-    var arrPlataformas: Array<Plataforma?>?
-
-    @JvmField
-    var arrEstrellas: Array<Estrella?>
-
-    @JvmField
-    var arrGas: Array<Gas?>
-
-    @JvmField
-    var arrLaser: Array<Laser?>?
-
-    @JvmField
-    var arrBombas: Array<Bomba?>
-    var arrBodies: Array<Body>
-    var oRan: Random?
+    var arrPlataformas = Array<Plataforma>()
+    var arrEstrellas = Array<Estrella>()
+    var arrGas = Array<Gas>()
+    var arrLaser = Array<Laser>()
+    var arrBombas = Array<Bomba>()
+    var arrBodies = Array<Body>()
+    var oRan = Random()
 
     init {
-        oWorldBox = World(graivity, true)
         oWorldBox.setContactListener(Colisiones(this))
-
-        arrBodies = Array<Body>()
-        arrPlataformas = Array<Plataforma?>()
-        arrEstrellas = Array<Estrella?>()
-        arrGas = Array<Gas?>()
-        arrLaser = Array<Laser?>()
-        arrBombas = Array<Bomba?>()
-        estrellasTomadas = 0
-
         TiledMapManagerBox2d(this, unitScale).createObjetosDesdeTiled(Assets.map)
-        oRan = Random()
     }
 
     fun update(delta: Float, accelY: Float, accelX: Float) {
@@ -147,11 +121,7 @@ class WorldGame {
 
     companion object {
         var STATE_RUNNING = 0
-
-        @JvmField
         var STATE_GAME_OVER = 2
-
-        @JvmField
         var STATE_NEXT_LEVEL = 3
         private const val TIME_OUT_OF_GAS = 1.5f
         private const val TIME_FOR_NEXT_LEVEL = .75f
