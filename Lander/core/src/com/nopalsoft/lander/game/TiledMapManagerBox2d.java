@@ -205,7 +205,7 @@ public class TiledMapManagerBox2d {
         float height = (rectangle.height * m_units * 0.5f);
         float width = (rectangle.width * m_units * 0.5f);
 
-        Estrella obj = new Estrella(x, y, width, height);
+        Estrella obj = new Estrella(x, y);
         BodyDef bd = new BodyDef();
         bd.position.y = obj.getPosition().y;
         bd.position.x = obj.getPosition().x;
