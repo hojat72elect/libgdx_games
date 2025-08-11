@@ -35,7 +35,7 @@ class WorldGame {
 
     init {
         oWorldBox.setContactListener(Colisiones(this))
-        TiledMapManagerBox2d(this, unitScale).createObjetosDesdeTiled(Assets.map)
+        TiledMapManagerBox2d(this, unitScale).createObjetosDesdeTiled(Assets.map!!)
     }
 
     fun update(delta: Float, accelY: Float, accelX: Float) {
