@@ -23,7 +23,7 @@ class GameScreen(game: MainLander, val level: Int) : Screens(game) {
     var oWorld: WorldGame
     var renderer: WorldGameRenderer
 
-    var sensibilidad: Float = 3f
+    var sensibilidad = 3F
 
     var lifeBar: LifeBar
     var gasBar: LifeBar
@@ -52,9 +52,9 @@ class GameScreen(game: MainLander, val level: Int) : Screens(game) {
         lifeBar = LifeBar(oWorld.oNave!!.vida)
         gasBar = LifeBar(oWorld.oNave!!.gas)
 
-        marcoStats.add<LifeBar?>(lifeBar).width(90f).height(25f).padLeft(35f).padBottom(5f)
+        marcoStats.add(lifeBar).width(90f).height(25f).padLeft(35f).padBottom(5f)
         marcoStats.row()
-        marcoStats.add<LifeBar?>(gasBar).width(90f).height(25f).padLeft(35f).padTop(6f)
+        marcoStats.add(gasBar).width(90f).height(25f).padLeft(35f).padTop(6f)
 
         // Pause Button
         btPause = ImageButton(Assets.styleImageButtonPause)
@@ -138,10 +138,10 @@ class GameScreen(game: MainLander, val level: Int) : Screens(game) {
     }
 
     companion object {
-        const val STATE_READY: Int = 0
-        const val STATE_RUNNING: Int = 1
-        const val STATE_PAUSED: Int = 2
-        const val STATE_GAME_OVER: Int = 3
-        var state: Int = 0
+        const val STATE_READY = 0
+        const val STATE_RUNNING = 1
+        const val STATE_PAUSED = 2
+        const val STATE_GAME_OVER = 3
+        var state = 0
     }
 }
