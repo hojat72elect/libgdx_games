@@ -31,12 +31,12 @@ class VentanaShop(var game: MainLander?) : Window("", Assets.styleDialogGameOver
     var arrPower = arrayOfNulls<Image>(NIVEL_MAX_UPGRADES)// It doesn't upgrade anything, it only serves to take money.
     var arrOtro1 = arrayOfNulls<Image>(NIVEL_MAX_UPGRADES) // It doesn't upgrade anything, it only serves to take money.
 
-    var btUpVida: ImageButton? = null
-    var btUpVelocidadY: ImageButton? = null
-    var btUpGas: ImageButton? = null
-    var btUpRotacion: ImageButton? = null
-    var btUpPower: ImageButton? = null
-    var btUpOtro1: ImageButton? = null
+    lateinit var btUpVida: ImageButton
+    lateinit var btUpVelocidadY: ImageButton
+    lateinit var btUpGas: ImageButton
+    lateinit var btUpRotacion: ImageButton
+    lateinit var btUpPower: ImageButton
+    lateinit var btUpOtro1: ImageButton
 
     var btMenu: ImageButton? = null
     var ignoreTouchDown: InputListener = object : InputListener() {
@@ -146,7 +146,7 @@ class VentanaShop(var game: MainLander?) : Window("", Assets.styleDialogGameOver
 
     private fun initBotonesUpgrades() {
         btUpVelocidadY = ImageButton(Assets.styleImageButtonUpgradePlus)
-        btUpVelocidadY!!.addListener(object : ClickListener() {
+        btUpVelocidadY.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 Settings.nivelVelocidadY++
                 setArrays()
@@ -154,7 +154,7 @@ class VentanaShop(var game: MainLander?) : Window("", Assets.styleDialogGameOver
         })
 
         btUpVida = ImageButton(Assets.styleImageButtonUpgradePlus)
-        btUpVida!!.addListener(object : ClickListener() {
+        btUpVida.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 Settings.nivelVida++
                 setArrays()
@@ -162,7 +162,7 @@ class VentanaShop(var game: MainLander?) : Window("", Assets.styleDialogGameOver
         })
 
         btUpGas = ImageButton(Assets.styleImageButtonUpgradePlus)
-        btUpGas!!.addListener(object : ClickListener() {
+        btUpGas.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 Settings.nivelGas++
                 setArrays()
@@ -170,7 +170,7 @@ class VentanaShop(var game: MainLander?) : Window("", Assets.styleDialogGameOver
         })
 
         btUpRotacion = ImageButton(Assets.styleImageButtonUpgradePlus)
-        btUpRotacion!!.addListener(object : ClickListener() {
+        btUpRotacion.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 Settings.nivelRotacion++
                 setArrays()
@@ -178,7 +178,7 @@ class VentanaShop(var game: MainLander?) : Window("", Assets.styleDialogGameOver
         })
 
         btUpPower = ImageButton(Assets.styleImageButtonUpgradePlus)
-        btUpPower!!.addListener(object : ClickListener() {
+        btUpPower.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 Settings.nivelPower++
                 setArrays()
@@ -186,7 +186,7 @@ class VentanaShop(var game: MainLander?) : Window("", Assets.styleDialogGameOver
         })
 
         btUpOtro1 = ImageButton(Assets.styleImageButtonUpgradePlus)
-        btUpOtro1!!.addListener(object : ClickListener() {
+        btUpOtro1.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 Settings.nivelOtro1++
                 setArrays()
@@ -209,7 +209,7 @@ class VentanaShop(var game: MainLander?) : Window("", Assets.styleDialogGameOver
             arrRotacion[i]!!.setDrawable(TextureRegionDrawable(Assets.upgradeOn))
         }
         if (Settings.nivelRotacion >= NIVEL_MAX_UPGRADES) {
-            btUpRotacion!!.isVisible = false
+            btUpRotacion.isVisible = false
         }
 
         // SpeedY
@@ -217,7 +217,7 @@ class VentanaShop(var game: MainLander?) : Window("", Assets.styleDialogGameOver
             arrVelocidadY[i]!!.setDrawable(TextureRegionDrawable(Assets.upgradeOn))
         }
         if (Settings.nivelVelocidadY >= NIVEL_MAX_UPGRADES) {
-            btUpVelocidadY!!.isVisible = false
+            btUpVelocidadY.isVisible = false
         }
 
         // Life
@@ -225,7 +225,7 @@ class VentanaShop(var game: MainLander?) : Window("", Assets.styleDialogGameOver
             arrVida[i]!!.setDrawable(TextureRegionDrawable(Assets.upgradeOn))
         }
         if (Settings.nivelVida >= NIVEL_MAX_UPGRADES) {
-            btUpVida!!.isVisible = false
+            btUpVida.isVisible = false
         }
 
         // Gas
@@ -233,7 +233,7 @@ class VentanaShop(var game: MainLander?) : Window("", Assets.styleDialogGameOver
             arrGas[i]!!.setDrawable(TextureRegionDrawable(Assets.upgradeOn))
         }
         if (Settings.nivelGas >= NIVEL_MAX_UPGRADES) {
-            btUpGas!!.isVisible = false
+            btUpGas.isVisible = false
         }
 
         // Power
@@ -241,7 +241,7 @@ class VentanaShop(var game: MainLander?) : Window("", Assets.styleDialogGameOver
             arrPower[i]!!.setDrawable(TextureRegionDrawable(Assets.upgradeOn))
         }
         if (Settings.nivelPower >= NIVEL_MAX_UPGRADES) {
-            btUpPower!!.isVisible = false
+            btUpPower.isVisible = false
         }
 
         // Other1
@@ -249,7 +249,7 @@ class VentanaShop(var game: MainLander?) : Window("", Assets.styleDialogGameOver
             arrOtro1[i]!!.setDrawable(TextureRegionDrawable(Assets.upgradeOn))
         }
         if (Settings.nivelOtro1 >= NIVEL_MAX_UPGRADES) {
-            btUpOtro1!!.isVisible = false
+            btUpOtro1.isVisible = false
         }
     }
 
