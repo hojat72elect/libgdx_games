@@ -24,13 +24,14 @@ import com.nopalsoft.lander.screens.Screens
  * I used the Window class because I had to put the little mark on it.
  */
 class VentanaCompleted(var game: MainLander, var oWorld: WorldGame, levelActual: Int) : Window("", Assets.styleDialogGameOver) {
-    var lblLevelActual: Label?
-    var estrellas: Array<Image?>
 
-    var btMenu: ImageButton?
-    var btTryAgain: ImageButton?
-    var btNextLevel: ImageButton?
-    var ignoreTouchDown: InputListener = object : InputListener() {
+    var lblLevelActual = Label("Level " + (levelActual + 1), Assets.styleLabelMediana)
+    var estrellas = arrayOfNulls<Image>(3)
+    var btMenu = ImageButton(Assets.styleImageButtonPause)
+    var btTryAgain = ImageButton(Assets.styleImageButtonPause)
+    var btNextLevel = ImageButton(Assets.styleImageButtonPause)
+
+    var ignoreTouchDown = object : InputListener() {
         override fun touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean {
             event.cancel()
             return false
@@ -41,9 +42,6 @@ class VentanaCompleted(var game: MainLander, var oWorld: WorldGame, levelActual:
         this.setMovable(false)
 
         val paused = Label("Level Completed", Assets.styleLabelMediana)
-        lblLevelActual = Label("Level " + (levelActual + 1), Assets.styleLabelMediana)
-
-        estrellas = arrayOfNulls<Image>(3)
         val starTable = Table()
         starTable.defaults().pad(15f)
         if (oWorld.estrellasTomadas >= 0) {
@@ -54,45 +52,36 @@ class VentanaCompleted(var game: MainLander, var oWorld: WorldGame, levelActual:
             }
         }
 
-        btMenu = ImageButton(Assets.styleImageButtonPause)
-        btMenu!!.addListener(object : ClickListener() {
+        btMenu.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide(LevelScreen::class.java, 0)
             }
         })
-
-        btTryAgain = ImageButton(Assets.styleImageButtonPause)
-        btTryAgain!!.addListener(object : ClickListener() {
+        btTryAgain.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide(GameScreen::class.java, levelActual)
             }
         })
-
-        btNextLevel = ImageButton(Assets.styleImageButtonPause)
-        btNextLevel!!.addListener(object : ClickListener() {
+        btNextLevel.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 hide(GameScreen::class.java, levelActual + 1)
             }
         })
 
         this.row().padTop(30f)
-        this.add<Label?>(paused).colspan(3)
-
+        this.add(paused).colspan(3)
         this.row().padTop(30f)
-        this.add<Label?>(lblLevelActual).colspan(3)
-
+        this.add(lblLevelActual).colspan(3)
         this.row().padTop(30f)
-        this.add<Table?>(starTable).colspan(3)
-
+        this.add(starTable).colspan(3)
         this.row().padTop(30f).expandX()
-        this.add<ImageButton?>(btMenu)
-        this.add<ImageButton?>(btTryAgain)
-        this.add<ImageButton?>(btNextLevel)
-
+        this.add(btMenu)
+        this.add(btTryAgain)
+        this.add(btNextLevel)
         this.row().expandX()
-        this.add<Label?>(Label("Menu", Assets.styleLabelMediana))
-        this.add<Label?>(Label("Try Again", Assets.styleLabelMediana))
-        this.add<Label?>(Label("Next Level", Assets.styleLabelMediana))
+        this.add(Label("Menu", Assets.styleLabelMediana))
+        this.add(Label("Try Again", Assets.styleLabelMediana))
+        this.add(Label("Next Level", Assets.styleLabelMediana))
     }
 
     fun show(stage: Stage) {
@@ -115,33 +104,29 @@ class VentanaCompleted(var game: MainLander, var oWorld: WorldGame, levelActual:
         addAction(sizeAction)
 
         stage.addActor(this)
-        if (fadeDuration > 0) {
-            getColor().a = 0f
-            addAction(Actions.fadeIn(fadeDuration, Interpolation.fade))
-        }
+        getColor().a = 0f
+        addAction(Actions.fadeIn(FADE_DURATION, Interpolation.fade))
     }
 
-    fun hide(newScreen: Class<*>?, level: Int) {
-        if (fadeDuration > 0) {
-            addCaptureListener(ignoreTouchDown)
+    fun hide(newScreen: Class<*>, level: Int) {
+        addCaptureListener(ignoreTouchDown)
 
-            val sizeAction = Actions.action(SizeToAction::class.java)
-            sizeAction.setSize(Screens.SCREEN_WIDTH.toFloat(), 0f) // FINAL HEIGHT
-            sizeAction.duration = .25f
+        val sizeAction = Actions.action(SizeToAction::class.java)
+        sizeAction.setSize(Screens.SCREEN_WIDTH.toFloat(), 0f) // FINAL HEIGHT
+        sizeAction.duration = .25f
 
-            val run = Actions.run {
-                if (newScreen == LevelScreen::class.java) {
-                    game.setScreen(LevelScreen(game))
-                } else if (newScreen == GameScreen::class.java) {
-                    game.setScreen(GameScreen(game, level))
-                }
+        val run = Actions.run {
+            if (newScreen == LevelScreen::class.java) {
+                game.setScreen(LevelScreen(game))
+            } else if (newScreen == GameScreen::class.java) {
+                game.setScreen(GameScreen(game, level))
             }
+        }
 
-            addAction(Actions.sequence(Actions.parallel(Actions.fadeOut(fadeDuration, Interpolation.fade), sizeAction), Actions.removeListener(ignoreTouchDown, true), run, Actions.removeActor()))
-        } else remove()
+        addAction(Actions.sequence(Actions.parallel(Actions.fadeOut(FADE_DURATION, Interpolation.fade), sizeAction), Actions.removeListener(ignoreTouchDown, true), run, Actions.removeActor()))
     }
 
     companion object {
-        var fadeDuration: Float = 0.4f
+        private const val FADE_DURATION = 0.4f
     }
 }
