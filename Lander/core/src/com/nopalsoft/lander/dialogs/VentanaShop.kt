@@ -24,12 +24,12 @@ import com.nopalsoft.lander.screens.Screens
 class VentanaShop(var game: MainLander?) : Window("", Assets.styleDialogGameOver) {
 
 
-    var arrVida: Array<Image?>
-    var arrVelocidadY: Array<Image?>
-    var arrRotacion: Array<Image?>
-    var arrGas: Array<Image?>
-    var arrPower: Array<Image?> // It doesn't upgrade anything, it only serves to take money.
-    var arrOtro1: Array<Image?> // It doesn't upgrade anything, it only serves to take money.
+    var arrVida = arrayOfNulls<Image>(NIVEL_MAX_UPGRADES)
+    var arrVelocidadY = arrayOfNulls<Image>(NIVEL_MAX_UPGRADES)
+    var arrRotacion = arrayOfNulls<Image>(NIVEL_MAX_UPGRADES)
+    var arrGas = arrayOfNulls<Image>(NIVEL_MAX_UPGRADES)
+    var arrPower = arrayOfNulls<Image>(NIVEL_MAX_UPGRADES)// It doesn't upgrade anything, it only serves to take money.
+    var arrOtro1 = arrayOfNulls<Image>(NIVEL_MAX_UPGRADES) // It doesn't upgrade anything, it only serves to take money.
 
     var btUpVida: ImageButton? = null
     var btUpVelocidadY: ImageButton? = null
@@ -48,14 +48,6 @@ class VentanaShop(var game: MainLander?) : Window("", Assets.styleDialogGameOver
 
     init {
         this.setMovable(false)
-
-        arrVida = arrayOfNulls<Image>(NIVEL_MAX_UPGRADES)
-        arrVelocidadY = arrayOfNulls<Image>(NIVEL_MAX_UPGRADES)
-        arrRotacion = arrayOfNulls<Image>(NIVEL_MAX_UPGRADES)
-        arrGas = arrayOfNulls<Image>(NIVEL_MAX_UPGRADES)
-        arrPower = arrayOfNulls<Image>(NIVEL_MAX_UPGRADES)
-        arrOtro1 = arrayOfNulls<Image>(NIVEL_MAX_UPGRADES)
-
         initBotonesMenu()
         initBotonesUpgrades()
 
