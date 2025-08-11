@@ -149,14 +149,11 @@ public class VentanaPaused extends Window {
             sizeAction.setSize(Screens.SCREEN_WIDTH, 0);//FINAL HEIGHT
             sizeAction.setDuration(.25f);
 
-            RunnableAction run = Actions.run(new Runnable() {
-                @Override
-                public void run() {
-                    if (newScreen == LevelScreen.class) {
-                        game.setScreen(new LevelScreen(game));
-                    } else if (newScreen == GameScreen.class) {
-                        game.setScreen(new GameScreen(game, levelActual));
-                    }
+            RunnableAction run = Actions.run(() -> {
+                if (newScreen == LevelScreen.class) {
+                    game.setScreen(new LevelScreen(game));
+                } else if (newScreen == GameScreen.class) {
+                    game.setScreen(new GameScreen(game, levelActual));
                 }
             });
 
