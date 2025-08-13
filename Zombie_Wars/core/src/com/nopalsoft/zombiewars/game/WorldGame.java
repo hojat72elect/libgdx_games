@@ -15,16 +15,9 @@ import com.nopalsoft.zombiewars.Assets;
 import com.nopalsoft.zombiewars.Settings;
 import com.nopalsoft.zombiewars.objetos.Bullet;
 import com.nopalsoft.zombiewars.objetos.Personajes;
-import com.nopalsoft.zombiewars.screens.Screens;
-
-import java.util.Iterator;
 
 public class WorldGame {
     static final int STATE_RUNNING = 0;
-    static final int STATE_GAMEOVER = 1;
-    static final int STATE_NEXT_LEVEL = 2;
-    final float WIDTH = Screens.WORLD_WIDTH;
-    final float HEIGHT = Screens.WORLD_HEIGHT;
     final float TIME_TO_SPAWN_ZOMBIE_FRANK;
     final float TIME_TO_SPAWN_ZOMBIE_CUASY;
     final float TIME_TO_SPAWN_ZOMBIE_KID;
@@ -58,10 +51,10 @@ public class WorldGame {
         oWorldBox = new World(new Vector2(0, -9.8f), true);
         oWorldBox.setContactListener(new Colisiones());
 
-        arrFacingRight = new Array<Personajes>();
-        arrFacingLeft = new Array<Personajes>();
-        arrBullets = new Array<Bullet>();
-        arrBodies = new Array<Body>();
+        arrFacingRight = new Array<>();
+        arrFacingLeft = new Array<>();
+        arrBullets = new Array<>();
+        arrBodies = new Array<>();
 
         objectCreatorManager = new ObjectCreatorManagerBox2d(this);
         new TiledMapManagerBox2d(this, unitScale).createObjetosDesdeTiled(Assets.map);
@@ -83,22 +76,18 @@ public class WorldGame {
         posCamara = new Vector2(xMin, yMin);
         state = STATE_RUNNING;
 
-        switch (nivel) {
-            case 0:
-                TIME_TO_SPAWN_ZOMBIE_KID = 3f;
-                TIME_TO_SPAWN_ZOMBIE_CUASY = 10f;
-                TIME_TO_SPAWN_ZOMBIE_MUMMY = 15f;
-                TIME_TO_SPAWN_ZOMBIE_PAN = 20f;
-                TIME_TO_SPAWN_ZOMBIE_FRANK = 25f;
-                break;
-
-            default:
-                TIME_TO_SPAWN_ZOMBIE_KID = 0f;
-                TIME_TO_SPAWN_ZOMBIE_CUASY = 0f;
-                TIME_TO_SPAWN_ZOMBIE_MUMMY = 0f;
-                TIME_TO_SPAWN_ZOMBIE_PAN = 0f;
-                TIME_TO_SPAWN_ZOMBIE_FRANK = 0f;
-                break;
+        if (nivel == 0) {
+            TIME_TO_SPAWN_ZOMBIE_KID = 3f;
+            TIME_TO_SPAWN_ZOMBIE_CUASY = 10f;
+            TIME_TO_SPAWN_ZOMBIE_MUMMY = 15f;
+            TIME_TO_SPAWN_ZOMBIE_PAN = 20f;
+            TIME_TO_SPAWN_ZOMBIE_FRANK = 25f;
+        } else {
+            TIME_TO_SPAWN_ZOMBIE_KID = 0f;
+            TIME_TO_SPAWN_ZOMBIE_CUASY = 0f;
+            TIME_TO_SPAWN_ZOMBIE_MUMMY = 0f;
+            TIME_TO_SPAWN_ZOMBIE_PAN = 0f;
+            TIME_TO_SPAWN_ZOMBIE_FRANK = 0f;
         }
     }
 
@@ -111,10 +100,8 @@ public class WorldGame {
         spawnStuff(delta);
 
         oWorldBox.getBodies(arrBodies);
-        Iterator<Body> i = arrBodies.iterator();
 
-        while (i.hasNext()) {
-            Body body = i.next();
+        for (Body body : arrBodies) {
             if (body.getUserData() instanceof Personajes) {
                 Personajes obj = (Personajes) body.getUserData();
                 if (obj.isFacingLeft)
@@ -128,11 +115,9 @@ public class WorldGame {
     }
 
     public void atackaLL() {
-        Iterator<Personajes> i = arrFacingLeft.iterator();
 
-        while (i.hasNext()) {
+        for (Personajes obj : arrFacingLeft) {
 
-            Personajes obj = i.next();
             if (obj.attack())
 
                 objectCreatorManager.createBullet(obj);
@@ -140,11 +125,9 @@ public class WorldGame {
     }
 
     public void dieALl() {
-        Iterator<Personajes> i = arrFacingLeft.iterator();
 
-        while (i.hasNext()) {
+        for (Personajes obj : arrFacingLeft) {
 
-            Personajes obj = i.next();
             obj.die();
         }
     }
@@ -216,14 +199,6 @@ public class WorldGame {
         int len = arrFacingRight.size;
         for (int i = 0; i < len; i++) {
             Personajes objBueno = arrFacingRight.get(i);
-            // if (obj.position.dst(objBueno.position.x, objBueno.position.y) <= obj.DISTANCE_ATTACK) {
-            // obj.attack();
-            //
-            // if (obj.attack) {
-            // objBueno.getHurt(obj.DAMAGE);
-            // obj.didAttackEnemy();
-            // }
-            // }
             if (obj.position.dst(objBueno.position.x, objBueno.position.y) <= obj.DISTANCE_ATTACK) {
                 if (obj.attack())
                     objectCreatorManager.createBullet(obj);
@@ -241,11 +216,8 @@ public class WorldGame {
 
     private void eliminarObjetos() {
         oWorldBox.getBodies(arrBodies);
-        Iterator<Body> i = arrBodies.iterator();
 
-        while (i.hasNext()) {
-            Body body = i.next();
-
+        for (Body body : arrBodies) {
             if (!oWorldBox.isLocked()) {
                 if (body.getUserData() instanceof Personajes) {
                     Personajes obj = (Personajes) body.getUserData();
@@ -256,21 +228,19 @@ public class WorldGame {
                             arrFacingRight.removeValue(obj, true);
 
                         oWorldBox.destroyBody(body);
-                        continue;
                     }
                 } else if (body.getUserData() instanceof Bullet) {
                     Bullet obj = (Bullet) body.getUserData();
                     if (obj.state == Bullet.STATE_DESTROY) {
                         arrBullets.removeValue(obj, true);
                         oWorldBox.destroyBody(body);
-                        continue;
                     }
                 }
             }
         }
     }
 
-    class Colisiones implements ContactListener {
+    static class Colisiones implements ContactListener {
 
         @Override
         public void beginContact(Contact contact) {
@@ -294,9 +264,6 @@ public class WorldGame {
                         return;
 
                     if (obj.state != Personajes.STATE_DEAD) {
-                        // if (obj.state != Zombie.STATE_DEAD)
-                        // Assets.zombieHit.play();
-
                         obj.getHurt(oBullet.DAMAGE);
                         oBullet.hit();
                     }
@@ -306,20 +273,14 @@ public class WorldGame {
 
         @Override
         public void endContact(Contact contact) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void preSolve(Contact contact, Manifold oldManifold) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void postSolve(Contact contact, ContactImpulse impulse) {
-            // TODO Auto-generated method stub
-
         }
     }
 }

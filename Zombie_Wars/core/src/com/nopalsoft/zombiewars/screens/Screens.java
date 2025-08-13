@@ -8,9 +8,6 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -66,22 +63,6 @@ public abstract class Screens extends InputAdapter implements Screen {
         stage.draw();
     }
 
-    public void addEfectoPress(final Actor actor) {
-        actor.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                actor.setPosition(actor.getX(), actor.getY() - 5);
-                event.stop();
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                actor.setPosition(actor.getX(), actor.getY() + 5);
-            }
-        });
-    }
-
     public void changeScreenWithFadeOut(final Class<?> newScreen, final int level, final MainZombieWars game) {
         blackFadeOut = new Image(Assets.pixelNegro);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -90,16 +71,9 @@ public abstract class Screens extends InputAdapter implements Screen {
             @Override
             public void run() {
                 if (newScreen == GameScreen.class) {
-                    Assets.loadTiledMap(level);
-                    game.setScreen(new GameScreen(game, level));
+                    Assets.loadTiledMap();
+                    game.setScreen(new GameScreen(game));
                 }
-                // else if (newScreen == MainMenuScreen.class)
-                // game.setScreen(new MainMenuScreen(game));
-                // else if (newScreen == SettingsScreen.class)
-                // game.setScreen(new SettingsScreen(game));
-
-                // El blackFadeOut se remueve del stage cuando se le da new Screens(game) "Revisar el constructor de la clase Screens" por lo que no hay necesidad de hacer
-                // blackFadeout.remove();
             }
         })));
 
@@ -115,10 +89,6 @@ public abstract class Screens extends InputAdapter implements Screen {
         stage.addActor(blackFadeOut);
         stage.addActor(corriendo);
         stage.addActor(lbl);
-    }
-
-    public void changeScreenWithFadeOut(final Class<?> newScreen, final MainZombieWars game) {
-        changeScreenWithFadeOut(newScreen, -1, game);
     }
 
     public abstract void update(float delta);

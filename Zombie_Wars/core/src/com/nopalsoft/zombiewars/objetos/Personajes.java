@@ -99,8 +99,6 @@ public class Personajes {
 
     /**
      * Regresa si si ataco
-     *
-     * @return
      */
     public boolean attack() {
         if (state == STATE_NORMAL) {
@@ -110,9 +108,5 @@ public class Personajes {
             return true;
         }
         return false;
-    }
-
-    public void didAttackEnemy() {
-        attack = false;
     }
 }

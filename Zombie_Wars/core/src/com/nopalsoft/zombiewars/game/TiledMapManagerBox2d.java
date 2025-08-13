@@ -23,8 +23,6 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Logger;
 
-import java.util.Iterator;
-
 public class TiledMapManagerBox2d {
 
     private final World oWorldBox;
@@ -44,23 +42,20 @@ public class TiledMapManagerBox2d {
     }
 
     public void createObjetosDesdeTiled(Map map) {
-        crearFisicos(map, "fisicos");
+        crearFisicos(map);
     }
 
-    private void crearFisicos(Map map, String layerName) {
-        MapLayer layer = map.getLayers().get(layerName);
+    private void crearFisicos(Map map) {
+        MapLayer layer = map.getLayers().get("fisicos");
 
         if (layer == null) {
-            logger.error("layer " + layerName + " no existe");
+            logger.error("layer " + "fisicos" + " no existe");
             return;
         }
 
         MapObjects objects = layer.getObjects();
-        Iterator<MapObject> objectIt = objects.iterator();
 
-        while (objectIt.hasNext()) {
-            MapObject object = objectIt.next();
-
+        for (MapObject object : objects) {
             if (object instanceof TextureMapObject) {
                 continue;
             }
@@ -70,7 +65,7 @@ public class TiledMapManagerBox2d {
             if (tipo == null)
                 continue;
 
-            /**
+            /*
              * Normalmente si no ninguno es el piso
              */
             Shape shape;

@@ -21,8 +21,6 @@ import com.nopalsoft.zombiewars.objetos.ZombieMummy;
 import com.nopalsoft.zombiewars.objetos.ZombiePan;
 import com.nopalsoft.zombiewars.screens.Screens;
 
-import java.util.Iterator;
-
 public class WorldGameRenderer2 {
 
     final float WIDTH = Screens.WORLD_WIDTH;
@@ -51,7 +49,7 @@ public class WorldGameRenderer2 {
         this.renderBox = new Box2DDebugRenderer();
         tiledRender = new OrthogonalTiledMapRenderer(Assets.map, oWorld.unitScale);
 
-        /**
+        /*
          * Entre mas chico el numero se renderean primero.
          */
         map1 = (TiledMapTileLayer) tiledRender.getMap().getLayers().get("1");
@@ -61,7 +59,7 @@ public class WorldGameRenderer2 {
         mapInFront = (TiledMapTileLayer) tiledRender.getMap().getLayers().get("inFront");
     }
 
-    public void render(float delta) {
+    public void render() {
         oCam.zoom = Settings.zoom;
         oCam.position.x = oWorld.posCamara.x;
         oCam.position.y = oWorld.posCamara.y;
@@ -110,11 +108,9 @@ public class WorldGameRenderer2 {
     }
 
     private void drawMalos() {
-        Iterator<Personajes> i = oWorld.arrFacingLeft.iterator();
 
-        while (i.hasNext()) {
+        for (Personajes obj : oWorld.arrFacingLeft) {
 
-            Personajes obj = i.next();
             AnimationSprite animWalk = null;
             AnimationSprite animAttack = null;
             AnimationSprite animDie = null;
@@ -186,11 +182,9 @@ public class WorldGameRenderer2 {
     }
 
     private void drawFacingRight() {
-        Iterator<Personajes> i = oWorld.arrFacingRight.iterator();
 
-        while (i.hasNext()) {
+        for (Personajes obj : oWorld.arrFacingRight) {
 
-            Personajes obj = i.next();
             AnimationSprite animWalk = null;
             AnimationSprite animAttack = null;
             AnimationSprite animDie = null;
@@ -240,10 +234,7 @@ public class WorldGameRenderer2 {
     }
 
     private void drawBullets() {
-        Iterator<Bullet> i = oWorld.arrBullets.iterator();
-        while (i.hasNext()) {
-            Bullet obj = i.next();
-
+        for (Bullet obj : oWorld.arrBullets) {
             if (!obj.isVisible)
                 continue;
 

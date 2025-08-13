@@ -1,7 +1,6 @@
 package com.nopalsoft.zombiewars;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -18,7 +17,6 @@ public class Assets {
 
     public static BitmapFont fontChico;
     public static BitmapFont fontGrande;
-
     public static TiledMap map;
 
     /**
@@ -102,22 +100,6 @@ public class Assets {
 
     public static NinePatchDrawable pixelNegro;
 
-    public static Sound shoot1;
-    public static Sound zombiePan;
-    public static Sound zombieKid;
-    public static Sound zombieCuasy;
-    public static Sound zombieMummy;
-    public static Sound zombieFrank;
-
-    public static Sound hurt1;
-    public static Sound hurt2;
-    public static Sound hurt3;
-    public static Sound gem;
-    public static Sound skull;
-    public static Sound jump;
-    public static Sound shield;
-    public static Sound hearth;
-
     public static void loadStyles(TextureAtlas atlas) {
         // Label Style
         labelStyleChico = new LabelStyle(fontChico, Color.WHITE);
@@ -134,7 +116,7 @@ public class Assets {
 
         loadStyles(atlas);
 
-        /**
+        /*
          * Bullets
          */
         bullet1 = loadAnimationBullet(atlas, "Bullet/bullet1");
@@ -142,12 +124,10 @@ public class Assets {
         bullet3 = loadAnimationBullet(atlas, "Bullet/bullet3");
         bullet4 = loadAnimationBullet(atlas, "Bullet/bullet4");
         bullet5 = loadAnimationBullet(atlas, "Bullet/bullet5");
-        muzzle = loadAnimationMuzzle(atlas, "Bullet/");
-        /**
-         * Items
-         */
+        muzzle = loadAnimationMuzzle(atlas);
 
-        /**
+
+        /*
          * HeroFarmer
          */
         heroFarmerDie = loadAnimationDie(atlas, "HeroFarmer/");
@@ -155,7 +135,7 @@ public class Assets {
         heroFarmerShoot = loadAnimationShoot(atlas, "HeroFarmer/");
         heroFarmerWalk = loadAnimationWalk(atlas, "HeroFarmer/");
 
-        /**
+        /*
          * HeroLumber
          */
         heroLumberDie = loadAnimationDie(atlas, "HeroLumber/");
@@ -163,7 +143,7 @@ public class Assets {
         heroLumberShoot = loadAnimationAttack(atlas, "HeroLumber/");
         heroLumberWalk = loadAnimationWalk(atlas, "HeroLumber/");
 
-        /**
+        /*
          * HeroForce
          */
         heroForceDie = loadAnimationDie(atlas, "HeroForce/");
@@ -171,7 +151,7 @@ public class Assets {
         heroForceShoot = loadAnimationShoot(atlas, "HeroForce/");
         heroForceWalk = loadAnimationWalk(atlas, "HeroForce/");
 
-        /**
+        /*
          * HeroRambo
          */
         heroRamboDie = loadAnimationDie(atlas, "HeroRambo/");
@@ -179,7 +159,7 @@ public class Assets {
         heroRamboShoot = loadAnimationShoot(atlas, "HeroRambo/");
         heroRamboWalk = loadAnimationWalk(atlas, "HeroRambo/");
 
-        /**
+        /*
          * HeroSoldier
          */
         heroSoldierDie = loadAnimationDie(atlas, "HeroSoldier/");
@@ -187,7 +167,7 @@ public class Assets {
         heroSoldierShoot = loadAnimationShoot(atlas, "HeroSoldier/");
         heroSoldierWalk = loadAnimationWalk(atlas, "HeroSoldier/");
 
-        /**
+        /*
          * HeroSwat
          */
         heroSwatDie = loadAnimationDie(atlas, "HeroSwat/");
@@ -195,7 +175,7 @@ public class Assets {
         heroSwatShoot = loadAnimationShoot(atlas, "HeroSwat/");
         heroSwatWalk = loadAnimationWalk(atlas, "HeroSwat/");
 
-        /**
+        /*
          * HeroVader
          */
         heroVaderDie = loadAnimationDie(atlas, "HeroVader/");
@@ -203,7 +183,7 @@ public class Assets {
         heroVaderShoot = loadAnimationShoot(atlas, "HeroVader/");
         heroVaderWalk = loadAnimationWalk(atlas, "HeroVader/");
 
-        /**
+        /*
          * Zombie kid
          */
         zombieKidWalk = loadAnimationWalk(atlas, "ZombieKid/");
@@ -211,7 +191,7 @@ public class Assets {
         zombieKidDie = loadAnimationDie(atlas, "ZombieKid/");
         zombieKidHurt = atlas.createSprite("ZombieKid/die1");
 
-        /**
+        /*
          * Zombie pan
          */
         zombiePanWalk = loadAnimationWalk(atlas, "ZombiePan/");
@@ -219,7 +199,7 @@ public class Assets {
         zombiePanDie = loadAnimationDie(atlas, "ZombiePan/");
         zombiePanHurt = atlas.createSprite("ZombiePan/die1");
 
-        /**
+        /*
          * Zombie Cuasy
          */
         zombieCuasyWalk = loadAnimationWalk(atlas, "ZombieCuasy/");
@@ -227,7 +207,7 @@ public class Assets {
         zombieCuasyDie = loadAnimationDie(atlas, "ZombieCuasy/");
         zombieCuasyHurt = atlas.createSprite("ZombieCuasy/die1");
 
-        /**
+        /*
          * Zombie Frank
          */
         zombieFrankWalk = loadAnimationWalk(atlas, "ZombieFrank/");
@@ -235,7 +215,7 @@ public class Assets {
         zombieFrankDie = loadAnimationDie(atlas, "ZombieFrank/");
         zombieFrankHurt = atlas.createSprite("ZombieFrank/die1");
 
-        /**
+        /*
          * Zombie mummy
          */
         zombieMummyWalk = loadAnimationWalk(atlas, "ZombieMummy/");
@@ -244,33 +224,13 @@ public class Assets {
         zombieMummyHurt = atlas.createSprite("ZombieMummy/die1");
 
         Settings.load();
-
-        // shoot1 = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/shoot2.mp3"));
-        // zombiePan = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/zombiePan.mp3"));
-        // zombieKid = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/zombieKid.mp3"));
-        // zombieCuasy = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/zombieCuasy.mp3"));
-        // zombieMummy = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/zombieMummy.mp3"));
-        // zombieFrank = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/zombieFrank.mp3"));
-        //
-        // hurt1 = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/hurt.mp3"));
-        // hurt2 = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/hurt2.mp3"));
-        // hurt3 = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/hurt3.mp3"));
-        //
-        // gem = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/gem.mp3"));
-        // skull = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/skull.mp3"));
-        // jump = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/jump.mp3"));
-        // shield = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/pick.mp3"));
-        // hearth = Gdx.audio.newSound(Gdx.files.internal("data/Sounds/hearth.mp3"));
-
-        // 2
-
     }
 
     private static AnimationSprite loadAnimationWalk(TextureAtlas atlas, String ruta) {
-        Array<Sprite> arrSprites = new Array<Sprite>();
+        Array<Sprite> arrSprites = new Array<>();
 
         int i = 1;
-        Sprite obj = null;
+        Sprite obj;
         do {
             obj = atlas.createSprite(ruta + "walk" + i);
             i++;
@@ -283,10 +243,10 @@ public class Assets {
     }
 
     private static AnimationSprite loadAnimationAttack(TextureAtlas atlas, String ruta) {
-        Array<Sprite> arrSprites = new Array<Sprite>();
+        Array<Sprite> arrSprites = new Array<>();
 
         int i = 1;
-        Sprite obj = null;
+        Sprite obj;
         do {
             obj = atlas.createSprite(ruta + "attack" + i);
             i++;
@@ -299,10 +259,10 @@ public class Assets {
     }
 
     private static AnimationSprite loadAnimationDie(TextureAtlas atlas, String ruta) {
-        Array<Sprite> arrSprites = new Array<Sprite>();
+        Array<Sprite> arrSprites = new Array<>();
 
         int i = 1;
-        Sprite obj = null;
+        Sprite obj;
         do {
             obj = atlas.createSprite(ruta + "die" + i);
             i++;
@@ -315,10 +275,10 @@ public class Assets {
     }
 
     private static AnimationSprite loadAnimationShoot(TextureAtlas atlas, String ruta) {
-        Array<Sprite> arrSprites = new Array<Sprite>();
+        Array<Sprite> arrSprites = new Array<>();
 
         int i = 1;
-        Sprite obj = null;
+        Sprite obj;
         do {
             obj = atlas.createSprite(ruta + "shoot" + i);
             i++;
@@ -330,13 +290,13 @@ public class Assets {
         return new AnimationSprite(time, arrSprites);
     }
 
-    private static AnimationSprite loadAnimationMuzzle(TextureAtlas atlas, String ruta) {
-        Array<Sprite> arrSprites = new Array<Sprite>();
+    private static AnimationSprite loadAnimationMuzzle(TextureAtlas atlas) {
+        Array<Sprite> arrSprites = new Array<>();
 
         int i = 1;
-        Sprite obj = null;
+        Sprite obj;
         do {
-            obj = atlas.createSprite(ruta + "muzzle" + i);
+            obj = atlas.createSprite("Bullet/" + "muzzle" + i);
             i++;
             if (obj != null)
                 arrSprites.add(obj);
@@ -347,10 +307,10 @@ public class Assets {
     }
 
     private static AnimationSprite loadAnimationBullet(TextureAtlas atlas, String ruta) {
-        Array<Sprite> arrSprites = new Array<Sprite>();
+        Array<Sprite> arrSprites = new Array<>();
 
         int i = 1;
-        Sprite obj = null;
+        Sprite obj;
         do {
             obj = atlas.createSprite(ruta + i);
             i++;
@@ -362,7 +322,7 @@ public class Assets {
         return new AnimationSprite(time, arrSprites);
     }
 
-    public static void loadTiledMap(int numMap) {
+    public static void loadTiledMap() {
         if (map != null) {
             map.dispose();
             map = null;
@@ -372,12 +332,6 @@ public class Assets {
             map = new TmxMapLoader().load("data/MapsTest/suelo.tmx");
         } else {
             map = new AtlasTmxMapLoader().load("data/Maps/suelo.tmx");
-        }
-    }
-
-    public static void playSound(Sound sonido, float volume) {
-        if (Settings.isSoundOn) {
-            sonido.play(volume);
         }
     }
 }
