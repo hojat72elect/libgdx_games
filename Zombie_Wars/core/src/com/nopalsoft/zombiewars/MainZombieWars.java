@@ -12,6 +12,7 @@ public class MainZombieWars extends Game {
 
     public Stage stage;
     public SpriteBatch batcher;
+
     public MainZombieWars() {
     }
 
