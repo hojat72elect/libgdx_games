@@ -63,17 +63,14 @@ public abstract class Screens extends InputAdapter implements Screen {
         stage.draw();
     }
 
-    public void changeScreenWithFadeOut(final Class<?> newScreen, final int level, final MainZombieWars game) {
+    public void changeScreenWithFadeOut(final Class<?> newScreen, final MainZombieWars game) {
         blackFadeOut = new Image(Assets.pixelNegro);
         blackFadeOut.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         blackFadeOut.getColor().a = 0;
-        blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                if (newScreen == GameScreen.class) {
-                    Assets.loadTiledMap();
-                    game.setScreen(new GameScreen(game));
-                }
+        blackFadeOut.addAction(Actions.sequence(Actions.fadeIn(.5f), Actions.run(() -> {
+            if (newScreen == GameScreen.class) {
+                Assets.loadTiledMap();
+                game.setScreen(new GameScreen(game));
             }
         })));
 
