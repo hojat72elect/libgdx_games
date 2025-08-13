@@ -12,12 +12,10 @@ public class MainZombieWars extends Game {
 
 
     public I18NBundle idiomas;
-
-    public MainZombieWars() {
-    }
-
     public Stage stage;
     public SpriteBatch batcher;
+    public MainZombieWars() {
+    }
 
     @Override
     public void create() {

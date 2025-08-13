@@ -14,9 +14,8 @@ public class GameScreen extends Screens {
     static final int STATE_GAME_OVER = 1;
     static final int STATE_NEXT_LEVEL = 2;
     static final int STATE_PAUSED = 3;
-    int state;
-
     public WorldGame oWorld;
+    int state;
     WorldGameRenderer2 renderer;
 
     float accelCamX;
@@ -26,7 +25,6 @@ public class GameScreen extends Screens {
 
         oWorld = new WorldGame(0);
         renderer = new WorldGameRenderer2(batcher, oWorld);
-
     }
 
     @Override
@@ -37,7 +35,6 @@ public class GameScreen extends Screens {
                 updateRunning(delta);
                 break;
         }
-
     }
 
     private void updateRunning(float delta) {
@@ -62,7 +59,6 @@ public class GameScreen extends Screens {
         }
 
         oWorld.update(delta, accelCamX);
-
     }
 
     @Override
@@ -94,5 +90,4 @@ public class GameScreen extends Screens {
             }
         return super.keyDown(keycode);
     }
-
 }

@@ -5,17 +5,16 @@ import com.nopalsoft.zombiewars.Assets;
 
 public class HeroFarmer extends Personajes {
 
-	public HeroFarmer(Body body) {
-		super(body);
-		DURATION_ATTACK = Assets.heroForceShoot.animationDuration;
-		DURATION_DEAD = Assets.heroForceDie.animationDuration + .2f;
-		VELOCIDAD_WALK = 1;
-		DAMAGE = 1;
-		DISTANCE_ATTACK = 2;
-		TIME_TO_ATTACK_AGAIN = 2;
-		vidas = 5;
-		isFacingLeft = false;
-		tipo = TIPO_RANGO;
-	}
-
+    public HeroFarmer(Body body) {
+        super(body);
+        DURATION_ATTACK = Assets.heroForceShoot.animationDuration;
+        DURATION_DEAD = Assets.heroForceDie.animationDuration + .2f;
+        VELOCIDAD_WALK = 1;
+        DAMAGE = 1;
+        DISTANCE_ATTACK = 2;
+        TIME_TO_ATTACK_AGAIN = 2;
+        vidas = 5;
+        isFacingLeft = false;
+        tipo = TIPO_RANGO;
+    }
 }
