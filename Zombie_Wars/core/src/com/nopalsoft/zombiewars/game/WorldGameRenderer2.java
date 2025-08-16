@@ -47,7 +47,7 @@ public class WorldGameRenderer2 {
         this.batcher = batcher;
         this.oWorld = oWorld;
         this.renderBox = new Box2DDebugRenderer();
-        tiledRender = new OrthogonalTiledMapRenderer(Assets.map, oWorld.unitScale);
+        tiledRender = new OrthogonalTiledMapRenderer(Assets.map, oWorld.getUnitScale());
 
         /*
          * Entre mas chico el numero se renderean primero.
@@ -61,8 +61,8 @@ public class WorldGameRenderer2 {
 
     public void render() {
         oCam.zoom = Settings.zoom;
-        oCam.position.x = oWorld.posCamara.x;
-        oCam.position.y = oWorld.posCamara.y;
+        oCam.position.x = oWorld.getPosCamara().x;
+        oCam.position.y = oWorld.getPosCamara().y;
 
         oCam.update();
 
@@ -107,7 +107,7 @@ public class WorldGameRenderer2 {
 
     private void drawMalos() {
 
-        for (BasePlayer obj : oWorld.arrFacingLeft) {
+        for (BasePlayer obj : oWorld.getArrFacingLeft()) {
 
             AnimationSprite animWalk = null;
             AnimationSprite animAttack = null;
@@ -181,7 +181,7 @@ public class WorldGameRenderer2 {
 
     private void drawFacingRight() {
 
-        for (BasePlayer obj : oWorld.arrFacingRight) {
+        for (BasePlayer obj : oWorld.getArrFacingRight()) {
 
             AnimationSprite animWalk = null;
             AnimationSprite animAttack = null;
@@ -232,7 +232,7 @@ public class WorldGameRenderer2 {
     }
 
     private void drawBullets() {
-        for (Bullet obj : oWorld.arrBullets) {
+        for (Bullet obj : oWorld.getArrBullets()) {
             if (!obj.isVisible)
                 continue;
 
