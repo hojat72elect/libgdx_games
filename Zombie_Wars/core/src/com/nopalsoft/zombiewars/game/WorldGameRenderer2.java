@@ -9,11 +9,11 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.nopalsoft.zombiewars.AnimationSprite;
 import com.nopalsoft.zombiewars.Assets;
 import com.nopalsoft.zombiewars.Settings;
+import com.nopalsoft.zombiewars.objetos.BasePlayer;
 import com.nopalsoft.zombiewars.objetos.Bullet;
 import com.nopalsoft.zombiewars.objetos.HeroFarmer;
 import com.nopalsoft.zombiewars.objetos.HeroForce;
 import com.nopalsoft.zombiewars.objetos.HeroLumber;
-import com.nopalsoft.zombiewars.objetos.Personajes;
 import com.nopalsoft.zombiewars.objetos.ZombieCuasy;
 import com.nopalsoft.zombiewars.objetos.ZombieFrank;
 import com.nopalsoft.zombiewars.objetos.ZombieKid;
@@ -27,7 +27,7 @@ public class WorldGameRenderer2 {
     final float HEIGHT = Screens.WORLD_HEIGHT;
 
     SpriteBatch batcher;
-    WorldGame oWorld;
+    GameWorld oWorld;
     OrthographicCamera oCam;
     OrthogonalTiledMapRenderer tiledRender;
 
@@ -40,7 +40,7 @@ public class WorldGameRenderer2 {
 
     TiledMapTileLayer mapInFront;// Enfrente del mono
 
-    public WorldGameRenderer2(SpriteBatch batcher, WorldGame oWorld) {
+    public WorldGameRenderer2(SpriteBatch batcher, GameWorld oWorld) {
 
         this.oCam = new OrthographicCamera(WIDTH, HEIGHT);
         this.oCam.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
@@ -107,7 +107,7 @@ public class WorldGameRenderer2 {
 
     private void drawMalos() {
 
-        for (Personajes obj : oWorld.arrFacingLeft) {
+        for (BasePlayer obj : oWorld.arrFacingLeft) {
 
             AnimationSprite animWalk = null;
             AnimationSprite animAttack = null;
@@ -162,13 +162,13 @@ public class WorldGameRenderer2 {
 
             Sprite spriteFrame = null;
 
-            if (obj.state == Personajes.STATE_NORMAL) {
+            if (obj.state == BasePlayer.STATE_NORMAL) {
                 spriteFrame = animWalk.getKeyFrame(obj.stateTime, true);
-            } else if (obj.state == Personajes.STATE_ATTACK) {
+            } else if (obj.state == BasePlayer.STATE_ATTACK) {
                 spriteFrame = animAttack.getKeyFrame(obj.stateTime, false);
-            } else if (obj.state == Personajes.STATE_DEAD) {
+            } else if (obj.state == BasePlayer.STATE_DEAD) {
                 spriteFrame = animDie.getKeyFrame(obj.stateTime, false);
-            } else if (obj.state == Personajes.STATE_HURT) {
+            } else if (obj.state == BasePlayer.STATE_HURT) {
                 spriteFrame = spriteHurt;
             }
 
@@ -181,7 +181,7 @@ public class WorldGameRenderer2 {
 
     private void drawFacingRight() {
 
-        for (Personajes obj : oWorld.arrFacingRight) {
+        for (BasePlayer obj : oWorld.arrFacingRight) {
 
             AnimationSprite animWalk = null;
             AnimationSprite animAttack = null;
@@ -215,13 +215,13 @@ public class WorldGameRenderer2 {
 
             Sprite spriteFrame = null;
 
-            if (obj.state == Personajes.STATE_NORMAL) {
+            if (obj.state == BasePlayer.STATE_NORMAL) {
                 spriteFrame = animWalk.getKeyFrame(obj.stateTime, true);
-            } else if (obj.state == Personajes.STATE_ATTACK) {
+            } else if (obj.state == BasePlayer.STATE_ATTACK) {
                 spriteFrame = animAttack.getKeyFrame(obj.stateTime, false);
-            } else if (obj.state == Personajes.STATE_DEAD) {
+            } else if (obj.state == BasePlayer.STATE_DEAD) {
                 spriteFrame = animDie.getKeyFrame(obj.stateTime, false);
-            } else if (obj.state == Personajes.STATE_HURT) {
+            } else if (obj.state == BasePlayer.STATE_HURT) {
                 spriteFrame = spriteHurt;
             }
 

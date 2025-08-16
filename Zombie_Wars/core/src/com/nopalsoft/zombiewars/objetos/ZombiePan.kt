@@ -3,7 +3,7 @@ package com.nopalsoft.zombiewars.objetos
 import com.badlogic.gdx.physics.box2d.Body
 import com.nopalsoft.zombiewars.Assets
 
-class ZombiePan(body: Body) : Personajes(body) {
+class ZombiePan(body: Body) : BasePlayer(body) {
     init {
         DURATION_ATTACK = Assets.zombiePanAttack.animationDuration
         DURATION_DEAD = Assets.zombiePanDie.animationDuration + .2f

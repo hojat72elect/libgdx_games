@@ -3,7 +3,7 @@ package com.nopalsoft.zombiewars.objetos
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 
-open class Personajes(var body: Body) {
+open class BasePlayer(var body: Body) {
     val DURATION_HURT: Float = .3f
 
     @JvmField

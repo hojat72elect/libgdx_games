@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.Shape
 import com.badlogic.gdx.physics.box2d.World
 import com.badlogic.gdx.utils.Logger
 
-class TiledMapManagerBox2d(oWorld: WorldGame, private val unitScale: Float) {
+class TiledMapManagerBox2d(oWorld: GameWorld, private val unitScale: Float) {
 
     private val oWorldBox: World = oWorld.oWorldBox
     private val logger: Logger = Logger("MapBodyManager", 1)

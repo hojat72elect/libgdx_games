@@ -13,10 +13,10 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.nopalsoft.zombiewars.Assets;
 import com.nopalsoft.zombiewars.Settings;
+import com.nopalsoft.zombiewars.objetos.BasePlayer;
 import com.nopalsoft.zombiewars.objetos.Bullet;
-import com.nopalsoft.zombiewars.objetos.Personajes;
 
-public class WorldGame {
+public class GameWorld {
     static final int STATE_RUNNING = 0;
     final float TIME_TO_SPAWN_ZOMBIE_FRANK;
     final float TIME_TO_SPAWN_ZOMBIE_CUASY;
@@ -34,22 +34,23 @@ public class WorldGame {
     float timeToSpwanZombieKid;
     float timeToSpwanZombieMummy;
     float timeToSpwanZombiePan;
-    /**
+
+    /*
      * Mis tiles son de 32px, asi que la unidad seria 1/32 con una camara ortograpicha de 10x15 para ver 10 tiles de ancho y 15 de alto. El probema es que mi camara es de 8x4.8f por eso tengo que
      * cambiar la escala, con 1/32 solo veria 8 tiles a lo ancho y de altura 4.8 por como esta configurada la camara.
-     * <p>
+     *
      * con 1/96 veo 24 tiles a lo ancho
      */
     float unitScale = 1 / 76f;
     float xMin, xMax, yMin;
-    Array<Personajes> arrFacingRight;
-    Array<Personajes> arrFacingLeft;
+    Array<BasePlayer> arrFacingRight;
+    Array<BasePlayer> arrFacingLeft;
     Array<Bullet> arrBullets;
     Array<Body> arrBodies;
 
-    public WorldGame(int nivel) {
+    public GameWorld(int nivel) {
         oWorldBox = new World(new Vector2(0, -9.8f), true);
-        oWorldBox.setContactListener(new Colisiones());
+        oWorldBox.setContactListener(new CollisionHandler());
 
         arrFacingRight = new Array<>();
         arrFacingLeft = new Array<>();
@@ -95,15 +96,15 @@ public class WorldGame {
         oWorldBox.step(delta, 8, 4);
         updateCamara(delta, accelCamX);
 
-        eliminarObjetos();
+        removeObjects();
 
         spawnStuff(delta);
 
         oWorldBox.getBodies(arrBodies);
 
         for (Body body : arrBodies) {
-            if (body.getUserData() instanceof Personajes) {
-                Personajes obj = (Personajes) body.getUserData();
+            if (body.getUserData() instanceof BasePlayer) {
+                BasePlayer obj = (BasePlayer) body.getUserData();
                 if (obj.isFacingLeft)
                     updateFacingLeft(delta, obj);
                 else
@@ -114,9 +115,9 @@ public class WorldGame {
         }
     }
 
-    public void atackaLL() {
+    public void attackAll() {
 
-        for (Personajes obj : arrFacingLeft) {
+        for (BasePlayer obj : arrFacingLeft) {
 
             if (obj.attack())
 
@@ -124,9 +125,9 @@ public class WorldGame {
         }
     }
 
-    public void dieALl() {
+    public void dieAll() {
 
-        for (Personajes obj : arrFacingLeft) {
+        for (BasePlayer obj : arrFacingLeft) {
 
             obj.die();
         }
@@ -179,12 +180,12 @@ public class WorldGame {
         posCamara.y = yMin * Settings.zoom;
     }
 
-    private void updateFacingRight(float delta, Personajes obj) {
+    private void updateFacingRight(float delta, BasePlayer obj) {
         obj.update(delta);
 
         int len = arrFacingLeft.size;
         for (int i = 0; i < len; i++) {
-            Personajes objMalo = arrFacingLeft.get(i);
+            BasePlayer objMalo = arrFacingLeft.get(i);
 
             if (obj.position.dst(objMalo.position.x, objMalo.position.y) <= obj.DISTANCE_ATTACK) {
                 if (obj.attack())
@@ -193,12 +194,12 @@ public class WorldGame {
         }
     }
 
-    private void updateFacingLeft(float delta, Personajes obj) {
+    private void updateFacingLeft(float delta, BasePlayer obj) {
         obj.update(delta);
 
         int len = arrFacingRight.size;
         for (int i = 0; i < len; i++) {
-            Personajes objBueno = arrFacingRight.get(i);
+            BasePlayer objBueno = arrFacingRight.get(i);
             if (obj.position.dst(objBueno.position.x, objBueno.position.y) <= obj.DISTANCE_ATTACK) {
                 if (obj.attack())
                     objectCreatorManager.createBullet(obj);
@@ -214,14 +215,14 @@ public class WorldGame {
             obj.state = Bullet.STATE_DESTROY;
     }
 
-    private void eliminarObjetos() {
+    private void removeObjects() {
         oWorldBox.getBodies(arrBodies);
 
         for (Body body : arrBodies) {
             if (!oWorldBox.isLocked()) {
-                if (body.getUserData() instanceof Personajes) {
-                    Personajes obj = (Personajes) body.getUserData();
-                    if (obj.state == Personajes.STATE_DEAD && obj.stateTime >= obj.DURATION_DEAD) {
+                if (body.getUserData() instanceof BasePlayer) {
+                    BasePlayer obj = (BasePlayer) body.getUserData();
+                    if (obj.state == BasePlayer.STATE_DEAD && obj.stateTime >= obj.DURATION_DEAD) {
                         if (obj.isFacingLeft)
                             arrFacingLeft.removeValue(obj, true);
                         else
@@ -240,32 +241,32 @@ public class WorldGame {
         }
     }
 
-    static class Colisiones implements ContactListener {
+    static class CollisionHandler implements ContactListener {
 
         @Override
         public void beginContact(Contact contact) {
             Fixture a = contact.getFixtureA();
             Fixture b = contact.getFixtureB();
             if (a.getBody().getUserData() instanceof Bullet)
-                beginContactBulletOtraCosa(a, b);
+                handleBulletCollision(a, b);
             else if (b.getBody().getUserData() instanceof Bullet)
-                beginContactBulletOtraCosa(b, a);
+                handleBulletCollision(b, a);
         }
 
-        private void beginContactBulletOtraCosa(Fixture fixBullet, Fixture otraCosa) {
-            Object oOtraCosa = otraCosa.getBody().getUserData();
-            Bullet oBullet = (Bullet) fixBullet.getBody().getUserData();
+        private void handleBulletCollision(Fixture bulletFixture, Fixture otherFixture) {
+            Object otherObject = otherFixture.getBody().getUserData();
+            Bullet bullet = (Bullet) bulletFixture.getBody().getUserData();
 
-            if (oOtraCosa instanceof Personajes) {
-                if (oBullet.state == Bullet.STATE_NORMAL || oBullet.state == Bullet.STATE_MUZZLE) {
-                    Personajes obj = (Personajes) oOtraCosa;
+            if (otherObject instanceof BasePlayer) {
+                if (bullet.state == Bullet.STATE_NORMAL || bullet.state == Bullet.STATE_MUZZLE) {
+                    BasePlayer obj = (BasePlayer) otherObject;
 
-                    if (obj.isFacingLeft == oBullet.isFacingLeft)// Si van hacia el mismo lado son amigos
+                    if (obj.isFacingLeft == bullet.isFacingLeft)// Si van hacia el mismo lado son amigos
                         return;
 
-                    if (obj.state != Personajes.STATE_DEAD) {
-                        obj.getHurt(oBullet.DAMAGE);
-                        oBullet.hit();
+                    if (obj.state != BasePlayer.STATE_DEAD) {
+                        obj.getHurt(bullet.DAMAGE);
+                        bullet.hit();
                     }
                 }
             }

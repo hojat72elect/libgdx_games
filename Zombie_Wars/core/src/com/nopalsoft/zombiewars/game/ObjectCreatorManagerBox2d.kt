@@ -4,19 +4,19 @@ import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
+import com.nopalsoft.zombiewars.objetos.BasePlayer
 import com.nopalsoft.zombiewars.objetos.Bullet
 import com.nopalsoft.zombiewars.objetos.HeroFarmer
 import com.nopalsoft.zombiewars.objetos.HeroForce
 import com.nopalsoft.zombiewars.objetos.HeroLumber
-import com.nopalsoft.zombiewars.objetos.Personajes
 import com.nopalsoft.zombiewars.objetos.ZombieCuasy
 import com.nopalsoft.zombiewars.objetos.ZombieFrank
 import com.nopalsoft.zombiewars.objetos.ZombieKid
 import com.nopalsoft.zombiewars.objetos.ZombieMummy
 import com.nopalsoft.zombiewars.objetos.ZombiePan
 
-class ObjectCreatorManagerBox2d(private val worldGame: WorldGame) {
-    private val worldPhysicsHandler = worldGame.oWorldBox
+class ObjectCreatorManagerBox2d(private val gameWorld: GameWorld) {
+    private val worldPhysicsHandler = gameWorld.oWorldBox
 
     fun createZombieKid() {
         crearZombieMalo(ZombieKid::class.java)
@@ -59,7 +59,7 @@ class ObjectCreatorManagerBox2d(private val worldGame: WorldGame) {
 
         val physicsBody = worldPhysicsHandler.createBody(bodyDefinition)
 
-        val obj: Personajes? = when (tipoZombie) {
+        val obj: BasePlayer? = when (tipoZombie) {
             ZombieKid::class.java -> {
                 ZombieKid(physicsBody)
             }
@@ -97,13 +97,13 @@ class ObjectCreatorManagerBox2d(private val worldGame: WorldGame) {
 
         physicsBody.isFixedRotation = true
         physicsBody.userData = obj
-        worldGame.arrFacingLeft.add(obj)
+        gameWorld.arrFacingLeft.add(obj)
 
         shape.dispose()
     }
 
     private fun crearHero(tipoHero: Class<*>) {
-        var obj: Personajes? = null
+        var obj: BasePlayer? = null
 
         val bd = BodyDef()
         bd.position.set(1f, 1.6f)
@@ -137,16 +137,16 @@ class ObjectCreatorManagerBox2d(private val worldGame: WorldGame) {
 
         oBody.isFixedRotation = true
         oBody.userData = obj
-        worldGame.arrFacingRight.add(obj)
+        gameWorld.arrFacingRight.add(obj)
 
         shape.dispose()
     }
 
-    fun createBullet(oPerWhoFired: Personajes) {
+    fun createBullet(oPerWhoFired: BasePlayer) {
         val obj: Bullet?
         val bd = BodyDef()
 
-        if (oPerWhoFired.tipo == Personajes.TIPO_RANGO) {
+        if (oPerWhoFired.tipo == BasePlayer.TIPO_RANGO) {
             if (oPerWhoFired.isFacingLeft) {
                 bd.position.set(oPerWhoFired.position.x - .42f, oPerWhoFired.position.y - .14f)
             } else {
@@ -172,6 +172,6 @@ class ObjectCreatorManagerBox2d(private val worldGame: WorldGame) {
         oBody.userData = obj
         oBody.isBullet = true
         oBody.gravityScale = 0f
-        worldGame.arrBullets.add(obj)
+        gameWorld.arrBullets.add(obj)
     }
 }

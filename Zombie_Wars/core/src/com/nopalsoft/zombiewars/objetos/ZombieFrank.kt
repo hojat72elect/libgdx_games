@@ -3,7 +3,7 @@ package com.nopalsoft.zombiewars.objetos
 import com.badlogic.gdx.physics.box2d.Body
 import com.nopalsoft.zombiewars.Assets
 
-class ZombieFrank(body: Body) : Personajes(body) {
+class ZombieFrank(body: Body) : BasePlayer(body) {
     init {
         DURATION_ATTACK = Assets.zombieFrankAttack.animationDuration
         DURATION_DEAD = Assets.zombieFrankDie.animationDuration + .2f

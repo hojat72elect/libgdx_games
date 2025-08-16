@@ -6,7 +6,7 @@ import com.nopalsoft.zombiewars.Assets
 
 class Bullet(
     val body: Body, // the one who fired the bullet
-    @JvmField val oPerWhoFired: Personajes
+    @JvmField val oPerWhoFired: BasePlayer
 ) {
     @JvmField
     val DAMAGE = oPerWhoFired.DAMAGE
@@ -31,7 +31,7 @@ class Bullet(
         if (isFacingLeft) body.setLinearVelocity(-VELOCIDAD, 0f)
         else body.setLinearVelocity(VELOCIDAD, 0f)
 
-        isVisible = oPerWhoFired.tipo == Personajes.TIPO_RANGO
+        isVisible = oPerWhoFired.tipo == BasePlayer.TIPO_RANGO
     }
 
     fun update(delta: Float) {
