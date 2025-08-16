@@ -12,7 +12,7 @@ import com.nopalsoft.zombiewars.screens.Screens
 class GameScreen(game: MainZombieWars) : Screens(game) {
 
     private val oWorld = GameWorld()
-    private val renderer = WorldGameRenderer2(batcher, oWorld)
+    private val renderer = WorldGameRenderer(batcher, oWorld)
     private var accelCamX = 0f
 
     override fun update(delta: Float) {

@@ -21,7 +21,7 @@ import com.nopalsoft.zombiewars.objetos.ZombieMummy;
 import com.nopalsoft.zombiewars.objetos.ZombiePan;
 import com.nopalsoft.zombiewars.screens.Screens;
 
-public class WorldGameRenderer2 {
+public class WorldGameRenderer {
 
     final float WIDTH = Screens.WORLD_WIDTH;
     final float HEIGHT = Screens.WORLD_HEIGHT;
@@ -40,7 +40,7 @@ public class WorldGameRenderer2 {
 
     TiledMapTileLayer mapInFront;// Enfrente del mono
 
-    public WorldGameRenderer2(SpriteBatch batcher, GameWorld oWorld) {
+    public WorldGameRenderer(SpriteBatch batcher, GameWorld oWorld) {
 
         this.oCam = new OrthographicCamera(WIDTH, HEIGHT);
         this.oCam.position.set(WIDTH / 2f, HEIGHT / 2f, 0);
