@@ -16,18 +16,11 @@ import com.nopalsoft.zombiewars.objetos.BasePlayer
 import com.nopalsoft.zombiewars.objetos.Bullet
 import com.badlogic.gdx.utils.Array as GdxArray
 
-class GameWorld(nivel: Int) {
-
-    private var TIME_TO_SPAWN_ZOMBIE_FRANK = 0F
-    private var TIME_TO_SPAWN_ZOMBIE_CUASY = 0F
-    private var TIME_TO_SPAWN_ZOMBIE_KID = 0F
-    private var TIME_TO_SPAWN_ZOMBIE_MUMMY = 0F
-    private var TIME_TO_SPAWN_ZOMBIE_PAN = 0F
+class GameWorld() {
 
     var state = 0
     var tiledWidth = 0
     var tiledHeight = 0
-
     var oWorldBox = World(Vector2(0f, -9.8f), true)
     var objectCreatorManager = ObjectCreatorManagerBox2d(this)
     var posCamara: Vector2
@@ -45,7 +38,7 @@ class GameWorld(nivel: Int) {
      * con 1/96 veo 24 tiles a lo ancho
      */
     var unitScale = 1 / 76F
-    var xMin = 0F
+    var xMin = 4.0f // Inicia en 4 porque la camara esta centrada no en el origen
     var xMax = 0F
     var yMin = 0F
 
@@ -71,26 +64,13 @@ class GameWorld(nivel: Int) {
         Gdx.app.log("Tile Width", tiledWidth.toString() + "")
         Gdx.app.log("Tile Height", tiledHeight.toString() + "")
 
-        xMin = 4.0f // Inicia en 4 porque la camara esta centrada no en el origen
         xMax = unitScale * tiledWidth * 32 - 4 // Menos 4 porque la camara esta centrada en el origen
         yMin = 2.4f
 
         posCamara = Vector2(xMin, yMin)
         state = STATE_RUNNING
 
-        if (nivel == 0) {
-            TIME_TO_SPAWN_ZOMBIE_KID = 3f
-            TIME_TO_SPAWN_ZOMBIE_CUASY = 10f
-            TIME_TO_SPAWN_ZOMBIE_MUMMY = 15f
-            TIME_TO_SPAWN_ZOMBIE_PAN = 20f
-            TIME_TO_SPAWN_ZOMBIE_FRANK = 25f
-        } else {
-            TIME_TO_SPAWN_ZOMBIE_KID = 0f
-            TIME_TO_SPAWN_ZOMBIE_CUASY = 0f
-            TIME_TO_SPAWN_ZOMBIE_MUMMY = 0f
-            TIME_TO_SPAWN_ZOMBIE_PAN = 0f
-            TIME_TO_SPAWN_ZOMBIE_FRANK = 0f
-        }
+
     }
 
     fun update(delta: Float, accelCamX: Float) {
@@ -265,5 +245,10 @@ class GameWorld(nivel: Int) {
 
     companion object {
         private const val STATE_RUNNING = 0
+        private const val TIME_TO_SPAWN_ZOMBIE_KID = 3f
+        private const val TIME_TO_SPAWN_ZOMBIE_CUASY = 10f
+        private const val TIME_TO_SPAWN_ZOMBIE_MUMMY = 15f
+        private const val TIME_TO_SPAWN_ZOMBIE_PAN = 20f
+        private const val TIME_TO_SPAWN_ZOMBIE_FRANK = 25f
     }
 }
