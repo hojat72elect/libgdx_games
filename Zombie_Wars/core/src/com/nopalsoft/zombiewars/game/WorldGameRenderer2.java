@@ -78,7 +78,6 @@ public class WorldGameRenderer2 {
 
         drawTiledInfront();
 
-//		renderBox.render(oWorld.oWorldBox, oCam.combined);
     }
 
     private void drawTiledInfront() {
@@ -103,7 +102,6 @@ public class WorldGameRenderer2 {
         if (map4 != null)
             tiledRender.renderTileLayer(map4);
 
-        // tiledRender.render();
         tiledRender.getBatch().end();
     }
 
