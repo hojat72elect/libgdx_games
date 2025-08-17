@@ -21,8 +21,7 @@ import com.nopalsoft.zombiewars.objetos.ZombieMummy
 import com.nopalsoft.zombiewars.objetos.ZombiePan
 import com.nopalsoft.zombiewars.screens.Screens
 
-
-class NewWorldGameRenderer(val batcher: SpriteBatch, val oWorld: GameWorld) {
+class WorldGameRenderer(val batcher: SpriteBatch, val oWorld: GameWorld) {
 
 
     private var oCam = OrthographicCamera(WIDTH, HEIGHT)
@@ -31,10 +30,10 @@ class NewWorldGameRenderer(val batcher: SpriteBatch, val oWorld: GameWorld) {
     var renderBox = Box2DDebugRenderer()
 
     // Entre mas chico el numero se renderean primero.
-    var map1 = tiledRender.map.layers.get("1") as TiledMapTileLayer
-    var map2 = tiledRender.map.layers.get("2") as TiledMapTileLayer
-    var map3 = tiledRender.map.layers.get("3") as TiledMapTileLayer
-    var map4 = tiledRender.map.layers.get("4") as TiledMapTileLayer
+    var map1 = tiledRender.map.layers.get("1") as TiledMapTileLayer?
+    var map2 = tiledRender.map.layers.get("2") as TiledMapTileLayer?
+    var map3 = tiledRender.map.layers.get("3") as TiledMapTileLayer?
+    var map4 = tiledRender.map.layers.get("4") as TiledMapTileLayer?
 
     var mapInFront = tiledRender.map.layers.get("inFront") as TiledMapTileLayer // Enfrente del mono
 
@@ -73,10 +72,11 @@ class NewWorldGameRenderer(val batcher: SpriteBatch, val oWorld: GameWorld) {
     private fun drawTiled() {
         tiledRender.setView(oCam)
         tiledRender.getBatch().begin()
-        tiledRender.renderTileLayer(map1)
-        tiledRender.renderTileLayer(map2)
-        tiledRender.renderTileLayer(map3)
-        tiledRender.renderTileLayer(map4)
+
+        if (map1 != null) tiledRender.renderTileLayer(map1)
+        if (map2 != null) tiledRender.renderTileLayer(map2)
+        if (map3 != null) tiledRender.renderTileLayer(map3)
+        if (map4 != null) tiledRender.renderTileLayer(map4)
 
         tiledRender.getBatch().end()
     }
