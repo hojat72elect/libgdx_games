@@ -25,7 +25,7 @@ class GameScreen(game: MainZombieWars) : Screens(game) {
         batcher.setProjectionMatrix(oCam.combined)
 
         batcher.begin()
-        Assets.fontGrande.draw(batcher, "FPS: " + Gdx.graphics.framesPerSecond + "\nNew hero: E\nZoom: X,Z", 10f, 400f)
+        Assets.fontGrande?.draw(batcher, "FPS: " + Gdx.graphics.framesPerSecond + "\nNew hero: E\nZoom: X,Z", 10f, 400f)
         batcher.end()
     }
 

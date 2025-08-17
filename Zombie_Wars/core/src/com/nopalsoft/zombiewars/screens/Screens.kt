@@ -62,7 +62,7 @@ abstract class Screens(val game: MainZombieWars) : InputAdapter(), Screen {
         lbl.getColor().a = 0f
         lbl.addAction(Actions.fadeIn(0.6F))
 
-        val corriendo = AnimatedSpriteActor(Assets.zombieKidWalk)
+        val corriendo = AnimatedSpriteActor(Assets.zombieKidWalk!!)
         corriendo.setSize(70f, 70f)
         corriendo.setPosition(SCREEN_WIDTH / 2f - corriendo.getWidth() / 2f, 250f)
 

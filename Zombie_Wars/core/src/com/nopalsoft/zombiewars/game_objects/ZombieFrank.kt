@@ -5,8 +5,8 @@ import com.nopalsoft.zombiewars.Assets
 
 class ZombieFrank(body: Body) : BasePlayer(body) {
     init {
-        DURATION_ATTACK = Assets.zombieFrankAttack.animationDuration
-        DURATION_DEAD = Assets.zombieFrankDie.animationDuration + .2f
+        DURATION_ATTACK = Assets.zombieFrankAttack!!.animationDuration
+        DURATION_DEAD = Assets.zombieFrankDie!!.animationDuration + .2f
         VELOCIDAD_WALK = 1f
         DISTANCE_ATTACK = .35f
         DAMAGE = 5

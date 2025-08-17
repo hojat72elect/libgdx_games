@@ -50,9 +50,9 @@ class GameWorld() {
     init {
         oWorldBox.setContactListener(CollisionHandler())
 
-        TiledMapManagerBox2d(this, unitScale).createObjetosDesdeTiled(Assets.map)
-        tiledWidth = (Assets.map.layers.get("1") as TiledMapTileLayer).width
-        tiledHeight = (Assets.map.layers.get("1") as TiledMapTileLayer).height
+        TiledMapManagerBox2d(this, unitScale).createObjetosDesdeTiled(Assets.map!!)
+        tiledWidth = (Assets.map!!.layers.get("1") as TiledMapTileLayer).width
+        tiledHeight = (Assets.map!!.layers.get("1") as TiledMapTileLayer).height
 
         if (tiledWidth * tiledHeight > 2500) {
             Gdx.app.log(

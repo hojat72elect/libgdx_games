@@ -251,7 +251,7 @@ class WorldGameRenderer(val batcher: SpriteBatch, val oWorld: GameWorld) {
 
             // BALA
             run {
-                val spriteFrame = animBullet.getKeyFrame(obj.stateTime, false)
+                val spriteFrame = animBullet!!.getKeyFrame(obj.stateTime, false)
                 if (obj.isFacingLeft) {
                     spriteFrame!!.setPosition(obj.position.x + .1f, obj.position.y - .1f)
                     spriteFrame.setSize(-.2f, .2f)
@@ -265,7 +265,7 @@ class WorldGameRenderer(val batcher: SpriteBatch, val oWorld: GameWorld) {
 
             // MUZZLE FIRE
             if (obj.state == Bullet.STATE_MUZZLE) {
-                val spriteFrame = Assets.muzzle.getKeyFrame(obj.stateTime, false)
+                val spriteFrame = Assets.muzzle!!.getKeyFrame(obj.stateTime, false)
                 if (obj.isFacingLeft) {
                     spriteFrame!!.setPosition(obj.oPerWhoFired.position.x + .1f - .42f, obj.oPerWhoFired.position.y - .1f - .14f)
                     spriteFrame.setSize(-.2f, .2f)
@@ -278,7 +278,7 @@ class WorldGameRenderer(val batcher: SpriteBatch, val oWorld: GameWorld) {
 
             // MUZZLE HIT
             if (obj.state == Bullet.STATE_HIT) {
-                val spriteFrame = Assets.muzzle.getKeyFrame(obj.stateTime, false)
+                val spriteFrame = Assets.muzzle!!.getKeyFrame(obj.stateTime, false)
                 if (obj.isFacingLeft) { // Aqui es lo mismo que muzzle fire pero alreves
                     spriteFrame!!.setPosition(obj.position.x - .1f, obj.position.y - .1f)
                     spriteFrame.setSize(.2f, .2f)

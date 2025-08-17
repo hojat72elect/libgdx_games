@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
 import com.badlogic.gdx.utils.Array
 
 
-object NewAssets {
+object Assets {
     var fontChico: BitmapFont? = null
     var fontGrande: BitmapFont? = null
     var map: TiledMap? = null

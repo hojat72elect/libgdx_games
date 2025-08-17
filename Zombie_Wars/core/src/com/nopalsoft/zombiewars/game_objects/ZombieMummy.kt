@@ -5,8 +5,8 @@ import com.nopalsoft.zombiewars.Assets
 
 class ZombieMummy(body: Body) : BasePlayer(body) {
     init {
-        DURATION_ATTACK = Assets.zombieMummyAttack.animationDuration
-        DURATION_DEAD = Assets.zombieMummyDie.animationDuration + .2f
+        DURATION_ATTACK = Assets.zombieMummyAttack!!.animationDuration
+        DURATION_DEAD = Assets.zombieMummyDie!!.animationDuration + .2f
         VELOCIDAD_WALK = .5f
         DISTANCE_ATTACK = .35f
         DAMAGE = 1
