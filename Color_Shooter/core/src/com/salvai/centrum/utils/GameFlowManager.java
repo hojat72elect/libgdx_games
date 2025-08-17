@@ -101,14 +101,14 @@ public class GameFlowManager {
 
     private void updateParticleEffect() {
         for (int i = 0; i < explosions.size; i++) {
-            if (explosions.get(i).particleEffect.isComplete())
+            if (explosions.get(i).getParticleEffect().isComplete())
                 explosions.removeIndex(i);
         }
     }
 
     private void finishGame() {
         for (Explosion explosion : explosions) {
-            if (explosion.particleEffect.isComplete()) {
+            if (explosion.getParticleEffect().isComplete()) {
                 explosions.removeValue(explosion, false);
             }
         }
