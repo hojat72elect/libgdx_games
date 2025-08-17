@@ -4,16 +4,16 @@ import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType
 import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
-import com.nopalsoft.zombiewars.objetos.BasePlayer
-import com.nopalsoft.zombiewars.objetos.Bullet
-import com.nopalsoft.zombiewars.objetos.HeroFarmer
-import com.nopalsoft.zombiewars.objetos.HeroForce
-import com.nopalsoft.zombiewars.objetos.HeroLumber
-import com.nopalsoft.zombiewars.objetos.ZombieCuasy
-import com.nopalsoft.zombiewars.objetos.ZombieFrank
-import com.nopalsoft.zombiewars.objetos.ZombieKid
-import com.nopalsoft.zombiewars.objetos.ZombieMummy
-import com.nopalsoft.zombiewars.objetos.ZombiePan
+import com.nopalsoft.zombiewars.game_objects.BasePlayer
+import com.nopalsoft.zombiewars.game_objects.Bullet
+import com.nopalsoft.zombiewars.game_objects.HeroFarmer
+import com.nopalsoft.zombiewars.game_objects.HeroForce
+import com.nopalsoft.zombiewars.game_objects.HeroLumber
+import com.nopalsoft.zombiewars.game_objects.ZombieCuasy
+import com.nopalsoft.zombiewars.game_objects.ZombieFrank
+import com.nopalsoft.zombiewars.game_objects.ZombieKid
+import com.nopalsoft.zombiewars.game_objects.ZombieMummy
+import com.nopalsoft.zombiewars.game_objects.ZombiePan
 
 class ObjectCreatorManagerBox2d(private val gameWorld: GameWorld) {
     private val worldPhysicsHandler = gameWorld.oWorldBox

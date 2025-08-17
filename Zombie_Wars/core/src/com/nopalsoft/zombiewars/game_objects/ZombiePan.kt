@@ -1,4 +1,4 @@
-package com.nopalsoft.zombiewars.objetos
+package com.nopalsoft.zombiewars.game_objects
 
 import com.badlogic.gdx.physics.box2d.Body
 import com.nopalsoft.zombiewars.Assets

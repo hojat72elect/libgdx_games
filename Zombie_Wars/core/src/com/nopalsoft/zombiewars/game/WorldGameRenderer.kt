@@ -9,16 +9,16 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.nopalsoft.zombiewars.AnimationSprite
 import com.nopalsoft.zombiewars.Assets
 import com.nopalsoft.zombiewars.Settings
-import com.nopalsoft.zombiewars.objetos.BasePlayer
-import com.nopalsoft.zombiewars.objetos.Bullet
-import com.nopalsoft.zombiewars.objetos.HeroFarmer
-import com.nopalsoft.zombiewars.objetos.HeroForce
-import com.nopalsoft.zombiewars.objetos.HeroLumber
-import com.nopalsoft.zombiewars.objetos.ZombieCuasy
-import com.nopalsoft.zombiewars.objetos.ZombieFrank
-import com.nopalsoft.zombiewars.objetos.ZombieKid
-import com.nopalsoft.zombiewars.objetos.ZombieMummy
-import com.nopalsoft.zombiewars.objetos.ZombiePan
+import com.nopalsoft.zombiewars.game_objects.BasePlayer
+import com.nopalsoft.zombiewars.game_objects.Bullet
+import com.nopalsoft.zombiewars.game_objects.HeroFarmer
+import com.nopalsoft.zombiewars.game_objects.HeroForce
+import com.nopalsoft.zombiewars.game_objects.HeroLumber
+import com.nopalsoft.zombiewars.game_objects.ZombieCuasy
+import com.nopalsoft.zombiewars.game_objects.ZombieFrank
+import com.nopalsoft.zombiewars.game_objects.ZombieKid
+import com.nopalsoft.zombiewars.game_objects.ZombieMummy
+import com.nopalsoft.zombiewars.game_objects.ZombiePan
 import com.nopalsoft.zombiewars.screens.Screens
 
 class WorldGameRenderer(val batcher: SpriteBatch, val oWorld: GameWorld) {

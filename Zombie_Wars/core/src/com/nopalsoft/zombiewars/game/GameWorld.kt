@@ -12,8 +12,8 @@ import com.badlogic.gdx.physics.box2d.Manifold
 import com.badlogic.gdx.physics.box2d.World
 import com.nopalsoft.zombiewars.Assets
 import com.nopalsoft.zombiewars.Settings
-import com.nopalsoft.zombiewars.objetos.BasePlayer
-import com.nopalsoft.zombiewars.objetos.Bullet
+import com.nopalsoft.zombiewars.game_objects.BasePlayer
+import com.nopalsoft.zombiewars.game_objects.Bullet
 import com.badlogic.gdx.utils.Array as GdxArray
 
 class GameWorld() {
