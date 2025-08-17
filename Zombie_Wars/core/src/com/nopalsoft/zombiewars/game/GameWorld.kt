@@ -226,7 +226,7 @@ class GameWorld() {
                         return
 
                     if (obj.state != BasePlayer.STATE_DEAD) {
-                        obj.getHurt(bullet.DAMAGE)
+                        obj.getHurt(bullet.damage)
                         bullet.hit()
                     }
                 }

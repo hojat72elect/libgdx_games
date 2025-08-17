@@ -4,33 +4,18 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.nopalsoft.zombiewars.Assets
 
-class Bullet(
-    val body: Body, // the one who fired the bullet
-    @JvmField val oPerWhoFired: BasePlayer
-) {
-    @JvmField
-    val DAMAGE = oPerWhoFired.DAMAGE
+class Bullet(val body: Body, val oPerWhoFired: BasePlayer) {
 
-    @JvmField
+    val damage = oPerWhoFired.DAMAGE
     var state = STATE_MUZZLE
-
-    @JvmField
     var position: Vector2 = Vector2(body.getPosition().x, body.getPosition().y)
-
-    @JvmField
     var stateTime = 0f
-
-    @JvmField
     var isFacingLeft = oPerWhoFired.isFacingLeft
-
-    @JvmField
     var isVisible: Boolean
 
     init {
-
         if (isFacingLeft) body.setLinearVelocity(-VELOCIDAD, 0f)
         else body.setLinearVelocity(VELOCIDAD, 0f)
-
         isVisible = oPerWhoFired.tipo == BasePlayer.TIPO_RANGO
     }
 

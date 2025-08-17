@@ -43,13 +43,13 @@ class AnimationSprite(private val frameDuration: Float, keyFrames: GdxArray<out 
         if (looping
             && (playMode == PlayMode.NORMAL || playMode == PlayMode.REVERSED)
         ) {
-            if (playMode == PlayMode.NORMAL) playMode = PlayMode.LOOP
-            else playMode = PlayMode.LOOP_REVERSED
+            playMode = if (playMode == PlayMode.NORMAL) PlayMode.LOOP
+            else PlayMode.LOOP_REVERSED
         } else if (!looping
             && !(playMode == PlayMode.NORMAL || playMode == PlayMode.REVERSED)
         ) {
-            if (playMode == PlayMode.LOOP_REVERSED) playMode = PlayMode.REVERSED
-            else playMode = PlayMode.LOOP
+            playMode = if (playMode == PlayMode.LOOP_REVERSED) PlayMode.REVERSED
+            else PlayMode.LOOP
         }
 
         val frame = getKeyFrame(stateTime)

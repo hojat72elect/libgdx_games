@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.nopalsoft.zombiewars.AnimationSprite
 import com.nopalsoft.zombiewars.Assets
 import com.nopalsoft.zombiewars.Settings
@@ -26,8 +25,6 @@ class WorldGameRenderer(val batcher: SpriteBatch, val oWorld: GameWorld) {
 
     private var oCam = OrthographicCamera(WIDTH, HEIGHT)
     private var tiledRender = OrthogonalTiledMapRenderer(Assets.map, oWorld.unitScale)
-
-    var renderBox = Box2DDebugRenderer()
 
     // Entre mas chico el numero se renderean primero.
     var map1 = tiledRender.map.layers.get("1") as TiledMapTileLayer?

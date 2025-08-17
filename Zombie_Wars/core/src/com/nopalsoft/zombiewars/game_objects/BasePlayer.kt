@@ -4,40 +4,28 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 
 open class BasePlayer(var body: Body) {
-    val DURATION_HURT: Float = .3f
 
-    @JvmField
-    var state: Int
-
-    @JvmField
-    var tipo: Int = 0
-    var DURATION_ATTACK: Float = 0f
-
-    @JvmField
-    var DURATION_DEAD: Float = 0f
-    var DAMAGE: Int = 0
-
-    @JvmField
-    var DISTANCE_ATTACK: Float = 0f
-
-    @JvmField
-    var position: Vector2 = Vector2(body.getPosition().x, body.getPosition().y)
-
-    @JvmField
+    val DURATION_HURT = .3f
+    var state = 0
+    var tipo = 0
+    var DURATION_ATTACK = 0f
+    var DURATION_DEAD = 0f
+    var DAMAGE = 0
+    var DISTANCE_ATTACK = 0f
+    var position = Vector2(body.getPosition().x, body.getPosition().y)
     var stateTime: Float
-    var vidas: Int = 0
-    var attack: Boolean = false // solo puede herir una vez cada vez que atacca
+    var vidas = 0
+    var attack = false // solo puede herir una vez cada vez que atacca
 
     /**
      * Los buenos caminan a la derecha
      */
-    @JvmField
+
     var isFacingLeft: Boolean = false
     protected var TIME_TO_ATTACK_AGAIN: Float = 0f
     var VELOCIDAD_WALK: Float = 0f
 
     init {
-
         state = STATE_NORMAL
         stateTime = 0f
     }

@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
 import com.badlogic.gdx.utils.Array
 
-
 object Assets {
     var fontChico: BitmapFont? = null
     var fontGrande: BitmapFont? = null
@@ -292,7 +291,7 @@ object Assets {
         var i = 1
         var obj: Sprite?
         do {
-            obj = atlas.createSprite("Bullet/" + "muzzle" + i)
+            obj = atlas.createSprite("Bullet/muzzle$i")
             i++
             if (obj != null) arrSprites.add(obj)
         } while (obj != null)
@@ -322,10 +321,10 @@ object Assets {
             map = null
         }
 
-        if (Settings.isTest) {
-            map = TmxMapLoader().load("data/MapsTest/suelo.tmx")
+        map = if (Settings.isTest) {
+            TmxMapLoader().load("data/MapsTest/suelo.tmx")
         } else {
-            map = AtlasTmxMapLoader().load("data/Maps/suelo.tmx")
+            AtlasTmxMapLoader().load("data/Maps/suelo.tmx")
         }
     }
 }
