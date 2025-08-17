@@ -201,10 +201,10 @@ public class GameFlowManager {
 
         if (enemies.size < enemyCount - enemyCreationDelays.size) {
             EnemyBall enemy = new EnemyBall(game.assetsManager.manager.get(Constants.BALL_IMAGE_NAME, Texture.class));
-            if (enemy.speed + (game.score * Constants.ENEMY_SPEED_INCREASE) < Constants.ENEMY_TOTAL_MAX_SPEED)
-                enemy.speed = RandomUtil.getRandomEnemySpeed((int) (enemy.speed + (game.score * Constants.ENEMY_SPEED_INCREASE)));
+            if (enemy.getSpeed() + (game.score * Constants.ENEMY_SPEED_INCREASE) < Constants.ENEMY_TOTAL_MAX_SPEED)
+                enemy.setSpeed(RandomUtil.getRandomEnemySpeed((int) (enemy.getSpeed() + (game.score * Constants.ENEMY_SPEED_INCREASE))));
             else
-                enemy.speed = RandomUtil.getRandomEnemySpeed(Constants.ENEMY_TOTAL_MAX_SPEED);
+                enemy.setSpeed(RandomUtil.getRandomEnemySpeed(Constants.ENEMY_TOTAL_MAX_SPEED));
             enemies.add(enemy);
         }
     }
