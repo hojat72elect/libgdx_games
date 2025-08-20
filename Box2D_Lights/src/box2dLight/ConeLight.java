@@ -7,8 +7,6 @@ import com.badlogic.gdx.math.MathUtils;
  * Light shaped as a circle's sector with given radius, direction and angle
  *
  * <p>Extends {@link PositionalLight}
- *
- * @author kalle_h
  */
 public class ConeLight extends PositionalLight {
 
