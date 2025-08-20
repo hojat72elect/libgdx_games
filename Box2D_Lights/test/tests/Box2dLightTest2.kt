@@ -284,7 +284,7 @@ class Box2dLightTest2 : InputAdapter(), ApplicationListener {
         clearLights()
         for (i in 0..<BALLS_NUM) {
             val light = PointLight(
-                rayHandler, RAYS_PER_BALL, null, LIGHT_DISTANCE, 0f, 0f
+                rayHandler!!, RAYS_PER_BALL, null, LIGHT_DISTANCE, 0f, 0f
             )
             light.attachToBody(balls[i], RADIUS / 2f, RADIUS / 2f)
             light.setColor(
