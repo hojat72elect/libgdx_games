@@ -462,7 +462,7 @@ class Box2dLightCustomShaderTest : InputAdapter(), ApplicationListener {
         clearLights()
         for (i in 0..<BALLS_NUM) {
             val light = ConeLight(
-                rayHandler, RAYS_PER_BALL, null, LIGHT_DISTANCE,
+                rayHandler!!, RAYS_PER_BALL, null, LIGHT_DISTANCE,
                 0f, 0f, 0f, MathUtils.random(15f, 40f)
             )
             light.attachToBody(
