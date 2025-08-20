@@ -461,7 +461,6 @@ public class DirectionalLight extends Light {
      * Not applicable for this light type *
      */
     @Deprecated
-    @Override
     public void attachToBody(Body body) {
     }
 
@@ -469,7 +468,6 @@ public class DirectionalLight extends Light {
      * Not applicable for this light type
      **/
     @Deprecated
-    @Override
     public void setPosition(float x, float y) {
     }
 
@@ -505,7 +503,6 @@ public class DirectionalLight extends Light {
      * Not applicable for this light type
      **/
     @Deprecated
-    @Override
     public void setPosition(Vector2 position) {
     }
 

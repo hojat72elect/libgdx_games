@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.Mesh.VertexDataType;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Rectangle;
@@ -49,25 +48,6 @@ public class ChainLight extends Light {
     protected float bodyAngle;
     protected float bodyAngleOffset;
     protected Body body;
-
-    /**
-     * Creates chain light without vertices, they can be added any time later
-     *
-     * @param rayHandler   not {@code null} instance of RayHandler
-     * @param rays         number of rays - more rays make light to look more realistic
-     *                     but will decrease performance, can't be less than MIN_RAYS
-     * @param color        color, set to {@code null} to use the default color
-     * @param distance     distance of light, soft shadow length is set to distance * 0.1f
-     * @param rayDirection direction of rays
-     *                     <ul>
-     *                     <li>1 = left</li>
-     *                     <li>-1 = right</li>
-     *                     </ul>
-     */
-    public ChainLight(RayHandler rayHandler, int rays, Color color,
-                      float distance, int rayDirection) {
-        this(rayHandler, rays, color, distance, rayDirection, null);
-    }
 
     /**
      * Creates chain light from specified vertices
@@ -147,24 +127,7 @@ public class ChainLight extends Light {
         }
     }
 
-    /**
-     * Draws a polygon, using ray start and end points as vertices
-     */
-    public void debugRender(ShapeRenderer shapeRenderer) {
-        shapeRenderer.setColor(Color.YELLOW);
-        FloatArray vertices = Pools.obtain(FloatArray.class);
-        vertices.clear();
-        for (int i = 0; i < rayNum; i++) {
-            vertices.addAll(mx[i], my[i]);
-        }
-        for (int i = rayNum - 1; i > -1; i--) {
-            vertices.addAll(startX[i], startY[i]);
-        }
-        shapeRenderer.polygon(vertices.shrink());
-        Pools.free(vertices);
-    }
 
-    @Override
     public void attachToBody(Body body) {
         attachToBody(body, 0f);
     }
@@ -201,14 +164,14 @@ public class ChainLight extends Light {
         return tmpPosition.y;
     }
 
-    @Override
+
     public void setPosition(float x, float y) {
         tmpPosition.x = x;
         tmpPosition.y = y;
         if (staticLight) dirty = true;
     }
 
-    @Override
+
     public void setPosition(Vector2 position) {
         tmpPosition.x = position.x;
         tmpPosition.y = position.y;

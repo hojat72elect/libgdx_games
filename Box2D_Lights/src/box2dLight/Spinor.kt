@@ -6,25 +6,10 @@ import kotlin.math.acos
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
-import kotlin.math.sqrt
 
 class Spinor {
     var real = 0f
     var complex = 0f
-
-    constructor()
-
-    constructor(angle: Float) {
-        set(angle)
-    }
-
-    constructor(copyFrom: Spinor) {
-        set(copyFrom)
-    }
-
-    constructor(real: Float, complex: Float) {
-        set(real, complex)
-    }
 
     fun set(angle: Float): Spinor {
         var angle = angle
@@ -45,79 +30,8 @@ class Spinor {
         return this
     }
 
-    fun scale(t: Float): Spinor {
-        real *= t
-        complex *= t
-        return this
-    }
-
-    fun invert(): Spinor {
-        complex = -complex
-        scale(len2())
-        return this
-    }
-
-    fun add(other: Spinor): Spinor {
-        real += other.real
-        complex += other.complex
-        return this
-    }
-
-    fun add(angle: Float): Spinor {
-        var angle = angle
-        angle /= 2f
-        real += cos(angle.toDouble()).toFloat()
-        complex += sin(angle.toDouble()).toFloat()
-        return this
-    }
-
-    fun sub(other: Spinor): Spinor {
-        real -= other.real
-        complex -= other.complex
-        return this
-    }
-
-    fun sub(angle: Float): Spinor {
-        var angle = angle
-        angle /= 2f
-        real -= cos(angle.toDouble()).toFloat()
-        complex -= sin(angle.toDouble()).toFloat()
-        return this
-    }
-
-    fun len(): Float {
-        return sqrt((real * real + complex * complex).toDouble()).toFloat()
-    }
-
-    fun len2(): Float {
-        return real * real + complex * complex
-    }
-
-    fun mul(other: Spinor): Spinor {
-        set(
-            real * other.real - complex * other.complex, real * other.complex
-                    + complex * other.real
-        )
-        return this
-    }
-
-    fun nor(): Spinor {
-        val length = len()
-        real /= length
-        complex /= length
-        return this
-    }
-
     fun angle(): Float {
         return atan2(complex.toDouble(), real.toDouble()).toFloat() * 2
-    }
-
-    fun lerp(end: Spinor, alpha: Float, tmp: Spinor): Spinor {
-        scale(1 - alpha)
-        tmp.set(end).scale(alpha)
-        add(tmp)
-        nor()
-        return this
     }
 
     fun slerp(dest: Spinor, t: Float): Spinor {

@@ -24,10 +24,6 @@ import com.badlogic.gdx.utils.IntArray;
  */
 public abstract class Light implements Disposable {
 
-    /**
-     * Dynamic shadows variables *
-     */
-    protected static final LightData tmpData = new LightData(0f);
     static final Color DefaultColor = new Color(0.75f, 0.75f, 0.5f, 0.75f);
     static final float zeroColorBits = Color.toFloatBits(0f, 0f, 0f, 0f);
     static final float oneColorBits = Color.toFloatBits(1f, 1f, 1f, 1f);
@@ -35,7 +31,7 @@ public abstract class Light implements Disposable {
     /**
      * Global lights filter
      **/
-    static private Filter globalFilterA = null;
+    static private final Filter globalFilterA = null;
     protected final Color color = new Color();
     protected final Vector2 tmpPosition = new Vector2();
     protected final Array<Mesh> dynamicShadowMeshes = new Array<>();
@@ -127,27 +123,6 @@ public abstract class Light implements Disposable {
         setDirection(directionDegree);
     }
 
-    /**
-     * Sets given contact filter for ALL LIGHTS
-     */
-    static public void setGlobalContactFilter(Filter filter) {
-        globalFilterA = filter;
-    }
-
-    /**
-     * Creates new contact filter for ALL LIGHTS with give parameters
-     *
-     * @param categoryBits - see {@link Filter#categoryBits}
-     * @param groupIndex   - see {@link Filter#groupIndex}
-     * @param maskBits     - see {@link Filter#maskBits}
-     */
-    static public void setGlobalContactFilter(short categoryBits, short groupIndex,
-                                              short maskBits) {
-        globalFilterA = new Filter();
-        globalFilterA.categoryBits = categoryBits;
-        globalFilterA.groupIndex = groupIndex;
-        globalFilterA.maskBits = maskBits;
-    }
 
     /**
      * Updates this light
@@ -168,27 +143,12 @@ public abstract class Light implements Disposable {
         }
     }
 
-    /**
-     * Attaches light to specified body
-     *
-     * @param body that will be automatically followed, note that the body
-     *             rotation angle is taken into account for the light offset
-     *             and direction calculations
-     */
-    public abstract void attachToBody(Body body);
 
     /**
      * @return attached body or {@code null}
-     * @see #attachToBody(Body)
      */
     public abstract Body getBody();
 
-    /**
-     * Sets light starting position
-     *
-     * @see #setPosition(Vector2)
-     */
-    public abstract void setPosition(float x, float y);
 
     /**
      * @return horizontal starting position of light in world coordinates
@@ -200,20 +160,6 @@ public abstract class Light implements Disposable {
      */
     public abstract float getY();
 
-    /**
-     * @return starting position of light in world coordinates
-     * <p>NOTE: changing this vector does nothing
-     */
-    public Vector2 getPosition() {
-        return tmpPosition;
-    }
-
-    /**
-     * Sets light starting position
-     *
-     * @see #setPosition(float, float)
-     */
-    public abstract void setPosition(Vector2 position);
 
     /**
      * Sets light color

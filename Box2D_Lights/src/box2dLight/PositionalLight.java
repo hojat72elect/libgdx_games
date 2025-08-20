@@ -98,7 +98,7 @@ public abstract class PositionalLight extends Light {
         }
     }
 
-    @Override
+
     public void attachToBody(Body body) {
         attachToBody(body, 0f, 0f, 0f);
     }
@@ -134,14 +134,14 @@ public abstract class PositionalLight extends Light {
         if (staticLight) dirty = true;
     }
 
-    @Override
+
     public Vector2 getPosition() {
         tmpPosition.x = start.x;
         tmpPosition.y = start.y;
         return tmpPosition;
     }
 
-    @Override
+
     public void setPosition(Vector2 position) {
         start.x = position.x;
         start.y = position.y;
@@ -168,7 +168,7 @@ public abstract class PositionalLight extends Light {
         return start.y;
     }
 
-    @Override
+
     public void setPosition(float x, float y) {
         start.x = x;
         start.y = y;
@@ -527,29 +527,5 @@ public abstract class PositionalLight extends Light {
             meshInd++;
         }
         dynamicShadowMeshes.truncate(meshInd);
-    }
-
-    public float getBodyOffsetX() {
-        return bodyOffsetX;
-    }
-
-    public void setBodyOffsetX(float bodyOffsetX) {
-        this.bodyOffsetX = bodyOffsetX;
-    }
-
-    public float getBodyOffsetY() {
-        return bodyOffsetY;
-    }
-
-    public void setBodyOffsetY(float bodyOffsetY) {
-        this.bodyOffsetY = bodyOffsetY;
-    }
-
-    public float getBodyAngleOffset() {
-        return bodyAngleOffset;
-    }
-
-    public void setBodyAngleOffset(float bodyAngleOffset) {
-        this.bodyAngleOffset = bodyAngleOffset;
     }
 }

@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
@@ -22,13 +19,6 @@ import shaders.LightShader;
  * @author kalle_h
  */
 public class RayHandler implements Disposable {
-
-    /**
-     * Gamma correction value used if enabled
-     * TODO: remove final modifier and provide method to change
-     * this default value if needed to anyone?
-     */
-    static final float GAMMA_COR = 0.625f;
 
     static boolean gammaCorrection = false;
     static float gammaCorrectionParameter = 1f;
@@ -179,24 +169,12 @@ public class RayHandler implements Disposable {
      * Static setters are deprecated, use {@link RayHandlerOptions}
      */
     @Deprecated
-    public static void setGammaCorrection(boolean gammaCorrectionWanted) {
+    public static void setGammaCorrection() {
 
     }
 
     public static boolean isDiffuseLight() {
         return isDiffuse;
-    }
-
-    /**
-     * Enables/disables usage of diffuse algorithm.
-     *
-     * <p>If set to true lights are blended using the diffuse shader. This is
-     * more realistic model than normally used as it preserve colors but might
-     * look bit darker and also it might improve performance slightly.
-     */
-    public void setDiffuseLight(boolean useDiffuse) {
-        isDiffuse = useDiffuse;
-        lightMap.createShaders();
     }
 
     public static float getDynamicShadowColorReduction() {
@@ -207,7 +185,7 @@ public class RayHandler implements Disposable {
      * Static setters are deprecated, use {@link RayHandlerOptions}
      */
     @Deprecated
-    public static void useDiffuseLight(boolean useDiffuse) {
+    public static void useDiffuseLight() {
 
     }
 
@@ -322,29 +300,10 @@ public class RayHandler implements Disposable {
     }
 
     /**
-     * Updates and renders all active lights.
-     *
-     * <p><b>NOTE!</b> Remember to set combined matrix before this method.
-     *
-     * <p>Don't call this inside of any begin/end statements.
-     * Call this method after you have rendered background but before UI.
-     * Box2d bodies can be rendered before or after depending how you want
-     * the x-ray lights to interact with them.
-     *
-     * @see #update()
-     * @see #render()
-     */
-    public void updateAndRender() {
-        update();
-        render();
-    }
-
-    /**
      * Manual update method for all active lights.
      *
      * <p>Use this if you have less physics steps than rendering steps.
      *
-     * @see #updateAndRender()
      * @see #render()
      */
     public void update() {
@@ -361,7 +320,6 @@ public class RayHandler implements Disposable {
      *
      * <p><b>NOTE!</b> Don't call this inside of any begin/end statements.
      *
-     * @see #renderOnly()
      * @see #render()
      */
     public void prepareRender() {
@@ -443,28 +401,12 @@ public class RayHandler implements Disposable {
      * Box2d bodies can be rendered before or after depending how you want
      * the x-ray lights to interact with them.
      *
-     * @see #updateAndRender()
      * @see #update()
      * @see #setCombinedMatrix(Matrix4)
      * @see #setCombinedMatrix(Matrix4, float, float, float, float)
      */
     public void render() {
         prepareRender();
-        lightMap.render();
-    }
-
-    /**
-     * Manual rendering method for all lights tha can be used inside of
-     * begin/end statements
-     *
-     * <p>Use this method if you want to render lights in a frame buffer
-     * object. You must call {@link #prepareRender()} before calling this
-     * method. Also, {@link #prepareRender()} must not be inside of any
-     * begin/end statements
-     *
-     * @see #prepareRender()
-     */
-    public void renderOnly() {
         lightMap.render();
     }
 
@@ -484,18 +426,6 @@ public class RayHandler implements Disposable {
      */
     protected void updateLightShaderPerLight(Light light) {
 
-    }
-
-    /**
-     * Checks whether the given point is inside of any light volume
-     *
-     * @return true if point is inside of any light volume
-     */
-    public boolean pointAtLight(float x, float y) {
-        for (Light light : lightList) {
-            if (light.contains(x, y)) return true;
-        }
-        return false;
     }
 
     /**
@@ -544,39 +474,12 @@ public class RayHandler implements Disposable {
     }
 
     /**
-     * Enables/disables culling.
-     *
-     * <p>This save CPU and GPU time when the world is bigger than the screen.
-     *
-     * <p>Default = true
-     */
-    public void setCulling(boolean culling) {
-        this.culling = culling;
-    }
-
-    /**
-     * Enables/disables Gaussian blur.
-     *
-     * <p>This make lights much more softer and realistic look but cost some
-     * precious shader time. With default FBO size on android cost around 1ms.
-     *
-     * <p>Default = true
-     *
-     * @see #setBlurNum(int)
-     */
-    public void setBlur(boolean blur) {
-        this.blur = blur;
-    }
-
-    /**
      * Sets number of Gaussian blur passes.
      *
      * <p>Blurring can be pretty heavy weight operation, 1-3 should be safe.
      * Setting this to 0 is the same as disabling it.
      *
      * <p>Default = 1
-     *
-     * @see #setBlur(boolean)
      */
     public void setBlurNum(int blurNum) {
         this.blurNum = blurNum;
@@ -590,18 +493,6 @@ public class RayHandler implements Disposable {
     }
 
     /**
-     * Sets ambient light brightness. Specifies shadows brightness.
-     * <p>Default = 0
-     *
-     * @param ambientLight shadows brightness value, clamped to [0f; 1f]
-     * @see #setAmbientLight(Color)
-     * @see #setAmbientLight(float, float, float, float)
-     */
-    public void setAmbientLight(float ambientLight) {
-        this.ambientLight.a = MathUtils.clamp(ambientLight, 0f, 1f);
-    }
-
-    /**
      * Sets ambient light color.
      * Specifies how shadows colored and their brightness.
      *
@@ -611,123 +502,8 @@ public class RayHandler implements Disposable {
      * @param g shadows color green component
      * @param b shadows color blue component
      * @param a shadows brightness component
-     * @see #setAmbientLight(float)
-     * @see #setAmbientLight(Color)
      */
     public void setAmbientLight(float r, float g, float b, float a) {
         this.ambientLight.set(r, g, b, a);
-    }
-
-    /**
-     * Sets ambient light color.
-     * Specifies how shadows colored and their brightness.
-     *
-     * <p>Default = Color(0, 0, 0, 0)
-     *
-     * @param ambientLightColor color whose RGB components specify the shadows coloring and
-     *                          alpha specify shadows brightness
-     * @see #setAmbientLight(float)
-     * @see #setAmbientLight(float, float, float, float)
-     */
-    public void setAmbientLight(Color ambientLightColor) {
-        this.ambientLight.set(ambientLightColor);
-    }
-
-    /**
-     * Sets physics world to work with for this rayHandler
-     */
-    public void setWorld(World world) {
-        this.world = world;
-    }
-
-    /**
-     * Enables/disables gamma correction.
-     *
-     * <p><b>This need to be done before creating instance of rayHandler.</b>
-     *
-     * <p>NOTE: To match the visuals with gamma uncorrected lights the light
-     * distance parameters is modified implicitly.
-     */
-    public void applyGammaCorrection(boolean gammaCorrectionWanted) {
-        gammaCorrection = gammaCorrectionWanted;
-        gammaCorrectionParameter = gammaCorrection ? GAMMA_COR : 1f;
-        lightMap.createShaders();
-    }
-
-    /**
-     * Sets rendering to custom viewport with specified position and size
-     * <p>Note: you will be responsible for update of viewport via this method
-     * in case of any changes (on resize)
-     */
-    public void useCustomViewport(int x, int y, int width, int height) {
-        customViewport = true;
-        viewportX = x;
-        viewportY = y;
-        viewportWidth = width;
-        viewportHeight = height;
-    }
-
-    /**
-     * Sets rendering to default viewport
-     *
-     * <p>0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()
-     */
-    public void useDefaultViewport() {
-        customViewport = false;
-    }
-
-    /**
-     * /!\ Experimental mode with dynamic shadowing in pseudo-3d world
-     *
-     * @param flag enable pseudo 3d effect
-     */
-    public void setPseudo3dLight(boolean flag) {
-        setPseudo3dLight(flag, false);
-    }
-
-    /**
-     * /!\ Experimental mode with dynamic shadowing in pseudo-3d world
-     *
-     * @param flag               enable pseudo 3d effect
-     * @param interpolateShadows interpolate shadow color
-     */
-    public void setPseudo3dLight(boolean flag, boolean interpolateShadows) {
-        pseudo3d = flag;
-        shadowColorInterpolation = interpolateShadows;
-
-        lightMap.createShaders();
-    }
-
-    /**
-     * Enables/disables lightMap automatic rendering.
-     *
-     * <p>If set to false user needs to use the {@link #getLightMapTexture()}
-     * and render that or use it as a light map when rendering. Example shader
-     * for spriteBatch is given. This is faster way to do if there is not that
-     * much overdrawing or if just couple object need light/shadows.
-     *
-     * <p>Default = true
-     */
-    public void setLightMapRendering(boolean isAutomatic) {
-        lightMap.lightMapDrawingDisabled = !isAutomatic;
-    }
-
-    /**
-     * Expert functionality
-     *
-     * @return Texture that contain lightmap texture that can be used as light
-     * texture in your shaders
-     */
-    public Texture getLightMapTexture() {
-        return lightMap.frameBuffer.getColorBufferTexture();
-    }
-
-    /**
-     * Expert functionality, no support given
-     *
-     * @return FrameBuffer that contains lightMap
-     */
-    public FrameBuffer getLightMapBuffer() {
-        return lightMap.frameBuffer;
     }
 }
