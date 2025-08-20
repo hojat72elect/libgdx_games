@@ -5,10 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 
 /**
  * Light shaped as a circle with given radius
- *
  * <p>Extends {@link PositionalLight}
- *
- * @author kalle_h
  */
 public class PointLight extends PositionalLight {
 
