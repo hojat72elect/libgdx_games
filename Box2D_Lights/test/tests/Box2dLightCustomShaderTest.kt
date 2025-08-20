@@ -162,8 +162,8 @@ class Box2dLightCustomShaderTest : InputAdapter(), ApplicationListener {
 
         lightShader = createLightShader()
         val options = RayHandlerOptions()
-        options.setDiffuse(true)
-        options.setGammaCorrection(true)
+        options.isDiffuse = true
+        options.gammaCorrection = true
         rayHandler = object : RayHandler(world, Gdx.graphics.width, Gdx.graphics.height, options) {
             override fun updateLightShaderPerLight(light: Light) {
                 // light position must be normalized

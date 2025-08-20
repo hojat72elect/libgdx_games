@@ -134,8 +134,8 @@ class Box2dLightTest : InputAdapter(), ApplicationListener {
 
         // BOX2D LIGHT STUFF BEGIN
         val options = RayHandlerOptions()
-        options.setDiffuse(true)
-        options.setGammaCorrection(true)
+        options.isDiffuse = true
+        options.gammaCorrection = true
         rayHandler = RayHandler(world, options)
         rayHandler.setAmbientLight(0f, 0f, 0f, 0.5f)
         rayHandler.setBlurNum(3)

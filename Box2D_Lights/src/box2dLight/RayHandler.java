@@ -158,10 +158,10 @@ public class RayHandler implements Disposable {
         this.world = world;
 
         if (options != null) {
-            isDiffuse = options.isDiffuse;
-            gammaCorrection = options.gammaCorrection;
-            pseudo3d = options.pseudo3d;
-            shadowColorInterpolation = options.shadowColorInterpolation;
+            isDiffuse = options.isDiffuse();
+            gammaCorrection = options.getGammaCorrection();
+            pseudo3d = options.getPseudo3d();
+            shadowColorInterpolation = options.getShadowColorInterpolation();
         }
 
         resizeFBO(fboWidth, fboHeight);

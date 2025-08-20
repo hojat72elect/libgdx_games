@@ -135,8 +135,8 @@ class Box2dLightTest2 : InputAdapter(), ApplicationListener {
         normalProjection.setToOrtho2D(0f, 0f, Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
 
         val options = RayHandlerOptions()
-        options.setDiffuse(true)
-        options.setGammaCorrection(true)
+        options.isDiffuse = true
+        options.gammaCorrection = true
         options.setPseudo3d(true)
         // BOX2D LIGHT STUFF BEGIN
         rayHandler = RayHandler(world, options)
