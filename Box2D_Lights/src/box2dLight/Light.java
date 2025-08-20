@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.IntArray;
 /**
  * Light is data container for all the light parameters. When created lights
  * are automatically added to rayHandler and could be removed by calling
- * {@link #remove()} and added manually by calling {@link #add(RayHandler)}.
+ * {@link #remove()} and added manually.
  *
  * <p>Implements {@link Disposable}
  *
@@ -68,7 +68,7 @@ public abstract class Light implements Disposable {
     /**
      * This light specific filter
      **/
-    private Filter filterA = null;
+    private final Filter filterA = null;
     final RayCastCallback ray = new RayCastCallback() {
         @Override
         public float reportRayFixture(Fixture fixture, Vector2 point,
@@ -179,18 +179,6 @@ public abstract class Light implements Disposable {
     }
 
     /**
-     * Adds light to specified RayHandler
-     */
-    public void add(RayHandler rayHandler) {
-        this.rayHandler = rayHandler;
-        if (active) {
-            rayHandler.lightList.add(this);
-        } else {
-            rayHandler.disabledLights.add(this);
-        }
-    }
-
-    /**
      * Removes light from specified RayHandler and disposes it
      */
     public void remove() {
@@ -223,100 +211,6 @@ public abstract class Light implements Disposable {
         dynamicShadowMeshes.clear();
     }
 
-    /**
-     * @return if this light is active
-     */
-    public boolean isActive() {
-        return active;
-    }
-
-    /**
-     * Enables/disables this light update and rendering
-     */
-    public void setActive(boolean active) {
-        if (active == this.active)
-            return;
-
-        this.active = active;
-        if (rayHandler == null)
-            return;
-
-        if (active) {
-            rayHandler.lightList.add(this);
-            rayHandler.disabledLights.removeValue(this, true);
-        } else {
-            rayHandler.disabledLights.add(this);
-            rayHandler.lightList.removeValue(this, true);
-        }
-    }
-
-    /**
-     * @return if this light beams go through obstacles
-     */
-    public boolean isXray() {
-        return xray;
-    }
-
-    /**
-     * Enables/disables x-ray beams for this light
-     *
-     * <p>Enabling this will allow beams go through obstacles that reduce CPU
-     * burden of light about 70%.
-     *
-     * <p>Use the combination of x-ray and non x-ray lights wisely
-     */
-    public void setXray(boolean xray) {
-        this.xray = xray;
-        if (staticLight) dirty = true;
-    }
-
-    /**
-     * @return if this light is static
-     * <p>Static light do not get any automatic updates but setting
-     * any parameters will update it. Static lights are useful for
-     * lights that you want to collide with static geometry but ignore
-     * all the dynamic objects.
-     */
-    public boolean isStaticLight() {
-        return staticLight;
-    }
-
-    /**
-     * Enables/disables this light static behavior
-     *
-     * <p>Static light do not get any automatic updates but setting any
-     * parameters will update it. Static lights are useful for lights that you
-     * want to collide with static geometry but ignore all the dynamic objects
-     *
-     * <p>Reduce CPU burden of light about 90%
-     */
-    public void setStaticLight(boolean staticLight) {
-        this.staticLight = staticLight;
-        if (staticLight) dirty = true;
-    }
-
-    /**
-     * @return if tips of this light beams are soft
-     */
-    public boolean isSoft() {
-        return soft;
-    }
-
-    /**
-     * Enables/disables softness on tips of this light beams
-     */
-    public void setSoft(boolean soft) {
-        this.soft = soft;
-        if (staticLight) dirty = true;
-    }
-
-    /**
-     * @return softness value for beams tips
-     * <p>Default: {@code 2.5f}
-     */
-    public float getSoftShadowLength() {
-        return softShadowLength;
-    }
 
     /**
      * Sets softness value for beams tips
@@ -326,13 +220,6 @@ public abstract class Light implements Disposable {
     public void setSoftnessLength(float softShadowLength) {
         this.softShadowLength = softShadowLength;
         if (staticLight) dirty = true;
-    }
-
-    /**
-     * @return current color of this light
-     */
-    public Color getColor() {
-        return color;
     }
 
     /**
@@ -354,25 +241,11 @@ public abstract class Light implements Disposable {
     }
 
     /**
-     * @return rays distance of this light (without gamma correction)
-     */
-    public float getDistance() {
-        return distance / RayHandler.gammaCorrectionParameter;
-    }
-
-    /**
      * Sets light distance
      *
      * <p>NOTE: MIN value should be capped to 0.1f meter
      */
     public abstract void setDistance(float dist);
-
-    /**
-     * @return direction in degrees (0 if not applicable)
-     */
-    public float getDirection() {
-        return direction;
-    }
 
     /**
      * Sets light direction
@@ -389,33 +262,8 @@ public abstract class Light implements Disposable {
         return false;
     }
 
-    /**
-     * @return if the attached body fixtures will be ignored during raycasting
-     */
-    public boolean getIgnoreAttachedBody() {
-        return ignoreBody;
-    }
-
-    /**
-     * Sets if the attached body fixtures should be ignored during raycasting
-     *
-     * @param flag - if {@code true} all the fixtures of attached body
-     *             will be ignored and will not create any shadows for this
-     *             light. By default is set to {@code false}.
-     */
-    public void setIgnoreAttachedBody(boolean flag) {
-        ignoreBody = flag;
-    }
-
     public void setHeight(float height) {
         this.pseudo3dHeight = height;
-    }
-
-    /**
-     * @return number of rays set for this light
-     */
-    public int getRayNum() {
-        return rayNum;
     }
 
     /**
@@ -443,28 +291,6 @@ public abstract class Light implements Disposable {
 
         return (filterA.maskBits & filterB.categoryBits) != 0 &&
                 (filterA.categoryBits & filterB.maskBits) != 0;
-    }
-
-    /**
-     * Sets given contact filter for this light
-     */
-    public void setContactFilter(Filter filter) {
-        filterA = filter;
-    }
-
-    /**
-     * Creates new contact filter for this light with given parameters
-     *
-     * @param categoryBits - see {@link Filter#categoryBits}
-     * @param groupIndex   - see {@link Filter#groupIndex}
-     * @param maskBits     - see {@link Filter#maskBits}
-     */
-    public void setContactFilter(short categoryBits, short groupIndex,
-                                 short maskBits) {
-        filterA = new Filter();
-        filterA.categoryBits = categoryBits;
-        filterA.groupIndex = groupIndex;
-        filterA.maskBits = maskBits;
     }
 
     boolean globalContactFilter(Fixture fixtureB) {

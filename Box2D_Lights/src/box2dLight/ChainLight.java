@@ -127,11 +127,6 @@ public class ChainLight extends Light {
         }
     }
 
-
-    public void attachToBody(Body body) {
-        attachToBody(body, 0f);
-    }
-
     /**
      * Attaches light to specified body with relative direction offset
      *
@@ -162,20 +157,6 @@ public class ChainLight extends Light {
     @Override
     public float getY() {
         return tmpPosition.y;
-    }
-
-
-    public void setPosition(float x, float y) {
-        tmpPosition.x = x;
-        tmpPosition.y = y;
-        if (staticLight) dirty = true;
-    }
-
-
-    public void setPosition(Vector2 position) {
-        tmpPosition.x = position.x;
-        tmpPosition.y = position.y;
-        if (staticLight) dirty = true;
     }
 
     @Override

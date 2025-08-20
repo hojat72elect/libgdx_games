@@ -6,10 +6,6 @@ class LightData {
     var shadow = false
     var shadowsDropped = 0
 
-    constructor(h: Float) {
-        height = h
-    }
-
     constructor(h: Float, shadow: Boolean) {
         height = h
         this.shadow = shadow

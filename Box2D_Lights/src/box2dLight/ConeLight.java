@@ -62,13 +62,6 @@ public class ConeLight extends PositionalLight {
     }
 
     /**
-     * @return this lights cone degree
-     */
-    public float getConeDegree() {
-        return coneDegree;
-    }
-
-    /**
      * How big is the arc of cone
      *
      * <p>Arc angle = coneDegree * 2, centered over direction angle

@@ -458,20 +458,6 @@ public class DirectionalLight extends Light {
     }
 
     /**
-     * Not applicable for this light type *
-     */
-    @Deprecated
-    public void attachToBody(Body body) {
-    }
-
-    /**
-     * Not applicable for this light type
-     **/
-    @Deprecated
-    public void setPosition(float x, float y) {
-    }
-
-    /**
      * Returns the ignored by this light body or {@code null} if not set
      **/
     @Override
@@ -503,40 +489,7 @@ public class DirectionalLight extends Light {
      * Not applicable for this light type
      **/
     @Deprecated
-    public void setPosition(Vector2 position) {
-    }
-
-    /**
-     * Not applicable for this light type
-     **/
-    @Deprecated
     @Override
     public void setDistance(float dist) {
-    }
-
-    /**
-     * Not applicable for this light type
-     * <p>Always return {@code false}
-     **/
-    @Deprecated
-    @Override
-    public boolean getIgnoreAttachedBody() {
-        return false;
-    }
-
-    /**
-     * Not applicable for this light type
-     **/
-    @Deprecated
-    @Override
-    public void setIgnoreAttachedBody(boolean flag) {
-    }
-
-    /**
-     * Sets the body to be ignored by this light, pass {@code null} to disable it
-     **/
-    public void setIgnoreBody(Body body) {
-        this.body = body;
-        ignoreBody = (body != null);
     }
 }

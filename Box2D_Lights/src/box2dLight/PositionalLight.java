@@ -99,10 +99,6 @@ public abstract class PositionalLight extends Light {
     }
 
 
-    public void attachToBody(Body body) {
-        attachToBody(body, 0f, 0f, 0f);
-    }
-
     /**
      * Attaches light to specified body with relative offset
      *
@@ -135,19 +131,6 @@ public abstract class PositionalLight extends Light {
     }
 
 
-    public Vector2 getPosition() {
-        tmpPosition.x = start.x;
-        tmpPosition.y = start.y;
-        return tmpPosition;
-    }
-
-
-    public void setPosition(Vector2 position) {
-        start.x = position.x;
-        start.y = position.y;
-        if (staticLight) dirty = true;
-    }
-
     public Body getBody() {
         return body;
     }
@@ -168,12 +151,6 @@ public abstract class PositionalLight extends Light {
         return start.y;
     }
 
-
-    public void setPosition(float x, float y) {
-        start.x = x;
-        start.y = y;
-        if (staticLight) dirty = true;
-    }
 
     public boolean contains(Vector2 pos) {
         return contains(pos.x, pos.y);
