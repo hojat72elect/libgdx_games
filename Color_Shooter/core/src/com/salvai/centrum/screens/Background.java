@@ -17,8 +17,8 @@ public class Background {
 
     public Background(Texture starTexture) {
         this.starTexture = starTexture;
-        stars = new Array<Star>();
-        starsCreationDelay = new Array<Integer>();
+        stars = new Array<>();
+        starsCreationDelay = new Array<>();
 
         for (int i = 0; i < 10; i++) {
             starsCreationDelay.add(10 * i);
@@ -69,7 +69,7 @@ public class Background {
             star.sprite.draw(batch);
     }
 
-    private class Star {
+    private static class Star {
         public Sprite sprite;
         Vector2 position;
         int speed;
