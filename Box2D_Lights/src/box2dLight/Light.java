@@ -100,7 +100,7 @@ public abstract class Light implements Disposable {
         affectedFixtures.add(fixture);
         if (fixture.getUserData() instanceof LightData) {
             LightData data = (LightData) fixture.getUserData();
-            data.shadowsDropped++;
+            data.setShadowsDropped(data.getShadowsDropped() + 1);
         }
         return true;
     };

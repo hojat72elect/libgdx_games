@@ -229,7 +229,7 @@ public class DirectionalLight extends Light {
             lstart.set(center).add(xDisp, yDisp);
 
             int shadowSize = 0;
-            float l = data.height / (float) Math.tan(pseudo3dHeight * MathUtils.degRad);
+            float l = data.getHeight() / (float) Math.tan(pseudo3dHeight * MathUtils.degRad);
             float f = 1f;
 
             tmpColor.set(Color.BLACK);
@@ -322,7 +322,7 @@ public class DirectionalLight extends Light {
                     segments[shadowSize++] = endColBits;
                     segments[shadowSize++] = f;
                 }
-                if (data.shadow) {
+                if (data.getShadow()) {
                     for (int n = 0; n < vertexCount; n++) {
                         tmpVec.set(tmpVerts.get(n));
                         segments[shadowSize++] = tmpVec.x;
