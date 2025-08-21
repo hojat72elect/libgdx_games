@@ -15,8 +15,6 @@ import shaders.LightShader;
 /**
  * Handler that manages everything related to lights updating and rendering
  * <p>Implements {@link Disposable}
- *
- * @author kalle_h
  */
 public class RayHandler implements Disposable {
 
