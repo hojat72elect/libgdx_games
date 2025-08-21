@@ -330,7 +330,7 @@ public class RayHandler implements Disposable {
 
         boolean useLightMap = (shadows || blur);
         if (useLightMap) {
-            lightMap.frameBuffer.begin();
+            lightMap.getFrameBuffer().begin();
             Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         }
@@ -352,18 +352,18 @@ public class RayHandler implements Disposable {
 
         if (useLightMap) {
             if (customViewport) {
-                lightMap.frameBuffer.end(
+                lightMap.getFrameBuffer().end(
                         viewportX,
                         viewportY,
                         viewportWidth,
                         viewportHeight);
             } else {
-                lightMap.frameBuffer.end();
+                lightMap.getFrameBuffer().end();
             }
         }
 
         if (useLightMap && pseudo3d) {
-            lightMap.shadowBuffer.begin();
+            lightMap.getShadowBuffer().begin();
             Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -372,22 +372,22 @@ public class RayHandler implements Disposable {
             }
 
             if (customViewport) {
-                lightMap.shadowBuffer.end(
+                lightMap.getShadowBuffer().end(
                         viewportX,
                         viewportY,
                         viewportWidth,
                         viewportHeight);
             } else {
-                lightMap.shadowBuffer.end();
+                lightMap.getShadowBuffer().end();
             }
         }
 
         boolean needed = lightRenderedLastFrame > 0;
         // this way lot less binding
         if (needed && blur)
-            lightMap.gaussianBlur(lightMap.frameBuffer, blurNum);
+            lightMap.gaussianBlur(lightMap.getFrameBuffer(), blurNum);
         if (needed && blur && pseudo3d)
-            lightMap.gaussianBlur(lightMap.shadowBuffer, blurNum);
+            lightMap.gaussianBlur(lightMap.getShadowBuffer(), blurNum);
     }
 
     /**
