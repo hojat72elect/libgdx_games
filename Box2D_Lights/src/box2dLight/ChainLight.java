@@ -17,11 +17,7 @@ import com.badlogic.gdx.utils.Pools;
 
 /**
  * A light whose ray starting points are evenly distributed along a chain of
- * vertices
- *
- * <p> Extends {@link Light}
- *
- * @author spruce
+ * vertices.
  */
 public class ChainLight extends Light {
 
