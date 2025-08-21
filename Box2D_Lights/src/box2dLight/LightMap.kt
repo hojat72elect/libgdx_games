@@ -14,43 +14,26 @@ import shaders.GaussianBlur.createShader
 import shaders.ShadowShader
 import shaders.WithoutShadowShader
 
-class LightMap(rayHandler: RayHandler, fboWidth: Int, fboHeight: Int) {
+class LightMap(private val rayHandler: RayHandler, private var fboWidth: Int, private var fboHeight: Int) {
     private val lightMapMesh: Mesh
     private val pingPongBuffer: FrameBuffer
-    private val rayHandler: RayHandler
-    private val fboWidth: Int
-    private val fboHeight: Int
+
     var frameBuffer: FrameBuffer
     var shadowBuffer: FrameBuffer
-    var lightMapDrawingDisabled: Boolean = false
+    var lightMapDrawingDisabled = false
     private var shadowShader: ShaderProgram? = null
     private var withoutShadowShader: ShaderProgram? = null
     private var blurShader: ShaderProgram? = null
     private var diffuseShader: ShaderProgram? = null
 
     init {
-        var fboWidth = fboWidth
-        var fboHeight = fboHeight
-        this.rayHandler = rayHandler
 
         if (fboWidth <= 0) fboWidth = 1
         if (fboHeight <= 0) fboHeight = 1
 
-        this.fboWidth = fboWidth
-        this.fboHeight = fboHeight
-
-        frameBuffer = FrameBuffer(
-            Pixmap.Format.RGBA8888, fboWidth,
-            fboHeight, false
-        )
-        pingPongBuffer = FrameBuffer(
-            Pixmap.Format.RGBA8888, fboWidth,
-            fboHeight, false
-        )
-        shadowBuffer = FrameBuffer(
-            Pixmap.Format.RGBA8888, fboWidth,
-            fboHeight, false
-        )
+        frameBuffer = FrameBuffer(Pixmap.Format.RGBA8888, fboWidth, fboHeight, false)
+        pingPongBuffer = FrameBuffer(Pixmap.Format.RGBA8888, fboWidth, fboHeight, false)
+        shadowBuffer = FrameBuffer(Pixmap.Format.RGBA8888, fboWidth, fboHeight, false)
 
         lightMapMesh = createLightMapMesh()
 
@@ -218,22 +201,22 @@ class LightMap(rayHandler: RayHandler, fboWidth: Int, fboHeight: Int) {
     }
 
     companion object {
-        const val VERT_SIZE: Int = 16
-        const val X1: Int = 0
-        const val Y1: Int = 1
-        const val U1: Int = 2
-        const val V1: Int = 3
-        const val X2: Int = 4
-        const val Y2: Int = 5
-        const val U2: Int = 6
-        const val V2: Int = 7
-        const val X3: Int = 8
-        const val Y3: Int = 9
-        const val U3: Int = 10
-        const val V3: Int = 11
-        const val X4: Int = 12
-        const val Y4: Int = 13
-        const val U4: Int = 14
-        const val V4: Int = 15
+        const val VERT_SIZE = 16
+        const val X1 = 0
+        const val Y1 = 1
+        const val U1 = 2
+        const val V1 = 3
+        const val X2 = 4
+        const val Y2 = 5
+        const val U2 = 6
+        const val V2 = 7
+        const val X3 = 8
+        const val Y3 = 9
+        const val U3 = 10
+        const val V3 = 11
+        const val X4 = 12
+        const val Y4 = 13
+        const val U4 = 14
+        const val V4 = 15
     }
 }
