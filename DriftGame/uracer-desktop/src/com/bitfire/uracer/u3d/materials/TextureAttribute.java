@@ -75,13 +75,6 @@ public class TextureAttribute extends MaterialAttribute {
     }
 
     @Override
-    public MaterialAttribute pooledCopy() {
-        TextureAttribute attr = pool.obtain();
-        attr.set(this);
-        return attr;
-    }
-
-    @Override
     public void free() {
         if (isPooled) pool.free(this);
     }

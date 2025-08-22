@@ -20,8 +20,6 @@ public abstract class MaterialAttribute {
 
     public abstract MaterialAttribute copy();
 
-    public abstract MaterialAttribute pooledCopy();
-
     public abstract void free();
 
     public abstract void set(MaterialAttribute attr);

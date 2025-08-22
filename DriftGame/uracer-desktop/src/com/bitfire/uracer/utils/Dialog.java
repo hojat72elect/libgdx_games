@@ -246,7 +246,7 @@ public class Dialog extends Window {
     }
 
     /**
-     * Called when a button is clicked. The dialog will be hidden after this method returns unless {@link #cancel()} is called.
+     * Called when a button is clicked.
      *
      * @param object The object specified when the button was added.
      */

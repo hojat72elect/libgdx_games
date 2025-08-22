@@ -43,13 +43,6 @@ public class BlendingAttribute extends MaterialAttribute {
     }
 
     @Override
-    public MaterialAttribute pooledCopy() {
-        BlendingAttribute attr = pool.obtain();
-        attr.set(this);
-        return attr;
-    }
-
-    @Override
     public void free() {
         if (isPooled) pool.free(this);
     }

@@ -8,8 +8,8 @@ import com.bitfire.uracer.utils.ScaleUtils;
 
 public class GameBatchRenderer {
     private final GL20 gl;
-    private SpriteBatch batch = null;
-    private boolean begin = false;
+    private final SpriteBatch batch;
+    private boolean begin;
     private final Matrix4 topLeftOrigin;
     private final Matrix4 identity; // batch
 

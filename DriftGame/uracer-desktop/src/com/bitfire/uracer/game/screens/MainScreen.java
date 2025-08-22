@@ -89,7 +89,7 @@ public final class MainScreen extends UIScreen {
             // listPane.setScrollingDisabled(false, false);
 
             // restore previous user selection, if any
-            if (ScreensShared.selectedLevelId.length() > 0) {
+            if (!ScreensShared.selectedLevelId.isEmpty()) {
                 if (GameLevels.levelIdExists(ScreensShared.selectedLevelId)) {
                     trackList.getSelection().set(GameLevels.getLevel(ScreensShared.selectedLevelId).toString());
                 } else {

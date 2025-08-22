@@ -11,7 +11,7 @@ public class ScreensShared {
 
     public static void loadFromUserPrefs() {
         String lastTrack = UserPreferences.string(Preference.LastPlayedTrack);
-        if (lastTrack.length() > 0) {
+        if (!lastTrack.isEmpty()) {
             selectedLevelId = lastTrack;
         }
     }

@@ -23,7 +23,6 @@ public final class GameScreensFactory implements ScreenFactory {
                 break;
             case ExitScreen:
             default:
-                screen = null;
                 break;
         }
 

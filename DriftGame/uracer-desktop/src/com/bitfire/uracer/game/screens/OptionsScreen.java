@@ -30,14 +30,11 @@ import com.bitfire.uracer.utils.UIUtils;
 
 public class OptionsScreen extends UIScreen {
 
-    private Table root, ltable, rtable;
     private CheckBox ppBloom, ppVignetting, ppZoomBlur, ppCrtScreen, ppCurvature, ppSsao;
-    private SelectBox<String> ppZoomBlurQuality, ppSsaoQuality;
 
     @Override
     protected void setupUI(Stage ui) {
-        root = UIUtils.newTable();
-        // root.debug();
+        Table root = UIUtils.newTable();
         root.setBounds(0, 0, ui.getWidth(), ui.getHeight());
         root.invalidate();
         ui.addActor(root);
@@ -46,25 +43,17 @@ public class OptionsScreen extends UIScreen {
         Image bg = new Image(Art.scrBackground);
         bg.setFillParent(true);
         root.addActor(bg);
-        // root.debug();
 
         int w = (int) (ui.getWidth() / 2) - 20;
         int h = (int) (ui.getHeight() / 2);
 
-        // version info
-        // Table infoTable = UIUtils.newVersionInfoTable();
-        // root.addActor(infoTable);
-        // root.bottom().padBottom(50);
-
         // layout tables
-        ltable = UIUtils.newTable();
-        // ltable.debug();
+        Table ltable = UIUtils.newTable();
         ltable.defaults().padLeft(5);
         ltable.align(Align.left | Align.top);
         root.add(ltable).expandX().left().height(h);
 
-        rtable = UIUtils.newTable();
-        // rtable.debug();
+        Table rtable = UIUtils.newTable();
         rtable.defaults().padRight(5);
         rtable.align(Align.right | Align.top);
         root.add(rtable).expandX().right().height(h);
@@ -195,6 +184,7 @@ public class OptionsScreen extends UIScreen {
             ppCurvature.setDisabled(!UserPreferences.bool(Preference.PostProcessing));
 
             // radial zoom blur
+            SelectBox<String> ppZoomBlurQuality;
             {
                 ppZoomBlur = UIUtils.newCheckBox("Zoom blur", UserPreferences.bool(Preference.ZoomRadialBlur), new ChangeListener() {
                     @Override
@@ -224,6 +214,7 @@ public class OptionsScreen extends UIScreen {
             }
 
             // SSAO
+            SelectBox<String> ppSsaoQuality;
             {
                 ppSsao = UIUtils.newCheckBox("SSAO (ambient occlusion)", UserPreferences.bool(Preference.Ssao), new ChangeListener() {
                     @Override

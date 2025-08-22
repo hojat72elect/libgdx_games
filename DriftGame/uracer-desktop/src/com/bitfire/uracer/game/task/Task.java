@@ -9,10 +9,6 @@ public abstract class Task implements TaskManagerEvent.Listener {
     protected boolean isPaused = false;
     private final Order order;
 
-    public Task() {
-        this(Order.DEFAULT);
-    }
-
     public Task(Order order) {
         this.order = order;
         GameEvents.taskManager.addListener(this, TaskManagerEvent.Type.onTick, order);

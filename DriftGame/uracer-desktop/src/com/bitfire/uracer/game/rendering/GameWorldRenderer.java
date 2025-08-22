@@ -93,7 +93,6 @@ public final class GameWorldRenderer {
     public static int renderedWalls = 0;
     public static int culledMeshes = 0;
     private final float DefaultSsaoScale = 1f / 48f;
-    private final Matrix4 xform = new Matrix4();
     public OrthogonalTiledMapRenderer tileMapRenderer = null;
     // camera view
     private PerspectiveCamera camPersp = null;
@@ -102,27 +101,28 @@ public final class GameWorldRenderer {
     private final Vector2 halfViewport = new Vector2();
     Rectangle camOrthoRect = new Rectangle();
     // the game world
-    private GameWorld world = null;
+    private final GameWorld world;
     private final Matrix4 camOrthoMvpMt = new Matrix4();
     private final Matrix4 camPerspInvView = new Matrix4();
     private final Matrix4 camPerspPrevViewProj = new Matrix4();
     private final Matrix4 camPerspInvProj = new Matrix4();
     private CameraController camController;
     // rendering
-    private GL20 gl = null;
-    private ShaderProgram treeShader = null, treeShaderNight = null;
+    private final GL20 gl;
+    private final ShaderProgram treeShaderNight;
+    private final boolean useDeferredRendering;
     private boolean renderPlayerHeadlights = true;
     // deferred stuff
     private Mesh plane = null;
     private FrameBuffer normalDepthMap = null;
     private ShaderProgram shNormalDepth = null, shNormalDepthNoDiffuse = null;
-    private boolean useDeferredRendering = false;
     // world refs
-    private RayHandler rayHandler = null;
-    private List<OrthographicAlignedStillModel> staticMeshes = null;
+    private final RayHandler rayHandler;
+    private final TrackWalls trackWalls;
     private TrackTrees trackTrees = null;
-    private TrackWalls trackWalls = null;
-    private ConeLight playerLightsA = null, playerLightsB = null;
+    private final ConeLight playerLightsA;
+    private final ConeLight playerLightsB;
+    private ShaderProgram treeShader = null;
     private GhostCar topmostGhost = null;
     private final Vector2 _o2p = new Vector2();
     private final Color ambientColor = new Color(0.1f, 0.05f, 0.1f, 0.4f);
@@ -141,8 +141,8 @@ public final class GameWorldRenderer {
         rayHandler = world.getRayHandler();
         playerLightsA = world.getPlayerHeadLights(true);
         playerLightsB = world.getPlayerHeadLights(false);
-        staticMeshes = world.getStaticMeshes();
 
+        Matrix4 xform = new Matrix4();
         xform.idt();
         xform.scale(ScaleUtils.Scale, ScaleUtils.Scale, 1);
 
@@ -265,36 +265,23 @@ public final class GameWorldRenderer {
         return normalDepthMap;
     }
 
-    public Matrix4 getInvView() {
-        return camPerspInvView;
-    }
-
-    public Matrix4 getPrevViewProj() {
-        return camPerspPrevViewProj;
-    }
-
-    public Matrix4 getInvProj() {
-        return camPerspInvProj;
-    }
-
     public void resetCounters() {
         culledMeshes = 0;
         renderedTrees = 0;
         renderedWalls = 0;
     }
 
-    private Vector2 orientationToPosition(Car car, float angle, float offsetX, float offsetY) {
+    private Vector2 orientationToPosition(Car car, float angle, float offsetY) {
         Vector2 carPosition = car.state().position;
         float carLength = car.getCarModel().length;
 
         // the body's compound shape should be created with some clever thinking
-        float offx = (carLength / 2f) + .25f + offsetX;
-        float offy = offsetY;
+        float offx = (carLength / 2f) + .25f + (float) 0;
 
         float cos = MathUtils.cosDeg(angle);
         float sin = MathUtils.sinDeg(angle);
-        float dX = offx * cos - offy * sin;
-        float dY = offx * sin + offy * cos;
+        float dX = offx * cos - offsetY * sin;
+        float dY = offx * sin + offsetY * cos;
 
         float mx = Convert.px2mt(carPosition.x) + dX;
         float my = Convert.px2mt(carPosition.y) + dY;
@@ -311,11 +298,11 @@ public final class GameWorldRenderer {
         if (hasCar) {
 
             if (renderPlayerHeadlights) {
-                Vector2 v = orientationToPosition(car, ang, 0, 0.5f);
+                Vector2 v = orientationToPosition(car, ang, 0.5f);
                 playerLightsA.setDirection(ang + 5);
                 playerLightsA.setPosition(v.x, v.y);
 
-                v = orientationToPosition(car, ang, 0, -0.5f);
+                v = orientationToPosition(car, ang, -0.5f);
                 playerLightsB.setDirection(ang - 5);
                 playerLightsB.setPosition(v.x, v.y);
             }
@@ -489,16 +476,6 @@ public final class GameWorldRenderer {
         rayHandler.renderLightMap(ScaleUtils.PlayViewport, dest);
     }
 
-    public void renderStaticMeshes() {
-        if (staticMeshes.size() > 0) {
-            // render "static-meshes" layer
-            gl.glEnable(GL20.GL_CULL_FACE);
-            gl.glFrontFace(GL20.GL_CCW);
-            gl.glCullFace(GL20.GL_BACK);
-            renderOrthographicAlignedModels(staticMeshes, false, world.isNightMode());
-        }
-    }
-
     public void renderTilemap() {
         gl.glDisable(GL20.GL_DEPTH_TEST);
         gl.glDisable(GL20.GL_CULL_FACE);
@@ -528,13 +505,13 @@ public final class GameWorldRenderer {
         }
 
         gl.glDisable(GL20.GL_CULL_FACE);
-        renderedWalls = renderOrthographicAlignedModels(walls.models, depthOnly, false);
+        renderedWalls = renderOrthographicAlignedModels(walls.models, depthOnly);
     }
 
     private void renderTrees(TrackTrees trees, boolean depthOnly) {
         trees.transform(camPersp, camOrtho);
 
-        ShaderProgram shader = null;
+        ShaderProgram shader;
         if (depthOnly) {
             shader = shNormalDepth;
         } else {
@@ -624,22 +601,18 @@ public final class GameWorldRenderer {
         shader.end();
     }
 
-    private boolean renderCar(Car car, boolean depthOnly, boolean nightMode) {
+    private void renderCar(Car car, boolean depthOnly) {
         CarStillModel model = car.getStillModel();
 
         if (Config.Debug.FrustumCulling && !camPersp.frustum.boundsInFrustum(model.boundingBox)) {
-            return false;
+            return;
         }
 
-        ShaderProgram shader = null;
+        ShaderProgram shader;
         if (depthOnly) {
             shader = shNormalDepth;
         } else {
-            if (nightMode) {
-                shader = OrthographicAlignedStillModel.shaderNight;
-            } else {
-                shader = OrthographicAlignedStillModel.shader;
-            }
+            shader = OrthographicAlignedStillModel.shader;
         }
 
         gl.glEnable(GL20.GL_CULL_FACE);
@@ -654,9 +627,6 @@ public final class GameWorldRenderer {
             shader.setUniformi("u_texture", 0);
         } else {
             shader.setUniformf("alpha", model.getAlpha());
-            if (nightMode) {
-                shader.setUniformf("u_ambient", treesAmbientColor);
-            }
         }
 
         // car body
@@ -700,8 +670,6 @@ public final class GameWorldRenderer {
 
             model.rightTire.render(shader, model.smRightTire.primitiveType);
         }
-
-        return true;
     }
 
     public void setTopMostGhostCar(GhostCar ghost) {
@@ -733,12 +701,11 @@ public final class GameWorldRenderer {
                         setSsaoScale(DefaultSsaoScale * s);
                     }
 
-                    renderCar(topmostGhost, depthOnly, false);
+                    renderCar(topmostGhost, depthOnly);
                 }
             }
 
-            for (int i = 0; i < ghosts.length; i++) {
-                GhostCar ghost = ghosts[i];
+            for (GhostCar ghost : ghosts) {
                 if (depthOnly && !ghost.isSsaoReady()) continue;
 
                 model = ghost.getStillModel();
@@ -754,7 +721,7 @@ public final class GameWorldRenderer {
 
                 // found a topmost ghost, render last
                 if (ghost != topmostGhost) {
-                    renderCar(ghost, depthOnly, false);
+                    renderCar(ghost, depthOnly);
                 }
             }
         }
@@ -772,7 +739,7 @@ public final class GameWorldRenderer {
         if (player != null) {
             model = player.getStillModel();
             model.transform(camPersp, camOrtho);
-            renderCar(player, depthOnly, false);
+            renderCar(player, depthOnly);
         }
 
         if (!depthOnly) {
@@ -780,24 +747,19 @@ public final class GameWorldRenderer {
         }
     }
 
-    private int renderOrthographicAlignedModels(List<OrthographicAlignedStillModel> models, boolean depthOnly,
-                                                boolean nightMode) {
+    private int renderOrthographicAlignedModels(List<OrthographicAlignedStillModel> models, boolean depthOnly) {
         int renderedCount = 0;
         OrthographicAlignedStillModel m;
         StillSubMesh submesh;
 
         float meshZ = -(camPersp.far - camPersp.position.z) + (camPersp.far * (1 - (camOrtho.zoom)));
 
-        ShaderProgram shader = null;
+        ShaderProgram shader;
 
         if (depthOnly) {
             shader = shNormalDepth;
         } else {
-            if (nightMode) {
-                shader = OrthographicAlignedStillModel.shaderNight;
-            } else {
-                shader = OrthographicAlignedStillModel.shader;
-            }
+            shader = OrthographicAlignedStillModel.shader;
         }
 
         shader.begin();
@@ -806,10 +768,6 @@ public final class GameWorldRenderer {
             shader.setUniformMatrix("proj", camPersp.projection);
             shader.setUniformMatrix("view", camPersp.view);
             shader.setUniformi("u_texture", 0);
-        } else {
-            if (nightMode) {
-                shader.setUniformf("u_ambient", ambientColor);
-            }
         }
 
         boolean needRebind = false;

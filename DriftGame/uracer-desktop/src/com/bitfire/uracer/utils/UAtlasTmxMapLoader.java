@@ -4,7 +4,6 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.AsynchronousAssetLoader;
-import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -66,10 +65,6 @@ public class UAtlasTmxMapLoader extends AsynchronousAssetLoader<TiledMap, UAtlas
 
     public UAtlasTmxMapLoader() {
         super(new InternalFileHandleResolver());
-    }
-
-    public UAtlasTmxMapLoader(FileHandleResolver resolver) {
-        super(resolver);
     }
 
     public static FileHandle getRelativeFileHandle(FileHandle file, String path) {
@@ -160,7 +155,7 @@ public class UAtlasTmxMapLoader extends AsynchronousAssetLoader<TiledMap, UAtlas
                         value = property.getText();
                     }
 
-                    if (value == null || value.length() == 0) {
+                    if (value == null || value.isEmpty()) {
                         // keep trying until there are no more atlas properties
                         continue;
                     }
@@ -240,14 +235,19 @@ public class UAtlasTmxMapLoader extends AsynchronousAssetLoader<TiledMap, UAtlas
         for (int i = 0, j = root.getChildCount(); i < j; i++) {
             Element element = root.getChild(i);
             String elementName = element.getName();
-            if (elementName.equals("properties")) {
-                loadProperties(map.getProperties(), element);
-            } else if (elementName.equals("tileset")) {
-                loadTileset(map, element, tmxFile, resolver, parameter);
-            } else if (elementName.equals("layer")) {
-                loadTileLayer(map, element);
-            } else if (elementName.equals("objectgroup")) {
-                loadObjectGroup(map, element);
+            switch (elementName) {
+                case "properties":
+                    loadProperties(map.getProperties(), element);
+                    break;
+                case "tileset":
+                    loadTileset(map, element, tmxFile, resolver, parameter);
+                    break;
+                case "layer":
+                    loadTileLayer(map, element);
+                    break;
+                case "objectgroup":
+                    loadObjectGroup(map, element);
+                    break;
             }
         }
         return map;
@@ -270,7 +270,6 @@ public class UAtlasTmxMapLoader extends AsynchronousAssetLoader<TiledMap, UAtlas
             String imageSource = "";
             int imageWidth = 0, imageHeight = 0;
 
-            FileHandle image = null;
             if (source != null) {
                 FileHandle tsx = getRelativeFileHandle(tmxFile, source);
                 try {
@@ -471,7 +470,7 @@ public class UAtlasTmxMapLoader extends AsynchronousAssetLoader<TiledMap, UAtlas
             float height = element.getFloatAttribute("height", 0) * scaleY;
 
             if (element.getChildCount() > 0) {
-                Element child = null;
+                Element child;
                 if ((child = element.getChildByName("polygon")) != null) {
                     String[] points = child.getAttribute("points").split(" ");
                     float[] vertices = new float[points.length * 2];
@@ -500,7 +499,7 @@ public class UAtlasTmxMapLoader extends AsynchronousAssetLoader<TiledMap, UAtlas
                     Polyline polyline = new Polyline(vertices);
                     polyline.setPosition(x, y);
                     object = new PolylineMapObject(polyline);
-                } else if ((child = element.getChildByName("ellipse")) != null) {
+                } else if (element.getChildByName("ellipse") != null) {
                     object = new EllipseMapObject(x, yUp ? y - height : y, width, height);
                 }
             }

@@ -31,8 +31,8 @@ public final class GameRenderer {
     private final GameWorldRenderer worldRenderer;
     private final Matrix4 identity = new Matrix4();
     private final Matrix4 xform = new Matrix4();
-    private PostProcessing postProcessing = null;
-    private PostProcessor postProcessor = null;
+    private final PostProcessing postProcessing;
+    private final PostProcessor postProcessor;
     private boolean debug = false;
 
     public GameRenderer(GameWorld gameWorld) {
@@ -83,10 +83,6 @@ public final class GameRenderer {
 
     public GameWorldRenderer getWorldRenderer() {
         return worldRenderer;
-    }
-
-    public FrameBuffer getNormalDepthMap() {
-        return worldRenderer.getNormalDepthMap();
     }
 
     private void interpolate(float timeAliasingFactor) {

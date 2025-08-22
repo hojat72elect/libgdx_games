@@ -25,19 +25,12 @@ import com.bitfire.uracer.utils.Window;
 
 public class GameScreenUI {
     private final Game game;
-    private Input input = null;
+    private final Input input;
     private Stage ui;
     private Window win;
     private Dialog dlg_quit;
     private boolean quitShown;
     private boolean enabled;
-
-    // sound
-    private Slider sfx_slider, music_slider;
-    private Label sfx_label, music_label;
-
-    // quit
-    private Button btn_quit, btn_resume;
 
     public GameScreenUI(final Game game) {
         this.game = game;
@@ -50,8 +43,6 @@ public class GameScreenUI {
         disable();
         ui.dispose();
     }
-
-    // utilities
 
     private void constructUI() {
         ui = UIUtils.newFittedStage();
@@ -67,13 +58,9 @@ public class GameScreenUI {
         win.add(content);
         win.row().fill().expand();
         win.add(bottom);
-
         content.row().expandX();
 
-        // win.setBackground(brushed);
-
-        // quit button
-        btn_quit = UIUtils.newButton("QUIT RACE (Q)", new ClickListener() {
+        Button btn_quit = UIUtils.newButton("QUIT RACE (Q)", new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (enabled && !quitShown) {
@@ -83,7 +70,7 @@ public class GameScreenUI {
         });
 
         // resume button
-        btn_resume = UIUtils.newButton("RESUME GAME (ESC)", new ClickListener() {
+        Button btn_resume = UIUtils.newButton("RESUME GAME (ESC)", new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (enabled) {
@@ -109,9 +96,10 @@ public class GameScreenUI {
                 .button("NO (N)", false).key(Keys.Y, true).key(Keys.N, false);
 
         // sound sliders
-        music_label = UIUtils.newLabel("Music volume", false);
-        sfx_label = UIUtils.newLabel("Sound effects volume", false);
-        sfx_slider = UIUtils.newSlider(0, 1, 0.01f, SoundManager.SfxVolumeMul, new ChangeListener() {
+        Label music_label = UIUtils.newLabel("Music volume", false);
+        Label sfx_label = UIUtils.newLabel("Sound effects volume", false);
+        // sound
+        Slider sfx_slider = UIUtils.newSlider(0, 1, 0.01f, SoundManager.SfxVolumeMul, new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Slider source = (Slider) event.getListenerActor();
@@ -122,7 +110,7 @@ public class GameScreenUI {
         content.add(sfx_label).left();
         content.add(sfx_slider).right();
 
-        music_slider = UIUtils.newSlider(0, 1, 0.01f, SoundManager.MusicVolumeMul, new ChangeListener() {
+        Slider music_slider = UIUtils.newSlider(0, 1, 0.01f, SoundManager.MusicVolumeMul, new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Slider source = (Slider) event.getListenerActor();

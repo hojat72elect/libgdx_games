@@ -175,10 +175,6 @@ public final class GameWorld {
         box2dWorld = null;
     }
 
-    //
-    // construct route/sectors
-    //
-
     private void createMeshes() {
         staticMeshes.clear();
         TotalMeshes = 0;
@@ -201,11 +197,8 @@ public final class GameWorld {
                         o.getProperties().get("y", Integer.class),
                         scale * pixelsPerMeterFactor
                 );
-                // @on
 
-                if (mesh != null) {
-                    staticMeshes.add(mesh);
-                }
+                staticMeshes.add(mesh);
             }
         }
 
