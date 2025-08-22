@@ -43,9 +43,7 @@ import java.util.List;
  * @see TweenCallback
  */
 public final class Timeline extends BaseTween<Timeline> {
-    // -------------------------------------------------------------------------
-    // Static -- pool
-    // -------------------------------------------------------------------------
+
 
     private static final Pool.Callback<Timeline> poolCallback = new Pool.Callback<Timeline>() {
         @Override
@@ -65,12 +63,10 @@ public final class Timeline extends BaseTween<Timeline> {
             return new Timeline();
         }
     };
-    private final List<BaseTween<?>> children = new ArrayList<BaseTween<?>>(10);
+    private final List<BaseTween<?>> children = new ArrayList<>(10);
     private Timeline current;
 
-    // -------------------------------------------------------------------------
-    // Static -- factories
-    // -------------------------------------------------------------------------
+
     private Timeline parent;
     private Modes mode;
 

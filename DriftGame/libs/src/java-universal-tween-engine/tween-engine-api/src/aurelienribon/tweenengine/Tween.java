@@ -67,9 +67,7 @@ import aurelienribon.tweenengine.equations.Quad;
  * @see Timeline
  */
 public final class Tween extends BaseTween<Tween> {
-    // -------------------------------------------------------------------------
-    // Static -- misc
-    // -------------------------------------------------------------------------
+
 
     /**
      * Used as parameter in {@link #repeat(int, float)} and {@link #repeatYoyo(int, float)} methods.

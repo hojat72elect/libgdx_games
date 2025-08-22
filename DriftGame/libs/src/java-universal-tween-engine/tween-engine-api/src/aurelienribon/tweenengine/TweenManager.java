@@ -16,16 +16,9 @@ import java.util.List;
  * @see Timeline
  */
 public class TweenManager {
-    // -------------------------------------------------------------------------
-    // Static API
-    // -------------------------------------------------------------------------
 
-    private final ArrayList<BaseTween<?>> objects = new ArrayList<BaseTween<?>>(20);
+    private final ArrayList<BaseTween<?>> objects = new ArrayList<>(20);
     private boolean isPaused = false;
-
-    // -------------------------------------------------------------------------
-    // Public API
-    // -------------------------------------------------------------------------
 
     /**
      * Disables or enables the "auto remove" mode of any tween manager for a particular tween or timeline. This mode is activated

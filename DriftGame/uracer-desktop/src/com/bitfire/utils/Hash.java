@@ -18,7 +18,6 @@ public final class Hash {
         return hash;
     }
 
-
     public static long APHash(String str) {
         long hash = 0xAAAAAAAAL;
 
