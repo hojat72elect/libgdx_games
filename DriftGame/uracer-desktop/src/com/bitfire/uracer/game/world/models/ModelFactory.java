@@ -70,58 +70,44 @@ public final class ModelFactory {
 
     public static OrthographicAlignedStillModel create(String meshType, float posPxX, float posPxY, float scale) {
         ModelMesh type = fromString(meshType);
-        OrthographicAlignedStillModel m = ModelFactory.create(type, posPxX, posPxY, scale);
-        return m;
+        return ModelFactory.create(type, posPxX, posPxY, scale);
     }
 
     public static OrthographicAlignedStillModel create(ModelMesh modelMesh, float posPxX, float posPxY, float scale) {
-        OrthographicAlignedStillModel stillModel = null;
+        OrthographicAlignedStillModel stillModel;
 
-        switch (modelMesh) {
+        // missing mesh mesh
+        stillModel = new OrthographicAlignedStillModel(getStillModel("data/3d/models/missing-mesh.g3dt"), getMaterial(modelMesh,
+                Art.meshMissing, ""));
 
-            // missing mesh mesh
-            case Missing:
-            default:
-                stillModel = new OrthographicAlignedStillModel(getStillModel("data/3d/models/missing-mesh.g3dt"), getMaterial(modelMesh,
-                        Art.meshMissing, ""));
-        }
-
-        if (stillModel != null) {
-            // createdOASModels.add( stillModel );
-            stillModel.setPosition(posPxX, posPxY);
-            if (modelMesh != ModelMesh.Missing) {
-                stillModel.setScale(scale);
-            } else {
-                stillModel.setScale(1);
-            }
+        stillModel.setPosition(posPxX, posPxY);
+        if (modelMesh != ModelMesh.Missing) {
+            stillModel.setScale(scale);
+        } else {
+            stillModel.setScale(1);
         }
 
         return stillModel;
     }
 
     public static CarStillModel createCarStillModel(GameLogic gameLogic, Car car, CarPreset.Type presetType) {
-        CarStillModel stillModel = new CarStillModel(gameLogic, getStillModel("data/3d/models/car-low-01.g3dt"), getMaterial(
+        return new CarStillModel(gameLogic, getStillModel("data/3d/models/car-low-01.g3dt"), getMaterial(
                 ModelMesh.Car, Art.meshCar.get(presetType.regionName), presetType.regionName), car);
-        return stillModel;
     }
 
     public static TreeStillModel createTree(String meshType, float posPxX, float posPxY, float scale) {
         ModelMesh type = fromString(meshType);
-        TreeStillModel m = ModelFactory.createTree(type, posPxX, posPxY, scale);
-        return m;
+        return ModelFactory.createTree(type, posPxX, posPxY, scale);
     }
 
     public static TreeStillModel createTree(ModelMesh modelMesh, float posPxX, float posPxY, float scale) {
-        TreeStillModel stillModel = null;
+        TreeStillModel stillModel;
 
-        String treeModelName = "", treeMeshName = "";
-        Texture leavesTexture = null;
+        String treeModelName, treeMeshName;
+        Texture leavesTexture;
 
         switch (modelMesh) {
-            case Car:
-            case Missing:
-            default:
-                throw new URacerRuntimeException("The specified model is not a tree");
+
             case Tree_1:
                 treeModelName = "tree-1.g3dt";
                 treeMeshName = "tree_1_";
@@ -175,25 +161,24 @@ public final class ModelFactory {
                 treeMeshName = "tree_9_";
                 leavesTexture = Art.meshTreeLeavesSpring[6];
                 break;
+
+            case Car:
+            case Missing:
+            default:
+                throw new URacerRuntimeException("The specified model is not a tree");
         }
 
         stillModel = new TreeStillModel(getStillModel("data/3d/models/" + treeModelName),
                 getMaterial(modelMesh, leavesTexture, ""), treeMeshName);
 
-        if (stillModel != null) {
-            stillModel.setPosition(posPxX, posPxY);
-            if (modelMesh != ModelMesh.Missing) {
-                stillModel.setScale(scale);
-            } else {
-                stillModel.setScale(1);
-            }
-        }
+        stillModel.setPosition(posPxX, posPxY);
+        stillModel.setScale(scale);
 
         return stillModel;
     }
 
     private static Material getMaterial(ModelMesh modelMesh, Texture texture, String textureName) {
-        Material m = null;
+        Material m;
 
         long materialHash = Hash.RSHash(modelMesh.toString() + textureName);
         if (cachedMaterials == null) {
@@ -216,7 +201,7 @@ public final class ModelFactory {
         long modelHash = Hash.RSHash(model);
 
         if (cachedStillModels == null) {
-            cachedStillModels = new LongMap<StillModel>();
+            cachedStillModels = new LongMap<>();
         }
 
         if (cachedStillModels.containsKey(modelHash)) {

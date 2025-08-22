@@ -37,12 +37,12 @@ public class CarStillModel extends OrthographicAlignedStillModel {
 
     private final InterpolatedFloat tireAngle = new InterpolatedFloat();
     private final Vector3 tmpvec = new Vector3();
-    private Car car = null;
+    private final Car car;
 
     private final InterpolatedFloat sideAngle = new InterpolatedFloat();
     private final InterpolatedFloat bodyAngle = new InterpolatedFloat();
 
-    private GameLogic gameLogic = null;
+    private final GameLogic gameLogic;
 
     public CarStillModel(GameLogic gameLogic, StillModel aModel, Material material, Car car) {
         super(aModel, material);
@@ -83,7 +83,7 @@ public class CarStillModel extends OrthographicAlignedStillModel {
         // weight transfer *simulation*
         float wt_body_angle = 0;
         if (car instanceof PlayerCar) {
-            float sideangle_amount = 0;
+            float sideangle_amount;
 
             PlayerCar player = (PlayerCar) car;
             {

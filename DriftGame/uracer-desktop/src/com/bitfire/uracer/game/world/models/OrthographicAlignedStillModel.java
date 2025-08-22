@@ -131,16 +131,8 @@ public class OrthographicAlignedStillModel {
         this.alpha = alpha;
     }
 
-    public final void setPositionOffsetPixels(int offsetPxX, int offsetPxY) {
-        positionOffsetPx.x = offsetPxX;
-        positionOffsetPx.y = offsetPxY;
-    }
-
     /**
      * Sets the world position in pixels, top-left origin.
-     *
-     * @param posPxX
-     * @param posPxY
      */
     public final void setPosition(float posPxX, float posPxY) {
         positionPx.set(posPxX, posPxY);

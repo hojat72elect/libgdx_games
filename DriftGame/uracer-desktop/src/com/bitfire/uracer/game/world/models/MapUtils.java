@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.bitfire.uracer.game.world.WorldDefs.Layer;
 import com.bitfire.uracer.game.world.WorldDefs.ObjectGroup;
-import com.bitfire.uracer.utils.Convert;
 import com.bitfire.uracer.utils.VMath;
 
 import java.util.ArrayList;
@@ -21,18 +20,15 @@ public final class MapUtils implements Disposable {
     public final Map<String, TiledMapTileLayer> cachedLayers = new HashMap<>(10);
 
     private final TiledMap map;
-    private final Vector2 worldSizePx = new Vector2();
     private final float invTileWidth;
     private final int mapHeight;
-    private final int tileWidth;
     private final Vector2 retTile = new Vector2();
-    private Vector2 retPx = new Vector2();
 
     public MapUtils(TiledMap map, int tileWidth, int mapHeight, Vector2 worldSizePx) {
         this.map = map;
-        this.tileWidth = tileWidth;
         this.mapHeight = mapHeight;
-        this.worldSizePx.set(worldSizePx);
+        Vector2 worldSizePx1 = new Vector2();
+        worldSizePx1.set(worldSizePx);
 
         invTileWidth = 1f / (float) tileWidth;
     }
@@ -45,20 +41,6 @@ public final class MapUtils implements Disposable {
         }
 
         return points;
-    }
-
-    public static List<Vector2> extractPolyData(String encoded) {
-        List<Vector2> ret = new ArrayList<>();
-
-        if (encoded != null && encoded.length() > 0) {
-            String[] pairs = encoded.split(" ");
-            for (int j = 0; j < pairs.length; j++) {
-                String[] pair = pairs[j].split(",");
-                ret.add(new Vector2(Integer.parseInt(pair[0]), Integer.parseInt(pair[1])));
-            }
-        }
-
-        return ret;
     }
 
     @Override
@@ -77,10 +59,6 @@ public final class MapUtils implements Disposable {
         return cached;
     }
 
-    public boolean hasLayer(Layer layer) {
-        return getLayer(layer) != null;
-    }
-
     public MapLayer getObjectGroup(ObjectGroup group) {
         MapLayer cached = cachedGroups.get(group.mnemonic);
         if (cached == null) {
@@ -95,26 +73,11 @@ public final class MapUtils implements Disposable {
         return getObjectGroup(group) != null;
     }
 
-    public Vector2 tileToMt(int tilex, int tiley) {
-        return Convert.px2mt(tileToPx(tilex, tiley));
-    }
-
-    public Vector2 tileToPx(int tilex, int tiley) {
-        retTile.set(tilex * tileWidth, (mapHeight - tiley) * tileWidth);
-        return retTile;
-    }
-
     public Vector2 pxToTile(float x, float y) {
         retTile.set(x, y);
         retTile.scl(invTileWidth);
         retTile.y = mapHeight - retTile.y;
         VMath.truncateToInt(retTile);
         return retTile;
-    }
-
-    public Vector2 mtToTile(float x, float y) {
-        retPx.set(Convert.mt2px(x), Convert.mt2px(y));
-        retPx = pxToTile(retPx.x, retPx.y);
-        return retPx;
     }
 }
