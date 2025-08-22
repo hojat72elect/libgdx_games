@@ -1,10 +1,5 @@
 package box2dLight;
 
-import box2dLight.shaders.DiffuseShader;
-import box2dLight.shaders.Gaussian;
-import box2dLight.shaders.ShadowShader;
-import box2dLight.shaders.WithoutShadowShader;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -16,180 +11,176 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Rectangle;
 
+import box2dLight.shaders.DiffuseShader;
+import box2dLight.shaders.Gaussian;
+import box2dLight.shaders.ShadowShader;
+import box2dLight.shaders.WithoutShadowShader;
+
 class LightMap {
-	private ShaderProgram shadowShader;
-	FrameBuffer frameBuffer;
-	private Mesh lightMapMesh;
+    static public final int VERT_SIZE = 16;
+    static public final int X1 = 0;
+    static public final int Y1 = 1;
+    static public final int U1 = 2;
+    static public final int V1 = 3;
+    static public final int X2 = 4;
+    static public final int Y2 = 5;
+    static public final int U2 = 6;
+    static public final int V2 = 7;
+    static public final int X3 = 8;
+    static public final int Y3 = 9;
+    static public final int U3 = 10;
+    static public final int V3 = 11;
+    static public final int X4 = 12;
+    static public final int Y4 = 13;
+    static public final int U4 = 14;
+    static public final int V4 = 15;
+    FrameBuffer frameBuffer;
+    private final ShaderProgram shadowShader;
+    private final Mesh lightMapMesh;
+    private final FrameBuffer pingPongBuffer;
+    private final RayHandler rayHandler;
+    private final ShaderProgram withoutShadowShader;
+    private final ShaderProgram blurShader;
+    private final ShaderProgram diffuseShader;
+    private final float[] verts = new float[VERT_SIZE];
+    public LightMap(RayHandler rayHandler, int fboWidth, int fboHeight, boolean depthMasking) {
+        this.rayHandler = rayHandler;
 
-	private FrameBuffer pingPongBuffer;
+        if (fboWidth <= 0)
+            fboWidth = 1;
+        if (fboHeight <= 0)
+            fboHeight = 1;
 
-	private RayHandler rayHandler;
-	private ShaderProgram withoutShadowShader;
-	private ShaderProgram blurShader;
-	private ShaderProgram diffuseShader;
+        frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, fboWidth, fboHeight, depthMasking);
+        pingPongBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, fboWidth, fboHeight, depthMasking);
 
-	public void render( Rectangle viewport, FrameBuffer dest ) {
-		boolean needed = rayHandler.lightRenderedLastFrame > 0;
-		// this way lot less binding
-		if( needed && rayHandler.blur )
-			gaussianBlur();
+        lightMapMesh = createLightMapMesh();
 
-		frameBuffer.getColorBufferTexture().bind( 0 );
-		if( dest != null ) {
-			dest.begin();
-		} else {
-			Gdx.gl.glViewport( (int)viewport.x, (int)viewport.y, (int)viewport.width, (int)viewport.height );
-		}
+        shadowShader = ShadowShader.createShadowShader();
+        diffuseShader = DiffuseShader.createShadowShader();
 
-		Gdx.gl20.glEnable( GL20.GL_BLEND );
+        withoutShadowShader = WithoutShadowShader.createShadowShader();
 
-		// at last lights are rendered over scene
-		if( rayHandler.shadows ) {
+        blurShader = Gaussian.createBlurShader(fboWidth, fboHeight);
+    }
 
-			final Color c = rayHandler.ambientLight;
-			ShaderProgram shader = shadowShader;
-			if( RayHandler.isDiffuse ) {
-				shader = diffuseShader;
-				shader.begin();
-				Gdx.gl20.glBlendFunc( GL20.GL_DST_COLOR, GL20.GL_SRC_COLOR );
-				shader.setUniformf( "ambient", c.r, c.g, c.b, c.a );
-			} else {
-				shader.begin();
-				Gdx.gl20.glBlendFunc( GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA );
-				shader.setUniformf( "ambient", c.r * c.a, c.g * c.a, c.b * c.a, 1f - c.a );
-			}
-			// shader.setUniformi( "u_texture", 0 );
-			lightMapMesh.render( shader, GL20.GL_TRIANGLE_FAN );
-			shader.end();
-		} else if( needed ) {
+    public void render(Rectangle viewport, FrameBuffer dest) {
+        boolean needed = rayHandler.lightRenderedLastFrame > 0;
+        // this way lot less binding
+        if (needed && rayHandler.blur)
+            gaussianBlur();
 
-			Gdx.gl.glBlendFunc( GL20.GL_SRC_ALPHA, GL20.GL_ONE );
-			withoutShadowShader.begin();
-			// withoutShadowShader.setUniformi( "u_texture", 0 );
-			lightMapMesh.render( withoutShadowShader, GL20.GL_TRIANGLE_FAN );
-			withoutShadowShader.end();
-		}
+        frameBuffer.getColorBufferTexture().bind(0);
+        if (dest != null) {
+            dest.begin();
+        } else {
+            Gdx.gl.glViewport((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
+        }
 
-		if( dest != null )
-			dest.end();
-	}
+        Gdx.gl20.glEnable(GL20.GL_BLEND);
 
-	public void gaussianBlur() {
+        // at last lights are rendered over scene
+        if (rayHandler.shadows) {
 
-		Gdx.gl20.glDisable( GL20.GL_BLEND );
-		for( int i = 0; i < rayHandler.blurNum; i++ ) {
-			frameBuffer.getColorBufferTexture().bind( 0 );
+            final Color c = rayHandler.ambientLight;
+            ShaderProgram shader = shadowShader;
+            if (RayHandler.isDiffuse) {
+                shader = diffuseShader;
+                shader.begin();
+                Gdx.gl20.glBlendFunc(GL20.GL_DST_COLOR, GL20.GL_SRC_COLOR);
+                shader.setUniformf("ambient", c.r, c.g, c.b, c.a);
+            } else {
+                shader.begin();
+                Gdx.gl20.glBlendFunc(GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA);
+                shader.setUniformf("ambient", c.r * c.a, c.g * c.a, c.b * c.a, 1f - c.a);
+            }
+            // shader.setUniformi( "u_texture", 0 );
+            lightMapMesh.render(shader, GL20.GL_TRIANGLE_FAN);
+            shader.end();
+        } else if (needed) {
 
-			// horizontal
-			pingPongBuffer.begin();
-			{
-				blurShader.begin();
-				// blurShader.setUniformi( "u_texture", 0 );
-				blurShader.setUniformf( "dir", 1f, 0f );
-				lightMapMesh.render( blurShader, GL20.GL_TRIANGLE_FAN, 0, 4 );
-				blurShader.end();
-			}
-			pingPongBuffer.end();
+            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
+            withoutShadowShader.begin();
+            // withoutShadowShader.setUniformi( "u_texture", 0 );
+            lightMapMesh.render(withoutShadowShader, GL20.GL_TRIANGLE_FAN);
+            withoutShadowShader.end();
+        }
 
-			pingPongBuffer.getColorBufferTexture().bind( 0 );
+        if (dest != null)
+            dest.end();
+    }
 
-			// vertical
-			frameBuffer.begin();
-			{
-				blurShader.begin();
-				// blurShader.setUniformi( "u_texture", 0 );
-				blurShader.setUniformf( "dir", 0f, 1f );
-				lightMapMesh.render( blurShader, GL20.GL_TRIANGLE_FAN, 0, 4 );
-				blurShader.end();
+    public void gaussianBlur() {
 
-			}
-			frameBuffer.end();
-		}
-	}
+        Gdx.gl20.glDisable(GL20.GL_BLEND);
+        for (int i = 0; i < rayHandler.blurNum; i++) {
+            frameBuffer.getColorBufferTexture().bind(0);
 
-	public LightMap( RayHandler rayHandler, int fboWidth, int fboHeight, boolean depthMasking ) {
-		this.rayHandler = rayHandler;
+            // horizontal
+            pingPongBuffer.begin();
+            {
+                blurShader.begin();
+                // blurShader.setUniformi( "u_texture", 0 );
+                blurShader.setUniformf("dir", 1f, 0f);
+                lightMapMesh.render(blurShader, GL20.GL_TRIANGLE_FAN, 0, 4);
+                blurShader.end();
+            }
+            pingPongBuffer.end();
 
-		if( fboWidth <= 0 )
-			fboWidth = 1;
-		if( fboHeight <= 0 )
-			fboHeight = 1;
+            pingPongBuffer.getColorBufferTexture().bind(0);
 
-		frameBuffer = new FrameBuffer( Pixmap.Format.RGBA8888, fboWidth, fboHeight, depthMasking );
-		pingPongBuffer = new FrameBuffer( Pixmap.Format.RGBA8888, fboWidth, fboHeight, depthMasking );
+            // vertical
+            frameBuffer.begin();
+            {
+                blurShader.begin();
+                // blurShader.setUniformi( "u_texture", 0 );
+                blurShader.setUniformf("dir", 0f, 1f);
+                lightMapMesh.render(blurShader, GL20.GL_TRIANGLE_FAN, 0, 4);
+                blurShader.end();
+            }
+            frameBuffer.end();
+        }
+    }
 
-		lightMapMesh = createLightMapMesh();
+    void dispose() {
+        shadowShader.dispose();
+        blurShader.dispose();
+        lightMapMesh.dispose();
+        frameBuffer.dispose();
+        pingPongBuffer.dispose();
+    }
 
-		shadowShader = ShadowShader.createShadowShader();
-		diffuseShader = DiffuseShader.createShadowShader();
+    private Mesh createLightMapMesh() {
+        // vertex coord
+        verts[X1] = -1;
+        verts[Y1] = -1;
 
-		withoutShadowShader = WithoutShadowShader.createShadowShader();
+        verts[X2] = 1;
+        verts[Y2] = -1;
 
-		blurShader = Gaussian.createBlurShader( fboWidth, fboHeight );
+        verts[X3] = 1;
+        verts[Y3] = 1;
 
-	}
+        verts[X4] = -1;
+        verts[Y4] = 1;
 
-	void dispose() {
-		shadowShader.dispose();
-		blurShader.dispose();
-		lightMapMesh.dispose();
-		frameBuffer.dispose();
-		pingPongBuffer.dispose();
+        // tex coords
+        verts[U1] = 0f;
+        verts[V1] = 0f;
 
-	}
+        verts[U2] = 1f;
+        verts[V2] = 0f;
 
-	private Mesh createLightMapMesh() {
-		// vertex coord
-		verts[X1] = -1;
-		verts[Y1] = -1;
+        verts[U3] = 1f;
+        verts[V3] = 1f;
 
-		verts[X2] = 1;
-		verts[Y2] = -1;
+        verts[U4] = 0f;
+        verts[V4] = 1f;
 
-		verts[X3] = 1;
-		verts[Y3] = 1;
+        Mesh tmpMesh = new Mesh(true, 4, 0, new VertexAttribute(Usage.Position, 2, "a_position"), new VertexAttribute(
+                Usage.TextureCoordinates, 2, "a_texCoord"));
 
-		verts[X4] = -1;
-		verts[Y4] = 1;
-
-		// tex coords
-		verts[U1] = 0f;
-		verts[V1] = 0f;
-
-		verts[U2] = 1f;
-		verts[V2] = 0f;
-
-		verts[U3] = 1f;
-		verts[V3] = 1f;
-
-		verts[U4] = 0f;
-		verts[V4] = 1f;
-
-		Mesh tmpMesh = new Mesh( true, 4, 0, new VertexAttribute( Usage.Position, 2, "a_position" ), new VertexAttribute(
-				Usage.TextureCoordinates, 2, "a_texCoord" ) );
-
-		tmpMesh.setVertices( verts );
-		return tmpMesh;
-
-	}
-
-	private float[] verts = new float[ VERT_SIZE ];
-	static public final int VERT_SIZE = 16;
-	static public final int X1 = 0;
-	static public final int Y1 = 1;
-	static public final int U1 = 2;
-	static public final int V1 = 3;
-	static public final int X2 = 4;
-	static public final int Y2 = 5;
-	static public final int U2 = 6;
-	static public final int V2 = 7;
-	static public final int X3 = 8;
-	static public final int Y3 = 9;
-	static public final int U3 = 10;
-	static public final int V3 = 11;
-	static public final int X4 = 12;
-	static public final int Y4 = 13;
-	static public final int U4 = 14;
-	static public final int V4 = 15;
-
+        tmpMesh.setVertices(verts);
+        return tmpMesh;
+    }
 }

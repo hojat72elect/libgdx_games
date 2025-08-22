@@ -38,17 +38,19 @@ import com.bitfire.utils.ItemsManager;
  */
 public final class PostProcessor implements Disposable {
     private static final Array<PingPongBuffer> buffers = new Array<PingPongBuffer>(5);
+    private static final Rectangle viewport = new Rectangle();
     /**
      * Enable pipeline state queries: beware the pipeline can stall!
      */
     public static boolean EnableQueryStates = false;
     private static PipelineState pipelineState = null;
     private static Format fbFormat;
-    private static final Rectangle viewport = new Rectangle();
     private static boolean hasViewport = false;
     private final PingPongBuffer composite;
     private final ItemsManager<PostProcessorEffect> effectsManager = new ItemsManager<PostProcessorEffect>();
     private final Color clearColor = Color.CLEAR;
+    // maintains a per-frame updated list of enabled effects
+    private final Array<PostProcessorEffect> enabledEffects = new Array<PostProcessorEffect>(5);
     private TextureWrap compositeWrapU;
     private TextureWrap compositeWrapV;
     private int clearBits = GL20.GL_COLOR_BUFFER_BIT;
@@ -57,11 +59,7 @@ public final class PostProcessor implements Disposable {
     private boolean capturing = false;
     private boolean hasCaptured = false;
     private boolean useDepth = false;
-
     private PostProcessorListener listener = null;
-
-    // maintains a per-frame updated list of enabled effects
-    private final Array<PostProcessorEffect> enabledEffects = new Array<PostProcessorEffect>(5);
 
     /**
      * Construct a new PostProcessor with FBO dimensions set to the size of the screen

@@ -12,183 +12,180 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 public abstract class PositionalLight extends Light {
 
-	private Body body;
-	private float bodyOffsetX;
-	private float bodyOffsetY;
-	final float sin[];
-	final float cos[];
+    final float[] sin;
+    final float[] cos;
+    final Vector2 start = new Vector2();
+    final float[] endX;
+    final float[] endY;
+    private final Vector2 tmpEnd = new Vector2();
+    private Body body;
+    private float bodyOffsetX;
+    private float bodyOffsetY;
 
-	final Vector2 start = new Vector2();
-	final float endX[];
-	final float endY[];
+    PositionalLight(RayHandler rayHandler, int rays, Color color, float distance, float x, float y, float directionDegree) {
+        super(rayHandler, rays, color, directionDegree, distance);
+        start.x = x;
+        start.y = y;
+        sin = new float[rays];
+        cos = new float[rays];
+        endX = new float[rays];
+        endY = new float[rays];
 
-	/**
-	 * attach positional light to automatically follow body. Position is fixed
-	 * to given offset.
-	 */
-	@Override
-	public void attachToBody( Body body, float offsetX, float offSetY ) {
-		this.body = body;
-		bodyOffsetX = offsetX;
-		bodyOffsetY = offSetY;
-		if( staticLight )
-			staticUpdate();
-	}
+        lightMesh = new Mesh(VertexDataType.VertexArray, staticLight, vertexNum, 0, new VertexAttribute(Usage.Position, 2,
+                "vertex_positions"), new VertexAttribute(Usage.ColorPacked, 4, "quad_colors"), new VertexAttribute(
+                Usage.Generic, 1, "s"));
+        softShadowMesh = new Mesh(VertexDataType.VertexArray, staticLight, vertexNum * 2, 0, new VertexAttribute(
+                Usage.Position, 2, "vertex_positions"), new VertexAttribute(Usage.ColorPacked, 4, "quad_colors"),
+                new VertexAttribute(Usage.Generic, 1, "s"));
 
-	@Override
-	public Vector2 getPosition() {
-		tmpPosition.x = start.x;
-		tmpPosition.y = start.y;
-		return tmpPosition;
-	}
+        setMesh();
+    }
 
-	@Override
-	public Body getBody() {
-		return body;
-	}
+    /**
+     * attach positional light to automatically follow body. Position is fixed
+     * to given offset.
+     */
+    @Override
+    public void attachToBody(Body body, float offsetX, float offSetY) {
+        this.body = body;
+        bodyOffsetX = offsetX;
+        bodyOffsetY = offSetY;
+        if (staticLight)
+            staticUpdate();
+    }
 
-	/**
-	 * horizontal starting position of light in world coordinates.
-	 */
-	@Override
-	public float getX() {
-		return start.x;
-	}
+    @Override
+    public Vector2 getPosition() {
+        tmpPosition.x = start.x;
+        tmpPosition.y = start.y;
+        return tmpPosition;
+    }
 
-	/**
-	 * vertical starting position of light in world coordinates.
-	 */
-	@Override
-	public float getY() {
-		return start.y;
-	}
+    @Override
+    public void setPosition(Vector2 position) {
+        start.x = position.x;
+        start.y = position.y;
+        if (staticLight)
+            staticUpdate();
+    }
 
-	private final Vector2 tmpEnd = new Vector2();
+    @Override
+    public Body getBody() {
+        return body;
+    }
 
-	@Override
-	public void setPosition( float x, float y ) {
-		start.x = x;
-		start.y = y;
-		if( staticLight )
-			staticUpdate();
-	}
+    /**
+     * horizontal starting position of light in world coordinates.
+     */
+    @Override
+    public float getX() {
+        return start.x;
+    }
 
-	@Override
-	public void setPosition( Vector2 position ) {
-		start.x = position.x;
-		start.y = position.y;
-		if( staticLight )
-			staticUpdate();
-	}
+    /**
+     * vertical starting position of light in world coordinates.
+     */
+    @Override
+    public float getY() {
+        return start.y;
+    }
 
-	@Override
-	void update() {
-		if( body != null && !staticLight ) {
-			final Vector2 vec = body.getPosition();
-			float angle = body.getAngle();
-			final float cos = MathUtils.cos( angle );
-			final float sin = MathUtils.sin( angle );
-			final float dX = bodyOffsetX * cos - bodyOffsetY * sin;
-			final float dY = bodyOffsetX * sin + bodyOffsetY * cos;
-			start.x = vec.x + dX;
-			start.y = vec.y + dY;
-			setDirection( angle * MathUtils.radiansToDegrees );
-		}
+    @Override
+    public void setPosition(float x, float y) {
+        start.x = x;
+        start.y = y;
+        if (staticLight)
+            staticUpdate();
+    }
 
-		if( rayHandler.culling ) {
-			culled = ((!rayHandler.intersect( start.x, start.y, distance + softShadowLenght )));
-			if( culled )
-				return;
-		}
+    @Override
+    void update() {
+        if (body != null && !staticLight) {
+            final Vector2 vec = body.getPosition();
+            float angle = body.getAngle();
+            final float cos = MathUtils.cos(angle);
+            final float sin = MathUtils.sin(angle);
+            final float dX = bodyOffsetX * cos - bodyOffsetY * sin;
+            final float dY = bodyOffsetX * sin + bodyOffsetY * cos;
+            start.x = vec.x + dX;
+            start.y = vec.y + dY;
+            setDirection(angle * MathUtils.radiansToDegrees);
+        }
 
-		if( staticLight )
-			return;
+        if (rayHandler.culling) {
+            culled = ((!rayHandler.intersect(start.x, start.y, distance + softShadowLenght)));
+            if (culled)
+                return;
+        }
 
-		for( int i = 0; i < rayNum; i++ ) {
-			rayHandler.m_index = i;
-			rayHandler.m_f[i] = 1f;
-			tmpEnd.x = endX[i] + start.x;
-			rayHandler.m_x[i] = tmpEnd.x;
-			tmpEnd.y = endY[i] + start.y;
-			rayHandler.m_y[i] = tmpEnd.y;
-			if( /* rayHandler.world != null && */!xray ) {
-				rayHandler.doRaycast( this, start, tmpEnd );
-			}
-		}
-		setMesh();
-	}
+        if (staticLight)
+            return;
 
-	void setMesh() {
+        for (int i = 0; i < rayNum; i++) {
+            rayHandler.m_index = i;
+            rayHandler.m_f[i] = 1f;
+            tmpEnd.x = endX[i] + start.x;
+            rayHandler.m_x[i] = tmpEnd.x;
+            tmpEnd.y = endY[i] + start.y;
+            rayHandler.m_y[i] = tmpEnd.y;
+            if ( /* rayHandler.world != null && */!xray) {
+                rayHandler.doRaycast(this, start, tmpEnd);
+            }
+        }
+        setMesh();
+    }
 
-		// ray starting point
-		int size = 0;
-		final float seg[] = rayHandler.m_segments;
-		final float m_x[] = rayHandler.m_x;
-		final float m_y[] = rayHandler.m_y;
-		final float m_f[] = rayHandler.m_f;
+    void setMesh() {
 
-		seg[size++] = start.x;
-		seg[size++] = start.y;
-		seg[size++] = colorF;
-		seg[size++] = 1;
-		// rays ending points.
-		for( int i = 0; i < rayNum; i++ ) {
-			seg[size++] = m_x[i];
-			seg[size++] = m_y[i];
-			seg[size++] = colorF;
-			seg[size++] = 1 - m_f[i];
-		}
-		lightMesh.setVertices( seg, 0, size );
+        // ray starting point
+        int size = 0;
+        final float[] seg = rayHandler.m_segments;
+        final float[] m_x = rayHandler.m_x;
+        final float[] m_y = rayHandler.m_y;
+        final float[] m_f = rayHandler.m_f;
 
-		if( !soft || xray )
-			return;
+        seg[size++] = start.x;
+        seg[size++] = start.y;
+        seg[size++] = colorF;
+        seg[size++] = 1;
+        // rays ending points.
+        for (int i = 0; i < rayNum; i++) {
+            seg[size++] = m_x[i];
+            seg[size++] = m_y[i];
+            seg[size++] = colorF;
+            seg[size++] = 1 - m_f[i];
+        }
+        lightMesh.setVertices(seg, 0, size);
 
-		size = 0;
-		// rays ending points.
+        if (!soft || xray)
+            return;
 
-		for( int i = 0; i < rayNum; i++ ) {
-			seg[size++] = m_x[i];
-			seg[size++] = m_y[i];
-			seg[size++] = colorF;
-			final float s = (1 - m_f[i]);
-			seg[size++] = s;
-			seg[size++] = m_x[i] + s * softShadowLenght * cos[i];
-			seg[size++] = m_y[i] + s * softShadowLenght * sin[i];
-			seg[size++] = zero;
-			seg[size++] = 0f;
-		}
-		softShadowMesh.setVertices( seg, 0, size );
-	}
+        size = 0;
+        // rays ending points.
 
-	@Override
-	void render() {
-		if( rayHandler.culling && culled )
-			return;
+        for (int i = 0; i < rayNum; i++) {
+            seg[size++] = m_x[i];
+            seg[size++] = m_y[i];
+            seg[size++] = colorF;
+            final float s = (1 - m_f[i]);
+            seg[size++] = s;
+            seg[size++] = m_x[i] + s * softShadowLenght * cos[i];
+            seg[size++] = m_y[i] + s * softShadowLenght * sin[i];
+            seg[size++] = zero;
+            seg[size++] = 0f;
+        }
+        softShadowMesh.setVertices(seg, 0, size);
+    }
 
-		rayHandler.lightRenderedLastFrame++;
-		lightMesh.render( rayHandler.lightShader, GL20.GL_TRIANGLE_FAN, 0, vertexNum );
-		if( soft && !xray ) {
-			softShadowMesh.render( rayHandler.lightShader, GL20.GL_TRIANGLE_STRIP, 0, (vertexNum - 1) * 2 );
-		}
-	}
+    @Override
+    void render() {
+        if (rayHandler.culling && culled)
+            return;
 
-	PositionalLight( RayHandler rayHandler, int rays, Color color, float distance, float x, float y, float directionDegree ) {
-		super( rayHandler, rays, color, directionDegree, distance );
-		start.x = x;
-		start.y = y;
-		sin = new float[ rays ];
-		cos = new float[ rays ];
-		endX = new float[ rays ];
-		endY = new float[ rays ];
-
-		lightMesh = new Mesh( VertexDataType.VertexArray, staticLight, vertexNum, 0, new VertexAttribute( Usage.Position, 2,
-				"vertex_positions" ), new VertexAttribute( Usage.ColorPacked, 4, "quad_colors" ), new VertexAttribute(
-				Usage.Generic, 1, "s" ) );
-		softShadowMesh = new Mesh( VertexDataType.VertexArray, staticLight, vertexNum * 2, 0, new VertexAttribute(
-				Usage.Position, 2, "vertex_positions" ), new VertexAttribute( Usage.ColorPacked, 4, "quad_colors" ),
-				new VertexAttribute( Usage.Generic, 1, "s" ) );
-
-		setMesh();
-	}
-
+        rayHandler.lightRenderedLastFrame++;
+        lightMesh.render(rayHandler.lightShader, GL20.GL_TRIANGLE_FAN, 0, vertexNum);
+        if (soft && !xray) {
+            softShadowMesh.render(rayHandler.lightShader, GL20.GL_TRIANGLE_STRIP, 0, (vertexNum - 1) * 2);
+        }
+    }
 }
