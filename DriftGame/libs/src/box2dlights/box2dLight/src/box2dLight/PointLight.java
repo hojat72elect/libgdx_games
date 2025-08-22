@@ -12,11 +12,6 @@ public class PointLight extends PositionalLight {
         update();
     }
 
-
-    public PointLight(RayHandler rayHandler, int rays) {
-        this(rayHandler, rays, Light.DefaultColor, 15f, 0f, 0f);
-    }
-
     final void setEndPoints() {
         float angleNum = 360f / (rayNum - 1);
         for (int i = 0; i < rayNum; i++) {
@@ -38,7 +33,7 @@ public class PointLight extends PositionalLight {
     @Override
     public void setDistance(float dist) {
         dist *= RayHandler.gammaCorrectionParameter;
-        this.distance = dist < 0.01f ? 0.01f : dist;
+        this.distance = Math.max(dist, 0.01f);
         setEndPoints();
         if (staticLight)
             staticUpdate();

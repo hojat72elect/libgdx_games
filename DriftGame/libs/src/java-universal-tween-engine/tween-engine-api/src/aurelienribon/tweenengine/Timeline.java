@@ -65,32 +65,12 @@ public final class Timeline extends BaseTween<Timeline> {
     };
     private final List<BaseTween<?>> children = new ArrayList<>(10);
     private Timeline current;
-
-
     private Timeline parent;
     private Modes mode;
-
-    // -------------------------------------------------------------------------
-    // Attributes
-    // -------------------------------------------------------------------------
     private boolean isBuilt;
 
     private Timeline() {
         reset();
-    }
-
-    /**
-     * Used for debug purpose. Gets the current number of empty timelines that are waiting in the Timeline pool.
-     */
-    public static int getPoolSize() {
-        return pool.size();
-    }
-
-    /**
-     * Increases the minimum capacity of the pool. Capacity defaults to 10.
-     */
-    public static void ensurePoolCapacity(int minCapacity) {
-        pool.ensureCapacity(minCapacity);
     }
 
     /**
@@ -169,36 +149,6 @@ public final class Timeline extends BaseTween<Timeline> {
     public Timeline pushPause(float time) {
         if (isBuilt) throw new RuntimeException("You can't push anything to a timeline once it is started");
         current.children.add(Tween.mark().delay(time));
-        return this;
-    }
-
-    /**
-     * Starts a nested timeline with a 'sequence' behavior. Don't forget to call {@link end()} to close this nested timeline.
-     *
-     * @return The current timeline, for chaining instructions.
-     */
-    public Timeline beginSequence() {
-        if (isBuilt) throw new RuntimeException("You can't push anything to a timeline once it is started");
-        Timeline tl = pool.get();
-        tl.parent = current;
-        tl.mode = Modes.SEQUENCE;
-        current.children.add(tl);
-        current = tl;
-        return this;
-    }
-
-    /**
-     * Starts a nested timeline with a 'parallel' behavior. Don't forget to call {@link end()} to close this nested timeline.
-     *
-     * @return The current timeline, for chaining instructions.
-     */
-    public Timeline beginParallel() {
-        if (isBuilt) throw new RuntimeException("You can't push anything to a timeline once it is started");
-        Timeline tl = pool.get();
-        tl.parent = current;
-        tl.mode = Modes.PARALLEL;
-        current.children.add(tl);
-        current = tl;
         return this;
     }
 

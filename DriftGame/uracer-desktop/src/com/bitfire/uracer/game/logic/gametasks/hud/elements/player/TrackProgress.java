@@ -113,7 +113,7 @@ public class TrackProgress extends Positionable {
         }
 
         boolean showAdv = true;
-        if (customMessage.length() == 0) {
+        if (customMessage.isEmpty()) {
             if (hasTarget) {
                 float v = data.playerDistance.get() - data.targetDistance.get();
                 lblAdvantage.setString(String.format("%.02f", v) + " m", false);

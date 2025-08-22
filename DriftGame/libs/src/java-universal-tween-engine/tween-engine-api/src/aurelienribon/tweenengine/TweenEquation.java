@@ -16,11 +16,4 @@ public abstract class TweenEquation {
      */
     public abstract float compute(float t);
 
-    /**
-     * Returns true if the given string is the name of this equation (the name is returned in the toString() method, don't forget
-     * to override it). This method is usually used to save/load a tween to/from a text file.
-     */
-    public boolean isValueOf(String str) {
-        return str.equals(toString());
-    }
 }

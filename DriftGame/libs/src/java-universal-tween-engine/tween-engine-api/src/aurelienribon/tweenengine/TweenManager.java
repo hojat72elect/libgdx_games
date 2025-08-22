@@ -21,48 +21,6 @@ public class TweenManager {
     private boolean isPaused = false;
 
     /**
-     * Disables or enables the "auto remove" mode of any tween manager for a particular tween or timeline. This mode is activated
-     * by default. The interest of desactivating it is to prevent some tweens or timelines from being automatically removed from a
-     * manager once they are finished. Therefore, if you update a manager backwards, the tweens or timelines will be played again,
-     * even if they were finished.
-     */
-    public static void setAutoRemove(BaseTween<?> object, boolean value) {
-        object.isAutoRemoveEnabled = value;
-    }
-
-    /**
-     * Disables or enables the "auto start" mode of any tween manager for a particular tween or timeline. This mode is activated by
-     * default. If it is not enabled, add a tween or timeline to any manager won't start it automatically, and you'll need to call
-     * .start() manually on your object.
-     */
-    public static void setAutoStart(BaseTween<?> object, boolean value) {
-        object.isAutoStartEnabled = value;
-    }
-
-    private static int getTweensCount(List<BaseTween<?>> objs) {
-        int cnt = 0;
-        for (int i = 0, n = objs.size(); i < n; i++) {
-            BaseTween<?> obj = objs.get(i);
-            if (obj instanceof Tween)
-                cnt += 1;
-            else
-                cnt += getTweensCount(((Timeline) obj).getChildren());
-        }
-        return cnt;
-    }
-
-    private static int getTimelinesCount(List<BaseTween<?>> objs) {
-        int cnt = 0;
-        for (int i = 0, n = objs.size(); i < n; i++) {
-            BaseTween<?> obj = objs.get(i);
-            if (obj instanceof Timeline) {
-                cnt += 1 + getTimelinesCount(((Timeline) obj).getChildren());
-            }
-        }
-        return cnt;
-    }
-
-    /**
      * Adds a tween or timeline to the manager and starts or restarts it.
      *
      * @return The manager, for instruction chaining.
@@ -71,29 +29,6 @@ public class TweenManager {
         if (!objects.contains(object)) objects.add(object);
         if (object.isAutoStartEnabled) object.start();
         return this;
-    }
-
-    /**
-     * Returns true if the manager contains any valid interpolation associated to the given target object.
-     */
-    public boolean containsTarget(Object target) {
-        for (int i = 0, n = objects.size(); i < n; i++) {
-            BaseTween<?> obj = objects.get(i);
-            if (obj.containsTarget(target)) return true;
-        }
-        return false;
-    }
-
-    /**
-     * Returns true if the manager contains any valid interpolation associated to the given target object and to the given tween
-     * type.
-     */
-    public boolean containsTarget(Object target, int tweenType) {
-        for (int i = 0, n = objects.size(); i < n; i++) {
-            BaseTween<?> obj = objects.get(i);
-            if (obj.containsTarget(target, tweenType)) return true;
-        }
-        return false;
     }
 
     /**
@@ -118,24 +53,6 @@ public class TweenManager {
     }
 
     /**
-     * Kills every tweens associated to the given target and tween type. Will also kill every timelines containing a tween
-     * associated to the given target and tween type.
-     */
-    public void killTarget(Object target, int tweenType) {
-        for (int i = 0, n = objects.size(); i < n; i++) {
-            BaseTween<?> obj = objects.get(i);
-            obj.killTarget(target, tweenType);
-        }
-    }
-
-    /**
-     * Increases the minimum capacity of the manager. Defaults to 20.
-     */
-    public void ensureCapacity(int minCapacity) {
-        objects.ensureCapacity(minCapacity);
-    }
-
-    /**
      * Pauses the manager. Further update calls won't have any effect.
      */
     public void pause() {
@@ -153,8 +70,6 @@ public class TweenManager {
      * Updates every tweens with a delta time ang handles the tween life-cycles automatically. If a tween is finished, it will be
      * removed from the manager. The delta time represents the elapsed time between now and the last update call. Each tween or
      * timeline manages its local time, and adds this delta to its local time to update itself.
-     * <p/>
-     * <p>
      * Slow motion, fast motion and backward play can be easily achieved by tweaking this delta time. Multiply it by -1 to play the
      * animation backward, or by 0.5 to play it twice slower than its normal speed.
      */
@@ -181,33 +96,9 @@ public class TweenManager {
     /**
      * Gets the number of managed objects. An object may be a tween or a timeline. Note that a timeline only counts for 1 object,
      * since it manages its children itself.
-     * <p/>
-     * To get the count of running tweens, see {@link #getRunningTweensCount()}.
      */
     public int size() {
         return objects.size();
-    }
-
-    /**
-     * Gets the number of running tweens. This number includes the tweens located inside timelines (and nested timelines).
-     * <p/>
-     * <b>Provided for debug purpose only.</b>
-     */
-    public int getRunningTweensCount() {
-        return getTweensCount(objects);
-    }
-
-    // -------------------------------------------------------------------------
-    // Helpers
-    // -------------------------------------------------------------------------
-
-    /**
-     * Gets the number of running timelines. This number includes the timelines nested inside other timelines.
-     * <p/>
-     * <b>Provided for debug purpose only.</b>
-     */
-    public int getRunningTimelinesCount() {
-        return getTimelinesCount(objects);
     }
 
     /**

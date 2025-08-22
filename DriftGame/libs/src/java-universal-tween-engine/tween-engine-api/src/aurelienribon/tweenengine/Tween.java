@@ -50,16 +50,14 @@ import aurelienribon.tweenengine.equations.Quad;
  * them anymore once you started them (if they are managed of course).</b>
  * <p/>
  * <p>
- * You need to periodicaly update the tween engine, in order to compute the new values. If your tweens are managed, only update
- * the manager; else you need to call {@link #update()} on your tweens periodically.
+ * You need to periodicaly update the tween engine, in order to compute the new values.
  * <p/>
  *
  * <h2>Example - setting up the engine</h2>
  * <p>
  * The engine cannot directly change your objects attributes, since it doesn't know them. Therefore, you need to tell him how to
  * get and set the different attributes of your objects: <b>you need to implement the {@link TweenAccessor} interface for each
- * object class you will animate</b>. Once done, don't forget to register these implementations, using the static method {@link
- * registerAccessor()}, when you start your application.
+ * object class you will animate</b>.
  *
  * @see TweenAccessor
  * @see TweenManager
@@ -69,13 +67,9 @@ import aurelienribon.tweenengine.equations.Quad;
 public final class Tween extends BaseTween<Tween> {
 
 
-    /**
-     * Used as parameter in {@link #repeat(int, float)} and {@link #repeatYoyo(int, float)} methods.
-     */
-    public static final int INFINITY = -1;
-    private static final Map<Class<?>, TweenAccessor<?>> registeredAccessors = new HashMap<Class<?>, TweenAccessor<?>>();
-    private static int combinedAttrsLimit = 3;
-    private static int waypointsLimit = 0;
+    private static final Map<Class<?>, TweenAccessor<?>> registeredAccessors = new HashMap<>();
+    private static final int combinedAttrsLimit = 3;
+    private static final int waypointsLimit = 0;
     private static final Pool.Callback<Tween> poolCallback = new Pool.Callback<Tween>() {
         @Override
         public void onPool(Tween obj) {
@@ -94,26 +88,15 @@ public final class Tween extends BaseTween<Tween> {
         }
     };
 
-    // -------------------------------------------------------------------------
-    // Static -- pool
-    // -------------------------------------------------------------------------
     // Values
     private final float[] startValues = new float[combinedAttrsLimit];
     private final float[] targetValues = new float[combinedAttrsLimit];
     private final float[] waypoints = new float[waypointsLimit * combinedAttrsLimit];
     // Main
     private Object target;
-
-    // -------------------------------------------------------------------------
-    // Static -- tween accessors
-    // -------------------------------------------------------------------------
     private Class<?> targetClass;
     private TweenAccessor<Object> accessor;
     private int type;
-
-    // -------------------------------------------------------------------------
-    // Static -- factories
-    // -------------------------------------------------------------------------
     private TweenEquation equation;
     private TweenPath path;
     // General
@@ -121,29 +104,13 @@ public final class Tween extends BaseTween<Tween> {
     private boolean isRelative;
     private int combinedAttrsCnt;
 
-    // -------------------------------------------------------------------------
-    // Attributes
-    // -------------------------------------------------------------------------
     private int waypointsCnt;
     // Buffers
     private float[] accessorBuffer = new float[combinedAttrsLimit];
     private float[] pathBuffer = new float[(2 + waypointsLimit) * combinedAttrsLimit];
+
     private Tween() {
         reset();
-    }
-
-    /**
-     * Changes the limit for combined attributes. Defaults to 3 to reduce memory footprint.
-     */
-    public static void setCombinedAttributesLimit(int limit) {
-        Tween.combinedAttrsLimit = limit;
-    }
-
-    /**
-     * Changes the limit of allowed waypoints for each tween. Defaults to 0 to reduce memory footprint.
-     */
-    public static void setWaypointsLimit(int limit) {
-        Tween.waypointsLimit = limit;
     }
 
     /**
@@ -153,19 +120,6 @@ public final class Tween extends BaseTween<Tween> {
         return "6.3.3";
     }
 
-    /**
-     * Used for debug purpose. Gets the current number of objects that are waiting in the Tween pool.
-     */
-    public static int getPoolSize() {
-        return pool.size();
-    }
-
-    /**
-     * Increases the minimum capacity of the pool. Capacity defaults to 20.
-     */
-    public static void ensurePoolCapacity(int minCapacity) {
-        pool.ensureCapacity(minCapacity);
-    }
 
     /**
      * Registers an accessor with the class of an object. This accessor will be used by tweens applied to every objects
@@ -176,15 +130,6 @@ public final class Tween extends BaseTween<Tween> {
      */
     public static void registerAccessor(Class<?> someClass, TweenAccessor<?> defaultAccessor) {
         registeredAccessors.put(someClass, defaultAccessor);
-    }
-
-    /**
-     * Gets the registered TweenAccessor associated with the given object class.
-     *
-     * @param someClass An object class.
-     */
-    public static TweenAccessor<?> getRegisteredAccessor(Class<?> someClass) {
-        return registeredAccessors.get(someClass);
     }
 
     /**
@@ -385,15 +330,9 @@ public final class Tween extends BaseTween<Tween> {
         return parentClass;
     }
 
-    // -------------------------------------------------------------------------
-    // Public API
-    // -------------------------------------------------------------------------
-
     /**
      * Sets the easing equation of the tween. Existing equations are located in <i>aurelienribon.tweenengine.equations</i> package,
-     * but you can of course implement your owns, see {@link TweenEquation}. You can also use the {@link TweenEquations} static
-     * instances to quickly access all the equations. Default equation is Quad.INOUT.
-     * <p/>
+     * but you can of course implement your owns, see {@link TweenEquation}.
      *
      * <b>Proposed equations are:</b><br/>
      * - Linear.INOUT,<br/>
@@ -410,23 +349,9 @@ public final class Tween extends BaseTween<Tween> {
      *
      * @return The current tween, for chaining instructions.
      * @see TweenEquation
-     * @see TweenEquations
      */
     public Tween ease(TweenEquation easeEquation) {
         this.equation = easeEquation;
-        return this;
-    }
-
-    /**
-     * Forces the tween to use the TweenAccessor registered with the given target class. Useful if you want to use a specific
-     * accessor associated to an interface, for instance.
-     *
-     * @param targetClass A class registered with an accessor.
-     * @return The current tween, for chaining instructions.
-     */
-    public Tween cast(Class<?> targetClass) {
-        if (isStarted()) throw new RuntimeException("You can't cast the target of a tween once it is started");
-        this.targetClass = targetClass;
         return this;
     }
 
@@ -506,159 +431,6 @@ public final class Tween extends BaseTween<Tween> {
     }
 
     /**
-     * Sets the target value of the interpolation, relatively to the <b>value at start time (after the delay, if any)</b>.
-     * <p/>
-     * <p>
-     * To sum-up:<br/>
-     * - start value: value at start time, after delay<br/>
-     * - end value: param + value at start time, after delay
-     *
-     * @param targetValue The relative target value of the interpolation.
-     * @return The current tween, for chaining instructions.
-     */
-    public Tween targetRelative(float targetValue) {
-        isRelative = true;
-        targetValues[0] = isInitialized() ? targetValue + startValues[0] : targetValue;
-        return this;
-    }
-
-    /**
-     * Sets the target values of the interpolation, relatively to the <b>values at start time (after the delay, if any)</b>.
-     * <p/>
-     * <p>
-     * To sum-up:<br/>
-     * - start values: values at start time, after delay<br/>
-     * - end values: params + values at start time, after delay
-     *
-     * @param targetValue1 The 1st relative target value of the interpolation.
-     * @param targetValue2 The 2nd relative target value of the interpolation.
-     * @return The current tween, for chaining instructions.
-     */
-    public Tween targetRelative(float targetValue1, float targetValue2) {
-        isRelative = true;
-        targetValues[0] = isInitialized() ? targetValue1 + startValues[0] : targetValue1;
-        targetValues[1] = isInitialized() ? targetValue2 + startValues[1] : targetValue2;
-        return this;
-    }
-
-    /**
-     * Sets the target values of the interpolation, relatively to the <b>values at start time (after the delay, if any)</b>.
-     * <p/>
-     * <p>
-     * To sum-up:<br/>
-     * - start values: values at start time, after delay<br/>
-     * - end values: params + values at start time, after delay
-     *
-     * @param targetValue1 The 1st relative target value of the interpolation.
-     * @param targetValue2 The 2nd relative target value of the interpolation.
-     * @param targetValue3 The 3rd relative target value of the interpolation.
-     * @return The current tween, for chaining instructions.
-     */
-    public Tween targetRelative(float targetValue1, float targetValue2, float targetValue3) {
-        isRelative = true;
-        targetValues[0] = isInitialized() ? targetValue1 + startValues[0] : targetValue1;
-        targetValues[1] = isInitialized() ? targetValue2 + startValues[1] : targetValue2;
-        targetValues[2] = isInitialized() ? targetValue3 + startValues[2] : targetValue3;
-        return this;
-    }
-
-    /**
-     * Sets the target values of the interpolation, relatively to the <b>values at start time (after the delay, if any)</b>.
-     * <p/>
-     * <p>
-     * To sum-up:<br/>
-     * - start values: values at start time, after delay<br/>
-     * - end values: params + values at start time, after delay
-     *
-     * @param targetValues The relative target values of the interpolation.
-     * @return The current tween, for chaining instructions.
-     */
-    public Tween targetRelative(float... targetValues) {
-        if (targetValues.length > combinedAttrsLimit) throwCombinedAttrsLimitReached();
-        for (int i = 0; i < targetValues.length; i++) {
-            this.targetValues[i] = isInitialized() ? targetValues[i] + startValues[i] : targetValues[i];
-        }
-
-        isRelative = true;
-        return this;
-    }
-
-    /**
-     * Adds a waypoint to the path. The default path runs from the start values to the end values linearly. If you add waypoints,
-     * the default path will use a smooth catmull-rom spline to navigate between the waypoints, but you can change this behavior by
-     * using the {@link #path(TweenPath)} method.
-     *
-     * @param targetValue The target of this waypoint.
-     * @return The current tween, for chaining instructions.
-     */
-    public Tween waypoint(float targetValue) {
-        if (waypointsCnt == waypointsLimit) throwWaypointsLimitReached();
-        waypoints[waypointsCnt] = targetValue;
-        waypointsCnt += 1;
-        return this;
-    }
-
-    /**
-     * Adds a waypoint to the path. The default path runs from the start values to the end values linearly. If you add waypoints,
-     * the default path will use a smooth catmull-rom spline to navigate between the waypoints, but you can change this behavior by
-     * using the {@link #path(TweenPath)} method.
-     * <p/>
-     * Note that if you want waypoints relative to the start values, use one of the .targetRelative() methods to define your
-     * target.
-     *
-     * @param targetValue1 The 1st target of this waypoint.
-     * @param targetValue2 The 2nd target of this waypoint.
-     * @return The current tween, for chaining instructions.
-     */
-    public Tween waypoint(float targetValue1, float targetValue2) {
-        if (waypointsCnt == waypointsLimit) throwWaypointsLimitReached();
-        waypoints[waypointsCnt * 2] = targetValue1;
-        waypoints[waypointsCnt * 2 + 1] = targetValue2;
-        waypointsCnt += 1;
-        return this;
-    }
-
-    /**
-     * Adds a waypoint to the path. The default path runs from the start values to the end values linearly. If you add waypoints,
-     * the default path will use a smooth catmull-rom spline to navigate between the waypoints, but you can change this behavior by
-     * using the {@link #path(TweenPath)} method.
-     * <p/>
-     * Note that if you want waypoints relative to the start values, use one of the .targetRelative() methods to define your
-     * target.
-     *
-     * @param targetValue1 The 1st target of this waypoint.
-     * @param targetValue2 The 2nd target of this waypoint.
-     * @param targetValue3 The 3rd target of this waypoint.
-     * @return The current tween, for chaining instructions.
-     */
-    public Tween waypoint(float targetValue1, float targetValue2, float targetValue3) {
-        if (waypointsCnt == waypointsLimit) throwWaypointsLimitReached();
-        waypoints[waypointsCnt * 3] = targetValue1;
-        waypoints[waypointsCnt * 3 + 1] = targetValue2;
-        waypoints[waypointsCnt * 3 + 2] = targetValue3;
-        waypointsCnt += 1;
-        return this;
-    }
-
-    /**
-     * Adds a waypoint to the path. The default path runs from the start values to the end values linearly. If you add waypoints,
-     * the default path will use a smooth catmull-rom spline to navigate between the waypoints, but you can change this behavior by
-     * using the {@link #path(TweenPath)} method.
-     * <p/>
-     * Note that if you want waypoints relative to the start values, use one of the .targetRelative() methods to define your
-     * target.
-     *
-     * @param targetValues The targets of this waypoint.
-     * @return The current tween, for chaining instructions.
-     */
-    public Tween waypoint(float... targetValues) {
-        if (waypointsCnt == waypointsLimit) throwWaypointsLimitReached();
-        System.arraycopy(targetValues, 0, waypoints, waypointsCnt * targetValues.length, targetValues.length);
-        waypointsCnt += 1;
-        return this;
-    }
-
-    /**
      * Sets the algorithm that will be used to navigate through the waypoints, from the start values to the end values. Default is
      * a catmull-rom spline, but you can find other paths in the {@link TweenPaths} class.
      *
@@ -672,9 +444,6 @@ public final class Tween extends BaseTween<Tween> {
         return this;
     }
 
-    // -------------------------------------------------------------------------
-    // Getters
-    // -------------------------------------------------------------------------
 
     /**
      * Gets the target object.
@@ -696,39 +465,6 @@ public final class Tween extends BaseTween<Tween> {
     public TweenEquation getEasing() {
         return equation;
     }
-
-    /**
-     * Gets the target values. The returned buffer is as long as the maximum allowed combined values. Therefore, you're surely not
-     * interested in all its content. Use {@link #getCombinedTweenCount()} to get the number of interesting slots.
-     */
-    public float[] getTargetValues() {
-        return targetValues;
-    }
-
-    /**
-     * Gets the number of combined animations.
-     */
-    public int getCombinedAttributesCount() {
-        return combinedAttrsCnt;
-    }
-
-    /**
-     * Gets the TweenAccessor used with the target.
-     */
-    public TweenAccessor<?> getAccessor() {
-        return accessor;
-    }
-
-    /**
-     * Gets the class that was used to find the associated TweenAccessor.
-     */
-    public Class<?> getTargetClass() {
-        return targetClass;
-    }
-
-    // -------------------------------------------------------------------------
-    // Overrides
-    // -------------------------------------------------------------------------
 
     @Override
     public Tween build() {
@@ -855,20 +591,10 @@ public final class Tween extends BaseTween<Tween> {
         return this.target == target && this.type == tweenType;
     }
 
-    // -------------------------------------------------------------------------
-    // Helpers
-    // -------------------------------------------------------------------------
-
     private void throwCombinedAttrsLimitReached() {
         String msg = "You cannot combine more than " + combinedAttrsLimit + " "
                 + "attributes in a tween. You can raise this limit with "
                 + "Tween.setCombinedAttributesLimit(), which should be called once " + "in application initialization code.";
-        throw new RuntimeException(msg);
-    }
-
-    private void throwWaypointsLimitReached() {
-        String msg = "You cannot add more than " + waypointsLimit + " " + "waypoints to a tween. You can raise this limit with "
-                + "Tween.setWaypointsLimit(), which should be called once in " + "application initialization code.";
         throw new RuntimeException(msg);
     }
 }

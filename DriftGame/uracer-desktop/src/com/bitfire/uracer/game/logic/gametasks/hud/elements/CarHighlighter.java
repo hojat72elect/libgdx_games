@@ -37,9 +37,8 @@ public final class CarHighlighter {
     private final TweenCallback renderStateCallback = new TweenCallback() {
         @Override
         public void onEvent(int type, BaseTween<?> source) {
-            switch (type) {
-                case COMPLETE:
-                    interpolateState = false;
+            if (type == COMPLETE) {
+                interpolateState = false;
             }
         }
     };
@@ -50,9 +49,8 @@ public final class CarHighlighter {
     private final TweenCallback busyCallback = new TweenCallback() {
         @Override
         public void onEvent(int type, BaseTween<?> source) {
-            switch (type) {
-                case COMPLETE:
-                    isBusy = false;
+            if (type == COMPLETE) {
+                isBusy = false;
             }
         }
     };
@@ -118,10 +116,8 @@ public final class CarHighlighter {
             interpolateState = true;
             bfRenderState.value = 0;
             Timeline timeline = Timeline.createSequence();
-            //@off
             timeline.push(Tween.to(bfRenderState, BoxedFloatAccessor.VALUE, Config.Graphics.DefaultGhostOpacityChangeMs).target(1).ease(Config.Graphics.DefaultGhostOpacityChangeEq));
             timeline.setCallback(renderStateCallback);
-            //@on
 
             GameTweener.start(timeline);
         }

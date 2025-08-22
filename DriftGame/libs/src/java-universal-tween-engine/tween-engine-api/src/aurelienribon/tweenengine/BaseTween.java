@@ -34,9 +34,6 @@ public abstract class BaseTween<T> {
     // Misc
     private TweenCallback callback;
     private int callbackTriggers;
-    private Object userData;
-
-    // -------------------------------------------------------------------------
 
     protected void reset() {
         step = -2;
@@ -48,14 +45,9 @@ public abstract class BaseTween<T> {
 
         callback = null;
         callbackTriggers = TweenCallback.COMPLETE;
-        userData = null;
 
         isAutoRemoveEnabled = isAutoStartEnabled = true;
     }
-
-    // -------------------------------------------------------------------------
-    // Public API
-    // -------------------------------------------------------------------------
 
     /**
      * Builds and validates the object. Only needed if you want to finalize a tween or timeline without starting it, since a call
@@ -160,8 +152,7 @@ public abstract class BaseTween<T> {
     }
 
     /**
-     * Sets the callback. By default, it will be fired at the completion of the tween or timeline (event COMPLETE). If you want to
-     * change this behavior and add more triggers, use the {@link setCallbackTriggers()} method.
+     * Sets the callback. By default, it will be fired at the completion of the tween or timeline (event COMPLETE).
      *
      * @see TweenCallback
      */
@@ -197,25 +188,9 @@ public abstract class BaseTween<T> {
      * @param flags one or more triggers, separated by the '|' operator.
      * @see TweenCallback
      */
-    public T setCallbackTriggers(int flags) {
+    public void setCallbackTriggers(int flags) {
         this.callbackTriggers = flags;
-        return (T) this;
     }
-
-    /**
-     * Attaches an object to this tween or timeline. It can be useful in order to retrieve some data from a TweenCallback.
-     *
-     * @param data Any kind of object.
-     * @return The current tween or timeline, for chaining instructions.
-     */
-    public T setUserData(Object data) {
-        userData = data;
-        return (T) this;
-    }
-
-    // -------------------------------------------------------------------------
-    // Getters
-    // -------------------------------------------------------------------------
 
     /**
      * Gets the delay of the tween or timeline. Nothing will happen before this delay.
@@ -239,13 +214,6 @@ public abstract class BaseTween<T> {
     }
 
     /**
-     * Gets the delay occuring between two iterations.
-     */
-    public float getRepeatDelay() {
-        return repeatDelay;
-    }
-
-    /**
      * Returns the complete duration, including initial delay and repetitions. The formula is as follows:
      *
      * <pre>
@@ -255,26 +223,6 @@ public abstract class BaseTween<T> {
     public float getFullDuration() {
         if (repeatCnt < 0) return -1;
         return delay + duration + (repeatDelay + duration) * repeatCnt;
-    }
-
-    /**
-     * Gets the attached data, or null if none.
-     */
-    public Object getUserData() {
-        return userData;
-    }
-
-    /**
-     * Gets the id of the current step. Values are as follows:<br/>
-     * <ul>
-     * <li>even numbers mean that an iteration is playing,<br/>
-     * <li>odd numbers mean that we are between two iterations,<br/>
-     * <li>-2 means that the initial delay has not ended,<br/>
-     * <li>-1 means that we are before the first iteration,<br/>
-     * <li>repeatCount*2 + 1 means that we are after the last iteration
-     */
-    public int getStep() {
-        return step;
     }
 
     /**
@@ -300,19 +248,10 @@ public abstract class BaseTween<T> {
     }
 
     /**
-     * Returns true if the tween is finished (i.e. if the tween has reached its end or has been killed). If you don't use a
-     * TweenManager, you may want to call {@link free()} to reuse the object later.
+     * Returns true if the tween is finished (i.e. if the tween has reached its end or has been killed).
      */
     public boolean isFinished() {
         return isFinished || isKilled;
-    }
-
-    /**
-     * Returns true if the iterations are played as yoyo. Yoyo means that every two iterations, the animation will be played
-     * backwards.
-     */
-    public boolean isYoyo() {
-        return isYoyo;
     }
 
     /**
@@ -322,10 +261,6 @@ public abstract class BaseTween<T> {
         return isPaused;
     }
 
-    // -------------------------------------------------------------------------
-    // Abstract API
-    // -------------------------------------------------------------------------
-
     protected abstract void forceStartValues();
 
     protected abstract void forceEndValues();
@@ -333,10 +268,6 @@ public abstract class BaseTween<T> {
     protected abstract boolean containsTarget(Object target);
 
     protected abstract boolean containsTarget(Object target, int tweenType);
-
-    // -------------------------------------------------------------------------
-    // Protected API
-    // -------------------------------------------------------------------------
 
     protected void initializeOverride() {
     }
@@ -490,7 +421,7 @@ public abstract class BaseTween<T> {
                 deltaTime -= delta;
                 currentTime = 0;
 
-                updateOverride(step, step + 1, isIterationStep, delta);
+                updateOverride(step, step + 1, false, delta);
                 callCallback(TweenCallback.BACK_END);
 
                 if (step < 0 && repeatCnt >= 0)
@@ -505,7 +436,7 @@ public abstract class BaseTween<T> {
                 deltaTime -= delta;
                 currentTime = duration;
 
-                updateOverride(step, step - 1, isIterationStep, delta);
+                updateOverride(step, step - 1, false, delta);
                 callCallback(TweenCallback.END);
 
                 if (step > repeatCnt * 2 && repeatCnt >= 0) callCallback(TweenCallback.COMPLETE);
@@ -514,7 +445,7 @@ public abstract class BaseTween<T> {
                 float delta = deltaTime;
                 deltaTime -= delta;
                 currentTime += delta;
-                updateOverride(step, step, isIterationStep, delta);
+                updateOverride(step, step, true, delta);
                 break;
             } else {
                 float delta = deltaTime;

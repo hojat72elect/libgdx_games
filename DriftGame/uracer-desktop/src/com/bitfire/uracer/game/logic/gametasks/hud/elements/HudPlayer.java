@@ -96,7 +96,7 @@ public final class HudPlayer extends HudElement {
 
         highlightError.render(batch, cameraZoom);
         highlightNext.render(batch, cameraZoom);
-        wrongWay.render(batch, cameraZoom);
+        wrongWay.render(batch);
     }
 
     private void gravitate(Positionable p, float offsetDegs, float distance, float cameraZoom) {

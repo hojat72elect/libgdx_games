@@ -3,7 +3,6 @@ package box2dLight;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Matrix4;
@@ -25,8 +24,6 @@ public class RayHandler implements Disposable {
     final static int MIN_RAYS = 3;
     final static String HIGH = "highp";
     final static String MED = "mediump";
-    final static String LOW = "lowp";
-    final static float GAMMA_COR = 0.625f;
     private static final int DEFAULT_MAX_RAYS = 1023;
     static String colorPrecision = MED;
     static boolean gammaCorrection = false;
@@ -56,7 +53,6 @@ public class RayHandler implements Disposable {
     boolean blur = true;
     int blurNum = 1;
     Color ambientLight = new Color();
-    Color ambientColor = Color.BLACK;
     int MAX_RAYS;
     World world;
     ShaderProgram lightShader;
@@ -70,10 +66,6 @@ public class RayHandler implements Disposable {
     float[] m_y;
     float[] m_f;
     int m_index = 0;
-    /**
-     * gles1.0 shadows mesh
-     */
-    private Mesh box;
     private final LightMap lightMap;
 
     /**
@@ -89,9 +81,6 @@ public class RayHandler implements Disposable {
      * <p>
      * NOTE2: On GL 2.0 FBO size is 1/4 * screen size and used by default. For
      * different sizes use other constructor
-     *
-     * @param world
-     * @param camera
      */
     public RayHandler(World world, boolean depthMasking) {
         this(world, DEFAULT_MAX_RAYS, Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4, depthMasking);
@@ -104,18 +93,12 @@ public class RayHandler implements Disposable {
      * <p>
      * Default setting: culling = true, shadows = true, blur =
      * true(GL2.0),blurNum = 1, ambientLight = 0.0f;
-     *
-     * @param world
-     * @param camera
-     * @param maxRayCount
-     * @param fboWidth
-     * @param fboHeigth
      */
     public RayHandler(World world, int maxRayCount, int fboWidth, int fboHeigth, boolean depthMasking) {
         this.world = world;
         this.depthMasking = depthMasking;
 
-        MAX_RAYS = maxRayCount < MIN_RAYS ? MIN_RAYS : maxRayCount;
+        MAX_RAYS = Math.max(maxRayCount, MIN_RAYS);
 
         m_segments = new float[maxRayCount * 8];
         m_x = new float[maxRayCount];
@@ -135,22 +118,6 @@ public class RayHandler implements Disposable {
     }
 
     /**
-     * set color precision to mediump. Good quality and performance. NOTE: this
-     * must be set before rayHandler is constructed
-     */
-    public static void setColorPrecisionMediump() {
-        colorPrecision = MED;
-    }
-
-    /**
-     * set color precision to lowp. Worst quality, best performance. NOTE: this
-     * must be set before rayHandler is constructed
-     */
-    public static void setColorPrecisionLowp() {
-        colorPrecision = LOW;
-    }
-
-    /**
      * return current color precision Note: if changed after RayHandler is
      * initialized, returned String is not what rayHandler is using
      *
@@ -162,73 +129,9 @@ public class RayHandler implements Disposable {
 
     /**
      * return is gamma correction enabled
-     *
-     * @return
      */
     public static boolean getGammaCorrection() {
         return gammaCorrection;
-    }
-
-    /**
-     * set gammaCorrection. This need to be done before creating instance of
-     * rayHandler. NOTE: this do nothing on gles1.0. NOTE2: for match the
-     * visuals with gamma uncorrected lights light distance parameters is
-     * modified internal.
-     *
-     * @param gammeCorrectionWanted
-     */
-    public static void setGammaCorrection(boolean gammeCorrectionWanted) {
-        gammaCorrection = gammeCorrectionWanted;
-        if (gammaCorrection)
-            gammaCorrectionParameter = GAMMA_COR;
-        else
-            gammaCorrectionParameter = 1f;
-    }
-
-    /**
-     * If this is set to true and shadow are on lights are blended with diffuse
-     * algoritm. this preserve colors but might look bit darker. This is more
-     * realistic model than normally used This might improve perfromance
-     * slightly
-     *
-     * @param useDiffuse
-     */
-    public static void useDiffuseLight(boolean useDiffuse) {
-        isDiffuse = useDiffuse;
-    }
-
-    /**
-     * Set combined camera matrix. Matrix will be copied and used for rendering
-     * lights, culling. Matrix must be set to work in box2d coordinates. Matrix
-     * has to be updated every frame(if camera is changed)
-     * <p>
-     * <p>
-     * NOTE: Matrix4 is assumed to be orthogonal for culling and directional
-     * lights.
-     * <p>
-     * If any problems detected Use: [public void setCombinedMatrix(Matrix4
-     * combined, float x, float y, float viewPortWidth, float viewPortHeight)]
-     * Instead
-     *
-     * @param combined matrix that include projection and translation matrices
-     */
-    public void setCombinedMatrix(Matrix4 combined) {
-        System.arraycopy(combined.val, 0, this.combined.val, 0, 16);
-
-        // updateCameraCorners
-        float invWidth = combined.val[Matrix4.M00];
-
-        final float halfViewPortWidth = 1f / invWidth;
-        final float x = -halfViewPortWidth * combined.val[Matrix4.M03];
-        x1 = x - halfViewPortWidth;
-        x2 = x + halfViewPortWidth;
-
-        float invHeight = combined.val[Matrix4.M11];
-
-        final float halfViewPortHeight = 1f / invHeight;
-        final float y = -halfViewPortHeight * combined.val[Matrix4.M13];
-        y1 = y - halfViewPortHeight;
-        y2 = y + halfViewPortHeight;
     }
 
     /**
@@ -260,19 +163,6 @@ public class RayHandler implements Disposable {
 
     boolean intersect(float x, float y, float side) {
         return (x1 < (x + side) && x2 > (x - side) && y1 < (y + side) && y2 > (y - side));
-    }
-
-    /**
-     * Remember setCombinedMatrix(Matrix4 combined) before drawing.
-     * <p>
-     * Don't call this inside of any begin/end statements. Call this method
-     * after you have rendered background but before UI. Box2d bodies can be
-     * rendered before or after depending how you want x-ray light interact with
-     * bodies
-     */
-    public final void updateAndRender() {
-        update();
-        updateLightMap();
     }
 
     /**
@@ -347,18 +237,6 @@ public class RayHandler implements Disposable {
         lightMap.render(viewport, dest);
     }
 
-    public FrameBuffer getLightMap() {
-        return lightMap.frameBuffer;
-    }
-
-    private void alphaChannelClear() {
-        Gdx.gl20.glClearColor(0f, 0f, 0f, ambientLight.a);
-        Gdx.gl20.glColorMask(false, false, false, true);
-        Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Gdx.gl20.glColorMask(true, true, true, true);
-        Gdx.gl20.glClearColor(0f, 0f, 0f, 0f);
-    }
-
     @Override
     public void dispose() {
 
@@ -383,35 +261,6 @@ public class RayHandler implements Disposable {
     final void doRaycast(Light requestingLight, Vector2 start, Vector2 end) {
         ray.requestingLight = requestingLight;
         world.rayCast(ray, start, end);
-    }
-
-    public void removeAll() {
-
-        while (lightList.size > 0)
-            lightList.pop().remove();
-
-        while (disabledLights.size > 0)
-            disabledLights.pop().remove();
-    }
-
-    private void setShadowBox() {
-        int i = 0;
-        // This need some work, maybe camera matrix would needed
-        float c = Color.toFloatBits(0, 0, 0, 1);
-
-        m_segments[i++] = -1000000f;
-        m_segments[i++] = -1000000f;
-        m_segments[i++] = c;
-        m_segments[i++] = -1000000f;
-        m_segments[i++] = 1000000f;
-        m_segments[i++] = c;
-        m_segments[i++] = 1000000f;
-        m_segments[i++] = 1000000f;
-        m_segments[i++] = c;
-        m_segments[i++] = 1000000f;
-        m_segments[i++] = -1000000;
-        m_segments[i++] = c;
-        box.setVertices(m_segments, 0, i);
     }
 
     /**
@@ -463,25 +312,8 @@ public class RayHandler implements Disposable {
     }
 
     /**
-     * Ambient light is how dark are the shadows. clamped to 0-1
-     * <p>
-     * default = 0;
-     *
-     * @param ambientLight the ambientLight to set
-     */
-    public final void setAmbientLight(float ambientLight) {
-        if (ambientLight < 0)
-            ambientLight = 0;
-        if (ambientLight > 1)
-            ambientLight = 1;
-        this.ambientLight.a = ambientLight;
-    }
-
-    /**
      * Ambient light color is how dark and what colored the shadows are. clamped
      * to 0-1 NOTE: color is changed only in gles2.0 default = 0;
-     *
-     * @param ambientLight the ambientLight to set
      */
     public final void setAmbientLight(float r, float g, float b, float a) {
         this.ambientLight.set(r, g, b, a);
@@ -490,8 +322,6 @@ public class RayHandler implements Disposable {
     /**
      * Ambient light color is how dark and what colored the shadows are. clamped
      * to 0-1 NOTE: color is changed only in gles2.0 default = 0,0,0,0;
-     *
-     * @param ambientLight the ambientLight to set
      */
     public final void setAmbientLight(Color ambientLightColor) {
         this.ambientLight.set(ambientLightColor);

@@ -37,9 +37,6 @@ public interface TweenCallback {
     int BACK_START = 0x20;
     int BACK_END = 0x40;
     int BACK_COMPLETE = 0x80;
-    int ANY_FORWARD = 0x0F;
-    int ANY_BACKWARD = 0xF0;
-    int ANY = 0xFF;
 
     void onEvent(int type, BaseTween<?> source);
 }

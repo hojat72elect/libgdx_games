@@ -52,10 +52,6 @@ public class WrongWay extends Positionable {
         fadeIn(Config.Graphics.DefaultFadeMilliseconds);
     }
 
-    public void fadeOut() {
-        fadeOut(Config.Graphics.DefaultFadeMilliseconds);
-    }
-
     public void fadeIn(int millisecs) {
         if (!isShown) {
             isShown = true;
@@ -76,7 +72,7 @@ public class WrongWay extends Positionable {
         }
     }
 
-    public void render(SpriteBatch batch, float cameraZoom) {
+    public void render(SpriteBatch batch) {
         if (!AMath.isZero(bfAlpha.value)) {
 
             float px = position.x - offX;

@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.WindowedMean;
 import com.bitfire.uracer.URacer;
-import com.bitfire.uracer.configuration.Config;
 import com.bitfire.uracer.game.logic.gametasks.hud.HudLabel;
 import com.bitfire.uracer.game.logic.gametasks.hud.Positionable;
 import com.bitfire.uracer.resources.Art;
@@ -20,12 +19,12 @@ import com.bitfire.utils.ShaderLoader;
 
 public class DriftBar extends Positionable {
     public static final float MaxSeconds = 10f;
-    public static final int MaxTicks = (int) (MaxSeconds * Config.Physics.TimestepHz);
     private final WindowedMean driftStrength;
-    private final Texture texHalf, texHalfMask;
+    private final Texture texHalfMask;
     private final ShaderProgram shDriftSecs;
     private final Sprite sprDriftSecs, sprDriftStrength;
-    private final float offX, offY, w, h;
+    private final float offX;
+    private final float offY;
     private final HudLabel labelSeconds;
     private float seconds;
 
@@ -35,12 +34,11 @@ public class DriftBar extends Positionable {
         labelSeconds = new HudLabel(FontFace.CurseRedYellowNew, "s", false);
         labelSeconds.setAlpha(0);
 
-        //
-        texHalf = Art.texCircleProgressHalf;
+        Texture texHalf = Art.texCircleProgressHalf;
         texHalfMask = Art.texCircleProgressHalfMask;
 
-        w = texHalf.getWidth();
-        h = texHalf.getHeight();
+        float w = texHalf.getWidth();
+        float h = texHalf.getHeight();
         offX = w / 2;
         offY = h / 2;
         shDriftSecs = ShaderLoader.fromFile("progress", "progress");
@@ -76,10 +74,6 @@ public class DriftBar extends Positionable {
         this.seconds = MathUtils.clamp(seconds, 0, MaxSeconds);
     }
 
-    public float getDriftStrength() {
-        return driftStrength.getMean();
-    }
-
     public void setDriftStrength(float strength) {
         driftStrength.addValue(strength);
     }
@@ -90,10 +84,6 @@ public class DriftBar extends Positionable {
 
     public void hideSecondsLabel() {
         labelSeconds.fadeOut(800);
-    }
-
-    @Override
-    public void dispose() {
     }
 
     public void render(SpriteBatch batch, float cameraZoom) {
