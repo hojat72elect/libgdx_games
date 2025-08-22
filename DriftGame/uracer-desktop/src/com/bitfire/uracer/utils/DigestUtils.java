@@ -23,7 +23,7 @@ public class DigestUtils {
         }
 
         // try retrieve macaddress(es)
-        String mac = "";
+        StringBuilder mac = new StringBuilder();
 
         try {
             Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces();
@@ -31,8 +31,8 @@ public class DigestUtils {
                 NetworkInterface ni = nis.nextElement();
                 byte[] ma = ni.getHardwareAddress();
                 if (ma != null) {
-                    for (int i = 0; i < ma.length; i++) {
-                        mac += String.format("%02X", ma[i]);
+                    for (byte b : ma) {
+                        mac.append(String.format("%02X", b));
                     }
                 }
             }
@@ -44,11 +44,11 @@ public class DigestUtils {
             throw new URacerRuntimeException("Cannot retrieve a valid MAC address for this machine!");
         }
 
-        HardwareId = mac;
+        HardwareId = mac.toString();
         Gdx.app.log("DigestUtils", "HardwareID set to 0x" + HardwareId);
     }
 
-    public static final String computeDigest(Replay replay) {
+    public static String computeDigest(Replay replay) {
         if (replay.isValidData()) {
             String trackTimeTicks = "" + replay.getTicks();
             String created = "" + replay.getCreationTimestamp();
@@ -61,14 +61,14 @@ public class DigestUtils {
             sha256.update(trackTimeTicks.getBytes());
 
             byte[] digest = sha256.digest();
-            String replayId = "";
+            StringBuilder replayId = new StringBuilder();
 
             // output MUST be zero-padded
             for (Byte b : digest) {
-                replayId += String.format("%02x", b);
+                replayId.append(String.format("%02x", b));
             }
 
-            return replayId;
+            return replayId.toString();
         }
 
         return "";

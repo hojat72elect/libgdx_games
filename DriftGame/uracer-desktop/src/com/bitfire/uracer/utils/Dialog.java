@@ -43,23 +43,12 @@ public class Dialog extends Window {
             return false;
         }
     };
-    private Skin skin;
-
-    public Dialog(String title, Skin skin) {
-        super(title, skin.get(WindowStyle.class));
-        this.skin = skin;
-        initialize();
-    }
+    private final Skin skin;
 
     public Dialog(String title, Skin skin, String windowStyleName) {
         super(title, skin.get(windowStyleName, WindowStyle.class));
         setSkin(skin);
         this.skin = skin;
-        initialize();
-    }
-
-    public Dialog(String title, WindowStyle windowStyle) {
-        super(title, windowStyle);
         initialize();
     }
 
@@ -110,10 +99,6 @@ public class Dialog extends Window {
 
     public Table getContentTable() {
         return contentTable;
-    }
-
-    public Table getButtonTable() {
-        return buttonTable;
     }
 
     /**
@@ -266,9 +251,5 @@ public class Dialog extends Window {
      * @param object The object specified when the button was added.
      */
     protected void result(Object object) {
-    }
-
-    public void cancel() {
-        cancelHide = true;
     }
 }

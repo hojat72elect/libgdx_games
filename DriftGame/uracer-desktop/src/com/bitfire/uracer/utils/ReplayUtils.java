@@ -10,7 +10,7 @@ public final class ReplayUtils {
 
     public static boolean areValidIds(ReplayInfo info) {
         if (info != null) {
-            return DigestUtils.isValidDigest(info.getId()) && info.getUserId().length() > 0 && info.getTrackId().length() > 0;
+            return DigestUtils.isValidDigest(info.getId()) && !info.getUserId().isEmpty() && !info.getTrackId().isEmpty();
         }
 
         return false;
@@ -28,25 +28,22 @@ public final class ReplayUtils {
         return getDestinationDir(info) + info.getId();
     }
 
-    public static boolean pruneReplay(ReplayInfo info) {
+    public static void pruneReplay(ReplayInfo info) {
         if (ReplayUtils.areValidIds(info)) {
             String rid = info.getId();
-            if (rid.length() > 0) {
+            if (!rid.isEmpty()) {
                 String path = getFullPath(info);
-                if (path.length() > 0) {
+                if (!path.isEmpty()) {
                     FileHandle hf = Gdx.files.external(path);
                     if (hf.exists()) {
                         hf.delete();
                         Gdx.app.log("ReplayUtils", "Pruned #" + rid);
-                        return true;
                     } else {
                         Gdx.app.error("ReplayUtils", "Couldn't prune #" + rid);
                     }
                 }
             }
         }
-
-        return false;
     }
 
     public static int ticksToMilliseconds(int ticks) {
