@@ -2,10 +2,7 @@ package com.bitfire.uracer.game.player;
 
 /**
  * Represents the input forces for the simulator.
- *
- * @author manuel
  */
-
 public final class CarInput {
     public float throttle, steerAngle, brake;
     public boolean updated;

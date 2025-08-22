@@ -25,7 +25,6 @@ package aurelienribon.tweenengine;
  * }
  * </pre>
  *
- * @author Aurelien Ribon | http://www.aurelienribon.com/
  * @see Tween
  * @see Timeline
  */

@@ -9,9 +9,7 @@ import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.utils.UIUtils;
 
 /**
- * Implements a Screen that can overlay libgdx's UI elements on it
- *
- * @author bmanuel
+ * Implements a Screen that can overlay libgdx's UI elements on it.
  */
 public abstract class UIScreen extends Screen {
     protected Stage ui;

@@ -4,10 +4,7 @@ import com.bitfire.uracer.configuration.Config;
 
 /**
  * Algebra math utils.
- *
- * @author manuel
  */
-
 public final class AMath {
     public static final float TWO_PI = 6.28318530717958647692f;
     public static final float PI = 3.14159265358979323846f;

@@ -58,8 +58,6 @@ import box2dLight.RayHandler;
 
 /**
  * Encapsulates the game's world. Yay!
- *
- * @author bmanuel
  */
 public final class GameWorld {
 
@@ -81,7 +79,7 @@ public final class GameWorld {
     public GhostCar[] ghosts = null;
     private RayHandler rayHandler = null;
     private ConeLight playerHeadlightsA, playerHeadlightsB = null;
-    private PointLight playerImpulse = null;
+    private final PointLight playerImpulse = null;
     private PointLight[] lights = null;
     // level meshes, package-level access for GameWorldRenderer (ugly but faster than accessors)
     private TrackWalls trackWalls = null;

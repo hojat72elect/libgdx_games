@@ -21,8 +21,6 @@ import com.bitfire.uracer.u3d.still.StillModel;
 
 /**
  * Interface for loaders loading {@link StillModel} instances.
- *
- * @author mzechner
  */
 public interface StillModelLoader extends ModelLoader {
     @Override

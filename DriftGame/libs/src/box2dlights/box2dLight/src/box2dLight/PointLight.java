@@ -5,14 +5,6 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class PointLight extends PositionalLight {
 
-    /**
-     * @param rayHandler
-     * @param rays
-     * @param color
-     * @param distance
-     * @param x
-     * @param y
-     */
     public PointLight(RayHandler rayHandler, int rays, Color color,
                       float distance, float x, float y) {
         super(rayHandler, rays, color, distance, x, y, 0f);
@@ -20,14 +12,7 @@ public class PointLight extends PositionalLight {
         update();
     }
 
-    /**
-     * @param rayHandler
-     * @param rays
-     * @param color      Note default values,:
-     *                   Color:WHITE
-     *                   Distance:15
-     *                   Positon:origo
-     */
+
     public PointLight(RayHandler rayHandler, int rays) {
         this(rayHandler, rays, Light.DefaultColor, 15f, 0f, 0f);
     }
@@ -49,8 +34,6 @@ public class PointLight extends PositionalLight {
 
     /**
      * setDistance(float dist) MIN capped to 1cm
-     *
-     * @param dist
      */
     @Override
     public void setDistance(float dist) {

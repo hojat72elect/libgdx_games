@@ -24,8 +24,6 @@ import com.bitfire.postprocessing.filters.CameraBlur;
 
 /**
  * FIXME this effect is INCOMPLETE!
- *
- * @author bmanuel
  */
 public final class CameraMotion extends PostProcessorEffect {
     private final CameraBlur camblur;

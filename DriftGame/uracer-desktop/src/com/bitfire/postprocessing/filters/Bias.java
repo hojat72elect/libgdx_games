@@ -21,7 +21,6 @@ import com.bitfire.utils.ShaderLoader;
 /**
  * Bias filter. Adapted for lensflare2 effect.
  *
- * @author Toni Sagrista
  * @see <a
  * href="http://john-chapman-graphics.blogspot.co.uk/2013/02/pseudo-lens-flare.html">http://john-chapman-graphics.blogspot.co.uk/2013/02/pseudo-lens-flare.html</a>
  */

@@ -17,8 +17,6 @@ import java.util.Map;
 /**
  * Loads the collision fixtures defined with the Physics Body Editor application. You only need to give it a body and the
  * corresponding fixture name, and it will attach these fixtures to your body.
- *
- * @author Aurelien Ribon | http://www.aurelienribon.com
  */
 public class BodyEditorLoader {
 
@@ -30,10 +28,6 @@ public class BodyEditorLoader {
     private final PolygonShape polygonShape = new PolygonShape();
     private final CircleShape circleShape = new CircleShape();
     private final Vector2 vec = new Vector2();
-
-    // -------------------------------------------------------------------------
-    // Ctors
-    // -------------------------------------------------------------------------
 
     public BodyEditorLoader(FileHandle file) {
         if (file == null) {

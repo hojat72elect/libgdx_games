@@ -11,16 +11,6 @@ public class ConeLight extends PositionalLight {
 
     float coneDegree;
 
-    /**
-     * @param rayHandler
-     * @param rays
-     * @param directionDegree
-     * @param distance
-     * @param color
-     * @param x
-     * @param y
-     * @param coneDegree
-     */
     public ConeLight(RayHandler rayHandler, int rays, Color color,
                      float distance, float x, float y, float directionDegree,
                      float coneDegree) {
@@ -47,13 +37,6 @@ public class ConeLight extends PositionalLight {
     }
 
     /**
-     * @return the coneDegree
-     */
-    public final float getConeDegree() {
-        return coneDegree;
-    }
-
-    /**
      * How big is the arc of cone. Arc angle = coneDegree * 2
      *
      * @param coneDegree the coneDegree to set
@@ -69,12 +52,10 @@ public class ConeLight extends PositionalLight {
 
     /**
      * setDistance(float dist) MIN capped to 1cm
-     *
-     * @param dist
      */
     public void setDistance(float dist) {
         dist *= RayHandler.gammaCorrectionParameter;
-        this.distance = dist < 0.01f ? 0.01f : dist;
+        this.distance = Math.max(dist, 0.01f);
         setDirection(direction);
     }
 }

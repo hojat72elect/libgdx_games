@@ -8,7 +8,6 @@ package aurelienribon.tweenengine;
  * It is responsible for calling the different callbacks at the right moments, and for making sure that every callbacks are
  * triggered, even if the update engine gets a big delta time at once.
  *
- * @author Aurelien Ribon | http://www.aurelienribon.com/
  * @see Tween
  * @see Timeline
  */

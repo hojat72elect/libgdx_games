@@ -69,8 +69,6 @@ package aurelienribon.tweenengine;
  * </pre>
  * <p>
  * And that's all, the Tween Engine can no work with all your particles!
- *
- * @author Aurelien Ribon | http://www.aurelienribon.com/
  */
 public interface TweenAccessor<T> {
     /**

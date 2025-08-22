@@ -20,8 +20,6 @@ import com.bitfire.postprocessing.utils.PingPongBuffer;
 
 /**
  * Encapsulates a separable 2D convolution kernel filter
- *
- * @author bmanuel
  */
 public final class Convolve2D extends MultipassFilter {
     public final int radius;

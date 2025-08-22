@@ -1,19 +1,3 @@
-/*******************************************************************************
- * Copyright 2012 bmanuel
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- ******************************************************************************/
-
 package com.bitfire.utils;
 
 import com.badlogic.gdx.Gdx;
@@ -29,7 +13,7 @@ public final class ShaderLoader {
 
     public static ShaderProgram fromFile(String vertexFileName, String fragmentFileName, String defines) {
         String log = "\"" + vertexFileName + "/" + fragmentFileName + "\"";
-        if (defines.length() > 0) {
+        if (!defines.isEmpty()) {
             log += " w/ (" + defines.replace("\n", ", ") + ")";
         }
         log += "...";
@@ -38,15 +22,14 @@ public final class ShaderLoader {
         String vpSrc = Gdx.files.internal(BasePath + vertexFileName + ".vertex").readString();
         String fpSrc = Gdx.files.internal(BasePath + fragmentFileName + ".fragment").readString();
 
-        ShaderProgram program = ShaderLoader.fromString(vpSrc, fpSrc, vertexFileName, fragmentFileName, defines);
-        return program;
+        return ShaderLoader.fromString(vpSrc, fpSrc, defines);
     }
 
-    public static ShaderProgram fromString(String vertex, String fragment, String vertexName, String fragmentName) {
-        return ShaderLoader.fromString(vertex, fragment, vertexName, fragmentName, "");
+    public static ShaderProgram fromString(String vertex, String fragment) {
+        return ShaderLoader.fromString(vertex, fragment, "");
     }
 
-    public static ShaderProgram fromString(String vertex, String fragment, String vertexName, String fragmentName, String defines) {
+    public static ShaderProgram fromString(String vertex, String fragment, String defines) {
         ShaderProgram.pedantic = ShaderLoader.Pedantic;
         ShaderProgram shader = new ShaderProgram(defines + "\n" + vertex, defines + "\n" + fragment);
 

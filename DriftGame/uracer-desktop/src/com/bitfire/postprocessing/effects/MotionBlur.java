@@ -9,8 +9,6 @@ import com.bitfire.postprocessing.filters.MotionFilter;
 /**
  * A motion blur effect which draws the last frame with a lower opacity. The result is then stored as the next last frame to
  * create the trail effect.
- *
- * @author Toni Sagrista
  */
 public class MotionBlur extends PostProcessorEffect {
     private MotionFilter motionFilter;

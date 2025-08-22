@@ -16,10 +16,7 @@ import aurelienribon.tweenengine.TweenEquation;
 /**
  * Implements an automated Car, playing previously recorded events. It will ignore car-to-car collisions, but will respect
  * in-track collisions and responses.
- *
- * @author manuel
  */
-
 public final class GhostCar extends Car {
     private static final int FadeEvents = 30;
     private final int id;

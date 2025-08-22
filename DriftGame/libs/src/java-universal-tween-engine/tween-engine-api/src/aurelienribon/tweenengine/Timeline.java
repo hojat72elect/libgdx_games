@@ -38,7 +38,6 @@ import java.util.List;
  * }
  * </pre>
  *
- * @author Aurelien Ribon | http://www.aurelienribon.com/
  * @see Tween
  * @see TweenManager
  * @see TweenCallback

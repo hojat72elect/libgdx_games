@@ -21,8 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
  * <p>
  * The preferred size of a window is the preferred size of the title text and the children as laid out by the table. After adding
  * children to the window, it can be convenient to call {@link #pack()} to size the window to the size of the children.
- *
- * @author Nathan Sweet
  */
 public class Window extends Table {
     static private final Vector2 tmpPosition = new Vector2();
@@ -335,8 +333,6 @@ public class Window extends Table {
 
     /**
      * The style for a window, see {@link Window}.
-     *
-     * @author Nathan Sweet
      */
     static public class WindowStyle {
         /**

@@ -33,8 +33,6 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
  * <p>
  * When finished, {@link #end()} should be called to stop capturing. When the OpenGL context is lost, {@link #rebind()} should be
  * called.
- *
- * @author bmanuel
  */
 public final class PingPongBuffer {
     public final boolean ownResources;

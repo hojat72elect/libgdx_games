@@ -10,8 +10,6 @@ package com.bitfire.uracer.game.collisions;
  * <p>
  * bool collide = (filterA.maskBits & filterB.categoryBits) != 0 && (filterA.categoryBits & filterB.maskBits) != 0; return
  * collide; }
- *
- * @author manuel
  */
 public final class CollisionFilters {
     public static final short GroupNoCollisions = -1;

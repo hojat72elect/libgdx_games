@@ -23,8 +23,6 @@ import com.bitfire.uracer.utils.ScaleUtils;
 /**
  * Manages the high-level rendering of the whole world and triggers all the GameRendererEvent events associated with the rendering
  * timeline, realized with the event's renderqueue mechanism.
- *
- * @author bmanuel
  */
 public final class GameRenderer {
     private final GL20 gl;

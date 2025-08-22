@@ -4,8 +4,6 @@ import aurelienribon.tweenengine.TweenEquation;
 
 /**
  * Easing equation based on Robert Penner's work: http://robertpenner.com/easing/
- *
- * @author Aurelien Ribon | http://www.aurelienribon.com/
  */
 public abstract class Quint extends TweenEquation {
     public static final Quint IN = new Quint() {

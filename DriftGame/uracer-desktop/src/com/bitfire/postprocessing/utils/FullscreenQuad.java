@@ -25,8 +25,6 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 /**
  * Encapsulates a fullscreen quad, geometry is aligned to the screen corners.
- *
- * @author bmanuel
  */
 public class FullscreenQuad {
     private static final int VERT_SIZE = 16;

@@ -7,8 +7,8 @@ import com.bitfire.uracer.configuration.BootConfig;
 import org.lwjgl.opengl.Display;
 
 public class URacerDesktopFinalizer implements URacerFinalizer {
-    BootConfig boot = null;
-    private OpenALAudio audio = null;
+    BootConfig boot;
+    private OpenALAudio audio;
 
     public URacerDesktopFinalizer(BootConfig boot, OpenALAudio audio) {
         this.boot = boot;

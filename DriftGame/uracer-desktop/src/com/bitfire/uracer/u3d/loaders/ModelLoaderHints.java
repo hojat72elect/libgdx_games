@@ -18,8 +18,6 @@ package com.bitfire.uracer.u3d.loaders;
 
 /**
  * Hints passed to a loader which might ignore them.
- *
- * @author mzechner
  */
 public class ModelLoaderHints {
     /**

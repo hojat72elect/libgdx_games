@@ -33,8 +33,6 @@ import com.bitfire.utils.ItemsManager;
  * screen.
  * <p>
  * Effects can be added or removed via {@link #addEffect(PostProcessorEffect)} and {@link #removeEffect(PostProcessorEffect)}.
- *
- * @author bmanuel
  */
 public final class PostProcessor implements Disposable {
     private static final Array<PingPongBuffer> buffers = new Array<PingPongBuffer>(5);

@@ -41,19 +41,6 @@ public abstract class PositionalLight extends Light {
         setMesh();
     }
 
-    /**
-     * attach positional light to automatically follow body. Position is fixed
-     * to given offset.
-     */
-    @Override
-    public void attachToBody(Body body, float offsetX, float offSetY) {
-        this.body = body;
-        bodyOffsetX = offsetX;
-        bodyOffsetY = offSetY;
-        if (staticLight)
-            staticUpdate();
-    }
-
     @Override
     public Vector2 getPosition() {
         tmpPosition.x = start.x;

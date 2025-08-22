@@ -5,8 +5,6 @@ import com.bitfire.utils.ShaderLoader;
 
 /**
  * Motion blur filter that draws the last frame (motion filter included) with a lower opacity.
- *
- * @author Toni Sagrista
  */
 public class MotionFilter extends Filter<MotionFilter> {
 

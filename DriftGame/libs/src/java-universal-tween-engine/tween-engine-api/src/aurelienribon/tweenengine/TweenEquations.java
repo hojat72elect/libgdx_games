@@ -14,8 +14,6 @@ import aurelienribon.tweenengine.equations.Sine;
 
 /**
  * Collection of built-in easing equations
- *
- * @author Aurelien Ribon | http://www.aurelienribon.com/
  */
 public interface TweenEquations {
     Linear easeNone = Linear.INOUT;

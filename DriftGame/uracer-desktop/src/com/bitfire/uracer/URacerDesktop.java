@@ -15,8 +15,6 @@ import java.util.Calendar;
 
 public final class URacerDesktop {
 
-    // private static boolean useRightScreen = false;
-
     private URacerDesktop() {
     }
 

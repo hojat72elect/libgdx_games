@@ -35,8 +35,6 @@ import java.io.InputStreamReader;
 
 /**
  * Class to import the G3D text format.
- *
- * @author mzechner
  */
 public class G3dtLoader {
 

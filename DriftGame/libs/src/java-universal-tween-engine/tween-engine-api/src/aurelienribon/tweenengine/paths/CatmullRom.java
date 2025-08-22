@@ -2,9 +2,6 @@ package aurelienribon.tweenengine.paths;
 
 import aurelienribon.tweenengine.TweenPath;
 
-/**
- * @author Aurelien Ribon | http://www.aurelienribon.com/
- */
 public class CatmullRom implements TweenPath {
     @Override
     public float compute(float t, float[] points, int pointsCnt) {

@@ -3,8 +3,6 @@ package aurelienribon.tweenengine;
 /**
  * Base class for every paths. You can create your own paths and directly use them in the Tween engine by inheriting from this
  * class.
- *
- * @author Aurelien Ribon | http://www.aurelienribon.com/
  */
 public interface TweenPath {
 

@@ -151,13 +151,13 @@ public final class GameWorldRenderer {
         tileMapRenderer = new OrthogonalTiledMapRenderer(world.map);
 
         trackTrees = world.getTrackTrees();
-        treeShader = ShaderLoader.fromString(treeVertexShader, treeFragmentShader, "tree-fragment", "tree-vertex");
-        if (treeShader == null || !treeShader.isCompiled()) {
+        treeShader = ShaderLoader.fromString(treeVertexShader, treeFragmentShader);
+        if (!treeShader.isCompiled()) {
             throw new URacerRuntimeException("Couldn't load tree shader, log:" + treeShader.getLog());
         }
 
-        treeShaderNight = ShaderLoader.fromString(treeVertexShader, treeFragmentShaderNight, "tree-fragment-night", "tree-vertex");
-        if (treeShaderNight == null || !treeShaderNight.isCompiled()) {
+        treeShaderNight = ShaderLoader.fromString(treeVertexShader, treeFragmentShaderNight);
+        if (!treeShaderNight.isCompiled()) {
             throw new URacerRuntimeException("Couldn't load night tree shader, log:" + treeShaderNight.getLog());
         }
 

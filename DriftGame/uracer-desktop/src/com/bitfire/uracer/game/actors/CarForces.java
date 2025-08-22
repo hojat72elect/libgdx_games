@@ -2,10 +2,7 @@ package com.bitfire.uracer.game.actors;
 
 /**
  * Represents the forces computed by the car simulator.
- *
- * @author manuel
  */
-
 public final class CarForces {
     public float velocity_x;
     public float velocity_y;

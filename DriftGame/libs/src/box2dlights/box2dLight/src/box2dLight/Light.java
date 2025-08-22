@@ -5,9 +5,6 @@ import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
-/**
- * @author kalle
- */
 public abstract class Light {
 
     public static final short MaskConsiderAllFixtures = -1;
@@ -39,26 +36,8 @@ public abstract class Light {
         setRayNum(rays);
         this.direction = directionDegree;
         distance *= RayHandler.gammaCorrectionParameter;
-        this.distance = distance < 0.01f ? 0.01f : distance;
+        this.distance = Math.max(distance, 0.01f);
         setColor(color);
-    }
-
-    public short getMaskBits() {
-        return this.maskBits;
-    }
-
-    /**
-     * Specify which Box2D fixture categories are affected by this light: the
-     * raycast pass will consider or ignore Box2D fixtures accordingly, producing
-     * shadows or not, respectively.
-     * <p>
-     * NOTE: set this to -1 for this light to consider every fixture in the world.
-     */
-    public void setMaskBits(short mask) {
-        this.maskBits = mask;
-        this.xray = (mask == 0);
-        if (staticLight)
-            staticUpdate();
     }
 
     public void setMaskBits(int mask) {
@@ -76,7 +55,7 @@ public abstract class Light {
      * @param r red
      * @param g green
      * @param b blue
-     * @param a intesity
+     * @param a alpha intensity
      */
     public void setColor(float r, float g, float b, float a) {
         color.set(r, g, b, a);
@@ -96,14 +75,6 @@ public abstract class Light {
         lightMesh.dispose();
         softShadowMesh.dispose();
     }
-
-    /**
-     * attach positional light to automatically follow body. Position is fixed
-     * to given offset
-     * <p>
-     * NOTE: does absolute nothing if directional light
-     */
-    public abstract void attachToBody(Body body, float offsetX, float offSetY);
 
     /**
      * @return attached body or null if not set.
@@ -144,11 +115,6 @@ public abstract class Light {
     public abstract float getX();
 
     /**
-     * horizontal starting position of light in world coordinates. directional
-     * light return 0
-     */
-
-    /**
      * @return posY
      */
     public abstract float getY();
@@ -173,8 +139,6 @@ public abstract class Light {
 
     /**
      * disable/enables this light updates and rendering.
-     *
-     * @param active
      */
     public final void setActive(boolean active) {
         if (active == this.active)
@@ -192,47 +156,11 @@ public abstract class Light {
     }
 
     /**
-     * do light beams go through obstacles
-     *
-     * @return
-     */
-    public final boolean isXray() {
-        return xray;
-    }
-
-    /**
-     * disable/enables xray beams. enabling this will allow beams go through
-     * obstacles this reduce cpu burden of light about 70%. Use combination of
-     * xray and non xray lights wisely
-     *
-     * @param xray
-     */
-    public final void setXray(boolean xray) {
-        this.xray = xray;
-        if (staticLight)
-            staticUpdate();
-    }
-
-    /**
-     * return is this light static. Static light do not get any automatic
-     * updates but setting any parameters will update it. Static lights are
-     * usefull for lights that you want to collide with static geometry but
-     * ignore all the dynamic objects.
-     *
-     * @return
-     */
-    public final boolean isStaticLight() {
-        return staticLight;
-    }
-
-    /**
      * disables/enables staticness for light. Static light do not get any
      * automatic updates but setting any parameters will update it. Static
      * lights are usefull for lights that you want to collide with static
      * geometry but ignore all the dynamic objects. Reduce cpu burden of light
      * about 90%.
-     *
-     * @param staticLight
      */
     public final void setStaticLight(boolean staticLight) {
         this.staticLight = staticLight;
@@ -241,18 +169,7 @@ public abstract class Light {
     }
 
     /**
-     * is tips of light beams soft
-     *
-     * @return
-     */
-    public final boolean isSoft() {
-        return soft;
-    }
-
-    /**
      * disable/enables softness on tips of lights beams.
-     *
-     * @param soft
      */
     public final void setSoft(boolean soft) {
         this.soft = soft;
@@ -260,27 +177,7 @@ public abstract class Light {
             staticUpdate();
     }
 
-    /**
-     * return how much is softness used in tip of the beams. default 2.5
-     *
-     * @return
-     */
-    public final float getSoftShadowLenght() {
-        return softShadowLenght;
-    }
-
-    /**
-     * set how much is softness used in tip of the beams. default 2.5
-     *
-     * @param softShadowLenght
-     */
-    public final void setSoftnessLenght(float softShadowLenght) {
-        this.softShadowLenght = softShadowLenght;
-        if (staticLight)
-            staticUpdate();
-    }
-
-    private final void setRayNum(int rays) {
+    private void setRayNum(int rays) {
         if (rays > rayHandler.MAX_RAYS) {
             rays = rayHandler.MAX_RAYS;
         }
@@ -303,8 +200,6 @@ public abstract class Light {
     /**
      * setColor(Color newColor) { rgb set the color and alpha set intesity NOTE:
      * you can also use colorless light with shadows(EG 0,0,0,1)
-     *
-     * @param newColor
      */
     public void setColor(Color newColor) {
         if (newColor != null) {
@@ -324,14 +219,11 @@ public abstract class Light {
      * @return light rays distance.
      */
     public float getDistance() {
-        float dist = distance / RayHandler.gammaCorrectionParameter;
-        return dist;
+        return distance / RayHandler.gammaCorrectionParameter;
     }
 
     /**
      * setDistance(float dist) MIN capped to 1cm
-     *
-     * @param dist
      */
     public void setDistance(float dist) {
     }

@@ -18,10 +18,7 @@ import java.util.zip.GZIPOutputStream;
 
 /**
  * Represents replay data to be feed to a GhostCar, the replay player.
- *
- * @author manuel
  */
-
 public final class Replay implements Disposable, Comparable<Replay> {
     public static final int MaxEvents = 5000;
     // replay info data

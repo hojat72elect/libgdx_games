@@ -5,10 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * Describes the global state of the car entity providing access to both the base physical model information and the processed
  * per-timestep data resulting after each integration.
- *
- * @author manuel
  */
-
 public final class CarDescriptor {
     // physical model data
     public CarModel carModel;

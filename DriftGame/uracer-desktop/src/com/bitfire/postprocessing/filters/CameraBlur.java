@@ -23,8 +23,6 @@ import com.bitfire.utils.ShaderLoader;
 
 /**
  * FIXME this effect is INCOMPLETE!
- *
- * @author bmanuel
  */
 public final class CameraBlur extends Filter<CameraBlur> {
 

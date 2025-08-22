@@ -60,8 +60,6 @@ import java.util.StringTokenizer;
  * in it indexed regions named after the tilesets used in the map. The indexes shall be local to the tileset (not the global id).
  * Strip whitespace and rotation should not be used when creating the atlas.
  *
- * @author Justin Shapcott
- * @author Manuel Bua
  * <p>
  * NOTE! This implementation has been removed from libgdx core and no yUp/!yUp support is available at this time.
  */

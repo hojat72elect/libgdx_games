@@ -21,8 +21,6 @@ import com.bitfire.utils.ShaderLoader;
 
 /**
  * Lens flare effect.
- *
- * @author Toni Sagrista
  **/
 public final class Lens extends Filter<Lens> {
     private final Vector2 lightPosition = new Vector2();

@@ -22,8 +22,6 @@ import com.badlogic.gdx.utils.Disposable;
 /**
  * This interface defines the base class for the concrete implementation of post-processor effects. An effect is considered
  * enabled by default.
- *
- * @author bmanuel
  */
 public abstract class PostProcessorEffect implements Disposable {
     protected boolean enabled = true;

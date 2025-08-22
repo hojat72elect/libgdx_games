@@ -12,8 +12,6 @@ import com.bitfire.utils.ShaderLoader;
 
 /**
  * The model is expected to follow the z-up convention.
- *
- * @author manuel
  */
 public class OrthographicAlignedStillModel {
     public static final float World3DScalingFactor = 1.42222f;
@@ -125,11 +123,11 @@ public class OrthographicAlignedStillModel {
         // @on
 
         if (shader == null) {
-            shader = ShaderLoader.fromString(vertexShader, fragmentShader, "OASM::vert", "OASM::frag");
+            shader = ShaderLoader.fromString(vertexShader, fragmentShader);
         }
 
         if (shaderNight == null) {
-            shaderNight = ShaderLoader.fromString(vertexShader, fragmentShaderNight, "OASM::vertNight", "OASM::fragNight");
+            shaderNight = ShaderLoader.fromString(vertexShader, fragmentShaderNight);
         }
     }
 

@@ -5,10 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * Vector math utils.
- *
- * @author manuel
  */
-
 public final class VMath {
     /**
      * Returns a vector in a top-left coordinate system so that:

@@ -45,7 +45,6 @@ import aurelienribon.tweenengine.Tween;
 public class URacer implements ApplicationListener {
     public static final String Name = "URacer: The King Of The Drift";
     public static final float MaxDeltaTimeSec = 0.25f;
-    public static final long MaxDeltaTimeMs = (long) (MaxDeltaTimeSec * 1000f);
     public static final long MaxDeltaTimeNs = (long) (MaxDeltaTimeSec * 1000000000f);
     // version
     public static final String versionInfo = getVersionInformation();
@@ -63,13 +62,12 @@ public class URacer implements ApplicationListener {
     private static float graphicsTime = 0;
     private static float physicsTime = 0;
     private static float aliasingTime = 0;
-    private static long frameCount = 0;
     private static long lastTicksCount = 0;
     private final ScreenFactory screenFactory = new GameScreensFactory();
-    private float temporalAliasing = 0;
-    private long timeAccuNs = 0;
-    private long timeStepHz = 0;
-    private long PhysicsDtNs = 0;
+    private float temporalAliasing;
+    private long timeAccuNs;
+    private final long timeStepHz;
+    private final long PhysicsDtNs;
     private long lastDeltaTimeNsBeforePause = 0;
     private URacerFinalizer uRacerFinalizer;
 
@@ -105,7 +103,7 @@ public class URacer implements ApplicationListener {
             Field f = Class.forName("com.bitfire.uracer.VersionInfo").getDeclaredField("versionName");
             f.setAccessible(true);
             String value = f.get(null).toString();
-            if (value.length() > 0) {
+            if (!value.isEmpty()) {
                 info = value;
             }
         } catch (Exception e) {
@@ -159,8 +157,6 @@ public class URacer implements ApplicationListener {
         }
 
         Game.show(ScreenType.MainScreen);
-        // Game.show(ScreenType.GameScreen);
-        // Screens.setScreen(ScreenType.OptionsScreen, TransitionType.CrossFader, 500);
     }
 
     @Override
@@ -185,7 +181,7 @@ public class URacer implements ApplicationListener {
     }
 
     private long getDeltaTimeNs() {
-        long delta = 0;
+        long delta;
 
         if (!resumed) {
             if (useRealFrametime) {
@@ -204,34 +200,26 @@ public class URacer implements ApplicationListener {
         return AMath.clamp(delta, 0, MaxDeltaTimeNs);
     }
 
-    // private void simulateSlowness (int millis) {
-    // try {
-    // Thread.sleep(millis);
-    // } catch (InterruptedException e) {
-    // }
-    // }
-
     @Override
     public void render() {
         if (screenMgr.begin()) {
 
             lastDeltaTimeNs = getDeltaTimeNs();
-            // Gdx.app.log("URacer", "lastdelta=" + lastDeltaTimeNs);
+
 
             // compute values in different units so that accessors will not
             // recompute them again and again
             lastDeltaTimeMs = (float) lastDeltaTimeNs / 1000000f;
             lastDeltaTimeSec = (float) lastDeltaTimeNs * oneOnOneBillion;
-            // Gdx.app.log("URacer", "lastdelta_ms=" + lastDeltaTimeMs);
 
             // measure timings
             long startTime;
 
-            /** tick */
+
             {
                 lastTicksCount = 0;
                 startTime = TimeUtils.nanoTime();
-                timeAccuNs += lastDeltaTimeNs * timeMultiplier;
+                timeAccuNs += (long) (lastDeltaTimeNs * timeMultiplier);
                 while (timeAccuNs >= PhysicsDtNs) {
                     lastTicksCount++;
 
@@ -239,12 +227,9 @@ public class URacer implements ApplicationListener {
                     screenMgr.tick();
                     timeAccuNs -= PhysicsDtNs;
                 }
-                // simulateSlowness(48);
                 physicsTime = (TimeUtils.nanoTime() - startTime) * oneOnOneBillion;
             }
-            /** tick */
 
-            /** tick completed */
             {
                 // if the system has ticked, then trigger tickCompleted
                 if (lastTicksCount > 0) {
@@ -254,24 +239,21 @@ public class URacer implements ApplicationListener {
                     }
                 }
             }
-            /** tick completed */
+
 
             // compute the temporal aliasing factor, entities will render themselves accordingly to this to avoid flickering and
             // jittering, permitting slow-motion effects without artifacts (this imply accepting a one-frame-behind behavior)
             temporalAliasing = (timeAccuNs * timeStepHz) * oneOnOneBillion;
             aliasingTime = temporalAliasing;
 
-            /** render */
+
             {
                 startTime = TimeUtils.nanoTime();
                 SysTweener.update();
                 screenMgr.render();
-                // simulateSlowness(30);
                 graphicsTime = (TimeUtils.nanoTime() - startTime) * oneOnOneBillion;
             }
-            /** render */
 
-            frameCount++;
             screenMgr.end();
         }
     }
@@ -317,17 +299,9 @@ public class URacer implements ApplicationListener {
         void dispose();
     }
 
-    //
-    // export utilities
-    //
-
     public static final class Game {
         public static boolean isDesktop() {
             return isDesktop;
-        }
-
-        public static boolean isRunning() {
-            return running;
         }
 
         public static float getRenderTime() {
@@ -352,10 +326,6 @@ public class URacer implements ApplicationListener {
 
         public static float getTemporalAliasing() {
             return aliasingTime;
-        }
-
-        public static long getFrameCount() {
-            return frameCount;
         }
 
         public static long getLastTicksCount() {

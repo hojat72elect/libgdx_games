@@ -4,8 +4,6 @@ import com.bitfire.uracer.game.actors.CarPreset.Type;
 
 /**
  * Represents the physical car model on which we rely to compute the forces exerted by the simulation.
- *
- * @author manuel
  */
 public final class CarModel {
     public CarPreset.Type presetType;

@@ -21,8 +21,6 @@ import com.bitfire.postprocessing.filters.NfaaFilter;
 
 /**
  * Implements the normal filter anti-aliasing. Very fast and useful for combining with other post-processing effects.
- *
- * @author Toni Sagrista
  */
 public final class Nfaa extends Antialiasing {
     private NfaaFilter nfaaFilter = null;

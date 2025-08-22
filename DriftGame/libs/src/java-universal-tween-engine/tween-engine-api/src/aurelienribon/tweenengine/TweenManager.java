@@ -12,7 +12,6 @@ import java.util.List;
  * Just give it a bunch of tweens or timelines and call update() periodically, you don't need to care for anything else! Relax and
  * enjoy your animations.
  *
- * @author Aurelien Ribon | http://www.aurelienribon.com/
  * @see Tween
  * @see Timeline
  */

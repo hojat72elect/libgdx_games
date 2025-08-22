@@ -32,8 +32,6 @@ import com.bitfire.postprocessing.utils.PingPongBuffer;
 /**
  * Pseudo lens flare implementation. This is a post-processing effect entirely, no need for light positions or anything. It
  * includes ghost generation, halos, chromatic distortion and blur.
- *
- * @author Toni Sagrista
  */
 public final class LensFlare2 extends PostProcessorEffect {
     private final PingPongBuffer pingPongBuffer;

@@ -7,8 +7,6 @@ import com.bitfire.uracer.game.task.Task;
 
 /**
  * Tracks elapsed time both in absolute terms (wall clock time) or relative to the tick-based system.
- *
- * @author bmanuel
  */
 public final class Time extends Task {
     private static final float oneOnOneBillion = 1.0f / 1000000000.0f;

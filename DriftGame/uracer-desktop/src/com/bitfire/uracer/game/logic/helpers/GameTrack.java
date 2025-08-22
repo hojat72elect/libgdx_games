@@ -13,8 +13,6 @@ import java.util.List;
 /**
  * Implements the track sectorizer and represents a view onto the logical portion of a track: it does sectorization and can be
  * queried against tracklength-based information, such as normalized position in track-coordinate space.
- *
- * @author bmanuel
  */
 public final class GameTrack {
     private final List<Vector2> route;

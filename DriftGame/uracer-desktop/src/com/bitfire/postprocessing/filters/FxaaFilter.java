@@ -20,8 +20,6 @@ import com.bitfire.utils.ShaderLoader;
 
 /**
  * Fast approximate anti-aliasing filter.
- *
- * @author Toni Sagrista
  */
 public final class FxaaFilter extends Filter<FxaaFilter> {
     private final Vector2 viewportInverse;

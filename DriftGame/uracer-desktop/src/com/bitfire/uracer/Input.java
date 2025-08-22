@@ -10,8 +10,6 @@ import com.bitfire.uracer.configuration.Config;
 
 /**
  * Encapsulates a buffered input state object that can be queried to know the individual key/button/pointer states.
- *
- * @author bmanuel
  */
 public final class Input implements Disposable {
 
@@ -94,8 +92,6 @@ public final class Input implements Disposable {
         firstrepeatns = firstDelayMs * 1000000L;
     }
 
-    // keyboard
-
     // a time-masked proxy for the "isOn" method
     public boolean isRepeatedOn(int keycode) {
         return repeated[keycode];
@@ -103,10 +99,6 @@ public final class Input implements Disposable {
 
     public boolean isOn(int keycode) {
         return (buttons[keycode] & FLAG_CUR_ON) > 0;
-    }
-
-    public boolean isOff(int keycode) {
-        return (buttons[keycode] & FLAG_CUR_ON) <= 0;
     }
 
     public boolean isPressed(int keycode) {
@@ -121,7 +113,7 @@ public final class Input implements Disposable {
         long flag;
         boolean is_any_key_on = false;
 
-        boolean isKeyPressed = false;
+        boolean isKeyPressed;
 
         for (int i = 0; i < buttons.length; i++) {
 
@@ -234,7 +226,7 @@ public final class Input implements Disposable {
     /**
      * Encapsulates the touch state for a pointer.
      */
-    private class Pointer {
+    private static class Pointer {
         private final Vector2 touchCoords = new Vector2(-1, -1);
         private final boolean[] is_touching = new boolean[MouseButton.values().length];
         private final boolean[] was_touching = new boolean[MouseButton.values().length];

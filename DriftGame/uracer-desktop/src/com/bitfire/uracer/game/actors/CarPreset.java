@@ -5,8 +5,6 @@ import com.badlogic.gdx.Gdx;
 /**
  * Encapsulates a set of one CarModel and one CarAspect, indicized by a single mnemonic, describing both physical and graphical
  * settings for the specified Type.
- *
- * @author bmanuel
  */
 public final class CarPreset {
 

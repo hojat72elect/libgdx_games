@@ -2,9 +2,6 @@ package aurelienribon.tweenengine.primitives;
 
 import aurelienribon.tweenengine.TweenAccessor;
 
-/**
- * @author Aurelien Ribon | http://www.aurelienribon.com/
- */
 public class MutableFloat extends Number implements TweenAccessor<MutableFloat> {
     private float value;
 

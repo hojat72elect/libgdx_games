@@ -61,7 +61,6 @@ import aurelienribon.tweenengine.equations.Quad;
  * object class you will animate</b>. Once done, don't forget to register these implementations, using the static method {@link
  * registerAccessor()}, when you start your application.
  *
- * @author Aurelien Ribon | http://www.aurelienribon.com/
  * @see TweenAccessor
  * @see TweenManager
  * @see TweenEquation

@@ -16,8 +16,6 @@ import com.bitfire.uracer.utils.AudioUtils;
 /**
  * Implements car drifting sound effects, modulating amplitude's volume and pitch accordingly to the car's physical behavior and
  * properties. The behavior is extrapolated from the resultant computed forces upon user input interaction with the car simulator.
- *
- * @author bmanuel
  */
 public final class PlayerDriftSoundEffect extends SoundEffect {
     private static final float pitchFactor = 1f;

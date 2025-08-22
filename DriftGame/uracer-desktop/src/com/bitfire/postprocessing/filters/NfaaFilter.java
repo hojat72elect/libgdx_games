@@ -20,8 +20,6 @@ import com.bitfire.utils.ShaderLoader;
 
 /**
  * Normal filtered anti-aliasing filter.
- *
- * @author Toni Sagrista
  */
 public final class NfaaFilter extends Filter<NfaaFilter> {
     private final Vector2 viewportInverse;

@@ -23,7 +23,6 @@ import com.bitfire.postprocessing.filters.Lens;
 /**
  * Lens flare effect.
  *
- * @author Toni Sagrista
  * @deprecated Please use the better {@link com.bitfire.postprocessing.effects.LensFlare2}.
  */
 @Deprecated

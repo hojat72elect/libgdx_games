@@ -4,7 +4,6 @@ package aurelienribon.tweenengine;
  * Base class for every easing equation. You can create your own equations and directly use them in the Tween engine by inheriting
  * from this class.
  *
- * @author Aurelien Ribon | http://www.aurelienribon.com/
  * @see Tween
  */
 public abstract class TweenEquation {
