@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.game.logic.gametasks.sounds.effects;
 
 import com.badlogic.gdx.audio.Sound;
@@ -14,177 +13,177 @@ import com.bitfire.uracer.resources.Sounds;
 import com.bitfire.uracer.utils.AMath;
 import com.bitfire.uracer.utils.AudioUtils;
 
-/** Implements car drifting sound effects, modulating amplitude's volume and pitch accordingly to the car's physical behavior and
+/**
+ * Implements car drifting sound effects, modulating amplitude's volume and pitch accordingly to the car's physical behavior and
  * properties. The behavior is extrapolated from the resultant computed forces upon user input interaction with the car simulator.
- * 
- * @author bmanuel */
+ *
+ * @author bmanuel
+ */
 public final class PlayerDriftSoundEffect extends SoundEffect {
-	private Sound drift = null;
-	private long driftId = -1, lastDriftId = -1;
-	private float driftLastPitch = 0;
-	private static final float pitchFactor = 1f;
-	private static final float pitchMin = 0.7f;
-	private static final float pitchMax = 1f;
+    private static final float pitchFactor = 1f;
+    private static final float pitchMin = 0.7f;
+    private static final float pitchMax = 1f;
+    private Sound drift = null;
+    private long driftId = -1, lastDriftId = -1;
+    private float driftLastPitch = 0;
+    private boolean started = false;
+    private boolean doFadeIn = false;
+    private boolean doFadeOut = false;
+    private float lastVolume = 0f;
+    private final PlayerDriftStateEvent.Listener driftListener = new PlayerDriftStateEvent.Listener() {
+        @Override
+        public void handle(Object source, Type type, Order order) {
+            switch (type) {
+                case onBeginDrift:
+                    onBeginDrift();
+                    break;
+                case onEndDrift:
+                    onEndDrift();
+                    break;
+            }
+        }
+    };
 
-	private boolean started = false;
-	private boolean doFadeIn = false;
-	private boolean doFadeOut = false;
-	private float lastVolume = 0f;
+    public PlayerDriftSoundEffect() {
+        drift = Sounds.carDrift;
+    }
 
-	public PlayerDriftSoundEffect () {
-		drift = Sounds.carDrift;
-	}
+    @Override
+    public void dispose() {
+        detach();
+        stop();
+    }
 
-	@Override
-	public void dispose () {
-		detach();
-		stop();
-	}
+    private void attach() {
+        GameEvents.driftState.addListener(driftListener, PlayerDriftStateEvent.Type.onBeginDrift);
+        GameEvents.driftState.addListener(driftListener, PlayerDriftStateEvent.Type.onEndDrift);
+    }
 
-	private PlayerDriftStateEvent.Listener driftListener = new PlayerDriftStateEvent.Listener() {
-		@Override
-		public void handle (Object source, Type type, Order order) {
-			switch (type) {
-			case onBeginDrift:
-				onBeginDrift();
-				break;
-			case onEndDrift:
-				onEndDrift();
-				break;
-			}
-		}
-	};
+    private void detach() {
+        GameEvents.driftState.removeListener(driftListener, PlayerDriftStateEvent.Type.onBeginDrift);
+        GameEvents.driftState.removeListener(driftListener, PlayerDriftStateEvent.Type.onEndDrift);
+    }
 
-	private void attach () {
-		GameEvents.driftState.addListener(driftListener, PlayerDriftStateEvent.Type.onBeginDrift);
-		GameEvents.driftState.addListener(driftListener, PlayerDriftStateEvent.Type.onEndDrift);
-	}
+    @Override
+    public void player(PlayerCar player) {
+        super.player(player);
 
-	private void detach () {
-		GameEvents.driftState.removeListener(driftListener, PlayerDriftStateEvent.Type.onBeginDrift);
-		GameEvents.driftState.removeListener(driftListener, PlayerDriftStateEvent.Type.onEndDrift);
-	}
+        if (hasPlayer) {
+            attach();
+            start();
+        } else {
+            detach();
+            stop();
+        }
+    }
 
-	@Override
-	public void player (PlayerCar player) {
-		super.player(player);
+    private void onBeginDrift() {
+        if (driftId > -1) {
+            drift.stop(driftId);
+            driftId = drift.loop(0f);
+            drift.setVolume(driftId, 0f);
+        }
 
-		if (hasPlayer) {
-			attach();
-			start();
-		} else {
-			detach();
-			stop();
-		}
-	}
+        doFadeIn = true;
+        doFadeOut = false;
+    }
 
-	private void onBeginDrift () {
-		if (driftId > -1) {
-			drift.stop(driftId);
-			driftId = drift.loop(0f);
-			drift.setVolume(driftId, 0f);
-		}
+    public void onEndDrift() {
+        doFadeIn = false;
+        doFadeOut = true;
+    }
 
-		doFadeIn = true;
-		doFadeOut = false;
-	}
+    private void start() {
+        if (started) {
+            return;
+        }
 
-	public void onEndDrift () {
-		doFadeIn = false;
-		doFadeOut = true;
-	}
+        started = true;
+        driftId = loop(drift, 0f);
+        drift.setPitch(driftId, pitchMin);
+        drift.setVolume(driftId, 0f);
+    }
 
-	private void start () {
-		if (started) {
-			return;
-		}
+    @Override
+    public void stop() {
+        if (!started) {
+            return;
+        }
 
-		started = true;
-		driftId = loop(drift, 0f);
-		drift.setPitch(driftId, pitchMin);
-		drift.setVolume(driftId, 0f);
-	}
+        if (driftId > -1) {
+            drift.stop(driftId);
+        }
 
-	@Override
-	public void stop () {
-		if (!started) {
-			return;
-		}
+        doFadeIn = false;
+        doFadeOut = false;
+        started = false;
+    }
 
-		if (driftId > -1) {
-			drift.stop(driftId);
-		}
+    @Override
+    public void gamePause() {
+        super.gamePause();
+        if (driftId > -1) {
+            drift.setVolume(driftId, 0f);
+        }
+    }
 
-		doFadeIn = false;
-		doFadeOut = false;
-		started = false;
-	}
+    @Override
+    public void gameResume() {
+        super.gameResume();
+        if (hasPlayer && driftId > -1) {
+            drift.setVolume(driftId, player.driftState.driftStrength * lastVolume);
+        }
+    }
 
-	@Override
-	public void gamePause () {
-		super.gamePause();
-		if (driftId > -1) {
-			drift.setVolume(driftId, 0f);
-		}
-	}
+    @Override
+    public void gameReset() {
+        stop();
+        lastVolume = 0;
+    }
 
-	@Override
-	public void gameResume () {
-		super.gameResume();
-		if (hasPlayer && driftId > -1) {
-			drift.setVolume(driftId, player.driftState.driftStrength * lastVolume);
-		}
-	}
+    @Override
+    public void gameRestart() {
+        gameReset();
+        start();
+    }
 
-	@Override
-	public void gameReset () {
-		stop();
-		lastVolume = 0;
-	}
+    @Override
+    public void tick() {
+        if (!isPaused && hasPlayer && driftId > -1) {
+            boolean anotherDriftId = (driftId != lastDriftId);
+            float speedFactor = player.carState.currSpeedFactor;
 
-	@Override
-	public void gameRestart () {
-		gameReset();
-		start();
-	}
+            // compute behavior
+            float pitch = speedFactor * pitchFactor + pitchMin;
+            pitch = AMath.clamp(pitch, pitchMin, pitchMax);
+            pitch = AudioUtils.timeDilationToAudioPitch(pitch, URacer.timeMultiplier);
+            // System.out.println( pitch );
 
-	@Override
-	public void tick () {
-		if (!isPaused && hasPlayer && driftId > -1) {
-			boolean anotherDriftId = (driftId != lastDriftId);
-			float speedFactor = player.carState.currSpeedFactor;
+            if (!AMath.equals(pitch, driftLastPitch) || anotherDriftId) {
+                drift.setPitch(driftId, pitch);
+                driftLastPitch = pitch;
+            }
 
-			// compute behavior
-			float pitch = speedFactor * pitchFactor + pitchMin;
-			pitch = AMath.clamp(pitch, pitchMin, pitchMax);
-			pitch = AudioUtils.timeDilationToAudioPitch(pitch, URacer.timeMultiplier);
-			// System.out.println( pitch );
+            // modulate volume
+            if (doFadeIn) {
+                if (lastVolume < 1f) {
+                    lastVolume += 0.01f;
+                } else {
+                    lastVolume = 1f;
+                    doFadeIn = false;
+                }
+            } else if (doFadeOut) {
+                if (lastVolume > 0f) {
+                    lastVolume -= 0.03f;
+                } else {
+                    lastVolume = 0f;
+                    doFadeOut = false;
+                }
+            }
 
-			if (!AMath.equals(pitch, driftLastPitch) || anotherDriftId) {
-				drift.setPitch(driftId, pitch);
-				driftLastPitch = pitch;
-			}
-
-			// modulate volume
-			if (doFadeIn) {
-				if (lastVolume < 1f) {
-					lastVolume += 0.01f;
-				} else {
-					lastVolume = 1f;
-					doFadeIn = false;
-				}
-			} else if (doFadeOut) {
-				if (lastVolume > 0f) {
-					lastVolume -= 0.03f;
-				} else {
-					lastVolume = 0f;
-					doFadeOut = false;
-				}
-			}
-
-			lastDriftId = driftId;
-			lastVolume = AMath.clamp(lastVolume, 0, 2f);
-			drift.setVolume(driftId, player.driftState.driftStrength * lastVolume * 1.0f * SoundManager.SfxVolumeMul);
-		}
-	}
+            lastDriftId = driftId;
+            lastVolume = AMath.clamp(lastVolume, 0, 2f);
+            drift.setVolume(driftId, player.driftState.driftStrength * lastVolume * 1.0f * SoundManager.SfxVolumeMul);
+        }
+    }
 }

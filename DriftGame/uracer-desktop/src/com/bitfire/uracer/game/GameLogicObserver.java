@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.game;
 
 import com.badlogic.gdx.math.Vector2;
@@ -7,47 +6,47 @@ import com.bitfire.uracer.game.events.CarEvent;
 import com.bitfire.uracer.game.player.PlayerCar;
 
 public interface GameLogicObserver {
-	void handleExtraInput ();
+    void handleExtraInput();
 
-	void beforeRender ();
+    void beforeRender();
 
-	float updateCameraZoom (float timeModFactor);
+    float updateCameraZoom(float timeModFactor);
 
-	void updateCameraPosition (Vector2 positionPx);
+    void updateCameraPosition(Vector2 positionPx);
 
-	void collision (CarEvent.Data data);
+    void collision(CarEvent.Data data);
 
-	void physicsForcesReady (CarEvent.Data eventData);
+    void physicsForcesReady(CarEvent.Data eventData);
 
-	void ghostReplayStarted (GhostCar ghost);
+    void ghostReplayStarted(GhostCar ghost);
 
-	void ghostReplayEnded (GhostCar ghost);
+    void ghostReplayEnded(GhostCar ghost);
 
-	void ghostLapStarted (GhostCar ghost);
+    void ghostLapStarted(GhostCar ghost);
 
-	void ghostLapCompleted (GhostCar ghost);
+    void ghostLapCompleted(GhostCar ghost);
 
-	void ghostFadingOut (GhostCar ghost);
+    void ghostFadingOut(GhostCar ghost);
 
-	void playerLapStarted ();
+    void playerLapStarted();
 
-	void playerLapCompleted ();
+    void playerLapCompleted();
 
-	void warmUpStarted ();
+    void warmUpStarted();
 
-	void warmUpCompleted ();
+    void warmUpCompleted();
 
-	void driftBegins (PlayerCar player);
+    void driftBegins(PlayerCar player);
 
-	void driftEnds (PlayerCar player);
+    void driftEnds(PlayerCar player);
 
-	void wrongWayBegins ();
+    void wrongWayBegins();
 
-	void wrongWayEnds ();
+    void wrongWayEnds();
 
-	void outOfTrack ();
+    void outOfTrack();
 
-	void backInTrack ();
+    void backInTrack();
 
-	void doQuit ();
+    void doQuit();
 }

@@ -1,12 +1,4 @@
-
 package com.bitfire.uracer.game.logic.gametasks.messager;
-
-import aurelienribon.tweenengine.BaseTween;
-import aurelienribon.tweenengine.Timeline;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenCallback;
-import aurelienribon.tweenengine.equations.Back;
-import aurelienribon.tweenengine.equations.Expo;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
@@ -18,235 +10,240 @@ import com.bitfire.uracer.resources.BitmapFontFactory;
 import com.bitfire.uracer.resources.BitmapFontFactory.FontFace;
 import com.bitfire.uracer.utils.AMath;
 
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.equations.Back;
+import aurelienribon.tweenengine.equations.Expo;
+
 public final class Message {
-	public enum Type {
-		Information, Bad, Good
-	}
+    public long durationMs;
+    public long startMs;
+    public boolean started;
+    private String what;
+    private Position position;
+    private float whereX, whereY, startY;
+    private float finalY;
+    private float scaleX, scaleY;
+    private BitmapFont font;
+    private int halfWidth;
+    private boolean completed;
+    private TextBounds bounds;
+    private float alpha, scale;
+    private boolean hiding;
+    private boolean showCompleted;
+    private final TweenCallback showFinished = new TweenCallback() {
+        @Override
+        public void onEvent(int type, BaseTween<?> source) {
+            switch (type) {
+                case COMPLETE:
+                    showCompleted = true;
+            }
+        }
+    };
+    private final TweenCallback hideFinished = new TweenCallback() {
+        @Override
+        public void onEvent(int type, BaseTween<?> source) {
+            switch (type) {
+                case COMPLETE:
+                    completed = true;
+            }
+        }
+    };
+    public Message() {
+        bounds = new TextBounds();
+    }
 
-	/** the position of the displayed message, this also reflects the order in which messages are rendered */
-	public enum Position {
-		Top, Middle, Bottom
-	}
+    public Message(String message, float durationSecs, Type type, Position position, Size size) {
+        set(message, durationSecs, type, position, size);
+    }
 
-	public enum Size {
-		Normal, Big
-	}
+    public void set(String message, float durationSecs, Type type, Position position, Size size) {
+        startMs = 0;
+        started = false;
+        halfWidth = Config.Graphics.ReferenceScreenWidth / 2;
 
-	public long durationMs;
-	public long startMs;
-	public boolean started;
+        what = message;
+        this.position = position;
+        alpha = 0f;
+        scaleX = 1f;
+        scaleY = 1f;
+        scale = 1.5f;
+        durationMs = (long) (durationSecs * 1000f);
+        hiding = false;
+        completed = false;
+        showCompleted = false;
 
-	private String what;
-	private Position position;
-	private float whereX, whereY, startY;
-	private float finalY;
-	private float scaleX, scaleY;
-	private BitmapFont font;
-	private int halfWidth;
-	private boolean completed;
-	private TextBounds bounds;
-	private float alpha, scale;
-	private boolean hiding;
-	private boolean showCompleted;
+        SysTweener.stop(this);
 
-	public Message () {
-		bounds = new TextBounds();
-	}
+        switch (type) {
+            case Good:
+                if (size == Size.Normal) {
+                    font = BitmapFontFactory.get(FontFace.CurseGreen);
+                } else {
+                    font = BitmapFontFactory.get(FontFace.CurseGreenBig);
+                }
+                break;
+            case Bad:
+                if (size == Size.Normal) {
+                    font = BitmapFontFactory.get(FontFace.CurseRed);
+                } else {
+                    font = BitmapFontFactory.get(FontFace.CurseRedBig);
+                }
+                break;
+            default:
+            case Information:
+                if (size == Size.Normal) {
+                    font = BitmapFontFactory.get(FontFace.CurseRedYellow);
+                } else {
+                    font = BitmapFontFactory.get(FontFace.CurseRedYellowBig);
+                    // font = BitmapFontFactory.get(FontFace.CurseRedYellowNew);
+                }
+                break;
+        }
 
-	public Message (String message, float durationSecs, Type type, Position position, Size size) {
-		set(message, durationSecs, type, position, size);
-	}
+        // if (size == Size.Big) {
+        // scale = 2.5f;
+        // }
+    }
 
-	public final void set (String message, float durationSecs, Type type, Position position, Size size) {
-		startMs = 0;
-		started = false;
-		halfWidth = (int)(Config.Graphics.ReferenceScreenWidth / 2);
+    private void computeFinalPosition() {
+        int widthOnFour = Config.Graphics.ReferenceScreenWidth / 4;
+        whereX = widthOnFour;
+        startY = finalY = 0;
 
-		what = message;
-		this.position = position;
-		alpha = 0f;
-		scaleX = 1f;
-		scaleY = 1f;
-		scale = 1.5f;
-		durationMs = (long)(durationSecs * 1000f);
-		hiding = false;
-		completed = false;
-		showCompleted = false;
+        float h = Config.Graphics.ReferenceScreenHeight;
+        font.setScale(scale);
+        bounds.set(font.getMultiLineBounds(what));
 
-		SysTweener.stop(this);
+        switch (position) {
+            case Top:
+                startY = whereY = -(font.getLineHeight() - bounds.height);
+                finalY = 10;
+                break;
 
-		switch (type) {
-		case Good:
-			if (size == Size.Normal) {
-				font = BitmapFontFactory.get(FontFace.CurseGreen);
-			} else {
-				font = BitmapFontFactory.get(FontFace.CurseGreenBig);
-			}
-			break;
-		case Bad:
-			if (size == Size.Normal) {
-				font = BitmapFontFactory.get(FontFace.CurseRed);
-			} else {
-				font = BitmapFontFactory.get(FontFace.CurseRedBig);
-			}
-			break;
-		default:
-		case Information:
-			if (size == Size.Normal) {
-				font = BitmapFontFactory.get(FontFace.CurseRedYellow);
-			} else {
-				font = BitmapFontFactory.get(FontFace.CurseRedYellowBig);
-				// font = BitmapFontFactory.get(FontFace.CurseRedYellowNew);
-			}
-			break;
-		}
+            case Middle:
+                startY = whereY = (h - bounds.height) / 2;
+                finalY = startY - bounds.height / 2;
+                break;
 
-		// if (size == Size.Big) {
-		// scale = 2.5f;
-		// }
-	}
+            case Bottom:
+                startY = whereY = h;
+                finalY = h - font.getLineHeight() - 70;
+                break;
+        }
 
-	private void computeFinalPosition () {
-		int widthOnFour = Config.Graphics.ReferenceScreenWidth / 4;
-		whereX = widthOnFour;
-		startY = finalY = 0;
+        // Gdx.app.log(position.toString(), "s=" + startY + ", e=" + finalY);
+    }
 
-		float h = Config.Graphics.ReferenceScreenHeight;
-		font.setScale(scale);
-		bounds.set(font.getMultiLineBounds(what));
+    public void render(SpriteBatch batch) {
+        font.setScale(scaleX, scaleY);
+        font.setColor(1, 1, 1, alpha);
+        font.drawMultiLine(batch, what, whereX, whereY, halfWidth, HAlignment.CENTER);
+    }
 
-		switch (position) {
-		case Top:
-			startY = whereY = -(font.getLineHeight() - bounds.height);
-			finalY = 10;
-			break;
+    public void show() {
+        completed = false;
+        hiding = false;
 
-		case Middle:
-			startY = whereY = (h - bounds.height) / 2;
-			finalY = startY - bounds.height / 2;
-			break;
+        setAlpha(0);
+        setScale(0, 0);
+        showCompleted = false;
 
-		case Bottom:
-			startY = whereY = h;
-			finalY = h - font.getLineHeight() - 70;
-			break;
-		}
+        computeFinalPosition();
 
-		// Gdx.app.log(position.toString(), "s=" + startY + ", e=" + finalY);
-	}
+        SysTweener.stop(this);
 
-	public void render (SpriteBatch batch) {
-		font.setScale(scaleX, scaleY);
-		font.setColor(1, 1, 1, alpha);
-		font.drawMultiLine(batch, what, whereX, whereY, halfWidth, HAlignment.CENTER);
-	}
+        //@off
+        SysTweener.start(Timeline.createParallel()
+                .push(Tween.to(this, MessageAccessor.OPACITY, 850).target(1f).ease(Expo.INOUT))
+                .push(Tween.to(this, MessageAccessor.POSITION_Y, 700).target(finalY).ease(Expo.INOUT))
+                .push(Tween.to(this, MessageAccessor.SCALE_XY, 800).target(scale, scale).ease(Back.INOUT)).setCallback(showFinished));
+        //@on
+    }
 
-	private TweenCallback showFinished = new TweenCallback() {
-		@Override
-		public void onEvent (int type, BaseTween<?> source) {
-			switch (type) {
-			case COMPLETE:
-				showCompleted = true;
-			}
-		}
-	};
+    public void hide() {
+        if (!hiding) {
+            hiding = true;
 
-	public void show () {
-		completed = false;
-		hiding = false;
+            SysTweener.stop(this);
 
-		setAlpha(0);
-		setScale(0, 0);
-		showCompleted = false;
+            //@off
+            SysTweener.start(Timeline.createParallel()
+                    .push(Tween.to(this, MessageAccessor.OPACITY, 600).target(0f).ease(Expo.INOUT))
+                    .push(Tween.to(this, MessageAccessor.POSITION_Y, 700).target(startY).ease(Expo.INOUT))
+                    .push(Tween.to(this, MessageAccessor.SCALE_XY, 800).target(0, 0).ease(Back.INOUT)).setCallback(hideFinished));
+            //@on
+        }
+    }
 
-		computeFinalPosition();
+    public boolean isShowComplete() {
+        return showCompleted;
+    }
 
-		SysTweener.stop(this);
+    public boolean isCompleted() {
+        return completed;
+    }
 
-		//@off
-		SysTweener.start(Timeline.createParallel()
-			.push(Tween.to(this, MessageAccessor.OPACITY, 850).target(1f).ease(Expo.INOUT))
-			.push(Tween.to(this, MessageAccessor.POSITION_Y, 700).target(finalY).ease(Expo.INOUT))
-			.push(Tween.to(this, MessageAccessor.SCALE_XY, 800).target(scale, scale).ease(Back.INOUT)).setCallback(showFinished));
-		//@on
-	}
+    public boolean isHiding() {
+        return hiding;
+    }
 
-	private TweenCallback hideFinished = new TweenCallback() {
-		@Override
-		public void onEvent (int type, BaseTween<?> source) {
-			switch (type) {
-			case COMPLETE:
-				completed = true;
-			}
-		}
-	};
+    public float getX() {
+        return whereX;
+    }
 
-	public void hide () {
-		if (!hiding) {
-			hiding = true;
+    public void setX(float x) {
+        whereX = x;
+    }
 
-			SysTweener.stop(this);
+    public float getY() {
+        return whereY;
+    }
 
-			//@off
-			SysTweener.start(Timeline.createParallel()
-				.push(Tween.to(this, MessageAccessor.OPACITY, 600).target(0f).ease(Expo.INOUT))
-				.push(Tween.to(this, MessageAccessor.POSITION_Y, 700).target(startY).ease(Expo.INOUT))
-				.push(Tween.to(this, MessageAccessor.SCALE_XY, 800).target(0, 0).ease(Back.INOUT)).setCallback(hideFinished));
-			//@on
-		}
-	}
+    public void setY(float y) {
+        whereY = y;
+    }
 
-	public boolean isShowComplete () {
-		return showCompleted;
-	}
+    public float getScaleX() {
+        return scaleX;
+    }
 
-	public boolean isCompleted () {
-		return completed;
-	}
+    public float getScaleY() {
+        return scaleY;
+    }
 
-	public boolean isHiding () {
-		return hiding;
-	}
+    public float getAlpha() {
+        return alpha;
+    }
 
-	public float getX () {
-		return whereX;
-	}
+    public void setAlpha(float value) {
+        alpha = value;
+    }
 
-	public float getY () {
-		return whereY;
-	}
+    public void setPosition(float x, float y) {
+        whereX = x;
+        whereY = y;
+    }
 
-	public float getScaleX () {
-		return scaleX;
-	}
+    public void setScale(float scaleX, float scaleY) {
+        this.scaleX = AMath.clamp(scaleX, 0.1f, 10f);
+        this.scaleY = AMath.clamp(scaleY, 0.1f, 10f);
+    }
 
-	public float getScaleY () {
-		return scaleY;
-	}
+    public enum Type {
+        Information, Bad, Good
+    }
 
-	public float getAlpha () {
-		return alpha;
-	}
+    /**
+     * the position of the displayed message, this also reflects the order in which messages are rendered
+     */
+    public enum Position {
+        Top, Middle, Bottom
+    }
 
-	public void setAlpha (float value) {
-		alpha = value;
-	}
-
-	public void setPosition (float x, float y) {
-		whereX = x;
-		whereY = y;
-	}
-
-	public void setScale (float scaleX, float scaleY) {
-		this.scaleX = AMath.clamp(scaleX, 0.1f, 10f);
-		this.scaleY = AMath.clamp(scaleY, 0.1f, 10f);
-	}
-
-	public void setX (float x) {
-		whereX = x;
-	}
-
-	public void setY (float y) {
-		whereY = y;
-	}
+    public enum Size {
+        Normal, Big
+    }
 }

@@ -1,7 +1,4 @@
-
 package com.bitfire.uracer.game.logic.post.effects;
-
-import java.nio.ByteBuffer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -30,225 +27,227 @@ import com.bitfire.uracer.game.events.GameRendererEvent.Type;
 import com.bitfire.uracer.utils.ScaleUtils;
 import com.bitfire.utils.ShaderLoader;
 
+import java.nio.ByteBuffer;
+
 public final class Ssao extends PostProcessorEffect {
 
-	public enum Quality {
-		Ultra(1), High(0.75f), Normal(0.5f);
-		public final float scale;
+    private final PingPongBuffer occlusionMap;
+    private final ShaderProgram shMix, shSsao;
+    private final FullscreenQuad quad = new FullscreenQuad();
+    private Texture normalDepthMap;
+    private Texture randomField;
+    private final Blur blur;
+    private final Matrix3 mtxRot = new Matrix3();
+    private final Matrix3 invRot = new Matrix3();
+    private final Matrix4 invPrj = new Matrix4();
+    private final GameRendererEvent.Listener gameRendererEvent = new GameRendererEvent.Listener() {
+        @Override
+        public void handle(Object source, Type type, Order order) {
+            debug(GameEvents.gameRenderer.batch);
+        }
+    };
 
-		Quality (float scale) {
-			this.scale = scale;
-		}
-	}
+    public Ssao(int fboWidth, int fboHeight, Quality quality) {
+        Gdx.app.log("SsaoProcessor", "Quality profile = " + quality.toString());
+        float oscale = quality.scale;
 
-	private final PingPongBuffer occlusionMap;
-	private Texture normalDepthMap;
-	private final ShaderProgram shMix, shSsao;
-	private final FullscreenQuad quad = new FullscreenQuad();
-	private Texture randomField;
-	private Blur blur;
+        // maps
+        occlusionMap = new PingPongBuffer((int) ((float) fboWidth * oscale), (int) ((float) fboHeight * oscale), Format.RGBA8888, false);
 
-	private Matrix3 mtxRot = new Matrix3();
-	private Matrix3 invRot = new Matrix3();
-	private Matrix4 invPrj = new Matrix4();
+        // shaders
+        shMix = ShaderLoader.fromFile("screenspace", "ssao/mix");
+        shSsao = ShaderLoader.fromFile("ssao/ssao", "ssao/ssao");
 
-	private GameRendererEvent.Listener gameRendererEvent = new GameRendererEvent.Listener() {
-		@Override
-		public void handle (Object source, Type type, Order order) {
-			debug(GameEvents.gameRenderer.batch);
-		}
-	};
+        // blur
+        blur = new Blur(occlusionMap.width, occlusionMap.height);
+        blur.setType(BlurType.Gaussian5x5b);
+        blur.setPasses(2);
 
-	public Ssao (int fboWidth, int fboHeight, Quality quality) {
-		Gdx.app.log("SsaoProcessor", "Quality profile = " + quality.toString());
-		float oscale = quality.scale;
+        createRandomField(16, 16, Format.RGBA8888);
+        // enableDebug();
+    }
 
-		// maps
-		occlusionMap = new PingPongBuffer((int)((float)fboWidth * oscale), (int)((float)fboHeight * oscale), Format.RGBA8888, false);
+    /**
+     * Computes random field for the ssao shader
+     */
+    private void createRandomField(int width, int height, Format format) {
+        randomField = new Texture(width, height, format);
+        randomField.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+        randomField.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 
-		// shaders
-		shMix = ShaderLoader.fromFile("screenspace", "ssao/mix");
-		shSsao = ShaderLoader.fromFile("ssao/ssao", "ssao/ssao");
+        Pixmap pixels = new Pixmap(width, height, format);
+        ByteBuffer bytes = pixels.getPixels();
+        int wrote = 0;
 
-		// blur
-		blur = new Blur(occlusionMap.width, occlusionMap.height);
-		blur.setType(BlurType.Gaussian5x5b);
-		blur.setPasses(2);
+        while (wrote < width * height * 4) {
+            float x = (MathUtils.random() - 0.5f) * 2.0f;
+            float y = (MathUtils.random() - 0.5f) * 2.0f;
+            float z = (MathUtils.random() - 0.5f) * 2.0f;
+            float l = (float) Math.sqrt(x * x + y * y + z * z);
+            if (l <= 1.0f && l > 0.1f) {
+                x = (x + 1.0f) * 0.5f;
+                y = (y + 1.0f) * 0.5f;
+                z = (z + 1.0f) * 0.5f;
+                bytes.put((byte) (x * 255f));
+                bytes.put((byte) (y * 255f));
+                bytes.put((byte) (z * 255f));
+                bytes.put((byte) 255);
+                wrote += 4;
+            }
+        }
 
-		createRandomField(16, 16, Format.RGBA8888);
-		// enableDebug();
-	}
+        bytes.flip();
+        randomField.draw(pixels, 0, 0);
+        pixels.dispose();
+    }
 
-	/** Computes random field for the ssao shader */
-	private void createRandomField (int width, int height, Format format) {
-		randomField = new Texture(width, height, format);
-		randomField.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-		randomField.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+    @Override
+    public void dispose() {
+        disableDebug();
+        randomField.dispose();
+        blur.dispose();
+        shSsao.dispose();
+        shMix.dispose();
+        occlusionMap.dispose();
+    }
 
-		Pixmap pixels = new Pixmap(width, height, format);
-		ByteBuffer bytes = pixels.getPixels();
-		int wrote = 0;
+    public void enableDebug() {
+        GameEvents.gameRenderer.addListener(gameRendererEvent, GameRendererEvent.Type.BatchDebug, GameRendererEvent.Order.DEFAULT);
+    }
 
-		while (wrote < width * height * 4) {
-			float x = (MathUtils.random() - 0.5f) * 2.0f;
-			float y = (MathUtils.random() - 0.5f) * 2.0f;
-			float z = (MathUtils.random() - 0.5f) * 2.0f;
-			float l = (float)Math.sqrt(x * x + y * y + z * z);
-			if (l <= 1.0f && l > 0.1f) {
-				x = (x + 1.0f) * 0.5f;
-				y = (y + 1.0f) * 0.5f;
-				z = (z + 1.0f) * 0.5f;
-				bytes.put((byte)(x * 255f));
-				bytes.put((byte)(y * 255f));
-				bytes.put((byte)(z * 255f));
-				bytes.put((byte)255);
-				wrote += 4;
-			}
-		}
+    public void disableDebug() {
+        GameEvents.gameRenderer.removeListener(gameRendererEvent, GameRendererEvent.Type.BatchDebug,
+                GameRendererEvent.Order.DEFAULT);
+    }
 
-		bytes.flip();
-		randomField.draw(pixels, 0, 0);
-		pixels.dispose();
-	}
+    public void setOcclusionThresholds(float no_occlusion, float full_occlusion) {
+        shSsao.begin();
+        shSsao.setUniformf("full_occlusion_treshold", full_occlusion);
+        shSsao.setUniformf("no_occlusion_treshold", no_occlusion);
+        shSsao.end();
+    }
 
-	@Override
-	public void dispose () {
-		disableDebug();
-		randomField.dispose();
-		blur.dispose();
-		shSsao.dispose();
-		shMix.dispose();
-		occlusionMap.dispose();
-	}
+    public void setNormalDepthMap(Texture normalDepthMap) {
+        this.normalDepthMap = normalDepthMap;
+    }
 
-	public void enableDebug () {
-		GameEvents.gameRenderer.addListener(gameRendererEvent, GameRendererEvent.Type.BatchDebug, GameRendererEvent.Order.DEFAULT);
-	}
+    public void setRadius(float epsilon, float radius) {
+        shSsao.begin();
+        shSsao.setUniformf("radius", radius);
+        shSsao.setUniformf("epsilon", epsilon);
+        shSsao.end();
+    }
 
-	public void disableDebug () {
-		GameEvents.gameRenderer.removeListener(gameRendererEvent, GameRendererEvent.Type.BatchDebug,
-			GameRendererEvent.Order.DEFAULT);
-	}
+    public void setPower(float power, float occlusion_power) {
+        shSsao.begin();
+        shSsao.setUniformf("occlusion_power", occlusion_power);
+        shSsao.setUniformf("power", power);
+        shSsao.end();
+    }
 
-	public void setOcclusionThresholds (float no_occlusion, float full_occlusion) {
-		shSsao.begin();
-		shSsao.setUniformf("full_occlusion_treshold", full_occlusion);
-		shSsao.setUniformf("no_occlusion_treshold", no_occlusion);
-		shSsao.end();
-	}
+    public void setPatternSize(int pattern_size) {
+        shSsao.begin();
+        shSsao.setUniformf("pattern_size", pattern_size);
+        shSsao.end();
+    }
 
-	public void setNormalDepthMap (Texture normalDepthMap) {
-		this.normalDepthMap = normalDepthMap;
-	}
+    public void setSampleCount(int sample_count) {
+        shSsao.begin();
+        shSsao.setUniformi("sample_count", sample_count);
+        shSsao.end();
+    }
 
-	public void setRadius (float epsilon, float radius) {
-		shSsao.begin();
-		shSsao.setUniformf("radius", radius);
-		shSsao.setUniformf("epsilon", epsilon);
-		shSsao.end();
-	}
+    private void dbgTextureW(SpriteBatch batch, float width, Texture tex, int index) {
+        if (tex == null) return;
 
-	public void setPower (float power, float occlusion_power) {
-		shSsao.begin();
-		shSsao.setUniformf("occlusion_power", occlusion_power);
-		shSsao.setUniformf("power", power);
-		shSsao.end();
-	}
+        float h = width / ScaleUtils.RefAspect;
+        float x = Config.Graphics.ReferenceScreenWidth - width - 10;
+        float y = index * 10;
+        batch.draw(tex, x, y, width, h);
+    }
 
-	public void setPatternSize (int pattern_size) {
-		shSsao.begin();
-		shSsao.setUniformf("pattern_size", pattern_size);
-		shSsao.end();
-	}
+    private void debug(SpriteBatch batch) {
+        Gdx.gl.glDisable(GL20.GL_BLEND);
+        Gdx.gl.glDisable(GL20.GL_CULL_FACE);
+        Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);
+        batch.disableBlending();
 
-	public void setSampleCount (int sample_count) {
-		shSsao.begin();
-		shSsao.setUniformi("sample_count", sample_count);
-		shSsao.end();
-	}
+        dbgTextureW(batch, 180, normalDepthMap, 12);
+        dbgTextureW(batch, 360, occlusionMap.getResultTexture(), 24);
+    }
 
-	private void dbgTextureW (SpriteBatch batch, float width, Texture tex, int index) {
-		if (tex == null) return;
+    @Override
+    public void render(final FrameBuffer src, final FrameBuffer dest) {
+        Texture tsrc = src.getColorBufferTexture();
 
-		float h = width / ScaleUtils.RefAspect;
-		float x = Config.Graphics.ReferenceScreenWidth - width - 10;
-		float y = index * 10;
-		batch.draw(tex, x, y, width, h);
-	}
+        Gdx.gl.glDisable(GL20.GL_CULL_FACE);
+        Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);
 
-	private void debug (SpriteBatch batch) {
-		Gdx.gl.glDisable(GL20.GL_BLEND);
-		Gdx.gl.glDisable(GL20.GL_CULL_FACE);
-		Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);
-		batch.disableBlending();
+        Camera cam = GameEvents.gameRenderer.camPersp;
 
-		dbgTextureW(batch, 180, normalDepthMap, 12);
-		dbgTextureW(batch, 360, occlusionMap.getResultTexture(), 24);
-	}
+        mtxRot.set(cam.view);
+        invPrj.set(cam.projection).inv();
+        // invRot.set(mtxRot).inv();
 
-	@Override
-	public void render (final FrameBuffer src, final FrameBuffer dest) {
-		Texture tsrc = src.getColorBufferTexture();
+        occlusionMap.begin();
+        occlusionMap.capture();
+        {
+            shSsao.begin();
+            {
+                Gdx.gl.glClearColor(0, 0, 0, 1);
+                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		Gdx.gl.glDisable(GL20.GL_CULL_FACE);
-		Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);
+                // samplers
+                normalDepthMap.bind(0);
+                randomField.bind(1);
 
-		Camera cam = GameEvents.gameRenderer.camPersp;
+                shSsao.setUniformi("normaldepth", 0);
+                shSsao.setUniformi("random_field", 1);
 
-		mtxRot.set(cam.view);
-		invPrj.set(cam.projection).inv();
-		// invRot.set(mtxRot).inv();
+                shSsao.setUniformMatrix("proj", cam.projection);
+                shSsao.setUniformMatrix("inv_proj", invPrj);
+                shSsao.setUniformMatrix("inv_rot", invRot);
 
-		occlusionMap.begin();
-		occlusionMap.capture();
-		{
-			shSsao.begin();
-			{
-				Gdx.gl.glClearColor(0, 0, 0, 1);
-				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+                shSsao.setUniformf("viewport", occlusionMap.width, occlusionMap.height);
+                shSsao.setUniformf("near", cam.near);
+                shSsao.setUniformf("far", cam.far);
 
-				// samplers
-				normalDepthMap.bind(0);
-				randomField.bind(1);
+                quad.render(shSsao);
+            }
+            shSsao.end();
 
-				shSsao.setUniformi("normaldepth", 0);
-				shSsao.setUniformi("random_field", 1);
+            // blur pass
+            blur.render(occlusionMap);
+        }
+        occlusionMap.end();
 
-				shSsao.setUniformMatrix("proj", cam.projection);
-				shSsao.setUniformMatrix("inv_proj", invPrj);
-				shSsao.setUniformMatrix("inv_rot", invRot);
+        restoreViewport(dest);
 
-				shSsao.setUniformf("viewport", occlusionMap.width, occlusionMap.height);
-				shSsao.setUniformf("near", cam.near);
-				shSsao.setUniformf("far", cam.far);
+        if (dest != null) dest.begin();
+        shMix.begin();
+        {
+            tsrc.bind(0);
+            occlusionMap.getResultTexture().bind(1);
 
-				quad.render(shSsao);
-			}
-			shSsao.end();
+            shMix.setUniformi("scene", 0);
+            shMix.setUniformi("occlusion_map", 1);
 
-			// blur pass
-			blur.render(occlusionMap);
-		}
-		occlusionMap.end();
+            quad.render(shMix);
+        }
+        shMix.end();
+        if (dest != null) dest.end();
+    }
 
-		restoreViewport(dest);
+    @Override
+    public void rebind() {
+    }
 
-		if (dest != null) dest.begin();
-		shMix.begin();
-		{
-			tsrc.bind(0);
-			occlusionMap.getResultTexture().bind(1);
+    public enum Quality {
+        Ultra(1), High(0.75f), Normal(0.5f);
+        public final float scale;
 
-			shMix.setUniformi("scene", 0);
-			shMix.setUniformi("occlusion_map", 1);
-
-			quad.render(shMix);
-		}
-		shMix.end();
-		if (dest != null) dest.end();
-	}
-
-	@Override
-	public void rebind () {
-	}
+        Quality(float scale) {
+            this.scale = scale;
+        }
+    }
 }

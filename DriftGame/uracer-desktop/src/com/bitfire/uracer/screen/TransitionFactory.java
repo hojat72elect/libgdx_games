@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.screen;
 
 import com.badlogic.gdx.utils.LongMap;
@@ -8,54 +7,54 @@ import com.bitfire.utils.Hash;
 
 public final class TransitionFactory {
 
-	private static LongMap<ScreenTransition> transitions = new LongMap<ScreenTransition>();
-	private static ScreenFactory screenFactory = null;
+    private static final LongMap<ScreenTransition> transitions = new LongMap<ScreenTransition>();
+    private static ScreenFactory screenFactory = null;
 
-	public enum TransitionType {
-		None, CrossFader, Fader;
+    private TransitionFactory() {
+    }
 
-		public long hash;
+    public static void init(ScreenFactory factory) {
+        screenFactory = factory;
+    }
 
-		private TransitionType () {
-			hash = Hash.APHash(this.name());
-		}
-	}
+    public static ScreenTransition getTransition(TransitionType transitionType) {
+        ScreenTransition transition = transitions.get(transitionType.hash);
 
-	private TransitionFactory () {
-	}
+        if (transition == null) {
+            transition = createTransition(transitionType);
+            transitions.put(transitionType.hash, transition);
+        } else {
+            transition.reset();
+        }
 
-	public static void init (ScreenFactory factory) {
-		screenFactory = factory;
-	}
+        return transition;
+    }
 
-	public static ScreenTransition getTransition (TransitionType transitionType) {
-		ScreenTransition transition = transitions.get(transitionType.hash);
+    private static ScreenTransition createTransition(TransitionType transitionType) {
+        switch (transitionType) {
+            case CrossFader:
+                return new CrossFader(screenFactory);
+            case Fader:
+                return new Fader(screenFactory);
+            default:
+            case None:
+                return null;
+        }
+    }
 
-		if (transition == null) {
-			transition = createTransition(transitionType);
-			transitions.put(transitionType.hash, transition);
-		} else {
-			transition.reset();
-		}
+    public static void dispose() {
+        for (ScreenTransition t : transitions.values()) {
+            t.dispose();
+        }
+    }
 
-		return transition;
-	}
+    public enum TransitionType {
+        None, CrossFader, Fader;
 
-	private static ScreenTransition createTransition (TransitionType transitionType) {
-		switch (transitionType) {
-		case CrossFader:
-			return new CrossFader(screenFactory);
-		case Fader:
-			return new Fader(screenFactory);
-		default:
-		case None:
-			return null;
-		}
-	}
+        public long hash;
 
-	public static void dispose () {
-		for (ScreenTransition t : transitions.values()) {
-			t.dispose();
-		}
-	}
+        TransitionType() {
+            hash = Hash.APHash(this.name());
+        }
+    }
 }

@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.game.logic.replaying;
 
 import com.badlogic.gdx.Gdx;
@@ -8,76 +7,75 @@ import com.bitfire.uracer.game.actors.Car;
 import com.bitfire.uracer.game.actors.CarForces;
 
 public final class ReplayRecorder implements Disposable {
-	// @off
-	public enum RecorderError {
-		NoError,
-		RecordingNotEnabled,
-		ReplayMemoryLimitReached
-	}
-	// @on
+    private boolean isRecording;
+    // @on
+    private final Time time;
+    // freshly recorded data
+    private final Replay recording;
 
-	private boolean isRecording;
-	private Time time;
+    public ReplayRecorder() {
+        isRecording = false;
+        recording = new Replay();
+        time = new Time();
+    }
 
-	// freshly recorded data
-	private Replay recording;
+    @Override
+    public void dispose() {
+        reset();
+        time.dispose();
+    }
 
-	public ReplayRecorder () {
-		isRecording = false;
-		recording = new Replay();
-		time = new Time();
-	}
+    public void reset() {
+        isRecording = false;
+        time.stop();
+        recording.reset();
+    }
 
-	@Override
-	public void dispose () {
-		reset();
-		time.dispose();
-	}
+    public void resetTimer() {
+        time.reset();
+    }
 
-	public void reset () {
-		isRecording = false;
-		time.stop();
-		recording.reset();
-	}
+    public void beginRecording(Car car, String trackId, String userId) {
+        isRecording = true;
+        recording.begin(trackId, userId, car);
+        time.start();
+    }
 
-	public void resetTimer () {
-		time.reset();
-	}
+    public RecorderError add(CarForces f) {
+        if (!isRecording) {
+            return RecorderError.RecordingNotEnabled;
+        }
 
-	public void beginRecording (Car car, String trackId, String userId) {
-		isRecording = true;
-		recording.begin(trackId, userId, car);
-		time.start();
-	}
+        if (!recording.add(f)) {
+            return RecorderError.ReplayMemoryLimitReached;
+        }
 
-	public RecorderError add (CarForces f) {
-		if (!isRecording) {
-			return RecorderError.RecordingNotEnabled;
-		}
+        return RecorderError.NoError;
+    }
 
-		if (!recording.add(f)) {
-			return RecorderError.ReplayMemoryLimitReached;
-		}
+    public Replay endRecording() {
+        if (!isRecording) {
+            Gdx.app.log("Recorder", "Cannot end a recording that never began.");
+            return null;
+        }
+        time.stop();
+        recording.end((int) (time.elapsed().ticks));
+        isRecording = false;
+        return recording;
+    }
 
-		return RecorderError.NoError;
-	}
+    public boolean isRecording() {
+        return isRecording;
+    }
 
-	public Replay endRecording () {
-		if (!isRecording) {
-			Gdx.app.log("Recorder", "Cannot end a recording that never began.");
-			return null;
-		}
-		time.stop();
-		recording.end((int)(time.elapsed().ticks));
-		isRecording = false;
-		return recording;
-	}
+    public int getElapsedTicks() {
+        return (int) (time.elapsed().ticks);
+    }
 
-	public boolean isRecording () {
-		return isRecording;
-	}
-
-	public int getElapsedTicks () {
-		return (int)(time.elapsed().ticks);
-	}
+    // @off
+    public enum RecorderError {
+        NoError,
+        RecordingNotEnabled,
+        ReplayMemoryLimitReached
+    }
 }

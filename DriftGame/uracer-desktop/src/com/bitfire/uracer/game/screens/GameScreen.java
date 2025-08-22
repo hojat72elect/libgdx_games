@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.game.screens;
 
 import com.badlogic.gdx.Gdx;
@@ -13,87 +12,87 @@ import com.bitfire.uracer.game.screens.GameScreensFactory.ScreenType;
 import com.bitfire.uracer.screen.Screen;
 
 public class GameScreen extends Screen {
-	private Game game = null;
-	private GameScreenUI gameui;
-	private boolean initialized = false;
+    private Game game = null;
+    private GameScreenUI gameui;
+    private boolean initialized = false;
 
-	@Override
-	public boolean init () {
-		if (GameLevels.levelIdExists(ScreensShared.selectedLevelId)) {
+    @Override
+    public boolean init() {
+        if (GameLevels.levelIdExists(ScreensShared.selectedLevelId)) {
 
-			// save as last played track
-			UserPreferences.string(Preference.LastPlayedTrack, ScreensShared.selectedLevelId);
-			UserProfile userProfile = new UserProfile();
-			game = new Game(userProfile, ScreensShared.selectedLevelId);
+            // save as last played track
+            UserPreferences.string(Preference.LastPlayedTrack, ScreensShared.selectedLevelId);
+            UserProfile userProfile = new UserProfile();
+            game = new Game(userProfile, ScreensShared.selectedLevelId);
 
-			// build in-game UI
-			gameui = new GameScreenUI(game);
+            // build in-game UI
+            gameui = new GameScreenUI(game);
 
-			game.start();
-			initialized = true;
-			return true;
-		} else {
-			// last saved level doesn't exists, so reset it
-			ScreensShared.selectedLevelId = "";
-			UserPreferences.string(Preference.LastPlayedTrack, "");
-			UserPreferences.save();
+            game.start();
+            initialized = true;
+            return true;
+        } else {
+            // last saved level doesn't exists, so reset it
+            ScreensShared.selectedLevelId = "";
+            UserPreferences.string(Preference.LastPlayedTrack, "");
+            UserPreferences.save();
 
-			Gdx.app.error("GameScreen", "The specified track could not be found.");
+            Gdx.app.error("GameScreen", "The specified track could not be found.");
 
-			URacer.Game.show(ScreenType.MainScreen);
-			initialized = false;
-			return false;
-		}
-	}
+            URacer.Game.show(ScreenType.MainScreen);
+            initialized = false;
+            return false;
+        }
+    }
 
-	@Override
-	public void dispose () {
-		if (!initialized) return;
+    @Override
+    public void dispose() {
+        if (!initialized) return;
 
-		game.dispose();
-		gameui.dispose();
+        game.dispose();
+        gameui.dispose();
 
-		// FIXME is this still needed to hint the VM at it?
-		game = null;
-		gameui = null;
-	}
+        // FIXME is this still needed to hint the VM at it?
+        game = null;
+        gameui = null;
+    }
 
-	@Override
-	public void tick () {
-		if (!initialized) return;
+    @Override
+    public void tick() {
+        if (!initialized) return;
 
-		gameui.tick();
-		if (!game.isPaused()) game.tick();
-	}
+        gameui.tick();
+        if (!game.isPaused()) game.tick();
+    }
 
-	@Override
-	public void tickCompleted () {
-		if (!initialized) return;
+    @Override
+    public void tickCompleted() {
+        if (!initialized) return;
 
-		game.tickCompleted();
-	}
+        game.tickCompleted();
+    }
 
-	@Override
-	public void pause () {
-		if (!initialized) return;
+    @Override
+    public void pause() {
+        if (!initialized) return;
 
-		game.pause();
-	}
+        game.pause();
+    }
 
-	@Override
-	public void resume () {
-		if (!initialized) return;
+    @Override
+    public void resume() {
+        if (!initialized) return;
 
-		game.resume();
-	}
+        game.resume();
+    }
 
-	@Override
-	public void render (FrameBuffer dest) {
-		if (!initialized) return;
+    @Override
+    public void render(FrameBuffer dest) {
+        if (!initialized) return;
 
-		game.render(dest);
+        game.render(dest);
 
-		// overlay the whole in-game UI
-		gameui.render(dest);
-	}
+        // overlay the whole in-game UI
+        gameui.render(dest);
+    }
 }

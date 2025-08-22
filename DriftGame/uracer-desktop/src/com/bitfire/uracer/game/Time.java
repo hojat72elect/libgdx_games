@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.game;
 
 import com.badlogic.gdx.utils.TimeUtils;
@@ -6,106 +5,123 @@ import com.bitfire.uracer.configuration.Config;
 import com.bitfire.uracer.game.events.TaskManagerEvent.Order;
 import com.bitfire.uracer.game.task.Task;
 
-/** Tracks elapsed time both in absolute terms (wall clock time) or relative to the tick-based system.
- * 
- * @author bmanuel */
+/**
+ * Tracks elapsed time both in absolute terms (wall clock time) or relative to the tick-based system.
+ *
+ * @author bmanuel
+ */
 public final class Time extends Task {
-	public static final class TimeValue {
-		public long ticks;
-		public float tickSeconds;
-		public float absSeconds;
-		public float lastAbsSeconds;
+    private static final float oneOnOneBillion = 1.0f / 1000000000.0f;
+    private long nsStartTime;
+    private long ticks;
+    private boolean stopped;
+    private long nsStopTime;
+    private long lastStartTime;
+    private final TimeValue result = new TimeValue();
+    /**
+     * Constructs a new Time object
+     */
+    public Time() {
+        super(Order.PLUS_4);
+        reset();
+    }
 
-		public TimeValue () {
-			reset();
-		}
+    /**
+     * Returns whether or not this timer is stopped
+     */
+    public boolean isStopped() {
+        return stopped;
+    }
 
-		public void reset () {
-			ticks = 0;
-			tickSeconds = 0;
-			absSeconds = 0;
-			lastAbsSeconds = 0;
-		}
-	}
+    /**
+     * Starts tracking
+     */
+    public void start() {
+        reset();
+        nsStartTime = TimeUtils.nanoTime();
+        lastStartTime = nsStartTime;
+        stopped = false;
+    }
 
-	private static final float oneOnOneBillion = 1.0f / 1000000000.0f;
-	private long nsStartTime;
-	private long ticks;
-	private boolean stopped;
-	private long nsStopTime;
-	private long lastStartTime;
-	private TimeValue result = new TimeValue();
+    /**
+     * Stops tracking
+     */
+    public void stop() {
+        nsStopTime = TimeUtils.nanoTime();
+        stopped = true;
+    }
 
-	/** Constructs a new Time object */
-	public Time () {
-		super(Order.PLUS_4);
-		reset();
-	}
+    /**
+     * Resumes/continues tracking, without resetting the accumulated state (should be called "continue" but can't
+     */
+    public void resume() {
+        stopped = false;
+        lastStartTime = TimeUtils.nanoTime();
+    }
 
-	/** Returns whether or not this timer is stopped */
-	public boolean isStopped () {
-		return stopped;
-	}
+    /**
+     * Resets the internal state
+     */
+    public void reset() {
+        stopped = true;
 
-	/** Starts tracking */
-	public void start () {
-		reset();
-		nsStartTime = TimeUtils.nanoTime();
-		lastStartTime = nsStartTime;
-		stopped = false;
-	}
+        nsStartTime = 0;
+        nsStopTime = 0;
+        lastStartTime = 0;
 
-	/** Stops tracking */
-	public void stop () {
-		nsStopTime = TimeUtils.nanoTime();
-		stopped = true;
-	}
+        result.reset();
 
-	/** Resumes/continues tracking, without resetting the accumulated state (should be called "continue" but can't */
-	public void resume () {
-		stopped = false;
-		lastStartTime = TimeUtils.nanoTime();
-	}
+        // ticks
+        ticks = 0;
+    }
 
-	/** Resets the internal state */
-	public void reset () {
-		stopped = true;
+    /**
+     * Counts this tick
+     */
+    @Override
+    protected void onTick() {
+        if (!stopped) {
+            ticks++;
 
-		nsStartTime = 0;
-		nsStopTime = 0;
-		lastStartTime = 0;
+            long now = (stopped ? nsStopTime : TimeUtils.nanoTime());
 
-		result.reset();
+            // plain number of ticks
+            result.ticks = ticks;
 
-		// ticks
-		ticks = 0;
-	}
+            // number of ticks to seconds (in 1/dt increments)
+            result.tickSeconds = ticks * Config.Physics.Dt;
 
-	/** Counts this tick */
-	@Override
-	protected void onTick () {
-		if (!stopped) {
-			ticks++;
+            // last frame delta
+            result.lastAbsSeconds = (now - lastStartTime) * oneOnOneBillion;
+            if (!stopped) lastStartTime = TimeUtils.nanoTime();
 
-			long now = (stopped ? nsStopTime : TimeUtils.nanoTime());
+            // absolute seconds
+            result.absSeconds = (now - nsStartTime) * oneOnOneBillion;
+        }
+    }
 
-			// plain number of ticks
-			result.ticks = ticks;
+    /**
+     * Returns the elapsed time expressed in a number of useful units
+     */
+    public TimeValue elapsed() {
+        return result;
+    }
 
-			// number of ticks to seconds (in 1/dt increments)
-			result.tickSeconds = ticks * Config.Physics.Dt;
+    public static final class TimeValue {
+        public long ticks;
+        public float tickSeconds;
+        public float absSeconds;
+        public float lastAbsSeconds;
 
-			// last frame delta
-			result.lastAbsSeconds = (now - lastStartTime) * oneOnOneBillion;
-			if (!stopped) lastStartTime = TimeUtils.nanoTime();
+        public TimeValue() {
+            reset();
+        }
 
-			// absolute seconds
-			result.absSeconds = (now - nsStartTime) * oneOnOneBillion;
-		}
-	};
-
-	/** Returns the elapsed time expressed in a number of useful units */
-	public TimeValue elapsed () {
-		return result;
-	}
+        public void reset() {
+            ticks = 0;
+            tickSeconds = 0;
+            absSeconds = 0;
+            lastAbsSeconds = 0;
+        }
+    }
 }

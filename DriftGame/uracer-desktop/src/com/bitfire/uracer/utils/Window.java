@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.utils;
 
 import com.badlogic.gdx.graphics.Color;
@@ -17,341 +16,356 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
-/** A table that can be dragged and act as a modal window. The top padding is used as the window's title height.
+/**
+ * A table that can be dragged and act as a modal window. The top padding is used as the window's title height.
  * <p>
  * The preferred size of a window is the preferred size of the title text and the children as laid out by the table. After adding
  * children to the window, it can be convenient to call {@link #pack()} to size the window to the size of the children.
- * @author Nathan Sweet */
+ *
+ * @author Nathan Sweet
+ */
 public class Window extends Table {
-	static private final Vector2 tmpPosition = new Vector2();
-	static private final Vector2 tmpSize = new Vector2();
-	static private final int MOVE = 1 << 5;
+    static private final Vector2 tmpPosition = new Vector2();
+    static private final Vector2 tmpSize = new Vector2();
+    static private final int MOVE = 1 << 5;
+    protected BitmapFontCache titleCache;
+    protected int titleAlignment = Align.center;
+    boolean isMovable = true, isModal, isResizable;
+    int resizeBorder = 8;
+    boolean dragging;
+    boolean keepWithinStage = true;
+    Table buttonTable;
+    private final Color tmpColor = new Color();
+    private WindowStyle style;
+    private String title;
 
-	private Color tmpColor = new Color();
-	private WindowStyle style;
-	private String title;
-	protected BitmapFontCache titleCache;
-	boolean isMovable = true, isModal, isResizable;
-	int resizeBorder = 8;
-	boolean dragging;
-	protected int titleAlignment = Align.center;
-	boolean keepWithinStage = true;
-	Table buttonTable;
+    public Window(String title, Skin skin) {
+        this(title, skin.get(WindowStyle.class));
+        setSkin(skin);
+    }
 
-	public Window (String title, Skin skin) {
-		this(title, skin.get(WindowStyle.class));
-		setSkin(skin);
-	}
+    public Window(String title, Skin skin, String styleName) {
+        this(title, skin.get(styleName, WindowStyle.class));
+        setSkin(skin);
+    }
 
-	public Window (String title, Skin skin, String styleName) {
-		this(title, skin.get(styleName, WindowStyle.class));
-		setSkin(skin);
-	}
+    public Window(String title, WindowStyle style) {
+        if (title == null) throw new IllegalArgumentException("title cannot be null.");
+        this.title = title;
+        setTouchable(Touchable.enabled);
+        setClip(true);
+        setStyle(style);
+        setWidth(150);
+        setHeight(150);
+        setTitle(title);
 
-	public Window (String title, WindowStyle style) {
-		if (title == null) throw new IllegalArgumentException("title cannot be null.");
-		this.title = title;
-		setTouchable(Touchable.enabled);
-		setClip(true);
-		setStyle(style);
-		setWidth(150);
-		setHeight(150);
-		setTitle(title);
+        buttonTable = new Table();
+        addActor(buttonTable);
 
-		buttonTable = new Table();
-		addActor(buttonTable);
+        addCaptureListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                toFront();
+                return false;
+            }
+        });
+        addListener(new InputListener() {
+            int edge;
+            float startX, startY, lastX, lastY;
 
-		addCaptureListener(new InputListener() {
-			@Override
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				toFront();
-				return false;
-			}
-		});
-		addListener(new InputListener() {
-			int edge;
-			float startX, startY, lastX, lastY;
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (button == 0) {
+                    int border = resizeBorder;
+                    float width = getWidth(), height = getHeight();
+                    edge = 0;
+                    if (isResizable) {
+                        if (x < border) edge |= Align.left;
+                        if (x > width - border) edge |= Align.right;
+                        if (y < border) edge |= Align.bottom;
+                        if (y > height - border) edge |= Align.top;
+                        if (edge != 0) border += 25;
+                        if (x < border) edge |= Align.left;
+                        if (x > width - border) edge |= Align.right;
+                        if (y < border) edge |= Align.bottom;
+                        if (y > height - border) edge |= Align.top;
+                    }
+                    if (isMovable && edge == 0 && y <= height && y >= height - getPadTop() && x >= 0 && x <= width) edge = MOVE;
+                    dragging = edge != 0;
+                    startX = x;
+                    startY = y;
+                    lastX = x;
+                    lastY = y;
+                }
+                return edge != 0 || isModal;
+            }
 
-			@Override
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				if (button == 0) {
-					int border = resizeBorder;
-					float width = getWidth(), height = getHeight();
-					edge = 0;
-					if (isResizable) {
-						if (x < border) edge |= Align.left;
-						if (x > width - border) edge |= Align.right;
-						if (y < border) edge |= Align.bottom;
-						if (y > height - border) edge |= Align.top;
-						if (edge != 0) border += 25;
-						if (x < border) edge |= Align.left;
-						if (x > width - border) edge |= Align.right;
-						if (y < border) edge |= Align.bottom;
-						if (y > height - border) edge |= Align.top;
-					}
-					if (isMovable && edge == 0 && y <= height && y >= height - getPadTop() && x >= 0 && x <= width) edge = MOVE;
-					dragging = edge != 0;
-					startX = x;
-					startY = y;
-					lastX = x;
-					lastY = y;
-				}
-				return edge != 0 || isModal;
-			}
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                dragging = false;
+            }
 
-			@Override
-			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-				dragging = false;
-			}
+            @Override
+            public void touchDragged(InputEvent event, float x, float y, int pointer) {
+                if (!dragging) return;
+                float width = getWidth(), height = getHeight();
+                float windowX = getX(), windowY = getY();
 
-			@Override
-			public void touchDragged (InputEvent event, float x, float y, int pointer) {
-				if (!dragging) return;
-				float width = getWidth(), height = getHeight();
-				float windowX = getX(), windowY = getY();
+                float minWidth = getMinWidth();
+                float minHeight = getMinHeight();
+                Stage stage = getStage();
+                boolean clampPosition = keepWithinStage && getParent() == stage.getRoot();
 
-				float minWidth = getMinWidth();
-				float minHeight = getMinHeight();
-				Stage stage = getStage();
-				boolean clampPosition = keepWithinStage && getParent() == stage.getRoot();
+                if ((edge & MOVE) != 0) {
+                    float amountX = x - startX, amountY = y - startY;
+                    windowX += amountX;
+                    windowY += amountY;
+                }
+                if ((edge & Align.left) != 0) {
+                    float amountX = x - startX;
+                    if (width - amountX < minWidth) amountX = -(minWidth - width);
+                    if (clampPosition && windowX + amountX < 0) amountX = -windowX;
+                    width -= amountX;
+                    windowX += amountX;
+                }
+                if ((edge & Align.bottom) != 0) {
+                    float amountY = y - startY;
+                    if (height - amountY < minHeight) amountY = -(minHeight - height);
+                    if (clampPosition && windowY + amountY < 0) amountY = -windowY;
+                    height -= amountY;
+                    windowY += amountY;
+                }
+                if ((edge & Align.right) != 0) {
+                    float amountX = x - lastX;
+                    if (width + amountX < minWidth) amountX = minWidth - width;
+                    if (clampPosition && windowX + width + amountX > stage.getWidth()) amountX = stage.getWidth() - windowX - width;
+                    width += amountX;
+                }
+                if ((edge & Align.top) != 0) {
+                    float amountY = y - lastY;
+                    if (height + amountY < minHeight) amountY = minHeight - height;
+                    if (clampPosition && windowY + height + amountY > stage.getHeight())
+                        amountY = stage.getHeight() - windowY - height;
+                    height += amountY;
+                }
+                lastX = x;
+                lastY = y;
+                setBounds(Math.round(windowX), Math.round(windowY), Math.round(width), Math.round(height));
+            }
 
-				if ((edge & MOVE) != 0) {
-					float amountX = x - startX, amountY = y - startY;
-					windowX += amountX;
-					windowY += amountY;
-				}
-				if ((edge & Align.left) != 0) {
-					float amountX = x - startX;
-					if (width - amountX < minWidth) amountX = -(minWidth - width);
-					if (clampPosition && windowX + amountX < 0) amountX = -windowX;
-					width -= amountX;
-					windowX += amountX;
-				}
-				if ((edge & Align.bottom) != 0) {
-					float amountY = y - startY;
-					if (height - amountY < minHeight) amountY = -(minHeight - height);
-					if (clampPosition && windowY + amountY < 0) amountY = -windowY;
-					height -= amountY;
-					windowY += amountY;
-				}
-				if ((edge & Align.right) != 0) {
-					float amountX = x - lastX;
-					if (width + amountX < minWidth) amountX = minWidth - width;
-					if (clampPosition && windowX + width + amountX > stage.getWidth()) amountX = stage.getWidth() - windowX - width;
-					width += amountX;
-				}
-				if ((edge & Align.top) != 0) {
-					float amountY = y - lastY;
-					if (height + amountY < minHeight) amountY = minHeight - height;
-					if (clampPosition && windowY + height + amountY > stage.getHeight())
-						amountY = stage.getHeight() - windowY - height;
-					height += amountY;
-				}
-				lastX = x;
-				lastY = y;
-				setBounds(Math.round(windowX), Math.round(windowY), Math.round(width), Math.round(height));
-			}
+            @Override
+            public boolean mouseMoved(InputEvent event, float x, float y) {
+                return isModal;
+            }
 
-			@Override
-			public boolean mouseMoved (InputEvent event, float x, float y) {
-				return isModal;
-			}
+            @Override
+            public boolean scrolled(InputEvent event, float x, float y, int amount) {
+                return isModal;
+            }
 
-			@Override
-			public boolean scrolled (InputEvent event, float x, float y, int amount) {
-				return isModal;
-			}
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                return isModal;
+            }
 
-			@Override
-			public boolean keyDown (InputEvent event, int keycode) {
-				return isModal;
-			}
+            @Override
+            public boolean keyUp(InputEvent event, int keycode) {
+                return isModal;
+            }
 
-			@Override
-			public boolean keyUp (InputEvent event, int keycode) {
-				return isModal;
-			}
+            @Override
+            public boolean keyTyped(InputEvent event, char character) {
+                return isModal;
+            }
+        });
+    }
 
-			@Override
-			public boolean keyTyped (InputEvent event, char character) {
-				return isModal;
-			}
-		});
-	}
+    /**
+     * Returns the window's style. Modifying the returned style may not have an effect until {@link #setStyle(WindowStyle)} is
+     * called.
+     */
+    public WindowStyle getStyle() {
+        return style;
+    }
 
-	public void setStyle (WindowStyle style) {
-		if (style == null) throw new IllegalArgumentException("style cannot be null.");
-		this.style = style;
-		setBackground(style.background);
-		titleCache = new BitmapFontCache(style.titleFont);
-		titleCache.setColor(style.titleFontColor);
-		if (title != null) setTitle(title);
-		invalidateHierarchy();
-	}
+    public void setStyle(WindowStyle style) {
+        if (style == null) throw new IllegalArgumentException("style cannot be null.");
+        this.style = style;
+        setBackground(style.background);
+        titleCache = new BitmapFontCache(style.titleFont);
+        titleCache.setColor(style.titleFontColor);
+        if (title != null) setTitle(title);
+        invalidateHierarchy();
+    }
 
-	/** Returns the window's style. Modifying the returned style may not have an effect until {@link #setStyle(WindowStyle)} is
-	 * called. */
-	public WindowStyle getStyle () {
-		return style;
-	}
+    void keepWithinStage() {
+        if (!keepWithinStage) return;
+        Stage stage = getStage();
+        if (getParent() == stage.getRoot()) {
+            float parentWidth = stage.getWidth();
+            float parentHeight = stage.getHeight();
+            if (getX() < 0) setX(0);
+            if (getRight() > parentWidth) setX(parentWidth - getWidth());
+            if (getY() < 0) setY(0);
+            if (getTop() > parentHeight) setY(parentHeight - getHeight());
+        }
+    }
 
-	void keepWithinStage () {
-		if (!keepWithinStage) return;
-		Stage stage = getStage();
-		if (getParent() == stage.getRoot()) {
-			float parentWidth = stage.getWidth();
-			float parentHeight = stage.getHeight();
-			if (getX() < 0) setX(0);
-			if (getRight() > parentWidth) setX(parentWidth - getWidth());
-			if (getY() < 0) setY(0);
-			if (getTop() > parentHeight) setY(parentHeight - getHeight());
-		}
-	}
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        keepWithinStage();
 
-	@Override
-	public void draw (Batch batch, float parentAlpha) {
-		keepWithinStage();
+        if (style.stageBackground != null) {
+            Color color = getColor();
+            batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+            Stage stage = getStage();
+            stageToLocalCoordinates(/* in/out */tmpPosition.set(0, 0));
+            stageToLocalCoordinates(/* in/out */tmpSize.set(stage.getWidth(), stage.getHeight()));
+            style.stageBackground
+                    .draw(batch, getX() + tmpPosition.x, getY() + tmpPosition.y, getX() + tmpSize.x, getY() + tmpSize.y);
+        }
 
-		if (style.stageBackground != null) {
-			Color color = getColor();
-			batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
-			Stage stage = getStage();
-			stageToLocalCoordinates(/* in/out */tmpPosition.set(0, 0));
-			stageToLocalCoordinates(/* in/out */tmpSize.set(stage.getWidth(), stage.getHeight()));
-			style.stageBackground
-				.draw(batch, getX() + tmpPosition.x, getY() + tmpPosition.y, getX() + tmpSize.x, getY() + tmpSize.y);
-		}
+        super.draw(batch, parentAlpha);
+    }
 
-		super.draw(batch, parentAlpha);
-	}
+    @Override
+    protected void drawBackground(Batch batch, float parentAlpha, float x, float y) {
+        float width = getWidth(), height = getHeight();
+        float padTop = getPadTop();
 
-	@Override
-	protected void drawBackground (Batch batch, float parentAlpha, float x, float y) {
-		float width = getWidth(), height = getHeight();
-		float padTop = getPadTop();
+        super.drawBackground(batch, parentAlpha, x, y);
 
-		super.drawBackground(batch, parentAlpha, x, y);
+        // Draw button table.
+        buttonTable.getColor().a = getColor().a;
+        buttonTable.pack();
+        buttonTable.setPosition(width - buttonTable.getWidth(), Math.min(height - padTop, height - buttonTable.getHeight()));
+        buttonTable.draw(batch, parentAlpha);
 
-		// Draw button table.
-		buttonTable.getColor().a = getColor().a;
-		buttonTable.pack();
-		buttonTable.setPosition(width - buttonTable.getWidth(), Math.min(height - padTop, height - buttonTable.getHeight()));
-		buttonTable.draw(batch, parentAlpha);
+        // Draw the title without the batch transformed or clipping applied.
+        y += height;
+        TextBounds bounds = titleCache.getBounds();
+        if ((titleAlignment & Align.left) != 0)
+            x += getPadLeft();
+        else if ((titleAlignment & Align.right) != 0)
+            x += width - bounds.width - getPadRight();
+        else
+            x += (width - bounds.width) / 2;
+        if ((titleAlignment & Align.top) == 0) {
+            if ((titleAlignment & Align.bottom) != 0)
+                y -= padTop - bounds.height;
+            else
+                y -= (padTop - bounds.height) / 2;
+        }
+        titleCache.setColors(tmpColor.set(getColor()).mul(style.titleFontColor));
+        titleCache.setPosition((int) x, (int) y - 15); // HACK for Kenney's skin only!!
+        titleCache.draw(batch, parentAlpha);
+    }
 
-		// Draw the title without the batch transformed or clipping applied.
-		y += height;
-		TextBounds bounds = titleCache.getBounds();
-		if ((titleAlignment & Align.left) != 0)
-			x += getPadLeft();
-		else if ((titleAlignment & Align.right) != 0)
-			x += width - bounds.width - getPadRight();
-		else
-			x += (width - bounds.width) / 2;
-		if ((titleAlignment & Align.top) == 0) {
-			if ((titleAlignment & Align.bottom) != 0)
-				y -= padTop - bounds.height;
-			else
-				y -= (padTop - bounds.height) / 2;
-		}
-		titleCache.setColors(tmpColor.set(getColor()).mul(style.titleFontColor));
-		titleCache.setPosition((int)x, (int)y - 15); // HACK for Kenney's skin only!!
-		titleCache.draw(batch, parentAlpha);
-	}
+    @Override
+    public Actor hit(float x, float y, boolean touchable) {
+        Actor hit = super.hit(x, y, touchable);
+        if (hit == null && isModal && (!touchable || getTouchable() == Touchable.enabled)) return this;
+        return hit;
+    }
 
-	@Override
-	public Actor hit (float x, float y, boolean touchable) {
-		Actor hit = super.hit(x, y, touchable);
-		if (hit == null && isModal && (!touchable || getTouchable() == Touchable.enabled)) return this;
-		return hit;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setTitle (String title) {
-		this.title = title;
-		titleCache.setMultiLineText(title, 0, 0);
-	}
+    public void setTitle(String title) {
+        this.title = title;
+        titleCache.setMultiLineText(title, 0, 0);
+    }
 
-	public String getTitle () {
-		return title;
-	}
+    /**
+     * @param titleAlignment {@link Align}
+     */
+    public void setTitleAlignment(int titleAlignment) {
+        this.titleAlignment = titleAlignment;
+    }
 
-	/** @param titleAlignment {@link Align} */
-	public void setTitleAlignment (int titleAlignment) {
-		this.titleAlignment = titleAlignment;
-	}
+    public boolean isMovable() {
+        return isMovable;
+    }
 
-	public boolean isMovable () {
-		return isMovable;
-	}
+    public void setMovable(boolean isMovable) {
+        this.isMovable = isMovable;
+    }
 
-	public void setMovable (boolean isMovable) {
-		this.isMovable = isMovable;
-	}
+    public boolean isModal() {
+        return isModal;
+    }
 
-	public boolean isModal () {
-		return isModal;
-	}
+    public void setModal(boolean isModal) {
+        this.isModal = isModal;
+    }
 
-	public void setModal (boolean isModal) {
-		this.isModal = isModal;
-	}
+    public void setKeepWithinStage(boolean keepWithinStage) {
+        this.keepWithinStage = keepWithinStage;
+    }
 
-	public void setKeepWithinStage (boolean keepWithinStage) {
-		this.keepWithinStage = keepWithinStage;
-	}
+    public boolean isResizable() {
+        return isResizable;
+    }
 
-	public boolean isResizable () {
-		return isResizable;
-	}
+    public void setResizable(boolean isResizable) {
+        this.isResizable = isResizable;
+    }
 
-	public void setResizable (boolean isResizable) {
-		this.isResizable = isResizable;
-	}
+    public void setResizeBorder(int resizeBorder) {
+        this.resizeBorder = resizeBorder;
+    }
 
-	public void setResizeBorder (int resizeBorder) {
-		this.resizeBorder = resizeBorder;
-	}
+    public boolean isDragging() {
+        return dragging;
+    }
 
-	public boolean isDragging () {
-		return dragging;
-	}
+    public float getTitleWidth() {
+        return titleCache.getBounds().width;
+    }
 
-	public float getTitleWidth () {
-		return titleCache.getBounds().width;
-	}
+    @Override
+    public float getPrefWidth() {
+        return Math.max(super.getPrefWidth(), getTitleWidth() + getPadLeft() + getPadRight());
+    }
 
-	@Override
-	public float getPrefWidth () {
-		return Math.max(super.getPrefWidth(), getTitleWidth() + getPadLeft() + getPadRight());
-	}
+    public Table getButtonTable() {
+        return buttonTable;
+    }
 
-	public Table getButtonTable () {
-		return buttonTable;
-	}
+    /**
+     * The style for a window, see {@link Window}.
+     *
+     * @author Nathan Sweet
+     */
+    static public class WindowStyle {
+        /**
+         * Optional.
+         */
+        public Drawable background;
+        public BitmapFont titleFont;
+        /**
+         * Optional.
+         */
+        public Color titleFontColor = new Color(1, 1, 1, 1);
+        /**
+         * Optional.
+         */
+        public Drawable stageBackground;
 
-	/** The style for a window, see {@link Window}.
-	 * @author Nathan Sweet */
-	static public class WindowStyle {
-		/** Optional. */
-		public Drawable background;
-		public BitmapFont titleFont;
-		/** Optional. */
-		public Color titleFontColor = new Color(1, 1, 1, 1);
-		/** Optional. */
-		public Drawable stageBackground;
+        public WindowStyle() {
+        }
 
-		public WindowStyle () {
-		}
+        public WindowStyle(BitmapFont titleFont, Color titleFontColor, Drawable background) {
+            this.background = background;
+            this.titleFont = titleFont;
+            this.titleFontColor.set(titleFontColor);
+        }
 
-		public WindowStyle (BitmapFont titleFont, Color titleFontColor, Drawable background) {
-			this.background = background;
-			this.titleFont = titleFont;
-			this.titleFontColor.set(titleFontColor);
-		}
-
-		public WindowStyle (WindowStyle style) {
-			this.background = style.background;
-			this.titleFont = style.titleFont;
-			this.titleFontColor = new Color(style.titleFontColor);
-		}
-	}
+        public WindowStyle(WindowStyle style) {
+            this.background = style.background;
+            this.titleFont = style.titleFont;
+            this.titleFontColor = new Color(style.titleFontColor);
+        }
+    }
 }

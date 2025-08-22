@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.resources;
 
 import com.badlogic.gdx.Gdx;
@@ -6,83 +5,89 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.LongMap;
 import com.bitfire.utils.Hash;
 
-/** Lazy factory for BitmapFont objects
- * 
+/**
+ * Lazy factory for BitmapFont objects
+ * <p>
  * Used font resources number count is usually fairy low, so let's assume this and implement a "lazy loading" strategy: cache-hits
- * should be early maximized (100%) just at the first couple of frames of the real game */
+ * should be early maximized (100%) just at the first couple of frames of the real game
+ */
 public final class BitmapFontFactory {
-	public enum FontFace {
-		//@off
-		AdobeSourceSans("adobe-source-sans"),
-		CurseGreen("curse-g"),
-		CurseGreenBig("curse-g-big"),
-		CurseRed("curse-r"),
-		CurseRedBig("curse-r-big"),
-		CurseRedYellow("curse-y-r"),
-		CurseRedYellowBig("curse-y-r-big"),
-		CurseWhiteBig("curse-big-white"),
-		Molengo("molengo"),
-		Roboto("roboto"),
-		CurseRedYellowNew("curse-new"),
-		Lcd("lcd"),
-		LcdWhite("lcd-white"),
-		Arcade("arcade"),
-		Karmatic("karmatic"),
-		DottyShadow("dotty-shadow"),
-		AuXDotBitCXtra("AuX DotBitC Xtra"),
-		;
-		//@on
+    // storage
+    private static final LongMap<BitmapFont> fontCache = new LongMap<BitmapFont>();
 
-		// the name reflects the filename
-		public String name;
+    private BitmapFontFactory() {
+    }
 
-		FontFace (String name) {
-			this.name = name;
-		}
-	}
+    /**
+     * Returns an instance of a BitmapFont, performing a font reset to the initial state (when reused), if specified.
+     */
+    public static BitmapFont get(FontFace face, boolean reset) {
+        String name = face.name;
+        long hash = Hash.APHash(name);
+        BitmapFont f = fontCache.get(hash);
 
-	// storage
-	private static LongMap<BitmapFont> fontCache = new LongMap<BitmapFont>();
+        if (f != null) {
+            if (reset) {
+                setupFont(face, f);
+            }
+            return f;
+        }
 
-	/** Returns an instance of a BitmapFont, performing a font reset to the initial state (when reused), if specified. */
-	public static BitmapFont get (FontFace face, boolean reset) {
-		String name = face.name;
-		long hash = Hash.APHash(name);
-		BitmapFont f = fontCache.get(hash);
+        f = new BitmapFont(Gdx.files.internal("data/font/" + name + ".fnt"), Art.fontAtlas.findRegion(name), true);
 
-		if (f != null) {
-			if (reset) {
-				setupFont(face, f);
-			}
-			return f;
-		}
+        setupFont(face, f);
 
-		f = new BitmapFont(Gdx.files.internal("data/font/" + name + ".fnt"), Art.fontAtlas.findRegion(name), true);
+        fontCache.put(hash, f);
 
-		setupFont(face, f);
+        return f;
+    }
 
-		fontCache.put(hash, f);
+    /**
+     * Commodity helper
+     */
+    public static BitmapFont get(FontFace face) {
+        return get(face, true);
+    }
 
-		return f;
-	}
+    private static void setupFont(FontFace face, BitmapFont font) {
+        font.setUseIntegerPositions(false);
+    }
 
-	/** Commodity helper */
-	public static BitmapFont get (FontFace face) {
-		return get(face, true);
-	}
+    public static void dispose() {
+        for (BitmapFont f : fontCache.values()) {
+            f.dispose();
+        }
 
-	private static void setupFont (FontFace face, BitmapFont font) {
-		font.setUseIntegerPositions(false);
-	}
+        fontCache.clear();
+    }
 
-	public static void dispose () {
-		for (BitmapFont f : fontCache.values()) {
-			f.dispose();
-		}
+    public enum FontFace {
+        //@off
+        AdobeSourceSans("adobe-source-sans"),
+        CurseGreen("curse-g"),
+        CurseGreenBig("curse-g-big"),
+        CurseRed("curse-r"),
+        CurseRedBig("curse-r-big"),
+        CurseRedYellow("curse-y-r"),
+        CurseRedYellowBig("curse-y-r-big"),
+        CurseWhiteBig("curse-big-white"),
+        Molengo("molengo"),
+        Roboto("roboto"),
+        CurseRedYellowNew("curse-new"),
+        Lcd("lcd"),
+        LcdWhite("lcd-white"),
+        Arcade("arcade"),
+        Karmatic("karmatic"),
+        DottyShadow("dotty-shadow"),
+        AuXDotBitCXtra("AuX DotBitC Xtra"),
+        ;
+        //@on
 
-		fontCache.clear();
-	}
+        // the name reflects the filename
+        public String name;
 
-	private BitmapFontFactory () {
-	}
+        FontFace(String name) {
+            this.name = name;
+        }
+    }
 }

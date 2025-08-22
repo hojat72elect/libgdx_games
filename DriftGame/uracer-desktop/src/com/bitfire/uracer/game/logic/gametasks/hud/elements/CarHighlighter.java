@@ -1,11 +1,4 @@
-
 package com.bitfire.uracer.game.logic.gametasks.hud.elements;
-
-import aurelienribon.tweenengine.BaseTween;
-import aurelienribon.tweenengine.Timeline;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenCallback;
-import aurelienribon.tweenengine.equations.Linear;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,266 +17,277 @@ import com.bitfire.uracer.utils.BoxedFloat;
 import com.bitfire.uracer.utils.BoxedFloatAccessor;
 import com.bitfire.uracer.utils.Convert;
 
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.equations.Linear;
+
 public final class CarHighlighter {
-	private Sprite sprite;
-	private Car followedCar;
-	private EntityRenderState renderState, prevState;
-	private Vector2 tmp = new Vector2(), tmp2 = new Vector2();
-	private float offX, offY, alpha, scale;
+    private final Sprite sprite;
+    private Car followedCar;
+    private EntityRenderState renderState, prevState;
+    private final Vector2 tmp = new Vector2();
+    private final Vector2 tmp2 = new Vector2();
+    private float offX, offY, alpha, scale;
 
-	private boolean isBusy, isActive, hasCar, isTracking, interpolateState;
-	private BoxedFloat bfScale, bfRot, bfAlpha, bfGreen, bfRed, bfBlue, bfRenderState;
-	private float trackAlpha;
+    private boolean isBusy, isActive, hasCar, isTracking, interpolateState;
+    private final BoxedFloat bfScale;
+    private final BoxedFloat bfRot;
+    private final BoxedFloat bfAlpha;
+    private final BoxedFloat bfGreen;
+    private final BoxedFloat bfRed;
+    private final BoxedFloat bfBlue;
+    private final BoxedFloat bfRenderState;
+    private float trackAlpha;
+    private final TweenCallback renderStateCallback = new TweenCallback() {
+        @Override
+        public void onEvent(int type, BaseTween<?> source) {
+            switch (type) {
+                case COMPLETE:
+                    interpolateState = false;
+            }
+        }
+    };
+    private final TweenCallback busyCallback = new TweenCallback() {
+        @Override
+        public void onEvent(int type, BaseTween<?> source) {
+            switch (type) {
+                case COMPLETE:
+                    isBusy = false;
+            }
+        }
+    };
 
-	// need tileMapZoomFactor since highlighter size depends from car *rendered* size
-	public CarHighlighter () {
-		sprite = new Sprite();
-		sprite.setRegion(Art.cars.findRegion("selector"));
-		isBusy = false;
-		isActive = false;
-		followedCar = null;
-		isTracking = false;
-		alpha = 1;
+    // need tileMapZoomFactor since highlighter size depends from car *rendered* size
+    public CarHighlighter() {
+        sprite = new Sprite();
+        sprite.setRegion(Art.cars.findRegion("selector"));
+        isBusy = false;
+        isActive = false;
+        followedCar = null;
+        isTracking = false;
+        alpha = 1;
 
-		bfScale = new BoxedFloat(1);
-		bfRot = new BoxedFloat(0);
-		bfAlpha = new BoxedFloat(0);
-		bfGreen = new BoxedFloat(1);
-		bfRed = new BoxedFloat(1);
-		bfBlue = new BoxedFloat(1);
-		bfRenderState = new BoxedFloat(0);
-		prevState = null;
-		renderState = null;
-		interpolateState = false;
-	}
+        bfScale = new BoxedFloat(1);
+        bfRot = new BoxedFloat(0);
+        bfAlpha = new BoxedFloat(0);
+        bfGreen = new BoxedFloat(1);
+        bfRed = new BoxedFloat(1);
+        bfBlue = new BoxedFloat(1);
+        bfRenderState = new BoxedFloat(0);
+        prevState = null;
+        renderState = null;
+        interpolateState = false;
+    }
 
-	private TweenCallback renderStateCallback = new TweenCallback() {
-		@Override
-		public void onEvent (int type, BaseTween<?> source) {
-			switch (type) {
-			case COMPLETE:
-				interpolateState = false;
-			}
-		}
-	};
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
+    }
 
-	public void setCar (Car car) {
-		prevState = null;
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
 
-		if (followedCar != null && followedCar instanceof GhostCar) {
-			prevState = renderState;
-			((GhostCar)followedCar).tweenAlphaTo(Config.Graphics.DefaultGhostCarOpacity);
-		}
+    public Car getCar() {
+        return followedCar;
+    }
 
-		followedCar = car;
-		hasCar = followedCar != null;
-		renderState = followedCar.state();
+    public void setCar(Car car) {
+        prevState = null;
 
-		CarModel model = car.getCarModel();
-		sprite.setSize(Convert.mt2px(model.width) * 1.4f, Convert.mt2px(model.length) * 1.4f);
-		sprite.setOrigin(sprite.getWidth() / 2, sprite.getHeight() / 2);
+        if (followedCar != null && followedCar instanceof GhostCar) {
+            prevState = renderState;
+            ((GhostCar) followedCar).tweenAlphaTo(Config.Graphics.DefaultGhostCarOpacity);
+        }
 
-		offX = sprite.getOriginX();
-		offY = sprite.getOriginY();
+        followedCar = car;
+        hasCar = followedCar != null;
+        renderState = followedCar.state();
 
-		if (prevState != null && isTracking) {
-			// compute a position factor to later (at render time) interpolate the final position between the two render states
-			GameTweener.stop(bfRenderState);
+        CarModel model = car.getCarModel();
+        sprite.setSize(Convert.mt2px(model.width) * 1.4f, Convert.mt2px(model.length) * 1.4f);
+        sprite.setOrigin(sprite.getWidth() / 2, sprite.getHeight() / 2);
 
-			interpolateState = true;
-			bfRenderState.value = 0;
-			Timeline timeline = Timeline.createSequence();
-			//@off
-			timeline.push(Tween.to(bfRenderState, BoxedFloatAccessor.VALUE, Config.Graphics.DefaultGhostOpacityChangeMs).target(1).ease(Config.Graphics.DefaultGhostOpacityChangeEq));
-			timeline.setCallback(renderStateCallback);
-			//@on
+        offX = sprite.getOriginX();
+        offY = sprite.getOriginY();
 
-			GameTweener.start(timeline);
-		}
+        if (prevState != null && isTracking) {
+            // compute a position factor to later (at render time) interpolate the final position between the two render states
+            GameTweener.stop(bfRenderState);
 
-		if (followedCar != null && followedCar instanceof GhostCar) {
-			((GhostCar)followedCar).tweenAlphaTo(Config.Graphics.DefaultTargetCarOpacity);
-		}
-	}
+            interpolateState = true;
+            bfRenderState.value = 0;
+            Timeline timeline = Timeline.createSequence();
+            //@off
+            timeline.push(Tween.to(bfRenderState, BoxedFloatAccessor.VALUE, Config.Graphics.DefaultGhostOpacityChangeMs).target(1).ease(Config.Graphics.DefaultGhostOpacityChangeEq));
+            timeline.setCallback(renderStateCallback);
+            //@on
 
-	public void setAlpha (float alpha) {
-		this.alpha = alpha;
-	}
+            GameTweener.start(timeline);
+        }
 
-	public void setScale (float scale) {
-		this.scale = scale;
-	}
+        if (followedCar != null && followedCar instanceof GhostCar) {
+            ((GhostCar) followedCar).tweenAlphaTo(Config.Graphics.DefaultTargetCarOpacity);
+        }
+    }
 
-	public Car getCar () {
-		return followedCar;
-	}
+    public void stop() {
+        isActive = false;
+        isBusy = false;
+        isTracking = false;
+    }
 
-	public void stop () {
-		isActive = false;
-		isBusy = false;
-		isTracking = false;
-	}
+    private float lerpOrient(float prev, float curr, float alpha) {
+        float diff = curr - prev;
 
-	private float lerpOrient (float prev, float curr, float alpha) {
-		float diff = curr - prev;
+        if (diff > 180) {
+            diff = -(360 - diff);
+        } else if (diff < -180) {
+            diff = 360 + diff;
+        }
 
-		if (diff > 180) {
-			diff = -(360 - diff);
-		} else if (diff < -180) {
-			diff = 360 + diff;
-		}
+        return prev + alpha * diff;
+    }
 
-		return prev + alpha * diff;
-	}
+    public void render(SpriteBatch batch, float cameraZoom) {
+        if (isActive && hasCar) {
+            float orient = renderState.orientation;
+            tmp.set(GameRenderer.ScreenUtils.worldPxToScreen(renderState.position));
+            if (prevState != null && interpolateState) {
+                // modulate values, expects bfRenderState.valuein range [0,1]
 
-	public void render (SpriteBatch batch, float cameraZoom) {
-		if (isActive && hasCar) {
-			float orient = renderState.orientation;
-			tmp.set(GameRenderer.ScreenUtils.worldPxToScreen(renderState.position));
-			if (prevState != null && interpolateState) {
-				// modulate values, expects bfRenderState.valuein range [0,1]
+                // modulate position
+                tmp2.set(GameRenderer.ScreenUtils.worldPxToScreen(prevState.position));
+                tmp.x = AMath.lerp(tmp2.x, tmp.x, bfRenderState.value);
+                tmp.y = AMath.lerp(tmp2.y, tmp.y, bfRenderState.value);
 
-				// modulate position
-				tmp2.set(GameRenderer.ScreenUtils.worldPxToScreen(prevState.position));
-				tmp.x = AMath.lerp(tmp2.x, tmp.x, bfRenderState.value);
-				tmp.y = AMath.lerp(tmp2.y, tmp.y, bfRenderState.value);
+                // modulate orientation
+                orient = lerpOrient(prevState.orientation, renderState.orientation, bfRenderState.value);
+            }
 
-				// modulate orientation
-				orient = lerpOrient(prevState.orientation, renderState.orientation, bfRenderState.value);
-			}
+            float timeFactor = URacer.Game.getTimeModFactor() * 0.3f;
+            float s = 1f + timeFactor;
 
-			float timeFactor = URacer.Game.getTimeModFactor() * 0.3f;
-			float s = 1f + timeFactor;
+            float rot = bfRot.value - orient;
 
-			float rot = bfRot.value - orient;
+            sprite.setScale(bfScale.value * cameraZoom * scale * s);
+            sprite.setPosition(tmp.x - offX, tmp.y - offY);
+            sprite.setRotation(rot);
+            sprite.setColor(bfRed.value, bfGreen.value, bfBlue.value, 1);
+            sprite.draw(batch, bfAlpha.value * alpha);
+        }
+    }
 
-			sprite.setScale(bfScale.value * cameraZoom * scale * s);
-			sprite.setPosition(tmp.x - offX, tmp.y - offY);
-			sprite.setRotation(rot);
-			sprite.setColor(bfRed.value, bfGreen.value, bfBlue.value, 1);
-			sprite.draw(batch, bfAlpha.value * alpha);
-		}
-	}
+    public void error(int blinkCount) {
+        if (isBusy) {
+            return;
+        }
 
-	private TweenCallback busyCallback = new TweenCallback() {
-		@Override
-		public void onEvent (int type, BaseTween<?> source) {
-			switch (type) {
-			case COMPLETE:
-				isBusy = false;
-			}
-		}
-	};
+        isBusy = true;
+        isActive = true;
 
-	public void error (int blinkCount) {
-		if (isBusy) {
-			return;
-		}
+        bfScale.value = 1f;
+        bfRot.value = 0f;
+        bfAlpha.value = 0f;
 
-		isBusy = true;
-		isActive = true;
+        bfRed.value = 1f;
+        bfGreen.value = 0.1f;
+        bfBlue.value = 0f;
 
-		bfScale.value = 1f;
-		bfRot.value = 0f;
-		bfAlpha.value = 0f;
+        GameTweener.stop(bfAlpha);
 
-		bfRed.value = 1f;
-		bfGreen.value = 0.1f;
-		bfBlue.value = 0f;
+        Timeline seq = Timeline.createSequence();
 
-		GameTweener.stop(bfAlpha);
+        //@off
+        seq
+                .push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, 100).target(1f).ease(Linear.INOUT))
+                .push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, 100).target(0f).ease(Linear.INOUT))
+                .repeat(blinkCount, 0)
+                .setCallback(busyCallback)
+        ;
+        //@on
 
-		Timeline seq = Timeline.createSequence();
+        GameTweener.start(seq);
+    }
 
-		//@off
-		seq
-			.push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, 100).target(1f).ease(Linear.INOUT))
-			.push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, 100).target(0f).ease(Linear.INOUT))
-			.repeat(blinkCount, 0)
-			.setCallback(busyCallback)
-		;
-		//@on
+    public void track(boolean force, float alpha) {
+        if (isTracking) return;
 
-		GameTweener.start(seq);
-	}
+        // do busy wait if not forcing
+        if (!force && isBusy) return;
 
-	public void track (boolean force, float alpha) {
-		if (isTracking) return;
+        isBusy = true;
+        isActive = true;
+        isTracking = true;
 
-		// do busy wait if not forcing
-		if (!force && isBusy) return;
+        trackAlpha = alpha;
 
-		isBusy = true;
-		isActive = true;
-		isTracking = true;
+        bfScale.value = 4f;
+        bfAlpha.value = 0f;
+        bfRot.value = -90f;
 
-		trackAlpha = alpha;
+        bfRed.value = 1f;
+        bfGreen.value = 1f;
+        bfBlue.value = 1f;
 
-		bfScale.value = 4f;
-		bfAlpha.value = 0f;
-		bfRot.value = -90f;
+        Timeline timeline = Timeline.createParallel();
+        float ms = Config.Graphics.DefaultFadeMilliseconds;
 
-		bfRed.value = 1f;
-		bfGreen.value = 1f;
-		bfBlue.value = 1f;
+        GameTweener.stop(bfAlpha);
+        GameTweener.stop(bfScale);
+        GameTweener.stop(bfRot);
 
-		Timeline timeline = Timeline.createParallel();
-		float ms = Config.Graphics.DefaultFadeMilliseconds;
+        //@off
+        timeline
+                .push(Tween.to(bfScale, BoxedFloatAccessor.VALUE, ms).target(1f).ease(Linear.INOUT))
+                .push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, ms).target(alpha).ease(Linear.INOUT))
+                .push(Tween.to(bfRot, BoxedFloatAccessor.VALUE, ms).target(0f).ease(Linear.INOUT))
+                .setCallback(busyCallback)
+        ;
+        //@on
 
-		GameTweener.stop(bfAlpha);
-		GameTweener.stop(bfScale);
-		GameTweener.stop(bfRot);
+        GameTweener.start(timeline);
+    }
 
-		//@off
-		timeline
-			.push(Tween.to(bfScale, BoxedFloatAccessor.VALUE, ms).target(1f).ease(Linear.INOUT))
-			.push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, ms).target(alpha).ease(Linear.INOUT))
-			.push(Tween.to(bfRot, BoxedFloatAccessor.VALUE, ms).target(0f).ease(Linear.INOUT))
-			.setCallback(busyCallback)
-		;
-		//@on
+    public void track(boolean force) {
+        track(force, 1);
+    }
 
-		GameTweener.start(timeline);
-	}
+    public void untrack(boolean force) {
+        if (!isTracking) return;
 
-	public void track (boolean force) {
-		track(force, 1);
-	}
+        // do busy wait if not forcing
+        if (!force && isBusy) return;
 
-	public void untrack (boolean force) {
-		if (!isTracking) return;
+        isBusy = true;
+        isActive = true;
+        isTracking = false;
 
-		// do busy wait if not forcing
-		if (!force && isBusy) return;
+        bfScale.value = 1f;
+        bfAlpha.value = trackAlpha;
+        bfRot.value = 0f;
 
-		isBusy = true;
-		isActive = true;
-		isTracking = false;
+        bfRed.value = 1f;
+        bfGreen.value = 1f;
+        bfBlue.value = 1f;
 
-		bfScale.value = 1f;
-		bfAlpha.value = trackAlpha;
-		bfRot.value = 0f;
+        Timeline timeline = Timeline.createParallel();
+        float ms = Config.Graphics.DefaultFadeMilliseconds;
 
-		bfRed.value = 1f;
-		bfGreen.value = 1f;
-		bfBlue.value = 1f;
+        GameTweener.stop(bfAlpha);
+        GameTweener.stop(bfScale);
+        GameTweener.stop(bfRot);
 
-		Timeline timeline = Timeline.createParallel();
-		float ms = Config.Graphics.DefaultFadeMilliseconds;
+        //@off
+        timeline
+                .push(Tween.to(bfScale, BoxedFloatAccessor.VALUE, ms).target(4).ease(Linear.INOUT))
+                .push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, ms).target(0).ease(Linear.INOUT))
+                .push(Tween.to(bfRot, BoxedFloatAccessor.VALUE, ms).target(-90).ease(Linear.INOUT))
+                .setCallback(busyCallback)
+        ;
+        //@on
 
-		GameTweener.stop(bfAlpha);
-		GameTweener.stop(bfScale);
-		GameTweener.stop(bfRot);
-
-		//@off
-		timeline
-			.push(Tween.to(bfScale, BoxedFloatAccessor.VALUE, ms).target(4).ease(Linear.INOUT))
-			.push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, ms).target(0).ease(Linear.INOUT))
-			.push(Tween.to(bfRot, BoxedFloatAccessor.VALUE, ms).target(-90).ease(Linear.INOUT))
-			.setCallback(busyCallback)
-			;
-		//@on
-
-		GameTweener.start(timeline);
-	}
+        GameTweener.start(timeline);
+    }
 }

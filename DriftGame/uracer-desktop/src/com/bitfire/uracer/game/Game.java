@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.game;
 
 import com.badlogic.gdx.Gdx;
@@ -15,91 +14,95 @@ import com.bitfire.uracer.game.world.GameWorld;
 
 public class Game implements Disposable {
 
-	// world
-	public GameWorld gameWorld = null;
+    // world
+    public GameWorld gameWorld = null;
 
-	// logic
-	private GameLogic gameLogic = null;
+    // logic
+    private GameLogic gameLogic = null;
 
-	// tasks
-	private TaskManager taskManager = null;
+    // tasks
+    private TaskManager taskManager = null;
 
-	// rendering
-	private GameRenderer gameRenderer = null;
+    // rendering
+    private GameRenderer gameRenderer = null;
 
-	public Game (UserProfile userProfile, String trackId) {
+    public Game(UserProfile userProfile, String trackId) {
 
-		taskManager = new TaskManager();
+        taskManager = new TaskManager();
 
-		gameWorld = new GameWorld(trackId, UserPreferences.bool(Preference.NightMode));
-		Gdx.app.debug("Game", "Game world ready");
+        gameWorld = new GameWorld(trackId, UserPreferences.bool(Preference.NightMode));
+        Gdx.app.debug("Game", "Game world ready");
 
-		// handles rendering
-		gameRenderer = new GameRenderer(gameWorld);
-		Gdx.app.debug("Game", "GameRenderer ready");
+        // handles rendering
+        gameRenderer = new GameRenderer(gameWorld);
+        Gdx.app.debug("Game", "GameRenderer ready");
 
-		// handles game rules and mechanics, it's all about game data
-		gameLogic = new SinglePlayer(userProfile, gameWorld, gameRenderer);
-		Gdx.app.debug("Game", "GameLogic created");
-	}
+        // handles game rules and mechanics, it's all about game data
+        gameLogic = new SinglePlayer(userProfile, gameWorld, gameRenderer);
+        Gdx.app.debug("Game", "GameLogic created");
+    }
 
-	@Override
-	public void dispose () {
-		gameLogic.dispose();
-		gameRenderer.dispose();
-		gameWorld.dispose();
-		taskManager.dispose();
-	}
+    @Override
+    public void dispose() {
+        gameLogic.dispose();
+        gameRenderer.dispose();
+        gameWorld.dispose();
+        taskManager.dispose();
+    }
 
-	/** Can be NOT called */
-	public void tick () {
-		if (!gameLogic.isQuitPending()) {
-			taskManager.dispatchEvent(TaskManagerEvent.Type.onTick);
-		}
+    /**
+     * Can be NOT called
+     */
+    public void tick() {
+        if (!gameLogic.isQuitPending()) {
+            taskManager.dispatchEvent(TaskManagerEvent.Type.onTick);
+        }
 
-		gameLogic.tick();
-	}
+        gameLogic.tick();
+    }
 
-	/** Can be NOT called */
-	public void tickCompleted () {
-		if (!gameLogic.isQuitPending()) {
-			taskManager.dispatchEvent(TaskManagerEvent.Type.onTickCompleted);
-		}
+    /**
+     * Can be NOT called
+     */
+    public void tickCompleted() {
+        if (!gameLogic.isQuitPending()) {
+            taskManager.dispatchEvent(TaskManagerEvent.Type.onTickCompleted);
+        }
 
-		gameLogic.tickCompleted();
-	}
+        gameLogic.tickCompleted();
+    }
 
-	public void render (FrameBuffer dest) {
-		gameRenderer.render(dest, gameLogic.isQuitPending(), gameLogic.isPaused());
-	}
+    public void render(FrameBuffer dest) {
+        gameRenderer.render(dest, gameLogic.isQuitPending(), gameLogic.isPaused());
+    }
 
-	public void pause () {
-		taskManager.dispatchEvent(TaskManagerEvent.Type.onPause);
-		gameLogic.pauseGame();
-		Gdx.app.log("Game", "Paused");
-	}
+    public void pause() {
+        taskManager.dispatchEvent(TaskManagerEvent.Type.onPause);
+        gameLogic.pauseGame();
+        Gdx.app.log("Game", "Paused");
+    }
 
-	public void resume () {
-		gameRenderer.rebind();
-		taskManager.dispatchEvent(TaskManagerEvent.Type.onResume);
-		gameLogic.resumeGame();
-		Gdx.app.log("Game", "Resumed");
-	}
+    public void resume() {
+        gameRenderer.rebind();
+        taskManager.dispatchEvent(TaskManagerEvent.Type.onResume);
+        gameLogic.resumeGame();
+        Gdx.app.log("Game", "Resumed");
+    }
 
-	public boolean isPaused () {
-		return gameLogic.isPaused();
-	}
+    public boolean isPaused() {
+        return gameLogic.isPaused();
+    }
 
-	//
-	// OPERATIONS
-	//
+    //
+    // OPERATIONS
+    //
 
-	public void start () {
-		gameLogic.addPlayer();
-		gameLogic.restartGame();
-	}
+    public void start() {
+        gameLogic.addPlayer();
+        gameLogic.restartGame();
+    }
 
-	public void quit () {
-		gameLogic.quitGame();
-	}
+    public void quit() {
+        gameLogic.quitGame();
+    }
 }

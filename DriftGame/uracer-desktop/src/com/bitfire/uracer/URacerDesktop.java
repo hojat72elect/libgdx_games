@@ -1,9 +1,4 @@
-
 package com.bitfire.uracer;
-
-import java.util.Calendar;
-
-import org.lwjgl.opengl.Display;
 
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -14,74 +9,78 @@ import com.bitfire.uracer.configuration.BootConfig.BootConfigFlag;
 import com.bitfire.uracer.configuration.Config;
 import com.bitfire.uracer.utils.CommandLine;
 
+import org.lwjgl.opengl.Display;
+
+import java.util.Calendar;
+
 public final class URacerDesktop {
 
-	// private static boolean useRightScreen = false;
+    // private static boolean useRightScreen = false;
 
-	private static LwjglApplicationConfiguration createLwjglConfig (BootConfig boot) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+    private URacerDesktop() {
+    }
 
-		// set to uracer defaults
-		config.addIcon("data/base/icon.png", FileType.Internal);
-		config.title = URacer.Name + " (" + URacer.versionInfo + ")";
-		config.resizable = false;
-		config.samples = 0;
-		config.audioDeviceSimultaneousSources = 32;
+    private static LwjglApplicationConfiguration createLwjglConfig(BootConfig boot) {
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
-		if (Config.Debug.PauseDisabled) {
-			config.backgroundFPS = 0;
-			config.foregroundFPS = 0;
-		} else {
-			config.backgroundFPS = 60;
-			config.foregroundFPS = 60;
-		}
+        // set to uracer defaults
+        config.addIcon("data/base/icon.png", FileType.Internal);
+        config.title = URacer.Name + " (" + URacer.versionInfo + ")";
+        config.resizable = false;
+        config.samples = 0;
+        config.audioDeviceSimultaneousSources = 32;
 
-		// apply boot config
-		config.width = boot.getInt(BootConfigFlag.WIDTH);
-		config.height = boot.getInt(BootConfigFlag.HEIGHT);
-		config.vSyncEnabled = boot.getBoolean(BootConfigFlag.VSYNC);
-		config.fullscreen = boot.getBoolean(BootConfigFlag.FULLSCREEN);
+        if (Config.Debug.PauseDisabled) {
+            config.backgroundFPS = 0;
+            config.foregroundFPS = 0;
+        } else {
+            config.backgroundFPS = 60;
+            config.foregroundFPS = 60;
+        }
 
-		return config;
-	}
+        // apply boot config
+        config.width = boot.getInt(BootConfigFlag.WIDTH);
+        config.height = boot.getInt(BootConfigFlag.HEIGHT);
+        config.vSyncEnabled = boot.getBoolean(BootConfigFlag.VSYNC);
+        config.fullscreen = boot.getBoolean(BootConfigFlag.FULLSCREEN);
 
-	public static void main (String[] argv) {
-		int year = Calendar.getInstance().get(Calendar.YEAR);
-		System.out.print(URacer.Name + " (" + URacer.versionInfo + ")\nCopyright (c) 2011-" + year + " Manuel Bua.\n\n");
+        return config;
+    }
 
-		// load boot configuration, either from file or from defaults
-		BootConfig boot = new BootConfig();
+    public static void main(String[] argv) {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        System.out.print(URacer.Name + " (" + URacer.versionInfo + ")\nCopyright (c) 2011-" + year + " Manuel Bua.\n\n");
 
-		// override boot config by command line flags, if any
-		if (argv.length > 0) {
-			if (!CommandLine.applyLaunchFlags(argv, boot)) {
-				return;
-			}
-		} else {
-			System.out.println("Try --help for a list of valid command-line switches.\n");
-		}
+        // load boot configuration, either from file or from defaults
+        BootConfig boot = new BootConfig();
 
-		System.setProperty("org.lwjgl.opengl.Window.undecorated", "" + boot.getBoolean(BootConfigFlag.UNDECORATED));
+        // override boot config by command line flags, if any
+        if (argv.length > 0) {
+            if (!CommandLine.applyLaunchFlags(argv, boot)) {
+                return;
+            }
+        } else {
+            System.out.println("Try --help for a list of valid command-line switches.\n");
+        }
 
-		LwjglApplicationConfiguration config = createLwjglConfig(boot);
+        System.setProperty("org.lwjgl.opengl.Window.undecorated", "" + boot.getBoolean(BootConfigFlag.UNDECORATED));
 
-		System.out.print("Resolution set at " + (config.width + "x" + config.height) + " (x=" + boot.getWindowX() + ", y="
-			+ boot.getWindowY() + ")\n");
-		System.out.print("Vertical sync: " + (config.vSyncEnabled ? "Yes" : "No") + "\n");
-		System.out.print("Fullscreen: " + (config.fullscreen ? "Yes" : "No") + "\n");
-		System.out.print("Window decorations: " + (boot.getBoolean(BootConfigFlag.UNDECORATED) ? "No" : "Yes") + "\n");
+        LwjglApplicationConfiguration config = createLwjglConfig(boot);
 
-		URacer uracer = new URacer(boot);
-		LwjglApplication app = new LwjglApplication(uracer, config);
+        System.out.print("Resolution set at " + (config.width + "x" + config.height) + " (x=" + boot.getWindowX() + ", y="
+                + boot.getWindowY() + ")\n");
+        System.out.print("Vertical sync: " + (config.vSyncEnabled ? "Yes" : "No") + "\n");
+        System.out.print("Fullscreen: " + (config.fullscreen ? "Yes" : "No") + "\n");
+        System.out.print("Window decorations: " + (boot.getBoolean(BootConfigFlag.UNDECORATED) ? "No" : "Yes") + "\n");
 
-		URacerDesktopFinalizer finalizr = new URacerDesktopFinalizer(boot, (OpenALAudio)app.getAudio());
-		uracer.setFinalizer(finalizr);
+        URacer uracer = new URacer(boot);
+        LwjglApplication app = new LwjglApplication(uracer, config);
 
-		if (!config.fullscreen) {
-			Display.setLocation(boot.getWindowX(), boot.getWindowY());
-		}
-	}
+        URacerDesktopFinalizer finalizr = new URacerDesktopFinalizer(boot, (OpenALAudio) app.getAudio());
+        uracer.setFinalizer(finalizr);
 
-	private URacerDesktop () {
-	}
+        if (!config.fullscreen) {
+            Display.setLocation(boot.getWindowX(), boot.getWindowY());
+        }
+    }
 }

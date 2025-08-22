@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.game;
 
 import com.bitfire.uracer.configuration.UserProfile;
@@ -10,65 +9,65 @@ import com.bitfire.uracer.game.logic.replaying.ReplayManager.ReplayResult;
 import com.bitfire.uracer.game.logic.types.helpers.TimeModulator;
 
 public interface GameLogic {
-	void dispose ();
+    void dispose();
 
-	void addPlayer ();
+    void addPlayer();
 
-	void removePlayer ();
+    void removePlayer();
 
-	void restartGame ();
+    void restartGame();
 
-	void resetGame ();
+    void resetGame();
 
-	void quitGame ();
+    void quitGame();
 
-	void pauseGame ();
+    void pauseGame();
 
-	void resumeGame ();
+    void resumeGame();
 
-	boolean isQuitPending ();
+    boolean isQuitPending();
 
-	boolean isPaused ();
+    boolean isPaused();
 
-	float getCollisionFactor ();
+    float getCollisionFactor();
 
-	float getCollisionFrontRatio ();
+    float getCollisionFrontRatio();
 
-	void endCollisionTime ();
+    void endCollisionTime();
 
-	GhostCar getNextTarget ();
+    GhostCar getNextTarget();
 
-	void startTimeDilation ();
+    void startTimeDilation();
 
-	void endTimeDilation ();
+    void endTimeDilation();
 
-	boolean isTimeDilationAvailable ();
+    boolean isTimeDilationAvailable();
 
-	void tick ();
+    void tick();
 
-	void tickCompleted ();
+    void tickCompleted();
 
-	Time getOutOfTrackTimer ();
+    Time getOutOfTrackTimer();
 
-	Time getTimeDilationTimer ();
+    Time getTimeDilationTimer();
 
-	TimeModulator getTimeModulator ();
+    TimeModulator getTimeModulator();
 
-	GhostCar[] getGhosts ();
+    GhostCar[] getGhosts();
 
-	GhostCar getGhost (int handle);
+    GhostCar getGhost(int handle);
 
-	boolean isGhostActive (int handle);
+    boolean isGhostActive(int handle);
 
-	boolean isWarmUp ();
+    boolean isWarmUp();
 
-	boolean hasPlayer ();
+    boolean hasPlayer();
 
-	UserProfile getUserProfile ();
+    UserProfile getUserProfile();
 
-	ReplayResult getLastRecordedInfo ();
+    ReplayResult getLastRecordedInfo();
 
-	void showMessage (String message, float durationSecs, Message.Type type, Position position, Size size);
+    void showMessage(String message, float durationSecs, Message.Type type, Position position, Size size);
 
-	void chooseNextTarget (boolean backward);
+    void chooseNextTarget(boolean backward);
 }

@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.screen;
 
 import com.badlogic.gdx.Gdx;
@@ -10,185 +9,189 @@ import com.bitfire.uracer.screen.ScreenFactory.ScreenId;
 import com.bitfire.uracer.screen.TransitionFactory.TransitionType;
 
 public final class ScreenManager {
-	private TransitionManager transMgr;
-	private static Screen current;
-	private ScreenId next;
-	private ScreenFactory screenFactory;
-	private boolean quitPending, doSetScreenImmediate, justTransitioned;
-	private GL20 gl;
+    private static Screen current;
+    private final TransitionManager transMgr;
+    private ScreenId next;
+    private final ScreenFactory screenFactory;
+    private boolean quitPending, doSetScreenImmediate, justTransitioned;
+    private final GL20 gl;
 
-	public ScreenManager (Rectangle viewport, ScreenFactory factory) {
-		screenFactory = factory;
-		transMgr = new TransitionManager(viewport, URacer.Game.isDesktop() /* 32bits */, true, true);
-		current = null;
-		next = ScreenType.NoScreen;
-		quitPending = false;
-		doSetScreenImmediate = false;
-		justTransitioned = false;
-		gl = Gdx.gl20;
-	}
+    public ScreenManager(Rectangle viewport, ScreenFactory factory) {
+        screenFactory = factory;
+        transMgr = new TransitionManager(viewport, URacer.Game.isDesktop() /* 32bits */, true, true);
+        current = null;
+        next = ScreenType.NoScreen;
+        quitPending = false;
+        doSetScreenImmediate = false;
+        justTransitioned = false;
+        gl = Gdx.gl20;
+    }
 
-	public void dispose () {
-		if (current != null) {
-			current.dispose();
-			current = null;
-		}
+    public static Screen currentScreen() {
+        return current;
+    }
 
-		transMgr.dispose();
-	}
+    public void dispose() {
+        if (current != null) {
+            current.dispose();
+            current = null;
+        }
 
-	public boolean begin () {
-		if (quitPending) {
-			return false;
-		}
+        transMgr.dispose();
+    }
 
-		boolean switchedScreen = false;
-		if ((transMgr.isActive() && transMgr.isComplete())) {
-			current = transMgr.getTransition().nextScreen();
-			if (current != null) {
-				current.enable();
-			}
+    public boolean begin() {
+        if (quitPending) {
+            return false;
+        }
 
-			next = ScreenType.NoScreen;
-			transMgr.removeTransition();
-			switchedScreen = true;
-		} else if (doSetScreenImmediate) {
-			doSetScreenImmediate = false;
-			current = screenFactory.createScreen(next);
-			switchedScreen = true;
-		}
+        boolean switchedScreen = false;
+        if ((transMgr.isActive() && transMgr.isComplete())) {
+            current = transMgr.getTransition().nextScreen();
+            if (current != null) {
+                current.enable();
+            }
 
-		// switched to a null screen?
-		if (switchedScreen && current == null) {
-			quitPending = true;
-			// Gdx.app.log("ScreenManager", "No screens available, bye!");
-			Gdx.app.exit(); // async exit
-		}
+            next = ScreenType.NoScreen;
+            transMgr.removeTransition();
+            switchedScreen = true;
+        } else if (doSetScreenImmediate) {
+            doSetScreenImmediate = false;
+            current = screenFactory.createScreen(next);
+            switchedScreen = true;
+        }
 
-		return true;
-	}
+        // switched to a null screen?
+        if (switchedScreen && current == null) {
+            quitPending = true;
+            // Gdx.app.log("ScreenManager", "No screens available, bye!");
+            Gdx.app.exit(); // async exit
+        }
 
-	public void end () {
-	}
+        return true;
+    }
 
-	/** Switch to the screen identified by the specified screen type, using the specified transition type in its default
-	 * configuration. The screen change is scheduled to happen at the start of the next frame. */
-	public void setScreen (ScreenType screen, TransitionType transitionType, long transitionDurationMs) {
-		transMgr.removeTransition();
-		ScreenTransition transition = null;
+    public void end() {
+    }
 
-		// if no transition or no duration avoid everything and pass a null
-		// reference
-		if (transitionType != TransitionType.None && transitionDurationMs > 0) {
-			transition = TransitionFactory.getTransition(transitionType);
-			transition.setDuration(transitionDurationMs);
-		}
+    /**
+     * Switch to the screen identified by the specified screen type, using the specified transition type in its default
+     * configuration. The screen change is scheduled to happen at the start of the next frame.
+     */
+    public void setScreen(ScreenType screen, TransitionType transitionType, long transitionDurationMs) {
+        transMgr.removeTransition();
+        ScreenTransition transition = null;
 
-		setScreen(screen, transition);
-	}
+        // if no transition or no duration avoid everything and pass a null
+        // reference
+        if (transitionType != TransitionType.None && transitionDurationMs > 0) {
+            transition = TransitionFactory.getTransition(transitionType);
+            transition.setDuration(transitionDurationMs);
+        }
 
-	/** Switch to the screen identified by the specified screen type, using the specified transition. The screen change is scheduled
-	 * to happen at the start of the next frame. */
-	public void setScreen (ScreenType screen, ScreenTransition transition) {
-		transMgr.removeTransition();
-		doSetScreenImmediate = false;
-		next = screen;
+        setScreen(screen, transition);
+    }
 
-		// if no transition then just setup a screen switch
-		if (transition != null) {
-			if (current != null) {
-				current.disable();
-			}
+    /**
+     * Switch to the screen identified by the specified screen type, using the specified transition. The screen change is scheduled
+     * to happen at the start of the next frame.
+     */
+    public void setScreen(ScreenType screen, ScreenTransition transition) {
+        transMgr.removeTransition();
+        doSetScreenImmediate = false;
+        next = screen;
 
-			transMgr.start(current, screen, transition);
-		} else {
-			doSetScreenImmediate = true;
-		}
+        // if no transition then just setup a screen switch
+        if (transition != null) {
+            if (current != null) {
+                current.disable();
+            }
 
-		// dispose the current screen
-		if (current != null) {
-			// Gdx.app.debug("ScreenManager", "Destroying " + current.getClass().getSimpleName());
-			current.dispose();
-			current = null;
-			System.gc();
-		}
-	}
+            transMgr.start(current, screen, transition);
+        } else {
+            doSetScreenImmediate = true;
+        }
 
-	public static Screen currentScreen () {
-		return current;
-	}
+        // dispose the current screen
+        if (current != null) {
+            // Gdx.app.debug("ScreenManager", "Destroying " + current.getClass().getSimpleName());
+            current.dispose();
+            current = null;
+            System.gc();
+        }
+    }
 
-	public boolean quit () {
-		return quitPending;
-	}
+    public boolean quit() {
+        return quitPending;
+    }
 
-	public void resize (int width, int height) {
-	}
+    public void resize(int width, int height) {
+    }
 
-	public void tick () {
-		if (transMgr.isActive()) {
-			return;
-		}
+    public void tick() {
+        if (transMgr.isActive()) {
+            return;
+        }
 
-		if (current != null) {
-			current.tick();
-		}
-	}
+        if (current != null) {
+            current.tick();
+        }
+    }
 
-	public void tickCompleted () {
-		if (transMgr.isActive()) {
-			return;
-		}
+    public void tickCompleted() {
+        if (transMgr.isActive()) {
+            return;
+        }
 
-		if (current != null) {
-			current.tickCompleted();
-		}
-	}
+        if (current != null) {
+            current.tickCompleted();
+        }
+    }
 
-	public void render () {
-		if (transMgr.isActive()) {
-			transMgr.update();
-			transMgr.render();
-			justTransitioned = true;
-		} else {
-			if (current != null) {
-				if (justTransitioned) {
-					justTransitioned = false;
+    public void render() {
+        if (transMgr.isActive()) {
+            transMgr.update();
+            transMgr.render();
+            justTransitioned = true;
+        } else {
+            if (current != null) {
+                if (justTransitioned) {
+                    justTransitioned = false;
 
-					// ensures default active texture is active
-					gl.glActiveTexture(GL20.GL_TEXTURE0);
-				}
+                    // ensures default active texture is active
+                    gl.glActiveTexture(GL20.GL_TEXTURE0);
+                }
 
-				current.render(null);
-			}
-		}
-	}
+                current.render(null);
+            }
+        }
+    }
 
-	public void pause () {
-		if (quitPending) {
-			return;
-		}
+    public void pause() {
+        if (quitPending) {
+            return;
+        }
 
-		if (transMgr.isActive()) {
-			transMgr.pause();
-		} else {
-			if (current != null) {
-				current.pause();
-			}
-		}
-	}
+        if (transMgr.isActive()) {
+            transMgr.pause();
+        } else {
+            if (current != null) {
+                current.pause();
+            }
+        }
+    }
 
-	public void resume () {
-		if (quitPending) {
-			return;
-		}
+    public void resume() {
+        if (quitPending) {
+            return;
+        }
 
-		if (transMgr.isActive()) {
-			transMgr.resume();
-		} else {
-			if (current != null) {
-				current.resume();
-			}
-		}
-	}
+        if (transMgr.isActive()) {
+            transMgr.resume();
+        } else {
+            if (current != null) {
+                current.resume();
+            }
+        }
+    }
 }

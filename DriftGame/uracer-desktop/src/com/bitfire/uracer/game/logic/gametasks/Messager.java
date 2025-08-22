@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.game.logic.gametasks;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,130 +11,129 @@ import com.bitfire.uracer.game.logic.gametasks.messager.Message.Position;
 import com.bitfire.uracer.game.logic.gametasks.messager.Message.Size;
 
 public class Messager extends GameTask {
-	private static final GameRendererEvent.Type RenderEvent = GameRendererEvent.Type.BatchAfterPostProcessing;
-	private static final GameRendererEvent.Order RenderOrder = GameRendererEvent.Order.MINUS_4;
+    private static final GameRendererEvent.Type RenderEvent = GameRendererEvent.Type.BatchAfterPostProcessing;
+    private static final GameRendererEvent.Order RenderOrder = GameRendererEvent.Order.MINUS_4;
+    private static final int MaxMessagesInStore = 10;
+    // data
+    private final Array<Array<Message>> messages;
+    private final GameRendererEvent.Listener gameRendererEvent = new GameRendererEvent.Listener() {
+        @Override
+        public void handle(Object source, Type type, Order order) {
+            SpriteBatch batch = GameEvents.gameRenderer.batch;
 
-	private final GameRendererEvent.Listener gameRendererEvent = new GameRendererEvent.Listener() {
-		@Override
-		public void handle (Object source, Type type, Order order) {
-			SpriteBatch batch = GameEvents.gameRenderer.batch;
+            for (Position group : Position.values()) {
+                if (isBusy(group)) {
+                    for (Message m : messages.get(group.ordinal())) {
+                        if (!m.isCompleted()) {
+                            m.render(batch);
+                        }
+                    }
+                }
+            }
+        }
+    };
+    private final Message[] messageStore;
+    private int idxMessageStore;
 
-			for (Position group : Position.values()) {
-				if (isBusy(group)) {
-					for (Message m : messages.get(group.ordinal())) {
-						if (!m.isCompleted()) {
-							m.render(batch);
-						}
-					}
-				}
-			}
-		}
-	};
+    public Messager() {
+        GameEvents.gameRenderer.addListener(gameRendererEvent, RenderEvent, RenderOrder);
 
-	// data
-	private Array<Array<Message>> messages;
-	private Message[] messageStore;
-	private static final int MaxMessagesInStore = 10;
-	private int idxMessageStore;
+        messages = new Array<Array<Message>>(3);
+        for (Position group : Position.values()) {
+            messages.insert(group.ordinal(), new Array<Message>());
+        }
 
-	public Messager () {
-		GameEvents.gameRenderer.addListener(gameRendererEvent, RenderEvent, RenderOrder);
+        // initialize message store
+        idxMessageStore = 0;
+        messageStore = new Message[MaxMessagesInStore];
+        for (int i = 0; i < MaxMessagesInStore; i++) {
+            messageStore[i] = new Message();
+        }
+    }
 
-		messages = new Array<Array<Message>>(3);
-		for (Position group : Position.values()) {
-			messages.insert(group.ordinal(), new Array<Message>());
-		}
+    @Override
+    public void dispose() {
+        super.dispose();
+        GameEvents.gameRenderer.removeListener(gameRendererEvent, RenderEvent, RenderOrder);
+    }
 
-		// initialize message store
-		idxMessageStore = 0;
-		messageStore = new Message[MaxMessagesInStore];
-		for (int i = 0; i < MaxMessagesInStore; i++) {
-			messageStore[i] = new Message();
-		}
-	}
+    @Override
+    protected void onTick() {
+        update(Position.Top);
+        update(Position.Middle);
+        update(Position.Bottom);
+    }
 
-	@Override
-	public void dispose () {
-		super.dispose();
-		GameEvents.gameRenderer.removeListener(gameRendererEvent, RenderEvent, RenderOrder);
-	}
+    public boolean isBusy(Position group) {
+        Array<Message> msgs = messages.get(group.ordinal());
+        return (msgs.size > 0 && msgs.first() != null);
+    }
 
-	@Override
-	protected void onTick () {
-		update(Position.Top);
-		update(Position.Middle);
-		update(Position.Bottom);
-	}
+    @Override
+    public void onGameRestart() {
+        onGameReset();
+    }
 
-	public boolean isBusy (Position group) {
-		Array<Message> msgs = messages.get(group.ordinal());
-		return (msgs.size > 0 && msgs.first() != null);
-	}
+    @Override
+    public void onGameReset() {
+        for (Position group : Position.values()) {
+            messages.get(group.ordinal()).clear();
+        }
 
-	@Override
-	public void onGameRestart () {
-		onGameReset();
-	}
+        idxMessageStore = 0;
+    }
 
-	@Override
-	public void onGameReset () {
-		for (Position group : Position.values()) {
-			messages.get(group.ordinal()).clear();
-		}
+    private void update(Position group) {
+        Array<Message> msgs = messages.get(group.ordinal());
 
-		idxMessageStore = 0;
-	}
+        for (Message msg : msgs) {
+            // any message?
+            if (msg == null && (msgs.size > 0 && msgs.first() != null)) {
+                // schedule next message to process
+                msg = msgs.first();
+                msgs.removeValue(msg, true);
+            }
 
-	private void update (Position group) {
-		Array<Message> msgs = messages.get(group.ordinal());
+            // busy or became busy?
+            if (msg != null && !msg.isCompleted()) {
+                // start message if needed
+                if (!msg.started) {
+                    msg.started = true;
+                    msg.startMs = System.currentTimeMillis();
+                    msg.show();
+                }
 
-		for (Message msg : msgs) {
-			// any message?
-			if (msg == null && (msgs.size > 0 && msgs.first() != null)) {
-				// schedule next message to process
-				msg = msgs.first();
-				msgs.removeValue(msg, true);
-			}
+                // check if finished
+                /* URacer.timeMultiplier */
+                long much = (System.currentTimeMillis() - msg.startMs);
+                if (msg.isShowComplete() && much >= msg.durationMs) {
+                    // message should end
+                    msg.hide();
+                }
+            }
+        }
+    }
 
-			// busy or became busy?
-			if (msg != null && !msg.isCompleted()) {
-				// start message if needed
-				if (!msg.started) {
-					msg.started = true;
-					msg.startMs = System.currentTimeMillis();
-					msg.show();
-				}
+    public void show(String message, float durationSecs, Message.Type type, Position position, Size size) {
+        if (isBusy(position)) {
+            messages.get(position.ordinal()).first().hide();
+        }
 
-				// check if finished
-				long much = (long)((System.currentTimeMillis() - msg.startMs) /* URacer.timeMultiplier */);
-				if (msg.isShowComplete() && much >= msg.durationMs) {
-					// message should end
-					msg.hide();
-				}
-			}
-		}
-	}
+        enqueue(message, durationSecs, type, position, size);
+    }
 
-	public void show (String message, float durationSecs, Message.Type type, Position position, Size size) {
-		if (isBusy(position)) {
-			messages.get(position.ordinal()).first().hide();
-		}
+    public void enqueue(String message, float durationSecs, Message.Type type, Position position, Size size) {
+        Message m = nextFreeMessage();
+        m.set(message, durationSecs, type, position, size);
+        messages.get(position.ordinal()).add(m);
+    }
 
-		enqueue(message, durationSecs, type, position, size);
-	}
+    private Message nextFreeMessage() {
+        Message ret = messageStore[idxMessageStore++];
+        if (idxMessageStore == MaxMessagesInStore) {
+            idxMessageStore = 0;
+        }
 
-	public void enqueue (String message, float durationSecs, Message.Type type, Position position, Size size) {
-		Message m = nextFreeMessage();
-		m.set(message, durationSecs, type, position, size);
-		messages.get(position.ordinal()).add(m);
-	}
-
-	private Message nextFreeMessage () {
-		Message ret = messageStore[idxMessageStore++];
-		if (idxMessageStore == MaxMessagesInStore) {
-			idxMessageStore = 0;
-		}
-
-		return ret;
-	}
+        return ret;
+    }
 }

@@ -1,16 +1,4 @@
-
 package com.bitfire.uracer.game;
-
-import java.io.IOException;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.zip.DataFormatException;
-import java.util.zip.Inflater;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -24,246 +12,261 @@ import com.bitfire.uracer.utils.DigestUtils;
 import com.bitfire.uracer.utils.UAtlasTmxMapLoader;
 import com.bitfire.uracer.utils.URacerRuntimeException;
 
-/** Enumerates and maintains a list of available game tracks. FIXME add support for mini-screenshots
- * 
- * uRacer map levels are assumed to be encoded as base64+zlib compression. The checksummed layer shall be named "track". */
+import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.zip.DataFormatException;
+import java.util.zip.Inflater;
+
+/**
+ * Enumerates and maintains a list of available game tracks. FIXME add support for mini-screenshots
+ * <p>
+ * uRacer map levels are assumed to be encoded as base64+zlib compression. The checksummed layer shall be named "track".
+ */
 public final class GameLevels {
 
-	private static final Map<String, GameLevelDescriptor> levelIdToDescriptor = new HashMap<String, GameLevelDescriptor>();
-	private static final UAtlasTmxMapLoader mapLoader = new UAtlasTmxMapLoader();
-	private static final UAtlasTmxMapLoader.AtlasTiledMapLoaderParameters mapLoaderParams = new UAtlasTmxMapLoader.AtlasTiledMapLoaderParameters();
-	private static final XmlReader xml = new XmlReader();
-	private static final List<GameLevelDescriptor> levels = new ArrayList<GameLevels.GameLevelDescriptor>();
+    private static final Map<String, GameLevelDescriptor> levelIdToDescriptor = new HashMap<String, GameLevelDescriptor>();
+    private static final UAtlasTmxMapLoader mapLoader = new UAtlasTmxMapLoader();
+    private static final UAtlasTmxMapLoader.AtlasTiledMapLoaderParameters mapLoaderParams = new UAtlasTmxMapLoader.AtlasTiledMapLoaderParameters();
+    private static final XmlReader xml = new XmlReader();
+    private static final List<GameLevelDescriptor> levels = new ArrayList<GameLevels.GameLevelDescriptor>();
 
-	// cached simple array[] return type
-	private static GameLevelDescriptor[] levelsCache = null;
+    // cached simple array[] return type
+    private static GameLevelDescriptor[] levelsCache = null;
 
-	public static class GameLevelDescriptor implements Comparable<GameLevelDescriptor> {
-		private String name;
-		private BigInteger checksum;
-		private String filename;
+    private GameLevels() {
+    }
 
-		public GameLevelDescriptor (String name, BigInteger checksum, String filename) {
-			this.name = name;
-			this.checksum = checksum;
-			this.filename = filename;
-		}
+    public static boolean init() {
 
-		public String getId () {
-			return checksum.toString(16);
-		}
+        // setup map loader
+        mapLoaderParams.forceTextureFilters = true;
+        mapLoaderParams.textureMinFilter = TextureFilter.Linear;
+        mapLoaderParams.textureMagFilter = TextureFilter.Linear;
+        mapLoaderParams.yUp = false;
 
-		public BigInteger getChecksum () {
-			return checksum;
-		}
+        // check invalid
+        FileHandle dirLevels = Gdx.files.internal(Storage.Levels);
+        if (dirLevels == null || !dirLevels.isDirectory()) {
+            throw new URacerRuntimeException("Path not found (" + Storage.Levels + "), cannot check for available game levels.");
+        }
 
-		public String getName () {
-			return name;
-		}
+        // check for any level
+        FileHandle[] tracks = dirLevels.list("tmx");
+        if (tracks.length == 0) {
+            throw new URacerRuntimeException("Cannot find game levels.");
+        }
 
-		public String getFileName () {
-			return filename;
-		}
+        // build internal maps
+        for (int i = 0; i < tracks.length; i++) {
+            GameLevelDescriptor desc = computeDescriptor(tracks[i].name());
+            levels.add(desc);
 
-		@Override
-		public int compareTo (GameLevelDescriptor o) {
-			return name.compareTo(o.getName());
-		}
+            // build lookup table
+            levelIdToDescriptor.put(desc.getId(), desc);
 
-		@Override
-		public String toString () {
-			return name;
-		}
-	}
+            Gdx.app.log("GameLevels", "Found level \"" + desc.getName() + "\" (" + desc.getId() + ")");
+        }
 
-	public static final boolean init () {
+        // sort tracks
+        Collections.sort(levels);
 
-		// setup map loader
-		mapLoaderParams.forceTextureFilters = true;
-		mapLoaderParams.textureMinFilter = TextureFilter.Linear;
-		mapLoaderParams.textureMagFilter = TextureFilter.Linear;
-		mapLoaderParams.yUp = false;
+        return true;
+    }
 
-		// check invalid
-		FileHandle dirLevels = Gdx.files.internal(Storage.Levels);
-		if (dirLevels == null || !dirLevels.isDirectory()) {
-			throw new URacerRuntimeException("Path not found (" + Storage.Levels + "), cannot check for available game levels.");
-		}
+    public static TiledMap load(String levelId) {
+        GameLevelDescriptor desc = getLevel(levelId);
+        if (desc != null) {
+            String filename = desc.getFileName();
+            if (filename != null) {
+                FileHandle h = Gdx.files.internal(Storage.Levels + filename);
+                if (h.exists()) {
+                    return mapLoader.load(h.path(), mapLoaderParams);
+                }
+            }
+        }
 
-		// check for any level
-		FileHandle[] tracks = dirLevels.list("tmx");
-		if (tracks.length == 0) {
-			throw new URacerRuntimeException("Cannot find game levels.");
-		}
+        return null;
+    }
 
-		// build internal maps
-		for (int i = 0; i < tracks.length; i++) {
-			GameLevelDescriptor desc = computeDescriptor(tracks[i].name());
-			levels.add(desc);
+    public static GameLevelDescriptor[] getLevels() {
+        if (levelsCache == null) {
+            levelsCache = levels.toArray(new GameLevelDescriptor[levels.size()]);
+        }
 
-			// build lookup table
-			levelIdToDescriptor.put(desc.getId(), desc);
+        return levelsCache;
+    }
 
-			Gdx.app.log("GameLevels", "Found level \"" + desc.getName() + "\" (" + desc.getId() + ")");
-		}
+    public static GameLevelDescriptor getLevel(String levelId) {
+        return levelIdToDescriptor.get(levelId);
+    }
 
-		// sort tracks
-		Collections.sort(levels);
+    public static boolean levelIdExists(String levelId) {
+        return (levelIdToDescriptor.get(levelId) != null);
+    }
 
-		return true;
-	}
+    /**
+     * Compute a checksum on the level data, specifically on the tile positions and their order
+     */
+    private static GameLevelDescriptor computeDescriptor(String filename) {
+        String filePath = Storage.Levels + filename;
+        Element root = null;
 
-	public static TiledMap load (String levelId) {
-		GameLevelDescriptor desc = getLevel(levelId);
-		if (desc != null) {
-			String filename = desc.getFileName();
-			if (filename != null) {
-				FileHandle h = Gdx.files.internal(Storage.Levels + filename);
-				if (h.exists()) {
-					return mapLoader.load(h.path(), mapLoaderParams);
-				}
-			}
-		}
+        try {
+            root = xml.parse(Gdx.files.internal(filePath));
+        } catch (IOException e) {
+            throw new URacerRuntimeException("Error reading level \"" + filePath + "\"");
+        }
 
-		return null;
-	}
+        if (root == null) {
+            throw new URacerRuntimeException("Level \"" + filePath + "\" looks like it's corrupted.");
+        }
 
-	public static GameLevelDescriptor[] getLevels () {
-		if (levelsCache == null) {
-			levelsCache = levels.toArray(new GameLevelDescriptor[levels.size()]);
-		}
+        // retrieve layer and its name
+        Element layer = root.getChildByName("layer");
+        String layerName = layer.getAttribute("name", "");
 
-		return levelsCache;
-	}
+        // check for a "track" layer
+        if (!layerName.equals("track")) {
+            throw new URacerRuntimeException("Level \"" + filePath
+                    + "\" is not a valid uRacer level definition, no track layer found.");
+        }
 
-	public static GameLevelDescriptor getLevel (String levelId) {
-		return levelIdToDescriptor.get(levelId);
-	}
+        // retrieve layer size
+        int width = layer.getIntAttribute("width", 0);
+        int height = layer.getIntAttribute("height", 0);
 
-	public static boolean levelIdExists (String levelId) {
-		return (levelIdToDescriptor.get(levelId) != null);
-	}
+        if (width <= 0 || height <= 0) {
+            throw new URacerRuntimeException("Level \"" + filePath
+                    + "\" is not a valid uRacer level definition, no size on either width or height.");
+        }
 
-	/** Compute a checksum on the level data, specifically on the tile positions and their order */
-	private static GameLevelDescriptor computeDescriptor (String filename) {
-		String filePath = Storage.Levels + filename;
-		Element root = null;
+        Element data = layer.getChildByName("data");
+        Element props = root.getChildByName("properties");
 
-		try {
-			root = xml.parse(Gdx.files.internal(filePath));
-		} catch (IOException e) {
-			throw new URacerRuntimeException("Error reading level \"" + filePath + "\"");
-		}
+        // retrieve name, if any
+        String levelName = "";
+        for (Element property : props.getChildrenByName("property")) {
+            String name = property.getAttribute("name", null);
+            String value = property.getAttribute("value", null);
+            if (name.equals("name")) {
+                levelName = value;
+                break;
+            }
+        }
 
-		if (root == null) {
-			throw new URacerRuntimeException("Level \"" + filePath + "\" looks like it's corrupted.");
-		}
+        // check for unnamed track
+        if (levelName.length() == 0) {
+            throw new URacerRuntimeException("Level \"" + filePath + "\" is not a valid uRacer level definition, unnamed track.");
+        }
 
-		// retrieve layer and its name
-		Element layer = root.getChildByName("layer");
-		String layerName = layer.getAttribute("name", "");
+        // check for the right encoding and compression
+        String encoding = data.getAttribute("encoding", null);
+        String compression = data.getAttribute("compression", null);
+        if (!encoding.equals("base64")) {
+            throw new URacerRuntimeException("Level \"" + filePath
+                    + "\" is not a valid uRacer level definition, not base64-encoded.");
+        }
 
-		// check for a "track" layer
-		if (!layerName.equals("track")) {
-			throw new URacerRuntimeException("Level \"" + filePath
-				+ "\" is not a valid uRacer level definition, no track layer found.");
-		}
+        if (!compression.equals("zlib")) {
+            throw new URacerRuntimeException("Level \"" + filePath + "\" is not a valid uRacer level definition, not zlib-packed.");
+        }
 
-		// retrieve layer size
-		int width = layer.getIntAttribute("width", 0);
-		int height = layer.getIntAttribute("height", 0);
+        byte[] temp = new byte[4];
+        ByteBuffer out = ByteBuffer.allocate(width * height * 4);
+        int outIdx = 0;
 
-		if (width <= 0 || height <= 0) {
-			throw new URacerRuntimeException("Level \"" + filePath
-				+ "\" is not a valid uRacer level definition, no size on either width or height.");
-		}
+        // base64 decode source data
+        byte[] trackData = Base64Coder.decode(data.getText());
 
-		Element data = layer.getChildByName("data");
-		Element props = root.getChildByName("properties");
+        // unpack and costruct the data to be checksummed
+        Inflater zlib = new Inflater();
+        zlib.setInput(trackData, 0, trackData.length);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                try {
+                    zlib.inflate(temp, 0, 4);
 
-		// retrieve name, if any
-		String levelName = "";
-		for (Element property : props.getChildrenByName("property")) {
-			String name = property.getAttribute("name", null);
-			String value = property.getAttribute("value", null);
-			if (name.equals("name")) {
-				levelName = value;
-				break;
-			}
-		}
+                    //@off
+                    int id =
+                            unsignedByteToInt(temp[0]) |
+                                    unsignedByteToInt(temp[1]) << 8 |
+                                    unsignedByteToInt(temp[2]) << 16 |
+                                    unsignedByteToInt(temp[3]) << 24;
+                    //@on
 
-		// check for unnamed track
-		if (levelName.length() == 0) {
-			throw new URacerRuntimeException("Level \"" + filePath + "\" is not a valid uRacer level definition, unnamed track.");
-		}
+                    // clear it
+                    id = id & ~0xE0000000;
 
-		// check for the right encoding and compression
-		String encoding = data.getAttribute("encoding", null);
-		String compression = data.getAttribute("compression", null);
-		if (!encoding.equals("base64")) {
-			throw new URacerRuntimeException("Level \"" + filePath
-				+ "\" is not a valid uRacer level definition, not base64-encoded.");
-		}
+                    out.putInt((outIdx++) << 2, id);
+                } catch (DataFormatException e) {
+                    throw new URacerRuntimeException("Level \"" + filePath
+                            + "\" is not a valid uRacer level definition, unexpected data format.");
+                }
+            }
+        }
 
-		if (!compression.equals("zlib")) {
-			throw new URacerRuntimeException("Level \"" + filePath + "\" is not a valid uRacer level definition, not zlib-packed.");
-		}
+        // compute checksum
+        byte[] checksum;
+        byte[] bLevelName;
 
-		byte[] temp = new byte[4];
-		ByteBuffer out = ByteBuffer.allocate(width * height * 4);
-		int outIdx = 0;
+        bLevelName = levelName.getBytes();
+        DigestUtils.sha256.reset();
+        DigestUtils.sha256.update(bLevelName);
+        DigestUtils.sha256.update(out);
+        checksum = DigestUtils.sha256.digest();
 
-		// base64 decode source data
-		byte[] trackData = Base64Coder.decode(data.getText());
+        temp = null;
+        out = null;
+        trackData = null;
 
-		// unpack and costruct the data to be checksummed
-		Inflater zlib = new Inflater();
-		zlib.setInput(trackData, 0, trackData.length);
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				try {
-					zlib.inflate(temp, 0, 4);
+        return new GameLevelDescriptor(levelName, new BigInteger(1, checksum), filename);
+    }
 
-					//@off
-					int id = 
-						unsignedByteToInt(temp[0]) | 
-						unsignedByteToInt(temp[1]) << 8 | 
-						unsignedByteToInt(temp[2]) << 16 |
-						unsignedByteToInt(temp[3]) << 24;
-					//@on
+    private static int unsignedByteToInt(byte b) {
+        return (int) b & 0xFF;
+    }
 
-					// clear it
-					id = id & ~0xE0000000;
+    public static class GameLevelDescriptor implements Comparable<GameLevelDescriptor> {
+        private final String name;
+        private final BigInteger checksum;
+        private final String filename;
 
-					out.putInt((outIdx++) << 2, id);
-				} catch (DataFormatException e) {
-					throw new URacerRuntimeException("Level \"" + filePath
-						+ "\" is not a valid uRacer level definition, unexpected data format.");
-				}
-			}
-		}
+        public GameLevelDescriptor(String name, BigInteger checksum, String filename) {
+            this.name = name;
+            this.checksum = checksum;
+            this.filename = filename;
+        }
 
-		// compute checksum
-		byte[] checksum;
-		byte[] bLevelName;
+        public String getId() {
+            return checksum.toString(16);
+        }
 
-		bLevelName = levelName.getBytes();
-		DigestUtils.sha256.reset();
-		DigestUtils.sha256.update(bLevelName);
-		DigestUtils.sha256.update(out);
-		checksum = DigestUtils.sha256.digest();
+        public BigInteger getChecksum() {
+            return checksum;
+        }
 
-		temp = null;
-		out = null;
-		trackData = null;
+        public String getName() {
+            return name;
+        }
 
-		return new GameLevelDescriptor(levelName, new BigInteger(1, checksum), filename);
-	}
+        public String getFileName() {
+            return filename;
+        }
 
-	private static int unsignedByteToInt (byte b) {
-		return (int)b & 0xFF;
-	}
+        @Override
+        public int compareTo(GameLevelDescriptor o) {
+            return name.compareTo(o.getName());
+        }
 
-	private GameLevels () {
-	}
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
 }

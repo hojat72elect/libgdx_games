@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.game.logic.gametasks.hud.elements;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,171 +18,176 @@ import com.bitfire.uracer.utils.AMath;
 import com.bitfire.uracer.utils.Convert;
 import com.bitfire.uracer.utils.VMath;
 
-/** Encapsulates player's information shown on screen moving along the player position */
+/**
+ * Encapsulates player's information shown on screen moving along the player position
+ */
 public final class HudPlayer extends HudElement {
-	// player info
-	private EntityRenderState playerState = null;
+    // player elements
+    public final WrongWay wrongWay;
+    public final DriftBar driftBar;
+    public final TrackProgress trackProgress;
+    public CarHighlighter highlightNext;
+    // player info
+    private EntityRenderState playerState = null;
+    private final CarHighlighter highlightError;
+    // gravitation
+    private float carModelWidthPx, carModelLengthPx;
+    private final Vector2 tmpg = new Vector2();
 
-	// player elements
-	public final WrongWay wrongWay;
-	public final DriftBar driftBar;
-	public final TrackProgress trackProgress;
+    public HudPlayer(UserProfile userProfile) {
+        // elements
+        wrongWay = new WrongWay();
+        driftBar = new DriftBar();
+        trackProgress = new TrackProgress();
 
-	private CarHighlighter highlightError;
-	public CarHighlighter highlightNext;
+        highlightError = new CarHighlighter();
+        highlightError.setScale(1.75f);
 
-	// gravitation
-	private float carModelWidthPx, carModelLengthPx;
-	private Vector2 tmpg = new Vector2();
+        highlightNext = new CarHighlighter();
+        highlightNext.setScale(1);
+    }
 
-	public HudPlayer (UserProfile userProfile) {
-		// elements
-		wrongWay = new WrongWay();
-		driftBar = new DriftBar();
-		trackProgress = new TrackProgress();
+    @Override
+    public void player(PlayerCar player) {
+        super.player(player);
+        if (hasPlayer) {
+            playerState = player.state();
+            carModelWidthPx = Convert.mt2px(player.getCarModel().width);
+            carModelLengthPx = Convert.mt2px(player.getCarModel().length);
+            highlightError.setCar(player);
+        } else {
+            driftBar.reset();
+            onReset();
+        }
+    }
 
-		highlightError = new CarHighlighter();
-		highlightError.setScale(1.75f);
+    @Override
+    public void dispose() {
+        trackProgress.dispose();
+        driftBar.dispose();
+    }
 
-		highlightNext = new CarHighlighter();
-		highlightNext.setScale(1);
-	}
+    @Override
+    public void onRestart() {
+        onReset();
+    }
 
-	@Override
-	public void player (PlayerCar player) {
-		super.player(player);
-		if (hasPlayer) {
-			playerState = player.state();
-			carModelWidthPx = Convert.mt2px(player.getCarModel().width);
-			carModelLengthPx = Convert.mt2px(player.getCarModel().length);
-			highlightError.setCar(player);
-		} else {
-			driftBar.reset();
-			onReset();
-		}
-	}
+    @Override
+    public void onReset() {
+        driftBar.hideSecondsLabel();
+        driftBar.reset();
+        trackProgress.resetPlayerToTarget();
+        highlightError.stop();
+        highlightNext.stop();
+        wrongWay.fadeOut(Config.Graphics.DefaultResetFadeMilliseconds);
+    }
 
-	@Override
-	public void dispose () {
-		trackProgress.dispose();
-		driftBar.dispose();
-	}
+    @Override
+    public void onRender(SpriteBatch batch, float cameraZoom) {
+        if (hasPlayer) {
+            // position elements at render time, so that source positions have been interpolated
+            atPlayer(driftBar);
+            atPlayer(trackProgress);
+            gravitate(wrongWay, -180, 100, cameraZoom);
 
-	@Override
-	public void onRestart () {
-		onReset();
-	}
+            trackProgress.render(batch, cameraZoom);
+            driftBar.render(batch, cameraZoom);
+        }
 
-	@Override
-	public void onReset () {
-		driftBar.hideSecondsLabel();
-		driftBar.reset();
-		trackProgress.resetPlayerToTarget();
-		highlightError.stop();
-		highlightNext.stop();
-		wrongWay.fadeOut(Config.Graphics.DefaultResetFadeMilliseconds);
-	}
+        highlightError.render(batch, cameraZoom);
+        highlightNext.render(batch, cameraZoom);
+        wrongWay.render(batch, cameraZoom);
+    }
 
-	@Override
-	public void onRender (SpriteBatch batch, float cameraZoom) {
-		if (hasPlayer) {
-			// position elements at render time, so that source positions have been interpolated
-			atPlayer(driftBar);
-			atPlayer(trackProgress);
-			gravitate(wrongWay, -180, 100, cameraZoom);
+    //
+    // internal position helpers
+    //
 
-			trackProgress.render(batch, cameraZoom);
-			driftBar.render(batch, cameraZoom);
-		}
+    // private void bottom (Positionable p, float distance) {
+    // float zs = renderer.getWorldRenderer().getCameraZoom();
+    //
+    // tmpg.set(GameRenderer.ScreenUtils.worldPxToScreen(playerState.position));
+    // tmpg.y += distance * zs;
+    // p.setPosition(tmpg);
+    // }
 
-		highlightError.render(batch, cameraZoom);
-		highlightNext.render(batch, cameraZoom);
-		wrongWay.render(batch, cameraZoom);
-	}
+    private void gravitate(Positionable p, float offsetDegs, float distance, float cameraZoom) {
+        p.setPosition(gravitate(p.getWidth(), p.getHeight(), offsetDegs, distance, cameraZoom));
+    }
 
-	//
-	// internal position helpers
-	//
+    private void atPlayer(Positionable p) {
+        tmpg.set(GameRenderer.ScreenUtils.worldPxToScreen(playerState.position));
+        p.setPosition(tmpg);
+    }
 
-	// private void bottom (Positionable p, float distance) {
-	// float zs = renderer.getWorldRenderer().getCameraZoom();
-	//
-	// tmpg.set(GameRenderer.ScreenUtils.worldPxToScreen(playerState.position));
-	// tmpg.y += distance * zs;
-	// p.setPosition(tmpg);
-	// }
+    /**
+     * Returns a position by placing a point on an imaginary circumference gravitating around the player, applying the specified
+     * orientation offset, expressed in degrees, if any.
+     */
+    private Vector2 gravitate(float w, float h, float offsetDegs, float distance, float cameraZoom) {
+        float border = distance;
 
-	private void gravitate (Positionable p, float offsetDegs, float distance, float cameraZoom) {
-		p.setPosition(gravitate(p.getWidth(), p.getHeight(), offsetDegs, distance, cameraZoom));
-	}
+        Vector2 sp = GameRenderer.ScreenUtils.worldPxToScreen(playerState.position);
+        Vector2 heading = VMath.fromDegrees(playerState.orientation + offsetDegs);
 
-	private void atPlayer (Positionable p) {
-		tmpg.set(GameRenderer.ScreenUtils.worldPxToScreen(playerState.position));
-		p.setPosition(tmpg);
-	}
+        float horizontal = MathUtils.clamp(Math.abs(MathUtils.sinDeg(playerState.orientation)), 0.25f, 1);
+        float p = AMath.lerp(carModelWidthPx, carModelLengthPx, horizontal);
+        float q = AMath.lerp(carModelWidthPx, carModelLengthPx, 1 - horizontal);
 
-	/** Returns a position by placing a point on an imaginary circumference gravitating around the player, applying the specified
-	 * orientation offset, expressed in degrees, if any. */
-	private Vector2 gravitate (float w, float h, float offsetDegs, float distance, float cameraZoom) {
-		float border = distance;
+        // compute displacement
+        tmpg.set(heading);
+        float displaceX = p * cameraZoom + w * 0.5f + border;
+        float displaceY = q * cameraZoom + h * 0.5f + border;
+        tmpg.scl(displaceX, displaceY);
+        displaceX = tmpg.x;
+        displaceY = tmpg.y;
 
-		Vector2 sp = GameRenderer.ScreenUtils.worldPxToScreen(playerState.position);
-		Vector2 heading = VMath.fromDegrees(playerState.orientation + offsetDegs);
+        tmpg.x = sp.x - displaceX;
+        tmpg.y = sp.y - displaceY;
 
-		float horizontal = MathUtils.clamp(Math.abs(MathUtils.sinDeg(playerState.orientation)), 0.25f, 1);
-		float p = AMath.lerp(carModelWidthPx, carModelLengthPx, horizontal);
-		float q = AMath.lerp(carModelWidthPx, carModelLengthPx, 1 - horizontal);
+        return tmpg;
+    }
 
-		// compute displacement
-		tmpg.set(heading);
-		float displaceX = p * cameraZoom + w * 0.5f + border;
-		float displaceY = q * cameraZoom + h * 0.5f + border;
-		tmpg.scl(displaceX, displaceY);
-		displaceX = tmpg.x;
-		displaceY = tmpg.y;
+    //
+    // supported external operations
+    //
 
-		tmpg.x = sp.x - displaceX;
-		tmpg.y = sp.y - displaceY;
+    /**
+     * Signals the hud element that the player is initiating a drift
+     */
+    public void beginDrift() {
+        driftBar.showSecondsLabel();
+    }
 
-		return tmpg;
-	}
+    /**
+     * Signals the hud element that the player has finished drifting
+     */
+    public void endDrift() {
+        driftBar.hideSecondsLabel();
+    }
 
-	//
-	// supported external operations
-	//
+    public void highlightOutOfTrack() {
+        highlightError.error(3);
+    }
 
-	/** Signals the hud element that the player is initiating a drift */
-	public void beginDrift () {
-		driftBar.showSecondsLabel();
-	}
+    public void highlightCollision() {
+        highlightError.error(5);
+    }
 
-	/** Signals the hud element that the player has finished drifting */
-	public void endDrift () {
-		driftBar.hideSecondsLabel();
-	}
+    public void highlightWrongWay() {
+        highlightError.error(5);
+    }
 
-	public void highlightOutOfTrack () {
-		highlightError.error(3);
-	}
+    public void highlightNextTarget(Car car) {
+        highlightNext.setCar(car);
 
-	public void highlightCollision () {
-		highlightError.error(5);
-	}
+        // overwrite any possibly running untracking
+        highlightNext.track(true, 0.5f);
+    }
 
-	public void highlightWrongWay () {
-		highlightError.error(5);
-	}
-
-	public void highlightNextTarget (Car car) {
-		highlightNext.setCar(car);
-
-		// overwrite any possibly running untracking
-		highlightNext.track(true, 0.5f);
-	}
-
-	public void unHighlightNextTarget () {
-		// overwrite any possibly running tracking
-		// i.e., ghost at finish line, player just behind it
-		highlightNext.untrack(true);
-	}
+    public void unHighlightNextTarget() {
+        // overwrite any possibly running tracking
+        // i.e., ghost at finish line, player just behind it
+        highlightNext.untrack(true);
+    }
 }
