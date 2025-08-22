@@ -23,19 +23,13 @@ public final class UIUtils {
     }
 
     public static Stage newFittedStage() {
-        Stage stage = new Stage(new FitViewport(ScaleUtils.PlayWidth, ScaleUtils.PlayHeight));
-        // stage.setDebugAll(true);
-        return stage;
+        return new Stage(new FitViewport(ScaleUtils.PlayWidth, ScaleUtils.PlayHeight));
     }
 
     public static TextButton newTextButton(String text, ClickListener listener) {
         TextButton btn = new TextButton(text, Art.scrSkin);
         btn.addListener(listener);
         return btn;
-    }
-
-    public static CheckBox newCheckBox(String text, boolean checked) {
-        return newCheckBox(text, checked, null);
     }
 
     public static CheckBox newCheckBox(String text, boolean checked, ChangeListener listener) {
@@ -47,12 +41,8 @@ public final class UIUtils {
         return cb;
     }
 
-    public static SelectBox<String> newSelectBox(String[] items) {
-        return newSelectBox(items, null);
-    }
-
     public static SelectBox<String> newSelectBox(String[] items, ChangeListener listener) {
-        SelectBox<String> sb = new SelectBox<String>(Art.scrSkin);
+        SelectBox<String> sb = new SelectBox<>(Art.scrSkin);
         if (listener != null) {
             sb.addListener(listener);
         }
@@ -66,17 +56,13 @@ public final class UIUtils {
     }
 
     public static List<String> newListBox(String[] items, ChangeListener listener) {
-        List<String> list = new List<String>(Art.scrSkin);
+        List<String> list = new List<>(Art.scrSkin);
         if (listener != null) {
             list.addListener(listener);
         }
 
         list.setItems(items);
         return list;
-    }
-
-    public static Slider newSlider(float min, float max, float step, float value) {
-        return newSlider(min, max, step, value, null);
     }
 
     public static Slider newSlider(float min, float max, float step, float value, ChangeListener listener) {
@@ -95,12 +81,7 @@ public final class UIUtils {
     }
 
     public static ScrollPane newScrollPane() {
-        ScrollPane pane = new ScrollPane(null, Art.scrSkin);
-        return pane;
-    }
-
-    public static TextButton newButton(String text) {
-        return newButton(text, null);
+        return new ScrollPane(null, Art.scrSkin);
     }
 
     public static TextButton newButton(String text, ClickListener listener) {
@@ -128,7 +109,6 @@ public final class UIUtils {
     }
 
     public static Label newVersionInfoLabel() {
-        Label versionLabel = UIUtils.newLabel("uRacer " + URacer.versionInfo, false);
-        return versionLabel;
+        return UIUtils.newLabel("uRacer " + URacer.versionInfo, false);
     }
 }
