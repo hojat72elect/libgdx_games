@@ -112,7 +112,6 @@ public class Dialog extends Window {
         return contentTable;
     }
 
-    @Override
     public Table getButtonTable() {
         return buttonTable;
     }

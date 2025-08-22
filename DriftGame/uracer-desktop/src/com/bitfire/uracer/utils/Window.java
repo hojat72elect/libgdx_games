@@ -42,11 +42,6 @@ public class Window extends Table {
         setSkin(skin);
     }
 
-    public Window(String title, Skin skin, String styleName) {
-        this(title, skin.get(styleName, WindowStyle.class));
-        setSkin(skin);
-    }
-
     public Window(String title, WindowStyle style) {
         if (title == null) throw new IllegalArgumentException("title cannot be null.");
         this.title = title;
@@ -178,13 +173,6 @@ public class Window extends Table {
         });
     }
 
-    /**
-     * Returns the window's style. Modifying the returned style may not have an effect until {@link #setStyle(WindowStyle)} is
-     * called.
-     */
-    public WindowStyle getStyle() {
-        return style;
-    }
 
     public void setStyle(WindowStyle style) {
         if (style == null) throw new IllegalArgumentException("style cannot be null.");
@@ -266,56 +254,14 @@ public class Window extends Table {
         return hit;
     }
 
-    public String getTitle() {
-        return title;
-    }
 
     public void setTitle(String title) {
         this.title = title;
         titleCache.setMultiLineText(title, 0, 0);
     }
 
-    /**
-     * @param titleAlignment {@link Align}
-     */
-    public void setTitleAlignment(int titleAlignment) {
-        this.titleAlignment = titleAlignment;
-    }
-
-    public boolean isMovable() {
-        return isMovable;
-    }
-
-    public void setMovable(boolean isMovable) {
-        this.isMovable = isMovable;
-    }
-
-    public boolean isModal() {
-        return isModal;
-    }
-
     public void setModal(boolean isModal) {
         this.isModal = isModal;
-    }
-
-    public void setKeepWithinStage(boolean keepWithinStage) {
-        this.keepWithinStage = keepWithinStage;
-    }
-
-    public boolean isResizable() {
-        return isResizable;
-    }
-
-    public void setResizable(boolean isResizable) {
-        this.isResizable = isResizable;
-    }
-
-    public void setResizeBorder(int resizeBorder) {
-        this.resizeBorder = resizeBorder;
-    }
-
-    public boolean isDragging() {
-        return dragging;
     }
 
     public float getTitleWidth() {
@@ -327,9 +273,6 @@ public class Window extends Table {
         return Math.max(super.getPrefWidth(), getTitleWidth() + getPadLeft() + getPadRight());
     }
 
-    public Table getButtonTable() {
-        return buttonTable;
-    }
 
     /**
      * The style for a window, see {@link Window}.
@@ -348,20 +291,5 @@ public class Window extends Table {
          * Optional.
          */
         public Drawable stageBackground;
-
-        public WindowStyle() {
-        }
-
-        public WindowStyle(BitmapFont titleFont, Color titleFontColor, Drawable background) {
-            this.background = background;
-            this.titleFont = titleFont;
-            this.titleFontColor.set(titleFontColor);
-        }
-
-        public WindowStyle(WindowStyle style) {
-            this.background = style.background;
-            this.titleFont = style.titleFont;
-            this.titleFontColor = new Color(style.titleFontColor);
-        }
     }
 }
