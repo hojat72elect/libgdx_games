@@ -3,7 +3,7 @@ package com.bitfire.uracer.u3d.materials;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 public abstract class MaterialAttribute {
-    private static final String FLAG = "Flag";
+
     protected final boolean isPooled;
     public String name;
 
@@ -25,8 +25,4 @@ public abstract class MaterialAttribute {
     public abstract void free();
 
     public abstract void set(MaterialAttribute attr);
-
-    public String getShaderFlag() {
-        return name + FLAG;
-    }
 }

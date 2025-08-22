@@ -11,9 +11,6 @@ import com.badlogic.gdx.utils.Pool;
 public class TextureAttribute extends MaterialAttribute {
 
     public final static int MAX_TEXTURE_UNITS = 16;
-    static final public String diffuseTexture = "diffuseTexture";
-    static final public String lightmapTexture = "lightmapTexture";
-    static final public String specularTexture = "specularTexture";
     private final static Pool<TextureAttribute> pool = new Pool<TextureAttribute>() {
         @Override
         protected TextureAttribute newObject() {
@@ -75,17 +72,6 @@ public class TextureAttribute extends MaterialAttribute {
         minFilter = texAttr.minFilter;
         uWrap = texAttr.uWrap;
         vWrap = texAttr.vWrap;
-    }
-
-    /**
-     * this method check if the texture portion of texture attribute is equal, name isn't used
-     */
-    public boolean texturePortionEquals(TextureAttribute other) {
-        if (other == null) return false;
-        if (this == other) return true;
-
-        return (texture == other.texture) && (unit == other.unit) && (minFilter == other.minFilter)
-                && (magFilter == other.magFilter) && (uWrap == other.uWrap) && (vWrap == other.vWrap);
     }
 
     @Override

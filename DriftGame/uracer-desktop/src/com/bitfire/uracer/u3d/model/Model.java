@@ -18,23 +18,10 @@ public interface Model {
     void render(ShaderProgram program);
 
     /**
-     * Returns a {@link Model} that is made up of the sub-meshes with the provided names.
-     *
-     * @param subMeshNames A list of names of each {@link SubMesh} that is to be extracted from this model.
-     * @return A new {@link Model} that is only made up of the parts you requested.
-     */
-    Model getSubModel(String... subMeshNames);
-
-    /**
      * @param name The name of the {@link SubMesh} to be acquired.
      * @return The {@link SubMesh} that matches that name; or null, if one does not exist.
      */
     SubMesh getSubMesh(String name);
-
-    /**
-     * @return An array of every {@link SubMesh} that makes up this model.
-     */
-    SubMesh[] getSubMeshes();
 
     /**
      * Generates the bounding box for the Model.<br />

@@ -50,11 +50,6 @@ public abstract class UIScreen extends Screen {
     }
 
     @Override
-    public void disable() {
-        Gdx.input.setInputProcessor(null);
-    }
-
-    @Override
     public void dispose() {
         disable();
         ui.dispose();

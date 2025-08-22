@@ -30,8 +30,6 @@ public final class TransitionManager {
         } else {
             if (useAlphaChannel) {
                 fbFormat = Format.RGBA4444;
-            } else {
-                fbFormat = Format.RGB565;
             }
         }
 

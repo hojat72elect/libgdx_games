@@ -1,6 +1,5 @@
 package com.bitfire.uracer.u3d.loaders;
 
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.VertexAttribute;
@@ -25,10 +24,6 @@ public class G3dtLoader {
     static int lineNum = 0;
     static String line = null;
 
-    public static StillModel loadStillModel(FileHandle handle, boolean flipV) {
-        return loadStillModel(handle.read(), flipV);
-    }
-
     public static StillModel loadStillModel(InputStream stream, boolean flipV) {
         BufferedReader in = new BufferedReader(new InputStreamReader(stream));
 
@@ -41,8 +36,7 @@ public class G3dtLoader {
             for (int i = 0; i < numMeshes; i++) {
                 subMeshes[i] = readStillSubMesh(in, flipV);
             }
-            StillModel model = new StillModel(subMeshes);
-            return model;
+            return new StillModel(subMeshes);
         } catch (Throwable e) {
             throw new GdxRuntimeException("Couldn't read keyframed model, error in line " + lineNum + ", '" + line + "' : "
                     + e.getMessage(), e);
@@ -145,35 +139,24 @@ public class G3dtLoader {
         return read(in);
     }
 
-    private static int readFloatArray(BufferedReader in, float[] array, int idx) throws IOException {
+    private static void readFloatArray(BufferedReader in, float[] array, int idx) throws IOException {
         lineNum++;
         String[] tokens = read(in).split(",");
-        int len = tokens.length;
-        for (int i = 0; i < len; i++) {
-            array[idx++] = Float.parseFloat(tokens[i].trim());
+        for (String token : tokens) {
+            array[idx++] = Float.parseFloat(token.trim());
         }
-        return idx;
     }
 
     private static void readIntArray(BufferedReader in, IntArray array) throws IOException {
         String[] tokens = read(in).split(",");
-        int len = tokens.length;
         array.clear();
-        for (int i = 0; i < len; i++) {
-            array.add(Integer.parseInt(tokens[i].trim()));
+        for (String token : tokens) {
+            array.add(Integer.parseInt(token.trim()));
         }
     }
 
     private static String read(BufferedReader in) throws IOException {
         line = in.readLine();
         return line;
-    }
-
-    public static class G3dtStillModelLoader implements StillModelLoader {
-
-        @Override
-        public StillModel load(FileHandle handle, ModelLoaderHints hints) {
-            return G3dtLoader.loadStillModel(handle, hints.flipV);
-        }
     }
 }
