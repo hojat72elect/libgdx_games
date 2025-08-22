@@ -5,16 +5,12 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * Vector math utils.
+ * Returns a vector in a top-left coordinate system so that:
+ * up=[0,-1], left=[-1,0], right=[1,0], down=[0,1]
  */
 public final class VMath {
-    /**
-     * Returns a vector in a top-left coordinate system so that:
-     * <p>
-     * up=[0,-1], left=[-1,0], right=[1,0], down=[0,1]
-     */
 
     private static final Vector2 retRad = new Vector2();
-    private static final Vector2 tmprj = new Vector2();
     private static final Vector2 retDeg = new Vector2();
 
     private VMath() {
@@ -34,22 +30,6 @@ public final class VMath {
     public static float toRadians(Vector2 v) {
         return (float) Math.atan2(v.x, -v.y);
     }
-
-    public static float toDegs(Vector2 v) {
-        return VMath.toRadians(v) * MathUtils.radDeg;
-    }
-
-    public static Vector2 perp(Vector2 result, Vector2 perpAt) {
-        result.x = -perpAt.y;
-        result.y = perpAt.x;
-        return result;
-    }
-
-    // public static final Vector2 perp( Vector2 perpAt )
-    // {
-    // Vector2 result = new Vector2();
-    // return VMath.perp( result, perpAt );
-    // }
 
     public static Vector2 clamp(Vector2 v, float min, float max) {
         v.x = AMath.clamp(v.x, min, max);
@@ -72,38 +52,14 @@ public final class VMath {
         return v;
     }
 
-    public static Vector2 truncate(Vector2 v, float maxLength) {
+    public static void truncate(Vector2 v, float maxLength) {
         if (v.len() > maxLength) {
             v.nor().scl(maxLength);
         }
-
-        return v;
     }
 
-    public static Vector2 truncateToInt(Vector2 v) {
+    public static void truncateToInt(Vector2 v) {
         v.x = (int) v.x;
         v.y = (int) v.y;
-        return v;
-    }
-
-    public static Vector2 project(Vector2 line1, Vector2 line2, Vector2 toProject) {
-        float m = (line2.y - line1.y) / (line2.x - line1.x);
-        float b = line1.y - (m * line1.x);
-
-        float x = (m * toProject.y + toProject.x - m * b) / (m * m + 1);
-        float y = (m * m * toProject.y + m * toProject.x + b) / (m * m + 1);
-
-        tmprj.set(x, y);
-        return tmprj;
-    }
-
-    public static boolean isBetween(Vector2 a, Vector2 b, Vector2 c) {
-        float dotproduct = (c.x - a.x) * (b.x - a.x) + (c.y - a.y) * (b.y - a.y);
-        if (dotproduct < 0) {
-            return false;
-        }
-
-        float squaredlengthba = a.dst2(b);
-        return !(dotproduct > squaredlengthba);
     }
 }
