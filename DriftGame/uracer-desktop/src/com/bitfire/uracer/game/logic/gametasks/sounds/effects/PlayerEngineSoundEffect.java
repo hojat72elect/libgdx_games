@@ -26,12 +26,28 @@ public final class PlayerEngineSoundEffect extends SoundEffect {
     private static final int MaxSoftnessTicks = 20;
     // inference engine
     private final FIS feLoad;
+    private final Time driftTimer = new Time();
+    private final EngineSoundSet soundset;
     private float load;
     private float throttle;
-    private final Time driftTimer = new Time();
+    private final CarEvent.Listener carListener = new CarEvent.Listener() {
+        @SuppressWarnings("incomplete-switch")
+        @Override
+        public void handle(Object source, CarEvent.Type type, CarEvent.Order order) {
+            switch (type) {
+                case onCollision:
+                    // soundset.reset();
+                    throttle = 0;
+                    break;
+                case onOutOfTrack:
+                    // soundset.shiftDown();
+                    break;
+                case onBackInTrack:
+                    break;
+            }
+        }
+    };
     private int softnessTicks = 0;
-
-    private final EngineSoundSet soundset;
     private final PlayerDriftStateEvent.Listener playerListener = new PlayerDriftStateEvent.Listener() {
         @Override
         public void handle(Object source, Type type, Order order) {
@@ -53,23 +69,6 @@ public final class PlayerEngineSoundEffect extends SoundEffect {
                     break;
                 case onEndDrift:
                     driftTimer.stop();
-                    break;
-            }
-        }
-    };
-    private final CarEvent.Listener carListener = new CarEvent.Listener() {
-        @SuppressWarnings("incomplete-switch")
-        @Override
-        public void handle(Object source, CarEvent.Type type, CarEvent.Order order) {
-            switch (type) {
-                case onCollision:
-                    // soundset.reset();
-                    throttle = 0;
-                    break;
-                case onOutOfTrack:
-                    // soundset.shiftDown();
-                    break;
-                case onBackInTrack:
                     break;
             }
         }

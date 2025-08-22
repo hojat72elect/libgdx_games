@@ -1,23 +1,22 @@
-
 package com.bitfire.uracer.game.events;
 
 
 public final class PlayerDriftStateEvent extends
-	Event<PlayerDriftStateEvent.Type, PlayerDriftStateEvent.Order, PlayerDriftStateEvent.Listener> {
-	public enum Type {
-		onBeginDrift, onEndDrift
-	}
+        Event<PlayerDriftStateEvent.Type, PlayerDriftStateEvent.Order, PlayerDriftStateEvent.Listener> {
+    public PlayerDriftStateEvent() {
+        super(Type.class, Order.class);
+    }
 
-	public enum Order {
-		Default
-	}
+    public enum Type {
+        onBeginDrift, onEndDrift
+    }
 
-	public interface Listener extends Event.Listener<Type, Order> {
-		@Override
-		public void handle (Object source, Type type, Order order);
-	}
+    public enum Order {
+        Default
+    }
 
-	public PlayerDriftStateEvent () {
-		super(Type.class, Order.class);
-	}
+    public interface Listener extends Event.Listener<Type, Order> {
+        @Override
+        void handle(Object source, Type type, Order order);
+    }
 }

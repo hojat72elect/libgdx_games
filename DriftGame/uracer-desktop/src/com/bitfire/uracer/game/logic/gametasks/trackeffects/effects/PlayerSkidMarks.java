@@ -23,12 +23,12 @@ public class PlayerSkidMarks extends TrackEffect {
     private final float InvMaxParticleLifeSeconds;
 
     private final SkidMark[] skidMarks;
-    private int markIndex;
-    private int visibleSkidMarksCount;
     // private int driftMarkAddIterations = 1;
     private final Vector2 pos;
     private final Vector2 last;
     private final Vector2 ppos = new Vector2();
+    private int markIndex;
+    private int visibleSkidMarksCount;
 
     public PlayerSkidMarks(int maxSkidMarks, float maxParticleLifeSecs) {
         super(TrackEffectType.CarSkidMarks);

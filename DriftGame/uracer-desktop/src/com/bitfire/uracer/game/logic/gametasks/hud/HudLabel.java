@@ -15,13 +15,12 @@ import aurelienribon.tweenengine.equations.Linear;
 import aurelienribon.tweenengine.equations.Quint;
 
 public final class HudLabel extends Positionable {
+    private final Color color = new Color(Color.WHITE);
     public float alpha;
     public TextBounds textBounds = new TextBounds();
-
     private String text;
     private BitmapFont font;
     private boolean isStatic;
-    private final Color color = new Color(Color.WHITE);
 
     public HudLabel(FontFace fontFace, String text, boolean isStatic) {
         this.text = text;

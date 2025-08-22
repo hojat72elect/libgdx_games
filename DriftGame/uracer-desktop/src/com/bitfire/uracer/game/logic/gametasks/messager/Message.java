@@ -29,6 +29,15 @@ public final class Message {
     private BitmapFont font;
     private int halfWidth;
     private boolean completed;
+    private final TweenCallback hideFinished = new TweenCallback() {
+        @Override
+        public void onEvent(int type, BaseTween<?> source) {
+            switch (type) {
+                case COMPLETE:
+                    completed = true;
+            }
+        }
+    };
     private TextBounds bounds;
     private float alpha, scale;
     private boolean hiding;
@@ -42,15 +51,7 @@ public final class Message {
             }
         }
     };
-    private final TweenCallback hideFinished = new TweenCallback() {
-        @Override
-        public void onEvent(int type, BaseTween<?> source) {
-            switch (type) {
-                case COMPLETE:
-                    completed = true;
-            }
-        }
-    };
+
     public Message() {
         bounds = new TextBounds();
     }

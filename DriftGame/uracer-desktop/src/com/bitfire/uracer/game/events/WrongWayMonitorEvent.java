@@ -1,22 +1,21 @@
-
 package com.bitfire.uracer.game.events;
 
 public final class WrongWayMonitorEvent extends
-	Event<WrongWayMonitorEvent.Type, WrongWayMonitorEvent.Order, WrongWayMonitorEvent.Listener> {
-	public enum Type {
-		onWrongWayBegins, onWrongWayEnds
-	}
+        Event<WrongWayMonitorEvent.Type, WrongWayMonitorEvent.Order, WrongWayMonitorEvent.Listener> {
+    public WrongWayMonitorEvent() {
+        super(Type.class, Order.class);
+    }
 
-	public enum Order {
-		MINUS_4, MINUS_3, MINUS_2, MINUS_1, DEFAULT, PLUS_1, PLUS_2, PLUS_3, PLUS_4;
-	}
+    public enum Type {
+        onWrongWayBegins, onWrongWayEnds
+    }
 
-	public interface Listener extends Event.Listener<Type, Order> {
-		@Override
-		public void handle (Object source, Type type, Order order);
-	}
+    public enum Order {
+        MINUS_4, MINUS_3, MINUS_2, MINUS_1, DEFAULT, PLUS_1, PLUS_2, PLUS_3, PLUS_4
+    }
 
-	public WrongWayMonitorEvent () {
-		super(Type.class, Order.class);
-	}
+    public interface Listener extends Event.Listener<Type, Order> {
+        @Override
+        void handle(Object source, Type type, Order order);
+    }
 }

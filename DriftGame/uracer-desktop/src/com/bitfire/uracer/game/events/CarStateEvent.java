@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.game.events;
 
 //public final class CarStateEvent extends Event<CarStateEvent.Type, CarStateEvent.Order, CarStateEvent.Listener> {

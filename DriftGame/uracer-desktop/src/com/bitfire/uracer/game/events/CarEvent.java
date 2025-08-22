@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.game.events;
 
 import com.badlogic.gdx.math.Vector2;
@@ -7,44 +6,48 @@ import com.bitfire.uracer.game.actors.Car;
 import com.bitfire.uracer.game.actors.CarForces;
 
 public final class CarEvent extends Event<CarEvent.Type, CarEvent.Order, CarEvent.Listener> {
-	public enum Type {
-		onPhysicsForcesReady, onCollision, onOutOfTrack, onBackInTrack
-	}
+    public final Data data = new Data();
 
-	public enum Order {
-		Default
-	}
+    public CarEvent() {
+        super(Type.class, Order.class);
+    }
 
-	public interface Listener extends Event.Listener<Type, Order> {
-		@Override
-		public void handle (Object source, Type type, Order order);
-	}
+    public enum Type {
+        onPhysicsForcesReady, onCollision, onOutOfTrack, onBackInTrack
+    }
 
-	public CarEvent () {
-		super(Type.class, Order.class);
-	}
+    public enum Order {
+        Default
+    }
 
-	public final class Data {
-		public Car car;
+    public interface Listener extends Event.Listener<Type, Order> {
+        @Override
+        void handle(Object source, Type type, Order order);
+    }
 
-		/** collision data */
-		public Fixture other;
-		public Vector2 impulses;
-		public float frontRatio;
+    public final class Data {
+        public Car car;
 
-		/** computed forces data */
-		public CarForces forces;
+        /**
+         * collision data
+         */
+        public Fixture other;
+        public Vector2 impulses;
+        public float frontRatio;
 
-		public void setCollisionData (Fixture other, Vector2 impulses, float frontRatio) {
-			this.other = other;
-			this.impulses = impulses;
-			this.frontRatio = frontRatio;
-		}
+        /**
+         * computed forces data
+         */
+        public CarForces forces;
 
-		public void setForces (CarForces forces) {
-			this.forces = forces;
-		}
-	}
+        public void setCollisionData(Fixture other, Vector2 impulses, float frontRatio) {
+            this.other = other;
+            this.impulses = impulses;
+            this.frontRatio = frontRatio;
+        }
 
-	public final Data data = new Data();
+        public void setForces(CarForces forces) {
+            this.forces = forces;
+        }
+    }
 }

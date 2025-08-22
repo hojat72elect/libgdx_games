@@ -26,16 +26,14 @@ public class TrackProgress extends Positionable {
     private final ShaderProgram shProgress;
     private final Sprite sprAdvantage, sprProgress;
     private final HudLabel lblAdvantage;
-    private boolean lblAdvantageShown;
-    private boolean flipped;
-
-    private String customMessage = "";
-    private TrackProgressData data = null;
-    private boolean hasTarget;
-
     // smooth animation between end-of-track (n meters) and start-of-track (0 meters)
     private final InterpolatedFloat playerProgress = new InterpolatedFloat();
     private final InterpolatedFloat playerToTarget = new InterpolatedFloat();
+    private boolean lblAdvantageShown;
+    private boolean flipped;
+    private String customMessage = "";
+    private TrackProgressData data = null;
+    private boolean hasTarget;
 
     public TrackProgress() {
         lblAdvantage = new HudLabel(FontFace.CurseWhiteBig, "", false);

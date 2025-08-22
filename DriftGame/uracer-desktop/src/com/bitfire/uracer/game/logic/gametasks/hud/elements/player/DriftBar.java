@@ -26,8 +26,8 @@ public class DriftBar extends Positionable {
     private final ShaderProgram shDriftSecs;
     private final Sprite sprDriftSecs, sprDriftStrength;
     private final float offX, offY, w, h;
-    private float seconds;
     private final HudLabel labelSeconds;
+    private float seconds;
 
     public DriftBar() {
         seconds = 0;

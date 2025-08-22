@@ -29,7 +29,6 @@ public final class PlayerDriftSoundEffect extends SoundEffect {
     private boolean started = false;
     private boolean doFadeIn = false;
     private boolean doFadeOut = false;
-    private float lastVolume = 0f;
     private final PlayerDriftStateEvent.Listener driftListener = new PlayerDriftStateEvent.Listener() {
         @Override
         public void handle(Object source, Type type, Order order) {
@@ -43,6 +42,7 @@ public final class PlayerDriftSoundEffect extends SoundEffect {
             }
         }
     };
+    private float lastVolume = 0f;
 
     public PlayerDriftSoundEffect() {
         drift = Sounds.carDrift;

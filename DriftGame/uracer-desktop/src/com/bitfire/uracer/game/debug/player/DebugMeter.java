@@ -1,4 +1,3 @@
-
 package com.bitfire.uracer.game.debug.player;
 
 import com.badlogic.gdx.graphics.Color;
@@ -15,99 +14,98 @@ import com.bitfire.uracer.utils.AMath;
 import com.bitfire.uracer.utils.SpriteBatchUtils;
 
 public class DebugMeter implements Disposable {
-	// graphics data
-	private Pixmap pixels;
-	private Texture texture;
-	private TextureRegion region;
+    public Color color = new Color(1, 1, 1, 1);
+    // graphics data
+    private final Pixmap pixels;
+    private final Texture texture;
+    private final TextureRegion region;
+    private final int width;
+    private final int height;
+    private float value, minValue, maxValue;
+    private String name;
+    private final Vector2 pos;
+    private boolean showLabel;
 
-	private int width, height;
-	private float value, minValue, maxValue;
-	private String name;
-	private Vector2 pos;
-	private boolean showLabel;
+    public DebugMeter(int width, int height) {
+        assert (width < 256 && height < 256);
 
-	public Color color = new Color(1, 1, 1, 1);
+        this.showLabel = true;
+        this.name = "";
+        this.width = width;
+        this.height = height;
+        this.pos = new Vector2();
 
-	public DebugMeter (int width, int height) {
-		assert (width < 256 && height < 256);
+        pixels = new Pixmap(this.width, this.height, Format.RGBA8888);
+        texture = new Texture(width, height, Format.RGBA8888);
+        texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+        region = new TextureRegion(texture, 0, 0, pixels.getWidth(), pixels.getHeight());
+    }
 
-		this.showLabel = true;
-		this.name = "";
-		this.width = width;
-		this.height = height;
-		this.pos = new Vector2();
+    @Override
+    public void dispose() {
+        texture.dispose();
+        pixels.dispose();
+    }
 
-		pixels = new Pixmap(this.width, this.height, Format.RGBA8888);
-		texture = new Texture(width, height, Format.RGBA8888);
-		texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-		region = new TextureRegion(texture, 0, 0, pixels.getWidth(), pixels.getHeight());
-	}
+    public float getValue() {
+        return value;
+    }
 
-	@Override
-	public void dispose () {
-		texture.dispose();
-		pixels.dispose();
-	}
+    public void setValue(float value) {
+        this.value = value;
+    }
 
-	public float getValue () {
-		return value;
-	}
+    public void setName(String name) {
+        this.name = name + " = ";
+    }
 
-	public void setValue (float value) {
-		this.value = value;
-	}
+    public void setLimits(float min, float max) {
+        minValue = min;
+        maxValue = max;
+    }
 
-	public void setName (String name) {
-		this.name = name + " = ";
-	}
+    public void setShowLabel(boolean show) {
+        this.showLabel = show;
+    }
 
-	public void setLimits (float min, float max) {
-		minValue = min;
-		maxValue = max;
-	}
+    public int getWidth() {
+        return width;
+    }
 
-	public void setShowLabel (boolean show) {
-		this.showLabel = show;
-	}
+    public int getHeight() {
+        return height;
+    }
 
-	public int getWidth () {
-		return width;
-	}
+    public String getMessage() {
+        return name + String.format("%.04f", Math.abs(value));
+    }
 
-	public int getHeight () {
-		return height;
-	}
+    public void setPosition(Vector2 position) {
+        pos.set(position);
+    }
 
-	public String getMessage () {
-		return name + String.format("%.04f", Math.abs(value));
-	}
+    public void setPosition(float x, float y) {
+        pos.set(x, y);
+    }
 
-	public void setPosition (Vector2 position) {
-		pos.set(position);
-	}
+    public void render(SpriteBatch batch) {
+        drawMeter();
+        if (showLabel) {
+            SpriteBatchUtils.drawString(batch, getMessage(), (int) pos.x, (int) pos.y);
+        }
+        batch.draw(region, (int) pos.x, (int) pos.y + (showLabel ? Art.DebugFontHeight : 0));
+    }
 
-	public void setPosition (float x, float y) {
-		pos.set(x, y);
-	}
+    private void drawMeter() {
+        pixels.setColor(0.25f, 0.25f, 0.25f, color.a);
+        pixels.fill();
 
-	public void render (SpriteBatch batch) {
-		drawMeter();
-		if (showLabel) {
-			SpriteBatchUtils.drawString(batch, getMessage(), (int)pos.x, (int)pos.y);
-		}
-		batch.draw(region, (int)pos.x, (int)pos.y + (showLabel ? Art.DebugFontHeight : 0));
-	}
+        float range = maxValue - minValue;
+        float ratio = Math.abs(value) / range;
+        ratio = AMath.clamp(ratio, 0, 1);
 
-	private void drawMeter () {
-		pixels.setColor(0.25f, 0.25f, 0.25f, color.a);
-		pixels.fill();
-
-		float range = maxValue - minValue;
-		float ratio = Math.abs(value) / range;
-		ratio = AMath.clamp(ratio, 0, 1);
-
-		pixels.setColor(color);
-		pixels.fillRectangle(1, 1, (int)(width * ratio) - 2, height - 2);
-		texture.draw(pixels, 0, 0);
-	}
+        pixels.setColor(color);
+        pixels.fillRectangle(1, 1, (int) (width * ratio) - 2, height - 2);
+        texture.draw(pixels, 0, 0);
+    }
 }

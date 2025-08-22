@@ -30,8 +30,6 @@ public final class PlayerTensiveMusic extends SoundEffect {
     private final TrackProgressData progressData;
     private final InterpolatedFloat[] volTrack = new InterpolatedFloat[NumTracks];
     private final float[] volOut = new float[NumTracks];
-    private int musicIndex, musicIndexLimit;
-    private float fMusicIndex;
     private final float[] trackVolumes = new float[NumTracks];
     private final PlayerLapCompletionMonitorEvent.Listener playerCompletionListener = new PlayerLapCompletionMonitorEvent.Listener() {
         @Override
@@ -39,6 +37,8 @@ public final class PlayerTensiveMusic extends SoundEffect {
             start();
         }
     };
+    private int musicIndex, musicIndexLimit;
+    private float fMusicIndex;
 
     public PlayerTensiveMusic(TrackProgressData progressData) {
         this.progressData = progressData;

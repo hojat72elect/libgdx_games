@@ -106,9 +106,9 @@ public class PlayerSmokeTrails extends TrackEffect {
         private final float MaxParticleLifeMinMs;
         private final float MaxParticleLifeMaxMs;
         private final float OriginalParticleScaling;
-        private ParticleEffect effect;
         private final TrackEffect owner;
         private final ParticleEmitter baseEmitter;
+        private final ParticleEffect effect;
 
         // private final float MaxParticlesPerEmitterPerSec;
 

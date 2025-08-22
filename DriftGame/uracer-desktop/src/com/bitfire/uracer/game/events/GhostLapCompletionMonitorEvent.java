@@ -1,22 +1,21 @@
-
 package com.bitfire.uracer.game.events;
 
 public final class GhostLapCompletionMonitorEvent extends
-	Event<GhostLapCompletionMonitorEvent.Type, GhostLapCompletionMonitorEvent.Order, GhostLapCompletionMonitorEvent.Listener> {
-	public enum Type {
-		onLapCompleted
-	}
+        Event<GhostLapCompletionMonitorEvent.Type, GhostLapCompletionMonitorEvent.Order, GhostLapCompletionMonitorEvent.Listener> {
+    public GhostLapCompletionMonitorEvent() {
+        super(Type.class, Order.class);
+    }
 
-	public enum Order {
-		MINUS_4, MINUS_3, MINUS_2, MINUS_1, DEFAULT, PLUS_1, PLUS_2, PLUS_3, PLUS_4;
-	}
+    public enum Type {
+        onLapCompleted
+    }
 
-	public interface Listener extends Event.Listener<Type, Order> {
-		@Override
-		public void handle (Object source, Type type, Order order);
-	}
+    public enum Order {
+        MINUS_4, MINUS_3, MINUS_2, MINUS_1, DEFAULT, PLUS_1, PLUS_2, PLUS_3, PLUS_4
+    }
 
-	public GhostLapCompletionMonitorEvent () {
-		super(Type.class, Order.class);
-	}
+    public interface Listener extends Event.Listener<Type, Order> {
+        @Override
+        void handle(Object source, Type type, Order order);
+    }
 }

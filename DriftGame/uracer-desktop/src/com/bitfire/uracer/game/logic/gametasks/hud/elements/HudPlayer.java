@@ -26,13 +26,13 @@ public final class HudPlayer extends HudElement {
     public final WrongWay wrongWay;
     public final DriftBar driftBar;
     public final TrackProgress trackProgress;
+    private final CarHighlighter highlightError;
+    private final Vector2 tmpg = new Vector2();
     public CarHighlighter highlightNext;
     // player info
     private EntityRenderState playerState = null;
-    private final CarHighlighter highlightError;
     // gravitation
     private float carModelWidthPx, carModelLengthPx;
-    private final Vector2 tmpg = new Vector2();
 
     public HudPlayer(UserProfile userProfile) {
         // elements

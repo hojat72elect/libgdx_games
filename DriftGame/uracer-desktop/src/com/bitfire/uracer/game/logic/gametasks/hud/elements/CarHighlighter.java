@@ -25,13 +25,8 @@ import aurelienribon.tweenengine.equations.Linear;
 
 public final class CarHighlighter {
     private final Sprite sprite;
-    private Car followedCar;
-    private EntityRenderState renderState, prevState;
     private final Vector2 tmp = new Vector2();
     private final Vector2 tmp2 = new Vector2();
-    private float offX, offY, alpha, scale;
-
-    private boolean isBusy, isActive, hasCar, isTracking, interpolateState;
     private final BoxedFloat bfScale;
     private final BoxedFloat bfRot;
     private final BoxedFloat bfAlpha;
@@ -39,7 +34,6 @@ public final class CarHighlighter {
     private final BoxedFloat bfRed;
     private final BoxedFloat bfBlue;
     private final BoxedFloat bfRenderState;
-    private float trackAlpha;
     private final TweenCallback renderStateCallback = new TweenCallback() {
         @Override
         public void onEvent(int type, BaseTween<?> source) {
@@ -49,6 +43,10 @@ public final class CarHighlighter {
             }
         }
     };
+    private Car followedCar;
+    private EntityRenderState renderState, prevState;
+    private float offX, offY, alpha, scale;
+    private boolean isBusy, isActive, hasCar, isTracking, interpolateState;
     private final TweenCallback busyCallback = new TweenCallback() {
         @Override
         public void onEvent(int type, BaseTween<?> source) {
@@ -58,6 +56,7 @@ public final class CarHighlighter {
             }
         }
     };
+    private float trackAlpha;
 
     // need tileMapZoomFactor since highlighter size depends from car *rendered* size
     public CarHighlighter() {
