@@ -30,7 +30,6 @@ public final class CommandLine {
         int c;
         String arg;
 
-        //@off
         LongOpt[] opts = {
                 new LongOpt("help", LongOpt.NO_ARGUMENT, null, 'h'),
                 new LongOpt("resolution", LongOpt.REQUIRED_ARGUMENT, null, 'r'),
@@ -41,7 +40,6 @@ public final class CommandLine {
                 new LongOpt("enable-undecorated", LongOpt.NO_ARGUMENT, null, 'U'),
                 new LongOpt("disable-undecorated", LongOpt.NO_ARGUMENT, null, 'u'),
         };
-        //@on
 
         Getopt g = new Getopt("URacer", argv, "", opts);
         g.setOpterr(false);
@@ -58,17 +56,22 @@ public final class CommandLine {
                         w = Integer.parseInt(res[0]);
                         h = Integer.parseInt(res[1]);
                     } else {
-                        if (arg.equals("low")) {
-                            w = 800;
-                            h = 480;
-                        } else if (arg.equals("mid")) {
-                            w = 1280;
-                            h = 800;
-                        } else if (arg.equals("high")) {
-                            w = 1920;
-                            h = 1080;
-                        } else {
-                            System.out.println("Invalid resolution specified (" + arg + ")");
+                        switch (arg) {
+                            case "low":
+                                w = 800;
+                                h = 480;
+                                break;
+                            case "mid":
+                                w = 1280;
+                                h = 800;
+                                break;
+                            case "high":
+                                w = 1920;
+                                h = 1080;
+                                break;
+                            default:
+                                System.out.println("Invalid resolution specified (" + arg + ")");
+                                break;
                         }
                     }
 

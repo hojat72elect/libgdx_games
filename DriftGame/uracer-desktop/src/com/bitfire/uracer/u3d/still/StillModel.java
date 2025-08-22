@@ -39,7 +39,7 @@ public class StillModel implements Model {
         for (String name : subMeshNames)
             for (StillSubMesh subMesh : this.subMeshes)
                 if (name.equals(subMesh.name)) subMeshes.add(subMesh);
-        if (subMeshes.size() > 0) return new StillModel(subMeshes.toArray(new StillSubMesh[subMeshes.size()]));
+        if (!subMeshes.isEmpty()) return new StillModel(subMeshes.toArray(new SubMesh[0]));
         return null;
     }
 
@@ -68,25 +68,24 @@ public class StillModel implements Model {
 
     @Override
     public void setMaterial(Material material) {
-        int len = subMeshes.length;
-        for (int i = 0; i < len; i++) {
-            subMeshes[i].material = material;
+        for (StillSubMesh subMesh : subMeshes) {
+            subMesh.material = material;
         }
     }
 
     @Override
     public void getBoundingBox(BoundingBox bbox) {
         bbox.inf();
-        for (int i = 0; i < subMeshes.length; i++) {
-            subMeshes[i].mesh.calculateBoundingBox(tmpBox);
+        for (StillSubMesh subMesh : subMeshes) {
+            subMesh.mesh.calculateBoundingBox(tmpBox);
             bbox.ext(tmpBox);
         }
     }
 
     @Override
     public void dispose() {
-        for (int i = 0; i < subMeshes.length; i++) {
-            subMeshes[i].mesh.dispose();
+        for (StillSubMesh subMesh : subMeshes) {
+            subMesh.mesh.dispose();
         }
     }
 }

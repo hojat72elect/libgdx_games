@@ -8,9 +8,7 @@ import com.bitfire.uracer.configuration.Config;
 public final class AMath {
     public static final float TWO_PI = 6.28318530717958647692f;
     public static final float PI = 3.14159265358979323846f;
-    public static final float PI_2 = 1.57079632679489661923f;
     public static final float PI_4 = 0.785398163397448309616f;
-    public static final float PI_8 = 0.392699081698724154807f;
 
     public static final float CMP_EPSILON = 0.001f;
     public static final float ONE_ON_CMP_EPSILON = 1000f;
@@ -28,34 +26,12 @@ public final class AMath {
         return Math.abs(a) < CMP_EPSILON;
     }
 
-    public static boolean isZero(double a) {
-        return Math.abs(a) < CMP_EPSILON;
-    }
-
     public static float lerp(float prev, float curr, float alpha) {
         return curr * alpha + prev * (1f - alpha);
     }
 
     public static float lowpass(float prev, float curr, float alpha) {
         return lerp(prev, curr, alpha);
-    }
-
-    public static float hipass(float prev, float curr, float alpha) {
-        return curr - lowpass(prev, curr, alpha);
-    }
-
-    public static float modulo(float value, float div) {
-        int result = (int) (value / div);
-        return (value - (float) result * div);
-    }
-
-    public static float wrap(float value, float lower, float upper) {
-        float wrapped = modulo(value, (upper - lower));
-        return wrapped + lower;
-    }
-
-    public static float wrap2PI(float value) {
-        return wrap(value, 0.f, TWO_PI);
     }
 
     public static float clamp(float value, float min, float max) {
@@ -94,21 +70,10 @@ public final class AMath {
         return v;
     }
 
-    public static float fixupTo(float v, float target, float epsilon) {
-        if (Math.abs(Math.abs(v) - Math.abs(target)) < epsilon) {
-            return target;
-        }
-
-        return v;
-    }
-
     public static float clampf(float v, float min, float max) {
         return AMath.clamp(AMath.fixupTo(AMath.fixupTo(v, min), max), min, max);
     }
 
-    public static float clampf(float v, float min, float max, float epsilon) {
-        return AMath.clamp(AMath.fixupTo(AMath.fixupTo(v, min, epsilon), max, epsilon), min, max);
-    }
 
     public static float sign(float v) {
         if (v < 0) {
@@ -125,16 +90,6 @@ public final class AMath {
 
     public static float sigmoid(float strength) {
         return (float) (1f / (1f + Math.pow(Math.E, -strength)));
-    }
-
-    // lookup the "sigmoid" IPython notebook for graphing
-    public static float sigmoidN(float x, float a) {
-        return (float) (2f / (1f + Math.exp(-a * x))) - 1.0f;
-    }
-
-    // lookup the "sigmoid" IPython notebook for graphing
-    public static float sigmoidN(float x) {
-        return sigmoidN(x, 1);
     }
 
     /**
@@ -157,24 +112,6 @@ public final class AMath {
         return sgn * ((absx * _k) / (1 + _k - absx));
     }
 
-    public static float truncate(float value, int decimal) {
-        float temp = value;
-
-        switch (decimal) {
-            case 1:
-                temp = (int) (value * 10) / 10f;
-                break;
-            case 2:
-                temp = (int) (value * 100) / 100f;
-                break;
-            case 3:
-                temp = (int) (value * 1000) / 1000f;
-                break;
-        }
-
-        return temp;
-    }
-
     public static float round(float value, int decimal) {
         float p = (float) Math.pow(10, decimal);
         float tmp = Math.round(value * p);
@@ -186,8 +123,6 @@ public final class AMath {
         v *= Config.Physics.OneOnMaxImpactForce;
         return v;
     }
-
-    //@off
 
     /**
      * Compute a timestep-dependent damping factor from the specified time-independent constant and arbitrary factor.
@@ -206,11 +141,9 @@ public final class AMath {
      * and for a 30hz timestep:
      * pow( 0.975, 60 * (1/30) ) = 0.950625		|	exp( -1.5 * (1/30) ) = 0.951229
      * <p>
-     * (see my post http://www.gamedev.net/topic/624172-framerate-independent-friction/page__st__20)
+     * (see my post <a href="http://www.gamedev.net/topic/624172-framerate-independent-friction/page__st__20">here</a>)
      */
-    //@on
     public static float damping(float factor) {
         return (float) Math.pow(factor, Config.Physics.PhysicsTimestepReferenceHz * Config.Physics.Dt);
-        // return (float)Math.exp( -factor * Config.Physics.PhysicsDt );
     }
 }

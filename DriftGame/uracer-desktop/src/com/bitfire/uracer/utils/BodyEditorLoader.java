@@ -36,17 +36,6 @@ public class BodyEditorLoader {
         model = readJson(file.readString());
     }
 
-    public BodyEditorLoader(String str) {
-        if (str == null) {
-            throw new NullPointerException("str is null");
-        }
-        model = readJson(str);
-    }
-
-    // -------------------------------------------------------------------------
-    // Public API
-    // -------------------------------------------------------------------------
-
     /**
      * Creates and applies the fixtures defined in the editor. The name parameter is used to retrieve the right fixture from the
      * loaded file. <br/>
@@ -54,8 +43,7 @@ public class BodyEditorLoader {
      * <p>
      * The body reference point (the red cross in the tool) is by default located at the bottom left corner of the image. This
      * reference point will be put right over the BodyDef position point. Therefore, you should place this reference point
-     * carefully to let you place your body in your world easily with its BodyDef.position point. Note that to draw an image at the
-     * position of your body, you will need to know this reference point (see {@link #getOrigin(java.lang.String, float)}. <br/>
+     * carefully to let you place your body in your world easily with its BodyDef.position point.
      * <br/>
      * <p>
      * Also, saved shapes are normalized. As shown in the tool, the width of the image is considered to be always 1 meter. Thus,
@@ -90,8 +78,8 @@ public class BodyEditorLoader {
             fd.shape = polygonShape;
             body.createFixture(fd);
 
-            for (int ii = 0, nn = vertices.length; ii < nn; ii++) {
-                free(vertices[ii]);
+            for (Vector2 vertex : vertices) {
+                free(vertex);
             }
         }
 
@@ -108,41 +96,6 @@ public class BodyEditorLoader {
             free(center);
         }
     }
-
-    /**
-     * Gets the image path attached to the given name.
-     */
-    public String getImagePath(String name) {
-        RigidBodyModel rbModel = model.rigidBodies.get(name);
-        if (rbModel == null) {
-            throw new RuntimeException("Name '" + name + "' was not found.");
-        }
-
-        return rbModel.imagePath;
-    }
-
-    /**
-     * Gets the origin point attached to the given name. Since the point is normalized in [0,1] coordinates, it needs to be scaled
-     * to your body size. Warning: this method returns the same Vector2 object each time, so copy it if you need it for later use.
-     */
-    public Vector2 getOrigin(String name, float scale) {
-        RigidBodyModel rbModel = model.rigidBodies.get(name);
-        if (rbModel == null) throw new RuntimeException("Name '" + name + "' was not found.");
-
-        return vec.set(rbModel.origin).scl(scale);
-    }
-
-    /**
-     * <b>For advanced users only.</b> Lets you access the internal model of this loader and modify it. Be aware that any
-     * modification is permanent and that you should really know what you are doing.
-     */
-    public Model getInternalModel() {
-        return model;
-    }
-
-    // -------------------------------------------------------------------------
-    // Json Models
-    // -------------------------------------------------------------------------
 
     private Model readJson(String str) {
         Model m = new Model();
