@@ -24,8 +24,6 @@ public final class GameEvents {
     public static final GhostLapCompletionMonitorEvent ghostLapCompletion = new GhostLapCompletionMonitorEvent();
     public static final GameLogicEvent logicEvent = new GameLogicEvent();
 
-    // public static final CarStateEvent playerCarState = new CarStateEvent();
-
     private GameEvents() {
     }
 }

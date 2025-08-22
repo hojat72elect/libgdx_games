@@ -261,7 +261,7 @@ public class URacer implements ApplicationListener {
     @Override
     public void resize(int width, int height) {
         if (screenMgr != null) {
-            screenMgr.resize(width, height);
+            screenMgr.resize();
         }
     }
 

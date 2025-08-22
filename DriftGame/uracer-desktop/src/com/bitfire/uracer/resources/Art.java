@@ -67,7 +67,7 @@ public final class Art {
         loadFonts();
         loadCarGraphics();
         loadParticlesGraphics();
-        loadMeshesGraphics(Config.Graphics.EnableMipMapping);
+        loadMeshesGraphics();
         loadFrictionMaps();
         loadPostProcessorMaps();
         loadScreensData();
@@ -184,22 +184,22 @@ public final class Art {
         frictionMapDesert.dispose();
     }
 
-    private static void loadMeshesGraphics(boolean mipmap) {
-        meshTrackWall = newTexture("data/track/wall_4.png", mipmap);
+    private static void loadMeshesGraphics() {
+        meshTrackWall = newTexture("data/track/wall_4.png", Config.Graphics.EnableMipMapping);
         meshTrackWall.setWrap(TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 
-        meshMissing = newTexture("data/3d/textures/missing-mesh.png", mipmap);
+        meshMissing = newTexture("data/3d/textures/missing-mesh.png", Config.Graphics.EnableMipMapping);
 
         // car textures
         meshCar = new ObjectMap<>();
-        meshCar.put("car", newTexture("data/3d/textures/car.png", mipmap));
-        meshCar.put("car_yellow", newTexture("data/3d/textures/car_yellow.png", mipmap));
+        meshCar.put("car", newTexture("data/3d/textures/car.png", Config.Graphics.EnableMipMapping));
+        meshCar.put("car_yellow", newTexture("data/3d/textures/car_yellow.png", Config.Graphics.EnableMipMapping));
 
         // trees
-        meshTreeTrunk = newTexture("data/3d/textures/trunk_6_col.png", mipmap);
+        meshTreeTrunk = newTexture("data/3d/textures/trunk_6_col.png", Config.Graphics.EnableMipMapping);
         meshTreeLeavesSpring = new Texture[7];
         for (int i = 0; i < 7; i++) {
-            meshTreeLeavesSpring[i] = newTexture("data/3d/textures/leaves_" + (i + 1) + "_spring_1.png", mipmap);
+            meshTreeLeavesSpring[i] = newTexture("data/3d/textures/leaves_" + (i + 1) + "_spring_1.png", Config.Graphics.EnableMipMapping);
         }
     }
 
@@ -254,7 +254,7 @@ public final class Art {
 
     private static void loadFonts() {
         // debug font, no need to scale it
-        debugFont = split("data/base/debug-font.png", DebugFontWidth, DebugFontHeight, false);
+        debugFont = split();
         debugFont[0][0].getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         // game fonts
@@ -278,7 +278,7 @@ public final class Art {
         String filename = countryCode + ".png";
         FileHandle zip = Gdx.files.internal("data/flags.zip");
         ZipInputStream zin = new ZipInputStream(zip.read());
-        ZipEntry ze = null;
+        ZipEntry ze;
         try {
             while ((ze = zin.getNextEntry()) != null) {
                 if (ze.getName().equals(filename)) {
@@ -307,25 +307,25 @@ public final class Art {
                     return t;
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
 
         return null;
     }
 
-    private static TextureRegion[][] split(String name, int width, int height, boolean mipMap) {
-        return split(name, width, height, false, true, mipMap);
+    private static TextureRegion[][] split() {
+        return split(false);
     }
 
-    private static TextureRegion[][] split(String name, int width, int height, boolean flipX, boolean flipY, boolean mipMap) {
-        Texture texture = newTexture(name, mipMap);
-        int xSlices = texture.getWidth() / width;
-        int ySlices = texture.getHeight() / height;
+    private static TextureRegion[][] split(boolean mipMap) {
+        Texture texture = newTexture("data/base/debug-font.png", mipMap);
+        int xSlices = texture.getWidth() / Art.DebugFontWidth;
+        int ySlices = texture.getHeight() / Art.DebugFontHeight;
         TextureRegion[][] res = new TextureRegion[xSlices][ySlices];
         for (int x = 0; x < xSlices; x++) {
             for (int y = 0; y < ySlices; y++) {
-                res[x][y] = new TextureRegion(texture, x * width, y * height, width, height);
-                res[x][y].flip(flipX, flipY);
+                res[x][y] = new TextureRegion(texture, x * Art.DebugFontWidth, y * Art.DebugFontHeight, Art.DebugFontWidth, Art.DebugFontHeight);
+                res[x][y].flip(false, true);
             }
         }
         return res;

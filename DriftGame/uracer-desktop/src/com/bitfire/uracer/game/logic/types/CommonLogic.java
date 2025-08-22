@@ -149,7 +149,6 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
         return userProfile;
     }
 
-    @Override
     public GhostCar[] getGhosts() {
         return ghostCars;
     }

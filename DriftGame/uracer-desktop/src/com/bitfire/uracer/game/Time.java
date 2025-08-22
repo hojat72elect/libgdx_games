@@ -13,9 +13,9 @@ public final class Time extends Task {
     private long nsStartTime;
     private long ticks;
     private boolean stopped;
-    private long nsStopTime;
     private long lastStartTime;
     private final TimeValue result = new TimeValue();
+
     /**
      * Constructs a new Time object
      */
@@ -45,7 +45,6 @@ public final class Time extends Task {
      * Stops tracking
      */
     public void stop() {
-        nsStopTime = TimeUtils.nanoTime();
         stopped = true;
     }
 
@@ -64,7 +63,6 @@ public final class Time extends Task {
         stopped = true;
 
         nsStartTime = 0;
-        nsStopTime = 0;
         lastStartTime = 0;
 
         result.reset();
@@ -81,7 +79,7 @@ public final class Time extends Task {
         if (!stopped) {
             ticks++;
 
-            long now = (stopped ? nsStopTime : TimeUtils.nanoTime());
+            long now = TimeUtils.nanoTime();
 
             // plain number of ticks
             result.ticks = ticks;

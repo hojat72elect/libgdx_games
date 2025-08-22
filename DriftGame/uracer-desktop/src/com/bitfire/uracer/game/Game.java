@@ -14,17 +14,14 @@ import com.bitfire.uracer.game.world.GameWorld;
 
 public class Game implements Disposable {
 
-    // world
-    public GameWorld gameWorld = null;
-
     // logic
-    private GameLogic gameLogic = null;
-
+    private final GameLogic gameLogic;
     // tasks
-    private TaskManager taskManager = null;
-
+    private final TaskManager taskManager;
     // rendering
-    private GameRenderer gameRenderer = null;
+    private final GameRenderer gameRenderer;
+    // world
+    public GameWorld gameWorld;
 
     public Game(UserProfile userProfile, String trackId) {
 
@@ -92,10 +89,6 @@ public class Game implements Disposable {
     public boolean isPaused() {
         return gameLogic.isPaused();
     }
-
-    //
-    // OPERATIONS
-    //
 
     public void start() {
         gameLogic.addPlayer();

@@ -28,14 +28,14 @@ public final class BitmapFontFactory {
 
         if (f != null) {
             if (reset) {
-                setupFont(face, f);
+                setupFont(f);
             }
             return f;
         }
 
         f = new BitmapFont(Gdx.files.internal("data/font/" + name + ".fnt"), Art.fontAtlas.findRegion(name), true);
 
-        setupFont(face, f);
+        setupFont(f);
 
         fontCache.put(hash, f);
 
@@ -49,7 +49,7 @@ public final class BitmapFontFactory {
         return get(face, true);
     }
 
-    private static void setupFont(FontFace face, BitmapFont font) {
+    private static void setupFont(BitmapFont font) {
         font.setUseIntegerPositions(false);
     }
 

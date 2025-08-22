@@ -53,8 +53,6 @@ public interface GameLogic {
 
     TimeModulator getTimeModulator();
 
-    GhostCar[] getGhosts();
-
     GhostCar getGhost(int handle);
 
     boolean isGhostActive(int handle);

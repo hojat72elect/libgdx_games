@@ -27,10 +27,6 @@ public final class ScreenManager {
         gl = Gdx.gl20;
     }
 
-    public static Screen currentScreen() {
-        return current;
-    }
-
     public void dispose() {
         if (current != null) {
             current.dispose();
@@ -125,7 +121,7 @@ public final class ScreenManager {
         return quitPending;
     }
 
-    public void resize(int width, int height) {
+    public void resize() {
     }
 
     public void tick() {

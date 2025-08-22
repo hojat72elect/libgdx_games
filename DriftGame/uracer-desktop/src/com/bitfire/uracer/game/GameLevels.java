@@ -63,8 +63,8 @@ public final class GameLevels {
         }
 
         // build internal maps
-        for (int i = 0; i < tracks.length; i++) {
-            GameLevelDescriptor desc = computeDescriptor(tracks[i].name());
+        for (FileHandle track : tracks) {
+            GameLevelDescriptor desc = computeDescriptor(track.name());
             levels.add(desc);
 
             // build lookup table
@@ -115,7 +115,7 @@ public final class GameLevels {
      */
     private static GameLevelDescriptor computeDescriptor(String filename) {
         String filePath = Storage.Levels + filename;
-        Element root = null;
+        Element root;
 
         try {
             root = xml.parse(Gdx.files.internal(filePath));
@@ -161,7 +161,7 @@ public final class GameLevels {
         }
 
         // check for unnamed track
-        if (levelName.length() == 0) {
+        if (levelName.isEmpty()) {
             throw new URacerRuntimeException("Level \"" + filePath + "\" is not a valid uRacer level definition, unnamed track.");
         }
 
@@ -192,13 +192,11 @@ public final class GameLevels {
                 try {
                     zlib.inflate(temp, 0, 4);
 
-                    //@off
                     int id =
                             unsignedByteToInt(temp[0]) |
                                     unsignedByteToInt(temp[1]) << 8 |
                                     unsignedByteToInt(temp[2]) << 16 |
                                     unsignedByteToInt(temp[3]) << 24;
-                    //@on
 
                     // clear it
                     id = id & ~0xE0000000;
@@ -221,10 +219,6 @@ public final class GameLevels {
         DigestUtils.sha256.update(out);
         checksum = DigestUtils.sha256.digest();
 
-        temp = null;
-        out = null;
-        trackData = null;
-
         return new GameLevelDescriptor(levelName, new BigInteger(1, checksum), filename);
     }
 
@@ -245,10 +239,6 @@ public final class GameLevels {
 
         public String getId() {
             return checksum.toString(16);
-        }
-
-        public BigInteger getChecksum() {
-            return checksum;
         }
 
         public String getName() {

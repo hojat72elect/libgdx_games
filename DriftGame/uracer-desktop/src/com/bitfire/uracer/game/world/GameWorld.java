@@ -74,12 +74,11 @@ public final class GameWorld {
     private final float pixelsPerMeterFactor;
     // player data
     public PlayerCar player = null;
-    public TrackPosition playerStart = null;
+    public TrackPosition playerStart;
     // ghost data
     public GhostCar[] ghosts = null;
     private RayHandler rayHandler = null;
     private ConeLight playerHeadlightsA, playerHeadlightsB = null;
-    private final PointLight playerImpulse = null;
     private PointLight[] lights = null;
     // level meshes, package-level access for GameWorldRenderer (ugly but faster than accessors)
     private TrackWalls trackWalls = null;
@@ -232,7 +231,6 @@ public final class GameWorld {
 
         if (!URacer.Game.isDesktop()) {
             rttScale = 0.2f;
-            maxRays = 360;
         }
 
         RayHandler.setColorPrecisionHighp();
@@ -346,16 +344,14 @@ public final class GameWorld {
 
             MapLayer group = mapUtils.getObjectGroup(ObjectGroup.Sectors);
             if (group.getObjects().getCount() > 0) {
-                s = new ArrayList<Polygon>(group.getObjects().getCount());
+                s = new ArrayList<>(group.getObjects().getCount());
 
                 for (int i = 0; i < group.getObjects().getCount(); i++) {
                     PolygonMapObject o = (PolygonMapObject) group.getObjects().get(i);
 
-                    //@off
                     List<Vector2> points = MapUtils.extractPolyData(
                             o.getPolygon().getVertices()
                     );
-                    //@on
 
                     if (points.size() != 4) {
                         throw new GdxRuntimeException("A quadrilateral is required!");
@@ -487,13 +483,11 @@ public final class GameWorld {
         float oneOnWorld3DFactor = 1f / OrthographicAlignedStillModel.World3DScalingFactor;
         float wallHeightMt = 5f * factor * oneOnWorld3DFactor;
         float textureScalingU = 0.5f;
-        float coordU = 1f;
+        float coordU;
         float coordV = 1f;
 
         // jitter
         float jitterPositional = 0.75f * factor * oneOnWorld3DFactor;
-        // float jitterAltitudinal = 3f * factor * oneOnWorld3DFactor;
-        boolean addJitter = true;
 
         int vertexCount = points.size() * 2;
         int indexCount = (points.size() - 1) * 6;
@@ -502,7 +496,6 @@ public final class GameWorld {
         float[] verts = new float[vertSize * vertexCount];
         short[] indices = new short[indexCount];
         float mag, prevmag;
-        mag = magnitudes[0];
         prevmag = magnitudes[0];
 
         // add input (interleaved w/ later filled dupes w/ just a meaningful
@@ -528,12 +521,9 @@ public final class GameWorld {
             verts[j + Z1] = 0;// -0.025f; // should be 0, but fixes some nasty flickering border issue
 
             // elevation
-            verts[j + X2] = in.x + (addJitter ? MathUtils.random(-jitterPositional, jitterPositional) : 0);
-            verts[j + Y2] = in.y + (addJitter ? MathUtils.random(-jitterPositional, jitterPositional) : 0);
-            verts[j + Z2] = wallHeightMt;// + (addJitter? MathUtils.random(
-            // -jitterAltitudinal,
-            // jitterAltitudinal ) :
-            // 0);
+            verts[j + X2] = in.x + MathUtils.random(-jitterPositional, jitterPositional);
+            verts[j + Y2] = in.y + MathUtils.random(-jitterPositional, jitterPositional);
+            verts[j + Z2] = wallHeightMt;
 
             // tex coords
             verts[j + U1] = ((i & 1) == 0 ? coordU : 0f);
@@ -565,7 +555,6 @@ public final class GameWorld {
         }
 
         // alias it
-        float[] v = verts;
 
         // compute normals
         int count = indices.length / 3;
@@ -574,9 +563,9 @@ public final class GameWorld {
             int second = indices[i * 3] * vertSize;
             int third = indices[i * 3 + 2] * vertSize;
 
-            vec1.set(v[first + X1], v[first + Y1], v[first + Z1]);
-            vec2.set(v[second + X1], v[second + Y1], v[second + Z1]);
-            vec3.set(v[third + X1], v[third + Y1], v[third + Z1]);
+            vec1.set(verts[first + X1], verts[first + Y1], verts[first + Z1]);
+            vec2.set(verts[second + X1], verts[second + Y1], verts[second + Z1]);
+            vec3.set(verts[third + X1], verts[third + Y1], verts[third + Z1]);
 
             vecFirst.set(vec1).sub(vec2);
             vecSecond.set(vec2).sub(vec3);
@@ -585,15 +574,15 @@ public final class GameWorld {
             vecNormal.nor();
 
             //@off
-            v[first + NX1] += vecNormal.x;
-            v[first + NY1] += vecNormal.y;
-            v[first + NZ1] += vecNormal.z;
-            v[second + NX1] += vecNormal.x;
-            v[second + NY1] += vecNormal.y;
-            v[second + NZ1] += vecNormal.z;
-            v[third + NX1] += vecNormal.x;
-            v[third + NY1] += vecNormal.y;
-            v[third + NZ1] += vecNormal.z;
+            verts[first + NX1] += vecNormal.x;
+            verts[first + NY1] += vecNormal.y;
+            verts[first + NZ1] += vecNormal.z;
+            verts[second + NX1] += vecNormal.x;
+            verts[second + NY1] += vecNormal.y;
+            verts[second + NZ1] += vecNormal.z;
+            verts[third + NX1] += vecNormal.x;
+            verts[third + NY1] += vecNormal.y;
+            verts[third + NZ1] += vecNormal.z;
             //@on
         }
 
@@ -602,15 +591,15 @@ public final class GameWorld {
         for (int i = 0; i < count; i++) {
             int k = vertSize * i;
 
-            vecNormal.x = v[k + NX1];
-            vecNormal.y = v[k + NY1];
-            vecNormal.z = v[k + NZ1];
+            vecNormal.x = verts[k + NX1];
+            vecNormal.y = verts[k + NY1];
+            vecNormal.z = verts[k + NZ1];
 
             vecNormal.nor();
 
-            v[k + NX1] = vecNormal.x;
-            v[k + NY1] = vecNormal.y;
-            v[k + NZ1] = vecNormal.z;
+            verts[k + NX1] = vecNormal.x;
+            verts[k + NY1] = vecNormal.y;
+            verts[k + NZ1] = vecNormal.z;
         }
 
         //@off
@@ -709,14 +698,6 @@ public final class GameWorld {
         return trackTrees;
     }
 
-    public List<Vector2> getTrackRoute() {
-        return route;
-    }
-
-    public List<Polygon> getTrackPolygons() {
-        return polys;
-    }
-
     public GameTrack getGameTrack() {
         return gameTrack;
     }
@@ -735,10 +716,6 @@ public final class GameWorld {
 
     public ConeLight getPlayerHeadLights(boolean aOrB) {
         return aOrB ? playerHeadlightsA : playerHeadlightsB;
-    }
-
-    public PointLight getPlayerImpulseLight() {
-        return playerImpulse;
     }
 
     public World getBox2DWorld() {

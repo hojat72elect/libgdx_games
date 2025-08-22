@@ -36,8 +36,8 @@ public final class TransitionFactory {
                 return new CrossFader(screenFactory);
             case Fader:
                 return new Fader(screenFactory);
-            default:
             case None:
+            default:
                 return null;
         }
     }

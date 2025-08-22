@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
  */
 public final class ScreenUtils {
 
-    public static Screen currentScreen;
-
     private ScreenUtils() {
     }
 

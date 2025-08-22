@@ -14,7 +14,7 @@ public final class GameInput {
 
     private final Input input;
     private final GameLogic logic;
-    private TimeDilateInputMode timeMode;
+    private final TimeDilateInputMode timeMode;
     private boolean timeDilation;
 
     public GameInput(GameLogic logic, Input inputSystem) {
@@ -23,14 +23,6 @@ public final class GameInput {
         this.timeMode = TimeDilateInputMode.valueOf(UserPreferences.string(Preference.TimeDilateInputMode));
         this.timeDilation = false;
         input.releaseAllKeys();
-    }
-
-    public TimeDilateInputMode getInputMode() {
-        return this.timeMode;
-    }
-
-    public void setInputMode(TimeDilateInputMode mode) {
-        this.timeMode = mode;
     }
 
     public boolean isTimeDilating() {
@@ -64,7 +56,7 @@ public final class GameInput {
             logic.chooseNextTarget(backward);
         }
 
-        boolean rightMouseButton = input.isTouched(MouseButton.Right);// && input.isTouchedInBounds(MouseButton.Right);
+        boolean rightMouseButton = input.isTouched(MouseButton.Right);
 
         switch (timeMode) {
             case Toggle:

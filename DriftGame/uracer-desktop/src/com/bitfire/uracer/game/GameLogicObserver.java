@@ -22,8 +22,6 @@ public interface GameLogicObserver {
 
     void ghostReplayEnded(GhostCar ghost);
 
-    void ghostLapStarted(GhostCar ghost);
-
     void ghostLapCompleted(GhostCar ghost);
 
     void ghostFadingOut(GhostCar ghost);

@@ -15,9 +15,6 @@ public abstract class Screen implements Disposable {
         Gdx.input.setInputProcessor(null);
     }
 
-    public void resize(int width, int height) {
-    }
-
     public abstract void pause();
 
     public abstract void resume();

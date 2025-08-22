@@ -26,8 +26,6 @@ public final class Sounds {
     public static void init() {
         carDrift = Gdx.audio.newSound(Gdx.files.getFileHandle(Storage.Audio + "car-tires/drift-loop.ogg", FileType.Internal));
 
-        //@off
-
         carImpacts[0] = Gdx.audio.newSound(Gdx.files.getFileHandle(Storage.Audio + "car-crashes/impact-2.ogg", FileType.Internal)); // low1
         carImpacts[1] = Gdx.audio.newSound(Gdx.files.getFileHandle(Storage.Audio + "car-crashes/impact-3.ogg", FileType.Internal)); // low2
         carImpacts[2] = Gdx.audio.newSound(Gdx.files.getFileHandle(Storage.Audio + "car-crashes/impact-7.ogg", FileType.Internal)); // low3
@@ -86,18 +84,17 @@ public final class Sounds {
         menuRollover = Gdx.audio.newSound(Gdx.files.getFileHandle(Storage.Audio + "menu-sfx/rollover2.ogg", FileType.Internal));
         menuSwitch = Gdx.audio.newSound(Gdx.files.getFileHandle(Storage.Audio + "menu-sfx/switch2.ogg", FileType.Internal));
 
-        //@on
     }
 
     public static void dispose() {
         carDrift.dispose();
 
-        for (int i = 0; i < carImpacts.length; i++) {
-            carImpacts[i].dispose();
+        for (Sound carImpact : carImpacts) {
+            carImpact.dispose();
         }
 
-        for (int i = 0; i < musTensive.length; i++) {
-            musTensive[i].dispose();
+        for (Sound sound : musTensive) {
+            sound.dispose();
         }
 
         for (int i = 0; i < 7; i++) {

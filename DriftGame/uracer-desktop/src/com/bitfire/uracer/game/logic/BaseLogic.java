@@ -219,7 +219,7 @@ public abstract class BaseLogic extends CommonLogic {
         }
     }
 
-    @Override
+
     public void ghostLapStarted(GhostCar ghost) {
     }
 
