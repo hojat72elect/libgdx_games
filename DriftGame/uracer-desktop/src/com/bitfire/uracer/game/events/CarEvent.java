@@ -25,7 +25,7 @@ public final class CarEvent extends Event<CarEvent.Type, CarEvent.Order, CarEven
         void handle(Object source, Type type, Order order);
     }
 
-    public final class Data {
+    public static final class Data {
         public Car car;
 
         /**

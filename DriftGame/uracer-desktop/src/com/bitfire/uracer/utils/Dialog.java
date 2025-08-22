@@ -33,7 +33,7 @@ public class Dialog extends Window {
     static public float fadeDuration = 0.4f;
 
     Table contentTable, buttonTable;
-    ObjectMap<Actor, Object> values = new ObjectMap<Actor, Object>();
+    ObjectMap<Actor, Object> values = new ObjectMap<>();
     boolean cancelHide;
     Actor previousKeyboardFocus, previousScrollFocus;
     InputListener ignoreTouchDown = new InputListener() {

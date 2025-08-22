@@ -46,13 +46,8 @@ public class EngineF40 extends EngineSoundSet {
             }
         }
 
-        // return .025f + 0.025f * volmul;
-        // ivolume.set(0.1f + 0.05f * target_vol * player.carState.currSpeedFactor, 0.05f);
         float computedTarget = 0.1f - 0.05f * target_vol * player.carState.currSpeedFactor;
         ivolume.set(computedTarget, 0.005f);
-
-        // Gdx.app.log("", "tv=" + ivolume.get());
-
         return ivolume.get();
     }
 
@@ -142,13 +137,9 @@ public class EngineF40 extends EngineSoundSet {
             float q = 15000;
             float factor = q * sf * getGearRatio();
 
-            // updateGearFIS();
             if (sf < prevSpeed) {
                 factor = q * sf * getGearRatioOff();
             }
-
-            // Gdx.app.log("EngineSoundSet", "gear=" + gear + ", rpm=" + rpm + ", throttle=" + player.getCarDescriptor().throttle
-            // + ", throttling=" + player.isThrottling);// + ", speed="+ sf);
 
             if (sf < prevSpeed) {
                 ifactor.set(factor, 0.6f);
@@ -157,9 +148,6 @@ public class EngineF40 extends EngineSoundSet {
             }
 
             rpm = 1000 + ifactor.get() + (load < 0 ? load : load * (22 - 10 * player.carState.currSpeedFactor));
-
-            // Gdx.app.log("EngineSoundSet", "gear=" + gear + ", rpm=" + rpm + ", throttle=" + player.getCarDescriptor().throttle
-            // + ", throttling=" + player.isThrottling); // + ", speed="+ sf);
 
             rpm = MathUtils.clamp(rpm, 1000, 10000);
 
@@ -212,18 +200,10 @@ public class EngineF40 extends EngineSoundSet {
         if (UseGears) {
             if (gear > 0 && gear < MaxGear) {
                 gear++;
-
-                float dist = 2000;
-                if (rpm >= dist + 1000) {
-                    // rpm -= dist;
-                } else {
-                    // rpm = 1000;
-                }
             }
 
             if (gear == 0) {
                 gear++;
-                // rpm = 1000;
             }
 
             rpm = MathUtils.clamp(rpm, 1000, 10000);
@@ -235,21 +215,11 @@ public class EngineF40 extends EngineSoundSet {
     @Override
     public void shiftDown() {
         if (UseGears) {
-            // gear = 1;
-
-            // if (gear == 1) {
-            // gear--;
-            // }
 
             if (gear > MinGear && gear <= MaxGear) {
                 gear--;
-                if (rpm != 1000) {
-                    // rpm += MathUtils.random(-500, 1100);
-                    // rpm += 3000;
-                }
 
                 rpm = MathUtils.clamp(rpm, 1000, 10000);
-                // Gdx.app.log("EngineF40", "shift down");
             }
         }
 

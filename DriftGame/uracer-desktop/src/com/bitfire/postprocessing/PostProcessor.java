@@ -19,7 +19,7 @@ import com.bitfire.utils.ItemsManager;
  * Effects can be added or removed via {@link #addEffect(PostProcessorEffect)} and {@link #removeEffect(PostProcessorEffect)}.
  */
 public final class PostProcessor implements Disposable {
-    private static final Array<PingPongBuffer> buffers = new Array<PingPongBuffer>(5);
+    private static final Array<PingPongBuffer> buffers = new Array<>(5);
     private static final Rectangle viewport = new Rectangle();
     /**
      * Enable pipeline state queries: beware the pipeline can stall!
@@ -29,10 +29,10 @@ public final class PostProcessor implements Disposable {
     private static Format fbFormat;
     private static boolean hasViewport = false;
     private final PingPongBuffer composite;
-    private final ItemsManager<PostProcessorEffect> effectsManager = new ItemsManager<PostProcessorEffect>();
+    private final ItemsManager<PostProcessorEffect> effectsManager = new ItemsManager<>();
     private final Color clearColor = Color.CLEAR;
     // maintains a per-frame updated list of enabled effects
-    private final Array<PostProcessorEffect> enabledEffects = new Array<PostProcessorEffect>(5);
+    private final Array<PostProcessorEffect> enabledEffects = new Array<>(5);
     private TextureWrap compositeWrapU;
     private TextureWrap compositeWrapV;
     private int clearBits = GL20.GL_COLOR_BUFFER_BIT;
@@ -295,9 +295,6 @@ public final class PostProcessor implements Disposable {
 
         if (enabled && !capturing) {
             if (buildEnabledEffectsList() == 0) {
-                // no enabled effects
-                // Gdx.app.log( "PostProcessor::capture()",
-                // "No post-processor effects enabled" );
                 return false;
             }
 
@@ -327,9 +324,6 @@ public final class PostProcessor implements Disposable {
 
         if (enabled && !capturing) {
             if (buildEnabledEffectsList() == 0) {
-                // no enabled effects
-                // Gdx.app.log( "PostProcessor::captureNoClear",
-                // "No post-processor effects enabled" );
                 return false;
             }
 

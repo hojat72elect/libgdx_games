@@ -103,10 +103,6 @@ public final class Message {
                 }
                 break;
         }
-
-        // if (size == Size.Big) {
-        // scale = 2.5f;
-        // }
     }
 
     private void computeFinalPosition() {

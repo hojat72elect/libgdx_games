@@ -79,14 +79,6 @@ public class WrongWay extends Positionable {
     public void render(SpriteBatch batch, float cameraZoom) {
         if (!AMath.isZero(bfAlpha.value)) {
 
-            // float scale = 0.5f;
-            // float timeFactor = URacer.Game.getTimeModFactor() * 0.3f;
-            // float s = 0.55f + timeFactor * 0.5f;
-            // float scl = cameraZoom * s;
-            //
-            // s = 0.8f + timeFactor;
-            // scl = cameraZoom * scale * s;
-
             float px = position.x - offX;
             float py = position.y - offY;
 

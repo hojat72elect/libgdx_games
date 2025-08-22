@@ -47,8 +47,6 @@ public final class EntityRenderState {
             result.orientation = curr * alpha + prev * (1 - alpha);
             result.orientation = -(AMath.TWO_PI - result.orientation);
 
-            // Debug.print( "curr=%.4f, prev=%.4f, res=%.4f", current.orientation, previous.orientation,
-            // result.orientation );
         } else {
             result.orientation = current.orientation * alpha + previous.orientation * (1 - alpha);
         }

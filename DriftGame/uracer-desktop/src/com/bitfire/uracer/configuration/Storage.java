@@ -22,11 +22,6 @@ public final class Storage {
     }
 
     public static void init() {
-        // // determine user directories on UNIX-like OSes
-        // String configBase = System.getenv("XDG_CONFIG_HOME");
-        // if (configBase == null || configBase.trim().equals("")) {
-        // configBase = System.getProperty("user.home") + "/" + ".config";
-        // }
 
         Gdx.files.external(Storage.ConfigRoot).mkdirs();
         Gdx.files.external(Storage.DataRoot).mkdirs();

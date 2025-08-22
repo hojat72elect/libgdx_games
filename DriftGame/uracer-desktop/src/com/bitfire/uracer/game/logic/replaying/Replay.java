@@ -100,10 +100,6 @@ public final class Replay implements Disposable, Comparable<Replay> {
         }
     }
 
-    // public void setId (String id) {
-    // info.replayId = id;
-    // }
-
     @Override
     public void dispose() {
         reset();

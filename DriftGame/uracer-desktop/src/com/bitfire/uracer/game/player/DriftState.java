@@ -83,10 +83,8 @@ public final class DriftState {
                 if (driftStrength > 0.4f && velocityLength > 20) {
                     isDrifting = true;
                     hasCollided = false;
-                    // driftStartTime = System.currentTimeMillis();
                     time.start();
                     GameEvents.driftState.trigger(car, Type.onBeginDrift);
-                    // Gdx.app.log( "DriftState", car.getClass().getSimpleName() + " onBeginDrift()" );
                 }
             } else {
                 // search for onEndDrift
@@ -94,14 +92,7 @@ public final class DriftState {
                     time.stop();
                     isDrifting = false;
                     hasCollided = false;
-
-                    // float elapsed = time.elapsed( Time.Reference.TickSeconds );
-                    // Gdx.app.log( "PlayerDriftState", "playerDriftStateEvent::ds=" + NumberString.format( elapsed ) +
-                    // " (" + elapsed + ")" );
-
                     GameEvents.driftState.trigger(car, Type.onEndDrift);
-                    // Gdx.app.log( "DriftState", car.getClass().getSimpleName() + " onEndDrift(), " + time.elapsed(
-                    // Time.Reference.TickSeconds ) + "s" );
                 }
             }
         }

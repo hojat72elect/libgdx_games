@@ -13,7 +13,7 @@ import com.bitfire.uracer.utils.ColorUtils;
 import com.bitfire.uracer.utils.SpriteBatchUtils;
 
 public class DebugCarEngineVolumes extends DebugRenderable {
-    private final Array<DebugMeter> meters = new Array<DebugMeter>();
+    private final Array<DebugMeter> meters = new Array<>();
     private final EngineSoundSet soundset;
     private final Matrix4 idt = new Matrix4();
     private final String[] sampleNames = {"idle    ", "on-low  ", "on-mid  ", "on-high ", "off-low ", "off-mid ", "off-high"};

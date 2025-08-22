@@ -124,22 +124,10 @@ public final class CarSimulator {
         velocity.y = -sn * carDesc.velocity_wc.y + cs * carDesc.velocity_wc.x;
         VMath.fixup(velocity);
 
-        //
-        // Lateral force on wheels
-        //
-
-        // Resulting velocity of the wheels as result of the yaw rate of the car
-        // body
-        // v = yawrate * r where r is distance of wheel to CG (approx. half
-        // wheel base)
-        // yawrate (ang.velocity) must be in rad/s
-        //
         float yawspeed = carDesc.carModel.wheelbase * 0.5f * carDesc.angularvelocity;
         float sideslip = 0, rot_angle = 0;
         float slipanglefront = 0, slipanglerear = 0;
 
-        // velocity.x = fVLong_, velocity.y = fVLat_
-        // fix singularity
         if (AMath.isZero(velocity.x)) {
             rot_angle = 0;
             sideslip = 0;
@@ -180,10 +168,6 @@ public final class CarSimulator {
         flatr.y = Math.max(-carDesc.carModel.max_grip, flatr.y);
         lateralForceRear.set(flatr);
         flatr.y *= carDesc.carModel.weight;
-
-        // float s = SGN(velocity.x);
-        // thisSign = AMath.lowpass(lastSign, AMath.sign(velocity.x), 0.2f);
-        // lastSign = thisSign;
         thisSign = AMath.sign(velocity.x);
 
         ftraction.set(100f * (carDesc.throttle - carDesc.brake * thisSign), 0);
@@ -191,10 +175,6 @@ public final class CarSimulator {
         // torque on body from lateral forces
         float torque = carDesc.carModel.b * flatf.y - carDesc.carModel.c * flatr.y;
         torque = AMath.fixup(torque);
-
-        //
-        // Forces and torque on body
-        //
 
         // drag and rolling resistance
         resistance.x = -(carDesc.carModel.resistance * velocity.x + carDesc.carModel.drag * velocity.x * Math.abs(velocity.x));
@@ -204,18 +184,10 @@ public final class CarSimulator {
         force.x = ftraction.x + MathUtils.sin(carDesc.steerangle) * flatf.x + flatr.x + resistance.x;
         force.y = ftraction.y + MathUtils.cos(carDesc.steerangle) * flatf.y + flatr.y + resistance.y;
 
-        //
-        // Acceleration
-        //
-
         // Convert the force into acceleration
         // Newton F = m.a, therefore a = F/m
         acceleration.set(force.x * carDesc.carModel.invmass, force.y * carDesc.carModel.invmass);
         VMath.fixup(acceleration);
-
-        //
-        // Velocity and position
-        //
 
         // transform acceleration from car reference frame to world reference
         // frame
@@ -239,14 +211,10 @@ public final class CarSimulator {
         carDesc.angularvelocity += dt * angular_acceleration;
         carDesc.angularvelocity = AMath.fixup(carDesc.angularvelocity);
 
-        //
         float degreeOfRotationPerFrame = ((velocity.len() * dt) / carDesc.carModel.wheellength) * 360f;
         float degreeOfRotationPerSecond = degreeOfRotationPerFrame * 30f;
         float rpsWheel = degreeOfRotationPerSecond / 360f;
-        // float kmh = ((rpsWheel * carDesc.carModel.wheellength) * 3600f) / 1000f;
         rpmWheel = rpsWheel * 60;
-
-        // Gdx.app.log("CarSimulator", "rpmWheel=" + rpmWheel );
     }
 
     public float getRpmWheel() {

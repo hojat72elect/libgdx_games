@@ -193,13 +193,10 @@ public class SinglePlayer extends BaseLogic {
 
         if (replay != null) {
             saving = true;
-            Thread savingThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    if (replay.save()) {
-                        Gdx.app.log("SinglePlayer",
-                                "Replay #" + replay.getShortId() + " saved to \"" + ReplayUtils.getFullPath(replay.getInfo()) + "\"");
-                    }
+            Thread savingThread = new Thread(() -> {
+                if (replay.save()) {
+                    Gdx.app.log("SinglePlayer",
+                            "Replay #" + replay.getShortId() + " saved to \"" + ReplayUtils.getFullPath(replay.getInfo()) + "\"");
                 }
             });
 

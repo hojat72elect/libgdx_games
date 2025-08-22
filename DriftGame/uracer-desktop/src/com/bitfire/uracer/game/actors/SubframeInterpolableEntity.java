@@ -4,7 +4,6 @@ import com.bitfire.uracer.entities.Entity;
 import com.bitfire.uracer.entities.EntityRenderState;
 import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.events.GameRendererEvent;
-import com.bitfire.uracer.game.events.GameRendererEvent.Order;
 import com.bitfire.uracer.game.events.PhysicsStepEvent;
 
 public abstract class SubframeInterpolableEntity extends Entity {
@@ -12,30 +11,23 @@ public abstract class SubframeInterpolableEntity extends Entity {
     protected EntityRenderState statePrevious = new EntityRenderState();
     protected EntityRenderState stateCurrent = new EntityRenderState();
 
-    private final PhysicsStepEvent.Listener physicsListener = new PhysicsStepEvent.Listener() {
-
-        @Override
-        public void handle(Object source, PhysicsStepEvent.Type type, PhysicsStepEvent.Order order) {
-            switch (type) {
-                case onBeforeTimestep:
-                    onBeforePhysicsSubstep();
-                    break;
-                case onAfterTimestep:
-                    onAfterPhysicsSubstep();
-                    break;
-                case onSubstepCompleted:
-                    onSubstepCompleted();
-                    break;
-            }
+    private final PhysicsStepEvent.Listener physicsListener = (source, type, order) -> {
+        switch (type) {
+            case onBeforeTimestep:
+                onBeforePhysicsSubstep();
+                break;
+            case onAfterTimestep:
+                onAfterPhysicsSubstep();
+                break;
+            case onSubstepCompleted:
+                onSubstepCompleted();
+                break;
         }
     };
 
-    private final GameRendererEvent.Listener renderListener = new GameRendererEvent.Listener() {
-        @Override
-        public void handle(Object source, com.bitfire.uracer.game.events.GameRendererEvent.Type type, Order order) {
-            if (type == GameRendererEvent.Type.SubframeInterpolate) {
-                onSubframeInterpolate(GameEvents.gameRenderer.timeAliasingFactor);
-            }
+    private final GameRendererEvent.Listener renderListener = (source, type, order) -> {
+        if (type == GameRendererEvent.Type.SubframeInterpolate) {
+            onSubframeInterpolate(GameEvents.gameRenderer.timeAliasingFactor);
         }
     };
 

@@ -38,9 +38,9 @@ public class Messager extends GameTask {
     public Messager() {
         GameEvents.gameRenderer.addListener(gameRendererEvent, RenderEvent, RenderOrder);
 
-        messages = new Array<Array<Message>>(3);
+        messages = new Array<>(3);
         for (Position group : Position.values()) {
-            messages.insert(group.ordinal(), new Array<Message>());
+            messages.insert(group.ordinal(), new Array<>());
         }
 
         // initialize message store

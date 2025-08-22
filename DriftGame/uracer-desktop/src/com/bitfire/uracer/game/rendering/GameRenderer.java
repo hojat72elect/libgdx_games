@@ -272,20 +272,15 @@ public final class GameRenderer {
      * class, the GameWorldRenderer MUST be already constructed and initialized.
      */
     public static final class ScreenUtils {
-        // private static int ScreenWidth, ScreenHeight;
         private static final Vector2 tmp2 = new Vector2();
         private static final Vector3 tmp3 = new Vector3();
         private static GameWorldRenderer worldRenderer;
-
-        // private static Vector2 ref2scr, scr2ref;
 
         private ScreenUtils() {
         }
 
         public static void init(GameWorldRenderer worldRenderer) {
             ScreenUtils.worldRenderer = worldRenderer;
-            // ScreenUtils.ScreenWidth = Gdx.graphics.getWidth();
-            // ScreenUtils.ScreenHeight = Gdx.graphics.getHeight();
         }
 
         /**
@@ -294,21 +289,6 @@ public final class GameRenderer {
         public static Vector2 worldMtToScreen(Vector2 worldPositionMt) {
             return worldPxToScreen(Convert.mt2px(worldPositionMt));
         }
-
-        // /** Transforms reference-screen pixel coordinates to world-mt coordinates */
-        // public static Vector3 screenToWorldMt (Vector2 screenPositionPx) {
-        // tmp3.set(screenPositionPx.x, screenPositionPx.y, 1);
-        //
-        // // normalize and scale to the real display size
-        // tmp3.x = (tmp3.x / (float)Config.Graphics.ReferenceScreenWidth) * ScreenWidth;
-        // tmp3.y = (tmp3.y / (float)Config.Graphics.ReferenceScreenHeight) * ScreenHeight;
-        //
-        // worldRenderer.camOrtho.unproject(tmp3, 0, 0, ScreenWidth, ScreenHeight);
-        //
-        // tmp2.set(Convert.px2mt(tmp3.x), Convert.px2mt(tmp3.y));
-        // tmp3.set(tmp2.x, tmp2.y, 0);
-        // return tmp3;
-        // }
 
         /**
          * Transforms world-px coordinates to reference-screen pixel coordinates

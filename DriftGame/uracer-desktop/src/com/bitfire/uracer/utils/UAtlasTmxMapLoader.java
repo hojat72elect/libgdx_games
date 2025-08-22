@@ -62,7 +62,7 @@ public class UAtlasTmxMapLoader extends AsynchronousAssetLoader<TiledMap, UAtlas
     protected int mapWidthInPixels;
     protected int mapHeightInPixels;
     protected TiledMap map;
-    protected Array<Texture> trackedTextures = new Array<Texture>();
+    protected Array<Texture> trackedTextures = new Array<>();
 
     public UAtlasTmxMapLoader() {
         super(new InternalFileHandleResolver());
@@ -92,7 +92,7 @@ public class UAtlasTmxMapLoader extends AsynchronousAssetLoader<TiledMap, UAtlas
 
     @Override
     public Array<AssetDescriptor> getDependencies(String fileName, FileHandle tmxFile, AtlasTiledMapLoaderParameters parameter) {
-        Array<AssetDescriptor> dependencies = new Array<AssetDescriptor>();
+        Array<AssetDescriptor> dependencies = new Array<>();
         try {
             root = xml.parse(tmxFile);
 
@@ -125,7 +125,7 @@ public class UAtlasTmxMapLoader extends AsynchronousAssetLoader<TiledMap, UAtlas
 
             FileHandle tmxFile = resolve(fileName);
             root = xml.parse(tmxFile);
-            ObjectMap<String, TextureAtlas> atlases = new ObjectMap<String, TextureAtlas>();
+            ObjectMap<String, TextureAtlas> atlases = new ObjectMap<>();
             FileHandle atlasFile = loadAtlas(root, tmxFile);
             if (atlasFile == null) {
                 throw new GdxRuntimeException("Couldn't load atlas");

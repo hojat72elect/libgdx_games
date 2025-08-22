@@ -4,8 +4,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.bitfire.uracer.URacer;
 import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.events.PlayerDriftStateEvent;
-import com.bitfire.uracer.game.events.PlayerDriftStateEvent.Order;
-import com.bitfire.uracer.game.events.PlayerDriftStateEvent.Type;
 import com.bitfire.uracer.game.logic.gametasks.SoundManager;
 import com.bitfire.uracer.game.logic.gametasks.sounds.SoundEffect;
 import com.bitfire.uracer.game.player.PlayerCar;
@@ -27,17 +25,14 @@ public final class PlayerDriftSoundEffect extends SoundEffect {
     private boolean started = false;
     private boolean doFadeIn = false;
     private boolean doFadeOut = false;
-    private final PlayerDriftStateEvent.Listener driftListener = new PlayerDriftStateEvent.Listener() {
-        @Override
-        public void handle(Object source, Type type, Order order) {
-            switch (type) {
-                case onBeginDrift:
-                    onBeginDrift();
-                    break;
-                case onEndDrift:
-                    onEndDrift();
-                    break;
-            }
+    private final PlayerDriftStateEvent.Listener driftListener = (source, type, order) -> {
+        switch (type) {
+            case onBeginDrift:
+                onBeginDrift();
+                break;
+            case onEndDrift:
+                onEndDrift();
+                break;
         }
     };
     private float lastVolume = 0f;

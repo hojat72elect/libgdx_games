@@ -38,13 +38,9 @@ public final class CarState {
     }
 
     public void dispose() {
-        // GameEvents.playerCarState.removeAllListeners();
     }
 
     public void reset() {
-        // causes an onTileChanged event to be raised the next update step
-        // lastTileX = -1;
-        // lastTileY = -1;
         currTileX = -1;
         currTileY = -1;
     }
@@ -62,7 +58,6 @@ public final class CarState {
         currVelocityLenSquared = carDescriptor.velocity_wc.len2();
         currThrottle = carDescriptor.throttle;
         currSpeedFactor = AMath.fixup(AMath.clamp(currVelocityLenSquared / CarMaxSpeedSquared, 0f, 1f));
-        // currBrakeFactor = AMath.fixup(AMath.clamp(carDescriptor.brake / CarMaxForce, 0f, 1f));
         currForceFactor = AMath.fixup(AMath.clamp(currThrottle / CarMaxForce, 0f, 1f));
     }
 
@@ -71,8 +66,6 @@ public final class CarState {
      * tile index that is different than the previous one
      */
     private void updateTilePosition() {
-        // lastTileX = currTileX;
-        // lastTileY = currTileY;
 
         // compute car's tile position
         tilePosition
@@ -80,9 +73,5 @@ public final class CarState {
 
         currTileX = (int) tilePosition.x;
         currTileY = (int) tilePosition.y;
-
-        // if ((lastTileX != currTileX) || (lastTileY != currTileY)) {
-        // GameEvents.playerCarState.trigger(this, CarStateEvent.Type.onTileChanged);
-        // }
     }
 }

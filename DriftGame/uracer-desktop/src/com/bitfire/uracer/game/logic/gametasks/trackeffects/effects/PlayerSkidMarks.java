@@ -15,15 +15,12 @@ import com.bitfire.uracer.utils.AMath;
 import com.bitfire.uracer.utils.Convert;
 
 public class PlayerSkidMarks extends TrackEffect {
-    // public static final int MaxSkidMarks = 5000;
-    // private static final float MaxParticleLifeSeconds = 60f;
 
     private final int MaxSkidMarks;
     private final float MaxParticleLifeSeconds;
     private final float InvMaxParticleLifeSeconds;
 
     private final SkidMark[] skidMarks;
-    // private int driftMarkAddIterations = 1;
     private final Vector2 pos;
     private final Vector2 last;
     private final Vector2 ppos = new Vector2();
@@ -47,14 +44,6 @@ public class PlayerSkidMarks extends TrackEffect {
         for (int i = 0; i < MaxSkidMarks; i++) {
             skidMarks[i] = new SkidMark();
         }
-
-        // 1 iteration at 60Hz, 2 at 30Hz..
-        // if( Config.Physics.PhysicsTimestepHz > 60 ) {
-        // driftMarkAddIterations = 0;
-        // Gdx.app.log( "PlayerSkidMarks", "Physics timestep is too small, giving up the effect." );
-        // } else {
-        // driftMarkAddIterations = (int)(60 / (int)Config.Physics.PhysicsTimestepHz);
-        // }
     }
 
     @Override
@@ -167,9 +156,6 @@ public class PlayerSkidMarks extends TrackEffect {
         }
 
         last.set(position);
-
-        // Gdx.app.log( "PlayerSkidMarks", NumberString.format(driftState.driftStrength) + "/" +
-        // NumberString.format(driftState.lateralForcesFront) );
     }
 
     private class SkidMark {

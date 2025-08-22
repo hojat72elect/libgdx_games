@@ -11,14 +11,10 @@ public class GameWorldContactListener implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-        // if(Box2DUtils.isCar(contact.getFixtureA()) || Box2DUtils.isCar(contact.getFixtureB()))
-        // System.out.println("beginContact");
     }
 
     @Override
     public void endContact(Contact contact) {
-        // if(Box2DUtils.isCar(contact.getFixtureA()) || Box2DUtils.isCar(contact.getFixtureB()))
-        // System.out.println("endContact");
     }
 
     @Override

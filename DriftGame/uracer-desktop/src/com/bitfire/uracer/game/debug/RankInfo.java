@@ -19,11 +19,6 @@ public final class RankInfo implements Comparable<RankInfo> {
         isNextTarget = false;
     }
 
-    // @Override
-    // public boolean equals (Object obj) {
-    // return this.compareTo((RankInfo)obj) == 0;
-    // }
-
     @Override
     public int compareTo(RankInfo o) {
         if (o == null) {

@@ -84,15 +84,15 @@ public final class GameWorld {
     // level meshes, package-level access for GameWorldRenderer (ugly but faster than accessors)
     private TrackWalls trackWalls = null;
     private TrackTrees trackTrees = null;
-    private List<OrthographicAlignedStillModel> staticMeshes = new ArrayList<OrthographicAlignedStillModel>();
+    private List<OrthographicAlignedStillModel> staticMeshes = new ArrayList<>();
     // private data
     private World box2dWorld;
     // light/night system
     private boolean nightMode;
     // routes
     private GameTrack gameTrack = null;
-    private List<Vector2> route = new ArrayList<Vector2>();
-    private List<Polygon> polys = new ArrayList<Polygon>();
+    private List<Vector2> route = new ArrayList<>();
+    private List<Polygon> polys = new ArrayList<>();
     private final Vector3 vec1 = new Vector3();
     private final Vector3 vec2 = new Vector3();
     private final Vector3 vec3 = new Vector3();
@@ -251,9 +251,6 @@ public final class GameWorld {
         c.set(0.1f, 0.2f, 0.9f, 0.85f);
 
         int headlightsMask = CollisionFilters.CategoryTrackWalls;
-        // int headlightsMask = CollisionFilters.CategoryTrackWalls | CollisionFilters.CategoryReplay;
-        // int headlightsMask = CollisionFilters.CategoryReplay;
-        // int headlightsMask = 0;
 
         playerHeadlightsA = new ConeLight(rayHandler, maxRays, c, 25, 0, 0, 0, 9);
         playerHeadlightsA.setSoft(true);
@@ -296,19 +293,8 @@ public final class GameWorld {
 
             lights[i] = l;
         }
-
-        // playerImpulse = new PointLight(rayHandler, maxRays);
-        // playerImpulse.setMaskBits(CollisionFilters.CategoryPlayer | CollisionFilters.CategoryReplay);
-        // playerImpulse.setSoft(true);
-        // playerImpulse.setStaticLight(false);
-        // playerImpulse.setActive(true);
-        // playerImpulse.setColor(1, 1, 1, 1f);
-        // playerImpulse.setDistance(5);
     }
 
-    //
-    // construct walls
-    //
 
     private List<Vector2> createRoute() {
         List<Vector2> r = null;
@@ -322,12 +308,9 @@ public final class GameWorld {
             if (group.getObjects().getCount() == 1) {
                 PolylineMapObject o = (PolylineMapObject) group.getObjects().get(0);
 
-                //@off
-                List<Vector2> points = MapUtils.extractPolyData(
-                        o.getPolyline().getVertices());
-                //@on
+                List<Vector2> points = MapUtils.extractPolyData(o.getPolyline().getVertices());
 
-                r = new ArrayList<Vector2>(points.size());
+                r = new ArrayList<>(points.size());
 
                 offsetMt.set(o.getPolyline().getX(), o.getPolyline().getY());
                 offsetMt.set(Convert.px2mt(offsetMt));
@@ -423,15 +406,13 @@ public final class GameWorld {
 
             MapLayer group = mapUtils.getObjectGroup(ObjectGroup.Walls);
             if (group.getObjects().getCount() > 0) {
-                models = new ArrayList<OrthographicAlignedStillModel>(group.getObjects().getCount());
+                models = new ArrayList<>(group.getObjects().getCount());
 
                 for (int i = 0; i < group.getObjects().getCount(); i++) {
                     PolylineMapObject o = (PolylineMapObject) group.getObjects().get(i);
 
-                    //@off
-                    List<Vector2> points = MapUtils.extractPolyData(
-                            o.getPolyline().getVertices());
-                    //@on
+                    List<Vector2> points = MapUtils.extractPolyData(o.getPolyline().getVertices());
+
                     if (points.size() >= 2) {
                         float wallTicknessMt = 0.75f;
                         float[] mags = new float[points.size() - 1];
@@ -669,7 +650,7 @@ public final class GameWorld {
 
             if (group.getObjects().getCount() > 0) {
 
-                models = new ArrayList<TreeStillModel>(group.getObjects().getCount());
+                models = new ArrayList<>(group.getObjects().getCount());
 
                 for (int i = 0; i < group.getObjects().getCount(); i++) {
                     RectangleMapObject o = (RectangleMapObject) group.getObjects().get(i);
@@ -681,20 +662,17 @@ public final class GameWorld {
 
                     TreeStillModel model = null;
                     if (o.getProperties().get("type") != null) {
-                        //@off
+
                         model = ModelFactory.createTree(
                                 o.getProperties().get("type", String.class),
                                 o.getRectangle().x,
                                 worldSizePx.y - o.getRectangle().y,
                                 scale);
-                        //@on
                     } else {
                         Gdx.app.log("TrackTrees", "Load error, no type was given for the tree #" + (i + 1));
                     }
 
                     if (model != null) {
-                        // model.setRotation( MathUtils.random( -180f, 180f ),
-                        // 0, 0, 1f );
                         model.setRotation(treeRotations[MathUtils.random(0, 3)], 0, 0, 1f);
                         models.add(nextIndexForTrees(models, model), model);
                     }
@@ -782,8 +760,6 @@ public final class GameWorld {
     public void setGhostCars(GhostCar[] ghosts) {
         this.ghosts = ghosts;
     }
-
-    // helpers from maputils
 
     public Vector2 pxToTile(float x, float y) {
         return mapUtils.pxToTile(x, y);

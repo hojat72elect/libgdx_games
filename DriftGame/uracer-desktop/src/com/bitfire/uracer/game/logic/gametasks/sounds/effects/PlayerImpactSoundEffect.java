@@ -6,8 +6,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.events.CarEvent;
-import com.bitfire.uracer.game.events.CarEvent.Order;
-import com.bitfire.uracer.game.events.CarEvent.Type;
 import com.bitfire.uracer.game.logic.gametasks.SoundManager;
 import com.bitfire.uracer.game.logic.gametasks.sounds.SoundEffect;
 import com.bitfire.uracer.game.player.PlayerCar;
@@ -22,12 +20,7 @@ public final class PlayerImpactSoundEffect extends SoundEffect {
     private float lastFactor = 0;
     private int lastIdx = 0;
 
-    private final CarEvent.Listener carEvent = new CarEvent.Listener() {
-        @Override
-        public void handle(Object source, Type type, Order order) {
-            impact(GameEvents.playerCar.data.impulses.len(), ((PlayerCar) source).carState.currSpeedFactor);
-        }
-    };
+    private final CarEvent.Listener carEvent = (source, type, order) -> impact(GameEvents.playerCar.data.impulses.len(), ((PlayerCar) source).carState.currSpeedFactor);
 
     public PlayerImpactSoundEffect() {
         impacts = Sounds.carImpacts;
@@ -62,13 +55,8 @@ public final class PlayerImpactSoundEffect extends SoundEffect {
 
         // early exit
         if (factor < MinImpactForce) {
-            // if (factor > 0) {
-            // Gdx.app.log("impact", "Skipping f=" + factor);
-            // }
             return;
         }
-
-        // Gdx.app.log("impact", "factor=" + factor + " (prev=" + prevFactor + ")");
 
         long millis = TimeUtils.millis();
         if (millis - lastMillis > MinMillisBeforePlay || factor > lastFactor) {
@@ -119,8 +107,8 @@ public final class PlayerImpactSoundEffect extends SoundEffect {
 
     @Override
     public void stop() {
-        for (int i = 0; i < impacts.length; i++) {
-            impacts[i].stop();
+        for (Sound impact : impacts) {
+            impact.stop();
         }
     }
 

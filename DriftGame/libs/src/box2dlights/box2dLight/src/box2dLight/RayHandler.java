@@ -34,23 +34,22 @@ public class RayHandler implements Disposable {
     static boolean isDiffuse = false;
     /**
      * This Array contain all the lights.
-     *
      * NOTE: DO NOT MODIFY THIS LIST
      */
-    final public Array<Light> lightList = new Array<Light>(false, 16, Light.class);
+    final public Array<Light> lightList = new Array<>(false, 16, Light.class);
     /**
      * This Array contain all the disabled lights.
-     *
      * NOTE: DO NOT MODIFY THIS LIST
      */
-    final public Array<Light> disabledLights = new Array<Light>(false, 16, Light.class);
+    final public Array<Light> disabledLights = new Array<>(false, 16, Light.class);
     final LightRayCastCallback ray = new LightRayCastCallback();
     /**
-     * @param combined
-     *            matrix that include projection and translation matrices
+     * matrix that include projection and translation matrices
      */
     final private Matrix4 combined = new Matrix4();
-    /** how many lights passed culling and rendered to scene */
+    /**
+     * how many lights passed culling and rendered to scene
+     */
     public int lightRenderedLastFrame = 0;
     boolean culling = true;
     boolean shadows = true;
@@ -62,27 +61,32 @@ public class RayHandler implements Disposable {
     World world;
     ShaderProgram lightShader;
     boolean depthMasking;
-    /** camera matrix corners */
+    /**
+     * camera matrix corners
+     */
     float x1, x2, y1, y2;
     float[] m_segments;
     float[] m_x;
     float[] m_y;
     float[] m_f;
     int m_index = 0;
-    /** gles1.0 shadows mesh */
+    /**
+     * gles1.0 shadows mesh
+     */
     private Mesh box;
     private final LightMap lightMap;
+
     /**
      * Construct handler that manages everything related to updating and
      * rendering the lights MINIMUM parameters needed are world where collision
      * geometry is taken.
-     *
+     * <p>
      * Default setting: culling = true, shadows = true, blur =
      * true(GL2.0),blurNum = 1, ambientLight = 0.0f;
-     *
+     * <p>
      * NOTE1: rays number per lights are capped to 1023. For different size use
      * other constructor
-     *
+     * <p>
      * NOTE2: On GL 2.0 FBO size is 1/4 * screen size and used by default. For
      * different sizes use other constructor
      *
@@ -92,14 +96,14 @@ public class RayHandler implements Disposable {
     public RayHandler(World world, boolean depthMasking) {
         this(world, DEFAULT_MAX_RAYS, Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4, depthMasking);
     }
+
     /**
      * Construct handler that manages everything related to updating and
      * rendering the lights MINIMUM parameters needed are world where collision
      * geometry is taken.
-     *
+     * <p>
      * Default setting: culling = true, shadows = true, blur =
      * true(GL2.0),blurNum = 1, ambientLight = 0.0f;
-     *
      *
      * @param world
      * @param camera
@@ -197,18 +201,16 @@ public class RayHandler implements Disposable {
      * Set combined camera matrix. Matrix will be copied and used for rendering
      * lights, culling. Matrix must be set to work in box2d coordinates. Matrix
      * has to be updated every frame(if camera is changed)
-     *
-     *
+     * <p>
+     * <p>
      * NOTE: Matrix4 is assumed to be orthogonal for culling and directional
      * lights.
-     *
+     * <p>
      * If any problems detected Use: [public void setCombinedMatrix(Matrix4
      * combined, float x, float y, float viewPortWidth, float viewPortHeight)]
      * Instead
      *
-     *
-     * @param combined
-     *            matrix that include projection and translation matrices
+     * @param combined matrix that include projection and translation matrices
      */
     public void setCombinedMatrix(Matrix4 combined) {
         System.arraycopy(combined.val, 0, this.combined.val, 0, 16);
@@ -233,22 +235,16 @@ public class RayHandler implements Disposable {
      * EXPERT USE Set combined camera matrix. Matrix will be copied and used for
      * rendering lights, culling. Matrix must be set to work in box2d
      * coordinates. Matrix has to be updated every frame(if camera is changed)
-     *
+     * <p>
      * NOTE: this work with rotated cameras.
      *
-     * @param combined
-     *            matrix that include projection and translation matrices
-     *
-     * @param x
-     *            combined matrix position
-     * @param y
-     *            combined matrix position
-     * @param viewPortWidth
-     *            NOTE!! use actual size, remember to multiple with zoom value
-     *            if pulled from OrthoCamera
-     * @param viewPortHeight
-     *            NOTE!! use actual size, remember to multiple with zoom value
-     *            if pulled from OrthoCamera
+     * @param combined       matrix that include projection and translation matrices
+     * @param x              combined matrix position
+     * @param y              combined matrix position
+     * @param viewPortWidth  NOTE!! use actual size, remember to multiple with zoom value
+     *                       if pulled from OrthoCamera
+     * @param viewPortHeight NOTE!! use actual size, remember to multiple with zoom value
+     *                       if pulled from OrthoCamera
      */
     public void setCombinedMatrix(Matrix4 combined, float x, float y, float viewPortWidth, float viewPortHeight) {
         System.arraycopy(combined.val, 0, this.combined.val, 0, 16);
@@ -268,7 +264,7 @@ public class RayHandler implements Disposable {
 
     /**
      * Remember setCombinedMatrix(Matrix4 combined) before drawing.
-     *
+     * <p>
      * Don't call this inside of any begin/end statements. Call this method
      * after you have rendered background but before UI. Box2d bodies can be
      * rendered before or after depending how you want x-ray light interact with
@@ -292,11 +288,11 @@ public class RayHandler implements Disposable {
 
     /**
      * Manual rendering method for all lights.
-     *
+     * <p>
      * NOTE! Remember to call updateRays if you use this method. * Remember
      * setCombinedMatrix(Matrix4 combined) before drawing.
-     *
-     *
+     * <p>
+     * <p>
      * Don't call this inside of any begin/end statements. Call this method
      * after you have rendered background but before UI. Box2d bodies can be
      * rendered before or after depending how you want x-ray light interact with
@@ -421,11 +417,10 @@ public class RayHandler implements Disposable {
     /**
      * Disables/enables culling. This save cpu and gpu time when world is bigger
      * than screen.
-     *
+     * <p>
      * Default = true
      *
-     * @param culling
-     *            the culling to set
+     * @param culling the culling to set
      */
     public final void setCulling(boolean culling) {
         this.culling = culling;
@@ -435,11 +430,10 @@ public class RayHandler implements Disposable {
      * Disables/enables gaussian blur. This make lights much more softer and
      * realistic look but also cost some precious shader time. With default fbo
      * size on android cost around 1ms
-     *
+     * <p>
      * default = true;
      *
-     * @param blur
-     *            the blur to set
+     * @param blur the blur to set
      */
     public final void setBlur(boolean blur) {
         this.blur = blur;
@@ -449,11 +443,10 @@ public class RayHandler implements Disposable {
      * Set number of gaussian blur passes. Blurring can be pretty heavy weight
      * operation, 1-3 should be safe. Setting this to 0 is same as
      * setBlur(false)
-     *
+     * <p>
      * default = 1
      *
-     * @param blurNum
-     *            the blurNum to set
+     * @param blurNum the blurNum to set
      */
     public final void setBlurNum(int blurNum) {
         this.blurNum = blurNum;
@@ -463,8 +456,7 @@ public class RayHandler implements Disposable {
      * Disables/enables shadows. NOTE: If gl1.1 android you need to change
      * render target to contain alpha channel* default = true
      *
-     * @param shadows
-     *            the shadows to set
+     * @param shadows the shadows to set
      */
     public final void setShadows(boolean shadows) {
         this.shadows = shadows;
@@ -472,11 +464,10 @@ public class RayHandler implements Disposable {
 
     /**
      * Ambient light is how dark are the shadows. clamped to 0-1
-     *
+     * <p>
      * default = 0;
      *
-     * @param ambientLight
-     *            the ambientLight to set
+     * @param ambientLight the ambientLight to set
      */
     public final void setAmbientLight(float ambientLight) {
         if (ambientLight < 0)
@@ -490,8 +481,7 @@ public class RayHandler implements Disposable {
      * Ambient light color is how dark and what colored the shadows are. clamped
      * to 0-1 NOTE: color is changed only in gles2.0 default = 0;
      *
-     * @param ambientLight
-     *            the ambientLight to set
+     * @param ambientLight the ambientLight to set
      */
     public final void setAmbientLight(float r, float g, float b, float a) {
         this.ambientLight.set(r, g, b, a);
@@ -501,16 +491,14 @@ public class RayHandler implements Disposable {
      * Ambient light color is how dark and what colored the shadows are. clamped
      * to 0-1 NOTE: color is changed only in gles2.0 default = 0,0,0,0;
      *
-     * @param ambientLight
-     *            the ambientLight to set
+     * @param ambientLight the ambientLight to set
      */
     public final void setAmbientLight(Color ambientLightColor) {
         this.ambientLight.set(ambientLightColor);
     }
 
     /**
-     * @param world
-     *            the world to set
+     * @param world the world to set
      */
     public final void setWorld(World world) {
         this.world = world;
@@ -518,15 +506,13 @@ public class RayHandler implements Disposable {
 
     class LightRayCastCallback implements RayCastCallback {
         public Light requestingLight = null;
-        private final HashMap<Fixture, Filter> map = new HashMap<Fixture, Filter>();
+        private final HashMap<Fixture, Filter> map = new HashMap<>();
 
         @Override
         final public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
 
             if ((requestingLight.maskBits != Light.MaskConsiderAllFixtures) && !considerFixture(fixture))
                 return -1;
-            // if (fixture.isSensor())
-            // return -1;
             m_x[m_index] = point.x;
             m_y[m_index] = point.y;
             m_f[m_index] = fraction;

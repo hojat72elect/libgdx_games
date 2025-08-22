@@ -21,7 +21,6 @@ import com.bitfire.uracer.utils.BoxedFloat;
 import com.bitfire.uracer.utils.BoxedFloatAccessor;
 import com.bitfire.uracer.utils.InterpolatedFloat;
 
-import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
@@ -39,13 +38,10 @@ public abstract class BaseLogic extends CommonLogic {
     private final Time outOfTrackTime;
     private float collisionFrontRatio = 0.5f;
     private float lastImpactForce = 0;
-    private final TweenCallback collisionFinished = new TweenCallback() {
-        @Override
-        public void onEvent(int type, BaseTween<?> source) {
-            switch (type) {
-                case COMPLETE:
-                    lastImpactForce = 0;
-            }
+    private final TweenCallback collisionFinished = (type, source) -> {
+        switch (type) {
+            case TweenCallback.COMPLETE:
+                lastImpactForce = 0;
         }
     };
 
@@ -153,10 +149,6 @@ public abstract class BaseLogic extends CommonLogic {
         float minZoom = GameWorldRenderer.MinCameraZoom;
         float maxZoom = GameWorldRenderer.MaxCameraZoom;
 
-        // dbg
-        // ZoomNorm = 0.2f;
-        // collisionFactor.value = 0f;
-
         float cameraZoom = (minZoom + GameWorldRenderer.ZoomWindow);
         cameraZoom = maxZoom - ZoomNorm - collisionFactor.value * 0.1f;// (1 - ZoomNorm);
         // cameraZoom += 0.2f * timeModFactor; // zoom in if slowing time down
@@ -170,28 +162,12 @@ public abstract class BaseLogic extends CommonLogic {
         cameraZoom = AMath.lerp(prevZoom, cameraZoom, 0.025f);
         cameraZoom = AMath.clamp(cameraZoom, minZoom, maxZoom * 2f); // relax max a bit
 
-        // cameraZoom = 1;
-        // Gdx.app.log("BaseLogic", "cameraZoom=" + cameraZoom + " [" + minZoom + ", " + maxZoom + "]");
-        // Gdx.app.log("BaseLogic", "" + collisionFactor.value);
-
-        // cameraZoom += GameWorldRenderer.ZoomRange * timeModFactor;
-        // cameraZoom += 0.25f * GameWorldRenderer.ZoomWindow * driftStrength.get();
-        // cameraZoom += (maxZoom - cameraZoom) * timeModFactor; // zoom in if slowing time down
-        // cameraZoom -= (maxZoom - cameraZoom) * speed.get(); // zoom out if speedy
-        // cameraZoom = AMath.lerp(prevZoom, cameraZoom, 0.1f);
-        // cameraZoom = AMath.clampf(cameraZoom, minZoom, maxZoom);
-        // cameraZoom = AMath.fixupTo(cameraZoom, minZoom + GameWorldRenderer.ZoomWindow);
-
         prevZoom = cameraZoom;
         return cameraZoom;
     }
 
     @Override
     public void collision(CarEvent.Data data) {
-        // stops time dilation
-        // if (gameInput.isTimeDilating()) {
-        // endTimeDilation();
-        // }
 
         float clampedImpactForce = AMath.normalizeImpactForce(data.impulses.len());
 
@@ -206,13 +182,11 @@ public abstract class BaseLogic extends CommonLogic {
             final float min = GameplaySettings.CollisionFactorMinDurationMs;
             final float max = GameplaySettings.CollisionFactorMaxDurationMs;
 
-            //@off
             GameTweener.start(Timeline
                     .createSequence()
                     .push(Tween.to(collisionFactor, BoxedFloatAccessor.VALUE, 100).target(clampedImpactForce).ease(Linear.INOUT))
                     .push(Tween.to(collisionFactor, BoxedFloatAccessor.VALUE, min + max * clampedImpactForce).target(0)
                             .ease(Linear.INOUT)).setCallback(collisionFinished));
-            //@on
 
             playerTasks.hudPlayer.highlightCollision();
         }

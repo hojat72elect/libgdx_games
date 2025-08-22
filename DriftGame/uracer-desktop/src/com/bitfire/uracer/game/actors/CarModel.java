@@ -106,38 +106,9 @@ public final class CarModel {
         return this;
     }
 
-    // public CarModel toModel1() {
-    // toDefault();
-    // presetType = Type.Model1;
-    //
-    // // physical model
-    // b = 1.f; // m
-    // c = 1.f; // m
-    // width = 2.3f; // m
-    // length = 3.5f; // m (must be > wheelbase)
-    //
-    // // physical behavior
-    // drag = 12.f; // factor for air resistance (drag)
-    // resistance = 30.f; // factor for rolling resistance
-    // stiffness_rear = -6.7f; // front cornering stiffness
-    // stiffness_front = -6.7f; // rear cornering stiffness
-    // max_grip = 6f; // maximum (normalised) friction force, =diameter of friction circle
-    //
-    // max_speed = 35.f;
-    // max_force = 300.f;
-    //
-    // density = 1f;
-    // friction = 4f;
-    // restitution = 0.25f;
-    //
-    // return this;
-    // }
-
     public CarModel toModel2() {
         toDefault();
 
-        // physical model
-        // h = .85f; // m
         b = 1.f; // m
         c = 1.f; // m
         width = 2.5f; // m

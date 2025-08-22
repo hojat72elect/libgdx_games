@@ -13,7 +13,7 @@ import com.bitfire.uracer.utils.ColorUtils;
 import com.bitfire.uracer.utils.SpriteBatchUtils;
 
 public class DebugMusicVolumes extends DebugRenderable {
-    private final Array<DebugMeter> meters = new Array<DebugMeter>();
+    private final Array<DebugMeter> meters = new Array<>();
     private final PlayerTensiveMusic tensiveMusic;
     private final Matrix4 idt = new Matrix4();
     private float totalVolume;

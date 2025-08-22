@@ -140,26 +140,12 @@ public class PlayerSmokeTrails extends TrackEffect {
             baseEmitter.getScale().setHigh(OriginalParticleScaling * value);
         }
 
-        // public void setEmissionMul (float value) {
-        // baseEmitter.getEmission().setHigh(MaxParticlesPerEmitterPerSec * value);
-        // }
-
         public void start() {
             for (int i = 0; i < effect.getEmitters().size; i++) {
                 effect.getEmitters().get(i).setContinuous(true);
                 effect.getEmitters().get(i).start();
             }
         }
-
-        // public void stop () {
-        // for (int i = 0; i < effect.getEmitters().size; i++) {
-        // effect.getEmitters().get(i).allowCompletion();
-        // }
-        // }
-
-        // public void reset () {
-        // stop();
-        // }
 
         public void render(SpriteBatch batch, float x, float y) {
             float delta = owner.isPaused() ? 0 : URacer.Game.getLastDeltaSecs() * URacer.timeMultiplier;

@@ -26,8 +26,7 @@ public abstract class SoundEffect extends PlayerClient implements Disposable {
                 waitCounter++;
                 try {
                     Thread.sleep(ThrottleMs);
-                    // Gdx.app.log( "CarSoundEffect", "sleeping" );
-                } catch (InterruptedException e) {
+                } catch (InterruptedException ignored) {
                 }
             }
 
@@ -49,8 +48,7 @@ public abstract class SoundEffect extends PlayerClient implements Disposable {
                 waitCounter++;
                 try {
                     Thread.sleep(ThrottleMs);
-                    // Gdx.app.log( "CarSoundEffect", "sleeping" );
-                } catch (InterruptedException e) {
+                } catch (InterruptedException ignored) {
                 }
             }
 

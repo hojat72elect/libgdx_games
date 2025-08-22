@@ -22,13 +22,6 @@ public final class CameraShaker {
         noiseX.set(radiusX, noiseAlpha);
         noiseY.set(radiusY, noiseAlpha);
         result.set(noiseX.get() * factor, noiseY.get() * factor);
-
-        // int limit = 50;
-        // result.x = MathUtils.clamp(result.x, -limit, limit);
-        // result.y = MathUtils.clamp(result.y, -limit, limit);
-
-        // Gdx.app.log("", result.toString() + " / " + factor);
-        // Gdx.app.log("", "pixels=" + px);
         return result;
     }
 }

@@ -13,7 +13,7 @@ import com.bitfire.utils.Hash;
  */
 public final class BitmapFontFactory {
     // storage
-    private static final LongMap<BitmapFont> fontCache = new LongMap<BitmapFont>();
+    private static final LongMap<BitmapFont> fontCache = new LongMap<>();
 
     private BitmapFontFactory() {
     }

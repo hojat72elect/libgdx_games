@@ -69,10 +69,7 @@ public class OptionsScreen extends UIScreen {
         rtable.align(Align.right | Align.top);
         root.add(rtable).expandX().right().height(h);
 
-        /** left table */
-
         {
-            // time dilation input mode
 
             SelectBox<String> box = UIUtils.newSelectBox(new String[]{"Touch to toggle", "Touch and release"},
                     new ChangeListener() {
@@ -143,8 +140,6 @@ public class OptionsScreen extends UIScreen {
             ltable.add(desc).width(w).row();
             ltable.add(box).left().padLeft(40).padTop(5);
         }
-
-        /** right table */
 
         {
             // post-processing effects

@@ -321,26 +321,14 @@ public final class DefaultAnimator implements PostProcessingAnimator {
             playerScreenPos.set(0.5f, 0.5f);
         }
 
-        // cameraScreenPos.set(GameRenderer.ScreenUtils.worldPxToScreen(cameraPos));
-        // Gdx.app.log("", "campos=" + cameraPos);
-
         float cf = collisionFactor;
-
-        // debug, simulate collision with values in range [0,1]
-        // cf = 1f;
 
         updateLights(progressData, ambient, trees, cf);
 
         if (crt != null) {
             if (!paused) {
-                // compute time (add noise)
                 float secs = (float) (TimeUtils.millis() - startMs) / 1000;
-                // boolean randomNoiseInTime = false;
-                // if (randomNoiseInTime) {
-                // crt.setTime(secs + MathUtils.random() / (MathUtils.random() * 64f + 0.001f));
-                // } else {
                 crt.setTime(secs);
-                // }
             }
 
             // needed variables
@@ -364,17 +352,11 @@ public final class DefaultAnimator implements PostProcessingAnimator {
                     break;
             }
 
-            // Gdx.app.log("", "amount=" + amount + " (" + crt.getRgbMode().toString() + ")");
-            // Gdx.app.log("", "cf=" + cf);
-
             // earth curvature
             float dist = kdist - kdist * curvature_factor;
             dist = AMath.fixup(dist);
             crt.setDistortion(dist);
             crt.setZoom(1 - (dist / 2));
-
-            // crt.setEnabled(true);
-            // crt.setEnabled(false);
         }
 
         if (zoom != null) {
@@ -403,27 +385,6 @@ public final class DefaultAnimator implements PostProcessingAnimator {
         }
 
         if (shafts != null) {
-            // final float ScaleMt = 10;
-            // final float InvScaleMt = 1f / ScaleMt;
-            // float pdist = 0;
-            // // // to normalized range
-            // if (progressData.hasTarget) {
-            // pdist = MathUtils.clamp(progressData.playerDistance.get() - progressData.targetDistance.get(), 0, ScaleMt);
-            // pdist *= InvScaleMt;
-            // }
-
-            // float sfactor = speed.get();
-            // float lim_min = 0.7f;
-            // float lim_max = 0.8f;
-            // float th = lim_max - (lim_max - lim_min) * pdist;
-
-            // Gdx.app.log("", "pdist=" + pdist);
-
-            // shafts.setThreshold(0.9f);
-            // shafts.setDensity(0.84f);
-            // shafts.setExposure(0.08f);
-            // shafts.setWeight(1);
-            // shafts.setDecay(0.95f);
             shafts.setThreshold(0.85f);
             shafts.setDensity(0.9f);
             shafts.setExposure(0.125f);
@@ -433,9 +394,6 @@ public final class DefaultAnimator implements PostProcessingAnimator {
             Combine combine = shafts.getCombinePass();
             combine.setSource2Intensity(1f);
             combine.setSource2Saturation(0.75f);
-
-            // Gdx.app.log("", "speed=" + sfactor);
-            // shafts.setLightScreenPositionN(0.5f, 0.3f);
         }
 
         if (flare != null) {
@@ -472,14 +430,8 @@ public final class DefaultAnimator implements PostProcessingAnimator {
             bloom.setBloomIntesity(intensity);
 
             bsat = 1f;
-            // bsat += 0.2f * timeModFactor;
-
-            // if (nightMode) bsat += 0.0f;
             bsat *= (1f - (cf));
-
-            // float progress = MathUtils.clamp(progressData.playerToTarget, 0, 1) * 3f;
             sat = 0.7f + (nightMode ? 0.6f : 0);// + progress;
-            // sat = sat * (1 - timeModFactor);
             sat = sat * (1f - cf);
             sat = AMath.lerp(sat, -0.25f, MathUtils.clamp(alertAmount.value * 2f, 0f, 1f));
             sat = AMath.lerp(sat, -0.25f, cf);
@@ -490,31 +442,13 @@ public final class DefaultAnimator implements PostProcessingAnimator {
             bloom.setBaseSaturation(sat * (1 - pauseAmount.value));
             bloom.setBloomSaturation(bsat * (1 - pauseAmount.value));
 
-            // bloom.setBaseSaturation(0);
-            // bloom.setBloomSaturation(0);
-
-            // float bloomTh = AMath.lerp(bloomThreshold, bloomThreshold - 0.01f, timeModFactor);
-            // bloom.setThreshold(bloomTh);
-            // Gdx.app.log("", "Bth=" + bloomTh);
-
-            // bloom.setBaseSaturation(1);
-            // bloom.setBloomSaturation(1);
-
-            // Gdx.app.log("", "sat=" + sat + ", bsat=" + bsat);
         }
 
-        // cf = 1;
         if (vignette != null) {
             float lutIntensity = MathUtils.clamp(1f + timeModFactor * 0.75f + alertAmount.value * 1 + cf * 1, 0, 1.5f);
             float offset = MathUtils.clamp(cf * 3 + alertAmount.value /* + timeModFactor * 0.25f */, 0, 1);
             vignette.setLutIntensity(lutIntensity);
             vignette.setLutIndexOffset(offset);
-
-            // vignette.setLutIntensity(1);
-            // vignette.setLutIndexVal(0, 13);
-            // vignette.setLutIndexVal(1, 7);
-
-            // Gdx.app.log("", "li=" + lutIntensity + ", lo=" + offset);
         }
     }
 }

@@ -68,15 +68,9 @@ public final class ModelFactory {
         return ModelMesh.Missing;
     }
 
-    // private static Array<OrthographicAlignedStillModel> createdOASModels =
-    // new Array<OrthographicAlignedStillModel>();
-    // private static Array<TreeStillModel> createdTreeModels = new
-    // Array<TreeStillModel>();
-
     public static OrthographicAlignedStillModel create(String meshType, float posPxX, float posPxY, float scale) {
         ModelMesh type = fromString(meshType);
         OrthographicAlignedStillModel m = ModelFactory.create(type, posPxX, posPxY, scale);
-        // createdOASModels.add( m );
         return m;
     }
 
@@ -181,20 +175,12 @@ public final class ModelFactory {
                 treeMeshName = "tree_9_";
                 leavesTexture = Art.meshTreeLeavesSpring[6];
                 break;
-
-            // missing mesh mesh
-            // case Missing:
-            // default:
-            // stillModel = new OrthographicAlignedStillModel( getModel(
-            // "data/3d/models/missing-mesh.g3dt" ), getMaterial(
-            // modelMesh, Art.meshMissing ) );
         }
 
         stillModel = new TreeStillModel(getStillModel("data/3d/models/" + treeModelName),
                 getMaterial(modelMesh, leavesTexture, ""), treeMeshName);
 
         if (stillModel != null) {
-            // createdTreeModels.add( stillModel );
             stillModel.setPosition(posPxX, posPxY);
             if (modelMesh != ModelMesh.Missing) {
                 stillModel.setScale(scale);
@@ -211,7 +197,7 @@ public final class ModelFactory {
 
         long materialHash = Hash.RSHash(modelMesh.toString() + textureName);
         if (cachedMaterials == null) {
-            cachedMaterials = new LongMap<Material>();
+            cachedMaterials = new LongMap<>();
         }
 
         if (cachedMaterials.containsKey(materialHash)) {
@@ -245,9 +231,6 @@ public final class ModelFactory {
                     m = G3dtLoader.loadStillModel(in, true);
                     in.close();
                 } else if (ext[1].equals("obj")) {
-                    // y-forward, z-up
-                    // ObjLoader l = new ObjLoader();
-                    // m = l.loadObj(Gdx.files.internal(model), true);
                     Gdx.app.log("ModelFactory", "Attention, ignoring deprecated OBJ model!");
                 }
 

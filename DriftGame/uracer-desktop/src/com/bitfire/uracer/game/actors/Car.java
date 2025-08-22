@@ -42,6 +42,7 @@ public abstract strictfp class Car extends Box2DEntity {
     private int accuDistCount = 0;
     // the car's instant speed, in meters/sec
     private float carInstantSpeedMtSec = 0;
+
     public Car(GameWorld gameWorld, GameLogic gameLogic, CarType carType, InputMode inputMode, CarPreset.Type presetType,
                boolean triggerEvents) {
         super(gameWorld.getBox2DWorld());
@@ -60,9 +61,6 @@ public abstract strictfp class Car extends Box2DEntity {
         accuDistCount = 0;
 
         applyCarPhysics(carType, preset.model);
-
-        // Gdx.app.log(getClass().getSimpleName(), "Input mode is " + inputMode.toString());
-        // Gdx.app.log(getClass().getSimpleName(), "CarModel is " + preset.model.presetType.toString());
     }
 
     @Override
@@ -150,14 +148,6 @@ public abstract strictfp class Car extends Box2DEntity {
         return preset;
     }
 
-    // public CarPreset.Type getPresetType () {
-    // return preset.type;
-    // }
-
-    // public CarPreset getCarPreset () {
-    // return preset;
-    // }
-
     public CarModel getCarModel() {
         return preset.model;
     }
@@ -172,18 +162,6 @@ public abstract strictfp class Car extends Box2DEntity {
     public float getTraveledDistance() {
         return carTraveledDistance;
     }
-
-    // public void setPreset (CarPreset.Type presetType) {
-    // if (preset.type != presetType) {
-    // preset.setTo(presetType);
-    // applyCarPhysics(carType, preset.model);
-    // // renderer.setAspect(preset.model, preset.type);
-    // Gdx.app.log(this.getClass().getSimpleName(), "Switched to car model \"" + preset.model.presetType.toString() + "\"");
-    // } else {
-    // Gdx.app.log(this.getClass().getSimpleName(), "Preset unchanged, not switching to same type \"" + preset.type.toString()
-    // + "\"");
-    // }
-    // }
 
     /**
      * Returns the instant speed, in meters/s

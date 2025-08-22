@@ -72,11 +72,6 @@ public class CameraController {
                         float zoomFactor = (zoom - 1) / (GameWorldRenderer.MaxCameraZoom - 1);
                         tmp.lerp(tmp2, zoomFactor * 0.35f);
 
-                        // Gdx.app.log("", "" + zoom + "/" + zoomFactor);
-
-                        // tmp.x = target.x;
-                        // tmp.y = target.y;
-
                         return tmp;
                     }
                 };

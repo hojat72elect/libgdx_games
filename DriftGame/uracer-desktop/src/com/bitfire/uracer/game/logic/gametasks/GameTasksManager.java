@@ -9,7 +9,7 @@ import com.bitfire.uracer.game.world.GameWorld;
  * Manages the creation and destruction of the main game tasks.
  */
 public final class GameTasksManager {
-    private final Array<GameTask> tasks = new Array<GameTask>(10);
+    private final Array<GameTask> tasks = new Array<>(10);
     /**
      * keeps track of the concrete game tasks (note that they are all publicly accessible for performance reasons)
      */

@@ -17,30 +17,27 @@ public final class Hud extends GameTask implements DisposableTasks {
     private static final GameRendererEvent.Type RenderEventBeforePost = GameRendererEvent.Type.BatchBeforePostProcessing;
     private static final GameRendererEvent.Type RenderEventAfterPost = GameRendererEvent.Type.BatchAfterPostProcessing;
 
-    private final ItemsManager<HudElement> managerBeforePost = new ItemsManager<HudElement>();
-    private final ItemsManager<HudElement> managerAfterPost = new ItemsManager<HudElement>();
+    private final ItemsManager<HudElement> managerBeforePost = new ItemsManager<>();
+    private final ItemsManager<HudElement> managerAfterPost = new ItemsManager<>();
 
-    private final GameRendererEvent.Listener renderEvent = new GameRendererEvent.Listener() {
-        @Override
-        public void handle(Object source, Type type, Order order) {
-            if (order != GameRendererEvent.Order.DEFAULT) {
-                return;
-            }
+    private final GameRendererEvent.Listener renderEvent = (source, type, order) -> {
+        if (order != Order.DEFAULT) {
+            return;
+        }
 
-            SpriteBatch batch = GameEvents.gameRenderer.batch;
-            float camZoom = GameEvents.gameRenderer.camZoom;
-            ItemsManager<HudElement> items = null;
+        SpriteBatch batch = GameEvents.gameRenderer.batch;
+        float camZoom = GameEvents.gameRenderer.camZoom;
+        ItemsManager<HudElement> items = null;
 
-            if (type == Type.BatchBeforePostProcessing) {
-                items = managerBeforePost;
-            } else if (type == Type.BatchAfterPostProcessing) {
-                items = managerAfterPost;
-            }
+        if (type == Type.BatchBeforePostProcessing) {
+            items = managerBeforePost;
+        } else if (type == Type.BatchAfterPostProcessing) {
+            items = managerAfterPost;
+        }
 
-            if (items != null) {
-                for (HudElement e : items) {
-                    e.onRender(batch, camZoom);
-                }
+        if (items != null) {
+            for (HudElement e : items) {
+                e.onRender(batch, camZoom);
             }
         }
     };

@@ -369,8 +369,6 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
             }
 
             if (!playerLapMonitor.isWarmUp()) {
-                // Time dilationTime = getTimeDilationTimer();
-                // Gdx.app.log("", "stopped=" + dilationTime.isStopped());
                 updateDriftSeconds();
             }
 

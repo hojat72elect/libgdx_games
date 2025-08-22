@@ -93,29 +93,6 @@ public class G3dtLoader {
         return new StillSubMesh(name, mesh, GL20.GL_TRIANGLES);
     }
 
-    // private static float[] buildVertices (int numVertices, boolean hasNormals, Array<FloatArray> uvSets) {
-    // float[] vertices = new float[numVertices * (3 + (hasNormals ? 3 : 0) + uvSets.size * 2)];
-    //
-    // int idx = 0;
-    // int idxUv = 0;
-    // for (int i = 0; i < numVertices; i++) {
-    // vertices[idx++] = 0;
-    // vertices[idx++] = 0;
-    // vertices[idx++] = 0;
-    // if (hasNormals) {
-    // vertices[idx++] = 0;
-    // vertices[idx++] = 0;
-    // vertices[idx++] = 0;
-    // }
-    // for (int j = 0; j < uvSets.size; j++) {
-    // vertices[idx++] = uvSets.get(j).get(idxUv);
-    // vertices[idx++] = uvSets.get(j).get(idxUv + 1);
-    // }
-    // idxUv += 2;
-    // }
-    // return vertices;
-    // }
-
     private static VertexAttribute[] createVertexAttributes(boolean hasNormals, int uvs) {
         VertexAttribute[] attributes = new VertexAttribute[1 + (hasNormals ? 1 : 0) + uvs];
         int idx = 0;
@@ -126,17 +103,6 @@ public class G3dtLoader {
         }
         return attributes;
     }
-
-    // private static FloatArray readUVSet (BufferedReader in, int numVertices, boolean flipV) throws IOException {
-    // FloatArray uvSet = new FloatArray(numVertices * 2);
-    // FloatArray uv = new FloatArray(2);
-    // for (int i = 0; i < numVertices; i++) {
-    // readFloatArray(in, uv);
-    // uvSet.add(uv.items[0]);
-    // uvSet.add(flipV ? 1 - uv.items[1] : uv.items[1]);
-    // }
-    // return uvSet;
-    // }
 
     private static IntArray readFaces(BufferedReader in) throws NumberFormatException, IOException {
         int numFaces = readInt(in);
@@ -169,11 +135,6 @@ public class G3dtLoader {
         return shortArray;
     }
 
-    // private static float readFloat (BufferedReader in) throws NumberFormatException, IOException {
-    // lineNum++;
-    // return Float.parseFloat(read(in).trim());
-    // }
-
     private static int readInt(BufferedReader in) throws NumberFormatException, IOException {
         lineNum++;
         return (int) (Math.floor(Float.parseFloat(read(in).trim())));
@@ -183,16 +144,6 @@ public class G3dtLoader {
         lineNum++;
         return read(in);
     }
-
-    // private static void readFloatArray (BufferedReader in, FloatArray array) throws IOException {
-    // lineNum++;
-    // String[] tokens = read(in).split(",");
-    // int len = tokens.length;
-    // array.clear();
-    // for (int i = 0; i < len; i++) {
-    // array.add(Float.parseFloat(tokens[i].trim()));
-    // }
-    // }
 
     private static int readFloatArray(BufferedReader in, float[] array, int idx) throws IOException {
         lineNum++;

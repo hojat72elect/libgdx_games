@@ -23,7 +23,7 @@ public class DebugPlayer extends DebugRenderable {
     private final DebugMeter meterSpeed;
     private DebugMeter meterSmokeTrails;
 
-    private final Array<DebugMeter> meters = new Array<DebugMeter>();
+    private final Array<DebugMeter> meters = new Array<>();
     private final Vector2 pos = new Vector2();
 
     public DebugPlayer(RenderFlags flag, GameTasksManager manager) {

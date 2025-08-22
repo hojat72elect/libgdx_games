@@ -17,8 +17,6 @@ import com.bitfire.postprocessing.utils.PingPongBuffer;
 import com.bitfire.uracer.configuration.Config;
 import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.events.GameRendererEvent;
-import com.bitfire.uracer.game.events.GameRendererEvent.Order;
-import com.bitfire.uracer.game.events.GameRendererEvent.Type;
 import com.bitfire.uracer.utils.ScaleUtils;
 import com.bitfire.utils.ShaderLoader;
 
@@ -31,12 +29,7 @@ public class LightShafts extends PostProcessorEffect {
     private final Threshold threshold;
     private final float oneOnW;
     private final float oneOnH;
-    private final GameRendererEvent.Listener gameRendererEvent = new GameRendererEvent.Listener() {
-        @Override
-        public void handle(Object source, Type type, Order order) {
-            debug(GameEvents.gameRenderer.batch);
-        }
-    };
+    private final GameRendererEvent.Listener gameRendererEvent = (source, type, order) -> debug(GameEvents.gameRenderer.batch);
     private final float[] vLightPos = new float[2];
 
     public LightShafts(int fboWidth, int fboHeight, Quality quality) {
@@ -202,16 +195,11 @@ public class LightShafts extends PostProcessorEffect {
         {
             shShafts.begin();
             {
-                // Gdx.gl.glClearColor(0, 0, 0, 1);
-                // Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 result.bind(0);
                 shShafts.setUniformi("u_texture", 0);
                 quad.render(shShafts);
             }
             shShafts.end();
-
-            // blur pass
-            // blur.render(occlusionMap);
         }
         occlusionMap.end();
 

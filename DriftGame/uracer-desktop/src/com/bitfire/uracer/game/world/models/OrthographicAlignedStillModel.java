@@ -15,14 +15,6 @@ import com.bitfire.utils.ShaderLoader;
  */
 public class OrthographicAlignedStillModel {
     public static final float World3DScalingFactor = 1.42222f;
-    // Blender => cube 14.2x14.2 meters = one tile (256px) w/ far plane @48
-    // (256px are 14.2mt w/ 18px/mt)
-    // I'm lazy and want Blender to work with 10x10mt instead, so a 1.42f
-    // factor for this scaling: also, since the far plane is suboptimal at
-    // just 48, i want 5 times more space on the z-axis, so here's another
-    // scaling factor creeping up.
-    // private static final float Adjustment = 0.94537085f; // 1280x800;
-    // private static final float Adjustment = 1.0514121f; // 1280x720
     private static final float Adjustment = 1.05f; // 1280x720
     private static final float To256 = 224f / 256f;
     public static final float BlenderToURacer = Adjustment * World3DScalingFactor * To256 * 5f;

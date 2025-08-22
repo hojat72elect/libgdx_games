@@ -46,7 +46,7 @@ public class PlayerCar extends Car {
     private final Vector2 touchPos = new Vector2();
     private final Vector2 carPos = new Vector2();
     private WindowedMean frictionMean = new WindowedMean(10);
-    private final IntMap<Timer> keytimer = new IntMap<Timer>(3);
+    private final IntMap<Timer> keytimer = new IntMap<>(3);
     private Pixmap frictionMap = null;
     private final Vector2 offset = new Vector2();
     private boolean notifiedOutOfTrack = false;
@@ -327,12 +327,7 @@ public class PlayerCar extends Car {
             offset.scl(gameWorld.getTileSizePxInv()).scl(gameWorld.tileWidth);
 
             TiledMapTileLayer layerTrack = gameWorld.getLayer(Layer.Track);
-
-            // int id = layerTrack.getCell((int)tilePosition.x, gameWorld.mapHeight - (int)tilePosition.y - 1).getTile().getId() - 1;
             int id = layerTrack.getCell((int) tilePosition.x, (int) tilePosition.y).getTile().getId() - 1;
-
-            // int xOnMap = (id %4) * (int)gameWorld.map.tileWidth + (int)offset.x;
-            // int yOnMap = (int)( id/4f ) * (int)gameWorld.map.tileWidth + (int)offset.y;
 
             // bit twiddling, faster version
             int xOnMap = (id & 3) * gameWorld.tileWidth + (int) offset.x;
@@ -341,12 +336,6 @@ public class PlayerCar extends Car {
             int pixel = frictionMap.getPixel(xOnMap, yOnMap);
             boolean inTrack = (pixel == -256);
             frictionMean.addValue((inTrack ? 0 : -1));
-
-            // Gdx.app.log( "PlayerCar", "xmap=" + xOnMap + ", ymap=" + yOnMap );
-            // Gdx.app.log( "PlayerCar", "mean=" + frictionMean.getMean() + ", pixel=" + pixel + ", xmap=" + xOnMap +
-            // ", ymap=" + yOnMap );
-            // Gdx.app.log("PlayerCar", "id=" + id);
-            // Gdx.app.log("PlayerCar", "#" + id + ", xt=" + (int)tilePosition.x + "," + (int)tilePosition.y);
 
         } else {
             Gdx.app.log("PlayerCar", "PlayerCar out of map!");

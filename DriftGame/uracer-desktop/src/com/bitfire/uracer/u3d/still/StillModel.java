@@ -35,7 +35,7 @@ public class StillModel implements Model {
 
     @Override
     public Model getSubModel(String... subMeshNames) {
-        ArrayList<SubMesh> subMeshes = new ArrayList<SubMesh>();
+        ArrayList<SubMesh> subMeshes = new ArrayList<>();
         for (String name : subMeshNames)
             for (StillSubMesh subMesh : this.subMeshes)
                 if (name.equals(subMesh.name)) subMeshes.add(subMesh);

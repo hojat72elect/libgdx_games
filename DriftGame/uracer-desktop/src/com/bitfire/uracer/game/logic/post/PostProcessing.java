@@ -38,7 +38,7 @@ import com.bitfire.utils.ShaderLoader;
 public final class PostProcessing {
 
     // public access to stored effects
-    public LongMap<PostProcessorEffect> effects = new LongMap<PostProcessorEffect>();
+    public LongMap<PostProcessorEffect> effects = new LongMap<>();
     private boolean hasPostProcessor = false;
     private PostProcessor postProcessor = null;
     private boolean needNormalDepthMap = false;

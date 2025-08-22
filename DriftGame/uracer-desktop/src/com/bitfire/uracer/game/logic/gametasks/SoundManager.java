@@ -10,7 +10,7 @@ import com.bitfire.utils.ItemsManager;
 public class SoundManager extends GameTask implements DisposableTasks {
     public static float SfxVolumeMul = UserPreferences.real(Preference.SfxVolume);
     public static float MusicVolumeMul = UserPreferences.real(Preference.MusicVolume);
-    private final ItemsManager<SoundEffect> manager = new ItemsManager<SoundEffect>();
+    private final ItemsManager<SoundEffect> manager = new ItemsManager<>();
 
     public SoundManager() {
     }

@@ -5,8 +5,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.bitfire.uracer.URacer;
 import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.events.PlayerLapCompletionMonitorEvent;
-import com.bitfire.uracer.game.events.PlayerLapCompletionMonitorEvent.Order;
-import com.bitfire.uracer.game.events.PlayerLapCompletionMonitorEvent.Type;
 import com.bitfire.uracer.game.logic.gametasks.SoundManager;
 import com.bitfire.uracer.game.logic.gametasks.sounds.SoundEffect;
 import com.bitfire.uracer.game.logic.helpers.TrackProgressData;
@@ -31,12 +29,7 @@ public final class PlayerTensiveMusic extends SoundEffect {
     private final InterpolatedFloat[] volTrack = new InterpolatedFloat[NumTracks];
     private final float[] volOut = new float[NumTracks];
     private final float[] trackVolumes = new float[NumTracks];
-    private final PlayerLapCompletionMonitorEvent.Listener playerCompletionListener = new PlayerLapCompletionMonitorEvent.Listener() {
-        @Override
-        public void handle(Object source, Type type, Order order) {
-            start();
-        }
-    };
+    private final PlayerLapCompletionMonitorEvent.Listener playerCompletionListener = (source, type, order) -> start();
     private int musicIndex, musicIndexLimit;
     private float fMusicIndex;
 
@@ -207,22 +200,9 @@ public final class PlayerTensiveMusic extends SoundEffect {
                     tgt_vol = 1 - MathUtils.clamp(-to_target, 0, 1);
                     fMusicIndex = tgt_vol * musicIndexLimit;
                     musicIndex = (int) fMusicIndex;
-                    // Gdx.app.log("PlayerTensiveMusic", "to_target=" + to_target + ", tgt_vol=" + tgt_vol + ", midx=" + musicIndex);
-                    // Gdx.app.log("PlayerTensiveMusic", "to_target=" + to_target + ", tgt_vol=" + tgt_vol + ", midx=" + musicIndex);
-                    // Gdx.app.log("PlayerTensiveMusic", "fmusidx=" + fMusicIndex + ", limit=" + musicIndexLimit);
                 }
             }
 
-            // String targetString = "";
-            // if (progressData.hasTarget) {
-            // targetString = ", td=" + progressData.targetDistance.get();
-            // }
-            //
-            // Gdx.app.log("PlayerTensiveMusic", "mi=" + musicIndex + ", limit=" + musicIndexLimit + ", pd="
-            // + progressData.playerDistance.get() + targetString);
-
-            // update all volume accumulators
-            // float step = (1f - MinVolume) / (float)(NumTracks - 1);
             for (int i = 0; i <= NumTracks - 1; i++) {
                 if (i == musicIndex && i <= musicIndexLimit) {
                     float decimal = AMath.fixup(fMusicIndex - musicIndex);

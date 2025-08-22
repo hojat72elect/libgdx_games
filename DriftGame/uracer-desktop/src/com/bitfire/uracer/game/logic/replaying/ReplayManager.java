@@ -11,7 +11,7 @@ public final class ReplayManager implements Disposable {
 
     public static final int MaxReplays = 5;
     private final String trackId;
-    private final Array<Replay> nreplays = new Array<Replay>();
+    private final Array<Replay> nreplays = new Array<>();
     private final ReplayResult replayInfo = new ReplayResult();
 
     public ReplayManager(String currentTrackId) {

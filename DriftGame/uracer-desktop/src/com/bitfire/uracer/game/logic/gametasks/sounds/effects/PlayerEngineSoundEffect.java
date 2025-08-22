@@ -7,8 +7,6 @@ import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.Time;
 import com.bitfire.uracer.game.events.CarEvent;
 import com.bitfire.uracer.game.events.PlayerDriftStateEvent;
-import com.bitfire.uracer.game.events.PlayerDriftStateEvent.Order;
-import com.bitfire.uracer.game.events.PlayerDriftStateEvent.Type;
 import com.bitfire.uracer.game.logic.gametasks.sounds.SoundEffect;
 import com.bitfire.uracer.game.logic.gametasks.sounds.effects.engines.EngineF40;
 import com.bitfire.uracer.game.logic.gametasks.sounds.effects.engines.EngineSoundSet;
@@ -48,29 +46,21 @@ public final class PlayerEngineSoundEffect extends SoundEffect {
         }
     };
     private int softnessTicks = 0;
-    private final PlayerDriftStateEvent.Listener playerListener = new PlayerDriftStateEvent.Listener() {
-        @Override
-        public void handle(Object source, Type type, Order order) {
-            if (!hasPlayer) return;
-            switch (type) {
-                case onBeginDrift:
-                    if (player.isThrottling) {
-                        // while (soundset.hasGears() && soundset.getGear() > 2) {
-                        // soundset.shiftDown();
-                        // }
+    private final PlayerDriftStateEvent.Listener playerListener = (source, type, order) -> {
+        if (!hasPlayer) return;
+        switch (type) {
+            case onBeginDrift:
+                if (player.isThrottling) {
 
-                        driftTimer.start();
-                        float ratio = player.carState.currSpeedFactor;
-                        softnessTicks = (int) (ratio * (float) MaxSoftnessTicks);
-                        softnessTicks = MathUtils.clamp(softnessTicks, MinSoftnessTicks, MaxSoftnessTicks);
-                        // Gdx.app.log("", "st=" + softnessTicks);
-                        // Gdx.app.log("", "BEGIN DRIFT");
-                    }
-                    break;
-                case onEndDrift:
-                    driftTimer.stop();
-                    break;
-            }
+                    driftTimer.start();
+                    float ratio = player.carState.currSpeedFactor;
+                    softnessTicks = (int) (ratio * (float) MaxSoftnessTicks);
+                    softnessTicks = MathUtils.clamp(softnessTicks, MinSoftnessTicks, MaxSoftnessTicks);
+                }
+                break;
+            case onEndDrift:
+                driftTimer.stop();
+                break;
         }
     };
 
@@ -118,10 +108,6 @@ public final class PlayerEngineSoundEffect extends SoundEffect {
     public void tick() {
         if (!hasPlayer || isPaused) return;
 
-        // if (outOfTrack) {
-        // soundset.shiftDown();
-        // }
-
         if (player.isThrottling) {
             if (soundset.hasGears()) {
                 throttle += 8f;
@@ -136,9 +122,6 @@ public final class PlayerEngineSoundEffect extends SoundEffect {
             }
         } else {
             if (soundset.hasGears()) {
-                // avoid sound fading slipping over the off-engine samples
-                // throttle = 0;
-                // throttle *= AMath.damping(0.94f);
                 throttle *= AMath.damping(0.85f);
             } else {
                 throttle *= AMath.damping(0.8f);
@@ -150,11 +133,6 @@ public final class PlayerEngineSoundEffect extends SoundEffect {
 
         float rpm = soundset.updateRpm(load);
         load = AMath.fixup(fuzzyLoadCompute(throttle, rpm));
-
-        // Gdx.app.log("", "engine load=" + load + ", rpm=" + rpm + ", th=" + throttle + ", g=" + soundset.getGear() + ", sf="+
-        // player.carState.currSpeedFactor);
-        // Gdx.app.log("", "engine load=" + load + ", rpm=" + rpm + ", th=" + throttle + ", g=" + soundset.getGear());
-        // Gdx.app.log("", "engine load=" + load + ", rpm=" + rpm + ", th=" + throttle + ", sf=" + player.carState.currSpeedFactor);
 
         // compute volumes
         soundset.updateVolumes(load);

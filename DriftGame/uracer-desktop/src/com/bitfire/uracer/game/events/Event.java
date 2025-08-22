@@ -19,7 +19,7 @@ public abstract class Event<T extends Enum<T>, O extends Enum<O>, L extends Even
 
         for (T t : classType.getEnumConstants()) {
             for (O o : classOrder.getEnumConstants()) {
-                listeners[t.ordinal()][o.ordinal()] = new Array<Listener<T, O>>(false, 4);
+                listeners[t.ordinal()][o.ordinal()] = new Array<>(false, 4);
             }
         }
     }

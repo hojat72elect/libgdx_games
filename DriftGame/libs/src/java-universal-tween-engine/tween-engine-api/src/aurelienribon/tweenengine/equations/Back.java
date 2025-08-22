@@ -3,7 +3,7 @@ package aurelienribon.tweenengine.equations;
 import aurelienribon.tweenengine.TweenEquation;
 
 /**
- * Easing equation based on Robert Penner's work: http://robertpenner.com/easing/
+ * Easing equation based on Robert Penner's work: <a href="http://robertpenner.com/easing/">Look here</a>
  */
 public abstract class Back extends TweenEquation {
     public static final Back IN = new Back() {

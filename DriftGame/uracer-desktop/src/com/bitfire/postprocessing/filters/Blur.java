@@ -4,7 +4,7 @@ import com.badlogic.gdx.utils.IntMap;
 import com.bitfire.postprocessing.utils.PingPongBuffer;
 
 public final class Blur extends MultipassFilter {
-    private final IntMap<Convolve2D> convolve = new IntMap<Convolve2D>(Tap.values().length);
+    private final IntMap<Convolve2D> convolve = new IntMap<>(Tap.values().length);
     // blur
     private BlurType type;
 
@@ -193,8 +193,8 @@ public final class Blur extends MultipassFilter {
         float twoSigmaSquare = 2.0f * sigma * sigma;
         float sigmaRoot = (float) Math.sqrt(twoSigmaSquare * Math.PI);
         float total = 0.0f;
-        float distance = 0.0f;
-        int index = 0;
+        float distance;
+        int index;
 
         for (int i = -radius; i <= radius; ++i) {
             distance = i * i;

@@ -30,11 +30,11 @@ import java.util.zip.Inflater;
  */
 public final class GameLevels {
 
-    private static final Map<String, GameLevelDescriptor> levelIdToDescriptor = new HashMap<String, GameLevelDescriptor>();
+    private static final Map<String, GameLevelDescriptor> levelIdToDescriptor = new HashMap<>();
     private static final UAtlasTmxMapLoader mapLoader = new UAtlasTmxMapLoader();
     private static final UAtlasTmxMapLoader.AtlasTiledMapLoaderParameters mapLoaderParams = new UAtlasTmxMapLoader.AtlasTiledMapLoaderParameters();
     private static final XmlReader xml = new XmlReader();
-    private static final List<GameLevelDescriptor> levels = new ArrayList<GameLevels.GameLevelDescriptor>();
+    private static final List<GameLevelDescriptor> levels = new ArrayList<>();
 
     // cached simple array[] return type
     private static GameLevelDescriptor[] levelsCache = null;

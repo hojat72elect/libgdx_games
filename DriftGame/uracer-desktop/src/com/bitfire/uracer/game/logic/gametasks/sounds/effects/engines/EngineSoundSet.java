@@ -99,12 +99,6 @@ public abstract class EngineSoundSet {
         updateVolume(5, feOffMid, load, rpm);
         updateVolume(6, feOffHigh, load, rpm);
 
-        // String dbg = "";
-        // for (int i = 0; i < NumTracks; i++) {
-        // dbg += "#" + i + "=" + String.format("%.02f", volumes[i]) + " ";
-        // }
-        //
-        // Gdx.app.log("EngineSoundSet", dbg);
     }
 
     public int getGear() {
@@ -122,8 +116,6 @@ public abstract class EngineSoundSet {
     public float[] getVolumes() {
         return volumes;
     }
-
-    //
 
     private void start(int track) {
         if (started[track]) {

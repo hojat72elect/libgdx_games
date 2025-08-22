@@ -12,28 +12,25 @@ import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.utils.ItemsManager;
 
 public final class TrackEffects extends GameTask implements DisposableTasks {
-    private final ItemsManager<TrackEffect> managerBeforeCars = new ItemsManager<TrackEffect>();
-    private final ItemsManager<TrackEffect> managerAfterCars = new ItemsManager<TrackEffect>();
-    private final IntMap<TrackEffect> effectsMap = new IntMap<TrackEffect>();
+    private final ItemsManager<TrackEffect> managerBeforeCars = new ItemsManager<>();
+    private final ItemsManager<TrackEffect> managerAfterCars = new ItemsManager<>();
+    private final IntMap<TrackEffect> effectsMap = new IntMap<>();
 
-    private final GameRendererEvent.Listener listener = new GameRendererEvent.Listener() {
-        @Override
-        public void handle(Object source, Type type, Order order) {
-            if (order != GameRendererEvent.Order.DEFAULT) {
-                return;
+    private final GameRendererEvent.Listener listener = (source, type, order) -> {
+        if (order != Order.DEFAULT) {
+            return;
+        }
+
+        SpriteBatch batch = GameEvents.gameRenderer.batch;
+
+        if (type == Type.BatchBeforeCars) {
+            // after entities
+            for (TrackEffect e : managerBeforeCars) {
+                e.render(batch);
             }
-
-            SpriteBatch batch = GameEvents.gameRenderer.batch;
-
-            if (type == GameRendererEvent.Type.BatchBeforeCars) {
-                // after entities
-                for (TrackEffect e : managerBeforeCars) {
-                    e.render(batch);
-                }
-            } else if (type == GameRendererEvent.Type.BatchAfterCars) {
-                for (TrackEffect e : managerAfterCars) {
-                    e.render(batch);
-                }
+        } else if (type == Type.BatchAfterCars) {
+            for (TrackEffect e : managerAfterCars) {
+                e.render(batch);
             }
         }
     };

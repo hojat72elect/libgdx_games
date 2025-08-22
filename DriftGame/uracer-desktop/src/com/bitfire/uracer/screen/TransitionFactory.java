@@ -7,7 +7,7 @@ import com.bitfire.utils.Hash;
 
 public final class TransitionFactory {
 
-    private static final LongMap<ScreenTransition> transitions = new LongMap<ScreenTransition>();
+    private static final LongMap<ScreenTransition> transitions = new LongMap<>();
     private static ScreenFactory screenFactory = null;
 
     private TransitionFactory() {

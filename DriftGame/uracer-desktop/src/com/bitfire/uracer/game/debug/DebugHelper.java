@@ -55,11 +55,8 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public final class DebugHelper extends GameTask implements DisposableTasks {
-    private final ItemsManager<DebugRenderable> renderables = new ItemsManager<DebugRenderable>();
+    private final ItemsManager<DebugRenderable> renderables = new ItemsManager<>();
     private final Matrix4 idt = new Matrix4();
-    //@on
-    // default render flags
-    //@off
     private Set<RenderFlags> renderFlags = EnumSet.of(
             RenderFlags.VersionInfo,
             RenderFlags.FpsStats,
@@ -85,7 +82,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
     private final GameLogic logic;
     // ranking
     private final LapManager lapManager;
-    private final Array<RankInfo> ranks = new Array<RankInfo>();
+    private final Array<RankInfo> ranks = new Array<>();
     // debug renderers
     private final Box2DDebugRenderer b2drenderer;
     private final ImmediateModeRenderer20 dbg = new ImmediateModeRenderer20(false, true, 0);
@@ -419,9 +416,6 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
                 } else if (ghost.isPlaying()) {
                     rank.completion = gameWorld.getGameTrack().getTrackCompletion(ghost);
                 }
-
-                // Gdx.app.log("", "arrived=" + ts.ghostArrived);
-                // rank.completion = c;
                 playerIndex++;
             }
         }
@@ -561,8 +555,6 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
 
     /**
      * This is intentionally SLOW. Read it again!
-     *
-     * @param boundingBox
      */
     private void renderBoundingBox(PerspectiveCamera camPersp, BoundingBox boundingBox) {
         float alpha = .15f;

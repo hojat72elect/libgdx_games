@@ -51,11 +51,6 @@ public final class GameInput {
         }
     }
 
-    // public void reset () {
-    // resetTimeDilating();
-    // input.releaseAllKeys();
-    // }
-
     public void update() {
         if (input.isPressed(Keys.R)) {
             logic.restartGame();

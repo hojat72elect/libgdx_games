@@ -26,8 +26,6 @@ public final class Fxaa extends Antialiasing {
 
     /**
      * Sets the span max parameter. The default value is 8.
-     *
-     * @param value
      */
     public void setSpanMax(float value) {
         fxaaFilter.setFxaaSpanMax(value);

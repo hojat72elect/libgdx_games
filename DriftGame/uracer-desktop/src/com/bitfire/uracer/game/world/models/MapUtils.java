@@ -17,8 +17,8 @@ import java.util.Map;
 
 public final class MapUtils implements Disposable {
     // cache
-    public final Map<String, MapLayer> cachedGroups = new HashMap<String, MapLayer>(10);
-    public final Map<String, TiledMapTileLayer> cachedLayers = new HashMap<String, TiledMapTileLayer>(10);
+    public final Map<String, MapLayer> cachedGroups = new HashMap<>(10);
+    public final Map<String, TiledMapTileLayer> cachedLayers = new HashMap<>(10);
 
     private final TiledMap map;
     private final Vector2 worldSizePx = new Vector2();
@@ -38,7 +38,7 @@ public final class MapUtils implements Disposable {
     }
 
     public static List<Vector2> extractPolyData(float[] vertices) {
-        List<Vector2> points = new ArrayList<Vector2>();
+        List<Vector2> points = new ArrayList<>();
         int num_verts = vertices.length;
         for (int i = 0; i < num_verts; i += 2) {
             points.add(new Vector2(vertices[i], vertices[i + 1]));
@@ -48,7 +48,7 @@ public final class MapUtils implements Disposable {
     }
 
     public static List<Vector2> extractPolyData(String encoded) {
-        List<Vector2> ret = new ArrayList<Vector2>();
+        List<Vector2> ret = new ArrayList<>();
 
         if (encoded != null && encoded.length() > 0) {
             String[] pairs = encoded.split(" ");

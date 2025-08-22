@@ -50,29 +50,12 @@ public class TrackTrees {
             model.translate(tmpvec);
             model.rotate(m.iRotationAxis, m.iRotationAngle);
             model.scale(m.scaleAxis.x, m.scaleAxis.y, m.scaleAxis.z);
-
-            // comb = (proj * view) * model (fast mul)
             transf.set(camPersp.combined).mul(m.mtxmodel);
 
             // transform the bounding box
             m.boundingBox.inf().set(m.localBoundingBox);
             m.boundingBox.mul(m.mtxmodel);
 
-            // create an AABB out of the corners of the original
-            // AABB transformed by the model matrix
-            // bb.inf();
-            // Vector3[] corners = m.localBoundingBox.getCorners();
-            // for(int k = 0; k < corners.length; k++)
-            // {
-            // vtrans[k].x = corners[k].x;
-            // vtrans[k].y = corners[k].y;
-            // vtrans[k].z = corners[k].z;
-            // vtrans[k].mul( tmpmtx );
-            // bb.ext(vtrans[k]);
-            // }
-            //
-            // m.boundingBox.inf();
-            // m.boundingBox.set( bb );
         }
     }
 }
