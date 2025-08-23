@@ -241,35 +241,6 @@ public final class Tween extends BaseTween<Tween> {
     }
 
     /**
-     * Factory creating a new timer. The given callback will be triggered on each iteration start, after the delay. <br/>
-     * <br/>
-     * <p>
-     * The common use of Tweens is "fire-and-forget": you do not need to care for tweens once you added them to a TweenManager,
-     * they will be updated automatically, and cleaned once finished. Common call: <br/>
-     * <br/>
-     *
-     * <pre>
-     * {@code
-     * Tween.call(myCallback)
-     *      .delay(1.0f)
-     *      .repeat(10, 1000)
-     *      .start(myManager);
-     * }
-     * </pre>
-     *
-     * @param callback The callback that will be triggered on each iteration start.
-     * @return The generated Tween.
-     * @see TweenCallback
-     */
-    public static Tween call(TweenCallback callback) {
-        Tween tween = pool.get();
-        tween.setup(null, -1, 0);
-        tween.setCallback(callback);
-        tween.setCallbackTriggers(TweenCallback.START);
-        return tween;
-    }
-
-    /**
      * Convenience method to create an empty tween. Such object is only useful when placed inside animation sequences (see
      * {@link Timeline}), in which it may act as a beacon, so you can set a callback on it in order to trigger some action at the
      * right moment.
@@ -329,7 +300,6 @@ public final class Tween extends BaseTween<Tween> {
     /**
      * Sets the easing equation of the tween. Existing equations are located in <i>aurelienribon.tweenengine.equations</i> package,
      * but you can of course implement your owns, see {@link TweenEquation}.
-     *
      * <b>Proposed equations are:</b><br/>
      * - Linear.INOUT,<br/>
      * - Quad.IN | OUT | INOUT,<br/>

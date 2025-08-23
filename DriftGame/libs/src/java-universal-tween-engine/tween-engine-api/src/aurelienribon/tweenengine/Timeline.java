@@ -117,20 +117,6 @@ public final class Timeline extends BaseTween<Timeline> {
     }
 
     /**
-     * Nests a Timeline in the current one.
-     *
-     * @return The current timeline, for chaining instructions.
-     */
-    public Timeline push(Timeline timeline) {
-        if (isBuilt) throw new RuntimeException("You can't push anything to a timeline once it is started");
-        if (timeline.current != timeline)
-            throw new RuntimeException("You forgot to call a few 'end()' statements in your pushed timeline");
-        timeline.parent = current;
-        current.children.add(timeline);
-        return this;
-    }
-
-    /**
      * Adds a pause to the timeline. The pause may be negative if you want to overlap the preceding and following children.
      *
      * @param time A positive or negative duration.

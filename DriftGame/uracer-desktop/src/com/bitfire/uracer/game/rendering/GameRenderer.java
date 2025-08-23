@@ -221,14 +221,10 @@ public final class GameRenderer {
             postProcessor.render(dest);
 
             if (hasDest) dest.begin();
-            batchAfterPostProcessing();
-            debugRender();
-            if (hasDest) dest.end();
-        } else {
-            batchAfterPostProcessing();
-            debugRender();
-            if (hasDest) dest.end();
         }
+        batchAfterPostProcessing();
+        debugRender();
+        if (hasDest) dest.end();
     }
 
     private void batchAfterPostProcessing() {

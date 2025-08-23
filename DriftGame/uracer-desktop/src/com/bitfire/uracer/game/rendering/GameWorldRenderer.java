@@ -46,11 +46,8 @@ public final class GameWorldRenderer {
     public static final float CamPerspPlaneFar = 240f;
     public static final float MinCameraZoom = 1f;
     public static final float MaxCameraZoom = 1.5f;
-    // @on
     public static final float ZoomRange = GameWorldRenderer.MaxCameraZoom - GameWorldRenderer.MinCameraZoom;
-    public static final float ZoomWindow = 0.2f * ZoomRange;
     public static final float CamPerspElevation = 100f;
-    // @off
     private static final String treeVertexShader =
             "uniform mat4 u_projTrans;							\n" +
                     "attribute vec4 a_position;						\n" +

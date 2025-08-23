@@ -44,35 +44,12 @@ public final class PostProcessor implements Disposable {
     private PostProcessorListener listener = null;
 
     /**
-     * Construct a new PostProcessor with FBO dimensions set to the size of the screen
-     */
-    public PostProcessor(boolean useDepth, boolean useAlphaChannel, boolean use32Bits) {
-        this(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), useDepth, useAlphaChannel, use32Bits);
-    }
-
-    /**
-     * Construct a new PostProcessor with the given parameters, defaulting to <em>TextureWrap.ClampToEdge</em> as texture wrap mode
-     */
-    public PostProcessor(int fboWidth, int fboHeight, boolean useDepth, boolean useAlphaChannel, boolean use32Bits) {
-        this(fboWidth, fboHeight, useDepth, useAlphaChannel, use32Bits, TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
-    }
-
-    /**
      * Construct a new PostProcessor with the given parameters and viewport, defaulting to <em>TextureWrap.ClampToEdge</em> as
      * texture wrap mode
      */
     public PostProcessor(Rectangle viewport, boolean useDepth, boolean useAlphaChannel, boolean use32Bits) {
         this((int) viewport.width, (int) viewport.height, useDepth, useAlphaChannel, use32Bits, TextureWrap.ClampToEdge,
                 TextureWrap.ClampToEdge);
-        setViewport(viewport);
-    }
-
-    /**
-     * Construct a new PostProcessor with the given parameters, viewport and the specified texture wrap mode
-     */
-    public PostProcessor(Rectangle viewport, boolean useDepth, boolean useAlphaChannel, boolean use32Bits, TextureWrap u,
-                         TextureWrap v) {
-        this((int) viewport.width, (int) viewport.height, useDepth, useAlphaChannel, use32Bits, u, v);
         setViewport(viewport);
     }
 

@@ -294,14 +294,9 @@ public final class Art {
                     streamBuilder.close();
                     zin.close();
 
-                    boolean mipMap = false;
                     Texture t = new Texture(px);
 
-                    if (mipMap) {
-                        t.setFilter(TextureFilter.MipMapLinearNearest, TextureFilter.Nearest);
-                    } else {
-                        t.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-                    }
+                    t.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
                     px.dispose();
                     return t;

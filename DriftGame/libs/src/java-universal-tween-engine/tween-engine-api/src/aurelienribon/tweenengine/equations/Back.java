@@ -7,19 +7,6 @@ import aurelienribon.tweenengine.TweenEquation;
  */
 public abstract class Back extends TweenEquation {
 
-    public static final Back OUT = new Back() {
-        @Override
-        public float compute(float t) {
-            float s = param_s;
-            return (t -= 1) * t * ((s + 1) * t + s) + 1;
-        }
-
-        @Override
-        public String toString() {
-            return "Back.OUT";
-        }
-    };
-
     public static final Back INOUT = new Back() {
         @Override
         public float compute(float t) {

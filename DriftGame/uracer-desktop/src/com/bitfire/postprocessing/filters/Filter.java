@@ -82,22 +82,6 @@ public abstract class Filter<T> {
         program.end();
     }
 
-    // mat3
-    protected T setParam(Parameter param, Matrix3 value) {
-        program.begin();
-        program.setUniformMatrix(param.mnemonic(), value);
-        program.end();
-        return (T) this;
-    }
-
-    // mat4
-    protected T setParam(Parameter param, Matrix4 value) {
-        program.begin();
-        program.setUniformMatrix(param.mnemonic(), value);
-        program.end();
-        return (T) this;
-    }
-
     /**
      * Sets the parameter to the specified value for this filter. When you are finished building the batch you shall signal it by
      * invoking endParams().
@@ -164,7 +148,7 @@ public abstract class Filter<T> {
     }
 
     // float[], vec2[], vec3[], vec4[]
-    protected void setParamsv(Parameter param, float[] values, int offset, int length) {
+    protected void setParamsv(Parameter param, float[] values, int length) {
         if (!programBegan) {
             programBegan = true;
             program.begin();
@@ -172,17 +156,17 @@ public abstract class Filter<T> {
 
         switch (param.arrayElementSize()) {
             case 4:
-                program.setUniform4fv(param.mnemonic(), values, offset, length);
+                program.setUniform4fv(param.mnemonic(), values, 0, length);
                 break;
             case 3:
-                program.setUniform3fv(param.mnemonic(), values, offset, length);
+                program.setUniform3fv(param.mnemonic(), values, 0, length);
                 break;
             case 2:
-                program.setUniform2fv(param.mnemonic(), values, offset, length);
+                program.setUniform2fv(param.mnemonic(), values, 0, length);
                 break;
             case 1:
             default:
-                program.setUniform1fv(param.mnemonic(), values, offset, length);
+                program.setUniform1fv(param.mnemonic(), values, 0, length);
                 break;
         }
     }

@@ -7,18 +7,6 @@ import aurelienribon.tweenengine.TweenEquation;
  */
 public abstract class Expo extends TweenEquation {
 
-    public static final Expo OUT = new Expo() {
-        @Override
-        public float compute(float t) {
-            return (t == 1) ? 1 : -(float) Math.pow(2, -10 * t) + 1;
-        }
-
-        @Override
-        public String toString() {
-            return "Expo.OUT";
-        }
-    };
-
     public static final Expo INOUT = new Expo() {
         @Override
         public float compute(float t) {

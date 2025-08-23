@@ -20,11 +20,9 @@ public final class PlayerTensiveMusic extends SoundEffect {
     public static final float ScaleMt = 20f * (NumTracks - 2);
     public static final float InvScaleMt = 1f / ScaleMt;
     public static final float AheadByMt = 10f;
-    private final Sound[] music = new Sound[NumTracks]; // prologue [0,3], inciso [4,6]
+    private final Sound[] music = new Sound[NumTracks];
     private final long[] mid = new long[NumTracks];
     private final boolean[] started = new boolean[NumTracks];
-
-    private final float[] lastVolume = new float[NumTracks];
     private final TrackProgressData progressData;
     private final InterpolatedFloat[] volTrack = new InterpolatedFloat[NumTracks];
     private final float[] volOut = new float[NumTracks];
@@ -40,7 +38,6 @@ public final class PlayerTensiveMusic extends SoundEffect {
         fMusicIndex = 0;
         for (int i = 0; i < NumTracks; i++) {
             started[i] = false;
-            lastVolume[i] = 0;
             mid[i] = -1;
             music[i] = Sounds.musTensive[i];
             volTrack[i] = new InterpolatedFloat();
@@ -139,7 +136,6 @@ public final class PlayerTensiveMusic extends SoundEffect {
 
     private void setVolume(int track, float volume) {
         float v = MathUtils.clamp(volume, 0, 1);
-        lastVolume[track] = v;
         music[track].setVolume(mid[track], v);
     }
 

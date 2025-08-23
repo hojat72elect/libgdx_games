@@ -699,10 +699,6 @@ public final class GameWorld {
         return levelId;
     }
 
-    public List<OrthographicAlignedStillModel> getStaticMeshes() {
-        return staticMeshes;
-    }
-
     public RayHandler getRayHandler() {
         return rayHandler;
     }

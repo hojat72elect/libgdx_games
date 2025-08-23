@@ -33,16 +33,16 @@ import com.bitfire.uracer.utils.VMath;
 
 public class PlayerCar extends Car {
     private final float invWidth, invHeight;
-    // states
-    public CarState carState = null;
-    public DriftState driftState = null;
-    public boolean isThrottling = false;
     // car simulation
-    private CarSimulator carSim = null;
-    private CarDescriptor carDesc = null;
+    private final CarSimulator carSim;
+    private final CarDescriptor carDesc;
+    public boolean isThrottling = false;
+    // states
+    public CarState carState;
+    public DriftState driftState;
     // input
     private Input input = null;
-    private CarInput carInput = null;
+    private CarInput carInput;
     private final Vector2 touchPos = new Vector2();
     private final Vector2 carPos = new Vector2();
     private WindowedMean frictionMean = new WindowedMean(10);
@@ -60,7 +60,6 @@ public class PlayerCar extends Car {
         invWidth = 1f / (float) Config.Graphics.ReferenceScreenWidth;
         invHeight = 1f / (float) Config.Graphics.ReferenceScreenHeight;
 
-        // strategy = gameWorld.scalingStrategy;
         carDesc = new CarDescriptor(preset.model);
         carSim = new CarSimulator(carDesc);
         stillModel.setAlpha(1);
@@ -210,7 +209,7 @@ public class PlayerCar extends Car {
                 carInput.brake += preset.model.max_force * 0.75f;
             }
 
-            float inertialThrust = 0;
+            float inertialThrust;
 
             if (kLeft) {
                 carInput.updated = true;
@@ -267,7 +266,7 @@ public class PlayerCar extends Car {
         float transformed = angle;
 
         transformed -= AMath.PI;
-        transformed += -body.getAngle(); // to local
+        transformed -= body.getAngle(); // to local
 
         if (transformed < 0) {
             transformed += AMath.TWO_PI;
@@ -336,7 +335,6 @@ public class PlayerCar extends Car {
             int pixel = frictionMap.getPixel(xOnMap, yOnMap);
             boolean inTrack = (pixel == -256);
             frictionMean.addValue((inTrack ? 0 : -1));
-
         } else {
             Gdx.app.log("PlayerCar", "PlayerCar out of map!");
         }

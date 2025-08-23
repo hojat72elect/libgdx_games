@@ -19,13 +19,11 @@ public final class CarSimulator {
     private final Vector2 resistance = new Vector2();
     private final Vector2 force = new Vector2();
     private final Vector2 acceleration = new Vector2();
-    private float rpmWheel = 0;
-    private float thisSign, lastSign;
+    private float thisSign;
 
     public CarSimulator(CarDescriptor carDesc) {
         this.carDesc = carDesc;
         thisSign = 1f;
-        lastSign = 1f;
 
         // exports
         lateralForceFront = new Vector2();
@@ -41,23 +39,13 @@ public final class CarSimulator {
             // throttle
             if (AMath.fixup(input.throttle) > 0) {
                 // acceleration
-                if (input.throttle < maxForce) {
-                    carDesc.throttle = input.throttle;
-                } else {
-                    carDesc.throttle = maxForce;
-                }
+                carDesc.throttle = Math.min(input.throttle, maxForce);
 
-                // carDesc.brake = 0;
                 hasDir = true;
             } else if (AMath.fixup(input.throttle) < 0) {
                 // deceleration
-                if (input.throttle > -maxForce) {
-                    carDesc.throttle = input.throttle;
-                } else {
-                    carDesc.throttle = -maxForce;
-                }
+                carDesc.throttle = Math.max(input.throttle, -maxForce);
 
-                // carDesc.brake = 0;
                 hasDir = true;
             }
 
@@ -125,15 +113,14 @@ public final class CarSimulator {
         VMath.fixup(velocity);
 
         float yawspeed = carDesc.carModel.wheelbase * 0.5f * carDesc.angularvelocity;
-        float sideslip = 0, rot_angle = 0;
-        float slipanglefront = 0, slipanglerear = 0;
+        float sideslip, rot_angle;
+        float slipanglefront, slipanglerear;
 
         if (AMath.isZero(velocity.x)) {
             rot_angle = 0;
             sideslip = 0;
 
             slipanglefront = sideslip + rot_angle;
-            slipanglerear = sideslip - rot_angle;
         } else {
             // compute rotational angle
             rot_angle = MathUtils.atan2(yawspeed, velocity.x);
@@ -142,18 +129,9 @@ public final class CarSimulator {
             sideslip = MathUtils.atan2(velocity.y, velocity.x);
 
             slipanglefront = sideslip + rot_angle - carDesc.steerangle;
-            slipanglerear = sideslip - rot_angle;
         }
+        slipanglerear = sideslip - rot_angle;
 
-        // Calculate slip angles for front and rear wheels (a.k.a. alpha)
-        // float slipanglefront = sideslip + rot_angle - carDesc.steerangle;
-        // float slipanglerear = sideslip - rot_angle;
-
-        // weight per axle = half car mass times 1G (=9.8m/s^2)
-        // (precomputed during initialization)
-        // weight = car->cartype->mass * 9.8f * 0.5f;
-
-        // lateral force on front wheels = (Ca * slip angle) capped to friction circle * load
         flatf.x = 0;
         flatf.y = carDesc.carModel.stiffness_front * slipanglefront;
         flatf.y = Math.min(carDesc.carModel.max_grip, flatf.y);
@@ -210,15 +188,6 @@ public final class CarSimulator {
         // integrate angular acceleration to get angular velocity
         carDesc.angularvelocity += dt * angular_acceleration;
         carDesc.angularvelocity = AMath.fixup(carDesc.angularvelocity);
-
-        float degreeOfRotationPerFrame = ((velocity.len() * dt) / carDesc.carModel.wheellength) * 360f;
-        float degreeOfRotationPerSecond = degreeOfRotationPerFrame * 30f;
-        float rpsWheel = degreeOfRotationPerSecond / 360f;
-        rpmWheel = rpsWheel * 60;
-    }
-
-    public float getRpmWheel() {
-        return rpmWheel;
     }
 
     public void resetPhysics() {
@@ -230,7 +199,6 @@ public final class CarSimulator {
         acceleration_wc.set(0, 0);
         velocity.set(0, 0);
         thisSign = 1f;
-        lastSign = 1f;
         lateralForceFront.set(0, 0);
         lateralForceRear.set(0, 0);
     }

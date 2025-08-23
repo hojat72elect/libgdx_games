@@ -12,7 +12,9 @@ public final class DriftState {
     public float driftStrength;
     private final Car car;
     private boolean hasCollided = false;
-    private float lastRear = 0, lastFront = 0, invMaxGrip = 0;
+    private final float invMaxGrip;
+    private float lastRear = 0;
+    private float lastFront = 0;
     private final Time time;
     private final Time collisionTime;
 
@@ -88,17 +90,12 @@ public final class DriftState {
                 }
             } else {
                 // search for onEndDrift
-                if (isDrifting && (driftStrength < 0.2f || velocityLength < 15f)) {
+                if (driftStrength < 0.2f || velocityLength < 15f) {
                     time.stop();
                     isDrifting = false;
-                    hasCollided = false;
                     GameEvents.driftState.trigger(car, Type.onEndDrift);
                 }
             }
         }
-    }
-
-    public float driftSeconds() {
-        return time.elapsed().tickSeconds;
     }
 }
