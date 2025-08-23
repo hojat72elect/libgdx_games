@@ -2,19 +2,16 @@ package com.bitfire.uracer.game.events;
 
 import com.badlogic.gdx.utils.Array;
 
-public abstract class Event<T extends Enum<T>, O extends Enum<O>, L extends Event.Listener<T, O>> {
+public abstract class Event<T extends Enum<T>, O extends Enum<O>> {
     private final Array<Listener<T, O>>[][] listeners;
     private final Class<T> classType;
     private final Class<O> classOrder;
-    private final int typeCount;
-    private final int orderCount;
 
-    @SuppressWarnings("unchecked")
     public Event(Class<T> classType, Class<O> classOrder) {
         this.classType = classType;
         this.classOrder = classOrder;
-        typeCount = classType.getEnumConstants().length;
-        orderCount = classOrder.getEnumConstants().length;
+        int typeCount = classType.getEnumConstants().length;
+        int orderCount = classOrder.getEnumConstants().length;
         listeners = new Array[typeCount][orderCount];
 
         for (T t : classType.getEnumConstants()) {

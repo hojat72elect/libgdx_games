@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
  * <p>
  * Subsequent {@link #capture()} calls will initiate writing to the next available buffer, returning the previously used one,
  * effectively ping-ponging between the two. Until {@link #end()} is called, chained rendering will be possible by retrieving the
- * necessary buffers via {@link #getSourceTexture()}, {@link #getSourceBuffer()}, {@link #getResultTexture()} or
+ * necessary buffers via {@link #getSourceBuffer()}, {@link #getResultTexture()} or
  * {@link #getResultBuffer}.
  * <p>
  * When finished, {@link #end()} should be called to stop capturing. When the OpenGL context is lost, {@link #rebind()} should be
@@ -40,16 +40,6 @@ public final class PingPongBuffer {
         owned1 = new FrameBuffer(frameBufferFormat, width, height, hasDepth);
         owned2 = new FrameBuffer(frameBufferFormat, width, height, hasDepth);
         set(owned1, owned2);
-    }
-
-    /**
-     * Creates a new ping-pong buffer with the given buffers.
-     */
-    public PingPongBuffer(FrameBuffer buffer1, FrameBuffer buffer2) {
-        ownResources = false;
-        owned1 = null;
-        owned2 = null;
-        set(buffer1, buffer2);
     }
 
     /**
@@ -165,13 +155,6 @@ public final class PingPongBuffer {
      */
     public void end() {
         endPending();
-    }
-
-    /**
-     * @return the source texture of the current ping-pong chain.
-     */
-    public Texture getSouceTexture() {
-        return texSrc;
     }
 
     /**

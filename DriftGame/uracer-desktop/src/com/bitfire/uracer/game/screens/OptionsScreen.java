@@ -65,7 +65,6 @@ public class OptionsScreen extends UIScreen {
                         @Override
                         public void changed(ChangeEvent event, Actor actor) {
                             Sounds.menuRollover.play();
-                            @SuppressWarnings("unchecked")
                             int index = ((SelectBox<String>) actor).getSelectedIndex();
                             UserPreferences.string(Preference.TimeDilateInputMode, TimeDilateInputMode.values()[index].toString());
                             UserPreferences.save();
@@ -201,7 +200,6 @@ public class OptionsScreen extends UIScreen {
                             @Override
                             public void changed(ChangeEvent event, Actor actor) {
                                 Sounds.menuRollover.play();
-                                @SuppressWarnings("unchecked")
                                 int index = ((SelectBox<String>) actor).getSelectedIndex();
                                 UserPreferences.string(Preference.ZoomRadialBlurQuality, RadialBlur.Quality.values()[index].toString());
                                 UserPreferences.save();
@@ -236,7 +234,7 @@ public class OptionsScreen extends UIScreen {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
                         Sounds.menuRollover.play();
-                        @SuppressWarnings("unchecked")
+
                         int index = ((SelectBox<String>) actor).getSelectedIndex();
                         UserPreferences.string(Preference.SsaoQuality, Ssao.Quality.values()[index].toString());
                         UserPreferences.save();

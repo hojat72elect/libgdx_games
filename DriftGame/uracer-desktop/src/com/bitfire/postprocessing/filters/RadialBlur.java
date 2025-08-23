@@ -21,10 +21,6 @@ public final class RadialBlur extends Filter<RadialBlur> {
         setZoom(1f);
     }
 
-    public RadialBlur() {
-        this(Quality.Low);
-    }
-
     public void setOrigin(float x, float y) {
         this.x = x;
         this.y = y;
@@ -40,18 +36,6 @@ public final class RadialBlur extends Filter<RadialBlur> {
     public void setZoom(float zoom) {
         this.zoom = zoom;
         setParam(Param.Zoom, this.zoom);
-    }
-
-    public float getOriginX() {
-        return x;
-    }
-
-    public float getOriginY() {
-        return y;
-    }
-
-    public float getStrength() {
-        return strength;
     }
 
     public void setStrength(float strength) {
@@ -89,7 +73,7 @@ public final class RadialBlur extends Filter<RadialBlur> {
     }
 
     public enum Param implements Parameter {
-        // @off
+
         Texture("u_texture0", 0),
         BlurDiv("blur_div", 0),
         OffsetX("offset_x", 0),
@@ -97,7 +81,6 @@ public final class RadialBlur extends Filter<RadialBlur> {
         // OneOnBlurLen( "one_on_blurlen", 0 ),
         Zoom("zoom", 0),
         ;
-        // @on
 
         private final String mnemonic;
         private final int elementSize;

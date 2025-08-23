@@ -1,6 +1,5 @@
 package com.bitfire.uracer.game.actors;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
@@ -15,9 +14,6 @@ public abstract class Box2DEntity extends SubframeInterpolableEntity {
     public Box2DEntity(World world) {
         super();
         this.box2dWorld = world;
-    }
-
-    public void onDebug(SpriteBatch batch) {
     }
 
     @Override

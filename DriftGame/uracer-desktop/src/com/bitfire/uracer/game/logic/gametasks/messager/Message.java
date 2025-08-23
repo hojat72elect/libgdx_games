@@ -32,32 +32,26 @@ public final class Message {
     private final TweenCallback hideFinished = new TweenCallback() {
         @Override
         public void onEvent(int type, BaseTween<?> source) {
-            switch (type) {
-                case COMPLETE:
-                    completed = true;
+            if (type == COMPLETE) {
+                completed = true;
             }
         }
     };
-    private TextBounds bounds;
+    private final TextBounds bounds;
     private float alpha, scale;
     private boolean hiding;
     private boolean showCompleted;
     private final TweenCallback showFinished = new TweenCallback() {
         @Override
         public void onEvent(int type, BaseTween<?> source) {
-            switch (type) {
-                case COMPLETE:
-                    showCompleted = true;
+            if (type == COMPLETE) {
+                showCompleted = true;
             }
         }
     };
 
     public Message() {
         bounds = new TextBounds();
-    }
-
-    public Message(String message, float durationSecs, Type type, Position position, Size size) {
-        set(message, durationSecs, type, position, size);
     }
 
     public void set(String message, float durationSecs, Type type, Position position, Size size) {
@@ -93,21 +87,19 @@ public final class Message {
                     font = BitmapFontFactory.get(FontFace.CurseRedBig);
                 }
                 break;
-            default:
             case Information:
+            default:
                 if (size == Size.Normal) {
                     font = BitmapFontFactory.get(FontFace.CurseRedYellow);
                 } else {
                     font = BitmapFontFactory.get(FontFace.CurseRedYellowBig);
-                    // font = BitmapFontFactory.get(FontFace.CurseRedYellowNew);
                 }
                 break;
         }
     }
 
     private void computeFinalPosition() {
-        int widthOnFour = Config.Graphics.ReferenceScreenWidth / 4;
-        whereX = widthOnFour;
+        whereX = (float) Config.Graphics.ReferenceScreenWidth / 4;
         startY = finalY = 0;
 
         float h = Config.Graphics.ReferenceScreenHeight;
@@ -131,7 +123,6 @@ public final class Message {
                 break;
         }
 
-        // Gdx.app.log(position.toString(), "s=" + startY + ", e=" + finalY);
     }
 
     public void render(SpriteBatch batch) {
@@ -152,12 +143,11 @@ public final class Message {
 
         SysTweener.stop(this);
 
-        //@off
+
         SysTweener.start(Timeline.createParallel()
                 .push(Tween.to(this, MessageAccessor.OPACITY, 850).target(1f).ease(Expo.INOUT))
                 .push(Tween.to(this, MessageAccessor.POSITION_Y, 700).target(finalY).ease(Expo.INOUT))
                 .push(Tween.to(this, MessageAccessor.SCALE_XY, 800).target(scale, scale).ease(Back.INOUT)).setCallback(showFinished));
-        //@on
     }
 
     public void hide() {
@@ -166,12 +156,11 @@ public final class Message {
 
             SysTweener.stop(this);
 
-            //@off
+
             SysTweener.start(Timeline.createParallel()
                     .push(Tween.to(this, MessageAccessor.OPACITY, 600).target(0f).ease(Expo.INOUT))
                     .push(Tween.to(this, MessageAccessor.POSITION_Y, 700).target(startY).ease(Expo.INOUT))
                     .push(Tween.to(this, MessageAccessor.SCALE_XY, 800).target(0, 0).ease(Back.INOUT)).setCallback(hideFinished));
-            //@on
         }
     }
 
@@ -181,10 +170,6 @@ public final class Message {
 
     public boolean isCompleted() {
         return completed;
-    }
-
-    public boolean isHiding() {
-        return hiding;
     }
 
     public float getX() {

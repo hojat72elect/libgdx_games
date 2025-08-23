@@ -10,9 +10,7 @@ import com.bitfire.uracer.resources.BitmapFontFactory.FontFace;
 
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.equations.Expo;
 import aurelienribon.tweenengine.equations.Linear;
-import aurelienribon.tweenengine.equations.Quint;
 
 public final class HudLabel extends Positionable {
     private final Color color = new Color(Color.WHITE);
@@ -105,41 +103,12 @@ public final class HudLabel extends Positionable {
         GameTweener.stop(this);
         GameTweener.start(Timeline.createSequence().push(
                 Tween.to(this, HudLabelAccessor.OPACITY, milliseconds).target(1f).ease(Linear.INOUT)));
-        // Gdx.app.log("", "fadein");
     }
 
     public void fadeOut(int milliseconds) {
         GameTweener.stop(this);
         GameTweener.start(Timeline.createSequence().push(
                 Tween.to(this, HudLabelAccessor.OPACITY, milliseconds).target(0f).ease(Linear.INOUT)));
-        // Gdx.app.log("", "fadeout");
     }
 
-    public void slide(boolean slideUp) {
-        setScale(1);
-
-        position.y += 50;
-        float targetNearX = position.x;
-        float targetNearY = position.y;
-        float targetFarX = position.x;
-        float targetFarY = position.y - 100;
-        if (!slideUp) {
-            targetFarY = position.y + 100;
-        }
-
-        GameTweener
-                .start(Timeline
-                        .createParallel()
-                        .push(Tween.to(this, HudLabelAccessor.OPACITY, 500).target(1f).ease(Quint.INOUT))
-                        .push(
-                                Timeline
-                                        .createSequence()
-                                        .push(
-                                                Tween.to(this, HudLabelAccessor.POSITION_XY, 500).target(targetNearX, targetNearY).ease(Quint.INOUT)
-                                                        .delay(300))
-                                        .push(
-                                                Timeline.createParallel()
-                                                        .push(Tween.to(this, HudLabelAccessor.POSITION_XY, 500).target(targetFarX, targetFarY).ease(Expo.OUT))
-                                                        .push(Tween.to(this, HudLabelAccessor.OPACITY, 500).target(0f).ease(Expo.OUT)))));
-    }
 }

@@ -12,10 +12,9 @@ import com.bitfire.uracer.game.actors.CarType;
 /**
  * Manages to distinguish and filter out Car-to-<entity> collisions only, raising the associated events on the correct entities.
  */
-public class CarImpactManager extends ImpactManager {
+public class CarImpactManager {
     private final Vector2 tmpVec2 = new Vector2();
 
-    @Override
     public void process(Contact contact, ContactImpulse impulse) {
         Fixture a = contact.getFixtureA();
         Fixture b = contact.getFixtureB();

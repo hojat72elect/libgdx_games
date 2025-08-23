@@ -147,10 +147,6 @@ public final class PlayerTensiveMusic extends SoundEffect {
         return volOut;
     }
 
-    public int getMusicIndex() {
-        return musicIndex;
-    }
-
     public int getCurrentMusicIndexLimit() {
         return musicIndexLimit;
     }
@@ -159,20 +155,15 @@ public final class PlayerTensiveMusic extends SoundEffect {
     public void tick() {
         if (isPaused) return;
 
-        float tgt_vol = 0;
-        // boolean isAheadByMeters = false;
+        float tgt_vol;
 
         // limit to number of actual replays
         musicIndexLimit = NumTracks - 2;// MathUtils.clamp(lapManager.getReplaysCount(), 0, NumTracks - 2);
-        // musicIndexLimit = NumTracks - 2;
 
         if (hasPlayer) {
 
-            // assumes index 0 (player in disadvantage)
             musicIndex = 0;
             fMusicIndex = 0;
-
-            // default interpolation speed
             float alpha_inc = 0.05f;
             float alpha_inc_next = 0.025f;
             float alpha_dec = 0.02f;

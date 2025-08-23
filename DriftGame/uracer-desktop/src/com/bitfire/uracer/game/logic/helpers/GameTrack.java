@@ -105,7 +105,6 @@ public final class GameTrack {
      * <p>
      * Asking for negative values is useful to permit the player some type "warm up"
      *
-     * @param sectorIndexOffset
      * @return TrackPosition
      */
     public TrackPosition generateTrackPosition(int sectorIndexOffset) {
@@ -159,7 +158,6 @@ public final class GameTrack {
      * Returns a value in the [-1,1] range, meaning the specified car is following the path with a confidence value as expressed by
      * the returned value.
      *
-     * @param car
      * @return The confidence value with which a car is following the current waypoint path.
      */
     public float getTrackRouteConfidence(Car car) {
@@ -175,15 +173,7 @@ public final class GameTrack {
             // to the same value when they are ~parallel and pointing to the same direction
             dir.scl(-1, 1);
 
-            float dot = dir.dot(heading);
-
-            // @off
-//			Gdx.app.log("GameTrack", "dir=" + NumberString.formatSmall(dir.x) + "," + NumberString.formatSmall(dir.y)
-//				+ ", heading=" + NumberString.formatSmall(heading.x) + "," + NumberString.formatSmall(heading.x) + ", dot="
-//				+ NumberString.formatSmall(dot));
-            // @on
-
-            return dot;
+            return dir.dot(heading);
         }
 
         return -1;
@@ -216,8 +206,6 @@ public final class GameTrack {
         }
 
         if (inNext) {
-            // switched
-            state.onExpectedPath = true;
             state.curr = state.next;
             state.next = state.curr + 1;
             if (state.next == sectors.length) state.next = 0;

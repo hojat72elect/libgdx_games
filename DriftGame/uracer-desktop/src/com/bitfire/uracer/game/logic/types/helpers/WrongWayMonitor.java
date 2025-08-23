@@ -30,25 +30,18 @@ public class WrongWayMonitor {
             if (!isWrongWay) {
                 // try mark wrong way
                 if (wrongWayTimer.isStopped()) {
-                    // Gdx.app.log("WrongWayMonitor", "--> detect wrong way begins");
                     wrongWayTimer.start();
                 } else if (wrongWayTimer.elapsed().tickSeconds > GameplaySettings.MaxSecondsWrongWayDetector) {
                     wrongWayTimer.reset();
                     isWrongWay = true;
                     GameEvents.wrongWay.trigger(null, WrongWayMonitorEvent.Type.onWrongWayBegins);
-                    // Gdx.app.log("WrongWayMonitor", "--> wrong way detected, invalidating lap");
-                } else {
-                    // Gdx.app.log("WrongWayMonitor", "--> " + wrongWayTimer.elapsed().tickSeconds);
                 }
             }
         } else if (trackRouteConfidence > 0 && !isWrongWay) {
 
-            // player correct
-
             // player changed his mind earlier and there weren't enough seconds of wrong way to mark it
             // as that, reset the timer
             if (!wrongWayTimer.isStopped()) {
-                // Gdx.app.log("WrongWayMonitor", "<-- player got it right in time, wrong way detection ends");
                 wrongWayTimer.reset();
             }
         }

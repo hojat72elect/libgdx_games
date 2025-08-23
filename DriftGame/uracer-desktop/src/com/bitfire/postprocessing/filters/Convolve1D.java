@@ -49,9 +49,8 @@ public final class Convolve1D extends Filter<Convolve1D> {
     }
 
     public enum Param implements Parameter {
-        // @formatter:off
-		Texture("u_texture0", 0), SampleWeights("SampleWeights", 1), SampleOffsets("SampleOffsets", 2 /* vec2 */);
-		// @formatter:on
+
+        Texture("u_texture0", 0), SampleWeights("SampleWeights", 1), SampleOffsets("SampleOffsets", 2 /* vec2 */);
 
         private final String mnemonic;
         private final int elementSize;

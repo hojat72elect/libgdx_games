@@ -1,7 +1,7 @@
 package com.bitfire.uracer.game.events;
 
 public final class GhostLapCompletionMonitorEvent extends
-        Event<GhostLapCompletionMonitorEvent.Type, GhostLapCompletionMonitorEvent.Order, GhostLapCompletionMonitorEvent.Listener> {
+        Event<GhostLapCompletionMonitorEvent.Type, GhostLapCompletionMonitorEvent.Order> {
     public GhostLapCompletionMonitorEvent() {
         super(Type.class, Order.class);
     }

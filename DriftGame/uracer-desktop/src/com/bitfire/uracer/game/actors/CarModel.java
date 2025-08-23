@@ -65,7 +65,7 @@ public final class CarModel {
     }
 
     // default car model
-    public CarModel toDefault() {
+    public void toDefault() {
         presetType = Type.Default;
 
         // physical model
@@ -102,11 +102,9 @@ public final class CarModel {
         density = 1f;
         friction = 4f;
         restitution = 0.25f;
-
-        return this;
     }
 
-    public CarModel toModel2() {
+    public void toModel2() {
         toDefault();
 
         b = 1.f; // m
@@ -129,7 +127,5 @@ public final class CarModel {
         density = 1f;
         friction = 4f;
         restitution = 0.25f;
-
-        return this;
     }
 }

@@ -26,7 +26,7 @@ public final class Replay implements Disposable, Comparable<Replay> {
     // replay data
     private final Vector2 carPositionMt = new Vector2();
     private float carOrientationRads;
-    private CarForces[] forces = null;
+    private final CarForces[] forces;
 
     public Replay() {
         forces = new CarForces[MaxEvents];
@@ -94,9 +94,7 @@ public final class Replay implements Disposable, Comparable<Replay> {
         } else {
             // equal time, draw
             // the oldest wins
-            if (info.created < o.info.created) return -1;
-            if (info.created > o.info.created) return 1;
-            return 0;
+            return Long.compare(info.created, o.info.created);
         }
     }
 

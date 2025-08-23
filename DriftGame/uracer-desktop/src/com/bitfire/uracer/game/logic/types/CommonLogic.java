@@ -43,28 +43,28 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
     protected final EventHandlers eventHandlers;
     protected final UserProfile userProfile;
     // input
-    protected Input inputSystem = null;
-    protected GameInput gameInput = null;
+    protected Input inputSystem;
+    protected GameInput gameInput;
     protected boolean quitPending = false, quitScheduled = false, paused = false;
     // world
-    protected GameWorld gameWorld = null;
-    protected GameRenderer gameRenderer = null;
-    protected GameTrack gameTrack = null;
+    protected GameWorld gameWorld;
+    protected GameRenderer gameRenderer;
+    protected GameTrack gameTrack;
     // rendering
-    protected GameWorldRenderer gameWorldRenderer = null;
-    protected PostProcessing postProcessing = null;
+    protected GameWorldRenderer gameWorldRenderer;
+    protected PostProcessing postProcessing;
     protected PlayerCar playerCar = null;
     protected GhostCar[] ghostCars = new GhostCar[ReplayManager.MaxReplays];
     protected boolean isCurrentLapValid = true;
     // lap / replays
-    protected LapManager lapManager = null;
-    protected PlayerLapCompletionMonitor playerLapMonitor = null;
+    protected LapManager lapManager;
+    protected PlayerLapCompletionMonitor playerLapMonitor;
     protected GhostLapCompletionMonitor[] ghostLapMonitor = new GhostLapCompletionMonitor[ReplayManager.MaxReplays];
     protected TrackProgressData progressData = new TrackProgressData();
     // tasks
-    protected GameTasksManager gameTasksManager = null;
-    protected PlayerGameTasks playerTasks = null;
-    protected Messager messager = null;
+    protected GameTasksManager gameTasksManager;
+    protected PlayerGameTasks playerTasks;
+    protected Messager messager;
     private final WrongWayMonitor wrongWayMonitor;
     private final BoxedFloat accuDriftSeconds = new BoxedFloat(DriftBar.MaxSeconds);
 
@@ -84,7 +84,7 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
         postProcessing = gameRenderer.getPostProcessing();
 
         // create both game and player tasks
-        gameTasksManager = new GameTasksManager(gameWorld, postProcessing.getPostProcessor());
+        gameTasksManager = new GameTasksManager(gameWorld);
         playerTasks = new PlayerGameTasks(userProfile, gameTasksManager);
         playerTasks.createTasks(lapManager, progressData);
 
@@ -112,10 +112,6 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
         gameInput = new GameInput(this, inputSystem);
     }
 
-    //
-    // GameLogic impl
-    //
-
     @Override
     public void dispose() {
         removePlayer();
@@ -126,9 +122,9 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
             playerCar.dispose();
         }
 
-        for (int i = 0; i < ghostCars.length; i++) {
-            if (ghostCars[i] != null) {
-                ghostCars[i].dispose();
+        for (GhostCar ghostCar : ghostCars) {
+            if (ghostCar != null) {
+                ghostCar.dispose();
             }
         }
 
@@ -147,10 +143,6 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
     @Override
     public UserProfile getUserProfile() {
         return userProfile;
-    }
-
-    public GhostCar[] getGhosts() {
-        return ghostCars;
     }
 
     @Override
@@ -265,8 +257,8 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
         GameEvents.logicEvent.trigger(this, GameLogicEvent.Type.GameReset);
     }
 
-    protected void setAccuDriftSeconds(float value) {
-        accuDriftSeconds.value = value;
+    protected void setAccuDriftSeconds() {
+        accuDriftSeconds.value = DriftBar.MaxSeconds;
     }
 
     @Override
@@ -384,8 +376,7 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
             gameTrack.updateTrackState(playerCar);
         }
 
-        for (int i = 0; i < ghostCars.length; i++) {
-            GhostCar ghost = ghostCars[i];
+        for (GhostCar ghost : ghostCars) {
             if (ghost != null && ghost.hasReplay()) {
                 gameTrack.updateTrackState(ghost);
             }

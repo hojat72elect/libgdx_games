@@ -16,7 +16,7 @@ import com.bitfire.utils.ItemsManager;
  * Provides a way to capture the rendered scene to an off-screen buffer and to apply a chain of effects on it before rendering to
  * screen.
  * <p>
- * Effects can be added or removed via {@link #addEffect(PostProcessorEffect)} and {@link #removeEffect(PostProcessorEffect)}.
+ * Effects can be added or removed via {@link #addEffect(PostProcessorEffect)}.
  */
 public final class PostProcessor implements Disposable {
     private static final Array<PingPongBuffer> buffers = new Array<>(5);
@@ -179,11 +179,7 @@ public final class PostProcessor implements Disposable {
         }
 
         buffers.clear();
-
-        if (enabledEffects != null) {
-            enabledEffects.clear();
-        }
-
+        enabledEffects.clear();
         pipelineState.dispose();
     }
 
@@ -199,22 +195,6 @@ public final class PostProcessor implements Disposable {
      */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    /**
-     * If called before capturing it will indicate if the next capture call will succeeds or not.
-     */
-    public boolean isReady() {
-        boolean hasEffects = false;
-
-        for (PostProcessorEffect e : effectsManager) {
-            if (e.isEnabled()) {
-                hasEffects = true;
-                break;
-            }
-        }
-
-        return (enabled && !capturing && hasEffects);
     }
 
     /**
@@ -238,20 +218,6 @@ public final class PostProcessor implements Disposable {
      */
     public void addEffect(PostProcessorEffect effect) {
         effectsManager.add(effect);
-    }
-
-    /**
-     * Removes the specified effect from the effect chain.
-     */
-    public void removeEffect(PostProcessorEffect effect) {
-        effectsManager.remove(effect);
-    }
-
-    /**
-     * Sets the color that will be used to clear the buffer.
-     */
-    public void setClearColor(Color color) {
-        clearColor.set(color);
     }
 
     /**
@@ -284,7 +250,7 @@ public final class PostProcessor implements Disposable {
     }
 
     /**
-     * Starts capturing the scene, clears the buffer with the clear color specified by {@link #setClearColor(Color)} or
+     * Starts capturing the scene, clears the buffer with the clear color specified by
      * {@link #setClearColor(float r, float g, float b, float a)}.
      *
      * @return true or false, whether or not capturing has been initiated. Capturing will fail in case there are no enabled effects
@@ -316,24 +282,19 @@ public final class PostProcessor implements Disposable {
 
     /**
      * Starts capturing the scene as {@link #capture()}, but <strong>without</strong> clearing the screen.
-     *
-     * @return true or false, whether or not capturing has been initiated.
      */
-    public boolean captureNoClear() {
+    public void captureNoClear() {
         hasCaptured = false;
 
         if (enabled && !capturing) {
             if (buildEnabledEffectsList() == 0) {
-                return false;
+                return;
             }
 
             capturing = true;
             composite.begin();
             composite.capture();
-            return true;
         }
-
-        return false;
     }
 
     /**
@@ -344,21 +305,6 @@ public final class PostProcessor implements Disposable {
             capturing = false;
             hasCaptured = true;
             composite.end();
-            return composite.getResultBuffer();
-        }
-
-        return null;
-    }
-
-    public PingPongBuffer getCombinedBuffer() {
-        return composite;
-    }
-
-    /**
-     * After a capture/captureEnd action, returns the just captured buffer
-     */
-    public FrameBuffer captured() {
-        if (enabled && hasCaptured) {
             return composite.getResultBuffer();
         }
 

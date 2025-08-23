@@ -17,8 +17,6 @@ public interface PostProcessingAnimator {
 
     void gameResume(int milliseconds);
 
-    void alert(int milliseconds);
-
     void reset();
 
     void setPlayer(PlayerCar player);

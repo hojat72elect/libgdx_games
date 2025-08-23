@@ -19,7 +19,7 @@ public final class PlayerDriftSoundEffect extends SoundEffect {
     private static final float pitchFactor = 1f;
     private static final float pitchMin = 0.7f;
     private static final float pitchMax = 1f;
-    private Sound drift = null;
+    private final Sound drift;
     private long driftId = -1, lastDriftId = -1;
     private float driftLastPitch = 0;
     private boolean started = false;

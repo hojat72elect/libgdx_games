@@ -11,7 +11,4 @@ public final class UserProfile {
         userCountryCode = "it";
     }
 
-    public enum Nation {
-        None
-    }
 }

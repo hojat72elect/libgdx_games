@@ -11,10 +11,6 @@ public final class CarInput {
         reset();
     }
 
-    public CarInput(CarInput other) {
-        set(other);
-    }
-
     public void reset() {
         updated = false;
         throttle = 0;

@@ -20,7 +20,7 @@ public final class PlayerImpactSoundEffect extends SoundEffect {
     private float lastFactor = 0;
     private int lastIdx = 0;
 
-    private final CarEvent.Listener carEvent = (source, type, order) -> impact(GameEvents.playerCar.data.impulses.len(), ((PlayerCar) source).carState.currSpeedFactor);
+    private final CarEvent.Listener carEvent = (source, type, order) -> impact(GameEvents.playerCar.data.impulses.len());
 
     public PlayerImpactSoundEffect() {
         impacts = Sounds.carImpacts;
@@ -50,7 +50,7 @@ public final class PlayerImpactSoundEffect extends SoundEffect {
         }
     }
 
-    private void impact(float impactForce, float speedFactor) {
+    private void impact(float impactForce) {
         float factor = AMath.fixup(AMath.normalizeImpactForce(impactForce));
 
         // early exit
@@ -63,23 +63,21 @@ public final class PlayerImpactSoundEffect extends SoundEffect {
             lastMillis = millis;
             lastFactor = factor;
 
-            float vol = 0;
-            float volumeFactor = 1f;
-            int idx = 0;
+            float vol;
+            float volumeFactor;
+            int idx;
 
             if (factor > 0.9f) {
-                // high (1)
+
                 idx = 7;
                 volumeFactor = factor;
             } else {
                 float range = factor / 0.9f;
                 if (range < 0.5) {
-                    // low (4)
                     do {
                         idx = MathUtils.random(0, 3);
                     } while (idx == lastIdx);
                 } else {
-                    // mid (3)
                     do {
                         idx = MathUtils.random(4, 6);
                     } while (idx == lastIdx);

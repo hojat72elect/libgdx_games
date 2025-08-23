@@ -45,6 +45,7 @@ public final class PostProcessing {
     // animators
     private PostProcessingAnimator animator = null;
     private boolean hasAnimator = false;
+
     public PostProcessing(GameWorld gameWorld) {
         if (UserPreferences.bool(Preference.PostProcessing)) {
             postProcessor = new PostProcessor(ScaleUtils.PlayViewport, true /* depth */, true /* alpha */,
@@ -56,7 +57,7 @@ public final class PostProcessing {
             postProcessor.setEnabled(true);
             postProcessor.setBufferTextureWrap(TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
             hasPostProcessor = true;
-            createEffects(gameWorld);
+            createEffects();
             setAnimator(new DefaultAnimator(this, gameWorld));
         }
     }
@@ -71,7 +72,7 @@ public final class PostProcessing {
      * Creates the effects that will be available to the animators/manipulators to use, remember that the ownership of the
      * instantiated objects is transfered to the PostProcessor when adding the effect to it.
      */
-    private void createEffects(GameWorld gameWorld) {
+    private void createEffects() {
         if (UserPreferences.bool(Preference.Ssao)) {
             addEffect(Effects.Ssao.name, new Ssao(ScaleUtils.PlayWidth, ScaleUtils.PlayHeight,
                     Ssao.Quality.valueOf(UserPreferences.string(Preference.SsaoQuality))));
@@ -107,10 +108,9 @@ public final class PostProcessing {
         }
 
         if (UserPreferences.bool(Preference.CrtScreen)) {
-            boolean scanlines = true;
 
             ShaderLoader.Pedantic = false;
-            int effects = (scanlines ? Effect.PhosphorVibrance.v | Effect.Scanlines.v : 0) | Effect.Tint.v;
+            int effects = Effect.PhosphorVibrance.v | Effect.Scanlines.v | Effect.Tint.v;
             boolean earthCurvature = UserPreferences.bool(Preference.EarthCurvature);
 
             CrtMonitor crt = new CrtMonitor(ScaleUtils.PlayWidth, ScaleUtils.PlayHeight, earthCurvature, false,
@@ -186,18 +186,6 @@ public final class PostProcessing {
     public void alertBegins(int milliseconds) {
         if (hasPostProcessor && hasAnimator) {
             animator.alertBegins(milliseconds);
-        }
-    }
-
-    public void alertEnds(int milliseconds) {
-        if (hasPostProcessor && hasAnimator) {
-            animator.alertEnds(milliseconds);
-        }
-    }
-
-    public void alert(int milliseconds) {
-        if (hasPostProcessor && hasAnimator) {
-            animator.alert(milliseconds);
         }
     }
 

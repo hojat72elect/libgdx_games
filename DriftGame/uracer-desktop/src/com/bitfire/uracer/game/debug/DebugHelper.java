@@ -57,7 +57,7 @@ import java.util.Set;
 public final class DebugHelper extends GameTask implements DisposableTasks {
     private final ItemsManager<DebugRenderable> renderables = new ItemsManager<>();
     private final Matrix4 idt = new Matrix4();
-    private Set<RenderFlags> renderFlags = EnumSet.of(
+    private final Set<RenderFlags> renderFlags = EnumSet.of(
             RenderFlags.VersionInfo,
             RenderFlags.FpsStats,
             RenderFlags.MeshStats,
@@ -70,7 +70,6 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
             RenderFlags.Completion
     );
     private final PostProcessor postProcessor;
-    private Matrix4 xform;
     private final Input input;
     private boolean enabled;
     // frame stats
@@ -100,7 +99,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
                 }
 
                 // save original transform matrix
-                xform = batch.getTransformMatrix();
+                Matrix4 xform = batch.getTransformMatrix();
                 batch.setTransformMatrix(idt);
 
                 // render static debug information unscaled
@@ -179,14 +178,6 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         }
     }
 
-    public void clearFlags() {
-        renderFlags.clear();
-    }
-
-    public void setFlags(EnumSet<RenderFlags> set) {
-        renderFlags = set;
-    }
-
     public boolean isEnabled() {
         return enabled && !renderFlags.isEmpty();
     }
@@ -256,7 +247,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
 
     private void render(SpriteBatch batch) {
         if (renderFlags.contains(RenderFlags.VersionInfo)) {
-            renderVersionInfo(batch, Art.DebugFontHeight * 2);
+            renderVersionInfo(batch);
         }
 
         if (renderFlags.contains(RenderFlags.FpsStats)) {
@@ -264,7 +255,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         }
 
         if (renderFlags.contains(RenderFlags.PerformanceGraph)) {
-            renderGraphicalStats(batch, Art.DebugFontHeight * 2);
+            renderGraphicalStats(batch);
         }
 
         if (renderFlags.contains(RenderFlags.MemoryStats)) {
@@ -272,7 +263,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         }
 
         if (renderFlags.contains(RenderFlags.PlayerInfo)) {
-            renderPlayerInfo(batch, 0);
+            renderPlayerInfo(batch);
         }
 
         if (renderFlags.contains(RenderFlags.PostProcessorInfo)) {
@@ -370,12 +361,12 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
 
             batchColorEnd(batch);
 
-            coord += Art.DebugFontHeight * scale;
+            coord += (int) (Art.DebugFontHeight * scale);
             rank++;
         }
 
         // show discarded lap
-        if (discarded && last != null && last.discarded.isValid()) {
+        if (discarded && last.discarded.isValid()) {
             ReplayInfo info = last.discarded;
             batchColorStart(batch, 1, 0, 0);
 
@@ -386,10 +377,6 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
     }
 
     private void renderCompletion(SpriteBatch batch, int y) {
-
-        //
-        // update
-        //
 
         float scale = 1;
         float xoffset = 130 * scale;
@@ -402,7 +389,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         for (int i = 0; i < ReplayManager.MaxReplays; i++) {
             GhostCar ghost = logic.getGhost(i);
             TrackState ts = ghost.getTrackState();
-            if (ghost != null && ghost.hasReplay()) {
+            if (ghost.hasReplay()) {
                 RankInfo rank = ranks.get(i);
                 rank.valid = true;
                 rank.uid = ghost.getReplay().getUserId();
@@ -461,15 +448,15 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
 
                 batchColorEnd(batch);
 
-                coord += Art.DebugFontHeight * scale;
+                coord += (int) (Art.DebugFontHeight * scale);
             }
         }
     }
 
-    private void renderGraphicalStats(SpriteBatch batch, int y) {
+    private void renderGraphicalStats(SpriteBatch batch) {
         batch.enableBlending();
         batch.setColor(1, 1, 1, 0.8f);
-        batch.draw(stats.getRegion(), ScaleUtils.PlayWidth - stats.getWidth(), y);
+        batch.draw(stats.getRegion(), ScaleUtils.PlayWidth - stats.getWidth(), 12);
         batch.setColor(1, 1, 1, 1f);
         batch.disableBlending();
     }
@@ -483,9 +470,9 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         SpriteBatchUtils.drawString(batch, text, ScaleUtils.PlayWidth - text.length() * Art.DebugFontWidth, y);
     }
 
-    private void renderVersionInfo(SpriteBatch batch, int y) {
+    private void renderVersionInfo(SpriteBatch batch) {
         SpriteBatchUtils.drawString(batch, uRacerInfo, ScaleUtils.PlayWidth - uRacerInfo.length() * Art.DebugFontWidth, 0,
-                Art.DebugFontWidth, y);
+                Art.DebugFontWidth, 12);
     }
 
     private void renderMemoryUsage(SpriteBatch batch, int y) {
@@ -500,7 +487,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
     }
 
     private void renderPostProcessorInfo(SpriteBatch batch, int y) {
-        String text = "";
+        String text;
 
         if (postProcessor == null) {
             text = "No post-processor is active";
@@ -511,7 +498,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         SpriteBatchUtils.drawString(batch, text, 0, y);
     }
 
-    private void renderPlayerInfo(SpriteBatch batch, int y) {
+    private void renderPlayerInfo(SpriteBatch batch) {
         if (!hasPlayer) return;
 
         CarDescriptor carDesc = player.getCarDescriptor();
@@ -519,22 +506,16 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         Vector2 pos = GameRenderer.ScreenUtils.worldMtToScreen(body.getPosition());
         EntityRenderState state = player.state();
 
-        SpriteBatchUtils.drawString(batch, "vel_wc len =" + carDesc.velocity_wc.len(), 0, y);
-        SpriteBatchUtils.drawString(batch, "vel_wc [x=" + carDesc.velocity_wc.x + ", y=" + carDesc.velocity_wc.y + "]", 0, y
-                + Art.DebugFontWidth);
-        SpriteBatchUtils.drawString(batch, "steerangle=" + carDesc.steerangle, 0, y + Art.DebugFontWidth * 2);
-        SpriteBatchUtils.drawString(batch, "throttle=" + carDesc.throttle, 0, y + Art.DebugFontWidth * 3);
-        SpriteBatchUtils.drawString(batch, "screen x=" + pos.x + ",y=" + pos.y, 0, y + Art.DebugFontWidth * 4);
-        SpriteBatchUtils.drawString(batch, "world-mt x=" + body.getPosition().x + ",y=" + body.getPosition().y, 0, y
-                + Art.DebugFontWidth * 5);
+        SpriteBatchUtils.drawString(batch, "vel_wc len =" + carDesc.velocity_wc.len(), 0, 0);
+        SpriteBatchUtils.drawString(batch, "vel_wc [x=" + carDesc.velocity_wc.x + ", y=" + carDesc.velocity_wc.y + "]", 0, Art.DebugFontWidth);
+        SpriteBatchUtils.drawString(batch, "steerangle=" + carDesc.steerangle, 0, Art.DebugFontWidth * 2);
+        SpriteBatchUtils.drawString(batch, "throttle=" + carDesc.throttle, 0, Art.DebugFontWidth * 3);
+        SpriteBatchUtils.drawString(batch, "screen x=" + pos.x + ",y=" + pos.y, 0, Art.DebugFontWidth * 4);
+        SpriteBatchUtils.drawString(batch, "world-mt x=" + body.getPosition().x + ",y=" + body.getPosition().y, 0, Art.DebugFontWidth * 5);
         SpriteBatchUtils.drawString(batch,
-                "world-px x=" + Convert.mt2px(body.getPosition().x) + ",y=" + Convert.mt2px(body.getPosition().y), 0, y
-                        + Art.DebugFontWidth * 6);
-        SpriteBatchUtils.drawString(batch, "orient=" + body.getAngle(), 0, y + Art.DebugFontWidth * 7);
-        SpriteBatchUtils.drawString(batch, "render.interp=" + (state.position.x + "," + state.position.y), 0, y
-                + Art.DebugFontWidth * 8);
-
-        // BatchUtils.drawString( batch, "on tile " + tilePosition, 0, 0 );
+                "world-px x=" + Convert.mt2px(body.getPosition().x) + ",y=" + Convert.mt2px(body.getPosition().y), 0, Art.DebugFontWidth * 6);
+        SpriteBatchUtils.drawString(batch, "orient=" + body.getAngle(), 0, Art.DebugFontWidth * 7);
+        SpriteBatchUtils.drawString(batch, "render.interp=" + (state.position.x + "," + state.position.y), 0, Art.DebugFontWidth * 8);
     }
 
     private void renderBoundingBoxes(PerspectiveCamera camPersp) {

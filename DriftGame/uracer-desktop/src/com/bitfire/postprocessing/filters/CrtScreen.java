@@ -11,14 +11,12 @@ public final class CrtScreen extends Filter<CrtScreen> {
     private final Vector3 vtint;
     private final Color tint;
     private float elapsedSecs, offset, zoom;
-    private float cdRedCyan, cdBlueYellow;
     private final Vector2 chromaticDispersion;
     private float distortion;
     private final boolean dodistortion;
     private RgbMode mode;
 
     public CrtScreen(boolean barrelDistortion, RgbMode mode, int effectsSupport) {
-        // @off
         super(ShaderLoader.fromFile("screenspace", "crt-screen", (barrelDistortion ? "#define ENABLE_BARREL_DISTORTION\n" : "")
                 + (mode == RgbMode.RgbShift ? "#define ENABLE_RGB_SHIFT\n" : "")
                 + (mode == RgbMode.ChromaticAberrations ? "#define ENABLE_CHROMATIC_ABERRATIONS\n" : "")
@@ -29,7 +27,6 @@ public final class CrtScreen extends Filter<CrtScreen> {
                 + (isSet(Effect.PhosphorVibrance.v, effectsSupport) ? "#define ENABLE_PHOSPHOR_VIBRANCE\n" : "")
                 + (isSet(Effect.ScanDistortion.v, effectsSupport) ? "#define ENABLE_SCAN_DISTORTION\n" : "")
         ));
-        // @on
 
         dodistortion = barrelDistortion;
 
@@ -75,26 +72,8 @@ public final class CrtScreen extends Filter<CrtScreen> {
     }
 
     public void setChromaticDispersion(float redCyan, float blueYellow) {
-        this.cdRedCyan = redCyan;
-        this.cdBlueYellow = blueYellow;
-        chromaticDispersion.x = cdRedCyan;
-        chromaticDispersion.y = cdBlueYellow;
-        if (mode == RgbMode.ChromaticAberrations) {
-            setParam(Param.ChromaticDispersion, chromaticDispersion);
-        }
-    }
-
-    public void setChromaticDispersionRC(float redCyan) {
-        this.cdRedCyan = redCyan;
-        chromaticDispersion.x = cdRedCyan;
-        if (mode == RgbMode.ChromaticAberrations) {
-            setParam(Param.ChromaticDispersion, chromaticDispersion);
-        }
-    }
-
-    public void setChromaticDispersionBY(float blueYellow) {
-        this.cdBlueYellow = blueYellow;
-        chromaticDispersion.y = cdBlueYellow;
+        chromaticDispersion.x = redCyan;
+        chromaticDispersion.y = blueYellow;
         if (mode == RgbMode.ChromaticAberrations) {
             setParam(Param.ChromaticDispersion, chromaticDispersion);
         }
@@ -123,14 +102,6 @@ public final class CrtScreen extends Filter<CrtScreen> {
 
     public float getOffset() {
         return offset;
-    }
-
-    public Vector2 getChromaticDispersion() {
-        return chromaticDispersion;
-    }
-
-    public void setChromaticDispersion(Vector2 dispersion) {
-        setChromaticDispersion(dispersion.x, dispersion.y);
     }
 
     public float getZoom() {
@@ -203,7 +174,7 @@ public final class CrtScreen extends Filter<CrtScreen> {
     }
 
     public enum Param implements Parameter {
-        // @off
+
         Texture0("u_texture0", 0),
         Time("time", 0),
         Tint("tint", 3),
@@ -211,7 +182,6 @@ public final class CrtScreen extends Filter<CrtScreen> {
         ChromaticDispersion("chromaticDispersion", 2),
         Distortion("Distortion", 0),
         Zoom("zoom", 0);
-        // @on
 
         private final String mnemonic;
         private final int elementSize;

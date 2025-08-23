@@ -23,9 +23,6 @@ public final class LensFlare2 extends PostProcessorEffect {
     private final Blur blur;
     private final Bias bias;
     private final Combine combine;
-    private Settings settings;
-    private boolean blending = false;
-    private int sfactor, dfactor;
 
     public LensFlare2(int fboWidth, int fboHeight) {
         pingPongBuffer = PostProcessor.newPingPongBuffer(fboWidth, fboHeight, PostProcessor.getFramebufferFormat(), false);
@@ -62,82 +59,27 @@ public final class LensFlare2 extends PostProcessorEffect {
         lens.setLensColorTexture(tex);
     }
 
-    public void enableBlending(int sfactor, int dfactor) {
-        this.blending = true;
-        this.sfactor = sfactor;
-        this.dfactor = dfactor;
-    }
-
-    public void disableBlending() {
-        this.blending = false;
-    }
-
-    public float getBias() {
-        return bias.getBias();
-    }
-
     public void setBias(float b) {
         bias.setBias(b);
-    }
-
-    public float getBaseIntensity() {
-        return combine.getSource1Intensity();
-    }
-
-    public float getBaseSaturation() {
-        return combine.getSource1Saturation();
     }
 
     public void setBaseSaturation(float saturation) {
         combine.setSource1Saturation(saturation);
     }
 
-    public float getFlareIntensity() {
-        return combine.getSource2Intensity();
-    }
-
-    public float getFlareSaturation() {
-        return combine.getSource2Saturation();
-    }
-
     public void setFlareSaturation(float saturation) {
         combine.setSource2Saturation(saturation);
-    }
-
-    public int getGhosts() {
-        return lens.getGhosts();
     }
 
     public void setGhosts(int ghosts) {
         lens.setGhosts(ghosts);
     }
 
-    public boolean isBlendingEnabled() {
-        return blending;
-    }
-
-    public int getBlendingSourceFactor() {
-        return sfactor;
-    }
-
-    public int getBlendingDestFactor() {
-        return dfactor;
-    }
-
-    public BlurType getBlurType() {
-        return blur.getType();
-    }
-
     public void setBlurType(BlurType type) {
         blur.setType(type);
     }
 
-    public Settings getSettings() {
-        return settings;
-    }
-
     public void setSettings(Settings settings) {
-        this.settings = settings;
 
         // setup threshold filter
         setBias(settings.flareBias);
@@ -156,16 +98,8 @@ public final class LensFlare2 extends PostProcessorEffect {
         setGhosts(settings.ghosts);
     }
 
-    public int getBlurPasses() {
-        return blur.getPasses();
-    }
-
     public void setBlurPasses(int passes) {
         blur.setPasses(passes);
-    }
-
-    public float getBlurAmount() {
-        return blur.getAmount();
     }
 
     public void setBlurAmount(float amount) {
@@ -193,12 +127,8 @@ public final class LensFlare2 extends PostProcessorEffect {
         }
         pingPongBuffer.end();
 
-        if (blending || blendingWasEnabled) {
+        if (blendingWasEnabled) {
             Gdx.gl.glEnable(GL20.GL_BLEND);
-        }
-
-        if (blending) {
-            Gdx.gl.glBlendFunc(sfactor, dfactor);
         }
 
         restoreViewport(dest);
@@ -253,22 +183,6 @@ public final class LensFlare2 extends PostProcessorEffect {
                         float flareIntensity, float flareSaturation, int ghosts, float haloWidth) {
             this(name, BlurType.Gaussian5x5b, blurPasses, 0, flareBias, baseIntensity, baseSaturation, flareIntensity,
                     flareSaturation, ghosts, haloWidth);
-        }
-
-        public Settings(Settings other) {
-            this.name = other.name;
-            this.blurType = other.blurType;
-            this.blurPasses = other.blurPasses;
-            this.blurAmount = other.blurAmount;
-
-            this.flareBias = other.flareBias;
-            this.baseIntensity = other.baseIntensity;
-            this.baseSaturation = other.baseSaturation;
-            this.flareIntensity = other.flareIntensity;
-            this.flareSaturation = other.flareSaturation;
-
-            this.ghosts = other.ghosts;
-            this.haloWidth = other.haloWidth;
         }
     }
 }

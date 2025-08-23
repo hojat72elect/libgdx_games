@@ -7,11 +7,8 @@ public final class Blur extends MultipassFilter {
     private final IntMap<Convolve2D> convolve = new IntMap<>(Tap.values().length);
     // blur
     private BlurType type;
-
-    // @formatter:on
     private float amount;
     private int passes;
-    // fbo, textures
     private final float invWidth;
     private final float invHeight;
 
@@ -185,35 +182,30 @@ public final class Blur extends MultipassFilter {
     }
 
     private void computeKernel(int blurRadius, float blurAmount, float[] outKernel) {
-        int radius = blurRadius;
 
-        // float sigma = (float)radius / amount;
-        float sigma = blurAmount;
-
-        float twoSigmaSquare = 2.0f * sigma * sigma;
+        float twoSigmaSquare = 2.0f * blurAmount * blurAmount;
         float sigmaRoot = (float) Math.sqrt(twoSigmaSquare * Math.PI);
         float total = 0.0f;
         float distance;
         int index;
 
-        for (int i = -radius; i <= radius; ++i) {
+        for (int i = -blurRadius; i <= blurRadius; ++i) {
             distance = i * i;
-            index = i + radius;
+            index = i + blurRadius;
             outKernel[index] = (float) Math.exp(-distance / twoSigmaSquare) / sigmaRoot;
             total += outKernel[index];
         }
 
-        int size = (radius * 2) + 1;
+        int size = (blurRadius * 2) + 1;
         for (int i = 0; i < size; ++i) {
             outKernel[i] /= total;
         }
     }
 
     private void computeOffsets(int blurRadius, float dx, float dy, float[] outOffsetH, float[] outOffsetV) {
-        int radius = blurRadius;
 
         final int X = 0, Y = 1;
-        for (int i = -radius, j = 0; i <= radius; ++i, j += 2) {
+        for (int i = -blurRadius, j = 0; i <= blurRadius; ++i, j += 2) {
             outOffsetH[j + X] = i * dx;
             outOffsetH[j + Y] = 0;
 
@@ -227,28 +219,27 @@ public final class Blur extends MultipassFilter {
         computeBlurWeightings();
     }
 
-    // @formatter:off
-	private enum Tap {
-		Tap3x3(1), Tap5x5(2),
-		// Tap7x7( 3 )
-		;
+    private enum Tap {
+        Tap3x3(1), Tap5x5(2),
+        // Tap7x7( 3 )
+        ;
 
-		public final int radius;
+        public final int radius;
 
-		Tap (int radius) {
-			this.radius = radius;
-		}
-	}
+        Tap(int radius) {
+            this.radius = radius;
+        }
+    }
 
-	public enum BlurType {
-		Gaussian3x3(Tap.Tap3x3), Gaussian3x3b(Tap.Tap3x3), // R=5 (11x11, policy "higher-then-discard")
-		Gaussian5x5(Tap.Tap5x5), Gaussian5x5b(Tap.Tap5x5), // R=9 (19x19, policy "higher-then-discard")
-		;
+    public enum BlurType {
+        Gaussian3x3(Tap.Tap3x3), Gaussian3x3b(Tap.Tap3x3), // R=5 (11x11, policy "higher-then-discard")
+        Gaussian5x5(Tap.Tap5x5), Gaussian5x5b(Tap.Tap5x5), // R=9 (19x19, policy "higher-then-discard")
+        ;
 
-		public final Tap tap;
+        public final Tap tap;
 
-		BlurType (Tap tap) {
-			this.tap = tap;
-		}
-	}
+        BlurType(Tap tap) {
+            this.tap = tap;
+        }
+    }
 }

@@ -13,7 +13,6 @@ import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.GameLogic;
 import com.bitfire.uracer.game.collisions.CollisionFilters;
 import com.bitfire.uracer.game.events.CarEvent;
-import com.bitfire.uracer.game.events.GameRendererEvent.Order;
 import com.bitfire.uracer.game.logic.helpers.GameTrack;
 import com.bitfire.uracer.game.logic.helpers.GameTrack.TrackState;
 import com.bitfire.uracer.game.world.GameWorld;
@@ -23,7 +22,7 @@ import com.bitfire.uracer.utils.AMath;
 import com.bitfire.uracer.utils.BodyEditorLoader;
 
 public abstract strictfp class Car extends Box2DEntity {
-    protected static final Order ShadowsDrawingOrder = Order.MINUS_2;
+
     protected GameWorld gameWorld;
     protected GameTrack gameTrack;
     // protected CarType carType;
@@ -31,7 +30,7 @@ public abstract strictfp class Car extends Box2DEntity {
     protected int impacts = 0;
     protected CarPreset preset;
     protected InputMode inputMode = InputMode.NoInput;
-    private boolean triggerEvents = false;
+    private final boolean triggerEvents;
     private final TrackState trackState;
     private final CarForces carForces = new CarForces();
     // distance
@@ -77,10 +76,6 @@ public abstract strictfp class Car extends Box2DEntity {
         return stillModel;
     }
 
-    public GameTrack getGameTrack() {
-        return gameTrack;
-    }
-
     public float getSteerAngleRads() {
         return 0;
     }
@@ -90,11 +85,9 @@ public abstract strictfp class Car extends Box2DEntity {
             this.box2dWorld.destroyBody(body);
         }
 
-        // body
         BodyDef bd = new BodyDef();
         bd.angle = 0;
         bd.type = BodyType.DynamicBody;
-        // bd.bullet = true;
 
         body = box2dWorld.createBody(bd);
         body.setBullet(true);
@@ -150,10 +143,6 @@ public abstract strictfp class Car extends Box2DEntity {
 
     public CarModel getCarModel() {
         return preset.model;
-    }
-
-    public InputMode getInputMode() {
-        return inputMode;
     }
 
     /**

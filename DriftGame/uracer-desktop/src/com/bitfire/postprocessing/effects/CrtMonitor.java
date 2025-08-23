@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.badlogic.gdx.math.Vector2;
 import com.bitfire.postprocessing.PostProcessor;
 import com.bitfire.postprocessing.PostProcessorEffect;
 import com.bitfire.postprocessing.filters.Blur;
@@ -22,9 +21,6 @@ public final class CrtMonitor extends PostProcessorEffect {
     private Blur blur;
     private final Combine combine;
     private final boolean doblur;
-
-    private boolean blending = false;
-    private int sfactor, dfactor;
 
     // the effect is designed to work on the whole screen area, no small/mid size tricks!
     public CrtMonitor(int fboWidth, int fboHeight, boolean barrelDistortion, boolean performBlur, RgbMode mode, int effectsSupport) {
@@ -62,16 +58,6 @@ public final class CrtMonitor extends PostProcessorEffect {
         }
     }
 
-    public void enableBlending(int sfactor, int dfactor) {
-        this.blending = true;
-        this.sfactor = sfactor;
-        this.dfactor = dfactor;
-    }
-
-    public void disableBlending() {
-        this.blending = false;
-    }
-
     // setters
     public void setTime(float elapsedSecs) {
         crt.setTime(elapsedSecs);
@@ -83,14 +69,6 @@ public final class CrtMonitor extends PostProcessorEffect {
 
     public void setChromaticDispersion(float redCyan, float blueYellow) {
         crt.setChromaticDispersion(redCyan, blueYellow);
-    }
-
-    public void setChromaticDispersionRC(float redCyan) {
-        crt.setChromaticDispersionRC(redCyan);
-    }
-
-    public void setChromaticDispersionBY(float blueYellow) {
-        crt.setChromaticDispersionBY(blueYellow);
     }
 
     public void setTint(float r, float g, float b) {
@@ -108,10 +86,6 @@ public final class CrtMonitor extends PostProcessorEffect {
 
     public float getOffset() {
         return crt.getOffset();
-    }
-
-    public Vector2 getChromaticDispersion() {
-        return crt.getChromaticDispersion();
     }
 
     public float getZoom() {
@@ -134,10 +108,6 @@ public final class CrtMonitor extends PostProcessorEffect {
         return crt.getRgbMode();
     }
 
-    public void setRgbMode(RgbMode mode) {
-        crt.setRgbMode(mode);
-    }
-
     @Override
     public void rebind() {
         crt.rebind();
@@ -151,7 +121,7 @@ public final class CrtMonitor extends PostProcessorEffect {
         boolean blendingWasEnabled = PostProcessor.isStateEnabled(GL20.GL_BLEND);
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
-        Texture out = null;
+        Texture out;
 
         if (doblur) {
 
@@ -173,12 +143,8 @@ public final class CrtMonitor extends PostProcessorEffect {
             out = buffer.getColorBufferTexture();
         }
 
-        if (blending || blendingWasEnabled) {
+        if (blendingWasEnabled) {
             Gdx.gl.glEnable(GL20.GL_BLEND);
-        }
-
-        if (blending) {
-            Gdx.gl.glBlendFunc(sfactor, dfactor);
         }
 
         restoreViewport(dest);

@@ -20,16 +20,14 @@ public final class PipelineState implements Disposable {
     }
 
     public boolean isEnabled(int pname) {
-        boolean ret = false;
+        boolean ret;
 
-        switch (pname) {
-            case GL20.GL_BLEND:
-                Gdx.gl20.glGetBooleanv(GL20.GL_BLEND, byteBuffer);
-                ret = (byteBuffer.get() == 1);
-                byteBuffer.clear();
-                break;
-            default:
-                ret = false;
+        if (pname == GL20.GL_BLEND) {
+            Gdx.gl20.glGetBooleanv(GL20.GL_BLEND, byteBuffer);
+            ret = (byteBuffer.get() == 1);
+            byteBuffer.clear();
+        } else {
+            ret = false;
         }
 
         return ret;

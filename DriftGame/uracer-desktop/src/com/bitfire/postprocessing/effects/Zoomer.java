@@ -14,20 +14,12 @@ public final class Zoomer extends PostProcessorEffect {
     private RadialBlur radialBlur = null;
     private Zoom zoom = null;
     private float oneOnW, oneOnH;
-    private float userOriginX, userOriginY;
 
     /**
      * Creating a Zoomer specifying the radial blur quality will enable radial blur
      */
     public Zoomer(int viewportWidth, int viewportHeight, RadialBlur.Quality quality) {
         setup(viewportWidth, viewportHeight, new RadialBlur(quality));
-    }
-
-    /**
-     * Creating a Zoomer without any parameter will use plain simple zooming
-     */
-    public Zoomer(int viewportWidth, int viewportHeight) {
-        setup(viewportWidth, viewportHeight, null);
     }
 
     private void setup(int viewportWidth, int viewportHeight, RadialBlur radialBlurFilter) {
@@ -55,8 +47,6 @@ public final class Zoomer extends PostProcessorEffect {
      * Specify the zoom origin, in screen coordinates.
      */
     public void setOrigin(float x, float y) {
-        userOriginX = x;
-        userOriginY = y;
 
         if (doRadial) {
             radialBlur.setOrigin(x * oneOnW, 1f - y * oneOnH);
@@ -81,26 +71,10 @@ public final class Zoomer extends PostProcessorEffect {
         }
     }
 
-    public float getBlurStrength() {
-        if (doRadial) {
-            return radialBlur.getStrength();
-        }
-
-        return -1;
-    }
-
     public void setBlurStrength(float strength) {
         if (doRadial) {
             radialBlur.setStrength(strength);
         }
-    }
-
-    public float getOriginX() {
-        return userOriginX;
-    }
-
-    public float getOriginY() {
-        return userOriginY;
     }
 
     @Override

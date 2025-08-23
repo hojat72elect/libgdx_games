@@ -7,21 +7,13 @@ import com.bitfire.uracer.utils.Convert;
 
 public final class EntityRenderState {
     private static final EntityRenderState result = new EntityRenderState();
-    public float orientation = 0;
+    public float orientation;
     public Vector2 position = new Vector2();
 
     public EntityRenderState() {
         orientation = 0;
         position.x = 0;
         position.y = 0;
-    }
-
-    public EntityRenderState(EntityRenderState state) {
-        set(state);
-    }
-
-    public EntityRenderState(Vector2 position, float orientation) {
-        set(position, orientation);
     }
 
     /**
@@ -46,7 +38,6 @@ public final class EntityRenderState {
 
             result.orientation = curr * alpha + prev * (1 - alpha);
             result.orientation = -(AMath.TWO_PI - result.orientation);
-
         } else {
             result.orientation = current.orientation * alpha + previous.orientation * (1 - alpha);
         }

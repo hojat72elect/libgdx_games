@@ -12,10 +12,6 @@ public final class CarForces {
         reset();
     }
 
-    public CarForces(CarForces other) {
-        set(other);
-    }
-
     public void reset() {
         velocity_x = 0;
         velocity_y = 0;

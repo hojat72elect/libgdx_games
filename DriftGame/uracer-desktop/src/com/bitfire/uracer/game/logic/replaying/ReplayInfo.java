@@ -38,7 +38,7 @@ public final class ReplayInfo {
     }
 
     public boolean isValidData() {
-        return completed && created > 0 && userId.length() > 0 && trackId.length() > 0;
+        return completed && created > 0 && !userId.isEmpty() && !trackId.isEmpty();
     }
 
     public boolean isValid() {

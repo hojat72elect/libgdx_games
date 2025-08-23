@@ -6,11 +6,12 @@ import com.bitfire.uracer.game.rendering.GameWorldRenderer;
 import com.bitfire.uracer.utils.AMath;
 
 public class CameraController {
-    private float boundsWidth = 0, boundsHeight = 0;
+    private final float boundsWidth;
+    private final float boundsHeight;
     private final PositionInterpolator interpolator;
-    private float sigmoidStrengthX = 1f;
-    private float sigmoidStrengthY = 1f;
-    private final Vector2 worldTiles = new Vector2();
+    private final float sigmoidStrengthX;
+    private final float sigmoidStrengthY;
+
     public CameraController(InterpolationMode mode, Vector2 halfViewport, final Vector2 worldSizeScaledPx, Vector2 worldSizeTiles) {
 
         final Rectangle cameraBounds = new Rectangle();
@@ -23,6 +24,7 @@ public class CameraController {
         boundsWidth = cameraBounds.width - cameraBounds.x;
         boundsHeight = cameraBounds.y - cameraBounds.height;
 
+        Vector2 worldTiles = new Vector2();
         worldTiles.set(worldSizeTiles);
 
         sigmoidStrengthX = AMath.clamp((worldSizeTiles.x / 4f), 1f, 5f);
@@ -119,8 +121,8 @@ public class CameraController {
                     }
                 };
                 break;
-            default:
             case OffNoBounds:
+            default:
                 interpolator = new PositionInterpolator() {
                     @Override
                     public Vector2 transform(Vector2 targetPosition, float zoom) {
@@ -139,12 +141,9 @@ public class CameraController {
         OffNoBounds, Off, Linear, Sigmoid
     }
 
-    private abstract class PositionInterpolator {
+    private abstract static class PositionInterpolator {
         protected Vector2 tmp = new Vector2();
         protected Vector2 tmp2 = new Vector2();
-        protected Vector2 prev = new Vector2();
-        protected Vector2 heading = new Vector2();
-        protected Vector2 pheading = new Vector2();
 
         public PositionInterpolator() {
         }

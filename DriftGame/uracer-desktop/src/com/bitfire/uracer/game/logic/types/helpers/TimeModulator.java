@@ -7,7 +7,6 @@ import com.bitfire.uracer.utils.BoxedFloatAccessor;
 
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenEquation;
 import aurelienribon.tweenengine.equations.Quad;
 
 public final class TimeModulator {
@@ -33,17 +32,17 @@ public final class TimeModulator {
     }
 
     public void toDilatedTime() {
-        modulateTo(Quad.OUT, MinTime, 1000);
+        modulateTo(MinTime);
     }
 
     public void toNormalTime() {
-        modulateTo(Quad.OUT, MaxTime, 1000);
+        modulateTo(MaxTime);
     }
 
-    private void modulateTo(TweenEquation eq, float to, float durationMs) {
+    private void modulateTo(float to) {
         SysTweener.stop(timeMultiplier);
         timeSeq = Timeline.createSequence();
-        timeSeq.push(Tween.to(timeMultiplier, BoxedFloatAccessor.VALUE, durationMs).target(to).ease(eq));
+        timeSeq.push(Tween.to(timeMultiplier, BoxedFloatAccessor.VALUE, (float) 1000).target(to).ease(Quad.OUT));
         SysTweener.start(timeSeq);
     }
 }

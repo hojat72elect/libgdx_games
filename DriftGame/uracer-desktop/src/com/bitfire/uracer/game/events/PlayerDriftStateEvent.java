@@ -2,7 +2,7 @@ package com.bitfire.uracer.game.events;
 
 
 public final class PlayerDriftStateEvent extends
-        Event<PlayerDriftStateEvent.Type, PlayerDriftStateEvent.Order, PlayerDriftStateEvent.Listener> {
+        Event<PlayerDriftStateEvent.Type, PlayerDriftStateEvent.Order> {
     public PlayerDriftStateEvent() {
         super(Type.class, Order.class);
     }

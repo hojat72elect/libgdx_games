@@ -59,10 +59,8 @@ public class LightShafts extends PostProcessorEffect {
             blur.setPasses(3);
         else if (w >= 1280) blur.setPasses(2);
 
-        setParams(16, 0.0034f, 1f, 0.84f, 5.65f, 1f, Config.Graphics.ReferenceScreenWidth / 2,
-                Config.Graphics.ReferenceScreenHeight / 2);
-
-        // enableDebug();
+        setParams(16, 0.0034f, 1f, 0.84f, 5.65f, 1f, (float) Config.Graphics.ReferenceScreenWidth / 2,
+                (float) Config.Graphics.ReferenceScreenHeight / 2);
     }
 
     @Override
@@ -75,22 +73,18 @@ public class LightShafts extends PostProcessorEffect {
         occlusionMap.dispose();
     }
 
-    public void enableDebug() {
-        GameEvents.gameRenderer.addListener(gameRendererEvent, GameRendererEvent.Type.BatchDebug, GameRendererEvent.Order.DEFAULT);
-    }
-
     public void disableDebug() {
         GameEvents.gameRenderer.removeListener(gameRendererEvent, GameRendererEvent.Type.BatchDebug,
                 GameRendererEvent.Order.DEFAULT);
     }
 
-    private void dbgTextureW(SpriteBatch batch, float width, Texture tex, int index) {
+    private void dbgTextureW(SpriteBatch batch, Texture tex) {
         if (tex == null) return;
 
-        float h = width / ScaleUtils.RefAspect;
-        float x = Config.Graphics.ReferenceScreenWidth - width - 10;
-        float y = index * 10;
-        batch.draw(tex, x, y, width, h);
+        float h = (float) 360 / ScaleUtils.RefAspect;
+        float x = Config.Graphics.ReferenceScreenWidth - (float) 360 - 10;
+        float y = 50 * 10;
+        batch.draw(tex, x, y, (float) 360, h);
     }
 
     private void debug(SpriteBatch batch) {
@@ -98,7 +92,7 @@ public class LightShafts extends PostProcessorEffect {
         Gdx.gl.glDisable(GL20.GL_CULL_FACE);
         Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);
         batch.disableBlending();
-        dbgTextureW(batch, 360, occlusionMap.getResultTexture(), 50);
+        dbgTextureW(batch, occlusionMap.getResultTexture());
     }
 
     public void setParams(int samples, float exposure, float decay, float density, float weight, float illuminationDecay,
@@ -117,21 +111,11 @@ public class LightShafts extends PostProcessorEffect {
         shShafts.end();
     }
 
-    public void setLightScreenPosition(float x, float y) {
-        setLightScreenPositionN(x * oneOnW, y * oneOnH);
-    }
-
     public void setLightScreenPositionN(float x, float y) {
         vLightPos[0] = x;
         vLightPos[1] = 1 - y;
         shShafts.begin();
         shShafts.setUniform2fv("lightPositionOnScreen", vLightPos, 0, 2);
-        shShafts.end();
-    }
-
-    public void setSamples(int samples) {
-        shShafts.begin();
-        shShafts.setUniformi("samples", samples); // 16
         shShafts.end();
     }
 
@@ -159,12 +143,6 @@ public class LightShafts extends PostProcessorEffect {
         shShafts.end();
     }
 
-    public void setIlluminationDecay(float illuminationDecay) {
-        shShafts.begin();
-        shShafts.setUniformf("illuminationDecay", illuminationDecay); // 1
-        shShafts.end();
-    }
-
     public void setThreshold(float gamma) {
         this.threshold.setTreshold(gamma);
     }
@@ -177,20 +155,13 @@ public class LightShafts extends PostProcessorEffect {
     public void render(FrameBuffer src, FrameBuffer dest) {
         Texture tsrc = src.getColorBufferTexture();
 
-        // blur.setPasses(2);
-
-        // 1, render occlusion map
         occlusionMap.begin();
         {
             threshold.setInput(tsrc).setOutput(occlusionMap.getSourceBuffer()).render();
             blur.render(occlusionMap);
         }
         occlusionMap.end();
-        // threshold.setInput(tsrc).setOutput(occlusionMap.getResultBuffer()).render(); // threshold without blur
-
         Texture result = occlusionMap.getResultTexture();
-
-        // 2, render shafts
         occlusionMap.capture();
         {
             shShafts.begin();
@@ -205,7 +176,6 @@ public class LightShafts extends PostProcessorEffect {
 
         restoreViewport(dest);
 
-        // 3, combine
         combine.setOutput(dest).setInput(tsrc, occlusionMap.getResultTexture()).render();
     }
 

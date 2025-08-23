@@ -1,7 +1,7 @@
 package com.bitfire.uracer.game.events;
 
 
-public class PhysicsStepEvent extends Event<PhysicsStepEvent.Type, PhysicsStepEvent.Order, PhysicsStepEvent.Listener> {
+public class PhysicsStepEvent extends Event<PhysicsStepEvent.Type, PhysicsStepEvent.Order> {
     public PhysicsStepEvent() {
         super(Type.class, Order.class);
     }

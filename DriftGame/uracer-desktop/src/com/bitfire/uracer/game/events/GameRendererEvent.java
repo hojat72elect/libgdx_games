@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.bitfire.postprocessing.PostProcessor;
 
-public class GameRendererEvent extends Event<GameRendererEvent.Type, GameRendererEvent.Order, GameRendererEvent.Listener> {
+public class GameRendererEvent extends Event<GameRendererEvent.Type, GameRendererEvent.Order> {
     public SpriteBatch batch;
     public Matrix4 mtxOrthographicMvpMt;
     public PerspectiveCamera camPersp;

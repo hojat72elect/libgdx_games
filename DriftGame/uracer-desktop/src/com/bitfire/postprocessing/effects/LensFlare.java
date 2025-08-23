@@ -33,16 +33,6 @@ public final class LensFlare extends PostProcessorEffect {
         lens.setColor(r, g, b);
     }
 
-    /**
-     * Sets the light position in screen coordinates [-1..1].
-     *
-     * @param x Light position x screen coordinate,
-     * @param y Light position y screen coordinate.
-     */
-    public void setLightPosition(float x, float y) {
-        lens.setLightPosition(x, y);
-    }
-
     @Override
     public void dispose() {
         if (lens != null) {

@@ -1,7 +1,7 @@
 package com.bitfire.uracer.game.events;
 
 public final class PlayerLapCompletionMonitorEvent extends
-        Event<PlayerLapCompletionMonitorEvent.Type, PlayerLapCompletionMonitorEvent.Order, PlayerLapCompletionMonitorEvent.Listener> {
+        Event<PlayerLapCompletionMonitorEvent.Type, PlayerLapCompletionMonitorEvent.Order> {
     public PlayerLapCompletionMonitorEvent() {
         super(Type.class, Order.class);
     }

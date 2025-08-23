@@ -7,12 +7,10 @@ import com.bitfire.postprocessing.filters.Vignetting;
 
 public final class Vignette extends PostProcessorEffect {
     private final Vignetting vignetting;
-    private final boolean controlSaturation;
     private final float oneOnW;
     private final float oneOnH;
 
     public Vignette(int viewportWidth, int viewportHeight, boolean controlSaturation) {
-        this.controlSaturation = controlSaturation;
         oneOnW = 1f / (float) viewportWidth;
         oneOnH = 1f / (float) viewportHeight;
         vignetting = new Vignetting(controlSaturation);
@@ -21,10 +19,6 @@ public final class Vignette extends PostProcessorEffect {
     @Override
     public void dispose() {
         vignetting.dispose();
-    }
-
-    public boolean doesSaturationControl() {
-        return controlSaturation;
     }
 
     public void setCoords(float x, float y) {
@@ -66,56 +60,8 @@ public final class Vignette extends PostProcessorEffect {
         vignetting.setIntensity(intensity);
     }
 
-    public float getLutIntensity() {
-        return vignetting.getLutIntensity();
-    }
-
     public void setLutIntensity(float value) {
         vignetting.setLutIntensity(value);
-    }
-
-    public int getLutIndexVal(int index) {
-        return vignetting.getLutIndexVal(index);
-    }
-
-    public Texture getLut() {
-        return vignetting.getLut();
-    }
-
-    public float getCenterX() {
-        return vignetting.getCenterX();
-    }
-
-    public float getCenterY() {
-        return vignetting.getCenterY();
-    }
-
-    public float getCoordsX() {
-        return vignetting.getX();
-    }
-
-    public float getCoordsY() {
-        return vignetting.getY();
-    }
-
-    public float getSaturation() {
-        return vignetting.getSaturation();
-    }
-
-    public void setSaturation(float saturation) {
-        vignetting.setSaturation(saturation);
-    }
-
-    public float getSaturationMul() {
-        return vignetting.getSaturationMul();
-    }
-
-    public void setSaturationMul(float saturationMul) {
-        vignetting.setSaturationMul(saturationMul);
-    }
-
-    public boolean isGradientMappingEnabled() {
-        return vignetting.isGradientMappingEnabled();
     }
 
     @Override

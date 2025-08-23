@@ -36,20 +36,11 @@ public final class DebugStatistics {
     private float[] dataPhysicsTime;
     private float[] dataTimeAliasing;
 
-    public DebugStatistics() {
-        init(100, 50, 0.2f);
-    }
-
     public DebugStatistics(int width, int height, float updateHz) {
         init(width, height, updateHz);
     }
 
-    public DebugStatistics(float updateHz) {
-        init(100, 50, updateHz);
-    }
-
     private void init(int width, int height, float updateHz) {
-        // assert (width < 256 && height < 256);
 
         final float oneOnUpdHz = 1f / updateHz;
 
@@ -119,7 +110,7 @@ public final class DebugStatistics {
         float alpha = 0.5f;
         for (int x = 0; x < PanelWidth; x++) {
             int xc = PanelWidth - x - 1;
-            int value = 0;
+            int value;
 
             // render time
             value = (int) (dataRenderTime[x] * ratio_rtime);

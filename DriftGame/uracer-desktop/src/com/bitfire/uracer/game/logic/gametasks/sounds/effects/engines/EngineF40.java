@@ -38,8 +38,7 @@ public class EngineF40 extends EngineSoundSet {
             if (to_target < 0) {
                 // player behind
                 // fade out on distance from target (use tensive music meters scaling)
-                float v = MathUtils.clamp(to_target + 1, 0, 1);
-                target_vol = v;
+                target_vol = MathUtils.clamp(to_target + 1, 0, 1);
             } else {
                 // player heading the race
                 target_vol = 1;
@@ -66,16 +65,13 @@ public class EngineF40 extends EngineSoundSet {
 
         float res = 1;
 
-        //@off
+
         switch (gear) {
             case 0:
-                res = 1f;
-                //
             case 1:
                 res = 1.4f;
                 break;
             case 2:
-                res = 1f;
                 break;
             case 3:
                 res = 0.66f;
@@ -84,9 +80,8 @@ public class EngineF40 extends EngineSoundSet {
                 res = 0.5f;
                 break;
         }
-        //@on
 
-        return res;// * 0.15f;
+        return res;
     }
 
     @Override
@@ -158,41 +153,25 @@ public class EngineF40 extends EngineSoundSet {
         return super.updateRpm(load);
     }
 
-    private int updateGear() {
+    private void updateGear() {
         float sf = player.carState.currSpeedFactor;
 
         if (sf > prevSpeed && gear < MaxGear) {
-            switch (gear) {
-                default:
-                    // float base = 8500;
-                    // float threshold = (1000 / MaxGear) * gear;
-                    // if (rpm > base + threshold) {
-                    if (rpm > 9800) {
-                        shiftUp();
-                        return 1;
-                    }
-
-                    break;
+            if (rpm > 9800) {
+                shiftUp();
             }
         } else if (sf < prevSpeed && gear > MinGear) {
 
-            switch (gear) {
-                case 2:
-                    if (rpm < 2000) {
-                        shiftDown();
-                        return -1;
-                    }
-                    break;
-                default:
-                    if (rpm < 7000) {
-                        shiftDown();
-                        return -1;
-                    }
-                    break;
+            if (gear == 2) {
+                if (rpm < 2000) {
+                    shiftDown();
+                }
+            } else {
+                if (rpm < 7000) {
+                    shiftDown();
+                }
             }
         }
-
-        return 0;
     }
 
     @Override

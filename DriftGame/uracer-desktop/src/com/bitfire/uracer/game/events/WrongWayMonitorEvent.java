@@ -1,7 +1,7 @@
 package com.bitfire.uracer.game.events;
 
 public final class WrongWayMonitorEvent extends
-        Event<WrongWayMonitorEvent.Type, WrongWayMonitorEvent.Order, WrongWayMonitorEvent.Listener> {
+        Event<WrongWayMonitorEvent.Type, WrongWayMonitorEvent.Order> {
     public WrongWayMonitorEvent() {
         super(Type.class, Order.class);
     }

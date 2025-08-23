@@ -59,8 +59,7 @@ public final class ReplayManager implements Disposable {
      * Add a Replay to the list: it will get checked against some rules before adding it, so it's safe to assume that any Replay
      * returned later will be valid.
      *
-     * @param replay    The Replay to add
-     * @param computeId Whether to compute an ID for the specified Replay if added successfully
+     * @param replay The Replay to add
      * @return A ReplayInfo structure describing the inserting position or failure explanation
      */
     public ReplayResult addReplay(Replay replay) {
@@ -103,34 +102,12 @@ public final class ReplayManager implements Disposable {
         return replayInfo;
     }
 
-    public Replay getById(String replayId) {
-        for (Replay r : nreplays) {
-            if (replayId.equals(r.info.getId())) {
-                return r;
-            }
-        }
-
-        return null;
-    }
-
     public void removeAll() {
         for (Replay r : nreplays) {
             r.reset();
         }
 
         nreplays.clear();
-    }
-
-    public boolean hasReplays() {
-        return nreplays.size > 0;
-    }
-
-    public Replay getBestReplay() {
-        return nreplays.first();
-    }
-
-    public Replay getWorstReplay() {
-        return nreplays.peek();
     }
 
     public Array<Replay> getReplays() {

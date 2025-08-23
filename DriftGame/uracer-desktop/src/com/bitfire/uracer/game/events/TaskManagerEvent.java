@@ -1,6 +1,6 @@
 package com.bitfire.uracer.game.events;
 
-public class TaskManagerEvent extends Event<TaskManagerEvent.Type, TaskManagerEvent.Order, TaskManagerEvent.Listener> {
+public class TaskManagerEvent extends Event<TaskManagerEvent.Type, TaskManagerEvent.Order> {
 
     public TaskManagerEvent() {
         super(Type.class, Order.class);

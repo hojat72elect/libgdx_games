@@ -16,10 +16,6 @@ public final class Bias extends Filter<Bias> {
         rebind();
     }
 
-    public float getBias() {
-        return bias;
-    }
-
     public void setBias(float bias) {
         this.bias = bias;
         setParam(Param.Bias, this.bias);
@@ -37,9 +33,8 @@ public final class Bias extends Filter<Bias> {
     }
 
     public enum Param implements Parameter {
-        // @formatter:off
-		Texture("u_texture0", 0), Bias("u_bias", 0);
-		// @formatter:on
+
+        Texture("u_texture0", 0), Bias("u_bias", 0);
 
         private final String mnemonic;
         private final int elementSize;

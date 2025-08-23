@@ -56,23 +56,23 @@ public final class Ssao extends PostProcessorEffect {
         blur.setType(BlurType.Gaussian5x5b);
         blur.setPasses(2);
 
-        createRandomField(16, 16, Format.RGBA8888);
+        createRandomField();
         // enableDebug();
     }
 
     /**
      * Computes random field for the ssao shader
      */
-    private void createRandomField(int width, int height, Format format) {
-        randomField = new Texture(width, height, format);
+    private void createRandomField() {
+        randomField = new Texture(16, 16, Format.RGBA8888);
         randomField.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
         randomField.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 
-        Pixmap pixels = new Pixmap(width, height, format);
+        Pixmap pixels = new Pixmap(16, 16, Format.RGBA8888);
         ByteBuffer bytes = pixels.getPixels();
         int wrote = 0;
 
-        while (wrote < width * height * 4) {
+        while (wrote < 16 * 16 * 4) {
             float x = (MathUtils.random() - 0.5f) * 2.0f;
             float y = (MathUtils.random() - 0.5f) * 2.0f;
             float z = (MathUtils.random() - 0.5f) * 2.0f;
@@ -102,10 +102,6 @@ public final class Ssao extends PostProcessorEffect {
         shSsao.dispose();
         shMix.dispose();
         occlusionMap.dispose();
-    }
-
-    public void enableDebug() {
-        GameEvents.gameRenderer.addListener(gameRendererEvent, GameRendererEvent.Type.BatchDebug, GameRendererEvent.Order.DEFAULT);
     }
 
     public void disableDebug() {

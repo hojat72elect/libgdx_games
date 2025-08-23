@@ -101,16 +101,8 @@ public class LapManager implements Disposable {
         return manager.getReplays();
     }
 
-    public Replay getReplay(String replayId) {
-        return manager.getById(replayId);
-    }
-
     public int getReplaysCount() {
         return manager.getReplaysCount();
-    }
-
-    public Replay getBestReplay() {
-        return manager.getBestReplay();
     }
 
     public void removeAllReplays() {

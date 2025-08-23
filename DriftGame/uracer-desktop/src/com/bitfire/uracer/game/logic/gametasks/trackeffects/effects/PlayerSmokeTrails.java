@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.bitfire.uracer.URacer;
 import com.bitfire.uracer.game.logic.gametasks.trackeffects.TrackEffect;
@@ -70,9 +69,6 @@ public class PlayerSmokeTrails extends TrackEffect {
             float r = 0.7f;
             float g = 0.8f;
             float b = 1f;
-            if (MathUtils.randomBoolean()) {
-                r = 0.7f;
-            }
 
             float colorscale = 0.15f + 0.3f * dfactor;
             r *= colorscale;

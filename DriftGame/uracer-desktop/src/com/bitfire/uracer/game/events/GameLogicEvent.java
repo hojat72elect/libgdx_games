@@ -2,7 +2,7 @@ package com.bitfire.uracer.game.events;
 
 import com.bitfire.uracer.game.player.PlayerCar;
 
-public class GameLogicEvent extends Event<GameLogicEvent.Type, GameLogicEvent.Order, GameLogicEvent.Listener> {
+public class GameLogicEvent extends Event<GameLogicEvent.Type, GameLogicEvent.Order> {
     public PlayerCar player;
 
     public GameLogicEvent() {

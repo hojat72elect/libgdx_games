@@ -12,18 +12,14 @@ import com.bitfire.postprocessing.utils.FullscreenQuad;
 /**
  * The base class for any single-pass filter.
  */
-
-@SuppressWarnings("unchecked")
 public abstract class Filter<T> {
 
     protected static final FullscreenQuad quad = new FullscreenQuad();
     protected static final int u_texture0 = 0;
     protected static final int u_texture1 = 1;
-    protected static final int u_texture2 = 2;
-    protected static final int u_texture3 = 3;
     protected Texture inputTexture = null;
     protected FrameBuffer outputBuffer = null;
-    protected ShaderProgram program = null;
+    protected ShaderProgram program;
     private boolean programBegan = false;
 
     public Filter(ShaderProgram program) {
@@ -102,30 +98,6 @@ public abstract class Filter<T> {
         return (T) this;
     }
 
-    // float[], vec2[], vec3[], vec4[]
-    protected T setParamv(Parameter param, float[] values, int offset, int length) {
-        program.begin();
-
-        switch (param.arrayElementSize()) {
-            case 4:
-                program.setUniform4fv(param.mnemonic(), values, offset, length);
-                break;
-            case 3:
-                program.setUniform3fv(param.mnemonic(), values, offset, length);
-                break;
-            case 2:
-                program.setUniform2fv(param.mnemonic(), values, offset, length);
-                break;
-            default:
-            case 1:
-                program.setUniform1fv(param.mnemonic(), values, offset, length);
-                break;
-        }
-
-        program.end();
-        return (T) this;
-    }
-
     /**
      * Sets the parameter to the specified value for this filter. When you are finished building the batch you shall signal it by
      * invoking endParams().
@@ -192,7 +164,7 @@ public abstract class Filter<T> {
     }
 
     // float[], vec2[], vec3[], vec4[]
-    protected T setParamsv(Parameter param, float[] values, int offset, int length) {
+    protected void setParamsv(Parameter param, float[] values, int offset, int length) {
         if (!programBegan) {
             programBegan = true;
             program.begin();
@@ -208,13 +180,11 @@ public abstract class Filter<T> {
             case 2:
                 program.setUniform2fv(param.mnemonic(), values, offset, length);
                 break;
-            default:
             case 1:
+            default:
                 program.setUniform1fv(param.mnemonic(), values, offset, length);
                 break;
         }
-
-        return (T) this;
     }
 
     /**

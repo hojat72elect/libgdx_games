@@ -1,6 +1,6 @@
 package com.bitfire.uracer.game.events;
 
-public final class GhostCarEvent extends Event<GhostCarEvent.Type, GhostCarEvent.Order, GhostCarEvent.Listener> {
+public final class GhostCarEvent extends Event<GhostCarEvent.Type, GhostCarEvent.Order> {
     public GhostCarEvent() {
         super(Type.class, Order.class);
     }

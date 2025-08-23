@@ -129,7 +129,7 @@ public class PlayerSkidMarks extends TrackEffect {
             return;
         }
 
-        int driftMarkAddIterations = 1;
+        int driftMarkAddIterations;
         float target = Config.Physics.Dt;
         float curr = Gdx.graphics.getDeltaTime();// deltaMean.getMean();
         driftMarkAddIterations = AMath.clamp(Math.round(curr / target), 1, 3);

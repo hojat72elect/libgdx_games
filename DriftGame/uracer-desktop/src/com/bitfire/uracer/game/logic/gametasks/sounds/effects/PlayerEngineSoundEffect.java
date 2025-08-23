@@ -29,17 +29,13 @@ public final class PlayerEngineSoundEffect extends SoundEffect {
     private float load;
     private float throttle;
     private final CarEvent.Listener carListener = new CarEvent.Listener() {
-        @SuppressWarnings("incomplete-switch")
         @Override
         public void handle(Object source, CarEvent.Type type, CarEvent.Order order) {
             switch (type) {
                 case onCollision:
-                    // soundset.reset();
                     throttle = 0;
                     break;
                 case onOutOfTrack:
-                    // soundset.shiftDown();
-                    break;
                 case onBackInTrack:
                     break;
             }

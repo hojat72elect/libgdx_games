@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.bitfire.uracer.game.actors.Car;
 import com.bitfire.uracer.game.actors.CarForces;
 
-public final class CarEvent extends Event<CarEvent.Type, CarEvent.Order, CarEvent.Listener> {
+public final class CarEvent extends Event<CarEvent.Type, CarEvent.Order> {
     public final Data data = new Data();
 
     public CarEvent() {

@@ -53,7 +53,7 @@ public final class PlayerGameTasks {
         manager.effects.addAfterCars(new PlayerSmokeTrails());
 
         // hud
-        hudPlayer = new HudPlayer(userProfile);
+        hudPlayer = new HudPlayer();
         hudPlayerStatic = new HudPlayerStatic(userProfile);
         hudLapInfo = new HudLapInfo(lapManager);
 

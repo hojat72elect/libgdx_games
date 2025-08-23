@@ -128,8 +128,4 @@ public class DebugPlayer extends DebugRenderable {
             }
         }
     }
-
-    @Override
-    public void reset() {
-    }
 }

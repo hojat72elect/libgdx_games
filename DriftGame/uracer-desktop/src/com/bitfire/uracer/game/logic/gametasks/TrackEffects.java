@@ -139,20 +139,6 @@ public final class TrackEffects extends GameTask implements DisposableTasks {
         }
     }
 
-    public int getParticleCount() {
-        int total = 0;
-
-        for (TrackEffect e : managerBeforeCars) {
-            total += e.getParticleCount();
-        }
-
-        for (TrackEffect e : managerAfterCars) {
-            total += e.getParticleCount();
-        }
-
-        return total;
-    }
-
     @Override
     public void onPlayer(PlayerCar player) {
         super.onPlayer(player);

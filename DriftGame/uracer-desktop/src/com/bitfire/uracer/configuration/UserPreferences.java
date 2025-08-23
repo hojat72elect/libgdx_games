@@ -34,7 +34,7 @@ public final class UserPreferences {
             }
         }
 
-        if (isDifferent || (prefs.get().size() == 0)) {
+        if (isDifferent || (prefs.get().isEmpty())) {
             toDefaults();
         }
     }
@@ -98,28 +98,6 @@ public final class UserPreferences {
     }
 
     /**
-     * get integer
-     */
-    public static int integer(Preference pref) {
-        return prefs.getInteger(pref.name);
-    }
-
-    public static void integer(Preference pref, int value) {
-        prefs.putInteger(pref.name, value);
-    }
-
-    /**
-     * get long
-     */
-    public static long longint(Preference pref) {
-        return prefs.getLong(pref.name);
-    }
-
-    public static void longint(Preference pref, long value) {
-        prefs.putLong(pref.name, value);
-    }
-
-    /**
      * get float
      */
     public static float real(Preference pref) {
@@ -174,10 +152,6 @@ public final class UserPreferences {
 
         Preference() {
             this.name = this.name();
-        }
-
-        Preference(String name) {
-            this.name = name;
         }
     }
 }

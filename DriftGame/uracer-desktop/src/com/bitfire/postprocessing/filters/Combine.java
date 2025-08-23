@@ -31,17 +31,9 @@ public final class Combine extends Filter<Combine> {
         return this;
     }
 
-    public float getSource1Intensity() {
-        return s1i;
-    }
-
     public void setSource1Intensity(float intensity) {
         s1i = intensity;
         setParam(Combine.Param.Source1Intensity, intensity);
-    }
-
-    public float getSource2Intensity() {
-        return s2i;
     }
 
     public void setSource2Intensity(float intensity) {
@@ -49,17 +41,9 @@ public final class Combine extends Filter<Combine> {
         setParam(Combine.Param.Source2Intensity, intensity);
     }
 
-    public float getSource1Saturation() {
-        return s1s;
-    }
-
     public void setSource1Saturation(float saturation) {
         s1s = saturation;
         setParam(Combine.Param.Source1Saturation, saturation);
-    }
-
-    public float getSource2Saturation() {
-        return s2s;
     }
 
     public void setSource2Saturation(float saturation) {
@@ -85,10 +69,9 @@ public final class Combine extends Filter<Combine> {
     }
 
     public enum Param implements Parameter {
-        // @formatter:off
-		Texture0("u_texture0", 0), Texture1("u_texture1", 0), Source1Intensity("Src1Intensity", 0), Source1Saturation(
+
+        Texture0("u_texture0", 0), Texture1("u_texture1", 0), Source1Intensity("Src1Intensity", 0), Source1Saturation(
 			"Src1Saturation", 0), Source2Intensity("Src2Intensity", 0), Source2Saturation("Src2Saturation", 0);
-		// @formatter:on
 
         private final String mnemonic;
         private final int elementSize;

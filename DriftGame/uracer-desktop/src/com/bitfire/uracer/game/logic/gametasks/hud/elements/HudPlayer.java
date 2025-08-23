@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.bitfire.uracer.configuration.Config;
-import com.bitfire.uracer.configuration.UserProfile;
 import com.bitfire.uracer.entities.EntityRenderState;
 import com.bitfire.uracer.game.actors.Car;
 import com.bitfire.uracer.game.logic.gametasks.hud.HudElement;
@@ -34,7 +33,7 @@ public final class HudPlayer extends HudElement {
     // gravitation
     private float carModelWidthPx, carModelLengthPx;
 
-    public HudPlayer(UserProfile userProfile) {
+    public HudPlayer() {
         // elements
         wrongWay = new WrongWay();
         driftBar = new DriftBar();
@@ -88,7 +87,7 @@ public final class HudPlayer extends HudElement {
             // position elements at render time, so that source positions have been interpolated
             atPlayer(driftBar);
             atPlayer(trackProgress);
-            gravitate(wrongWay, -180, 100, cameraZoom);
+            gravitate(wrongWay, cameraZoom);
 
             trackProgress.render(batch, cameraZoom);
             driftBar.render(batch, cameraZoom);
@@ -99,8 +98,8 @@ public final class HudPlayer extends HudElement {
         wrongWay.render(batch);
     }
 
-    private void gravitate(Positionable p, float offsetDegs, float distance, float cameraZoom) {
-        p.setPosition(gravitate(p.getWidth(), p.getHeight(), offsetDegs, distance, cameraZoom));
+    private void gravitate(Positionable p, float cameraZoom) {
+        p.setPosition(gravitate(p.getWidth(), p.getHeight(), cameraZoom));
     }
 
     private void atPlayer(Positionable p) {
@@ -112,11 +111,11 @@ public final class HudPlayer extends HudElement {
      * Returns a position by placing a point on an imaginary circumference gravitating around the player, applying the specified
      * orientation offset, expressed in degrees, if any.
      */
-    private Vector2 gravitate(float w, float h, float offsetDegs, float distance, float cameraZoom) {
-        float border = distance;
+    private Vector2 gravitate(float w, float h, float cameraZoom) {
+        float border = (float) 100.0;
 
         Vector2 sp = GameRenderer.ScreenUtils.worldPxToScreen(playerState.position);
-        Vector2 heading = VMath.fromDegrees(playerState.orientation + offsetDegs);
+        Vector2 heading = VMath.fromDegrees(playerState.orientation + (float) -180.0);
 
         float horizontal = MathUtils.clamp(Math.abs(MathUtils.sinDeg(playerState.orientation)), 0.25f, 1);
         float p = AMath.lerp(carModelWidthPx, carModelLengthPx, horizontal);

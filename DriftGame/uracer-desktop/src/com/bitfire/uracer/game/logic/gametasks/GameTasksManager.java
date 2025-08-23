@@ -1,7 +1,6 @@
 package com.bitfire.uracer.game.logic.gametasks;
 
 import com.badlogic.gdx.utils.Array;
-import com.bitfire.postprocessing.PostProcessor;
 import com.bitfire.uracer.game.events.TaskManagerEvent;
 import com.bitfire.uracer.game.world.GameWorld;
 
@@ -22,14 +21,14 @@ public final class GameTasksManager {
     public Hud hud = null;
     // special effects
     public TrackEffects effects = null;
-    private GameWorld gameWorld = null;
+    private final GameWorld gameWorld;
 
-    public GameTasksManager(GameWorld world, PostProcessor postProcessor) {
+    public GameTasksManager(GameWorld world) {
         gameWorld = world;
-        createTasks(postProcessor);
+        createTasks();
     }
 
-    private void createTasks(PostProcessor postProcessor) {
+    private void createTasks() {
         // physics step
         physicsStep = new PhysicsStep(gameWorld.getBox2DWorld(), TaskManagerEvent.Order.MINUS_4);
         add(physicsStep);

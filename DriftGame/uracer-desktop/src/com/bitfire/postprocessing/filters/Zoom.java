@@ -32,14 +32,6 @@ public final class Zoom extends Filter<Zoom> {
         setParam(Param.Zoom, this.zoom);
     }
 
-    public float getOriginX() {
-        return x;
-    }
-
-    public float getOriginY() {
-        return y;
-    }
-
     @Override
     public void rebind() {
         // reimplement super to batch every parameter
@@ -56,9 +48,7 @@ public final class Zoom extends Filter<Zoom> {
     }
 
     public enum Param implements Parameter {
-        // @formatter:off
 		Texture("u_texture0", 0), OffsetX("offset_x", 0), OffsetY("offset_y", 0), Zoom("zoom", 0), ;
-		// @formatter:on
 
         private final String mnemonic;
         private final int elementSize;

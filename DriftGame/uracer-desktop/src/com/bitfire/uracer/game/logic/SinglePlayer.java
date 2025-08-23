@@ -19,7 +19,6 @@ import com.bitfire.uracer.game.debug.DebugHelper.RenderFlags;
 import com.bitfire.uracer.game.debug.DebugMusicVolumes;
 import com.bitfire.uracer.game.debug.GameTrackDebugRenderer;
 import com.bitfire.uracer.game.debug.player.DebugPlayer;
-import com.bitfire.uracer.game.logic.gametasks.hud.elements.player.DriftBar;
 import com.bitfire.uracer.game.logic.gametasks.messager.Message;
 import com.bitfire.uracer.game.logic.gametasks.messager.Message.Position;
 import com.bitfire.uracer.game.logic.gametasks.messager.Message.Size;
@@ -83,8 +82,7 @@ public class SinglePlayer extends BaseLogic {
     }
 
     private GhostCar findGhostFor(Replay replay) {
-        for (int g = 0; g < ghostCars.length; g++) {
-            GhostCar ghost = ghostCars[g];
+        for (GhostCar ghost : ghostCars) {
             if (ghost != null && replay != null && ghost.getReplay().getId().equals(replay.getId())) {
                 return ghost;
             }
@@ -133,8 +131,8 @@ public class SinglePlayer extends BaseLogic {
     }
 
     private void setGhostAlphasFor(boolean isTargetMode) {
-        for (int g = 0; g < ghostCars.length; g++) {
-            ghostCars[g].tweenAlphaTo(isTargetMode ? Config.Graphics.DefaultGhostCarOpacity
+        for (GhostCar ghostCar : ghostCars) {
+            ghostCar.tweenAlphaTo(isTargetMode ? Config.Graphics.DefaultGhostCarOpacity
                     : Config.Graphics.DefaultTargetCarOpacity, Config.Graphics.DefaultGhostOpacityChangeMs * 1.5f, Quad.OUT);
         }
     }
@@ -168,7 +166,7 @@ public class SinglePlayer extends BaseLogic {
         } else {
             if (canDisableTargetMode && !targetMode) {
                 targetMode = true;
-                setGhostAlphasFor(targetMode);
+                setGhostAlphasFor(true);
                 messager.show("Target mode enabled", 3, Type.Information, Position.Top, Size.Big);
                 Gdx.app.log("SinglePlayer", "Target mode enabled");
             }
@@ -237,7 +235,7 @@ public class SinglePlayer extends BaseLogic {
      * Load from disk all the replays for the specified trackId, pruning while loading respecting the ReplayManager.MaxReplays
      * constant. Any previous Replay will be cleared from the lapManager instance.
      */
-    private int loadReplaysFromDiskFor(String trackId) {
+    private void loadReplaysFromDiskFor() {
         lapManager.removeAllReplays();
 
         int reloaded = 0;
@@ -296,21 +294,20 @@ public class SinglePlayer extends BaseLogic {
         }
 
         Gdx.app.log("SinglePlayer", "Reloaded " + reloaded + " opponents.");
-        return reloaded;
     }
 
     @Override
     public void restartGame() {
         super.restartGame();
         Gdx.app.log("SinglePlayer", "Starting/restarting game");
-        loadReplaysFromDiskFor(gameWorld.getLevelId());
+        loadReplaysFromDiskFor();
     }
 
     @Override
     public void resetGame() {
         super.resetGame();
         Gdx.app.log("SinglePlayer", "Resetting game");
-        loadReplaysFromDiskFor(gameWorld.getLevelId());
+        loadReplaysFromDiskFor();
     }
 
     @Override
@@ -329,7 +326,7 @@ public class SinglePlayer extends BaseLogic {
         playerCar.resetDistanceAndSpeed(true, false);
         lapManager.startRecording(playerCar, gameWorld.getLevelId(), userProfile.userId);
         progressData.reset(true);
-        setAccuDriftSeconds(DriftBar.MaxSeconds);
+        setAccuDriftSeconds();
 
         rebindAllReplays();
         restartAllReplays();

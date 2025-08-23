@@ -13,6 +13,8 @@ import com.bitfire.uracer.game.events.PlayerLapCompletionMonitorEvent;
 import com.bitfire.uracer.game.events.WrongWayMonitorEvent;
 import com.bitfire.uracer.game.player.PlayerCar;
 
+import java.util.Objects;
+
 public final class EventHandlers {
     private final CommonLogic logic;
     private final PlayerLapCompletionMonitorEvent.Listener playerLapCompletionMonitorListener = new PlayerLapCompletionMonitorEvent.Listener() {
@@ -43,11 +45,9 @@ public final class EventHandlers {
     private final GhostLapCompletionMonitorEvent.Listener ghostLapCompletionMonitorListener = new GhostLapCompletionMonitorEvent.Listener() {
         @Override
         public void handle(Object source, GhostLapCompletionMonitorEvent.Type type, GhostLapCompletionMonitorEvent.Order order) {
-            switch (type) {
-                case onLapCompleted:
-                    GhostCar ghost = (GhostCar) source;
-                    logic.ghostLapCompleted(ghost);
-                    break;
+            if (Objects.requireNonNull(type) == GhostLapCompletionMonitorEvent.Type.onLapCompleted) {
+                GhostCar ghost = (GhostCar) source;
+                logic.ghostLapCompleted(ghost);
             }
         }
     };
@@ -65,13 +65,10 @@ public final class EventHandlers {
         }
     };
     private final GameRendererEvent.Listener rendererListener = new GameRendererEvent.Listener() {
-        @SuppressWarnings("incomplete-switch")
         @Override
         public void handle(Object source, Type type, Order order) {
-            switch (type) {
-                case BeforeRender:
-                    logic.beforeRender();
-                    break;
+            if (Objects.requireNonNull(type) == Type.BeforeRender) {
+                logic.beforeRender();
             }
         }
     };

@@ -26,7 +26,6 @@ public abstract class EngineSoundSet {
         rpm = 0;
         gear = 1;
 
-        //@off
         feIdle = FIS.load(Gdx.files.getFileHandle("data/audio/car-engine/fuzzy/engineVolIdle.fcl", FileType.Internal).read(), true);
         feOnLow = FIS.load(Gdx.files.getFileHandle("data/audio/car-engine/fuzzy/engineVolOnLow.fcl", FileType.Internal).read(), true);
         feOnMid = FIS.load(Gdx.files.getFileHandle("data/audio/car-engine/fuzzy/engineVolOnMid.fcl", FileType.Internal).read(), true);
@@ -34,7 +33,6 @@ public abstract class EngineSoundSet {
         feOffLow = FIS.load(Gdx.files.getFileHandle("data/audio/car-engine/fuzzy/engineVolOffLow.fcl", FileType.Internal).read(), true);
         feOffMid = FIS.load(Gdx.files.getFileHandle("data/audio/car-engine/fuzzy/engineVolOffMid.fcl", FileType.Internal).read(), true);
         feOffHigh = FIS.load(Gdx.files.getFileHandle("data/audio/car-engine/fuzzy/engineVolOffHigh.fcl", FileType.Internal).read(), true);
-        //@on
     }
 
     public abstract void updatePitches();
@@ -98,11 +96,6 @@ public abstract class EngineSoundSet {
         updateVolume(4, feOffLow, load, rpm);
         updateVolume(5, feOffMid, load, rpm);
         updateVolume(6, feOffHigh, load, rpm);
-
-    }
-
-    public int getGear() {
-        return gear;
     }
 
     public float getRpm() {

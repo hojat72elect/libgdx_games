@@ -87,10 +87,10 @@ public class DebugMusicVolumes extends DebugRenderable {
 
             String text;
             for (DebugMeter m : meters) {
-                int x = drawx, y = drawy + Art.DebugFontHeight * 2;
+                int y = drawy + Art.DebugFontHeight * 2;
 
                 // offset by index
-                y += index * (prevHeight + 1);
+                y += (int) (index * (prevHeight + 1));
 
                 // compute color
                 float alpha = index > maxMusicIndex ? 0.5f : 1;
@@ -100,11 +100,11 @@ public class DebugMusicVolumes extends DebugRenderable {
                     // render track number
                     text = "T" + (index + 1);
                     batch.setColor(1, 1, 1, alpha);
-                    SpriteBatchUtils.drawString(batch, text, x, y);
+                    SpriteBatchUtils.drawString(batch, text, drawx, y);
                     batch.setColor(1, 1, 1, 1);
 
                     // render meter after text
-                    int meter_x = x + (text.length() * Art.DebugFontWidth) + 2;
+                    int meter_x = drawx + (text.length() * Art.DebugFontWidth) + 2;
                     m.color.set(c);
                     m.setPosition(meter_x, y);
                     m.render(batch);
@@ -126,9 +126,5 @@ public class DebugMusicVolumes extends DebugRenderable {
             batch.setTransformMatrix(prev);
             batch.disableBlending();
         }
-    }
-
-    @Override
-    public void reset() {
     }
 }

@@ -33,15 +33,14 @@ public abstract class BaseLogic extends CommonLogic {
     private float prevZoom = GameWorldRenderer.MaxCameraZoom - ZoomNorm;
     private final InterpolatedFloat driftStrength = new InterpolatedFloat();
     private final InterpolatedFloat speed = new InterpolatedFloat();
-    private TimeModulator timeMod = null;
+    private final TimeModulator timeMod;
     private final Time dilationTime;
     private final Time outOfTrackTime;
     private float collisionFrontRatio = 0.5f;
     private float lastImpactForce = 0;
     private final TweenCallback collisionFinished = (type, source) -> {
-        switch (type) {
-            case TweenCallback.COMPLETE:
-                lastImpactForce = 0;
+        if (type == TweenCallback.COMPLETE) {
+            lastImpactForce = 0;
         }
     };
 
@@ -109,11 +108,10 @@ public abstract class BaseLogic extends CommonLogic {
         lastImpactForce = 0;
 
         if (!AMath.isZero(collisionFactor.value)) {
-            //@off
+
             GameTweener.start(Timeline
                     .createSequence()
                     .push(Tween.to(collisionFactor, BoxedFloatAccessor.VALUE, 500).target(0).ease(Linear.INOUT)));
-            //@on
         }
     }
 
@@ -149,12 +147,9 @@ public abstract class BaseLogic extends CommonLogic {
         float minZoom = GameWorldRenderer.MinCameraZoom;
         float maxZoom = GameWorldRenderer.MaxCameraZoom;
 
-        float cameraZoom = (minZoom + GameWorldRenderer.ZoomWindow);
-        cameraZoom = maxZoom - ZoomNorm - collisionFactor.value * 0.1f;// (1 - ZoomNorm);
-        // cameraZoom += 0.2f * timeModFactor; // zoom in if slowing time down
+        float cameraZoom;
+        cameraZoom = maxZoom - ZoomNorm - collisionFactor.value * 0.1f;
         cameraZoom = AMath.lerp(cameraZoom, minZoom - 0.1f, speed.get()); // pretend minZoom to be less than it is
-
-        // TODO make it a toggleable option
         cameraZoom = AMath.lerp(cameraZoom, maxZoom, timeModFactor);
         cameraZoom = AMath.clamp(cameraZoom, minZoom, maxZoom);
         cameraZoom = AMath.lerp(cameraZoom, maxZoom, collisionFactor.value * 5f);
@@ -219,9 +214,6 @@ public abstract class BaseLogic extends CommonLogic {
         }
     }
 
-
-    public void ghostLapStarted(GhostCar ghost) {
-    }
 
     @Override
     public void driftBegins(PlayerCar player) {

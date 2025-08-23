@@ -6,7 +6,7 @@ import com.bitfire.utils.ShaderLoader;
 public final class Vignetting extends Filter<Vignetting> {
 
     private float x, y;
-    private float intensity, saturation, saturationMul;
+    private float intensity;
 
     private Texture texLut;
     private boolean dolut;
@@ -71,29 +71,9 @@ public final class Vignetting extends Filter<Vignetting> {
         setParams(Param.CenterY, centerY).endParams();
     }
 
-    public float getCenterX() {
-        return centerX;
-    }
-
-    public float getCenterY() {
-        return centerY;
-    }
-
-    public int getLutIndexVal(int index) {
-        return lutindex[index];
-    }
-
-    public float getLutIntensity() {
-        return lutintensity;
-    }
-
     public void setLutIntensity(float value) {
         lutintensity = value;
         setParam(Param.LutIntensity, lutintensity);
-    }
-
-    public Texture getLut() {
-        return texLut;
     }
 
     /**
@@ -139,32 +119,6 @@ public final class Vignetting extends Filter<Vignetting> {
         setParam(Param.VignetteIntensity, intensity);
     }
 
-    public float getSaturation() {
-        return saturation;
-    }
-
-    public void setSaturation(float saturation) {
-        this.saturation = saturation;
-        if (dosat) {
-            setParam(Param.Saturation, saturation);
-        }
-    }
-
-    public float getSaturationMul() {
-        return saturationMul;
-    }
-
-    public void setSaturationMul(float saturationMul) {
-        this.saturationMul = saturationMul;
-        if (dosat) {
-            setParam(Param.SaturationMul, saturationMul);
-        }
-    }
-
-    public boolean isGradientMappingEnabled() {
-        return dolut;
-    }
-
     @Override
     public void rebind() {
         setParams(Param.Texture0, u_texture0);
@@ -179,8 +133,8 @@ public final class Vignetting extends Filter<Vignetting> {
         setParams(Param.LutStepOffset, lutStepOffset);
 
         if (dosat) {
-            setParams(Param.Saturation, saturation);
-            setParams(Param.SaturationMul, saturationMul);
+            setParams(Param.Saturation, 0F);
+            setParams(Param.SaturationMul, 0F);
         }
 
         setParams(Param.VignetteIntensity, intensity);
@@ -200,12 +154,10 @@ public final class Vignetting extends Filter<Vignetting> {
     }
 
     public enum Param implements Parameter {
-        // @formatter:off
-		Texture0("u_texture0", 0), TexLUT("u_texture1", 0), VignetteIntensity("VignetteIntensity", 0), VignetteX("VignetteX", 0), VignetteY(
-			"VignetteY", 0), Saturation("Saturation", 0), SaturationMul("SaturationMul", 0), LutIntensity("LutIntensity", 0), LutIndex(
-			"LutIndex", 0), LutIndex2("LutIndex2", 0), LutIndexOffset("LutIndexOffset", 0), LutStep("LutStep", 0), LutStepOffset(
-			"LutStepOffset", 0), CenterX("CenterX", 0), CenterY("CenterY", 0);
-		// @formatter:on
+        Texture0("u_texture0", 0), TexLUT("u_texture1", 0), VignetteIntensity("VignetteIntensity", 0), VignetteX("VignetteX", 0), VignetteY(
+                "VignetteY", 0), Saturation("Saturation", 0), SaturationMul("SaturationMul", 0), LutIntensity("LutIntensity", 0), LutIndex(
+                "LutIndex", 0), LutIndex2("LutIndex2", 0), LutIndexOffset("LutIndexOffset", 0), LutStep("LutStep", 0), LutStepOffset(
+                "LutStepOffset", 0), CenterX("CenterX", 0), CenterY("CenterY", 0);
 
         private final String mnemonic;
         private final int elementSize;

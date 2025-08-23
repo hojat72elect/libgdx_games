@@ -39,25 +39,23 @@ import box2dLight.PointLight;
 
 public final class DefaultAnimator implements PostProcessingAnimator {
     private final GameWorld world;
-    private boolean nightMode = false;
-    private Bloom bloom = null;
-    private Zoomer zoom = null;
-    private Vignette vignette = null;
-    private CrtMonitor crt = null;
+    private final boolean nightMode;
+    private final Bloom bloom;
+    private final Zoomer zoom;
+    private final Vignette vignette;
+    private final CrtMonitor crt;
     private RgbMode crtMode = RgbMode.None;
-    private Ssao ssao = null;
-    private LightShafts shafts = null;
-    private LensFlare2 flare = null;
+    private final Ssao ssao;
+    private final LightShafts shafts;
+    private final LensFlare2 flare;
     private PlayerCar player = null;
     private boolean hasPlayer = false;
     private final BoxedFloat alertAmount = new BoxedFloat(0);
     private final BoxedFloat pauseAmount = new BoxedFloat(0);
     private boolean alertBegan = false, pauseBegan = false;
-    private float bloomThreshold = 0.4f;
 
     private long startMs = 0;
     private final Vector2 playerScreenPos = new Vector2();
-    // private Vector2 cameraScreenPos = new Vector2();
     private final InterpolatedFloat speed = new InterpolatedFloat();
     private final InterpolatedFloat zoomBlurStrengthFactor = new InterpolatedFloat();
 
@@ -116,23 +114,6 @@ public final class DefaultAnimator implements PostProcessingAnimator {
     }
 
     @Override
-    public void alert(int milliseconds) {
-        if (alertBegan) {
-            return;
-        }
-
-        //@off
-        Timeline seq = Timeline.createSequence();
-        GameTweener.stop(alertAmount);
-        seq
-                .push(Tween.to(alertAmount, BoxedFloatAccessor.VALUE, 75).target(0.75f).ease(Quad.IN))
-                .pushPause(50)
-                .push(Tween.to(alertAmount, BoxedFloatAccessor.VALUE, milliseconds).target(0).ease(Quad.OUT));
-        GameTweener.start(seq);
-        //@on
-    }
-
-    @Override
     public void gamePause(int milliseconds) {
         if (!pauseBegan) {
             pauseBegan = true;
@@ -174,7 +155,7 @@ public final class DefaultAnimator implements PostProcessingAnimator {
         }
 
         if (bloom != null) {
-            bloomThreshold = (nightMode ? 0.2f : 0.4f);
+            float bloomThreshold = (nightMode ? 0.2f : 0.4f);
             Bloom.Settings bloomSettings = new Bloom.Settings("subtle", Config.PostProcessing.BlurType,
                     Config.PostProcessing.BlurNumPasses, 1.5f, bloomThreshold, 1f, 0.5f, 1f, 1.3f + (nightMode ? 0.2f : 0));
             bloom.setSettings(bloomSettings);
@@ -183,13 +164,8 @@ public final class DefaultAnimator implements PostProcessingAnimator {
         if (vignette != null) {
             vignette.setCoords(0.85f, 0.3f);
             vignette.setIntensity(1);
-            vignette.setCenter(ScaleUtils.PlayWidth / 2, ScaleUtils.PlayHeight / 2);
+            vignette.setCenter((float) ScaleUtils.PlayWidth / 2, (float) ScaleUtils.PlayHeight / 2);
             vignette.setLutTexture(Art.postXpro);
-
-            // setup palettes
-            // default aspect to slot #0
-            // damage effects palette on slot #1
-            // vignette.setLutIndexVal(0, 16);
             vignette.setLutIndexVal(0, 16);
             vignette.setLutIndexVal(1, 7);
             vignette.setLutIndexOffset(0);
@@ -261,41 +237,30 @@ public final class DefaultAnimator implements PostProcessingAnimator {
         }
     }
 
-    private void updateLights(TrackProgressData progressData, Color ambient, Color trees, float collisionFactor) {
+    private void updateLights(Color ambient, Color trees, float collisionFactor) {
         float base = 0.1f;
         float timeModFactor = URacer.Game.getTimeModFactor();
-
         float blue = (base * 3f * timeModFactor) * (1 - AMath.sigmoidT(collisionFactor, 0.7f, true));
-        // Gdx.app.log("DefaultAnimator", "blue=" + blue);
 
-        //@off
         ambient.set(
                 base * 1.5f,
                 base,
                 base + blue,
                 0.55f + 0.05f * timeModFactor
         );
-        //@on
+
 
         ambient.clamp();
         trees.set(ambient);
-
-        // Gdx.app.log("", "" + ambient);
-
-        // update point lights, more intensity from lights near the player
         PlayerCar player = world.getPlayer();
         PointLight[] lights = world.getLights();
         if (lights != null && player != null) {
-            for (int l = 0; l < lights.length; l++) {
-                float dist = player.getWorldPosMt().dst2(lights[l].getPosition());
-                float maxdist = 30;
-                maxdist *= maxdist;
-                dist = 1 - MathUtils.clamp(dist, 0, maxdist) / maxdist;
+            for (PointLight light : lights) {
                 float r = 1f;
                 float g = 1f;
                 float b = 1f;
                 float a = 0.65f;
-                lights[l].setColor(r, g, b, a);// + AMath.fixup(0.4f * dist));
+                light.setColor(r, g, b, a);
             }
         }
     }
@@ -321,9 +286,7 @@ public final class DefaultAnimator implements PostProcessingAnimator {
             playerScreenPos.set(0.5f, 0.5f);
         }
 
-        float cf = collisionFactor;
-
-        updateLights(progressData, ambient, trees, cf);
+        updateLights(ambient, trees, collisionFactor);
 
         if (crt != null) {
             if (!paused) {
@@ -335,17 +298,17 @@ public final class DefaultAnimator implements PostProcessingAnimator {
             float curvature_factor = MathUtils.clamp(((zoomCamera - 1) / GameWorldRenderer.ZoomRange), 0, 1);
             float kdist = 0.20f;
 
-            float amount = 0;
+            float amount;
             switch (crtMode) {
                 case ChromaticAberrations:
-                    amount = MathUtils.clamp(cf + 0.14f, 0, 1) * -0.8f;
+                    amount = MathUtils.clamp(collisionFactor + 0.14f, 0, 1) * -0.8f;
                     amount -= 0.15f * AMath.fixup(curvature_factor - kdist);
-                    amount *= cf * 2.0f;
+                    amount *= collisionFactor * 2.0f;
                     amount = MathUtils.clamp(amount, -0.5f, 0f);
                     crt.setChromaticDispersion(amount, amount);
                     break;
                 case RgbShift:
-                    amount = MathUtils.clamp(0.025f * cf, 0, 0.05f);
+                    amount = MathUtils.clamp(0.025f * collisionFactor, 0, 0.05f);
                     crt.setColorOffset(amount);
                     break;
                 case None:
@@ -363,7 +326,7 @@ public final class DefaultAnimator implements PostProcessingAnimator {
             if (hasPlayer) {
                 float sfactor = speed.get();
                 float speedStrength = (-0.08f * sfactor);
-                float targetStrength = speedStrength - 0.4f * cf;
+                float targetStrength = speedStrength - 0.4f * collisionFactor;
                 float strength = targetStrength - (speedStrength * 0.5f) * timeModFactor;
                 strength = AMath.clamp(strength, -1, 0);
                 // Gdx.app.log("", "strength=" + strength);
@@ -422,31 +385,28 @@ public final class DefaultAnimator implements PostProcessingAnimator {
             flare.setHaloWidth(1f);
         }
 
-        float bsat = 0f, sat = 0f;
+        float bsat, sat;
         if (bloom != null) {
-            // float intensity = 1.4f + 4f * cf;// + (nightMode ? 4f * cf : 0f);
-            float intensity = 1f + 1.3f * cf + 0.5f * pauseAmount.value;// + (nightMode ? 4f * cf : 0f);
-            // Gdx.app.log("", "bloom intensity=" + intensity);
+            float intensity = 1f + 1.3f * collisionFactor + 0.5f * pauseAmount.value;
             bloom.setBloomIntensity(intensity);
 
             bsat = 1f;
-            bsat *= (1f - (cf));
-            sat = 0.7f + (nightMode ? 0.6f : 0);// + progress;
-            sat = sat * (1f - cf);
+            bsat *= (1f - (collisionFactor));
+            sat = 0.7f + (nightMode ? 0.6f : 0);
+            sat = sat * (1f - collisionFactor);
             sat = AMath.lerp(sat, -0.25f, MathUtils.clamp(alertAmount.value * 2f, 0f, 1f));
-            sat = AMath.lerp(sat, -0.25f, cf);
+            sat = AMath.lerp(sat, -0.25f, collisionFactor);
 
             sat = MathUtils.clamp(sat, 0f, 3f);
             bsat = MathUtils.clamp(bsat, 0f, 3f);
 
             bloom.setBaseSaturation(sat * (1 - pauseAmount.value));
             bloom.setBloomSaturation(bsat * (1 - pauseAmount.value));
-
         }
 
         if (vignette != null) {
-            float lutIntensity = MathUtils.clamp(1f + timeModFactor * 0.75f + alertAmount.value * 1 + cf * 1, 0, 1.5f);
-            float offset = MathUtils.clamp(cf * 3 + alertAmount.value /* + timeModFactor * 0.25f */, 0, 1);
+            float lutIntensity = MathUtils.clamp(1f + timeModFactor * 0.75f + alertAmount.value * 1 + collisionFactor * 1, 0, 1.5f);
+            float offset = MathUtils.clamp(collisionFactor * 3 + alertAmount.value /* + timeModFactor * 0.25f */, 0, 1);
             vignette.setLutIntensity(lutIntensity);
             vignette.setLutIndexOffset(offset);
         }
