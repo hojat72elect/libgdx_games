@@ -137,21 +137,6 @@ public abstract class BaseTween<T> {
     }
 
     /**
-     * Repeats the tween or timeline for a given number of times. Every two iterations, it will be played backwards.
-     *
-     * @param count The number of repetitions. For infinite repetition, use Tween.INFINITY, or '-1'.
-     * @param delay A delay before each repetition.
-     * @return The current tween or timeline, for chaining instructions.
-     */
-    public T repeatYoyo(int count, float delay) {
-        if (isStarted) throw new RuntimeException("You can't change the repetitions of a tween or timeline once it is started");
-        repeatCnt = count;
-        repeatDelay = delay >= 0 ? delay : 0;
-        isYoyo = true;
-        return (T) this;
-    }
-
-    /**
      * Sets the callback. By default, it will be fired at the completion of the tween or timeline (event COMPLETE).
      *
      * @see TweenCallback
@@ -240,14 +225,6 @@ public abstract class BaseTween<T> {
     }
 
     /**
-     * Returns true if the tween or timeline has been initialized. Starting values for tweens are stored at initialization time.
-     * This initialization takes place right after the initial delay, if any.
-     */
-    public boolean isInitialized() {
-        return isInitialized;
-    }
-
-    /**
      * Returns true if the tween is finished (i.e. if the tween has reached its end or has been killed).
      */
     public boolean isFinished() {
@@ -310,14 +287,6 @@ public abstract class BaseTween<T> {
     protected void killTarget(Object target) {
         if (containsTarget(target)) kill();
     }
-
-    protected void killTarget(Object target, int tweenType) {
-        if (containsTarget(target, tweenType)) kill();
-    }
-
-    // -------------------------------------------------------------------------
-    // Update engine
-    // -------------------------------------------------------------------------
 
     /**
      * Updates the tween or timeline state. <b>You may want to use a TweenManager to update objects for you.</b>

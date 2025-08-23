@@ -37,10 +37,6 @@ abstract class Pool<T> {
         return objects.size();
     }
 
-    public void ensureCapacity(int minCapacity) {
-        objects.ensureCapacity(minCapacity);
-    }
-
     public interface Callback<T> {
         void onPool(T obj);
 

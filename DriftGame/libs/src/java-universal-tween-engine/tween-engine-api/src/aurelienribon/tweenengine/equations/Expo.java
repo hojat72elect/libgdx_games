@@ -6,17 +6,6 @@ import aurelienribon.tweenengine.TweenEquation;
  * Easing equation based on Robert Penner's work: <a href="http://robertpenner.com/easing/">Look here</a>
  */
 public abstract class Expo extends TweenEquation {
-    public static final Expo IN = new Expo() {
-        @Override
-        public float compute(float t) {
-            return (t == 0) ? 0 : (float) Math.pow(2, 10 * (t - 1));
-        }
-
-        @Override
-        public String toString() {
-            return "Expo.IN";
-        }
-    };
 
     public static final Expo OUT = new Expo() {
         @Override

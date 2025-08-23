@@ -6,17 +6,6 @@ import aurelienribon.tweenengine.TweenEquation;
  * Easing equation based on Robert Penner's work: <a href="http://robertpenner.com/easing/">Look here</a>
  */
 public abstract class Quint extends TweenEquation {
-    public static final Quint IN = new Quint() {
-        @Override
-        public float compute(float t) {
-            return t * t * t * t * t;
-        }
-
-        @Override
-        public String toString() {
-            return "Quint.IN";
-        }
-    };
 
     public static final Quint OUT = new Quint() {
         @Override

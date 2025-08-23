@@ -427,7 +427,7 @@ public final class DefaultAnimator implements PostProcessingAnimator {
             // float intensity = 1.4f + 4f * cf;// + (nightMode ? 4f * cf : 0f);
             float intensity = 1f + 1.3f * cf + 0.5f * pauseAmount.value;// + (nightMode ? 4f * cf : 0f);
             // Gdx.app.log("", "bloom intensity=" + intensity);
-            bloom.setBloomIntesity(intensity);
+            bloom.setBloomIntensity(intensity);
 
             bsat = 1f;
             bsat *= (1f - (cf));

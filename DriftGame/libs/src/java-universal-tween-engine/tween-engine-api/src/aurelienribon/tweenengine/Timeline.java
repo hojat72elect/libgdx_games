@@ -1,7 +1,6 @@
 package aurelienribon.tweenengine;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -43,7 +42,6 @@ import java.util.List;
  * @see TweenCallback
  */
 public final class Timeline extends BaseTween<Timeline> {
-
 
     private static final Pool.Callback<Timeline> poolCallback = new Pool.Callback<Timeline>() {
         @Override
@@ -92,10 +90,6 @@ public final class Timeline extends BaseTween<Timeline> {
         return tl;
     }
 
-    // -------------------------------------------------------------------------
-    // Setup
-    // -------------------------------------------------------------------------
-
     @Override
     protected void reset() {
         super.reset();
@@ -121,10 +115,6 @@ public final class Timeline extends BaseTween<Timeline> {
         current.children.add(tween);
         return this;
     }
-
-    // -------------------------------------------------------------------------
-    // Public API
-    // -------------------------------------------------------------------------
 
     /**
      * Nests a Timeline in the current one.
@@ -164,16 +154,6 @@ public final class Timeline extends BaseTween<Timeline> {
         return this;
     }
 
-    /**
-     * Gets a list of the timeline children. If the timeline is started, the list will be immutable.
-     */
-    public List<BaseTween<?>> getChildren() {
-        if (isBuilt)
-            return Collections.unmodifiableList(current.children);
-        else
-            return current.children;
-    }
-
     @Override
     public Timeline build() {
         if (isBuilt) return this;
@@ -203,10 +183,6 @@ public final class Timeline extends BaseTween<Timeline> {
         isBuilt = true;
         return this;
     }
-
-    // -------------------------------------------------------------------------
-    // Overrides
-    // -------------------------------------------------------------------------
 
     @Override
     public Timeline start() {
@@ -288,10 +264,6 @@ public final class Timeline extends BaseTween<Timeline> {
             obj.forceToStart();
         }
     }
-
-    // -------------------------------------------------------------------------
-    // BaseTween impl.
-    // -------------------------------------------------------------------------
 
     @Override
     protected void forceEndValues() {

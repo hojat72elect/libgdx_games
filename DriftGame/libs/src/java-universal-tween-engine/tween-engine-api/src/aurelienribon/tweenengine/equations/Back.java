@@ -6,18 +6,6 @@ import aurelienribon.tweenengine.TweenEquation;
  * Easing equation based on Robert Penner's work: <a href="http://robertpenner.com/easing/">Look here</a>
  */
 public abstract class Back extends TweenEquation {
-    public static final Back IN = new Back() {
-        @Override
-        public float compute(float t) {
-            float s = param_s;
-            return t * t * ((s + 1) * t - s);
-        }
-
-        @Override
-        public String toString() {
-            return "Back.IN";
-        }
-    };
 
     public static final Back OUT = new Back() {
         @Override
@@ -45,8 +33,6 @@ public abstract class Back extends TweenEquation {
             return "Back.INOUT";
         }
     };
-
-    // -------------------------------------------------------------------------
 
     protected float param_s = 1.70158f;
 

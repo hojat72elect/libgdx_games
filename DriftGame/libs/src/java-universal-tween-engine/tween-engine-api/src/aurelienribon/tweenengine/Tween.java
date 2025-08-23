@@ -269,10 +269,6 @@ public final class Tween extends BaseTween<Tween> {
         return tween;
     }
 
-    // -------------------------------------------------------------------------
-    // Setup
-    // -------------------------------------------------------------------------
-
     /**
      * Convenience method to create an empty tween. Such object is only useful when placed inside animation sequences (see
      * {@link Timeline}), in which it may act as a beacon, so you can set a callback on it in order to trigger some action at the
@@ -459,13 +455,6 @@ public final class Tween extends BaseTween<Tween> {
         return type;
     }
 
-    /**
-     * Gets the easing equation.
-     */
-    public TweenEquation getEasing() {
-        return equation;
-    }
-
     @Override
     public Tween build() {
         if (target == null) return this;
@@ -564,10 +553,6 @@ public final class Tween extends BaseTween<Tween> {
 
         accessor.setValues(target, type, accessorBuffer);
     }
-
-    // -------------------------------------------------------------------------
-    // BaseTween impl.
-    // -------------------------------------------------------------------------
 
     @Override
     protected void forceStartValues() {
