@@ -6,6 +6,8 @@ import com.bitfire.uracer.u3d.materials.Material;
 import com.bitfire.uracer.u3d.model.Model;
 import com.bitfire.uracer.u3d.model.SubMesh;
 
+import org.jetbrains.annotations.NotNull;
+
 public class StillModel implements Model {
     private final static BoundingBox tmpBox = new BoundingBox();
     final public StillSubMesh[] subMeshes;
@@ -18,7 +20,7 @@ public class StillModel implements Model {
     }
 
     @Override
-    public void render(ShaderProgram program) {
+    public void render(@NotNull ShaderProgram program) {
         int len = subMeshes.length;
         for (int i = 0; i < len; i++) {
             StillSubMesh subMesh = subMeshes[i];
@@ -32,7 +34,7 @@ public class StillModel implements Model {
     }
 
     @Override
-    public StillSubMesh getSubMesh(String name) {
+    public StillSubMesh getSubMesh(@NotNull String name) {
         for (StillSubMesh subMesh : subMeshes) {
             if (subMesh.name.equals(name)) return subMesh;
         }
@@ -50,7 +52,7 @@ public class StillModel implements Model {
     }
 
     @Override
-    public void setMaterial(Material material) {
+    public void setMaterial(@NotNull Material material) {
         for (StillSubMesh subMesh : subMeshes) {
             subMesh.material = material;
         }
