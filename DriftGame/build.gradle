@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'distribution'
+    id 'org.jetbrains.kotlin.jvm'
 }
 
 // Define the main class for the application
@@ -15,53 +16,42 @@ def (versionName, versionNameShort, versionCode) = getVersionInfo()
 version = versionName
 
 dependencies {
-    compile fileTree(dir: 'libs/jars/', include: ['*.jar'])
-    compile fileTree(dir: 'libs/jars/gdx', include: ['*.jar'])
-}
-
-jar {
-    manifest {
-        attributes(
-            'Class-Path': configurations.compile.collect { 'lib/' + it.getName() }.join(' '),
-            'Main-Class': mainClassName
-        )
-    }
+    implementation fileTree(dir: 'libs/jars/', include: ['*.jar'])
+    implementation fileTree(dir: 'libs/jars/gdx', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 task versionUpdater() {
     def versionFilePath = "${rootDir}/uracer-desktop/src/com/bitfire/uracer/VersionInfo.java"
     def versionFile = new File(versionFilePath)
-    if( versionName) {
+    if (versionName) {
         println "Version is " + versionName + " (" + versionCode.toString() + ")"
         println "Writing to ${versionFilePath}"
 
         versionFile.write "package com.bitfire.uracer;\n\n" +
-            "public final class VersionInfo {\n" +
-            "\tpublic static final String versionName = \"${versionName}\";\n" +
-            "\tpublic static final Integer versionCode = ${versionCode};\n\n" +
-            "\tprivate VersionInfo() {\n\t}\n" +
-            "}"
+                "public final class VersionInfo {\n" +
+                "\tpublic static final String versionName = \"${versionName}\";\n" +
+                "\tpublic static final Integer versionCode = ${versionCode};\n\n" +
+                "\tprivate VersionInfo() {\n\t}\n" +
+                "}"
     } else {
         println "Unknown uRacer version, this will be an unversioned build"
-        versionFile.delete();
+        versionFile.delete()
     }
 }
 
 sourceSets {
     main {
         java.srcDirs = [
-            'uracer-desktop/src',
-            'libs/src/box2dlights/box2dLight/src',
-            'libs/src/java-universal-tween-engine/tween-engine-api/src'
+                'uracer-desktop/src',
+                'libs/src/box2dlights/box2dLight/src',
+                'libs/src/java-universal-tween-engine/tween-engine-api/src'
         ]
     }
 }
 
-distributions {
-    main {
-        baseName = 'uracer-kotd'
-        contents {
-            from { 'uracer-desktop/res' }
-        }
-    }
+repositories {
+    mavenCentral()
+}
+compileKotlin {
 }
