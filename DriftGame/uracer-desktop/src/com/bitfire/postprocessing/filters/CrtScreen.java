@@ -75,7 +75,7 @@ public final class CrtScreen extends Filter<CrtScreen> {
         chromaticDispersion.x = redCyan;
         chromaticDispersion.y = blueYellow;
         if (mode == RgbMode.ChromaticAberrations) {
-            setParam(Param.ChromaticDispersion, chromaticDispersion);
+            setParam(chromaticDispersion);
         }
     }
 

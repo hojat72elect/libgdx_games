@@ -400,7 +400,6 @@ public class SinglePlayer extends BaseLogic {
                         break;
                     case Slower:
                         msg = "Too slow!";
-                        duration = 1.5f;
                         break;
                     case Accepted:
                         break;

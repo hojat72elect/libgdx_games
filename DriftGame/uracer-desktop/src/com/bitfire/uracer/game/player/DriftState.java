@@ -84,7 +84,6 @@ public final class DriftState {
                 // search for onBeginDrift
                 if (driftStrength > 0.4f && velocityLength > 20) {
                     isDrifting = true;
-                    hasCollided = false;
                     time.start();
                     GameEvents.driftState.trigger(car, Type.onBeginDrift);
                 }

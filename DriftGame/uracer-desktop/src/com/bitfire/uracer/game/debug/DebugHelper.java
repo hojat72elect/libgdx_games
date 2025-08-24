@@ -334,7 +334,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         int coord = y;
         drawString2X(batch, "CURRENT RANKINGS", xoffset, coord, scale);
         drawString2X(batch, "================", xoffset, coord + Art.DebugFontHeight * scale, scale);
-        coord += 2 * Art.DebugFontHeight * scale;
+        coord += (int) (2 * Art.DebugFontHeight * scale);
 
         String text;
         int rank = 1;
@@ -427,7 +427,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
 
         drawString2X(batch, "CURRENT COMPLETION", xoffset, coord, scale);
         drawString2X(batch, "==================", xoffset, coord + Art.DebugFontHeight * scale, scale);
-        coord += 2 * Art.DebugFontHeight * scale;
+        coord += (int) (2 * Art.DebugFontHeight * scale);
 
         String text;
         for (int i = 0; i < ranks.size; i++) {

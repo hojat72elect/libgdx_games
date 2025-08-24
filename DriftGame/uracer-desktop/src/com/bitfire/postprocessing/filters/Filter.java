@@ -69,9 +69,9 @@ public abstract class Filter<T> {
     }
 
     // vec2
-    protected void setParam(Parameter param, Vector2 value) {
+    protected void setParam(Vector2 value) {
         program.begin();
-        program.setUniformf(param.mnemonic(), value);
+        program.setUniformf(CrtScreen.Param.ChromaticDispersion.mnemonic(), value);
         program.end();
     }
 
