@@ -1,5 +1,5 @@
-package com.bitfire.postprocessing;
+package com.bitfire.postprocessing
 
-public interface PostProcessorListener {
-    void beforeRenderToScreen();
+interface PostProcessorListener {
+    fun beforeRenderToScreen()
 }
