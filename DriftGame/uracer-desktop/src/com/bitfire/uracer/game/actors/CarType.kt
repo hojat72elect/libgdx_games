@@ -1,5 +1,5 @@
-package com.bitfire.uracer.game.actors;
+package com.bitfire.uracer.game.actors
 
-public enum CarType {
+enum class CarType {
     PlayerCar, ReplayCar
 }
