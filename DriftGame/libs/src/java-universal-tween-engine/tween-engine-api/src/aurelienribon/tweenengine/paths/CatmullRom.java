@@ -1,10 +1,12 @@
 package aurelienribon.tweenengine.paths;
 
+import org.jetbrains.annotations.NotNull;
+
 import aurelienribon.tweenengine.TweenPath;
 
 public class CatmullRom implements TweenPath {
     @Override
-    public float compute(float t, float[] points, int pointsCnt) {
+    public float compute(float t, @NotNull float[] points, int pointsCnt) {
         int segment = (int) Math.floor((pointsCnt - 1) * t);
         segment = Math.max(segment, 0);
         segment = Math.min(segment, pointsCnt - 2);
