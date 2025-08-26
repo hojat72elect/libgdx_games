@@ -1,5 +1,7 @@
 package com.bitfire.uracer.game.logic.gametasks.messager;
 
+import org.jetbrains.annotations.NotNull;
+
 import aurelienribon.tweenengine.TweenAccessor;
 
 public class MessageAccessor implements TweenAccessor<Message> {
@@ -10,19 +12,19 @@ public class MessageAccessor implements TweenAccessor<Message> {
     public static final int OPACITY = 5;
 
     @Override
-    public int getValues(Message target, int tweenType, float[] returnValues) {
+    public int getValues(Message target, int tweenType, @NotNull float[] returnValues) {
         switch (tweenType) {
             case POSITION_XY:
-                returnValues[0] = target.getX();// + msg.getOriginX();
-                returnValues[1] = target.getY();// + msg.getOriginY();
+                returnValues[0] = target.getX();
+                returnValues[1] = target.getY();
                 return 2;
 
             case POSITION_X:
-                returnValues[0] = target.getX();// + msg.getOriginX();
+                returnValues[0] = target.getX();
                 return 1;
 
             case POSITION_Y:
-                returnValues[0] = target.getY();// + msg.getOriginY();
+                returnValues[0] = target.getY();
                 return 1;
 
             case SCALE_XY:
@@ -41,18 +43,18 @@ public class MessageAccessor implements TweenAccessor<Message> {
     }
 
     @Override
-    public void setValues(Message target, int tweenType, float[] newValues) {
+    public void setValues(Message target, int tweenType, @NotNull float[] newValues) {
         switch (tweenType) {
             case POSITION_XY:
-                target.setPosition(newValues[0] /*- msg.getOriginX()*/, newValues[1] /*- msg.getOriginY()*/);
+                target.setPosition(newValues[0], newValues[1]);
                 break;
 
             case POSITION_X:
-                target.setX(newValues[0] /*- msg.getOriginX()*/);
+                target.setX(newValues[0]);
                 break;
 
             case POSITION_Y:
-                target.setY(newValues[0] /*- msg.getOriginY()*/);
+                target.setY(newValues[0]);
                 break;
 
             case SCALE_XY:

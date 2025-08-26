@@ -1,5 +1,7 @@
 package com.bitfire.uracer.game.logic.gametasks.hud;
 
+import org.jetbrains.annotations.NotNull;
+
 import aurelienribon.tweenengine.TweenAccessor;
 
 public class HudLabelAccessor implements TweenAccessor<HudLabel> {
@@ -10,7 +12,7 @@ public class HudLabelAccessor implements TweenAccessor<HudLabel> {
     public static final int OPACITY = 5;
 
     @Override
-    public int getValues(HudLabel target, int tweenType, float[] returnValues) {
+    public int getValues(HudLabel target, int tweenType, @NotNull float[] returnValues) {
         switch (tweenType) {
             case POSITION_XY:
                 returnValues[0] = target.getX();
@@ -40,7 +42,7 @@ public class HudLabelAccessor implements TweenAccessor<HudLabel> {
     }
 
     @Override
-    public void setValues(HudLabel target, int tweenType, float[] newValues) {
+    public void setValues(HudLabel target, int tweenType, @NotNull float[] newValues) {
         switch (tweenType) {
             case POSITION_XY:
                 target.setPosition(newValues[0], newValues[1]);
