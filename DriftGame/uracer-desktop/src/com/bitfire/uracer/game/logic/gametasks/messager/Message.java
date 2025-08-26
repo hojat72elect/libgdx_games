@@ -147,7 +147,7 @@ public final class Message {
         SysTweener.start(Timeline.createParallel()
                 .push(Tween.to(this, MessageAccessor.OPACITY, 850).target(1f).ease(Expo.INOUT))
                 .push(Tween.to(this, MessageAccessor.POSITION_Y, 700).target(finalY).ease(Expo.INOUT))
-                .push(Tween.to(this, MessageAccessor.SCALE_XY, 800).target(scale, scale).ease(Back.INOUT)).setCallback(showFinished));
+                .push(Tween.to(this, MessageAccessor.SCALE_XY, 800).target(scale, scale).ease(Back.Companion.getINOUT())).setCallback(showFinished));
     }
 
     public void hide() {
@@ -160,7 +160,7 @@ public final class Message {
             SysTweener.start(Timeline.createParallel()
                     .push(Tween.to(this, MessageAccessor.OPACITY, 600).target(0f).ease(Expo.INOUT))
                     .push(Tween.to(this, MessageAccessor.POSITION_Y, 700).target(startY).ease(Expo.INOUT))
-                    .push(Tween.to(this, MessageAccessor.SCALE_XY, 800).target(0, 0).ease(Back.INOUT)).setCallback(hideFinished));
+                    .push(Tween.to(this, MessageAccessor.SCALE_XY, 800).target(0, 0).ease(Back.Companion.getINOUT())).setCallback(hideFinished));
         }
     }
 
