@@ -14,6 +14,8 @@ import com.bitfire.uracer.game.rendering.GameRenderer;
 import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.utils.CarUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 public class DebugPlayer extends DebugRenderable {
     private final TrackEffect smokeTrails;
     private final TrackEffect skidMarks;
@@ -108,7 +110,7 @@ public class DebugPlayer extends DebugRenderable {
     }
 
     @Override
-    public void renderBatch(SpriteBatch batch) {
+    public void renderBatch(@NotNull SpriteBatch batch) {
         if (isActive()) {
             float prevHeight = 0;
             int index = 0;

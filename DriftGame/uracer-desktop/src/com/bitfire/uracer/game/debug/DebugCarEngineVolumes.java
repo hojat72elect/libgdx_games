@@ -12,6 +12,8 @@ import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.utils.ColorUtils;
 import com.bitfire.uracer.utils.SpriteBatchUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 public class DebugCarEngineVolumes extends DebugRenderable {
     private final Array<DebugMeter> meters = new Array<>();
     private final EngineSoundSet soundset;
@@ -67,7 +69,7 @@ public class DebugCarEngineVolumes extends DebugRenderable {
     }
 
     @Override
-    public void renderBatch(SpriteBatch batch) {
+    public void renderBatch(@NotNull SpriteBatch batch) {
         if (isActive() && meters.size > 0) {
             Matrix4 prev = batch.getTransformMatrix();
             batch.setTransformMatrix(idt);

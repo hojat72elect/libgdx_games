@@ -410,7 +410,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         if (hasPlayer) {
             RankInfo rank = ranks.get(playerIndex);
             rank.valid = true;
-            rank.uid = logic.getUserProfile().userId;
+            rank.uid = logic.getUserProfile().getUserId();
             rank.player = true;
             rank.isNextTarget = false;
 
