@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.Disposable;
 
 import java.util.HashMap;
 
-import box2dLight.shaders.LightShader;
+import box2dLight.shaders.LightShaderKt;
 
 public class RayHandler implements Disposable {
 
@@ -106,7 +106,7 @@ public class RayHandler implements Disposable {
         m_f = new float[maxRayCount];
 
         lightMap = new LightMap(this, fboWidth, fboHeigth, depthMasking);
-        lightShader = LightShader.createLightShader();
+        lightShader = LightShaderKt.createLightShader();
     }
 
     /**
