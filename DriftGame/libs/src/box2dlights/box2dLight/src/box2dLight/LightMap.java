@@ -59,7 +59,7 @@ class LightMap {
         shadowShader = ShadowShader.createShadowShader();
         diffuseShader = DiffuseShader.createShadowShader();
 
-        withoutShadowShader = WithoutShadowShader.createShadowShader();
+        withoutShadowShader = WithoutShadowShader.INSTANCE.createShadowShader();
 
         blurShader = Gaussian.createBlurShader(fboWidth, fboHeight);
     }
