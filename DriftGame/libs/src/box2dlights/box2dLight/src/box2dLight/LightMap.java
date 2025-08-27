@@ -56,7 +56,7 @@ class LightMap {
 
         lightMapMesh = createLightMapMesh();
 
-        shadowShader = ShadowShader.createShadowShader();
+        shadowShader = ShadowShader.INSTANCE.createShadowShader();
         diffuseShader = DiffuseShader.createShadowShader();
 
         withoutShadowShader = WithoutShadowShaderKt.createShadowShader();

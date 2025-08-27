@@ -1,13 +1,13 @@
-package box2dLight.shaders;
+package box2dLight.shaders
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import box2dLight.RayHandler
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.glutils.ShaderProgram
 
-import box2dLight.RayHandler;
+object ShadowShader {
+    fun createShadowShader(): ShaderProgram {
 
-public final class ShadowShader {
-    static public ShaderProgram createShadowShader() {
-        final String vertexShader = "attribute vec4 a_position;\n"
+        val vertexShader = ("attribute vec4 a_position;\n"
                 + "attribute vec2 a_texCoord;\n"
                 + "varying vec2 v_texCoords;\n"
                 + "\n"
@@ -15,8 +15,8 @@ public final class ShadowShader {
                 + "{\n"
                 + "   v_texCoords = a_texCoord;\n"
                 + "   gl_Position = a_position;\n"
-                + "}\n";
-        final String fragmentShader = "#ifdef GL_ES\n"
+                + "}\n")
+        val fragmentShader = ("#ifdef GL_ES\n"
                 + "#define MED " + RayHandler.getColorPrecision() + "\n" + "precision "
                 + RayHandler.getColorPrecision()
                 + " float;\n"
@@ -28,13 +28,12 @@ public final class ShadowShader {
                 + "vec4 v_c = texture2D(u_texture, v_texCoords);\n" + "v_c.rgb = ambient.rgb + v_c.rgb* v_c.a;\n"
                 + "v_c.a = ambient.a - v_c.a;\n"
                 + "gl_FragColor = v_c;\n"
-                + "}\n";
-        ShaderProgram.pedantic = false;
-        ShaderProgram shadowShader = new ShaderProgram(vertexShader, fragmentShader);
-        if (!shadowShader.isCompiled()) {
-            Gdx.app.log("ERROR", shadowShader.getLog());
-        }
+                + "}\n")
 
-        return shadowShader;
+        ShaderProgram.pedantic = false
+        val shadowShader = ShaderProgram(vertexShader, fragmentShader)
+        if (shadowShader.isCompiled.not()) Gdx.app.log("ERROR : Couldn't compile shader", shadowShader.log)
+
+        return shadowShader
     }
 }
