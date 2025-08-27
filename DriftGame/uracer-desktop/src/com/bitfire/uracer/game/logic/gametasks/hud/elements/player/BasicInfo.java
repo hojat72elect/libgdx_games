@@ -22,8 +22,8 @@ public class BasicInfo implements Disposable {
     private final float h;
 
     public BasicInfo(UserProfile profile) {
-        name = new HudLabel(FontFace.CurseRedYellowBig, profile.userName, true);
-        flag = Art.getFlag(profile.userCountryCode);
+        name = new HudLabel(FontFace.CurseRedYellowBig, profile.getUserName(), true);
+        flag = Art.getFlag(profile.getUserCountryCode());
         flagRegion = new TextureRegion(flag);
         flagRegion.flip(false, true);
 

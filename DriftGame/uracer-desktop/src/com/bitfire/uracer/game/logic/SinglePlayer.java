@@ -324,7 +324,7 @@ public class SinglePlayer extends BaseLogic {
     public void playerLapStarted() {
         // lapManager.stopRecording();
         playerCar.resetDistanceAndSpeed(true, false);
-        lapManager.startRecording(playerCar, gameWorld.getLevelId(), userProfile.userId);
+        lapManager.startRecording(playerCar, gameWorld.getLevelId(), userProfile.getUserId());
         progressData.reset(true);
         setAccuDriftSeconds();
 
