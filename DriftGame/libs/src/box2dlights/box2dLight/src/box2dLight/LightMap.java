@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import box2dLight.shaders.DiffuseShader;
 import box2dLight.shaders.Gaussian;
-import box2dLight.shaders.ShadowShader;
+import box2dLight.shaders.ShadowShaderKt;
 import box2dLight.shaders.WithoutShadowShaderKt;
 
 class LightMap {
@@ -56,10 +56,10 @@ class LightMap {
 
         lightMapMesh = createLightMapMesh();
 
-        shadowShader = ShadowShader.INSTANCE.createShadowShader();
+        shadowShader = ShadowShaderKt.createShadowShader();
         diffuseShader = DiffuseShader.createShadowShader();
 
-        withoutShadowShader = WithoutShadowShaderKt.createShadowShader();
+        withoutShadowShader = WithoutShadowShaderKt.createWithoutShadowShader();
 
         blurShader = Gaussian.createBlurShader(fboWidth, fboHeight);
     }

@@ -3,7 +3,7 @@ package box2dLight.shaders
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.glutils.ShaderProgram
 
-fun createShadowShader(): ShaderProgram {
+fun createWithoutShadowShader(): ShaderProgram {
 
     val vertexShader = ("attribute vec4 a_position;\n"
             + "attribute vec2 a_texCoord;\n"
