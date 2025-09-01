@@ -57,8 +57,8 @@ public abstract class SubframeInterpolableEntity extends Entity {
     protected void resetState() {
         saveStateTo(stateCurrent);
         statePrevious.set(stateCurrent);
-        stateRender.set(stateCurrent);
-        stateRender.toPixels();
+        getStateRender().set(stateCurrent);
+        getStateRender().toPixels();
     }
 
     public void onBeforePhysicsSubstep() {
@@ -79,14 +79,14 @@ public abstract class SubframeInterpolableEntity extends Entity {
     public void onSubframeInterpolate(float aliasingFactor) {
         if (isSubframeInterpolated()) {
             if (!EntityRenderState.isEqual(statePrevious, stateCurrent)) {
-                stateRender.set(EntityRenderState.interpolate(statePrevious, stateCurrent, aliasingFactor));
+                getStateRender().set(EntityRenderState.interpolate(statePrevious, stateCurrent, aliasingFactor));
             } else {
-                stateRender.set(stateCurrent);
+                getStateRender().set(stateCurrent);
             }
         } else {
-            stateRender.set(stateCurrent);
+            getStateRender().set(stateCurrent);
         }
 
-        stateRender.toPixels();
+        getStateRender().toPixels();
     }
 }
