@@ -13,13 +13,11 @@ public class GameLogicEvent extends Event<GameLogicEvent.Type, GameLogicEvent.Or
      * defines the type of render queue
      */
     public enum Type {
-        //@off
         PlayerAdded,
         PlayerRemoved,
         GameRestart,
         GameReset,
         GameQuit
-        //@on
     }
 
     /**

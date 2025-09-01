@@ -21,7 +21,6 @@ public class GameRendererEvent extends Event<GameRendererEvent.Type, GameRendere
      * defines the type of render queue
      */
     public enum Type {
-        //@off
         SubframeInterpolate,                // interpolate positions and orientations
         BeforeRender,                        // update rendering data such as camera position and zoom
         BatchBeforeCars,                    // draw *before* cars are drawn
@@ -30,7 +29,6 @@ public class GameRendererEvent extends Event<GameRendererEvent.Type, GameRendere
         BatchAfterPostProcessing,        // draw after all the post-processing passes
         BatchDebug,                        // debug draw (via SpriteBatch)
         Debug                                    // debug draw (via default GL calls)
-        //@on
     }
 
     /**

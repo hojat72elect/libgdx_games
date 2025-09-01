@@ -111,7 +111,7 @@ public abstract class BaseLogic extends CommonLogic {
 
             GameTweener.start(Timeline
                     .createSequence()
-                    .push(Tween.to(collisionFactor, BoxedFloatAccessor.VALUE, 500).target(0).ease(Linear.INOUT)));
+                    .push(Tween.to(collisionFactor, BoxedFloatAccessor.VALUE, 500).target(0).ease(Linear.Companion.getINOUT())));
         }
     }
 
@@ -179,9 +179,9 @@ public abstract class BaseLogic extends CommonLogic {
 
             GameTweener.start(Timeline
                     .createSequence()
-                    .push(Tween.to(collisionFactor, BoxedFloatAccessor.VALUE, 100).target(clampedImpactForce).ease(Linear.INOUT))
+                    .push(Tween.to(collisionFactor, BoxedFloatAccessor.VALUE, 100).target(clampedImpactForce).ease(Linear.Companion.getINOUT()))
                     .push(Tween.to(collisionFactor, BoxedFloatAccessor.VALUE, min + max * clampedImpactForce).target(0)
-                            .ease(Linear.INOUT)).setCallback(collisionFinished));
+                            .ease(Linear.Companion.getINOUT())).setCallback(collisionFinished));
 
             playerTasks.hudPlayer.highlightCollision();
         }

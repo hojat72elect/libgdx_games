@@ -129,7 +129,6 @@ public final class EventHandlers {
         this.logic = logic;
     }
 
-    //@off
     public void registerPlayerEvents() {
         GameEvents.driftState.addListener(driftStateListener, PlayerDriftStateEvent.Type.onBeginDrift);
         GameEvents.driftState.addListener(driftStateListener, PlayerDriftStateEvent.Type.onEndDrift);

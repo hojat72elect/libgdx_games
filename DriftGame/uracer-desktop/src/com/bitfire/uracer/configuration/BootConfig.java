@@ -145,7 +145,6 @@ public class BootConfig {
      * Available boot config flags
      */
     public enum BootConfigFlag {
-        //@off
         WIDTH("width", 1280),
         HEIGHT("height", 720),
         VSYNC("vsync", true),
@@ -153,7 +152,6 @@ public class BootConfig {
         FULLSCREEN("fullscreen", false),
         UNDECORATED("undecorated", false),
         ;
-        //@on
 
         public int defaultInt;
         String name;

@@ -194,14 +194,12 @@ public final class CarHighlighter {
 
         Timeline seq = Timeline.createSequence();
 
-        //@off
         seq
-                .push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, 100).target(1f).ease(Linear.INOUT))
-                .push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, 100).target(0f).ease(Linear.INOUT))
+                .push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, 100).target(1f).ease(Linear.Companion.getINOUT()))
+                .push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, 100).target(0f).ease(Linear.Companion.getINOUT()))
                 .repeat(blinkCount, 0)
                 .setCallback(busyCallback)
         ;
-        //@on
 
         GameTweener.start(seq);
     }
@@ -233,14 +231,12 @@ public final class CarHighlighter {
         GameTweener.stop(bfScale);
         GameTweener.stop(bfRot);
 
-        //@off
         timeline
-                .push(Tween.to(bfScale, BoxedFloatAccessor.VALUE, ms).target(1f).ease(Linear.INOUT))
-                .push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, ms).target(alpha).ease(Linear.INOUT))
-                .push(Tween.to(bfRot, BoxedFloatAccessor.VALUE, ms).target(0f).ease(Linear.INOUT))
+                .push(Tween.to(bfScale, BoxedFloatAccessor.VALUE, ms).target(1f).ease(Linear.Companion.getINOUT()))
+                .push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, ms).target(alpha).ease(Linear.Companion.getINOUT()))
+                .push(Tween.to(bfRot, BoxedFloatAccessor.VALUE, ms).target(0f).ease(Linear.Companion.getINOUT()))
                 .setCallback(busyCallback)
         ;
-        //@on
 
         GameTweener.start(timeline);
     }
@@ -274,14 +270,12 @@ public final class CarHighlighter {
         GameTweener.stop(bfScale);
         GameTweener.stop(bfRot);
 
-        //@off
         timeline
-                .push(Tween.to(bfScale, BoxedFloatAccessor.VALUE, ms).target(4).ease(Linear.INOUT))
-                .push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, ms).target(0).ease(Linear.INOUT))
-                .push(Tween.to(bfRot, BoxedFloatAccessor.VALUE, ms).target(-90).ease(Linear.INOUT))
+                .push(Tween.to(bfScale, BoxedFloatAccessor.VALUE, ms).target(4).ease(Linear.Companion.getINOUT()))
+                .push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, ms).target(0).ease(Linear.Companion.getINOUT()))
+                .push(Tween.to(bfRot, BoxedFloatAccessor.VALUE, ms).target(-90).ease(Linear.Companion.getINOUT()))
                 .setCallback(busyCallback)
         ;
-        //@on
 
         GameTweener.start(timeline);
     }

@@ -57,7 +57,7 @@ public class WrongWay extends Positionable {
             isShown = true;
             GameTweener.stop(bfAlpha);
             Timeline seq = Timeline.createSequence();
-            seq.push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, millisecs).target(1f).ease(Linear.INOUT));
+            seq.push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, millisecs).target(1f).ease(Linear.Companion.getINOUT()));
             GameTweener.start(seq);
         }
     }
@@ -67,7 +67,7 @@ public class WrongWay extends Positionable {
             isShown = false;
             GameTweener.stop(bfAlpha);
             Timeline seq = Timeline.createSequence();
-            seq.push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, millisecs).target(0f).ease(Linear.INOUT));
+            seq.push(Tween.to(bfAlpha, BoxedFloatAccessor.VALUE, millisecs).target(0f).ease(Linear.Companion.getINOUT()));
             GameTweener.start(seq);
         }
     }

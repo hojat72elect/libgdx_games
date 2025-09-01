@@ -57,13 +57,11 @@ public class HudLapInfo extends HudElement {
         GameTweener.stop(g);
         GameTweener.stop(b);
 
-        //@off
         seq
-                .push(Tween.to(r, BoxedFloatAccessor.VALUE, millisecs).target(red).ease(Linear.INOUT))
-                .push(Tween.to(g, BoxedFloatAccessor.VALUE, millisecs).target(green).ease(Linear.INOUT))
-                .push(Tween.to(b, BoxedFloatAccessor.VALUE, millisecs).target(blue).ease(Linear.INOUT))
+                .push(Tween.to(r, BoxedFloatAccessor.VALUE, millisecs).target(red).ease(Linear.Companion.getINOUT()))
+                .push(Tween.to(g, BoxedFloatAccessor.VALUE, millisecs).target(green).ease(Linear.Companion.getINOUT()))
+                .push(Tween.to(b, BoxedFloatAccessor.VALUE, millisecs).target(blue).ease(Linear.Companion.getINOUT()))
         ;
-        //@on
 
         GameTweener.start(seq);
     }

@@ -102,13 +102,12 @@ public final class HudLabel extends Positionable {
     public void fadeIn(int milliseconds) {
         GameTweener.stop(this);
         GameTweener.start(Timeline.createSequence().push(
-                Tween.to(this, HudLabelAccessor.OPACITY, milliseconds).target(1f).ease(Linear.INOUT)));
+                Tween.to(this, HudLabelAccessor.OPACITY, milliseconds).target(1f).ease(Linear.Companion.getINOUT())));
     }
 
     public void fadeOut(int milliseconds) {
         GameTweener.stop(this);
         GameTweener.start(Timeline.createSequence().push(
-                Tween.to(this, HudLabelAccessor.OPACITY, milliseconds).target(0f).ease(Linear.INOUT)));
+                Tween.to(this, HudLabelAccessor.OPACITY, milliseconds).target(0f).ease(Linear.Companion.getINOUT())));
     }
-
 }

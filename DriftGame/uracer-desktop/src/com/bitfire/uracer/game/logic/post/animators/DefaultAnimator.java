@@ -90,14 +90,12 @@ public final class DefaultAnimator implements PostProcessingAnimator {
             GameTweener.stop(alertAmount);
             Timeline seq = Timeline.createSequence();
 
-            //@off
             seq
                     .push(Tween.to(alertAmount, BoxedFloatAccessor.VALUE, milliseconds).target(1.5f).ease(Quad.IN))
                     .pushPause(50)
                     .push(Tween.to(alertAmount, BoxedFloatAccessor.VALUE, milliseconds).target(0.75f).ease(Quad.OUT))
             ;
             GameTweener.start(seq);
-            //@on
         }
     }
 
@@ -120,12 +118,10 @@ public final class DefaultAnimator implements PostProcessingAnimator {
             SysTweener.stop(pauseAmount);
             Timeline seq = Timeline.createSequence();
 
-            //@off
             seq
-                    .push(Tween.to(pauseAmount, BoxedFloatAccessor.VALUE, milliseconds).target(1f).ease(Linear.INOUT))
+                    .push(Tween.to(pauseAmount, BoxedFloatAccessor.VALUE, milliseconds).target(1f).ease(Linear.Companion.getINOUT()))
             ;
             SysTweener.start(seq);
-            //@on
         }
     }
 
@@ -136,7 +132,7 @@ public final class DefaultAnimator implements PostProcessingAnimator {
 
             SysTweener.stop(pauseAmount);
             Timeline seq = Timeline.createSequence();
-            seq.push(Tween.to(pauseAmount, BoxedFloatAccessor.VALUE, milliseconds).target(0).ease(Linear.INOUT));
+            seq.push(Tween.to(pauseAmount, BoxedFloatAccessor.VALUE, milliseconds).target(0).ease(Linear.Companion.getINOUT()));
             SysTweener.start(seq);
         }
     }
