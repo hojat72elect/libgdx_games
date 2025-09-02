@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 
 /**
- * Light is data container for all the light parameters You can create instance
- * of Light also with help of rayHandler addLight method
+ * Light is a data container for all the light parameters.
+ * You can create instances of Light also with help of rayHandler addLight method.
  */
 public class ConeLight extends PositionalLight {
 
