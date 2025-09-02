@@ -17,6 +17,8 @@ import com.bitfire.uracer.utils.BoxedFloat;
 import com.bitfire.uracer.utils.BoxedFloatAccessor;
 import com.bitfire.uracer.utils.Convert;
 
+import org.jetbrains.annotations.NotNull;
+
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
@@ -36,7 +38,7 @@ public final class CarHighlighter {
     private final BoxedFloat bfRenderState;
     private final TweenCallback renderStateCallback = new TweenCallback() {
         @Override
-        public void onEvent(int type, BaseTween<?> source) {
+        public void onEvent(int type, @NotNull BaseTween<?> source) {
             if (type == COMPLETE) {
                 interpolateState = false;
             }
@@ -48,7 +50,7 @@ public final class CarHighlighter {
     private boolean isBusy, isActive, hasCar, isTracking, interpolateState;
     private final TweenCallback busyCallback = new TweenCallback() {
         @Override
-        public void onEvent(int type, BaseTween<?> source) {
+        public void onEvent(int type, @NotNull BaseTween<?> source) {
             if (type == COMPLETE) {
                 isBusy = false;
             }

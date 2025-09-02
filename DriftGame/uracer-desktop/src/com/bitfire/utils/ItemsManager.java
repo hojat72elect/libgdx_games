@@ -3,6 +3,8 @@ package com.bitfire.utils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Iterator;
 
 public class ItemsManager<T extends Disposable> implements Iterable<T>, Disposable {
@@ -56,6 +58,7 @@ public class ItemsManager<T extends Disposable> implements Iterable<T>, Disposab
     }
 
     /* Returns an iterator on the managed items */
+    @NotNull
     @Override
     public Iterator<T> iterator() {
         return items.iterator();

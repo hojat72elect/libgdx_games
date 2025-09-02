@@ -19,16 +19,4 @@ public abstract class Quart extends TweenEquation {
         }
     };
 
-    public static final Quart INOUT = new Quart() {
-        @Override
-        public float compute(float t) {
-            if ((t *= 2) < 1) return 0.5f * t * t * t * t;
-            return -0.5f * ((t -= 2) * t * t * t - 2);
-        }
-
-        @Override
-        public String toString() {
-            return "Quart.INOUT";
-        }
-    };
 }

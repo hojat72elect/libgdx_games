@@ -10,6 +10,8 @@ import com.bitfire.uracer.resources.BitmapFontFactory;
 import com.bitfire.uracer.resources.BitmapFontFactory.FontFace;
 import com.bitfire.uracer.utils.AMath;
 
+import org.jetbrains.annotations.NotNull;
+
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
@@ -31,7 +33,7 @@ public final class Message {
     private boolean completed;
     private final TweenCallback hideFinished = new TweenCallback() {
         @Override
-        public void onEvent(int type, BaseTween<?> source) {
+        public void onEvent(int type, @NotNull BaseTween<?> source) {
             if (type == COMPLETE) {
                 completed = true;
             }
@@ -43,7 +45,7 @@ public final class Message {
     private boolean showCompleted;
     private final TweenCallback showFinished = new TweenCallback() {
         @Override
-        public void onEvent(int type, BaseTween<?> source) {
+        public void onEvent(int type, @NotNull BaseTween<?> source) {
             if (type == COMPLETE) {
                 showCompleted = true;
             }

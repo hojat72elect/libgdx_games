@@ -1,5 +1,7 @@
 package com.bitfire.uracer.game.debug;
 
+import org.jetbrains.annotations.NotNull;
+
 public final class RankInfo implements Comparable<RankInfo> {
     public float completion;
     public String uid;
@@ -20,10 +22,7 @@ public final class RankInfo implements Comparable<RankInfo> {
     }
 
     @Override
-    public int compareTo(RankInfo o) {
-        if (o == null) {
-            throw new NullPointerException();
-        }
+    public int compareTo(@NotNull RankInfo o) {
 
         if (!valid) return 1;
         if (!o.valid) return -1;

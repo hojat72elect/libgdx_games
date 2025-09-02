@@ -3,6 +3,8 @@ package com.bitfire.uracer.u3d.materials;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.Array;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Iterator;
 
 public class Material implements Iterable<MaterialAttribute> {
@@ -92,6 +94,7 @@ public class Material implements Iterable<MaterialAttribute> {
         this.shader = shader;
     }
 
+    @NotNull
     @Override
     public Iterator<MaterialAttribute> iterator() {
         return attributes.iterator();

@@ -11,6 +11,8 @@ import com.bitfire.uracer.utils.DigestUtils;
 import com.bitfire.uracer.utils.ReplayUtils;
 import com.bitfire.uracer.utils.URacerRuntimeException;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.util.zip.GZIPInputStream;
@@ -80,10 +82,7 @@ public final class Replay implements Disposable, Comparable<Replay> {
     }
 
     @Override
-    public int compareTo(Replay o) {
-        if (o == null) {
-            throw new NullPointerException();
-        }
+    public int compareTo(@NotNull Replay o) {
 
         int thisTicks = info.getTicks();
         int otherTicks = o.info.getTicks();

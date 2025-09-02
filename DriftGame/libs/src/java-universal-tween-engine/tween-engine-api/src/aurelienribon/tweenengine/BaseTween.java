@@ -147,37 +147,6 @@ public abstract class BaseTween<T> {
     }
 
     /**
-     * Changes the triggers of the callback. The available triggers, listed as members of the {@link TweenCallback} interface, are:
-     * <p/>
-     *
-     * <b>BEGIN</b>: right after the delay (if any)<br/>
-     * <b>START</b>: at each iteration beginning<br/>
-     * <b>END</b>: at each iteration ending, before the repeat delay<br/>
-     * <b>COMPLETE</b>: at last END event<br/>
-     * <b>BACK_BEGIN</b>: at the beginning of the first backward iteration<br/>
-     * <b>BACK_START</b>: at each backward iteration beginning, after the repeat delay<br/>
-     * <b>BACK_END</b>: at each backward iteration ending<br/>
-     * <b>BACK_COMPLETE</b>: at last BACK_END event
-     * <p/>
-     *
-     * <pre>
-     * {@code
-     * forward :      BEGIN                                   COMPLETE
-     * forward :      START    END      START    END      START    END
-     * |--------------[XXXXXXXXXX]------[XXXXXXXXXX]------[XXXXXXXXXX]
-     * backward:      bEND  bSTART      bEND  bSTART      bEND  bSTART
-     * backward:      bCOMPLETE                                 bBEGIN
-     * }
-     * </pre>
-     *
-     * @param flags one or more triggers, separated by the '|' operator.
-     * @see TweenCallback
-     */
-    public void setCallbackTriggers(int flags) {
-        this.callbackTriggers = flags;
-    }
-
-    /**
      * Gets the delay of the tween or timeline. Nothing will happen before this delay.
      */
     public float getDelay() {

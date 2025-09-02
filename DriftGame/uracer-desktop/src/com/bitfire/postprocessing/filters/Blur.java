@@ -3,6 +3,8 @@ package com.bitfire.postprocessing.filters;
 import com.badlogic.gdx.utils.IntMap;
 import com.bitfire.postprocessing.utils.PingPongBuffer;
 
+import org.jetbrains.annotations.NotNull;
+
 public final class Blur extends MultipassFilter {
     private final IntMap<Convolve2D> convolve = new IntMap<>(Tap.values().length);
     // blur
@@ -65,7 +67,7 @@ public final class Blur extends MultipassFilter {
     }
 
     @Override
-    public void render(PingPongBuffer buffer) {
+    public void render(@NotNull PingPongBuffer buffer) {
         Convolve2D c = convolve.get(this.type.tap.radius);
 
         for (int i = 0; i < this.passes; i++) {
