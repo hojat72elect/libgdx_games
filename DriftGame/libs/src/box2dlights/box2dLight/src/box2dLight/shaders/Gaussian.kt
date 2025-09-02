@@ -1,16 +1,15 @@
-package box2dLight.shaders;
+package box2dLight.shaders
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import box2dLight.RayHandler
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.glutils.ShaderProgram
 
-import box2dLight.RayHandler;
+object Gaussian {
+    fun createBlurShader(width: Int, heigth: Int): ShaderProgram {
 
-public class Gaussian {
-
-    public static ShaderProgram createBlurShader(int width, int heigth) {
-        final String FBO_W = Integer.toString(width);
-        final String FBO_H = Integer.toString(heigth);
-        final String vertexShader = "attribute vec4 a_position;\n"
+        val FBO_W = width.toString()
+        val FBO_H = heigth.toString()
+        val vertexShader = ("attribute vec4 a_position;\n"
                 + "uniform vec2  dir;\n"
                 + "attribute vec2 a_texCoord;\n"
                 + "varying vec2 v_texCoords0;\n"
@@ -36,8 +35,8 @@ public class Gaussian {
                 + "v_texCoords3 = a_texCoord + c;\n"
                 + "v_texCoords4 = a_texCoord + f;\n"
                 + "gl_Position = a_position;\n"
-                + "}\n";
-        final String fragmentShader = "#ifdef GL_ES\n"
+                + "}\n")
+        val fragmentShader = ("#ifdef GL_ES\n"
                 + "#define MED " + RayHandler.getColorPrecision() + "\n"
                 + "precision " + RayHandler.getColorPrecision()
                 + " float;\n"
@@ -60,14 +59,12 @@ public class Gaussian {
                 + "				+ center * texture2D(u_texture, v_texCoords2)\n"
                 + "				+ close  * texture2D(u_texture, v_texCoords3)\n"
                 + "				+ far    * texture2D(u_texture, v_texCoords4);\n"
-                + "}\n";
-        ShaderProgram.pedantic = false;
-        ShaderProgram blurShader = new ShaderProgram(vertexShader,
-                fragmentShader);
-        if (!blurShader.isCompiled()) {
-            Gdx.app.log("ERROR", blurShader.getLog());
-        }
+                + "}\n")
 
-        return blurShader;
+        ShaderProgram.pedantic = false
+        val blurShader = ShaderProgram(vertexShader, fragmentShader)
+        if (blurShader.isCompiled.not()) Gdx.app.log("ERROR", blurShader.log)
+
+        return blurShader
     }
 }

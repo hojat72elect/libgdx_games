@@ -61,7 +61,7 @@ class LightMap {
 
         withoutShadowShader = WithoutShadowShaderKt.createWithoutShadowShader();
 
-        blurShader = Gaussian.createBlurShader(fboWidth, fboHeight);
+        blurShader = Gaussian.INSTANCE.createBlurShader(fboWidth, fboHeight);
     }
 
     public void render(Rectangle viewport, FrameBuffer dest) {
