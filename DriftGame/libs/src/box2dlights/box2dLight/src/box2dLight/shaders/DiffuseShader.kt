@@ -1,11 +1,11 @@
-package box2dLight.shaders;
+package box2dLight.shaders
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.glutils.ShaderProgram
 
-public class DiffuseShader {
-    static public ShaderProgram createShadowShader() {
-        final String vertexShader = "attribute vec4 a_position;\n"
+object DiffuseShader {
+    fun createShadowShader(): ShaderProgram {
+        val vertexShader = ("attribute vec4 a_position;\n"
                 + "attribute vec2 a_texCoord;\n"
                 + "varying vec2 v_texCoords;\n"
                 + "\n"
@@ -13,10 +13,10 @@ public class DiffuseShader {
                 + "{\n"
                 + "   v_texCoords = a_texCoord;\n"
                 + "   gl_Position = a_position;\n"
-                + "}\n";
+                + "}\n")
 
         // this is always perfect precision
-        final String fragmentShader = "#ifdef GL_ES\n"
+        val fragmentShader = ("#ifdef GL_ES\n"
                 + "precision mediump float;\n"
                 + "#endif\n"
                 + "varying vec2 v_texCoords;\n"
@@ -25,14 +25,13 @@ public class DiffuseShader {
                 + "void main()\n"
                 + "{\n"
                 + "gl_FragColor = ambient + texture2D(u_texture, v_texCoords);\n"
-                + "}\n";
-        ShaderProgram.pedantic = false;
-        ShaderProgram shadowShader = new ShaderProgram(vertexShader,
-                fragmentShader);
-        if (!shadowShader.isCompiled()) {
-            Gdx.app.log("ERROR", shadowShader.getLog());
-        }
+                + "}\n")
 
-        return shadowShader;
+        ShaderProgram.pedantic = false
+        val shadowShader = ShaderProgram(vertexShader, fragmentShader)
+        if (shadowShader.isCompiled.not())
+            Gdx.app.log("ERROR", shadowShader.log)
+
+        return shadowShader
     }
 }
