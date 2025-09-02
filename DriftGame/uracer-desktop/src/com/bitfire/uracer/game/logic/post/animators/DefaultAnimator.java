@@ -266,14 +266,6 @@ public final class DefaultAnimator implements PostProcessingAnimator {
                        float warmUpCompletion, float collisionFactor, boolean paused) {
         float timeModFactor = URacer.Game.getTimeModFactor();
 
-        // dbg
-        // ssao.setSampleCount(16);
-        // ssao.setPatternSize(4);
-        // ssao.setPower(1, 2);
-        // ssao.setRadius(0.001f, 0.2f);
-        // ssao.setOcclusionThresholds(0.3f, 0.1f);
-        // dbg
-
         // compute needed screen positions
         if (hasPlayer) {
             playerScreenPos.set(GameRenderer.ScreenUtils.worldPxToScreen(player.state().position));
