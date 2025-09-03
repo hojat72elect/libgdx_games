@@ -54,7 +54,7 @@ public final class TransitionFactory {
         public long hash;
 
         TransitionType() {
-            hash = Hash.APHash(this.name());
+            hash = Hash.INSTANCE.APHash(this.name());
         }
     }
 }

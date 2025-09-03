@@ -23,7 +23,7 @@ public final class BitmapFontFactory {
      */
     public static BitmapFont get(FontFace face, boolean reset) {
         String name = face.name;
-        long hash = Hash.APHash(name);
+        long hash = Hash.INSTANCE.APHash(name);
         BitmapFont f = fontCache.get(hash);
 
         if (f != null) {
