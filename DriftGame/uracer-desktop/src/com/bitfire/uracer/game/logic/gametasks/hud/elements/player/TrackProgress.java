@@ -42,7 +42,7 @@ public class TrackProgress extends Positionable {
 
         texMask = Art.texCircleProgressMask;
 
-        shProgress = ShaderLoader.fromFile("progress", "progress");
+        shProgress = ShaderLoader.INSTANCE.fromFile("progress", "progress");
 
         sprAdvantage = new Sprite(Art.texCircleProgress);
         sprAdvantage.flip(false, true);

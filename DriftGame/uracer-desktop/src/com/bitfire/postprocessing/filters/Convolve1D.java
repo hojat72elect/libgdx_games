@@ -16,7 +16,7 @@ public final class Convolve1D extends Filter<Convolve1D> {
     }
 
     public Convolve1D(int length, float[] weights_data, float[] offsets) {
-        super(ShaderLoader.fromFile("screenspace", "convolve-1d", "#define LENGTH " + length));
+        super(ShaderLoader.INSTANCE.fromFile("screenspace", "convolve-1d", "#define LENGTH " + length));
         setWeights(length, weights_data, offsets);
         rebind();
     }

@@ -48,8 +48,8 @@ public final class Ssao extends PostProcessorEffect {
         occlusionMap = new PingPongBuffer((int) ((float) fboWidth * oscale), (int) ((float) fboHeight * oscale), Format.RGBA8888, false);
 
         // shaders
-        shMix = ShaderLoader.fromFile("screenspace", "ssao/mix");
-        shSsao = ShaderLoader.fromFile("ssao/ssao", "ssao/ssao");
+        shMix = ShaderLoader.INSTANCE.fromFile("screenspace", "ssao/mix");
+        shSsao = ShaderLoader.INSTANCE.fromFile("ssao/ssao", "ssao/ssao");
 
         // blur
         blur = new Blur(occlusionMap.width, occlusionMap.height);

@@ -18,7 +18,7 @@ public final class Lens2 extends Filter<Lens2> {
     private Texture lensColorTexture;
 
     public Lens2(int width, int height) {
-        super(ShaderLoader.fromFile("screenspace", "lensflare2"));
+        super(ShaderLoader.INSTANCE.fromFile("screenspace", "lensflare2"));
         viewportInverse = new Vector2(1f / width, 1f / height);
         rebind();
     }

@@ -63,7 +63,7 @@ public final class Art {
     }
 
     public static void init() {
-        ShaderLoader.BasePath = "data/shaders/";
+        ShaderLoader.INSTANCE.setBasePath("data/shaders/");
         loadFonts();
         loadCarGraphics();
         loadParticlesGraphics();

@@ -35,7 +35,7 @@ public final class Fader extends ScreenTransition {
     public Fader(ScreenFactory factory) {
         super(factory);
         quad = new FullscreenQuad();
-        fade = ShaderLoader.fromFile("fade", "fade");
+        fade = ShaderLoader.INSTANCE.fromFile("fade", "fade");
         setDuration(1000);
         reset();
     }

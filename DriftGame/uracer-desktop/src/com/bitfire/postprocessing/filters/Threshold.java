@@ -7,7 +7,7 @@ public final class Threshold extends Filter<Threshold> {
     private float gamma = 0;
 
     public Threshold() {
-        super(ShaderLoader.fromFile("screenspace", "threshold"));
+        super(ShaderLoader.INSTANCE.fromFile("screenspace", "threshold"));
         rebind();
     }
 

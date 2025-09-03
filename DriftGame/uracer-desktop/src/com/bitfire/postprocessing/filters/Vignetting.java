@@ -17,7 +17,7 @@ public final class Vignetting extends Filter<Vignetting> {
     private float centerX, centerY;
 
     public Vignetting(boolean controlSaturation) {
-        super(ShaderLoader.fromFile("screenspace", "vignetting",
+        super(ShaderLoader.INSTANCE.fromFile("screenspace", "vignetting",
                 (controlSaturation ? "#define CONTROL_SATURATION\n#define ENABLE_GRADIENT_MAPPING" : "#define ENABLE_GRADIENT_MAPPING")));
         dolut = false;
         dosat = controlSaturation;

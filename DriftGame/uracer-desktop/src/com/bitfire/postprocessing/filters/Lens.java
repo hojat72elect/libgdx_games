@@ -14,7 +14,7 @@ public final class Lens extends Filter<Lens> {
     private final Vector2 viewport = new Vector2();
 
     public Lens(float width, float height) {
-        super(ShaderLoader.fromFile("screenspace", "lensflare"));
+        super(ShaderLoader.INSTANCE.fromFile("screenspace", "lensflare"));
         viewport.set(width, height);
         rebind();
     }

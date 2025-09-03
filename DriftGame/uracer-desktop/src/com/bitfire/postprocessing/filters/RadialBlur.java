@@ -12,7 +12,7 @@ public final class RadialBlur extends Filter<RadialBlur> {
     private float zoom;
 
     public RadialBlur(Quality quality) {
-        super(ShaderLoader.fromFile("radial-blur", "radial-blur", "#define BLUR_LENGTH " + quality.length
+        super(ShaderLoader.INSTANCE.fromFile("radial-blur", "radial-blur", "#define BLUR_LENGTH " + quality.length
                 + "\n#define ONE_ON_BLUR_LENGTH " + 1f / (float) quality.length));
         this.blur_len = quality.length;
         rebind();

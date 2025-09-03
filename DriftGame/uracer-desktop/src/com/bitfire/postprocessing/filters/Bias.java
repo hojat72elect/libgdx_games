@@ -12,7 +12,7 @@ public final class Bias extends Filter<Bias> {
     private float bias;
 
     public Bias() {
-        super(ShaderLoader.fromFile("screenspace", "bias"));
+        super(ShaderLoader.INSTANCE.fromFile("screenspace", "bias"));
         rebind();
     }
 

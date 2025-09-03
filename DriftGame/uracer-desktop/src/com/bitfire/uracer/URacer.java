@@ -93,7 +93,7 @@ public class URacer implements ApplicationListener {
 
         temporalAliasing = 0;
         timeMultiplier = Config.Physics.TimeMultiplier;
-        ShaderLoader.Pedantic = true;
+        ShaderLoader.INSTANCE.setPedantic(true);
     }
 
     private static String getVersionInformation() {

@@ -148,12 +148,12 @@ public final class GameWorldRenderer {
         tileMapRenderer = new OrthogonalTiledMapRenderer(world.map);
 
         trackTrees = world.getTrackTrees();
-        treeShader = ShaderLoader.fromString(treeVertexShader, treeFragmentShader);
+        treeShader = ShaderLoader.INSTANCE.fromString(treeVertexShader, treeFragmentShader);
         if (!treeShader.isCompiled()) {
             throw new URacerRuntimeException("Couldn't load tree shader, log:" + treeShader.getLog());
         }
 
-        treeShaderNight = ShaderLoader.fromString(treeVertexShader, treeFragmentShaderNight);
+        treeShaderNight = ShaderLoader.INSTANCE.fromString(treeVertexShader, treeFragmentShaderNight);
         if (!treeShaderNight.isCompiled()) {
             throw new URacerRuntimeException("Couldn't load night tree shader, log:" + treeShaderNight.getLog());
         }
@@ -166,8 +166,8 @@ public final class GameWorldRenderer {
             normalDepthMap = new FrameBuffer(Format.RGBA8888, (int) ((float) ScaleUtils.PlayWidth * scale),
                     (int) ((float) ScaleUtils.PlayHeight * scale), true);
 
-            shNormalDepth = ShaderLoader.fromFile("normaldepth", "normaldepth", "#define ENABLE_DIFFUSE");
-            shNormalDepthNoDiffuse = ShaderLoader.fromFile("normaldepth", "normaldepth");
+            shNormalDepth = ShaderLoader.INSTANCE.fromFile("normaldepth", "normaldepth", "#define ENABLE_DIFFUSE");
+            shNormalDepthNoDiffuse = ShaderLoader.INSTANCE.fromFile("normaldepth", "normaldepth");
             createBackPlane();
         }
     }

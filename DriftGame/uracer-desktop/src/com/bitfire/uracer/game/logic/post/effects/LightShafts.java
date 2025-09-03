@@ -43,7 +43,7 @@ public class LightShafts extends PostProcessorEffect {
         occlusionMap = new PingPongBuffer((int) ((float) fboWidth * oscale), (int) ((float) fboHeight * oscale), Format.RGBA8888, false);
 
         // shaders
-        shShafts = ShaderLoader.fromFile("screenspace", "lightshafts/lightshafts");
+        shShafts = ShaderLoader.INSTANCE.fromFile("screenspace", "lightshafts/lightshafts");
         combine = new Combine();
         threshold = new Threshold();
 

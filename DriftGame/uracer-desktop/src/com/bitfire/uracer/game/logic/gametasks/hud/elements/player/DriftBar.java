@@ -41,7 +41,7 @@ public class DriftBar extends Positionable {
         float h = texHalf.getHeight();
         offX = w / 2;
         offY = h / 2;
-        shDriftSecs = ShaderLoader.fromFile("progress", "progress");
+        shDriftSecs = ShaderLoader.INSTANCE.fromFile("progress", "progress");
 
         // drift seconds
         sprDriftSecs = new Sprite(texHalf);

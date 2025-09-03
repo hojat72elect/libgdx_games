@@ -17,7 +17,7 @@ public final class CrtScreen extends Filter<CrtScreen> {
     private RgbMode mode;
 
     public CrtScreen(boolean barrelDistortion, RgbMode mode, int effectsSupport) {
-        super(ShaderLoader.fromFile("screenspace", "crt-screen", (barrelDistortion ? "#define ENABLE_BARREL_DISTORTION\n" : "")
+        super(ShaderLoader.INSTANCE.fromFile("screenspace", "crt-screen", (barrelDistortion ? "#define ENABLE_BARREL_DISTORTION\n" : "")
                 + (mode == RgbMode.RgbShift ? "#define ENABLE_RGB_SHIFT\n" : "")
                 + (mode == RgbMode.ChromaticAberrations ? "#define ENABLE_CHROMATIC_ABERRATIONS\n" : "")
                 + (isSet(Effect.TweakContrast.v, effectsSupport) ? "#define ENABLE_TWEAK_CONTRAST\n" : "")

@@ -109,7 +109,7 @@ public final class PostProcessing {
 
         if (UserPreferences.bool(Preference.CrtScreen)) {
 
-            ShaderLoader.Pedantic = false;
+            ShaderLoader.INSTANCE.setPedantic(false);
             int effects = Effect.PhosphorVibrance.v | Effect.Scanlines.v | Effect.Tint.v;
             boolean earthCurvature = UserPreferences.bool(Preference.EarthCurvature);
 
@@ -117,7 +117,7 @@ public final class PostProcessing {
                     RgbMode.ChromaticAberrations, effects);
 
             addEffect(Effects.Crt.name, crt);
-            ShaderLoader.Pedantic = true;
+            ShaderLoader.INSTANCE.setPedantic(true);
         }
 
         Gdx.app.log("PostProcessing", "Post-processing enabled and configured");

@@ -6,7 +6,7 @@ public final class Zoom extends Filter<Zoom> {
     private float x, y, zoom;
 
     public Zoom() {
-        super(ShaderLoader.fromFile("zoom", "zoom"));
+        super(ShaderLoader.INSTANCE.fromFile("zoom", "zoom"));
         rebind();
         setOrigin(0.5f, 0.5f);
         setZoom(1f);

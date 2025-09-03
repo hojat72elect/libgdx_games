@@ -115,11 +115,11 @@ public class OrthographicAlignedStillModel {
         // @on
 
         if (shader == null) {
-            shader = ShaderLoader.fromString(vertexShader, fragmentShader);
+            shader = ShaderLoader.INSTANCE.fromString(vertexShader, fragmentShader);
         }
 
         if (shaderNight == null) {
-            shaderNight = ShaderLoader.fromString(vertexShader, fragmentShaderNight);
+            shaderNight = ShaderLoader.INSTANCE.fromString(vertexShader, fragmentShaderNight);
         }
     }
 

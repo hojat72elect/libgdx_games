@@ -10,7 +10,7 @@ public final class Combine extends Filter<Combine> {
     private Texture inputTexture2 = null;
 
     public Combine() {
-        super(ShaderLoader.fromFile("screenspace", "combine"));
+        super(ShaderLoader.INSTANCE.fromFile("screenspace", "combine"));
         s1i = 1f;
         s2i = 1f;
         s1s = 1f;
