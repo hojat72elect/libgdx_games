@@ -372,7 +372,7 @@ public class SinglePlayer extends BaseLogic {
 
                 // show message
                 int pos = lastRecorded.position;
-                messager.show(pos + OrdinalUtils.getOrdinalFor(pos) + " place!", 1.5f, Message.Type.Information, Position.Top,
+                messager.show(pos + OrdinalUtils.INSTANCE.getOrdinalFor(pos) + " place!", 1.5f, Message.Type.Information, Position.Top,
                         Size.Big);
             } else {
                 ReplayInfo ri = lastRecorded.discarded;
