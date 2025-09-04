@@ -21,7 +21,7 @@ public final class Config {
         public static final float DefaultGhostCarOpacity = 0.25f;
         public static final float DefaultTargetCarOpacity = 0.75f;
         public static final float DefaultGhostOpacityChangeMs = 500;
-        public static final TweenEquation DefaultGhostOpacityChangeEq = Quart.OUT;
+        public static final TweenEquation DefaultGhostOpacityChangeEq = Quart.Companion.getOUT();
 
         public static final boolean EnableMipMapping = true;
         public static final boolean SubframeInterpolation = true;
