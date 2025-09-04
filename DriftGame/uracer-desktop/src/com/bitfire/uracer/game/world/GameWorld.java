@@ -190,7 +190,6 @@ public final class GameWorld {
                     scale = Float.parseFloat(o.getProperties().get(ObjectProperties.MeshScale.mnemonic, String.class));
                 }
 
-                // @off
                 OrthographicAlignedStillModel mesh = ModelFactory.create(
                         o.getProperties().get("type", String.class),
                         o.getProperties().get("x", Integer.class),
@@ -259,23 +258,14 @@ public final class GameWorld {
         lights = new PointLight[lights_count];
 
         for (int i = 0; i < lights_count; i++) {
-            //@off
-            c.set(
-//			 MathUtils.random(0,1),
-//			 MathUtils.random(0,1),
-//			 MathUtils.random(0,1),
-                    1f, .85f, 0.6f, 0.8f
-//				MathUtils.random(0.85f,1),
-//				MathUtils.random(0.8f,0.85f),
-//				MathUtils.random(0.6f,0.8f),
-//				0.55f
-            );
-            //@on
+
+            c.set(1f, .85f, 0.6f, 0.8f);
+
 
             RectangleMapObject o = (RectangleMapObject) group.getObjects().get(i);
-            pos.set(o.getRectangle().x, o.getRectangle().y);// .scl(scalingStrategy.invTileMapZoomFactor);
+            pos.set(o.getRectangle().x, o.getRectangle().y);
             pos.y = worldSizePx.y - pos.y;
-            pos.set(Convert.px2mt(pos));// .scl(scalingStrategy.tileMapZoomFactor);
+            pos.set(Convert.px2mt(pos));
 
             PointLight l = new PointLight(rayHandler, maxRays, c, MathUtils.random(15, 20), pos.x, pos.y);
             l.setSoft(true);
@@ -445,10 +435,6 @@ public final class GameWorld {
         return models;
     }
 
-    //
-    // construct trees
-    //
-
     private Mesh buildWallMesh(List<Vector2> points, float[] magnitudes) {
         final int X1 = 0;
         final int Y1 = 1;
@@ -566,7 +552,6 @@ public final class GameWorld {
             vecNormal.set(vecSecond).crs(vecFirst);
             vecNormal.nor();
 
-            //@off
             verts[first + NX1] += vecNormal.x;
             verts[first + NY1] += vecNormal.y;
             verts[first + NZ1] += vecNormal.z;
@@ -576,7 +561,6 @@ public final class GameWorld {
             verts[third + NX1] += vecNormal.x;
             verts[third + NY1] += vecNormal.y;
             verts[third + NZ1] += vecNormal.z;
-            //@on
         }
 
         // normalize everything
@@ -595,13 +579,11 @@ public final class GameWorld {
             verts[k + NZ1] = vecNormal.z;
         }
 
-        //@off
         Mesh mesh = new Mesh(VertexDataType.VertexArray, true, vertexCount, indexCount,
                 new VertexAttribute(Usage.Position, 3, ShaderProgram.POSITION_ATTRIBUTE),
                 new VertexAttribute(Usage.Normal, 3, ShaderProgram.NORMAL_ATTRIBUTE),
                 new VertexAttribute(Usage.TextureCoordinates, 2, ShaderProgram.TEXCOORD_ATTRIBUTE + "0")
         );
-        //@on
 
         mesh.setVertices(verts);
         mesh.setIndices(indices);

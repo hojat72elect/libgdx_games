@@ -644,7 +644,6 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
 
     // render flags for basic debug info
     public enum RenderFlags {
-        // @off
         VersionInfo,
         FpsStats,
         MemoryStats,
@@ -660,6 +659,5 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         CarEngineVolumes,
         Rankings,
         Completion
-        // @on
     }
 }

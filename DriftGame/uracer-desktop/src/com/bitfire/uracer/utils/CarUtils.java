@@ -17,17 +17,9 @@ public final class CarUtils {
         float elapsed = ReplayUtils.ticksToSeconds(ticks);
         float dist = car.getTraveledDistance();
         float mts = dist / elapsed;
-        // float kmh = mtSecToKmHour(mts);
 
-        // @off
         Gdx.app.log(msg, subject + " traveled " + dist + "m " + "(" + car.getAccuDistCount() + ") " + "in " + String.format("%.03f", elapsed) + "s " + "("
                 + mts + "mt/s) " +
-                // "(" + kmh + " km/h) " +
-                // "(" + car.getAccuSpeedCount() + ")" +
-                // "[" + AMath.round( kmh, 2 ) + " km/h, " +
-                // AMath.round( dist, 2 ) + " m]" +
                 " fpos=" + car.getBody().getPosition());
-
-        // @on
     }
 }

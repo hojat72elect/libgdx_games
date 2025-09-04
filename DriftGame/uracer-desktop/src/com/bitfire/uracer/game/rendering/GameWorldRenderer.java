@@ -383,18 +383,14 @@ public final class GameWorldRenderer {
 
             rayHandler.setAmbientLight(ambientColor);
 
-            // @off
             rayHandler.setCombinedMatrix(
                     camOrthoMvpMt,
                     Convert.px2mt(camOrtho.position.x),
                     Convert.px2mt(camOrtho.position.y),
                     Convert.px2mt(camOrtho.viewportWidth * camOrtho.zoom),
                     Convert.px2mt(camOrtho.viewportHeight * camOrtho.zoom));
-            // @on
 
             rayHandler.update();
-            // Gdx.app.log("GameWorldRenderer", "lights rendered=" + rayHandler.lightRenderedLastFrame);
-
             rayHandler.updateLightMap();
         }
     }

@@ -62,7 +62,6 @@ public final class BitmapFontFactory {
     }
 
     public enum FontFace {
-        //@off
         AdobeSourceSans("adobe-source-sans"),
         CurseGreen("curse-g"),
         CurseGreenBig("curse-g-big"),
@@ -81,7 +80,6 @@ public final class BitmapFontFactory {
         DottyShadow("dotty-shadow"),
         AuXDotBitCXtra("AuX DotBitC Xtra"),
         ;
-        //@on
 
         // the name reflects the filename
         public String name;

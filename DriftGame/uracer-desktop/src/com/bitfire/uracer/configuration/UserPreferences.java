@@ -47,10 +47,6 @@ public final class UserPreferences {
     private static void toDefaults() {
         prefs.clear();
 
-        //
-        // post-processing
-        //
-
         bool(Preference.PostProcessing, true);
         bool(Preference.Vignetting, true);
         bool(Preference.Bloom, true);
@@ -61,24 +57,9 @@ public final class UserPreferences {
         bool(Preference.Ssao, true);
         string(Preference.SsaoQuality, Ssao.Quality.Ultra.toString());
 
-        //
-        // rendering
-        //
-
-        // bool(Preference.ComplexTrees, true);
-        // bool(Preference.Walls, true);
-
-        //
-        // gameplay
-        //
-
         string(Preference.TimeDilateInputMode, TimeDilateInputMode.TouchAndRelease.toString());
         bool(Preference.NightMode, true);
         string(Preference.LastPlayedTrack, "");
-
-        //
-        // audio
-        //
         real(Preference.SfxVolume, 0.6f);
         real(Preference.MusicVolume, 0.85f);
 
@@ -120,9 +101,6 @@ public final class UserPreferences {
     }
 
     public enum Preference {
-        // @off
-
-        // post-processing
         PostProcessing,
         Vignetting,
         Bloom,
@@ -132,21 +110,12 @@ public final class UserPreferences {
         EarthCurvature,
         Ssao,
         SsaoQuality,
-
-        // rendering
-//		ComplexTrees,
-//		Walls,
-
-        // gameplay
         TimeDilateInputMode,
         NightMode,
         LastPlayedTrack,
-
-        // audio
         SfxVolume,
         MusicVolume,
         ;
-        // @on
 
         public String name;
 

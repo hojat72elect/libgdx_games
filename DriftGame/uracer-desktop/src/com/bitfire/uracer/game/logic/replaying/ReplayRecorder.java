@@ -8,7 +8,6 @@ import com.bitfire.uracer.game.actors.CarForces;
 
 public final class ReplayRecorder implements Disposable {
     private boolean isRecording;
-    // @on
     private final Time time;
     // freshly recorded data
     private final Replay recording;
@@ -72,7 +71,6 @@ public final class ReplayRecorder implements Disposable {
         return (int) (time.elapsed().ticks);
     }
 
-    // @off
     public enum RecorderError {
         NoError,
         RecordingNotEnabled,

@@ -37,11 +37,6 @@ public final class EventHandlers {
         }
     };
 
-    // PlayerLapCompletionMonitorEvent events order redux
-    //
-    // 1. warmup started
-    // 2. warmup completed + 3. lap started
-    // 4. lap completed + 5. lap started
     private final GhostLapCompletionMonitorEvent.Listener ghostLapCompletionMonitorListener = new GhostLapCompletionMonitorEvent.Listener() {
         @Override
         public void handle(Object source, GhostLapCompletionMonitorEvent.Type type, GhostLapCompletionMonitorEvent.Order order) {
@@ -190,5 +185,4 @@ public final class EventHandlers {
     public void unregisterRenderEvents() {
         GameEvents.gameRenderer.removeListener(rendererListener, GameRendererEvent.Type.BeforeRender, GameRendererEvent.Order.MINUS_4);
     }
-    //@on
 }

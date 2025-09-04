@@ -39,9 +39,7 @@ public final class GameScreensFactory implements ScreenFactory {
     }
 
     public enum ScreenType implements ScreenId {
-        // @off
         NoScreen, ExitScreen, MainScreen, OptionsScreen, GameScreen;
-        // @on
 
         @Override
         public int id() {

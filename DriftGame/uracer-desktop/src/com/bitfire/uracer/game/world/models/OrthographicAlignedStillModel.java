@@ -71,7 +71,6 @@ public class OrthographicAlignedStillModel {
     // explicitle initialize the static iShader member
     // (Android: statics need to be re-initialized!)
     private void loadShaders() {
-        // @off
         String vertexShader =
                 "uniform mat4 u_projTrans;							\n" +
                         "attribute vec4 a_position;						\n" +
@@ -112,7 +111,6 @@ public class OrthographicAlignedStillModel {
                         "	vec4 c = vec4((u_ambient.rgb + texel.rgb*texel.a)*u_ambient.a, texel.a);	\n" +
                         "	gl_FragColor = vec4(c.rgb,c.a*alpha);													\n" +
                         "}\n";
-        // @on
 
         if (shader == null) {
             shader = ShaderLoader.INSTANCE.fromString(vertexShader, fragmentShader);
