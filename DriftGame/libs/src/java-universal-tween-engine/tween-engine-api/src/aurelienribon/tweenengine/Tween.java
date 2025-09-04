@@ -164,7 +164,7 @@ public final class Tween extends BaseTween<Tween> {
     public static Tween to(Object target, int tweenType, float duration) {
         Tween tween = pool.get();
         tween.setup(target, tweenType, duration);
-        tween.ease(Quad.INOUT);
+        tween.ease(Quad.Companion.getINOUT());
         tween.path(TweenPaths.Companion.getCatmullRom());
         return tween;
     }
@@ -200,7 +200,7 @@ public final class Tween extends BaseTween<Tween> {
     public static Tween from(Object target, int tweenType, float duration) {
         Tween tween = pool.get();
         tween.setup(target, tweenType, duration);
-        tween.ease(Quad.INOUT);
+        tween.ease(Quad.Companion.getINOUT());
         tween.path(TweenPaths.Companion.getCatmullRom());
         tween.isFrom = true;
         return tween;
@@ -236,7 +236,7 @@ public final class Tween extends BaseTween<Tween> {
     public static Tween set(Object target, int tweenType) {
         Tween tween = pool.get();
         tween.setup(target, tweenType, 0);
-        tween.ease(Quad.INOUT);
+        tween.ease(Quad.Companion.getINOUT());
         return tween;
     }
 

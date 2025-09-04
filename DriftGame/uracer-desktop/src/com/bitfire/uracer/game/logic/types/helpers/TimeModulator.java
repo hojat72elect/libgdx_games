@@ -42,7 +42,7 @@ public final class TimeModulator {
     private void modulateTo(float to) {
         SysTweener.stop(timeMultiplier);
         timeSeq = Timeline.createSequence();
-        timeSeq.push(Tween.to(timeMultiplier, BoxedFloatAccessor.VALUE, (float) 1000).target(to).ease(Quad.OUT));
+        timeSeq.push(Tween.to(timeMultiplier, BoxedFloatAccessor.VALUE, (float) 1000).target(to).ease(Quad.Companion.getOUT()));
         SysTweener.start(timeSeq);
     }
 }

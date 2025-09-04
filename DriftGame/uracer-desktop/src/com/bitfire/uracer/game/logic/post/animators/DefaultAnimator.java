@@ -91,9 +91,9 @@ public final class DefaultAnimator implements PostProcessingAnimator {
             Timeline seq = Timeline.createSequence();
 
             seq
-                    .push(Tween.to(alertAmount, BoxedFloatAccessor.VALUE, milliseconds).target(1.5f).ease(Quad.IN))
+                    .push(Tween.to(alertAmount, BoxedFloatAccessor.VALUE, milliseconds).target(1.5f).ease(Quad.Companion.getIN()))
                     .pushPause(50)
-                    .push(Tween.to(alertAmount, BoxedFloatAccessor.VALUE, milliseconds).target(0.75f).ease(Quad.OUT))
+                    .push(Tween.to(alertAmount, BoxedFloatAccessor.VALUE, milliseconds).target(0.75f).ease(Quad.Companion.getOUT()))
             ;
             GameTweener.start(seq);
         }
@@ -106,7 +106,7 @@ public final class DefaultAnimator implements PostProcessingAnimator {
 
             GameTweener.stop(alertAmount);
             Timeline seq = Timeline.createSequence();
-            seq.push(Tween.to(alertAmount, BoxedFloatAccessor.VALUE, milliseconds).target(0).ease(Quad.INOUT));
+            seq.push(Tween.to(alertAmount, BoxedFloatAccessor.VALUE, milliseconds).target(0).ease(Quad.Companion.getINOUT()));
             GameTweener.start(seq);
         }
     }

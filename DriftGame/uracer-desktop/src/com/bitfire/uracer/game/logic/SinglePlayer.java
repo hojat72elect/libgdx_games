@@ -133,7 +133,7 @@ public class SinglePlayer extends BaseLogic {
     private void setGhostAlphasFor(boolean isTargetMode) {
         for (GhostCar ghostCar : ghostCars) {
             ghostCar.tweenAlphaTo(isTargetMode ? Config.Graphics.DefaultGhostCarOpacity
-                    : Config.Graphics.DefaultTargetCarOpacity, Config.Graphics.DefaultGhostOpacityChangeMs * 1.5f, Quad.OUT);
+                    : Config.Graphics.DefaultTargetCarOpacity, Config.Graphics.DefaultGhostOpacityChangeMs * 1.5f, Quad.Companion.getOUT());
         }
     }
 
