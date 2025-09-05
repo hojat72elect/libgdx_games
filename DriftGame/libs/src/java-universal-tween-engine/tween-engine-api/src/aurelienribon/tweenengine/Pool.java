@@ -3,7 +3,7 @@ package aurelienribon.tweenengine;
 import java.util.ArrayList;
 
 /**
- * A light pool of objects that can be resused to avoid allocation. Based on Nathan Sweet pool implementation
+ * A light-weight pool of objects that can be reused to avoid allocation. Based on Nathan Sweet pool implementation.
  */
 abstract class Pool<T> {
     private final ArrayList<T> objects;
