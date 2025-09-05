@@ -12,7 +12,7 @@ import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.uracer.game.rendering.GameRenderer;
 import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.utils.AMath;
-import com.bitfire.uracer.utils.Convert;
+import com.bitfire.uracer.utils.NewConvert;
 
 public class PlayerSkidMarks extends TrackEffect {
 
@@ -51,8 +51,7 @@ public class PlayerSkidMarks extends TrackEffect {
         super.player(player);
         if (hasPlayer) {
             for (int i = 0; i < MaxSkidMarks; i++) {
-                skidMarks[i].setup(Convert.mt2px(player.getCarModel().width), Convert.mt2px(player.getCarModel().length));
-                // skidMarks[i].life = 0;
+                skidMarks[i].setup(NewConvert.INSTANCE.mt2px(player.getCarModel().width), NewConvert.INSTANCE.mt2px(player.getCarModel().length));
             }
         }
     }
@@ -82,8 +81,8 @@ public class PlayerSkidMarks extends TrackEffect {
         if (hasPlayer) {
             if (player.carState.currVelocityLenSquared >= 1 && player.driftState.driftStrength > 0.3f
                     && player.carState.currSpeedFactor > 0.1f) {
-                ppos.x = Convert.mt2px(player.getBody().getPosition().x);
-                ppos.y = Convert.mt2px(player.getBody().getPosition().y);
+                ppos.x = NewConvert.INSTANCE.mt2px(player.getBody().getPosition().x);
+                ppos.y = NewConvert.INSTANCE.mt2px(player.getBody().getPosition().y);
                 tryAddDriftMark(ppos, player.state().orientation);
             }
         }

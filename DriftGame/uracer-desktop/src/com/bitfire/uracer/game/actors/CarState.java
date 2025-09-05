@@ -3,7 +3,7 @@ package com.bitfire.uracer.game.actors;
 import com.badlogic.gdx.math.Vector2;
 import com.bitfire.uracer.game.world.GameWorld;
 import com.bitfire.uracer.utils.AMath;
-import com.bitfire.uracer.utils.Convert;
+import com.bitfire.uracer.utils.NewConvert;
 
 public final class CarState {
     /* observed car */
@@ -69,7 +69,7 @@ public final class CarState {
 
         // compute car's tile position
         tilePosition
-                .set(world.pxToTile(Convert.mt2px(car.getBody().getPosition().x), Convert.mt2px(car.getBody().getPosition().y)));
+                .set(world.pxToTile(NewConvert.INSTANCE.mt2px(car.getBody().getPosition().x), NewConvert.INSTANCE.mt2px(car.getBody().getPosition().y)));
 
         currTileX = (int) tilePosition.x;
         currTileY = (int) tilePosition.y;

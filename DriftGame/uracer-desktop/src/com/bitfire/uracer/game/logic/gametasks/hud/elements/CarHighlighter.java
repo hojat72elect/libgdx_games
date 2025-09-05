@@ -15,7 +15,7 @@ import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.utils.AMath;
 import com.bitfire.uracer.utils.BoxedFloat;
 import com.bitfire.uracer.utils.BoxedFloatAccessor;
-import com.bitfire.uracer.utils.Convert;
+import com.bitfire.uracer.utils.NewConvert;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -105,7 +105,7 @@ public final class CarHighlighter {
         renderState = followedCar.state();
 
         CarModel model = car.getCarModel();
-        sprite.setSize(Convert.mt2px(model.width) * 1.4f, Convert.mt2px(model.length) * 1.4f);
+        sprite.setSize(NewConvert.INSTANCE.mt2px(model.width) * 1.4f, NewConvert.INSTANCE.mt2px(model.length) * 1.4f);
         sprite.setOrigin(sprite.getWidth() / 2, sprite.getHeight() / 2);
 
         offX = sprite.getOriginX();

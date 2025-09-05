@@ -32,7 +32,7 @@ import com.bitfire.uracer.screen.TransitionFactory.TransitionType;
 import com.bitfire.uracer.utils.AMath;
 import com.bitfire.uracer.utils.BoxedFloat;
 import com.bitfire.uracer.utils.BoxedFloatAccessor;
-import com.bitfire.uracer.utils.Convert;
+import com.bitfire.uracer.utils.NewConvert;
 import com.bitfire.uracer.utils.ScaleUtils;
 import com.bitfire.uracer.utils.SpriteBatchUtils;
 import com.bitfire.uracer.utils.URacerRuntimeException;
@@ -82,7 +82,7 @@ public class URacer implements ApplicationListener {
         Tween.registerAccessor(HudLabel.class, new HudLabelAccessor());
         Tween.registerAccessor(BoxedFloat.class, new BoxedFloatAccessor());
 
-        Convert.init(Config.Physics.PixelsPerMeter);
+        NewConvert.INSTANCE.initialize(Config.Physics.PixelsPerMeter);
 
         // Initialize the timers after creating the game screen, so that there will be no huge discrepancies between the first
         // lastDeltaTimeSec value and the followers. Note those initial values are carefully choosen to ensure that the first

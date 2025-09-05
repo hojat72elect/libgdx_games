@@ -46,7 +46,7 @@ import com.bitfire.uracer.u3d.materials.TextureAttribute;
 import com.bitfire.uracer.u3d.still.StillModel;
 import com.bitfire.uracer.u3d.still.StillSubMesh;
 import com.bitfire.uracer.utils.AMath;
-import com.bitfire.uracer.utils.Convert;
+import com.bitfire.uracer.utils.NewConvert;
 import com.bitfire.uracer.utils.ScaleUtils;
 
 import java.util.ArrayList;
@@ -129,7 +129,7 @@ public final class GameWorld {
         // compute world size
         worldSizeTiles = new Vector2(mapWidth, mapHeight);
         worldSizePx = new Vector2(mapWidth * tileWidth, mapHeight * tileHeight);
-        worldSizeMt = new Vector2(Convert.px2mt(mapWidth * tileWidth), Convert.px2mt(mapHeight * tileHeight));
+        worldSizeMt = new Vector2(NewConvert.INSTANCE.px2mt(mapWidth * tileWidth), NewConvert.INSTANCE.px2mt(mapHeight * tileHeight));
 
         // initialize tilemap utils
         mapUtils = new MapUtils(map, tileWidth, mapHeight, worldSizePx);
@@ -265,7 +265,7 @@ public final class GameWorld {
             RectangleMapObject o = (RectangleMapObject) group.getObjects().get(i);
             pos.set(o.getRectangle().x, o.getRectangle().y);
             pos.y = worldSizePx.y - pos.y;
-            pos.set(Convert.px2mt(pos));
+            pos.set(NewConvert.INSTANCE.px2mt(pos));
 
             PointLight l = new PointLight(rayHandler, maxRays, c, MathUtils.random(15, 20), pos.x, pos.y);
             l.setSoft(true);
@@ -294,15 +294,15 @@ public final class GameWorld {
                 r = new ArrayList<>(points.size());
 
                 offsetMt.set(o.getPolyline().getX(), o.getPolyline().getY());
-                offsetMt.set(Convert.px2mt(offsetMt));
+                offsetMt.set(NewConvert.INSTANCE.px2mt(offsetMt));
 
-                fromMt.set(Convert.px2mt(points.get(0))).add(offsetMt);
+                fromMt.set(NewConvert.INSTANCE.px2mt(points.get(0))).add(offsetMt);
                 fromMt.y = worldSizeMt.y - fromMt.y;
 
                 r.add(new Vector2(fromMt));
 
                 for (int j = 1; j <= points.size() - 1; j++) {
-                    toMt.set(Convert.px2mt(points.get(j))).add(offsetMt);
+                    toMt.set(NewConvert.INSTANCE.px2mt(points.get(j))).add(offsetMt);
                     toMt.y = worldSizeMt.y - toMt.y;
                     r.add(new Vector2(toMt));
                 }
@@ -341,12 +341,12 @@ public final class GameWorld {
                     }
 
                     offsetMt.set(o.getPolygon().getX(), o.getPolygon().getY());
-                    offsetMt.set(Convert.px2mt(offsetMt));
+                    offsetMt.set(NewConvert.INSTANCE.px2mt(offsetMt));
 
                     float[] vertices = new float[8];
                     for (int j = 0; j < points.size(); j++) {
                         // convert to uracer convention
-                        pt.set(Convert.px2mt(points.get(j))).add(offsetMt);
+                        pt.set(NewConvert.INSTANCE.px2mt(points.get(j))).add(offsetMt);
                         pt.y = worldSizeMt.y - pt.y;
 
                         vertices[j * 2] = pt.x;
@@ -397,13 +397,13 @@ public final class GameWorld {
                         float[] mags = new float[points.size() - 1];
 
                         offsetMt.set(o.getPolyline().getX(), o.getPolyline().getY());
-                        offsetMt.set(Convert.px2mt(offsetMt));
+                        offsetMt.set(NewConvert.INSTANCE.px2mt(offsetMt));
 
-                        fromMt.set(Convert.px2mt(points.get(0))).add(offsetMt);
+                        fromMt.set(NewConvert.INSTANCE.px2mt(points.get(0))).add(offsetMt);
                         fromMt.y = worldSizeMt.y - fromMt.y;
 
                         for (int j = 1; j <= points.size() - 1; j++) {
-                            toMt.set(Convert.px2mt(points.get(j))).add(offsetMt);
+                            toMt.set(NewConvert.INSTANCE.px2mt(points.get(j))).add(offsetMt);
                             toMt.y = worldSizeMt.y - toMt.y;
 
                             // create box2d wall
@@ -490,7 +490,7 @@ public final class GameWorld {
 
             coordU = mag * textureScalingU;
 
-            in.set(Convert.px2mt(points.get(i)));
+            in.set(NewConvert.INSTANCE.px2mt(points.get(i)));
             in.y = -in.y;
             in.scl(factor * oneOnWorld3DFactor);
 

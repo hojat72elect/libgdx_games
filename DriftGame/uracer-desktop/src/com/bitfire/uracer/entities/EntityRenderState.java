@@ -3,7 +3,7 @@ package com.bitfire.uracer.entities;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.bitfire.uracer.utils.AMath;
-import com.bitfire.uracer.utils.Convert;
+import com.bitfire.uracer.utils.NewConvert;
 
 public final class EntityRenderState {
     private static final EntityRenderState result = new EntityRenderState();
@@ -72,8 +72,8 @@ public final class EntityRenderState {
      * Transform the world position from meters to pixels.
      */
     public void toPixels() {
-        this.position.x = Convert.mt2px(this.position.x);
-        this.position.y = Convert.mt2px(this.position.y);
+        this.position.x = NewConvert.INSTANCE.mt2px(this.position.x);
+        this.position.y = NewConvert.INSTANCE.mt2px(this.position.y);
         this.orientation = this.orientation * MathUtils.radiansToDegrees;
     }
 

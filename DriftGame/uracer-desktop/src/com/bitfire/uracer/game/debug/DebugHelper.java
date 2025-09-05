@@ -45,7 +45,7 @@ import com.bitfire.uracer.game.world.models.TrackWalls;
 import com.bitfire.uracer.game.world.models.TreeStillModel;
 import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.utils.AMath;
-import com.bitfire.uracer.utils.Convert;
+import com.bitfire.uracer.utils.NewConvert;
 import com.bitfire.uracer.utils.ReplayUtils;
 import com.bitfire.uracer.utils.ScaleUtils;
 import com.bitfire.uracer.utils.SpriteBatchUtils;
@@ -513,7 +513,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         SpriteBatchUtils.drawString(batch, "screen x=" + pos.x + ",y=" + pos.y, 0, Art.DebugFontWidth * 4);
         SpriteBatchUtils.drawString(batch, "world-mt x=" + body.getPosition().x + ",y=" + body.getPosition().y, 0, Art.DebugFontWidth * 5);
         SpriteBatchUtils.drawString(batch,
-                "world-px x=" + Convert.mt2px(body.getPosition().x) + ",y=" + Convert.mt2px(body.getPosition().y), 0, Art.DebugFontWidth * 6);
+                "world-px x=" + NewConvert.INSTANCE.mt2px(body.getPosition().x) + ",y=" + NewConvert.INSTANCE.mt2px(body.getPosition().y), 0, Art.DebugFontWidth * 6);
         SpriteBatchUtils.drawString(batch, "orient=" + body.getAngle(), 0, Art.DebugFontWidth * 7);
         SpriteBatchUtils.drawString(batch, "render.interp=" + (state.position.x + "," + state.position.y), 0, Art.DebugFontWidth * 8);
     }

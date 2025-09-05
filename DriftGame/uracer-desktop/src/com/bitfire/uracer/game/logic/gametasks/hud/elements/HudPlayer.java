@@ -14,7 +14,7 @@ import com.bitfire.uracer.game.logic.gametasks.hud.elements.player.WrongWay;
 import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.uracer.game.rendering.GameRenderer;
 import com.bitfire.uracer.utils.AMath;
-import com.bitfire.uracer.utils.Convert;
+import com.bitfire.uracer.utils.NewConvert;
 import com.bitfire.uracer.utils.VMath;
 
 /**
@@ -51,8 +51,8 @@ public final class HudPlayer extends HudElement {
         super.player(player);
         if (hasPlayer) {
             playerState = player.state();
-            carModelWidthPx = Convert.mt2px(player.getCarModel().width);
-            carModelLengthPx = Convert.mt2px(player.getCarModel().length);
+            carModelWidthPx = NewConvert.INSTANCE.mt2px(player.getCarModel().width);
+            carModelLengthPx = NewConvert.INSTANCE.mt2px(player.getCarModel().length);
             highlightError.setCar(player);
         } else {
             driftBar.reset();

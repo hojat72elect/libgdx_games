@@ -17,7 +17,7 @@ import com.bitfire.uracer.game.logic.post.PostProcessing;
 import com.bitfire.uracer.game.logic.post.PostProcessing.Effects;
 import com.bitfire.uracer.game.logic.post.effects.Ssao;
 import com.bitfire.uracer.game.world.GameWorld;
-import com.bitfire.uracer.utils.Convert;
+import com.bitfire.uracer.utils.NewConvert;
 import com.bitfire.uracer.utils.ScaleUtils;
 
 /**
@@ -279,7 +279,7 @@ public final class GameRenderer {
          * Transforms Box2D world-mt coordinates to reference-screen pixels coordinates
          */
         public static Vector2 worldMtToScreen(Vector2 worldPositionMt) {
-            return worldPxToScreen(Convert.mt2px(worldPositionMt));
+            return worldPxToScreen(NewConvert.INSTANCE.mt2px(worldPositionMt));
         }
 
         /**

@@ -32,7 +32,7 @@ import com.bitfire.uracer.game.world.models.TreeStillModel;
 import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.u3d.still.StillSubMesh;
 import com.bitfire.uracer.utils.AMath;
-import com.bitfire.uracer.utils.Convert;
+import com.bitfire.uracer.utils.NewConvert;
 import com.bitfire.uracer.utils.ScaleUtils;
 import com.bitfire.uracer.utils.URacerRuntimeException;
 import com.bitfire.utils.ShaderLoader;
@@ -280,8 +280,8 @@ public final class GameWorldRenderer {
         float dX = offx * cos - offsetY * sin;
         float dY = offx * sin + offsetY * cos;
 
-        float mx = Convert.px2mt(carPosition.x) + dX;
-        float my = Convert.px2mt(carPosition.y) + dY;
+        float mx = NewConvert.INSTANCE.px2mt(carPosition.x) + dX;
+        float my = NewConvert.INSTANCE.px2mt(carPosition.y) + dY;
         _o2p.set(mx, my);
         return _o2p;
     }
@@ -385,10 +385,10 @@ public final class GameWorldRenderer {
 
             rayHandler.setCombinedMatrix(
                     camOrthoMvpMt,
-                    Convert.px2mt(camOrtho.position.x),
-                    Convert.px2mt(camOrtho.position.y),
-                    Convert.px2mt(camOrtho.viewportWidth * camOrtho.zoom),
-                    Convert.px2mt(camOrtho.viewportHeight * camOrtho.zoom));
+                    NewConvert.INSTANCE.px2mt(camOrtho.position.x),
+                    NewConvert.INSTANCE.px2mt(camOrtho.position.y),
+                    NewConvert.INSTANCE.px2mt(camOrtho.viewportWidth * camOrtho.zoom),
+                    NewConvert.INSTANCE.px2mt(camOrtho.viewportHeight * camOrtho.zoom));
 
             rayHandler.update();
             rayHandler.updateLightMap();

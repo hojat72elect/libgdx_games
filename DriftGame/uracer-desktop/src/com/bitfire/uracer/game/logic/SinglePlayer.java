@@ -34,7 +34,7 @@ import com.bitfire.uracer.game.rendering.GameRenderer;
 import com.bitfire.uracer.game.screens.GameScreensFactory.ScreenType;
 import com.bitfire.uracer.game.world.GameWorld;
 import com.bitfire.uracer.utils.CarUtils;
-import com.bitfire.uracer.utils.Convert;
+import com.bitfire.uracer.utils.NewConvert;
 import com.bitfire.uracer.utils.OrdinalUtils;
 import com.bitfire.uracer.utils.ReplayUtils;
 import com.bitfire.uracer.utils.URacerRuntimeException;
@@ -227,7 +227,7 @@ public class SinglePlayer extends BaseLogic {
             positionPx.set(getGhost(0).state().position);
         } else {
             // no ghost, no player, WTF?
-            positionPx.set(Convert.mt2px(gameWorld.playerStart.position));
+            positionPx.set(NewConvert.INSTANCE.mt2px(gameWorld.playerStart.position));
         }
     }
 

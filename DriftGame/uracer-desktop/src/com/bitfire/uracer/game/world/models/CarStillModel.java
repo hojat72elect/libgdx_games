@@ -14,8 +14,8 @@ import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.uracer.u3d.materials.Material;
 import com.bitfire.uracer.u3d.still.StillModel;
 import com.bitfire.uracer.u3d.still.StillSubMesh;
-import com.bitfire.uracer.utils.Convert;
 import com.bitfire.uracer.utils.InterpolatedFloat;
+import com.bitfire.uracer.utils.NewConvert;
 import com.bitfire.uracer.utils.ScaleUtils;
 import com.bitfire.uracer.utils.URacerRuntimeException;
 
@@ -123,14 +123,13 @@ public class CarStillModel extends OrthographicAlignedStillModel {
             mtxbody.rotate(0, 1, 0, wt_body_angle);
             mtxbody.scale(this.scaleAxis.x * s, this.scaleAxis.y * s, this.scaleAxis.z * s);
 
-            // comb = (proj * view) * model (fast mul)
             mtxbodytransformed.set(camPersp.combined).mul(mtxbody);
         }
 
         tireAngle.set(MathUtils.radDeg * car.getSteerAngleRads(), 0.1f);
 
-        float offx = Convert.mt2px(0.97f) * s;
-        float offy = Convert.mt2px(1.23f) * s;
+        float offx = NewConvert.INSTANCE.mt2px(0.97f) * s;
+        float offy = NewConvert.INSTANCE.mt2px(1.23f) * s;
         float cos = MathUtils.cosDeg(90 + state.orientation);
         float sin = MathUtils.sinDeg(90 + state.orientation);
 
