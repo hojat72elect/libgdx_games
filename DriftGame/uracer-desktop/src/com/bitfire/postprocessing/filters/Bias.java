@@ -3,7 +3,7 @@ package com.bitfire.postprocessing.filters;
 import com.bitfire.utils.ShaderLoader;
 
 /**
- * Bias filter. Adapted for lensflare2 effect.
+ * Bias filter. Adapted for LensFlare effect.
  *
  * @see <a
  * href="http://john-chapman-graphics.blogspot.co.uk/2013/02/pseudo-lens-flare.html">http://john-chapman-graphics.blogspot.co.uk/2013/02/pseudo-lens-flare.html</a>

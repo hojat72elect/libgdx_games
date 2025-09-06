@@ -10,24 +10,24 @@ import com.bitfire.postprocessing.filters.Bias;
 import com.bitfire.postprocessing.filters.Blur;
 import com.bitfire.postprocessing.filters.Blur.BlurType;
 import com.bitfire.postprocessing.filters.Combine;
-import com.bitfire.postprocessing.filters.Lens2;
+import com.bitfire.postprocessing.filters.Lens;
 import com.bitfire.postprocessing.utils.PingPongBuffer;
 
 /**
  * Pseudo lens flare implementation. This is a post-processing effect entirely, no need for light positions or anything. It
  * includes ghost generation, halos, chromatic distortion and blur.
  */
-public final class LensFlare2 extends PostProcessorEffect {
+public final class LensFlare extends PostProcessorEffect {
     private final PingPongBuffer pingPongBuffer;
-    private final Lens2 lens;
+    private final Lens lens;
     private final Blur blur;
     private final Bias bias;
     private final Combine combine;
 
-    public LensFlare2(int fboWidth, int fboHeight) {
+    public LensFlare(int fboWidth, int fboHeight) {
         pingPongBuffer = PostProcessor.newPingPongBuffer(fboWidth, fboHeight, PostProcessor.getFramebufferFormat(), false);
 
-        lens = new Lens2(fboWidth, fboHeight);
+        lens = new Lens(fboWidth, fboHeight);
         blur = new Blur(fboWidth, fboHeight);
         bias = new Bias();
         combine = new Combine();

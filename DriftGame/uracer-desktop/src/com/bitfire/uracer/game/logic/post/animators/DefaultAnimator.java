@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.bitfire.postprocessing.effects.Bloom;
 import com.bitfire.postprocessing.effects.CrtMonitor;
-import com.bitfire.postprocessing.effects.LensFlare2;
+import com.bitfire.postprocessing.effects.LensFlare;
 import com.bitfire.postprocessing.effects.Vignette;
 import com.bitfire.postprocessing.effects.Zoomer;
 import com.bitfire.postprocessing.filters.Combine;
@@ -47,7 +47,7 @@ public final class DefaultAnimator implements PostProcessingAnimator {
     private RgbMode crtMode = RgbMode.None;
     private final Ssao ssao;
     private final LightShafts shafts;
-    private final LensFlare2 flare;
+    private final LensFlare flare;
     private PlayerCar player = null;
     private boolean hasPlayer = false;
     private final BoxedFloat alertAmount = new BoxedFloat(0);
@@ -71,7 +71,7 @@ public final class DefaultAnimator implements PostProcessingAnimator {
         }
         ssao = (Ssao) post.getEffect(PostProcessing.Effects.Ssao.name);
         shafts = (LightShafts) post.getEffect(PostProcessing.Effects.LightShafts.name);
-        flare = (LensFlare2) post.getEffect(PostProcessing.Effects.LensFlare.name);
+        flare = (LensFlare) post.getEffect(PostProcessing.Effects.LensFlare.name);
         zoomBlurStrengthFactor.setFixup(false);
         reset();
     }

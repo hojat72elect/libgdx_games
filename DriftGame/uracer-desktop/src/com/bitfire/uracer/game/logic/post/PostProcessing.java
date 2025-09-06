@@ -10,7 +10,7 @@ import com.bitfire.postprocessing.PostProcessor;
 import com.bitfire.postprocessing.PostProcessorEffect;
 import com.bitfire.postprocessing.effects.Bloom;
 import com.bitfire.postprocessing.effects.CrtMonitor;
-import com.bitfire.postprocessing.effects.LensFlare2;
+import com.bitfire.postprocessing.effects.LensFlare;
 import com.bitfire.postprocessing.effects.Vignette;
 import com.bitfire.postprocessing.effects.Zoomer;
 import com.bitfire.postprocessing.filters.CrtScreen.Effect;
@@ -96,7 +96,7 @@ public final class PostProcessing {
         }
 
         // dbg
-        addEffect(Effects.LensFlare.name, new LensFlare2((int) (fboW * 0.75f), (int) (fboH * 0.75f)));
+        addEffect(Effects.LensFlare.name, new LensFlare((int) (fboW * 0.75f), (int) (fboH * 0.75f)));
         // dbg
 
         // dbg

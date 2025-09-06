@@ -1,63 +1,64 @@
 package com.bitfire.postprocessing.filters;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.bitfire.utils.ShaderLoader;
 
 /**
- * Lens flare effect.
+ * Lens flare effect as described in John Chapman's article (without lens dirt or diffraction starburst). Lens color image
+ * (lenscolor.png) is located in src/main/resources/ folder.
+ *
+ * @see <a
+ * href="http://john-chapman-graphics.blogspot.co.uk/2013/02/pseudo-lens-flare.html">http://john-chapman-graphics.blogspot.co.uk/2013/02/pseudo-lens-flare.html</a>
  **/
 public final class Lens extends Filter<Lens> {
-    private final Vector2 lightPosition = new Vector2();
-    private float intensity;
-    private final Vector3 color = new Vector3();
-    private final Vector2 viewport = new Vector2();
+    private final Vector2 viewportInverse;
+    private int ghosts;
+    private float haloWidth;
+    private Texture lensColorTexture;
 
-    public Lens(float width, float height) {
-        super(ShaderLoader.INSTANCE.fromFile("screenspace", "lensflare"));
-        viewport.set(width, height);
+    public Lens(int width, int height) {
+        super(ShaderLoader.INSTANCE.fromFile("screenspace", "lensflare2"));
+        viewportInverse = new Vector2(1f / width, 1f / height);
         rebind();
     }
 
-    public float getIntensity() {
-        return intensity;
+    public void setGhosts(int ghosts) {
+        this.ghosts = ghosts;
+        setParam(Param.Ghosts, ghosts);
     }
 
-    public void setIntensity(float intensity) {
-        this.intensity = intensity;
-        setParam(Param.Intensity, intensity);
+    public void setHaloWidth(float haloWidth) {
+        this.haloWidth = haloWidth;
+        setParam(Param.HaloWidth, haloWidth);
     }
 
-    public Vector3 getColor() {
-        return color;
-    }
-
-    public void setColor(float r, float g, float b) {
-        color.set(r, g, b);
-        setParam(Param.Color, color);
+    public void setLensColorTexture(Texture tex) {
+        this.lensColorTexture = tex;
+        setParam(Param.LensColor, u_texture1);
     }
 
     @Override
     public void rebind() {
         // Re-implement super to batch every parameter
         setParams(Param.Texture, u_texture0);
-        setParams(Param.LightPosition, lightPosition);
-        setParams(Param.Intensity, intensity);
-        setParams(Param.Color, color);
-        setParams(Param.Viewport, viewport);
+        setParams(Param.LensColor, u_texture1);
+        setParams(Param.ViewportInverse, viewportInverse);
+        setParams(Param.Ghosts, ghosts);
+        setParams(Param.HaloWidth, haloWidth);
         endParams();
     }
 
     @Override
     protected void onBeforeRender() {
         inputTexture.bind(u_texture0);
+        lensColorTexture.bind(u_texture1);
     }
 
     public enum Param implements Parameter {
 
-        Texture("u_texture0", 0), LightPosition("u_lightPosition", 2), Intensity("u_intensity", 0), Color("u_color", 3), Viewport(
-			"u_viewport", 2);
-
+        Texture("u_texture0", 0), LensColor("u_texture1", 0), ViewportInverse("u_viewportInverse", 2), Ghosts("u_ghosts", 0), HaloWidth(
+                "u_haloWidth", 0);
 
         private final String mnemonic;
         private final int elementSize;
