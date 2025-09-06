@@ -227,8 +227,8 @@ public abstract strictfp class Car extends Box2DEntity {
         }
 
         // put newly computed forces into the system
-        body.setLinearVelocity(carForces.velocity_x, carForces.velocity_y);
-        body.setAngularVelocity(-carForces.angularVelocity);
+        body.setLinearVelocity(carForces.getVelocityX(), carForces.getVelocityY());
+        body.setAngularVelocity(-carForces.getAngularVelocity());
     }
 
     @Override

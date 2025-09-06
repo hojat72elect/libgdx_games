@@ -62,9 +62,9 @@ public final class Replay implements Disposable, Comparable<Replay> {
                 r.carOrientationRads = is.readFloat();
 
                 for (int i = 0; i < r.info.eventsCount; i++) {
-                    r.forces[i].velocity_x = is.readFloat();
-                    r.forces[i].velocity_y = is.readFloat();
-                    r.forces[i].angularVelocity = is.readFloat();
+                    r.forces[i].setVelocityX(is.readFloat());
+                    r.forces[i].setVelocityY(is.readFloat());
+                    r.forces[i].setAngularVelocity(is.readFloat());
                 }
 
                 is.close();
@@ -189,9 +189,9 @@ public final class Replay implements Disposable, Comparable<Replay> {
                 // write the effective number of captured CarForces events
                 for (int i = 0; i < info.eventsCount; i++) {
                     CarForces f = forces[i];
-                    os.writeFloat(f.velocity_x);
-                    os.writeFloat(f.velocity_y);
-                    os.writeFloat(f.angularVelocity);
+                    os.writeFloat(f.getVelocityX());
+                    os.writeFloat(f.getVelocityY());
+                    os.writeFloat(f.getAngularVelocity());
                 }
 
                 os.close();

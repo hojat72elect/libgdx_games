@@ -291,9 +291,9 @@ public class PlayerCar extends Car {
         carSim.step(Config.Physics.Dt, body.getAngle());
 
         // update computed forces
-        forces.velocity_x = carDesc.velocity_wc.x;
-        forces.velocity_y = carDesc.velocity_wc.y;
-        forces.angularVelocity = carDesc.angularvelocity;
+        forces.setVelocityX(carDesc.velocity_wc.x);
+        forces.setVelocityY(carDesc.velocity_wc.y);
+        forces.setAngularVelocity(carDesc.angularvelocity);
     }
 
     @Override
