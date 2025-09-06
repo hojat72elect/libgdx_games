@@ -46,7 +46,6 @@ public class URacer implements ApplicationListener {
     public static final String Name = "URacer: The King Of The Drift";
     public static final float MaxDeltaTimeSec = 0.25f;
     public static final long MaxDeltaTimeNs = (long) (MaxDeltaTimeSec * 1000000000f);
-    // version
     public static final String versionInfo = getVersionInformation();
     private static final boolean useRealFrametime = true;
     private static final float oneOnOneBillion = 1.0f / 1000000000.0f;
@@ -70,8 +69,6 @@ public class URacer implements ApplicationListener {
     private final long PhysicsDtNs;
     private long lastDeltaTimeNsBeforePause = 0;
     private URacerFinalizer uRacerFinalizer;
-
-    // boot
     private final BootConfig boot;
 
     public URacer(BootConfig boot) {
@@ -84,9 +81,11 @@ public class URacer implements ApplicationListener {
 
         NewConvert.INSTANCE.initialize(Config.Physics.PixelsPerMeter);
 
-        // Initialize the timers after creating the game screen, so that there will be no huge discrepancies between the first
-        // lastDeltaTimeSec value and the followers. Note those initial values are carefully choosen to ensure that the first
-        // iteration ever is going to at least perform one single tick
+        /*
+         * Initialize the timers after creating the game screen, so that there will be not a  huge discrepancy between the first
+         * lastDeltaTimeSec value and the followers. Note those initial values are carefully chosen to ensure that the first
+         * iteration ever is going to at least perform one single tick.
+         */
         PhysicsDtNs = (long) 1000000000 / (long) Config.Physics.TimestepHz;
         timeStepHz = (long) Config.Physics.TimestepHz;
         timeAccuNs = PhysicsDtNs;
@@ -97,7 +96,7 @@ public class URacer implements ApplicationListener {
     }
 
     private static String getVersionInformation() {
-        // extract version information
+
         String info = "";
         try {
             Field f = Class.forName("com.bitfire.uracer.VersionInfo").getDeclaredField("versionName");
@@ -138,7 +137,6 @@ public class URacer implements ApplicationListener {
 
         ScaleUtils.init(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        // create input system
         input = new Input(ScaleUtils.PlayViewport, 350, 50);
         Gdx.app.log("URacer", "Input system created.");
 
@@ -206,37 +204,29 @@ public class URacer implements ApplicationListener {
 
             lastDeltaTimeNs = getDeltaTimeNs();
 
-
             // compute values in different units so that accessors will not
             // recompute them again and again
             lastDeltaTimeMs = (float) lastDeltaTimeNs / 1000000f;
             lastDeltaTimeSec = (float) lastDeltaTimeNs * oneOnOneBillion;
-
             // measure timings
             long startTime;
 
-
-            {
-                lastTicksCount = 0;
-                startTime = TimeUtils.nanoTime();
-                timeAccuNs += (long) (lastDeltaTimeNs * timeMultiplier);
-                while (timeAccuNs >= PhysicsDtNs) {
-                    lastTicksCount++;
-
-                    input.tick();
-                    screenMgr.tick();
-                    timeAccuNs -= PhysicsDtNs;
-                }
-                physicsTime = (TimeUtils.nanoTime() - startTime) * oneOnOneBillion;
+            lastTicksCount = 0;
+            startTime = TimeUtils.nanoTime();
+            timeAccuNs += (long) (lastDeltaTimeNs * timeMultiplier);
+            while (timeAccuNs >= PhysicsDtNs) {
+                lastTicksCount++;
+                input.tick();
+                screenMgr.tick();
+                timeAccuNs -= PhysicsDtNs;
             }
+            physicsTime = (TimeUtils.nanoTime() - startTime) * oneOnOneBillion;
 
-            {
-                // if the system has ticked, then trigger tickCompleted
-                if (lastTicksCount > 0) {
-                    screenMgr.tickCompleted();
-                    if (screenMgr.quit()) {
-                        return;
-                    }
+            // if the system has ticked, then trigger tickCompleted
+            if (lastTicksCount > 0) {
+                screenMgr.tickCompleted();
+                if (screenMgr.quit()) {
+                    return;
                 }
             }
 
@@ -246,13 +236,10 @@ public class URacer implements ApplicationListener {
             temporalAliasing = (timeAccuNs * timeStepHz) * oneOnOneBillion;
             aliasingTime = temporalAliasing;
 
-
-            {
-                startTime = TimeUtils.nanoTime();
-                SysTweener.update();
-                screenMgr.render();
-                graphicsTime = (TimeUtils.nanoTime() - startTime) * oneOnOneBillion;
-            }
+            startTime = TimeUtils.nanoTime();
+            SysTweener.update();
+            screenMgr.render();
+            graphicsTime = (TimeUtils.nanoTime() - startTime) * oneOnOneBillion;
 
             screenMgr.end();
         }
