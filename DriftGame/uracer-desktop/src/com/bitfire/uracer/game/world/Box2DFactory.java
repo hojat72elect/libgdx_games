@@ -41,7 +41,7 @@ public final class Box2DFactory {
 
         fdef.filter.groupIndex = CollisionFilters.GroupTrackWalls;
         fdef.filter.categoryBits = CollisionFilters.CategoryTrackWalls;
-        fdef.filter.maskBits = CollisionFilters.MaskWalls;
+        fdef.filter.maskBits = CollisionFilters.INSTANCE.getMaskWalls();
 
         if (Config.Debug.TraverseWalls) {
             fdef.filter.groupIndex = CollisionFilters.GroupNoCollisions;
