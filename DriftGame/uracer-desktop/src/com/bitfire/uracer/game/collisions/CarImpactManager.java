@@ -31,7 +31,6 @@ public class CarImpactManager {
             float[] impulses = impulse.getNormalImpulses();
             tmpVec2.set(impulses[0], impulses[1]);
 
-            // dbg
             Fixture fcar = null;
             if (contact.getFixtureA().getUserData() == CarType.PlayerCar) {
                 fcar = contact.getFixtureA();
@@ -39,7 +38,6 @@ public class CarImpactManager {
                 fcar = contact.getFixtureB();
             }
 
-            // assumes perfect side collision
             float front_ratio = 0.5f;
 
             // compute median front/rear ratio for collision points
@@ -53,16 +51,13 @@ public class CarImpactManager {
                 for (int i = 0; i < num_points; i++) {
                     Vector2 lp = fcar.getBody().getLocalPoint(pts[i]);
 
-                    // examine front/rear ratio
                     float r = MathUtils.clamp(lp.y + half_ml, 0, ml);
                     r /= ml;
                     front_ratio += r;
                 }
 
                 front_ratio /= (float) num_points;
-                // Gdx.app.log("Cntct", "" + front_ratio);
             }
-            // dbg
 
             car.onCollide(other, tmpVec2, front_ratio);
         }
