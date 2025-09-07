@@ -70,7 +70,7 @@ public final class CarSimulator {
         }
 
         if (!hasDir) {
-            if (Math.abs(carDesc.velocity_wc.x) > 0.5f || Math.abs(carDesc.velocity_wc.y) > 0.5f) {
+            if (Math.abs(carDesc.velocityWorldCoordinates.x) > 0.5f || Math.abs(carDesc.velocityWorldCoordinates.y) > 0.5f) {
                 if (!AMath.isZero(carDesc.throttle)) {
                     carDesc.throttle *= DampingThrottle;
                 }
@@ -81,7 +81,7 @@ public final class CarSimulator {
 
                 // carDesc.brake = 200f;
             } else {
-                carDesc.velocity_wc.set(0, 0);
+                carDesc.velocityWorldCoordinates.set(0, 0);
                 carDesc.angularVelocity = 0;
                 carDesc.brake = 0;
                 carDesc.throttle = 0;
@@ -108,8 +108,8 @@ public final class CarSimulator {
         // car's velocity: Vlat and Vlong
         // transform velocity in world reference frame to velocity in car
         // reference frame
-        velocity.x = cs * carDesc.velocity_wc.y + sn * carDesc.velocity_wc.x;
-        velocity.y = -sn * carDesc.velocity_wc.y + cs * carDesc.velocity_wc.x;
+        velocity.x = cs * carDesc.velocityWorldCoordinates.y + sn * carDesc.velocityWorldCoordinates.x;
+        velocity.y = -sn * carDesc.velocityWorldCoordinates.y + cs * carDesc.velocityWorldCoordinates.x;
         VMath.fixup(velocity);
 
         float yawspeed = carDesc.carModel.wheelbase * 0.5f * carDesc.angularVelocity;
@@ -174,12 +174,12 @@ public final class CarSimulator {
         VMath.fixup(acceleration_wc);
 
         // velocity is integrated acceleration
-        carDesc.velocity_wc.x += dt * acceleration_wc.x;
-        carDesc.velocity_wc.y += dt * acceleration_wc.y;
-        VMath.fixup(carDesc.velocity_wc);
+        carDesc.velocityWorldCoordinates.x += dt * acceleration_wc.x;
+        carDesc.velocityWorldCoordinates.y += dt * acceleration_wc.y;
+        VMath.fixup(carDesc.velocityWorldCoordinates);
 
         // make sure vehicle doesn't exceed maximum velocity
-        VMath.truncate(carDesc.velocity_wc, carDesc.carModel.max_speed);
+        VMath.truncate(carDesc.velocityWorldCoordinates, carDesc.carModel.max_speed);
 
         // Angular acceleration, angular velocity and heading
 
@@ -191,7 +191,7 @@ public final class CarSimulator {
     }
 
     public void resetPhysics() {
-        carDesc.velocity_wc.set(0, 0);
+        carDesc.velocityWorldCoordinates.set(0, 0);
         carDesc.angularVelocity = 0;
         carDesc.brake = 0;
         carDesc.throttle = 0;

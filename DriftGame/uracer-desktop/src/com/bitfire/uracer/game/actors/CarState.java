@@ -55,7 +55,7 @@ public final class CarState {
 
     private void updateFactors(CarDescriptor carDescriptor) {
         // speed/force normalized factors
-        currVelocityLenSquared = carDescriptor.velocity_wc.len2();
+        currVelocityLenSquared = carDescriptor.velocityWorldCoordinates.len2();
         currThrottle = carDescriptor.throttle;
         currSpeedFactor = AMath.fixup(AMath.clamp(currVelocityLenSquared / CarMaxSpeedSquared, 0f, 1f));
         currForceFactor = AMath.fixup(AMath.clamp(currThrottle / CarMaxForce, 0f, 1f));

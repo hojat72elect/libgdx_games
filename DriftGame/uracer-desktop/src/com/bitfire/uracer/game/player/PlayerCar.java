@@ -200,7 +200,7 @@ public class PlayerCar extends Car {
             }
 
             if (AMath.isZero(carInput.throttle)) {
-                if (Math.abs(carDesc.velocity_wc.x) > 0.5f || Math.abs(carDesc.velocity_wc.y) > 0.5f) {
+                if (Math.abs(carDesc.velocityWorldCoordinates.x) > 0.5f || Math.abs(carDesc.velocityWorldCoordinates.y) > 0.5f) {
                     carInput.brake = 200;
                 }
             }
@@ -291,15 +291,15 @@ public class PlayerCar extends Car {
         carSim.step(Config.Physics.Dt, body.getAngle());
 
         // update computed forces
-        forces.setVelocityX(carDesc.velocity_wc.x);
-        forces.setVelocityY(carDesc.velocity_wc.y);
+        forces.setVelocityX(carDesc.velocityWorldCoordinates.x);
+        forces.setVelocityY(carDesc.velocityWorldCoordinates.y);
         forces.setAngularVelocity(carDesc.angularVelocity);
     }
 
     @Override
     public void onSubstepCompleted() {
         carState.update(carDesc);
-        driftState.update(carSim.lateralForceFront.y, carSim.lateralForceRear.y, carDesc.velocity_wc.len());
+        driftState.update(carSim.lateralForceFront.y, carSim.lateralForceRear.y, carDesc.velocityWorldCoordinates.len());
 
         if (Config.Debug.ApplyCarFrictionFromMap) {
             updateCarFriction();
@@ -352,8 +352,8 @@ public class PlayerCar extends Car {
         }
 
         // FIXME, move these hard-coded values out of here
-        if (isOutOfTrack && carDesc.velocity_wc.len2() > 10) {
-            carDesc.velocity_wc.scl(GameplaySettings.DampingFriction);
+        if (isOutOfTrack && carDesc.velocityWorldCoordinates.len2() > 10) {
+            carDesc.velocityWorldCoordinates.scl(GameplaySettings.DampingFriction);
         }
     }
 
@@ -363,7 +363,7 @@ public class PlayerCar extends Car {
             impacts--;
 
             // feed back the result to the car simulator
-            carDesc.velocity_wc.set(body.getLinearVelocity());
+            carDesc.velocityWorldCoordinates.set(body.getLinearVelocity());
             carDesc.angularVelocity = -body.getAngularVelocity();
         }
     }

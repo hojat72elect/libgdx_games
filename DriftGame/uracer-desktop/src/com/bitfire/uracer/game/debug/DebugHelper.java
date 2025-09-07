@@ -506,8 +506,8 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         Vector2 pos = GameRenderer.ScreenUtils.worldMtToScreen(body.getPosition());
         EntityRenderState state = player.state();
 
-        SpriteBatchUtils.drawString(batch, "vel_wc len =" + carDesc.velocity_wc.len(), 0, 0);
-        SpriteBatchUtils.drawString(batch, "vel_wc [x=" + carDesc.velocity_wc.x + ", y=" + carDesc.velocity_wc.y + "]", 0, Art.DebugFontWidth);
+        SpriteBatchUtils.drawString(batch, "vel_wc len =" + carDesc.velocityWorldCoordinates.len(), 0, 0);
+        SpriteBatchUtils.drawString(batch, "vel_wc [x=" + carDesc.velocityWorldCoordinates.x + ", y=" + carDesc.velocityWorldCoordinates.y + "]", 0, Art.DebugFontWidth);
         SpriteBatchUtils.drawString(batch, "steerangle=" + carDesc.steeringAngle, 0, Art.DebugFontWidth * 2);
         SpriteBatchUtils.drawString(batch, "throttle=" + carDesc.throttle, 0, Art.DebugFontWidth * 3);
         SpriteBatchUtils.drawString(batch, "screen x=" + pos.x + ",y=" + pos.y, 0, Art.DebugFontWidth * 4);
