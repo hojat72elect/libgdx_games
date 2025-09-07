@@ -92,7 +92,7 @@ public class PlayerCar extends Car {
 
     @Override
     public float getSteerAngleRads() {
-        return carDesc.steerangle;
+        return carDesc.steeringAngle;
     }
 
     public CarSimulator getSimulator() {
@@ -293,7 +293,7 @@ public class PlayerCar extends Car {
         // update computed forces
         forces.setVelocityX(carDesc.velocity_wc.x);
         forces.setVelocityY(carDesc.velocity_wc.y);
-        forces.setAngularVelocity(carDesc.angularvelocity);
+        forces.setAngularVelocity(carDesc.angularVelocity);
     }
 
     @Override
@@ -364,7 +364,7 @@ public class PlayerCar extends Car {
 
             // feed back the result to the car simulator
             carDesc.velocity_wc.set(body.getLinearVelocity());
-            carDesc.angularvelocity = -body.getAngularVelocity();
+            carDesc.angularVelocity = -body.getAngularVelocity();
         }
     }
 }

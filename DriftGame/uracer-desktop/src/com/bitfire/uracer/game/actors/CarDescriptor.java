@@ -7,26 +7,21 @@ import com.badlogic.gdx.math.Vector2;
  * per-timestep data resulting after each integration.
  */
 public final class CarDescriptor {
-    // physical model data
+
     public CarModel carModel;
 
-    // results
-
-    // vector-related
     public Vector2 position_wc = new Vector2(); // position of car center in world coordinates
     public Vector2 velocity_wc = new Vector2(); // velocity vector of car in world coordinates
 
-    // angle-related
-    public float angularvelocity;
-    public float steerangle; // angle of steering (input)
+    public float angularVelocity;
+    public float steeringAngle;
 
-    // impulses
-    public float throttle; // amount of throttle (input)
-    public float brake; // amount of braking (input)
+    public float throttle; // amount of throttle
+    public float brake; // amount of braking
 
     public CarDescriptor(CarModel model) {
-        angularvelocity = 0;
-        steerangle = 0;
+        angularVelocity = 0;
+        steeringAngle = 0;
         throttle = 0;
         brake = 0;
         position_wc.set(0, 0);

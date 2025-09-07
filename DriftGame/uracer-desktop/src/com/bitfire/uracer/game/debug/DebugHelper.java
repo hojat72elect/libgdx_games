@@ -508,7 +508,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
 
         SpriteBatchUtils.drawString(batch, "vel_wc len =" + carDesc.velocity_wc.len(), 0, 0);
         SpriteBatchUtils.drawString(batch, "vel_wc [x=" + carDesc.velocity_wc.x + ", y=" + carDesc.velocity_wc.y + "]", 0, Art.DebugFontWidth);
-        SpriteBatchUtils.drawString(batch, "steerangle=" + carDesc.steerangle, 0, Art.DebugFontWidth * 2);
+        SpriteBatchUtils.drawString(batch, "steerangle=" + carDesc.steeringAngle, 0, Art.DebugFontWidth * 2);
         SpriteBatchUtils.drawString(batch, "throttle=" + carDesc.throttle, 0, Art.DebugFontWidth * 3);
         SpriteBatchUtils.drawString(batch, "screen x=" + pos.x + ",y=" + pos.y, 0, Art.DebugFontWidth * 4);
         SpriteBatchUtils.drawString(batch, "world-mt x=" + body.getPosition().x + ",y=" + body.getPosition().y, 0, Art.DebugFontWidth * 5);

@@ -52,17 +52,17 @@ public final class CarSimulator {
             // steering
             if (AMath.fixup(input.steerAngle) < 0) {
                 // left
-                carDesc.steerangle = input.steerAngle;
-                if (carDesc.steerangle < -AMath.PI_4) {
-                    carDesc.steerangle = -AMath.PI_4;
+                carDesc.steeringAngle = input.steerAngle;
+                if (carDesc.steeringAngle < -AMath.PI_4) {
+                    carDesc.steeringAngle = -AMath.PI_4;
                 }
 
                 hasSteer = true;
             } else if (AMath.fixup(input.steerAngle) > 0) {
                 // right
-                carDesc.steerangle = input.steerAngle;
-                if (carDesc.steerangle > AMath.PI_4) {
-                    carDesc.steerangle = AMath.PI_4;
+                carDesc.steeringAngle = input.steerAngle;
+                if (carDesc.steeringAngle > AMath.PI_4) {
+                    carDesc.steeringAngle = AMath.PI_4;
                 }
 
                 hasSteer = true;
@@ -82,14 +82,14 @@ public final class CarSimulator {
                 // carDesc.brake = 200f;
             } else {
                 carDesc.velocity_wc.set(0, 0);
-                carDesc.angularvelocity = 0;
+                carDesc.angularVelocity = 0;
                 carDesc.brake = 0;
                 carDesc.throttle = 0;
             }
         }
 
         if (!hasSteer) {
-            carDesc.steerangle = 0;
+            carDesc.steeringAngle = 0;
         }
 
         carDesc.throttle = AMath.clamp(carDesc.throttle, -maxForce, maxForce);
@@ -112,7 +112,7 @@ public final class CarSimulator {
         velocity.y = -sn * carDesc.velocity_wc.y + cs * carDesc.velocity_wc.x;
         VMath.fixup(velocity);
 
-        float yawspeed = carDesc.carModel.wheelbase * 0.5f * carDesc.angularvelocity;
+        float yawspeed = carDesc.carModel.wheelbase * 0.5f * carDesc.angularVelocity;
         float sideslip, rot_angle;
         float slipanglefront, slipanglerear;
 
@@ -128,7 +128,7 @@ public final class CarSimulator {
             // compute the side slip angle of the car (a.k.a. beta)
             sideslip = MathUtils.atan2(velocity.y, velocity.x);
 
-            slipanglefront = sideslip + rot_angle - carDesc.steerangle;
+            slipanglefront = sideslip + rot_angle - carDesc.steeringAngle;
         }
         slipanglerear = sideslip - rot_angle;
 
@@ -159,8 +159,8 @@ public final class CarSimulator {
         resistance.y = -(carDesc.carModel.resistance * velocity.y + carDesc.carModel.drag * velocity.y * Math.abs(velocity.y));
 
         // sum forces
-        force.x = ftraction.x + MathUtils.sin(carDesc.steerangle) * flatf.x + flatr.x + resistance.x;
-        force.y = ftraction.y + MathUtils.cos(carDesc.steerangle) * flatf.y + flatr.y + resistance.y;
+        force.x = ftraction.x + MathUtils.sin(carDesc.steeringAngle) * flatf.x + flatr.x + resistance.x;
+        force.y = ftraction.y + MathUtils.cos(carDesc.steeringAngle) * flatf.y + flatr.y + resistance.y;
 
         // Convert the force into acceleration
         // Newton F = m.a, therefore a = F/m
@@ -186,16 +186,16 @@ public final class CarSimulator {
         float angular_acceleration = torque * carDesc.carModel.invinertia;
 
         // integrate angular acceleration to get angular velocity
-        carDesc.angularvelocity += dt * angular_acceleration;
-        carDesc.angularvelocity = AMath.fixup(carDesc.angularvelocity);
+        carDesc.angularVelocity += dt * angular_acceleration;
+        carDesc.angularVelocity = AMath.fixup(carDesc.angularVelocity);
     }
 
     public void resetPhysics() {
         carDesc.velocity_wc.set(0, 0);
-        carDesc.angularvelocity = 0;
+        carDesc.angularVelocity = 0;
         carDesc.brake = 0;
         carDesc.throttle = 0;
-        carDesc.steerangle = 0;
+        carDesc.steeringAngle = 0;
         acceleration_wc.set(0, 0);
         velocity.set(0, 0);
         thisSign = 1f;
