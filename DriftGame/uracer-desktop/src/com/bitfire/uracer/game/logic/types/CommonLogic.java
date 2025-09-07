@@ -167,7 +167,7 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
             return;
         }
 
-        playerCar = CarFactory.createPlayer(gameWorld, this, Type.Car_Yellow);
+        playerCar = CarFactory.createPlayer(gameWorld, this, Type.CarYellow);
         playerCar.setInputSystem(inputSystem);
         playerCar.setFrictionMap(Art.frictionMapDesert);
         playerCar.reset();
