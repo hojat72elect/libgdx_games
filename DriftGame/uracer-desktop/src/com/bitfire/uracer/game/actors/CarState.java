@@ -6,28 +6,22 @@ import com.bitfire.uracer.utils.AMath;
 import com.bitfire.uracer.utils.NewConvert;
 
 public final class CarState {
-    /* observed car */
+
     public final Car car;
-    // temporaries
     private final float CarMaxSpeedSquared;
     private final float CarMaxForce;
-    /* position */
     public int currTileX = -1, currTileY = -1;
     public Vector2 tilePosition = new Vector2();
-    /* speed/force factors */
     public float currVelocityLenSquared = 0;
     public float currThrottle = 0;
     public float currSpeedFactor = 0;
-    // public float currBrakeFactor = 0;
     public float currForceFactor = 0;
-    // private int lastTileX = 0, lastTileY = 0;
     private final GameWorld world;
 
     public CarState(GameWorld world, Car car) {
         this.world = world;
         this.car = car;
 
-        // precompute factors
         if (car != null) {
             CarMaxSpeedSquared = car.getCarModel().max_speed * car.getCarModel().max_speed;
             CarMaxForce = car.getCarModel().max_force;
@@ -54,7 +48,6 @@ public final class CarState {
     }
 
     private void updateFactors(CarDescriptor carDescriptor) {
-        // speed/force normalized factors
         currVelocityLenSquared = carDescriptor.velocityWorldCoordinates.len2();
         currThrottle = carDescriptor.throttle;
         currSpeedFactor = AMath.fixup(AMath.clamp(currVelocityLenSquared / CarMaxSpeedSquared, 0f, 1f));
@@ -62,14 +55,11 @@ public final class CarState {
     }
 
     /*
-     * Keeps track of the car's tile position and trigger a TileChanged event whenever the car's world position translates to a
-     * tile index that is different than the previous one
+     * Keeps track of the car's tile position and triggers a TileChanged event whenever the car's world position translates to a
+     * tile index that is different from the previous one.
      */
     private void updateTilePosition() {
-
-        // compute car's tile position
-        tilePosition
-                .set(world.pxToTile(NewConvert.INSTANCE.mt2px(car.getBody().getPosition().x), NewConvert.INSTANCE.mt2px(car.getBody().getPosition().y)));
+        tilePosition.set(world.pxToTile(NewConvert.INSTANCE.mt2px(car.getBody().getPosition().x), NewConvert.INSTANCE.mt2px(car.getBody().getPosition().y)));
 
         currTileX = (int) tilePosition.x;
         currTileY = (int) tilePosition.y;
