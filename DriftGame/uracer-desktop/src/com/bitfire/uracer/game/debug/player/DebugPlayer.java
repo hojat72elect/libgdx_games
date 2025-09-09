@@ -12,7 +12,7 @@ import com.bitfire.uracer.game.player.DriftState;
 import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.uracer.game.rendering.GameRenderer;
 import com.bitfire.uracer.resources.Art;
-import com.bitfire.uracer.utils.CarUtils;
+import com.bitfire.uracer.utils.CarUtilsKt;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -74,7 +74,7 @@ public class DebugPlayer extends DebugRenderable {
         if (hasPlayer) {
             this.player = player;
             driftState = player.driftState;
-            meterSpeed.setLimits(0, CarUtils.mtSecToKmHour(player.getCarModel().max_speed));
+            meterSpeed.setLimits(0, CarUtilsKt.mtSecToKmHour(player.getCarModel().max_speed));
         }
     }
 
@@ -105,7 +105,7 @@ public class DebugPlayer extends DebugRenderable {
             }
 
             // player's speed
-            meterSpeed.setValue(CarUtils.mtSecToKmHour(player.getInstantSpeed()));
+            meterSpeed.setValue(CarUtilsKt.mtSecToKmHour(player.getInstantSpeed()));
         }
     }
 

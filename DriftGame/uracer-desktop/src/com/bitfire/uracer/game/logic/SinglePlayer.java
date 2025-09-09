@@ -33,7 +33,7 @@ import com.bitfire.uracer.game.logic.types.helpers.CameraShaker;
 import com.bitfire.uracer.game.rendering.GameRenderer;
 import com.bitfire.uracer.game.screens.GameScreensFactory.ScreenType;
 import com.bitfire.uracer.game.world.GameWorld;
-import com.bitfire.uracer.utils.CarUtils;
+import com.bitfire.uracer.utils.CarUtilsKt;
 import com.bitfire.uracer.utils.NewConvert;
 import com.bitfire.uracer.utils.OrdinalUtils;
 import com.bitfire.uracer.utils.ReplayUtils;
@@ -363,7 +363,7 @@ public class SinglePlayer extends BaseLogic {
             if (lastRecorded.is_accepted) {
                 ReplayInfo ri = lastRecorded.accepted;
 
-                CarUtils.dumpSpeedInfo("SinglePlayer", "Replay #" + ri.getShortId() + " accepted, player", playerCar, ri.getTicks());
+                CarUtilsKt.dumpSpeedInfo("SinglePlayer", "Replay #" + ri.getShortId() + " accepted, player", playerCar, ri.getTicks());
 
                 saveReplay(lastRecorded.new_replay);
                 ReplayUtils.pruneReplay(lastRecorded.pruned); // prune if needed
@@ -413,7 +413,7 @@ public class SinglePlayer extends BaseLogic {
 
     @Override
     public void ghostLapCompleted(GhostCar ghost) {
-        CarUtils.dumpSpeedInfo("SinglePlayer", "GhostCar #" + ghost.getId(), ghost, ghost.getReplay().getTicks());
+        CarUtilsKt.dumpSpeedInfo("SinglePlayer", "GhostCar #" + ghost.getId(), ghost, ghost.getReplay().getTicks());
 
         if (!hasPlayer()) {
             Replay last = lapManager.getReplays().peek();
