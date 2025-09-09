@@ -135,7 +135,7 @@ public class URacer implements ApplicationListener {
         UserPreferences.load();
         ScreensShared.loadFromUserPrefs();
 
-        ScaleUtils.init(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        ScaleUtils.initialize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         input = new Input(ScaleUtils.PlayViewport, 350, 50);
         Gdx.app.log("URacer", "Input system created.");

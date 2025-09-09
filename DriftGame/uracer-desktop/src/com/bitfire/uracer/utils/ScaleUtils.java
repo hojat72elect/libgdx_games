@@ -12,7 +12,7 @@ public class ScaleUtils {
     public static float Scale;
     public static float RefAspect;
 
-    public static void init(int displayWidth, int displayHeight) {
+    public static void initialize(int displayWidth, int displayHeight) {
         float refW = Config.Graphics.ReferenceScreenWidth;
         float refH = Config.Graphics.ReferenceScreenHeight;
 
