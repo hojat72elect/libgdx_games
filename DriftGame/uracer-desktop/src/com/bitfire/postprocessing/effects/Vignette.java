@@ -5,6 +5,11 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.bitfire.postprocessing.PostProcessorEffect;
 import com.bitfire.postprocessing.filters.Vignetting;
 
+/**
+ * Vignette is a very common post-processing technique you can apply to an image for
+ * darkening or de-saturating the edges of an image; so the viewer's focus will be
+ * drawn to the center.
+ */
 public final class Vignette extends PostProcessorEffect {
     private final Vignetting vignetting;
     private final float oneOnW;
