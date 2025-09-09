@@ -223,10 +223,8 @@ public class SinglePlayer extends BaseLogic {
                 positionPx.add(camShaker.compute(getOutOfTrackFactor()));
             }
         } else if (isGhostActive(0)) {
-            // FIXME use available/choosen replay
             positionPx.set(getGhost(0).state().position);
         } else {
-            // no ghost, no player, WTF?
             positionPx.set(NewConvert.INSTANCE.mt2px(gameWorld.playerStart.position));
         }
     }
@@ -425,8 +423,6 @@ public class SinglePlayer extends BaseLogic {
                 restartAllReplays();
             }
         } else {
-            // remove replay but do not reset its track state yet
-            // ghost.removeReplay();
             ghost.stop();
         }
     }
