@@ -22,7 +22,7 @@ public class EngineF40 extends EngineSoundSet {
         engine = Sounds.carEngine_f40;
         rpm = 1000;
         gear = MinGear;
-        ivolume.setFixup(false);
+        ivolume.fixup = false;
     }
 
     @Override

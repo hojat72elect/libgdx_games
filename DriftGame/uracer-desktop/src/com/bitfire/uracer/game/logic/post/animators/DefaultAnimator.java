@@ -72,7 +72,7 @@ public final class DefaultAnimator implements PostProcessingAnimator {
         ssao = (Ssao) post.getEffect(PostProcessing.Effects.Ssao.name);
         shafts = (LightShafts) post.getEffect(PostProcessing.Effects.LightShafts.name);
         flare = (LensFlare) post.getEffect(PostProcessing.Effects.LensFlare.name);
-        zoomBlurStrengthFactor.setFixup(false);
+        zoomBlurStrengthFactor.fixup = false;
         reset();
     }
 
