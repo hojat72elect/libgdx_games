@@ -1,6 +1,6 @@
 package com.bitfire.uracer.configuration;
 
-import com.bitfire.uracer.utils.AwtUtils;
+import com.bitfire.uracer.utils.AwtUtilsKt;
 import com.bitfire.uracer.utils.SortedProperties;
 
 import java.io.FileInputStream;
@@ -53,8 +53,8 @@ public class BootConfig {
         setBoolean(BootConfigFlag.UNDECORATED, false);
 
         // auto-detect centered window position
-        setWindowX(AwtUtils.getCenteredXOnDisplay(BootConfigFlag.WIDTH.defaultInt));
-        setWindowY(AwtUtils.getCenteredYOnDisplay(BootConfigFlag.HEIGHT.defaultInt));
+        setWindowX(AwtUtilsKt.getCenteredXOnDisplay(BootConfigFlag.WIDTH.defaultInt));
+        setWindowY(AwtUtilsKt.getCenteredYOnDisplay(BootConfigFlag.HEIGHT.defaultInt));
     }
 
     /**

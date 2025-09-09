@@ -82,11 +82,11 @@ public final class CommandLine {
                         // automatically compute the default x/y window position (centered) if not present already
 
                         if (boot.getWindowX() == -1) {
-                            boot.setWindowX(AwtUtils.getCenteredXOnDisplay(w));
+                            boot.setWindowX(AwtUtilsKt.getCenteredXOnDisplay(w));
                         }
 
                         if (boot.getWindowY() == -1) {
-                            boot.setWindowY(AwtUtils.getCenteredYOnDisplay(h));
+                            boot.setWindowY(AwtUtilsKt.getCenteredYOnDisplay(h));
                         }
                     }
 
