@@ -5,7 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.bitfire.utils.ShaderLoader;
 
 /**
- * Lens flare effect as described in John Chapman's article (without lens dirt or diffraction starburst). Lens color image
+ * Lens flare is a graphical effect that simulates the way that light scatters and reflects within a camera lens, creating visual
+ * artifacts like glows, streaks, and rings around bright light sources.
+ * <p>
+ * This class implements the lens flare effect as described in John Chapman's article (without lens dirt or diffraction starburst). Lens color image
  * (lenscolor.png) is located in src/main/resources/ folder.
  *
  * @see <a
