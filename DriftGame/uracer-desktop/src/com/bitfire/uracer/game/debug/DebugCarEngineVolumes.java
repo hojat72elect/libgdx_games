@@ -9,7 +9,7 @@ import com.bitfire.uracer.game.debug.player.DebugMeter;
 import com.bitfire.uracer.game.logic.gametasks.sounds.effects.engines.EngineSoundSet;
 import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.uracer.resources.Art;
-import com.bitfire.uracer.utils.ColorUtils;
+import com.bitfire.uracer.utils.ColorUtilsKt;
 import com.bitfire.uracer.utils.SpriteBatchUtils;
 
 import org.jetbrains.annotations.NotNull;
@@ -92,7 +92,7 @@ public class DebugCarEngineVolumes extends DebugRenderable {
 
                 // compute color
                 float alpha = 1;
-                Color c = ColorUtils.paletteRYG(1.5f - m.getValue() * 1.5f, alpha);
+                Color c = ColorUtilsKt.paletteRYG(1.5f - m.getValue() * 1.5f, alpha);
 
                 {
                     // render track number

@@ -17,7 +17,7 @@ import com.bitfire.uracer.game.logic.helpers.TrackProgressData;
 import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.resources.BitmapFontFactory.FontFace;
-import com.bitfire.uracer.utils.ColorUtils;
+import com.bitfire.uracer.utils.ColorUtilsKt;
 import com.bitfire.uracer.utils.InterpolatedFloat;
 import com.bitfire.utils.ShaderLoader;
 
@@ -104,7 +104,7 @@ public class TrackProgress extends Positionable {
 
         // advantage if > 0, disadvantage if < 0
         float dist = MathUtils.clamp(data.playerToTarget, -1, 1);
-        Color advantageColor = ColorUtils.paletteRYG(dist + 1, 1f);
+        Color advantageColor = ColorUtilsKt.paletteRYG(dist + 1, 1f);
 
         float adist = Math.abs(dist);
         float s = cameraZoom;

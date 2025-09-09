@@ -14,7 +14,7 @@ import com.bitfire.uracer.game.logic.gametasks.hud.Positionable;
 import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.resources.BitmapFontFactory.FontFace;
 import com.bitfire.uracer.utils.AMath;
-import com.bitfire.uracer.utils.ColorUtils;
+import com.bitfire.uracer.utils.ColorUtilsKt;
 import com.bitfire.utils.ShaderLoader;
 
 public class DriftBar extends Positionable {
@@ -112,7 +112,7 @@ public class DriftBar extends Positionable {
         // player's earned drift seconds for performing time dilation
         float ratio = seconds / MaxSeconds;
         shDriftSecs.setUniformf("progress", ratio);
-        sprDriftSecs.setColor(ColorUtils.paletteRYG(ratio, 1));
+        sprDriftSecs.setColor(ColorUtilsKt.paletteRYG(ratio, 1));
         sprDriftSecs.setScale(scl);
         sprDriftSecs.setPosition(px, py);
         sprDriftSecs.draw(batch, alpha);
