@@ -6,7 +6,6 @@ import com.bitfire.uracer.configuration.Config;
 
 public class ScaleUtils {
 
-    public static int ScreenWidth, ScreenHeight;
     public static int PlayWidth, PlayHeight;
     public static int CropX, CropY;
     public static Rectangle PlayViewport;
@@ -14,15 +13,13 @@ public class ScaleUtils {
     public static float RefAspect;
 
     public static void init(int displayWidth, int displayHeight) {
-        ScreenWidth = displayWidth;
-        ScreenHeight = displayHeight;
         float refW = Config.Graphics.ReferenceScreenWidth;
         float refH = Config.Graphics.ReferenceScreenHeight;
 
         // Maintain the aspect ratio by letterboxing.
         RefAspect = refW / refH;
-        float physicalWidth = (float) ScreenWidth;
-        float physicalHeight = (float) ScreenHeight;
+        float physicalWidth = (float) displayWidth;
+        float physicalHeight = (float) displayHeight;
         float aspect = physicalWidth / physicalHeight;
 
         CropX = 0;
