@@ -17,13 +17,13 @@ class Convolve2D(radius: Int) : MultipassFilter() {
     private val verticalPass = Convolve1D(length, horizontalPass.weights)
 
     @JvmField
-    val weights: FloatArray = horizontalPass.weights
+    val weights = horizontalPass.weights!!
 
     @JvmField
-    val offsetsHor: FloatArray = horizontalPass.offsets
+    val offsetsHor = horizontalPass.offsets!!
 
     @JvmField
-    val offsetsVert: FloatArray = verticalPass.offsets
+    val offsetsVert = verticalPass.offsets!!
 
     fun dispose() {
         horizontalPass.dispose()
