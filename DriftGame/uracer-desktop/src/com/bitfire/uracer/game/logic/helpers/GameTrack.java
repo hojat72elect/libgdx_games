@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.bitfire.uracer.game.actors.Car;
 import com.bitfire.uracer.utils.AMath;
-import com.bitfire.uracer.utils.VMath;
+import com.bitfire.uracer.utils.VectorMathUtils;
 
 import java.util.List;
 
@@ -120,7 +120,7 @@ public final class GameTrack {
         tmp.set(route.get(s_index)).sub(route.get(e_index));
         tmp.nor();
 
-        return new TrackPosition(route.get(s_index), VMath.toRadians(tmp));
+        return new TrackPosition(route.get(s_index), VectorMathUtils.toRadians(tmp));
     }
 
     /**
@@ -166,7 +166,7 @@ public final class GameTrack {
         // car is on the expected path, now check for the correct heading
         if (state.onExpectedPath) {
             TrackSector s = sectors[state.curr];
-            Vector2 heading = VMath.fromRadians(car.getWorldOrientRads());
+            Vector2 heading = VectorMathUtils.fromRadians(car.getWorldOrientRads());
             Vector2 dir = tmp.set(s.nLeading);
 
             // switch coordinate space and rotate it so that both the car and the track sector converge

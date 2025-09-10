@@ -29,7 +29,7 @@ import com.bitfire.uracer.game.world.WorldDefs.Layer;
 import com.bitfire.uracer.utils.AMath;
 import com.bitfire.uracer.utils.NewConvert;
 import com.bitfire.uracer.utils.Timer;
-import com.bitfire.uracer.utils.VMath;
+import com.bitfire.uracer.utils.VectorMathUtils;
 
 public class PlayerCar extends Car {
     private final float invWidth, invHeight;
@@ -168,8 +168,8 @@ public class PlayerCar extends Car {
                 touchPos.y *= invHeight;
                 carPos.x *= invWidth;
                 carPos.y *= invHeight;
-                VMath.clamp(touchPos, 0, 1);
-                VMath.clamp(carPos, 0, 1);
+                VectorMathUtils.clamp(touchPos, 0, 1);
+                VectorMathUtils.clamp(carPos, 0, 1);
 
                 carInput.throttle = touchPos.dst(carPos) * 4 * preset.model.max_force;
             }

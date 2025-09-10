@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.bitfire.uracer.game.actors.CarDescriptor;
 import com.bitfire.uracer.utils.AMath;
-import com.bitfire.uracer.utils.VMath;
+import com.bitfire.uracer.utils.VectorMathUtils;
 
 public final class CarSimulator {
     private static final float DampingThrottle = AMath.damping(0.98f);
@@ -110,7 +110,7 @@ public final class CarSimulator {
         // reference frame
         velocity.x = cs * carDesc.velocityWorldCoordinates.y + sn * carDesc.velocityWorldCoordinates.x;
         velocity.y = -sn * carDesc.velocityWorldCoordinates.y + cs * carDesc.velocityWorldCoordinates.x;
-        VMath.fixup(velocity);
+        VectorMathUtils.fixup(velocity);
 
         float yawspeed = carDesc.carModel.wheelbase * 0.5f * carDesc.angularVelocity;
         float sideslip, rot_angle;
@@ -165,21 +165,21 @@ public final class CarSimulator {
         // Convert the force into acceleration
         // Newton F = m.a, therefore a = F/m
         acceleration.set(force.x * carDesc.carModel.invmass, force.y * carDesc.carModel.invmass);
-        VMath.fixup(acceleration);
+        VectorMathUtils.fixup(acceleration);
 
         // transform acceleration from car reference frame to world reference
         // frame
         acceleration_wc.x = cs * acceleration.y + sn * acceleration.x;
         acceleration_wc.y = -sn * acceleration.y + cs * acceleration.x;
-        VMath.fixup(acceleration_wc);
+        VectorMathUtils.fixup(acceleration_wc);
 
         // velocity is integrated acceleration
         carDesc.velocityWorldCoordinates.x += dt * acceleration_wc.x;
         carDesc.velocityWorldCoordinates.y += dt * acceleration_wc.y;
-        VMath.fixup(carDesc.velocityWorldCoordinates);
+        VectorMathUtils.fixup(carDesc.velocityWorldCoordinates);
 
         // make sure vehicle doesn't exceed maximum velocity
-        VMath.truncate(carDesc.velocityWorldCoordinates, carDesc.carModel.max_speed);
+        VectorMathUtils.truncate(carDesc.velocityWorldCoordinates, carDesc.carModel.max_speed);
 
         // Angular acceleration, angular velocity and heading
 

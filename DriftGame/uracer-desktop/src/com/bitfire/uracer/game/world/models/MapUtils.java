@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.bitfire.uracer.game.world.WorldDefs.Layer;
 import com.bitfire.uracer.game.world.WorldDefs.ObjectGroup;
-import com.bitfire.uracer.utils.VMath;
+import com.bitfire.uracer.utils.VectorMathUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,7 +77,7 @@ public final class MapUtils implements Disposable {
         retTile.set(x, y);
         retTile.scl(invTileWidth);
         retTile.y = mapHeight - retTile.y;
-        VMath.truncateToInt(retTile);
+        VectorMathUtils.truncateToInt(retTile);
         return retTile;
     }
 }

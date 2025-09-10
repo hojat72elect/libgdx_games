@@ -15,7 +15,7 @@ import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.uracer.game.rendering.GameRenderer;
 import com.bitfire.uracer.utils.AMath;
 import com.bitfire.uracer.utils.NewConvert;
-import com.bitfire.uracer.utils.VMath;
+import com.bitfire.uracer.utils.VectorMathUtils;
 
 /**
  * Encapsulates player's information shown on screen moving along the player position
@@ -115,7 +115,7 @@ public final class HudPlayer extends HudElement {
         float border = (float) 100.0;
 
         Vector2 sp = GameRenderer.ScreenUtils.worldPxToScreen(playerState.position);
-        Vector2 heading = VMath.fromDegrees(playerState.orientation + (float) -180.0);
+        Vector2 heading = VectorMathUtils.fromDegrees(playerState.orientation + (float) -180.0);
 
         float horizontal = MathUtils.clamp(Math.abs(MathUtils.sinDeg(playerState.orientation)), 0.25f, 1);
         float p = AMath.lerp(carModelWidthPx, carModelLengthPx, horizontal);
