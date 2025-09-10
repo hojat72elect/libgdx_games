@@ -1,7 +1,6 @@
 package com.bitfire.postprocessing.filters;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.bitfire.utils.ShaderLoader;
 
 public final class Combine extends Filter<Combine> {
@@ -17,12 +16,6 @@ public final class Combine extends Filter<Combine> {
         s2s = 1f;
 
         rebind();
-    }
-
-    public Combine setInput(FrameBuffer buffer1, FrameBuffer buffer2) {
-        this.inputTexture = buffer1.getColorBufferTexture();
-        this.inputTexture2 = buffer2.getColorBufferTexture();
-        return this;
     }
 
     public Combine setInput(Texture texture1, Texture texture2) {
