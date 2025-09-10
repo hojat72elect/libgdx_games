@@ -3,6 +3,10 @@ package com.bitfire.postprocessing.filters;
 import com.badlogic.gdx.graphics.Texture;
 import com.bitfire.utils.ShaderLoader;
 
+/**
+ * This filter takes 2 input textures and combines then based on the specified intensity and saturation values
+ * for each source.
+ */
 public final class Combine extends Filter<Combine> {
 
     private float s1i, s1s, s2i, s2s;
