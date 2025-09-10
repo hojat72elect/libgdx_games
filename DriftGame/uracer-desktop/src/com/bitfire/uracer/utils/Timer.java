@@ -10,32 +10,19 @@ public final class Timer {
     private long nsStopTime;
     private float elapsedSecs;
 
-    /**
-     * Constructs a new Time object
-     */
     public Timer() {
         reset();
     }
 
-    /**
-     * Stops tracking
-     */
     public void pause() {
         stopped = true;
         nsStopTime = TimeUtils.nanoTime();
     }
 
-    /**
-     * Resumes/continues tracking, without resetting the accumulated state
-     * (should be called "continue" but can't)
-     */
     public void resume() {
         stopped = false;
     }
 
-    /**
-     * Resets the internal state
-     */
     public void reset() {
         stopped = false;
 
