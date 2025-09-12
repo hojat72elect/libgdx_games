@@ -1,4 +1,5 @@
 apply plugin: "java"
+apply plugin: 'kotlin'
 
 sourceCompatibility = 1.6
 java {
@@ -17,5 +18,20 @@ eclipse {
         name = appName + "-desktop"
         linkedResource name: 'assets', type: '2', location: 'PARENT-1-PROJECT_LOC/android/assets'
     }
+}
+buildscript {
+    ext.kotlin_version = '2.2.0'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
