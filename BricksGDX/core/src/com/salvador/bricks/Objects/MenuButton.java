@@ -18,10 +18,10 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class MenuButton extends Actor {
 
-    private Texture menuButton;
     public float x, y;
     public float w, h;
     public boolean touch;
+    private Texture menuButton;
 
     public MenuButton(int type, float x, float y, float w, float h) {
         this.x = x;

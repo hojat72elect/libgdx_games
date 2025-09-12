@@ -22,10 +22,10 @@ public class Ball extends Actor {
 
     public boolean state_fire;
     public boolean velocity_changed;
+    public boolean pause = false;
     private Texture ball;
     private long startx;
     private long start;
-    public boolean pause = false;
 
 
     public Ball(float x, float y) {

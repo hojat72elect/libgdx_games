@@ -12,10 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class Brick extends Actor {
 
     public int x, y;
-    Texture brick1;
     public boolean live = true;
     public float width, height;
     public int type;
+    Texture brick1;
 
     public Brick(int type, int x, int y) {
         this.x = x;

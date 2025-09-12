@@ -45,9 +45,8 @@ public class GameScreen extends GameClass {
     int[][] level;
     int[][] level1;
     int[][] level2;
-
-    private boolean selectPosition;
     int brickN = 0;
+    private boolean selectPosition;
 
 
     public GameScreen(BrickBreaker brickBreaker) {

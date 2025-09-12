@@ -13,12 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Score extends Actor {
 
-    BitmapFont font;
-    Texture ball;
-
     public int score = 0;
     public int lives = 3;
     public int level = 1;
+    BitmapFont font;
+    Texture ball;
     float textWidth;
     float x, y;
     GlyphLayout layout;

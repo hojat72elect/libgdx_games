@@ -12,11 +12,12 @@ import com.salvador.bricks.Objects.MenuButton;
 import com.salvador.bricks.Objects.MenuText;
 
 public class GameOverScreen extends GameClass {
+    private final float score;
+    public float scoreI = 1;
+    long start = 0;
     private Stage stage;
     private MenuButton menuButton;
-
     private MenuText scoreText;
-    private final float score;
 
     public GameOverScreen(BrickBreaker brickBreaker, float score) {
         super(brickBreaker);
@@ -40,9 +41,6 @@ public class GameOverScreen extends GameClass {
         stage.addActor(titleText);
         stage.addActor(scoreText);
     }
-
-    public float scoreI = 1;
-    long start = 0;
 
     @Override
     public void render(float delta) {

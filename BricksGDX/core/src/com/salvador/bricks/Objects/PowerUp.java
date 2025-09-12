@@ -12,14 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class PowerUp extends Actor {
 
+    private final Texture powerUp;
     public float x, y;
     public float speedX;
     public float speedY;
-
     public float width, height;
-
     public boolean live = true;
-    private final Texture powerUp;
     public int type;
 
     public PowerUp(int type, float x, float y) {

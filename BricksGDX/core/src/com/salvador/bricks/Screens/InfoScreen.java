@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 public class InfoScreen extends GameClass {
 
+    private final ArrayList<MenuText> credits = new ArrayList<MenuText>();
     private Stage stage;
     private MenuButton exitButton;
-    private final ArrayList<MenuText> credits = new ArrayList<MenuText>();
+
     public InfoScreen(BrickBreaker brickBreaker) {
         super(brickBreaker);
     }

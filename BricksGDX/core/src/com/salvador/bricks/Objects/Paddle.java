@@ -17,13 +17,12 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 public class Paddle extends Actor {
 
-    Texture tPaddle;
     public Vector2 position;
     public float width;
     public float height;
-
     public boolean size_changed;
-
+    Texture tPaddle;
+    long start;
 
     public Paddle(float x, float y) {
         tPaddle = getTexture("paddle.png");
@@ -80,10 +79,6 @@ public class Paddle extends Actor {
             }
         }
     }
-
-
-    long start;
-
 
     @Override
     public void act(float delta) {
