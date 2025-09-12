@@ -1,0 +1,21 @@
+apply plugin: "java"
+
+sourceCompatibility = 1.6
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+sourceSets.main.java.srcDirs = [ "src/" ]
+
+project.ext.mainClassName = "com.salvador.bricks.desktop.DesktopLauncher"
+
+
+
+eclipse {
+    project {
+        name = appName + "-desktop"
+        linkedResource name: 'assets', type: '2', location: 'PARENT-1-PROJECT_LOC/android/assets'
+    }
+}
+
