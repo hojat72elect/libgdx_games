@@ -258,14 +258,14 @@ public class GameScreen extends GameClass {
                     boolean vertical = false;
                     boolean horizontal = false;
 
-                    if (insect.x == brick.x) {
+                    if (insect.x == brick.positionX) {
                         horizontal = true;
-                    } else if (insect.x + insect.width == brick.x + brick.width) {
+                    } else if (insect.x + insect.width == brick.positionX + brick.brickWidth) {
                         horizontal = true;
                     }
-                    if (insect.y == brick.y) {
+                    if (insect.y == brick.positionY) {
                         vertical = true;
-                    } else if (insect.y + insect.height == brick.y + brick.height) {
+                    } else if (insect.y + insect.height == brick.positionY + brick.brickHeight) {
                         vertical = true;
                     }
 
@@ -290,7 +290,7 @@ public class GameScreen extends GameClass {
                     brick.live = false;
                     score.score = score.score + 100;
                     if (brick.type >= 11) {
-                        powerUps.add(new PowerUp(brick.type, brick.x + brick.width / 2 - 15, brick.y));
+                        powerUps.add(new PowerUp(brick.type, brick.positionX + brick.brickWidth / 2 - 15, brick.positionY));
                         stage.addActor(powerUps.get(powerUps.size() - 1));
                     }
 
