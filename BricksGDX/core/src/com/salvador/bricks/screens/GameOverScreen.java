@@ -1,15 +1,15 @@
-package com.salvador.bricks.Screens;
+package com.salvador.bricks.screens;
 
-import static com.salvador.bricks.Objects.Constants.BUTTON_RESET;
+import static com.salvador.bricks.game_objects.Constants.BUTTON_RESET;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.salvador.bricks.BrickBreaker;
-import com.salvador.bricks.Objects.Background;
-import com.salvador.bricks.Objects.MenuButton;
-import com.salvador.bricks.Objects.MenuText;
+import com.salvador.bricks.game_objects.Background;
+import com.salvador.bricks.game_objects.MenuButton;
+import com.salvador.bricks.game_objects.MenuText;
 
 public class GameOverScreen extends GameClass {
     private final float score;

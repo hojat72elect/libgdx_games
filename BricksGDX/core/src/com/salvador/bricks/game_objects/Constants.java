@@ -1,4 +1,4 @@
-package com.salvador.bricks.Objects;
+package com.salvador.bricks.game_objects;
 
 public class Constants {
 

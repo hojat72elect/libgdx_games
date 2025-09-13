@@ -1,9 +1,9 @@
-package com.salvador.bricks.Objects;
+package com.salvador.bricks.game_objects;
 
-import static com.salvador.bricks.Objects.Constants.BALL_HEIGHT;
-import static com.salvador.bricks.Objects.Constants.BALL_SPEED;
-import static com.salvador.bricks.Objects.Constants.BALL_WIDTH;
-import static com.salvador.bricks.Objects.ResourceManager.getTexture;
+import static com.salvador.bricks.game_objects.Constants.BALL_HEIGHT;
+import static com.salvador.bricks.game_objects.Constants.BALL_SPEED;
+import static com.salvador.bricks.game_objects.Constants.BALL_WIDTH;
+import static com.salvador.bricks.game_objects.ResourceManager.getTexture;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;

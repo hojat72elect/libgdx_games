@@ -1,7 +1,7 @@
-package com.salvador.bricks.Objects;
+package com.salvador.bricks.game_objects;
 
-import static com.salvador.bricks.Objects.ResourceManager.getMusic;
-import static com.salvador.bricks.Objects.ResourceManager.getSound;
+import static com.salvador.bricks.game_objects.ResourceManager.getMusic;
+import static com.salvador.bricks.game_objects.ResourceManager.getSound;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;

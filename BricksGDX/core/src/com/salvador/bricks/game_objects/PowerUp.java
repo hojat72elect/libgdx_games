@@ -1,8 +1,8 @@
-package com.salvador.bricks.Objects;
+package com.salvador.bricks.game_objects;
 
-import static com.salvador.bricks.Objects.Constants.powerUp_AddOneBall;
-import static com.salvador.bricks.Objects.Constants.powerUp_FireBall;
-import static com.salvador.bricks.Objects.Constants.powerUp_paddleSize;
+import static com.salvador.bricks.game_objects.Constants.powerUp_AddOneBall;
+import static com.salvador.bricks.game_objects.Constants.powerUp_FireBall;
+import static com.salvador.bricks.game_objects.Constants.powerUp_paddleSize;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

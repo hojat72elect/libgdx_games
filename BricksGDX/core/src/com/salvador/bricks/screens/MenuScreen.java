@@ -1,20 +1,20 @@
-package com.salvador.bricks.Screens;
+package com.salvador.bricks.screens;
 
-import static com.salvador.bricks.Objects.Constants.BUTTON_EXIT;
-import static com.salvador.bricks.Objects.Constants.BUTTON_INFO;
-import static com.salvador.bricks.Objects.Constants.BUTTON_PLAY;
-import static com.salvador.bricks.Objects.Constants.GAME_NAME;
-import static com.salvador.bricks.Objects.Constants.SCREEN_WIDTH;
-import static com.salvador.bricks.Objects.ResourceManager.disposeAssets;
-import static com.salvador.bricks.Objects.ResourceManager.loadAssets;
+import static com.salvador.bricks.game_objects.Constants.BUTTON_EXIT;
+import static com.salvador.bricks.game_objects.Constants.BUTTON_INFO;
+import static com.salvador.bricks.game_objects.Constants.BUTTON_PLAY;
+import static com.salvador.bricks.game_objects.Constants.GAME_NAME;
+import static com.salvador.bricks.game_objects.Constants.SCREEN_WIDTH;
+import static com.salvador.bricks.game_objects.ResourceManager.disposeAssets;
+import static com.salvador.bricks.game_objects.ResourceManager.loadAssets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.salvador.bricks.BrickBreaker;
-import com.salvador.bricks.Objects.Background;
-import com.salvador.bricks.Objects.MenuButton;
-import com.salvador.bricks.Objects.MenuText;
+import com.salvador.bricks.game_objects.Background;
+import com.salvador.bricks.game_objects.MenuButton;
+import com.salvador.bricks.game_objects.MenuText;
 
 public class MenuScreen extends GameClass {
     private Stage stage;

@@ -1,6 +1,6 @@
-package com.salvador.bricks.Objects;
+package com.salvador.bricks.game_objects;
 
-import static com.salvador.bricks.Objects.ResourceManager.getFont;
+import static com.salvador.bricks.game_objects.ResourceManager.getFont;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

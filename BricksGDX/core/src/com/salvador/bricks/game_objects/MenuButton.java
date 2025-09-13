@@ -1,10 +1,10 @@
-package com.salvador.bricks.Objects;
+package com.salvador.bricks.game_objects;
 
-import static com.salvador.bricks.Objects.Constants.BUTTON_EXIT;
-import static com.salvador.bricks.Objects.Constants.BUTTON_INFO;
-import static com.salvador.bricks.Objects.Constants.BUTTON_PLAY;
-import static com.salvador.bricks.Objects.Constants.BUTTON_RESET;
-import static com.salvador.bricks.Objects.ResourceManager.getTexture;
+import static com.salvador.bricks.game_objects.Constants.BUTTON_EXIT;
+import static com.salvador.bricks.game_objects.Constants.BUTTON_INFO;
+import static com.salvador.bricks.game_objects.Constants.BUTTON_PLAY;
+import static com.salvador.bricks.game_objects.Constants.BUTTON_RESET;
+import static com.salvador.bricks.game_objects.ResourceManager.getTexture;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;

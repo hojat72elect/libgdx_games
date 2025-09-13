@@ -1,7 +1,7 @@
-package com.salvador.bricks.Objects;
+package com.salvador.bricks.game_objects;
 
-import static com.salvador.bricks.Objects.Constants.SCREEN_WIDTH;
-import static com.salvador.bricks.Objects.ResourceManager.getTexture;
+import static com.salvador.bricks.game_objects.Constants.SCREEN_WIDTH;
+import static com.salvador.bricks.game_objects.ResourceManager.getTexture;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

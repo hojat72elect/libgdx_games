@@ -1,4 +1,4 @@
-package com.salvador.bricks.Objects;
+package com.salvador.bricks.game_objects;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;

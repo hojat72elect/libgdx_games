@@ -1,4 +1,4 @@
-package com.salvador.bricks.Screens;
+package com.salvador.bricks.screens;
 
 import com.badlogic.gdx.Screen;
 import com.salvador.bricks.BrickBreaker;

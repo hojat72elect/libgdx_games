@@ -1,17 +1,17 @@
-package com.salvador.bricks.Screens;
+package com.salvador.bricks.screens;
 
-import static com.salvador.bricks.Objects.Constants.BALL_SPEED;
-import static com.salvador.bricks.Objects.Constants.BALL_WIDTH;
-import static com.salvador.bricks.Objects.Constants.SCREEN_WIDTH;
-import static com.salvador.bricks.Objects.Constants.powerUp_AddOneBall;
-import static com.salvador.bricks.Objects.Constants.powerUp_FireBall;
-import static com.salvador.bricks.Objects.Constants.powerUp_SpeedUp;
-import static com.salvador.bricks.Objects.Constants.powerUp_paddleSize;
-import static com.salvador.bricks.Objects.Constants.powerUp_speedLow;
-import static com.salvador.bricks.Objects.SoundManager.loadSounds;
-import static com.salvador.bricks.Objects.SoundManager.playBrickSound;
-import static com.salvador.bricks.Objects.SoundManager.playMusicBackground;
-import static com.salvador.bricks.Objects.SoundManager.stopMusicBackground;
+import static com.salvador.bricks.game_objects.Constants.BALL_SPEED;
+import static com.salvador.bricks.game_objects.Constants.BALL_WIDTH;
+import static com.salvador.bricks.game_objects.Constants.SCREEN_WIDTH;
+import static com.salvador.bricks.game_objects.Constants.powerUp_AddOneBall;
+import static com.salvador.bricks.game_objects.Constants.powerUp_FireBall;
+import static com.salvador.bricks.game_objects.Constants.powerUp_SpeedUp;
+import static com.salvador.bricks.game_objects.Constants.powerUp_paddleSize;
+import static com.salvador.bricks.game_objects.Constants.powerUp_speedLow;
+import static com.salvador.bricks.game_objects.SoundManager.loadSounds;
+import static com.salvador.bricks.game_objects.SoundManager.playBrickSound;
+import static com.salvador.bricks.game_objects.SoundManager.playMusicBackground;
+import static com.salvador.bricks.game_objects.SoundManager.stopMusicBackground;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -22,12 +22,12 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Timer;
 import com.salvador.bricks.BrickBreaker;
-import com.salvador.bricks.Objects.Background;
-import com.salvador.bricks.Objects.Ball;
-import com.salvador.bricks.Objects.Brick;
-import com.salvador.bricks.Objects.Paddle;
-import com.salvador.bricks.Objects.PowerUp;
-import com.salvador.bricks.Objects.Score;
+import com.salvador.bricks.game_objects.Background;
+import com.salvador.bricks.game_objects.Ball;
+import com.salvador.bricks.game_objects.Brick;
+import com.salvador.bricks.game_objects.Paddle;
+import com.salvador.bricks.game_objects.PowerUp;
+import com.salvador.bricks.game_objects.Score;
 
 import java.util.ArrayList;
 
