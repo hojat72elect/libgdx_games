@@ -40,7 +40,7 @@ public class MenuScreen extends GameClass {
         exitButton = new MenuButton(BUTTON_EXIT, 20, 20, 80, 80);
         infoButton = new MenuButton(BUTTON_INFO, SCREEN_WIDTH - 100, 20, 80, 80);
 
-        MenuText titleText = new MenuText(GAME_NAME, "font.ttf", 10, 550);
+        MenuText titleText = new MenuText(GAME_NAME, "font.ttf", 550);
         stage.addActor(background);
         stage.addActor(playButton);
         stage.addActor(exitButton);

@@ -52,7 +52,7 @@ public class InfoScreen extends GameClass {
     }
 
     public MenuText newTitle(String title, float y) {
-        return (new MenuText(title, "font20.ttf", 10, y));
+        return (new MenuText(title, "font20.ttf", y));
     }
 
     @Override

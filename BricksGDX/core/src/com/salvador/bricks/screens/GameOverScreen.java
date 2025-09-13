@@ -34,8 +34,8 @@ public class GameOverScreen extends GameClass {
         camera.setToOrtho(false, 450, 800);
         Background background = new Background(0, 0);
         menuButton = new MenuButton(BUTTON_RESET, 225 - 150, 250, 300, 90);
-        MenuText titleText = new MenuText("Game Over", "font.ttf", 10, 600);
-        scoreText = new MenuText("Score: " + "0", "font20.ttf", 300, 500);
+        MenuText titleText = new MenuText("Game Over", "font.ttf", 600);
+        scoreText = new MenuText("Score: " + "0", "font20.ttf", 500);
         stage.addActor(background);
         stage.addActor(menuButton);
         stage.addActor(titleText);
@@ -51,7 +51,7 @@ public class GameOverScreen extends GameClass {
             long diffInMillis = TimeUtils.timeSinceMillis(start);
             if (diffInMillis > 10) {
                 scoreI = scoreI + 5;
-                scoreText.setText(String.valueOf(scoreI));
+                scoreText.text = String.valueOf(scoreI);
                 start = 0;
             }
         }
