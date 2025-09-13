@@ -2,12 +2,12 @@ package com.salvador.bricks.screens;
 
 import static com.salvador.bricks.game_objects.Constants.BALL_SPEED;
 import static com.salvador.bricks.game_objects.Constants.BALL_WIDTH;
+import static com.salvador.bricks.game_objects.Constants.POWER_UP_ADD_ONE_BALL;
+import static com.salvador.bricks.game_objects.Constants.POWER_UP_FIREBALL;
+import static com.salvador.bricks.game_objects.Constants.POWER_UP_PADDLE_SIZE;
+import static com.salvador.bricks.game_objects.Constants.POWER_UP_SPEED_LOW;
+import static com.salvador.bricks.game_objects.Constants.POWER_UP_SPEED_UP;
 import static com.salvador.bricks.game_objects.Constants.SCREEN_WIDTH;
-import static com.salvador.bricks.game_objects.Constants.powerUp_AddOneBall;
-import static com.salvador.bricks.game_objects.Constants.powerUp_FireBall;
-import static com.salvador.bricks.game_objects.Constants.powerUp_SpeedUp;
-import static com.salvador.bricks.game_objects.Constants.powerUp_paddleSize;
-import static com.salvador.bricks.game_objects.Constants.powerUp_speedLow;
 import static com.salvador.bricks.game_objects.SoundManager.loadSounds;
 import static com.salvador.bricks.game_objects.SoundManager.playBrickSound;
 import static com.salvador.bricks.game_objects.SoundManager.playMusicBackground;
@@ -305,27 +305,27 @@ public class GameScreen extends GameClass {
             if (paddle.getBounds().overlaps(powerUp.getBounds())) {
                 if (powerUp.live) {
                     switch (powerUp.type) {
-                        case powerUp_AddOneBall:
+                        case POWER_UP_ADD_ONE_BALL:
                             addNewBall(false);
                             powerUp.remove();
                             powerUp.live = false;
                             break;
-                        case powerUp_paddleSize:
+                        case POWER_UP_PADDLE_SIZE:
                             setPaddlesize(80, 30);
                             powerUp.remove();
                             powerUp.live = false;
                             break;
-                        case powerUp_FireBall:
+                        case POWER_UP_FIREBALL:
                             setFireBall();
                             powerUp.remove();
                             powerUp.live = false;
                             break;
-                        case powerUp_speedLow:
+                        case POWER_UP_SPEED_LOW:
                             setVelocityBall(500f);
                             powerUp.remove();
                             powerUp.live = false;
                             break;
-                        case powerUp_SpeedUp:
+                        case POWER_UP_SPEED_UP:
                             setVelocityBall(100f);
                             powerUp.remove();
                             powerUp.live = false;

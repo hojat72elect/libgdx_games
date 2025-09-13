@@ -1,8 +1,8 @@
 package com.salvador.bricks.game_objects;
 
-import static com.salvador.bricks.game_objects.Constants.powerUp_AddOneBall;
-import static com.salvador.bricks.game_objects.Constants.powerUp_FireBall;
-import static com.salvador.bricks.game_objects.Constants.powerUp_paddleSize;
+import static com.salvador.bricks.game_objects.Constants.POWER_UP_ADD_ONE_BALL;
+import static com.salvador.bricks.game_objects.Constants.POWER_UP_FIREBALL;
+import static com.salvador.bricks.game_objects.Constants.POWER_UP_PADDLE_SIZE;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,13 +23,13 @@ public class PowerUp extends Actor {
     public PowerUp(int type, float x, float y) {
         this.type = type;
         switch (type) {
-            case powerUp_AddOneBall:
+            case POWER_UP_ADD_ONE_BALL:
                 powerUp = new Texture(Gdx.files.internal("powerupBlue.png"));
                 break;
-            case powerUp_paddleSize:
+            case POWER_UP_PADDLE_SIZE:
                 powerUp = new Texture(Gdx.files.internal("powerupGreen.png"));
                 break;
-            case powerUp_FireBall:
+            case POWER_UP_FIREBALL:
                 powerUp = new Texture(Gdx.files.internal("powerupRed.png"));
                 break;
             default:
