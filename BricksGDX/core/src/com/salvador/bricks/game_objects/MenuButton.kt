@@ -9,7 +9,7 @@ import com.salvador.bricks.game_objects.Constants.BUTTON_INFO
 import com.salvador.bricks.game_objects.Constants.BUTTON_PLAY
 import com.salvador.bricks.game_objects.Constants.BUTTON_RESET
 
-class MenuButton(type: Int, var x: Float, var y: Float, var w: Float, var h: Float) : Actor() {
+class MenuButton(type: Int, var positionX: Float, var positionY: Float, var w: Float, var h: Float) : Actor() {
 
     @JvmField
     var touch = false
@@ -24,7 +24,7 @@ class MenuButton(type: Int, var x: Float, var y: Float, var w: Float, var h: Flo
     }
 
     init {
-        setBounds(x, y, w, h)
+        setBounds(positionX, positionY, w, h)
 
         addListener(object : InputListener() {
             override fun touchDown(
@@ -40,6 +40,6 @@ class MenuButton(type: Int, var x: Float, var y: Float, var w: Float, var h: Flo
 
     override fun draw(batch: Batch, parentAlpha: Float) {
         super.draw(batch, parentAlpha)
-        batch.draw(menuButton, x, y, w, h)
+        batch.draw(menuButton, positionX, positionY, w, h)
     }
 }
