@@ -1,7 +1,6 @@
 apply plugin: "java"
 apply plugin: 'kotlin'
 
-sourceCompatibility = 1.6
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(8)
@@ -10,8 +9,6 @@ java {
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 project.ext.mainClassName = "com.salvador.bricks.desktop.DesktopLauncher"
-
-
 
 eclipse {
     project {
