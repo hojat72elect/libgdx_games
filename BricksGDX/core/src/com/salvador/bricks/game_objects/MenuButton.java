@@ -12,10 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
-/**
- * Created by Salvador on 24/02/2018.
- */
-
 public class MenuButton extends Actor {
 
     public float x, y;
