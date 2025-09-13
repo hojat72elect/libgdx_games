@@ -39,9 +39,9 @@ public class GameScreen extends GameClass {
 
     private final Score score;
 
-    private final ArrayList<Brick> bricks = new ArrayList<Brick>();
-    private final ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
-    private final ArrayList<Ball> balls = new ArrayList<Ball>();
+    private final ArrayList<Brick> bricks = new ArrayList<>();
+    private final ArrayList<PowerUp> powerUps = new ArrayList<>();
+    private final ArrayList<Ball> balls = new ArrayList<>();
     int[][] level;
     int[][] level1;
     int[][] level2;
