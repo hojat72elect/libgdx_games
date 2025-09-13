@@ -22,12 +22,6 @@ class Ball(x: Float, y: Float) : Actor() {
     var speedY = 300F
 
     @JvmField
-    var ballWidth = 30F
-
-    @JvmField
-    var ballHeight = 30F
-
-    @JvmField
     var isFireballActive = false
     var isVelocityModified = false
 
