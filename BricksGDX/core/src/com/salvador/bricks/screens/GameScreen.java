@@ -277,7 +277,7 @@ public class GameScreen extends GameClass {
                         }
                     }
 
-                    if (!ball.state_fire) {
+                    if (!ball.isFireballActive) {
                         if (horizontal) {
                             ball.speedX = -ball.speedX;
                         } else if (vertical) {

@@ -22,19 +22,19 @@ class Ball(x: Float, y: Float) : Actor() {
     var speedY = 300F
 
     @JvmField
-    var width = 30F
+    var ballWidth = 30F
 
     @JvmField
-    var height = 30F
+    var ballHeight = 30F
 
     @JvmField
-    var state_fire = false
-    var velocity_changed = false
+    var isFireballActive = false
+    var isVelocityModified = false
 
     @JvmField
     var pause = false
     private var ball: Texture = ResourceManager.getTexture("ball.png")
-    private var startx = 0L
+    private var startX = 0L
     private var start = 0L
 
     fun getBounds() = Rectangle(position.x, position.y, BALL_WIDTH.toFloat(), BALL_HEIGHT.toFloat())
@@ -45,8 +45,8 @@ class Ball(x: Float, y: Float) : Actor() {
         if (speedX > 0) this.speedX = speed
         if (speedY < 0) this.speedX = -speed
 
-        velocity_changed = true
-        startx = TimeUtils.millis()
+        isVelocityModified = true
+        startX = TimeUtils.millis()
     }
 
     fun setDefaultSpeed() {
@@ -60,8 +60,8 @@ class Ball(x: Float, y: Float) : Actor() {
         else
             this.speedX = -BALL_SPEED
 
-        velocity_changed = true
-        startx = TimeUtils.millis()
+        isVelocityModified = true
+        startX = TimeUtils.millis()
     }
 
     override fun act(delta: Float) {
@@ -70,24 +70,24 @@ class Ball(x: Float, y: Float) : Actor() {
             position.x += speedX * delta
             position.y += speedY * delta
         }
-        if (state_fire) {
+        if (isFireballActive) {
             val diffInMillis = TimeUtils.timeSinceMillis(start)
             if (diffInMillis > 2_000) {
-                state_fire = false
+                isFireballActive = false
                 ball = ResourceManager.getTexture("ball.png")
             }
         }
-        if (velocity_changed) {
-            val diffInMillis = TimeUtils.timeSinceMillis(startx)
+        if (isVelocityModified) {
+            val diffInMillis = TimeUtils.timeSinceMillis(startX)
             if (diffInMillis > 5_000) {
-                velocity_changed = false
+                isVelocityModified = false
                 setDefaultSpeed()
             }
         }
     }
 
     fun setFireBall() {
-        state_fire = true
+        isFireballActive = true
         ball = ResourceManager.getTexture("ball_fire.png")
         start = TimeUtils.millis()
     }
