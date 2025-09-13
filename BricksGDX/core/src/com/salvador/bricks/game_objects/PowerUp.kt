@@ -19,9 +19,6 @@ class PowerUp(@JvmField var type: Int, var positionX: Float, var positionY: Floa
     }
 
     var speedX = 150F
-    var speedY = 150F
-    var powerUpWidth = 30F
-    var powerUpHeight = 30F
 
     @JvmField
     var live = true
@@ -38,7 +35,6 @@ class PowerUp(@JvmField var type: Int, var positionX: Float, var positionY: Floa
         this.positionX = x
         this.positionY = y
     }
-
 
     override fun draw(batch: Batch, parentAlpha: Float) {
         super.draw(batch, parentAlpha)
