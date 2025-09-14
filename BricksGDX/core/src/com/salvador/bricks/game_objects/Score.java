@@ -29,9 +29,9 @@ public class Score extends Actor {
         ball = getTexture("ball.png");
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 15; // font size
+        parameter.size = 15;
         font = generator.generateFont(parameter);
-        generator.dispose(); // avoid memory leaks, important*/
+        generator.dispose();
         layout = new GlyphLayout();
     }
 
