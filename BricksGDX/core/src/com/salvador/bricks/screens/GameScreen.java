@@ -63,7 +63,7 @@ public class GameScreen extends GameClass {
         camera.setToOrtho(false, SCREEN_WIDTH, 800);
         Background background = new Background(0, 0);
         paddle = new Paddle(SCREEN_WIDTH / 2F - 130F / 2, 50);
-        score = new Score(200, 770);
+        score = new Score(770);
         stage.addActor(background);
         stage.addActor(paddle);
         stage.addActor(score);
