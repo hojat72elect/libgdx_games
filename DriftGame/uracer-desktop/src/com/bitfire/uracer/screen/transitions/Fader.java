@@ -106,7 +106,6 @@ public final class Fader extends ScreenTransition {
     public void update() {
         long delta = URacer.Game.getLastDeltaNs();
         delta = AlgebraMath.clamp(delta, 0, MaxFrameStep);
-        // Gdx.app.log("Fader", "delta=" + URacer.Game.getLastDeltaNs() + ", e=" + elapsed + ", d=" + duration + ", f=" + factor);
 
         elapsed += delta;
 

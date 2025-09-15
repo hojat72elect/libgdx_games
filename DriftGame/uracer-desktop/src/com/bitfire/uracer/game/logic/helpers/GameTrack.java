@@ -291,8 +291,6 @@ public final class GameTrack {
         }
     }
 
-    // FIXME move out of here
-
     /**
      * Represents the current track state of a car
      */

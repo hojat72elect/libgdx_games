@@ -308,15 +308,12 @@ public final class DefaultAnimator implements PostProcessingAnimator {
                 float targetStrength = speedStrength - 0.4f * collisionFactor;
                 float strength = targetStrength - (speedStrength * 0.5f) * timeModFactor;
                 strength = AlgebraMath.clamp(strength, -1, 0);
-                // Gdx.app.log("", "strength=" + strength);
                 zoomBlurStrengthFactor.set(strength, 1f);
             } else {
                 zoomBlurStrengthFactor.set(0, 0.05f);
             }
 
             float f = zoomBlurStrengthFactor.get();
-            // Gdx.app.log("", "f=" + f);
-
             autoEnableZoomBlur(f);
             if (zoom.isEnabled()) {
                 zoom.setBlurStrength(f);
