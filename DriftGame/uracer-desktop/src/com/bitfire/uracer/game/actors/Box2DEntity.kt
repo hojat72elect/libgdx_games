@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.World
 import com.bitfire.uracer.entities.EntityRenderState
-import com.bitfire.uracer.utils.AMath
+import com.bitfire.uracer.utils.AlgebraMath
 
 abstract class Box2DEntity(@JvmField protected var box2dWorld: World) : SubframeInterpolableEntity() {
 
@@ -46,7 +46,7 @@ abstract class Box2DEntity(@JvmField protected var box2dWorld: World) : Subframe
 
     protected fun toNormalRelativeAngle() {
         // normalize body angle since it can grow unbounded
-        val angle = AMath.normalRelativeAngle(body!!.angle)
+        val angle = AlgebraMath.normalRelativeAngle(body!!.angle)
         body!!.setTransform(body!!.position, angle)
     }
 }

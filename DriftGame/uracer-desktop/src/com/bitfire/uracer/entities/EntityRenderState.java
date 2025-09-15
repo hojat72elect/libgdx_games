@@ -2,7 +2,7 @@ package com.bitfire.uracer.entities;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.NewConvert;
 
 public final class EntityRenderState {
@@ -31,13 +31,13 @@ public final class EntityRenderState {
 
         if (needWrap) {
             if (prev < 0) {
-                prev += AMath.TWO_PI;
+                prev += AlgebraMath.TWO_PI;
             } else {
-                curr += AMath.TWO_PI;
+                curr += AlgebraMath.TWO_PI;
             }
 
             result.orientation = curr * alpha + prev * (1 - alpha);
-            result.orientation = -(AMath.TWO_PI - result.orientation);
+            result.orientation = -(AlgebraMath.TWO_PI - result.orientation);
         } else {
             result.orientation = current.orientation * alpha + previous.orientation * (1 - alpha);
         }
@@ -49,13 +49,13 @@ public final class EntityRenderState {
      * Returns whether or not the specified render states are equal with a bias of AMath.CMP_EPSILON
      */
     public static boolean isEqual(EntityRenderState first, EntityRenderState second) {
-        boolean xIsEqual = AMath.isZero(Math.abs(first.position.x) - Math.abs(second.position.x));
+        boolean xIsEqual = AlgebraMath.isZero(Math.abs(first.position.x) - Math.abs(second.position.x));
 
         if (!xIsEqual) {
             return false;
         }
 
-        return AMath.isZero(Math.abs(first.position.y) - Math.abs(second.position.y));
+        return AlgebraMath.isZero(Math.abs(first.position.y) - Math.abs(second.position.y));
     }
 
     public void set(EntityRenderState state) {

@@ -11,7 +11,7 @@ import com.bitfire.uracer.game.logic.gametasks.trackeffects.TrackEffectType;
 import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.uracer.game.rendering.GameRenderer;
 import com.bitfire.uracer.resources.Art;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.NewConvert;
 
 public class PlayerSkidMarks extends TrackEffect {
@@ -131,14 +131,14 @@ public class PlayerSkidMarks extends TrackEffect {
         int driftMarkAddIterations;
         float target = Config.Physics.Dt;
         float curr = Gdx.graphics.getDeltaTime();// deltaMean.getMean();
-        driftMarkAddIterations = AMath.clamp(Math.round(curr / target), 1, 3);
+        driftMarkAddIterations = AlgebraMath.clamp(Math.round(curr / target), 1, 3);
 
         float theta = 1f / (float) driftMarkAddIterations;
         for (int i = 0; i < driftMarkAddIterations; i++) {
             pos.set(position);
 
-            pos.x = AMath.lerp(last.x, position.x, theta * i);
-            pos.y = AMath.lerp(last.y, position.y, theta * i);
+            pos.x = AlgebraMath.lerp(last.x, position.x, theta * i);
+            pos.y = AlgebraMath.lerp(last.y, position.y, theta * i);
 
             // add front drift marks?
             SkidMark drift = skidMarks[markIndex++];

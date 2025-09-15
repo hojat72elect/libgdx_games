@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.bitfire.uracer.game.actors.Car;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.VectorMathUtils;
 
 import java.util.List;
@@ -134,10 +134,10 @@ public final class GameTrack {
             TrackSector s = sectors[carSector];
             float dist = distanceInSector(s, pt);
             float carlen = (s.relativeTotal + s.length * dist);
-            return AMath.fixup(carlen);
+            return AlgebraMath.fixup(carlen);
         }
 
-        return AMath.fixup(retDefault);
+        return AlgebraMath.fixup(retDefault);
     }
 
     /**
@@ -151,7 +151,7 @@ public final class GameTrack {
             ret = cardist * oneOnTotalLength;
         }
 
-        return AMath.fixup(ret);
+        return AlgebraMath.fixup(ret);
     }
 
     /**

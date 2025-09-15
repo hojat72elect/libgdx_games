@@ -1,5 +1,8 @@
 package com.bitfire.uracer.game.world;
 
+import box2dLight.ConeLight;
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -16,11 +19,7 @@ import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.bitfire.uracer.URacer;
@@ -34,27 +33,18 @@ import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.uracer.game.world.WorldDefs.Layer;
 import com.bitfire.uracer.game.world.WorldDefs.ObjectGroup;
 import com.bitfire.uracer.game.world.WorldDefs.ObjectProperties;
-import com.bitfire.uracer.game.world.models.MapUtils;
-import com.bitfire.uracer.game.world.models.ModelFactory;
-import com.bitfire.uracer.game.world.models.OrthographicAlignedStillModel;
-import com.bitfire.uracer.game.world.models.TrackTrees;
-import com.bitfire.uracer.game.world.models.TrackWalls;
-import com.bitfire.uracer.game.world.models.TreeStillModel;
+import com.bitfire.uracer.game.world.models.*;
 import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.u3d.materials.Material;
 import com.bitfire.uracer.u3d.materials.TextureAttribute;
 import com.bitfire.uracer.u3d.still.StillModel;
 import com.bitfire.uracer.u3d.still.StillSubMesh;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.NewConvert;
 import com.bitfire.uracer.utils.ScaleUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import box2dLight.ConeLight;
-import box2dLight.PointLight;
-import box2dLight.RayHandler;
 
 /**
  * Encapsulates the game's world. Yay!
@@ -485,7 +475,7 @@ public final class GameWorld {
                 magidx = 0;
             }
 
-            mag = AMath.lerp(prevmag, magnitudes[magidx], .5f);
+            mag = AlgebraMath.lerp(prevmag, magnitudes[magidx], .5f);
             prevmag = mag;
 
             coordU = mag * textureScalingU;

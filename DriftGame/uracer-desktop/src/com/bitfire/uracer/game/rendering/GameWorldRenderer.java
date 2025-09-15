@@ -1,46 +1,31 @@
 package com.bitfire.uracer.game.rendering;
 
+import box2dLight.ConeLight;
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Mesh;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Matrix3;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.*;
 import com.bitfire.uracer.configuration.Config;
 import com.bitfire.uracer.game.actors.Car;
 import com.bitfire.uracer.game.actors.GhostCar;
 import com.bitfire.uracer.game.logic.helpers.CameraController;
 import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.uracer.game.world.GameWorld;
-import com.bitfire.uracer.game.world.models.CarStillModel;
-import com.bitfire.uracer.game.world.models.OrthographicAlignedStillModel;
-import com.bitfire.uracer.game.world.models.TrackTrees;
-import com.bitfire.uracer.game.world.models.TrackWalls;
-import com.bitfire.uracer.game.world.models.TreeStillModel;
+import com.bitfire.uracer.game.world.models.*;
 import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.u3d.still.StillSubMesh;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.NewConvert;
 import com.bitfire.uracer.utils.ScaleUtils;
 import com.bitfire.uracer.utils.URacerRuntimeException;
 import com.bitfire.utils.ShaderLoader;
 
 import java.util.List;
-
-import box2dLight.ConeLight;
-import box2dLight.RayHandler;
 
 public final class GameWorldRenderer {
     public static final float CamPerspPlaneFar = 240f;
@@ -690,7 +675,7 @@ public final class GameWorldRenderer {
                     if (depthOnly) {
                         float ca = model.getAlpha();
                         float a = (ca - 0.5f) * 2;
-                        float s = AMath.clampf(AMath.sigmoid(a * 3f + 4f - (1 - ca)), 0, 1);
+                        float s = AlgebraMath.clampf(AlgebraMath.sigmoid(a * 3f + 4f - (1 - ca)), 0, 1);
                         setSsaoScale(DefaultSsaoScale * s);
                     }
 
@@ -708,7 +693,7 @@ public final class GameWorldRenderer {
                 if (depthOnly) {
                     float ca = model.getAlpha();
                     float a = (ca - 0.5f) * 2;
-                    float s = AMath.clampf(AMath.sigmoid(a * 3f + 4f - (1 - ca)), 0, 1);
+                    float s = AlgebraMath.clampf(AlgebraMath.sigmoid(a * 3f + 4f - (1 - ca)), 0, 1);
                     setSsaoScale(DefaultSsaoScale * s);
                 }
 

@@ -2,7 +2,7 @@ package com.bitfire.uracer.game.logic.helpers;
 
 import com.bitfire.uracer.game.actors.GhostCar;
 import com.bitfire.uracer.game.player.PlayerCar;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.InterpolatedFloat;
 
 public class TrackProgressData {
@@ -60,11 +60,11 @@ public class TrackProgressData {
                 if (hasTarget) {
                     playerProgressAdv.set(gameTrack.getTrackCompletion(player), Smoothing);
                     if (target.getTrackState().ghostArrived) {
-                        playerToTarget = AMath.fixup(playerProgressAdv.get() - 1);
+                        playerToTarget = AlgebraMath.fixup(playerProgressAdv.get() - 1);
                     } else {
                         targetDistance.set(gameTrack.getTrackDistance(target, 0), Smoothing);
                         targetProgress.set(gameTrack.getTrackCompletion(target), Smoothing);
-                        playerToTarget = AMath.fixup(playerProgressAdv.get() - targetProgress.get());
+                        playerToTarget = AlgebraMath.fixup(playerProgressAdv.get() - targetProgress.get());
                     }
                 }
             } else {

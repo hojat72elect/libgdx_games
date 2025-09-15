@@ -10,7 +10,7 @@ import com.bitfire.uracer.game.logic.gametasks.SoundManager;
 import com.bitfire.uracer.game.logic.gametasks.sounds.SoundEffect;
 import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.uracer.resources.Sounds;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 
 public final class PlayerImpactSoundEffect extends SoundEffect {
     private static final float MinImpactForce = 0.05f;
@@ -51,7 +51,7 @@ public final class PlayerImpactSoundEffect extends SoundEffect {
     }
 
     private void impact(float impactForce) {
-        float factor = AMath.fixup(AMath.normalizeImpactForce(impactForce));
+        float factor = AlgebraMath.fixup(AlgebraMath.normalizeImpactForce(impactForce));
 
         // early exit
         if (factor < MinImpactForce) {

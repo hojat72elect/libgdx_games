@@ -12,8 +12,7 @@ import com.bitfire.uracer.game.logic.gametasks.sounds.effects.engines.EngineF40;
 import com.bitfire.uracer.game.logic.gametasks.sounds.effects.engines.EngineSoundSet;
 import com.bitfire.uracer.game.logic.helpers.TrackProgressData;
 import com.bitfire.uracer.game.player.PlayerCar;
-import com.bitfire.uracer.utils.AMath;
-
+import com.bitfire.uracer.utils.AlgebraMath;
 import net.sourceforge.jFuzzyLogic.FIS;
 
 public final class PlayerEngineSoundEffect extends SoundEffect {
@@ -113,22 +112,22 @@ public final class PlayerEngineSoundEffect extends SoundEffect {
 
             if (!soundset.hasGears() && ThrottleAutoSoftener && !driftTimer.isStopped()
                     && driftTimer.elapsed().ticks < softnessTicks) {
-                throttle *= AMath.damping(0.8f);
+                throttle *= AlgebraMath.damping(0.8f);
                 Gdx.app.log("", "ticks=" + driftTimer.elapsed().ticks);
             }
         } else {
             if (soundset.hasGears()) {
-                throttle *= AMath.damping(0.85f);
+                throttle *= AlgebraMath.damping(0.85f);
             } else {
-                throttle *= AMath.damping(0.8f);
+                throttle *= AlgebraMath.damping(0.8f);
             }
         }
 
-        throttle = AMath.fixup(throttle);
+        throttle = AlgebraMath.fixup(throttle);
         throttle = MathUtils.clamp(throttle, 0, 100);
 
         float rpm = soundset.updateRpm(load);
-        load = AMath.fixup(fuzzyLoadCompute(throttle, rpm));
+        load = AlgebraMath.fixup(fuzzyLoadCompute(throttle, rpm));
 
         // compute volumes
         soundset.updateVolumes(load);

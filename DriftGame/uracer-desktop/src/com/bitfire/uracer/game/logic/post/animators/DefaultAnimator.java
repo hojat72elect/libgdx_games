@@ -1,14 +1,15 @@
 package com.bitfire.uracer.game.logic.post.animators;
 
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.equations.Linear;
+import aurelienribon.tweenengine.equations.Quad;
+import box2dLight.PointLight;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.bitfire.postprocessing.effects.Bloom;
-import com.bitfire.postprocessing.effects.CrtMonitor;
-import com.bitfire.postprocessing.effects.LensFlare;
-import com.bitfire.postprocessing.effects.Vignette;
-import com.bitfire.postprocessing.effects.Zoomer;
+import com.bitfire.postprocessing.effects.*;
 import com.bitfire.postprocessing.filters.Combine;
 import com.bitfire.postprocessing.filters.CrtScreen.RgbMode;
 import com.bitfire.uracer.URacer;
@@ -25,17 +26,7 @@ import com.bitfire.uracer.game.tween.GameTweener;
 import com.bitfire.uracer.game.tween.SysTweener;
 import com.bitfire.uracer.game.world.GameWorld;
 import com.bitfire.uracer.resources.Art;
-import com.bitfire.uracer.utils.AMath;
-import com.bitfire.uracer.utils.BoxedFloat;
-import com.bitfire.uracer.utils.BoxedFloatAccessor;
-import com.bitfire.uracer.utils.InterpolatedFloat;
-import com.bitfire.uracer.utils.ScaleUtils;
-
-import aurelienribon.tweenengine.Timeline;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.equations.Linear;
-import aurelienribon.tweenengine.equations.Quad;
-import box2dLight.PointLight;
+import com.bitfire.uracer.utils.*;
 
 public final class DefaultAnimator implements PostProcessingAnimator {
     private final GameWorld world;
@@ -224,7 +215,7 @@ public final class DefaultAnimator implements PostProcessingAnimator {
 
     private void autoEnableZoomBlur(float blurStrength) {
         boolean enabled = zoom.isEnabled();
-        boolean isZero = AMath.isZero(blurStrength);
+        boolean isZero = AlgebraMath.isZero(blurStrength);
 
         if (isZero && enabled) {
             zoom.setEnabled(false);
@@ -236,7 +227,7 @@ public final class DefaultAnimator implements PostProcessingAnimator {
     private void updateLights(Color ambient, Color trees, float collisionFactor) {
         float base = 0.1f;
         float timeModFactor = URacer.Game.getTimeModFactor();
-        float blue = (base * 3f * timeModFactor) * (1 - AMath.sigmoidT(collisionFactor, 0.7f, true));
+        float blue = (base * 3f * timeModFactor) * (1 - AlgebraMath.sigmoidT(collisionFactor, 0.7f, true));
 
         ambient.set(
                 base * 1.5f,
@@ -290,7 +281,7 @@ public final class DefaultAnimator implements PostProcessingAnimator {
             switch (crtMode) {
                 case ChromaticAberrations:
                     amount = MathUtils.clamp(collisionFactor + 0.14f, 0, 1) * -0.8f;
-                    amount -= 0.15f * AMath.fixup(curvature_factor - kdist);
+                    amount -= 0.15f * AlgebraMath.fixup(curvature_factor - kdist);
                     amount *= collisionFactor * 2.0f;
                     amount = MathUtils.clamp(amount, -0.5f, 0f);
                     crt.setChromaticDispersion(amount, amount);
@@ -305,7 +296,7 @@ public final class DefaultAnimator implements PostProcessingAnimator {
 
             // earth curvature
             float dist = kdist - kdist * curvature_factor;
-            dist = AMath.fixup(dist);
+            dist = AlgebraMath.fixup(dist);
             crt.setDistortion(dist);
             crt.setZoom(1 - (dist / 2));
         }
@@ -316,7 +307,7 @@ public final class DefaultAnimator implements PostProcessingAnimator {
                 float speedStrength = (-0.08f * sfactor);
                 float targetStrength = speedStrength - 0.4f * collisionFactor;
                 float strength = targetStrength - (speedStrength * 0.5f) * timeModFactor;
-                strength = AMath.clamp(strength, -1, 0);
+                strength = AlgebraMath.clamp(strength, -1, 0);
                 // Gdx.app.log("", "strength=" + strength);
                 zoomBlurStrengthFactor.set(strength, 1f);
             } else {
@@ -382,8 +373,8 @@ public final class DefaultAnimator implements PostProcessingAnimator {
             bsat *= (1f - (collisionFactor));
             sat = 0.7f + (nightMode ? 0.6f : 0);
             sat = sat * (1f - collisionFactor);
-            sat = AMath.lerp(sat, -0.25f, MathUtils.clamp(alertAmount.value * 2f, 0f, 1f));
-            sat = AMath.lerp(sat, -0.25f, collisionFactor);
+            sat = AlgebraMath.lerp(sat, -0.25f, MathUtils.clamp(alertAmount.value * 2f, 0f, 1f));
+            sat = AlgebraMath.lerp(sat, -0.25f, collisionFactor);
 
             sat = MathUtils.clamp(sat, 0f, 3f);
             bsat = MathUtils.clamp(bsat, 0f, 3f);

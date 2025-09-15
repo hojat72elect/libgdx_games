@@ -1,5 +1,6 @@
 package com.bitfire.uracer;
 
+import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.ApplicationListener;
@@ -29,18 +30,10 @@ import com.bitfire.uracer.screen.ScreenFactory;
 import com.bitfire.uracer.screen.ScreenManager;
 import com.bitfire.uracer.screen.TransitionFactory;
 import com.bitfire.uracer.screen.TransitionFactory.TransitionType;
-import com.bitfire.uracer.utils.AMath;
-import com.bitfire.uracer.utils.BoxedFloat;
-import com.bitfire.uracer.utils.BoxedFloatAccessor;
-import com.bitfire.uracer.utils.NewConvert;
-import com.bitfire.uracer.utils.ScaleUtils;
-import com.bitfire.uracer.utils.SpriteBatchUtils;
-import com.bitfire.uracer.utils.URacerRuntimeException;
+import com.bitfire.uracer.utils.*;
 import com.bitfire.utils.ShaderLoader;
 
 import java.lang.reflect.Field;
-
-import aurelienribon.tweenengine.Tween;
 
 public class URacer implements ApplicationListener {
     public static final String Name = "URacer: The King Of The Drift";
@@ -195,7 +188,7 @@ public class URacer implements ApplicationListener {
         }
 
         // avoid spiral of death
-        return AMath.clamp(delta, 0, MaxDeltaTimeNs);
+        return AlgebraMath.clamp(delta, 0, MaxDeltaTimeNs);
     }
 
     @Override

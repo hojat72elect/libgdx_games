@@ -1,18 +1,17 @@
 package com.bitfire.uracer.game.logic.gametasks.hud.elements.player;
 
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.equations.Linear;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bitfire.uracer.configuration.Config;
 import com.bitfire.uracer.game.logic.gametasks.hud.Positionable;
 import com.bitfire.uracer.game.tween.GameTweener;
 import com.bitfire.uracer.resources.Art;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.BoxedFloat;
 import com.bitfire.uracer.utils.BoxedFloatAccessor;
-
-import aurelienribon.tweenengine.Timeline;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.equations.Linear;
 
 public class WrongWay extends Positionable {
     private final float w;
@@ -73,7 +72,7 @@ public class WrongWay extends Positionable {
     }
 
     public void render(SpriteBatch batch) {
-        if (!AMath.isZero(bfAlpha.value)) {
+        if (!AlgebraMath.isZero(bfAlpha.value)) {
 
             float px = position.x - offX;
             float py = position.y - offY;

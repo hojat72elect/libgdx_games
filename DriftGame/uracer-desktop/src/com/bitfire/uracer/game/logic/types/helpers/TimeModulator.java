@@ -1,13 +1,12 @@
 package com.bitfire.uracer.game.logic.types.helpers;
 
-import com.bitfire.uracer.game.tween.SysTweener;
-import com.bitfire.uracer.utils.AMath;
-import com.bitfire.uracer.utils.BoxedFloat;
-import com.bitfire.uracer.utils.BoxedFloatAccessor;
-
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.equations.Quad;
+import com.bitfire.uracer.game.tween.SysTweener;
+import com.bitfire.uracer.utils.AlgebraMath;
+import com.bitfire.uracer.utils.BoxedFloat;
+import com.bitfire.uracer.utils.BoxedFloatAccessor;
 
 public final class TimeModulator {
 
@@ -24,7 +23,7 @@ public final class TimeModulator {
 
     // returns the modulate time value
     public float getTime() {
-        return AMath.clamp(timeMultiplier.value, MinTime, MaxTime);
+        return AlgebraMath.clamp(timeMultiplier.value, MinTime, MaxTime);
     }
 
     public void reset() {

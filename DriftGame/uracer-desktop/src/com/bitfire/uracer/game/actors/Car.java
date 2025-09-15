@@ -18,7 +18,7 @@ import com.bitfire.uracer.game.logic.helpers.GameTrack.TrackState;
 import com.bitfire.uracer.game.world.GameWorld;
 import com.bitfire.uracer.game.world.models.CarStillModel;
 import com.bitfire.uracer.game.world.models.ModelFactory;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.BodyEditorLoader;
 
 public abstract strictfp class Car extends Box2DEntity {
@@ -244,9 +244,9 @@ public abstract strictfp class Car extends Box2DEntity {
         previousPosition.set(body.getPosition());
 
         // filter out zero distance
-        float dist = AMath.fixup(distmp.len());
+        float dist = AlgebraMath.fixup(distmp.len());
 
-        if (!AMath.isZero(dist)) {
+        if (!AlgebraMath.isZero(dist)) {
             // accumulate distance
             carTraveledDistance += dist;
             accuDistCount++;
@@ -255,7 +255,7 @@ public abstract strictfp class Car extends Box2DEntity {
         }
 
         // compute instant speed
-        carInstantSpeedMtSec = AMath.fixup(dist * Config.Physics.TimestepHz);
+        carInstantSpeedMtSec = AlgebraMath.fixup(dist * Config.Physics.TimestepHz);
     }
 
     public enum InputMode {

@@ -3,9 +3,9 @@ package com.bitfire.uracer.utils;
 import com.bitfire.uracer.configuration.Config;
 
 /**
- * Algebra math utils.
+ * This is a collection of math utilities for performing algebraic operations.
  */
-public final class AMath {
+public final class AlgebraMath {
     public static final float TWO_PI = 6.28318530717958647692f;
     public static final float PI = 3.14159265358979323846f;
     public static final float PI_4 = 0.785398163397448309616f;
@@ -15,7 +15,7 @@ public final class AMath {
     private static final float SigmoidTAmplitude = 5; // good values in the range [3, 8]
     private static final float SigmoidTStepSize = 3;
 
-    private AMath() {
+    private AlgebraMath() {
     }
 
     public static boolean equals(float a, float b) {
@@ -71,7 +71,7 @@ public final class AMath {
     }
 
     public static float clampf(float v, float min, float max) {
-        return AMath.clamp(AMath.fixupTo(AMath.fixupTo(v, min), max), min, max);
+        return AlgebraMath.clamp(AlgebraMath.fixupTo(AlgebraMath.fixupTo(v, min), max), min, max);
     }
 
 
@@ -119,7 +119,7 @@ public final class AMath {
     }
 
     public static float normalizeImpactForce(float force) {
-        float v = AMath.clamp(force, 0, Config.Physics.MaxImpactForce);
+        float v = AlgebraMath.clamp(force, 0, Config.Physics.MaxImpactForce);
         v *= Config.Physics.OneOnMaxImpactForce;
         return v;
     }

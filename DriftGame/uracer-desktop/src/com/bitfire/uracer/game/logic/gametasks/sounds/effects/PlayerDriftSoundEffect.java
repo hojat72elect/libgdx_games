@@ -8,7 +8,7 @@ import com.bitfire.uracer.game.logic.gametasks.SoundManager;
 import com.bitfire.uracer.game.logic.gametasks.sounds.SoundEffect;
 import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.uracer.resources.Sounds;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.AudioUtilsKt;
 
 /**
@@ -148,11 +148,11 @@ public final class PlayerDriftSoundEffect extends SoundEffect {
 
             // compute behavior
             float pitch = speedFactor * pitchFactor + pitchMin;
-            pitch = AMath.clamp(pitch, pitchMin, pitchMax);
+            pitch = AlgebraMath.clamp(pitch, pitchMin, pitchMax);
             pitch = AudioUtilsKt.timeDilationToAudioPitch(pitch, URacer.timeMultiplier);
             // System.out.println( pitch );
 
-            if (!AMath.equals(pitch, driftLastPitch) || anotherDriftId) {
+            if (!AlgebraMath.equals(pitch, driftLastPitch) || anotherDriftId) {
                 drift.setPitch(driftId, pitch);
                 driftLastPitch = pitch;
             }
@@ -175,7 +175,7 @@ public final class PlayerDriftSoundEffect extends SoundEffect {
             }
 
             lastDriftId = driftId;
-            lastVolume = AMath.clamp(lastVolume, 0, 2f);
+            lastVolume = AlgebraMath.clamp(lastVolume, 0, 2f);
             drift.setVolume(driftId, player.driftState.driftStrength * lastVolume * 1.0f * SoundManager.SfxVolumeMul);
         }
     }

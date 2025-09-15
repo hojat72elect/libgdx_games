@@ -13,7 +13,7 @@ import com.bitfire.uracer.game.logic.gametasks.hud.HudLabel;
 import com.bitfire.uracer.game.logic.gametasks.hud.Positionable;
 import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.resources.BitmapFontFactory.FontFace;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.ColorUtilsKt;
 import com.bitfire.utils.ShaderLoader;
 
@@ -120,7 +120,7 @@ public class DriftBar extends Positionable {
 
         // player's drift strength
         float amount = driftStrength.getMean();
-        if (!AMath.isZero(amount)) {
+        if (!AlgebraMath.isZero(amount)) {
             py = position.y - offY - 32 * cameraZoom * s;
             shDriftSecs.setUniformf("progress", MathUtils.clamp(amount, 0, 1));
 

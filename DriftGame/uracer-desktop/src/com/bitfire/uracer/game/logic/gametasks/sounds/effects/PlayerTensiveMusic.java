@@ -10,7 +10,7 @@ import com.bitfire.uracer.game.logic.gametasks.sounds.SoundEffect;
 import com.bitfire.uracer.game.logic.helpers.TrackProgressData;
 import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.uracer.resources.Sounds;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.InterpolatedFloat;
 
 public final class PlayerTensiveMusic extends SoundEffect {
@@ -172,7 +172,7 @@ public final class PlayerTensiveMusic extends SoundEffect {
                 float v = progressData.playerDistance.get() - progressData.targetDistance.get();
                 v = MathUtils.clamp(v, -ScaleMt, ScaleMt);
                 v *= InvScaleMt; // normalized range
-                float to_target = AMath.fixup(v);
+                float to_target = AlgebraMath.fixup(v);
 
                 if (to_target >= (AheadByMt * InvScaleMt) && musicIndexLimit == NumTracks - 2) {
                     // player ahead by AheadByMt meters, can play very latest track
@@ -192,7 +192,7 @@ public final class PlayerTensiveMusic extends SoundEffect {
 
             for (int i = 0; i <= NumTracks - 1; i++) {
                 if (i == musicIndex && i <= musicIndexLimit) {
-                    float decimal = AMath.fixup(fMusicIndex - musicIndex);
+                    float decimal = AlgebraMath.fixup(fMusicIndex - musicIndex);
 
                     float vol_this = MathUtils.clamp((1 - decimal) * trackVolumes[i], MinVolume, 1);
                     volTrack[i].set(vol_this, alpha_inc);

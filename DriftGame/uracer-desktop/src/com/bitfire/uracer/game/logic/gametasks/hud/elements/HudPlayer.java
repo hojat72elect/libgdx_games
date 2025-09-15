@@ -13,7 +13,7 @@ import com.bitfire.uracer.game.logic.gametasks.hud.elements.player.TrackProgress
 import com.bitfire.uracer.game.logic.gametasks.hud.elements.player.WrongWay;
 import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.uracer.game.rendering.GameRenderer;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.NewConvert;
 import com.bitfire.uracer.utils.VectorMathUtils;
 
@@ -118,8 +118,8 @@ public final class HudPlayer extends HudElement {
         Vector2 heading = VectorMathUtils.fromDegrees(playerState.orientation + (float) -180.0);
 
         float horizontal = MathUtils.clamp(Math.abs(MathUtils.sinDeg(playerState.orientation)), 0.25f, 1);
-        float p = AMath.lerp(carModelWidthPx, carModelLengthPx, horizontal);
-        float q = AMath.lerp(carModelWidthPx, carModelLengthPx, 1 - horizontal);
+        float p = AlgebraMath.lerp(carModelWidthPx, carModelLengthPx, horizontal);
+        float q = AlgebraMath.lerp(carModelWidthPx, carModelLengthPx, 1 - horizontal);
 
         // compute displacement
         tmpg.set(heading);

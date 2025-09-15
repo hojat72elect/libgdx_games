@@ -1,5 +1,9 @@
 package com.bitfire.uracer.game.logic;
 
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.equations.Linear;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.bitfire.uracer.URacer;
@@ -16,15 +20,10 @@ import com.bitfire.uracer.game.rendering.GameRenderer;
 import com.bitfire.uracer.game.rendering.GameWorldRenderer;
 import com.bitfire.uracer.game.tween.GameTweener;
 import com.bitfire.uracer.game.world.GameWorld;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.BoxedFloat;
 import com.bitfire.uracer.utils.BoxedFloatAccessor;
 import com.bitfire.uracer.utils.InterpolatedFloat;
-
-import aurelienribon.tweenengine.Timeline;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenCallback;
-import aurelienribon.tweenengine.equations.Linear;
 
 public abstract class BaseLogic extends CommonLogic {
     private static final float ZoomNorm = 0.35f;
@@ -107,7 +106,7 @@ public abstract class BaseLogic extends CommonLogic {
         collisionFrontRatio = 0.5f;
         lastImpactForce = 0;
 
-        if (!AMath.isZero(collisionFactor.value)) {
+        if (!AlgebraMath.isZero(collisionFactor.value)) {
 
             GameTweener.start(Timeline
                     .createSequence()
@@ -149,13 +148,13 @@ public abstract class BaseLogic extends CommonLogic {
 
         float cameraZoom;
         cameraZoom = maxZoom - ZoomNorm - collisionFactor.value * 0.1f;
-        cameraZoom = AMath.lerp(cameraZoom, minZoom - 0.1f, speed.get()); // pretend minZoom to be less than it is
-        cameraZoom = AMath.lerp(cameraZoom, maxZoom, timeModFactor);
-        cameraZoom = AMath.clamp(cameraZoom, minZoom, maxZoom);
-        cameraZoom = AMath.lerp(cameraZoom, maxZoom, collisionFactor.value * 5f);
+        cameraZoom = AlgebraMath.lerp(cameraZoom, minZoom - 0.1f, speed.get()); // pretend minZoom to be less than it is
+        cameraZoom = AlgebraMath.lerp(cameraZoom, maxZoom, timeModFactor);
+        cameraZoom = AlgebraMath.clamp(cameraZoom, minZoom, maxZoom);
+        cameraZoom = AlgebraMath.lerp(cameraZoom, maxZoom, collisionFactor.value * 5f);
 
-        cameraZoom = AMath.lerp(prevZoom, cameraZoom, 0.025f);
-        cameraZoom = AMath.clamp(cameraZoom, minZoom, maxZoom * 2f); // relax max a bit
+        cameraZoom = AlgebraMath.lerp(prevZoom, cameraZoom, 0.025f);
+        cameraZoom = AlgebraMath.clamp(cameraZoom, minZoom, maxZoom * 2f); // relax max a bit
 
         prevZoom = cameraZoom;
         return cameraZoom;
@@ -164,7 +163,7 @@ public abstract class BaseLogic extends CommonLogic {
     @Override
     public void collision(CarEvent.Data data) {
 
-        float clampedImpactForce = AMath.normalizeImpactForce(data.impulses.len());
+        float clampedImpactForce = AlgebraMath.normalizeImpactForce(data.impulses.len());
 
         // while busy, a new collision factor will be accepted *only* if stronger than the previous one
         if (clampedImpactForce > 0 && clampedImpactForce > lastImpactForce) {

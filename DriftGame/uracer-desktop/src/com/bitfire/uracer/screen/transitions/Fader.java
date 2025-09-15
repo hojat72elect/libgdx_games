@@ -13,7 +13,7 @@ import com.bitfire.uracer.screen.ScreenFactory;
 import com.bitfire.uracer.screen.ScreenFactory.ScreenId;
 import com.bitfire.uracer.screen.ScreenTransition;
 import com.bitfire.uracer.screen.ScreenUtils;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.utils.ShaderLoader;
 
 /**
@@ -105,7 +105,7 @@ public final class Fader extends ScreenTransition {
     @Override
     public void update() {
         long delta = URacer.Game.getLastDeltaNs();
-        delta = AMath.clamp(delta, 0, MaxFrameStep);
+        delta = AlgebraMath.clamp(delta, 0, MaxFrameStep);
         // Gdx.app.log("Fader", "delta=" + URacer.Game.getLastDeltaNs() + ", e=" + elapsed + ", d=" + duration + ", f=" + factor);
 
         elapsed += delta;

@@ -3,7 +3,7 @@ package com.bitfire.uracer.game.logic.gametasks.sounds.effects.engines;
 import com.badlogic.gdx.math.MathUtils;
 import com.bitfire.uracer.game.logic.helpers.TrackProgressData;
 import com.bitfire.uracer.resources.Sounds;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.InterpolatedFloat;
 
 public class EngineF40 extends EngineSoundSet {
@@ -33,7 +33,7 @@ public class EngineF40 extends EngineSoundSet {
             float d = progressData.playerDistance.get() - progressData.targetDistance.get();
             d = MathUtils.clamp(d, -scale_mt, scale_mt);
             d /= scale_mt; // normalized range
-            float to_target = AMath.fixup(d);
+            float to_target = AlgebraMath.fixup(d);
 
             if (to_target < 0) {
                 // player behind

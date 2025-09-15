@@ -2,7 +2,7 @@ package com.bitfire.uracer.game.actors;
 
 import com.badlogic.gdx.math.Vector2;
 import com.bitfire.uracer.game.world.GameWorld;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.NewConvert;
 
 public final class CarState {
@@ -50,8 +50,8 @@ public final class CarState {
     private void updateFactors(CarDescriptor carDescriptor) {
         currVelocityLenSquared = carDescriptor.velocityWorldCoordinates.len2();
         currThrottle = carDescriptor.throttle;
-        currSpeedFactor = AMath.fixup(AMath.clamp(currVelocityLenSquared / CarMaxSpeedSquared, 0f, 1f));
-        currForceFactor = AMath.fixup(AMath.clamp(currThrottle / CarMaxForce, 0f, 1f));
+        currSpeedFactor = AlgebraMath.fixup(AlgebraMath.clamp(currVelocityLenSquared / CarMaxSpeedSquared, 0f, 1f));
+        currForceFactor = AlgebraMath.fixup(AlgebraMath.clamp(currThrottle / CarMaxForce, 0f, 1f));
     }
 
     /*

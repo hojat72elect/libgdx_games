@@ -3,7 +3,7 @@ package com.bitfire.uracer.game.logic.helpers;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bitfire.uracer.game.rendering.GameWorldRenderer;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 
 public class CameraController {
     private final float boundsWidth;
@@ -27,8 +27,8 @@ public class CameraController {
         Vector2 worldTiles = new Vector2();
         worldTiles.set(worldSizeTiles);
 
-        sigmoidStrengthX = AMath.clamp((worldSizeTiles.x / 4f), 1f, 5f);
-        sigmoidStrengthY = AMath.clamp((worldSizeTiles.y / 4f), 1f, 5f);
+        sigmoidStrengthX = AlgebraMath.clamp((worldSizeTiles.x / 4f), 1f, 5f);
+        sigmoidStrengthY = AlgebraMath.clamp((worldSizeTiles.y / 4f), 1f, 5f);
 
         switch (mode) {
             case Linear:
@@ -90,8 +90,8 @@ public class CameraController {
                         float x_ratio = ((tx / worldSizeScaledPx.x) - 0.5f) * 2;
                         float y_ratio = ((ty / worldSizeScaledPx.y) - 0.5f) * 2;
 
-                        tmp.x = cameraBounds.x + AMath.sigmoid(x_ratio * sigmoidStrengthX) * boundsWidth;
-                        tmp.y = cameraBounds.height + AMath.sigmoid(y_ratio * sigmoidStrengthY) * boundsHeight;
+                        tmp.x = cameraBounds.x + AlgebraMath.sigmoid(x_ratio * sigmoidStrengthX) * boundsWidth;
+                        tmp.y = cameraBounds.height + AlgebraMath.sigmoid(y_ratio * sigmoidStrengthY) * boundsHeight;
 
                         return tmp;
                     }

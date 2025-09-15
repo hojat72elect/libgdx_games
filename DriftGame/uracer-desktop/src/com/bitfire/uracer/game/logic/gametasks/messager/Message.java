@@ -1,5 +1,11 @@
 package com.bitfire.uracer.game.logic.gametasks.messager;
 
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.equations.Back;
+import aurelienribon.tweenengine.equations.Expo;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
@@ -8,16 +14,8 @@ import com.bitfire.uracer.configuration.Config;
 import com.bitfire.uracer.game.tween.SysTweener;
 import com.bitfire.uracer.resources.BitmapFontFactory;
 import com.bitfire.uracer.resources.BitmapFontFactory.FontFace;
-import com.bitfire.uracer.utils.AMath;
-
+import com.bitfire.uracer.utils.AlgebraMath;
 import org.jetbrains.annotations.NotNull;
-
-import aurelienribon.tweenengine.BaseTween;
-import aurelienribon.tweenengine.Timeline;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenCallback;
-import aurelienribon.tweenengine.equations.Back;
-import aurelienribon.tweenengine.equations.Expo;
 
 public final class Message {
     public long durationMs;
@@ -212,8 +210,8 @@ public final class Message {
     }
 
     public void setScale(float scaleX, float scaleY) {
-        this.scaleX = AMath.clamp(scaleX, 0.1f, 10f);
-        this.scaleY = AMath.clamp(scaleY, 0.1f, 10f);
+        this.scaleX = AlgebraMath.clamp(scaleX, 0.1f, 10f);
+        this.scaleY = AlgebraMath.clamp(scaleY, 0.1f, 10f);
     }
 
     public enum Type {

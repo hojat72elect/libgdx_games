@@ -16,7 +16,7 @@ object VectorMathUtils {
 
     @JvmStatic
     fun fromRadians(radians: Float): Vector2 {
-        retRad.set(AMath.fixup(-MathUtils.sin(radians)), AMath.fixup(-MathUtils.cos(radians)))
+        retRad.set(AlgebraMath.fixup(-MathUtils.sin(radians)), AlgebraMath.fixup(-MathUtils.cos(radians)))
         return retRad
     }
 
@@ -32,20 +32,20 @@ object VectorMathUtils {
 
     @JvmStatic
     fun clamp(v: Vector2, min: Float, max: Float): Vector2 {
-        v.x = AMath.clamp(v.x, min, max)
-        v.y = AMath.clamp(v.y, min, max)
+        v.x = AlgebraMath.clamp(v.x, min, max)
+        v.y = AlgebraMath.clamp(v.y, min, max)
         return v
     }
 
     fun clamp(v: Vector2, xmin: Float, xmax: Float, ymin: Float, ymax: Float): Vector2 {
-        v.x = AMath.clamp(v.x, xmin, xmax)
-        v.y = AMath.clamp(v.y, ymin, ymax)
+        v.x = AlgebraMath.clamp(v.x, xmin, xmax)
+        v.y = AlgebraMath.clamp(v.y, ymin, ymax)
         return v
     }
 
     @JvmStatic
     fun fixup(v: Vector2): Vector2 {
-        if ((v.x * v.x + v.y * v.y) < AMath.CMP_EPSILON) {
+        if ((v.x * v.x + v.y * v.y) < AlgebraMath.CMP_EPSILON) {
             v.x = 0F
             v.y = 0F
         }

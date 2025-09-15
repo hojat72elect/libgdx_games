@@ -47,7 +47,7 @@ object ReplayUtils {
     }
 
     @JvmStatic
-    fun ticksToMilliseconds(ticks: Int) = (ticks * Config.Physics.Dt * AMath.ONE_ON_CMP_EPSILON).toInt()
+    fun ticksToMilliseconds(ticks: Int) = (ticks * Config.Physics.Dt * AlgebraMath.ONE_ON_CMP_EPSILON).toInt()
 
     @JvmStatic
     fun ticksToSeconds(ticks: Int) = ticksToMilliseconds(ticks).toFloat() / 1000F

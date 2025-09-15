@@ -1,5 +1,10 @@
 package com.bitfire.uracer.game.logic.gametasks.hud.elements;
 
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.equations.Linear;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -12,18 +17,11 @@ import com.bitfire.uracer.game.actors.GhostCar;
 import com.bitfire.uracer.game.rendering.GameRenderer;
 import com.bitfire.uracer.game.tween.GameTweener;
 import com.bitfire.uracer.resources.Art;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.BoxedFloat;
 import com.bitfire.uracer.utils.BoxedFloatAccessor;
 import com.bitfire.uracer.utils.NewConvert;
-
 import org.jetbrains.annotations.NotNull;
-
-import aurelienribon.tweenengine.BaseTween;
-import aurelienribon.tweenengine.Timeline;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenCallback;
-import aurelienribon.tweenengine.equations.Linear;
 
 public final class CarHighlighter {
     private final Sprite sprite;
@@ -156,8 +154,8 @@ public final class CarHighlighter {
 
                 // modulate position
                 tmp2.set(GameRenderer.ScreenUtils.worldPxToScreen(prevState.position));
-                tmp.x = AMath.lerp(tmp2.x, tmp.x, bfRenderState.value);
-                tmp.y = AMath.lerp(tmp2.y, tmp.y, bfRenderState.value);
+                tmp.x = AlgebraMath.lerp(tmp2.x, tmp.x, bfRenderState.value);
+                tmp.y = AlgebraMath.lerp(tmp2.y, tmp.y, bfRenderState.value);
 
                 // modulate orientation
                 orient = lerpOrient(prevState.orientation, renderState.orientation, bfRenderState.value);

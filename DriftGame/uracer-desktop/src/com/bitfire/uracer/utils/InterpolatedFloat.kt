@@ -21,9 +21,9 @@ class InterpolatedFloat @JvmOverloads constructor(private val reset: Float = 0F,
     }
 
     fun set(value: Float, alpha: Float): Float {
-        current = AMath.lerp(previous, value, alpha)
+        current = AlgebraMath.lerp(previous, value, alpha)
         if (fixup) {
-            current = AMath.fixup(current)
+            current = AlgebraMath.fixup(current)
         }
         previous = current
         return current

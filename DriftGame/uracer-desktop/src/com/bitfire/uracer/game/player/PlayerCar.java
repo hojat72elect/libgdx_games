@@ -16,17 +16,12 @@ import com.bitfire.uracer.configuration.Config;
 import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.GameLogic;
 import com.bitfire.uracer.game.GameplaySettings;
-import com.bitfire.uracer.game.actors.Car;
-import com.bitfire.uracer.game.actors.CarDescriptor;
-import com.bitfire.uracer.game.actors.CarForces;
-import com.bitfire.uracer.game.actors.CarPreset;
-import com.bitfire.uracer.game.actors.CarState;
-import com.bitfire.uracer.game.actors.CarType;
+import com.bitfire.uracer.game.actors.*;
 import com.bitfire.uracer.game.events.CarEvent;
 import com.bitfire.uracer.game.rendering.GameRenderer;
 import com.bitfire.uracer.game.world.GameWorld;
 import com.bitfire.uracer.game.world.WorldDefs.Layer;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.NewConvert;
 import com.bitfire.uracer.utils.Timer;
 import com.bitfire.uracer.utils.VectorMathUtils;
@@ -182,7 +177,7 @@ public class PlayerCar extends Car {
             boolean kRight = input.isOn(Keys.RIGHT);
             boolean kDown = input.isOn(Keys.DOWN);
 
-            float maxsecs = 0.1f + AMath.fixup(1 * speed);
+            float maxsecs = 0.1f + AlgebraMath.fixup(1 * speed);
             float dirtimeLeft = updateDirTime(Keys.LEFT, maxsecs);
             float dirtimeRight = updateDirTime(Keys.RIGHT, maxsecs);
             // float dirtimeUp = updateDirTime(Keys.UP, maxsecs);
@@ -199,7 +194,7 @@ public class PlayerCar extends Car {
                 carInput.throttle = 0;
             }
 
-            if (AMath.isZero(carInput.throttle)) {
+            if (AlgebraMath.isZero(carInput.throttle)) {
                 if (Math.abs(carDesc.velocityWorldCoordinates.x) > 0.5f || Math.abs(carDesc.velocityWorldCoordinates.y) > 0.5f) {
                     carInput.brake = 200;
                 }
@@ -232,8 +227,8 @@ public class PlayerCar extends Car {
             }
 
             // carInput.steerAngle *= MathUtils.clamp(AMath.damping(0.7f * speed), 0, 1); // GameplaySettings.DampingKeyboardKeys;
-            carInput.steerAngle *= MathUtils.clamp(AMath.damping(0.1f + 0.3f * speed), 0, 1);
-            carInput.steerAngle = AMath.fixup(carInput.steerAngle);
+            carInput.steerAngle *= MathUtils.clamp(AlgebraMath.damping(0.1f + 0.3f * speed), 0, 1);
+            carInput.steerAngle = AlgebraMath.fixup(carInput.steerAngle);
             // Gdx.app.log("PlayerCar", "speed=" + speed);
         }
 
@@ -265,17 +260,17 @@ public class PlayerCar extends Car {
     private float transformSteerAngle(float angle) {
         float transformed = angle;
 
-        transformed -= AMath.PI;
+        transformed -= AlgebraMath.PI;
         transformed -= body.getAngle(); // to local
 
         if (transformed < 0) {
-            transformed += AMath.TWO_PI;
+            transformed += AlgebraMath.TWO_PI;
         }
 
-        transformed = -(transformed - AMath.TWO_PI);
+        transformed = -(transformed - AlgebraMath.TWO_PI);
 
-        if (transformed > AMath.PI) {
-            transformed = transformed - AMath.TWO_PI;
+        if (transformed > AlgebraMath.PI) {
+            transformed = transformed - AlgebraMath.TWO_PI;
         }
 
         return transformed;// * 0.75f;

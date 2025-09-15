@@ -4,7 +4,7 @@ import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.Time;
 import com.bitfire.uracer.game.actors.Car;
 import com.bitfire.uracer.game.events.PlayerDriftStateEvent.Type;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 
 public final class DriftState {
     public boolean isDrifting = false;
@@ -61,16 +61,16 @@ public final class DriftState {
     public void update(float latForceFrontY, float latForceRearY, float velocityLength) {
 
         // lateral forces are in the range [-max_grip, max_grip]
-        lateralForcesFront = AMath.lowpass(lastFront, latForceFrontY, 0.2f);
+        lateralForcesFront = AlgebraMath.lowpass(lastFront, latForceFrontY, 0.2f);
         lastFront = lateralForcesFront;
-        lateralForcesFront = AMath.clamp(Math.abs(lateralForcesFront) * invMaxGrip, 0f, 1f); // normalize
+        lateralForcesFront = AlgebraMath.clamp(Math.abs(lateralForcesFront) * invMaxGrip, 0f, 1f); // normalize
 
-        lateralForcesRear = AMath.lowpass(lastRear, latForceRearY, 0.2f);
+        lateralForcesRear = AlgebraMath.lowpass(lastRear, latForceRearY, 0.2f);
         lastRear = lateralForcesRear;
-        lateralForcesRear = AMath.clamp(Math.abs(lateralForcesRear) * invMaxGrip, 0f, 1f); // normalize
+        lateralForcesRear = AlgebraMath.clamp(Math.abs(lateralForcesRear) * invMaxGrip, 0f, 1f); // normalize
 
         // compute strength
-        driftStrength = AMath.fixup((lateralForcesFront + lateralForcesRear) * 0.5f);
+        driftStrength = AlgebraMath.fixup((lateralForcesFront + lateralForcesRear) * 0.5f);
 
         if (hasCollided) {
             // ignore drifts for a couple of seconds

@@ -44,11 +44,7 @@ import com.bitfire.uracer.game.world.models.TrackTrees;
 import com.bitfire.uracer.game.world.models.TrackWalls;
 import com.bitfire.uracer.game.world.models.TreeStillModel;
 import com.bitfire.uracer.resources.Art;
-import com.bitfire.uracer.utils.AMath;
-import com.bitfire.uracer.utils.NewConvert;
-import com.bitfire.uracer.utils.ReplayUtils;
-import com.bitfire.uracer.utils.ScaleUtils;
-import com.bitfire.uracer.utils.SpriteBatchUtils;
+import com.bitfire.uracer.utils.*;
 import com.bitfire.utils.ItemsManager;
 
 import java.util.EnumSet;
@@ -433,7 +429,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         for (int i = 0; i < ranks.size; i++) {
             RankInfo r = ranks.get(i);
             if (r.valid) {
-                float c = AMath.fixupTo(AMath.fixup(r.completion), 1);
+                float c = AlgebraMath.fixupTo(AlgebraMath.fixup(r.completion), 1);
                 if (r.player) {
                     batchColorStart(batch, 0, 0.6f, 1);
                 } else {

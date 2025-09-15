@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.bitfire.uracer.resources.Art;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.SpriteBatchUtils;
 
 public class DebugMeter implements Disposable {
@@ -102,7 +102,7 @@ public class DebugMeter implements Disposable {
 
         float range = maxValue - minValue;
         float ratio = Math.abs(value) / range;
-        ratio = AMath.clamp(ratio, 0, 1);
+        ratio = AlgebraMath.clamp(ratio, 0, 1);
 
         pixels.setColor(color);
         pixels.fillRectangle(1, 1, (int) (width * ratio) - 2, height - 2);

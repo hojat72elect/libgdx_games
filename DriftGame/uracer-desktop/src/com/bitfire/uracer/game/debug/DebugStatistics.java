@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.WindowedMean;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.bitfire.uracer.URacer;
 import com.bitfire.uracer.configuration.Config;
-import com.bitfire.uracer.utils.AMath;
+import com.bitfire.uracer.utils.AlgebraMath;
 
 public final class DebugStatistics {
     // public statistical data
@@ -132,7 +132,7 @@ public final class DebugStatistics {
             }
 
             // time aliasing
-            value = (int) (AMath.clamp(dataTimeAliasing[x] * PanelHeight, 0, PanelHeight));
+            value = (int) (AlgebraMath.clamp(dataTimeAliasing[x] * PanelHeight, 0, PanelHeight));
             if (value > 0) {
                 pixels.setColor(1, 0, 1, .8f);
                 pixels.drawPixel(xc, value);
