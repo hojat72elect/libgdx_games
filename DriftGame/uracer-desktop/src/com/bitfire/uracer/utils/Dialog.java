@@ -1,8 +1,5 @@
 package com.bitfire.uracer.utils;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
-
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -10,16 +7,15 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 import com.badlogic.gdx.utils.ObjectMap;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 /**
  * Displays a dialog, which is a modal window containing a content table with a button table underneath it. Methods are provided
@@ -31,7 +27,7 @@ public class Dialog extends Window {
      * The time in seconds that dialogs will fade in and out. Set to zero to disable fading.
      */
     static public float fadeDuration = 0.4f;
-
+    private final Skin skin;
     Table contentTable, buttonTable;
     ObjectMap<Actor, Object> values = new ObjectMap<>();
     boolean cancelHide;
@@ -43,7 +39,6 @@ public class Dialog extends Window {
             return false;
         }
     };
-    private final Skin skin;
 
     public Dialog(String title, Skin skin, String windowStyleName) {
         super(title, skin.get(windowStyleName, WindowStyle.class));
