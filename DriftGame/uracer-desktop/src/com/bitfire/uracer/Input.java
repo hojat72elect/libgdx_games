@@ -216,7 +216,7 @@ public final class Input implements Disposable {
     public enum MouseButton {
         Left(Buttons.LEFT), Right(Buttons.RIGHT), Middle(Buttons.MIDDLE);
 
-        public int ordinal;
+        public final int ordinal;
 
         MouseButton(int value) {
             this.ordinal = value;
