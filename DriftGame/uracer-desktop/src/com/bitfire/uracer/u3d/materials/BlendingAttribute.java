@@ -3,6 +3,7 @@ package com.bitfire.uracer.u3d.materials;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.Pool;
+import org.jetbrains.annotations.NotNull;
 
 public class BlendingAttribute extends MaterialAttribute {
 
@@ -25,17 +26,18 @@ public class BlendingAttribute extends MaterialAttribute {
     }
 
     @Override
-    public void bind(ShaderProgram program) {
+    public void bind(@NotNull ShaderProgram program) {
         Gdx.gl.glBlendFunc(blendSrcFunc, blendDstFunc);
     }
 
+    @NotNull
     @Override
     public MaterialAttribute copy() {
         return new BlendingAttribute(this.name, this.blendSrcFunc, this.blendDstFunc);
     }
 
     @Override
-    public void set(MaterialAttribute attr) {
+    public void set(@NotNull MaterialAttribute attr) {
         BlendingAttribute blendAttr = (BlendingAttribute) attr;
         name = blendAttr.name;
         blendDstFunc = blendAttr.blendDstFunc;

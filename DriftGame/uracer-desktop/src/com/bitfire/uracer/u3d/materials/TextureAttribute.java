@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.Pool;
+import org.jetbrains.annotations.NotNull;
 
 public class TextureAttribute extends MaterialAttribute {
 
@@ -57,13 +58,14 @@ public class TextureAttribute extends MaterialAttribute {
         program.setUniformi(name, unit);
     }
 
+    @NotNull
     @Override
     public MaterialAttribute copy() {
         return new TextureAttribute(texture, unit, name, minFilter, magFilter, uWrap, vWrap);
     }
 
     @Override
-    public void set(MaterialAttribute attr) {
+    public void set(@NotNull MaterialAttribute attr) {
         TextureAttribute texAttr = (TextureAttribute) attr;
         name = texAttr.name;
         texture = texAttr.texture;
