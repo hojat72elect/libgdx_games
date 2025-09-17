@@ -54,7 +54,7 @@ class Vignette(viewportWidth: Int, viewportHeight: Int, controlSaturation: Boole
         vignetting.rebind()
     }
 
-    override fun render(src: FrameBuffer, dest: FrameBuffer) {
+    override fun render(src: FrameBuffer, dest: FrameBuffer?) {
         restoreViewport(dest)
         vignetting.setInput(src).setOutput(dest).render()
     }

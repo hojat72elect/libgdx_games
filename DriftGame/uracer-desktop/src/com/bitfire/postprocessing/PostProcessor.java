@@ -315,7 +315,6 @@ public final class PostProcessor implements Disposable {
             return;
         }
 
-        // Array<PostProcessorEffect> items = manager.items;
         Array<PostProcessorEffect> items = enabledEffects;
 
         int count = items.size;
