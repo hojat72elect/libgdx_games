@@ -17,26 +17,26 @@ public abstract class PostProcessorEffect implements Disposable {
     public abstract void rebind();
 
     /**
-     * Concrete objects shall implements its own rendering, given the source and destination buffers.
+     * Concrete objects shall implement its own rendering, given the source and destination buffers.
      */
     public abstract void render(final FrameBuffer src, final FrameBuffer dest);
 
     /**
-     * Whether or not this effect is enabled and should be processed
+     * Whether this effect is enabled and should be processed.
      */
     public boolean isEnabled() {
         return enabled;
     }
 
     /**
-     * Sets this effect enabled or not
+     * Sets this effect enabled or not.
      */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
     /**
-     * Convenience method to forward the call to the PostProcessor object while still being a non-publicly accessible method
+     * Convenience method to forward the call to the PostProcessor object while still being a non-publicly accessible method.
      */
     protected void restoreViewport(FrameBuffer dest) {
         PostProcessor.restoreViewport(dest);
