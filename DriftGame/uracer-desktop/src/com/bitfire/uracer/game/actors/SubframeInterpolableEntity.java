@@ -7,7 +7,7 @@ import com.bitfire.uracer.game.events.GameRendererEvent;
 import com.bitfire.uracer.game.events.PhysicsStepEvent;
 
 public abstract class SubframeInterpolableEntity extends Entity {
-    // world-coords
+    // world coordinates
     protected EntityRenderState statePrevious = new EntityRenderState();
     protected EntityRenderState stateCurrent = new EntityRenderState();
 
@@ -74,7 +74,7 @@ public abstract class SubframeInterpolableEntity extends Entity {
     }
 
     /**
-     * Issued after a tick/physicsStep but before render :P
+     * Issued after a tick/physicsStep but before render
      */
     public void onSubframeInterpolate(float aliasingFactor) {
         if (isSubframeInterpolated()) {
