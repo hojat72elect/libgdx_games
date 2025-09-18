@@ -340,9 +340,9 @@ public class PlayerCar extends Car {
 
         if (isOutOfTrack && !notifiedOutOfTrack) {
             notifiedOutOfTrack = true;
-            GameEvents.playerCar.trigger(this, CarEvent.Type.onOutOfTrack);
+            GameEvents.playerCar.trigger(this, CarEvent.Type.OnOutOfTrack);
         } else if (!isOutOfTrack && notifiedOutOfTrack) {
-            GameEvents.playerCar.trigger(this, CarEvent.Type.onBackInTrack);
+            GameEvents.playerCar.trigger(this, CarEvent.Type.OnBackInTrack);
             notifiedOutOfTrack = false;
         }
 

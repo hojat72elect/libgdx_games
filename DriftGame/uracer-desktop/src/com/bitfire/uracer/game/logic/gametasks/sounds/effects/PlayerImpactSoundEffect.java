@@ -33,11 +33,11 @@ public final class PlayerImpactSoundEffect extends SoundEffect {
     }
 
     private void attach() {
-        GameEvents.playerCar.addListener(carEvent, CarEvent.Type.onCollision);
+        GameEvents.playerCar.addListener(carEvent, CarEvent.Type.OnCollision);
     }
 
     private void detach() {
-        GameEvents.playerCar.removeListener(carEvent, CarEvent.Type.onCollision);
+        GameEvents.playerCar.removeListener(carEvent, CarEvent.Type.OnCollision);
     }
 
     @Override

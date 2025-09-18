@@ -197,7 +197,7 @@ public abstract strictfp class Car extends Box2DEntity {
         // see the bug report at https://code.google.com/p/libgdx/issues/detail?id=1398
         if (triggerEvents) {
             GameEvents.playerCar.data.setCollisionData(other, normalImpulses, frontRatio);
-            GameEvents.playerCar.trigger(this, CarEvent.Type.onCollision);
+            GameEvents.playerCar.trigger(this, CarEvent.Type.OnCollision);
         }
     }
 
@@ -223,7 +223,7 @@ public abstract strictfp class Car extends Box2DEntity {
         // trigger event, new forces have been computed
         if (triggerEvents) {
             GameEvents.playerCar.data.setForces(carForces);
-            GameEvents.playerCar.trigger(this, CarEvent.Type.onPhysicsForcesReady);
+            GameEvents.playerCar.trigger(this, CarEvent.Type.OnPhysicsForcesReady);
         }
 
         // put newly computed forces into the system

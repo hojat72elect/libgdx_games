@@ -82,16 +82,16 @@ public final class EventHandlers {
             CarEvent.Data eventData = GameEvents.playerCar.data;
 
             switch (type) {
-                case onCollision:
+                case OnCollision:
                     logic.collision(eventData);
                     break;
-                case onOutOfTrack:
+                case OnOutOfTrack:
                     logic.outOfTrack();
                     break;
-                case onBackInTrack:
+                case OnBackInTrack:
                     logic.backInTrack();
                     break;
-                case onPhysicsForcesReady:
+                case OnPhysicsForcesReady:
                     logic.physicsForcesReady(eventData);
                     break;
             }
@@ -121,19 +121,19 @@ public final class EventHandlers {
     public void registerPlayerEvents() {
         GameEvents.driftState.addListener(driftStateListener, PlayerDriftStateEvent.Type.onBeginDrift);
         GameEvents.driftState.addListener(driftStateListener, PlayerDriftStateEvent.Type.onEndDrift);
-        GameEvents.playerCar.addListener(playerCarListener, CarEvent.Type.onCollision);
-        GameEvents.playerCar.addListener(playerCarListener, CarEvent.Type.onPhysicsForcesReady);
-        GameEvents.playerCar.addListener(playerCarListener, CarEvent.Type.onOutOfTrack);
-        GameEvents.playerCar.addListener(playerCarListener, CarEvent.Type.onBackInTrack);
+        GameEvents.playerCar.addListener(playerCarListener, CarEvent.Type.OnCollision);
+        GameEvents.playerCar.addListener(playerCarListener, CarEvent.Type.OnPhysicsForcesReady);
+        GameEvents.playerCar.addListener(playerCarListener, CarEvent.Type.OnOutOfTrack);
+        GameEvents.playerCar.addListener(playerCarListener, CarEvent.Type.OnBackInTrack);
     }
 
     public void unregisterPlayerEvents() {
         GameEvents.driftState.removeListener(driftStateListener, PlayerDriftStateEvent.Type.onBeginDrift);
         GameEvents.driftState.removeListener(driftStateListener, PlayerDriftStateEvent.Type.onEndDrift);
-        GameEvents.playerCar.removeListener(playerCarListener, CarEvent.Type.onCollision);
-        GameEvents.playerCar.removeListener(playerCarListener, CarEvent.Type.onPhysicsForcesReady);
-        GameEvents.playerCar.removeListener(playerCarListener, CarEvent.Type.onOutOfTrack);
-        GameEvents.playerCar.removeListener(playerCarListener, CarEvent.Type.onBackInTrack);
+        GameEvents.playerCar.removeListener(playerCarListener, CarEvent.Type.OnCollision);
+        GameEvents.playerCar.removeListener(playerCarListener, CarEvent.Type.OnPhysicsForcesReady);
+        GameEvents.playerCar.removeListener(playerCarListener, CarEvent.Type.OnOutOfTrack);
+        GameEvents.playerCar.removeListener(playerCarListener, CarEvent.Type.OnBackInTrack);
     }
 
     public void registerPlayerMonitorEvents() {
