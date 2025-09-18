@@ -2,15 +2,9 @@ package com.bitfire.uracer.game.logic.types;
 
 import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.actors.GhostCar;
-import com.bitfire.uracer.game.events.CarEvent;
-import com.bitfire.uracer.game.events.GameRendererEvent;
+import com.bitfire.uracer.game.events.*;
 import com.bitfire.uracer.game.events.GameRendererEvent.Order;
 import com.bitfire.uracer.game.events.GameRendererEvent.Type;
-import com.bitfire.uracer.game.events.GhostCarEvent;
-import com.bitfire.uracer.game.events.GhostLapCompletionMonitorEvent;
-import com.bitfire.uracer.game.events.PlayerDriftStateEvent;
-import com.bitfire.uracer.game.events.PlayerLapCompletionMonitorEvent;
-import com.bitfire.uracer.game.events.WrongWayMonitorEvent;
 import com.bitfire.uracer.game.player.PlayerCar;
 
 import java.util.Objects;
@@ -127,7 +121,6 @@ public final class EventHandlers {
     public void registerPlayerEvents() {
         GameEvents.driftState.addListener(driftStateListener, PlayerDriftStateEvent.Type.onBeginDrift);
         GameEvents.driftState.addListener(driftStateListener, PlayerDriftStateEvent.Type.onEndDrift);
-
         GameEvents.playerCar.addListener(playerCarListener, CarEvent.Type.onCollision);
         GameEvents.playerCar.addListener(playerCarListener, CarEvent.Type.onPhysicsForcesReady);
         GameEvents.playerCar.addListener(playerCarListener, CarEvent.Type.onOutOfTrack);
@@ -137,7 +130,6 @@ public final class EventHandlers {
     public void unregisterPlayerEvents() {
         GameEvents.driftState.removeListener(driftStateListener, PlayerDriftStateEvent.Type.onBeginDrift);
         GameEvents.driftState.removeListener(driftStateListener, PlayerDriftStateEvent.Type.onEndDrift);
-
         GameEvents.playerCar.removeListener(playerCarListener, CarEvent.Type.onCollision);
         GameEvents.playerCar.removeListener(playerCarListener, CarEvent.Type.onPhysicsForcesReady);
         GameEvents.playerCar.removeListener(playerCarListener, CarEvent.Type.onOutOfTrack);
@@ -149,7 +141,6 @@ public final class EventHandlers {
         GameEvents.lapCompletion.addListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.onWarmUpCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
         GameEvents.lapCompletion.addListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.onLapStarted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
         GameEvents.lapCompletion.addListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.onLapCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
-
         GameEvents.wrongWay.addListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.onWrongWayBegins, WrongWayMonitorEvent.Order.MINUS_4);
         GameEvents.wrongWay.addListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.onWrongWayEnds, WrongWayMonitorEvent.Order.MINUS_4);
     }
@@ -159,7 +150,6 @@ public final class EventHandlers {
         GameEvents.lapCompletion.removeListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.onWarmUpCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
         GameEvents.lapCompletion.removeListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.onLapStarted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
         GameEvents.lapCompletion.removeListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.onLapCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
-
         GameEvents.wrongWay.removeListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.onWrongWayBegins, WrongWayMonitorEvent.Order.MINUS_4);
         GameEvents.wrongWay.removeListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.onWrongWayEnds, WrongWayMonitorEvent.Order.MINUS_4);
     }

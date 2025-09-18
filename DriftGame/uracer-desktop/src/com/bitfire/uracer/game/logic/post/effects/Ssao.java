@@ -176,7 +176,6 @@ public final class Ssao extends PostProcessorEffect {
 
         mtxRot.set(cam.view);
         invPrj.set(cam.projection).inv();
-        // invRot.set(mtxRot).inv();
 
         occlusionMap.begin();
         occlusionMap.capture();

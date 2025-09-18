@@ -6,11 +6,7 @@ import com.bitfire.uracer.Input;
 import com.bitfire.uracer.URacer;
 import com.bitfire.uracer.configuration.Config;
 import com.bitfire.uracer.configuration.UserProfile;
-import com.bitfire.uracer.game.GameEvents;
-import com.bitfire.uracer.game.GameInput;
-import com.bitfire.uracer.game.GameLogic;
-import com.bitfire.uracer.game.GameLogicObserver;
-import com.bitfire.uracer.game.Time;
+import com.bitfire.uracer.game.*;
 import com.bitfire.uracer.game.actors.CarPreset.Type;
 import com.bitfire.uracer.game.actors.GhostCar;
 import com.bitfire.uracer.game.events.GameLogicEvent;
@@ -327,10 +323,6 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
             updateLogic();
         }
     }
-
-    //
-    // private impl
-    //
 
     private void _doQuit() {
         if (quitPending && !quitScheduled) {
