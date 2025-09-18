@@ -149,7 +149,6 @@ public class PlayerCar extends Car {
             touchPos.set(input.getXY());
 
             carInput.updated = input.isTouching() && input.isTouchedInBounds(MouseButton.Left);
-            // Gdx.app.log("PlayerCar", "carpos=" + carPos.toString() + ", cursor=" + touchPos.toString());
 
             if (carInput.updated) {
 
@@ -346,7 +345,6 @@ public class PlayerCar extends Car {
             notifiedOutOfTrack = false;
         }
 
-        // FIXME, move these hard-coded values out of here
         if (isOutOfTrack && carDesc.velocityWorldCoordinates.len2() > 10) {
             carDesc.velocityWorldCoordinates.scl(GameplaySettings.DampingFriction);
         }
