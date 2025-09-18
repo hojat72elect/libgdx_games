@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2
 import com.bitfire.uracer.game.world.GameWorld
 import com.bitfire.uracer.utils.AlgebraMath.clamp
 import com.bitfire.uracer.utils.AlgebraMath.fixup
-import com.bitfire.uracer.utils.NewConvert.mt2px
+import com.bitfire.uracer.utils.ConvertUtils.mt2px
 
 class CarState(private val world: GameWorld, val car: Car?) {
 

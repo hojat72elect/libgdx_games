@@ -22,7 +22,7 @@ import com.bitfire.uracer.game.rendering.GameRenderer;
 import com.bitfire.uracer.game.world.GameWorld;
 import com.bitfire.uracer.game.world.WorldDefs.Layer;
 import com.bitfire.uracer.utils.AlgebraMath;
-import com.bitfire.uracer.utils.NewConvert;
+import com.bitfire.uracer.utils.ConvertUtils;
 import com.bitfire.uracer.utils.Timer;
 import com.bitfire.uracer.utils.VectorMathUtils;
 
@@ -313,7 +313,7 @@ public class PlayerCar extends Car {
             float scaledTileSize = gameWorld.getTileSizePx();
             float tsx = tilePosition.x * scaledTileSize;
             float tsy = tilePosition.y * scaledTileSize;
-            offset.set(NewConvert.INSTANCE.mt2px(getBody().getPosition()));
+            offset.set(ConvertUtils.INSTANCE.mt2px(getBody().getPosition()));
             offset.y = gameWorld.worldSizePx.y - offset.y;
             offset.x = offset.x - tsx;
             offset.y = offset.y - tsy;

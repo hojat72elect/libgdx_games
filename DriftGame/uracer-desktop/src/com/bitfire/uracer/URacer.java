@@ -72,7 +72,7 @@ public class URacer implements ApplicationListener {
         Tween.registerAccessor(HudLabel.class, new HudLabelAccessor());
         Tween.registerAccessor(BoxedFloat.class, new BoxedFloatAccessor());
 
-        NewConvert.INSTANCE.initialize(Config.Physics.PixelsPerMeter);
+        ConvertUtils.INSTANCE.initialize(Config.Physics.PixelsPerMeter);
 
         /*
          * Initialize the timers after creating the game screen, so that there will be not a  huge discrepancy between the first

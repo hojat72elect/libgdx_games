@@ -2,7 +2,7 @@ package com.bitfire.uracer.utils
 
 import com.badlogic.gdx.math.Vector2
 
-object NewConvert {
+object ConvertUtils {
     private var invPixelsPerMeter = 0F
     private var pixelsPerMeter = 0F
 
@@ -10,7 +10,7 @@ object NewConvert {
     private val retPx = Vector2()
 
     fun initialize(pixelsPerMeter: Float) {
-        NewConvert.pixelsPerMeter = pixelsPerMeter
+        ConvertUtils.pixelsPerMeter = pixelsPerMeter
         invPixelsPerMeter = 1F / pixelsPerMeter
     }
 

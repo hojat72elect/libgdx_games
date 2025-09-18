@@ -220,7 +220,7 @@ public class SinglePlayer extends BaseLogic {
         } else if (isGhostActive(0)) {
             positionPx.set(getGhost(0).state().position);
         } else {
-            positionPx.set(NewConvert.INSTANCE.mt2px(gameWorld.playerStart.position));
+            positionPx.set(ConvertUtils.INSTANCE.mt2px(gameWorld.playerStart.position));
         }
     }
 

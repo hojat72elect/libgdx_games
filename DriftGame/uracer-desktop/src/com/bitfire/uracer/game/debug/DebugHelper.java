@@ -509,7 +509,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         SpriteBatchUtils.drawString(batch, "screen x=" + pos.x + ",y=" + pos.y, 0, Art.DebugFontWidth * 4);
         SpriteBatchUtils.drawString(batch, "world-mt x=" + body.getPosition().x + ",y=" + body.getPosition().y, 0, Art.DebugFontWidth * 5);
         SpriteBatchUtils.drawString(batch,
-                "world-px x=" + NewConvert.INSTANCE.mt2px(body.getPosition().x) + ",y=" + NewConvert.INSTANCE.mt2px(body.getPosition().y), 0, Art.DebugFontWidth * 6);
+                "world-px x=" + ConvertUtils.INSTANCE.mt2px(body.getPosition().x) + ",y=" + ConvertUtils.INSTANCE.mt2px(body.getPosition().y), 0, Art.DebugFontWidth * 6);
         SpriteBatchUtils.drawString(batch, "orient=" + body.getAngle(), 0, Art.DebugFontWidth * 7);
         SpriteBatchUtils.drawString(batch, "render.interp=" + (state.position.x + "," + state.position.y), 0, Art.DebugFontWidth * 8);
     }

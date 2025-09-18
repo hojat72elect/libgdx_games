@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 import com.bitfire.uracer.utils.AlgebraMath.TWO_PI
 import com.bitfire.uracer.utils.AlgebraMath.isZero
-import com.bitfire.uracer.utils.NewConvert.mt2px
+import com.bitfire.uracer.utils.ConvertUtils.mt2px
 import kotlin.math.abs
 
 class EntityRenderState {
