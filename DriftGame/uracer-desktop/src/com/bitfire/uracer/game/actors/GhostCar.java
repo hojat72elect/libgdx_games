@@ -1,6 +1,9 @@
 package com.bitfire.uracer.game.actors;
 
-import com.bitfire.uracer.configuration.Config;
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenEquation;
+import com.bitfire.uracer.configuration.GraphicsUtils;
 import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.events.GhostCarEvent;
 import com.bitfire.uracer.game.logic.replaying.Replay;
@@ -8,10 +11,6 @@ import com.bitfire.uracer.game.tween.GameTweener;
 import com.bitfire.uracer.game.world.GameWorld;
 import com.bitfire.uracer.utils.BoxedFloat;
 import com.bitfire.uracer.utils.BoxedFloatAccessor;
-
-import aurelienribon.tweenengine.Timeline;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenEquation;
 
 /**
  * Implements an automated Car, playing previously recorded events. It will ignore car-to-car collisions, but will respect
@@ -36,7 +35,7 @@ public final class GhostCar extends Car {
         replay = new Replay();
         resetDistanceAndSpeed(true, true);
         removeReplay();
-        bfAlpha = new BoxedFloat(Config.Graphics.DefaultGhostCarOpacity);
+        bfAlpha = new BoxedFloat(GraphicsUtils.DefaultGhostCarOpacity);
         stillModel.setAlpha(0);
         getTrackState().ghostArrived = false;
     }
@@ -116,7 +115,7 @@ public final class GhostCar extends Car {
     }
 
     public void tweenAlphaTo(float value) {
-        tweenAlphaTo(value, Config.Graphics.DefaultGhostOpacityChangeMs, Config.Graphics.DefaultGhostOpacityChangeEq);
+        tweenAlphaTo(value, GraphicsUtils.DefaultGhostOpacityChangeMs, GraphicsUtils.DefaultGhostOpacityChangeEq);
     }
 
     public void tweenAlphaTo(float value, float ms, TweenEquation eq) {

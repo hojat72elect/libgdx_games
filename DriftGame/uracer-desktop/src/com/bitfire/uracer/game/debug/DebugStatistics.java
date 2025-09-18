@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.WindowedMean;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.bitfire.uracer.URacer;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.PhysicsUtils;
 import com.bitfire.uracer.utils.AlgebraMath;
 
 public final class DebugStatistics {
@@ -60,8 +60,8 @@ public final class DebugStatistics {
         dataTimeAliasing = new float[PanelWidth];
 
         // precompute constants
-        ratio_rtime = ((float) PanelHeight / 2f) * Config.Physics.TimestepHz;
-        ratio_ptime = ((float) PanelHeight / 2f) * Config.Physics.TimestepHz;
+        ratio_rtime = ((float) PanelHeight / 2f) * PhysicsUtils.TimestepHz;
+        ratio_ptime = ((float) PanelHeight / 2f) * PhysicsUtils.TimestepHz;
         ratio_fps = ((float) PanelHeight / 2f) * oneOnUpdHz;
 
         reset();

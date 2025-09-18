@@ -9,7 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.bitfire.postprocessing.PostProcessor;
 import com.bitfire.uracer.Input;
 import com.bitfire.uracer.URacer;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.DebugUtils;
+import com.bitfire.uracer.configuration.GraphicsUtils;
 import com.bitfire.uracer.configuration.Storage;
 import com.bitfire.uracer.configuration.UserProfile;
 import com.bitfire.uracer.game.GameplaySettings;
@@ -57,7 +58,7 @@ public class SinglePlayer extends BaseLogic {
     }
 
     private void setupDebug(PostProcessor postProcessor) {
-        if (Config.Debug.UseDebugHelper) {
+        if (DebugUtils.UseDebugHelper) {
             debug = new DebugHelper(gameWorld, postProcessor, lapManager, this, inputSystem);
             debug.add(new GameTrackDebugRenderer(RenderFlags.TrackSectors, gameWorld.getGameTrack()));
             debug.add(new DebugPlayer(RenderFlags.PlayerCarInfo, gameTasksManager));
@@ -71,7 +72,7 @@ public class SinglePlayer extends BaseLogic {
     }
 
     private void destroyDebug() {
-        if (Config.Debug.UseDebugHelper) {
+        if (DebugUtils.UseDebugHelper) {
             debug.dispose();
         }
     }
@@ -127,8 +128,8 @@ public class SinglePlayer extends BaseLogic {
 
     private void setGhostAlphasFor(boolean isTargetMode) {
         for (GhostCar ghostCar : ghostCars) {
-            ghostCar.tweenAlphaTo(isTargetMode ? Config.Graphics.DefaultGhostCarOpacity
-                    : Config.Graphics.DefaultTargetCarOpacity, Config.Graphics.DefaultGhostOpacityChangeMs * 1.5f, Quad.Companion.getOUT());
+            ghostCar.tweenAlphaTo(isTargetMode ? GraphicsUtils.DefaultGhostCarOpacity
+                    : GraphicsUtils.DefaultTargetCarOpacity, GraphicsUtils.DefaultGhostOpacityChangeMs * 1.5f, Quad.Companion.getOUT());
         }
     }
 
@@ -464,9 +465,9 @@ public class SinglePlayer extends BaseLogic {
         for (Replay r : lapManager.getReplays()) {
             if (hasGhostFor(r)) {
                 GhostCar ghost = findGhostFor(r);
-                ghost.setAlpha(targetMode ? Config.Graphics.DefaultGhostCarOpacity : Config.Graphics.DefaultTargetCarOpacity);
+                ghost.setAlpha(targetMode ? GraphicsUtils.DefaultGhostCarOpacity : GraphicsUtils.DefaultTargetCarOpacity);
                 if (targetMode && getNextTarget() == ghost) {
-                    ghost.setAlpha(Config.Graphics.DefaultTargetCarOpacity);
+                    ghost.setAlpha(GraphicsUtils.DefaultTargetCarOpacity);
                     gameWorldRenderer.setTopMostGhostCar(ghost);
                 }
 

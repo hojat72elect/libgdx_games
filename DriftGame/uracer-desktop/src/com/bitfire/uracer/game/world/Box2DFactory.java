@@ -1,12 +1,8 @@
 package com.bitfire.uracer.game.world;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
-import com.bitfire.uracer.configuration.Config;
+import com.badlogic.gdx.physics.box2d.*;
+import com.bitfire.uracer.configuration.DebugUtils;
 import com.bitfire.uracer.game.collisions.CollisionFilters;
 
 public final class Box2DFactory {
@@ -43,7 +39,7 @@ public final class Box2DFactory {
         fdef.filter.categoryBits = CollisionFilters.CategoryTrackWalls;
         fdef.filter.maskBits = CollisionFilters.INSTANCE.getMaskWalls();
 
-        if (Config.Debug.TraverseWalls) {
+        if (DebugUtils.TraverseWalls) {
             fdef.filter.groupIndex = CollisionFilters.GroupNoCollisions;
         }
 

@@ -6,10 +6,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
 import com.badlogic.gdx.backends.lwjgl.audio.OpenALAudio
 import com.bitfire.uracer.configuration.BootConfig
 import com.bitfire.uracer.configuration.BootConfig.BootConfigFlag
-import com.bitfire.uracer.configuration.Config
+import com.bitfire.uracer.configuration.DebugUtils
 import com.bitfire.uracer.utils.CommandLine
 import org.lwjgl.opengl.Display
-import java.util.Calendar
+import java.util.*
 
 private fun createLwjglConfig(boot: BootConfig): LwjglApplicationConfiguration {
 
@@ -20,7 +20,7 @@ private fun createLwjglConfig(boot: BootConfig): LwjglApplicationConfiguration {
     config.samples = 0
     config.audioDeviceSimultaneousSources = 32
 
-    if (Config.Debug.PauseDisabled) {
+    if (DebugUtils.PauseDisabled) {
         config.backgroundFPS = 0
         config.foregroundFPS = 0
     } else {

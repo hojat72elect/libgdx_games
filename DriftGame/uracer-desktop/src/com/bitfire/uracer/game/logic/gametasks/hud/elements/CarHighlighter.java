@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.bitfire.uracer.URacer;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.GraphicsUtils;
 import com.bitfire.uracer.entities.EntityRenderState;
 import com.bitfire.uracer.game.actors.Car;
 import com.bitfire.uracer.game.actors.CarModel;
@@ -95,7 +95,7 @@ public final class CarHighlighter {
 
         if (followedCar != null && followedCar instanceof GhostCar) {
             prevState = renderState;
-            ((GhostCar) followedCar).tweenAlphaTo(Config.Graphics.DefaultGhostCarOpacity);
+            ((GhostCar) followedCar).tweenAlphaTo(GraphicsUtils.DefaultGhostCarOpacity);
         }
 
         followedCar = car;
@@ -116,14 +116,14 @@ public final class CarHighlighter {
             interpolateState = true;
             bfRenderState.value = 0;
             Timeline timeline = Timeline.createSequence();
-            timeline.push(Tween.to(bfRenderState, BoxedFloatAccessor.VALUE, Config.Graphics.DefaultGhostOpacityChangeMs).target(1).ease(Config.Graphics.DefaultGhostOpacityChangeEq));
+            timeline.push(Tween.to(bfRenderState, BoxedFloatAccessor.VALUE, GraphicsUtils.DefaultGhostOpacityChangeMs).target(1).ease(GraphicsUtils.DefaultGhostOpacityChangeEq));
             timeline.setCallback(renderStateCallback);
 
             GameTweener.start(timeline);
         }
 
         if (followedCar != null && followedCar instanceof GhostCar) {
-            ((GhostCar) followedCar).tweenAlphaTo(Config.Graphics.DefaultTargetCarOpacity);
+            ((GhostCar) followedCar).tweenAlphaTo(GraphicsUtils.DefaultTargetCarOpacity);
         }
     }
 
@@ -225,7 +225,7 @@ public final class CarHighlighter {
         bfBlue.value = 1f;
 
         Timeline timeline = Timeline.createParallel();
-        float ms = Config.Graphics.DefaultFadeMilliseconds;
+        float ms = GraphicsUtils.DefaultFadeMilliseconds;
 
         GameTweener.stop(bfAlpha);
         GameTweener.stop(bfScale);
@@ -264,7 +264,7 @@ public final class CarHighlighter {
         bfBlue.value = 1f;
 
         Timeline timeline = Timeline.createParallel();
-        float ms = Config.Graphics.DefaultFadeMilliseconds;
+        float ms = GraphicsUtils.DefaultFadeMilliseconds;
 
         GameTweener.stop(bfAlpha);
         GameTweener.stop(bfScale);

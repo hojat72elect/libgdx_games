@@ -1,6 +1,6 @@
 package com.bitfire.uracer.utils
 
-import com.bitfire.uracer.configuration.Config
+import com.bitfire.uracer.configuration.PhysicsUtils
 import kotlin.math.*
 
 /**
@@ -93,8 +93,8 @@ object AlgebraMath {
 
     @JvmStatic
     fun normalizeImpactForce(force: Float): Float {
-        var v = clamp(force, 0F, Config.Physics.MaxImpactForce)
-        v *= Config.Physics.OneOnMaxImpactForce
+        var v = clamp(force, 0F, PhysicsUtils.MaxImpactForce)
+        v *= PhysicsUtils.OneOnMaxImpactForce
         return v
     }
 
@@ -118,6 +118,6 @@ object AlgebraMath {
      * (see my post [here](http://www.gamedev.net/topic/624172-framerate-independent-friction/page__st__20))
      */
     @JvmStatic
-    fun damping(factor: Float) = factor.toDouble().pow((Config.Physics.PhysicsTimestepReferenceHz * Config.Physics.Dt).toDouble()).toFloat()
+    fun damping(factor: Float) = factor.toDouble().pow((PhysicsUtils.PhysicsTimestepReferenceHz * PhysicsUtils.Dt).toDouble()).toFloat()
 
 }

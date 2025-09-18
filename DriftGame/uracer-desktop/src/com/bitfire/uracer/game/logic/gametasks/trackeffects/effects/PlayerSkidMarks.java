@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.PhysicsUtils;
 import com.bitfire.uracer.game.logic.gametasks.trackeffects.TrackEffect;
 import com.bitfire.uracer.game.logic.gametasks.trackeffects.TrackEffectType;
 import com.bitfire.uracer.game.player.PlayerCar;
@@ -90,7 +90,7 @@ public class PlayerSkidMarks extends TrackEffect {
         for (int i = 0; i < MaxSkidMarks; i++) {
             SkidMark sm = skidMarks[i];
             if (sm.life > 0) {
-                sm.life -= Config.Physics.Dt;
+                sm.life -= PhysicsUtils.Dt;
             } else {
                 sm.life = 0;
             }
@@ -129,7 +129,7 @@ public class PlayerSkidMarks extends TrackEffect {
         }
 
         int driftMarkAddIterations;
-        float target = Config.Physics.Dt;
+        float target = PhysicsUtils.Dt;
         float curr = Gdx.graphics.getDeltaTime();// deltaMean.getMean();
         driftMarkAddIterations = AlgebraMath.clamp(Math.round(curr / target), 1, 3);
 

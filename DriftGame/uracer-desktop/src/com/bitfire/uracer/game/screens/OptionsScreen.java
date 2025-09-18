@@ -6,18 +6,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bitfire.postprocessing.filters.RadialBlur;
 import com.bitfire.uracer.URacer;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.PhysicsUtils;
 import com.bitfire.uracer.configuration.UserPreferences;
 import com.bitfire.uracer.configuration.UserPreferences.Preference;
 import com.bitfire.uracer.game.GameplaySettings.TimeDilateInputMode;
@@ -291,7 +286,7 @@ public class OptionsScreen extends UIScreen {
         if (input.isPressed(Keys.R)) {
             reload();
         } else {
-            ui.act(Config.Physics.Dt);
+            ui.act(PhysicsUtils.Dt);
         }
     }
 
@@ -304,6 +299,5 @@ public class OptionsScreen extends UIScreen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         ui.draw();
-        // Table.drawDebug(ui);
     }
 }

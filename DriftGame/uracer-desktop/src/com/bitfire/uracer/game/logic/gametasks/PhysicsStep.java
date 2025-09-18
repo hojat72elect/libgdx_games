@@ -1,7 +1,7 @@
 package com.bitfire.uracer.game.logic.gametasks;
 
 import com.badlogic.gdx.physics.box2d.World;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.PhysicsUtils;
 import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.events.PhysicsStepEvent.Type;
 import com.bitfire.uracer.game.events.TaskManagerEvent;
@@ -23,7 +23,7 @@ public class PhysicsStep extends GameTask {
     @Override
     protected void onTick() {
         GameEvents.physicsStep.trigger(this, Type.onBeforeTimestep);
-        world.step(Config.Physics.Dt, 10, 10);
+        world.step(PhysicsUtils.Dt, 10, 10);
         GameEvents.physicsStep.trigger(this, Type.onAfterTimestep);
     }
 

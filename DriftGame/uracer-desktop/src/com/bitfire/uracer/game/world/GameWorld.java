@@ -23,7 +23,7 @@ import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.bitfire.uracer.URacer;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.GraphicsUtils;
 import com.bitfire.uracer.game.GameLevels;
 import com.bitfire.uracer.game.actors.GhostCar;
 import com.bitfire.uracer.game.collisions.CollisionFilters;
@@ -91,7 +91,7 @@ public final class GameWorld {
     private final float[] treeRotations = new float[4];
 
     public GameWorld(String levelId, boolean nightMode) {
-        float widthRatio = (float) Config.Graphics.ReferenceScreenWidth / (float) ScaleUtils.PlayWidth;
+        float widthRatio = (float) GraphicsUtils.ReferenceScreenWidth / (float) ScaleUtils.PlayWidth;
         pixelsPerMeterFactor = ((widthRatio * 256f) / 224f) * ScaleUtils.Scale;
 
         box2dWorld = new World(new Vector2(0, 0), false);

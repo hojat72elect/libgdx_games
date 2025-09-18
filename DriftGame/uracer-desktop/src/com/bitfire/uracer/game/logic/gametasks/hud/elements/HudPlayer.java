@@ -3,7 +3,7 @@ package com.bitfire.uracer.game.logic.gametasks.hud.elements;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.GraphicsUtils;
 import com.bitfire.uracer.entities.EntityRenderState;
 import com.bitfire.uracer.game.actors.Car;
 import com.bitfire.uracer.game.logic.gametasks.hud.HudElement;
@@ -78,7 +78,7 @@ public final class HudPlayer extends HudElement {
         trackProgress.resetPlayerToTarget();
         highlightError.stop();
         highlightNext.stop();
-        wrongWay.fadeOut(Config.Graphics.DefaultResetFadeMilliseconds);
+        wrongWay.fadeOut(GraphicsUtils.DefaultResetFadeMilliseconds);
     }
 
     @Override

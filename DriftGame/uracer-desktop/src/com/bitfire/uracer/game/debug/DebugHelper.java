@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.Array;
 import com.bitfire.postprocessing.PostProcessor;
 import com.bitfire.uracer.Input;
 import com.bitfire.uracer.URacer;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.DebugUtils;
 import com.bitfire.uracer.entities.EntityRenderState;
 import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.GameLogic;
@@ -126,7 +126,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         this.logic = logic;
         this.input = input;
 
-        this.enabled = Config.Debug.UseDebugHelper;
+        this.enabled = DebugUtils.UseDebugHelper;
         this.box2dWorld = gameWorld.getBox2DWorld();
 
         GameEvents.gameRenderer.addListener(renderListener, GameRendererEvent.Type.BatchDebug, GameRendererEvent.Order.PLUS_4);

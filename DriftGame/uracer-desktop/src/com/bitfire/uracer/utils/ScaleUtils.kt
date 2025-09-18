@@ -2,7 +2,7 @@ package com.bitfire.uracer.utils
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Rectangle
-import com.bitfire.uracer.configuration.Config
+import com.bitfire.uracer.configuration.GraphicsUtils
 
 object ScaleUtils {
 
@@ -29,8 +29,8 @@ object ScaleUtils {
 
     @JvmStatic
     fun initialize(displayWidth: Int, displayHeight: Int) {
-        val refW = Config.Graphics.ReferenceScreenWidth.toFloat()
-        val refH = Config.Graphics.ReferenceScreenHeight.toFloat()
+        val refW = GraphicsUtils.ReferenceScreenWidth.toFloat()
+        val refH = GraphicsUtils.ReferenceScreenHeight.toFloat()
 
         // Maintain the aspect ratio by letterboxing.
         RefAspect = refW / refH

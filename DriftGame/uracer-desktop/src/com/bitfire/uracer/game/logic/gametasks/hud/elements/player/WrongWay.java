@@ -5,7 +5,7 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.equations.Linear;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.GraphicsUtils;
 import com.bitfire.uracer.game.logic.gametasks.hud.Positionable;
 import com.bitfire.uracer.game.tween.GameTweener;
 import com.bitfire.uracer.resources.Art;
@@ -48,7 +48,7 @@ public class WrongWay extends Positionable {
     }
 
     public void fadeIn() {
-        fadeIn(Config.Graphics.DefaultFadeMilliseconds);
+        fadeIn(GraphicsUtils.DefaultFadeMilliseconds);
     }
 
     public void fadeIn(int millisecs) {

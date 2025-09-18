@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.bitfire.postprocessing.utils.FullscreenQuad;
 import com.bitfire.uracer.URacer;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.PhysicsUtils;
 import com.bitfire.uracer.screen.Screen;
 import com.bitfire.uracer.screen.ScreenFactory;
 import com.bitfire.uracer.screen.ScreenFactory.ScreenId;
@@ -18,7 +18,7 @@ import com.bitfire.utils.ShaderLoader;
  * Implements a cross fader, transitioning between the current and the next screen.
  */
 public final class CrossFader extends ScreenTransition {
-    static final long MaxFrameStep = (long) (Config.Physics.Dt * 1000000000f);
+    static final long MaxFrameStep = (long) (PhysicsUtils.Dt * 1000000000f);
     long duration, elapsed; // in nanoseconds
     float factor;
     FrameBuffer from, to;

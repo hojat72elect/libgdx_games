@@ -1,7 +1,10 @@
 package com.bitfire.uracer.game.logic.gametasks.hud.elements;
 
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.equations.Linear;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.GraphicsUtils;
 import com.bitfire.uracer.game.logic.gametasks.hud.HudElement;
 import com.bitfire.uracer.game.logic.gametasks.hud.HudLabel;
 import com.bitfire.uracer.game.logic.replaying.LapManager;
@@ -10,10 +13,6 @@ import com.bitfire.uracer.resources.BitmapFontFactory.FontFace;
 import com.bitfire.uracer.utils.BoxedFloat;
 import com.bitfire.uracer.utils.BoxedFloatAccessor;
 import com.bitfire.uracer.utils.ReplayUtils;
-
-import aurelienribon.tweenengine.Timeline;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.equations.Linear;
 
 public class HudLapInfo extends HudElement {
 
@@ -29,7 +28,7 @@ public class HudLapInfo extends HudElement {
 
         curr = new HudLabel(FontFace.LcdWhite, "99.99", true);
         curr.setScale(1.5f);
-        curr.setPosition((Config.Graphics.ReferenceScreenWidth / 2F), Config.Graphics.ReferenceScreenHeight - curr.getHeight() / 2
+        curr.setPosition((GraphicsUtils.ReferenceScreenWidth / 2F), GraphicsUtils.ReferenceScreenHeight - curr.getHeight() / 2
                 - 10);
 
         r = new BoxedFloat(1);

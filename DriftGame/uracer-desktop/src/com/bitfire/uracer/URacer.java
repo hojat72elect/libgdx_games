@@ -7,10 +7,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.bitfire.uracer.configuration.BootConfig;
-import com.bitfire.uracer.configuration.Config;
-import com.bitfire.uracer.configuration.Storage;
-import com.bitfire.uracer.configuration.UserPreferences;
+import com.bitfire.uracer.configuration.*;
 import com.bitfire.uracer.game.GameLevels;
 import com.bitfire.uracer.game.logic.gametasks.hud.HudLabel;
 import com.bitfire.uracer.game.logic.gametasks.hud.HudLabelAccessor;
@@ -72,19 +69,19 @@ public class URacer implements ApplicationListener {
         Tween.registerAccessor(HudLabel.class, new HudLabelAccessor());
         Tween.registerAccessor(BoxedFloat.class, new BoxedFloatAccessor());
 
-        ConvertUtils.INSTANCE.initialize(Config.Physics.PixelsPerMeter);
+        ConvertUtils.INSTANCE.initialize(PhysicsUtils.PixelsPerMeter);
 
         /*
          * Initialize the timers after creating the game screen, so that there will be not a  huge discrepancy between the first
          * lastDeltaTimeSec value and the followers. Note those initial values are carefully chosen to ensure that the first
          * iteration ever is going to at least perform one single tick.
          */
-        PhysicsDtNs = (long) 1000000000 / (long) Config.Physics.TimestepHz;
-        timeStepHz = (long) Config.Physics.TimestepHz;
+        PhysicsDtNs = (long) 1000000000 / (long) PhysicsUtils.TimestepHz;
+        timeStepHz = (long) PhysicsUtils.TimestepHz;
         timeAccuNs = PhysicsDtNs;
 
         temporalAliasing = 0;
-        timeMultiplier = Config.Physics.TimeMultiplier;
+        timeMultiplier = PhysicsUtils.TimeMultiplier;
         ShaderLoader.INSTANCE.setPedantic(true);
     }
 
@@ -121,7 +118,7 @@ public class URacer implements ApplicationListener {
         Gdx.app.log("URacer", "Java vendor is " + System.getProperty("java.vendor"));
         Gdx.app.log("URacer", "Java version is " + System.getProperty("java.version"));
         Gdx.app.log("URacer", "Using real frametime: " + (useRealFrametime ? "YES" : "NO"));
-        Gdx.app.log("URacer", "Physics at " + timeStepHz + "Hz (dT=" + String.format("%.05f", Config.Physics.Dt) + ")");
+        Gdx.app.log("URacer", "Physics at " + timeStepHz + "Hz (dT=" + String.format("%.05f", PhysicsUtils.Dt) + ")");
 
         Storage.initialize();
         boot.store();
@@ -247,7 +244,7 @@ public class URacer implements ApplicationListener {
 
     @Override
     public void pause() {
-        if (Config.Debug.PauseDisabled) {
+        if (DebugUtils.PauseDisabled) {
             Gdx.app.log("URacer", "Ignoring pause request by focus lost");
             return;
         }
@@ -260,7 +257,7 @@ public class URacer implements ApplicationListener {
 
     @Override
     public void resume() {
-        if (Config.Debug.PauseDisabled) {
+        if (DebugUtils.PauseDisabled) {
             Gdx.app.log("URacer", "Ignoring resume request by focus gained");
             return;
         }

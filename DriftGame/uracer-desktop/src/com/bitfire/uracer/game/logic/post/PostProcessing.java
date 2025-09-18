@@ -8,16 +8,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.LongMap;
 import com.bitfire.postprocessing.PostProcessor;
 import com.bitfire.postprocessing.PostProcessorEffect;
-import com.bitfire.postprocessing.effects.Bloom;
-import com.bitfire.postprocessing.effects.CrtMonitor;
-import com.bitfire.postprocessing.effects.LensFlare;
-import com.bitfire.postprocessing.effects.Vignette;
-import com.bitfire.postprocessing.effects.Zoomer;
+import com.bitfire.postprocessing.effects.*;
 import com.bitfire.postprocessing.filters.CrtScreen.Effect;
 import com.bitfire.postprocessing.filters.CrtScreen.RgbMode;
 import com.bitfire.postprocessing.filters.RadialBlur;
 import com.bitfire.uracer.URacer;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.GraphicsUtils;
+import com.bitfire.uracer.configuration.PostProcessingUtils;
 import com.bitfire.uracer.configuration.UserPreferences;
 import com.bitfire.uracer.configuration.UserPreferences.Preference;
 import com.bitfire.uracer.game.logic.helpers.TrackProgressData;
@@ -79,8 +76,8 @@ public final class PostProcessing {
             needNormalDepthMap = true;
         }
 
-        int refW = Config.Graphics.ReferenceScreenWidth;
-        int refH = Config.Graphics.ReferenceScreenHeight;
+        int refW = GraphicsUtils.ReferenceScreenWidth;
+        int refH = GraphicsUtils.ReferenceScreenHeight;
 
         if (UserPreferences.bool(Preference.ZoomRadialBlur)) {
             RadialBlur.Quality rbq = RadialBlur.Quality.valueOf(UserPreferences.string(Preference.ZoomRadialBlurQuality));
@@ -88,8 +85,8 @@ public final class PostProcessing {
             addEffect(Effects.Zoomer.name, z);
         }
 
-        int fboW = (int) ((float) ScaleUtils.PlayWidth * Config.PostProcessing.FboRatio);
-        int fboH = (int) ((float) ScaleUtils.PlayHeight * Config.PostProcessing.FboRatio);
+        int fboW = (int) ((float) ScaleUtils.PlayWidth * PostProcessingUtils.FboRatio);
+        int fboH = (int) ((float) ScaleUtils.PlayHeight * PostProcessingUtils.FboRatio);
 
         if (UserPreferences.bool(Preference.Bloom)) {
             addEffect(Effects.Bloom.name, new Bloom(fboW, fboH));

@@ -8,7 +8,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.utils.Array;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.DebugUtils;
+import com.bitfire.uracer.configuration.PhysicsUtils;
 import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.GameLogic;
 import com.bitfire.uracer.game.collisions.CollisionFilters;
@@ -104,7 +105,7 @@ public abstract strictfp class Car extends Box2DEntity {
                 : CollisionFilters.CategoryReplay;
         fd.filter.maskBits = (carType == CarType.PlayerCar) ? CollisionFilters.MaskPlayer : CollisionFilters.MaskReplay;
 
-        if (Config.Debug.TraverseWalls) {
+        if (DebugUtils.TraverseWalls) {
             fd.filter.groupIndex = CollisionFilters.GroupNoCollisions;
         }
 
@@ -255,7 +256,7 @@ public abstract strictfp class Car extends Box2DEntity {
         }
 
         // compute instant speed
-        carInstantSpeedMtSec = AlgebraMath.fixup(dist * Config.Physics.TimestepHz);
+        carInstantSpeedMtSec = AlgebraMath.fixup(dist * PhysicsUtils.TimestepHz);
     }
 
     public enum InputMode {

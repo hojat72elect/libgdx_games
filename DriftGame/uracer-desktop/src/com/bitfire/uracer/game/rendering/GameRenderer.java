@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.bitfire.postprocessing.PostProcessor;
 import com.bitfire.uracer.URacer;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.GraphicsUtils;
 import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.events.GameRendererEvent;
 import com.bitfire.uracer.game.logic.post.PostProcessing;
@@ -287,8 +287,8 @@ public final class GameRenderer {
          */
         public static Vector2 worldPxToScreen(Vector2 worldPositionPx) {
             tmp3.set(worldPositionPx.x, worldPositionPx.y, 0);
-            worldRenderer.camOrtho.project(tmp3, 0, 0, Config.Graphics.ReferenceScreenWidth, Config.Graphics.ReferenceScreenHeight);
-            tmp2.set(tmp3.x, Config.Graphics.ReferenceScreenHeight - tmp3.y);
+            worldRenderer.camOrtho.project(tmp3, 0, 0, GraphicsUtils.ReferenceScreenWidth, GraphicsUtils.ReferenceScreenHeight);
+            tmp2.set(tmp3.x, GraphicsUtils.ReferenceScreenHeight - tmp3.y);
             return tmp2;
         }
 

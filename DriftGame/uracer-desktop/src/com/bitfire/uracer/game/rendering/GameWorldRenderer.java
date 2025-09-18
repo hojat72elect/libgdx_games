@@ -10,7 +10,10 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.*;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.DebugUtils;
+import com.bitfire.uracer.configuration.GraphicsUtils;
+import com.bitfire.uracer.configuration.PhysicsUtils;
+import com.bitfire.uracer.configuration.PostProcessingUtils;
 import com.bitfire.uracer.game.actors.Car;
 import com.bitfire.uracer.game.actors.GhostCar;
 import com.bitfire.uracer.game.logic.helpers.CameraController;
@@ -147,7 +150,7 @@ public final class GameWorldRenderer {
 
         // deferred setup
         if (useNormalDepthMap) {
-            float scale = Config.PostProcessing.NormalDepthMapRatio;
+            float scale = PostProcessingUtils.NormalDepthMapRatio;
             normalDepthMap = new FrameBuffer(Format.RGBA8888, (int) ((float) ScaleUtils.PlayWidth * scale),
                     (int) ((float) ScaleUtils.PlayHeight * scale), true);
 
@@ -201,8 +204,8 @@ public final class GameWorldRenderer {
     }
 
     private void createCams() {
-        int refW = Config.Graphics.ReferenceScreenWidth;
-        int refH = Config.Graphics.ReferenceScreenHeight;
+        int refW = GraphicsUtils.ReferenceScreenWidth;
+        int refH = GraphicsUtils.ReferenceScreenHeight;
 
         camOrtho = new OrthographicCamera(refW, refH);
         halfViewport.set(camOrtho.viewportWidth / 2, camOrtho.viewportHeight / 2);
@@ -221,7 +224,7 @@ public final class GameWorldRenderer {
         camPersp.position.set(camTilemap.position.x, camTilemap.position.y, CamPerspElevation);
         camPersp.update();
 
-        camController = new CameraController(Config.Graphics.CameraInterpolationMode, halfViewport, world.worldSizePx,
+        camController = new CameraController(GraphicsUtils.CameraInterpolationMode, halfViewport, world.worldSizePx,
                 world.worldSizeTiles);
     }
 
@@ -336,7 +339,7 @@ public final class GameWorldRenderer {
 
         // update the model-view-projection matrix, in meters, from the unscaled orthographic camera
         camOrthoMvpMt.set(camOrtho.combined);
-        camOrthoMvpMt.scl(Config.Physics.PixelsPerMeter);
+        camOrthoMvpMt.scl(PhysicsUtils.PixelsPerMeter);
 
         // update the tilemap renderer orthographic camera
         // y-down
@@ -550,7 +553,7 @@ public final class GameWorldRenderer {
                 continue;
             }
 
-            if (Config.Debug.FrustumCulling && !camPersp.frustum.boundsInFrustum(m.boundingBox)) {
+            if (DebugUtils.FrustumCulling && !camPersp.frustum.boundsInFrustum(m.boundingBox)) {
                 needRebind = true;
                 if (!depthOnly) culledMeshes++;
                 continue;
@@ -582,7 +585,7 @@ public final class GameWorldRenderer {
     private void renderCar(Car car, boolean depthOnly) {
         CarStillModel model = car.getStillModel();
 
-        if (Config.Debug.FrustumCulling && !camPersp.frustum.boundsInFrustum(model.boundingBox)) {
+        if (DebugUtils.FrustumCulling && !camPersp.frustum.boundsInFrustum(model.boundingBox)) {
             return;
         }
 
@@ -781,14 +784,13 @@ public final class GameWorldRenderer {
             m.boundingBox.mul(model);
 
             // perform culling
-            if (Config.Debug.FrustumCulling && !camPersp.frustum.boundsInFrustum(m.boundingBox)) {
+            if (DebugUtils.FrustumCulling && !camPersp.frustum.boundsInFrustum(m.boundingBox)) {
                 needRebind = true;
                 if (!depthOnly) culledMeshes++;
                 continue;
             }
 
             if (!depthOnly) {
-                // comb = (proj * view) * model (fast mul)
                 Matrix4 mvp = mtx2;
                 mvp.set(camPersp.combined).mul(model);
                 shader.setUniformMatrix("u_projTrans", mvp);

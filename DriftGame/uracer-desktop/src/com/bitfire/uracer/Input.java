@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.GraphicsUtils;
 
 /**
  * Encapsulates a buffered input state object that can be queried to know the individual key/button/pointer states.
@@ -175,8 +175,8 @@ public final class Input implements Disposable {
         }
 
         // update coords even if not touched
-        int tx = (int) (npx * Config.Graphics.ReferenceScreenWidth);
-        int ty = (int) (npy * Config.Graphics.ReferenceScreenHeight);
+        int tx = (int) (npx * GraphicsUtils.ReferenceScreenWidth);
+        int ty = (int) (npy * GraphicsUtils.ReferenceScreenHeight);
         ptr.touchCoords.set(tx, ty);
     }
 

@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.GraphicsUtils;
 import com.bitfire.uracer.configuration.Storage;
 import com.bitfire.utils.ShaderLoader;
 
@@ -185,21 +185,21 @@ public final class Art {
     }
 
     private static void loadMeshesGraphics() {
-        meshTrackWall = newTexture("data/track/wall_4.png", Config.Graphics.EnableMipMapping);
+        meshTrackWall = newTexture("data/track/wall_4.png", GraphicsUtils.EnableMipMapping);
         meshTrackWall.setWrap(TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 
-        meshMissing = newTexture("data/3d/textures/missing-mesh.png", Config.Graphics.EnableMipMapping);
+        meshMissing = newTexture("data/3d/textures/missing-mesh.png", GraphicsUtils.EnableMipMapping);
 
         // car textures
         meshCar = new ObjectMap<>();
-        meshCar.put("car", newTexture("data/3d/textures/car.png", Config.Graphics.EnableMipMapping));
-        meshCar.put("car_yellow", newTexture("data/3d/textures/car_yellow.png", Config.Graphics.EnableMipMapping));
+        meshCar.put("car", newTexture("data/3d/textures/car.png", GraphicsUtils.EnableMipMapping));
+        meshCar.put("car_yellow", newTexture("data/3d/textures/car_yellow.png", GraphicsUtils.EnableMipMapping));
 
         // trees
-        meshTreeTrunk = newTexture("data/3d/textures/trunk_6_col.png", Config.Graphics.EnableMipMapping);
+        meshTreeTrunk = newTexture("data/3d/textures/trunk_6_col.png", GraphicsUtils.EnableMipMapping);
         meshTreeLeavesSpring = new Texture[7];
         for (int i = 0; i < 7; i++) {
-            meshTreeLeavesSpring[i] = newTexture("data/3d/textures/leaves_" + (i + 1) + "_spring_1.png", Config.Graphics.EnableMipMapping);
+            meshTreeLeavesSpring[i] = newTexture("data/3d/textures/leaves_" + (i + 1) + "_spring_1.png", GraphicsUtils.EnableMipMapping);
         }
     }
 

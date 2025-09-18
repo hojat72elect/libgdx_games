@@ -13,7 +13,8 @@ import com.bitfire.postprocessing.effects.*;
 import com.bitfire.postprocessing.filters.Combine;
 import com.bitfire.postprocessing.filters.CrtScreen.RgbMode;
 import com.bitfire.uracer.URacer;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.GraphicsUtils;
+import com.bitfire.uracer.configuration.PostProcessingUtils;
 import com.bitfire.uracer.game.logic.helpers.TrackProgressData;
 import com.bitfire.uracer.game.logic.post.PostProcessing;
 import com.bitfire.uracer.game.logic.post.PostProcessingAnimator;
@@ -143,8 +144,8 @@ public final class DefaultAnimator implements PostProcessingAnimator {
 
         if (bloom != null) {
             float bloomThreshold = (nightMode ? 0.2f : 0.4f);
-            Bloom.Settings bloomSettings = new Bloom.Settings("subtle", Config.PostProcessing.BlurType,
-                    Config.PostProcessing.BlurNumPasses, 1.5f, bloomThreshold, 1f, 0.5f, 1f, 1.3f + (nightMode ? 0.2f : 0));
+            Bloom.Settings bloomSettings = new Bloom.Settings("subtle", PostProcessingUtils.BlurType,
+                    PostProcessingUtils.BlurNumPasses, 1.5f, bloomThreshold, 1f, 0.5f, 1f, 1.3f + (nightMode ? 0.2f : 0));
             bloom.setSettings(bloomSettings);
         }
 
@@ -203,13 +204,13 @@ public final class DefaultAnimator implements PostProcessingAnimator {
         // terminate pending, unfinished alert, if any
         if (alertAmount.value > 0) {
             alertBegan = true;
-            alertEnds(Config.Graphics.DefaultResetFadeMilliseconds);
+            alertEnds(GraphicsUtils.DefaultResetFadeMilliseconds);
         }
 
         // terminate pending, unfinished alert, if any
         if (pauseAmount.value > 0) {
             pauseBegan = true;
-            gameResume(Config.Graphics.DefaultResetFadeMilliseconds);
+            gameResume(GraphicsUtils.DefaultResetFadeMilliseconds);
         }
     }
 

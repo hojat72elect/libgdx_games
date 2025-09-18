@@ -12,7 +12,9 @@ import com.badlogic.gdx.utils.IntMap;
 import com.bitfire.uracer.Input;
 import com.bitfire.uracer.Input.MouseButton;
 import com.bitfire.uracer.URacer;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.DebugUtils;
+import com.bitfire.uracer.configuration.GraphicsUtils;
+import com.bitfire.uracer.configuration.PhysicsUtils;
 import com.bitfire.uracer.game.GameEvents;
 import com.bitfire.uracer.game.GameLogic;
 import com.bitfire.uracer.game.GameplaySettings;
@@ -52,8 +54,8 @@ public class PlayerCar extends Car {
         carInput = new CarInput();
         impacts = 0;
 
-        invWidth = 1f / (float) Config.Graphics.ReferenceScreenWidth;
-        invHeight = 1f / (float) Config.Graphics.ReferenceScreenHeight;
+        invWidth = 1f / (float) GraphicsUtils.ReferenceScreenWidth;
+        invHeight = 1f / (float) GraphicsUtils.ReferenceScreenHeight;
 
         carDesc = new CarDescriptor(preset.model);
         carSim = new CarSimulator(carDesc);
@@ -282,7 +284,7 @@ public class PlayerCar extends Car {
         handleImpactFeedback();
 
         carSim.applyInput(carInput);
-        carSim.step(Config.Physics.Dt, body.getAngle());
+        carSim.step(PhysicsUtils.Dt, body.getAngle());
 
         // update computed forces
         forces.setVelocityX(carDesc.velocityWorldCoordinates.x);
@@ -295,7 +297,7 @@ public class PlayerCar extends Car {
         carState.update(carDesc);
         driftState.update(carSim.lateralForceFront.y, carSim.lateralForceRear.y, carDesc.velocityWorldCoordinates.len());
 
-        if (Config.Debug.ApplyCarFrictionFromMap) {
+        if (DebugUtils.ApplyCarFrictionFromMap) {
             updateCarFriction();
             handleFriction();
         }

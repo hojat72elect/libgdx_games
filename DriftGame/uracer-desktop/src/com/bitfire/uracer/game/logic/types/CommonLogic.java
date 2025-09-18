@@ -4,7 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.bitfire.uracer.Input;
 import com.bitfire.uracer.URacer;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.DebugUtils;
+import com.bitfire.uracer.configuration.PhysicsUtils;
 import com.bitfire.uracer.configuration.UserProfile;
 import com.bitfire.uracer.game.*;
 import com.bitfire.uracer.game.actors.CarPreset.Type;
@@ -420,12 +421,12 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
     }
 
     private void updateDriftSeconds() {
-        if (Config.Debug.InfiniteDilationTime) {
+        if (DebugUtils.InfiniteDilationTime) {
             accuDriftSeconds.value = DriftBar.MaxSeconds;
         } else {
             // earn game-time seconds by drifting
             if (playerCar.driftState.isDrifting) {
-                accuDriftSeconds.value += Config.Physics.Dt + Config.Physics.Dt * playerCar.driftState.driftStrength;
+                accuDriftSeconds.value += PhysicsUtils.Dt + PhysicsUtils.Dt * playerCar.driftState.driftStrength;
             }
 
             Time dilationTime = getTimeDilationTimer();
@@ -443,7 +444,7 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
             }
 
             // lose wall-clock seconds on collision
-            accuDriftSeconds.value -= Config.Physics.Dt * 5 * getCollisionFactor();
+            accuDriftSeconds.value -= PhysicsUtils.Dt * 5 * getCollisionFactor();
 
             accuDriftSeconds.value = MathUtils.clamp(accuDriftSeconds.value, 0, DriftBar.MaxSeconds);
         }

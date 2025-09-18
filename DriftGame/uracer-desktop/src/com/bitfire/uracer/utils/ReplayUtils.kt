@@ -1,7 +1,7 @@
 package com.bitfire.uracer.utils
 
 import com.badlogic.gdx.Gdx
-import com.bitfire.uracer.configuration.Config
+import com.bitfire.uracer.configuration.PhysicsUtils
 import com.bitfire.uracer.configuration.Storage
 import com.bitfire.uracer.game.logic.replaying.ReplayInfo
 
@@ -47,7 +47,7 @@ object ReplayUtils {
     }
 
     @JvmStatic
-    fun ticksToMilliseconds(ticks: Int) = (ticks * Config.Physics.Dt * AlgebraMath.ONE_ON_CMP_EPSILON).toInt()
+    fun ticksToMilliseconds(ticks: Int) = (ticks * PhysicsUtils.Dt * AlgebraMath.ONE_ON_CMP_EPSILON).toInt()
 
     @JvmStatic
     fun ticksToSeconds(ticks: Int) = ticksToMilliseconds(ticks).toFloat() / 1000F

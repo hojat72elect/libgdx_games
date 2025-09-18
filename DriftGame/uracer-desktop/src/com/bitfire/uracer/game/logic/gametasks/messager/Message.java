@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.GraphicsUtils;
 import com.bitfire.uracer.game.tween.SysTweener;
 import com.bitfire.uracer.resources.BitmapFontFactory;
 import com.bitfire.uracer.resources.BitmapFontFactory.FontFace;
@@ -57,7 +57,7 @@ public final class Message {
     public void set(String message, float durationSecs, Type type, Position position, Size size) {
         startMs = 0;
         started = false;
-        halfWidth = Config.Graphics.ReferenceScreenWidth / 2;
+        halfWidth = GraphicsUtils.ReferenceScreenWidth / 2;
 
         what = message;
         this.position = position;
@@ -99,10 +99,10 @@ public final class Message {
     }
 
     private void computeFinalPosition() {
-        whereX = (float) Config.Graphics.ReferenceScreenWidth / 4;
+        whereX = (float) GraphicsUtils.ReferenceScreenWidth / 4;
         startY = finalY = 0;
 
-        float h = Config.Graphics.ReferenceScreenHeight;
+        float h = GraphicsUtils.ReferenceScreenHeight;
         font.setScale(scale);
         bounds.set(font.getMultiLineBounds(what));
 

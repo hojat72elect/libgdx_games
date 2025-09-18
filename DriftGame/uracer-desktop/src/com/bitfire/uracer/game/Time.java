@@ -1,7 +1,7 @@
 package com.bitfire.uracer.game;
 
 import com.badlogic.gdx.utils.TimeUtils;
-import com.bitfire.uracer.configuration.Config;
+import com.bitfire.uracer.configuration.PhysicsUtils;
 import com.bitfire.uracer.game.events.TaskManagerEvent.Order;
 import com.bitfire.uracer.game.task.Task;
 
@@ -85,7 +85,7 @@ public final class Time extends Task {
             result.ticks = ticks;
 
             // number of ticks to seconds (in 1/dt increments)
-            result.tickSeconds = ticks * Config.Physics.Dt;
+            result.tickSeconds = ticks * PhysicsUtils.Dt;
 
             // last frame delta
             result.lastAbsSeconds = (now - lastStartTime) * oneOnOneBillion;
