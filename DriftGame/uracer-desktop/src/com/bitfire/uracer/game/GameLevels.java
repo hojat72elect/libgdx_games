@@ -15,11 +15,7 @@ import com.bitfire.uracer.utils.URacerRuntimeException;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 
@@ -51,9 +47,9 @@ public final class GameLevels {
         mapLoaderParams.yUp = false;
 
         // check invalid
-        FileHandle dirLevels = Gdx.files.internal(Storage.Levels);
+        FileHandle dirLevels = Gdx.files.internal(Storage.LEVELS);
         if (dirLevels == null || !dirLevels.isDirectory()) {
-            throw new URacerRuntimeException("Path not found (" + Storage.Levels + "), cannot check for available game levels.");
+            throw new URacerRuntimeException("Path not found (" + Storage.LEVELS + "), cannot check for available game levels.");
         }
 
         // check for any level
@@ -84,7 +80,7 @@ public final class GameLevels {
         if (desc != null) {
             String filename = desc.getFileName();
             if (filename != null) {
-                FileHandle h = Gdx.files.internal(Storage.Levels + filename);
+                FileHandle h = Gdx.files.internal(Storage.LEVELS + filename);
                 if (h.exists()) {
                     return mapLoader.load(h.path(), mapLoaderParams);
                 }
@@ -114,7 +110,7 @@ public final class GameLevels {
      * Compute a checksum on the level data, specifically on the tile positions and their order
      */
     private static GameLevelDescriptor computeDescriptor(String filename) {
-        String filePath = Storage.Levels + filename;
+        String filePath = Storage.LEVELS + filename;
         Element root;
 
         try {

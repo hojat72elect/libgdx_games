@@ -123,7 +123,7 @@ public class URacer implements ApplicationListener {
         Gdx.app.log("URacer", "Using real frametime: " + (useRealFrametime ? "YES" : "NO"));
         Gdx.app.log("URacer", "Physics at " + timeStepHz + "Hz (dT=" + String.format("%.05f", Config.Physics.Dt) + ")");
 
-        Storage.init();
+        Storage.initialize();
         boot.store();
         UserPreferences.load();
         ScreensShared.loadFromUserPrefs();

@@ -23,7 +23,7 @@ public class BootConfig {
      */
     public void load() {
         try {
-            props.load(new FileInputStream(Storage.BootConfigFile));
+            props.load(new FileInputStream(Storage.BOOT_CONFIG_FILE));
         } catch (IOException e) {
             System.out.print("NO BOOT CONFIG AVAILABLE\n\n");
             toDefaults();
@@ -35,7 +35,7 @@ public class BootConfig {
      */
     public void store() {
         try {
-            props.store(new FileOutputStream(Storage.BootConfigFile), null);
+            props.store(new FileOutputStream(Storage.BOOT_CONFIG_FILE), null);
         } catch (IOException e) {
             System.out.print("CANNOT STORE BOOT CONFIG\n\n");
         }

@@ -1,5 +1,6 @@
 package com.bitfire.uracer.game.logic;
 
+import aurelienribon.tweenengine.equations.Quad;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
@@ -33,13 +34,7 @@ import com.bitfire.uracer.game.logic.types.helpers.CameraShaker;
 import com.bitfire.uracer.game.rendering.GameRenderer;
 import com.bitfire.uracer.game.screens.GameScreensFactory.ScreenType;
 import com.bitfire.uracer.game.world.GameWorld;
-import com.bitfire.uracer.utils.CarUtilsKt;
-import com.bitfire.uracer.utils.NewConvert;
-import com.bitfire.uracer.utils.OrdinalUtils;
-import com.bitfire.uracer.utils.ReplayUtils;
-import com.bitfire.uracer.utils.URacerRuntimeException;
-
-import aurelienribon.tweenengine.equations.Quad;
+import com.bitfire.uracer.utils.*;
 
 public class SinglePlayer extends BaseLogic {
     protected DebugHelper debug = null;
@@ -237,7 +232,7 @@ public class SinglePlayer extends BaseLogic {
         lapManager.removeAllReplays();
 
         int reloaded = 0;
-        for (FileHandle userdir : Gdx.files.external(Storage.ReplaysRoot + gameWorld.getLevelId()).list()) {
+        for (FileHandle userdir : Gdx.files.external(Storage.REPLAYS_ROOT + gameWorld.getLevelId()).list()) {
             if (userdir.isDirectory()) {
                 for (FileHandle userreplay : userdir.list()) {
                     Replay replay = Replay.load(userreplay.path());

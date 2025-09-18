@@ -18,7 +18,7 @@ object ReplayUtils {
     @JvmStatic
     fun getDestinationDir(info: ReplayInfo?): String {
         if (areValidIds(info)) {
-            return Storage.ReplaysRoot + info!!.getTrackId() + "/" + info.getUserId() + "/"
+            return Storage.REPLAYS_ROOT + info!!.getTrackId() + "/" + info.getUserId() + "/"
         }
 
         return ""
