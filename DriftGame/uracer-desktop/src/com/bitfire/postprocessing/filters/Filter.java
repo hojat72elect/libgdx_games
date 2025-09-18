@@ -44,12 +44,8 @@ public abstract class Filter<T> {
         program.dispose();
     }
 
-    /**
-     * FIXME add comment
-     */
     public abstract void rebind();
 
-    // int
     protected void setParam(Parameter param, int value) {
         program.begin();
         program.setUniformi(param.mnemonic(), value);
@@ -60,22 +56,18 @@ public abstract class Filter<T> {
      * Sets the parameter to the specified value for this filter. This is for one-off operations since the shader is being bound
      * and unbound once per call: for a batch-ready version of this fuction see and use setParams instead.
      */
-
-    // float
     protected void setParam(Parameter param, float value) {
         program.begin();
         program.setUniformf(param.mnemonic(), value);
         program.end();
     }
 
-    // vec2
     protected void setParam(Vector2 value) {
         program.begin();
         program.setUniformf(CrtScreen.Param.ChromaticDispersion.mnemonic(), value);
         program.end();
     }
 
-    // vec3
     protected void setParam(Parameter param, Vector3 value) {
         program.begin();
         program.setUniformf(param.mnemonic(), value);
@@ -86,8 +78,6 @@ public abstract class Filter<T> {
      * Sets the parameter to the specified value for this filter. When you are finished building the batch you shall signal it by
      * invoking endParams().
      */
-
-    // float
     protected T setParams(Parameter param, float value) {
         if (!programBegan) {
             programBegan = true;
@@ -97,7 +87,6 @@ public abstract class Filter<T> {
         return (T) this;
     }
 
-    // int version
     protected T setParams(Parameter param, int value) {
         if (!programBegan) {
             programBegan = true;
@@ -107,7 +96,6 @@ public abstract class Filter<T> {
         return (T) this;
     }
 
-    // vec2 version
     protected T setParams(Parameter param, Vector2 value) {
         if (!programBegan) {
             programBegan = true;
@@ -117,7 +105,6 @@ public abstract class Filter<T> {
         return (T) this;
     }
 
-    // vec3 version
     protected T setParams(Parameter param, Vector3 value) {
         if (!programBegan) {
             programBegan = true;
@@ -127,7 +114,6 @@ public abstract class Filter<T> {
         return (T) this;
     }
 
-    // mat3
     protected T setParams(Parameter param, Matrix3 value) {
         if (!programBegan) {
             programBegan = true;
@@ -137,7 +123,6 @@ public abstract class Filter<T> {
         return (T) this;
     }
 
-    // mat4
     protected T setParams(Parameter param, Matrix4 value) {
         if (!programBegan) {
             programBegan = true;
@@ -147,7 +132,6 @@ public abstract class Filter<T> {
         return (T) this;
     }
 
-    // float[], vec2[], vec3[], vec4[]
     protected void setParamsv(Parameter param, float[] values, int length) {
         if (!programBegan) {
             programBegan = true;
@@ -207,7 +191,6 @@ public abstract class Filter<T> {
 
     public interface Parameter {
         String mnemonic();
-
         int arrayElementSize();
     }
 }
