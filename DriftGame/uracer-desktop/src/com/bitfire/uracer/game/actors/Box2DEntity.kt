@@ -23,7 +23,7 @@ abstract class Box2DEntity(@JvmField protected var box2dWorld: World) : Subframe
         state.orientation = body!!.angle
     }
 
-    override fun isSubframeInterpolated() = true
+    override val  isSubframeInterpolated = true
 
     override fun onBeforePhysicsSubstep() {
         toNormalRelativeAngle()
