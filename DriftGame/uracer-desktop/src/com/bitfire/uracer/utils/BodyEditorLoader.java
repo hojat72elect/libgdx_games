@@ -20,10 +20,7 @@ import java.util.Map;
  */
 public class BodyEditorLoader {
 
-    // Model
     private final Model model;
-
-    // Reusable stuff
     private final List<Vector2> vectorPool = new ArrayList<>();
     private final PolygonShape polygonShape = new PolygonShape();
     private final CircleShape circleShape = new CircleShape();
@@ -134,7 +131,6 @@ public class BodyEditorLoader {
             polygon.buffer = new Vector2[polygon.vertices.size()];
         }
 
-        // circles
         JsonValue circles = bodyElem.get("circles");
 
         for (JsonValue circle = circles.child(); circle != null; circle = circle.next()) {

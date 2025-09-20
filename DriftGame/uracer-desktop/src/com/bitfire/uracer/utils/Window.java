@@ -6,11 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
@@ -26,6 +22,7 @@ public class Window extends Table {
     static private final Vector2 tmpPosition = new Vector2();
     static private final Vector2 tmpSize = new Vector2();
     static private final int MOVE = 1 << 5;
+    private final Color tmpColor = new Color();
     protected BitmapFontCache titleCache;
     protected int titleAlignment = Align.center;
     boolean isMovable = true, isModal, isResizable;
@@ -33,7 +30,6 @@ public class Window extends Table {
     boolean dragging;
     boolean keepWithinStage = true;
     Table buttonTable;
-    private final Color tmpColor = new Color();
     private WindowStyle style;
     private String title;
 
@@ -83,7 +79,8 @@ public class Window extends Table {
                         if (y < border) edge |= Align.bottom;
                         if (y > height - border) edge |= Align.top;
                     }
-                    if (isMovable && edge == 0 && y <= height && y >= height - getPadTop() && x >= 0 && x <= width) edge = MOVE;
+                    if (isMovable && edge == 0 && y <= height && y >= height - getPadTop() && x >= 0 && x <= width)
+                        edge = MOVE;
                     dragging = edge != 0;
                     startX = x;
                     startY = y;
@@ -131,7 +128,8 @@ public class Window extends Table {
                 if ((edge & Align.right) != 0) {
                     float amountX = x - lastX;
                     if (width + amountX < minWidth) amountX = minWidth - width;
-                    if (clampPosition && windowX + width + amountX > stage.getWidth()) amountX = stage.getWidth() - windowX - width;
+                    if (clampPosition && windowX + width + amountX > stage.getWidth())
+                        amountX = stage.getWidth() - windowX - width;
                     width += amountX;
                 }
                 if ((edge & Align.top) != 0) {
@@ -278,18 +276,10 @@ public class Window extends Table {
      * The style for a window, see {@link Window}.
      */
     static public class WindowStyle {
-        /**
-         * Optional.
-         */
+
         public Drawable background;
         public BitmapFont titleFont;
-        /**
-         * Optional.
-         */
         public Color titleFontColor = new Color(1, 1, 1, 1);
-        /**
-         * Optional.
-         */
         public Drawable stageBackground;
     }
 }
