@@ -93,14 +93,14 @@ public final class Bloom extends PostProcessorEffect {
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
         pingPongBuffer.begin();
-        {
-            // threshold / high-pass filter
-            // only areas with pixels >= threshold are blit to smaller fbo
-            threshold.setInput(texsrc).setOutput(pingPongBuffer.getSourceBuffer()).render();
 
-            // blur pass
-            blur.render(pingPongBuffer);
-        }
+        // threshold / high-pass filter
+        // only areas with pixels >= threshold are blit to smaller fbo
+        threshold.setInput(texsrc).setOutput(pingPongBuffer.getSourceBuffer()).render();
+
+        // blur pass
+        blur.render(pingPongBuffer);
+
         pingPongBuffer.end();
 
         if (blendingWasEnabled) {
