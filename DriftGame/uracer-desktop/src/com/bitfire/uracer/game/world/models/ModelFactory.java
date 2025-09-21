@@ -180,7 +180,7 @@ public final class ModelFactory {
     private static Material getMaterial(ModelMesh modelMesh, Texture texture, String textureName) {
         Material m;
 
-        long materialHash = Hash.INSTANCE.RSHash(modelMesh.toString() + textureName);
+        long materialHash = Hash.INSTANCE.rsHash(modelMesh.toString() + textureName);
         if (cachedMaterials == null) {
             cachedMaterials = new LongMap<>();
         }
@@ -198,7 +198,7 @@ public final class ModelFactory {
 
     private static StillModel getStillModel(String model) {
         StillModel m = null;
-        long modelHash = Hash.INSTANCE.RSHash(model);
+        long modelHash = Hash.INSTANCE.rsHash(model);
 
         if (cachedStillModels == null) {
             cachedStillModels = new LongMap<>();

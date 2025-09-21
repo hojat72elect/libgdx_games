@@ -43,6 +43,6 @@ object TransitionFactory {
     enum class TransitionType {
         None, CrossFader, Fader;
 
-        var hash = Hash.APHash(this.name)
+        var hash = Hash.apHash(this.name)
     }
 }

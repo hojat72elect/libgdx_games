@@ -44,7 +44,8 @@ public final class ScreenManager {
         boolean switchedScreen = false;
         if ((transMgr.isActive() && transMgr.isComplete())) {
             current = transMgr.getTransition().nextScreen();
-            current.enable();
+            if (current != null) // important for when you exit the game
+               current.enable();
 
             next = ScreenType.NoScreen;
             transMgr.removeTransition();

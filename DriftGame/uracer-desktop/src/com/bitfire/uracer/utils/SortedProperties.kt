@@ -1,8 +1,6 @@
 package com.bitfire.uracer.utils
 
-import java.util.Collections
-import java.util.Enumeration
-import java.util.Properties
+import java.util.*
 
 class SortedProperties : Properties() {
     /**
@@ -21,9 +19,5 @@ class SortedProperties : Properties() {
             s1.compareTo(s2, ignoreCase = true)
         }
         return Collections.enumeration(keys)
-    }
-
-    companion object {
-        private const val serialVersionUID = 2029498762824558018L
     }
 }

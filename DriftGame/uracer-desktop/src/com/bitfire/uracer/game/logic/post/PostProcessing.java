@@ -141,13 +141,13 @@ public final class PostProcessing {
     public void addEffect(String name, PostProcessorEffect effect) {
         if (hasPostProcessor) {
             postProcessor.addEffect(effect);
-            effects.put(Hash.INSTANCE.APHash(name), effect);
+            effects.put(Hash.INSTANCE.apHash(name), effect);
         }
     }
 
     public PostProcessorEffect getEffect(String name) {
         if (hasPostProcessor) {
-            return effects.get(Hash.INSTANCE.APHash(name));
+            return effects.get(Hash.INSTANCE.apHash(name));
         }
 
         return null;
@@ -155,7 +155,7 @@ public final class PostProcessing {
 
     public boolean hasEffect(String name) {
         if (hasPostProcessor) {
-            return (effects.get(Hash.INSTANCE.APHash(name)) != null);
+            return (effects.get(Hash.INSTANCE.apHash(name)) != null);
         }
 
         return false;
