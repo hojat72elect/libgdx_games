@@ -15,6 +15,7 @@ import com.bitfire.uracer.screen.ScreenTransition;
 import com.bitfire.uracer.screen.ScreenUtils;
 import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.utils.ShaderLoader;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Implements a fader, transitioning from one screen to another by first transitioning the current screen to the specified color,
@@ -70,7 +71,7 @@ public final class Fader extends ScreenTransition {
     }
 
     @Override
-    public void frameBuffersReady(Screen current, FrameBuffer from, ScreenId nextScreen, FrameBuffer to) {
+    public void frameBuffersReady(@NotNull Screen current, @NotNull FrameBuffer from, @NotNull ScreenId nextScreen, @NotNull FrameBuffer to) {
         this.from = from;
         this.to = to;
         this.nextType = nextScreen;
@@ -79,6 +80,7 @@ public final class Fader extends ScreenTransition {
         ScreenUtils.clear(to, Color.BLACK);
     }
 
+    @NotNull
     @Override
     public Screen nextScreen() {
         return next;

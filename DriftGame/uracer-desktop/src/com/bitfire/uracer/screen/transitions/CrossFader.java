@@ -13,6 +13,7 @@ import com.bitfire.uracer.screen.ScreenTransition;
 import com.bitfire.uracer.screen.ScreenUtils;
 import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.utils.ShaderLoader;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Implements a cross fader, transitioning between the current and the next screen.
@@ -58,7 +59,7 @@ public final class CrossFader extends ScreenTransition {
     }
 
     @Override
-    public void frameBuffersReady(Screen current, FrameBuffer from, ScreenId nextScreen, FrameBuffer to) {
+    public void frameBuffersReady(@NotNull Screen current, @NotNull FrameBuffer from, @NotNull ScreenId nextScreen, @NotNull FrameBuffer to) {
         this.from = from;
         this.to = to;
 
@@ -68,6 +69,7 @@ public final class CrossFader extends ScreenTransition {
         ScreenUtils.copyScreen(next, to);
     }
 
+    @NotNull
     @Override
     public Screen nextScreen() {
         return next;
