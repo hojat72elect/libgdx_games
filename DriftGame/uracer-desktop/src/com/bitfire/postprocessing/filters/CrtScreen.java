@@ -82,7 +82,7 @@ public final class CrtScreen extends Filter<CrtScreen> {
     public void setTint(float r, float g, float b) {
         tint.set(r, g, b, 1f);
         vtint.set(tint.r, tint.g, tint.b);
-        setParam(Param.Tint, vtint);
+        setParam(vtint);
     }
 
     public void setDistortion(float distortion) {
@@ -122,7 +122,7 @@ public final class CrtScreen extends Filter<CrtScreen> {
     public void setTint(Color color) {
         tint.set(color);
         vtint.set(tint.r, tint.g, tint.b);
-        setParam(Param.Tint, vtint);
+        setParam(vtint);
     }
 
     @Override
@@ -156,7 +156,7 @@ public final class CrtScreen extends Filter<CrtScreen> {
     public enum RgbMode {
         None(0), RgbShift(1), ChromaticAberrations(2);
 
-        public int v;
+        public final int v;
 
         RgbMode(int value) {
             this.v = value;
@@ -166,7 +166,7 @@ public final class CrtScreen extends Filter<CrtScreen> {
     public enum Effect {
         None(0), TweakContrast(1), Vignette(2), Tint(4), Scanlines(8), PhosphorVibrance(16), ScanDistortion(32);
 
-        public int v;
+        public final int v;
 
         Effect(int value) {
             this.v = value;

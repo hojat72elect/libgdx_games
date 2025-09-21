@@ -23,9 +23,7 @@ public class TrackTrees {
     public void transform(PerspectiveCamera camPersp, OrthographicCamera camOrtho) {
         float meshZ = -(camPersp.far - camPersp.position.z) + (camPersp.far * (1 - (camOrtho.zoom)));
 
-        for (int i = 0; i < models.size(); i++) {
-            TreeStillModel m = models.get(i);
-
+        for (TreeStillModel m : models) {
             Matrix4 transf = m.transformed;
 
             // compute position

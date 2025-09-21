@@ -150,7 +150,7 @@ public final class Ssao extends PostProcessorEffect {
         if (tex == null) return;
 
         float h = width / ScaleUtils.RefAspect;
-        float x = GraphicsUtils.ReferenceScreenWidth - width - 10;
+        float x = GraphicsUtils.REFERENCE_SCREEN_WIDTH - width - 10;
         float y = index * 10;
         batch.draw(tex, x, y, width, h);
     }

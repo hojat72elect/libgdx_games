@@ -175,8 +175,8 @@ public final class Input implements Disposable {
         }
 
         // update coords even if not touched
-        int tx = (int) (npx * GraphicsUtils.ReferenceScreenWidth);
-        int ty = (int) (npy * GraphicsUtils.ReferenceScreenHeight);
+        int tx = (int) (npx * GraphicsUtils.REFERENCE_SCREEN_WIDTH);
+        int ty = (int) (npy * GraphicsUtils.REFERENCE_SCREEN_HEIGHT);
         ptr.touchCoords.set(tx, ty);
     }
 

@@ -204,8 +204,8 @@ public final class GameWorldRenderer {
     }
 
     private void createCams() {
-        int refW = GraphicsUtils.ReferenceScreenWidth;
-        int refH = GraphicsUtils.ReferenceScreenHeight;
+        int refW = GraphicsUtils.REFERENCE_SCREEN_WIDTH;
+        int refH = GraphicsUtils.REFERENCE_SCREEN_HEIGHT;
 
         camOrtho = new OrthographicCamera(refW, refH);
         halfViewport.set(camOrtho.viewportWidth / 2, camOrtho.viewportHeight / 2);

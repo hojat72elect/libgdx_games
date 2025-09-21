@@ -54,8 +54,8 @@ public class PlayerCar extends Car {
         carInput = new CarInput();
         impacts = 0;
 
-        invWidth = 1f / (float) GraphicsUtils.ReferenceScreenWidth;
-        invHeight = 1f / (float) GraphicsUtils.ReferenceScreenHeight;
+        invWidth = 1f / (float) GraphicsUtils.REFERENCE_SCREEN_WIDTH;
+        invHeight = 1f / (float) GraphicsUtils.REFERENCE_SCREEN_HEIGHT;
 
         carDesc = new CarDescriptor(preset.model);
         carSim = new CarSimulator(carDesc);

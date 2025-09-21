@@ -6,8 +6,8 @@ import com.bitfire.postprocessing.filters.Blur
 import com.bitfire.uracer.game.logic.helpers.CameraController.InterpolationMode
 
 object GraphicsUtils {
-    const val ReferenceScreenWidth = 1280
-    const val ReferenceScreenHeight = 720
+    const val REFERENCE_SCREEN_WIDTH = 1280
+    const val REFERENCE_SCREEN_HEIGHT = 720
 
     const val DefaultFadeMilliseconds = 500
     const val DefaultResetFadeMilliseconds = 500

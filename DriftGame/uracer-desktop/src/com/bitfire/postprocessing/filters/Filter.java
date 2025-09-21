@@ -68,9 +68,9 @@ public abstract class Filter<T> {
         program.end();
     }
 
-    protected void setParam(Parameter param, Vector3 value) {
+    protected void setParam(Vector3 value) {
         program.begin();
-        program.setUniformf(param.mnemonic(), value);
+        program.setUniformf(CrtScreen.Param.Tint.mnemonic(), value);
         program.end();
     }
 

@@ -12,7 +12,7 @@ abstract class SubframeInterpolableEntity : Entity() {
     protected var statePrevious = EntityRenderState()
     protected var stateCurrent = EntityRenderState()
 
-    private val physicsListener = PhysicsStepEvent.Listener { source: Any, type: PhysicsStepEvent.Type, order: PhysicsStepEvent.Order ->
+    private val physicsListener = PhysicsStepEvent.Listener { _: Any, type: PhysicsStepEvent.Type, _: PhysicsStepEvent.Order ->
         when (type) {
             PhysicsStepEvent.Type.onBeforeTimestep -> onBeforePhysicsSubstep()
             PhysicsStepEvent.Type.onAfterTimestep -> onAfterPhysicsSubstep()
@@ -20,7 +20,7 @@ abstract class SubframeInterpolableEntity : Entity() {
         }
     }
 
-    private val renderListener = GameRendererEvent.Listener { source: Any, type: GameRendererEvent.Type, order: GameRendererEvent.Order ->
+    private val renderListener = GameRendererEvent.Listener { _: Any, type: GameRendererEvent.Type, _: GameRendererEvent.Order ->
         if (type == GameRendererEvent.Type.SubframeInterpolate) {
             onSubframeInterpolate(GameEvents.gameRenderer.timeAliasingFactor)
         }

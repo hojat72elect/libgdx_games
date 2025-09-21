@@ -76,8 +76,8 @@ public final class PostProcessing {
             needNormalDepthMap = true;
         }
 
-        int refW = GraphicsUtils.ReferenceScreenWidth;
-        int refH = GraphicsUtils.ReferenceScreenHeight;
+        int refW = GraphicsUtils.REFERENCE_SCREEN_WIDTH;
+        int refH = GraphicsUtils.REFERENCE_SCREEN_HEIGHT;
 
         if (UserPreferences.bool(Preference.ZoomRadialBlur)) {
             RadialBlur.Quality rbq = RadialBlur.Quality.valueOf(UserPreferences.string(Preference.ZoomRadialBlurQuality));

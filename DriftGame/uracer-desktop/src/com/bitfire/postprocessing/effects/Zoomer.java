@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.bitfire.postprocessing.PostProcessorEffect;
 import com.bitfire.postprocessing.filters.RadialBlur;
 import com.bitfire.postprocessing.filters.Zoom;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Implements a zooming effect: either a radial blur filter or a zoom filter is used.
@@ -96,7 +97,7 @@ public final class Zoomer extends PostProcessorEffect {
     }
 
     @Override
-    public void render(FrameBuffer src, FrameBuffer dest) {
+    public void render(@NotNull FrameBuffer src, FrameBuffer dest) {
         restoreViewport(dest);
         if (doRadial) {
             radialBlur.setInput(src).setOutput(dest).render();

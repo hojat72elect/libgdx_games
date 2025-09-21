@@ -21,6 +21,7 @@ import com.bitfire.uracer.game.world.models.CarStillModel;
 import com.bitfire.uracer.game.world.models.ModelFactory;
 import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.BodyEditorLoader;
+import org.jetbrains.annotations.NotNull;
 
 public abstract strictfp class Car extends Box2DEntity {
 
@@ -203,13 +204,13 @@ public abstract strictfp class Car extends Box2DEntity {
     }
 
     @Override
-    public void setWorldPosMt(Vector2 worldPosition) {
+    public void setWorldPosMt(@NotNull Vector2 worldPosition) {
         super.setWorldPosMt(worldPosition);
         previousPosition.set(body.getPosition());
     }
 
     @Override
-    public void setWorldPosMt(Vector2 worldPosition, float orientationRads) {
+    public void setWorldPosMt(@NotNull Vector2 worldPosition, float orientationRads) {
         super.setWorldPosMt(worldPosition, orientationRads);
         previousPosition.set(body.getPosition());
     }

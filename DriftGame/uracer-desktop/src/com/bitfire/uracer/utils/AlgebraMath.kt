@@ -7,9 +7,9 @@ import kotlin.math.*
  * This is a collection of math utilities for performing algebraic operations.
  */
 object AlgebraMath {
-    const val TWO_PI = 6.28318530717958647692F
-    const val PI = 3.14159265358979323846F
-    const val PI_4 = 0.785398163397448309616F
+    const val TWO_PI = 6.2831855F
+    const val PI = 3.1415927F
+    const val PI_4 = 0.7853982F
 
     const val CMP_EPSILON = 0.001F
     const val ONE_ON_CMP_EPSILON = 1000F

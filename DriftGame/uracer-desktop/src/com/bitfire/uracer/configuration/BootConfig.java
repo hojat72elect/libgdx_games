@@ -3,9 +3,9 @@ package com.bitfire.uracer.configuration;
 import com.bitfire.uracer.utils.AwtUtilsKt;
 import com.bitfire.uracer.utils.SortedProperties;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Represents boot-time configuration values: complex flags, such as display position, are handled via specialized methods.
@@ -23,7 +23,7 @@ public class BootConfig {
      */
     public void load() {
         try {
-            props.load(new FileInputStream(Storage.BOOT_CONFIG_FILE));
+            props.load(Files.newInputStream(Paths.get(Storage.BOOT_CONFIG_FILE)));
         } catch (IOException e) {
             System.out.print("NO BOOT CONFIG AVAILABLE\n\n");
             toDefaults();
@@ -35,7 +35,7 @@ public class BootConfig {
      */
     public void store() {
         try {
-            props.store(new FileOutputStream(Storage.BOOT_CONFIG_FILE), null);
+            props.store(Files.newOutputStream(Paths.get(Storage.BOOT_CONFIG_FILE)), null);
         } catch (IOException e) {
             System.out.print("CANNOT STORE BOOT CONFIG\n\n");
         }
@@ -153,8 +153,8 @@ public class BootConfig {
         UNDECORATED("undecorated", false),
         ;
 
+        final String name;
         public int defaultInt;
-        String name;
         boolean defaultBoolean;
 
         BootConfigFlag(String name, int defaultInt) {

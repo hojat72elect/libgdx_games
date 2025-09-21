@@ -111,8 +111,7 @@ public class GameTrackDebugRenderer extends DebugRenderable {
 
         // draw dots
         shape.begin(ShapeType.Filled);
-        for (int i = 0; i < route.size(); i++) {
-            Vector2 p = route.get(i);
+        for (Vector2 p : route) {
             shape.setColor(1, 1, 1, alpha);
             shape.circle(p.x, p.y, 0.5f, 100);
         }

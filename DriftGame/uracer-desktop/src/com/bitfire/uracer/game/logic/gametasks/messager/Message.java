@@ -57,7 +57,7 @@ public final class Message {
     public void set(String message, float durationSecs, Type type, Position position, Size size) {
         startMs = 0;
         started = false;
-        halfWidth = GraphicsUtils.ReferenceScreenWidth / 2;
+        halfWidth = GraphicsUtils.REFERENCE_SCREEN_WIDTH / 2;
 
         what = message;
         this.position = position;
@@ -99,10 +99,10 @@ public final class Message {
     }
 
     private void computeFinalPosition() {
-        whereX = (float) GraphicsUtils.ReferenceScreenWidth / 4;
+        whereX = (float) GraphicsUtils.REFERENCE_SCREEN_WIDTH / 4;
         startY = finalY = 0;
 
-        float h = GraphicsUtils.ReferenceScreenHeight;
+        float h = GraphicsUtils.REFERENCE_SCREEN_HEIGHT;
         font.setScale(scale);
         bounds.set(font.getMultiLineBounds(what));
 

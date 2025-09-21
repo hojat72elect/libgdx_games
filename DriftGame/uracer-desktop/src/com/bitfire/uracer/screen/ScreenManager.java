@@ -44,9 +44,7 @@ public final class ScreenManager {
         boolean switchedScreen = false;
         if ((transMgr.isActive() && transMgr.isComplete())) {
             current = transMgr.getTransition().nextScreen();
-            if (current != null) {
-                current.enable();
-            }
+            current.enable();
 
             next = ScreenType.NoScreen;
             transMgr.removeTransition();

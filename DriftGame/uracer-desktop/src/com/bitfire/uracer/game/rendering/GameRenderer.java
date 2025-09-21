@@ -287,8 +287,8 @@ public final class GameRenderer {
          */
         public static Vector2 worldPxToScreen(Vector2 worldPositionPx) {
             tmp3.set(worldPositionPx.x, worldPositionPx.y, 0);
-            worldRenderer.camOrtho.project(tmp3, 0, 0, GraphicsUtils.ReferenceScreenWidth, GraphicsUtils.ReferenceScreenHeight);
-            tmp2.set(tmp3.x, GraphicsUtils.ReferenceScreenHeight - tmp3.y);
+            worldRenderer.camOrtho.project(tmp3, 0, 0, GraphicsUtils.REFERENCE_SCREEN_WIDTH, GraphicsUtils.REFERENCE_SCREEN_HEIGHT);
+            tmp2.set(tmp3.x, GraphicsUtils.REFERENCE_SCREEN_HEIGHT - tmp3.y);
             return tmp2;
         }
 

@@ -82,7 +82,7 @@ public final class BitmapFontFactory {
         ;
 
         // the name reflects the filename
-        public String name;
+        public final String name;
 
         FontFace(String name) {
             this.name = name;

@@ -117,7 +117,7 @@ public final class UserPreferences {
         MusicVolume,
         ;
 
-        public String name;
+        public final String name;
 
         Preference() {
             this.name = this.name();

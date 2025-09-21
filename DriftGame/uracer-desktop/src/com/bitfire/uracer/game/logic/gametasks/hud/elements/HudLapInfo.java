@@ -28,7 +28,7 @@ public class HudLapInfo extends HudElement {
 
         curr = new HudLabel(FontFace.LcdWhite, "99.99", true);
         curr.setScale(1.5f);
-        curr.setPosition((GraphicsUtils.ReferenceScreenWidth / 2F), GraphicsUtils.ReferenceScreenHeight - curr.getHeight() / 2
+        curr.setPosition((GraphicsUtils.REFERENCE_SCREEN_WIDTH / 2F), GraphicsUtils.REFERENCE_SCREEN_HEIGHT - curr.getHeight() / 2
                 - 10);
 
         r = new BoxedFloat(1);

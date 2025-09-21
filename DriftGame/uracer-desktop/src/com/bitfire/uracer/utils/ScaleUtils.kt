@@ -29,8 +29,8 @@ object ScaleUtils {
 
     @JvmStatic
     fun initialize(displayWidth: Int, displayHeight: Int) {
-        val refW = GraphicsUtils.ReferenceScreenWidth.toFloat()
-        val refH = GraphicsUtils.ReferenceScreenHeight.toFloat()
+        val refW = GraphicsUtils.REFERENCE_SCREEN_WIDTH.toFloat()
+        val refH = GraphicsUtils.REFERENCE_SCREEN_HEIGHT.toFloat()
 
         // Maintain the aspect ratio by letterboxing.
         RefAspect = refW / refH

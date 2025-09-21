@@ -31,7 +31,7 @@ class EntityRenderState {
     fun toPixels() {
         this.position.x = mt2px(this.position.x)
         this.position.y = mt2px(this.position.y)
-        this.orientation = this.orientation * MathUtils.radiansToDegrees
+        this.orientation *= MathUtils.radiansToDegrees
     }
 
     override fun toString() = "$position, orient=$orientation"

@@ -36,8 +36,8 @@ public class LightShafts extends PostProcessorEffect {
         Gdx.app.log("LightShafts", "Quality profile = " + quality.toString());
         float oscale = quality.scale;
 
-        oneOnW = 1f / (float) GraphicsUtils.ReferenceScreenWidth;
-        oneOnH = 1f / (float) GraphicsUtils.ReferenceScreenHeight;
+        oneOnW = 1f / (float) GraphicsUtils.REFERENCE_SCREEN_WIDTH;
+        oneOnH = 1f / (float) GraphicsUtils.REFERENCE_SCREEN_HEIGHT;
 
         // maps
         occlusionMap = new PingPongBuffer((int) ((float) fboWidth * oscale), (int) ((float) fboHeight * oscale), Format.RGBA8888, false);
@@ -59,8 +59,8 @@ public class LightShafts extends PostProcessorEffect {
             blur.setPasses(3);
         else if (w >= 1280) blur.setPasses(2);
 
-        setParams(16, 0.0034f, 1f, 0.84f, 5.65f, 1f, (float) GraphicsUtils.ReferenceScreenWidth / 2,
-                (float) GraphicsUtils.ReferenceScreenHeight / 2);
+        setParams(16, 0.0034f, 1f, 0.84f, 5.65f, 1f, (float) GraphicsUtils.REFERENCE_SCREEN_WIDTH / 2,
+                (float) GraphicsUtils.REFERENCE_SCREEN_HEIGHT / 2);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class LightShafts extends PostProcessorEffect {
         if (tex == null) return;
 
         float h = (float) 360 / ScaleUtils.RefAspect;
-        float x = GraphicsUtils.ReferenceScreenWidth - (float) 360 - 10;
+        float x = GraphicsUtils.REFERENCE_SCREEN_WIDTH - (float) 360 - 10;
         float y = 50 * 10;
         batch.draw(tex, x, y, (float) 360, h);
     }

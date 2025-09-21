@@ -6,6 +6,7 @@ import com.bitfire.uracer.game.events.*;
 import com.bitfire.uracer.game.events.GameRendererEvent.Order;
 import com.bitfire.uracer.game.events.GameRendererEvent.Type;
 import com.bitfire.uracer.game.player.PlayerCar;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -78,7 +79,7 @@ public final class EventHandlers {
     };
     private final CarEvent.Listener playerCarListener = new CarEvent.Listener() {
         @Override
-        public void handle(Object source, CarEvent.Type type, CarEvent.Order order) {
+        public void handle(@NotNull Object source, CarEvent.Type type, @NotNull CarEvent.Order order) {
             CarEvent.Data eventData = GameEvents.playerCar.data;
 
             switch (type) {

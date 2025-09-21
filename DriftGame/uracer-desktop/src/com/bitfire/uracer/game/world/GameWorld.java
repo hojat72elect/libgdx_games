@@ -91,7 +91,7 @@ public final class GameWorld {
     private final float[] treeRotations = new float[4];
 
     public GameWorld(String levelId, boolean nightMode) {
-        float widthRatio = (float) GraphicsUtils.ReferenceScreenWidth / (float) ScaleUtils.PlayWidth;
+        float widthRatio = (float) GraphicsUtils.REFERENCE_SCREEN_WIDTH / (float) ScaleUtils.PlayWidth;
         pixelsPerMeterFactor = ((widthRatio * 256f) / 224f) * ScaleUtils.Scale;
 
         box2dWorld = new World(new Vector2(0, 0), false);

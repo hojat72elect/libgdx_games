@@ -58,7 +58,6 @@ public final class CrtMonitor extends PostProcessorEffect {
         }
     }
 
-    // setters
     public void setTime(float elapsedSecs) {
         crt.setTime(elapsedSecs);
     }
@@ -79,7 +78,6 @@ public final class CrtMonitor extends PostProcessorEffect {
         crt.setDistortion(distortion);
     }
 
-    // getters
     public Combine getCombinePass() {
         return combine;
     }

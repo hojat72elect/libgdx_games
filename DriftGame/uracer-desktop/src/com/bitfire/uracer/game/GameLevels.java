@@ -92,7 +92,7 @@ public final class GameLevels {
 
     public static GameLevelDescriptor[] getLevels() {
         if (levelsCache == null) {
-            levelsCache = levels.toArray(new GameLevelDescriptor[levels.size()]);
+            levelsCache = levels.toArray(new GameLevelDescriptor[0]);
         }
 
         return levelsCache;
