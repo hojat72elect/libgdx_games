@@ -14,9 +14,9 @@ abstract class SubframeInterpolableEntity : Entity() {
 
     private val physicsListener = PhysicsStepEvent.Listener { _: Any, type: PhysicsStepEvent.Type, _: PhysicsStepEvent.Order ->
         when (type) {
-            PhysicsStepEvent.Type.onBeforeTimestep -> onBeforePhysicsSubstep()
-            PhysicsStepEvent.Type.onAfterTimestep -> onAfterPhysicsSubstep()
-            PhysicsStepEvent.Type.onSubstepCompleted -> onSubstepCompleted()
+            PhysicsStepEvent.Type.OnBeforeTimestep -> onBeforePhysicsSubstep()
+            PhysicsStepEvent.Type.OnAfterTimestep -> onAfterPhysicsSubstep()
+            PhysicsStepEvent.Type.OnSubstepCompleted -> onSubstepCompleted()
         }
     }
 
@@ -27,16 +27,16 @@ abstract class SubframeInterpolableEntity : Entity() {
     }
 
     init {
-        GameEvents.physicsStep.addListener(physicsListener, PhysicsStepEvent.Type.onBeforeTimestep)
-        GameEvents.physicsStep.addListener(physicsListener, PhysicsStepEvent.Type.onAfterTimestep)
-        GameEvents.physicsStep.addListener(physicsListener, PhysicsStepEvent.Type.onSubstepCompleted)
+        GameEvents.physicsStep.addListener(physicsListener, PhysicsStepEvent.Type.OnBeforeTimestep)
+        GameEvents.physicsStep.addListener(physicsListener, PhysicsStepEvent.Type.OnAfterTimestep)
+        GameEvents.physicsStep.addListener(physicsListener, PhysicsStepEvent.Type.OnSubstepCompleted)
         GameEvents.gameRenderer.addListener(renderListener, GameRendererEvent.Type.SubframeInterpolate, GameRendererEvent.Order.DEFAULT)
     }
 
     override fun dispose() {
-        GameEvents.physicsStep.removeListener(physicsListener, PhysicsStepEvent.Type.onBeforeTimestep)
-        GameEvents.physicsStep.removeListener(physicsListener, PhysicsStepEvent.Type.onAfterTimestep)
-        GameEvents.physicsStep.removeListener(physicsListener, PhysicsStepEvent.Type.onSubstepCompleted)
+        GameEvents.physicsStep.removeListener(physicsListener, PhysicsStepEvent.Type.OnBeforeTimestep)
+        GameEvents.physicsStep.removeListener(physicsListener, PhysicsStepEvent.Type.OnAfterTimestep)
+        GameEvents.physicsStep.removeListener(physicsListener, PhysicsStepEvent.Type.OnSubstepCompleted)
         GameEvents.gameRenderer.removeListener(renderListener, GameRendererEvent.Type.SubframeInterpolate, GameRendererEvent.Order.DEFAULT)
     }
 

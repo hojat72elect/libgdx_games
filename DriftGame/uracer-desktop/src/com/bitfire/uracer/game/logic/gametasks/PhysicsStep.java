@@ -22,15 +22,15 @@ public class PhysicsStep extends GameTask {
 
     @Override
     protected void onTick() {
-        GameEvents.physicsStep.trigger(this, Type.onBeforeTimestep);
+        GameEvents.physicsStep.trigger(this, Type.OnBeforeTimestep);
         world.step(PhysicsUtils.Dt, 10, 10);
-        GameEvents.physicsStep.trigger(this, Type.onAfterTimestep);
+        GameEvents.physicsStep.trigger(this, Type.OnAfterTimestep);
     }
 
     @Override
     protected void onTickCompleted() {
         world.clearForces();
-        GameEvents.physicsStep.trigger(this, Type.onSubstepCompleted);
+        GameEvents.physicsStep.trigger(this, Type.OnSubstepCompleted);
     }
 
     @Override
