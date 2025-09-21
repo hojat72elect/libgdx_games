@@ -187,7 +187,7 @@ public final class GhostCar extends Car {
 
                 if (!fadeOutEventTriggered) {
                     fadeOutEventTriggered = true;
-                    GameEvents.ghostCars.trigger(this, GhostCarEvent.Type.onGhostFadingOut);
+                    GameEvents.ghostCars.trigger(this, GhostCarEvent.Type.OnGhostFadingOut);
                 }
             }
         }
