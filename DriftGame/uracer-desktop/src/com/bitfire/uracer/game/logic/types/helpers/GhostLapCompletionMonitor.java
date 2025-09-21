@@ -31,7 +31,7 @@ public class GhostLapCompletionMonitor extends PlayerLapCompletionMonitor {
             completion = gameTrack.getTrackCompletion(car);
             if (hasFinished(prev, completion)) {
                 state.ghostArrived = true;
-                GameEvents.ghostLapCompletion.trigger(car, GhostLapCompletionMonitorEvent.Type.onLapCompleted);
+                GameEvents.ghostLapCompletion.trigger(car, GhostLapCompletionMonitorEvent.Type.OnLapCompleted);
             }
         }
     }

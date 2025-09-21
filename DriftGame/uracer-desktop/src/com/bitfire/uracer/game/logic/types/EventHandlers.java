@@ -34,8 +34,8 @@ public final class EventHandlers {
 
     private final GhostLapCompletionMonitorEvent.Listener ghostLapCompletionMonitorListener = new GhostLapCompletionMonitorEvent.Listener() {
         @Override
-        public void handle(Object source, GhostLapCompletionMonitorEvent.Type type, GhostLapCompletionMonitorEvent.Order order) {
-            if (Objects.requireNonNull(type) == GhostLapCompletionMonitorEvent.Type.onLapCompleted) {
+        public void handle(@NotNull Object source, @NotNull GhostLapCompletionMonitorEvent.Type type, @NotNull GhostLapCompletionMonitorEvent.Order order) {
+            if (Objects.requireNonNull(type) == GhostLapCompletionMonitorEvent.Type.OnLapCompleted) {
                 GhostCar ghost = (GhostCar) source;
                 logic.ghostLapCompleted(ghost);
             }
@@ -56,7 +56,7 @@ public final class EventHandlers {
     };
     private final GameRendererEvent.Listener rendererListener = new GameRendererEvent.Listener() {
         @Override
-        public void handle(Object source, Type type, Order order) {
+        public void handle(@NotNull Object source, @NotNull Type type, @NotNull Order order) {
             if (Objects.requireNonNull(type) == Type.BeforeRender) {
                 logic.beforeRender();
             }
@@ -159,14 +159,14 @@ public final class EventHandlers {
         GameEvents.ghostCars.addListener(ghostListener, GhostCarEvent.Type.OnGhostFadingOut);
         GameEvents.ghostCars.addListener(ghostListener, GhostCarEvent.Type.ReplayStarted);
         GameEvents.ghostCars.addListener(ghostListener, GhostCarEvent.Type.ReplayEnded);
-        GameEvents.ghostLapCompletion.addListener(ghostLapCompletionMonitorListener, GhostLapCompletionMonitorEvent.Type.onLapCompleted, GhostLapCompletionMonitorEvent.Order.MINUS_4);
+        GameEvents.ghostLapCompletion.addListener(ghostLapCompletionMonitorListener, GhostLapCompletionMonitorEvent.Type.OnLapCompleted, GhostLapCompletionMonitorEvent.Order.MINUS_4);
     }
 
     public void unregisterGhostEvents() {
         GameEvents.ghostCars.removeListener(ghostListener, GhostCarEvent.Type.OnGhostFadingOut);
         GameEvents.ghostCars.removeListener(ghostListener, GhostCarEvent.Type.ReplayStarted);
         GameEvents.ghostCars.removeListener(ghostListener, GhostCarEvent.Type.ReplayEnded);
-        GameEvents.ghostLapCompletion.removeListener(ghostLapCompletionMonitorListener, GhostLapCompletionMonitorEvent.Type.onLapCompleted, GhostLapCompletionMonitorEvent.Order.MINUS_4);
+        GameEvents.ghostLapCompletion.removeListener(ghostLapCompletionMonitorListener, GhostLapCompletionMonitorEvent.Type.OnLapCompleted, GhostLapCompletionMonitorEvent.Order.MINUS_4);
     }
 
     public void registerRenderEvents() {
