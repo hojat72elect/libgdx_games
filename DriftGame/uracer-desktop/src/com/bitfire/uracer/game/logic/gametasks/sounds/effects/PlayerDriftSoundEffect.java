@@ -27,10 +27,10 @@ public final class PlayerDriftSoundEffect extends SoundEffect {
     private boolean doFadeOut = false;
     private final PlayerDriftStateEvent.Listener driftListener = (source, type, order) -> {
         switch (type) {
-            case onBeginDrift:
+            case OnBeginDrift:
                 onBeginDrift();
                 break;
-            case onEndDrift:
+            case OnEndDrift:
                 onEndDrift();
                 break;
         }
@@ -48,13 +48,13 @@ public final class PlayerDriftSoundEffect extends SoundEffect {
     }
 
     private void attach() {
-        GameEvents.driftState.addListener(driftListener, PlayerDriftStateEvent.Type.onBeginDrift);
-        GameEvents.driftState.addListener(driftListener, PlayerDriftStateEvent.Type.onEndDrift);
+        GameEvents.driftState.addListener(driftListener, PlayerDriftStateEvent.Type.OnBeginDrift);
+        GameEvents.driftState.addListener(driftListener, PlayerDriftStateEvent.Type.OnEndDrift);
     }
 
     private void detach() {
-        GameEvents.driftState.removeListener(driftListener, PlayerDriftStateEvent.Type.onBeginDrift);
-        GameEvents.driftState.removeListener(driftListener, PlayerDriftStateEvent.Type.onEndDrift);
+        GameEvents.driftState.removeListener(driftListener, PlayerDriftStateEvent.Type.OnBeginDrift);
+        GameEvents.driftState.removeListener(driftListener, PlayerDriftStateEvent.Type.OnEndDrift);
     }
 
     @Override

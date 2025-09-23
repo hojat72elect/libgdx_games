@@ -45,7 +45,7 @@ public final class PlayerEngineSoundEffect extends SoundEffect {
     private final PlayerDriftStateEvent.Listener playerListener = (source, type, order) -> {
         if (!hasPlayer) return;
         switch (type) {
-            case onBeginDrift:
+            case OnBeginDrift:
                 if (player.isThrottling) {
 
                     driftTimer.start();
@@ -54,7 +54,7 @@ public final class PlayerEngineSoundEffect extends SoundEffect {
                     softnessTicks = MathUtils.clamp(softnessTicks, MinSoftnessTicks, MaxSoftnessTicks);
                 }
                 break;
-            case onEndDrift:
+            case OnEndDrift:
                 driftTimer.stop();
                 break;
         }
@@ -72,16 +72,16 @@ public final class PlayerEngineSoundEffect extends SoundEffect {
     }
 
     private void attach() {
-        GameEvents.driftState.addListener(playerListener, PlayerDriftStateEvent.Type.onBeginDrift);
-        GameEvents.driftState.addListener(playerListener, PlayerDriftStateEvent.Type.onEndDrift);
+        GameEvents.driftState.addListener(playerListener, PlayerDriftStateEvent.Type.OnBeginDrift);
+        GameEvents.driftState.addListener(playerListener, PlayerDriftStateEvent.Type.OnEndDrift);
         GameEvents.playerCar.addListener(carListener, CarEvent.Type.OnCollision);
         GameEvents.playerCar.addListener(carListener, CarEvent.Type.OnOutOfTrack);
         GameEvents.playerCar.addListener(carListener, CarEvent.Type.OnBackInTrack);
     }
 
     private void detach() {
-        GameEvents.driftState.removeListener(playerListener, PlayerDriftStateEvent.Type.onBeginDrift);
-        GameEvents.driftState.removeListener(playerListener, PlayerDriftStateEvent.Type.onEndDrift);
+        GameEvents.driftState.removeListener(playerListener, PlayerDriftStateEvent.Type.OnBeginDrift);
+        GameEvents.driftState.removeListener(playerListener, PlayerDriftStateEvent.Type.OnEndDrift);
         GameEvents.playerCar.removeListener(carListener, CarEvent.Type.OnCollision);
         GameEvents.playerCar.removeListener(carListener, CarEvent.Type.OnOutOfTrack);
         GameEvents.playerCar.removeListener(carListener, CarEvent.Type.OnBackInTrack);

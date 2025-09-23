@@ -55,7 +55,7 @@ public final class DriftState {
         hasCollided = true;
         collisionTime.start();
         time.stop();
-        GameEvents.driftState.trigger(car, Type.onEndDrift);
+        GameEvents.driftState.trigger(car, Type.OnEndDrift);
     }
 
     public void update(float latForceFrontY, float latForceRearY, float velocityLength) {
@@ -79,20 +79,19 @@ public final class DriftState {
                 hasCollided = false;
             }
         } else {
-            // FIXME should be expressed as a percent value ref. maxvel, to scale to different max velocities
             if (!isDrifting) {
                 // search for onBeginDrift
                 if (driftStrength > 0.4f && velocityLength > 20) {
                     isDrifting = true;
                     time.start();
-                    GameEvents.driftState.trigger(car, Type.onBeginDrift);
+                    GameEvents.driftState.trigger(car, Type.OnBeginDrift);
                 }
             } else {
                 // search for onEndDrift
                 if (driftStrength < 0.2f || velocityLength < 15f) {
                     time.stop();
                     isDrifting = false;
-                    GameEvents.driftState.trigger(car, Type.onEndDrift);
+                    GameEvents.driftState.trigger(car, Type.OnEndDrift);
                 }
             }
         }
