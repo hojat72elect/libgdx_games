@@ -200,7 +200,6 @@ public class OptionsScreen extends UIScreen {
                                 UserPreferences.save();
                             }
                         });
-                // ppZoomBlurQuality.setDisabled(!UserPreferences.bool(Preference.PostProcessing));
 
                 RadialBlur.Quality quality = RadialBlur.Quality.valueOf(UserPreferences.string(Preference.ZoomRadialBlurQuality));
                 ppZoomBlurQuality.setSelectedIndex(quality.ordinal());
@@ -235,7 +234,6 @@ public class OptionsScreen extends UIScreen {
                         UserPreferences.save();
                     }
                 });
-                // ppSsaoQuality.setDisabled(!UserPreferences.bool(Preference.PostProcessing));
 
                 Ssao.Quality quality = Ssao.Quality.valueOf(UserPreferences.string(Preference.SsaoQuality));
                 ppSsaoQuality.setSelectedIndex(quality.ordinal());
