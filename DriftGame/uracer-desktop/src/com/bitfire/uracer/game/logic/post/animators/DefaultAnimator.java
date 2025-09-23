@@ -28,6 +28,7 @@ import com.bitfire.uracer.game.tween.SysTweener;
 import com.bitfire.uracer.game.world.GameWorld;
 import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.utils.*;
+import org.jetbrains.annotations.NotNull;
 
 public final class DefaultAnimator implements PostProcessingAnimator {
     private final GameWorld world;
@@ -254,7 +255,7 @@ public final class DefaultAnimator implements PostProcessingAnimator {
     }
 
     @Override
-    public void update(Vector2 cameraPos, TrackProgressData progressData, Color ambient, Color trees, float zoomCamera,
+    public void update(@NotNull Vector2 cameraPos, @NotNull TrackProgressData progressData, @NotNull Color ambient, @NotNull Color trees, float zoomCamera,
                        float warmUpCompletion, float collisionFactor, boolean paused) {
         float timeModFactor = URacer.Game.getTimeModFactor();
 
