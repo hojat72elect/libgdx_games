@@ -521,7 +521,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
 
         for (int i = 0; i < trees.models.size(); i++) {
             TreeStillModel m = trees.models.get(i);
-            renderBoundingBox(camPersp, m.boundingBox);
+            renderBoundingBox(camPersp, m.treeBoundingBox);
         }
 
         for (int i = 0; i < walls.count(); i++) {

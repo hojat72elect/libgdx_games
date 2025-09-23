@@ -51,8 +51,8 @@ public class TrackTrees {
             transf.set(camPersp.combined).mul(m.mtxmodel);
 
             // transform the bounding box
-            m.boundingBox.inf().set(m.localBoundingBox);
-            m.boundingBox.mul(m.mtxmodel);
+            m.treeBoundingBox.inf().set(m.treeLocalBoundingBox);
+            m.treeBoundingBox.mul(m.mtxmodel);
 
         }
     }

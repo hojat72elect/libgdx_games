@@ -553,7 +553,7 @@ public final class GameWorldRenderer {
                 continue;
             }
 
-            if (DebugUtils.FrustumCulling && !camPersp.frustum.boundsInFrustum(m.boundingBox)) {
+            if (DebugUtils.FrustumCulling && !camPersp.frustum.boundsInFrustum(m.treeBoundingBox)) {
                 needRebind = true;
                 if (!depthOnly) culledMeshes++;
                 continue;
