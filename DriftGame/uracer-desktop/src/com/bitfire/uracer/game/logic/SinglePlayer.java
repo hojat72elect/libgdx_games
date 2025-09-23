@@ -448,15 +448,10 @@ public class SinglePlayer extends BaseLogic {
     @Override
     public void doQuit() {
         lapManager.abortRecording(false);
-
         URacer.Game.show(ScreenType.MainScreen);
-        // URacer.Screens.setScreen(ScreenType.ExitScreen, TransitionType.Fader, 300);
-
         getTimeModulator().reset();
         URacer.Game.resetTimeModFactor();
     }
-
-    //
 
     /**
      * Restart all replays in the lap manager, if no next target set the best replay's car to it
