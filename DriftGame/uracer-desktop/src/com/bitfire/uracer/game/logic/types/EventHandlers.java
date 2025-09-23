@@ -43,12 +43,12 @@ public final class EventHandlers {
     };
     private final WrongWayMonitorEvent.Listener wrongWayMonitorListener = new WrongWayMonitorEvent.Listener() {
         @Override
-        public void handle(Object source, WrongWayMonitorEvent.Type type, WrongWayMonitorEvent.Order order) {
+        public void handle(@NotNull Object source, WrongWayMonitorEvent.Type type, @NotNull WrongWayMonitorEvent.Order order) {
             switch (type) {
-                case onWrongWayBegins:
+                case OnWrongWayBegins:
                     logic.wrongWayBegins();
                     break;
-                case onWrongWayEnds:
+                case OnWrongWayEnds:
                     logic.wrongWayEnds();
                     break;
             }
@@ -142,8 +142,8 @@ public final class EventHandlers {
         GameEvents.lapCompletion.addListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.OnWarmUpCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
         GameEvents.lapCompletion.addListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.OnLapStarted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
         GameEvents.lapCompletion.addListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.OnLapCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
-        GameEvents.wrongWay.addListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.onWrongWayBegins, WrongWayMonitorEvent.Order.MINUS_4);
-        GameEvents.wrongWay.addListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.onWrongWayEnds, WrongWayMonitorEvent.Order.MINUS_4);
+        GameEvents.wrongWay.addListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.OnWrongWayBegins, WrongWayMonitorEvent.Order.MINUS_4);
+        GameEvents.wrongWay.addListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.OnWrongWayEnds, WrongWayMonitorEvent.Order.MINUS_4);
     }
 
     public void unregisterPlayerMonitorEvents() {
@@ -151,8 +151,8 @@ public final class EventHandlers {
         GameEvents.lapCompletion.removeListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.OnWarmUpCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
         GameEvents.lapCompletion.removeListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.OnLapStarted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
         GameEvents.lapCompletion.removeListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.OnLapCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
-        GameEvents.wrongWay.removeListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.onWrongWayBegins, WrongWayMonitorEvent.Order.MINUS_4);
-        GameEvents.wrongWay.removeListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.onWrongWayEnds, WrongWayMonitorEvent.Order.MINUS_4);
+        GameEvents.wrongWay.removeListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.OnWrongWayBegins, WrongWayMonitorEvent.Order.MINUS_4);
+        GameEvents.wrongWay.removeListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.OnWrongWayEnds, WrongWayMonitorEvent.Order.MINUS_4);
     }
 
     public void registerGhostEvents() {

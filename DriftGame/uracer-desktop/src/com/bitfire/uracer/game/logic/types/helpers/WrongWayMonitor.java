@@ -34,7 +34,7 @@ public class WrongWayMonitor {
                 } else if (wrongWayTimer.elapsed().tickSeconds > GameplaySettings.MaxSecondsWrongWayDetector) {
                     wrongWayTimer.reset();
                     isWrongWay = true;
-                    GameEvents.wrongWay.trigger(null, WrongWayMonitorEvent.Type.onWrongWayBegins);
+                    GameEvents.wrongWay.trigger(null, WrongWayMonitorEvent.Type.OnWrongWayBegins);
                 }
             }
         } else if (trackRouteConfidence > 0 && !isWrongWay) {
