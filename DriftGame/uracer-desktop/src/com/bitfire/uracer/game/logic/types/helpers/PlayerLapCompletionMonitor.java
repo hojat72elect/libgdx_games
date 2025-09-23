@@ -44,7 +44,7 @@ public class PlayerLapCompletionMonitor {
             if (isWarmUp) {
                 if (!warmUpStartedCalled) {
                     warmUpStartedCalled = true;
-                    GameEvents.lapCompletion.trigger(car, PlayerLapCompletionMonitorEvent.Type.onWarmUpStarted);
+                    GameEvents.lapCompletion.trigger(car, PlayerLapCompletionMonitorEvent.Type.OnWarmUpStarted);
                 }
 
                 // compute warmup quantity (0 at WU start pos, 1 at WU end pos)
@@ -53,21 +53,19 @@ public class PlayerLapCompletionMonitor {
                 float start = state.initialCompletion;
                 wuCompletion = MathUtils.clamp((complet - start) / (1 - start), 0, 1);
 
-                // Gdx.app.log("LapCompletionMonitor", "wc=" + wuCompletion + ", wp=" + wuPrev);
-
                 if (hasFinished(wuPrev, wuCompletion)) {
                     wuCompletion = 1;
                     isWarmUp = false;
-                    GameEvents.lapCompletion.trigger(car, PlayerLapCompletionMonitorEvent.Type.onWarmUpCompleted);
-                    GameEvents.lapCompletion.trigger(car, PlayerLapCompletionMonitorEvent.Type.onLapStarted);
+                    GameEvents.lapCompletion.trigger(car, PlayerLapCompletionMonitorEvent.Type.OnWarmUpCompleted);
+                    GameEvents.lapCompletion.trigger(car, PlayerLapCompletionMonitorEvent.Type.OnLapStarted);
                 }
             } else {
                 prev = completion;
                 completion = gameTrack.getTrackCompletion(car);
                 // Gdx.app.log("LapCompletionMonitor", "c=" + completion + ", p=" + prev);
                 if (hasFinished(prev, completion)) {
-                    GameEvents.lapCompletion.trigger(car, PlayerLapCompletionMonitorEvent.Type.onLapCompleted);
-                    GameEvents.lapCompletion.trigger(car, PlayerLapCompletionMonitorEvent.Type.onLapStarted);
+                    GameEvents.lapCompletion.trigger(car, PlayerLapCompletionMonitorEvent.Type.OnLapCompleted);
+                    GameEvents.lapCompletion.trigger(car, PlayerLapCompletionMonitorEvent.Type.OnLapStarted);
                 }
             }
         }

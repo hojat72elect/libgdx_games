@@ -60,11 +60,11 @@ public final class PlayerTensiveMusic extends SoundEffect {
     }
 
     private void attach() {
-        GameEvents.lapCompletion.addListener(playerCompletionListener, PlayerLapCompletionMonitorEvent.Type.onWarmUpStarted);
+        GameEvents.lapCompletion.addListener(playerCompletionListener, PlayerLapCompletionMonitorEvent.Type.OnWarmUpStarted);
     }
 
     private void detach() {
-        GameEvents.lapCompletion.removeListener(playerCompletionListener, PlayerLapCompletionMonitorEvent.Type.onWarmUpStarted);
+        GameEvents.lapCompletion.removeListener(playerCompletionListener, PlayerLapCompletionMonitorEvent.Type.OnWarmUpStarted);
     }
 
     @Override

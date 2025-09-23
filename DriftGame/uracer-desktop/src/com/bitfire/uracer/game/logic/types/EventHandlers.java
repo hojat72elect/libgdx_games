@@ -14,18 +14,18 @@ public final class EventHandlers {
     private final CommonLogic logic;
     private final PlayerLapCompletionMonitorEvent.Listener playerLapCompletionMonitorListener = new PlayerLapCompletionMonitorEvent.Listener() {
         @Override
-        public void handle(Object source, PlayerLapCompletionMonitorEvent.Type type, PlayerLapCompletionMonitorEvent.Order order) {
+        public void handle(@NotNull Object source, PlayerLapCompletionMonitorEvent.Type type, @NotNull PlayerLapCompletionMonitorEvent.Order order) {
             switch (type) {
-                case onWarmUpStarted:
+                case OnWarmUpStarted:
                     logic.warmUpStarted();
                     break;
-                case onWarmUpCompleted:
+                case OnWarmUpCompleted:
                     logic.warmUpCompleted();
                     break;
-                case onLapStarted:
+                case OnLapStarted:
                     logic.playerLapStarted();
                     break;
-                case onLapCompleted:
+                case OnLapCompleted:
                     logic.playerLapCompleted();
                     break;
             }
@@ -138,19 +138,19 @@ public final class EventHandlers {
     }
 
     public void registerPlayerMonitorEvents() {
-        GameEvents.lapCompletion.addListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.onWarmUpStarted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
-        GameEvents.lapCompletion.addListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.onWarmUpCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
-        GameEvents.lapCompletion.addListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.onLapStarted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
-        GameEvents.lapCompletion.addListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.onLapCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
+        GameEvents.lapCompletion.addListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.OnWarmUpStarted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
+        GameEvents.lapCompletion.addListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.OnWarmUpCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
+        GameEvents.lapCompletion.addListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.OnLapStarted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
+        GameEvents.lapCompletion.addListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.OnLapCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
         GameEvents.wrongWay.addListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.onWrongWayBegins, WrongWayMonitorEvent.Order.MINUS_4);
         GameEvents.wrongWay.addListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.onWrongWayEnds, WrongWayMonitorEvent.Order.MINUS_4);
     }
 
     public void unregisterPlayerMonitorEvents() {
-        GameEvents.lapCompletion.removeListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.onWarmUpStarted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
-        GameEvents.lapCompletion.removeListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.onWarmUpCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
-        GameEvents.lapCompletion.removeListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.onLapStarted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
-        GameEvents.lapCompletion.removeListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.onLapCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
+        GameEvents.lapCompletion.removeListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.OnWarmUpStarted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
+        GameEvents.lapCompletion.removeListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.OnWarmUpCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
+        GameEvents.lapCompletion.removeListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.OnLapStarted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
+        GameEvents.lapCompletion.removeListener(playerLapCompletionMonitorListener, PlayerLapCompletionMonitorEvent.Type.OnLapCompleted, PlayerLapCompletionMonitorEvent.Order.MINUS_4);
         GameEvents.wrongWay.removeListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.onWrongWayBegins, WrongWayMonitorEvent.Order.MINUS_4);
         GameEvents.wrongWay.removeListener(wrongWayMonitorListener, WrongWayMonitorEvent.Type.onWrongWayEnds, WrongWayMonitorEvent.Order.MINUS_4);
     }
