@@ -1,25 +1,28 @@
 package com.bitfire.uracer.game.task
 
 import com.bitfire.uracer.game.GameEvents
-import com.bitfire.uracer.game.events.TaskManagerEvent.*
+import com.bitfire.uracer.game.events.TaskManagerEvent
+import com.bitfire.uracer.game.events.TaskManagerEvent.Order
+import com.bitfire.uracer.game.events.TaskManagerEvent.Type
 
-abstract class Task(private val order: Order) : Listener {
+
+abstract class Task(private val order: Order) : TaskManagerEvent.Listener {
 
     @JvmField
     protected var isPaused = false
 
     init {
-        GameEvents.taskManager.addListener(this, Type.onTick, order)
-        GameEvents.taskManager.addListener(this, Type.onTickCompleted, order)
-        GameEvents.taskManager.addListener(this, Type.onPause, order)
-        GameEvents.taskManager.addListener(this, Type.onResume, order)
+        GameEvents.taskManager.addListener(this, Type.OnTick, order)
+        GameEvents.taskManager.addListener(this, Type.OnTickCompleted, order)
+        GameEvents.taskManager.addListener(this, Type.OnPause, order)
+        GameEvents.taskManager.addListener(this, Type.OnResume, order)
     }
 
     open fun dispose() {
-        GameEvents.taskManager.removeListener(this, Type.onTick, order)
-        GameEvents.taskManager.removeListener(this, Type.onTickCompleted, order)
-        GameEvents.taskManager.removeListener(this, Type.onPause, order)
-        GameEvents.taskManager.removeListener(this, Type.onResume, order)
+        GameEvents.taskManager.removeListener(this, Type.OnTick, order)
+        GameEvents.taskManager.removeListener(this, Type.OnTickCompleted, order)
+        GameEvents.taskManager.removeListener(this, Type.OnPause, order)
+        GameEvents.taskManager.removeListener(this, Type.OnResume, order)
     }
 
     protected abstract fun onTick()
@@ -30,12 +33,12 @@ abstract class Task(private val order: Order) : Listener {
 
     protected open fun onGameResume() { isPaused = false }
 
-    override fun handle(source: Any?, type: Type, order: Order) {
+    override fun handle(source: Any, type: Type, order: Order) {
         when (type) {
-            Type.onTick -> if (!isPaused) onTick()
-            Type.onTickCompleted -> if (!isPaused) onTickCompleted()
-            Type.onPause -> onGamePause()
-            Type.onResume -> onGameResume()
+            Type.OnTick -> if (!isPaused) onTick()
+            Type.OnTickCompleted -> if (!isPaused) onTickCompleted()
+            Type.OnPause -> onGamePause()
+            Type.OnResume -> onGameResume()
         }
     }
 }

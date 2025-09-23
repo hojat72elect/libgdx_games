@@ -52,7 +52,7 @@ public class Game implements Disposable {
      */
     public void tick() {
         if (!gameLogic.isQuitPending()) {
-            taskManager.dispatchEvent(TaskManagerEvent.Type.onTick);
+            taskManager.dispatchEvent(TaskManagerEvent.Type.OnTick);
         }
 
         gameLogic.tick();
@@ -63,7 +63,7 @@ public class Game implements Disposable {
      */
     public void tickCompleted() {
         if (!gameLogic.isQuitPending()) {
-            taskManager.dispatchEvent(TaskManagerEvent.Type.onTickCompleted);
+            taskManager.dispatchEvent(TaskManagerEvent.Type.OnTickCompleted);
         }
 
         gameLogic.tickCompleted();
@@ -74,14 +74,14 @@ public class Game implements Disposable {
     }
 
     public void pause() {
-        taskManager.dispatchEvent(TaskManagerEvent.Type.onPause);
+        taskManager.dispatchEvent(TaskManagerEvent.Type.OnPause);
         gameLogic.pauseGame();
         Gdx.app.log("Game", "Paused");
     }
 
     public void resume() {
         gameRenderer.rebind();
-        taskManager.dispatchEvent(TaskManagerEvent.Type.onResume);
+        taskManager.dispatchEvent(TaskManagerEvent.Type.OnResume);
         gameLogic.resumeGame();
         Gdx.app.log("Game", "Resumed");
     }
