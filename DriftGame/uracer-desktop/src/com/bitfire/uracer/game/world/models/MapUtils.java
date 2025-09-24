@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public final class MapUtils implements Disposable {
-    // cache
+
     public final Map<String, MapLayer> cachedGroups = new HashMap<>(10);
     public final Map<String, TiledMapTileLayer> cachedLayers = new HashMap<>(10);
 

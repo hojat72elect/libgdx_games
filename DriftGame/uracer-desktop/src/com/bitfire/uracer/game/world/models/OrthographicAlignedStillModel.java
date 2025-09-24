@@ -25,12 +25,12 @@ public class OrthographicAlignedStillModel {
     public BoundingBox localBoundingBox = new BoundingBox();
     public BoundingBox boundingBox = new BoundingBox();
     public Vector3 scaleAxis = new Vector3();
-    // position
+
     public Vector2 positionOffsetPx = new Vector2(0, 0);
     public Vector2 positionPx = new Vector2();
     public float iRotationAngle;
     public Vector3 iRotationAxis = new Vector3();
-    // scale
+
     private float scale, scalingFactor;
     private float alpha = 1;
 

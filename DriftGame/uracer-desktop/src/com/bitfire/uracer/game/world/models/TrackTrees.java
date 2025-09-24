@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TrackTrees {
     public final List<TreeStillModel> models;
-    private final Vector3 tmpvec = new Vector3();
+    private final Vector3 temporaryVector = new Vector3();
 
     public TrackTrees(List<TreeStillModel> models) {
         this.models = models;
@@ -26,26 +26,25 @@ public class TrackTrees {
         for (TreeStillModel m : models) {
             Matrix4 transf = m.transformed;
 
-            // compute position
-            tmpvec.x = (m.positionOffsetPx.x - camPersp.position.x) + (camPersp.viewportWidth / 2) + m.positionPx.x;
-            tmpvec.y = (m.positionOffsetPx.y + camPersp.position.y) + (camPersp.viewportHeight / 2) - m.positionPx.y;
-            tmpvec.z = 1;
+            temporaryVector.x = (m.positionOffsetPx.x - camPersp.position.x) + (camPersp.viewportWidth / 2) + m.positionPx.x;
+            temporaryVector.y = (m.positionOffsetPx.y + camPersp.position.y) + (camPersp.viewportHeight / 2) - m.positionPx.y;
+            temporaryVector.z = 1;
 
-            tmpvec.x *= ScaleUtils.Scale;
-            tmpvec.y *= ScaleUtils.Scale;
+            temporaryVector.x *= ScaleUtils.Scale;
+            temporaryVector.y *= ScaleUtils.Scale;
 
-            tmpvec.x += ScaleUtils.CropX;
-            tmpvec.y += ScaleUtils.CropY;
+            temporaryVector.x += ScaleUtils.CropX;
+            temporaryVector.y += ScaleUtils.CropY;
 
             // transform to world space
-            camPersp.unproject(tmpvec, ScaleUtils.CropX, ScaleUtils.CropY, ScaleUtils.PlayWidth, ScaleUtils.PlayHeight);
+            camPersp.unproject(temporaryVector, ScaleUtils.CropX, ScaleUtils.CropY, ScaleUtils.PlayWidth, ScaleUtils.PlayHeight);
 
             // build model matrix
             Matrix4 model = m.mtxmodel;
-            tmpvec.z = meshZ;
+            temporaryVector.z = meshZ;
 
             model.idt();
-            model.translate(tmpvec);
+            model.translate(temporaryVector);
             model.rotate(m.iRotationAxis, m.iRotationAngle);
             model.scale(m.scaleAxis.x, m.scaleAxis.y, m.scaleAxis.z);
             transf.set(camPersp.combined).mul(m.mtxmodel);
