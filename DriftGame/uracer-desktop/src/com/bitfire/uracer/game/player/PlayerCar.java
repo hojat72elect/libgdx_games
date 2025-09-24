@@ -262,7 +262,7 @@ public class PlayerCar extends Car {
         float transformed = angle;
 
         transformed -= AlgebraMath.PI;
-        transformed -= body.getAngle(); // to local
+        transformed -= body.getAngle();
 
         if (transformed < 0) {
             transformed += AlgebraMath.TWO_PI;
@@ -274,7 +274,7 @@ public class PlayerCar extends Car {
             transformed = transformed - AlgebraMath.TWO_PI;
         }
 
-        return transformed;// * 0.75f;
+        return transformed;
     }
 
     @Override

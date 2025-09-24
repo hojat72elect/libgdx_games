@@ -154,7 +154,7 @@ public final class GameWorld {
         staticMeshes.clear();
         staticMeshes = null;
 
-        if (trackWalls != null && trackWalls.models != null) {
+        if (trackWalls != null) {
             for (int i = 0; i < trackWalls.models.size(); i++) {
                 trackWalls.models.get(i).model.dispose();
             }
