@@ -46,6 +46,7 @@ import com.bitfire.uracer.game.world.models.TreeStillModel;
 import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.utils.*;
 import com.bitfire.utils.ItemsManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 import java.util.Set;
@@ -67,29 +68,25 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
     );
     private final PostProcessor postProcessor;
     private final Input input;
-    private boolean enabled;
-    // frame stats
     private final DebugStatistics stats;
     private final String uRacerInfo;
-    // world
     private final GameWorld gameWorld;
     private final World box2dWorld;
     private final GameLogic logic;
-    // ranking
     private final LapManager lapManager;
     private final Array<RankInfo> ranks = new Array<>();
-    // debug renderers
     private final Box2DDebugRenderer b2drenderer;
     private final ImmediateModeRenderer20 dbg = new ImmediateModeRenderer20(false, true, 0);
+    private boolean enabled;
     private final GameRendererEvent.Listener renderListener = new GameRendererEvent.Listener() {
         @Override
-        public void handle(Object source, Type type, Order order) {
+        public void handle(@NotNull Object source, @NotNull Type type, @NotNull Order order) {
             if (!isEnabled()) return;
 
             SpriteBatch batch = GameEvents.gameRenderer.batch;
 
             if (type == GameRendererEvent.Type.BatchDebug) {
-                // render everything scaled
+
                 for (DebugRenderable r : renderables) {
                     if (renderFlags.contains(r.getFlag())) r.renderBatch(batch);
                 }
@@ -132,7 +129,6 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         GameEvents.gameRenderer.addListener(renderListener, GameRendererEvent.Type.BatchDebug, GameRendererEvent.Order.PLUS_4);
         GameEvents.gameRenderer.addListener(renderListener, GameRendererEvent.Type.Debug, GameRendererEvent.Order.PLUS_4);
 
-        // player = null;
         b2drenderer = new Box2DDebugRenderer();
 
         // extrapolate version information
@@ -320,7 +316,6 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
     }
 
     private void renderRankings(SpriteBatch batch, int y) {
-        // if (!hasPlayer) return;
 
         float scale = 1;
         ReplayResult last = logic.getLastRecordedInfo();
@@ -417,10 +412,6 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
 
         ranks.sort();
 
-        //
-        // render
-        //
-
         drawString2X(batch, "CURRENT COMPLETION", xoffset, coord, scale);
         drawString2X(batch, "==================", xoffset, coord + Art.DebugFontHeight * scale, scale);
         coord += (int) (2 * Art.DebugFontHeight * scale);
@@ -515,7 +506,7 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
     }
 
     private void renderBoundingBoxes(PerspectiveCamera camPersp) {
-        // trees
+
         TrackTrees trees = gameWorld.getTrackTrees();
         TrackWalls walls = gameWorld.getTrackWalls();
 
@@ -547,92 +538,92 @@ public final class DebugHelper extends GameTask implements DisposableTasks {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
         dbg.begin(camPersp.combined, GL20.GL_TRIANGLES);
-        {
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[0].x, corners[0].y, corners[0].z + offset);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[1].x, corners[1].y, corners[1].z + offset);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[4].x, corners[4].y, corners[4].z);
 
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[1].x, corners[1].y, corners[1].z + offset);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[4].x, corners[4].y, corners[4].z);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[5].x, corners[5].y, corners[5].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[0].x, corners[0].y, corners[0].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[1].x, corners[1].y, corners[1].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[4].x, corners[4].y, corners[4].z);
 
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[1].x, corners[1].y, corners[1].z + offset);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[2].x, corners[2].y, corners[2].z + offset);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[5].x, corners[5].y, corners[5].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[1].x, corners[1].y, corners[1].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[4].x, corners[4].y, corners[4].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[5].x, corners[5].y, corners[5].z);
 
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[2].x, corners[2].y, corners[2].z + offset);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[5].x, corners[5].y, corners[5].z);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[6].x, corners[6].y, corners[6].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[1].x, corners[1].y, corners[1].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[2].x, corners[2].y, corners[2].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[5].x, corners[5].y, corners[5].z);
 
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[2].x, corners[2].y, corners[2].z + offset);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[6].x, corners[6].y, corners[6].z);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[3].x, corners[3].y, corners[3].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[2].x, corners[2].y, corners[2].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[5].x, corners[5].y, corners[5].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[6].x, corners[6].y, corners[6].z);
 
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[3].x, corners[3].y, corners[3].z);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[6].x, corners[6].y, corners[6].z);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[7].x, corners[7].y, corners[7].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[2].x, corners[2].y, corners[2].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[6].x, corners[6].y, corners[6].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[3].x, corners[3].y, corners[3].z + offset);
 
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[3].x, corners[3].y, corners[3].z + offset);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[0].x, corners[0].y, corners[0].z + offset);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[7].x, corners[7].y, corners[7].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[3].x, corners[3].y, corners[3].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[6].x, corners[6].y, corners[6].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[7].x, corners[7].y, corners[7].z);
 
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[7].x, corners[7].y, corners[7].z);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[0].x, corners[0].y, corners[0].z + offset);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[4].x, corners[4].y, corners[4].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[3].x, corners[3].y, corners[3].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[0].x, corners[0].y, corners[0].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[7].x, corners[7].y, corners[7].z);
 
-            // top cap
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[4].x, corners[4].y, corners[4].z);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[5].x, corners[5].y, corners[5].z);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[7].x, corners[7].y, corners[7].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[7].x, corners[7].y, corners[7].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[0].x, corners[0].y, corners[0].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[4].x, corners[4].y, corners[4].z);
 
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[5].x, corners[5].y, corners[5].z);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[7].x, corners[7].y, corners[7].z);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[6].x, corners[6].y, corners[6].z);
+        // top cap
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[4].x, corners[4].y, corners[4].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[5].x, corners[5].y, corners[5].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[7].x, corners[7].y, corners[7].z);
 
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[0].x, corners[0].y, corners[0].z + offset);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[3].x, corners[3].y, corners[3].z + offset);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[1].x, corners[1].y, corners[1].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[5].x, corners[5].y, corners[5].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[7].x, corners[7].y, corners[7].z);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[6].x, corners[6].y, corners[6].z);
 
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[3].x, corners[3].y, corners[3].z + offset);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[1].x, corners[1].y, corners[1].z + offset);
-            dbg.color(r, g, b, alpha);
-            dbg.vertex(corners[2].x, corners[2].y, corners[2].z + offset);
-        }
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[0].x, corners[0].y, corners[0].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[3].x, corners[3].y, corners[3].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[1].x, corners[1].y, corners[1].z + offset);
+
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[3].x, corners[3].y, corners[3].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[1].x, corners[1].y, corners[1].z + offset);
+        dbg.color(r, g, b, alpha);
+        dbg.vertex(corners[2].x, corners[2].y, corners[2].z + offset);
+
         dbg.end();
 
         Gdx.gl.glDisable(GL20.GL_BLEND);
