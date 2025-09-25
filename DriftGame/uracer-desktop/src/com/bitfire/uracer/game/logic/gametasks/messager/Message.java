@@ -143,7 +143,6 @@ public final class Message {
 
         SysTweener.stop(this);
 
-
         SysTweener.start(Timeline.createParallel()
                 .push(Tween.to(this, MessageAccessor.OPACITY, 850).target(1f).ease(Expo.Companion.getINOUT()))
                 .push(Tween.to(this, MessageAccessor.POSITION_Y, 700).target(finalY).ease(Expo.Companion.getINOUT()))
@@ -155,7 +154,6 @@ public final class Message {
             hiding = true;
 
             SysTweener.stop(this);
-
 
             SysTweener.start(Timeline.createParallel()
                     .push(Tween.to(this, MessageAccessor.OPACITY, 600).target(0f).ease(Expo.Companion.getINOUT()))
