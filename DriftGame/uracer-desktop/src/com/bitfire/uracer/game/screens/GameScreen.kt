@@ -22,7 +22,7 @@ class GameScreen : Screen() {
             UserPreferences.string(Preference.LastPlayedTrack, ScreensShared.selectedLevelId)
             val userProfile = UserProfile()
             game = Game(userProfile, ScreensShared.selectedLevelId)
-            gameui = GameScreenUI(game)
+            gameui = GameScreenUI(game!!)
             game!!.start()
             initialized = true
             return true
