@@ -39,7 +39,7 @@ public class BodyEditorLoader {
      * <br/>
      * <p>
      * The body reference point (the red cross in the tool) is by default located at the bottom left corner of the image. This
-     * reference point will be put right over the BodyDef position point. Therefore, you should place this reference point
+     * reference point will be put over the BodyDef position point. Therefore, you should place this reference point
      * carefully to let you place your body in your world easily with its BodyDef.position point.
      * <br/>
      * <p>
@@ -47,7 +47,7 @@ public class BodyEditorLoader {
      * you need to provide a scale factor so the polygons get resized according to your needs (not every body is 1 meter large in
      * your game, I guess).
      *
-     * @param body  The Box2d body you want to attach the fixture to.
+     * @param body  The Box2D body you want to attach the fixture to.
      * @param name  The name of the fixture you want to load.
      * @param fd    The fixture parameters to apply to the created body fixture.
      * @param scale The desired scale of the body. The default width is 1.
@@ -111,13 +111,9 @@ public class BodyEditorLoader {
         RigidBodyModel rbModel = new RigidBodyModel();
         rbModel.name = bodyElem.getString("name");
         rbModel.imagePath = bodyElem.getString("imagePath");
-
         JsonValue origin = bodyElem.get("origin");
-
         rbModel.origin.x = origin.getFloat("x");
         rbModel.origin.y = origin.getFloat("y");
-
-        // polygons
         JsonValue polygons = bodyElem.get("polygons");
 
         for (JsonValue vertices = polygons.child(); vertices != null; vertices = vertices.next()) {
