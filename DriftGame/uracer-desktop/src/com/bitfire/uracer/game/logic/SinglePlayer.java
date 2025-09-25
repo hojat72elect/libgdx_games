@@ -38,12 +38,12 @@ import com.bitfire.uracer.game.world.GameWorld;
 import com.bitfire.uracer.utils.*;
 
 public class SinglePlayer extends BaseLogic {
-    protected DebugHelper debug = null;
-    private boolean saving = false;
     private final CameraShaker camShaker = new CameraShaker();
-    private int selectedBestReplayIdx = -1;
     private final ReplayResult lastRecorded = new ReplayResult();
     private final boolean canDisableTargetMode = false;
+    protected DebugHelper debug = null;
+    private boolean saving = false;
+    private int selectedBestReplayIdx = -1;
     private boolean targetMode = !canDisableTargetMode; // always enabled if can't be disabled, else no target by default
 
     public SinglePlayer(UserProfile userProfile, GameWorld gameWorld, GameRenderer gameRenderer) {
@@ -202,7 +202,6 @@ public class SinglePlayer extends BaseLogic {
     private float getOutOfTrackFactor() {
         float oot = MathUtils.clamp(getOutOfTrackTimer().elapsed().absSeconds, 0, 0.5f) * 2;
         float s = MathUtils.clamp(playerCar.carState.currSpeedFactor * 100f, 0, 1);
-        // Gdx.app.log("", "oot=" + oot + ", s=" + s);
         return 0.075f * oot * s;
     }
 
@@ -316,7 +315,6 @@ public class SinglePlayer extends BaseLogic {
 
     @Override
     public void playerLapStarted() {
-        // lapManager.stopRecording();
         playerCar.resetDistanceAndSpeed(true, false);
         lapManager.startRecording(playerCar, gameWorld.getLevelId(), userProfile.getUserId());
         progressData.reset(true);
@@ -426,20 +424,12 @@ public class SinglePlayer extends BaseLogic {
     @Override
     public void ghostReplayStarted(GhostCar ghost) {
         if (selectedBestReplayIdx > -1 && ghost == findGhostFor(lapManager.getReplays().get(selectedBestReplayIdx))) {
-            // ghost.setAlpha(Config.Graphics.DefaultTargetCarOpacity);
             playerTasks.hudPlayer.highlightNextTarget(ghost);
         }
     }
 
     @Override
     public void ghostReplayEnded(GhostCar ghost) {
-        // can't stop the ghostcar here since it would stop the physics simulation for the GhostCar! Use the ghost lap completion
-        // monitor instead!
-        // ghost.stop();
-
-        // CarUtils.dumpSpeedInfo("SinglePlayer", "GhostCar #" + ghost.getId(), ghost, ghost.getReplay().getTrackTime());
-
-        // do the same as ghostfadingout
         if (ghost != null && ghost == getNextTarget()) {
             playerTasks.hudPlayer.unHighlightNextTarget();
         }
