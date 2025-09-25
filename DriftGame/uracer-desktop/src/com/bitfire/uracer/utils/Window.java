@@ -58,6 +58,7 @@ public class Window extends Table {
                 return false;
             }
         });
+
         addListener(new InputListener() {
             int edge;
             float startX, startY, lastX, lastY;
@@ -171,7 +172,6 @@ public class Window extends Table {
         });
     }
 
-
     public void setStyle(WindowStyle style) {
         if (style == null) throw new IllegalArgumentException("style cannot be null.");
         this.style = style;
@@ -203,10 +203,9 @@ public class Window extends Table {
             Color color = getColor();
             batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
             Stage stage = getStage();
-            stageToLocalCoordinates(/* in/out */tmpPosition.set(0, 0));
-            stageToLocalCoordinates(/* in/out */tmpSize.set(stage.getWidth(), stage.getHeight()));
-            style.stageBackground
-                    .draw(batch, getX() + tmpPosition.x, getY() + tmpPosition.y, getX() + tmpSize.x, getY() + tmpSize.y);
+            stageToLocalCoordinates(tmpPosition.set(0, 0));
+            stageToLocalCoordinates(tmpSize.set(stage.getWidth(), stage.getHeight()));
+            style.stageBackground.draw(batch, getX() + tmpPosition.x, getY() + tmpPosition.y, getX() + tmpSize.x, getY() + tmpSize.y);
         }
 
         super.draw(batch, parentAlpha);
@@ -219,13 +218,11 @@ public class Window extends Table {
 
         super.drawBackground(batch, parentAlpha, x, y);
 
-        // Draw button table.
         buttonTable.getColor().a = getColor().a;
         buttonTable.pack();
         buttonTable.setPosition(width - buttonTable.getWidth(), Math.min(height - padTop, height - buttonTable.getHeight()));
         buttonTable.draw(batch, parentAlpha);
 
-        // Draw the title without the batch transformed or clipping applied.
         y += height;
         TextBounds bounds = titleCache.getBounds();
         if ((titleAlignment & Align.left) != 0)
@@ -252,7 +249,6 @@ public class Window extends Table {
         return hit;
     }
 
-
     public void setTitle(String title) {
         this.title = title;
         titleCache.setMultiLineText(title, 0, 0);
@@ -270,7 +266,6 @@ public class Window extends Table {
     public float getPrefWidth() {
         return Math.max(super.getPrefWidth(), getTitleWidth() + getPadLeft() + getPadRight());
     }
-
 
     /**
      * The style for a window, see {@link Window}.

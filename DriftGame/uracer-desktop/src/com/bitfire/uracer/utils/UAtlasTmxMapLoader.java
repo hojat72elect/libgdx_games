@@ -17,13 +17,8 @@ import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
-import com.badlogic.gdx.maps.tiled.TmxMapHelper;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Polyline;
@@ -32,6 +27,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.XmlReader;
 import com.badlogic.gdx.utils.XmlReader.Element;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
@@ -140,9 +136,7 @@ public class UAtlasTmxMapLoader extends AsynchronousAssetLoader<TiledMap, UAtlas
         }
     }
 
-    /**
-     * May return null.
-     */
+    @Nullable
     protected FileHandle loadAtlas(Element root, FileHandle tmxFile) throws IOException {
         Element e = root.getChildByName("properties");
 
@@ -314,7 +308,6 @@ public class UAtlasTmxMapLoader extends AsynchronousAssetLoader<TiledMap, UAtlas
                 throw new GdxRuntimeException("The map is missing the 'atlas' property");
             }
 
-            // get the TextureAtlas for this tileset
             FileHandle atlasHandle = getRelativeFileHandle(tmxFile, atlasFilePath);
             atlasHandle = resolve(atlasHandle.path());
             TextureAtlas atlas = resolver.getAtlas(atlasHandle.path());

@@ -13,21 +13,17 @@ import com.bitfire.uracer.configuration.GraphicsUtils;
  */
 public final class Input implements Disposable {
 
-    // flags
     private static final int FLAG_REAL_ON = 1;
     private static final int FLAG_DELAY_ON = 2;
     private static final int FLAG_CUR_ON = 4;
     private static final int FLAG_LAST_ON = 8;
-    // keys
     private final int[] buttons = new int[256];
     private final long[] times = new long[256];
     private final boolean[] repeated = new boolean[256];
     private final boolean[] first_repeat = new boolean[256];
-    // coordinates transform
     private final Rectangle viewport = new Rectangle();
     private int anyKeyButton = 0;
     private long repeatns = 0, firstrepeatns = 0;
-    // mouse
     private Pointer pointer = new Pointer();
 
     public Input(Rectangle viewport, int keyFirstRepetitionDelayMs, int keyRepetitionSpeedMs) {
@@ -54,7 +50,6 @@ public final class Input implements Disposable {
         pointer.reset();
     }
 
-    // pointers
     public boolean isTouching(MouseButton button) {
         return pointer.isTouching(button);
     }
@@ -92,7 +87,6 @@ public final class Input implements Disposable {
         firstrepeatns = firstDelayMs * 1000000L;
     }
 
-    // a time-masked proxy for the "isOn" method
     public boolean isRepeatedOn(int keycode) {
         return repeated[keycode];
     }
@@ -203,7 +197,6 @@ public final class Input implements Disposable {
         }
     }
 
-    // update key state and transform unbuffered to buffered
     public void tick() {
         updateKeyState();
         updatePointerState();
@@ -211,7 +204,7 @@ public final class Input implements Disposable {
     }
 
     /**
-     * Encapsulates mouse buttons
+     * Encapsulates mouse buttons.
      */
     public enum MouseButton {
         Left(Buttons.LEFT), Right(Buttons.RIGHT), Middle(Buttons.MIDDLE);
@@ -251,7 +244,7 @@ public final class Input implements Disposable {
         }
 
         /**
-         * Returns whether or not this pointer wasn't touching AND now it is.
+         * Returns whether this pointer wasn't touching AND now it is.
          */
         public boolean isTouched(MouseButton button) {
             return !was_touching[button.ordinal] && is_touching[button.ordinal];
@@ -266,7 +259,7 @@ public final class Input implements Disposable {
         }
 
         /**
-         * Returns whether or not this pointer was touching AND now it is not.
+         * Returns whether this pointer was touching AND now it is not.
          */
         public boolean isUntouched(MouseButton button) {
             return was_touching[button.ordinal] && !is_touching[button.ordinal];

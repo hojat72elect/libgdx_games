@@ -220,7 +220,6 @@ public class URacer implements ApplicationListener {
                 }
             }
 
-
             // compute the temporal aliasing factor, entities will render themselves accordingly to this to avoid flickering and
             // jittering, permitting slow-motion effects without artifacts (this imply accepting a one-frame-behind behavior)
             temporalAliasing = (timeAccuNs * timeStepHz) * oneOnOneBillion;
