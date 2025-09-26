@@ -2,12 +2,11 @@ package com.bitfire.postprocessing.filters;
 
 import com.badlogic.gdx.utils.IntMap;
 import com.bitfire.postprocessing.utils.PingPongBuffer;
-
 import org.jetbrains.annotations.NotNull;
 
 public final class Blur extends MultipassFilter {
     private final IntMap<Convolve2D> convolve = new IntMap<>(Tap.values().length);
-    // blur
+
     private BlurType type;
     private float amount;
     private int passes;
@@ -15,14 +14,12 @@ public final class Blur extends MultipassFilter {
     private final float invHeight;
 
     public Blur(int width, int height) {
-        // precompute constants
+
         this.invWidth = 1f / (float) width;
         this.invHeight = 1f / (float) height;
-
         this.passes = 1;
         this.amount = 1f;
 
-        // create filters
         for (Tap tap : Tap.values()) {
             convolve.put(tap.radius, new Convolve2D(tap.radius));
         }
@@ -222,9 +219,7 @@ public final class Blur extends MultipassFilter {
     }
 
     private enum Tap {
-        Tap3x3(1), Tap5x5(2),
-        // Tap7x7( 3 )
-        ;
+        Tap3x3(1), Tap5x5(2);
 
         public final int radius;
 
