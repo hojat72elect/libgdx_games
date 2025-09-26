@@ -345,13 +345,13 @@ public final class DefaultAnimator implements PostProcessingAnimator {
             flare.setBias(-0.95f);
 
             // 1
-            flare.setBaseIntesity(1);
+            flare.setBaseIntensity(1);
 
             // 1
             flare.setBaseSaturation(1);
 
             // 0.7f
-            flare.setFlareIntesity(1.85f);
+            flare.setFlareIntensity(1.85f);
 
             // 1
             flare.setFlareSaturation(1.5f);
