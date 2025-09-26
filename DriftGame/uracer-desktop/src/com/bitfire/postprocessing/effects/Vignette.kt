@@ -43,7 +43,7 @@ class Vignette(viewportWidth: Int, viewportHeight: Int, controlSaturation: Boole
     }
 
     fun setIntensity(intensity: Float) {
-        vignetting.intensity = intensity
+        vignetting.setIntensity(intensity)
     }
 
     fun setLutIntensity(value: Float) {
