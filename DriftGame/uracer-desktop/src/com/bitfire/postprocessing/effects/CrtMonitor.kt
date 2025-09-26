@@ -28,7 +28,7 @@ class CrtMonitor(fboWidth: Int, fboHeight: Int, barrelDistortion: Boolean, priva
             blur = Blur(fboWidth, fboHeight)
             blur?.passes = 1
             blur?.setAmount(1f)
-            blur?.type = Blur.BlurType.Gaussian3x3 // modern machines defocus
+            blur?.setType(Blur.BlurType.Gaussian3x3) // modern machines defocus
         } else {
             buffer = FrameBuffer(PostProcessor.getFramebufferFormat(), fboWidth, fboHeight, false)
         }

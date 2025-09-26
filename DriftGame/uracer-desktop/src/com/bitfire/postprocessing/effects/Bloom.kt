@@ -48,7 +48,7 @@ class Bloom(fboWidth: Int, fboHeight: Int) : PostProcessorEffect() {
     }
 
     fun setBlurType(type: Blur.BlurType) {
-        blur.type = type
+        blur.setType(type)
     }
 
     fun setSettings(settings: Settings) {
