@@ -24,17 +24,12 @@ class Blur(width: Int, height: Int) : MultipassFilter() {
         for (c in convolve.values()) c.dispose()
     }
 
-    fun getType() = type
-
     fun setType(type: BlurType) {
         if (this.type != type) {
             this.type = type
             computeBlurWeightings()
         }
     }
-
-    // not all blur types support custom amounts at this time
-    fun getAmount() = amount
 
     // not all blur types support custom amounts at this time
     fun setAmount(amount: Float) {
