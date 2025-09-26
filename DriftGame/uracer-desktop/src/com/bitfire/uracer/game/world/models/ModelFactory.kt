@@ -176,7 +176,7 @@ object ModelFactory {
         if (cachedMaterials!!.containsKey(materialHash)) {
             return cachedMaterials!!.get(materialHash)
         } else {
-            val ta = TextureAttribute(texture, 0, "u_texture")
+            val ta = TextureAttribute(texture!!, 0, "u_texture")
             m = Material("default", ta)
             cachedMaterials!!.put(materialHash, m)
         }
