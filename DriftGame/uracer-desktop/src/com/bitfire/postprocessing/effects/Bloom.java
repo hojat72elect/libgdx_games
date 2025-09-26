@@ -62,16 +62,16 @@ public final class Bloom extends PostProcessorEffect {
 
     public void setSettings(Settings settings) {
 
-        // setup threshold filter
+        // The threshold filter
         setThreshold(settings.bloomThreshold);
 
-        // setup combine filter
+        // The combine filter
         setBaseIntensity(settings.baseIntensity);
         setBaseSaturation(settings.baseSaturation);
         setBloomIntensity(settings.bloomIntensity);
         setBloomSaturation(settings.bloomSaturation);
 
-        // setup blur filter
+        // The blur filter
         setBlurPasses(settings.blurPasses);
         setBlurAmount(settings.blurAmount);
         setBlurType(settings.blurType);
@@ -94,13 +94,10 @@ public final class Bloom extends PostProcessorEffect {
 
         pingPongBuffer.begin();
 
-        // threshold / high-pass filter
-        // only areas with pixels >= threshold are blit to smaller fbo
+        // The threshold filter (Only areas with pixels >= threshold are blit to smaller fbo).
         threshold.setInput(texsrc).setOutput(pingPongBuffer.getSourceBuffer()).render();
 
-        // blur pass
         blur.render(pingPongBuffer);
-
         pingPongBuffer.end();
 
         if (blendingWasEnabled) {
@@ -109,8 +106,7 @@ public final class Bloom extends PostProcessorEffect {
 
         restoreViewport(dest);
 
-        // mix original scene and blurred threshold, modulate via
-        // set(Base|Bloom)(Saturation|Intensity)
+        // mix original scene and blurred threshold, modulate via set(Base|Bloom)(Saturation|Intensity)
         combine.setOutput(dest).setInput(texsrc, pingPongBuffer.getResultTexture()).render();
     }
 
@@ -126,10 +122,9 @@ public final class Bloom extends PostProcessorEffect {
         public final String name;
 
         public final BlurType blurType;
-        public final int blurPasses; // simple blur
-        public final float blurAmount; // normal blur (1 pass)
+        public final int blurPasses;
+        public final float blurAmount;
         public final float bloomThreshold;
-
         public final float bloomIntensity;
         public final float bloomSaturation;
         public final float baseIntensity;
@@ -149,7 +144,6 @@ public final class Bloom extends PostProcessorEffect {
             this.bloomSaturation = bloomSaturation;
         }
 
-        // simple blur
         public Settings(String name, int blurPasses, float bloomThreshold, float baseIntensity, float baseSaturation,
                         float bloomIntensity, float bloomSaturation) {
             this(name, BlurType.Gaussian5x5b, blurPasses, 0, bloomThreshold, baseIntensity, baseSaturation, bloomIntensity,
