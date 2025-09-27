@@ -54,7 +54,7 @@ class SinglePlayer(userProfile: UserProfile, gameWorld: GameWorld, gameRenderer:
         super.dispose()
     }
 
-    private fun setupDebug(postProcessor: PostProcessor) {
+    private fun setupDebug(postProcessor: PostProcessor?) {
         if (DebugUtils.UseDebugHelper) {
             debug = DebugHelper(gameWorld, postProcessor, lapManager, this, inputSystem)
             debug!!.add(GameTrackDebugRenderer(RenderFlags.TrackSectors, gameWorld.gameTrack))

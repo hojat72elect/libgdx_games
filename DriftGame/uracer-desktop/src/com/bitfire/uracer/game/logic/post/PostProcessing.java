@@ -8,7 +8,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.LongMap;
 import com.bitfire.postprocessing.PostProcessor;
 import com.bitfire.postprocessing.PostProcessorEffect;
-import com.bitfire.postprocessing.effects.*;
+import com.bitfire.postprocessing.effects.Bloom;
+import com.bitfire.postprocessing.effects.CrtMonitor;
+import com.bitfire.postprocessing.effects.LensFlare;
+import com.bitfire.postprocessing.effects.Vignette;
+import com.bitfire.postprocessing.effects.Zoomer;
 import com.bitfire.postprocessing.filters.CrtScreen.Effect;
 import com.bitfire.postprocessing.filters.CrtScreen.RgbMode;
 import com.bitfire.postprocessing.filters.RadialBlur;
@@ -27,6 +31,8 @@ import com.bitfire.uracer.game.world.GameWorld;
 import com.bitfire.uracer.utils.ScaleUtils;
 import com.bitfire.utils.Hash;
 import com.bitfire.utils.ShaderLoader;
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Encapsulates a post-processor animator that manages effects such as bloom and zoomblur to compose and enhance the gaming
@@ -133,6 +139,7 @@ public final class PostProcessing {
         return hasPostProcessor;
     }
 
+    @Nullable
     public PostProcessor getPostProcessor() {
         return postProcessor;
     }

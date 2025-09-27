@@ -6,8 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.InputListener
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import com.badlogic.gdx.scenes.scene2d.ui.*
+import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.scenes.scene2d.utils.FocusListener
@@ -22,7 +26,7 @@ import kotlin.math.roundToInt
 open class Dialog(title: String, private val skin: Skin, windowStyleName: String) : Window(title, skin.get(windowStyleName, WindowStyle::class.java)) {
 
     private var contentTable: Table? = null
-    var buttonTable: Table? = null
+    override var buttonTable: Table? = null
     var values = ObjectMap<Actor, Any?>()
     var cancelHide = false
     var previousKeyboardFocus: Actor? = null
@@ -40,7 +44,7 @@ open class Dialog(title: String, private val skin: Skin, windowStyleName: String
     }
 
     private fun initialize() {
-        setModal(true)
+        isModal = true
 
         defaults().space(6F)
         add(Table(skin).also { contentTable = it }).expand().fill()
