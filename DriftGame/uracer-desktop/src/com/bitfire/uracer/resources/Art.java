@@ -119,25 +119,6 @@ public final class Art {
     public static void loadScreensData() {
         scrBackground = newTexture("data/base/titlescreen.png", true);
 
-        // the skin will automatically search and load the same filename+".atlas" extension
-
-        // skinAtlas = new TextureAtlas("data/ui/skin/skin.atlas");
-        // if (ScaleUtils.PlayWidth < 1280) {
-        // scrSkin = new Skin(Gdx.files.internal(Storage.UI + "skin/skin-small.json"), skinAtlas);
-        // } else if (ScaleUtils.PlayWidth >= 1280) { // && ScaleUtils.PlayWidth < 1440) {
-        // scrSkin = new Skin(Gdx.files.internal(Storage.UI + "skin/skin-big.json"), skinAtlas);
-        // }
-        // old
-        // else if (ScaleUtils.PlayWidth >= 1440) {
-        // scrSkin = new Skin(Gdx.files.internal(Storage.UI + "skin-big.json"), skinAtlas);
-        // }
-
-        // // holo
-        // String skinName = "Holo-dark-ldpi";
-        // String skinPath = Storage.UI + "holo/" + skinName;
-        // skinAtlas = new TextureAtlas(Gdx.files.internal(skinPath + ".atlas"));
-        // scrSkin = new Skin(Gdx.files.internal(skinPath + ".json"), skinAtlas);
-
         // kenney
         String skinPath = Storage.UI + "kenney/";
         skinAtlas = new TextureAtlas(Gdx.files.internal(skinPath + "pack.atlas"));
@@ -146,10 +127,6 @@ public final class Art {
         // brushed texture
         scrPanel = newTexture("data/base/panel.png", false);
     }
-
-    //
-    // post processor maps
-    //
 
     public static void disposeScreensData() {
         scrSkin.dispose();
@@ -172,13 +149,8 @@ public final class Art {
     }
 
     private static void loadFrictionMaps() {
-        // friction maps
         frictionMapDesert = new Pixmap(Gdx.files.internal("data/levels/tileset/desert-friction-easy.png"));
     }
-
-    //
-    // meshes
-    //
 
     private static void disposeFrictionMaps() {
         frictionMapDesert.dispose();
@@ -190,12 +162,10 @@ public final class Art {
 
         meshMissing = newTexture("data/3d/textures/missing-mesh.png", GraphicsUtils.EnableMipMapping);
 
-        // car textures
         meshCar = new ObjectMap<>();
         meshCar.put("car", newTexture("data/3d/textures/car.png", GraphicsUtils.EnableMipMapping));
         meshCar.put("car_yellow", newTexture("data/3d/textures/car_yellow.png", GraphicsUtils.EnableMipMapping));
 
-        // trees
         meshTreeTrunk = newTexture("data/3d/textures/trunk_6_col.png", GraphicsUtils.EnableMipMapping);
         meshTreeLeavesSpring = new Texture[7];
         for (int i = 0; i < 7; i++) {
@@ -207,13 +177,11 @@ public final class Art {
         meshMissing.dispose();
         meshTrackWall.dispose();
 
-        // car textures
         for (Texture t : meshCar.values()) {
             t.dispose();
         }
         meshCar.clear();
 
-        // trees
         for (int i = 0; i < 7; i++) {
             meshTreeLeavesSpring[i].dispose();
         }
@@ -231,10 +199,6 @@ public final class Art {
         wrongWay.setFilter(TextureFilter.Linear, TextureFilter.Linear);
     }
 
-    //
-    // particles
-    //
-
     private static void disposeCarGraphics() {
         wrongWay.dispose();
         cars.dispose();
@@ -243,10 +207,6 @@ public final class Art {
     private static void loadParticlesGraphics() {
         particles = new TextureAtlas("data/partfx/textures/pack.atlas");
     }
-
-    //
-    // fonts
-    //
 
     private static void disposeParticlesGraphics() {
         particles.dispose();
@@ -257,22 +217,14 @@ public final class Art {
         debugFont = split();
         debugFont[0][0].getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
-        // game fonts
+
         fontAtlas = new TextureAtlas("data/font/pack.atlas");
     }
-
-    //
-    // flags
-    //
 
     private static void disposeFonts() {
         debugFont[0][0].getTexture().dispose();
         fontAtlas.dispose();
     }
-
-    //
-    // helpers
-    //
 
     public static Texture getFlag(String countryCode) {
         String filename = countryCode + ".png";

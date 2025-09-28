@@ -175,7 +175,6 @@ public class TrackProgress extends Positionable {
             // player's advantage/disadvantage
             if (hasTarget && !data.isWarmUp) {
                 playerToTarget.set(Math.abs(data.playerToTarget), 0.125f);
-                // Gdx.app.log("", "p2t=" + data.playerToTarget + ", my=" + playerToTarget.get());
 
                 shProgress.setUniformf("progress", playerToTarget.get());
                 sprAdvantage.setColor(advantageColor);
