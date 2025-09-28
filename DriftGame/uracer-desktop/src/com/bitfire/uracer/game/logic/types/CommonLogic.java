@@ -7,7 +7,11 @@ import com.bitfire.uracer.URacer;
 import com.bitfire.uracer.configuration.DebugUtils;
 import com.bitfire.uracer.configuration.PhysicsUtils;
 import com.bitfire.uracer.configuration.UserProfile;
-import com.bitfire.uracer.game.*;
+import com.bitfire.uracer.game.GameEvents;
+import com.bitfire.uracer.game.GameInput;
+import com.bitfire.uracer.game.GameLogic;
+import com.bitfire.uracer.game.GameLogicObserver;
+import com.bitfire.uracer.game.Time;
 import com.bitfire.uracer.game.actors.CarPreset.Type;
 import com.bitfire.uracer.game.actors.GhostCar;
 import com.bitfire.uracer.game.events.GameLogicEvent;
@@ -63,7 +67,7 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
     protected PlayerGameTasks playerTasks;
     protected Messager messager;
     private final WrongWayMonitor wrongWayMonitor;
-    private final BoxedFloat accuDriftSeconds = new BoxedFloat(DriftBar.MaxSeconds);
+    private final BoxedFloat accuDriftSeconds = new BoxedFloat(DriftBar.MAX_SECONDS);
 
     public CommonLogic(UserProfile userProfile, GameWorld gameWorld, GameRenderer gameRenderer) {
         this.userProfile = userProfile;
@@ -226,8 +230,7 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
         progressData.reset(false);
         progressData.resetLogicStates();
 
-        // accuDriftSeconds.value = 0;
-        accuDriftSeconds.value = DriftBar.MaxSeconds;
+        accuDriftSeconds.value = DriftBar.MAX_SECONDS;
         isCurrentLapValid = true;
     }
 
@@ -241,8 +244,7 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
     }
 
     /**
-     * Restart and completely resets the game, removing any previous recording and playing replays FIXME not sure this is still
-     * useful, maybe for debugging purposes..
+     * Restart and completely resets the game, removing any previous recording and playing replays.
      */
     @Override
     public void resetGame() {
@@ -255,7 +257,7 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
     }
 
     protected void setAccuDriftSeconds() {
-        accuDriftSeconds.value = DriftBar.MaxSeconds;
+        accuDriftSeconds.value = DriftBar.MAX_SECONDS;
     }
 
     @Override
@@ -422,7 +424,7 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
 
     private void updateDriftSeconds() {
         if (DebugUtils.InfiniteDilationTime) {
-            accuDriftSeconds.value = DriftBar.MaxSeconds;
+            accuDriftSeconds.value = DriftBar.MAX_SECONDS;
         } else {
             // earn game-time seconds by drifting
             if (playerCar.driftState.isDrifting) {
@@ -446,7 +448,7 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
             // lose wall-clock seconds on collision
             accuDriftSeconds.value -= PhysicsUtils.Dt * 5 * getCollisionFactor();
 
-            accuDriftSeconds.value = MathUtils.clamp(accuDriftSeconds.value, 0, DriftBar.MaxSeconds);
+            accuDriftSeconds.value = MathUtils.clamp(accuDriftSeconds.value, 0, DriftBar.MAX_SECONDS);
         }
     }
 
