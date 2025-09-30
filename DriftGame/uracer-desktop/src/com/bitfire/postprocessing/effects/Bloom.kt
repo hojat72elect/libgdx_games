@@ -11,7 +11,7 @@ import com.bitfire.postprocessing.filters.Threshold
 
 class Bloom(fboWidth: Int, fboHeight: Int) : PostProcessorEffect() {
 
-    private val pingPongBuffer = PostProcessor.newPingPongBuffer(fboWidth, fboHeight, PostProcessor.getFramebufferFormat(), false)
+    private val pingPongBuffer = PostProcessor.newPingPongBuffer(fboWidth, fboHeight, PostProcessor.framebufferFormat, false)
     private val blur = Blur(fboWidth, fboHeight)
     private val threshold = Threshold()
     private val combine = Combine()

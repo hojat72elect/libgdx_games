@@ -35,7 +35,7 @@ import com.bitfire.uracer.utils.ReplayUtils.ticksToSeconds
 import com.bitfire.uracer.utils.ScaleUtils
 import com.bitfire.uracer.utils.SpriteBatchUtils.drawString
 import com.bitfire.utils.ItemsManager
-import java.util.*
+import java.util.EnumSet
 
 class DebugHelper(private val gameWorld: GameWorld, private val postProcessor: PostProcessor?, private val lapManager: LapManager, private val logic: GameLogic, private val input: Input) : GameTask(), DisposableTasks {
     private val renderables = ItemsManager<DebugRenderable>()
@@ -424,7 +424,7 @@ class DebugHelper(private val gameWorld: GameWorld, private val postProcessor: P
         val text = if (postProcessor == null)
             "No post-processor is active"
         else
-            "Post-processing fx count = " + postProcessor.enabledEffectsCount
+            "Post-processing fx count = " + postProcessor.getEnabledEffectsCount()
 
         drawString(batch, text, 0f, y.toFloat())
     }

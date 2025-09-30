@@ -56,7 +56,7 @@ public final class PostProcessing {
             postProcessor.setClearBits(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
             postProcessor.setClearColor(0, 0, 0, 1);
             postProcessor.setClearDepth(1);
-            postProcessor.setEnabled(true);
+            postProcessor.enabled = true;
             postProcessor.setBufferTextureWrap(TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
             hasPostProcessor = true;
             createEffects();

@@ -134,7 +134,7 @@ public final class GameRenderer {
         boolean postProcessorReady = false;
         boolean hasDest = (dest != null);
 
-        if (postProcessor != null && postProcessor.isEnabled()) {
+        if (postProcessor != null && postProcessor.enabled) {
             postProcessorReady = postProcessor.capture();
         }
 
@@ -254,7 +254,7 @@ public final class GameRenderer {
     }
 
     public void rebind() {
-        if (postProcessor != null && postProcessor.isEnabled()) {
+        if (postProcessor != null && postProcessor.enabled) {
             postProcessor.rebind();
         }
     }

@@ -24,13 +24,13 @@ class CrtMonitor(fboWidth: Int, fboHeight: Int, barrelDistortion: Boolean, priva
     // the effect is designed to work on the whole screen area, no small/mid size tricks!
     init {
         if (doblur) {
-            pingPongBuffer = PostProcessor.newPingPongBuffer(fboWidth, fboHeight, PostProcessor.getFramebufferFormat(), false)
+            pingPongBuffer = PostProcessor.newPingPongBuffer(fboWidth, fboHeight, PostProcessor.framebufferFormat, false)
             blur = Blur(fboWidth, fboHeight)
             blur?.passes = 1
             blur?.setAmount(1f)
             blur?.setType(Blur.BlurType.Gaussian3x3) // modern machines defocus
         } else {
-            buffer = FrameBuffer(PostProcessor.getFramebufferFormat(), fboWidth, fboHeight, false)
+            buffer = FrameBuffer(PostProcessor.framebufferFormat, fboWidth, fboHeight, false)
         }
     }
 

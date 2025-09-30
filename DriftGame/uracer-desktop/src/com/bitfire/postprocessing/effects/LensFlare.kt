@@ -17,7 +17,7 @@ import com.bitfire.postprocessing.filters.Lens
  */
 class LensFlare(fboWidth: Int, fboHeight: Int) : PostProcessorEffect() {
 
-    private val pingPongBuffer = PostProcessor.newPingPongBuffer(fboWidth, fboHeight, PostProcessor.getFramebufferFormat(), false)
+    private val pingPongBuffer = PostProcessor.newPingPongBuffer(fboWidth, fboHeight, PostProcessor.framebufferFormat, false)
     private val lens = Lens(fboWidth, fboHeight)
     private val blur = Blur(fboWidth, fboHeight)
     private val bias = Bias()
