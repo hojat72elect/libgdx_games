@@ -31,7 +31,7 @@ public class WrongWayMonitor {
                 // try mark wrong way
                 if (wrongWayTimer.isStopped()) {
                     wrongWayTimer.start();
-                } else if (wrongWayTimer.elapsed().tickSeconds > GameplaySettings.MaxSecondsWrongWayDetector) {
+                } else if (wrongWayTimer.elapsed().tickSeconds > GameplaySettings.MAX_SECONDS_WRONG_WAY_DETECTOR) {
                     wrongWayTimer.reset();
                     isWrongWay = true;
                     GameEvents.wrongWay.trigger(null, WrongWayMonitorEvent.Type.OnWrongWayBegins);

@@ -174,8 +174,8 @@ public abstract class BaseLogic extends CommonLogic {
             collisionFrontRatio = data.frontRatio;
             collisionFactor.value = 0;
 
-            final float min = GameplaySettings.CollisionFactorMinDurationMs;
-            final float max = GameplaySettings.CollisionFactorMaxDurationMs;
+            final float min = GameplaySettings.COLLISION_FACTOR_MIN_DURATION_MS;
+            final float max = GameplaySettings.COLLISION_FACTOR_MAX_DURATION_MS;
 
             GameTweener.start(Timeline
                     .createSequence()

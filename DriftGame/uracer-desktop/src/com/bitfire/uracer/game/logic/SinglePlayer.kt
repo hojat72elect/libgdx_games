@@ -243,7 +243,7 @@ class SinglePlayer(userProfile: UserProfile, gameWorld: GameWorld, gameRenderer:
                             var msg = ""
                             when (ri.reason) {
                                 DiscardReason.Null -> msg = "null replay (" + userreplay.path() + ")"
-                                DiscardReason.InvalidMinDuration -> msg = ("invalid lap (" + ri.discarded.secondsStr + "s < " + GameplaySettings.ReplayMinDurationSecs
+                                DiscardReason.InvalidMinDuration -> msg = ("invalid lap (" + ri.discarded.secondsStr + "s < " + GameplaySettings.REPLAY_MIN_DURATION_SECONDS
                                         + "s) (#" + ri.discarded.shortId + ")")
 
                                 DiscardReason.Invalid -> msg = "the specified replay is not valid. (" + userreplay.path() + ")"
@@ -366,7 +366,7 @@ class SinglePlayer(userProfile: UserProfile, gameWorld: GameWorld, gameRenderer:
                     }
 
                     DiscardReason.InvalidMinDuration -> {
-                        msg = "Invalid lap (" + ri.secondsStr + "s < " + GameplaySettings.ReplayMinDurationSecs + "s) " + id
+                        msg = "Invalid lap (" + ri.secondsStr + "s < " + GameplaySettings.REPLAY_MIN_DURATION_SECONDS + "s) " + id
                         duration = 10f
                     }
 
