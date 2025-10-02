@@ -1,13 +1,16 @@
 package com.bitfire.uracer;
 
-import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.bitfire.uracer.configuration.*;
+import com.bitfire.uracer.configuration.BootConfig;
+import com.bitfire.uracer.configuration.DebugUtils;
+import com.bitfire.uracer.configuration.PhysicsUtils;
+import com.bitfire.uracer.configuration.Storage;
+import com.bitfire.uracer.configuration.UserPreferences;
 import com.bitfire.uracer.game.GameLevels;
 import com.bitfire.uracer.game.logic.gametasks.hud.HudLabel;
 import com.bitfire.uracer.game.logic.gametasks.hud.HudLabelAccessor;
@@ -27,10 +30,18 @@ import com.bitfire.uracer.screen.ScreenFactory;
 import com.bitfire.uracer.screen.ScreenManager;
 import com.bitfire.uracer.screen.TransitionFactory;
 import com.bitfire.uracer.screen.TransitionFactory.TransitionType;
-import com.bitfire.uracer.utils.*;
+import com.bitfire.uracer.utils.AlgebraMath;
+import com.bitfire.uracer.utils.BoxedFloat;
+import com.bitfire.uracer.utils.BoxedFloatAccessor;
+import com.bitfire.uracer.utils.ConvertUtils;
+import com.bitfire.uracer.utils.ScaleUtils;
+import com.bitfire.uracer.utils.SpriteBatchUtils;
+import com.bitfire.uracer.utils.URacerRuntimeException;
 import com.bitfire.utils.ShaderLoader;
 
 import java.lang.reflect.Field;
+
+import aurelienribon.tweenengine.Tween;
 
 public class URacer implements ApplicationListener {
     public static final String Name = "URacer: The King Of The Drift";
@@ -317,7 +328,7 @@ public class URacer implements ApplicationListener {
         }
 
         public static float getTimeModFactor() {
-            return 1 - (URacer.timeMultiplier - TimeModulator.MinTime) / (TimeModulator.MaxTime - TimeModulator.MinTime);
+            return 1 - (URacer.timeMultiplier - TimeModulator.MIN_TIME) / (TimeModulator.MAX_TIME - TimeModulator.MIN_TIME);
         }
 
         public static void show(ScreenType screenType) {

@@ -21,6 +21,8 @@ import com.bitfire.uracer.utils.BoxedFloat;
 import com.bitfire.uracer.utils.BoxedFloatAccessor;
 import com.bitfire.uracer.utils.InterpolatedFloat;
 
+import org.jetbrains.annotations.NotNull;
+
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
@@ -188,7 +190,7 @@ public abstract class BaseLogic extends CommonLogic {
     }
 
     @Override
-    public void physicsForcesReady(CarEvent.Data eventData) {
+    public void physicsForcesReady(@NotNull CarEvent.Data eventData) {
         if (lapManager.isRecording()) {
             RecorderError recerror = lapManager.record(eventData.forces);
 
@@ -208,20 +210,20 @@ public abstract class BaseLogic extends CommonLogic {
     }
 
     @Override
-    public void ghostFadingOut(GhostCar ghost) {
-        if (ghost != null && ghost == getNextTarget()) {
+    public void ghostFadingOut(@NotNull GhostCar ghost) {
+        if (ghost == getNextTarget()) {
             playerTasks.hudPlayer.unHighlightNextTarget();
         }
     }
 
 
     @Override
-    public void driftBegins(PlayerCar player) {
+    public void driftBegins(@NotNull PlayerCar player) {
         playerTasks.hudPlayer.beginDrift();
     }
 
     @Override
-    public void driftEnds(PlayerCar player) {
+    public void driftEnds(@NotNull PlayerCar player) {
         playerTasks.hudPlayer.endDrift();
     }
 

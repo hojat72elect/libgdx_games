@@ -48,7 +48,6 @@ The list of files that need to be migrated from Java to kotlin:
 <li>ReplayManager (166)</li>
 <li>ReplayRecorder (80)</li>
 <li>PlayerLapCompletionMonitor (78)</li>
-<li>TimeModulator (48)</li>
 <li>WrongWayMonitor (54)</li>
 <li>CommonLogic (468)</li>
 <li>EventHandlers (180)</li>
