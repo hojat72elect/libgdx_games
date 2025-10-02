@@ -407,14 +407,14 @@ class SinglePlayer(userProfile: UserProfile, gameWorld: GameWorld, gameRenderer:
         }
     }
 
-    override fun ghostReplayStarted(ghost: GhostCar?) {
+    override fun ghostReplayStarted(ghost: GhostCar) {
         if (selectedBestReplayIdx > -1 && ghost == findGhostFor(lapManager.replays.get(selectedBestReplayIdx))) {
             playerTasks.hudPlayer.highlightNextTarget(ghost)
         }
     }
 
-    override fun ghostReplayEnded(ghost: GhostCar?) {
-        if (ghost != null && ghost == getNextTarget()) {
+    override fun ghostReplayEnded(ghost: GhostCar) {
+        if (ghost == getNextTarget()) {
             playerTasks.hudPlayer.unHighlightNextTarget()
         }
     }
