@@ -11,13 +11,9 @@ abstract class Positionable : Disposable {
     protected var position = Vector2()
 
     @JvmField
-    var scale = 0F
+    var scale = 1F
     var x = position.x
     var y = position.y
-
-    init {
-        this.scale = 1F
-    }
 
     override fun dispose() {}
 
@@ -28,8 +24,6 @@ abstract class Positionable : Disposable {
     fun setPosition(position: Vector2) {
         this.position.set(position)
     }
-
-
 
     abstract val width: Float
     abstract val height: Float
