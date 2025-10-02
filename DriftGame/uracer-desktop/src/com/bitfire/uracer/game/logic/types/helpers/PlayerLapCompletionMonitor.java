@@ -7,6 +7,8 @@ import com.bitfire.uracer.game.events.PlayerLapCompletionMonitorEvent;
 import com.bitfire.uracer.game.logic.helpers.GameTrack;
 import com.bitfire.uracer.game.logic.helpers.GameTrack.TrackState;
 
+import org.jetbrains.annotations.Nullable;
+
 public class PlayerLapCompletionMonitor {
     protected GameTrack gameTrack;
     protected float prev, completion, wuPrev, wuCompletion;
@@ -37,7 +39,7 @@ public class PlayerLapCompletionMonitor {
         return isWarmUp;
     }
 
-    public void update(Car car) {
+    public void update(@Nullable Car car) {
         if (car != null) {
             TrackState state = car.getTrackState();
 
