@@ -12,6 +12,8 @@ abstract class Positionable : Disposable {
 
     @JvmField
     var scale = 0F
+    var x = position.x
+    var y = position.y
 
     init {
         this.scale = 1F
@@ -27,17 +29,7 @@ abstract class Positionable : Disposable {
         this.position.set(position)
     }
 
-    var x: Float
-        get() = position.x
-        set(x) {
-            position.x = x
-        }
 
-    var y: Float
-        get() = position.y
-        set(y) {
-            position.y = y
-        }
 
     abstract val width: Float
     abstract val height: Float
