@@ -11,6 +11,8 @@ import com.bitfire.uracer.game.logic.gametasks.trackeffects.TrackEffectType;
 import com.bitfire.uracer.game.player.PlayerCar;
 import com.bitfire.uracer.resources.Art;
 
+import org.jetbrains.annotations.NotNull;
+
 public class PlayerSmokeTrails extends TrackEffect {
     public static final int MaxParticles = 1000;
     private static final int SmokeEffectsCount = 1;
@@ -47,7 +49,7 @@ public class PlayerSmokeTrails extends TrackEffect {
     }
 
     @Override
-    public void render(SpriteBatch batch) {
+    public void render(@NotNull SpriteBatch batch) {
         if (hasPlayer) {
 
             float dfactor = player.driftState.driftStrength;
@@ -144,7 +146,7 @@ public class PlayerSmokeTrails extends TrackEffect {
         }
 
         public void render(SpriteBatch batch, float x, float y) {
-            float delta = owner.isPaused() ? 0 : URacer.Game.getLastDeltaSecs() * URacer.timeMultiplier;
+            float delta = owner.isPaused ? 0 : URacer.Game.getLastDeltaSecs() * URacer.timeMultiplier;
             effect.setPosition(x, y);
             effect.draw(batch, delta);
         }

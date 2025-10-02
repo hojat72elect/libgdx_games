@@ -14,6 +14,8 @@ import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.ConvertUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 public class PlayerSkidMarks extends TrackEffect {
 
     private final int MaxSkidMarks;
@@ -98,7 +100,7 @@ public class PlayerSkidMarks extends TrackEffect {
     }
 
     @Override
-    public void render(SpriteBatch batch) {
+    public void render(@NotNull SpriteBatch batch) {
         float lifeRatio;
         SkidMark d;
         visibleSkidMarksCount = 0;

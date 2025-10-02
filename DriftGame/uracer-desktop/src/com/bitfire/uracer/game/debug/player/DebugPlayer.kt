@@ -34,7 +34,7 @@ class DebugPlayer(flag: RenderFlags, manager: GameTasksManager) : DebugRenderabl
         // meter skid marks count
         if (skidMarks != null) {
             meterSkidMarks = DebugMeter(100, 5)
-            meterSkidMarks!!.setLimits(0f, skidMarks.getMaxParticleCount().toFloat())
+            meterSkidMarks!!.setLimits(0f, skidMarks.maxParticleCount.toFloat())
             meterSkidMarks!!.setName("skid marks")
             meters.add(meterSkidMarks)
         }
@@ -42,7 +42,7 @@ class DebugPlayer(flag: RenderFlags, manager: GameTasksManager) : DebugRenderabl
         // meter smoke trails count
         if (smokeTrails != null) {
             meterSmokeTrails = DebugMeter(100, 5)
-            meterSmokeTrails!!.setLimits(0f, smokeTrails.getMaxParticleCount().toFloat())
+            meterSmokeTrails!!.setLimits(0f, smokeTrails.maxParticleCount.toFloat())
             meterSmokeTrails!!.setName("smoke trails")
             meters.add(meterSmokeTrails)
         }
@@ -81,10 +81,10 @@ class DebugPlayer(flag: RenderFlags, manager: GameTasksManager) : DebugRenderabl
 
 
             // skid marks count
-            meterSkidMarks?.value = skidMarks?.getParticleCount()?.toFloat() ?: 0F
+            meterSkidMarks?.value = skidMarks?.particleCount?.toFloat() ?: 0F
 
             // smoke trails count
-            meterSmokeTrails?.value = smokeTrails?.getParticleCount()?.toFloat() ?: 0F
+            meterSmokeTrails?.value = smokeTrails?.particleCount?.toFloat() ?: 0F
 
             // player's speed
             meterSpeed.value = mtSecToKmHour(player!!.instantSpeed)

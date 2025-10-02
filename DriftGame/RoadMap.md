@@ -28,7 +28,6 @@ The list of files that need to be migrated from Java to kotlin:
 <li>SoundEffect (83)</li>
 <li>PlayerSkidMarks (198)</li>
 <li>PlayerSmokeTrails (162)</li>
-<li>TrackEffect (38)</li>
 <li>GameTask (76)</li>
 <li>GameTasksManager (59)</li>
 <li>Hud (123)</li>
