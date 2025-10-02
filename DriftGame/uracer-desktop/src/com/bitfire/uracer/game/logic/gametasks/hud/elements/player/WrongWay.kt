@@ -38,8 +38,8 @@ class WrongWay : Positionable() {
         isShown = false
     }
 
-    override fun getWidth() = w
-    override fun getHeight() = h
+    override val width = w
+    override val height = h
 
     @JvmOverloads
     fun fadeIn(millisecs: Int = GraphicsUtils.DefaultFadeMilliseconds) {

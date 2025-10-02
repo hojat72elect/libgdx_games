@@ -28,7 +28,7 @@ public class HudLabelAccessor implements TweenAccessor<HudLabel> {
                 return 1;
 
             case SCALE:
-                returnValues[0] = target.getScale();
+                returnValues[0] = target.scale;
                 return 1;
 
             case OPACITY:
@@ -57,7 +57,7 @@ public class HudLabelAccessor implements TweenAccessor<HudLabel> {
                 break;
 
             case SCALE:
-                target.setScale(newValues[0]);
+                target.scale = newValues[0];
                 break;
 
             case OPACITY:

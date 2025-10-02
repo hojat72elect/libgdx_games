@@ -47,8 +47,8 @@ class DriftBar : Positionable() {
         driftStrength.clear()
     }
 
-    override fun getWidth() = 0F
-    override fun getHeight() = 0F
+    override val width = 0F
+    override val height= 0F
 
     fun setSeconds(seconds: Float) {
         this.seconds = MathUtils.clamp(seconds, 0F, MAX_SECONDS)
@@ -71,7 +71,7 @@ class DriftBar : Positionable() {
         var s = 0.55F + (timeFactor * 0.5F)
         var scl = cameraZoom * s
 
-        labelSeconds.setScale(scl)
+        labelSeconds.scale = scl
         labelSeconds.setString(String.format("%.02f", seconds) + "s", true)
         labelSeconds.setPosition(position.x, position.y + (90) * cameraZoom + (105) * timeFactor * cameraZoom)
         labelSeconds.render(batch)

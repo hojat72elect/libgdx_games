@@ -136,7 +136,7 @@ public class TrackProgress extends Positionable {
 
         if (lblAdvantage.getAlpha() > 0) {
             lblAdvantage.setColor(advantageColor);
-            lblAdvantage.setScale(s);
+            lblAdvantage.scale = s;
             lblAdvantage.setPosition(position.x, position.y - cameraZoom * 100 - cameraZoom * 100 * timeFactor - cameraZoom * 20
                     * adist);
             lblAdvantage.render(batch);

@@ -25,7 +25,7 @@ public final class HudLabel extends Positionable {
         alpha = 1f;
         this.isStatic = isStatic;
         this.font = BitmapFontFactory.get(fontFace);
-        setScale(1);
+        scale = 1;
     }
 
     public boolean isVisible() {

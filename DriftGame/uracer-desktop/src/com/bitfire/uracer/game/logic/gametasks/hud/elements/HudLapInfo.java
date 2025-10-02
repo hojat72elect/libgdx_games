@@ -30,7 +30,7 @@ public class HudLapInfo extends HudElement {
         this.lapManager = lapManager;
 
         curr = new HudLabel(FontFace.LcdWhite, "99.99", true);
-        curr.setScale(1.5f);
+        curr.scale = 1.5f;
         curr.setPosition((GraphicsUtils.REFERENCE_SCREEN_WIDTH / 2F), GraphicsUtils.REFERENCE_SCREEN_HEIGHT - curr.getHeight() / 2
                 - 10);
 

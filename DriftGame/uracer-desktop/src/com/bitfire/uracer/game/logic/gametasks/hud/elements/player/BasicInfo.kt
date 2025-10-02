@@ -23,7 +23,7 @@ class BasicInfo(profile: UserProfile) : Disposable {
 
     init {
         flagRegion.flip(false, true)
-        name.setPosition(w + borderX * 2 + name.getWidth() / 2, 42F)
+        name.setPosition(w + borderX * 2 + name.width / 2, 42F)
     }
 
     override fun dispose() {
