@@ -22,8 +22,8 @@ object ModelFactory {
 
     @JvmStatic
     fun dispose() {
-        // finally, delete cached shared still models
-        for (m in cachedStillModels!!.values()) m.dispose()
+        if (cachedStillModels != null)
+            for (m in cachedStillModels!!.values()) m.dispose()
 
         cachedStillModels?.clear()
         cachedMaterials?.clear()
