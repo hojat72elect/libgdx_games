@@ -17,6 +17,8 @@ import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.ConvertUtils;
 import com.bitfire.uracer.utils.VectorMathUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Encapsulates player's information shown on screen moving along the player position
  */
@@ -82,7 +84,7 @@ public final class HudPlayer extends HudElement {
     }
 
     @Override
-    public void onRender(SpriteBatch batch, float cameraZoom) {
+    public void onRender(@NotNull SpriteBatch batch, float cameraZoom) {
         if (hasPlayer) {
             // position elements at render time, so that source positions have been interpolated
             atPlayer(driftBar);

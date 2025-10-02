@@ -14,7 +14,6 @@ The list of files that need to be migrated from Java to kotlin:
 <li>CarHighlighter (283)</li>
 <li>HudLapInfo (99)</li>
 <li>HudPlayer (181)</li>
-<li>HudElement (19)</li>
 <li>HudLabel (114)</li>
 <li>HudLabelAccessor (72)</li>
 <li>Positionable (62)</li>
