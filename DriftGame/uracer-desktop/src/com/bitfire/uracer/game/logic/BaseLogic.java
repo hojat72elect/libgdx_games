@@ -1,9 +1,5 @@
 package com.bitfire.uracer.game.logic;
 
-import aurelienribon.tweenengine.Timeline;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenCallback;
-import aurelienribon.tweenengine.equations.Linear;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.bitfire.uracer.URacer;
@@ -24,6 +20,11 @@ import com.bitfire.uracer.utils.AlgebraMath;
 import com.bitfire.uracer.utils.BoxedFloat;
 import com.bitfire.uracer.utils.BoxedFloatAccessor;
 import com.bitfire.uracer.utils.InterpolatedFloat;
+
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.equations.Linear;
 
 public abstract class BaseLogic extends CommonLogic {
     private static final float ZoomNorm = 0.35f;
@@ -243,10 +244,6 @@ public abstract class BaseLogic extends CommonLogic {
     public void backInTrack() {
         outOfTrackTime.reset();
     }
-
-    //
-    // utilities
-    //
 
     /**
      * Invalidates the current lap and shows an error

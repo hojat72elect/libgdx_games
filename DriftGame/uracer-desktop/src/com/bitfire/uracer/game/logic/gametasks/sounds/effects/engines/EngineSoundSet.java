@@ -156,14 +156,6 @@ public abstract class EngineSoundSet {
 
         if (volume >= 0 && volume <= 1) {
             setVolume(track, volume * SoundManager.SfxVolumeMul);
-
-            // dbg
-            // if (track == 1 || track == 4) {
-            // setVolume(track, (float)volume * SoundManager.SfxVolumeMul);
-            // } else {
-            // setVolume(track, 0);
-            // }
-            // dbg
         }
     }
 }
