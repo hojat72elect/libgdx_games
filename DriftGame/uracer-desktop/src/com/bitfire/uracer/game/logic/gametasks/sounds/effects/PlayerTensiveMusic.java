@@ -154,7 +154,7 @@ public final class PlayerTensiveMusic extends SoundEffect {
         float tgt_vol;
 
         // limit to number of actual replays
-        musicIndexLimit = NumTracks - 2;// MathUtils.clamp(lapManager.getReplaysCount(), 0, NumTracks - 2);
+        musicIndexLimit = NumTracks - 2;
 
         if (hasPlayer) {
 

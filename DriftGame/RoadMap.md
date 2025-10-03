@@ -24,7 +24,6 @@ The list of files that need to be migrated from Java to kotlin:
 <li>PlayerEngineSoundEffect (182)</li>
 <li>PlayerImpactSoundEffect (126)</li>
 <li>PlayerTensiveMusic (218)</li>
-<li>SoundEffect (83)</li>
 <li>PlayerSkidMarks (198)</li>
 <li>PlayerSmokeTrails (162)</li>
 <li>Hud (123)</li>
