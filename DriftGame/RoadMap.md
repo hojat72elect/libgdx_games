@@ -35,7 +35,6 @@ The list of files that need to be migrated from Java to kotlin:
 <li>TrackEffects (155)</li>
 <li>CameraController (154)</li>
 <li>GameTrack (307)</li>
-<li>PlayerGameTasks (71)</li>
 <li>TrackProgressData (76)</li>
 <li>DefaultAnimator (393)</li>
 <li>LightShafts (195)</li>

@@ -39,6 +39,8 @@ import com.bitfire.uracer.game.world.GameWorld;
 import com.bitfire.uracer.resources.Art;
 import com.bitfire.uracer.utils.BoxedFloat;
 
+import org.jetbrains.annotations.NotNull;
+
 public abstract class CommonLogic implements GameLogic, GameLogicObserver {
     // player
     protected final EventHandlers eventHandlers;
@@ -141,11 +143,13 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
         return playerCar != null;
     }
 
+    @NotNull
     @Override
     public UserProfile getUserProfile() {
         return userProfile;
     }
 
+    @NotNull
     @Override
     public GhostCar getGhost(int handle) {
         return ghostCars[handle];
@@ -302,7 +306,7 @@ public abstract class CommonLogic implements GameLogic, GameLogicObserver {
     }
 
     @Override
-    public void showMessage(String message, float durationSecs, Message.Type type, Position position, Size size) {
+    public void showMessage(@NotNull String message, float durationSecs, @NotNull Message.Type type, @NotNull Position position, @NotNull Size size) {
         messager.show(message, durationSecs, type, position, size);
     }
 
