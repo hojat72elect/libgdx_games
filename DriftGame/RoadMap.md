@@ -18,7 +18,6 @@ The list of files that need to be migrated from Java to kotlin:
 <li>HudLabelAccessor (72)</li>
 <li>Positionable (62)</li>
 <li>Message (230)</li>
-<li>MessageAccessor (73)</li>
 <li>EngineF40 (219)</li>
 <li>EngineSoundSet (162)</li>
 <li>PlayerDriftSoundEffect (183)</li>
