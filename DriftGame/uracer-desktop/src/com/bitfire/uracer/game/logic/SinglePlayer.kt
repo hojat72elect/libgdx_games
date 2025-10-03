@@ -105,11 +105,9 @@ class SinglePlayer(userProfile: UserProfile, gameWorld: GameWorld, gameRenderer:
         }
     }
 
-    override fun getLastRecordedInfo(): ReplayResult {
-        return lastRecorded
-    }
+    override val lastRecordedInfo = lastRecorded
 
-    override fun getNextTarget(): GhostCar? {
+    override  fun getNextTarget() :GhostCar? {
         val maxreplays = lapManager.replays.size
         if (maxreplays > 0 && selectedBestReplayIdx >= 0 && selectedBestReplayIdx < maxreplays) {
             return findGhostFor(lapManager.replays.get(selectedBestReplayIdx))

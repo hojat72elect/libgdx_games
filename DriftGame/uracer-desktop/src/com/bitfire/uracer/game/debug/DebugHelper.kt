@@ -267,8 +267,8 @@ class DebugHelper(private val gameWorld: GameWorld, private val postProcessor: P
 
     private fun renderRankings(batch: SpriteBatch, y: Int) {
         val scale = 1f
-        val last = logic.getLastRecordedInfo()
-        val discarded = last != null && !last.is_accepted
+        val last = logic.lastRecordedInfo
+        val discarded = !last.is_accepted
 
         val xoffset = 5f
         var coord = y
@@ -281,12 +281,12 @@ class DebugHelper(private val gameWorld: GameWorld, private val postProcessor: P
         for (replay in lapManager.replays) {
             var lastAccepted = false
 
-            if (last != null && last.is_accepted)
+            if (last.is_accepted)
                 lastAccepted = last.accepted.id == replay.id
 
 
             if (lastAccepted) {
-                if (last!!.position == 1) batchColorStart(batch, 0f, 1f, 0f)
+                if (last.position == 1) batchColorStart(batch, 0f, 1f, 0f)
                 else batchColorStart(batch, 1f, 1f, 0f)
             } else {
                 if (isNextTarget(replay))
@@ -345,13 +345,13 @@ class DebugHelper(private val gameWorld: GameWorld, private val postProcessor: P
         if (hasPlayer) {
             val rank = ranks.get(playerIndex)
             rank.valid = true
-            rank.uid = logic.getUserProfile().userId
+            rank.uid = logic.userProfile.userId
             rank.player = true
             rank.isNextTarget = false
 
             // getTrackTimeInt is computed as an int cast (int)(trackTimeSeconds * AMath.ONE_ON_CMP_EPSILON)
             rank.ticks = lapManager.currentReplayTicks
-            rank.completion = if (logic.isWarmUp()) 0f else gameWorld.gameTrack.getTrackCompletion(player)
+            rank.completion = if (logic.isWarmUp) 0f else gameWorld.gameTrack.getTrackCompletion(player)
         }
 
         ranks.sort()
