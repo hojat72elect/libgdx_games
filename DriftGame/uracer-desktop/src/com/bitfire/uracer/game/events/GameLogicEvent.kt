@@ -25,7 +25,7 @@ class GameLogicEvent : Event<GameLogicEvent.Type, GameLogicEvent.Order>(Type::cl
         MINUS_4, MINUS_3, MINUS_2, MINUS_1, DEFAULT, PLUS_1, PLUS_2, PLUS_3, PLUS_4
     }
 
-    interface Listener : Event.Listener<Type, Order> {
+   fun interface Listener : Event.Listener<Type, Order> {
         override fun handle(source: Any, type: Type, order: Order)
     }
 }

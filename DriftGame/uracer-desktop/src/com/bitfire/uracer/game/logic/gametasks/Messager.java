@@ -10,6 +10,8 @@ import com.bitfire.uracer.game.logic.gametasks.messager.Message;
 import com.bitfire.uracer.game.logic.gametasks.messager.Message.Position;
 import com.bitfire.uracer.game.logic.gametasks.messager.Message.Size;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Messager extends GameTask {
     private static final GameRendererEvent.Type RenderEvent = GameRendererEvent.Type.BatchAfterPostProcessing;
     private static final GameRendererEvent.Order RenderOrder = GameRendererEvent.Order.MINUS_4;
@@ -18,7 +20,7 @@ public class Messager extends GameTask {
     private final Array<Array<Message>> messages;
     private final GameRendererEvent.Listener gameRendererEvent = new GameRendererEvent.Listener() {
         @Override
-        public void handle(Object source, Type type, Order order) {
+        public void handle(@NotNull Object source, @NotNull Type type, @NotNull Order order) {
             SpriteBatch batch = GameEvents.gameRenderer.batch;
 
             for (Position group : Position.values()) {

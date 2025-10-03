@@ -432,10 +432,10 @@ class DebugHelper(private val gameWorld: GameWorld, private val postProcessor: P
     private fun renderPlayerInfo(batch: SpriteBatch) {
         if (!hasPlayer) return
 
-        val carDesc = player.carDescriptor
-        val body = player.getBody()
+        val carDesc = player!!.carDescriptor
+        val body = player!!.getBody()
         val pos = GameRenderer.ScreenUtils.worldMtToScreen(body.position)
-        val state = player.state()
+        val state = player!!.state()
 
         drawString(batch, "vel_wc len =" + carDesc.velocityWorldCoordinates.len(), 0f, 0f)
         drawString(batch, "vel_wc [x=" + carDesc.velocityWorldCoordinates.x + ", y=" + carDesc.velocityWorldCoordinates.y + "]", 0f, Art.DebugFontWidth.toFloat())
