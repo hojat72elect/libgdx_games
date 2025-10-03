@@ -58,7 +58,6 @@ The list of files that need to be migrated from Java to kotlin:
 <li>CarStillModel (191)</li>
 <li>MapUtils (84)</li>
 <li>OrthographicAlignedStillModel (154)</li>
-<li>Box2DFactory (70)</li>
 <li>GameWorld (722)</li>
 <li>Game (102)</li>
 <li>GameInput (94)</li>
