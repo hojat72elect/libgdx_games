@@ -59,7 +59,6 @@ The list of files that need to be migrated from Java to kotlin:
 <li>GameLevels (259)</li>
 <li>Time (124)</li>
 <li>Art (293)</li>
-<li>BitmapFontFactory (92)</li>
 <li>Sounds (112)</li>
 <li>CrossFader (124)</li>
 <li>Fader (155)</li>
