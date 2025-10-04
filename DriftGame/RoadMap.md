@@ -54,7 +54,6 @@ The list of files that need to be migrated from Java to kotlin:
 <li>OrthographicAlignedStillModel (154)</li>
 <li>GameWorld (722)</li>
 <li>Game (102)</li>
-<li>GameInput (94)</li>
 <li>GameLevels (259)</li>
 <li>Time (124)</li>
 <li>Art (293)</li>
