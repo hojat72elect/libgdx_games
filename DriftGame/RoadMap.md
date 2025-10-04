@@ -52,7 +52,6 @@ The list of files that need to be migrated from Java to kotlin:
 <li>MainScreen (201)</li>
 <li>OptionsScreen (302)</li>
 <li>CarStillModel (191)</li>
-<li>MapUtils (84)</li>
 <li>OrthographicAlignedStillModel (154)</li>
 <li>GameWorld (722)</li>
 <li>Game (102)</li>
