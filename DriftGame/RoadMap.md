@@ -50,6 +50,7 @@ I faced some weird Runtime errors after converting this file to kotlin. Have to 
 <li>OrthographicAlignedStillModel (154)</li>
 <li>GameWorld (722)</li>
 <li>Game (102)</li>
+When I try to convert this file to kotlin, I face weird runtime errors, leave it for now. 
 <li>GameLevels (259)</li>
 <li>Time (124)</li>
 <li>Art (293)</li>
