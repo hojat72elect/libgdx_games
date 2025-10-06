@@ -38,6 +38,7 @@ It's really hard to convert this class to kotlin. I have to leave it for another
 <li>LapManager (112)</li>
 <li>Replay (276)</li>
 <li>ReplayInfo (90)</li>
+I faced some weird Runtime errors after converting this file to kotlin. Have to leave it for another time.
 <li>ReplayManager (166)</li>
 <li>ReplayRecorder (80)</li>
 <li>PlayerLapCompletionMonitor (78)</li>
