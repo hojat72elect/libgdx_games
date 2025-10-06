@@ -3,7 +3,6 @@ The list of files that need to be migrated from Java to kotlin:
 <ol>
 <li>CrtScreen (205)</li>
 <li>Filter (197)</li>
-<li>RadialBlur (104)</li>
 <li>PingPongBuffer (195)</li>
 <li>BootConfig (171)</li>
 <li>Car (267)</li>
