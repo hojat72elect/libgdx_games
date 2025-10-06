@@ -12,7 +12,6 @@ The list of files that need to be migrated from Java to kotlin:
 It's really hard to convert this class to kotlin. I have to leave it for another time.
 <li>TrackProgress (191)</li>
 <li>CarHighlighter (283)</li>
-<li>HudLapInfo (99)</li>
 <li>HudPlayer (181)</li>
 <li>HudLabel (114)</li>
 <li>Message (230)</li>
