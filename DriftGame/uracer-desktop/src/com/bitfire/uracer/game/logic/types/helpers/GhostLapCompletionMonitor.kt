@@ -7,20 +7,19 @@ import com.bitfire.uracer.game.logic.helpers.GameTrack
 
 class GhostLapCompletionMonitor(gameTrack: GameTrack) : PlayerLapCompletionMonitor(gameTrack) {
 
-    override fun isWarmUp() = false
-    override fun reset() {
+    override var isWarmUp = false
+
+    override fun reset(warmUp: Boolean) {
         super.reset(false)
     }
 
-    override fun update(car: Car?) {
-        if (car != null) {
-            val state = car.trackState
-            prev = completion
-            completion = gameTrack.getTrackCompletion(car)
-            if (hasFinished(prev, completion)) {
-                state.ghostArrived = true
-                GameEvents.ghostLapCompletion.trigger(car, GhostLapCompletionMonitorEvent.Type.OnLapCompleted)
-            }
+    override fun update(car: Car) {
+        val state = car.trackState
+        prev = completion
+        completion = gameTrack.getTrackCompletion(car)
+        if (hasFinished(prev, completion)) {
+            state.ghostArrived = true
+            GameEvents.ghostLapCompletion.trigger(car, GhostLapCompletionMonitorEvent.Type.OnLapCompleted)
         }
     }
 }
