@@ -16,7 +16,6 @@ It's really hard to convert this class to kotlin. I have to leave it for another
 <li>HudLapInfo (99)</li>
 <li>HudPlayer (181)</li>
 <li>HudLabel (114)</li>
-<li>HudLabelAccessor (72)</li>
 <li>Message (230)</li>
 <li>EngineF40 (219)</li>
 <li>EngineSoundSet (162)</li>

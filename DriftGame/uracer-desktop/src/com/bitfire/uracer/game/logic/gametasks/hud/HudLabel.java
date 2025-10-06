@@ -95,10 +95,6 @@ public final class HudLabel extends Positionable {
         }
     }
 
-    /**
-     * effects
-     */
-
     public void fadeIn(int milliseconds) {
         GameTweener.stop(this);
         GameTweener.start(Timeline.createSequence().push(
