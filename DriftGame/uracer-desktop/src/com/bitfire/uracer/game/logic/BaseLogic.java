@@ -58,16 +58,19 @@ public abstract class BaseLogic extends CommonLogic {
         super.dispose();
     }
 
+    @NotNull
     @Override
     public Time getOutOfTrackTimer() {
         return outOfTrackTime;
     }
 
+    @NotNull
     @Override
     public Time getTimeDilationTimer() {
         return dilationTime;
     }
 
+    @NotNull
     @Override
     public TimeModulator getTimeModulator() {
         return timeMod;
