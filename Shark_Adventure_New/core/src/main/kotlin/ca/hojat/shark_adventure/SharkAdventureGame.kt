@@ -1,29 +1,26 @@
 package ca.hojat.shark_adventure
 
-import com.badlogic.gdx.ApplicationAdapter
-import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.utils.ScreenUtils
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.utils.viewport.StretchViewport
+import ca.hojat.shark_adventure.game.GameScreen
+import ca.hojat.shark_adventure.screens.Screens
 
-/** [com.badlogic.gdx.ApplicationListener] implementation shared by all platforms.  */
-class SharkAdventureGame : ApplicationAdapter() {
-    private lateinit var batch: SpriteBatch
-    private lateinit var image: Texture
+class SharkAdventureGame : Game() {
+    @JvmField
+    var stage: Stage? = null
+
+    @JvmField
+    var batch: SpriteBatch? = null
 
     override fun create() {
         batch = SpriteBatch()
-        image = Texture("libgdx.png")
-    }
+        stage = Stage(StretchViewport(Screens.SCREEN_WIDTH.toFloat(), Screens.SCREEN_HEIGHT.toFloat()))
 
-    override fun render() {
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f)
-        batch.begin()
-        batch.draw(image, 140f, 210f)
-        batch.end()
-    }
-
-    override fun dispose() {
-        batch.dispose()
-        image.dispose()
+        Settings.load()
+        Assets.load()
+        Achievements.initialize()
+        setScreen(GameScreen(this, true))
     }
 }
