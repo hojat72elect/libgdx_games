@@ -1,0 +1,67 @@
+atlasMap.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+getReady
+  rotate: false
+  xy: 484, 2
+  size: 300, 86
+  orig: 300, 86
+  offset: 0, 0
+  index: -1
+tap
+  rotate: false
+  xy: 484, 168
+  size: 250, 215
+  orig: 250, 215
+  offset: 0, 0
+  index: -1
+bird1
+  rotate: false
+  xy: 736, 220
+  size: 34, 24
+  orig: 34, 24
+  offset: 0, 0
+  index: -1
+bird2
+  rotate: false
+  xy: 736, 194
+  size: 34, 24
+  orig: 34, 24
+  offset: 0, 0
+  index: -1
+bird3
+  rotate: false
+  xy: 736, 168
+  size: 34, 24
+  orig: 34, 24
+  offset: 0, 0
+  index: -1
+tuberiaUp
+  rotate: false
+  xy: 484, 385
+  size: 52, 326
+  orig: 52, 326
+  offset: 0, 0
+  index: -1
+tuberiaDown
+  rotate: false
+  xy: 538, 385
+  size: 52, 320
+  orig: 52, 320
+  offset: 0, 0
+  index: -1
+fondo
+  rotate: false
+  xy: 2, 2
+  size: 480, 800
+  orig: 480, 800
+  offset: 0, 0
+  index: -1
+gameOver
+  rotate: false
+  xy: 484, 90
+  size: 300, 76
+  orig: 300, 76
+  offset: 0, 0
+  index: -1
