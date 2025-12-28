@@ -1,1 +1,0 @@
-D:\Dev\Java\Repositories\libgdx_games\whatcolor\desktop\build\classes\java\main\com\salvai\whatcolor\desktop\DesktopLauncher.class
