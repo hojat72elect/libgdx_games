@@ -2,640 +2,542 @@ atlasMap.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-tiburon8
+backgroundFlip
   rotate: false
-  xy: 547, 664
-  size: 120, 78
-  orig: 120, 78
+  xy: 2, 2
+  size: 800, 480
+  orig: 800, 480
   offset: 0, 0
   index: -1
-minaOxido
+cajaBeige
   rotate: false
-  xy: 1022, 865
-  size: 56, 63
-  orig: 56, 63
+  xy: 1041, 1044
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-tiburon1
+Character2
   rotate: false
-  xy: 588, 824
-  size: 120, 78
-  orig: 120, 78
+  xy: 1062, 68
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-chain
+endPointGray
   rotate: false
-  xy: 364, 571
-  size: 16, 24
-  orig: 16, 24
+  xy: 909, 972
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-UI/energyBar
+UI/btSettingsPress
   rotate: false
-  xy: 630, 624
-  size: 150, 19
-  orig: 150, 19
+  xy: 755, 978
+  size: 75, 74
+  orig: 75, 74
   offset: 0, 0
   index: -1
-UI/btSonidoOff
+UI/btPlay
   rotate: false
-  xy: 317, 922
+  xy: 80, 993
   size: 75, 75
   orig: 75, 75
   offset: 0, 0
   index: -1
-tiburon4
+cajaDarkPurple
   rotate: false
-  xy: 547, 664
-  size: 120, 78
-  orig: 120, 78
-  offset: 0, 0
-  index: -1
-explosion7
-  rotate: false
-  xy: 869, 686
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-suelo2
-  rotate: false
-  xy: 2, 246
-  size: 1024, 120
-  orig: 1024, 120
-  offset: 0, 0
-  index: -1
-turbo
-  rotate: false
-  xy: 1028, 103
-  size: 96, 48
-  orig: 96, 48
+  xy: 975, 1044
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 UI/btRefreshPress
   rotate: false
-  xy: 692, 981
-  size: 75, 75
-  orig: 75, 75
+  xy: 311, 1027
+  size: 75, 74
+  orig: 75, 74
   offset: 0, 0
   index: -1
-blastHit3
+Character6
   rotate: false
-  xy: 1000, 997
-  size: 40, 40
-  orig: 40, 40
+  xy: 1041, 714
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-UI/btFirePress
+UI/btOn
   rotate: false
-  xy: 791, 664
-  size: 75, 75
-  orig: 75, 75
+  xy: 755, 484
+  size: 25, 21
+  orig: 25, 21
   offset: 0, 0
   index: -1
 UI/btHomePress
   rotate: false
-  xy: 846, 975
+  xy: 755, 516
   size: 75, 75
   orig: 75, 75
   offset: 0, 0
   index: -1
-SmallFishGreen
+endPointBlue
   rotate: false
-  xy: 472, 624
-  size: 40, 24
-  orig: 40, 24
+  xy: 909, 1038
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-tiburonFire3
+endPointBeige
   rotate: false
-  xy: 394, 911
-  size: 120, 78
-  orig: 120, 78
+  xy: 909, 582
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-minaGris
+cajaGray
   rotate: false
-  xy: 1000, 931
-  size: 56, 64
-  orig: 56, 64
-  offset: 0, 0
-  index: -1
-explosion5
-  rotate: false
-  xy: 1058, 741
-  size: 60, 60
-  orig: 60, 60
+  xy: 920, 846
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 UI/btFacebookPress
   rotate: false
-  xy: 1012, 664
+  xy: 80, 915
+  size: 75, 76
+  orig: 75, 76
+  offset: 0, 0
+  index: -1
+UI/btClosePress
+  rotate: false
+  xy: 832, 668
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 2, 2
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+UI/backgroundTime
+  rotate: false
+  xy: 2, 873
+  size: 121, 40
+  orig: 121, 40
+  offset: 0, 0
+  index: -1
+Character3
+  rotate: false
+  xy: 1062, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cajaRed
+  rotate: false
+  xy: 909, 714
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cajaYellow
+  rotate: false
+  xy: 909, 648
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/levelStar
+  rotate: false
+  xy: 480, 873
+  size: 15, 14
+  orig: 15, 14
+  offset: 0, 0
+  index: -1
+cajaPurple
+  rotate: false
+  xy: 920, 780
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btMas
+  rotate: false
+  xy: 157, 993
   size: 75, 75
   orig: 75, 75
   offset: 0, 0
   index: -1
-explosion8
+UI/font32Red
   rotate: false
-  xy: 869, 624
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-MediumFishBrown
-  rotate: false
-  xy: 648, 1071
-  size: 65, 52
-  orig: 65, 52
-  offset: 0, 0
-  index: -1
-UI/backgroundMenu
-  rotate: false
-  xy: 344, 664
-  size: 201, 85
-  orig: 201, 85
-  offset: 0, 0
-  index: -1
-barrilRojo
-  rotate: false
-  xy: 131, 552
-  size: 43, 68
-  orig: 43, 68
-  offset: 0, 0
-  index: -1
-blastHit2
-  rotate: false
-  xy: 288, 624
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-explosion1
-  rotate: false
-  xy: 1012, 1054
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-UI/titulo
-  rotate: false
-  xy: 448, 490
-  size: 565, 132
-  orig: 565, 132
+  xy: 804, 2
+  size: 256, 512
+  orig: 256, 512
   offset: 0, 0
   index: -1
 UI/btPausa
   rotate: false
-  xy: 710, 821
-  size: 75, 75
-  orig: 75, 75
+  xy: 634, 998
+  size: 75, 74
+  orig: 75, 74
   offset: 0, 0
   index: -1
-tiburon7
+UI/font32
   rotate: false
-  xy: 516, 911
-  size: 120, 78
-  orig: 120, 78
+  xy: 497, 484
+  size: 256, 512
+  orig: 256, 512
   offset: 0, 0
   index: -1
-UI/btAchievements
+UI/btLevel
   rotate: false
-  xy: 935, 1041
-  size: 75, 75
-  orig: 75, 75
+  xy: 2, 915
+  size: 76, 83
+  orig: 76, 83
   offset: 0, 0
   index: -1
-UI/redBar
+Character7
   rotate: false
-  xy: 266, 602
-  size: 150, 20
-  orig: 150, 20
+  xy: 1041, 648
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-tiburonFire4
+cajaDarkBrown
   rotate: false
-  xy: 344, 831
-  size: 120, 78
-  orig: 120, 78
+  xy: 975, 582
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-barrilAmarillo
+UI/clock
   rotate: false
-  xy: 221, 552
-  size: 43, 68
-  orig: 43, 68
-  offset: 0, 0
-  index: -1
-blastHit6
-  rotate: false
-  xy: 316, 552
-  size: 46, 46
-  orig: 46, 46
-  offset: 0, 0
-  index: -1
-carne
-  rotate: false
-  xy: 394, 552
-  size: 48, 48
-  orig: 48, 48
+  xy: 234, 1035
+  size: 72, 75
+  orig: 72, 75
   offset: 0, 0
   index: -1
 UI/btIzqPress
   rotate: false
-  xy: 787, 821
+  xy: 403, 873
   size: 75, 75
   orig: 75, 75
   offset: 0, 0
   index: -1
 UI/btHome
   rotate: false
-  xy: 858, 1052
+  xy: 755, 593
   size: 75, 75
   orig: 75, 75
   offset: 0, 0
   index: -1
-UI/btTwitter
+UI/btMasPress
   rotate: false
-  xy: 240, 922
+  xy: 2, 1000
   size: 75, 75
   orig: 75, 75
+  offset: 0, 0
+  index: -1
+UI/btAchievement
+  rotate: false
+  xy: 843, 896
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+UI/levelOff
+  rotate: false
+  xy: 234, 915
+  size: 9, 9
+  orig: 9, 9
   offset: 0, 0
   index: -1
 UI/btPausaPress
   rotate: false
-  xy: 710, 744
+  xy: 557, 998
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+UI/btDownPress
+  rotate: false
+  xy: 755, 670
   size: 75, 75
   orig: 75, 75
   offset: 0, 0
   index: -1
-tiburon3
+UI/btOff
   rotate: false
-  xy: 588, 744
-  size: 120, 78
-  orig: 120, 78
+  xy: 711, 998
+  size: 25, 21
+  orig: 25, 21
   offset: 0, 0
   index: -1
-UI/btFire
+UI/backgroundMoves
   rotate: false
-  xy: 935, 624
-  size: 75, 75
-  orig: 75, 75
+  xy: 125, 873
+  size: 121, 40
+  orig: 121, 40
   offset: 0, 0
   index: -1
-SmallFishYellow
+UI/btLevelLocked
   rotate: false
-  xy: 388, 624
-  size: 40, 24
-  orig: 40, 24
-  offset: 0, 0
-  index: -1
-explosion2
-  rotate: false
-  xy: 1058, 992
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-UI/backgroundTitulo
-  rotate: false
-  xy: 514, 624
-  size: 80, 21
-  orig: 80, 21
-  offset: 0, 0
-  index: -1
-MediumFishPurple
-  rotate: false
-  xy: 514, 1071
-  size: 65, 52
-  orig: 65, 52
-  offset: 0, 0
-  index: -1
-tiburon6
-  rotate: false
-  xy: 547, 664
-  size: 120, 78
-  orig: 120, 78
-  offset: 0, 0
-  index: -1
-tiburonFire1
-  rotate: false
-  xy: 466, 751
-  size: 120, 78
-  orig: 120, 78
+  xy: 248, 873
+  size: 76, 83
+  orig: 76, 83
   offset: 0, 0
   index: -1
 UI/btLeaderboard
   rotate: false
-  xy: 787, 744
-  size: 75, 75
-  orig: 75, 75
+  xy: 832, 592
+  size: 75, 74
+  orig: 75, 74
   offset: 0, 0
   index: -1
-torpedo
+Character4
   rotate: false
-  xy: 322, 624
-  size: 64, 24
-  orig: 64, 24
-  offset: 0, 0
-  index: -1
-blastHit1
-  rotate: false
-  xy: 596, 624
-  size: 32, 20
-  orig: 32, 20
-  offset: 0, 0
-  index: -1
-UI/btUp
-  rotate: false
-  xy: 163, 922
-  size: 75, 75
-  orig: 75, 75
-  offset: 0, 0
-  index: -1
-tiburon2
-  rotate: false
-  xy: 669, 664
-  size: 120, 78
-  orig: 120, 78
-  offset: 0, 0
-  index: -1
-UI/gameOver2
-  rotate: false
-  xy: 86, 490
-  size: 359, 60
-  orig: 359, 60
-  offset: 0, 0
-  index: -1
-blast
-  rotate: false
-  xy: 715, 1058
+  xy: 1052, 846
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-tiburonFire5
+cajaBrown
   rotate: false
-  xy: 344, 751
-  size: 120, 78
-  orig: 120, 78
+  xy: 986, 846
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-UI/btMusicOff
+endPointBrown
   rotate: false
-  xy: 715, 898
+  xy: 843, 1038
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btUp
+  rotate: false
+  xy: 326, 950
   size: 75, 75
   orig: 75, 75
+  offset: 0, 0
+  index: -1
+cajaBlack
+  rotate: false
+  xy: 1041, 978
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+Character10
+  rotate: false
+  xy: 1062, 134
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+UI/btSettings
+  rotate: false
+  xy: 480, 998
+  size: 75, 74
+  orig: 75, 74
+  offset: 0, 0
+  index: -1
+endPointBlack
+  rotate: false
+  xy: 909, 516
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 UI/btDerPress
   rotate: false
-  xy: 864, 810
+  xy: 755, 824
   size: 75, 75
   orig: 75, 75
   offset: 0, 0
   index: -1
-blastHit5
+Character8
   rotate: false
-  xy: 266, 552
-  size: 48, 48
-  orig: 48, 48
+  xy: 1041, 582
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-barrilNegro
+cajaDarkBlack
   rotate: false
-  xy: 176, 552
-  size: 43, 68
-  orig: 43, 68
+  xy: 975, 714
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-corazon
+UI/btDown
   rotate: false
-  xy: 448, 1071
-  size: 64, 55
-  orig: 64, 55
-  offset: 0, 0
-  index: -1
-UI/btSonido
-  rotate: false
-  xy: 638, 904
+  xy: 755, 747
   size: 75, 75
   orig: 75, 75
+  offset: 0, 0
+  index: -1
+endPointPurple
+  rotate: false
+  xy: 843, 972
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+endPointRed
+  rotate: false
+  xy: 777, 1054
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 UI/btUpPress
   rotate: false
-  xy: 86, 922
+  xy: 326, 873
   size: 75, 75
   orig: 75, 75
   offset: 0, 0
   index: -1
-Bubble
+Character1
   rotate: false
-  xy: 364, 552
-  size: 17, 17
-  orig: 17, 17
+  xy: 1062, 200
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 UI/btFacebook
   rotate: false
-  xy: 935, 701
-  size: 75, 75
-  orig: 75, 75
+  xy: 157, 915
+  size: 75, 76
+  orig: 75, 76
+  offset: 0, 0
+  index: -1
+cajaDarkRed
+  rotate: false
+  xy: 975, 978
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 UI/backgroundVentana
   rotate: false
-  xy: 1028, 2
-  size: 96, 99
-  orig: 96, 99
+  xy: 2, 484
+  size: 493, 387
+  orig: 493, 387
   offset: 0, 0
   index: -1
-UI/btTwitterPress
+cajaDarkYellow
   rotate: false
-  xy: 946, 855
-  size: 74, 74
-  orig: 74, 74
+  xy: 975, 912
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-submarinoRojo
+pixelNegro
   rotate: false
-  xy: 188, 999
-  size: 128, 112
-  orig: 128, 112
+  xy: 234, 926
+  size: 5, 5
+  orig: 5, 5
   offset: 0, 0
   index: -1
-MediumFishGreen
+cajaDarkBlue
   rotate: false
-  xy: 581, 1071
-  size: 65, 52
-  orig: 65, 52
+  xy: 975, 648
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-SmallFishRed
+cajaDarkGray
   rotate: false
-  xy: 430, 624
-  size: 40, 24
-  orig: 40, 24
+  xy: 975, 516
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-explosion3
+cajaBlue
   rotate: false
-  xy: 1058, 930
-  size: 60, 60
-  orig: 60, 60
+  xy: 1041, 912
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-tiburonDead
+UI/btAchievementPress
   rotate: false
-  xy: 466, 831
-  size: 120, 78
-  orig: 120, 78
+  xy: 832, 820
+  size: 75, 74
+  orig: 75, 74
   offset: 0, 0
   index: -1
-UI/backgroundProgressBar
+Character5
   rotate: false
-  xy: 86, 624
-  size: 200, 35
-  orig: 200, 35
+  xy: 1052, 780
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-suelo
+UI/btPlayPress
   rotate: false
-  xy: 2, 368
-  size: 1024, 120
-  orig: 1024, 120
-  offset: 0, 0
-  index: -1
-sueloAtras
-  rotate: false
-  xy: 2, 2
-  size: 1024, 120
-  orig: 1024, 120
-  offset: 0, 0
-  index: -1
-explosion6
-  rotate: false
-  xy: 869, 748
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-fondo2
-  rotate: false
-  xy: 2, 490
-  size: 82, 507
-  orig: 82, 507
-  offset: 0, 0
-  index: -1
-blastHit4
-  rotate: false
-  xy: 1017, 803
-  size: 44, 44
-  orig: 44, 44
-  offset: 0, 0
-  index: -1
-UI/gameOver
-  rotate: false
-  xy: 2, 999
-  size: 184, 124
-  orig: 184, 124
-  offset: 0, 0
-  index: -1
-UI/btAchievementsPress
-  rotate: false
-  xy: 923, 964
+  xy: 234, 958
   size: 75, 75
   orig: 75, 75
   offset: 0, 0
   index: -1
-fondo
+UI/btClose
   rotate: false
-  xy: 1028, 153
-  size: 83, 509
-  orig: 83, 509
-  offset: 0, 0
-  index: -1
-submarinoAmarillo
-  rotate: false
-  xy: 318, 999
-  size: 128, 112
-  orig: 128, 112
-  offset: 0, 0
-  index: -1
-UI/btMusic
-  rotate: false
-  xy: 769, 975
-  size: 75, 75
-  orig: 75, 75
-  offset: 0, 0
-  index: -1
-tiburon5
-  rotate: false
-  xy: 570, 991
-  size: 120, 78
-  orig: 120, 78
+  xy: 832, 744
+  size: 75, 74
+  orig: 75, 74
   offset: 0, 0
   index: -1
 UI/btLeaderboardPress
   rotate: false
-  xy: 781, 1052
-  size: 75, 75
-  orig: 75, 75
+  xy: 832, 516
+  size: 75, 74
+  orig: 75, 74
   offset: 0, 0
   index: -1
-barrilVerde
+endPointYellow
   rotate: false
-  xy: 86, 552
-  size: 43, 68
-  orig: 43, 68
-  offset: 0, 0
-  index: -1
-FontGrande
-  rotate: false
-  xy: 86, 664
-  size: 256, 256
-  orig: 256, 256
-  offset: 0, 0
-  index: -1
-tiburonFire2
-  rotate: false
-  xy: 448, 991
-  size: 120, 78
-  orig: 120, 78
+  xy: 711, 1054
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 UI/btIzq
   rotate: false
-  xy: 792, 898
+  xy: 403, 950
   size: 75, 75
   orig: 75, 75
   offset: 0, 0
   index: -1
-suelo2Atras
+cajaDarkBeige
   rotate: false
-  xy: 2, 124
-  size: 1024, 120
-  orig: 1024, 120
+  xy: 986, 780
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+Character9
+  rotate: false
+  xy: 1041, 516
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 UI/btRefresh
   rotate: false
-  xy: 941, 778
-  size: 74, 75
-  orig: 74, 75
+  xy: 388, 1027
+  size: 75, 74
+  orig: 75, 74
   offset: 0, 0
   index: -1
 UI/btDer
   rotate: false
-  xy: 869, 887
+  xy: 755, 901
   size: 75, 75
   orig: 75, 75
-  offset: 0, 0
-  index: -1
-explosion4
-  rotate: false
-  xy: 1063, 803
-  size: 60, 60
-  orig: 60, 60
   offset: 0, 0
   index: -1

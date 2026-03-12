@@ -1,0 +1,35 @@
+package ca.hojat.sokoban.lwjgl3;
+
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+
+import ca.hojat.sokoban.SokobanGame;
+
+
+public class Lwjgl3Launcher {
+    public static void main(String[] args) {
+        if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
+        createApplication();
+    }
+
+    private static void createApplication() {
+        new Lwjgl3Application(new SokobanGame(), getDefaultConfiguration());
+    }
+
+    private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
+        Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
+        configuration.setTitle("Shark_Adventure");
+
+        configuration.useVsync(true);
+
+        /*
+         * Limits FPS to the refresh rate of the currently active monitor, plus 1 to try to match fractional
+         *  refresh rates. The Vsync setting above should limit the actual FPS to match the monitor.
+         */
+        configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate + 1);
+
+        configuration.setWindowedMode(1920, 1080);
+        configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
+        return configuration;
+    }
+}
