@@ -2,430 +2,269 @@ atlasMap.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-Animaciones/newExplosion8
+barTimer
   rotate: false
-  xy: 800, 871
-  size: 70, 69
-  orig: 70, 69
+  xy: 1232, 2
+  size: 10, 10
+  orig: 10, 10
   offset: 0, 0
   index: -1
-MenuPrincipal/btFacebook
+btAchievement
   rotate: false
-  xy: 968, 311
-  size: 30, 29
-  orig: 30, 29
+  xy: 930, 164
+  size: 69, 69
+  orig: 69, 69
   offset: 0, 0
   index: -1
-calle
+btAmazon
   rotate: false
-  xy: 516, 2
-  size: 482, 244
-  orig: 482, 244
+  xy: 1189, 88
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
   index: -1
-Carros/BMW X6
+btBack
   rotate: false
-  xy: 98, 871
-  size: 83, 184
-  orig: 83, 184
+  xy: 1001, 164
+  size: 69, 69
+  orig: 69, 69
   offset: 0, 0
   index: -1
-Animaciones/newExplosion5
+btDisabled
   rotate: false
-  xy: 656, 768
-  size: 70, 69
-  orig: 70, 69
+  xy: 826, 216
+  size: 20, 16
+  orig: 20, 16
   offset: 0, 0
   index: -1
-Shop/btSelected
+btEnabled
   rotate: false
-  xy: 934, 538
-  size: 38, 16
-  orig: 38, 16
+  xy: 826, 234
+  size: 20, 16
+  orig: 20, 16
   offset: 0, 0
   index: -1
-Carros/banshee
+btFacebook
   rotate: false
-  xy: 622, 871
-  size: 85, 162
-  orig: 85, 162
+  xy: 989, 306
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
   index: -1
-Carros/Mazda RX8
+btFacebookText
   rotate: false
-  xy: 434, 516
-  size: 76, 178
-  orig: 76, 178
+  xy: 1077, 135
+  size: 100, 50
+  orig: 100, 50
   offset: 0, 0
   index: -1
-Carros/Seat Ibiza
+btFalse
   rotate: false
-  xy: 183, 871
-  size: 92, 183
-  orig: 92, 183
+  xy: 1072, 187
+  size: 69, 69
+  orig: 69, 69
   offset: 0, 0
   index: -1
-Animaciones/newExplosion7
+btGoogle
   rotate: false
-  xy: 800, 942
-  size: 70, 69
-  orig: 70, 69
+  xy: 826, 319
+  size: 50, 50
+  orig: 50, 50
   offset: 0, 0
   index: -1
-Carros/diablo
+btGoogleText
   rotate: false
-  xy: 434, 696
-  size: 76, 167
-  orig: 76, 167
+  xy: 750, 164
+  size: 100, 50
+  orig: 100, 50
   offset: 0, 0
   index: -1
-Shop/upgradeOff
+btHelp
   rotate: false
-  xy: 984, 376
-  size: 14, 18
-  orig: 14, 18
+  xy: 1143, 254
+  size: 69, 69
+  orig: 69, 69
   offset: 0, 0
   index: -1
-Carros/Honda CRV
+btJugar
   rotate: false
-  xy: 434, 865
-  size: 90, 191
-  orig: 90, 191
+  xy: 919, 306
+  size: 68, 56
+  orig: 68, 56
   offset: 0, 0
   index: -1
-Carros/Chevrolet Crossfire
+btLeaderboard
   rotate: false
-  xy: 896, 612
-  size: 99, 199
-  orig: 99, 199
+  xy: 930, 235
+  size: 69, 69
+  orig: 69, 69
   offset: 0, 0
   index: -1
-Carros/tornado
+btRate
   rotate: false
-  xy: 2, 871
-  size: 94, 189
-  orig: 94, 189
+  xy: 1001, 235
+  size: 69, 69
+  orig: 69, 69
   offset: 0, 0
   index: -1
-Carros/Citroen C4
+btShare
   rotate: false
-  xy: 182, 516
-  size: 91, 198
-  orig: 91, 198
+  xy: 1072, 258
+  size: 69, 69
+  orig: 69, 69
   offset: 0, 0
   index: -1
-Animaciones/newExplosion18
+btTrue
   rotate: false
-  xy: 146, 720
-  size: 70, 69
-  orig: 70, 69
+  xy: 848, 248
+  size: 69, 69
+  orig: 69, 69
   offset: 0, 0
   index: -1
-Animaciones/newExplosion15
+btTryAgain
   rotate: false
-  xy: 218, 787
-  size: 70, 69
-  orig: 70, 69
+  xy: 1143, 325
+  size: 69, 69
+  orig: 69, 69
   offset: 0, 0
   index: -1
-Animaciones/newExplosion2
+dialogRanking
   rotate: false
-  xy: 74, 721
-  size: 70, 69
-  orig: 70, 69
+  xy: 1077, 24
+  size: 110, 109
+  orig: 110, 109
   offset: 0, 0
   index: -1
-Carros/bullet
+dialogVentana
   rotate: false
-  xy: 277, 871
-  size: 81, 179
-  orig: 81, 179
+  xy: 852, 164
+  size: 76, 82
+  orig: 76, 82
   offset: 0, 0
   index: -1
-Carros/Volkswagen Scirocco
+flags/flag_esp
   rotate: false
-  xy: 896, 813
-  size: 98, 194
-  orig: 98, 194
+  xy: 750, 330
+  size: 48, 36
+  orig: 48, 36
   offset: 0, 0
   index: -1
-Carros/Audi S5
+flags/flag_frf
   rotate: false
-  xy: 92, 516
-  size: 88, 202
-  orig: 88, 202
+  xy: 750, 368
+  size: 48, 36
+  orig: 48, 36
   offset: 0, 0
   index: -1
-fondoPuntuaciones
+flags/flag_gbp
   rotate: false
-  xy: 798, 478
-  size: 134, 81
-  orig: 134, 81
+  xy: 1041, 329
+  size: 48, 36
+  orig: 48, 36
   offset: 0, 0
   index: -1
-Animaciones/newExplosion17
+flags/flag_jpy
   rotate: false
-  xy: 146, 791
-  size: 70, 69
-  orig: 70, 69
+  xy: 989, 358
+  size: 48, 36
+  orig: 48, 36
   offset: 0, 0
   index: -1
-coin
+flags/flag_more
   rotate: false
-  xy: 987, 342
-  size: 10, 32
-  orig: 10, 32
+  xy: 1091, 329
+  size: 48, 36
+  orig: 48, 36
   offset: 0, 0
   index: -1
-MenuPrincipal/btMusica
+flags/flag_pte
   rotate: false
-  xy: 290, 798
-  size: 67, 67
-  orig: 67, 67
+  xy: 1039, 367
+  size: 48, 36
+  orig: 48, 36
   offset: 0, 0
   index: -1
-Animaciones/newExplosion10
+flags/flag_rub
   rotate: false
-  xy: 290, 658
-  size: 70, 69
-  orig: 70, 69
+  xy: 1089, 367
+  size: 48, 36
+  orig: 48, 36
   offset: 0, 0
   index: -1
-Animaciones/newExplosion9
+flags/flag_twd
   rotate: false
-  xy: 512, 768
-  size: 70, 69
-  orig: 70, 69
+  xy: 878, 364
+  size: 48, 36
+  orig: 48, 36
   offset: 0, 0
   index: -1
-barraMarcadorRojo
-  rotate: false
-  xy: 896, 593
-  size: 101, 17
-  orig: 101, 17
-  offset: 0, 0
-  index: -1
-barraMarcadorVerde
-  rotate: false
-  xy: 896, 574
-  size: 101, 17
-  orig: 101, 17
-  offset: 0, 0
-  index: -1
-Shop/separadorVertical
-  rotate: false
-  xy: 977, 383
-  size: 5, 7
-  orig: 5, 7
-  offset: 0, 0
-  index: -1
-Animaciones/newExplosion12
-  rotate: false
-  xy: 275, 587
-  size: 70, 69
-  orig: 70, 69
-  offset: 0, 0
-  index: -1
-Carros/Mazda 6
-  rotate: false
-  xy: 2, 516
-  size: 88, 203
-  orig: 88, 203
-  offset: 0, 0
-  index: -1
-Shop/btNoAds
-  rotate: false
-  xy: 934, 478
-  size: 61, 58
-  orig: 61, 58
-  offset: 0, 0
-  index: -1
-Shop/btPurchased
-  rotate: false
-  xy: 934, 556
-  size: 38, 16
-  orig: 38, 16
-  offset: 0, 0
-  index: -1
-fontChico
-  rotate: false
-  xy: 516, 510
-  size: 256, 256
-  orig: 256, 256
-  offset: 0, 0
-  index: -1
-Carros/Fiat 500 Lounge
-  rotate: false
-  xy: 526, 871
-  size: 94, 174
-  orig: 94, 174
-  offset: 0, 0
-  index: -1
-font
+font100
   rotate: false
   xy: 2, 2
-  size: 512, 512
-  orig: 512, 512
+  size: 746, 694
+  orig: 746, 694
   offset: 0, 0
   index: -1
-Animaciones/newExplosion4
+font32
   rotate: false
-  xy: 2, 721
-  size: 70, 69
-  orig: 70, 69
+  xy: 2, 698
+  size: 538, 553
+  orig: 538, 553
   offset: 0, 0
   index: -1
-Shop/separadorHorizontal
+header
   rotate: false
-  xy: 968, 383
-  size: 7, 5
-  orig: 7, 5
+  xy: 750, 2
+  size: 480, 20
+  orig: 480, 20
   offset: 0, 0
   index: -1
-coinFrente
+one
   rotate: false
-  xy: 968, 248
-  size: 30, 30
-  orig: 30, 30
+  xy: 977, 396
+  size: 40, 110
+  orig: 40, 110
   offset: 0, 0
   index: -1
-titulo2
+photoFrame
   rotate: false
-  xy: 516, 248
-  size: 450, 228
-  orig: 450, 228
-  offset: 0, 0
-  index: -1
-Animaciones/newExplosion1
-  rotate: false
-  xy: 362, 658
-  size: 70, 69
-  orig: 70, 69
-  offset: 0, 0
-  index: -1
-Animaciones/newExplosion19
-  rotate: false
-  xy: 74, 792
-  size: 70, 69
-  orig: 70, 69
-  offset: 0, 0
-  index: -1
-Animaciones/newExplosion6
-  rotate: false
-  xy: 584, 768
-  size: 70, 69
-  orig: 70, 69
-  offset: 0, 0
-  index: -1
-swipeArrows
-  rotate: false
-  xy: 516, 478
-  size: 280, 30
-  orig: 280, 30
-  offset: 0, 0
-  index: -1
-Animaciones/newExplosion3
-  rotate: false
-  xy: 2, 792
-  size: 70, 69
-  orig: 70, 69
-  offset: 0, 0
-  index: -1
-Carros/turismo
-  rotate: false
-  xy: 709, 871
-  size: 89, 160
-  orig: 89, 160
-  offset: 0, 0
-  index: -1
-MenuPrincipal/btSinMusica
-  rotate: false
-  xy: 290, 729
-  size: 67, 67
-  orig: 67, 67
-  offset: 0, 0
-  index: -1
-Shop/btBuy
-  rotate: false
-  xy: 512, 839
-  size: 38, 16
-  orig: 38, 16
-  offset: 0, 0
-  index: -1
-Carros/Dodge Charger
-  rotate: false
-  xy: 360, 871
-  size: 72, 179
-  orig: 72, 179
-  offset: 0, 0
-  index: -1
-Shop/btAtras2
-  rotate: false
-  xy: 968, 342
-  size: 17, 19
-  orig: 17, 19
-  offset: 0, 0
-  index: -1
-Animaciones/newExplosion14
-  rotate: false
-  xy: 290, 516
-  size: 70, 69
-  orig: 70, 69
-  offset: 0, 0
-  index: -1
-swipeHandDown
-  rotate: false
-  xy: 774, 561
-  size: 120, 153
-  orig: 120, 153
-  offset: 0, 0
-  index: -1
-Animaciones/newExplosion11
-  rotate: false
-  xy: 347, 587
-  size: 70, 69
-  orig: 70, 69
-  offset: 0, 0
-  index: -1
-MenuPrincipal/btTwitter
-  rotate: false
-  xy: 968, 280
-  size: 30, 29
-  orig: 30, 29
-  offset: 0, 0
-  index: -1
-Shop/upgradeOn
-  rotate: false
-  xy: 968, 363
-  size: 14, 18
-  orig: 14, 18
+  xy: 1189, 24
+  size: 62, 62
+  orig: 62, 62
   offset: 0, 0
   index: -1
 pixelNegro
   rotate: false
-  xy: 968, 390
+  xy: 1244, 2
   size: 5, 5
   orig: 5, 5
   offset: 0, 0
   index: -1
-swipeHand
+play
   rotate: false
-  xy: 774, 716
-  size: 120, 153
-  orig: 120, 153
+  xy: 928, 364
+  size: 47, 54
+  orig: 47, 54
   offset: 0, 0
   index: -1
-Animaciones/newExplosion16
+three
   rotate: false
-  xy: 218, 716
-  size: 70, 69
-  orig: 70, 69
+  xy: 750, 216
+  size: 74, 112
+  orig: 74, 112
   offset: 0, 0
   index: -1
-Animaciones/newExplosion13
+titulo
   rotate: false
-  xy: 362, 516
-  size: 70, 69
-  orig: 70, 69
+  xy: 750, 24
+  size: 325, 138
+  orig: 325, 138
+  offset: 0, 0
+  index: -1
+two
+  rotate: false
+  xy: 1179, 140
+  size: 71, 112
+  orig: 71, 112
   offset: 0, 0
   index: -1
