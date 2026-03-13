@@ -1,0 +1,73 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	origa___: {
+		file: origa___.fnt
+	}
+}
+com.badlogic.gdx.graphics.Color: {
+	dark: {
+		r: 0.14901961
+		g: 0.19607843
+		b: 0.21960784
+		a: 1
+	}
+	white: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+	snake-block-dark: {
+		name: snake-block
+		color: dark
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	chooser: {
+		up: chooser-button1
+		down: chooser-button2
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: {
+		font: origa___
+		fontColor: white
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
+	default-horizontal: {
+		background: snake-block
+		knob: snake-block-dark
+	}
+	default-vertical: {
+		background: snake-block
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+	default: {
+		vScroll: snake-block
+		vScrollKnob: snake-block-dark
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
+	difficulty: {
+		background: snake-block-dark
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: {
+		font: origa___
+		fontColor: dark
+		up: text-button1
+		down: text-button2
+		pressedOffsetY: -14
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
+	default: {
+		label: default
+	}
+}
+}
